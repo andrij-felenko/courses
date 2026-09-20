@@ -1,0 +1,192 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Паралельне з'єднання каналів DRV8833 та розв'язка живлення</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Об'єднання каналів подвоює струм навантаження, а C_VMM і C_VINT усувають комутаційні сплески</text>
+
+  <!-- Top Right Callout: Parallel Mode -->
+  <rect x="620" y="75" width="310" height="75" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="775" y="95" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Паралельний режим (Parallel Mode)</text>
+  <text x="775" y="115" font-size="12" fill="#1a1a1a" text-anchor="middle">IN1=IN3, IN2=IN4  |  OUT1=OUT3, OUT2=OUT4</text>
+  <text x="775" y="133" font-size="12" fill="#6b7280" text-anchor="middle">Подвоєння робочого струму мотора до 3.0 А</text>
+
+  <!-- Power Supply Input Label (Top Left) -->
+  <text x="40" y="105" font-size="13" font-weight="bold" fill="#2457d6">Живлення мотора VM</text>
+  <text x="40" y="122" font-size="12" fill="#6b7280">+2.7 В ... +10.8 В</text>
+
+  <!-- Decoupling Panel (Left) -->
+  <rect x="170" y="75" width="210" height="185" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" stroke-dasharray="4,4" rx="6"/>
+  <rect x="170" y="75" width="210" height="24" fill="#27ae60" rx="4"/>
+  <text x="275" y="91" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Розв'язка живлення (Decoupling)</text>
+
+  <!-- C_VMM1 (Bulk) -->
+  <line x1="205" y1="140" x2="205" y2="168" stroke="#27ae60" stroke-width="2"/>
+  <line x1="193" y1="168" x2="217" y2="168" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="193" y1="176" x2="217" y2="176" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="205" y1="176" x2="205" y2="250" stroke="#27ae60" stroke-width="2"/>
+  <text x="222" y="168" font-size="12" font-weight="bold" fill="#27ae60">C_VMM1</text>
+  <text x="222" y="183" font-size="12" fill="#1a1a1a">10 мкФ</text>
+  <text x="222" y="197" font-size="12" fill="#6b7280">(буфер)</text>
+
+  <!-- C_VMM2 (Ceramic) -->
+  <line x1="270" y1="140" x2="270" y2="168" stroke="#27ae60" stroke-width="2"/>
+  <line x1="258" y1="168" x2="282" y2="168" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="258" y1="176" x2="282" y2="176" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="270" y1="176" x2="270" y2="250" stroke="#27ae60" stroke-width="2"/>
+  <text x="287" y="168" font-size="12" font-weight="bold" fill="#27ae60">C_VMM2</text>
+  <text x="287" y="183" font-size="12" fill="#1a1a1a">0.1 мкФ</text>
+  <text x="287" y="197" font-size="12" fill="#6b7280">(ВЧ-шум)</text>
+
+  <!-- C_VINT (Internal LDO) -->
+  <line x1="400" y1="210" x2="335" y2="210" stroke="#27ae60" stroke-width="2"/>
+  <line x1="335" y1="210" x2="335" y2="220" stroke="#27ae60" stroke-width="2"/>
+  <line x1="323" y1="220" x2="347" y2="220" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="323" y1="228" x2="347" y2="228" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="335" y1="228" x2="335" y2="250" stroke="#27ae60" stroke-width="2"/>
+  <text x="310" y="243" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">C_VINT</text>
+  <text x="310" y="257" font-size="12" fill="#1a1a1a" text-anchor="end">2.2 мкФ</text>
+
+  <!-- Power Line VM -->
+  <line x1="40" y1="140" x2="380" y2="140" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="380" y1="140" x2="380" y2="180" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="380" y1="180" x2="400" y2="180" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <circle cx="205" cy="140" r="3.5" fill="#2457d6"/>
+  <circle cx="270" cy="140" r="3.5" fill="#2457d6"/>
+
+  <!-- Control Panel (Left Bottom) -->
+  <rect x="30" y="245" width="340" height="205" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="45" y="265" font-size="12" font-weight="bold" fill="#6b7280">Входи керування від МК</text>
+
+  <!-- nSLEEP -->
+  <text x="45" y="284" font-size="12" font-weight="bold" fill="#1a1a1a">nSLEEP = 1 (Ввімкнено)</text>
+  <line x1="45" y1="290" x2="380" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="380" y1="290" x2="380" y2="260" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="380" y1="260" x2="400" y2="260" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- IN1 + IN3 -->
+  <text x="45" y="338" font-size="12" font-weight="bold" fill="#2457d6">Вхід ШІМ 1 (IN1 + IN3)</text>
+  <text x="45" y="354" font-size="12" fill="#6b7280">(канал A1 + B1)</text>
+  <line x1="45" y1="345" x2="370" y2="345" stroke="#2457d6" stroke-width="2"/>
+  <line x1="370" y1="310" x2="370" y2="345" stroke="#2457d6" stroke-width="2"/>
+  <line x1="370" y1="310" x2="400" y2="310" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="370" y1="340" x2="400" y2="340" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <circle cx="370" cy="345" r="3.5" fill="#2457d6"/>
+
+  <!-- IN2 + IN4 -->
+  <text x="45" y="403" font-size="12" font-weight="bold" fill="#2457d6">Вхід ШІМ 2 (IN2 + IN4)</text>
+  <text x="45" y="419" font-size="12" fill="#6b7280">(канал A2 + B2)</text>
+  <line x1="45" y1="410" x2="370" y2="410" stroke="#2457d6" stroke-width="2"/>
+  <line x1="370" y1="390" x2="370" y2="420" stroke="#2457d6" stroke-width="2"/>
+  <line x1="370" y1="390" x2="400" y2="390" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="370" y1="420" x2="400" y2="420" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <circle cx="370" cy="410" r="3.5" fill="#2457d6"/>
+
+  <!-- DRV8833 IC Main Box -->
+  <rect x="400" y="140" width="200" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="500" y="161" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">DRV8833</text>
+  <rect x="400" y="172" width="200" height="298" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- IC Left Pin Labels -->
+  <text x="408" y="184" font-size="12" font-weight="bold" fill="#1a1a1a">VMM</text>
+  <text x="408" y="214" font-size="12" font-weight="bold" fill="#1a1a1a">VINT</text>
+  <text x="408" y="264" font-size="12" font-weight="bold" fill="#1a1a1a">nSLEEP</text>
+  <text x="408" y="314" font-size="12" font-weight="bold" fill="#1a1a1a">IN1</text>
+  <text x="408" y="344" font-size="12" font-weight="bold" fill="#1a1a1a">IN3</text>
+  <text x="408" y="394" font-size="12" font-weight="bold" fill="#1a1a1a">IN2</text>
+  <text x="408" y="424" font-size="12" font-weight="bold" fill="#1a1a1a">IN4</text>
+
+  <!-- IC Right Pin Labels -->
+  <text x="592" y="184" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">OUT1</text>
+  <text x="592" y="214" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">OUT3</text>
+  <text x="592" y="274" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">OUT2</text>
+  <text x="592" y="304" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">OUT4</text>
+  <text x="592" y="374" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">AISEN</text>
+  <text x="592" y="404" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">BISEN</text>
+  <text x="592" y="444" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">GND</text>
+
+  <!-- Internal Channels Sub-boxes -->
+  <rect x="460" y="188" width="80" height="40" fill="white" stroke="#d0d7de" rx="3"/>
+  <text x="500" y="212" font-size="12" fill="#6b7280" text-anchor="middle">Канал A</text>
+
+  <rect x="460" y="278" width="80" height="40" fill="white" stroke="#d0d7de" rx="3"/>
+  <text x="500" y="302" font-size="12" fill="#6b7280" text-anchor="middle">Канал B</text>
+
+  <!-- Paralleled Outputs Wiring (Right) -->
+  <!-- OUT1 + OUT3 (Plus) -->
+  <text x="642" y="176" font-size="12" font-weight="bold" fill="#2457d6">OUT1 + OUT3 (Плюс)</text>
+  <line x1="600" y1="180" x2="640" y2="180" stroke="#2457d6" stroke-width="2"/>
+  <line x1="600" y1="210" x2="640" y2="210" stroke="#2457d6" stroke-width="2"/>
+  <line x1="640" y1="180" x2="640" y2="210" stroke="#2457d6" stroke-width="2"/>
+  <line x1="640" y1="195" x2="745" y2="195" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <circle cx="640" cy="195" r="3.5" fill="#2457d6"/>
+
+  <!-- OUT2 + OUT4 (Minus) -->
+  <text x="642" y="266" font-size="12" font-weight="bold" fill="#2457d6">OUT2 + OUT4 (Мінус)</text>
+  <line x1="600" y1="270" x2="640" y2="270" stroke="#2457d6" stroke-width="2"/>
+  <line x1="600" y1="300" x2="640" y2="300" stroke="#2457d6" stroke-width="2"/>
+  <line x1="640" y1="270" x2="640" y2="300" stroke="#2457d6" stroke-width="2"/>
+  <line x1="640" y1="285" x2="745" y2="285" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <circle cx="640" cy="285" r="3.5" fill="#2457d6"/>
+
+  <!-- DC Motor -->
+  <circle cx="780" cy="240" r="35" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="780" y="238" font-size="20" font-weight="bold" fill="#2457d6" text-anchor="middle">M</text>
+  <text x="780" y="255" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DC Motor</text>
+
+  <!-- Motor Rating Badge -->
+  <rect x="835" y="215" width="110" height="50" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="890" y="234" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">I_нав = 3.0 А</text>
+  <text x="890" y="250" font-size="12" fill="#1a1a1a" text-anchor="middle">(max cont.)</text>
+
+  <!-- Sense Resistor R_ISEN -->
+  <line x1="600" y1="370" x2="635" y2="370" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="600" y1="400" x2="635" y2="400" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="635" y1="370" x2="635" y2="400" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="635" y1="385" x2="670" y2="385" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="670" y1="385" x2="670" y2="405" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="635" cy="385" r="3" fill="#1a1a1a"/>
+
+  <rect x="660" y="405" width="20" height="35" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="670" y1="440" x2="670" y2="470" stroke="#1a1a1a" stroke-width="2"/>
+
+  <text x="690" y="415" font-size="12" font-weight="bold" fill="#1a1a1a">R_ISEN</text>
+  <text x="690" y="430" font-size="12" fill="#6b7280">Спільний вимірювальний резистор</text>
+  <text x="690" y="445" font-size="12" fill="#6b7280">(обмеження струму)</text>
+
+  <!-- GND Connections & Bus -->
+  <line x1="600" y1="440" x2="635" y2="440" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="635" y1="440" x2="635" y2="470" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Main GND Line at y=470 -->
+  <line x1="170" y1="470" x2="700" y2="470" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="205" y1="250" x2="205" y2="470" stroke="#27ae60" stroke-width="2"/>
+  <line x1="270" y1="250" x2="270" y2="470" stroke="#27ae60" stroke-width="2"/>
+  <line x1="335" y1="250" x2="335" y2="470" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="205" cy="470" r="3" fill="#1a1a1a"/>
+  <circle cx="270" cy="470" r="3" fill="#1a1a1a"/>
+  <circle cx="335" cy="470" r="3" fill="#1a1a1a"/>
+  <circle cx="635" cy="470" r="3" fill="#1a1a1a"/>
+  <circle cx="670" cy="470" r="3" fill="#1a1a1a"/>
+
+  <!-- Ground Symbol (Center at x=440, y=470) -->
+  <line x1="440" y1="470" x2="440" y2="478" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="424" y1="478" x2="456" y2="478" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="430" y1="483" x2="450" y2="483" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="436" y1="488" x2="444" y2="488" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="440" y="506" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Спільне заземлення (GND)</text>
+</svg>

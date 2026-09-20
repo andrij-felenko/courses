@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 550" width="960" height="550" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="550" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-start-blue" markerWidth="7" markerHeight="7" refX="0.5" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,0 L0,3.5 L7,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-end-blue" markerWidth="7" markerHeight="7" refX="6.5" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-start-black" markerWidth="7" markerHeight="7" refX="0.5" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,0 L0,3.5 L7,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-end-black" markerWidth="7" markerHeight="7" refX="6.5" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Формування імпульсу помилки в аналоговому серводрайвері NE544</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Порівняння вхідного імпульсу PWM із внутрішнім одновібратором визначає напрямок і тривалість обертання двигуна</text>
+
+  <!-- Panel 1: Functional Block Diagram -->
+  <rect x="30" y="70" width="900" height="255" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="93" font-size="14" font-weight="bold" fill="#1a1a1a">Структурна схема порівняння тривалості імпульсів</text>
+
+  <!-- Block 1: Input & Monostable -->
+  <rect x="50" y="110" width="170" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="135" y="130" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхідний PWM імпульс</text>
+  <text x="135" y="152" font-size="12" fill="#2457d6" text-anchor="middle">t_in = 1,0...2,0 мс</text>
+
+  <rect x="50" y="198" width="170" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="135" y="218" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Одновібратор</text>
+  <text x="135" y="240" font-size="12" fill="#1a1a1a" text-anchor="middle">t_ref = f(R_pot, C_ref)</text>
+  <text x="135" y="262" font-size="12" fill="#2457d6" text-anchor="middle">Опорний імпульс</text>
+
+  <!-- Flow Arrows inside Block 1 & to Block 2 -->
+  <line x1="135" y1="170" x2="135" y2="198" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="145" y="187" font-size="12" fill="#2457d6">Запуск</text>
+
+  <line x1="220" y1="140" x2="250" y2="140" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="235" y="132" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_in</text>
+
+  <line x1="220" y1="238" x2="250" y2="238" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="235" y="230" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">t_ref</text>
+
+  <!-- Block 2: Pulse Comparator & Deadband -->
+  <rect x="250" y="110" width="220" height="168" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="360" y="130" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Компаратор тривалості</text>
+
+  <rect x="262" y="140" width="196" height="55" rx="4" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="360" y="158" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Обчислення різниці</text>
+  <text x="360" y="178" font-size="12" fill="#2457d6" text-anchor="middle">Δt = t_in - t_ref</text>
+
+  <rect x="262" y="205" width="196" height="55" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="360" y="223" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема мертвої зони</text>
+  <text x="360" y="243" font-size="12" fill="#6b7280" text-anchor="middle">|Δt| &lt; t_dead ➔ Стоп</text>
+
+  <!-- Flow Arrows Block 2 to Block 3 -->
+  <line x1="470" y1="167" x2="500" y2="167" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="470" y1="232" x2="500" y2="232" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Block 3: Bridge Driver -->
+  <rect x="500" y="110" width="215" height="168" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="607.5" y="130" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Драйвер вихідного моста</text>
+
+  <rect x="512" y="140" width="191" height="55" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="607.5" y="158" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Канал Вперед (CW)</text>
+  <text x="607.5" y="178" font-size="12" fill="#1a1a1a" text-anchor="middle">t_err = t_in - t_ref &gt; 0</text>
+
+  <rect x="512" y="205" width="191" height="55" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="607.5" y="223" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Канал Назад (CCW)</text>
+  <text x="607.5" y="243" font-size="12" fill="#1a1a1a" text-anchor="middle">t_err = t_ref - t_in &gt; 0</text>
+
+  <!-- Flow Lines Block 3 to Block 4 (Motor) -->
+  <path d="M 715,167 L 755,167" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M 715,232 L 735,232 L 735,183 L 755,183" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Block 4: Motor & Feedback -->
+  <rect x="755" y="110" width="150" height="168" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="830" y="128" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двигун DC</text>
+  <circle cx="830" cy="152" r="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="830" y="157" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">M</text>
+
+  <line x1="830" y1="168" x2="830" y2="195" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 2"/>
+
+  <rect x="765" y="195" width="130" height="73" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="830" y="212" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Потенціометр</text>
+  <text x="830" y="232" font-size="12" fill="#2457d6" text-anchor="middle">R_pot (ОС)</text>
+  <text x="830" y="252" font-size="12" fill="#6b7280" text-anchor="middle">Позиція вала</text>
+
+  <!-- Feedback Line back to Monostable -->
+  <path d="M 830,268 L 830,292 L 135,292 L 135,278" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="480" y="310" font-size="12" fill="#2457d6" text-anchor="middle">Зворотний зв'язок: зміна R_pot модифікує тривалість опорного імпульсу t_ref</text>
+
+  <!-- Panel 2: Timing Diagrams -->
+  <rect x="30" y="335" width="900" height="195" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="352" font-size="14" font-weight="bold" fill="#1a1a1a">Часові діаграми формування імпульсів помилки</text>
+
+  <!-- Center Divider Line -->
+  <line x1="480" y1="365" x2="480" y2="520" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- CASE 1: t_in > t_ref -->
+  <text x="255" y="368" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Випадок 1: t_in &gt; t_ref ➔ Обертання Вперед (CW)</text>
+
+  <!-- Case 1 Waveform 1: t_in -->
+  <text x="48" y="412" font-size="12" font-weight="bold" fill="#2457d6">t_in (Вхід)</text>
+  <path d="M 145,416 L 155,416 L 155,400 L 315,400 L 315,416 L 455,416" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <line x1="155" y1="394" x2="315" y2="394" stroke="#2457d6" stroke-width="1" marker-start="url(#arr-start-blue)" marker-end="url(#arr-end-blue)"/>
+  <text x="235" y="390" font-size="12" fill="#2457d6" text-anchor="middle">t_in</text>
+
+  <!-- Case 1 Waveform 2: t_ref -->
+  <text x="48" y="450" font-size="12" font-weight="bold" fill="#1a1a1a">t_ref (Опора)</text>
+  <path d="M 145,454 L 155,454 L 155,438 L 245,438 L 245,454 L 455,454" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="155" y1="430" x2="245" y2="430" stroke="#1a1a1a" stroke-width="1" marker-start="url(#arr-start-black)" marker-end="url(#arr-end-black)"/>
+  <text x="200" y="426" font-size="12" fill="#1a1a1a" text-anchor="middle">t_ref</text>
+
+  <!-- Case 1 Waveform 3: Output CW -->
+  <text x="48" y="490" font-size="12" font-weight="bold" fill="#27ae60">Вихід CW</text>
+  <rect x="245" y="475" width="70" height="20" fill="#e9f7ef" stroke="none"/>
+  <path d="M 145,492 L 245,492 L 245,476 L 315,476 L 315,492 L 455,492" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="280" y="512" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t_err = t_in - t_ref</text>
+
+  <!-- Case 1 Guidelines -->
+  <line x1="155" y1="396" x2="155" y2="496" stroke="#d0d7de" stroke-dasharray="2 2"/>
+  <line x1="245" y1="432" x2="245" y2="496" stroke="#27ae60" stroke-dasharray="2 2"/>
+  <line x1="315" y1="396" x2="315" y2="496" stroke="#2457d6" stroke-dasharray="2 2"/>
+
+  <!-- CASE 2: t_in < t_ref -->
+  <text x="705" y="368" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Випадок 2: t_in &lt; t_ref ➔ Обертання Назад (CCW)</text>
+
+  <!-- Case 2 Waveform 1: t_in -->
+  <text x="495" y="412" font-size="12" font-weight="bold" fill="#2457d6">t_in (Вхід)</text>
+  <path d="M 590,416 L 600,416 L 600,400 L 690,400 L 690,416 L 900,416" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <line x1="600" y1="394" x2="690" y2="394" stroke="#690,394" stroke-width="1" marker-start="url(#arr-start-blue)" marker-end="url(#arr-end-blue)"/>
+  <text x="645" y="390" font-size="12" fill="#2457d6" text-anchor="middle">t_in</text>
+
+  <!-- Case 2 Waveform 2: t_ref -->
+  <text x="495" y="450" font-size="12" font-weight="bold" fill="#1a1a1a">t_ref (Опора)</text>
+  <path d="M 590,454 L 600,454 L 600,438 L 760,438 L 760,454 L 900,454" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="600" y1="430" x2="760" y2="430" stroke="#1a1a1a" stroke-width="1" marker-start="url(#arr-start-black)" marker-end="url(#arr-end-black)"/>
+  <text x="680" y="426" font-size="12" fill="#1a1a1a" text-anchor="middle">t_ref</text>
+
+  <!-- Case 2 Waveform 3: Output CCW -->
+  <text x="495" y="490" font-size="12" font-weight="bold" fill="#c0392b">Вихід CCW</text>
+  <rect x="690" y="475" width="70" height="20" fill="#fdecea" stroke="none"/>
+  <path d="M 590,492 L 690,492 L 690,476 L 760,476 L 760,492 L 900,492" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="725" y="512" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t_err = t_ref - t_in</text>
+
+  <!-- Case 2 Guidelines -->
+  <line x1="600" y1="396" x2="600" y2="496" stroke="#d0d7de" stroke-dasharray="2 2"/>
+  <line x1="690" y1="396" x2="690" y2="496" stroke="#2457d6" stroke-dasharray="2 2"/>
+  <line x1="760" y1="432" x2="760" y2="496" stroke="#c0392b" stroke-dasharray="2 2"/>
+
+</svg>

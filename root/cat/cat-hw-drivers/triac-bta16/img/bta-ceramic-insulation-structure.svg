@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка полотна -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конструкція корпусів TO-220: BTB (неізольований) vs BTA (ізольований)</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Внутрішня керамічна підкладка Al₂O₃ у BTA забезпечує гальванічну ізоляцію 2500 V RMS від фланця</text>
+
+  <!-- ПАНЕЛЬ 1: BTB (Неізольований) -->
+  <rect x="24" y="70" width="444" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Шапка панелі BTB -->
+  <rect x="36" y="84" width="420" height="34" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="246" y="106" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">BTB — Неізольований фланець (Прямий контакт)</text>
+
+  <!-- Схема BTB -->
+  <!-- Епоксидний корпус (контур) -->
+  <rect x="136" y="130" width="220" height="102" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="246" y="148" font-size="12" fill="#475569" text-anchor="middle">Епоксидний корпус (TO-220)</text>
+
+  <!-- Виводи A1, G -->
+  <line x1="196" y1="130" x2="196" y2="175" stroke="#64748b" stroke-width="3"/>
+  <text x="184" y="160" font-size="12" font-weight="bold" fill="#1e293b" text-anchor="end">A1</text>
+  
+  <line x1="296" y1="130" x2="296" y2="175" stroke="#64748b" stroke-width="3"/>
+  <text x="308" y="160" font-size="12" font-weight="bold" fill="#1e293b" text-anchor="start">G</text>
+
+  <!-- Кристал симістора (Si) -->
+  <rect x="176" y="175" width="140" height="40" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="246" y="192" font-size="12" font-weight="bold" fill="#1e40af" text-anchor="middle">Кристал (Si)</text>
+  <text x="246" y="208" font-size="12" fill="#1d4ed8" text-anchor="middle">Потенціал A2</text>
+
+  <!-- Шар припою -->
+  <rect x="166" y="221" width="160" height="6" fill="#94a3b8"/>
+
+  <!-- Мідна основа / Фланець -->
+  <rect x="116" y="244" width="260" height="74" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="246" y="273" font-size="12" font-weight="bold" fill="#b45309" text-anchor="middle">Мідна основа / Фланець</text>
+  <text x="246" y="293" font-size="12" fill="#d97706" text-anchor="middle">(Під напругою мережі A2)</text>
+
+  <!-- Спільний радіатор -->
+  <rect x="76" y="330" width="340" height="36" rx="3" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <text x="246" y="353" font-size="12" font-weight="bold" fill="#334155" text-anchor="middle">Монтажний радіатор (GND / Корпус)</text>
+
+  <!-- Блок попередження BTB -->
+  <rect x="36" y="384" width="420" height="84" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="246" y="406" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠️ Фланець під потенціалом анода A2 (~230 V)</text>
+  <text x="246" y="428" font-size="12" fill="#991b1b" text-anchor="middle">Потребує зовнішньої слюдяної або силіконової прокладки</text>
+  <text x="246" y="450" font-size="12" fill="#6b7280" text-anchor="middle">Тепловий опір Rth(j-c) ≈ 1.2 °C/W (без прокладки)</text>
+
+  <!-- ПАНЕЛЬ 2: BTA (Ізольований) -->
+  <rect x="492" y="70" width="444" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Шапка панелі BTA -->
+  <rect x="504" y="84" width="420" height="34" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="714" y="106" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">BTA — Внутрішньо ізольований (Al₂O₃ кераміка)</text>
+
+  <!-- Схема BTA -->
+  <!-- Епоксидний корпус (контур) -->
+  <rect x="604" y="130" width="220" height="102" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="714" y="148" font-size="12" fill="#475569" text-anchor="middle">Епоксидний корпус (TO-220)</text>
+
+  <!-- Виводи A1, G -->
+  <line x1="664" y1="130" x2="664" y2="175" stroke="#64748b" stroke-width="3"/>
+  <text x="652" y="160" font-size="12" font-weight="bold" fill="#1e293b" text-anchor="end">A1</text>
+  
+  <line x1="764" y1="130" x2="764" y2="175" stroke="#64748b" stroke-width="3"/>
+  <text x="776" y="160" font-size="12" font-weight="bold" fill="#1e293b" text-anchor="start">G</text>
+
+  <!-- Кристал симістора (Si) -->
+  <rect x="644" y="175" width="140" height="40" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="714" y="192" font-size="12" font-weight="bold" fill="#1e40af" text-anchor="middle">Кристал (Si)</text>
+  <text x="714" y="208" font-size="12" fill="#1d4ed8" text-anchor="middle">Потенціал A2</text>
+
+  <!-- Внутрішній п'ятачок / припій -->
+  <rect x="634" y="221" width="160" height="6" fill="#94a3b8"/>
+
+  <!-- Керамічна прокладка Al2O3 -->
+  <rect x="594" y="244" width="240" height="36" rx="3" fill="#ecfdf5" stroke="#27ae60" stroke-width="2"/>
+  <text x="714" y="260" font-size="12" font-weight="bold" fill="#15803d" text-anchor="middle">Керамічна прокладка Al₂O₃</text>
+  <text x="714" y="274" font-size="12" fill="#166534" text-anchor="middle">(Гальванічна ізоляція 2500 V RMS)</text>
+
+  <!-- Мідна основа / Фланець -->
+  <rect x="584" y="292" width="260" height="26" rx="2" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="714" y="309" font-size="12" font-weight="bold" fill="#b45309" text-anchor="middle">Мідна основа (Ізольована / 0 V)</text>
+
+  <!-- Спільний радіатор -->
+  <rect x="544" y="330" width="340" height="36" rx="3" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <text x="714" y="353" font-size="12" font-weight="bold" fill="#334155" text-anchor="middle">Монтажний радіатор (GND / Корпус)</text>
+
+  <!-- Блок рішення BTA -->
+  <rect x="504" y="384" width="420" height="84" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="714" y="406" font-size="12" font-weight="bold" fill="#15803d" text-anchor="middle">✓ Фланець ізольований від всіх виводів кристала</text>
+  <text x="714" y="428" font-size="12" fill="#166534" text-anchor="middle">Прямий безпечний монтаж на радіатор без прокладок</text>
+  <text x="714" y="450" font-size="12" fill="#6b7280" text-anchor="middle">Тепловий опір Rth(j-c) ≈ 1.8 °C/W | Vins = 2500 V RMS</text>
+</svg>

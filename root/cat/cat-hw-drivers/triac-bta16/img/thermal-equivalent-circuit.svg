@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еквівалентна теплова схема симістора (аналогія із законом Ома)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Тепловий потік P створює перепад температур ΔT на послідовних теплових опорах Rth</text>
+
+  <!-- Main Circuit Panel -->
+  <rect x="40" y="70" width="880" height="252" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="92" font-size="13" font-weight="bold" fill="#1a1a1a">ПОСЛІДОВНА ТЕПЛОВА МОДЕЛЬ BTA16-600B</text>
+
+  <!-- Node Descriptions and Values (Above circuit line y=165) -->
+  <!-- Node T_j (x=170) -->
+  <text x="170" y="110" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">(макс. 125 °C)</text>
+  <text x="170" y="126" font-size="12" fill="#6b7280" text-anchor="middle">Кристал (Junction)</text>
+  <text x="170" y="145" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">T_j</text>
+
+  <!-- Node T_c (x=410) -->
+  <text x="410" y="126" font-size="12" fill="#6b7280" text-anchor="middle">Корпус (Case)</text>
+  <text x="410" y="145" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">T_c</text>
+
+  <!-- Node T_h (x=650) -->
+  <text x="650" y="126" font-size="12" fill="#6b7280" text-anchor="middle">Радіатор (Heatsink)</text>
+  <text x="650" y="145" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">T_h</text>
+
+  <!-- Node T_a (x=850) -->
+  <text x="850" y="110" font-size="12" fill="#6b7280" text-anchor="middle">(25...40 °C)</text>
+  <text x="850" y="126" font-size="12" fill="#6b7280" text-anchor="middle">Повітря (Ambient)</text>
+  <text x="850" y="145" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">T_a</text>
+
+  <!-- Circuit Horizontal Top Line & Connections -->
+  <line x1="100" y1="165" x2="235" y2="165" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="345" y1="165" x2="475" y2="165" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="585" y1="165" x2="705" y2="165" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="815" y1="165" x2="850" y2="165" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Resistor Box 1: R_th(j-c) -->
+  <rect x="235" y="150" width="110" height="30" rx="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="290" y="170" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_th(j-c)</text>
+
+  <!-- Resistor Box 2: R_th(c-h) -->
+  <rect x="475" y="150" width="110" height="30" rx="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="530" y="170" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_th(c-h)</text>
+
+  <!-- Resistor Box 3: R_th(h-a) -->
+  <rect x="705" y="150" width="110" height="30" rx="4" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="760" y="170" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">R_th(h-a)</text>
+
+  <!-- Node Circles -->
+  <circle cx="170" cy="165" r="5" fill="#2457d6"/>
+  <circle cx="410" cy="165" r="5" fill="#1a1a1a"/>
+  <circle cx="650" cy="165" r="5" fill="#1a1a1a"/>
+  <circle cx="850" cy="165" r="5" fill="#1a1a1a"/>
+
+  <!-- Resistor Descriptions & Typical Values (Below boxes) -->
+  <!-- Under R_th(j-c) -->
+  <text x="290" y="198" font-size="12" fill="#6b7280" text-anchor="middle">Кристал — Корпус</text>
+  <text x="290" y="214" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0.9 °C/Вт (TO-220AB)</text>
+
+  <!-- Under R_th(c-h) -->
+  <text x="530" y="198" font-size="12" fill="#6b7280" text-anchor="middle">Корпус — Радіатор</text>
+  <text x="530" y="214" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">~0.2...0.5 °C/Вт (паста)</text>
+
+  <!-- Under R_th(h-a) -->
+  <text x="760" y="198" font-size="12" fill="#6b7280" text-anchor="middle">Радіатор — Повітря</text>
+  <text x="760" y="214" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Розрахунковий опір</text>
+
+  <!-- Power Source P & Vertical Lines (Branch at x=100) -->
+  <line x1="100" y1="165" x2="100" y2="188" stroke="#2457d6" stroke-width="2"/>
+  <line x1="100" y1="188" x2="100" y2="171" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <circle cx="100" cy="204" r="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="100" y="209" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">P</text>
+  <text x="124" y="200" font-size="12" font-weight="bold" fill="#2457d6">Джерело</text>
+  <text x="124" y="214" font-size="12" font-weight="bold" fill="#2457d6">тепла P</text>
+  <line x1="100" y1="220" x2="100" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Bottom Reference / Ground Line -->
+  <line x1="100" y1="245" x2="850" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="850" y1="165" x2="850" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Thermal Ground Symbol at Ambient -->
+  <line x1="835" y1="251" x2="865" y2="251" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="840" y1="256" x2="860" y2="256" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="845" y1="261" x2="855" y2="261" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Heat Flow Direction Arrow at Bottom of Panel -->
+  <text x="475" y="282" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Тепловий потік P (Вт) тече від гарячого кристала T_j до холодного довкілля T_a</text>
+  <line x1="160" y1="295" x2="790" y2="295" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Bottom Comparison & Formula Cards -->
+  <!-- Card 1: Electrical vs Thermal Analogy -->
+  <rect x="40" y="340" width="425" height="120" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="58" y="360" font-size="12" font-weight="bold" fill="#2457d6">ПОВНА АНАЛОГІЯ МІЖ ВЕЛИЧИНАМИ</text>
+  <text x="58" y="378" font-size="12" font-weight="bold" fill="#6b7280">Електричний ланцюг</text>
+  <text x="250" y="378" font-size="12" font-weight="bold" fill="#2457d6">Теплова система</text>
+
+  <text x="58" y="395" font-size="12" fill="#1a1a1a">Струм I (А)</text>
+  <text x="250" y="395" font-size="12" fill="#1a1a1a">Потужність P (Вт)</text>
+
+  <text x="58" y="412" font-size="12" fill="#1a1a1a">Напруга ΔV (В)</text>
+  <text x="250" y="412" font-size="12" fill="#1a1a1a">Перепад температур ΔT (°C)</text>
+
+  <text x="58" y="429" font-size="12" fill="#1a1a1a">Опір R (Ом)</text>
+  <text x="250" y="429" font-size="12" fill="#1a1a1a">Тепловий опір R_th (°C/Вт)</text>
+
+  <text x="58" y="448" font-size="12" font-weight="bold" fill="#1a1a1a">Закон Ома: ΔV = I · R</text>
+  <text x="250" y="448" font-size="12" font-weight="bold" fill="#2457d6">ΔT = P · R_th</text>
+
+  <!-- Card 2: Thermal Calculation & Safety Criterion -->
+  <rect x="495" y="340" width="425" height="120" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="513" y="360" font-size="12" font-weight="bold" fill="#1a1a1a">РОЗРАХУНОК ТА УМОВА НАДІЙНОСТІ</text>
+
+  <text x="513" y="380" font-size="12" fill="#1a1a1a">Сумарний опір: ΣR_th = R_th(j-c) + R_th(c-h) + R_th(h-a)</text>
+  <text x="513" y="398" font-size="12" fill="#1a1a1a">Температура кристала: T_j = T_a + P · ΣR_th</text>
+  <text x="513" y="416" font-size="12" font-weight="bold" fill="#2457d6">R_th(h-a) ≤ (T_j,max - T_a) / P - R_th(j-c) - R_th(c-h)</text>
+
+  <rect x="513" y="428" width="390" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="708" y="443" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Критерій безпечної роботи: T_j ≤ T_j,max (125 °C для BTA16)</text>
+</svg>

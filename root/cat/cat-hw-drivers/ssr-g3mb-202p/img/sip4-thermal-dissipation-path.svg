@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Тепловий режим та дерейтинг струму SSR G3MB-202P</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Відведення тепла крізь виводи на PCB та зниження допустимого струму при T_a &gt; 40 °C</text>
+
+  <!-- LEFT PANEL: SIP-4 Thermal Dissipation Structure -->
+  <rect x="30" y="75" width="430" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="245" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шляхи відведення тепла у корпусі SIP-4</text>
+  <text x="245" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Основне тепло розсіюється через силові виводи на PCB</text>
+
+  <!-- Convection heat arrows pointing up from package top -->
+  <text x="245" y="134" font-size="12" fill="#6b7280" text-anchor="middle">~20% тепла: випромінювання у повітря</text>
+  <path d="M 180 158 L 180 144" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arr-gray)"/>
+  <path d="M 245 158 L 245 144" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arr-gray)"/>
+  <path d="M 310 158 L 310 144" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arr-gray)"/>
+
+  <!-- SIP-4 Package Body Outer Frame -->
+  <rect x="110" y="160" width="270" height="115" rx="6" fill="#ffffff" stroke="#4a5568" stroke-width="2"/>
+  
+  <!-- Header inside Package -->
+  <rect x="120" y="168" width="250" height="22" rx="3" fill="#e2e8f0"/>
+  <text x="245" y="183" font-size="12" font-weight="bold" fill="#2d3748" text-anchor="middle">Корпус SIP-4 (епоксидний пластик)</text>
+
+  <!-- Internal Die: Phototriac Optocoupler -->
+  <rect x="125" y="198" width="85" height="64" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="167.5" y="220" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Оптопара</text>
+  <text x="167.5" y="238" font-size="12" fill="#2457d6" text-anchor="middle">(Вхід)</text>
+
+  <!-- Internal Die: Main Output Triac (Heat Source) -->
+  <rect x="235" y="198" width="135" height="64" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="302.5" y="216" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Силовий симистор</text>
+  <text x="302.5" y="232" font-size="12" fill="#c0392b" text-anchor="middle">Джерело тепла P_D</text>
+  <text x="302.5" y="248" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Температура T_j</text>
+
+  <!-- Bonding wire lines from dies to pins -->
+  <line x1="150" y1="262" x2="150" y2="275" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="190" y1="262" x2="190" y2="275" stroke="#94a3b8" stroke-width="2"/>
+
+  <!-- Package Pins coming down -->
+  <!-- Pin 3 (IN+) -->
+  <rect x="145" y="275" width="10" height="75" fill="#94a3b8" rx="1"/>
+  <text x="150" y="342" font-size="12" fill="#ffffff" font-weight="bold" text-anchor="middle">3</text>
+  <!-- Pin 4 (IN-) -->
+  <rect x="185" y="275" width="10" height="75" fill="#94a3b8" rx="1"/>
+  <text x="190" y="342" font-size="12" fill="#ffffff" font-weight="bold" text-anchor="middle">4</text>
+
+  <!-- Heavy Copper Pins: Pin 2 (Load 2) & Pin 1 (Load 1) -->
+  <rect x="262" y="275" width="16" height="75" fill="#d97706" rx="1"/>
+  <text x="270" y="342" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+
+  <rect x="322" y="275" width="16" height="75" fill="#d97706" rx="1"/>
+  <text x="330" y="342" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+
+  <!-- Heat Flow Arrows through Power Pins -->
+  <line x1="270" y1="262" x2="270" y2="315" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+  <line x1="330" y1="262" x2="330" y2="315" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+
+  <!-- Heat flow label beside pins -->
+  <text x="348" y="305" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">~80% тепла</text>
+  <text x="348" y="321" font-size="12" fill="#c0392b" text-anchor="start">через виводи</text>
+
+  <!-- PCB Substrate -->
+  <rect x="55" y="350" width="380" height="25" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+  <!-- Copper traces under power pins -->
+  <rect x="250" y="348" width="98" height="5" rx="2" fill="#d97706"/>
+  <!-- PCB Label -->
+  <text x="245" y="367" font-size="12" font-weight="bold" fill="#15803d" text-anchor="middle">Друкована плата (PCB) — основний відвід тепла</text>
+
+  <!-- Left Panel Summary Box -->
+  <rect x="55" y="390" width="380" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="70" y="410" font-size="12" font-weight="bold" fill="#1a1a1a">• Корпус SIP-4 не має металевого фланця для радіатора</text>
+  <text x="70" y="428" font-size="12" fill="#1a1a1a">• Основне тепло відводиться через силові виводи 1 і 2</text>
+  <text x="70" y="446" font-size="12" fill="#6b7280">• Тепловий опір R_th(j-a) високий — потрібен дерейтинг</text>
+  <text x="70" y="464" font-size="12" font-weight="bold" fill="#c0392b">• Гранична температура кристала T_j max = +125 °C</text>
+
+  <!-- RIGHT PANEL: Derating Curve Graph -->
+  <rect x="490" y="75" width="440" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="710" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Графік дерейтингу струму I_load(T_a)</text>
+  <text x="710" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Залежність допустимого струму від температури довкілля</text>
+
+  <!-- Y Axis Title -->
+  <text x="565" y="135" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Струм I_load (А)</text>
+
+  <!-- Graph Shaded Polygons -->
+  <!-- Safe Area (Green) -->
+  <polygon points="565,360 565,200 690,200 810,360" fill="#e9f7ef" opacity="0.8"/>
+  <!-- Overheating Area (Red) -->
+  <polygon points="565,200 690,200 810,360 900,360 900,200" fill="#fdecea" opacity="0.5"/>
+
+  <!-- Grid Lines -->
+  <!-- 2.0A line -->
+  <line x1="565" y1="200" x2="880" y2="200" stroke="#cbd5e1" stroke-dasharray="4,4"/>
+  <!-- 1.0A line -->
+  <line x1="565" y1="280" x2="880" y2="280" stroke="#e2e8f0" stroke-dasharray="2,2"/>
+  <!-- 40°C vertical warning line (starting below knee callout) -->
+  <line x1="690" y1="206" x2="690" y2="360" stroke="#fca5a5" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <!-- 80°C vertical line (from curve down to axis) -->
+  <line x1="770" y1="307" x2="770" y2="360" stroke="#cbd5e1" stroke-dasharray="2,2"/>
+
+  <!-- Graph Axes -->
+  <!-- Y Axis -->
+  <line x1="565" y1="365" x2="565" y2="145" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+  <!-- X Axis -->
+  <line x1="560" y1="360" x2="885" y2="360" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+
+  <!-- Y Ticks and Labels -->
+  <line x1="560" y1="200" x2="565" y2="200" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="555" y="204" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">2.0 А</text>
+
+  <line x1="560" y1="240" x2="565" y2="240" stroke="#6b7280"/>
+  <text x="555" y="244" font-size="12" fill="#6b7280" text-anchor="end">1.5 А</text>
+
+  <line x1="560" y1="280" x2="565" y2="280" stroke="#6b7280"/>
+  <text x="555" y="284" font-size="12" fill="#6b7280" text-anchor="end">1.0 А</text>
+
+  <line x1="560" y1="320" x2="565" y2="320" stroke="#6b7280"/>
+  <text x="555" y="324" font-size="12" fill="#6b7280" text-anchor="end">0.5 А</text>
+
+  <text x="555" y="364" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- X Ticks and Labels -->
+  <line x1="610" y1="360" x2="610" y2="365" stroke="#6b7280"/>
+  <text x="610" y="378" font-size="12" fill="#6b7280" text-anchor="middle">0°C</text>
+
+  <line x1="650" y1="360" x2="650" y2="365" stroke="#6b7280"/>
+  <text x="650" y="378" font-size="12" fill="#6b7280" text-anchor="middle">20°C</text>
+
+  <line x1="690" y1="360" x2="690" y2="365" stroke="#c0392b" stroke-width="2"/>
+  <text x="690" y="378" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">40°C</text>
+
+  <line x1="730" y1="360" x2="730" y2="365" stroke="#6b7280"/>
+  <text x="730" y="378" font-size="12" fill="#6b7280" text-anchor="middle">60°C</text>
+
+  <line x1="770" y1="360" x2="770" y2="365" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="770" y="378" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">80°C</text>
+
+  <line x1="810" y1="360" x2="810" y2="365" stroke="#6b7280"/>
+  <text x="810" y="378" font-size="12" fill="#6b7280" text-anchor="middle">100°C</text>
+
+  <!-- X Axis Title -->
+  <text x="710" y="396" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Температура довкілля T_a (°C)</text>
+
+  <!-- Derating Curve Line -->
+  <polyline points="565,200 690,200 810,360" fill="none" stroke="#2457d6" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- Region Text Labels -->
+  <text x="625" y="255" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Безпечний режим</text>
+  <text x="625" y="270" font-size="12" fill="#27ae60" text-anchor="middle">I_load ≤ I_max</text>
+
+  <text x="725" y="216" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">Зона перегріву!</text>
+  <text x="725" y="232" font-size="12" fill="#c0392b" text-anchor="start">Перевищення T_j max</text>
+
+  <!-- Knee Point Callout (40°C, 2.0A) -->
+  <line x1="690" y1="182" x2="690" y2="195" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="610" y="146" width="160" height="36" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="690" y="162" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">T_a = 40 °C (I = 2.0 А)</text>
+  <text x="690" y="176" font-size="12" fill="#c0392b" text-anchor="middle">Початок спаду струму</text>
+  <circle cx="690" cy="200" r="5" fill="#c0392b" stroke="#ffffff" stroke-width="2"/>
+
+  <!-- Zero point marker at 100°C -->
+  <circle cx="810" cy="360" r="4" fill="#c0392b"/>
+  <text x="818" y="348" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">100 °C: 0 А</text>
+
+  <!-- Right Panel Summary Box -->
+  <rect x="515" y="410" width="390" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="426" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Формула дерейтингу (T_a &gt; 40 °C):</text>
+  <text x="710" y="444" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I_max(T_a) = 2.0 А - 0.033 А/°C × (T_a - 40 °C)</text>
+  <text x="710" y="462" font-size="12" fill="#c0392b" text-anchor="middle">При T_a = 80 °C допустимий струм знижується до 0.67 А</text>
+
+</svg>

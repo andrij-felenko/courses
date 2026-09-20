@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема підключення силового навантаження 230 В до модуля реле ESP-01S</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Фазний провід розривається реле через запобіжник і варистор; ізоляційний проріз розділяє 230 В від 5 В</text>
+
+  <!-- Ліва панель: Модуль реле ESP-01S -->
+  <rect x="30" y="78" width="420" height="442" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="240" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Модуль реле ESP-01S (Плата розширення)</text>
+
+  <!-- Зона 3A: Низьковольтна частина 5V DC -->
+  <rect x="42" y="112" width="164" height="356" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="124" y="132" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Низька напруга (5 В)</text>
+
+  <!-- Модуль ESP-01S -->
+  <rect x="52" y="144" width="144" height="74" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="124" y="164" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Модуль ESP-01S</text>
+  <text x="124" y="184" font-size="12" fill="#6b7280" text-anchor="middle">GPIO0 (Керування)</text>
+  <text x="124" y="204" font-size="12" fill="#6b7280" text-anchor="middle">Живлення 3.3V / GND</text>
+
+  <!-- Вхід живлення 5V DC -->
+  <rect x="52" y="228" width="144" height="56" rx="4" fill="#ffffff" stroke="#b0b8c0" stroke-width="1.5"/>
+  <text x="124" y="248" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхід живлення 5 В</text>
+  <text x="124" y="268" font-size="12" fill="#6b7280" text-anchor="middle">VCC (+5V) | GND</text>
+
+  <!-- Ключ керування обмоткою -->
+  <rect x="52" y="294" width="144" height="130" rx="4" fill="#ffffff" stroke="#b0b8c0" stroke-width="1.5"/>
+  <text x="124" y="312" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ключ NPN / Діод D1</text>
+  <text x="124" y="328" font-size="12" fill="#6b7280" text-anchor="middle">Керування обмоткою</text>
+  <rect x="94" y="336" width="60" height="32" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 104,340 L 144,364 M 104,364 L 144,340" stroke="#2457d6" stroke-width="1"/>
+  <text x="124" y="388" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Котушка 5V</text>
+  <text x="124" y="406" font-size="12" fill="#6b7280" text-anchor="middle">Гальв. розв'язка</text>
+
+  <!-- Позначка низьковольтної зони -->
+  <rect x="52" y="434" width="144" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="124" y="450" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Частина 5 В</text>
+
+  <!-- Зона 3B: Фрезерований ізоляційний проріз -->
+  <rect x="218" y="112" width="44" height="356" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="240" y="132" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">СЛОТ</text>
+  <text x="240" y="260" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Проріз</text>
+  <text x="240" y="278" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">230V</text>
+  <text x="240" y="450" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ПАЗ</text>
+
+  <!-- Зона 3C: Високовольтна частина плати -->
+  <rect x="274" y="112" width="164" height="356" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="356" y="132" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Високовольтна зона</text>
+
+  <!-- Контакти перемикача реле -->
+  <rect x="284" y="144" width="144" height="130" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="356" y="162" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Перемикач реле</text>
+
+  <circle cx="325" cy="188" r="4" fill="#27ae60"/>
+  <circle cx="325" cy="218" r="4" fill="#1a1a1a"/>
+  <circle cx="325" cy="248" r="4" fill="#6b7280"/>
+  <line x1="325" y1="218" x2="321" y2="242" stroke="#1a1a1a" stroke-width="2"/>
+
+  <text x="314" y="192" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">NO</text>
+  <text x="337" y="192" font-size="12" fill="#27ae60" text-anchor="start">Розімкнений</text>
+
+  <text x="314" y="222" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">COM</text>
+  <text x="337" y="222" font-size="12" fill="#1a1a1a" text-anchor="start">Спільний</text>
+
+  <text x="314" y="252" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">NC</text>
+  <text x="337" y="252" font-size="12" fill="#6b7280" text-anchor="start">Замкнений</text>
+
+  <!-- Клемник плати -->
+  <rect x="284" y="294" width="144" height="130" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="356" y="312" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Клемник плати</text>
+
+  <!-- Клеми з правої сторони блоку клемника: написи ліворуч, гвинти/кола праворуч -->
+  <text x="294" y="344" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Клема NO</text>
+  <circle cx="412" cy="340" r="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="408" y1="340" x2="416" y2="340" stroke="#27ae60" stroke-width="1.5"/>
+
+  <text x="294" y="376" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Клема COM</text>
+  <circle cx="412" cy="372" r="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="408" y1="372" x2="416" y2="372" stroke="#c0392b" stroke-width="1.5"/>
+
+  <text x="294" y="408" font-size="12" fill="#6b7280" text-anchor="start">Клема NC</text>
+  <circle cx="412" cy="404" r="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="408" y1="404" x2="416" y2="404" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Позначка високовольтної зони -->
+  <rect x="284" y="434" width="144" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="356" y="450" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠ Зона 230 В</text>
+
+  <!-- Права панель: Зовнішнє силове коло AC 230 В -->
+  <rect x="490" y="78" width="440" height="442" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <text x="710" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зовнішнє силове коло (AC ~230 В)</text>
+
+  <!-- Електромережа 230V -->
+  <rect x="760" y="116" width="150" height="106" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="835" y="134" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Мережа 230V</text>
+  <text x="835" y="150" font-size="12" fill="#6b7280" text-anchor="middle">~50 Гц AC</text>
+  <circle cx="780" cy="168" r="5" fill="#c0392b"/>
+  <text x="792" y="172" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">L (Фаза)</text>
+  <circle cx="780" cy="198" r="5" fill="#2457d6"/>
+  <text x="792" y="202" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">N (Нуль)</text>
+
+  <!-- Запобіжник F1 -->
+  <text x="615" y="136" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Запобіжник F1</text>
+  <rect x="550" y="144" width="130" height="54" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="560" y1="171" x2="670" y2="171" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="590" y="161" width="50" height="20" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="615" y="214" font-size="12" fill="#6b7280" text-anchor="middle">5А (Швидкий)</text>
+
+  <!-- Варистор MOV -->
+  <rect x="550" y="306" width="130" height="120" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="615" y="324" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Варистор MOV</text>
+  <rect x="603" y="334" width="24" height="26" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="595" y1="367" x2="635" y2="327" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="629" y1="327" x2="635" y2="327" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="595" y1="367" x2="601" y2="367" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="615" y="382" font-size="12" fill="#6b7280" text-anchor="middle">Захист від сплесків</text>
+  <text x="615" y="398" font-size="12" fill="#2457d6" text-anchor="middle">470V (275VAC)</text>
+
+  <!-- Точки підключення варистора -->
+  <circle cx="550" cy="340" r="4" fill="#27ae60"/>
+  <circle cx="550" cy="410" r="4" fill="#2457d6"/>
+
+  <!-- Силове навантаження -->
+  <rect x="760" y="306" width="150" height="120" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="835" y="326" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Навантаження</text>
+  <text x="835" y="344" font-size="12" fill="#27ae60" text-anchor="middle">Лампа / Прилад</text>
+  <text x="835" y="362" font-size="12" fill="#6b7280" text-anchor="middle">230V AC / max 10A</text>
+  <circle cx="835" cy="390" r="12" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="826.5" y1="381.5" x2="843.5" y2="398.5" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="826.5" y1="398.5" x2="843.5" y2="381.5" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- З'єднувальні провідники -->
+  <!-- Провід L від Мережі до Запобіжника -->
+  <path d="M 780,168 L 680,168" fill="none" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="730" y="152" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Фаза L</text>
+
+  <!-- Провід L від Запобіжника до клемника COM -->
+  <path d="M 550,171 L 465,171 L 465,372 L 418,372" fill="none" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="508" y="152" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Фаза L (COM)</text>
+
+  <!-- Комутована фаза від NO до Навантаження -->
+  <path d="M 418,340 L 760,340" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="508" y="325" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Фаза NO</text>
+
+  <!-- Провід Нуль N від Мережі до Навантаження та Варистора -->
+  <path d="M 780,198 L 725,198 L 725,410 L 760,410 M 725,410 L 554,410" fill="none" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <circle cx="725" cy="410" r="3.5" fill="#2457d6"/>
+  <text x="715" y="270" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Нуль N</text>
+
+  <!-- Попередження про безпеку на правій панелі -->
+  <rect x="502" y="476" width="416" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="710" y="496" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠ НЕ торкатися клем під напругою! Ізолювати корпус</text>
+</svg>

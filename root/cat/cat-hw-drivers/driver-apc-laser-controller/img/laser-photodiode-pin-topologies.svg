@@ -1,0 +1,306 @@
+<svg width="960" height="560" viewBox="0 0 960 560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топології виводів 3-вивідних лазерних діодів (TO-Can)</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Спільний вивід корпусу визначає тип вихідного каскаду драйвера (Sink/Source) та схему зворотного зв'язку</text>
+
+  <!-- ==================== PANEL 1: TYPE A ==================== -->
+  <rect x="25" y="85" width="290" height="450" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Header Badge -->
+  <rect x="37" y="97" width="266" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="170" y="118" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Тип A: Спільний LD-Анод / PD-Катод</text>
+
+  <!-- TO-Can Housing Box -->
+  <rect x="37" y="140" width="266" height="155" rx="6" fill="white" stroke="#9ca3af" stroke-dasharray="4 4" stroke-width="1.5"/>
+  <text x="47" y="157" font-size="12" font-weight="bold" fill="#6b7280">Корпус TO-Can</text>
+
+  <!-- Common Rail (VCC) inside TO-Can -->
+  <line x1="85" y1="172" x2="255" y2="172" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="85" cy="172" r="3" fill="#2457d6"/>
+  <circle cx="170" cy="172" r="3" fill="#2457d6"/>
+  <circle cx="255" cy="172" r="3" fill="#2457d6"/>
+
+  <!-- Pin 1 Line (COM/VCC) -->
+  <line x1="85" y1="172" x2="85" y2="330" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- LD Diode (N-type) -->
+  <line x1="170" y1="172" x2="170" y2="190" stroke="#2457d6" stroke-width="1.5"/>
+  <polygon points="158,190 182,190 170,210" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="158" y1="210" x2="182" y2="210" stroke="#2457d6" stroke-width="2"/>
+  <line x1="170" y1="210" x2="170" y2="330" stroke="#2457d6" stroke-width="2"/>
+  <text x="135" y="203" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">LD</text>
+
+  <!-- Light Beam LD -> PD -->
+  <line x1="186" y1="197" x2="234" y2="197" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 2" marker-end="url(#arr-red)"/>
+  <line x1="186" y1="203" x2="234" y2="203" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 2" marker-end="url(#arr-red)"/>
+  <text x="212" y="188" font-size="12" fill="#c0392b" text-anchor="middle">P_opt (hν)</text>
+
+  <!-- PD Diode -->
+  <line x1="255" y1="172" x2="255" y2="190" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="243" y1="190" x2="267" y2="190" stroke="#27ae60" stroke-width="2"/>
+  <polygon points="243,210 267,210 255,190" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="255" y1="210" x2="255" y2="330" stroke="#27ae60" stroke-width="2"/>
+  <text x="275" y="203" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">PD</text>
+
+  <!-- Pin Numbers at bottom of TO-Can -->
+  <text x="75" y="282" font-size="12" fill="#6b7280" text-anchor="end">Pin 1</text>
+  <text x="180" y="282" font-size="12" fill="#6b7280" text-anchor="start">Pin 2</text>
+  <text x="245" y="282" font-size="12" fill="#6b7280" text-anchor="end">Pin 3</text>
+
+  <!-- Signal Names in Gap (y=295..330) -->
+  <text x="75" y="318" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">VCC</text>
+  <text x="180" y="318" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">LD_OUT</text>
+  <text x="245" y="318" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">PD_FB</text>
+
+  <!-- APC IC Box -->
+  <rect x="37" y="330" width="266" height="135" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="127.5" y="348" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Драйвер APC</text>
+  <text x="127.5" y="362" font-size="11" fill="#6b7280" text-anchor="middle">(IC)</text>
+
+  <!-- IC Internal Wiring -->
+  <line x1="85" y1="330" x2="85" y2="360" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="85" y="375" font-size="12" fill="#2457d6" text-anchor="middle">+V</text>
+
+  <!-- N-FET Sink Driver -->
+  <line x1="170" y1="330" x2="170" y2="370" stroke="#2457d6" stroke-width="2"/>
+  <rect x="152" y="370" width="36" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="170" y="392" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Sink</text>
+  <line x1="170" y1="406" x2="170" y2="425" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- GND symbol -->
+  <line x1="160" y1="425" x2="180" y2="425" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="164" y1="429" x2="176" y2="429" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="168" y1="433" x2="172" y2="433" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Feedback Sense Resistor -->
+  <line x1="255" y1="330" x2="255" y2="370" stroke="#27ae60" stroke-width="2"/>
+  <rect x="240" y="370" width="30" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="255" y="392" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">R_s</text>
+  <line x1="255" y1="406" x2="255" y2="425" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- GND symbol -->
+  <line x1="245" y1="425" x2="265" y2="425" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="249" y1="429" x2="261" y2="429" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="253" y1="433" x2="257" y2="433" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- APC Loop line -->
+  <line x1="240" y1="388" x2="220" y2="388" stroke="#2457d6" stroke-width="1.5"/>
+  <polygon points="205,378 205,398 220,388" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="205" y1="388" x2="188" y2="388" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Summary Box -->
+  <rect x="37" y="477" width="266" height="46" rx="4" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="495" font-size="11" fill="#1a1a1a">• Вихідний каскад: N-FET Sink (на GND)</text>
+  <text x="45" y="512" font-size="11" fill="#1a1a1a">• Спільний вивід: VCC (+живлення)</text>
+
+
+  <!-- ==================== PANEL 2: TYPE B ==================== -->
+  <rect x="335" y="85" width="290" height="450" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Header Badge -->
+  <rect x="347" y="97" width="266" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="118" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Тип B: Спільний LD-Катод / PD-Анод</text>
+
+  <!-- TO-Can Housing Box -->
+  <rect x="347" y="140" width="266" height="155" rx="6" fill="white" stroke="#9ca3af" stroke-dasharray="4 4" stroke-width="1.5"/>
+  <text x="357" y="157" font-size="12" font-weight="bold" fill="#6b7280">Корпус TO-Can</text>
+
+  <!-- Common Rail (GND) inside TO-Can -->
+  <line x1="395" y1="250" x2="565" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="395" cy="250" r="3" fill="#1a1a1a"/>
+  <circle cx="480" cy="250" r="3" fill="#1a1a1a"/>
+  <circle cx="565" cy="250" r="3" fill="#1a1a1a"/>
+
+  <!-- Pin 1 Line (COM/GND) -->
+  <line x1="395" y1="250" x2="395" y2="330" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- LD Diode (P-type) -->
+  <line x1="480" y1="190" x2="480" y2="172" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="480" y1="172" x2="445" y2="172" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="445" y1="172" x2="445" y2="270" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="445" y1="270" x2="480" y2="270" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="480" y1="270" x2="480" y2="330" stroke="#2457d6" stroke-width="2"/>
+
+  <polygon points="468,190 492,190 480,210" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="468" y1="210" x2="492" y2="210" stroke="#2457d6" stroke-width="2"/>
+  <line x1="480" y1="210" x2="480" y2="250" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="425" y="203" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">LD</text>
+
+  <!-- Light Beam LD -> PD -->
+  <line x1="496" y1="197" x2="544" y2="197" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 2" marker-end="url(#arr-red)"/>
+  <line x1="496" y1="203" x2="544" y2="203" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 2" marker-end="url(#arr-red)"/>
+  <text x="522" y="188" font-size="12" fill="#c0392b" text-anchor="middle">P_opt (hν)</text>
+
+  <!-- PD Diode -->
+  <line x1="565" y1="190" x2="565" y2="172" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="565" y1="172" x2="605" y2="172" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="605" y1="172" x2="605" y2="270" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="605" y1="270" x2="565" y2="270" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="565" y1="270" x2="565" y2="330" stroke="#27ae60" stroke-width="2"/>
+
+  <polygon points="553,210 577,210 565,190" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="553" y1="190" x2="577" y2="190" stroke="#27ae60" stroke-width="2"/>
+  <line x1="565" y1="210" x2="565" y2="250" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="582" y="203" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">PD</text>
+
+  <!-- Pin Numbers at bottom of TO-Can -->
+  <text x="385" y="282" font-size="12" fill="#6b7280" text-anchor="end">Pin 1</text>
+  <text x="490" y="282" font-size="12" fill="#6b7280" text-anchor="start">Pin 2</text>
+  <text x="555" y="282" font-size="12" fill="#6b7280" text-anchor="end">Pin 3</text>
+
+  <!-- Signal Names in Gap (y=295..330) -->
+  <text x="385" y="318" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">GND</text>
+  <text x="490" y="318" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">LD_OUT</text>
+  <text x="555" y="318" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">PD_FB</text>
+
+  <!-- APC IC Box -->
+  <rect x="347" y="330" width="266" height="135" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="437.5" y="348" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Драйвер APC</text>
+  <text x="437.5" y="362" font-size="11" fill="#6b7280" text-anchor="middle">(IC)</text>
+
+  <!-- IC Internal Wiring -->
+  <line x1="395" y1="330" x2="395" y2="425" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- GND symbol -->
+  <line x1="385" y1="425" x2="405" y2="425" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="389" y1="429" x2="401" y2="429" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="393" y1="433" x2="397" y2="433" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- P-FET Source Driver -->
+  <line x1="480" y1="330" x2="480" y2="370" stroke="#2457d6" stroke-width="2"/>
+  <rect x="462" y="370" width="36" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="392" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Source</text>
+  <line x1="480" y1="406" x2="480" y2="425" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="440" font-size="12" fill="#2457d6" text-anchor="middle">+V</text>
+
+  <!-- Feedback Sense Resistor -->
+  <line x1="565" y1="330" x2="565" y2="370" stroke="#27ae60" stroke-width="2"/>
+  <rect x="550" y="370" width="30" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="565" y="392" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">R_s</text>
+  <line x1="565" y1="406" x2="565" y2="425" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="565" y="440" font-size="12" fill="#2457d6" text-anchor="middle">+V</text>
+
+  <!-- APC Loop line -->
+  <line x1="550" y1="388" x2="530" y2="388" stroke="#2457d6" stroke-width="1.5"/>
+  <polygon points="515,378 515,398 530,388" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="515" y1="388" x2="498" y2="388" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Summary Box -->
+  <rect x="347" y="477" width="266" height="46" rx="4" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="355" y="495" font-size="11" fill="#1a1a1a">• Вихідний каскад: P-FET Source (з VCC)</text>
+  <text x="355" y="512" font-size="11" fill="#1a1a1a">• Спільний вивід: GND (земля 0 В)</text>
+
+
+  <!-- ==================== PANEL 3: TYPE C ==================== -->
+  <rect x="645" y="85" width="290" height="450" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Header Badge -->
+  <rect x="657" y="97" width="266" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="790" y="118" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Тип C: Спільний LD-Катод / PD-Катод</text>
+
+  <!-- TO-Can Housing Box -->
+  <rect x="657" y="140" width="266" height="155" rx="6" fill="white" stroke="#9ca3af" stroke-dasharray="4 4" stroke-width="1.5"/>
+  <text x="667" y="157" font-size="12" font-weight="bold" fill="#6b7280">Корпус TO-Can</text>
+
+  <!-- Common Rail (GND) inside TO-Can -->
+  <line x1="705" y1="250" x2="875" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="705" cy="250" r="3" fill="#1a1a1a"/>
+  <circle cx="790" cy="250" r="3" fill="#1a1a1a"/>
+  <circle cx="875" cy="250" r="3" fill="#1a1a1a"/>
+
+  <!-- Pin 1 Line (COM/GND) -->
+  <line x1="705" y1="250" x2="705" y2="330" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- LD Diode (P-type) -->
+  <line x1="790" y1="190" x2="790" y2="172" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="790" y1="172" x2="755" y2="172" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="755" y1="172" x2="755" y2="270" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="755" y1="270" x2="790" y2="270" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="790" y1="270" x2="790" y2="330" stroke="#2457d6" stroke-width="2"/>
+
+  <polygon points="778,190 802,190 790,210" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="778" y1="210" x2="802" y2="210" stroke="#2457d6" stroke-width="2"/>
+  <line x1="790" y1="210" x2="790" y2="250" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="735" y="203" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">LD</text>
+
+  <!-- Light Beam LD -> PD -->
+  <line x1="806" y1="197" x2="854" y2="197" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 2" marker-end="url(#arr-red)"/>
+  <line x1="806" y1="203" x2="854" y2="203" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 2" marker-end="url(#arr-red)"/>
+  <text x="832" y="188" font-size="12" fill="#c0392b" text-anchor="middle">P_opt (hν)</text>
+
+  <!-- PD Diode (Common Cathode) -->
+  <line x1="875" y1="210" x2="875" y2="172" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="875" y1="172" x2="915" y2="172" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="915" y1="172" x2="915" y2="270" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="915" y1="270" x2="875" y2="270" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="875" y1="270" x2="875" y2="330" stroke="#27ae60" stroke-width="2"/>
+
+  <polygon points="863,210 887,210 875,230" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="863" y1="230" x2="887" y2="230" stroke="#27ae60" stroke-width="2"/>
+  <line x1="875" y1="230" x2="875" y2="250" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="892" y="215" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">PD</text>
+
+  <!-- Pin Numbers at bottom of TO-Can -->
+  <text x="695" y="282" font-size="12" fill="#6b7280" text-anchor="end">Pin 1</text>
+  <text x="800" y="282" font-size="12" fill="#6b7280" text-anchor="start">Pin 2</text>
+  <text x="865" y="282" font-size="12" fill="#6b7280" text-anchor="end">Pin 3</text>
+
+  <!-- Signal Names in Gap (y=295..330) -->
+  <text x="695" y="318" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">GND</text>
+  <text x="800" y="318" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">LD_OUT</text>
+  <text x="865" y="318" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">PD_FB</text>
+
+  <!-- APC IC Box -->
+  <rect x="657" y="330" width="266" height="135" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="747.5" y="348" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Драйвер APC</text>
+  <text x="747.5" y="362" font-size="11" fill="#6b7280" text-anchor="middle">(IC)</text>
+
+  <!-- IC Internal Wiring -->
+  <line x1="705" y1="330" x2="705" y2="425" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- GND symbol -->
+  <line x1="695" y1="425" x2="715" y2="425" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="699" y1="429" x2="711" y2="429" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="703" y1="433" x2="707" y2="433" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- P-FET Source Driver -->
+  <line x1="790" y1="330" x2="790" y2="370" stroke="#2457d6" stroke-width="2"/>
+  <rect x="772" y="370" width="36" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="790" y="392" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Source</text>
+  <line x1="790" y1="406" x2="790" y2="425" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="790" y="440" font-size="12" fill="#2457d6" text-anchor="middle">+V</text>
+
+  <!-- Feedback Sense Resistor -->
+  <line x1="875" y1="330" x2="875" y2="370" stroke="#27ae60" stroke-width="2"/>
+  <rect x="860" y="370" width="30" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="875" y="392" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">R_s</text>
+  <line x1="875" y1="406" x2="875" y2="425" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- GND symbol -->
+  <line x1="865" y1="425" x2="885" y2="425" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="869" y1="429" x2="881" y2="429" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="873" y1="433" x2="877" y2="433" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- APC Loop line -->
+  <line x1="860" y1="388" x2="840" y2="388" stroke="#2457d6" stroke-width="1.5"/>
+  <polygon points="825,378 825,398 840,388" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="825" y1="388" x2="808" y2="388" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Summary Box -->
+  <rect x="657" y="477" width="266" height="46" rx="4" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="665" y="495" font-size="11" fill="#1a1a1a">• Вихідний каскад: P-FET Source (з VCC)</text>
+  <text x="665" y="512" font-size="11" fill="#1a1a1a">• Спільний вивід: GND (земля 0 В)</text>
+</svg>

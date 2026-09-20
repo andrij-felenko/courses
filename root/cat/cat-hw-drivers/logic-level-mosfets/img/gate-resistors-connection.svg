@@ -1,0 +1,191 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Підключення затворних резисторів R_G та R_GS до MOSFET</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">R_G обмежує піковий струм GPIO при заряді C_ISS, а R_GS розряджає затвор та фіксує 0 В при High-Z</text>
+
+  <!-- PANEL 1: Complete Circuit Diagram -->
+  <rect x="25" y="75" width="425" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">1. Схема керування затвором MOSFET</text>
+
+  <!-- Badge 1: R_G Explanation -->
+  <rect x="42" y="112" width="390" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="128" font-size="12" font-weight="bold" fill="#1a1a1a">• R_G (22...100 Ω): обмежує піковий струм GPIO I_G ≤ I_GPIO,max</text>
+  <text x="50" y="144" font-size="12" fill="#6b7280">  гасить високочастотні осциляції (дребезг) у затворній лінії</text>
+
+  <!-- Badge 2: R_GS Explanation -->
+  <rect x="42" y="162" width="390" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="178" font-size="12" font-weight="bold" fill="#1a1a1a">• R_GS (10 kΩ): стягує затвор до GND при High-Z (MCU reset)</text>
+  <text x="50" y="194" font-size="12" fill="#6b7280">  запобігає самовільному відкриттю від наводок та статики</text>
+
+  <!-- GPIO Output Box -->
+  <rect x="42" y="240" width="60" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="72" y="256" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">GPIO</text>
+  <text x="72" y="272" font-size="12" fill="#2457d6" text-anchor="middle">3.3V/5V</text>
+
+  <!-- Wire from GPIO to R_G -->
+  <line x1="102" y1="260" x2="132" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Gate Resistor R_G -->
+  <rect x="132" y="252" width="36" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="150" y="244" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_G</text>
+  <text x="150" y="282" font-size="12" fill="#6b7280" text-anchor="middle">22..100 Ω</text>
+
+  <!-- Wire from R_G to Gate Node G -->
+  <line x1="168" y1="260" x2="210" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="210" cy="260" r="3.5" fill="#1a1a1a"/>
+  <text x="210" y="244" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вузол G</text>
+
+  <!-- Wire from Node G to MOSFET Gate -->
+  <line x1="210" y1="260" x2="275" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Pull-down Resistor R_GS branch -->
+  <line x1="210" y1="260" x2="210" y2="310" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="202" y="310" width="16" height="40" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="194" y="326" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">R_GS</text>
+  <text x="194" y="342" font-size="12" fill="#6b7280" text-anchor="end">10 kΩ</text>
+  <line x1="210" y1="350" x2="210" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Dashed C_GS branch representing internal Gate capacitance -->
+  <line x1="260" y1="260" x2="260" y2="315" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="252" y1="315" x2="268" y2="315" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="252" y1="321" x2="268" y2="321" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="260" y1="321" x2="260" y2="395" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="274" y="322" font-size="12" font-weight="bold" fill="#2457d6">C_GS</text>
+
+  <!-- MOSFET Symbol (N-Channel Logic-Level) -->
+  <circle cx="305" cy="260" r="30" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Gate Plate -->
+  <line x1="291" y1="242" x2="291" y2="278" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="275" y1="260" x2="291" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Channel Segments -->
+  <line x1="299" y1="242" x2="299" y2="252" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="299" y1="256" x2="299" y2="264" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="299" y1="268" x2="299" y2="278" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Drain Connection -->
+  <line x1="305" y1="215" x2="305" y2="247" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="305" y1="247" x2="299" y2="247" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Source Connection -->
+  <line x1="305" y1="305" x2="305" y2="273" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="305" y1="273" x2="299" y2="273" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Substrate / Arrow -->
+  <line x1="299" y1="260" x2="305" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="299,260 305,256 305,264" fill="#1a1a1a"/>
+  <line x1="305" y1="260" x2="305" y2="273" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Terminals Labels -->
+  <text x="315" y="224" font-size="12" font-weight="bold" fill="#1a1a1a">D</text>
+  <text x="272" y="254" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">G</text>
+  <text x="315" y="300" font-size="12" font-weight="bold" fill="#1a1a1a">S</text>
+
+  <!-- MOSFET Parameter Card -->
+  <rect x="345" y="235" width="95" height="77" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="352" y="253" font-size="12" font-weight="bold" fill="#2457d6">IRLZ44N</text>
+  <text x="352" y="271" font-size="12" fill="#1a1a1a">C_ISS ≈ 1.7 nF</text>
+  <text x="352" y="289" font-size="12" fill="#6b7280">V_GS(th) 1..2В</text>
+  <text x="352" y="303" font-size="12" fill="#6b7280">Logic-Level</text>
+
+  <!-- Ground Line & Symbol -->
+  <line x1="72" y1="280" x2="72" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="72" y1="395" x2="305" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="305" y1="305" x2="305" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <line x1="188" y1="395" x2="188" y2="405" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="176" y1="405" x2="200" y2="405" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="181" y1="409" x2="195" y2="409" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="185" y1="413" x2="191" y2="413" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="188" y="435" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND (0 В)</text>
+
+
+  <!-- PANEL 2: Turn-ON Charging Process -->
+  <rect x="475" y="75" width="460" height="185" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="490" y="98" font-size="14" font-weight="bold" fill="#2457d6">2. Процес ввімкнення (Заряд ємності C_ISS)</text>
+
+  <!-- Diagram inside Panel 2 -->
+  <rect x="495" y="145" width="60" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="525" y="161" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">HIGH</text>
+  <text x="525" y="174" font-size="12" fill="#2457d6" text-anchor="middle">(5 В)</text>
+
+  <!-- Charge Current Arrow -->
+  <path d="M 555,162 L 600,162" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="577" y="152" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I_charge</text>
+
+  <!-- R_G Box in Panel 2 -->
+  <rect x="600" y="154" width="30" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="615" y="146" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_G</text>
+
+  <!-- Wire & Node G in Panel 2 -->
+  <line x1="630" y1="162" x2="655" y2="162" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="655" cy="162" r="3" fill="#1a1a1a"/>
+
+  <!-- Charging Arrow to C_ISS -->
+  <path d="M 655,162 L 655,190" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="647" y1="190" x2="663" y2="190" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="647" y1="196" x2="663" y2="196" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="668" y="202" font-size="12" font-weight="bold" fill="#2457d6">C_ISS</text>
+
+  <!-- MOSFET Status Badge -->
+  <rect x="640" y="218" width="55" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="667" y="233" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ON</text>
+
+  <!-- Summary Box Panel 2 -->
+  <rect x="710" y="110" width="210" height="135" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="718" y="128" font-size="12" font-weight="bold" fill="#2457d6">• GPIO = HIGH (3.3В / 5В)</text>
+  <text x="718" y="148" font-size="12" fill="#1a1a1a">• Струм I_charge заряджає C_ISS</text>
+  <text x="718" y="168" font-size="12" font-weight="bold" fill="#1a1a1a">• I_G,peak = V_GPIO / R_G</text>
+  <text x="718" y="186" font-size="12" fill="#6b7280">  (напр. 5V / 100Ω = 50 мА)</text>
+  <text x="718" y="206" font-size="12" fill="#1a1a1a">• Обмеження пікового струму</text>
+  <text x="718" y="226" font-size="12" fill="#27ae60">• V_GS зростає → MOSFET ON</text>
+
+
+  <!-- PANEL 3: Turn-OFF & High-Z Discharge Process -->
+  <rect x="475" y="275" width="460" height="185" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="490" y="298" font-size="14" font-weight="bold" fill="#27ae60">3. Процес вимкнення та стан High-Z (Розряд затвора)</text>
+
+  <!-- Diagram inside Panel 3 -->
+  <rect x="495" y="345" width="60" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="525" y="361" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">LOW / Z</text>
+  <text x="525" y="374" font-size="12" fill="#c0392b" text-anchor="middle">(0 В)</text>
+
+  <!-- Discharge Current Arrow (Left into GPIO) -->
+  <path d="M 655,362 L 560,362" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="605" y="352" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">I_discharge</text>
+
+  <!-- Node G in Panel 3 -->
+  <circle cx="655" cy="362" r="3" fill="#1a1a1a"/>
+
+  <!-- R_GS Pull-down Branch in Panel 3 -->
+  <path d="M 655,362 L 655,410" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="648" y="380" width="14" height="24" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="642" y="394" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">R_GS (10k)</text>
+
+  <!-- MOSFET Status Badge Panel 3 -->
+  <rect x="640" y="418" width="55" height="22" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="667" y="433" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">OFF</text>
+
+  <!-- Summary Box Panel 3 -->
+  <rect x="710" y="310" width="210" height="135" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="718" y="328" font-size="12" font-weight="bold" fill="#c0392b">• GPIO = LOW або High-Z</text>
+  <text x="718" y="348" font-size="12" fill="#1a1a1a">• Розряд C_ISS через R_G у 0В</text>
+  <text x="718" y="368" font-size="12" font-weight="bold" fill="#27ae60">• R_GS гарантує V_GS = 0 В</text>
+  <text x="718" y="388" font-size="12" fill="#1a1a1a">• Захист від наводок (High-Z)</text>
+  <text x="718" y="408" font-size="12" fill="#1a1a1a">• Запобігає хибному увімкненню</text>
+  <text x="718" y="428" font-size="12" fill="#6b7280">• MOSFET надійно закритий</text>
+</svg>

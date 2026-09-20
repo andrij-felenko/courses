@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Definitions -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Внутрішня структура фотосимісторного SSR з детектором нуля</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Оптична розв'язка відкриває вихідний симістор строго в момент переходу напруги AC через нуль</text>
+
+  <!-- ================= Upper Panel: Functional Block Diagram ================= -->
+  <rect x="30" y="65" width="900" height="255" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Galvanic Isolation Barrier Line & Label -->
+  <line x1="275" y1="73" x2="275" y2="310" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,4"/>
+  <rect x="175" y="71" width="200" height="20" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="275" y="85" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Гальванічний бар'єр (&gt;2.5 kV)</text>
+
+  <!-- Left Container: DC Input Side -->
+  <rect x="45" y="95" width="210" height="210" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="150" y="115" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Низьковольтна частина (DC)</text>
+
+  <!-- Pin 3 (+) -->
+  <circle cx="60" cy="150" r="4" fill="#2457d6"/>
+  <text x="60" y="138" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">Pin 3 (+)</text>
+
+  <!-- Input Wire from Pin 3 to Resistor R_in -->
+  <path d="M 60,150 L 120,150" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+
+  <!-- Resistor R_in -->
+  <rect x="120" y="143" width="35" height="14" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="137.5" y="133" text-anchor="middle" font-size="12" fill="#6b7280">R_in</text>
+
+  <!-- Wire from R_in to IR LED Anode -->
+  <path d="M 155,150 L 210,150 L 210,170" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+
+  <!-- IR LED Symbol -->
+  <polygon points="198,170 222,170 210,192" fill="#2457d6" stroke="#2457d6" stroke-width="1"/>
+  <line x1="198" y1="192" x2="222" y2="192" stroke="#2457d6" stroke-width="2"/>
+  <text x="185" y="185" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">ІЧ-світлодіод</text>
+
+  <!-- Wire from LED Cathode to Pin 4 (-) -->
+  <path d="M 210,192 L 210,260 L 60,260" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+
+  <!-- Pin 4 (-) -->
+  <circle cx="60" cy="260" r="4" fill="#1a1a1a"/>
+  <text x="60" y="278" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Pin 4 (-)</text>
+
+  <!-- Light rays emitted by IR LED (Optical channel) -->
+  <path d="M 225,176 L 295,176" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)" fill="none"/>
+  <path d="M 225,186 L 295,186" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)" fill="none"/>
+  <text x="260" y="166" text-anchor="middle" font-size="11" fill="#2457d6">ІЧ-світло</text>
+
+  <!-- Middle Container: Photodetector & Zero-Cross Circuit -->
+  <rect x="305" y="95" width="345" height="210" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="477.5" y="115" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Схема фотоприймача та детектора нуля</text>
+
+  <!-- Sub-block 1: Photo-receiver -->
+  <rect x="318" y="130" width="125" height="162" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="380.5" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Фототригер</text>
+  <circle cx="380.5" cy="175" r="12" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <polygon points="375.5,181 385.5,181 380.5,169" fill="#2457d6"/>
+  <text x="380.5" y="208" text-anchor="middle" font-size="11" fill="#1a1a1a">Приймає ІЧ-світло</text>
+  <text x="380.5" y="226" text-anchor="middle" font-size="11" fill="#1a1a1a">Формує сигнал</text>
+  <text x="380.5" y="244" text-anchor="middle" font-size="11" fill="#1a1a1a">ввімкнення</text>
+  <text x="380.5" y="270" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">(Оптосимістор)</text>
+
+  <!-- Signal Arrow from Phototrigger to ZCC -->
+  <path d="M 443,185 L 467,185" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)" fill="none"/>
+
+  <!-- Sub-block 2: Zero-Cross Circuit (ZCC) -->
+  <rect x="470" y="130" width="168" height="162" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="554" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Детектор нуля (ZCC)</text>
+  <text x="554" y="172" text-anchor="middle" font-size="11" fill="#1a1a1a">Контроль напруги AC:</text>
+  <text x="554" y="196" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">• |V_AC| &lt; V_th → ON</text>
+  <text x="554" y="220" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">• |V_AC| &gt; V_th → WAIT</text>
+  <text x="554" y="246" text-anchor="middle" font-size="11" fill="#6b7280">(до дозволу пуску)</text>
+  <text x="554" y="270" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Синхронізація 0 В</text>
+
+  <!-- Sensing lines from AC lines into ZCC -->
+  <path d="M 755,140 L 710,140 L 710,128 L 580,128 L 580,130" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3" fill="none"/>
+  <path d="M 755,260 L 710,260 L 710,292 L 580,292 L 580,292" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3" fill="none"/>
+
+  <!-- Gate Control Line from ZCC to Power Triac -->
+  <path d="M 638,185 L 740,185" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)" fill="none"/>
+  <text x="685" y="176" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Gate (Керування)</text>
+
+  <!-- Right Container: High Voltage AC Output Side -->
+  <rect x="665" y="95" width="245" height="210" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="787.5" y="115" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Високовольтна частина (AC)</text>
+
+  <!-- Power Triac Symbol -->
+  <line x1="755" y1="140" x2="755" y2="260" stroke="#1a1a1a" stroke-width="1.8"/>
+  <polygon points="743,172 767,172 755,193" fill="#eaf0fd" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="767,198 743,198 755,177" fill="#eaf0fd" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="740" y1="185" x2="749" y2="185" stroke="#27ae60" stroke-width="1.8"/>
+
+  <!-- Triac Labels -->
+  <text x="775" y="176" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Силовий симістор</text>
+  <text x="775" y="194" text-anchor="start" font-size="11" fill="#6b7280">(2 A / 240 V AC)</text>
+  <text x="775" y="212" text-anchor="start" font-size="11" font-weight="bold" fill="#2457d6">G3MB-202P</text>
+
+  <!-- Output Pin 1 (Load) -->
+  <path d="M 755,140 L 895,140" stroke="#1a1a1a" stroke-width="1.8" fill="none"/>
+  <circle cx="895" cy="140" r="4" fill="#1a1a1a"/>
+  <text x="885" y="128" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Pin 1 (Load)</text>
+
+  <!-- Output Pin 2 (Line) -->
+  <path d="M 755,260 L 895,260" stroke="#1a1a1a" stroke-width="1.8" fill="none"/>
+  <circle cx="895" cy="260" r="4" fill="#1a1a1a"/>
+  <text x="885" y="278" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Pin 2 (Line)</text>
+
+  <!-- ================= Lower Panel: Zero-Cross Timing Diagram ================= -->
+  <rect x="30" y="335" width="900" height="190" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel Header -->
+  <text x="480" y="356" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Часова діаграма спрацьовування при переході напруги AC через нуль (Zero-Cross)</text>
+
+  <!-- Left Waveform Labels -->
+  <text x="210" y="392" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">Вхід DC (V_IN):</text>
+  <text x="210" y="438" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Мережа (V_AC):</text>
+  <text x="210" y="483" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Струм (I_LOAD):</text>
+
+  <!-- Time Axes lines -->
+  <line x1="220" y1="395" x2="895" y2="395" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="220" y1="435" x2="895" y2="435" stroke="#6b7280" stroke-width="0.8" stroke-dasharray="3,3"/>
+  <line x1="220" y1="480" x2="895" y2="480" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Highlight ZCC Waiting Window (Shaded Red Region) -->
+  <rect x="360" y="368" width="80" height="124" fill="#fdecea" opacity="0.65" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="400" y="404" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Затримка ZCC</text>
+  <text x="400" y="418" text-anchor="middle" font-size="11" fill="#c0392b">(чекає 0 В)</text>
+
+  <!-- 1. V_IN Waveform (Step function at x=360) -->
+  <path d="M 220,395 L 360,395 L 360,380 L 895,380" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <text x="450" y="375" text-anchor="start" font-size="11" font-weight="bold" fill="#2457d6">V_IN = 5 В (Увімкнено)</text>
+
+  <!-- 2. V_AC Sine Waveform -->
+  <path d="M 220,435 C 250,413 260,413 275,413 C 290,413 300,435 330,435 C 345,457 370,457 385,457 C 400,457 425,435 440,435 C 455,413 480,413 495,413 C 510,413 535,435 550,435 C 565,457 590,457 605,457 C 620,457 645,435 660,435 C 675,413 700,413 715,413 C 730,413 755,435 770,435 C 785,457 810,457 825,457 C 840,457 865,435 880,435" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+
+  <!-- 3. I_LOAD Waveform -->
+  <line x1="220" y1="480" x2="440" y2="480" stroke="#c0392b" stroke-width="2"/>
+  <path d="M 440,480 C 455,458 480,458 495,458 C 510,458 535,480 550,480 C 565,502 590,502 605,502 C 620,502 645,480 660,480 C 675,458 700,458 715,458 C 730,458 755,480 770,480 C 785,502 810,502 825,502 C 840,502 865,480 880,480" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+  <text x="505" y="448" text-anchor="start" font-size="11" font-weight="bold" fill="#27ae60">I_LOAD (Увімкнення без кидка струму)</text>
+
+  <!-- Vertical Indicator Lines -->
+  <line x1="360" y1="365" x2="360" y2="495" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <text x="350" y="518" text-anchor="end" font-size="11" font-weight="bold" fill="#c0392b">1. Сигнал DC (V_IN)</text>
+
+  <line x1="440" y1="365" x2="440" y2="495" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <text x="450" y="518" text-anchor="start" font-size="11" font-weight="bold" fill="#27ae60">2. Перехід 0 В (Пуск)</text>
+
+</svg>

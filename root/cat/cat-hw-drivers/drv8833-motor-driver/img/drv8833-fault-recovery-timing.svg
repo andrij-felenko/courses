@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Header Title and Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Часова діаграма відновлення DRV8833 після аварії (Fault Recovery)</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Скидання засувки помилки імпульсом nSLEEP та затримка відновлення t_WAKE</text>
+
+  <!-- Main Container Card -->
+  <rect x="30" y="75" width="900" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Definitions for Arrow Markers -->
+  <defs>
+    <marker id="arr-r-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-l-red" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L0,4 L7,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-r-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-l-blue" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L0,4 L7,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-r-amber" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#b45309"/>
+    </marker>
+    <marker id="arr-l-amber" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L0,4 L7,7 Z" fill="#b45309"/>
+    </marker>
+  </defs>
+
+  <!-- Left Column Separator -->
+  <line x1="180" y1="90" x2="180" y2="405" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Signal Names (Left Column) -->
+  <g>
+    <!-- Signal 1: I_LOAD -->
+    <text x="45" y="140" font-size="13" font-weight="bold" fill="#1a1a1a">Струм моста</text>
+    <text x="45" y="156" font-size="12" fill="#6b7280">(I_LOAD / OCP)</text>
+
+    <!-- Signal 2: nFAULT -->
+    <text x="45" y="205" font-size="13" font-weight="bold" fill="#c0392b">nFAULT</text>
+    <text x="45" y="221" font-size="12" fill="#6b7280">(Прапор помилки)</text>
+
+    <!-- Signal 3: nSLEEP -->
+    <text x="45" y="270" font-size="13" font-weight="bold" fill="#2457d6">nSLEEP</text>
+    <text x="45" y="286" font-size="12" fill="#6b7280">(Вхід скидання)</text>
+
+    <!-- Signal 4: OUT1 / OUT2 -->
+    <text x="45" y="340" font-size="13" font-weight="bold" fill="#1a1a1a">OUT1 / OUT2</text>
+    <text x="45" y="356" font-size="12" fill="#6b7280">(Стан виходів)</text>
+  </g>
+
+  <!-- Vertical Timing Grid Lines -->
+  <g>
+    <!-- T1: Overcurrent Event -->
+    <line x1="310" y1="90" x2="310" y2="405" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1.5"/>
+    <!-- T2: Fault Tripped / nFAULT Low -->
+    <line x1="350" y1="90" x2="350" y2="405" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1.5"/>
+    <!-- T3: nSLEEP Low Start -->
+    <line x1="470" y1="90" x2="470" y2="405" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1.5"/>
+    <!-- T4: nSLEEP High End -->
+    <line x1="570" y1="90" x2="570" y2="405" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1.5"/>
+    <!-- T5: Recovery / nFAULT High -->
+    <line x1="740" y1="90" x2="740" y2="405" stroke="#27ae60" stroke-dasharray="3,3" stroke-width="1.5"/>
+  </g>
+
+  <!-- Phase Banners (Top of Timing Grid) -->
+  <g>
+    <!-- Phase 1: Normal -->
+    <rect x="192" y="90" width="116" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="250" y="105" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Норма</text>
+
+    <!-- Phase 2: Fault -->
+    <rect x="312" y="90" width="156" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+    <text x="390" y="105" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Аварія (Засувка)</text>
+
+    <!-- Phase 3: Reset Pulse -->
+    <rect x="472" y="90" width="96" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="520" y="105" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Скидання</text>
+
+    <!-- Phase 4: Wake-up Delay -->
+    <rect x="572" y="90" width="166" height="22" rx="4" fill="#fff8e7" stroke="#d97706" stroke-width="1"/>
+    <text x="655" y="105" font-size="12" font-weight="bold" text-anchor="middle" fill="#b45309">Відновлення (t_WAKE)</text>
+
+    <!-- Phase 5: Normal Restored -->
+    <rect x="742" y="90" width="166" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="825" y="105" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Нормальна робота</text>
+  </g>
+
+  <!-- WAVEFORMS -->
+
+  <!-- Signal 1: I_LOAD (Current / Overcurrent Event) -->
+  <g>
+    <!-- Overcurrent pulse shade -->
+    <rect x="310" y="132" width="40" height="23" fill="#fdecea" opacity="0.6"/>
+    <!-- Waveform line -->
+    <path d="M 190,155 L 310,155 L 310,132 L 350,132 L 350,155 L 910,155" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+    <text x="330" y="127" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">I &gt; I_OCP</text>
+  </g>
+
+  <!-- Signal 2: nFAULT -->
+  <g>
+    <!-- Waveform line -->
+    <path d="M 190,190 L 350,190 L 350,220 L 740,220 L 740,190 L 910,190" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+    <!-- State annotations -->
+    <text x="250" y="184" font-size="12" text-anchor="middle" fill="#27ae60">HIGH (OK)</text>
+    <text x="545" y="234" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">LOW (Аварія зафіксована)</text>
+    <text x="825" y="184" font-size="12" text-anchor="middle" fill="#27ae60">HIGH (Очищено)</text>
+  </g>
+
+  <!-- Signal 3: nSLEEP -->
+  <g>
+    <!-- Waveform line -->
+    <path d="M 190,255 L 470,255 L 470,285 L 570,285 L 570,255 L 910,255" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+    <!-- State annotations -->
+    <text x="330" y="249" font-size="12" text-anchor="middle" fill="#6b7280">HIGH (Робочий стан)</text>
+    <text x="520" y="299" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">LOW (Імпульс скидання)</text>
+    <text x="740" y="249" font-size="12" text-anchor="middle" fill="#6b7280">HIGH (Робочий стан)</text>
+  </g>
+
+  <!-- Signal 4: OUT1 / OUT2 (Bridge Outputs) -->
+  <g>
+    <!-- Active PWM Before Fault -->
+    <path d="M 190,345 L 195,345 L 195,330 L 205,330 L 205,350 L 215,350 L 215,330 L 225,330 L 225,350 L 235,350 L 235,330 L 245,330 L 245,350 L 255,350 L 255,330 L 265,330 L 265,350 L 275,350 L 275,330 L 285,330 L 285,350 L 295,350 L 295,330 L 305,330 L 305,350 L 315,350 L 315,330 L 325,330 L 325,350 L 335,350 L 335,330 L 345,330 L 345,350 L 350,350" fill="none" stroke="#2457d6" stroke-width="2"/>
+    <!-- Hi-Z Off State (Dashed line) -->
+    <line x1="350" y1="340" x2="740" y2="340" stroke="#9ca3af" stroke-dasharray="5,5" stroke-width="2"/>
+    <!-- Active PWM After Recovery -->
+    <path d="M 740,340 L 745,340 L 745,330 L 755,330 L 755,350 L 765,350 L 765,330 L 775,330 L 775,350 L 785,350 L 785,330 L 795,330 L 795,350 L 805,350 L 805,330 L 815,330 L 815,350 L 825,350 L 825,330 L 835,330 L 835,350 L 845,350 L 845,330 L 855,330 L 855,350 L 865,350 L 865,330 L 875,330 L 875,350 L 885,350 L 885,330 L 895,330 L 895,345 L 910,345" fill="none" stroke="#2457d6" stroke-width="2"/>
+    <!-- State annotations -->
+    <text x="250" y="324" font-size="12" text-anchor="middle" fill="#2457d6">ШІМ / Активний</text>
+    <text x="545" y="360" font-size="12" font-weight="bold" text-anchor="middle" fill="#6b7280">Hi-Z (Виходи вимкнено)</text>
+    <text x="825" y="324" font-size="12" text-anchor="middle" fill="#2457d6">ШІМ / Відновлено</text>
+  </g>
+
+  <!-- TIMING MEASUREMENT ARROWS & LABELS -->
+  <g>
+    <!-- t_OCP Measurement -->
+    <line x1="312" y1="395" x2="348" y2="395" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-l-red)" marker-end="url(#arr-r-red)"/>
+    <text x="330" y="388" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">t_OCP (≈1.6 µs)</text>
+
+    <!-- t_RESET Measurement -->
+    <line x1="472" y1="395" x2="568" y2="395" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-l-blue)" marker-end="url(#arr-r-blue)"/>
+    <text x="520" y="388" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">t_RESET (≥10 µs)</text>
+
+    <!-- t_WAKE Measurement -->
+    <line x1="572" y1="395" x2="738" y2="395" stroke="#b45309" stroke-width="1.5" marker-start="url(#arr-l-amber)" marker-end="url(#arr-r-amber)"/>
+    <text x="655" y="388" font-size="12" font-weight="bold" text-anchor="middle" fill="#b45309">t_WAKE (≈1 ms)</text>
+  </g>
+
+  <!-- BOTTOM SUMMARY CARD -->
+  <g>
+    <rect x="45" y="418" width="870" height="62" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="60" y="439" font-size="13" font-weight="bold" fill="#1a1a1a">Послідовність програмного відновлення драйвера (Fault Recovery):</text>
+    <text x="60" y="461" font-size="12" fill="#4b5563">1. Спад nFAULT → 2. nSLEEP = LOW на t_RESET (≥10 µs) → 3. nSLEEP = HIGH → 4. Очікування t_WAKE (≈1 ms) → 5. Перевірка nFAULT = HIGH</text>
+  </g>
+</svg>

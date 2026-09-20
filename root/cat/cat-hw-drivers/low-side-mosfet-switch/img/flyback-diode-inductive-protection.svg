@@ -1,0 +1,203 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Захист низькостороннього MOSFET-ключа зворотним діодом (Flyback Diode)</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Шунтування струму проти-ЕРС через діод запобігає високовольтному сплеску на стоці ключа</text>
+
+  <!-- ==================== PANEL 1: WITHOUT DIODE ==================== -->
+  <rect x="25" y="75" width="440" height="405" rx="8" fill="#fcf8f8" stroke="#e6b8b8" stroke-width="1.5"/>
+
+  <!-- Panel 1 Header -->
+  <rect x="35" y="85" width="420" height="32" rx="6" fill="#fdecea" stroke="#f5c6cb" stroke-width="1"/>
+  <text x="245" y="106" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Режим 1: Без діода (Високовольтний сплеск проти-ЕРС)</text>
+
+  <!-- Panel 1 Wires & Supply -->
+  <text x="215" y="136" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">+V_CC (12V / 24V)</text>
+  <line x1="130" y1="145" x2="300" y2="145" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="215" cy="145" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Inductor L -->
+  <path d="M 215,145 a 9,7 0 0 1 0,14 a 9,7 0 0 1 0,14 a 9,7 0 0 1 0,14 a 9,7 0 0 1 0,14" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="195" y="176" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">L (Котушка)</text>
+
+  <!-- Counter-EMF Polarity & Labels -->
+  <text x="230" y="165" text-anchor="start" font-size="14" font-weight="bold" fill="#c0392b">−</text>
+  <text x="230" y="209" text-anchor="start" font-size="14" font-weight="bold" fill="#c0392b">+</text>
+  <text x="245" y="182" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">Проти-ЕРС</text>
+  <text x="245" y="196" text-anchor="start" font-size="11" fill="#c0392b">V_ind = -L·(dI/dt)</text>
+
+  <!-- Resistor R_load -->
+  <line x1="215" y1="201" x2="215" y2="212" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="208" y="212" width="14" height="30" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="195" y="231" text-anchor="end" font-size="12" fill="#6b7280">R_load</text>
+  <line x1="215" y1="242" x2="215" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Drain Node D -->
+  <circle cx="215" cy="265" r="3.5" fill="#1a1a1a"/>
+  <text x="200" y="269" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">D</text>
+
+  <!-- Voltage Spike Callout Box (Right of Drain) -->
+  <rect x="280" y="230" width="165" height="85" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="215" y1="265" x2="278" y2="265" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="362" y="250" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Сплеск напруги V_DS!</text>
+  <text x="362" y="267" text-anchor="middle" font-size="12" fill="#c0392b">V_DS = V_CC + V_ind</text>
+  <text x="362" y="284" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">V_DS &gt;&gt; V_BR(DSS) ⚡</text>
+  <text x="362" y="301" text-anchor="middle" font-size="11" fill="#c0392b">(Загроза пробою ключа)</text>
+
+  <!-- MOSFET Transistor (OFF) -->
+  <line x1="215" y1="265" x2="215" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Gate line -->
+  <line x1="130" y1="295" x2="202" y2="295" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="202" y1="283" x2="202" y2="307" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Channel line & contacts -->
+  <line x1="208" y1="283" x2="208" y2="307" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <line x1="208" y1="285" x2="215" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="208" y1="305" x2="215" y2="305" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="215" y1="285" x2="215" y2="305" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Bulk Arrow -->
+  <polygon points="208,295 214,292 214,298" fill="#1a1a1a"/>
+  <!-- Source to GND wire -->
+  <line x1="215" y1="305" x2="215" y2="375" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="180" y="282" text-anchor="end" font-size="11" font-weight="bold" fill="#1a1a1a">MOSFET (OFF)</text>
+
+  <!-- Gate Drive Circuit -->
+  <circle cx="45" cy="295" r="3" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="45" y="280" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">V_IN = 0V</text>
+  <line x1="48" y1="295" x2="60" y2="295" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- R_G -->
+  <rect x="60" y="288" width="30" height="14" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="75" y="280" text-anchor="middle" font-size="11" fill="#1a1a1a">R_G</text>
+  <line x1="90" y1="295" x2="130" y2="295" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="130" cy="295" r="3" fill="#1a1a1a"/>
+
+  <!-- R_GS -->
+  <line x1="130" y1="295" x2="130" y2="315" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="123" y="315" width="14" height="30" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="115" y="334" text-anchor="end" font-size="11" fill="#6b7280">R_GS</text>
+  <line x1="130" y1="345" x2="130" y2="375" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="130" cy="375" r="3" fill="#1a1a1a"/>
+
+  <!-- GND Rail -->
+  <line x1="130" y1="375" x2="215" y2="375" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="215" y1="375" x2="215" y2="385" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="203" y1="385" x2="227" y2="385" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="208" y1="389" x2="222" y2="389" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="212" y1="393" x2="218" y2="393" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="215" y="407" text-anchor="middle" font-size="11" fill="#6b7280">GND</text>
+
+  <!-- Panel 1 Status Banner -->
+  <rect x="35" y="435" width="420" height="32" rx="6" fill="#fdecea" stroke="#f5c6cb" stroke-width="1"/>
+  <text x="245" y="456" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">⛔ Небезпека: Енергія індуктивності викликає пробій MOSFET</text>
+
+  <!-- ==================== PANEL 2: WITH FLYBACK DIODE ==================== -->
+  <rect x="495" y="75" width="440" height="405" rx="8" fill="#f7fbf8" stroke="#b8e3c8" stroke-width="1.5"/>
+
+  <!-- Panel 2 Header -->
+  <rect x="505" y="85" width="420" height="32" rx="6" fill="#e9f7ef" stroke="#c3e6cb" stroke-width="1"/>
+  <text x="715" y="106" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Режим 2: Зі зворотним діодом (Безпечний контур гасіння)</text>
+
+  <!-- Panel 2 Wires & Supply -->
+  <text x="685" y="136" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">+V_CC (12V / 24V)</text>
+  <line x1="600" y1="145" x2="770" y2="145" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="685" cy="145" r="3.5" fill="#1a1a1a"/>
+  <circle cx="770" cy="145" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Inductor L -->
+  <path d="M 685,145 a 9,7 0 0 1 0,14 a 9,7 0 0 1 0,14 a 9,7 0 0 1 0,14 a 9,7 0 0 1 0,14" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="665" y="176" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">L (Котушка)</text>
+
+  <!-- Resistor R_load -->
+  <line x1="685" y1="201" x2="685" y2="212" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="678" y="212" width="14" height="30" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="665" y="231" text-anchor="end" font-size="12" fill="#6b7280">R_load</text>
+  <line x1="685" y1="242" x2="685" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Drain Node D -->
+  <circle cx="685" cy="265" r="3.5" fill="#1a1a1a"/>
+  <circle cx="770" cy="265" r="3.5" fill="#1a1a1a"/>
+  <line x1="685" y1="265" x2="770" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="670" y="269" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">D</text>
+
+  <!-- Flyback Diode D_flyback (Parallel to Load) -->
+  <line x1="770" y1="145" x2="770" y2="185" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="770" y1="205" x2="770" y2="265" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- Cathode bar (Top) -->
+  <line x1="760" y1="185" x2="780" y2="185" stroke="#27ae60" stroke-width="2"/>
+  <!-- Triangle pointing UP -->
+  <polygon points="770,185 761,205 779,205" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- Diode Labels -->
+  <text x="788" y="192" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">D_flyback</text>
+  <text x="788" y="206" text-anchor="start" font-size="11" fill="#27ae60">(Діод Шотткі)</text>
+
+  <!-- Flyback Current Loop Path (Counter-clockwise loop through load & diode) -->
+  <path d="M 673,152 L 778,152 A 5,5 0 0 1 783,157 L 783,258 A 5,5 0 0 1 778,263 L 673,263 A 5,5 0 0 1 668,258 L 668,157 A 5,5 0 0 1 673,152 Z" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-green)"/>
+  <text x="727.5" y="170" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">I_flyback</text>
+  <text x="727.5" y="183" text-anchor="middle" font-size="10" fill="#27ae60">🔄 (контур)</text>
+
+  <!-- Voltage Clamped Callout Box (Right of Diode) -->
+  <rect x="790" y="230" width="135" height="85" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="770" y1="265" x2="788" y2="265" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+  <text x="857" y="250" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Напруга V_DS обмежена!</text>
+  <text x="857" y="267" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">V_DS = V_CC + V_F</text>
+  <text x="857" y="284" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">V_DS ≈ 12.7 V  ✓</text>
+  <text x="857" y="301" text-anchor="middle" font-size="11" fill="#27ae60">(Безпечний режим)</text>
+
+  <!-- MOSFET Transistor (OFF) -->
+  <line x1="685" y1="265" x2="685" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Gate line -->
+  <line x1="600" y1="295" x2="672" y2="295" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="672" y1="283" x2="672" y2="307" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Channel line & contacts -->
+  <line x1="678" y1="283" x2="678" y2="307" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <line x1="678" y1="285" x2="685" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="678" y1="305" x2="685" y2="305" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="685" y1="285" x2="685" y2="305" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Bulk Arrow -->
+  <polygon points="678,295 684,292 684,298" fill="#1a1a1a"/>
+  <!-- Source to GND wire -->
+  <line x1="685" y1="305" x2="685" y2="375" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="650" y="282" text-anchor="end" font-size="11" font-weight="bold" fill="#1a1a1a">MOSFET (OFF)</text>
+
+  <!-- Gate Drive Circuit -->
+  <circle cx="515" cy="295" r="3" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="515" y="280" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">V_IN = 0V</text>
+  <line x1="518" y1="295" x2="530" y2="295" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- R_G -->
+  <rect x="530" y="288" width="30" height="14" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="545" y="280" text-anchor="middle" font-size="11" fill="#1a1a1a">R_G</text>
+  <line x1="560" y1="295" x2="600" y2="295" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="600" cy="295" r="3" fill="#1a1a1a"/>
+
+  <!-- R_GS -->
+  <line x1="600" y1="295" x2="600" y2="315" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="593" y="315" width="14" height="30" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="585" y="334" text-anchor="end" font-size="11" fill="#6b7280">R_GS</text>
+  <line x1="600" y1="345" x2="600" y2="375" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="600" cy="375" r="3" fill="#1a1a1a"/>
+
+  <!-- GND Rail -->
+  <line x1="600" y1="375" x2="685" y2="375" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="685" y1="375" x2="685" y2="385" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="673" y1="385" x2="697" y2="385" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="678" y1="389" x2="692" y2="389" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="682" y1="393" x2="688" y2="393" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="685" y="407" text-anchor="middle" font-size="11" fill="#6b7280">GND</text>
+
+  <!-- Panel 2 Status Banner -->
+  <rect x="505" y="435" width="420" height="32" rx="6" fill="#e9f7ef" stroke="#c3e6cb" stroke-width="1"/>
+  <text x="715" y="456" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">✓ Безпека: Діод поглинає проти-ЕРС та захищає ключ</text>
+</svg>

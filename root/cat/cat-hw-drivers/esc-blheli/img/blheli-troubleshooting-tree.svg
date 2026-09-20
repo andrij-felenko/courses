@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 570" width="960" height="570" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="570" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Діагностика несправностей BLHeli 30 A ESC</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Систематичний пошук причин перегріву MOSFET, зриву синхронізації фаз та просідання напруги BEC</text>
+
+  <!-- Start Node -->
+  <rect x="330" y="70" width="300" height="46" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="88" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Діагностична блок-схема BLHeli ESC (30 А)</text>
+  <text x="480" y="104" text-anchor="middle" font-size="12" fill="#1a1a1a">Аналіз трьох основних класів несправностей</text>
+
+  <!-- Connectors from Start Node -->
+  <path d="M 380,116 L 170,138" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+  <path d="M 480,116 L 480,138" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+  <path d="M 580,116 L 790,138" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- Row 1: Symptom Headers -->
+  <!-- Col 1 -->
+  <rect x="35" y="140" width="270" height="40" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="170" y="156" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">1. Перегрів MOSFET</text>
+  <text x="170" y="171" text-anchor="middle" font-size="12" fill="#6b7280">Симптом: &gt;80°C, запах, відсічка</text>
+
+  <!-- Col 2 -->
+  <rect x="345" y="140" width="270" height="40" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="156" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">2. Зрив синхронізації</text>
+  <text x="480" y="171" text-anchor="middle" font-size="12" fill="#6b7280">Симптом: Скрип, зупинка мотора</text>
+
+  <!-- Col 3 -->
+  <rect x="655" y="140" width="270" height="40" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="790" y="156" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">3. Просідання BEC</text>
+  <text x="790" y="171" text-anchor="middle" font-size="12" fill="#6b7280">Симптом: Скидання FC, завади</text>
+
+  <!-- Connectors Row 1 -> Row 2 -->
+  <path d="M 170,180 L 170,203" stroke="#6b7280" stroke-width="1.5" fill="none" marker-end="url(#arr-gray)"/>
+  <path d="M 480,180 L 480,203" stroke="#6b7280" stroke-width="1.5" fill="none" marker-end="url(#arr-gray)"/>
+  <path d="M 790,180 L 790,203" stroke="#6b7280" stroke-width="1.5" fill="none" marker-end="url(#arr-gray)"/>
+
+  <!-- Row 2: Diagnostic Checks -->
+  <!-- Col 1 -->
+  <rect x="35" y="205" width="270" height="70" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="170" y="223" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Перевірка 1.1: Налаштування</text>
+  <text x="170" y="241" text-anchor="middle" font-size="12" fill="#6b7280">Чи завищено Timing / Startup Pwr?</text>
+  <text x="170" y="259" text-anchor="middle" font-size="12" fill="#1a1a1a">Низька ШІМ-частота (&lt;16 кГц)?</text>
+
+  <!-- Col 2 -->
+  <rect x="345" y="205" width="270" height="70" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="223" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Перевірка 2.1: Налаштування</text>
+  <text x="480" y="241" text-anchor="middle" font-size="12" fill="#6b7280">Чи увімкнено Demag Comp?</text>
+  <text x="480" y="259" text-anchor="middle" font-size="12" fill="#1a1a1a">Низький Timing для високого KV?</text>
+
+  <!-- Col 3 -->
+  <rect x="655" y="205" width="270" height="70" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="790" y="223" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Перевірка 3.1: Навантаження</text>
+  <text x="790" y="241" text-anchor="middle" font-size="12" fill="#6b7280">Струм сервоприводів &gt; 1.5 А?</text>
+  <text x="790" y="259" text-anchor="middle" font-size="12" fill="#1a1a1a">Високі піки напруги на DC?</text>
+
+  <!-- Connectors Row 2 -> Row 3 -->
+  <path d="M 170,275 L 170,298" stroke="#27ae60" stroke-width="1.5" fill="none" marker-end="url(#arr-green)"/>
+  <path d="M 480,275 L 480,298" stroke="#27ae60" stroke-width="1.5" fill="none" marker-end="url(#arr-green)"/>
+  <path d="M 790,275 L 790,298" stroke="#27ae60" stroke-width="1.5" fill="none" marker-end="url(#arr-green)"/>
+
+  <!-- Row 3: Solution Step 1 (Software / Config) -->
+  <!-- Col 1 -->
+  <rect x="35" y="300" width="270" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="170" y="318" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Рішення 1.1: Конфігурація</text>
+  <text x="170" y="336" text-anchor="middle" font-size="12" fill="#1a1a1a">• Знизити Timing (Low/Medium)</text>
+  <text x="170" y="354" text-anchor="middle" font-size="12" fill="#1a1a1a">• Збільшити ШІМ до 24-48 кГц</text>
+
+  <!-- Col 2 -->
+  <rect x="345" y="300" width="270" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="318" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Рішення 2.1: Конфігурація</text>
+  <text x="480" y="336" text-anchor="middle" font-size="12" fill="#1a1a1a">• Встановити Demag Comp = High</text>
+  <text x="480" y="354" text-anchor="middle" font-size="12" fill="#1a1a1a">• Підняти Motor Timing на 1-2 кроки</text>
+
+  <!-- Col 3 -->
+  <rect x="655" y="300" width="270" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="790" y="318" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Рішення 3.1: Конфігурація</text>
+  <text x="790" y="336" text-anchor="middle" font-size="12" fill="#1a1a1a">• Зменшити навантаження на BEC</text>
+  <text x="790" y="354" text-anchor="middle" font-size="12" fill="#1a1a1a">• Додати зовнішній модуль UBEC</text>
+
+  <!-- Connectors Row 3 -> Row 4 -->
+  <path d="M 170,370 L 170,393" stroke="#27ae60" stroke-width="1.5" fill="none" marker-end="url(#arr-green)"/>
+  <path d="M 480,370 L 480,393" stroke="#27ae60" stroke-width="1.5" fill="none" marker-end="url(#arr-green)"/>
+  <path d="M 790,370 L 790,393" stroke="#27ae60" stroke-width="1.5" fill="none" marker-end="url(#arr-green)"/>
+
+  <!-- Row 4: Solution Step 2 (Hardware / Action) -->
+  <!-- Col 1 -->
+  <rect x="35" y="395" width="270" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="170" y="413" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Рішення 1.2: Апаратний захист</text>
+  <text x="170" y="431" text-anchor="middle" font-size="12" fill="#1a1a1a">• Додати радіатор / обдув ESC</text>
+  <text x="170" y="449" text-anchor="middle" font-size="12" fill="#1a1a1a">• Перевірити фази на коротке ЗК</text>
+
+  <!-- Col 2 -->
+  <rect x="345" y="395" width="270" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="413" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Рішення 2.2: Апаратний захист</text>
+  <text x="480" y="431" text-anchor="middle" font-size="12" fill="#1a1a1a">• Low-ESR конденсатор (470 мкФ)</text>
+  <text x="480" y="449" text-anchor="middle" font-size="12" fill="#1a1a1a">• Перевірити діоди та фільтр BEMF</text>
+
+  <!-- Col 3 -->
+  <rect x="655" y="395" width="270" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="790" y="413" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Рішення 3.2: Фільтрація живлення</text>
+  <text x="790" y="431" text-anchor="middle" font-size="12" fill="#1a1a1a">• Конденсатор Low-ESR на вході</text>
+  <text x="790" y="449" text-anchor="middle" font-size="12" fill="#1a1a1a">• Перевірити спільне коло землі</text>
+
+  <!-- Summary Footer -->
+  <rect x="35" y="485" width="890" height="60" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="505" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Принцип діагностики: Спочатку оптимізація BLHeliSuite, далі — апаратна фільтрація</text>
+  <text x="480" y="524" text-anchor="middle" font-size="12" fill="#6b7280">Коректний таймінг та Demag Comp вирішують до 80% збоїв; конденсатор Low-ESR захищає MOSFET і BEC від пікових перенапруг</text>
+</svg>

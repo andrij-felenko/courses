@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Standard dark arrow marker -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <!-- Blue arrow marker for ceramic callout -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0284c7"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняльний розріз корпусів TO-220AB: BTB (неізольований) vs BTA (ізольований)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Внутрішня керамічна прокладка Al₂O₃ в BTA забезпечує гальванічну розв'язку силового кристала від металевого вушка</text>
+
+  <!-- LEFT PANEL: BTB Non-Isolated -->
+  <rect x="20" y="70" width="450" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- BTB Header Box -->
+  <rect x="35" y="85" width="420" height="34" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="245" y="107" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">BTB — Неізольований корпус (Non-Isolated)</text>
+  <text x="245" y="134" font-size="12" fill="#6b7280" text-anchor="middle">Прямий електричний контакт кристала з металевим вушком</text>
+
+  <!-- Radiator & Danger Tag (BTB) -->
+  <rect x="35" y="148" width="140" height="22" rx="4" fill="#c0392b"/>
+  <text x="105" y="163" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">230 В~ НА РАДІАТОРІ!</text>
+
+  <!-- Radiator Heatsink (BTB) -->
+  <rect x="45" y="182" width="30" height="218" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="30" y1="195" x2="45" y2="195" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="30" y1="225" x2="45" y2="225" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="30" y1="255" x2="45" y2="255" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="30" y1="285" x2="45" y2="285" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="30" y1="315" x2="45" y2="315" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="30" y1="345" x2="45" y2="345" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="30" y1="375" x2="45" y2="375" stroke="#64748b" stroke-width="1.5"/>
+
+  <!-- Copper Tab (BTB) -->
+  <rect x="75" y="182" width="22" height="218" rx="2" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <circle cx="86" cy="198" r="6" fill="#f4f6f8" stroke="#92400e" stroke-width="1.5"/>
+  <!-- Mounting Screw (BTB) -->
+  <circle cx="38" cy="198" r="7" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+  <line x1="38" y1="193" x2="38" y2="203" stroke="#475569" stroke-width="1.5"/>
+  <line x1="45" y1="198" x2="96" y2="198" stroke="#64748b" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- Silicon Die (BTB) -->
+  <rect x="97" y="250" width="14" height="55" rx="1" fill="#2563eb" stroke="#1e40af" stroke-width="1.5"/>
+  <!-- Direct Solder Layer -->
+  <line x1="97" y1="250" x2="97" y2="305" stroke="#1e293b" stroke-width="3"/>
+
+  <!-- Epoxy Molding Compound (BTB) -->
+  <rect x="97" y="215" width="130" height="165" rx="4" fill="#374151" fill-opacity="0.85" stroke="#1f2937" stroke-width="1.5"/>
+
+  <!-- Internal Connections & Wire Bonds (BTB) -->
+  <path d="M 86 360 L 115 380" stroke="#d97706" stroke-width="3"/>
+  <path d="M 111 265 Q 140 280 155 380" stroke="#f59e0b" stroke-width="1.5" fill="none"/>
+  <path d="M 111 290 Q 170 310 195 380" stroke="#f59e0b" stroke-width="1.5" fill="none"/>
+
+  <!-- Leads (BTB) -->
+  <rect x="110" y="380" width="10" height="50" fill="#d97706" stroke="#92400e" stroke-width="1"/>
+  <rect x="150" y="380" width="10" height="50" fill="#cbd5e1" stroke="#64748b" stroke-width="1"/>
+  <rect x="190" y="380" width="10" height="50" fill="#cbd5e1" stroke="#64748b" stroke-width="1"/>
+
+  <text x="115" y="446" font-size="12" font-weight="bold" fill="#d97706" text-anchor="middle">A2</text>
+  <text x="155" y="446" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">A1</text>
+  <text x="195" y="446" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">G</text>
+
+  <!-- BTB Callouts -->
+  <line x1="250" y1="198" x2="102" y2="198" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="256" y="190" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Мідне вушко (Tab)</text>
+  <text x="256" y="212" font-size="12" fill="#c0392b" text-anchor="start">З'єднане напряму з A2</text>
+
+  <line x1="250" y1="270" x2="115" y2="270" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="256" y="262" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Силовий кристал</text>
+  <text x="256" y="284" font-size="12" fill="#6b7280" text-anchor="start">Припаяний на вушко</text>
+
+  <line x1="250" y1="330" x2="231" y2="330" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="256" y="324" font-size="12" fill="#6b7280" text-anchor="start">Епоксидний компаунд</text>
+
+  <!-- BTB Bottom Danger Box -->
+  <rect x="35" y="460" width="420" height="32" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="245" y="480" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠️ Небезпека: Потрібна зовнішня ізолююча прокладка!</text>
+
+
+  <!-- RIGHT PANEL: BTA Isolated -->
+  <rect x="490" y="70" width="450" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- BTA Header Box -->
+  <rect x="505" y="85" width="420" height="34" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="715" y="107" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">BTA — Ізольований корпус (Isolated)</text>
+  <text x="715" y="134" font-size="12" fill="#6b7280" text-anchor="middle">Внутрішній керамічний бар'єр Al₂O₃ (2500 В RMS)</text>
+
+  <!-- Radiator & Safe Tag (BTA) -->
+  <rect x="505" y="148" width="150" height="22" rx="4" fill="#27ae60"/>
+  <text x="580" y="163" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">0 В / GND (БЕЗПЕЧНО)</text>
+
+  <!-- Radiator Heatsink (BTA) -->
+  <rect x="515" y="182" width="30" height="218" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="500" y1="195" x2="515" y2="195" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="500" y1="225" x2="515" y2="225" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="500" y1="255" x2="515" y2="255" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="500" y1="285" x2="515" y2="285" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="500" y1="315" x2="515" y2="315" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="500" y1="345" x2="515" y2="345" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="500" y1="375" x2="515" y2="375" stroke="#64748b" stroke-width="1.5"/>
+
+  <!-- External Copper Tab (BTA) -->
+  <rect x="545" y="182" width="22" height="218" rx="2" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <circle cx="556" cy="198" r="6" fill="#f4f6f8" stroke="#92400e" stroke-width="1.5"/>
+  <!-- Mounting Screw (BTA) -->
+  <circle cx="508" cy="198" r="7" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+  <line x1="508" y1="193" x2="508" y2="203" stroke="#475569" stroke-width="1.5"/>
+  <line x1="515" y1="198" x2="566" y2="198" stroke="#64748b" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- CERAMIC ISOLATION LAYER Al2O3 (BTA) -->
+  <rect x="567" y="225" width="14" height="145" rx="2" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <line x1="567" y1="240" x2="581" y2="240" stroke="#0284c7" stroke-width="1"/>
+  <line x1="567" y1="260" x2="581" y2="260" stroke="#0284c7" stroke-width="1"/>
+  <line x1="567" y1="280" x2="581" y2="280" stroke="#0284c7" stroke-width="1"/>
+  <line x1="567" y1="300" x2="581" y2="300" stroke="#0284c7" stroke-width="1"/>
+  <line x1="567" y1="320" x2="581" y2="320" stroke="#0284c7" stroke-width="1"/>
+  <line x1="567" y1="340" x2="581" y2="340" stroke="#0284c7" stroke-width="1"/>
+
+  <!-- Internal Copper Die Pad (BTA) -->
+  <rect x="581" y="230" width="12" height="135" rx="1" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+
+  <!-- Silicon Die (BTA) -->
+  <rect x="593" y="250" width="14" height="55" rx="1" fill="#2563eb" stroke="#1e40af" stroke-width="1.5"/>
+  <line x1="593" y1="250" x2="593" y2="305" stroke="#1e293b" stroke-width="3"/>
+
+  <!-- Epoxy Molding Compound (BTA) -->
+  <rect x="567" y="215" width="145" height="165" rx="4" fill="#374151" fill-opacity="0.85" stroke="#1f2937" stroke-width="1.5"/>
+
+  <!-- Internal Connections & Wire Bonds (BTA) -->
+  <path d="M 587 365 L 585 380" stroke="#d97706" stroke-width="3"/>
+  <path d="M 607 265 Q 618 280 625 380" stroke="#f59e0b" stroke-width="1.5" fill="none"/>
+  <path d="M 607 290 Q 640 310 665 380" stroke="#f59e0b" stroke-width="1.5" fill="none"/>
+
+  <!-- Leads (BTA) -->
+  <rect x="580" y="380" width="10" height="50" fill="#d97706" stroke="#92400e" stroke-width="1"/>
+  <rect x="620" y="380" width="10" height="50" fill="#cbd5e1" stroke="#64748b" stroke-width="1"/>
+  <rect x="660" y="380" width="10" height="50" fill="#cbd5e1" stroke="#64748b" stroke-width="1"/>
+
+  <text x="585" y="446" font-size="12" font-weight="bold" fill="#d97706" text-anchor="middle">A2</text>
+  <text x="625" y="446" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">A1</text>
+  <text x="665" y="446" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">G</text>
+
+  <!-- BTA Callouts -->
+  <line x1="725" y1="198" x2="571" y2="198" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="731" y="190" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Зовнішнє вушко</text>
+  <text x="731" y="212" font-size="12" fill="#27ae60" text-anchor="start">Ізольоване від кіл (0 В)</text>
+
+  <!-- Highlight Box for Ceramic Al2O3 Insulator -->
+  <line x1="725" y1="265" x2="583" y2="265" stroke="#0284c7" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <rect x="731" y="232" width="195" height="66" rx="5" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="740" y="250" font-size="12" font-weight="bold" fill="#0369a1" text-anchor="start">Прокладка Al₂O₃</text>
+  <text x="740" y="267" font-size="12" fill="#0284c7" text-anchor="start">Керамічна ізоляція 2.5 кВ</text>
+  <text x="740" y="284" font-size="12" fill="#0369a1" text-anchor="start">Висока теплопровідність</text>
+
+  <line x1="725" y1="330" x2="611" y2="330" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="731" y="322" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Силовий кристал</text>
+  <text x="731" y="344" font-size="12" fill="#6b7280" text-anchor="start">На внутрішній плашці</text>
+
+  <!-- BTA Bottom Safe Box -->
+  <rect x="505" y="460" width="420" height="32" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="715" y="480" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Прямий монтаж на радіатор без додаткових прокладок</text>
+</svg>

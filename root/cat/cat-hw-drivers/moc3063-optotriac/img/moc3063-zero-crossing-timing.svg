@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Синхронізація з нулем у оптосимісторі MOC3063</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Фотосимістор вмикається лише в момент переходу напруги через нуль, ігноруючи затримку вхідного сигналу</text>
+
+  <!-- Diagram Background Panel -->
+  <rect x="30" y="75" width="900" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+
+  <!-- Zero-Crossing Inhibition Window Band -->
+  <rect x="210" y="137" width="660" height="16" fill="#eaf0fd" opacity="0.75"/>
+  <line x1="210" y1="137" x2="870" y2="137" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1" opacity="0.6"/>
+  <line x1="210" y1="153" x2="870" y2="153" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1" opacity="0.6"/>
+  <text x="875" y="130" font-size="12" font-weight="bold" fill="#2457d6">+V<tspan font-size="10">INH</tspan></text>
+  <text x="875" y="142" font-size="11" fill="#6b7280">+20 В</text>
+  <text x="875" y="154" font-size="12" font-weight="bold" fill="#2457d6">-V<tspan font-size="10">INH</tspan></text>
+  <text x="875" y="166" font-size="11" fill="#6b7280">-20 В</text>
+
+  <!-- Vertical Timeline Grid Lines -->
+  <line x1="210" y1="75" x2="210" y2="475" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="320" y1="75" x2="320" y2="475" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="375" y1="75" x2="375" y2="475" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <line x1="430" y1="75" x2="430" y2="475" stroke="#27ae60" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <line x1="540" y1="75" x2="540" y2="475" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="595" y1="75" x2="595" y2="475" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <line x1="650" y1="75" x2="650" y2="475" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <line x1="760" y1="75" x2="760" y2="475" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="870" y1="75" x2="870" y2="475" stroke="#d0d7de" stroke-dasharray="4,4"/>
+
+  <!-- Waveform 1: VAC(t) Mains Voltage -->
+  <line x1="210" y1="145" x2="880" y2="145" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <path d="M 210,145 C 246.7,89 283.3,89 320,145 C 356.7,201 393.3,201 430,145 C 466.7,89 503.3,89 540,145 C 576.7,201 613.3,201 650,145 C 686.7,89 723.3,89 760,145 C 796.7,201 833.3,201 870,145" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="45" y="136" font-size="13" font-weight="bold" fill="#1a1a1a">Напруга мережі V<tspan font-size="10">AC</tspan>(t)</text>
+  <text x="45" y="154" font-size="12" fill="#6b7280">Синусоїда 220 В, 50 Гц</text>
+
+  <!-- Waveform 2: IF(t) Input LED Current -->
+  <line x1="210" y1="265" x2="880" y2="265" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <path d="M 375,265 L 375,230 L 595,230 L 595,265 Z" fill="#eaf0fd" opacity="0.6"/>
+  <path d="M 210,265 L 375,265 L 375,230 L 595,230 L 595,265 L 870,265" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="45" y="246" font-size="13" font-weight="bold" fill="#1a1a1a">Вхідний струм I<tspan font-size="10">F</tspan>(t)</text>
+  <text x="45" y="264" font-size="12" fill="#6b7280">Керуючий світлодіод</text>
+  <text x="200" y="228" font-size="12" fill="#2457d6" text-anchor="end">I<tspan font-size="10">FT</tspan> (5 мА)</text>
+  <text x="200" y="269" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Waveform 3: Vout Output Voltage across Load -->
+  <line x1="210" y1="410" x2="880" y2="410" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="210" y1="410" x2="430" y2="410" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <path d="M 430,410 C 466.7,354 503.3,354 540,410 C 576.7,466 613.3,466 650,410 Z" fill="#e9f7ef" opacity="0.7"/>
+  <path d="M 430,410 C 466.7,354 503.3,354 540,410 C 576.7,466 613.3,466 650,410" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="650" y1="410" x2="870" y2="410" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="45" y="391" font-size="13" font-weight="bold" fill="#1a1a1a">Вихідна напруга V<tspan font-size="10">out</tspan></text>
+  <text x="45" y="409" font-size="12" fill="#6b7280">Напруга на навантаженні</text>
+
+  <!-- Callout 1: Red Box - Inhibit Turn-ON -->
+  <rect x="270" y="82" width="230" height="42" fill="#fdecea" stroke="#c0392b" stroke-width="1.2" rx="4"/>
+  <text x="385" y="98" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Сигнал I<tspan font-size="10">F</tspan> подано при |V<tspan font-size="10">AC</tspan>| &gt; V<tspan font-size="10">INH</tspan></text>
+  <text x="385" y="115" font-size="12" fill="#1a1a1a" text-anchor="middle">Вмикання заблоковано схемою нуля</text>
+  <line x1="375" y1="124" x2="375" y2="180" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2" marker-end="url(#arr-red)"/>
+  <circle cx="375" cy="187" r="4" fill="#c0392b"/>
+
+  <!-- Callout 2: Green Box - Zero-Crossing Trigger -->
+  <rect x="320" y="290" width="235" height="42" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2" rx="4"/>
+  <text x="437.5" y="306" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Точка вмикання (|V<tspan font-size="10">AC</tspan>| ≤ V<tspan font-size="10">INH</tspan>)</text>
+  <text x="437.5" y="323" font-size="12" fill="#1a1a1a" text-anchor="middle">Фотосимістор миттєво відкривається</text>
+  <circle cx="430" cy="145" r="4" fill="#27ae60"/>
+  <circle cx="430" cy="410" r="4.5" fill="#27ae60"/>
+
+  <!-- Callout 3: Blue Box - Natural Zero Turn-OFF -->
+  <rect x="565" y="290" width="270" height="42" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2" rx="4"/>
+  <text x="700" y="306" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Спад I<tspan font-size="10">F</tspan> → 0 при t = t<tspan font-size="10">off</tspan></text>
+  <text x="700" y="323" font-size="12" fill="#1a1a1a" text-anchor="middle">Утримання до переходу струму через нуль</text>
+  <circle cx="650" cy="410" r="4.5" fill="#2457d6"/>
+
+  <!-- Time Axis & Labels -->
+  <line x1="210" y1="480" x2="885" y2="480" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="895" y="484" font-size="13" font-weight="bold" fill="#1a1a1a">t</text>
+
+  <line x1="210" y1="476" x2="210" y2="484" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="210" y="500" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <line x1="320" y1="476" x2="320" y2="484" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="320" y="500" font-size="12" fill="#6b7280" text-anchor="middle">t<tspan font-size="10">1</tspan></text>
+
+  <line x1="375" y1="476" x2="375" y2="484" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="375" y="500" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t<tspan font-size="10">on</tspan></text>
+
+  <line x1="430" y1="476" x2="430" y2="484" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="430" y="500" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t<tspan font-size="10">2</tspan> (ZC)</text>
+
+  <line x1="540" y1="476" x2="540" y2="484" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="540" y="500" font-size="12" fill="#6b7280" text-anchor="middle">t<tspan font-size="10">3</tspan></text>
+
+  <line x1="595" y1="476" x2="595" y2="484" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="595" y="500" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t<tspan font-size="10">off</tspan></text>
+
+  <line x1="650" y1="476" x2="650" y2="484" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="650" y="500" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t<tspan font-size="10">4</tspan> (ZC)</text>
+
+  <line x1="760" y1="476" x2="760" y2="484" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="760" y="500" font-size="12" fill="#6b7280" text-anchor="middle">t<tspan font-size="10">5</tspan></text>
+</svg>

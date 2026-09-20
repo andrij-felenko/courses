@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Принципова схема керування симістором BTA16 через MOC3063</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Гальванічна розв'язка MCU, оптичний Zero-Cross та RC-снабер для індуктивного навантаження</text>
+
+  <!-- Left Zone: Low Voltage (DC) -->
+  <rect x="30" y="75" width="280" height="350" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="45" y="96" font-size="13" font-weight="bold" fill="#2457d6">Низьковольтне коло (MCU)</text>
+  <text x="295" y="96" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">SELV</text>
+
+  <!-- Galvanic Isolation Barrier Badge & Lines -->
+  <line x1="360" y1="75" x2="360" y2="115" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,4"/>
+  <rect x="315" y="115" width="90" height="45" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="360" y="133" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Ізоляція 5 кВ</text>
+  <text x="360" y="150" text-anchor="middle" font-size="12" fill="#2457d6">&gt; 5 мм бар'єр</text>
+  <line x1="360" y1="160" x2="360" y2="425" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,4"/>
+
+  <!-- Right Zone: High Voltage (AC 220V) -->
+  <rect x="410" y="75" width="520" height="350" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="425" y="96" font-size="13" font-weight="bold" fill="#c0392b">Мережеве коло (~220 В)</text>
+  <text x="915" y="96" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">НЕБЕЗПЕКА (220V AC)</text>
+
+  <!-- MCU Block -->
+  <rect x="45" y="175" width="50" height="200" fill="#ffffff" stroke="#2457d6" stroke-width="2" rx="4"/>
+  <text x="70" y="200" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">MCU</text>
+  <text x="70" y="245" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO</text>
+  <text x="70" y="345" text-anchor="middle" font-size="12" fill="#6b7280">GND</text>
+
+  <!-- Resistor R1 -->
+  <line x1="95" y1="245" x2="115" y2="245" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="115" y="235" width="40" height="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="135" y="222" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">R1</text>
+  <text x="135" y="270" text-anchor="middle" font-size="12" fill="#6b7280">330 Ω</text>
+  <line x1="155" y1="245" x2="180" y2="245" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Wire GND MCU to MOC3063 -->
+  <line x1="95" y1="345" x2="180" y2="345" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- MOC3063 Optocoupler IC Body -->
+  <rect x="180" y="175" width="115" height="200" fill="#ffffff" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <text x="237.5" y="198" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">MOC3063</text>
+
+  <!-- MOC3063 Pins & Internal Components -->
+  <text x="185" y="235" font-size="12" fill="#1a1a1a">1 (A)</text>
+  <text x="185" y="295" font-size="12" fill="#6b7280">3 (NC)</text>
+  <text x="185" y="360" font-size="12" fill="#1a1a1a">2 (K)</text>
+
+  <!-- Internal LED Wires & Symbol -->
+  <line x1="180" y1="245" x2="202" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="180" y1="345" x2="202" y2="345" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="202" y1="245" x2="202" y2="278" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="202" y1="294" x2="202" y2="345" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="195,278 209,278 202,294" fill="#1a1a1a" stroke="#1a1a1a"/>
+  <line x1="195" y1="294" x2="209" y2="294" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Zero-Cross Detector Block inside MOC3063 -->
+  <rect x="216" y="250" width="32" height="60" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="232" y="272" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Zero</text>
+  <text x="232" y="292" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Cross</text>
+
+  <!-- Pins Right -->
+  <text x="290" y="235" text-anchor="end" font-size="12" fill="#1a1a1a">6 (MT2)</text>
+  <text x="290" y="295" text-anchor="end" font-size="12" fill="#6b7280">5 (NC)</text>
+  <text x="290" y="360" text-anchor="end" font-size="12" fill="#1a1a1a">4 (MT1)</text>
+
+  <!-- High Voltage Wires from MOC3063 Pin 6 and Pin 4 -->
+  <!-- Pin 6 wire goes UP to top rail through R2 -->
+  <line x1="295" y1="245" x2="340" y2="245" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="340" y1="245" x2="340" y2="200" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="340" y1="200" x2="415" y2="200" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Resistor R2 -->
+  <rect x="415" y="190" width="45" height="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="437.5" y="177" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">R2</text>
+  <text x="437.5" y="225" text-anchor="middle" font-size="12" fill="#6b7280">360 Ω (1W)</text>
+  <line x1="460" y1="200" x2="560" y2="200" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="560" cy="200" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Pin 4 wire goes to Gate Node A -->
+  <line x1="295" y1="345" x2="480" y2="345" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="480" y1="345" x2="480" y2="245" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="480" cy="245" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Node A to BTA16 Gate -->
+  <line x1="480" y1="245" x2="525" y2="245" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="525" y1="245" x2="545" y2="305" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Resistor R3 (Gate to MT1) -->
+  <rect x="470" y="290" width="20" height="40" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="460" y="305" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">R3</text>
+  <text x="460" y="322" text-anchor="end" font-size="12" fill="#6b7280">1 kΩ</text>
+  <line x1="480" y1="245" x2="480" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="480" y1="330" x2="480" y2="375" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="480" cy="375" r="3.5" fill="#1a1a1a"/>
+
+  <!-- BTA16 Triac Symbol -->
+  <line x1="560" y1="200" x2="560" y2="285" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="545,285 575,285 560,310" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="545,325 575,325 560,300" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="560" y1="325" x2="560" y2="375" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="560" cy="375" r="3.5" fill="#1a1a1a"/>
+
+  <!-- BTA16 Labels -->
+  <text x="585" y="295" font-size="13" font-weight="bold" fill="#1a1a1a">BTA16-600B</text>
+  <text x="585" y="313" font-size="12" fill="#6b7280">16 A / 600 V</text>
+  <text x="585" y="331" font-size="12" fill="#27ae60">Ізольований</text>
+
+  <!-- RC-Snubber Dashed Enclosure & Badge -->
+  <rect x="675" y="208" width="160" height="154" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3" rx="6"/>
+  <rect x="718" y="214" width="112" height="20" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="3"/>
+  <text x="774" y="228" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">RC-снабер (dV/dt)</text>
+
+  <!-- Snubber Components (Rs & Cs) -->
+  <line x1="560" y1="200" x2="700" y2="200" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="700" cy="200" r="3.5" fill="#1a1a1a"/>
+  <line x1="700" y1="200" x2="700" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Rs Resistor -->
+  <rect x="690" y="250" width="20" height="35" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="725" y="262" font-size="12" font-weight="bold" fill="#1a1a1a">Rs = 39 Ω</text>
+  <text x="725" y="278" font-size="12" fill="#6b7280">2 W (метал-оксид)</text>
+
+  <line x1="700" y1="285" x2="700" y2="315" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Cs Capacitor -->
+  <line x1="685" y1="315" x2="715" y2="315" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="685" y1="323" x2="715" y2="323" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="725" y="318" font-size="12" font-weight="bold" fill="#1a1a1a">Cs = 0.01 µF</text>
+  <text x="725" y="334" font-size="12" fill="#6b7280">630V (Class X2)</text>
+
+  <line x1="700" y1="323" x2="700" y2="375" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="700" cy="375" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Bottom AC Rail -->
+  <line x1="480" y1="375" x2="700" y2="375" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Load & Mains Connections -->
+  <line x1="700" y1="200" x2="835" y2="200" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="835" y="180" width="80" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="4"/>
+  <text x="875" y="195" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Навантаження</text>
+  <text x="875" y="212" text-anchor="middle" font-size="12" fill="#6b7280">(Лампа/Двигун)</text>
+
+  <!-- Mains Terminals L & N -->
+  <line x1="915" y1="200" x2="925" y2="200" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <circle cx="925" cy="200" r="4" fill="#c0392b"/>
+  <text x="890" y="168" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">L (~220 В)</text>
+
+  <line x1="700" y1="375" x2="925" y2="375" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="925" cy="375" r="4" fill="#2457d6"/>
+  <text x="890" y="400" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">N (Нейтраль)</text>
+
+  <!-- Bottom Informational Cards -->
+  <rect x="30" y="445" width="275" height="60" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="42" y="466" font-size="12" font-weight="bold" fill="#2457d6">1. Керування від MCU</text>
+  <text x="42" y="488" font-size="12" fill="#1a1a1a">Струм LED I_F ≈ 10...15 мА (R1=330 Ω)</text>
+
+  <rect x="320" y="445" width="300" height="60" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="332" y="466" font-size="12" font-weight="bold" fill="#2457d6">2. Оптична розв'язка &amp; Zero-Cross</text>
+  <text x="332" y="488" font-size="12" fill="#1a1a1a">Ізоляція 5 кВ, вмикання при V_AC ≈ 0 В</text>
+
+  <rect x="635" y="445" width="295" height="60" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="647" y="466" font-size="12" font-weight="bold" fill="#27ae60">3. RC-снабер придушує dV/dt</text>
+  <text x="647" y="488" font-size="12" fill="#1a1a1a">Захист від індуктивних сплесків напруги</text>
+</svg>

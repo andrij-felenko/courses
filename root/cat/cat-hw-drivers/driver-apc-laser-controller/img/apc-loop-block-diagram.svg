@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 510" width="960" height="510" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="510" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Структурна схема замкненого контуру автоматичного регулювання потужності (APC)</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Оптична потужність стабілізується через зворотний зв'язок моніторного фотодіода та TIA</text>
+
+  <!-- Legend -->
+  <rect x="40" y="83" width="14" height="14" rx="3" fill="#2457d6"/>
+  <text x="60" y="95" font-size="12" fill="#1a1a1a">Електричний сигнал (напруга / струм)</text>
+
+  <rect x="340" y="83" width="14" height="14" rx="3" fill="#c0392b"/>
+  <text x="360" y="95" font-size="12" fill="#1a1a1a">Оптичний сигнал (потужність P_opt)</text>
+
+  <rect x="650" y="83" width="14" height="14" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="670" y="95" font-size="12" fill="#1a1a1a">Передавальна функція блоку</text>
+
+  <!-- FORWARD PATH LINES AND ARROWS -->
+
+  <!-- Input V_ref to Summing Node -->
+  <line x1="30" y1="180" x2="76" y2="180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="53" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">V_ref</text>
+  <text x="53" y="200" text-anchor="middle" font-size="12" fill="#6b7280">(Вхід)</text>
+
+  <!-- Summing Node -->
+  <circle cx="100" cy="180" r="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="91" y="176" font-size="14" font-weight="bold" fill="#2457d6">+</text>
+  <text x="102" y="176" font-size="13" font-weight="bold" fill="#1a1a1a">Σ</text>
+  <text x="100" y="192" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">-</text>
+
+  <!-- Error Voltage V_e to Error Amp -->
+  <line x1="116" y1="180" x2="142" y2="180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="131" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">V_e</text>
+
+  <!-- Block 1: Error Amplifier -->
+  <rect x="150" y="145" width="150" height="70" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="225" y="166" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Підсилювач помилки</text>
+  <text x="225" y="186" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">A(s) = ΔV_c / ΔV_e</text>
+  <text x="225" y="204" text-anchor="middle" font-size="12" fill="#6b7280">(Контурний фільтр)</text>
+
+  <!-- Control Voltage V_c to Driver -->
+  <line x1="300" y1="180" x2="337" y2="180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="320" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">V_c</text>
+
+  <!-- Block 2: Driver (Transconductance) -->
+  <rect x="345" y="145" width="150" height="70" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="420" y="166" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Керуючий ключ</text>
+  <text x="420" y="186" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">G_m(s) = ΔI_LD / ΔV_c</text>
+  <text x="420" y="204" text-anchor="middle" font-size="12" fill="#6b7280">(Драйвер струму)</text>
+
+  <!-- Drive Current I_LD to Laser Diode -->
+  <line x1="495" y1="180" x2="532" y2="180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="515" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">I_LD</text>
+  <text x="515" y="200" text-anchor="middle" font-size="12" fill="#6b7280">(Струм)</text>
+
+  <!-- Block 3: Laser Diode (LD) -->
+  <rect x="540" y="145" width="150" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="615" y="166" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Лазерний діод (LD)</text>
+  <text x="615" y="186" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">K_LD = ΔP_opt / ΔI_LD</text>
+  <text x="615" y="204" text-anchor="middle" font-size="12" fill="#6b7280">(Крутизна ВАХ)</text>
+
+  <!-- OPTICAL OUTPUT AND FEEDBACK PATH -->
+
+  <!-- Optical Output Beam (Main) -->
+  <line x1="690" y1="180" x2="912" y2="180" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6,3" marker-end="url(#arr-red)"/>
+  <text x="805" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Оптичний вихід P_opt</text>
+
+  <!-- Optical Feedback Split & Path -->
+  <polyline points="730,180 730,310 698,310" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arr-red)"/>
+  <circle cx="730" cy="180" r="4" fill="#c0392b"/>
+  <text x="742" y="240" font-size="12" font-weight="bold" fill="#c0392b">Оптичний ЗЗ (P_opt)</text>
+
+  <!-- Block 4: Monitor Photodiode (MPD) -->
+  <rect x="540" y="275" width="150" height="70" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="615" y="296" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Моніторний фотодіод</text>
+  <text x="615" y="316" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">R_PD = ΔI_PD / ΔP_opt</text>
+  <text x="615" y="334" text-anchor="middle" font-size="12" fill="#6b7280">(Чутливість, А/Вт)</text>
+
+  <!-- Photocurrent I_PD to TIA -->
+  <line x1="540" y1="310" x2="503" y2="310" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="520" y="295" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">I_PD</text>
+  <text x="520" y="330" text-anchor="middle" font-size="12" fill="#6b7280">(PD)</text>
+
+  <!-- Block 5: Transimpedance Amplifier (TIA) -->
+  <rect x="345" y="275" width="150" height="70" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="420" y="296" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Підсилювач TIA</text>
+  <text x="420" y="316" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Z_TIA = ΔV_fb / ΔI_PD</text>
+  <text x="420" y="334" text-anchor="middle" font-size="12" fill="#6b7280">(Трансімпеданс, В/А)</text>
+
+  <!-- Feedback Voltage V_fb back to Summing Node -->
+  <polyline points="345,310 100,310 100,204" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="225" y="295" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">V_fb</text>
+  <text x="225" y="330" text-anchor="middle" font-size="12" fill="#6b7280">Напруга зворотного зв'язку</text>
+  <text x="88" y="250" text-anchor="end" font-size="12" fill="#2457d6">-V_fb</text>
+
+  <!-- MATHEMATICAL MODEL SUMMARY PANEL -->
+  <rect x="40" y="375" width="880" height="110" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <text x="60" y="395" font-size="13" font-weight="bold" fill="#2457d6">Математична модель замкненого контуру APC:</text>
+
+  <text x="60" y="420" font-size="12" fill="#1a1a1a">Передавальна функція:</text>
+  <text x="210" y="420" font-size="12" font-weight="bold" fill="#2457d6">T(s) = P_opt / V_ref = [ A(s) · G_m(s) · K_LD ] / [ 1 + T_loop(s) ]</text>
+
+  <text x="60" y="445" font-size="12" fill="#1a1a1a">Підсилення контуру:</text>
+  <text x="210" y="445" font-size="12" font-weight="bold" fill="#2457d6">T_loop(s) = A(s) · G_m(s) · K_LD · R_PD · Z_TIA(s)</text>
+
+  <text x="60" y="470" font-size="12" fill="#6b7280">Умова глибокого ЗЗ (|T_loop| &gt;&gt; 1):</text>
+  <text x="300" y="470" font-size="12" font-weight="bold" fill="#27ae60">P_opt ≈ V_ref / ( R_PD · Z_TIA )</text>
+  <text x="530" y="470" font-size="12" font-weight="bold" fill="#27ae60">⇒ Потужність не залежить від нестабільності K_LD</text>
+
+</svg>

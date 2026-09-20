@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Призначення виводів та внутрішня ізоляція BTA16-600B (TO-220AB)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Керамічна підкладка Al₂O₃ забезпечує гальванічну ізоляцію фланця (2500 V RMS) від силових виводів A1, A2 і G</text>
+
+  <!-- ПАНЕЛЬ 1: Фізичний вигляд та розпіновка -->
+  <rect x="30" y="85" width="285" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="172.5" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зовнішній вигляд і цокольовка</text>
+  <text x="172.5" y="130" font-size="12" fill="#6b7280" text-anchor="middle">Корпус TO-220AB (вигляд спереду)</text>
+
+  <!-- Металевий фланець корпусу TO-220AB -->
+  <path d="M 75 160 Q 75 150 85 150 L 155 150 Q 165 150 165 160 L 165 190 L 75 190 Z" fill="#d1d5db" stroke="#4b5563" stroke-width="1.5"/>
+  <circle cx="120" cy="170" r="10" fill="#f4f6f8" stroke="#4b5563" stroke-width="1.5"/>
+
+  <!-- Пластиковий корпус TO-220AB -->
+  <rect x="70" y="190" width="100" height="85" rx="4" fill="#374151" stroke="#1f2937" stroke-width="1.5"/>
+  <circle cx="85" cy="203" r="3.5" fill="#1f2937"/>
+  <text x="120" y="222" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">BTA16-600B</text>
+  <text x="120" y="239" font-size="12" fill="#9ca3af" text-anchor="middle">600V 16A</text>
+  <text x="120" y="256" font-size="12" fill="#9ca3af" text-anchor="middle">Isolated Tab</text>
+
+  <!-- Ніжки (Виводи) -->
+  <rect x="81" y="275" width="8" height="70" fill="#d1d5db" stroke="#4b5563" stroke-width="1"/>
+  <rect x="116" y="275" width="8" height="70" fill="#d1d5db" stroke="#4b5563" stroke-width="1"/>
+  <rect x="151" y="275" width="8" height="70" fill="#d1d5db" stroke="#4b5563" stroke-width="1"/>
+
+  <!-- Номери ніжок -->
+  <text x="85" y="360" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+  <text x="120" y="360" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2</text>
+  <text x="155" y="360" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">3</text>
+
+  <!-- Схемний символ TRIAC (праворуч від корпуса) -->
+  <text x="240" y="148" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">A2</text>
+  <line x1="240" y1="155" x2="240" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Діод 1 (вгору) -->
+  <polygon points="230,242 250,242 240,225" fill="#1a1a1a"/>
+  <line x1="230" y1="225" x2="250" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Діод 2 (вниз) -->
+  <polygon points="230,233 250,233 240,250" fill="#1a1a1a"/>
+  <line x1="230" y1="250" x2="250" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="240" y1="250" x2="240" y2="325" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="240" y="340" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">A1</text>
+  <!-- Вивід G -->
+  <line x1="240" y1="247" x2="265" y2="272" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="265" y1="272" x2="275" y2="272" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="278" y="276" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">G</text>
+
+  <!-- Табличка розпіновки -->
+  <rect x="42" y="375" width="261" height="115" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Pin 1 -->
+  <rect x="52" y="385" width="46" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="75" y="399" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Pin 1</text>
+  <text x="108" y="399" font-size="12" font-weight="bold" fill="#1a1a1a">A1</text>
+  <text x="132" y="399" font-size="12" fill="#6b7280">(Main Terminal 1)</text>
+  <!-- Pin 2 -->
+  <rect x="52" y="417" width="46" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="75" y="431" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Pin 2</text>
+  <text x="108" y="431" font-size="12" font-weight="bold" fill="#1a1a1a">A2</text>
+  <text x="132" y="431" font-size="12" fill="#6b7280">(Main Terminal 2)</text>
+  <!-- Pin 3 -->
+  <rect x="52" y="449" width="46" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="75" y="463" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Pin 3</text>
+  <text x="108" y="463" font-size="12" font-weight="bold" fill="#2457d6">G</text>
+  <text x="132" y="463" font-size="12" fill="#6b7280">(Gate / Керуючий)</text>
+
+
+  <!-- ПАНЕЛЬ 2: Структура гальванічної ізоляції -->
+  <rect x="335" y="85" width="310" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="490" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня структура та ізоляція</text>
+  <text x="490" y="130" font-size="12" fill="#6b7280" text-anchor="middle">Поперечний розріз ізольованого TO-220AB</text>
+
+  <!-- Контур корпусного пластику (Epoxy molding) -->
+  <rect x="350" y="142" width="280" height="158" rx="6" fill="#f8fafc" stroke="#9ca3af" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <text x="360" y="158" font-size="12" fill="#6b7280" text-anchor="start">Корпус TO-220AB (Epoxy)</text>
+
+  <!-- Шар 1: Кристал симістора -->
+  <rect x="440" y="166" width="100" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="490" y="181" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Кристал (Silicon)</text>
+
+  <!-- Дротяні з'єднання (Wire bonds) -->
+  <path d="M 440 177 C 420 165 390 168 375 195" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="375" cy="195" r="3" fill="#2457d6"/>
+  <path d="M 540 177 C 560 165 590 168 605 195" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="605" cy="195" r="3" fill="#2457d6"/>
+
+  <!-- Шар 2: Внутрішній мідний контактний шар -->
+  <rect x="410" y="200" width="160" height="22" rx="2" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="490" y="215" font-size="12" font-weight="bold" fill="#b45309" text-anchor="middle">Мідний контактний шар</text>
+
+  <!-- Шар 3: КЕРАМІЧНА ПІДКЛАДКА Al₂O₃ (Ключова акцентована прокладка) -->
+  <rect x="380" y="234" width="220" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="490" y="249" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Керамічний ізолятор Al₂O₃</text>
+
+  <!-- Шар 4: Металевий фланець (Heat Sink Tab) -->
+  <rect x="365" y="268" width="250" height="22" rx="3" fill="#e5e7eb" stroke="#4b5563" stroke-width="1.5"/>
+  <circle cx="380" cy="279" r="5" fill="#f4f6f8" stroke="#4b5563" stroke-width="1.2"/>
+  <text x="495" y="283" font-size="12" font-weight="bold" fill="#374151" text-anchor="middle">Металевий фланець (Tab)</text>
+
+  <!-- Пояснення нейтральності фланця -->
+  <rect x="360" y="312" width="260" height="44" rx="5" fill="#ffffff" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1.2"/>
+  <text x="490" y="328" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Фланець електрично нейтральний</text>
+  <text x="490" y="346" font-size="12" fill="#6b7280" text-anchor="middle">Не має електричного контакту з A1, A2, G</text>
+
+  <!-- Переваги керамічної ізоляції -->
+  <rect x="350" y="368" width="280" height="122" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="490" y="386" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Переваги ізоляції Al₂O₃</text>
+  <text x="362" y="404" font-size="12" fill="#1a1a1a">• Ізоляція напругою: V_iso = 2500 V RMS</text>
+  <text x="362" y="422" font-size="12" fill="#1a1a1a">• Монтаж без слюдяних прокладок</text>
+  <text x="362" y="440" font-size="12" fill="#1a1a1a">• Низький термічний опір радіатора</text>
+  <text x="362" y="458" font-size="12" fill="#1a1a1a">• Безпека контакту з кулером</text>
+  <text x="362" y="476" font-size="12" font-weight="bold" fill="#27ae60">• Спільний радіатор для кількох ключів</text>
+
+
+  <!-- ПАНЕЛЬ 3: Порівняння BTA vs BTB та ключові параметри -->
+  <rect x="665" y="85" width="265" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="797.5" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння та параметри</text>
+  <text x="797.5" y="130" font-size="12" fill="#6b7280" text-anchor="middle">BTA (Isolated) vs BTB (Non-iso)</text>
+
+  <!-- Блок BTA (Ізольований) -->
+  <rect x="680" y="145" width="235" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="692" y="165" font-size="12" font-weight="bold" fill="#27ae60">BTA16 (серія A = Isolated)</text>
+  <text x="692" y="183" font-size="12" fill="#1a1a1a">• Внутрішня керамічна ізоляція</text>
+  <text x="692" y="199" font-size="12" fill="#1a1a1a">• Фланець ізольований від A2</text>
+
+  <!-- Блок BTB (НЕізольований) -->
+  <rect x="680" y="223" width="235" height="65" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="692" y="243" font-size="12" font-weight="bold" fill="#c0392b">BTB16 (серія B = Non-isolated)</text>
+  <text x="692" y="261" font-size="12" fill="#1a1a1a">• Фланець з'єднаний з A2!</text>
+  <text x="692" y="277" font-size="12" fill="#1a1a1a">• Вимагає ізоляційної шайби</text>
+
+  <!-- Блок паспортних параметрів BTA16-600B -->
+  <rect x="680" y="303" width="235" height="185" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="797.5" y="323" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Паспортні параметри</text>
+  <line x1="695" y1="331" x2="900" y2="331" stroke="#e5e7eb" stroke-width="1"/>
+
+  <text x="695" y="350" font-size="12" font-weight="bold" fill="#2457d6">V_DRM / V_RRM:</text>
+  <text x="815" y="350" font-size="12" fill="#1a1a1a">600 В</text>
+
+  <text x="695" y="372" font-size="12" font-weight="bold" fill="#2457d6">I_T(RMS):</text>
+  <text x="815" y="372" font-size="12" fill="#1a1a1a">16 А</text>
+
+  <text x="695" y="394" font-size="12" font-weight="bold" fill="#2457d6">I_GT (I-III):</text>
+  <text x="815" y="394" font-size="12" fill="#1a1a1a">50 мА</text>
+
+  <text x="695" y="416" font-size="12" font-weight="bold" fill="#2457d6">I_H (тримання):</text>
+  <text x="815" y="416" font-size="12" fill="#1a1a1a">50 мА</text>
+
+  <text x="695" y="438" font-size="12" font-weight="bold" fill="#2457d6">V_iso (ізоляція):</text>
+  <text x="815" y="438" font-size="12" font-weight="bold" fill="#27ae60">2500 V RMS</text>
+
+  <text x="695" y="460" font-size="12" font-weight="bold" fill="#2457d6">Корпус:</text>
+  <text x="815" y="460" font-size="12" fill="#1a1a1a">TO-220AB</text>
+</svg>

@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Підключення силового навантаження та гальванічна ізоляція ESP-01S Relay</text>
+  <text x="480" y="62" text-anchor="middle" font-size="13" fill="#6b7280">Ізоляційний проріз розділяє низьковольтну цифрову схему (GPIO0) та силові клеми ~230 В</text>
+
+  <!-- Panel 1: ESP-01S Relay Module PCB -->
+  <rect x="40" y="85" width="540" height="415" rx="12" ry="12" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="60" y="110" font-size="14" font-weight="bold" fill="#1a1a1a">Плата розширення реле (ESP-01S Relay Module)</text>
+
+  <!-- Sub-zone 1.1: Digital Low-Voltage Zone -->
+  <rect x="55" y="125" width="250" height="360" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="70" y="148" font-size="13" font-weight="bold" fill="#2457d6">Цифрова зона (3.3 В / 5 В DC)</text>
+
+  <!-- Block A: Power Input -->
+  <rect x="70" y="160" width="220" height="55" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="180" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Вхід живлення: +5V / GND</text>
+  <text x="180" y="198" text-anchor="middle" font-size="11" fill="#6b7280">Стабілізатор 3.3 В на платі</text>
+
+  <!-- Block B: ESP-01S Module -->
+  <rect x="70" y="230" width="220" height="95" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="180" y="252" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Модуль ESP-01S (ESP8266)</text>
+  <text x="180" y="272" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Сигнал керування: GPIO0</text>
+  <text x="180" y="291" text-anchor="middle" font-size="11" fill="#6b7280">HIGH при старті (BOOT mode)</text>
+  <text x="180" y="309" text-anchor="middle" font-size="11" fill="#c0392b">LOW = увімкнення реле</text>
+
+  <!-- Signal Arrow B -> C -->
+  <line x1="180" y1="325" x2="180" y2="340" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Block C: Transistor Driver Key -->
+  <rect x="70" y="340" width="220" height="55" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="180" y="360" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Керувальний ключ (Q1 / U1)</text>
+  <text x="180" y="380" text-anchor="middle" font-size="11" fill="#6b7280">+ Захисний діод VD1 (flyback)</text>
+
+  <!-- Control Arrow C -> D -->
+  <line x1="180" y1="395" x2="180" y2="410" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+
+  <!-- Block D: Relay Coil -->
+  <rect x="70" y="410" width="220" height="60" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="180" y="432" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Котушка реле (5V DC)</text>
+  <text x="180" y="452" text-anchor="middle" font-size="11" fill="#6b7280">Споживання: ~70 мА</text>
+
+  <!-- Sub-zone 1.2: PCB Isolation Cutout / Air Gap Slot -->
+  <text x="337.5" y="134" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Ізоляційний проріз</text>
+  <rect x="325" y="145" width="25" height="340" rx="12" fill="#fdecea" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="337.5" y="270" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">ПРОРІЗ</text>
+  <text x="337.5" y="340" text-anchor="middle" font-size="10" fill="#c0392b">ПО ПЛАТІ</text>
+  <text x="337.5" y="355" text-anchor="middle" font-size="10" fill="#6b7280">(Air Gap)</text>
+
+  <!-- Mechanical Coupling Arrow across Isolation Slot -->
+  <text x="337.5" y="428" text-anchor="middle" font-size="10" fill="#6b7280">Механічний зв'язок</text>
+  <line x1="290" y1="440" x2="370" y2="440" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+
+  <!-- Sub-zone 1.3: High-Voltage Power Zone -->
+  <rect x="370" y="125" width="195" height="360" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="380" y="168" font-size="13" font-weight="bold" fill="#c0392b">Силова зона (~230 В AC)</text>
+
+  <!-- Contact NO Info -->
+  <text x="380" y="230" font-size="12" font-weight="bold" fill="#1a1a1a">NO</text>
+  <text x="380" y="245" font-size="11" fill="#6b7280">Норм. розімкн.</text>
+
+  <!-- Contact COM Info -->
+  <text x="380" y="315" font-size="12" font-weight="bold" fill="#1a1a1a">COM</text>
+  <text x="380" y="330" font-size="11" fill="#6b7280">Спільний конт.</text>
+
+  <!-- Contact NC Info -->
+  <text x="380" y="400" font-size="12" font-weight="bold" fill="#1a1a1a">NC</text>
+  <text x="380" y="415" font-size="11" fill="#6b7280">Норм. замкнений</text>
+
+  <!-- Screw Terminal Block -->
+  <rect x="485" y="180" width="65" height="290" rx="6" fill="#27ae60" stroke="#1e8449" stroke-width="2"/>
+  <text x="517.5" y="200" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">КЛЕМНИК</text>
+
+  <!-- Terminal NO -->
+  <circle cx="517.5" cy="235" r="14" fill="#ffffff" stroke="#1e8449" stroke-width="2"/>
+  <line x1="508" y1="235" x2="527" y2="235" stroke="#1e8449" stroke-width="2"/>
+  <text x="517.5" y="262" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">NO</text>
+
+  <!-- Terminal COM -->
+  <circle cx="517.5" cy="320" r="14" fill="#ffffff" stroke="#1e8449" stroke-width="2"/>
+  <line x1="508" y1="320" x2="527" y2="320" stroke="#1e8449" stroke-width="2"/>
+  <text x="517.5" y="347" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">COM</text>
+
+  <!-- Terminal NC -->
+  <circle cx="517.5" cy="405" r="14" fill="#ffffff" stroke="#1e8449" stroke-width="2"/>
+  <line x1="508" y1="405" x2="527" y2="405" stroke="#1e8449" stroke-width="2"/>
+  <text x="517.5" y="432" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">NC</text>
+
+  <!-- Panel 2: External AC Load Circuit -->
+  <rect x="605" y="85" width="315" height="415" rx="12" ry="12" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="625" y="110" font-size="14" font-weight="bold" fill="#1a1a1a">Зовнішнє силове коло (~230 В)</text>
+
+  <!-- Block E: AC Power Source Grid -->
+  <rect x="625" y="135" width="275" height="80" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="762.5" y="158" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Джерело живлення ~230 В (Мережа AC)</text>
+  <text x="670" y="195" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Фаза (L)</text>
+  <text x="855" y="195" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Нуль (N)</text>
+  <circle cx="670" cy="215" r="4" fill="#c0392b"/>
+  <circle cx="855" cy="215" r="4" fill="#2457d6"/>
+
+  <!-- Block F: AC Load -->
+  <rect x="665" y="345" width="195" height="75" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="762.5" y="368" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Силове навантаження</text>
+  <text x="762.5" y="388" text-anchor="middle" font-size="12" fill="#1a1a1a">(Освітлення / Насос / ТЕН)</text>
+  <text x="762.5" y="406" text-anchor="middle" font-size="11" fill="#6b7280">Макс. 10 A / 250 V AC</text>
+  <circle cx="700" cy="345" r="4" fill="#27ae60"/>
+  <circle cx="825" cy="345" r="4" fill="#2457d6"/>
+
+  <!-- Block G: Safety Rule Box -->
+  <rect x="625" y="435" width="275" height="50" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="762.5" y="454" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Гальванічна розв'язка:</text>
+  <text x="762.5" y="472" text-anchor="middle" font-size="11" fill="#c0392b">Фаза L розмикається контактами COM-NO</text>
+
+  <!-- Wires & Wiring Labels -->
+
+  <!-- Wire 1: Phase L from Grid to COM Terminal -->
+  <text x="580" y="308" font-size="11" font-weight="bold" fill="#c0392b">Фаза L (до COM)</text>
+  <path d="M 670,215 L 670,320 L 550,320" fill="none" stroke="#c0392b" stroke-width="3"/>
+
+  <!-- Wire 2: Switched Phase from NO Terminal to Load -->
+  <text x="565" y="223" font-size="11" font-weight="bold" fill="#27ae60">Комутована фаза (від NO)</text>
+  <path d="M 550,235 L 700,235 L 700,345" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Wire 3: Neutral N direct from Grid to Load -->
+  <text x="844" y="265" text-anchor="end" font-size="11" font-weight="bold" fill="#2457d6">Прямий Нуль N</text>
+  <path d="M 855,215 L 855,280 L 825,280 L 825,345" fill="none" stroke="#2457d6" stroke-width="3"/>
+</svg>

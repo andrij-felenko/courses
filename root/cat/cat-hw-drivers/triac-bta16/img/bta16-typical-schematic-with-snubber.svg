@@ -1,0 +1,181 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Типова схема підключення симістора BTA16-600B</text>
+  <text x="480" y="62" text-anchor="middle" font-size="13" fill="#6b7280">Керування від МК через оптосимістор MOC3063 та RC-снаберний захист паралельно анодам A1–A2</text>
+
+  <!-- Panels -->
+  <!-- Low Voltage Domain -->
+  <rect x="30" y="80" width="200" height="350" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="130" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Керування (МК / DC)</text>
+
+  <!-- Isolation Line -->
+  <line x1="340" y1="80" x2="340" y2="88" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="340" y="105" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Гальванічна розв'язка</text>
+  <line x1="340" y1="114" x2="340" y2="430" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+  <!-- High Voltage Domain -->
+  <rect x="450" y="80" width="480" height="350" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="690" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Силова частина (~230 В / 50 Гц)</text>
+
+  <!-- MCU Output Block -->
+  <rect x="45" y="195" width="80" height="40" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="85" y="219" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">МК (GPIO)</text>
+  <text x="85" y="255" text-anchor="middle" font-size="12" fill="#6b7280">+5V / +3.3V</text>
+
+  <!-- R_in Resistor -->
+  <rect x="145" y="205" width="45" height="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="167" y="193" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">R_in</text>
+  <text x="167" y="242" text-anchor="middle" font-size="12" fill="#6b7280">220 Ω</text>
+
+  <!-- Input Wires -->
+  <line x1="125" y1="215" x2="145" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="190" y1="215" x2="240" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- GND Wire & Symbol -->
+  <line x1="240" y1="315" x2="85" y2="315" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="85" y1="315" x2="85" y2="345" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="70" y1="345" x2="100" y2="345" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="75" y1="350" x2="95" y2="350" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="80" y1="355" x2="90" y2="355" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="85" y="373" text-anchor="middle" font-size="12" fill="#1a1a1a">GND</text>
+
+  <!-- MOC3063 Package Box -->
+  <rect x="240" y="125" width="190" height="275" fill="#ffffff" stroke="#2457d6" stroke-width="2" rx="8"/>
+  <text x="335" y="148" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">MOC3063</text>
+  <text x="335" y="166" text-anchor="middle" font-size="12" fill="#6b7280">(Оптосимістор)</text>
+
+  <!-- MOC3063 Pins & Labels -->
+  <text x="250" y="206" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">1</text>
+  <text x="250" y="306" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">2</text>
+  <text x="420" y="206" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">6</text>
+  <text x="420" y="306" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">4</text>
+
+  <!-- MOC3063 Internal Elements -->
+  <!-- LED -->
+  <polyline points="240,215 270,215 270,245" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <polygon points="260,245 280,245 270,265" fill="#2457d6" stroke="#2457d6"/>
+  <line x1="260" y1="265" x2="280" y2="265" stroke="#2457d6" stroke-width="2"/>
+  <polyline points="270,265 270,315 240,315" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Optical Arrows -->
+  <line x1="285" y1="250" x2="302" y2="260" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="285" y1="260" x2="302" y2="270" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Zero Cross Block -->
+  <rect x="310" y="235" width="50" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="335" y="254" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Zero</text>
+  <text x="335" y="272" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Cross</text>
+
+  <!-- Internal Triac Switch -->
+  <polyline points="430,215 385,215 385,245" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <polygon points="377,245 393,245 385,260" fill="#2457d6" stroke="#2457d6"/>
+  <polygon points="377,275 393,275 385,260" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <line x1="377" y1="260" x2="393" y2="260" stroke="#2457d6" stroke-width="1.5"/>
+  <polyline points="385,275 385,315 430,315" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="360" y1="260" x2="377" y2="260" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- High Voltage Wires and Terminals -->
+  <!-- Terminal L -->
+  <circle cx="475" cy="160" r="5" fill="#c0392b"/>
+  <text x="470" y="140" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">L (~230 В)</text>
+  <line x1="475" y1="160" x2="515" y2="160" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Load -->
+  <text x="560" y="136" text-anchor="middle" font-size="12" fill="#6b7280">(Load)</text>
+  <rect x="515" y="145" width="90" height="30" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="4"/>
+  <text x="560" y="164" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Навантаження</text>
+  <line x1="605" y1="160" x2="670" y2="160" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- R1 Resistor and Pin 6 Connection -->
+  <line x1="430" y1="215" x2="470" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="470" y="205" width="45" height="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="492" y="193" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">R1</text>
+  <text x="492" y="242" text-anchor="middle" font-size="12" fill="#6b7280">360 Ω</text>
+  <line x1="515" y1="215" x2="670" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="670" cy="215" r="3" fill="#1a1a1a"/>
+
+  <!-- Main Terminal A2 Node -->
+  <circle cx="670" cy="160" r="3" fill="#1a1a1a"/>
+
+  <!-- Pin 4 to Gate Wire -->
+  <line x1="430" y1="315" x2="625" y2="315" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- R2 Resistor (Gate to A1/N) -->
+  <polyline points="590,315 590,335" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="590" cy="315" r="3" fill="#1a1a1a"/>
+  <rect x="580" y="335" width="20" height="40" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="572" y="352" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">R2</text>
+  <text x="572" y="368" text-anchor="end" font-size="12" fill="#6b7280">1 kΩ</text>
+  <line x1="590" y1="375" x2="590" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="590" cy="400" r="3" fill="#1a1a1a"/>
+
+  <!-- TRIAC BTA16-600B -->
+  <line x1="670" y1="160" x2="670" y2="240" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Triac Diodes Symbol -->
+  <polygon points="655,240 685,240 670,270" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="655,300 685,300 670,270" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="655" y1="270" x2="685" y2="270" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Gate Lead -->
+  <polyline points="655,285 635,285 625,315" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <line x1="670" y1="300" x2="670" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="670" cy="400" r="3" fill="#1a1a1a"/>
+
+  <!-- BTA16 Labels -->
+  <text x="685" y="185" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">A2</text>
+  <text x="685" y="365" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">A1</text>
+  <text x="615" y="300" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">G</text>
+
+  <text x="698" y="248" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">BTA16-600B</text>
+  <text x="698" y="266" text-anchor="start" font-size="12" fill="#6b7280">16 A / 600 V</text>
+  <text x="698" y="284" text-anchor="start" font-size="12" fill="#6b7280">TO-220AB</text>
+  <text x="698" y="302" text-anchor="start" font-size="12" fill="#6b7280">(ізольований)</text>
+
+  <!-- RC Snubber Circuit Box & Components -->
+  <rect x="805" y="115" width="120" height="305" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="5,4" rx="6"/>
+  <text x="865" y="133" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">RC-снабер</text>
+  <text x="865" y="148" text-anchor="middle" font-size="12" fill="#6b7280">(dv/dt захист)</text>
+
+  <!-- Snubber Top Connection to A2 -->
+  <line x1="670" y1="160" x2="840" y2="160" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="840" y1="160" x2="840" y2="185" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Snubber Resistor R_s -->
+  <rect x="830" y="185" width="20" height="40" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="858" y="198" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">R_s</text>
+  <text x="858" y="214" text-anchor="start" font-size="12" fill="#6b7280">39 Ω</text>
+  <text x="858" y="230" text-anchor="start" font-size="12" fill="#6b7280">(2 W)</text>
+
+  <line x1="840" y1="225" x2="840" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Snubber Capacitor C_s -->
+  <line x1="825" y1="265" x2="855" y2="265" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="825" y1="275" x2="855" y2="275" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="862" y="268" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">C_s</text>
+  <text x="862" y="284" text-anchor="start" font-size="12" fill="#6b7280">10 nF</text>
+  <text x="862" y="300" text-anchor="start" font-size="12" fill="#6b7280">630 V</text>
+
+  <!-- Snubber Bottom Connection to N -->
+  <line x1="840" y1="275" x2="840" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Neutral Line (N) -->
+  <circle cx="475" cy="400" r="5" fill="#2457d6"/>
+  <text x="470" y="422" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">N (Нуль)</text>
+  <line x1="475" y1="400" x2="840" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="840" cy="400" r="3" fill="#1a1a1a"/>
+</svg>

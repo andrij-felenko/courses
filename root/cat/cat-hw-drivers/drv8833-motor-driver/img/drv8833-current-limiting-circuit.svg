@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="530" fill="#ffffff"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема обмеження струму (Chopping) в драйвері DRV8833</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Вимірювання струму на шунті R_ISEN та апаратне відсікання при досягненні V_TRIP = 200 мВ</text>
+
+  <!-- ЛІВА ЧАСТИНА: Корпус DRV8833 (Внутрішня схема та шунт) -->
+  <rect x="40" y="85" width="570" height="425" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Назва корпусу -->
+  <rect x="55" y="95" width="220" height="25" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="165" y="112" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Корпус DRV8833 (Канал A)</text>
+
+  <!-- Зворотний зв'язок на вимикання ключів H-моста -->
+  <line x1="600" y1="260" x2="607" y2="260" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="607" y1="260" x2="607" y2="145" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="607" y1="145" x2="310" y2="145" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="458" y="133" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Сигнал відсікання / вимкнення ключів</text>
+
+  <!-- Шина живлення VM -->
+  <text x="195" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">V_M (2.7 ... 10.8 В)</text>
+  <line x1="80" y1="155" x2="310" y2="155" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="115" y1="155" x2="115" y2="170" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="275" y1="155" x2="275" y2="170" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Транзистори H-моста -->
+  <!-- HS1 (Активний) -->
+  <rect x="80" y="170" width="70" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="115" y="188" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">HS1</text>
+  <text x="115" y="206" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">УВІМК</text>
+
+  <!-- HS2 (Неактивний) -->
+  <rect x="240" y="170" width="70" height="48" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="275" y="188" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">HS2</text>
+  <text x="275" y="206" text-anchor="middle" font-size="12" fill="#6b7280">ВИМК</text>
+
+  <!-- LS1 (Неактивний) -->
+  <rect x="80" y="282" width="70" height="48" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="115" y="300" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">LS1</text>
+  <text x="115" y="318" text-anchor="middle" font-size="12" fill="#6b7280">ВИМК</text>
+
+  <!-- LS2 (Активний) -->
+  <rect x="240" y="282" width="70" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="275" y="300" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">LS2</text>
+  <text x="275" y="318" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">УВІМК</text>
+
+  <!-- З'єднання H-моста та Двигун -->
+  <!-- Лінія від HS1 до вузла AOUT1 -->
+  <line x1="115" y1="218" x2="115" y2="250" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="115" y1="250" x2="115" y2="282" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Вузол AOUT1 та провід до двигуна -->
+  <circle cx="115" cy="250" r="3.5" fill="#2457d6"/>
+  <line x1="115" y1="250" x2="163" y2="250" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-accent)"/>
+  <text x="139" y="242" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">I_MOTOR</text>
+
+  <!-- Смислове зображення Двигуна -->
+  <text x="195" y="218" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Двигун</text>
+  <circle cx="195" cy="250" r="22" fill="#ffffff" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="195" y="255" text-anchor="middle" font-size="15" font-weight="bold" fill="#2457d6">M</text>
+
+  <!-- Вузол AOUT2 та провід від двигуна до LS2 -->
+  <line x1="217" y1="250" x2="275" y2="250" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-accent)"/>
+  <circle cx="275" cy="250" r="3.5" fill="#2457d6"/>
+  <line x1="275" y1="218" x2="275" y2="250" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="275" y1="250" x2="275" y2="282" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Нижня спільна шина LS транзисторів -->
+  <line x1="115" y1="330" x2="115" y2="365" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="275" y1="330" x2="275" y2="365" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="115" y1="365" x2="275" y2="365" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Точка зняття сигналу струму на AISEN -->
+  <circle cx="195" cy="365" r="3.5" fill="#2457d6"/>
+  <line x1="195" y1="365" x2="195" y2="415" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Пін AISEN на межі IC -->
+  <rect x="170" y="415" width="50" height="20" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="195" y="429" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">AISEN</text>
+  <text x="228" y="429" text-anchor="start" font-size="12" font-weight="bold" fill="#6b7280">Пін виводу шунта</text>
+
+  <!-- Зовнішній резистор-шунт R_ISEN -->
+  <line x1="195" y1="435" x2="195" y2="445" stroke="#2457d6" stroke-width="2.5"/>
+  <rect x="175" y="445" width="40" height="30" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <path d="M195,445 L195,450 L187,454 L203,460 L187,466 L203,471 L195,475 L195,480" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="165" y="457" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">R_ISEN</text>
+  <text x="165" y="473" text-anchor="end" font-size="12" fill="#6b7280">(Шунт струму)</text>
+
+  <!-- Заземлення GND -->
+  <line x1="195" y1="475" x2="195" y2="488" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="179" y1="488" x2="211" y2="488" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="184" y1="492" x2="206" y2="492" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="189" y1="496" x2="201" y2="496" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="218" y="493" text-anchor="start" font-size="12" font-weight="bold" fill="#6b7280">GND</text>
+
+  <!-- ВНУТРІШНЯ СХЕМА ВИМІРЮВАННЯ ТА СУМІШНИЙ КОМПАРАТОР -->
+  <!-- Лінія вимірювання напруги V_ISEN -->
+  <line x1="195" y1="365" x2="405" y2="365" stroke="#2457d6" stroke-width="2"/>
+  <text x="335" y="352" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">V_ISEN</text>
+  <text x="335" y="382" text-anchor="middle" font-size="12" fill="#6b7280">= I_MOTOR · R_ISEN</text>
+  <line x1="405" y1="365" x2="405" y2="325" stroke="#2457d6" stroke-width="2"/>
+  <line x1="405" y1="325" x2="425" y2="325" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Внутрішнє джерело опорної напруги V_TRIP -->
+  <rect x="320" y="190" width="130" height="48" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="385" y="210" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">V_TRIP = 200 мВ</text>
+  <text x="385" y="228" text-anchor="middle" font-size="12" fill="#6b7280">(Опорна напруга)</text>
+  <line x1="385" y1="238" x2="385" y2="275" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="385" y1="275" x2="425" y2="275" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Компаратор -->
+  <text x="445" y="248" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Компаратор</text>
+  <polygon points="425,260 425,340 475,300" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="433" y="282" font-size="13" font-weight="bold" fill="#1a1a1a">–</text>
+  <text x="433" y="328" font-size="13" font-weight="bold" fill="#2457d6">+</text>
+
+  <!-- Сигнал з компаратора на логіку відсікання -->
+  <line x1="475" y1="300" x2="500" y2="300" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="550" y="248" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">V_ISEN ≥ V_TRIP</text>
+
+  <!-- Блок логіки Chopping (t_OFF) -->
+  <rect x="500" y="260" width="100" height="80" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="550" y="285" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Логіка Chopping</text>
+  <text x="550" y="310" text-anchor="middle" font-size="12" fill="#c0392b">(таймер t_OFF)</text>
+
+  <!-- ПРАВА ЧАСТИНА: ПАНЕЛІ ФОРМУЛ ТА АЛГОРИТМУ -->
+  <!-- Верхня панель: Розрахунок порогу -->
+  <rect x="640" y="85" width="280" height="225" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="780" y="108" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Поріг обмеження струму</text>
+
+  <rect x="655" y="120" width="250" height="40" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="780" y="145" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">I_CHOP = V_TRIP / R_ISEN</text>
+
+  <text x="665" y="178" font-size="12" fill="#1a1a1a">V_TRIP = 200 мВ (внутрішній поріг)</text>
+  <text x="665" y="196" font-size="12" fill="#1a1a1a">R_ISEN — опір зовнішнього шунта</text>
+
+  <rect x="655" y="210" width="250" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="665" y="228" font-size="12" font-weight="bold" fill="#6b7280">Приклад розрахунку:</text>
+  <text x="665" y="246" font-size="12" fill="#1a1a1a">Для R_ISEN = 0.2 Ом:</text>
+  <text x="665" y="266" font-size="13" font-weight="bold" fill="#27ae60">I_CHOP = 0.2 В / 0.2 Ом = 1.0 А</text>
+  <text x="665" y="284" font-size="12" fill="#6b7280">Двигун обмежений струмом 1 А</text>
+
+  <!-- Нижня панель: Алгоритм Chopping -->
+  <rect x="640" y="325" width="280" height="185" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="780" y="348" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Алгоритм відсікання (Chopping)</text>
+
+  <text x="655" y="373" font-size="12" fill="#1a1a1a">1. I_MOTOR зростає під час роботи</text>
+  <text x="655" y="395" font-size="12" fill="#1a1a1a">2. V_ISEN досягає V_TRIP (200 мВ)</text>
+  <text x="655" y="417" font-size="12" font-weight="bold" fill="#c0392b">3. Компаратор вимикає FET</text>
+  <text x="655" y="439" font-size="12" fill="#1a1a1a">4. Пауза t_OFF ≈ 25 мкс (спад)</text>
+  <text x="655" y="461" font-size="12" font-weight="bold" fill="#27ae60">5. Відновлення комутації</text>
+</svg>

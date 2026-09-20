@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Залежність опору R_DS(on) від напруги затвора V_GS</text>
+  <text x="480" y="62" text-anchor="middle" font-size="13" fill="#6b7280">FDD8447L та IRL2203N мають мінімальний опір R_DS(on) вже при 3.3 V</text>
+
+  <!-- Тло області графіка -->
+  <rect x="100" y="130" width="480" height="300" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+
+  <!-- Горизонтальні сітки (ось Y) -->
+  <line x1="100" y1="167.5" x2="580" y2="167.5" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="100" y1="205" x2="580" y2="205" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="100" y1="242.5" x2="580" y2="242.5" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="100" y1="280" x2="580" y2="280" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="100" y1="317.5" x2="580" y2="317.5" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="100" y1="355" x2="580" y2="355" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="100" y1="392.5" x2="580" y2="392.5" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Вертикальні лінії логічних рівнів -->
+  <line x1="130" y1="130" x2="130" y2="430" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="178" y1="130" x2="178" y2="430" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="280" y1="130" x2="280" y2="430" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Бейджі напруг керування вгорі графіка -->
+  <rect x="110" y="92" width="40" height="20" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="130" y="106" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">2.5 V</text>
+
+  <rect x="158" y="92" width="40" height="20" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="178" y="106" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">3.3 V</text>
+
+  <rect x="260" y="92" width="40" height="20" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="280" y="106" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">5.0 V</text>
+
+  <!-- Подписи оси Y -->
+  <text x="92" y="85" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">R_DS(on), мОм</text>
+  <text x="92" y="134" text-anchor="end" font-size="12" fill="#6b7280">160</text>
+  <text x="92" y="171.5" text-anchor="end" font-size="12" fill="#6b7280">140</text>
+  <text x="92" y="209" text-anchor="end" font-size="12" fill="#6b7280">120</text>
+  <text x="92" y="246.5" text-anchor="end" font-size="12" fill="#6b7280">100</text>
+  <text x="92" y="284" text-anchor="end" font-size="12" fill="#6b7280">80</text>
+  <text x="92" y="321.5" text-anchor="end" font-size="12" fill="#6b7280">60</text>
+  <text x="92" y="359" text-anchor="end" font-size="12" fill="#6b7280">40</text>
+  <text x="92" y="396.5" text-anchor="end" font-size="12" fill="#6b7280">20</text>
+  <text x="92" y="434" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+
+  <!-- Подписи оси X -->
+  <text x="100" y="448" text-anchor="middle" font-size="12" fill="#6b7280">2.0 V</text>
+  <text x="220" y="448" text-anchor="middle" font-size="12" fill="#6b7280">4.0 V</text>
+  <text x="340" y="448" text-anchor="middle" font-size="12" fill="#6b7280">6.0 V</text>
+  <text x="460" y="448" text-anchor="middle" font-size="12" fill="#6b7280">8.0 V</text>
+  <text x="580" y="448" text-anchor="middle" font-size="12" fill="#6b7280">10.0 V</text>
+  <text x="340" y="480" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">V_GS (В) — Напруга затвор-витік</text>
+
+  <!-- Криві моделей MOSFET -->
+  <!-- 1. IRL540N (Оранжева) -->
+  <path d="M 112 130 C 120 142, 130 158.1, 178 261.25 C 205 290, 220 308.1, 280 332.5 C 340 340, 460 345, 580 347.5" fill="none" stroke="#e67e22" stroke-width="3"/>
+  <circle cx="178" cy="261.25" r="4" fill="#e67e22"/>
+  <circle cx="280" cy="332.5" r="4" fill="#e67e22"/>
+
+  <!-- 2. IRLZ44N (Фіолетова) -->
+  <path d="M 100 176.9 C 115 230, 130 289.4, 178 364.4 C 200 375, 220 383.1, 280 388.75 C 340 392, 460 395.5, 580 397.2" fill="none" stroke="#8e44ad" stroke-width="3"/>
+  <circle cx="130" cy="289.4" r="4" fill="#8e44ad"/>
+  <circle cx="178" cy="364.4" r="4" fill="#8e44ad"/>
+  <circle cx="280" cy="388.75" r="4" fill="#8e44ad"/>
+
+  <!-- 3. IRL2203N (Синя) -->
+  <path d="M 100 326.9 C 120 365, 130 385, 178 403.75 C 220 409, 250 411.25, 280 413.1 C 340 414.5, 460 416, 580 416.9" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <circle cx="130" cy="385" r="4" fill="#2457d6"/>
+  <circle cx="178" cy="403.75" r="4" fill="#2457d6"/>
+  <circle cx="280" cy="413.1" r="4" fill="#2457d6"/>
+
+  <!-- 4. FDD8447L (Зелена) -->
+  <path d="M 100 370 C 120 390, 130 400, 178 405.6 C 220 408, 250 409.4, 280 411.25 C 340 412.5, 460 413.5, 580 414.1" fill="none" stroke="#27ae60" stroke-width="3"/>
+  <circle cx="130" cy="400" r="4" fill="#27ae60"/>
+  <circle cx="178" cy="405.6" r="4" fill="#27ae60"/>
+  <circle cx="280" cy="411.25" r="4" fill="#27ae60"/>
+
+  <!-- Назви кривих біля ліній -->
+  <text x="310" y="325" text-anchor="start" font-size="12" font-weight="bold" fill="#e67e22">IRL540N (100V)</text>
+  <text x="320" y="380" text-anchor="start" font-size="12" font-weight="bold" fill="#8e44ad">IRLZ44N (55V)</text>
+  <text x="430" y="405" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">IRL2203N (30V)</text>
+  <text x="205" y="422" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">FDD8447L (40V)</text>
+
+  <!-- Нижня попереджувальна плашка -->
+  <rect x="100" y="496" width="480" height="32" fill="#fdecea" stroke="#c0392b" stroke-dasharray="3,3" rx="4"/>
+  <text x="340" y="516" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">⚠ При V_GS &lt; V_GS(th) ключ не повністю відкритий: високий R_DS(on) і ризик перегріву</text>
+
+  <!-- Права панель матриці параметрів -->
+  <rect x="615" y="92" width="320" height="436" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+
+  <!-- Заголовок панелі -->
+  <text x="775" y="116" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Матриця параметрів моделей</text>
+  <text x="775" y="134" text-anchor="middle" font-size="12" fill="#6b7280">Значення R_DS(on) при робочих V_GS</text>
+
+  <!-- Шапка таблиці -->
+  <rect x="625" y="146" width="300" height="24" fill="#eaf0fd" stroke="#d0d7de" rx="4"/>
+  <text x="665" y="162" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Модель</text>
+  <text x="725" y="162" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">2.5V</text>
+  <text x="775" y="162" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">3.3V</text>
+  <text x="825" y="162" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">5.0V</text>
+  <text x="885" y="162" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">V_DS</text>
+
+  <!-- Рядок 1: FDD8447L -->
+  <rect x="625" y="176" width="300" height="30" fill="white" stroke="#d0d7de" rx="4"/>
+  <circle cx="636" cy="191" r="4" fill="#27ae60"/>
+  <text x="672" y="195" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">FDD8447L</text>
+  <text x="725" y="195" text-anchor="middle" font-size="12" fill="#27ae60">16 мОм</text>
+  <text x="775" y="195" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">13 мОм</text>
+  <text x="825" y="195" text-anchor="middle" font-size="12" fill="#27ae60">10 мОм</text>
+  <text x="885" y="195" text-anchor="middle" font-size="12" fill="#6b7280">40 V</text>
+
+  <!-- Рядок 2: IRL2203N -->
+  <rect x="625" y="210" width="300" height="30" fill="white" stroke="#d0d7de" rx="4"/>
+  <circle cx="636" cy="225" r="4" fill="#2457d6"/>
+  <text x="672" y="229" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">IRL2203N</text>
+  <text x="725" y="229" text-anchor="middle" font-size="12" fill="#27ae60">24 мОм</text>
+  <text x="775" y="229" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">14 мОм</text>
+  <text x="825" y="229" text-anchor="middle" font-size="12" fill="#27ae60">9 мОм</text>
+  <text x="885" y="229" text-anchor="middle" font-size="12" fill="#6b7280">30 V</text>
+
+  <!-- Рядок 3: IRLZ44N -->
+  <rect x="625" y="244" width="300" height="30" fill="white" stroke="#d0d7de" rx="4"/>
+  <circle cx="636" cy="259" r="4" fill="#8e44ad"/>
+  <text x="672" y="263" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">IRLZ44N</text>
+  <text x="725" y="263" text-anchor="middle" font-size="12" fill="#e67e22">75 мОм</text>
+  <text x="775" y="263" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">35 мОм</text>
+  <text x="825" y="263" text-anchor="middle" font-size="12" fill="#27ae60">22 мОм</text>
+  <text x="885" y="263" text-anchor="middle" font-size="12" fill="#6b7280">55 V</text>
+
+  <!-- Рядок 4: IRL540N -->
+  <rect x="625" y="278" width="300" height="30" fill="white" stroke="#d0d7de" rx="4"/>
+  <circle cx="636" cy="293" r="4" fill="#e67e22"/>
+  <text x="672" y="297" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">IRL540N</text>
+  <text x="725" y="297" text-anchor="middle" font-size="12" fill="#c0392b">145 мОм</text>
+  <text x="775" y="297" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">90 мОм</text>
+  <text x="825" y="297" text-anchor="middle" font-size="12" fill="#27ae60">52 мОм</text>
+  <text x="885" y="297" text-anchor="middle" font-size="12" fill="#6b7280">100 V</text>
+
+  <!-- Блок рекомендацій 1: 3.3V GPIO -->
+  <rect x="625" y="316" width="300" height="92" fill="#e9f7ef" stroke="#27ae60" rx="6"/>
+  <text x="635" y="334" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">Керування від 3.3V GPIO (ESP32, STM32):</text>
+  <text x="635" y="354" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">• FDD8447L / IRL2203N — найкращий вибір</text>
+  <text x="635" y="372" text-anchor="start" font-size="12" fill="#1a1a1a">• Мінімальний R_DS(on) (&lt;14 мОм) і нагрів</text>
+  <text x="635" y="390" text-anchor="start" font-size="12" fill="#6b7280">• IRLZ44N — допустимо для струмів &lt; 3 A</text>
+
+  <!-- Блок рекомендацій 2: 5.0V GPIO -->
+  <rect x="625" y="418" width="300" height="92" fill="#eaf0fd" stroke="#2457d6" rx="6"/>
+  <text x="635" y="436" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">Керування від 5.0V GPIO (Arduino AVR):</text>
+  <text x="635" y="456" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">• Усі 4 моделі повністю відкриваються</text>
+  <text x="635" y="474" text-anchor="start" font-size="12" fill="#1a1a1a">• IRL540N — вибирають для V_DS до 100 V</text>
+  <text x="635" y="492" text-anchor="start" font-size="12" fill="#6b7280">• IRLZ44N — класичний ключ для 5V/10A+</text>
+</svg>

@@ -1,0 +1,177 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Резистивний обв'язок затвора низькостороннього N-MOSFET ключа</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">R_G обмежує струм GPIO, R_GS фіксує затвор, а одноточкова земля захищає МК від завад</text>
+
+  <!-- Блок Мікроконтролера (МК) -->
+  <rect x="30" y="88" width="160" height="280" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="110" y="114" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер (МК)</text>
+  <text x="110" y="134" font-size="12" fill="#6b7280" text-anchor="middle">V_CC = 3.3 В / 5 В</text>
+
+  <!-- Внутрішній буфер МК -->
+  <rect x="42" y="150" width="111" height="150" fill="white" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3" rx="4"/>
+  <text x="97.5" y="168" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Вихідний буфер</text>
+  
+  <line x1="97.5" y1="180" x2="97.5" y2="198" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="97.5" cy="202" r="4" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="97.5" y1="206" x2="97.5" y2="244" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="97.5" cy="248" r="4" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="97.5" y1="252" x2="97.5" y2="268" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="97.5" cy="225" r="3" fill="#1a1a1a"/>
+  <text x="97.5" y="288" font-size="12" fill="#6b7280" text-anchor="middle">(Push-Pull GPIO)</text>
+
+  <!-- Вихідний вивід GPIO -->
+  <line x1="97.5" y1="225" x2="190" y2="225" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="190" cy="225" r="3.5" fill="#2457d6"/>
+  <text x="182" y="215" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">GPIO</text>
+
+  <!-- Пояснення та анотації для R_G -->
+  <text x="280" y="155" font-size="12" fill="#6b7280" text-anchor="middle">Обмеження струму I_G</text>
+  <text x="280" y="173" font-size="12" fill="#6b7280" text-anchor="middle">та загасання осциляцій</text>
+  <text x="280" y="193" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">R_G = 10...100 Ом</text>
+
+  <!-- Обмежувальний резистор затвора R_G -->
+  <line x1="190" y1="225" x2="250" y2="225" stroke="#2457d6" stroke-width="2"/>
+  <rect x="250" y="215" width="60" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="3"/>
+  <text x="280" y="229" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R_G</text>
+  <line x1="310" y1="225" x2="380" y2="225" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Вузол з'єднання R_G, R_GS та Затвора -->
+  <circle cx="380" cy="225" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Підтягувальний резистор R_GS -->
+  <line x1="380" y1="225" x2="380" y2="265" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="370" y="265" width="20" height="60" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2" rx="3"/>
+  <line x1="380" y1="325" x2="380" y2="410" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Пояснення для R_GS (ліворуч та праворуч від R_GS) -->
+  <text x="355" y="265" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">R_GS = 10...100 кОм</text>
+  <text x="355" y="283" font-size="12" fill="#6b7280" text-anchor="end">Фіксація рівня GND</text>
+  <text x="355" y="301" font-size="12" fill="#6b7280" text-anchor="end">при High-Z стані</text>
+  <text x="355" y="319" font-size="12" fill="#6b7280" text-anchor="end">(проти самовідкриття)</text>
+  <text x="400" y="298" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">R_GS</text>
+
+  <!-- Лінія керування до затвора MOSFET -->
+  <line x1="380" y1="225" x2="485" y2="225" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Контур MOSFET -->
+  <rect x="475" y="160" width="105" height="115" fill="none" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4" rx="4"/>
+  <text x="527.5" y="148" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">N-MOSFET</text>
+
+  <!-- Позначення виводів ключа (G, D, S) -->
+  <text x="465" y="220" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">G</text>
+  <text x="533" y="176" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">D</text>
+  <text x="533" y="270" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">S</text>
+
+  <!-- Затвор (Gate) -->
+  <line x1="485" y1="225" x2="505" y2="225" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="505" y1="202" x2="505" y2="248" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Канал N-MOSFET (3 сегменти) -->
+  <line x1="517" y1="202" x2="517" y2="214" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="517" y1="225" x2="517" y2="237" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="517" y1="246" x2="517" y2="258" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Стік (Drain) -->
+  <line x1="517" y1="208" x2="545" y2="208" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="545" y1="208" x2="545" y2="198" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Витік (Source) -->
+  <line x1="517" y1="252" x2="545" y2="252" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="545" y1="252" x2="545" y2="410" stroke="#c0392b" stroke-width="3.5"/>
+
+  <!-- Підкладка (Substrate/Body) зі стрілкою N-каналу -->
+  <polygon points="517,225 529,220 529,230" fill="#1a1a1a"/>
+  <line x1="529" y1="225" x2="545" y2="225" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="545" y1="225" x2="545" y2="252" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Внутрішній діод корпусу (Body Diode) -->
+  <line x1="545" y1="208" x2="565" y2="208" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="565" y1="208" x2="565" y2="252" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="565" y1="252" x2="545" y2="252" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="558" y1="222" x2="572" y2="222" stroke="#6b7280" stroke-width="2"/>
+  <polygon points="565,222 558,237 572,237" fill="#6b7280"/>
+
+  <!-- Лінія Стоку (Drain Trace) -->
+  <line x1="545" y1="198" x2="790" y2="198" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="545" cy="198" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Силова шина +V_PWR -->
+  <line x1="545" y1="90" x2="920" y2="90" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="732.5" y="76" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">+V_PWR (+12 В...24 В DC)</text>
+
+  <!-- Навантаження -->
+  <line x1="685" y1="90" x2="685" y2="115" stroke="#2457d6" stroke-width="2"/>
+  <rect x="640" y="115" width="90" height="55" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="4"/>
+  <text x="685" y="137" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Навантаження</text>
+  <text x="685" y="155" font-size="12" fill="#6b7280" text-anchor="middle">(реле, мотор)</text>
+  
+  <line x1="685" y1="170" x2="685" y2="198" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="685" cy="198" r="3.5" fill="#1a1a1a"/>
+  <circle cx="685" cy="90" r="3.5" fill="#2457d6"/>
+
+  <!-- Захисний зворотний діод D_FLY -->
+  <circle cx="790" cy="90" r="3.5" fill="#2457d6"/>
+  <line x1="790" y1="90" x2="790" y2="125" stroke="#27ae60" stroke-width="2"/>
+  <line x1="778" y1="125" x2="802" y2="125" stroke="#27ae60" stroke-width="2.5"/>
+  <polygon points="790,125 778,145 802,145" fill="#27ae60"/>
+  <line x1="790" y1="145" x2="790" y2="198" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="790" cy="198" r="3.5" fill="#27ae60"/>
+
+  <!-- Текст для D_FLY (праворуч від D_FLY) -->
+  <text x="812" y="130" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">D_FLY</text>
+  <text x="812" y="147" font-size="12" fill="#27ae60" text-anchor="start">Зворотний діод</text>
+  <text x="812" y="164" font-size="12" fill="#6b7280" text-anchor="start">(захист від ЕРС)</text>
+
+  <!-- Блок параметрів MOSFET -->
+  <rect x="600" y="255" width="230" height="115" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="612" y="276" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Ключові параметри MOSFET:</text>
+  <text x="612" y="295" font-size="12" fill="#6b7280" text-anchor="start">• V_GS(th) &lt; V_CC_MCU (Logic)</text>
+  <text x="612" y="314" font-size="12" fill="#6b7280" text-anchor="start">• R_DS(on) — мін. опір ключа</text>
+  <text x="612" y="333" font-size="12" fill="#6b7280" text-anchor="start">• V_DS &gt; V_PWR (запас U)</text>
+  <text x="612" y="352" font-size="12" fill="#6b7280" text-anchor="start">• Q_g — заряд затвора</text>
+
+  <!-- Сигнальна земля МК (GND_SIG) -->
+  <line x1="110" y1="368" x2="110" y2="410" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="110" y1="410" x2="545" y2="410" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <circle cx="110" cy="410" r="3.5" fill="#2457d6"/>
+  <circle cx="380" cy="410" r="3.5" fill="#2457d6"/>
+  
+  <text x="245" y="436" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">GND_SIG (Сигнальна земля МК)</text>
+  <text x="245" y="454" font-size="12" fill="#6b7280" text-anchor="middle">Малострумовий контур керування</text>
+
+  <!-- Силова земля (GND_PWR) -->
+  <line x1="920" y1="90" x2="920" y2="410" stroke="#c0392b" stroke-width="3"/>
+  <line x1="920" y1="410" x2="545" y2="410" stroke="#c0392b" stroke-width="3.5"/>
+  <circle cx="920" cy="90" r="3.5" fill="#2457d6"/>
+  <circle cx="920" cy="410" r="3.5" fill="#c0392b"/>
+  
+  <text x="760" y="436" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">GND_PWR (Силова земля)</text>
+  <text x="760" y="454" font-size="12" fill="#6b7280" text-anchor="middle">Силовий імпульсний струм навантаження</text>
+
+  <!-- Точка з'єднання земель ("Star GND") -->
+  <circle cx="545" cy="410" r="7" fill="#27ae60" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <!-- Вказівник і блок пояснення Star GND -->
+  <line x1="545" y1="417" x2="545" y2="465" stroke="#27ae60" stroke-width="2"/>
+  <rect x="420" y="465" width="250" height="48" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="545" y="485" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Точка з'єднання земель (Star GND)</text>
+  <text x="545" y="503" font-size="12" fill="#1a1a1a" text-anchor="middle">Запобігає впливу силових завад на МК</text>
+</svg>

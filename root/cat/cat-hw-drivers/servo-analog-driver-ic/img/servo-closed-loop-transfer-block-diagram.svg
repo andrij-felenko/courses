@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <defs>
+    <!-- Markers for arrows -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Замкнений контур регулювання аналогового сервопідсилювача (AA5188 / KC0032)</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Математична модель перетворення відхилення імпульсу ΔT через deadband та RC-обв'язку у кут вала θout</text>
+
+  <!-- Main Panel Frame -->
+  <rect x="30" y="80" width="900" height="395" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- FORWARD PATH BLOCKS -->
+
+  <!-- Input Signal -->
+  <text x="70" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вхідний імпульс</text>
+  <text x="70" y="160" text-anchor="middle" font-size="12" fill="#1a1a1a">Tin (1..2 ms)</text>
+  <line x1="45" y1="175" x2="124" y2="175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Summing Node -->
+  <text x="140" y="135" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Порівнювач</text>
+  <text x="140" y="150" text-anchor="middle" font-size="12" fill="#6b7280">ΔT = Tin - Tref</text>
+  <circle cx="140" cy="175" r="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="131" y="179" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">+</text>
+  <text x="140" y="186" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">–</text>
+
+  <!-- Signal Summing to Block 1 -->
+  <line x1="154" y1="175" x2="183" y2="175" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Block 1: Deadband & Stretcher -->
+  <rect x="185" y="130" width="165" height="90" rx="6" ry="6" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="267" y="148" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Deadband &amp; Stretcher</text>
+  <text x="267" y="165" text-anchor="middle" font-size="12" fill="#6b7280">Поріг: |ΔT| &gt; ΔTdb</text>
+  <text x="267" y="185" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Ge(s) = Ke / (1 + s·τs)</text>
+  <text x="267" y="204" text-anchor="middle" font-size="12" fill="#6b7280">(τs = Rs·Cs)</text>
+
+  <!-- Signal Block 1 to Block 2 -->
+  <text x="367" y="160" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">e_proc(t)</text>
+  <line x1="350" y1="175" x2="383" y2="175" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Block 2: Error Amplifier & H-Bridge -->
+  <rect x="385" y="130" width="160" height="90" rx="6" ry="6" fill="white" stroke="#d0d7de" stroke-width="2"/>
+  <text x="465" y="148" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Підсилювач &amp; H-міст</text>
+  <text x="465" y="165" text-anchor="middle" font-size="12" fill="#6b7280">Каскад драйвера</text>
+  <text x="465" y="185" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Gd(s) = Kp · Vcc</text>
+  <text x="465" y="204" text-anchor="middle" font-size="12" fill="#6b7280">(Коефіцієнт Kp)</text>
+
+  <!-- Signal Block 2 to Block 3 -->
+  <text x="562" y="160" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Vm(s)</text>
+  <line x1="545" y1="175" x2="578" y2="175" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Block 3: DC Motor Dynamics -->
+  <rect x="580" y="130" width="165" height="90" rx="6" ry="6" fill="white" stroke="#d0d7de" stroke-width="2"/>
+  <text x="662" y="148" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Двигун DC</text>
+  <text x="662" y="165" text-anchor="middle" font-size="12" fill="#6b7280">Динаміка ротора</text>
+  <text x="662" y="185" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Gm(s) = Km / s(τm·s+1)</text>
+  <text x="662" y="204" text-anchor="middle" font-size="12" fill="#6b7280">(τm — стала часу)</text>
+
+  <!-- Signal Block 3 to Block 4 -->
+  <text x="760" y="160" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">ωm(s)</text>
+  <line x1="745" y1="175" x2="773" y2="175" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Block 4: Gearbox -->
+  <rect x="775" y="130" width="125" height="90" rx="6" ry="6" fill="white" stroke="#d0d7de" stroke-width="2"/>
+  <text x="837" y="148" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Редуктор</text>
+  <text x="837" y="166" text-anchor="middle" font-size="12" fill="#6b7280">Передавальне число</text>
+  <text x="837" y="188" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Gg(s) = 1 / N</text>
+
+  <!-- Output Shaft Signal -->
+  <line x1="900" y1="175" x2="923" y2="175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <circle cx="910" cy="175" r="4" fill="#2457d6"/>
+  <text x="915" y="150" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">θout(s)</text>
+  <text x="915" y="165" text-anchor="middle" font-size="12" fill="#6b7280">Кут вала</text>
+
+  <!-- FEEDBACK PATH -->
+
+  <!-- Line down from pick-off node to feedback line -->
+  <line x1="910" y1="175" x2="910" y2="310" stroke="#2457d6" stroke-width="2"/>
+  <text x="775" y="298" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Сигнал кута θout</text>
+  <line x1="910" y1="310" x2="642" y2="310" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Feedback Block: Potentiometer + Monostable Timer -->
+  <rect x="310" y="265" width="330" height="90" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="475" y="283" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Зворотний зв'язок: Потенціометр + Таймер</text>
+  <text x="475" y="301" text-anchor="middle" font-size="12" fill="#6b7280">Потенціометр вала Rpot(θout) ➔ Таймер AA5188</text>
+  <text x="475" y="322" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">H(s) = Kfb = 1.1 · Cos · (dRpot / dθ)</text>
+  <text x="475" y="340" text-anchor="middle" font-size="12" fill="#6b7280">Опорний імпульс: Tref = 1.1 · Rpot · Cos</text>
+
+  <!-- Line from Feedback Block to Summing Node -->
+  <text x="225" y="298" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Tref (Опорний імпульс)</text>
+  <line x1="310" y1="310" x2="140" y2="310" stroke="#c0392b" stroke-width="2"/>
+  <line x1="140" y1="310" x2="140" y2="191" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="120" y="250" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">– Tref</text>
+
+  <!-- BOTTOM SUMMARY CARDS -->
+
+  <!-- Card 1 -->
+  <rect x="45" y="375" width="275" height="85" rx="6" ry="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="57" y="393" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Рівняння помилки й deadband</text>
+  <text x="57" y="410" text-anchor="start" font-size="12" fill="#6b7280">• e(t) = Tin - Tref = Tin - Kfb·θout</text>
+  <text x="57" y="427" text-anchor="start" font-size="12" fill="#6b7280">• Deadband: при |e| &lt; ΔTdb вихід = 0</text>
+  <text x="57" y="444" text-anchor="start" font-size="12" fill="#6b7280">• RC-розширювач: τs = Rs · Cs</text>
+
+  <!-- Card 2 -->
+  <rect x="342" y="375" width="275" height="85" rx="6" ry="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="354" y="393" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Передавальна функція W(s)</text>
+  <text x="354" y="410" text-anchor="start" font-size="12" fill="#6b7280">• W(s) = θout(s) / Tin(s)</text>
+  <text x="354" y="427" text-anchor="start" font-size="12" fill="#6b7280">• W(s) = Gopen / (1 + Gopen · H)</text>
+  <text x="354" y="444" text-anchor="start" font-size="12" fill="#6b7280">• Gopen = K_Σ / [s·(1+s·τs)(1+s·τm)]</text>
+
+  <!-- Card 3 -->
+  <rect x="640" y="375" width="275" height="85" rx="6" ry="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="652" y="393" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Стійкість та позиціювання</text>
+  <text x="652" y="410" text-anchor="start" font-size="12" fill="#6b7280">• Kp обмежується проти джиттеру</text>
+  <text x="652" y="427" text-anchor="start" font-size="12" fill="#6b7280">• Tref = 1.1 · Rpot · Cos</text>
+  <text x="652" y="444" text-anchor="start" font-size="12" fill="#6b7280">• У сталогому режимі e(t) ➔ 0</text>
+</svg>

@@ -1,0 +1,184 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <!-- Double-ended arrow markers for voltage measurement -->
+    <marker id="arr-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Перехідні процеси та RC-снабер при вимкненні SSR (G3MB-202P)</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Критичне демпфування (ζ = 1) запобігає перенапруженню та обмежує dv/dt нижче порогу тригера</text>
+
+  <!-- PANEL 1: Circuit Diagram & Formulas -->
+  <rect x="20" y="70" width="410" height="450" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="225" y="94" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">1. Еквівалентна RLC-схема вимкнення</text>
+
+  <!-- Schematic Drawing Area -->
+  <!-- AC Source -->
+  <text x="55" y="124" font-size="12" text-anchor="middle" fill="#6b7280">Джерело AC</text>
+  <text x="55" y="140" font-size="12" text-anchor="middle" fill="#6b7280">230 В~</text>
+  <circle cx="55" cy="225" r="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 46 225 Q 50.5 218 55 225 T 64 225" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="55" y1="160" x2="55" y2="209" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="55" y1="241" x2="55" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Top Rail Wires & Load Components (L_load & R_load) -->
+  <line x1="55" y1="160" x2="95" y2="160" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Inductor L_load -->
+  <text x="115" y="140" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">L_load</text>
+  <path d="M 95 160 Q 100 150 105 160 Q 110 150 115 160 Q 120 150 125 160 Q 130 150 135 160" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <line x1="135" y1="160" x2="155" y2="160" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Resistor R_load -->
+  <text x="172.5" y="140" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">R_load</text>
+  <rect x="155" y="153" width="35" height="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <line x1="190" y1="160" x2="372.5" y2="160" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Bottom Rail Wires -->
+  <line x1="55" y1="290" x2="372.5" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- SSR / TRIAC Branch (at x=225) -->
+  <circle cx="225" cy="160" r="3" fill="#1a1a1a"/>
+  <line x1="225" y1="160" x2="225" y2="195" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="225" cy="195" r="3" fill="#1a1a1a"/>
+  <circle cx="225" cy="240" r="3" fill="#1a1a1a"/>
+  <!-- Open Contact Blade -->
+  <line x1="225" y1="240" x2="237" y2="199" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="225" y1="240" x2="225" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="225" cy="290" r="3" fill="#1a1a1a"/>
+
+  <text x="212" y="210" font-size="12" font-weight="bold" text-anchor="end" fill="#c0392b">Симістор SSR</text>
+  <text x="212" y="226" font-size="12" text-anchor="end" fill="#c0392b">(Вимкнено)</text>
+
+  <!-- Voltage Arrow v_ssr(t) at x=260 with text at x=270 -->
+  <line x1="260" y1="172" x2="260" y2="278" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-start)" marker-end="url(#arr)"/>
+  <line x1="254" y1="172" x2="266" y2="172" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="254" y1="278" x2="266" y2="278" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="270" y="228" font-size="12" font-weight="bold" text-anchor="start" fill="#1a1a1a">v_ssr(t)</text>
+
+  <!-- Snubber Branch Box (at x=330..415, center 372.5) -->
+  <rect x="330" y="150" width="85" height="145" fill="#eaf0fd" fill-opacity="0.4" stroke="#2457d6" stroke-dasharray="4,3" rx="4"/>
+  <text x="372.5" y="138" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">RC-снабер</text>
+
+  <circle cx="372.5" cy="160" r="3" fill="#1a1a1a"/>
+  <line x1="372.5" y1="160" x2="372.5" y2="175" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Resistor R_s -->
+  <rect x="364.5" y="175" width="16" height="34" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="385" y="196" font-size="12" font-weight="bold" text-anchor="start" fill="#2457d6">R_s</text>
+
+  <line x1="372.5" y1="209" x2="372.5" y2="235" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Capacitor C_s -->
+  <line x1="360.5" y1="235" x2="384.5" y2="235" stroke="#2457d6" stroke-width="2"/>
+  <line x1="360.5" y1="243" x2="384.5" y2="243" stroke="#2457d6" stroke-width="2"/>
+  <text x="385" y="243" font-size="12" font-weight="bold" text-anchor="start" fill="#2457d6">C_s</text>
+
+  <line x1="372.5" y1="243" x2="372.5" y2="290" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="372.5" cy="290" r="3" fill="#1a1a1a"/>
+
+  <!-- Panel 1 Formula Card -->
+  <rect x="32" y="312" width="386" height="195" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="44" y="334" font-size="13" font-weight="bold" text-anchor="start" fill="#1a1a1a">Розрахункові співвідношення:</text>
+
+  <text x="44" y="360" font-size="12" text-anchor="start" fill="#1a1a1a">• Коефіцієнт згасання:</text>
+  <text x="192" y="360" font-size="12" font-weight="bold" text-anchor="start" fill="#2457d6">ζ = (R_s / 2) · √(C_s / L_load)</text>
+
+  <text x="44" y="390" font-size="12" text-anchor="start" fill="#1a1a1a">• Критичний режим:</text>
+  <text x="172" y="390" font-size="12" font-weight="bold" text-anchor="start" fill="#27ae60">R_s = 2 · √(L_load / C_s)</text>
+
+  <text x="44" y="420" font-size="12" text-anchor="start" fill="#c0392b">• Без снабера (ζ ≈ 0):</text>
+  <text x="192" y="420" font-size="12" text-anchor="start" fill="#c0392b">резонанс, перенапруження</text>
+
+  <text x="44" y="450" font-size="12" text-anchor="start" fill="#1a1a1a">• Втрати потужності R_s:</text>
+  <text x="206" y="450" font-size="12" text-anchor="start" fill="#6b7280">P_R ≈ C_s · V_rms² · f</text>
+
+  <text x="44" y="480" font-size="12" text-anchor="start" fill="#1a1a1a">• Умова безпеки:</text>
+  <text x="154" y="480" font-size="12" font-weight="bold" text-anchor="start" fill="#27ae60">(dv/dt)_max &lt; (dv/dt)_crit</text>
+
+
+  <!-- PANEL 2: Waveforms & dv/dt Analysis -->
+  <rect x="450" y="70" width="490" height="450" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="695" y="94" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">2. Осцилограми напруги v_ssr(t) та швидкість dv/dt</text>
+
+  <!-- Graph Plotting Area Box -->
+  <rect x="466" y="112" width="458" height="260" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+
+  <!-- Voltage Reference Level (V_peak = 325V) -->
+  <line x1="545" y1="230" x2="910" y2="230" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="555" y="224" font-size="12" text-anchor="start" fill="#6b7280">V_peak = 325 В</text>
+
+  <!-- Critical dv/dt Slope Threshold Line & Labels -->
+  <line x1="545" y1="345" x2="575" y2="175" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="540" y="200" font-size="12" font-weight="bold" text-anchor="end" fill="#c0392b">Поріг dv/dt</text>
+  <text x="540" y="216" font-size="12" font-weight="bold" text-anchor="end" fill="#c0392b">(dv/dt)_crit</text>
+
+  <!-- Waveform 1: Underdamped (Red: ζ < 1) -->
+  <path d="M 545 345 C 555 210, 570 145, 585 145 C 600 145, 610 290, 620 290 C 630 290, 640 200, 650 200 C 660 200, 670 240, 680 240 L 910 230" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="585" cy="145" r="4" fill="#c0392b"/>
+  <text x="580" y="135" font-size="12" font-weight="bold" text-anchor="start" fill="#c0392b">V_max &gt; 600 В</text>
+
+  <!-- Waveform 2: Critically Damped (Green: ζ = 1) -->
+  <path d="M 545 345 C 585 340, 630 238, 730 230 L 910 230" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Waveform 3: Overdamped (Blue: ζ > 1) -->
+  <path d="M 545 345 C 610 344, 700 260, 820 232 L 910 230" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="6,3"/>
+
+  <!-- Graph Legend Box -->
+  <rect x="670" y="122" width="244" height="75" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <line x1="680" y1="139" x2="705" y2="139" stroke="#27ae60" stroke-width="3"/>
+  <text x="712" y="144" font-size="12" font-weight="bold" text-anchor="start" fill="#27ae60">ζ = 1 (Оптимальне демпфування)</text>
+  <line x1="680" y1="159" x2="705" y2="159" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <text x="712" y="164" font-size="12" font-weight="bold" text-anchor="start" fill="#2457d6">ζ &gt; 1 (Передемпфоване)</text>
+  <line x1="680" y1="179" x2="705" y2="179" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="712" y="184" font-size="12" font-weight="bold" text-anchor="start" fill="#c0392b">ζ &lt; 1 (Без снабера / резонанс)</text>
+
+  <!-- Graph Axes -->
+  <!-- X-Axis (Time t) -->
+  <line x1="545" y1="345" x2="910" y2="345" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="900" y="362" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">Час t</text>
+
+  <!-- Y-Axis (Voltage v_ssr) -->
+  <line x1="545" y1="345" x2="545" y2="125" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="545" y="105" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">v_ssr(t) [В]</text>
+
+  <!-- Panel 2 Conclusion Card -->
+  <rect x="466" y="388" width="458" height="118" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="482" y="410" font-size="13" font-weight="bold" text-anchor="start" fill="#1a1a1a">Аналіз режимів демпфування:</text>
+
+  <rect x="482" y="422" width="10" height="10" fill="#c0392b" rx="2"/>
+  <text x="498" y="431" font-size="12" text-anchor="start" fill="#1a1a1a">
+    <tspan font-weight="bold" fill="#c0392b">Без снабера (ζ &lt; 1):</tspan> Високий dv/dt спричиняє хибне вмикання,
+  </text>
+  <text x="498" y="447" font-size="12" text-anchor="start" fill="#6b7280">
+    а резонансне перенапруження (V_max &gt; 600 В) руйнує симістор.
+  </text>
+
+  <rect x="482" y="464" width="10" height="10" fill="#27ae60" rx="2"/>
+  <text x="498" y="473" font-size="12" text-anchor="start" fill="#1a1a1a">
+    <tspan font-weight="bold" fill="#27ae60">Зі снабером (ζ ≥ 1):</tspan> Швидкість dv/dt обмежена нижче порогу,
+  </text>
+  <text x="498" y="489" font-size="12" text-anchor="start" fill="#6b7280">
+    перенапруження усунуто, забезпечено надійну комутацію SSR.
+  </text>
+</svg>

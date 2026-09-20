@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема обв'язки та вплив RC-компонентів AA5188 / KC0032</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Зовнішні RC-кола регулюють зону нечутливості та стійкість, а C_vcc пригнічує завади H-моста</text>
+
+  <!-- Ліва панель 1: Фільтр вхідного сигналу -->
+  <rect x="30" y="90" width="300" height="105" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="112" font-size="13" font-weight="bold" fill="#1a1a1a">1. Фільтр вхідного сигналу</text>
+  <text x="45" y="132" font-size="12" font-weight="bold" fill="#2457d6">R_in = 1 kΩ,  C_in = 1 nF</text>
+  <text x="45" y="152" font-size="12" fill="#1a1a1a">Пригнічує високочастотні завади</text>
+  <text x="45" y="170" font-size="12" fill="#6b7280">в довгій лінії сигналу керування PWM</text>
+
+  <!-- Ліва панель 2: Коло зони нечутливості (Deadband) -->
+  <rect x="30" y="210" width="300" height="155" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="45" y="232" font-size="13" font-weight="bold" fill="#2457d6">2. Коло зони нечутливості (Deadband)</text>
+  <text x="45" y="252" font-size="12" font-weight="bold" fill="#1a1a1a">t_db ∝ R_d × C_d  (47 kΩ, 100 nF)</text>
+  <text x="45" y="274" font-size="12" fill="#27ae60">▲ R_d C_d: ширша t_db → немає гудіння</text>
+  <text x="45" y="294" font-size="12" fill="#c0392b">▼ R_d C_d: вужча t_db → вища точність,</text>
+  <text x="45" y="312" font-size="12" fill="#c0392b">але ризик автоколивань (hunting)</text>
+  <text x="45" y="334" font-size="12" fill="#6b7280">Типове t_db = 4...8 µs для серво</text>
+
+  <!-- Ліва панель 3: Опорний таймер (One-shot Monostable) -->
+  <rect x="30" y="380" width="300" height="150" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="402" font-size="13" font-weight="bold" fill="#1a1a1a">3. Опорний таймер (One-shot)</text>
+  <text x="45" y="422" font-size="12" font-weight="bold" fill="#2457d6">t_mono ∝ R_w × C_w  (68 kΩ, 100 nF)</text>
+  <text x="45" y="444" font-size="12" fill="#1a1a1a">Формує опорний імпульс 1.5 ms</text>
+  <text x="45" y="464" font-size="12" fill="#1a1a1a">для порівняння з вхідним PWM</text>
+  <text x="45" y="486" font-size="12" fill="#6b7280">Точність R_w, C_w задає дрейф нуля</text>
+
+  <!-- Центральний блок IC: AA5188 / KC0032 -->
+  <rect x="370" y="90" width="220" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="480" y="115" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">AA5188 / KC0032</text>
+  <text x="480" y="132" font-size="12" fill="#6b7280" text-anchor="middle">Аналоговий серводрайвер</text>
+
+  <!-- Внутрішні модулі IC -->
+  <!-- 1. Error Gen -->
+  <rect x="385" y="148" width="190" height="52" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="480" y="168" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Генератор помилки Δt</text>
+  <text x="480" y="186" font-size="12" fill="#6b7280" text-anchor="middle">Δt = t_in - (t_ref + t_fb)</text>
+
+  <!-- 2. Deadband Comp -->
+  <rect x="385" y="212" width="190" height="52" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="480" y="232" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Компаратор зони t_db</text>
+  <text x="480" y="250" font-size="12" fill="#1a1a1a" text-anchor="middle">|Δt| &lt; t_db → Виходи вимкнуто</text>
+
+  <!-- 3. One-shot Timer -->
+  <rect x="385" y="276" width="190" height="52" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="480" y="296" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Опорний таймер t_mono</text>
+  <text x="480" y="314" font-size="12" fill="#6b7280" text-anchor="middle">Генерує pulse ~1.5 ms</text>
+
+  <!-- 4. H-Bridge Driver -->
+  <rect x="385" y="340" width="190" height="56" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="480" y="360" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Драйвер H-моста</text>
+  <text x="480" y="378" font-size="12" fill="#6b7280" text-anchor="middle">Керування мотором CW/CCW</text>
+
+  <!-- 5. Ref Voltage Reg -->
+  <rect x="385" y="408" width="190" height="52" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="480" y="428" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Стабілізатор V_ref</text>
+  <text x="480" y="446" font-size="12" fill="#6b7280" text-anchor="middle">Опорна напруга для VR1</text>
+
+  <!-- 6. GND Bus -->
+  <rect x="385" y="472" width="190" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="480" y="496" font-size="12" fill="#6b7280" text-anchor="middle">Внутрішній фільтр &amp; GND</text>
+
+  <!-- Права панель 4: Фільтрація живлення (VCC) -->
+  <rect x="630" y="90" width="300" height="165" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="645" y="112" font-size="13" font-weight="bold" fill="#27ae60">4. Фільтрація живлення (VCC)</text>
+  <text x="645" y="134" font-size="12" font-weight="bold" fill="#1a1a1a">C_vcc1 = 33 µF (електроліт) біля IC</text>
+  <text x="645" y="152" font-size="12" fill="#6b7280">Компенсує просідання при пуску</text>
+  <text x="645" y="174" font-size="12" font-weight="bold" fill="#1a1a1a">C_vcc2 = 0.1 µF (кераміка)</text>
+  <text x="645" y="192" font-size="12" fill="#6b7280">Пригнічує ВЧ-завади H-моста</text>
+  <text x="645" y="214" font-size="12" fill="#27ae60">✓ Запобігає збоям таймера IC</text>
+
+  <!-- Права панель 5: Вихід на мотор та зворотний зв'язок -->
+  <rect x="630" y="270" width="300" height="260" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="645" y="292" font-size="13" font-weight="bold" fill="#1a1a1a">5. Вихід на мотор та зворотний зв'язок</text>
+  <text x="645" y="314" font-size="12" font-weight="bold" fill="#1a1a1a">Виходи OUT1, OUT2 (H-міст):</text>
+  <text x="645" y="332" font-size="12" fill="#6b7280">Формують мостову напругу на DC</text>
+  <text x="645" y="350" font-size="12" fill="#6b7280">мотор пропорційно імпульсу Δt</text>
+  <text x="645" y="374" font-size="12" font-weight="bold" fill="#1a1a1a">Демпфування мотора (C_m):</text>
+  <text x="645" y="392" font-size="12" fill="#6b7280">C_m = 10...47 nF паралельно M</text>
+  <text x="645" y="410" font-size="12" fill="#6b7280">зменшує іскріння та завади</text>
+  <text x="645" y="434" font-size="12" font-weight="bold" fill="#1a1a1a">Зворотний зв'язок (VR1, 5 kΩ):</text>
+  <text x="645" y="452" font-size="12" fill="#6b7280">Механічно зв'язаний з редуктором</text>
+  <text x="645" y="470" font-size="12" fill="#6b7280">Живиться від стабільного V_ref</text>
+  <text x="645" y="494" font-size="12" font-weight="bold" fill="#2457d6">Вал M → Редуктор → Потенціометр VR1</text>
+
+  <!-- З'єднувальні лінії та стрілки -->
+  <!-- 1. PWM In -> Error Gen Pin -->
+  <path d="M 330 142 L 350 142 L 350 174 L 385 174" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- 2. Deadband Card -> Deadband Comp -->
+  <path d="M 330 238 L 385 238" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- 3. Timing Card -> One-shot Timer -->
+  <path d="M 330 415 L 350 415 L 350 302 L 385 302" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- 4. VCC Card -> IC Top Power / Reg -->
+  <path d="M 630 140 L 610 140 L 610 115 L 590 115" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- 5. IC H-Bridge -> Motor Output Card -->
+  <path d="M 575 368 L 610 368 L 610 330 L 630 330" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- 6. IC Ref Voltage -> Potentiometer VR1 in Card 5 -->
+  <path d="M 575 434 L 610 434 L 610 472 L 630 472" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+</svg>

@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect x="40" y="75" width="880" height="445" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <text x="480" y="40" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Осцилограми перезаряджання затвора MOSFET і плато Міллера</text>
+  <text x="480" y="62" font-size="13" text-anchor="middle" fill="#6b7280">Під час плато Міллера V_GS стала, а одночасна присутність V_DS та I_D спричиняє втрати</text>
+
+  <text x="300" y="98" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">УВІМКНЕННЯ (Turn-On)</text>
+  <text x="695" y="98" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">ВИМКНЕННЯ (Turn-Off)</text>
+
+  <rect x="210" y="225" width="160" height="230" fill="#fdecea" fill-opacity="0.65" rx="4" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <rect x="550" y="225" width="230" height="230" fill="#fdecea" fill-opacity="0.65" rx="4" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <text x="290" y="240" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Динамічні втрати P_sw</text>
+  <text x="290" y="254" font-size="12" text-anchor="middle" fill="#c0392b">(одночасні V_DS та I_D)</text>
+
+  <text x="665" y="240" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Динамічні втрати P_sw</text>
+  <text x="665" y="254" font-size="12" text-anchor="middle" fill="#c0392b">(одночасні V_DS та I_D)</text>
+
+  <line x1="130" y1="125" x2="860" y2="125" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="130" y1="155" x2="860" y2="155" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,4" opacity="0.6"/>
+  <line x1="130" y1="175" x2="860" y2="175" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="130" y1="200" x2="860" y2="200" stroke="#9ca3af" stroke-width="1.2"/>
+
+  <line x1="130" y1="270" x2="860" y2="270" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="130" y1="330" x2="860" y2="330" stroke="#9ca3af" stroke-width="1.2"/>
+
+  <line x1="130" y1="370" x2="860" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="130" y1="450" x2="860" y2="450" stroke="#9ca3af" stroke-width="1.2"/>
+
+  <line x1="150" y1="105" x2="150" y2="460" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="210" y1="105" x2="210" y2="460" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="280" y1="105" x2="280" y2="460" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+  <line x1="370" y1="105" x2="370" y2="460" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+  <line x1="430" y1="105" x2="430" y2="460" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <line x1="550" y1="105" x2="550" y2="460" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="620" y1="105" x2="620" y2="460" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+  <line x1="710" y1="105" x2="710" y2="460" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+  <line x1="780" y1="105" x2="780" y2="460" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="840" y1="105" x2="840" y2="460" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <path d="M 130,200 L 150,200 C 170,200 190,175 210,175 C 230,175 260,155 280,155 L 370,155 C 390,155 410,125 430,125 L 550,125 C 570,125 600,155 620,155 L 710,155 C 730,155 760,175 780,175 C 800,175 820,200 840,200 L 860,200" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <path d="M 130,330 L 210,330 C 230,330 260,270 280,270 L 710,270 C 730,270 760,330 780,330 L 860,330" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <path d="M 130,370 L 280,370 C 300,370 350,446 370,446 L 620,446 C 640,446 690,370 710,370 L 860,370" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <rect x="272" y="130" width="106" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="325" y="144" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Плато Міллера</text>
+
+  <rect x="612" y="130" width="106" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="665" y="144" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Плато Міллера</text>
+
+  <text x="125" y="129" font-size="12" text-anchor="end" fill="#2457d6">V_GS = V_DRV</text>
+  <text x="125" y="159" font-size="12" text-anchor="end" fill="#2457d6">V_GP (плато)</text>
+  <text x="125" y="179" font-size="12" text-anchor="end" fill="#2457d6">V_TH (поріг)</text>
+  <text x="125" y="204" font-size="12" text-anchor="end" fill="#6b7280">0 V</text>
+
+  <text x="125" y="274" font-size="12" text-anchor="end" fill="#27ae60">I_D,max</text>
+  <text x="125" y="334" font-size="12" text-anchor="end" fill="#6b7280">0 A</text>
+
+  <text x="125" y="374" font-size="12" text-anchor="end" fill="#c0392b">V_DS = V_DD</text>
+  <text x="125" y="450" font-size="12" text-anchor="end" fill="#c0392b">V_DS(on) ~ 0 V</text>
+
+  <text x="865" y="145" font-size="13" font-weight="bold" text-anchor="start" fill="#2457d6">V_GS (затвор)</text>
+  <text x="865" y="275" font-size="13" font-weight="bold" text-anchor="start" fill="#27ae60">I_D (стік)</text>
+  <text x="865" y="410" font-size="13" font-weight="bold" text-anchor="start" fill="#c0392b">V_DS (стік)</text>
+
+  <text x="180" y="473" font-size="12" text-anchor="middle" fill="#1a1a1a">t_d(on)</text>
+  <text x="245" y="473" font-size="12" text-anchor="middle" fill="#1a1a1a">t_ri</text>
+  <text x="325" y="473" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">t_f (спад V_DS)</text>
+
+  <text x="585" y="473" font-size="12" text-anchor="middle" fill="#1a1a1a">t_d(off)</text>
+  <text x="665" y="473" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">t_r (ріст V_DS)</text>
+  <text x="745" y="473" font-size="12" text-anchor="middle" fill="#1a1a1a">t_fi</text>
+
+  <line x1="150" y1="482" x2="210" y2="482" stroke="#6b7280" stroke-width="1"/>
+  <line x1="150" y1="479" x2="150" y2="485" stroke="#6b7280" stroke-width="1"/>
+  <line x1="210" y1="479" x2="210" y2="485" stroke="#6b7280" stroke-width="1"/>
+
+  <line x1="210" y1="482" x2="280" y2="482" stroke="#6b7280" stroke-width="1"/>
+  <line x1="280" y1="479" x2="280" y2="485" stroke="#6b7280" stroke-width="1"/>
+
+  <line x1="280" y1="482" x2="370" y2="482" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="370" y1="479" x2="370" y2="485" stroke="#c0392b" stroke-width="1.5"/>
+
+  <line x1="550" y1="482" x2="620" y2="482" stroke="#6b7280" stroke-width="1"/>
+  <line x1="550" y1="479" x2="550" y2="485" stroke="#6b7280" stroke-width="1"/>
+  <line x1="620" y1="479" x2="620" y2="485" stroke="#6b7280" stroke-width="1"/>
+
+  <line x1="620" y1="482" x2="710" y2="482" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="710" y1="479" x2="710" y2="485" stroke="#c0392b" stroke-width="1.5"/>
+
+  <line x1="710" y1="482" x2="780" y2="482" stroke="#6b7280" stroke-width="1"/>
+  <line x1="780" y1="479" x2="780" y2="485" stroke="#6b7280" stroke-width="1"/>
+
+  <text x="150" y="498" font-size="12" text-anchor="middle" fill="#6b7280">t0</text>
+  <text x="210" y="498" font-size="12" text-anchor="middle" fill="#6b7280">t1</text>
+  <text x="280" y="498" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">t2</text>
+  <text x="370" y="498" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">t3</text>
+  <text x="430" y="498" font-size="12" text-anchor="middle" fill="#6b7280">t4</text>
+
+  <text x="550" y="498" font-size="12" text-anchor="middle" fill="#6b7280">t5</text>
+  <text x="620" y="498" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">t6</text>
+  <text x="710" y="498" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">t7</text>
+  <text x="780" y="498" font-size="12" text-anchor="middle" fill="#6b7280">t8</text>
+  <text x="840" y="498" font-size="12" text-anchor="middle" fill="#6b7280">t9</text>
+</svg>

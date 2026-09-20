@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еквівалентна схема вхідного кола MOC3063 та закон Кірхгофа</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Розрахунок струму світлодіода I_F з урахуванням опору ключа МК та падіння V_F</text>
+
+  <!-- LEFT PANEL: Electrical Schematic -->
+  <rect x="30" y="80" width="500" height="410" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">Еквівалентна електрична схема вхідного кола</text>
+
+  <!-- Group Containers (MK, External, MOC3063) -->
+  <rect x="50" y="125" width="155" height="345" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="127" y="145" font-size="12" font-weight="bold" fill="#475569" text-anchor="middle">Мікроконтролер (МК)</text>
+
+  <rect x="355" y="125" width="160" height="345" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="435" y="145" font-size="12" font-weight="bold" fill="#475569" text-anchor="middle">MOC3063 (Оптосимістор)</text>
+
+  <text x="280" y="145" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Зовнішнє коло</text>
+
+  <!-- Voltage Source V_CC -->
+  <line x1="90" y1="230" x2="90" y2="295" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="90" cy="315" r="18" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="90" y="309" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">+</text>
+  <text x="90" y="326" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">−</text>
+  <line x1="90" y1="333" x2="90" y2="410" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="116" y="312" font-size="13" font-weight="bold" fill="#1a1a1a">V_CC</text>
+  <text x="116" y="328" font-size="11" fill="#6b7280">(3.3 В / 5 В)</text>
+
+  <!-- Internal Resistor R_out -->
+  <line x1="90" y1="230" x2="115" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="115" y="220" width="50" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="2"/>
+  <text x="140" y="190" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">R_out</text>
+  <text x="140" y="205" font-size="11" fill="#6b7280" text-anchor="middle">(10–30 Ом)</text>
+  <line x1="165" y1="230" x2="200" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- GPIO Output Node -->
+  <circle cx="200" cy="230" r="4" fill="#1a1a1a"/>
+  <text x="200" y="252" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вивід GPIO</text>
+
+  <!-- Limiting Resistor R -->
+  <line x1="200" y1="230" x2="250" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="250" y="220" width="60" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="2"/>
+  <text x="280" y="190" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">R</text>
+  <text x="280" y="205" font-size="11" fill="#6b7280" text-anchor="middle">(обмежувальний)</text>
+  <line x1="310" y1="230" x2="430" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- LED Anode Pin -->
+  <circle cx="430" cy="230" r="4" fill="#1a1a1a"/>
+  <text x="445" y="225" font-size="11" fill="#6b7280">Анод (Pin 1)</text>
+
+  <!-- Current Arrow I_F -->
+  <line x1="215" y1="260" x2="345" y2="260" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="280" y="253" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Струм I_F →</text>
+
+  <!-- KVL Loop Counter Arrow -->
+  <path d="M210,345 A 40 40 0 1 1 290,345" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <text x="250" y="332" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Контур KVL:</text>
+  <text x="250" y="350" font-size="10" fill="#1a1a1a" text-anchor="middle">+ V_CC − I_F(R+R_out) − V_F = 0</text>
+
+  <!-- Optocoupler LED Symbol -->
+  <line x1="430" y1="230" x2="430" y2="295" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="415,295 445,295 430,325" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="415" y1="325" x2="445" y2="325" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- Light arrows -->
+  <line x1="448" y1="305" x2="460" y2="295" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="452" y1="317" x2="464" y2="307" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Voltage Drop V_F -->
+  <line x1="395" y1="290" x2="395" y2="330" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="385" y="308" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="end">V_F</text>
+  <text x="385" y="325" font-size="11" fill="#6b7280" text-anchor="end">1.2–1.4 В</text>
+
+  <!-- LED Cathode Pin & Ground Connection -->
+  <line x1="430" y1="325" x2="430" y2="410" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="430" cy="410" r="4" fill="#1a1a1a"/>
+  <text x="445" y="415" font-size="11" fill="#6b7280">Катод (Pin 2)</text>
+
+  <!-- Ground Wire & Symbol -->
+  <line x1="90" y1="410" x2="430" y2="410" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="250" y1="410" x2="250" y2="422" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="240" y1="422" x2="260" y2="422" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="244" y1="426" x2="256" y2="426" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="247" y1="430" x2="253" y2="430" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="250" y="448" font-size="12" fill="#1a1a1a" text-anchor="middle">GND (0 В)</text>
+
+  <!-- RIGHT PANEL: Formulas & Calculation -->
+  <rect x="550" y="80" width="380" height="410" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="570" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">Розрахунок номіналу резистора R</text>
+
+  <!-- Card 1: Formulas -->
+  <rect x="565" y="125" width="350" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="580" y="145" font-size="12" font-weight="bold" fill="#2457d6">1. Формула струму та опору (KVL)</text>
+  <text x="580" y="170" font-size="13" font-weight="bold" fill="#1a1a1a">I_F = (V_CC − V_F) / (R + R_out)</text>
+  <text x="580" y="195" font-size="13" font-weight="bold" fill="#27ae60">R = (V_CC − V_F) / I_F − R_out</text>
+
+  <!-- Card 2: Parameters -->
+  <rect x="565" y="230" width="350" height="105" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="580" y="250" font-size="12" font-weight="bold" fill="#1a1a1a">2. Параметри MOC3063 та МК</text>
+  <text x="580" y="270" font-size="12" fill="#475569">• Струм відмикання I_FT: <tspan font-weight="bold" fill="#1a1a1a">5 мА</tspan> (максимум)</text>
+  <text x="580" y="290" font-size="12" fill="#475569">• Робочий струм I_F (запас ×1.5): <tspan font-weight="bold" fill="#2457d6">7.5–10 мА</tspan></text>
+  <text x="580" y="310" font-size="12" fill="#475569">• Падіння V_F: <tspan font-weight="bold" fill="#1a1a1a">1.3 В</tspan> | Опір МК R_out: <tspan font-weight="bold" fill="#1a1a1a">20 Ом</tspan></text>
+
+  <!-- Card 3: Example Standard Values (E24) -->
+  <rect x="565" y="345" width="350" height="130" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="580" y="365" font-size="12" font-weight="bold" fill="#27ae60">3. Приклад вибору номіналів (E24)</text>
+  <text x="580" y="388" font-size="12" font-weight="bold" fill="#1a1a1a">Для V_CC = 5.0 В (I_F = 10 мА):</text>
+  <text x="590" y="406" font-size="12" fill="#475569">R = (5.0−1.3)/0.01 − 20 = <tspan font-weight="bold" fill="#1a1a1a">350 Ом</tspan> → <tspan font-weight="bold" fill="#27ae60">360 Ом</tspan></text>
+  <text x="580" y="430" font-size="12" font-weight="bold" fill="#1a1a1a">Для V_CC = 3.3 В (I_F = 7.5 мА):</text>
+  <text x="590" y="448" font-size="12" fill="#475569">R = (3.3−1.3)/0.0075 − 20 = <tspan font-weight="bold" fill="#1a1a1a">246 Ом</tspan> → <tspan font-weight="bold" fill="#27ae60">240 Ом</tspan></text>
+  <text x="580" y="468" font-size="11" fill="#6b7280">Потужність P_R ≈ 15–36 мВт (стандарт 0.125 Вт / 0603)</text>
+</svg>

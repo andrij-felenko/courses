@@ -1,0 +1,197 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топології підключення лазерного та моніторного діодів (N, P, M)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Полярність спільного виводу визначає конфігурацію джерела струму та контуру APC</text>
+
+  <!-- КАРТКА 1: ТИП N -->
+  <g id="card-n">
+    <rect x="35" y="75" width="270" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    
+    <!-- Шапка картки 1 -->
+    <rect x="47" y="87" width="246" height="48" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="170" y="106" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Тип N (Common Cathode)</text>
+    <text x="170" y="124" font-size="12" fill="#1a1a1a" text-anchor="middle">Спільний катод (K_LD + K_PD)</text>
+
+    <!-- Позначення виводів 1 та 3 -->
+    <text x="125" y="146" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Pin 1: A_LD</text>
+    <text x="215" y="146" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Pin 3: A_PD</text>
+    <circle cx="125" cy="155" r="4" fill="#2457d6"/>
+    <circle cx="215" cy="155" r="4" fill="#2457d6"/>
+
+    <!-- Корпус TO-can -->
+    <circle cx="170" cy="230" r="65" fill="#ffffff" stroke="#2457d6" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="170" y="176" font-size="12" fill="#6b7280" text-anchor="middle">Корпус TO-can</text>
+
+    <!-- LD (Лазерний діод) -->
+    <line x1="125" y1="155" x2="125" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+    <path d="M 115,195 L 135,195 L 125,215 Z" fill="#2457d6"/>
+    <line x1="115" y1="215" x2="135" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="125" y1="215" x2="125" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="98" y="210" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">LD</text>
+    <!-- Промені лазера -->
+    <line x1="133" y1="190" x2="145" y2="178" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+    <line x1="138" y1="197" x2="150" y2="185" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+    <!-- PD (Фотодіод монітора) -->
+    <line x1="215" y1="155" x2="215" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+    <path d="M 205,195 L 225,195 L 215,215 Z" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="205" y1="215" x2="225" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="215" y1="215" x2="215" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="242" y="210" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">PD</text>
+    <!-- Оптичний зв'язок PD -->
+    <line x1="185" y1="190" x2="197" y2="202" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="2 2" marker-end="url(#arr-gray)"/>
+    <line x1="190" y1="183" x2="202" y2="195" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="2 2" marker-end="url(#arr-gray)"/>
+
+    <!-- З'єднання спільних катодів -->
+    <line x1="125" y1="265" x2="215" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+    <circle cx="170" cy="265" r="3.5" fill="#1a1a1a"/>
+    <line x1="170" y1="265" x2="170" y2="308" stroke="#1a1a1a" stroke-width="1.5"/>
+    <circle cx="170" cy="308" r="4" fill="#2457d6"/>
+    <!-- Зв'язок з корпусом -->
+    <line x1="170" y1="265" x2="170" y2="295" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+    <circle cx="170" cy="295" r="2.5" fill="#6b7280"/>
+
+    <!-- Позначення виводу 2 -->
+    <text x="170" y="324" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Pin 2: COM (K_LD, K_PD)</text>
+
+    <!-- Нижня інформаційна панель -->
+    <rect x="47" y="340" width="246" height="100" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="57" y="358" font-size="12" font-weight="bold" fill="#1a1a1a">Конфігурація діодів:</text>
+    <text x="57" y="374" font-size="12" fill="#6b7280">• LD: Анод — Pin 1, Катод — COM</text>
+    <text x="57" y="390" font-size="12" fill="#6b7280">• PD: Анод — Pin 3, Катод — COM</text>
+    <text x="57" y="410" font-size="12" font-weight="bold" fill="#2457d6">Типовий драйвер:</text>
+    <text x="57" y="426" font-size="12" fill="#1a1a1a">iC-WKN, MAX3669, LDC205C</text>
+  </g>
+
+  <!-- КАРТКА 2: ТИП P -->
+  <g id="card-p">
+    <rect x="345" y="75" width="270" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    
+    <!-- Шапка картки 2 -->
+    <rect x="357" y="87" width="246" height="48" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="480" y="106" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Тип P (Common Anode)</text>
+    <text x="480" y="124" font-size="12" fill="#1a1a1a" text-anchor="middle">Спільний анод (A_LD + A_PD)</text>
+
+    <!-- Позначення виводів 1 та 3 -->
+    <text x="435" y="146" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Pin 1: K_LD</text>
+    <text x="525" y="146" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Pin 3: K_PD</text>
+    <circle cx="435" cy="155" r="4" fill="#2457d6"/>
+    <circle cx="525" cy="155" r="4" fill="#2457d6"/>
+
+    <!-- Корпус TO-can -->
+    <circle cx="480" cy="230" r="65" fill="#ffffff" stroke="#2457d6" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="480" y="176" font-size="12" fill="#6b7280" text-anchor="middle">Корпус TO-can</text>
+
+    <!-- LD (Лазерний діод) -->
+    <line x1="435" y1="155" x2="435" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="425" y1="195" x2="445" y2="195" stroke="#1a1a1a" stroke-width="2"/>
+    <path d="M 425,215 L 445,215 L 435,195 Z" fill="#2457d6"/>
+    <line x1="435" y1="215" x2="435" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="408" y="210" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">LD</text>
+    <!-- Промені лазера -->
+    <line x1="443" y1="190" x2="455" y2="178" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+    <line x1="448" y1="197" x2="460" y2="185" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+    <!-- PD (Фотодіод монітора) -->
+    <line x1="525" y1="155" x2="525" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="515" y1="195" x2="535" y2="195" stroke="#1a1a1a" stroke-width="2"/>
+    <path d="M 515,215 L 535,215 L 525,195 Z" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="525" y1="215" x2="525" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="552" y="210" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">PD</text>
+    <!-- Оптичний зв'язок PD -->
+    <line x1="495" y1="190" x2="507" y2="202" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="2 2" marker-end="url(#arr-gray)"/>
+    <line x1="500" y1="183" x2="512" y2="195" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="2 2" marker-end="url(#arr-gray)"/>
+
+    <!-- З'єднання спільного анода -->
+    <line x1="435" y1="265" x2="525" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+    <circle cx="480" cy="265" r="3.5" fill="#1a1a1a"/>
+    <line x1="480" y1="265" x2="480" y2="308" stroke="#1a1a1a" stroke-width="1.5"/>
+    <circle cx="480" cy="308" r="4" fill="#2457d6"/>
+    <!-- Зв'язок з корпусом -->
+    <line x1="480" y1="265" x2="480" y2="295" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+    <circle cx="480" cy="295" r="2.5" fill="#6b7280"/>
+
+    <!-- Позначення виводу 2 -->
+    <text x="480" y="324" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Pin 2: COM (A_LD, A_PD)</text>
+
+    <!-- Нижня інформаційна панель -->
+    <rect x="357" y="340" width="246" height="100" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="367" y="358" font-size="12" font-weight="bold" fill="#1a1a1a">Конфігурація діодів:</text>
+    <text x="367" y="374" font-size="12" fill="#6b7280">• LD: Катод — Pin 1, Анод — COM</text>
+    <text x="367" y="390" font-size="12" fill="#6b7280">• PD: Катод — Pin 3, Анод — COM</text>
+    <text x="367" y="410" font-size="12" font-weight="bold" fill="#2457d6">Типовий драйвер:</text>
+    <text x="367" y="426" font-size="12" fill="#1a1a1a">iC-WKP, ADN2847, LDC202C</text>
+  </g>
+
+  <!-- КАРТКА 3: ТИП M -->
+  <g id="card-m">
+    <rect x="655" y="75" width="270" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    
+    <!-- Шапка картки 3 -->
+    <rect x="667" y="87" width="246" height="48" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="790" y="106" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Тип M (Mixed Common)</text>
+    <text x="790" y="124" font-size="12" fill="#1a1a1a" text-anchor="middle">Змішана полярність (K_LD + A_PD)</text>
+
+    <!-- Позначення виводів 1 та 3 -->
+    <text x="745" y="146" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Pin 1: A_LD</text>
+    <text x="835" y="146" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Pin 3: K_PD</text>
+    <circle cx="745" cy="155" r="4" fill="#2457d6"/>
+    <circle cx="835" cy="155" r="4" fill="#2457d6"/>
+
+    <!-- Корпус TO-can -->
+    <circle cx="790" cy="230" r="65" fill="#ffffff" stroke="#2457d6" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="790" y="176" font-size="12" fill="#6b7280" text-anchor="middle">Корпус TO-can</text>
+
+    <!-- LD (Лазерний діод) -->
+    <line x1="745" y1="155" x2="745" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+    <path d="M 735,195 L 755,195 L 745,215 Z" fill="#2457d6"/>
+    <line x1="735" y1="215" x2="755" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="745" y1="215" x2="745" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="718" y="210" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">LD</text>
+    <!-- Промені лазера -->
+    <line x1="753" y1="190" x2="765" y2="178" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+    <line x1="758" y1="197" x2="770" y2="185" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+    <!-- PD (Фотодіод монітора) -->
+    <line x1="835" y1="155" x2="835" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="825" y1="195" x2="845" y2="195" stroke="#1a1a1a" stroke-width="2"/>
+    <path d="M 825,215 L 845,215 L 835,195 Z" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="835" y1="215" x2="835" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="862" y="210" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">PD</text>
+    <!-- Оптичний зв'язок PD -->
+    <line x1="805" y1="190" x2="817" y2="202" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="2 2" marker-end="url(#arr-gray)"/>
+    <line x1="810" y1="183" x2="822" y2="195" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="2 2" marker-end="url(#arr-gray)"/>
+
+    <!-- З'єднання змішаної полярності -->
+    <line x1="745" y1="265" x2="835" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+    <circle cx="790" cy="265" r="3.5" fill="#1a1a1a"/>
+    <line x1="790" y1="265" x2="790" y2="308" stroke="#1a1a1a" stroke-width="1.5"/>
+    <circle cx="790" cy="308" r="4" fill="#2457d6"/>
+    <!-- Зв'язок з корпусом -->
+    <line x1="790" y1="265" x2="790" y2="295" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+    <circle cx="790" cy="295" r="2.5" fill="#6b7280"/>
+
+    <!-- Позначення виводу 2 -->
+    <text x="790" y="324" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Pin 2: COM (K_LD, A_PD)</text>
+
+    <!-- Нижня інформаційна панель -->
+    <rect x="667" y="340" width="246" height="100" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="677" y="358" font-size="12" font-weight="bold" fill="#1a1a1a">Конфігурація діодів:</text>
+    <text x="677" y="374" font-size="12" fill="#6b7280">• LD: Анод — Pin 1, Катод — COM</text>
+    <text x="677" y="390" font-size="12" fill="#6b7280">• PD: Катод — Pin 3, Анод — COM</text>
+    <text x="677" y="410" font-size="12" font-weight="bold" fill="#2457d6">Типовий драйвер:</text>
+    <text x="677" y="426" font-size="12" fill="#1a1a1a">iC-WKM, iC-NZN, LDC200CV</text>
+  </g>
+</svg>

@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Markers -->
+    <marker id="arr-black" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 0,1 L 7,4 L 0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-black-start" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 8,1 L 1,4 L 8,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 0,1 L 7,4 L 0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-start" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 8,1 L 1,4 L 8,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 0,1 L 7,4 L 0,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-start" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 8,1 L 1,4 L 8,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-axis" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 0,1 L 7,4 L 0,7 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Перехідні процеси та динамічні втрати перемикання MOSFET</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Перекриття напруги v_DS і струму i_D під час фронтів увімкнення та вимкнення формує енергію втрат E_on і E_off</text>
+
+  <!-- Legend Bar -->
+  <rect x="182" y="63" width="596" height="24" rx="12" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="195" y1="75" x2="220" y2="75" stroke="#2457d6" stroke-width="3"/>
+  <text x="225" y="79" font-size="12" font-weight="bold" fill="#2457d6">v_DS (напруга)</text>
+  
+  <line x1="330" y1="75" x2="355" y2="75" stroke="#27ae60" stroke-width="3"/>
+  <text x="360" y="79" font-size="12" font-weight="bold" fill="#27ae60">i_D (струм)</text>
+  
+  <line x1="450" y1="75" x2="475" y2="75" stroke="#c0392b" stroke-width="3"/>
+  <text x="480" y="79" font-size="12" font-weight="bold" fill="#c0392b">p(t) (миттєва потужність)</text>
+
+  <rect x="645" y="69" width="18" height="12" fill="#c0392b" fill-opacity="0.25" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="670" y="79" font-size="12" font-weight="bold" fill="#c0392b">E_loss (втрати)</text>
+
+  <!-- CARD 1: TURN-ON -->
+  <rect x="35" y="95" width="430" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="45" y="105" width="410" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="250" y="125" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">І. ФРОНТ УВІМКНЕННЯ (Turn-ON Transition)</text>
+
+  <!-- Turn-ON Sub-plot 1: Voltage and Current -->
+  <text x="85" y="152" font-size="12" font-weight="bold" fill="#1a1a1a">Напруга v_DS та струм i_D</text>
+  
+  <!-- Dashed grid lines -->
+  <line x1="85" y1="171" x2="445" y2="171" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="85" y1="194" x2="445" y2="194" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Vertical boundary lines -->
+  <line x1="145" y1="158" x2="145" y2="452" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="235" y1="158" x2="235" y2="452" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="325" y1="158" x2="325" y2="452" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Axes -->
+  <line x1="85" y1="270" x2="85" y2="155" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <line x1="85" y1="270" x2="445" y2="270" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <text x="442" y="265" font-size="12" font-weight="bold" fill="#6b7280">t</text>
+
+  <!-- Y-axis ticks & labels -->
+  <text x="78" y="175" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">V_DC</text>
+  <text x="78" y="198" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">I_D</text>
+  <text x="78" y="268" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+
+  <!-- Curves -->
+  <path d="M 85,171 L 235,171 L 325,265 L 445,265" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 85,265 L 145,265 L 235,194 L 445,194" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Turn-ON Sub-plot 2: Power -->
+  <text x="85" y="295" font-size="12" font-weight="bold" fill="#c0392b">Миттєва потужність p(t) = v_DS × i_D</text>
+  
+  <line x1="85" y1="312" x2="445" y2="312" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="2,2"/>
+  
+  <!-- Axes -->
+  <line x1="85" y1="395" x2="85" y2="297" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="85" y1="395" x2="445" y2="395" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <text x="442" y="390" font-size="12" font-weight="bold" fill="#6b7280">t</text>
+
+  <text x="78" y="316" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">P_peak</text>
+  <text x="78" y="393" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+
+  <!-- Shaded Area E_on -->
+  <polygon points="145,395 235,312 325,395" fill="#c0392b" fill-opacity="0.2"/>
+  <path d="M 85,395 L 145,395 L 235,312 L 325,395 L 445,395" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <text x="235" y="356" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">E_on</text>
+  <text x="235" y="374" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">(втрати увімкнення)</text>
+
+  <!-- Turn-ON Time Interval Annotations -->
+  <line x1="145" y1="418" x2="235" y2="418" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-black-start)" marker-end="url(#arr-black)"/>
+  <text x="190" y="412" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">t_ri</text>
+
+  <line x1="235" y1="418" x2="325" y2="418" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-black-start)" marker-end="url(#arr-black)"/>
+  <text x="280" y="412" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">t_fv</text>
+
+  <line x1="145" y1="448" x2="325" y2="448" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+  <text x="235" y="440" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t_on = t_ri + t_fv</text>
+
+
+  <!-- CARD 2: TURN-OFF -->
+  <rect x="495" y="95" width="430" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="505" y="105" width="410" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="710" y="125" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">ІІ. ФРОНТ ВИМКНЕННЯ (Turn-OFF Transition)</text>
+
+  <!-- Turn-OFF Sub-plot 1: Voltage and Current -->
+  <text x="545" y="152" font-size="12" font-weight="bold" fill="#1a1a1a">Напруга v_DS та струм i_D</text>
+
+  <!-- Dashed grid lines -->
+  <line x1="545" y1="171" x2="905" y2="171" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="545" y1="194" x2="905" y2="194" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Vertical boundary lines -->
+  <line x1="605" y1="158" x2="605" y2="452" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="695" y1="158" x2="695" y2="452" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="785" y1="158" x2="785" y2="452" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Axes -->
+  <line x1="545" y1="270" x2="545" y2="155" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <line x1="545" y1="270" x2="905" y2="270" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <text x="902" y="265" font-size="12" font-weight="bold" fill="#6b7280">t</text>
+
+  <!-- Y-axis ticks & labels -->
+  <text x="538" y="175" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">V_DC</text>
+  <text x="538" y="198" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">I_D</text>
+  <text x="538" y="268" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+
+  <!-- Curves -->
+  <path d="M 545,265 L 605,265 L 695,171 L 905,171" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 545,194 L 695,194 L 785,265 L 905,265" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Turn-OFF Sub-plot 2: Power -->
+  <text x="545" y="295" font-size="12" font-weight="bold" fill="#c0392b">Миттєва потужність p(t) = v_DS × i_D</text>
+
+  <line x1="545" y1="312" x2="905" y2="312" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Axes -->
+  <line x1="545" y1="395" x2="545" y2="297" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="545" y1="395" x2="905" y2="395" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <text x="902" y="390" font-size="12" font-weight="bold" fill="#6b7280">t</text>
+
+  <text x="538" y="316" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">P_peak</text>
+  <text x="538" y="393" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+
+  <!-- Shaded Area E_off -->
+  <polygon points="605,395 695,312 785,395" fill="#c0392b" fill-opacity="0.2"/>
+  <path d="M 545,395 L 605,395 L 695,312 L 785,395 L 905,395" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <text x="695" y="356" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">E_off</text>
+  <text x="695" y="374" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">(втрати вимкнення)</text>
+
+  <!-- Turn-OFF Time Interval Annotations -->
+  <line x1="605" y1="418" x2="695" y2="418" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-black-start)" marker-end="url(#arr-black)"/>
+  <text x="650" y="412" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">t_rv</text>
+
+  <line x1="695" y1="418" x2="785" y2="418" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-black-start)" marker-end="url(#arr-black)"/>
+  <text x="740" y="412" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">t_fi</text>
+
+  <line x1="605" y1="448" x2="785" y2="448" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-start)" marker-end="url(#arr-red)"/>
+  <text x="695" y="440" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">t_off = t_rv + t_fi</text>
+
+  <!-- BOTTOM SUMMARY PANEL -->
+  <rect x="35" y="475" width="890" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="496" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Формула динамічних втрат: P_sw = (E_on + E_off) × f_sw = ½ × V_DC × I_D × (t_on + t_off) × f_sw</text>
+  <text x="480" y="514" text-anchor="middle" font-size="12" fill="#6b7280">Динамічні втрати прямо пропорційні напрузі V_DC, струму I_D, частоті ШІМ (f_sw) та тривалості фронтів (t_on, t_off)</text>
+</svg>

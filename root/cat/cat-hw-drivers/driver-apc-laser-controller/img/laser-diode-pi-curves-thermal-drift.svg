@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-left-grey" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-right-grey" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Вплив температури на P-I характеристику лазерного діода</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Зростання температури збільшує пороговий струм I_th, знижує ефективність η_d та створює ризик COD</text>
+
+  <!-- Graph Panel Container -->
+  <rect x="30" y="72" width="555" height="448" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- COD Region Background & Limit Line -->
+  <rect x="110" y="105" width="455" height="30" fill="#fdecea" opacity="0.7"/>
+  <line x1="110" y1="135" x2="565" y2="135" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="118" y="123" font-size="12" font-weight="bold" fill="#c0392b">Область COD (P &gt; P_COD)</text>
+
+  <!-- P_set Target Line -->
+  <line x1="110" y1="220" x2="565" y2="220" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="118" y="212" font-size="12" font-weight="bold" fill="#2457d6">P_set (робочий рівень)</text>
+
+  <!-- Operating Point Projection Lines -->
+  <line x1="300" y1="220" x2="300" y2="420" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="420" y1="220" x2="420" y2="420" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="540" y1="220" x2="540" y2="420" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- No-APC Drop Line -->
+  <line x1="300" y1="228" x2="300" y2="370" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+  <circle cx="300" cy="375" r="3.5" fill="#c0392b"/>
+
+  <!-- No-APC Drop Text -->
+  <text x="295" y="330" text-anchor="end" font-size="11" font-weight="bold" fill="#c0392b">Без APC:</text>
+  <text x="295" y="343" text-anchor="end" font-size="11" font-weight="bold" fill="#c0392b">P падає</text>
+  <text x="295" y="356" text-anchor="end" font-size="11" font-weight="bold" fill="#c0392b">до нуля</text>
+
+  <!-- Spontaneous Emission Text -->
+  <text x="118" y="345" font-size="11" fill="#6b7280">Спонтанна емісія</text>
+  <text x="118" y="360" font-size="11" fill="#6b7280">(I &lt; I_th)</text>
+
+  <!-- Slope η_d Triangle & Text -->
+  <polyline points="252,300 287.5,300 287.5,243" fill="none" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="245" y="270" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">ККД η_d = dP/dI</text>
+
+  <!-- P-I Curves -->
+  <path d="M 110,420 L 180,420 Q 185,419 190,412 L 395,100" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="405" y="95" font-size="12" font-weight="bold" fill="#27ae60">25°C (T_1)</text>
+
+  <path d="M 110,420 L 270,420 Q 275,419 280,412 L 500,100" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="510" y="95" font-size="12" font-weight="bold" fill="#2457d6">50°C (T_2)</text>
+
+  <path d="M 110,420 L 350,420 Q 355,419 360,412 L 565,194" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="510" y="175" font-size="12" font-weight="bold" fill="#c0392b">75°C (T_3)</text>
+
+  <!-- APC Current Adjustment Arrow & Text -->
+  <line x1="310" y1="190" x2="530" y2="190" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="396" y="165" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Компенсація APC:</text>
+  <text x="396" y="180" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">I_LD ↑ при T↑</text>
+
+  <!-- Operating Circles -->
+  <circle cx="300" cy="220" r="4.5" fill="#27ae60" stroke="#ffffff" stroke-width="1"/>
+  <circle cx="420" cy="220" r="4.5" fill="#2457d6" stroke="#ffffff" stroke-width="1"/>
+  <circle cx="540" cy="220" r="4.5" fill="#c0392b" stroke="#ffffff" stroke-width="1"/>
+
+  <!-- Axes -->
+  <line x1="110" y1="420" x2="110" y2="100" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="118" y="90" font-size="13" font-weight="bold" fill="#1a1a1a">Оптична потужність P [мВт]</text>
+
+  <line x1="110" y1="420" x2="565" y2="420" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="565" y="455" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">Струм накачки I_LD [мА]</text>
+
+  <!-- Threshold Ticks & Labels on X-axis -->
+  <line x1="180" y1="420" x2="180" y2="425" stroke="#27ae60" stroke-width="2"/>
+  <text x="180" y="438" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">I_th1</text>
+
+  <line x1="270" y1="420" x2="270" y2="425" stroke="#2457d6" stroke-width="2"/>
+  <text x="270" y="438" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">I_th2</text>
+
+  <line x1="350" y1="420" x2="350" y2="425" stroke="#c0392b" stroke-width="2"/>
+  <text x="350" y="438" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">I_th3</text>
+
+  <!-- Operating Current Labels on X-axis -->
+  <text x="300" y="438" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">I_1</text>
+  <text x="420" y="438" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">I_2</text>
+  <text x="540" y="438" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">I_3</text>
+
+  <!-- Threshold Shift Arrow & Text -->
+  <line x1="185" y1="475" x2="345" y2="475" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-left-grey)" marker-end="url(#arr-right-grey)"/>
+  <text x="265" y="495" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Зсув порогового струму ΔI_th(T)</text>
+
+  <!-- Right Panels -->
+  <!-- Panel 1 -->
+  <rect x="600" y="72" width="330" height="135" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="615" y="94" font-size="13" font-weight="bold" fill="#1a1a1a">1. Фізика температурного дрейфу</text>
+  <text x="615" y="116" font-size="12" fill="#1a1a1a">• Експоненційний зсув порогового струму:</text>
+
+  <rect x="630" y="124" width="270" height="26" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="765" y="141" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">I_th(T) = I_th0 · exp(T / T_0)</text>
+
+  <text x="615" y="167" font-size="12" fill="#1a1a1a">• Падіння диф. ефективності: <tspan font-weight="bold" fill="#2457d6">η_d = dP/dI</tspan></text>
+  <text x="615" y="187" font-size="11" fill="#6b7280">(T_0 — характеристична температура: 50–150 K)</text>
+
+  <!-- Panel 2 -->
+  <rect x="600" y="219" width="330" height="142" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="615" y="241" font-size="13" font-weight="bold" fill="#2457d6">2. Контур зворотного зв'язку (APC)</text>
+  <text x="615" y="263" font-size="12" fill="#1a1a1a">• Фотодіод моніторить: <tspan font-weight="bold" fill="#2457d6">I_PD = S_PD · P_opt</tspan></text>
+  <text x="615" y="283" font-size="12" fill="#1a1a1a">• APC підтримує рівність: <tspan font-weight="bold" fill="#2457d6">I_PD = I_SET</tspan></text>
+  <text x="615" y="303" font-size="12" fill="#1a1a1a">• При T↑ підлаштовує струм: <tspan font-weight="bold" fill="#27ae60">I_1 → I_2 → I_3</tspan></text>
+  <text x="615" y="323" font-size="12" fill="#1a1a1a">• Компенсує дрейф T та деградацію кристала</text>
+  <text x="615" y="343" font-size="12" fill="#6b7280">  Забезпечує стабільність оптичної потужності</text>
+
+  <!-- Panel 3 -->
+  <rect x="600" y="373" width="330" height="147" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="615" y="395" font-size="13" font-weight="bold" fill="#c0392b">3. Ризик COD та апаратний захист</text>
+  <text x="615" y="417" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold" fill="#c0392b">COD</tspan>: руйнування дзеркал при <tspan font-weight="bold" fill="#c0392b">P &gt; P_COD</tspan></text>
+  <text x="615" y="437" font-size="12" fill="#1a1a1a">• Небезпека: швидке охолодження при I=const</text>
+  <text x="615" y="457" font-size="12" fill="#1a1a1a">• Обов'язкові вузли мікросхеми драйвера:</text>
+  <text x="630" y="477" font-size="11" fill="#1a1a1a">1) <tspan font-weight="bold" fill="#27ae60">Soft-Start</tspan> — захист від сплесків вмикання</text>
+  <text x="630" y="497" font-size="11" fill="#1a1a1a">2) <tspan font-weight="bold" fill="#c0392b">I_MAX Limiter</tspan> — обмеження максимального струму</text>
+</svg>

@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структурна схема аналогового серводрайвера AA5188</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Формування струму двигуна на основі порівняння вхідного ШІМ-сигналу та зворотного зв'язку</text>
+
+  <!-- Вхідний блок (ліворуч зовні) -->
+  <rect x="15" y="140" width="115" height="120" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="72.5" y="167" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхідний ШІМ</text>
+  <text x="72.5" y="186" font-size="12" fill="#1a1a1a" text-anchor="middle">t_in = 1.0–2.0 мс</text>
+  <text x="72.5" y="204" font-size="12" fill="#6b7280" text-anchor="middle">Період T = 20 мс</text>
+  <path d="M 28,245 L 45,245 L 45,225 L 68,225 L 68,245 L 93,245 L 93,225 L 110,225 L 110,245 L 122,245" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Лінія вхідного сигналу ШІМ -> Pin 1 -->
+  <line x1="130" y1="175" x2="210" y2="175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="162.5" y="165" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Pin 1: IN</text>
+
+  <!-- Корпус мікросхеми AA5188 -->
+  <rect x="195" y="82" width="510" height="438" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="210" y="94" width="200" height="26" rx="4" fill="#2457d6"/>
+  <text x="310" y="111" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Мікросхема AA5188 (IC)</text>
+
+  <!-- Блок 1A: Сепаратор імпульсів -->
+  <rect x="210" y="140" width="145" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="282.5" y="162" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сепаратор імпульсів</text>
+  <text x="282.5" y="180" font-size="12" fill="#1a1a1a" text-anchor="middle">Одновібратор ref</text>
+  <text x="282.5" y="198" font-size="12" fill="#6b7280" text-anchor="middle">Pulse Discriminator</text>
+
+  <!-- Блок 2A: Зона нечутливості -->
+  <rect x="370" y="140" width="145" height="75" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="442.5" y="162" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Зона нечутливості</text>
+  <text x="442.5" y="180" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Генератор t_dead</text>
+  <text x="442.5" y="198" font-size="12" fill="#6b7280" text-anchor="middle">Deadband Generator</text>
+
+  <!-- Зв'язки верхнього рівня: 1A -> 2A та 1A -> 1B -->
+  <line x1="355" y1="177.5" x2="370" y2="177.5" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <line x1="282.5" y1="215" x2="282.5" y2="255" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="291" y="239" font-size="12" fill="#6b7280" text-anchor="start">t_ref</text>
+
+  <!-- Зв'язок 2A -> 2B -->
+  <line x1="442.5" y1="215" x2="442.5" y2="255" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="451" y="239" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">t_dead</text>
+
+  <!-- Блок 1B: Вузол порівняння -->
+  <rect x="210" y="255" width="145" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="282.5" y="277" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вузол порівняння</text>
+  <text x="282.5" y="295" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Δt = |t_in - t_FB|</text>
+  <text x="282.5" y="313" font-size="12" fill="#6b7280" text-anchor="middle">Error Comparator</text>
+
+  <!-- Зв'язок 1B -> 2B -->
+  <line x1="355" y1="292.5" x2="370" y2="292.5" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="362.5" y="286" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Δt</text>
+
+  <!-- Блок 2B: Логіка напрямку -->
+  <rect x="370" y="255" width="145" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="442.5" y="277" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Логіка напрямку</text>
+  <text x="442.5" y="295" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Формувач CW / CCW</text>
+  <text x="442.5" y="313" font-size="12" fill="#6b7280" text-anchor="middle">Drive Control Logic</text>
+
+  <!-- Керуючі лінії 2B -> H-Міст (CW, CCW) -->
+  <line x1="515" y1="275" x2="535" y2="275" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <text x="525" y="268" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">CW</text>
+
+  <line x1="515" y1="310" x2="535" y2="310" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <text x="525" y="303" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">CCW</text>
+
+  <!-- Блок 3: Силовий H-міст -->
+  <rect x="535" y="140" width="155" height="255" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="612.5" y="162" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Силовий H-міст</text>
+  <text x="612.5" y="177" font-size="12" fill="#6b7280" text-anchor="middle">Power H-Bridge Stage</text>
+
+  <!-- Внутрішні лінії живлення H-моста -->
+  <line x1="550" y1="199" x2="675" y2="199" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="612.5" y="194" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_CC (+5V..+12V)</text>
+
+  <!-- Транзистори H-моста -->
+  <rect x="550" y="205" width="48" height="34" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="574" y="226" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Q1 (P)</text>
+
+  <rect x="627" y="205" width="48" height="34" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="651" y="226" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Q2 (P)</text>
+
+  <rect x="550" y="325" width="48" height="34" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="574" y="346" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Q3 (N)</text>
+
+  <rect x="627" y="325" width="48" height="34" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="651" y="346" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Q4 (N)</text>
+
+  <!-- Вертикальні стійки H-моста -->
+  <line x1="574" y1="239" x2="574" y2="325" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="651" y1="239" x2="651" y2="325" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Внутрішня лінія заземлення H-моста -->
+  <line x1="550" y1="370" x2="675" y2="370" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="612.5" y="386" font-size="12" fill="#6b7280" text-anchor="middle">GND (0V)</text>
+
+  <!-- Вихідні лінії OUT1 та OUT2 від H-моста до двигуна -->
+  <line x1="574" y1="260" x2="795" y2="260" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="750" y="252" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">OUT1 (Pin 6)</text>
+
+  <line x1="651" y1="300" x2="795" y2="300" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="750" y="292" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">OUT2 (Pin 7)</text>
+
+  <!-- Блок 1C: Перетворювач зворотного зв'язку -->
+  <rect x="210" y="370" width="305" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="362.5" y="392" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Перетворювач напруги ЗЗ у тривалість</text>
+  <text x="362.5" y="412" font-size="12" fill="#1a1a1a" text-anchor="middle">Формування інтервалу t_FB = f(V_FB)</text>
+  <text x="362.5" y="431" font-size="12" fill="#6b7280" text-anchor="middle">Feedback Voltage-to-Width Converter</text>
+  <text x="362.5" y="450" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вхід з Pin 2 (FB)</text>
+
+  <!-- Зв'язок 1C -> 1B -->
+  <line x1="282.5" y1="370" x2="282.5" y2="330" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="291" y="356" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">t_FB</text>
+
+  <!-- Лінія зворотного зв'язку від потенціометра до IC -->
+  <line x1="795" y1="430" x2="515" y2="430" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="750" y="422" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Pin 2 (FB)</text>
+  <text x="610" y="422" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V_FB</text>
+
+  <!-- Двигун ДПС (зовні праворуч) -->
+  <rect x="795" y="140" width="145" height="110" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="867.5" y="158" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двигун ДПС</text>
+  <text x="867.5" y="174" font-size="12" fill="#6b7280" text-anchor="middle">(DC Motor)</text>
+  <circle cx="867.5" cy="204" r="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="867.5" y="209" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">M</text>
+  <text x="867.5" y="240" font-size="12" fill="#6b7280" text-anchor="middle">Обмотка ротора</text>
+
+  <!-- Механічний зв'язок: Двигун -> Редуктор -->
+  <line x1="867.5" y1="250" x2="867.5" y2="275" stroke="#6b7280" stroke-width="2.5" stroke-dasharray="3,2"/>
+
+  <!-- Блок Редуктора -->
+  <rect x="805" y="275" width="125" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="867.5" y="300" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Редуктор (Gearbox)</text>
+
+  <!-- Механічний зв'язок: Редуктор -> Потенціометр -->
+  <line x1="867.5" y1="315" x2="867.5" y2="355" stroke="#6b7280" stroke-width="2.5" stroke-dasharray="3,2"/>
+  <text x="876" y="339" font-size="12" fill="#6b7280" text-anchor="start">вал α</text>
+
+  <!-- Блок Потенціометра ЗЗ -->
+  <rect x="795" y="355" width="145" height="110" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="867.5" y="377" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Потенціометр ЗЗ</text>
+  <text x="867.5" y="396" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_FB = 5...10 кОм</text>
+  <text x="867.5" y="415" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V_FB = k · α_вал</text>
+  <text x="867.5" y="434" font-size="12" fill="#6b7280" text-anchor="middle">Датчик кута повороту</text>
+</svg>

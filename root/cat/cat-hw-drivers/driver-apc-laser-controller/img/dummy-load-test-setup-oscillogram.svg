@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-yellow" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#fbbf24"/>
+    </marker>
+    <marker id="arr-yellow-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#fbbf24"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема випробувального стенда з еквівалентом навантаження та осцилограма плавного пуску</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Діодний еквівалент з шунтом дозволяє виміряти струм I_LD та підтвердити відсутність викидів струму</text>
+
+  <!-- LEFT PANEL: Test Setup Schematic -->
+  <rect x="30" y="75" width="435" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Схема підключення еквівалента навантаження</text>
+
+  <!-- Driver IC Module -->
+  <rect x="80" y="125" width="125" height="205" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="142.5" y="146" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Драйвер APC</text>
+  <text x="142.5" y="162" font-size="12" fill="#6b7280" text-anchor="middle">(Laser Driver IC)</text>
+
+  <!-- External Inputs to Driver -->
+  <text x="40" y="182" font-size="12" fill="#1a1a1a">+V_CC</text>
+  <line x1="40" y1="190" x2="80" y2="190" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <text x="86" y="186" font-size="12" font-weight="bold" fill="#1a1a1a">V_CC</text>
+
+  <text x="40" y="292" font-size="12" font-weight="bold" fill="#27ae60">ENABLE</text>
+  <line x1="40" y1="300" x2="80" y2="300" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="86" y="296" font-size="12" font-weight="bold" fill="#1a1a1a">ENABLE</text>
+
+  <!-- Output Pins on Driver -->
+  <text x="199" y="186" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">OUT+</text>
+  <text x="199" y="241" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">PD_IN</text>
+  <text x="199" y="296" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">OUT-</text>
+
+  <!-- Dummy Load Box -->
+  <rect x="245" y="125" width="210" height="205" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="350" y="143" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Еквівалент лазера</text>
+  <text x="350" y="157" font-size="12" fill="#6b7280" text-anchor="middle">(Dummy Load)</text>
+
+  <!-- OUT+ Line to Diodes -->
+  <line x1="205" y1="190" x2="285" y2="190" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="285" cy="190" r="3.5" fill="#2457d6"/>
+
+  <!-- Series Diodes D1-D3 -->
+  <line x1="285" y1="190" x2="285" y2="196" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Diode 1 -->
+  <polygon points="277,196 293,196 285,207" fill="#2457d6"/>
+  <line x1="277" y1="207" x2="293" y2="207" stroke="#2457d6" stroke-width="2"/>
+  <line x1="285" y1="207" x2="285" y2="213" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Diode 2 -->
+  <polygon points="277,213 293,213 285,224" fill="#2457d6"/>
+  <line x1="277" y1="224" x2="293" y2="224" stroke="#2457d6" stroke-width="2"/>
+  <line x1="285" y1="224" x2="285" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Diode 3 -->
+  <polygon points="277,230 293,230 285,241" fill="#2457d6"/>
+  <line x1="277" y1="241" x2="293" y2="241" stroke="#2457d6" stroke-width="2"/>
+  <line x1="285" y1="241" x2="285" y2="253" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Diode Labels -->
+  <text x="300" y="210" font-size="12" font-weight="bold" fill="#1a1a1a">D1–D3 (3 діоди)</text>
+  <text x="300" y="226" font-size="12" fill="#6b7280">V_f ≈ 1.8–2.5 В</text>
+
+  <!-- Shunt Resistor R_shunt -->
+  <rect x="279" y="253" width="12" height="28" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="285" y1="281" x2="285" y2="300" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="285" cy="267" r="3.5" fill="#2457d6"/>
+
+  <!-- Shunt Resistor Labels -->
+  <text x="300" y="266" font-size="12" font-weight="bold" fill="#1a1a1a">R_shunt = 0.1 Ом</text>
+  <text x="300" y="282" font-size="12" fill="#6b7280">(безіндуктивний)</text>
+
+  <!-- Return Wire to OUT- -->
+  <line x1="285" y1="300" x2="205" y2="300" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="285" cy="300" r="3.5" fill="#2457d6"/>
+
+  <!-- Photodiode Simulator Feedback Box -->
+  <line x1="205" y1="245" x2="345" y2="245" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <rect x="345" y="225" width="95" height="40" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="392.5" y="241" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Імітатор ФД</text>
+  <text x="392.5" y="257" font-size="12" fill="#6b7280" text-anchor="middle">(сигнал I_PD)</text>
+
+  <!-- Oscilloscope Probes Box (Bottom Left) -->
+  <rect x="45" y="350" width="405" height="155" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="372" font-size="13" font-weight="bold" fill="#1a1a1a">Осцилографічні проби</text>
+
+  <!-- CH2 Probe Info Box -->
+  <rect x="55" y="385" width="185" height="108" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="65" y="405" font-size="12" font-weight="bold" fill="#27ae60">CH2: Сигнал ENABLE</text>
+  <text x="65" y="424" font-size="12" fill="#1a1a1a">Синхронізація (Trig)</text>
+  <text x="65" y="443" font-size="12" fill="#6b7280">Рівень: 0 → 3.3 В</text>
+  <text x="65" y="462" font-size="12" fill="#6b7280">Контроль запуску</text>
+
+  <!-- CH1 Probe Info Box -->
+  <rect x="255" y="385" width="185" height="108" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="265" y="405" font-size="12" font-weight="bold" fill="#2457d6">CH1: Струм I_LD (Шунт)</text>
+  <text x="265" y="424" font-size="12" fill="#1a1a1a">Вимірювання V_shunt</text>
+  <text x="265" y="443" font-size="12" fill="#6b7280">Коефіцієнт: 100 мВ/А</text>
+  <text x="265" y="462" font-size="12" fill="#6b7280">Смуга ≥ 100 МГц</text>
+
+  <!-- Probe Connection Lines -->
+  <path d="M 45 300 L 45 438 L 55 438" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <path d="M 285 267 L 225 267 L 225 335 L 345 335 L 345 385" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+  <!-- RIGHT PANEL: Soft-Start Oscillogram -->
+  <rect x="495" y="75" width="435" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="515" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Осцилограма плавного пуску (Soft-Start)</text>
+
+  <!-- Oscilloscope Screen -->
+  <rect x="515" y="118" width="395" height="275" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+
+  <!-- Screen Grid Lines -->
+  <line x1="565" y1="125" x2="565" y2="385" stroke="#1e293b" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="615" y1="125" x2="615" y2="385" stroke="#1e293b" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="665" y1="125" x2="665" y2="385" stroke="#1e293b" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="715" y1="125" x2="715" y2="385" stroke="#1e293b" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="765" y1="125" x2="765" y2="385" stroke="#1e293b" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="815" y1="125" x2="815" y2="385" stroke="#1e293b" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="865" y1="125" x2="865" y2="385" stroke="#1e293b" stroke-width="1" stroke-dasharray="2 2"/>
+
+  <line x1="525" y1="155" x2="900" y2="155" stroke="#1e293b" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="525" y1="195" x2="900" y2="195" stroke="#1e293b" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="525" y1="235" x2="900" y2="235" stroke="#1e293b" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="525" y1="275" x2="900" y2="275" stroke="#1e293b" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="525" y1="315" x2="900" y2="315" stroke="#1e293b" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="525" y1="355" x2="900" y2="355" stroke="#1e293b" stroke-width="1" stroke-dasharray="2 2"/>
+
+  <!-- Reference Level Lines -->
+  <!-- Target Operating Current I_op = 1.2 A Line -->
+  <line x1="530" y1="185" x2="895" y2="185" stroke="#475569" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="895" y="176" font-size="12" font-weight="bold" fill="#60a5fa" text-anchor="end">I_op = 1.2 А (Робочий струм)</text>
+
+  <!-- Zero Reference Level Line -->
+  <line x1="530" y1="335" x2="895" y2="335" stroke="#475569" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="530" y="327" font-size="12" fill="#94a3b8">0 А / 0 В</text>
+
+  <!-- Waveform 1: Red Curve WITHOUT Soft-Start (Overshoot Danger) -->
+  <path d="M 535 335 L 575 335 Q 590 145 610 145 T 645 195 T 680 185 L 895 185" fill="none" stroke="#ef4444" stroke-width="1.8" stroke-dasharray="4 3"/>
+  <text x="530" y="134" font-size="12" font-weight="bold" fill="#f87171">Без Soft-Start: Викид струму ⚡</text>
+
+  <!-- Waveform 2: Blue Curve WITH APC Soft-Start (Smooth Ramp) -->
+  <path d="M 535 335 L 590 335 C 625 335, 665 185, 710 185 L 895 185" fill="none" stroke="#3b82f6" stroke-width="3"/>
+  <text x="895" y="205" font-size="12" font-weight="bold" fill="#60a5fa" text-anchor="end">CH1: I_LD (Плавний пуск)</text>
+
+  <!-- Waveform 3: Green Curve ENABLE Signal -->
+  <path d="M 535 335 L 575 335 L 575 270 L 895 270" fill="none" stroke="#4ade80" stroke-width="2.5"/>
+  <text x="895" y="258" font-size="12" font-weight="bold" fill="#4ade80" text-anchor="end">CH2: ENABLE (Увімкнення)</text>
+
+  <!-- Soft-Start Duration Annotation -->
+  <line x1="590" y1="185" x2="590" y2="355" stroke="#fbbf24" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="710" y1="185" x2="710" y2="355" stroke="#fbbf24" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="590" y1="348" x2="710" y2="348" stroke="#fbbf24" stroke-width="1.5" marker-start="url(#arr-yellow-start)" marker-end="url(#arr-yellow)"/>
+  <text x="650" y="372" font-size="12" font-weight="bold" fill="#fbbf24" text-anchor="middle">t_ss ≈ 15–20 мкс (Час плавного пуску)</text>
+
+  <!-- Bottom Oscilloscope Status Panel -->
+  <rect x="515" y="402" width="395" height="105" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Channel Badges -->
+  <rect x="525" y="412" width="115" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="582.5" y="429" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">CH1: 200 мА/дів</text>
+
+  <rect x="648" y="412" width="115" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="705.5" y="429" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">CH2: 1.0 В/дів</text>
+
+  <rect x="771" y="412" width="130" height="26" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="836" y="429" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">TB: 5.0 мкс/дів</text>
+
+  <!-- Conclusion Banner -->
+  <rect x="525" y="446" width="376" height="52" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="535" y="465" font-size="12" font-weight="bold" fill="#27ae60">✓ Безпечний пуск: Перерегулювання ΔI_overshoot = 0%</text>
+  <text x="535" y="485" font-size="12" fill="#1a1a1a">Еквівалент підтвердив захист діода від пошкодження</text>
+</svg>

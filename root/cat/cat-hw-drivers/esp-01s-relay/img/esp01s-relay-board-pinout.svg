@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Definitions for Arrow Markers -->
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Призначення контактів та схема модуля реле ESP-01S</text>
+  <text x="480" y="56" font-size="13" text-anchor="middle" fill="#6b7280">Розподіл сигналів 2×4, схемотехніка підтяжки GPIO0 та силові клеми NO / COM / NC</text>
+
+  <!-- PANEL 1: ESP-01S Header 2x4 -->
+  <rect x="30" y="80" width="285" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="172.5" y="104" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Роз'єм 2×4 (ESP-01S Header)</text>
+
+  <rect x="45" y="118" width="255" height="232" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Row 1 -->
+  <rect x="55" y="130" width="110" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="65" y="147" font-size="12" font-weight="bold" fill="#2457d6">3V3 (VCC)</text>
+  <text x="65" y="163" font-size="11" fill="#6b7280">Живлення 3.3 В</text>
+
+  <rect x="175" y="130" width="110" height="42" rx="4" fill="#f4f6f8" stroke="#6b7280"/>
+  <text x="185" y="147" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+  <text x="185" y="163" font-size="11" fill="#6b7280">Спільний мінус</text>
+
+  <!-- Row 2 -->
+  <rect x="55" y="182" width="110" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="65" y="199" font-size="12" font-weight="bold" fill="#1a1a1a">RST</text>
+  <text x="65" y="215" font-size="11" fill="#6b7280">Скидання (Pull-Up)</text>
+
+  <rect x="175" y="182" width="110" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="185" y="199" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO2</text>
+  <text x="185" y="215" font-size="11" fill="#6b7280">Вхід / Вихід</text>
+
+  <!-- Row 3 -->
+  <rect x="55" y="234" width="110" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="65" y="251" font-size="12" font-weight="bold" fill="#1a1a1a">EN (CH_PD)</text>
+  <text x="65" y="267" font-size="11" fill="#6b7280">Увімкнення (High)</text>
+
+  <rect x="175" y="234" width="110" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="185" y="251" font-size="12" font-weight="bold" fill="#27ae60">GPIO0 ★</text>
+  <text x="185" y="267" font-size="11" font-weight="bold" fill="#1a1a1a">Сигнал реле</text>
+
+  <!-- Row 4 -->
+  <rect x="55" y="286" width="110" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="65" y="303" font-size="12" font-weight="bold" fill="#1a1a1a">TXD (GPIO1)</text>
+  <text x="65" y="319" font-size="11" fill="#6b7280">Передача UART</text>
+
+  <rect x="175" y="286" width="110" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="185" y="303" font-size="12" font-weight="bold" fill="#1a1a1a">RXD (GPIO3)</text>
+  <text x="185" y="319" font-size="11" fill="#6b7280">Прийом UART</text>
+
+  <!-- GPIO0 Callout Box -->
+  <rect x="45" y="362" width="255" height="120" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="55" y="380" font-size="12" font-weight="bold" fill="#2457d6">Особливість GPIO0 при старті:</text>
+  <text x="55" y="398" font-size="11" fill="#1a1a1a">• При ввімкненні GPIO0 має бути</text>
+  <text x="55" y="414" font-size="11" fill="#1a1a1a">  HIGH для завантаження з Flash.</text>
+  <text x="55" y="430" font-size="11" fill="#1a1a1a">• На платі є підтяжка (Pull-Up),</text>
+  <text x="55" y="446" font-size="11" fill="#1a1a1a">  що забезпечує штатний запуск.</text>
+  <text x="55" y="464" font-size="11" font-weight="bold" fill="#27ae60">• LOW на GPIO0 вмикає реле.</text>
+
+
+  <!-- PANEL 2: Relay Board Circuit / Blocks -->
+  <rect x="335" y="80" width="310" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="490" y="104" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Функціональні вузли плати</text>
+
+  <!-- Block 1: LDO Regulator -->
+  <rect x="350" y="118" width="280" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="360" y="138" font-size="12" font-weight="bold" fill="#1a1a1a">Стабілізатор LDO (AMS1117 3.3V)</text>
+  <text x="360" y="156" font-size="11" fill="#6b7280">Понижує вхідну напругу 5 В DC до 3.3 В</text>
+  <text x="360" y="172" font-size="11" fill="#6b7280">Живить мікроконтролер ESP-01S</text>
+
+  <!-- Block 2: Transistor Switch -->
+  <rect x="350" y="205" width="280" height="92" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="360" y="225" font-size="12" font-weight="bold" fill="#27ae60">Ключ керування (Транзистор NPN)</text>
+  <text x="360" y="243" font-size="11" fill="#1a1a1a">• Сигнал: GPIO0 (LOW = увімкнення)</text>
+  <text x="360" y="259" font-size="11" fill="#1a1a1a">• Захисний діод: паралельно обмотці</text>
+  <text x="360" y="275" font-size="11" fill="#6b7280">• Індикаторний світлодіод (LED)</text>
+
+  <!-- Block 3: Relay Coil -->
+  <rect x="350" y="309" width="280" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="360" y="329" font-size="12" font-weight="bold" fill="#1a1a1a">Електромеханічне реле (5V Coil)</text>
+  <text x="360" y="347" font-size="11" fill="#6b7280">Комутує силові контакти COM, NO, NC</text>
+  <text x="360" y="363" font-size="11" fill="#6b7280">Струм обмотки реле: ~70–90 мА (при 5 В)</text>
+
+  <!-- Block 4: Galvanic Isolation -->
+  <rect x="350" y="396" width="280" height="86" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="360" y="414" font-size="12" font-weight="bold" fill="#c0392b">Гальванічна ізоляція та безпека:</text>
+  <text x="360" y="432" font-size="11" fill="#1a1a1a">• Проріз на платі розділяє 230 В</text>
+  <text x="360" y="448" font-size="11" fill="#1a1a1a">  та низьковольтну частину 5 В.</text>
+  <text x="360" y="464" font-size="11" font-weight="bold" fill="#c0392b">• Максимальний струм: не більше 10 А!</text>
+
+
+  <!-- PANEL 3: Terminals (Power & Load) -->
+  <rect x="665" y="80" width="265" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="797.5" y="104" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Клеми живлення та навантаження</text>
+
+  <!-- Terminal Block 1: Power Input -->
+  <rect x="680" y="118" width="235" height="116" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="690" y="138" font-size="12" font-weight="bold" fill="#1a1a1a">Вхід живлення плати (DC 5V)</text>
+
+  <rect x="690" y="148" width="215" height="34" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="702" y="169" font-size="12" font-weight="bold" fill="#c0392b">+5V</text>
+  <text x="740" y="169" font-size="11" fill="#1a1a1a">Плюс живлення (+5 В DC)</text>
+
+  <rect x="690" y="188" width="215" height="34" rx="4" fill="#f4f6f8" stroke="#6b7280"/>
+  <text x="702" y="209" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+  <text x="740" y="209" font-size="11" fill="#6b7280">Мінус живлення (Спільний)</text>
+
+  <!-- Terminal Block 2: Load Terminals -->
+  <rect x="680" y="246" width="235" height="152" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="690" y="266" font-size="12" font-weight="bold" fill="#1a1a1a">Силовий клемник (Навантаження)</text>
+
+  <rect x="690" y="276" width="215" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="702" y="298" font-size="12" font-weight="bold" fill="#2457d6">NO</text>
+  <text x="735" y="291" font-size="11" font-weight="bold" fill="#2457d6">Normally Open</text>
+  <text x="735" y="305" font-size="11" fill="#6b7280">Замикається при увімкненні</text>
+
+  <rect x="690" y="318" width="215" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="702" y="340" font-size="12" font-weight="bold" fill="#27ae60">COM</text>
+  <text x="738" y="333" font-size="11" font-weight="bold" fill="#27ae60">Common</text>
+  <text x="738" y="347" font-size="11" fill="#6b7280">Спільний контакт джерела</text>
+
+  <rect x="690" y="360" width="215" height="36" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="702" y="382" font-size="12" font-weight="bold" fill="#1a1a1a">NC</text>
+  <text x="735" y="375" font-size="11" font-weight="bold" fill="#1a1a1a">Normally Closed</text>
+  <text x="735" y="389" font-size="11" fill="#6b7280">Розімкнений при увімкненні</text>
+
+  <!-- Specifications Box -->
+  <rect x="680" y="410" width="235" height="72" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="690" y="428" font-size="12" font-weight="bold" fill="#2457d6">Граничні параметри комутації:</text>
+  <text x="690" y="446" font-size="11" fill="#1a1a1a">• AC: max 250 В / 10 А (змінний)</text>
+  <text x="690" y="464" font-size="11" fill="#1a1a1a">• DC: max 30 В / 10 А (постійний)</text>
+
+  <!-- Connectors / Signal Lines -->
+  <path d="M 285 255 L 350 251" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="317.5" y="247" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">GPIO0</text>
+
+  <path d="M 680 165 L 630 156" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="655" y="153" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">+5V</text>
+
+  <path d="M 630 346 L 680 336" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="655" y="333" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Комутація</text>
+</svg>

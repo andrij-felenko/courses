@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Визначення маркерів стрілок -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Режим повільного згасання струму (Slow Decay) в H-мості</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">Струм самоіндукції циркулює через нижні ключі, згасаючи з константою часу τ = L/R</text>
+
+  <!-- Панель 1: Схема H-моста -->
+  <g id="panel-schematic">
+    <!-- Тло та рамка панелі 1 -->
+    <rect x="25" y="75" width="490" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+    <!-- Шапка панелі 1 -->
+    <path d="M 25,83 A 8,8 0 0 1 33,75 L 507,75 A 8,8 0 0 1 515,83 L 515,109 L 25,109 Z" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+    <text x="270" y="97" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">1. Схема циркуляції струму (Slow Decay)</text>
+
+    <!-- Силова шина +VCC -->
+    <line x1="90" y1="135" x2="450" y2="135" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="270" y="127" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">+V_CC (Джерело живлення)</text>
+    <circle cx="140" cy="135" r="4" fill="#1a1a1a"/>
+    <circle cx="400" cy="135" r="4" fill="#1a1a1a"/>
+
+    <!-- Ключ Q1 (Верхній лівий - ВІДКРИТИЙ) -->
+    <line x1="140" y1="135" x2="140" y2="155" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="140" cy="155" r="3" fill="#1a1a1a"/>
+    <line x1="140" y1="205" x2="162" y2="162" stroke="#c0392b" stroke-width="2.5"/>
+    <circle cx="140" cy="205" r="3" fill="#1a1a1a"/>
+    <line x1="140" y1="205" x2="140" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="65" y="175" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">Q1 (OFF)</text>
+    <text x="65" y="191" font-size="12" fill="#6b7280" text-anchor="start">Відкрито</text>
+
+    <!-- Ключ Q3 (Верхній правий - ВІДКРИТИЙ) -->
+    <line x1="400" y1="135" x2="400" y2="155" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="400" cy="155" r="3" fill="#1a1a1a"/>
+    <line x1="400" y1="205" x2="422" y2="162" stroke="#c0392b" stroke-width="2.5"/>
+    <circle cx="400" cy="205" r="3" fill="#1a1a1a"/>
+    <line x1="400" y1="205" x2="400" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="415" y="175" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">Q3 (OFF)</text>
+    <text x="415" y="191" font-size="12" fill="#6b7280" text-anchor="start">Відкрито</text>
+
+    <!-- Вузли A та B -->
+    <circle cx="140" cy="240" r="5" fill="#1a1a1a"/>
+    <text x="125" y="244" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">A</text>
+
+    <circle cx="400" cy="240" r="5" fill="#1a1a1a"/>
+    <text x="415" y="244" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">B</text>
+
+    <!-- Блок навантаження (Двигун) -->
+    <rect x="190" y="212" width="160" height="56" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+    <text x="270" y="233" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двигун (L, R)</text>
+    <text x="270" y="253" font-size="12" fill="#2457d6" text-anchor="middle">E_РС = -L·(dI/dt)</text>
+
+    <!-- Ключ Q2 (Нижній лівий - ЗАМКНЕНИЙ) -->
+    <line x1="140" y1="240" x2="140" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="140" cy="275" r="3" fill="#27ae60"/>
+    <line x1="140" y1="275" x2="140" y2="325" stroke="#27ae60" stroke-width="3"/>
+    <circle cx="140" cy="325" r="3" fill="#27ae60"/>
+    <line x1="140" y1="325" x2="140" y2="360" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="65" y="295" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">Q2 (ON)</text>
+    <text x="65" y="311" font-size="12" fill="#27ae60" text-anchor="start">Замкнено</text>
+
+    <!-- Ключ Q4 (Нижній правий - ЗАМКНЕНИЙ) -->
+    <line x1="400" y1="240" x2="400" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="400" cy="275" r="3" fill="#27ae60"/>
+    <line x1="400" y1="275" x2="400" y2="325" stroke="#27ae60" stroke-width="3"/>
+    <circle cx="400" cy="325" r="3" fill="#27ae60"/>
+    <line x1="400" y1="325" x2="400" y2="360" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="415" y="295" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">Q4 (ON)</text>
+    <text x="415" y="311" font-size="12" fill="#27ae60" text-anchor="start">Замкнено</text>
+
+    <!-- Силова шина GND -->
+    <line x1="90" y1="360" x2="450" y2="360" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="270" y="382" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND (Земля)</text>
+    <circle cx="140" cy="360" r="4" fill="#1a1a1a"/>
+    <circle cx="400" cy="360" r="4" fill="#1a1a1a"/>
+
+    <!-- Контур циркуляції струму (Акцентний синій шлях зі стрілками) -->
+    <!-- Верхня гілка (від A до B через мотор) -->
+    <line x1="140" y1="240" x2="190" y2="240" stroke="#2457d6" stroke-width="2.5"/>
+    <line x1="350" y1="240" x2="400" y2="240" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+    
+    <!-- Права гілка (вниз через Q4) -->
+    <line x1="400" y1="240" x2="400" y2="360" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+    <!-- Нижня гілка (ліворуч по GND) -->
+    <line x1="400" y1="360" x2="140" y2="360" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+    <!-- Ліва гілка (вгору через Q2) -->
+    <line x1="140" y1="360" x2="140" y2="240" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+    <!-- Інформаційна плашка знизу Панелі 1 -->
+    <rect x="40" y="400" width="460" height="48" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="270" y="418" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Контур рекуперації: струм замкнений через Q2 та Q4</text>
+    <text x="270" y="435" font-size="12" fill="#1a1a1a" text-anchor="middle">Енергія не повертається в V_CC, а розсіюється на опорі ключів + мотора</text>
+  </g>
+
+  <!-- Панель 2: Графік згасання струму -->
+  <g id="panel-graph">
+    <!-- Тло та рамка панелі 2 -->
+    <rect x="530" y="75" width="405" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+    <!-- Шапка панелі 2 -->
+    <path d="M 530,83 A 8,8 0 0 1 538,75 L 927,75 A 8,8 0 0 1 935,83 L 935,109 L 530,109 Z" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+    <text x="732" y="97" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">2. Графік згасання струму I(t)</text>
+
+    <!-- Затінення області під кривою -->
+    <path d="M 590,360 L 590,160 C 620,210 650,265 680,286 C 710,307 740,325 770,333 C 800,341 830,348 860,350 L 890,355 L 890,360 Z" fill="#eaf0fd" opacity="0.6"/>
+
+    <!-- Сітка та допоміжні лінії -->
+    <!-- Лінія рівню I0 -->
+    <line x1="590" y1="160" x2="890" y2="160" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1"/>
+    <line x1="585" y1="160" x2="595" y2="160" stroke="#2457d6" stroke-width="2"/>
+    <text x="580" y="164" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">I₀</text>
+    <text x="600" y="152" font-size="12" fill="#6b7280" text-anchor="start">Початковий струм</text>
+
+    <!-- Лінія t = tau (0.368 I0) -->
+    <line x1="590" y1="286" x2="680" y2="286" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1"/>
+    <line x1="680" y1="286" x2="680" y2="360" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1"/>
+    <circle cx="680" cy="286" r="4" fill="#2457d6"/>
+    <text x="583" y="290" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">0.368 I₀</text>
+    <text x="680" y="378" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">t = τ</text>
+
+    <!-- Лінія t = 3tau -->
+    <line x1="860" y1="350" x2="860" y2="360" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1"/>
+    <circle cx="860" cy="350" r="3" fill="#6b7280"/>
+    <text x="860" y="378" font-size="13" font-weight="bold" fill="#6b7280" text-anchor="middle">3τ</text>
+    <text x="860" y="342" font-size="12" fill="#6b7280" text-anchor="middle">~5% I₀</text>
+
+    <!-- Осі координат -->
+    <!-- Вісь X (t) -->
+    <line x1="590" y1="360" x2="900" y2="360" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+    <text x="910" y="364" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Час t</text>
+
+    <!-- Вісь Y (I) -->
+    <line x1="590" y1="360" x2="590" y2="130" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+    <text x="585" y="122" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Струм I(t)</text>
+
+    <!-- Експоненціальна крива згасання -->
+    <path d="M 590,160 C 620,210 650,265 680,286 C 710,307 740,325 770,333 C 800,341 830,348 860,350 L 890,355" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+    <!-- Блок формули згасання -->
+    <rect x="650" y="165" width="255" height="105" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="777" y="187" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Рівняння згасання:</text>
+    <text x="777" y="207" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">I(t) = I₀ · e^(-t / τ)</text>
+    <text x="777" y="227" font-size="12" fill="#1a1a1a" text-anchor="middle">τ = L / (R_мотора + 2·R_DS(on))</text>
+    <text x="777" y="247" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">Повільне згасання (Slow Decay)</text>
+
+    <!-- Інформаційна плашка знизу Панелі 2 -->
+    <rect x="545" y="400" width="375" height="48" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="732" y="418" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Особливість Slow Decay:</text>
+    <text x="732" y="436" font-size="12" fill="#1a1a1a" text-anchor="middle">Малі пульсації струму при ШІМ, низьке R_DS(on) ключів</text>
+  </g>
+</svg>

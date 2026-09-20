@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-start-blue" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-start-green" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма фазового регулювання симістора (BTA16)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Синхронізація детектора нуля, затримки таймера (t_α) та керування напругою на навантаженні</text>
+
+  <!-- Main panel box -->
+  <rect x="30" y="75" width="900" height="460" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+
+  <!-- Vertical Zero-Crossing Guides (Dashed line across all channels) -->
+  <line x1="240" y1="85" x2="240" y2="455" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="400" y1="85" x2="400" y2="455" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,4" opacity="0.6"/>
+  <line x1="560" y1="85" x2="560" y2="455" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,4" opacity="0.6"/>
+  <line x1="720" y1="85" x2="720" y2="455" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,4" opacity="0.6"/>
+  <line x1="880" y1="85" x2="880" y2="455" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Gate trigger guide lines -->
+  <line x1="304" y1="250" x2="304" y2="415" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+  <line x1="464" y1="250" x2="464" y2="415" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+  <line x1="624" y1="250" x2="624" y2="415" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+  <line x1="784" y1="250" x2="784" y2="415" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+
+  <!-- Time Axis Markers -->
+  <text x="240" y="85" font-size="12" fill="#6b7280" text-anchor="middle">0 мс</text>
+  <text x="400" y="85" font-size="12" fill="#6b7280" text-anchor="middle">10 мс</text>
+  <text x="560" y="85" font-size="12" fill="#6b7280" text-anchor="middle">20 мс</text>
+  <text x="720" y="85" font-size="12" fill="#6b7280" text-anchor="middle">30 мс</text>
+  <text x="880" y="85" font-size="12" fill="#6b7280" text-anchor="middle">40 мс</text>
+
+  <!-- Half-period T_half dimension line -->
+  <line x1="240" y1="104" x2="400" y2="104" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-start)" marker-end="url(#arr)"/>
+  <text x="320" y="101" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">T_півхвилі = 10 мс (180°)</text>
+
+  <!-- CHANNEL 1: U_AC (Network Sine) -->
+  <rect x="45" y="120" width="165" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="127" y="140" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">U_AC (Мережа 230 В)</text>
+  <text x="127" y="158" font-size="12" fill="#6b7280" text-anchor="middle">50 Гц (T = 20 мс)</text>
+
+  <line x1="230" y1="145" x2="890" y2="145" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <path d="M 240,145 C 298.3,109.4 341.7,109.4 400,145 C 458.3,180.6 501.7,180.6 560,145 C 618.3,109.4 661.7,109.4 720,145 C 778.3,180.6 821.7,180.6 880,145" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- CHANNEL 2: V_ZC (Zero-Cross Pulses) -->
+  <rect x="45" y="195" width="165" height="50" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="6"/>
+  <text x="127" y="215" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V_ZC (Zero-Cross)</text>
+  <text x="127" y="233" font-size="12" fill="#6b7280" text-anchor="middle">Імпульс переривання</text>
+
+  <line x1="230" y1="230" x2="890" y2="230" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <path d="M 240,200 L 248,200 L 248,230 L 392,230 L 392,200 L 408,200 L 408,230 L 552,230 L 552,200 L 568,200 L 568,230 L 712,230 L 712,200 L 728,200 L 728,230 L 872,230 L 872,200 L 880,200" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Dimension t_alpha (Phase Delay) -->
+  <line x1="240" y1="254" x2="304" y2="254" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-start-blue)" marker-end="url(#arr-blue)"/>
+  <text x="272" y="250" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_α</text>
+
+  <line x1="400" y1="254" x2="464" y2="254" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-start-blue)" marker-end="url(#arr-blue)"/>
+  <text x="432" y="250" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_α = 4 мс (α = 72°)</text>
+
+  <!-- CHANNEL 3: V_GATE (MCU Control Pulse) -->
+  <rect x="45" y="280" width="165" height="50" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="127" y="300" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V_GATE (Керування)</text>
+  <text x="127" y="318" font-size="12" fill="#6b7280" text-anchor="middle">Імпульс відмикання</text>
+
+  <line x1="230" y1="315" x2="890" y2="315" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <path d="M 240,315 L 304,315 L 304,285 L 320,285 L 320,315 L 464,315 L 464,285 L 480,285 L 480,315 L 624,315 L 624,285 L 640,285 L 640,315 L 784,315 L 784,285 L 800,285 L 800,315 L 880,315" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Off-state Annotation -->
+  <text x="432" y="368" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Вимкнено (α)</text>
+
+  <!-- CHANNEL 4: U_LOAD (Load Voltage Phase Cut) -->
+  <rect x="45" y="390" width="165" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="127" y="410" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">U_LOAD (Навантаження)</text>
+  <text x="127" y="428" font-size="12" fill="#6b7280" text-anchor="middle">Зрізана синусоїда</text>
+
+  <line x1="230" y1="415" x2="890" y2="415" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Shaded conduction areas for active power -->
+  <path d="M 304,415 L 304,388.4 C 330,378 365,378 400,415 Z" fill="#2457d6" opacity="0.25"/>
+  <path d="M 464,415 L 464,441.6 C 490,452 525,452 560,415 Z" fill="#2457d6" opacity="0.25"/>
+  <path d="M 624,415 L 624,388.4 C 650,378 685,378 720,415 Z" fill="#2457d6" opacity="0.25"/>
+  <path d="M 784,415 L 784,441.6 C 810,452 845,452 880,415 Z" fill="#2457d6" opacity="0.25"/>
+
+  <!-- Phase cut load waveform line -->
+  <path d="M 240,415 L 304,415 L 304,388.4 C 330,378 365,378 400,415 L 464,415 L 464,441.6 C 490,452 525,452 560,415 L 624,415 L 624,388.4 C 650,378 685,378 720,415 L 784,415 L 784,441.6 C 810,452 845,452 880,415" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Conduction Angle Dimension Line -->
+  <line x1="464" y1="468" x2="560" y2="468" stroke="#27ae60" stroke-width="1.2" marker-start="url(#arr-start-green)" marker-end="url(#arr-green)"/>
+  <text x="512" y="484" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Провідність (180° - α)</text>
+
+  <!-- Natural Turn-Off Pointer -->
+  <line x1="560" y1="504" x2="560" y2="422" stroke="#6b7280" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="560" y="518" font-size="12" fill="#6b7280" text-anchor="middle">Струм I = 0: симістор вимикається</text>
+</svg>

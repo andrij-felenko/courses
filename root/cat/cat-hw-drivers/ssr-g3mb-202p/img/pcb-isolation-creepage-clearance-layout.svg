@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Top Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ізоляційні зазори та топологія PCB для SSR G3MB-202P</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Розділення низьковольтної й високовольтної зон, фрезерований паз та вимірювання Creepage і Clearance</text>
+
+  <!-- Main PCB Board Outline -->
+  <rect x="40" y="70" width="880" height="345" rx="10" ry="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+
+  <!-- Zone 1: Low-Voltage DC Control Zone (Left) -->
+  <rect x="55" y="85" width="340" height="315" rx="8" ry="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="225" y="107" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Низьковольтна зона (DC 5 В / Керування)</text>
+
+  <!-- Zone 2: High-Voltage AC Power Zone (Right) -->
+  <rect x="565" y="85" width="340" height="315" rx="8" ry="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="735" y="107" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Високовольтна зона (AC 230 В / Силова)</text>
+
+  <!-- Central Header & Clearance Measurement -->
+  <text x="480" y="90" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ізоляційний бар'єр</text>
+  <text x="480" y="108" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Clearance ≥ 5.5 мм</text>
+  <text x="480" y="123" font-size="12" fill="#2457d6" text-anchor="middle">(повітряний зазор)</text>
+  <line x1="395" y1="136" x2="565" y2="136" stroke="#2457d6" stroke-width="2" stroke-dasharray="4 4" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+
+  <!-- Relay Header -->
+  <text x="480" y="156" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Реле G3MB-202P (SSR)</text>
+
+  <!-- G3MB-202P Relay Body -->
+  <rect x="420" y="168" width="120" height="137" rx="6" ry="6" fill="#2c3e50" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Milled Isolation Slot (Drawn through relay center, ends at y=315) -->
+  <path d="M 472,152 L 488,152 L 488,315 L 472,315 Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- Relay Body Labels (DC & AC sides of slot) -->
+  <text x="446" y="215" font-size="12" font-weight="bold" fill="#93c5fd" text-anchor="middle">DC 5V</text>
+  <text x="446" y="232" font-size="12" fill="#ffffff" text-anchor="middle">Вхід</text>
+
+  <text x="514" y="215" font-size="12" font-weight="bold" fill="#86efac" text-anchor="middle">230VAC</text>
+  <text x="514" y="232" font-size="12" fill="#ffffff" text-anchor="middle">Вихід</text>
+
+  <!-- DC Side Components & Traces -->
+  <!-- Input Terminal Block -->
+  <rect x="90" y="200" width="40" height="90" rx="4" ry="4" fill="#2457d6" stroke="#1d4ed8" stroke-width="1.5"/>
+  <circle cx="110" cy="225" r="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+  <circle cx="110" cy="265" r="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="82" y="229" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">+5V</text>
+  <text x="82" y="269" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">GND</text>
+
+  <!-- DC Traces -->
+  <path d="M 116,225 L 175,225" stroke="#2457d6" stroke-width="3" fill="none"/>
+  <!-- Resistor R1 -->
+  <rect x="175" y="215" width="50" height="20" rx="3" ry="3" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 185,225 L 192,220 L 197,230 L 202,220 L 207,230 L 215,225" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+  <text x="200" y="202" font-size="12" fill="#1a1a1a" text-anchor="middle">R1 (330 Ом)</text>
+
+  <!-- Trace R1 to LED and LED component -->
+  <path d="M 225,225 L 265,225" stroke="#2457d6" stroke-width="3" fill="none"/>
+  <rect x="265" y="215" width="40" height="20" rx="3" ry="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <polygon points="277,229 277,221 287,225" fill="#2457d6"/>
+  <line x1="287" y1="221" x2="287" y2="229" stroke="#2457d6" stroke-width="2"/>
+  <text x="285" y="202" font-size="12" fill="#1a1a1a" text-anchor="middle">LED</text>
+
+  <!-- Trace LED to Pin 3 -->
+  <path d="M 305,225 L 395,225" stroke="#2457d6" stroke-width="3" fill="none"/>
+
+  <!-- GND Trace -->
+  <path d="M 116,265 L 395,265" stroke="#2457d6" stroke-width="3" fill="none"/>
+
+  <!-- SSR Input Pins (DC Side) -->
+  <circle cx="395" cy="225" r="7" fill="#f59e0b" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="395" y="202" font-size="12" fill="#1a1a1a" text-anchor="end">Pin 3 (+)</text>
+
+  <circle cx="395" cy="265" r="7" fill="#f59e0b" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="395" y="285" font-size="12" fill="#1a1a1a" text-anchor="end">Pin 4 (-)</text>
+
+  <!-- SSR Output Pins (AC Side) -->
+  <circle cx="565" cy="225" r="7" fill="#f59e0b" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="565" y="202" font-size="12" fill="#1a1a1a" text-anchor="start">Pin 1 (AC)</text>
+
+  <circle cx="565" cy="265" r="7" fill="#f59e0b" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="565" y="285" font-size="12" fill="#1a1a1a" text-anchor="start">Pin 2 (AC)</text>
+
+  <!-- AC Side Components & Traces -->
+  <!-- Wide AC Traces -->
+  <path d="M 565,225 L 740,225" stroke="#c0392b" stroke-width="5" fill="none"/>
+  <path d="M 785,225 L 805,225" stroke="#c0392b" stroke-width="5" fill="none"/>
+  <path d="M 565,265 L 805,265" stroke="#c0392b" stroke-width="5" fill="none"/>
+
+  <!-- RC Snubber (across AC output, positioned at x=645) -->
+  <path d="M 645,225 L 645,315 M 645,265 L 645,315" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3" fill="none"/>
+  <rect x="610" y="315" width="70" height="25" rx="4" ry="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <text x="645" y="331" font-size="12" fill="#1a1a1a" text-anchor="middle">RC-снабер</text>
+
+  <!-- MOV Varistor (across AC traces, at x=695) -->
+  <path d="M 695,225 L 695,265" stroke="#c0392b" stroke-width="2.5" fill="none"/>
+  <circle cx="695" cy="245" r="13" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="695" y="202" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">MOV (470V)</text>
+
+  <!-- Fuse F1 (in series on AC Line 1, at x=740..785) -->
+  <rect x="740" y="215" width="45" height="20" rx="8" ry="8" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <line x1="740" y1="225" x2="785" y2="225" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="762.5" y="202" font-size="12" fill="#1a1a1a" text-anchor="middle">F1 (2A)</text>
+
+  <!-- Output Terminal Block (at x=805..845) -->
+  <rect x="805" y="200" width="40" height="90" rx="4" ry="4" fill="#c0392b" stroke="#991b1b" stroke-width="1.5"/>
+  <circle cx="825" cy="225" r="6" fill="#ffffff" stroke="#991b1b" stroke-width="2"/>
+  <circle cx="825" cy="265" r="6" fill="#ffffff" stroke="#991b1b" stroke-width="2"/>
+  <text x="852" y="225" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">LOAD</text>
+  <text x="852" y="250" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">230V AC</text>
+  <text x="852" y="268" font-size="12" fill="#6b7280" text-anchor="start">(L-фаза)</text>
+
+  <!-- Slot Labels (below slot end at y=315) -->
+  <text x="480" y="328" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фрезерований слот</text>
+  <text x="480" y="343" font-size="12" fill="#1a1a1a" text-anchor="middle">(ізоляційний паз)</text>
+
+  <!-- Creepage Path Curve (Green Dashed Line around Slot Bottom) -->
+  <path d="M 395,265 C 395,360 435,360 480,360 C 525,360 565,360 565,265" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="6 3" fill="none" marker-end="url(#arr-green)"/>
+
+  <!-- Creepage Labels (below Creepage curve at y=360) -->
+  <text x="480" y="378" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Creepage ≥ 8.0 мм</text>
+  <text x="480" y="393" font-size="12" fill="#27ae60" text-anchor="middle">(шлях по поверхні)</text>
+
+  <!-- Bottom Summary Cards -->
+  <!-- Card 1: Clearance Info -->
+  <rect x="40" y="435" width="425" height="85" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="55" y="456" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">Clearance (Повітряний зазор)</text>
+  <text x="55" y="477" font-size="12" fill="#1a1a1a" text-anchor="start">• Найкоротша відстань у повітрі між DC та AC контурами.</text>
+  <text x="55" y="497" font-size="12" fill="#1a1a1a" text-anchor="start">• Запобігає пробою електричною дугою в повітрі.</text>
+
+  <!-- Card 2: Creepage & Slot Info -->
+  <rect x="495" y="435" width="425" height="85" rx="6" ry="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="510" y="456" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">Creepage (Шлях витоку) та паз</text>
+  <text x="510" y="477" font-size="12" fill="#1a1a1a" text-anchor="start">• Шлях струму витоку вздовж поверхні плати.</text>
+  <text x="510" y="497" font-size="12" fill="#1a1a1a" text-anchor="start">• Паз подовжує поверхневий шлях обходу.</text>
+</svg>

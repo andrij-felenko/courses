@@ -1,0 +1,224 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема керування затвором MOSFET від GPIO мікроконтролера</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Обмежувальний резистор R_G захищає GPIO, а R_PD запобігає відкриттю при скиданні</text>
+
+  <!-- ================= ПАНЕЛЬ 1: РЕЖИМ КОМУТАЦІЇ (GPIO = HIGH) ================= -->
+  <rect x="25" y="75" width="440" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Шапка Панелі 1 -->
+  <rect x="40" y="90" width="410" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="245" y="110" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. Зарядка ємності затвора (GPIO = HIGH)</text>
+
+  <!-- Живлення Навантаження 1 -->
+  <text x="355" y="135" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">+12 В (V_LOAD)</text>
+  <line x1="335" y1="142" x2="375" y2="142" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="355" y1="142" x2="355" y2="155" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Навантаження (Load) 1 -->
+  <rect x="320" y="155" width="70" height="30" rx="3" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="355" y="174" text-anchor="middle" font-size="12" fill="#1a1a1a">Load</text>
+  <line x1="355" y1="185" x2="355" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Корпус МК 1 -->
+  <rect x="32" y="140" width="80" height="205" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="72.5" y="162" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">МК (MCU)</text>
+
+  <!-- Внутрішній драйвер МК 1 (PUSH-PULL HIGH) -->
+  <text x="72.5" y="185" text-anchor="middle" font-size="12" fill="#2457d6">V_DD (+5 В)</text>
+  <line x1="72.5" y1="190" x2="72.5" y2="205" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Ключ замкнений на V_DD -->
+  <line x1="72.5" y1="205" x2="112" y2="235" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="72.5" cy="205" r="2.5" fill="#2457d6"/>
+  <circle cx="112" cy="235" r="2.5" fill="#2457d6"/>
+  <text x="72.5" y="290" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вихід: HIGH</text>
+  <text x="72.5" y="308" text-anchor="middle" font-size="12" fill="#2457d6">V_GPIO = 5 В</text>
+
+  <!-- Вихідний провід GPIO 1 -->
+  <line x1="112" y1="235" x2="130" y2="235" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Бедж струму зарядки -->
+  <rect x="135" y="140" width="140" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="205" y="156" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Струм зарядки I_gate</text>
+
+  <!-- Обмежувальний резистор R_G 1 -->
+  <rect x="130" y="223" width="45" height="24" rx="2" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="152.5" y="208" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">R_G = 100 Ом</text>
+  <text x="152.5" y="262" text-anchor="middle" font-size="12" fill="#6b7280">обмежувач</text>
+  <line x1="175" y1="235" x2="210" y2="235" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Вузол Затвора A -->
+  <circle cx="210" cy="235" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Притискний резистор R_PD 1 -->
+  <line x1="210" y1="235" x2="210" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="200" y="260" width="20" height="45" rx="2" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="190" y="278" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">R_PD</text>
+  <text x="190" y="294" text-anchor="end" font-size="12" fill="#6b7280">10 кОм</text>
+  <line x1="210" y1="305" x2="210" y2="335" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Земля R_PD 1 -->
+  <line x1="200" y1="335" x2="220" y2="335" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="204" y1="339" x2="216" y2="339" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="208" y1="343" x2="212" y2="343" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Паразитна ємність C_gs 1 -->
+  <line x1="210" y1="235" x2="270" y2="235" stroke="#2457d6" stroke-width="2"/>
+  <line x1="270" y1="235" x2="270" y2="295" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Обкладки конденсатора -->
+  <line x1="258" y1="295" x2="282" y2="295" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="258" y1="301" x2="282" y2="301" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="270" y1="301" x2="270" y2="335" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="283" y="278" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">C_gs</text>
+  <text x="283" y="294" text-anchor="start" font-size="12" fill="#2457d6">(C_iss)</text>
+  <!-- Земля C_gs 1 -->
+  <line x1="260" y1="335" x2="280" y2="335" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="264" y1="339" x2="276" y2="339" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="268" y1="343" x2="272" y2="343" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Стрілка струму зарядки ємності затвора -->
+  <path d="M 105,230 L 210,230 L 270,230 L 270,290" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="6,3" marker-end="url(#arr-blue)"/>
+
+  <!-- MOSFET 1 (N-Channel Logic Level) -->
+  <line x1="270" y1="235" x2="340" y2="235" stroke="#2457d6" stroke-width="2"/>
+  <!-- Пластина затвора -->
+  <line x1="340" y1="210" x2="340" y2="260" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- Канал -->
+  <line x1="347" y1="210" x2="347" y2="222" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="347" y1="230" x2="347" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="347" y1="248" x2="347" y2="260" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Підкладка/Drain/Source з'єднання -->
+  <line x1="347" y1="215" x2="355" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Стрілка підкладки (N-channel points left) -->
+  <line x1="355" y1="235" x2="347" y2="235" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="347" y1="255" x2="355" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="355" y1="215" x2="355" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="355" y1="255" x2="355" y2="335" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Земля Source 1 -->
+  <line x1="345" y1="335" x2="365" y2="335" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="349" y1="339" x2="361" y2="339" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="353" y1="343" x2="357" y2="343" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Написи біля MOSFET 1 -->
+  <text x="367" y="226" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">IRLZ44N</text>
+  <text x="367" y="242" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">(Logic-Level)</text>
+  <text x="367" y="258" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">ВІДКРИТИЙ</text>
+
+  <!-- Картка підсумку 1 -->
+  <rect x="40" y="365" width="410" height="140" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="385" font-size="12" font-weight="bold" fill="#2457d6">Розрахунок обмежувального резистора R_G:</text>
+  <text x="52" y="405" font-size="12" fill="#1a1a1a">• Без R_G струм перезарядки C_gs перевищує I_GPIO,max</text>
+  <text x="52" y="423" font-size="12" fill="#1a1a1a">• Формула: R_G,min = V_GPIO / I_GPIO,max</text>
+  <text x="52" y="441" font-size="12" fill="#1a1a1a">• Для 5 В та I_max = 20 мА: R_G,min = 5 В / 0.02 А = 250 Ом</text>
+  <text x="52" y="459" font-size="12" fill="#1a1a1a">• Типове практичне значення: R_G = 47...100 Ом</text>
+  <text x="52" y="485" font-size="12" font-weight="bold" fill="#27ae60">Результат: захист виходу МК від пробою струмом</text>
+
+
+  <!-- ================= ПАНЕЛЬ 2: РЕЖИМ СКИДАННЯ (RESET / Hi-Z) ================= -->
+  <rect x="495" y="75" width="440" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Шапка Панелі 2 -->
+  <rect x="510" y="90" width="410" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="715" y="110" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">2. Скидання МК: стан високого імпедансу (Hi-Z)</text>
+
+  <!-- Живлення Навантаження 2 -->
+  <text x="825" y="135" text-anchor="middle" font-size="12" fill="#6b7280">+12 В (V_LOAD)</text>
+  <line x1="805" y1="142" x2="845" y2="142" stroke="#6b7280" stroke-width="2"/>
+  <line x1="825" y1="142" x2="825" y2="155" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Навантаження (Load) 2 (OFF) -->
+  <rect x="790" y="155" width="70" height="30" rx="3" fill="white" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="825" y="174" text-anchor="middle" font-size="12" fill="#6b7280">Load (OFF)</text>
+  <line x1="825" y1="185" x2="825" y2="215" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Корпус МК 2 -->
+  <rect x="502" y="140" width="80" height="205" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="542.5" y="162" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">МК (MCU)</text>
+
+  <!-- Роззімкнений ключ Hi-Z 2 -->
+  <circle cx="535" cy="235" r="2.5" fill="#c0392b"/>
+  <line x1="535" y1="235" x2="555" y2="218" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="575" cy="235" r="2.5" fill="#6b7280"/>
+  <text x="542.5" y="290" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">RESET / Hi-Z</text>
+  <text x="542.5" y="308" text-anchor="middle" font-size="12" fill="#6b7280">(Вхід Hi-Z)</text>
+
+  <!-- Вихідний провід GPIO 2 -->
+  <line x1="575" y1="235" x2="600" y2="235" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Бедж фіксації напруги 0В -->
+  <rect x="605" y="140" width="140" height="24" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="675" y="156" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">V_GS = 0 В (фіксація)</text>
+
+  <!-- Обмежувальний резистор R_G 2 -->
+  <rect x="600" y="223" width="45" height="24" rx="2" fill="white" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="622.5" y="208" text-anchor="middle" font-size="12" fill="#6b7280">R_G = 100 Ом</text>
+  <line x1="645" y1="235" x2="680" y2="235" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Вузол Затвора B -->
+  <circle cx="680" cy="235" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Притискний резистор R_PD 2 (Активний розв'язок) -->
+  <line x1="680" y1="235" x2="680" y2="260" stroke="#27ae60" stroke-width="2"/>
+  <rect x="670" y="260" width="20" height="45" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="695" y="274" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">R_PD = 10 кОм</text>
+  <text x="695" y="290" text-anchor="start" font-size="12" fill="#27ae60">фіксація 0 В</text>
+  <text x="695" y="306" text-anchor="start" font-size="12" fill="#27ae60">притискає до GND</text>
+  <line x1="680" y1="305" x2="680" y2="335" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Стрілка витоку на землю через R_PD -->
+  <path d="M 680,238 L 680,328" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="5,3" marker-end="url(#arr-green)"/>
+
+  <!-- Земля R_PD 2 -->
+  <line x1="670" y1="335" x2="690" y2="335" stroke="#27ae60" stroke-width="2"/>
+  <line x1="674" y1="339" x2="686" y2="339" stroke="#27ae60" stroke-width="2"/>
+  <line x1="678" y1="343" x2="682" y2="343" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- MOSFET 2 (N-Channel OFF) -->
+  <line x1="680" y1="235" x2="805" y2="235" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- Пластина затвора -->
+  <line x1="805" y1="210" x2="805" y2="260" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- Канал розімкнений -->
+  <line x1="812" y1="210" x2="812" y2="222" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="812" y1="230" x2="812" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="812" y1="248" x2="812" y2="260" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- З'єднання -->
+  <line x1="812" y1="215" x2="820" y2="215" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="820" y1="235" x2="812" y2="235" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="812" y1="255" x2="820" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="820" y1="215" x2="820" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="820" y1="255" x2="820" y2="335" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Земля Source 2 -->
+  <line x1="810" y1="335" x2="830" y2="335" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="814" y1="339" x2="826" y2="339" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="818" y1="343" x2="822" y2="343" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Написи біля MOSFET 2 -->
+  <text x="832" y="226" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">IRLZ44N</text>
+  <text x="832" y="244" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">ЗАКРИТИЙ (OFF)</text>
+
+  <!-- Картка підсумку 2 -->
+  <rect x="510" y="365" width="410" height="140" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="522" y="385" font-size="12" font-weight="bold" fill="#c0392b">Роль притискного резистора R_PD:</text>
+  <text x="522" y="405" font-size="12" fill="#c0392b">• БЕЗ R_PD: під час скидання МК вихід перебуває в Hi-Z.</text>
+  <text x="522" y="423" font-size="12" fill="#c0392b">  Затвор «плаває», вхідна ємність заряджається наводками.</text>
+  <text x="522" y="441" font-size="12" fill="#c0392b">  MOSFET самовільно відкривається (небезпечний стан!).</text>
+  <text x="522" y="459" font-size="12" fill="#27ae60">• З R_PD (10 кОм): напруга V_GS жорстко притиснута до 0 В.</text>
+  <text x="522" y="485" font-size="12" font-weight="bold" fill="#27ae60">Результат: гарантоване вимкнення при перезавантаженні</text>
+</svg>

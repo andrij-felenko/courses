@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Принципова схема керування реле у модулі ESP-01S</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Підтяжка GPIO0 до 3.3V для нормального старту та транзисторний ключ силового реле</text>
+
+  <!-- Шини живлення -->
+  <!-- Шина +5V -->
+  <line x1="305" y1="90" x2="705" y2="90" stroke="#c0392b" stroke-width="2"/>
+  <text x="535" y="82" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">+5V (Зовнішнє живлення)</text>
+
+  <!-- Шина 3.3V -->
+  <line x1="195" y1="170" x2="320" y2="170" stroke="#2457d6" stroke-width="2"/>
+  <line x1="320" y1="170" x2="320" y2="200" stroke="#2457d6" stroke-width="2"/>
+  <text x="257" y="160" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">+3.3V</text>
+
+  <!-- Шина GND -->
+  <line x1="195" y1="420" x2="540" y2="420" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="440" y="438" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">GND (Спільна земля)</text>
+  <!-- Символ заземлення -->
+  <line x1="320" y1="420" x2="320" y2="428" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="312" y1="428" x2="328" y2="428" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="315" y1="432" x2="325" y2="432" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="318" y1="436" x2="322" y2="436" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Панель 1: Модуль ESP-01S -->
+  <rect x="35" y="90" width="160" height="330" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="115" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Модуль ESP-01S</text>
+  <text x="115" y="132" text-anchor="middle" font-size="12" fill="#6b7280">(ESP8266EX)</text>
+
+  <!-- Контакти ESP-01S -->
+  <circle cx="195" cy="170" r="4" fill="#2457d6"/>
+  <text x="183" y="174" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">3.3V</text>
+
+  <circle cx="195" cy="215" r="4" fill="#6b7280"/>
+  <text x="183" y="219" text-anchor="end" font-size="12" fill="#6b7280">EN (CH_PD)</text>
+
+  <circle cx="195" cy="260" r="4" fill="#6b7280"/>
+  <text x="183" y="264" text-anchor="end" font-size="12" fill="#6b7280">TX / RX / RST</text>
+
+  <circle cx="195" cy="310" r="5" fill="#27ae60"/>
+  <text x="183" y="314" text-anchor="end" font-size="13" font-weight="bold" fill="#27ae60">GPIO0</text>
+
+  <circle cx="195" cy="390" r="4" fill="#1a1a1a"/>
+  <text x="183" y="394" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+  <line x1="195" y1="390" x2="195" y2="420" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Сигнальна лінія GPIO0 та підтяжка R1 -->
+  <line x1="195" y1="310" x2="410" y2="310" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="250" y="300" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">GPIO0 Сигнал</text>
+
+  <!-- Вузол підтяжки R1 -->
+  <circle cx="320" cy="310" r="4" fill="#2457d6"/>
+  <line x1="320" y1="245" x2="320" y2="310" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Резистор R1 (10 kΩ) -->
+  <rect x="308" y="200" width="24" height="45" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="345" y="215" font-size="13" font-weight="bold" fill="#2457d6">R1 (10 kΩ)</text>
+  <text x="345" y="233" font-size="12" fill="#2457d6">Підтяжка до 3.3V</text>
+  <text x="345" y="249" font-size="12" fill="#6b7280">(Режим Flash Boot)</text>
+
+  <!-- Базовий резистор R2 (1 kΩ) -->
+  <rect x="410" y="298" width="45" height="24" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="432.5" y="288" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">R2 (1 kΩ)</text>
+  <text x="432.5" y="338" text-anchor="middle" font-size="12" fill="#6b7280">Струм бази I_B</text>
+
+  <!-- Транзисторний ключ Q1 -->
+  <circle cx="530" cy="310" r="22" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="520" y1="295" x2="520" y2="325" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="455" y1="310" x2="520" y2="310" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="520" y1="302" x2="540" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="540" y1="290" x2="540" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="520" y1="318" x2="540" y2="330" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+  <line x1="540" y1="330" x2="540" y2="420" stroke="#1a1a1a" stroke-width="2"/>
+
+  <text x="565" y="305" font-size="13" font-weight="bold" fill="#1a1a1a">Q1 (NPN S8050)</text>
+  <text x="565" y="323" font-size="12" fill="#6b7280">Ключ керування</text>
+
+  <!-- Колекторна лінія до Діода D1 та Котушки -->
+  <line x1="540" y1="230" x2="705" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="540" cy="230" r="3" fill="#1a1a1a"/>
+  <circle cx="630" cy="230" r="3" fill="#1a1a1a"/>
+  <circle cx="705" cy="230" r="3" fill="#1a1a1a"/>
+
+  <!-- Захисний діод D1 -->
+  <line x1="630" y1="90" x2="630" y2="140" stroke="#c0392b" stroke-width="2"/>
+  <line x1="630" y1="160" x2="630" y2="230" stroke="#c0392b" stroke-width="2"/>
+  <line x1="620" y1="140" x2="640" y2="140" stroke="#c0392b" stroke-width="2.5"/>
+  <polygon points="620,160 640,160 630,140" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+
+  <text x="610" y="148" text-anchor="end" font-size="13" font-weight="bold" fill="#c0392b">D1 (1N4148)</text>
+  <text x="610" y="165" text-anchor="end" font-size="12" fill="#c0392b">Діод захисту</text>
+
+  <!-- Панель 2: Модуль реле K1 -->
+  <rect x="670" y="90" width="265" height="330" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="802.5" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Модуль Реле K1</text>
+  <text x="802.5" y="132" text-anchor="middle" font-size="12" fill="#6b7280">(Котушка 5V DC)</text>
+
+  <!-- Котушка реле K1 -->
+  <line x1="705" y1="90" x2="705" y2="160" stroke="#c0392b" stroke-width="2"/>
+  <rect x="687" y="160" width="36" height="60" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <line x1="687" y1="220" x2="723" y2="160" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="705" y1="220" x2="705" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="705" y="252" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">K1 Котушка</text>
+
+  <!-- Гальванічна розв'язка (бар'єр) -->
+  <line x1="750" y1="145" x2="750" y2="385" stroke="#c0392b" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <text x="750" y="405" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Гальванічна розв'язка</text>
+
+  <!-- Силові термінали (NO, COM, NC) -->
+  <!-- NO -->
+  <circle cx="840" cy="180" r="5" fill="#27ae60"/>
+  <line x1="795" y1="180" x2="840" y2="180" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="795" cy="180" r="3.5" fill="#27ae60"/>
+  <text x="852" y="172" font-size="13" font-weight="bold" fill="#27ae60">NO</text>
+  <text x="852" y="186" font-size="11" fill="#6b7280">Нормально</text>
+  <text x="852" y="198" font-size="11" fill="#6b7280">розімкнений</text>
+
+  <!-- COM -->
+  <circle cx="840" cy="270" r="5" fill="#1a1a1a"/>
+  <line x1="795" y1="270" x2="840" y2="270" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="795" cy="270" r="4" fill="#1a1a1a"/>
+  <text x="852" y="262" font-size="13" font-weight="bold" fill="#1a1a1a">COM</text>
+  <text x="852" y="276" font-size="11" fill="#6b7280">Спільний</text>
+  <text x="852" y="288" font-size="11" fill="#6b7280">контакт</text>
+
+  <!-- NC -->
+  <circle cx="840" cy="360" r="5" fill="#c0392b"/>
+  <line x1="795" y1="360" x2="840" y2="360" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="795" cy="360" r="3.5" fill="#c0392b"/>
+  <text x="852" y="352" font-size="13" font-weight="bold" fill="#c0392b">NC</text>
+  <text x="852" y="366" font-size="11" fill="#6b7280">Нормально</text>
+  <text x="852" y="378" font-size="11" fill="#6b7280">замкнений</text>
+
+  <!-- Рухомий контакт (Якір реле) -->
+  <line x1="795" y1="270" x2="795" y2="353" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- Дуга перемикання -->
+  <path d="M 787,345 A 30,30 0 0,1 787,195" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Нижні інформаційні картки -->
+  <!-- Картка 1: Boot Mode -->
+  <rect x="40" y="450" width="425" height="68" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="55" y="470" font-size="13" font-weight="bold" fill="#27ae60">1. Режим старту (Boot Mode: GPIO0 = HIGH / 3.3V)</text>
+  <text x="55" y="488" font-size="12" fill="#1a1a1a">R1 (10 kΩ) утримує GPIO0 у HIGH під час скидання (POR).</text>
+  <text x="55" y="504" font-size="12" fill="#1a1a1a">Гарантує успішне завантаження прошивки з Flash-пам'яті.</text>
+
+  <!-- Картка 2: Drive Mode -->
+  <rect x="495" y="450" width="425" height="68" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="510" y="470" font-size="13" font-weight="bold" fill="#2457d6">2. Керування силовим реле (Drive Mode)</text>
+  <text x="510" y="488" font-size="12" fill="#1a1a1a">Сигнал з GPIO0 відкриває Q1, подаючи 5V на котушку K1.</text>
+  <text x="510" y="504" font-size="12" fill="#1a1a1a">Діод D1 захищає від індуктивних сплесків напруги.</text>
+</svg>

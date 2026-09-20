@@ -1,0 +1,204 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 570" width="960" height="570" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="570" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Типова схема включення двоканального H-моста DRV8833</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Підключення логіки МК, силових виходів, фільтрів VMM/VINT, резисторів RISEN та розділення GND/PGND</text>
+
+  <!-- Power Rails (Top) -->
+  <!-- VMM Rail -->
+  <text x="360" y="70" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">V_MM (+2.7В ... +10.8В)</text>
+  <line x1="280" y1="82" x2="440" y2="82" stroke="#c0392b" stroke-width="2"/>
+  <line x1="440" y1="82" x2="440" y2="130" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- VCP Charge Pump Wire & Cap -->
+  <line x1="560" y1="130" x2="560" y2="96" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="560" y1="96" x2="503" y2="96" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="495" y1="96" x2="440" y2="96" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="440" y1="96" x2="440" y2="82" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- C_VCP Capacitor Plates -->
+  <line x1="495" y1="86" x2="495" y2="106" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="503" y1="86" x2="503" y2="106" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="500" y="78" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">C_VCP = 0.01 мкФ</text>
+
+  <!-- VCC LOGIC Rail (3.3V) -->
+  <text x="30" y="92" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">V_CC (+3.3В)</text>
+  <line x1="30" y1="100" x2="210" y2="100" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="30" cy="100" r="3" fill="#2457d6"/>
+
+  <!-- MCU Box (Left Panel) -->
+  <rect x="30" y="140" width="120" height="270" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="90" y="165" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер</text>
+  <text x="90" y="182" font-size="12" fill="#6b7280" text-anchor="middle">(МК / MCU)</text>
+
+  <!-- MCU Pin Labels -->
+  <text x="142" y="214" font-size="12" fill="#1a1a1a" text-anchor="end">IN1</text>
+  <text x="142" y="244" font-size="12" fill="#1a1a1a" text-anchor="end">IN2</text>
+  <text x="142" y="274" font-size="12" fill="#1a1a1a" text-anchor="end">IN3</text>
+  <text x="142" y="304" font-size="12" fill="#1a1a1a" text-anchor="end">IN4</text>
+  <text x="142" y="334" font-size="12" fill="#2457d6" text-anchor="end">nSLEEP</text>
+  <text x="142" y="374" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">nFAULT</text>
+
+  <!-- Control Wires (MCU to DRV8833) -->
+  <line x1="150" y1="210" x2="370" y2="210" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="150" y1="240" x2="370" y2="240" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="150" y1="270" x2="370" y2="270" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="150" y1="300" x2="370" y2="300" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="150" y1="330" x2="370" y2="330" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- nFAULT Line & Pull-Up -->
+  <line x1="370" y1="370" x2="150" y2="370" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <circle cx="210" cy="370" r="3.5" fill="#c0392b"/>
+
+  <!-- R_FAULT Resistor Wire & Component -->
+  <line x1="210" y1="370" x2="210" y2="200" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="204" y="176" width="12" height="24" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="210" y1="176" x2="210" y2="100" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="210" cy="100" r="3.5" fill="#2457d6"/>
+
+  <text x="204" y="175" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">R_FAULT</text>
+  <text x="204" y="189" font-size="12" fill="#6b7280" text-anchor="end">10 кОм</text>
+
+  <!-- Decoupling Capacitors C_VMM1 & C_VMM2 -->
+  <!-- Junctions on VMM rail -->
+  <circle cx="280" cy="82" r="3.5" fill="#c0392b"/>
+  <circle cx="330" cy="82" r="3.5" fill="#c0392b"/>
+
+  <!-- C_VMM1 (10 uF Bulk) -->
+  <line x1="280" y1="82" x2="280" y2="130" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="270" y1="130" x2="290" y2="130" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="270" y1="138" x2="290" y2="138" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="280" y1="138" x2="280" y2="495" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="293" y="130" font-size="12" font-weight="bold" fill="#c0392b">+</text>
+  <text x="266" y="130" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">C_VMM1</text>
+  <text x="266" y="144" font-size="12" fill="#6b7280" text-anchor="end">10 мкФ</text>
+
+  <!-- C_VMM2 (0.1 uF Ceramic) -->
+  <line x1="330" y1="82" x2="330" y2="130" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="320" y1="130" x2="340" y2="130" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="320" y1="138" x2="340" y2="138" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="330" y1="138" x2="330" y2="495" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="316" y="130" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">C_VMM2</text>
+  <text x="316" y="144" font-size="12" fill="#6b7280" text-anchor="end">0.1 мкФ</text>
+
+  <!-- C_VINT (2.2 uF LDO Bypass Cap) -->
+  <line x1="370" y1="410" x2="270" y2="410" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="270" y1="410" x2="270" y2="430" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="260" y1="430" x2="280" y2="430" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="260" y1="438" x2="280" y2="438" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="270" y1="438" x2="270" y2="490" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="254" y="430" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">C_VINT</text>
+  <text x="254" y="444" font-size="12" fill="#6b7280" text-anchor="end">2.2 мкФ</text>
+
+  <!-- DRV8833 Main IC Box -->
+  <rect x="370" y="130" width="260" height="310" fill="#f4f6f8" stroke="#2457d6" stroke-width="2" rx="8"/>
+  <text x="500" y="160" font-size="18" font-weight="bold" fill="#2457d6" text-anchor="middle">DRV8833</text>
+  <text x="500" y="178" font-size="12" fill="#6b7280" text-anchor="middle">Двоканальний H-міст</text>
+
+  <!-- IC Pins Left -->
+  <text x="382" y="214" font-size="12" fill="#1a1a1a" text-anchor="start">IN1</text>
+  <text x="382" y="244" font-size="12" fill="#1a1a1a" text-anchor="start">IN2</text>
+  <text x="382" y="274" font-size="12" fill="#1a1a1a" text-anchor="start">IN3</text>
+  <text x="382" y="304" font-size="12" fill="#1a1a1a" text-anchor="start">IN4</text>
+  <text x="382" y="334" font-size="12" fill="#2457d6" text-anchor="start">nSLEEP</text>
+  <text x="382" y="374" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">nFAULT</text>
+  <text x="382" y="414" font-size="12" fill="#1a1a1a" text-anchor="start">VINT</text>
+
+  <!-- IC Pins Top -->
+  <text x="440" y="150" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">VMM</text>
+  <text x="560" y="150" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">VCP</text>
+
+  <!-- IC Pins Right -->
+  <text x="618" y="214" font-size="12" fill="#1a1a1a" text-anchor="end">OUT1</text>
+  <text x="618" y="254" font-size="12" fill="#1a1a1a" text-anchor="end">OUT2</text>
+  <text x="618" y="334" font-size="12" fill="#1a1a1a" text-anchor="end">OUT3</text>
+  <text x="618" y="374" font-size="12" fill="#1a1a1a" text-anchor="end">OUT4</text>
+
+  <!-- IC Pins Bottom -->
+  <text x="430" y="426" font-size="12" fill="#1a1a1a" text-anchor="middle">ISEN12</text>
+  <text x="510" y="426" font-size="12" fill="#1a1a1a" text-anchor="middle">ISEN34</text>
+  <text x="590" y="426" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">GND/PPAD</text>
+
+  <!-- Current Sense Resistors RISEN1 & RISEN2 -->
+  <line x1="430" y1="440" x2="430" y2="450" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="424" y="450" width="12" height="24" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="430" y1="474" x2="430" y2="495" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="418" y="458" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">R_ISEN1</text>
+  <text x="418" y="472" font-size="12" fill="#6b7280" text-anchor="end">0.2 Ом</text>
+
+  <line x1="510" y1="440" x2="510" y2="450" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="504" y="450" width="12" height="24" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="510" y1="474" x2="510" y2="495" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="522" y="458" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">R_ISEN2</text>
+  <text x="522" y="472" font-size="12" fill="#6b7280" text-anchor="start">0.2 Ом</text>
+
+  <!-- DRV8833 Signal Ground Pin Line -->
+  <line x1="590" y1="440" x2="590" y2="490" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Motors Section (Right) -->
+  <!-- Motor A -->
+  <line x1="630" y1="210" x2="730" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="630" y1="250" x2="730" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="730" cy="230" r="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="730" y="235" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">M1</text>
+  <text x="762" y="224" font-size="13" font-weight="bold" fill="#1a1a1a">Двигун A</text>
+  <text x="762" y="240" font-size="12" fill="#6b7280">(DC Motor / H-міст 1)</text>
+
+  <!-- Motor B -->
+  <line x1="630" y1="330" x2="730" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="630" y1="370" x2="730" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="730" cy="350" r="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="730" y="355" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">M2</text>
+  <text x="762" y="344" font-size="13" font-weight="bold" fill="#1a1a1a">Двигун B</text>
+  <text x="762" y="360" font-size="12" fill="#6b7280">(DC Motor / H-міст 2)</text>
+
+  <text x="730" y="395" font-size="12" fill="#6b7280" text-anchor="middle">(або 1 двофазний кроковий двигун)</text>
+
+  <!-- Key Specs Box (Top Right) -->
+  <rect x="660" y="80" width="270" height="96" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="675" y="98" font-size="12" font-weight="bold" fill="#1a1a1a">Ключові параметри DRV8833:</text>
+  <text x="675" y="116" font-size="12" fill="#6b7280">• VMM: 2.7В ... 10.8В (живлення мотора)</text>
+  <text x="675" y="132" font-size="12" fill="#6b7280">• I_OUT: до 1.5A RMS / 2.0A пік</text>
+  <text x="675" y="148" font-size="12" fill="#6b7280">• Захисти: OCP, TSD, UVLO, nFAULT</text>
+  <text x="675" y="164" font-size="12" fill="#6b7280">• ШІМ-керування: до 50 кГц (IN1-IN4)</text>
+
+  <!-- Ground Separation & Star Ground Connection (Bottom) -->
+  <!-- Signal Ground Bus (GND, Blue) -->
+  <line x1="90" y1="490" x2="590" y2="490" stroke="#2457d6" stroke-width="2"/>
+  <line x1="90" y1="410" x2="90" y2="490" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Power Ground Bus (PGND, Red) -->
+  <line x1="280" y1="495" x2="510" y2="495" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Star Connection to PGND & Ground Symbol -->
+  <circle cx="410" cy="492.5" r="4" fill="#27ae60"/>
+  <line x1="410" y1="492.5" x2="410" y2="500" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Signal Ground Symbol -->
+  <line x1="400" y1="500" x2="420" y2="500" stroke="#2457d6" stroke-width="2"/>
+  <line x1="404" y1="504" x2="416" y2="504" stroke="#2457d6" stroke-width="2"/>
+  <line x1="408" y1="508" x2="412" y2="508" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Ground Labels -->
+  <text x="180" y="482" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сигнальна земля (GND)</text>
+  <text x="460" y="482" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Силова земля (PGND)</text>
+
+  <!-- Explanatory Callout Box (Bottom) -->
+  <rect x="120" y="518" width="720" height="44" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="480" y="534" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">★ Розділення шин землі: сигнальна GND (синя) та силова PGND (червона) з'єднуються в одній точці</text>
+  <text x="480" y="550" font-size="12" fill="#6b7280" text-anchor="middle">Це запобігає проникненню струмових завад від мотора у чутливі кола мікроконтролера</text>
+</svg>

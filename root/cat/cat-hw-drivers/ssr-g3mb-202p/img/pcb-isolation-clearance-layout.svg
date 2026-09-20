@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топологія друкованої плати та гальванічна розв'язка G3MB-202P</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Захисний проріз у FR-4 збільшує шлях витоку (Creepage) і запобігає пробою поверхні плати</text>
+
+  <!-- Main Architecture Panels -->
+  <!-- Left Outer Panel: Low-Voltage Control Zone -->
+  <rect x="30" y="70" width="420" height="250" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="40" y="75" width="400" height="25" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="240" y="92" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">НИЗЬКОВОЛЬТНА ЗОНА КЕРУВАННЯ (5 В DC)</text>
+
+  <!-- Left PCB Substrate -->
+  <rect x="40" y="125" width="400" height="190" rx="6" fill="#f0f4f1" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="50" y="141" font-size="12" font-weight="bold" fill="#27ae60">Плата FR-4 (DC коло)</text>
+
+  <!-- Ground Pour Box -->
+  <rect x="55" y="152" width="115" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="112.5" y="170" font-size="12" fill="#2457d6" text-anchor="middle">Полігон GND</text>
+
+  <!-- Control Traces and Pads -->
+  <line x1="50" y1="200" x2="236" y2="200" stroke="#2457d6" stroke-width="4"/>
+  <text x="140" y="191" font-size="12" fill="#2457d6" text-anchor="middle">Вхід +5V DC</text>
+
+  <circle cx="250" cy="200" r="14" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="250" cy="200" r="5" fill="white" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="250" y="179" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Pin 1 (+5V)</text>
+
+  <line x1="50" y1="265" x2="236" y2="265" stroke="#2457d6" stroke-width="4"/>
+  <text x="140" y="285" font-size="12" fill="#2457d6" text-anchor="middle">Сигнал / GND</text>
+
+  <circle cx="250" cy="265" r="14" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="250" cy="265" r="5" fill="white" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="250" y="296" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Pin 2 (- Control)</text>
+
+
+  <!-- Right Outer Panel: High-Voltage Power Zone -->
+  <rect x="510" y="70" width="420" height="250" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="520" y="75" width="400" height="25" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="720" y="92" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">СИЛОВА КОМУТОВАНА ЗОНА (100–240 В AC)</text>
+
+  <!-- Right PCB Substrate -->
+  <rect x="520" y="125" width="400" height="190" rx="6" fill="#f0f4f1" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="910" y="141" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Плата FR-4 (AC коло)</text>
+
+  <!-- Keepout Pour Box -->
+  <rect x="790" y="152" width="115" height="28" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="847.5" y="170" font-size="12" fill="#c0392b" text-anchor="middle">Keepout міді</text>
+
+  <!-- Power Traces and Pads -->
+  <line x1="725" y1="200" x2="910" y2="200" stroke="#c0392b" stroke-width="7"/>
+  <text x="815" y="189" font-size="12" fill="#c0392b" text-anchor="middle">Навантаження AC</text>
+
+  <circle cx="710" cy="200" r="15" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="710" cy="200" r="5.5" fill="white" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="710" y="178" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Pin 3 (AC Load ~)</text>
+
+  <line x1="725" y1="265" x2="910" y2="265" stroke="#c0392b" stroke-width="7"/>
+  <text x="815" y="285" font-size="12" fill="#c0392b" text-anchor="middle">Фаза 240V AC</text>
+
+  <circle cx="710" cy="265" r="15" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="710" cy="265" r="5.5" fill="white" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="710" y="297" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Pin 4 (AC Line ~)</text>
+
+
+  <!-- Center Column Isolation & Milled Cutout Slot -->
+  <line x1="480" y1="70" x2="480" y2="100" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Slot Cutout -->
+  <rect x="471" y="125" width="18" height="190" rx="9" fill="#34495e" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Slot Labels -->
+  <text x="480" y="334" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фрезерований проріз (Slot)</text>
+  <text x="480" y="346" font-size="12" fill="#6b7280" text-anchor="middle">Ширина w ≥ 1.5 мм</text>
+
+  <!-- Relay Body Outline & Label -->
+  <rect x="190" y="148" width="580" height="155" rx="4" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="200" y="142" font-size="12" font-weight="bold" fill="#6b7280">Корпус G3MB-202P (SIP-4)</text>
+
+  <!-- Distance & Isolation Annotations -->
+  <!-- Creepage Path -->
+  <path d="M 264,215 C 330,135 430,130 480,130 C 530,130 630,135 696,215" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,3" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="480" y="118" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Шлях витоку (Creepage): d_cr ≥ 8.0 мм (довкола слоту)</text>
+
+  <!-- Clearance Line & Label -->
+  <line x1="264" y1="235" x2="696" y2="235" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,2" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <text x="430" y="227" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Повітряний зазор d_cl ≥ 5.5 мм</text>
+
+
+  <!-- Bottom Summary Cards -->
+  <!-- Left Card: SSR Isolation Specifications -->
+  <rect x="30" y="352" width="420" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="45" y="370" font-size="13" font-weight="bold" fill="#2457d6">Специфікація гальванічної розв'язки (G3MB-202P):</text>
+  <text x="45" y="388" font-size="12" fill="#1a1a1a">• Напруга ізоляції: V_iso = 2500 В AC (1 хвилину)</text>
+  <text x="45" y="406" font-size="12" fill="#1a1a1a">• Опір ізоляції: R_iso ≥ 1000 МОм (при 500 В DC)</text>
+  <text x="45" y="424" font-size="12" font-weight="bold" fill="#27ae60">• Струм витікання у відкритому стані: I_leak ≤ 1.5 мА</text>
+
+  <!-- Right Card: PCB Layout Rules -->
+  <rect x="510" y="352" width="420" height="90" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="525" y="370" font-size="13" font-weight="bold" fill="#27ae60">Вимоги до трасування та монтажу на PCB:</text>
+  <text x="525" y="388" font-size="12" fill="#1a1a1a">• Захисний проріз під реле: розрізає поверхню FR-4</text>
+  <text x="525" y="406" font-size="12" fill="#1a1a1a">• Зазор між міддю DC і AC зон: d_cu ≥ 6.0 мм</text>
+  <text x="525" y="424" font-size="12" font-weight="bold" fill="#c0392b">• Заборонено проводити сторонні доріжки під SSR</text>
+</svg>

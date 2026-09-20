@@ -1,0 +1,223 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура та цокольовка сервопідсилювачів AA5188 / KC0032</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Схема виводів корпусів SOP-8 і SOP-14 та функціональна структура внутрішнього H-моста</text>
+
+  <!-- ================= ПАНЕЛЬ 1: ЦОКОЛЬОВКА ================= -->
+  <rect x="25" y="70" width="415" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="232" y="93" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Призначення виводів (SOP-8 та SOP-14)</text>
+
+  <!-- КАРТКА 1A: SOP-8 -->
+  <rect x="35" y="105" width="190" height="415" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="130" y="128" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">SOP-8 / DIP-8</text>
+  <text x="130" y="144" font-size="12" fill="#6b7280" text-anchor="middle">Базовий серводрайвер</text>
+
+  <!-- Корпус чипа SOP-8 -->
+  <rect x="100" y="170" width="60" height="130" rx="4" fill="#2c3e50"/>
+  <circle cx="130" cy="180" r="4" fill="#d0d7de"/>
+
+  <!-- Виводи ліворуч SOP-8 -->
+  <rect x="80" y="193" width="20" height="12" rx="2" fill="#95a5a6"/>
+  <text x="75" y="203" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">1: OUT1</text>
+
+  <rect x="80" y="218" width="20" height="12" rx="2" fill="#95a5a6"/>
+  <text x="75" y="228" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">2: VCC</text>
+
+  <rect x="80" y="243" width="20" height="12" rx="2" fill="#95a5a6"/>
+  <text x="75" y="253" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">3: VIN</text>
+
+  <rect x="80" y="268" width="20" height="12" rx="2" fill="#95a5a6"/>
+  <text x="75" y="278" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">4: POT</text>
+
+  <!-- Виводи праворуч SOP-8 -->
+  <rect x="160" y="193" width="20" height="12" rx="2" fill="#95a5a6"/>
+  <text x="185" y="203" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">8: OUT2</text>
+
+  <rect x="160" y="218" width="20" height="12" rx="2" fill="#95a5a6"/>
+  <text x="185" y="228" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">7: VREG</text>
+
+  <rect x="160" y="243" width="20" height="12" rx="2" fill="#95a5a6"/>
+  <text x="185" y="253" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">6: GND</text>
+
+  <rect x="160" y="268" width="20" height="12" rx="2" fill="#95a5a6"/>
+  <text x="185" y="278" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">5: CST</text>
+
+  <!-- Опис сигналів SOP-8 -->
+  <rect x="42" y="320" width="176" height="185" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="130" y="338" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Призначення сигналів:</text>
+  <text x="48" y="360" font-size="12" fill="#1a1a1a">• OUT1, OUT2: H-міст</text>
+  <text x="48" y="378" font-size="12" fill="#1a1a1a">  (двигун M+, M-)</text>
+  <text x="48" y="403" font-size="12" fill="#2457d6">• VIN: вхід ШІМ 1–2 мс</text>
+  <text x="48" y="428" font-size="12" fill="#1a1a1a">• POT: зворотний зв'язок</text>
+  <text x="48" y="453" font-size="12" fill="#27ae60">• CST: зона нечутливості</text>
+  <text x="48" y="478" font-size="12" fill="#6b7280">• VCC: 3.5 В – 7.4 В</text>
+
+  <!-- КАРТКА 1B: SOP-14 -->
+  <rect x="238" y="105" width="190" height="415" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="333" y="128" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">SOP-14 / DIP-14</text>
+  <text x="333" y="144" font-size="12" fill="#6b7280" text-anchor="middle">Розширений драйвер</text>
+
+  <!-- Корпус чипа SOP-14 -->
+  <rect x="303" y="170" width="60" height="175" rx="4" fill="#2c3e50"/>
+  <circle cx="333" cy="180" r="4" fill="#d0d7de"/>
+
+  <!-- Виводи ліворуч SOP-14 -->
+  <rect x="283" y="191" width="20" height="10" rx="2" fill="#95a5a6"/>
+  <text x="278" y="200" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">1: RT</text>
+
+  <rect x="283" y="213" width="20" height="10" rx="2" fill="#95a5a6"/>
+  <text x="278" y="222" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">2: EXP1</text>
+
+  <rect x="283" y="235" width="20" height="10" rx="2" fill="#95a5a6"/>
+  <text x="278" y="244" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">3: OUT1</text>
+
+  <rect x="283" y="257" width="20" height="10" rx="2" fill="#95a5a6"/>
+  <text x="278" y="266" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">4: NC</text>
+
+  <rect x="283" y="279" width="20" height="10" rx="2" fill="#95a5a6"/>
+  <text x="278" y="288" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">5: OUT2</text>
+
+  <rect x="283" y="301" width="20" height="10" rx="2" fill="#95a5a6"/>
+  <text x="278" y="310" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">6: EXP2</text>
+
+  <rect x="283" y="323" width="20" height="10" rx="2" fill="#95a5a6"/>
+  <text x="278" y="332" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">7: CST</text>
+
+  <!-- Виводи праворуч SOP-14 -->
+  <rect x="363" y="191" width="20" height="10" rx="2" fill="#95a5a6"/>
+  <text x="388" y="200" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">14: CT</text>
+
+  <rect x="363" y="213" width="20" height="10" rx="2" fill="#95a5a6"/>
+  <text x="388" y="222" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">13: POT</text>
+
+  <rect x="363" y="235" width="20" height="10" rx="2" fill="#95a5a6"/>
+  <text x="388" y="244" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">12: VIN</text>
+
+  <rect x="363" y="257" width="20" height="10" rx="2" fill="#95a5a6"/>
+  <text x="388" y="266" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">11: GND</text>
+
+  <rect x="363" y="279" width="20" height="10" rx="2" fill="#95a5a6"/>
+  <text x="388" y="288" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">10: RDB</text>
+
+  <rect x="363" y="301" width="20" height="10" rx="2" fill="#95a5a6"/>
+  <text x="388" y="310" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">9: VCC</text>
+
+  <rect x="363" y="323" width="20" height="10" rx="2" fill="#95a5a6"/>
+  <text x="388" y="332" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">8: VREG</text>
+
+  <!-- Опис додаткових виводів SOP-14 -->
+  <rect x="245" y="360" width="176" height="145" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="333" y="378" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розширений функціонал:</text>
+  <text x="251" y="400" font-size="12" fill="#27ae60">• EXP1, EXP2: виходи на</text>
+  <text x="251" y="418" font-size="12" fill="#27ae60">  зовнішні PNP ключі</text>
+  <text x="251" y="443" font-size="12" fill="#1a1a1a">• RT, CT: RC-генератор</text>
+  <text x="251" y="468" font-size="12" fill="#27ae60">• RDB: підлаштування</text>
+  <text x="251" y="486" font-size="12" fill="#27ae60">  зони нечутливості</text>
+
+  <!-- ================= ПАНЕЛЬ 2: БЛОКОВА СХЕМА ================= -->
+  <rect x="455" y="70" width="480" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="695" y="93" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Функціональна блокова схема драйвера</text>
+
+  <!-- Блок 1: Вхідний тригер -->
+  <rect x="475" y="125" width="130" height="55" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="540" y="147" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхідний тригер</text>
+  <text x="540" y="165" font-size="12" fill="#6b7280" text-anchor="middle">VIN (ШІМ 1–2 мс)</text>
+
+  <!-- Блок 2: Одноразовий генератор -->
+  <rect x="475" y="235" width="130" height="65" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="540" y="255" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Одноразовий</text>
+  <text x="540" y="272" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">генератор</text>
+  <text x="540" y="289" font-size="12" fill="#6b7280" text-anchor="middle">POT / RT-CT</text>
+
+  <!-- Блок 3: Детектор помилки -->
+  <rect x="640" y="160" width="135" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="707" y="184" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Детектор помилки</text>
+  <text x="707" y="202" font-size="12" fill="#1a1a1a" text-anchor="middle">Порівняння імпульсів</text>
+  <text x="707" y="219" font-size="12" fill="#6b7280" text-anchor="middle">Δt = t_in - t_pot</text>
+
+  <!-- Блок 4: Зона нечутливості -->
+  <rect x="640" y="275" width="135" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="707" y="297" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Зона нечутливості</text>
+  <text x="707" y="315" font-size="12" fill="#1a1a1a" text-anchor="middle">Deadband &amp; Stretcher</text>
+  <text x="707" y="331" font-size="12" fill="#6b7280" text-anchor="middle">CST / RDB</text>
+
+  <!-- Блок 5: Логіка напрямку -->
+  <rect x="640" y="380" width="135" height="55" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="707" y="402" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Логіка напрямку</text>
+  <text x="707" y="420" font-size="12" fill="#6b7280" text-anchor="middle">Керування CW / CCW</text>
+
+  <!-- Блок 6: Силовий каскад (H-міст & EXP) -->
+  <rect x="805" y="180" width="115" height="230" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="862" y="202" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Силовий каскад</text>
+
+  <!-- Внутрішній H-міст -->
+  <rect x="815" y="215" width="95" height="70" rx="4" fill="white" stroke="#2457d6"/>
+  <text x="862" y="235" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вбудований</text>
+  <text x="862" y="252" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">H-міст</text>
+  <text x="862" y="271" font-size="12" fill="#2457d6" text-anchor="middle">OUT1, OUT2</text>
+
+  <!-- Зовнішній силовий підсилювач -->
+  <rect x="815" y="295" width="95" height="105" rx="4" fill="white" stroke="#27ae60"/>
+  <text x="862" y="315" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зовнішні</text>
+  <text x="862" y="332" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">силові ключі</text>
+  <text x="862" y="351" font-size="12" fill="#27ae60" text-anchor="middle">EXP1, EXP2</text>
+  <text x="862" y="368" font-size="12" fill="#6b7280" text-anchor="middle">(підсилювач)</text>
+  <text x="862" y="386" font-size="12" fill="#6b7280" text-anchor="middle">PNP/NPN</text>
+
+  <!-- Блок 7: Стабілізатор VREG -->
+  <rect x="475" y="455" width="300" height="55" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="625" y="476" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішній стабілізатор напруги (VREG)</text>
+  <text x="625" y="495" font-size="12" fill="#6b7280" text-anchor="middle">Живлення VCC (3.5–7.4В)  ─►  Опорний рівень VREG</text>
+
+  <!-- Зв'язки та стрілки сигналів -->
+  <!-- Вхід VIN -->
+  <line x1="455" y1="152" x2="470" y2="152" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="460" y="140" font-size="12" font-weight="bold" fill="#2457d6">VIN</text>
+
+  <!-- Вхід VIN до детектора помилки -->
+  <path d="M 605 152 L 622 152 L 622 180 L 633 180" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="612" y="140" font-size="12" font-weight="bold" fill="#2457d6">t_in</text>
+
+  <!-- Синхронізація одноразового генератора від тригера -->
+  <path d="M 540 180 L 540 228" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="3,3" fill="none" marker-end="url(#arr)"/>
+  <text x="546" y="208" font-size="12" fill="#6b7280">старт</text>
+
+  <!-- Вихід одноразового генератора t_pot до детектора помилки -->
+  <path d="M 605 267 L 622 267 L 622 210 L 633 210" stroke="#1a1a1a" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="612" y="282" font-size="12" font-weight="bold" fill="#1a1a1a">t_pot</text>
+
+  <!-- Детектор помилки -> Зона нечутливості -->
+  <path d="M 707 230 L 707 268" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="714" y="254" font-size="12" fill="#2457d6">помилка Δt</text>
+
+  <!-- Зона нечутливості -> Логіка напрямку -->
+  <path d="M 707 340 L 707 373" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+  <text x="714" y="362" font-size="12" fill="#27ae60">фільтр</text>
+
+  <!-- Логіка напрямку -> Силовий каскад -->
+  <path d="M 775 407 L 795 407 L 795 300 L 798 300" stroke="#1a1a1a" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="778" y="292" font-size="12" font-weight="bold" fill="#1a1a1a">CW / CCW</text>
+
+  <!-- Виходи силового каскаду -->
+  <line x1="920" y1="250" x2="935" y2="250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="922" y="240" font-size="12" font-weight="bold" fill="#2457d6">M+, M-</text>
+
+  <line x1="920" y1="348" x2="935" y2="348" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="922" y="338" font-size="12" font-weight="bold" fill="#27ae60">EXP</text>
+
+</svg>

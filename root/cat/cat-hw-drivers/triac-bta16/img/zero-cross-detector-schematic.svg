@@ -1,0 +1,186 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-left" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-right" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Header -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема детектора переходу через нуль (Zero-Cross Detector)</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Формування імпульсів переривання для МК при збереженні повної гальванічної ізоляції</text>
+
+  <!-- Main Panels -->
+  <!-- High Voltage Panel -->
+  <rect x="30" y="78" width="380" height="252" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="100" text-anchor="start" font-size="13" font-weight="bold" fill="#c0392b">ВИСОКОВОЛЬТНА ЧАСТИНА (230 В AC)</text>
+
+  <!-- Low Voltage Panel -->
+  <rect x="550" y="78" width="380" height="252" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="565" y="100" text-anchor="start" font-size="13" font-weight="bold" fill="#2457d6">НИЗЬКОВОЛЬТНА ЧАСТИНА (5 В / МК)</text>
+
+  <!-- Galvanic Isolation Line and Badge -->
+  <line x1="480" y1="74" x2="480" y2="334" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,4"/>
+  <rect x="420" y="80" width="120" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="94" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">ГАЛЬВАНІЧНА</text>
+  <text x="480" y="107" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">ІЗОЛЯЦІЯ (3750 V)</text>
+
+  <!-- High-Voltage Circuit Components -->
+  <!-- AC Terminals -->
+  <circle cx="90" cy="162" r="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="82" y="166" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">L (230V)</text>
+
+  <circle cx="90" cy="252" r="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="82" y="256" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">N (0V)</text>
+
+  <!-- Wires from Terminals to Resistors -->
+  <line x1="94" y1="162" x2="130" y2="162" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="94" y1="252" x2="130" y2="252" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Resistors R1 & R2 -->
+  <!-- R1 -->
+  <text x="152.5" y="130" text-anchor="middle" font-size="11" fill="#6b7280">47 kΩ / 1W</text>
+  <text x="152.5" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">R1</text>
+  <rect x="130" y="153" width="45" height="18" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- R2 -->
+  <rect x="130" y="243" width="45" height="18" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="152.5" y="276" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">R2</text>
+  <text x="152.5" y="290" text-anchor="middle" font-size="11" fill="#6b7280">47 kΩ / 1W</text>
+
+  <!-- Wires from Resistors to Diode Bridge -->
+  <line x1="175" y1="162" x2="235" y2="162" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="175" y1="252" x2="235" y2="252" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Diode Bridge Box -->
+  <rect x="235" y="142" width="85" height="130" rx="6" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="277.5" y="158" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Діодний міст</text>
+  <text x="277.5" y="172" text-anchor="middle" font-size="11" fill="#6b7280">DB107</text>
+
+  <!-- Bridge internal symbols -->
+  <polygon points="277.5,188 290.5,207 277.5,226 264.5,207" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="245" y="194" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">~</text>
+  <text x="245" y="234" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">~</text>
+  <text x="310" y="194" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">+</text>
+  <text x="310" y="234" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">-</text>
+
+  <!-- Wires from Diode Bridge to Optocoupler -->
+  <text x="370" y="178" text-anchor="middle" font-size="11" fill="#c0392b">V_pulsed (+)</text>
+  <line x1="320" y1="187" x2="420" y2="187" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="320" y1="227" x2="420" y2="227" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Optocoupler Package (IC1 PC817) -->
+  <text x="480" y="144" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">IC1 (PC817)</text>
+  <rect x="420" y="152" width="120" height="110" rx="8" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Pin numbers -->
+  <text x="428" y="180" text-anchor="start" font-size="11" fill="#6b7280">1</text>
+  <text x="428" y="220" text-anchor="start" font-size="11" fill="#6b7280">2</text>
+  <text x="532" y="180" text-anchor="end" font-size="11" fill="#6b7280">4</text>
+  <text x="532" y="220" text-anchor="end" font-size="11" fill="#6b7280">3</text>
+
+  <!-- Internal LED -->
+  <line x1="420" y1="187" x2="450" y2="187" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="420" y1="227" x2="450" y2="227" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="450" y1="187" x2="450" y2="197" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="450" y1="217" x2="450" y2="227" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="442,197 458,197 450,210" fill="#1a1a1a"/>
+  <line x1="442" y1="210" x2="458" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Light arrows -->
+  <line x1="462" y1="200" x2="475" y2="206" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="462" y1="208" x2="475" y2="214" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Internal Phototransistor -->
+  <line x1="495" y1="192" x2="495" y2="222" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="495" y1="197" x2="515" y2="187" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="515" y1="187" x2="540" y2="187" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="495" y1="217" x2="515" y2="227" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="513,222 517,228 508,226" fill="#1a1a1a"/>
+  <line x1="515" y1="227" x2="540" y2="227" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Low-Voltage MCU Circuit Components -->
+  <!-- Collector Line & Node N1 -->
+  <line x1="540" y1="187" x2="630" y2="187" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="630" cy="187" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Pull-up Resistor R_pull to VCC -->
+  <line x1="630" y1="187" x2="630" y2="157" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="621" y="122" width="18" height="35" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="645" y="134" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">R_pull</text>
+  <text x="645" y="148" text-anchor="start" font-size="11" fill="#6b7280">10 kΩ</text>
+
+  <line x1="630" y1="122" x2="630" y2="102" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="620" y1="102" x2="640" y2="102" stroke="#2457d6" stroke-width="2"/>
+  <text x="630" y="95" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">+5V / +3.3V</text>
+
+  <!-- Signal Output to MCU -->
+  <text x="684" y="177" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ZCD_INT</text>
+  <text x="684" y="205" text-anchor="middle" font-size="11" fill="#6b7280">(імпульс 100 Гц)</text>
+  <line x1="630" y1="187" x2="738" y2="187" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Emitter Line to GND -->
+  <line x1="540" y1="227" x2="630" y2="227" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="630" y1="227" x2="630" y2="247" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="618" y1="247" x2="642" y2="247" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="623" y1="251" x2="637" y2="251" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="627" y1="255" x2="633" y2="255" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="630" y="270" text-anchor="middle" font-size="11" fill="#6b7280">GND</text>
+
+  <!-- MCU Module Box -->
+  <rect x="740" y="122" width="170" height="180" rx="8" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="825" y="144" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Мікроконтролер</text>
+  <text x="825" y="159" text-anchor="middle" font-size="11" fill="#6b7280">(STM32 / AVR / ESP32)</text>
+
+  <rect x="748" y="174" width="70" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="784" y="190" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">EXTI / INT</text>
+
+  <text x="825" y="217" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Обробник переривань:</text>
+  <text x="825" y="234" text-anchor="middle" font-size="11" fill="#6b7280">1. Запуск таймера затримки α</text>
+  <text x="825" y="249" text-anchor="middle" font-size="11" fill="#6b7280">2. Відлік затримки (0..10 ms)</text>
+  <text x="825" y="270" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">→ Імпульс на MOC3021</text>
+  <text x="825" y="285" text-anchor="middle" font-size="11" fill="#6b7280">(відмикання BTA16)</text>
+
+  <!-- Bottom Panel: Waveforms & Timing -->
+  <rect x="30" y="348" width="900" height="170" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="370" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">ТАСУВАННЯ СИГНАЛІВ ТА ФОРМУВАННЯ ІМПУЛЬСУ ZERO-CROSS</text>
+
+  <!-- Graph 1: AC Voltage Wave -->
+  <text x="45" y="418" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">U_AC (230 В AC)</text>
+  <text x="45" y="432" text-anchor="start" font-size="11" fill="#6b7280">Вхідна синусоїда 50 Гц</text>
+  <line x1="180" y1="418" x2="870" y2="418" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <path d="M 200,418 C 240,378 280,378 320,418 C 360,458 400,458 440,418 C 480,378 520,378 560,418 C 600,458 640,458 680,418 C 720,378 760,378 800,418 C 820,438 840,438 850,418" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Period arrow -->
+  <line x1="200" y1="401" x2="360" y2="401" stroke="#1a1a1a" stroke-width="1" marker-start="url(#arr-left)" marker-end="url(#arr-right)"/>
+  <text x="280" y="396" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">T / 2 = 10 ms (100 Гц)</text>
+
+  <!-- Graph 2: ZCD Output Wave -->
+  <text x="45" y="475" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">U_ZCD (вхід МК)</text>
+  <text x="45" y="489" text-anchor="start" font-size="11" fill="#6b7280">Імпульси переривання</text>
+  <path d="M 175,488 L 192,488 L 192,463 L 208,463 L 208,488 L 352,488 L 352,463 L 368,463 L 368,488 L 512,488 L 512,463 L 528,463 L 528,488 L 672,488 L 672,463 L 688,463 L 688,488 L 832,488 L 832,463 L 848,463 L 848,488 L 870,488" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Zero crossing guide dashed lines -->
+  <line x1="200" y1="385" x2="200" y2="498" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+  <line x1="360" y1="385" x2="360" y2="498" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+  <line x1="520" y1="385" x2="520" y2="498" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+  <line x1="680" y1="385" x2="680" y2="498" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+  <line x1="840" y1="385" x2="840" y2="498" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+
+  <text x="360" y="511" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Перехід через 0 В (t = 10 ms)</text>
+</svg>

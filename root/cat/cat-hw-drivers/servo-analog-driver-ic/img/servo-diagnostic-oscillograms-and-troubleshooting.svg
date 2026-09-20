@@ -1,0 +1,188 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діагностика аналогового серводрайвера: контрольні точки й несправності</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Форма сигналів у контрольних точках TP1 (V_pot), TP2 (V_err), TP3 (V_out) визначає несправність</text>
+
+  <!-- PANEL 1: NORMAL OPERATION -->
+  <g>
+    <rect x="30" y="75" width="284" height="470" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="42" y="87" width="260" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="172" y="108" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">1. Нормальна робота</text>
+
+    <!-- TP1 Screen -->
+    <text x="42" y="136" font-size="12" font-weight="bold" fill="#1a1a1a">TP1: V_pot</text>
+    <text x="302" y="136" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Чистий сигнал</text>
+    <rect x="42" y="144" width="260" height="56" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+    <!-- Grid -->
+    <line x1="50" y1="158" x2="294" y2="158" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="50" y1="172" x2="294" y2="172" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="50" y1="186" x2="294" y2="186" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="107" y1="148" x2="107" y2="196" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="172" y1="148" x2="172" y2="196" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="237" y1="148" x2="237" y2="196" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <!-- Waveform -->
+    <path d="M 52,186 L 115,186 L 145,158 L 292,158" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- TP2 Screen -->
+    <text x="42" y="236" font-size="12" font-weight="bold" fill="#1a1a1a">TP2: V_err</text>
+    <text x="302" y="236" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Одиночний імпульс</text>
+    <rect x="42" y="244" width="260" height="56" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+    <!-- Grid -->
+    <line x1="50" y1="258" x2="294" y2="258" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="50" y1="272" x2="294" y2="272" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="50" y1="286" x2="294" y2="286" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="107" y1="248" x2="107" y2="296" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="172" y1="248" x2="172" y2="296" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="237" y1="248" x2="237" y2="296" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <!-- Waveform -->
+    <path d="M 52,286 L 115,286 L 115,258 L 145,258 L 145,286 L 292,286" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- TP3 Screen -->
+    <text x="42" y="336" font-size="12" font-weight="bold" fill="#1a1a1a">TP3: V_out</text>
+    <text x="302" y="336" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">ШІМ-пачка</text>
+    <rect x="42" y="344" width="260" height="56" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+    <!-- Grid -->
+    <line x1="50" y1="358" x2="294" y2="358" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="50" y1="372" x2="294" y2="372" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="50" y1="386" x2="294" y2="386" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="107" y1="348" x2="107" y2="396" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="172" y1="348" x2="172" y2="396" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="237" y1="348" x2="237" y2="396" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <!-- Waveform -->
+    <path d="M 52,386 L 115,386 L 115,358 L 120,358 L 120,386 L 125,386 L 125,358 L 130,358 L 130,386 L 135,386 L 135,358 L 140,358 L 140,386 L 145,386 L 145,358 L 145,386 L 292,386" fill="none" stroke="#27ae60" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Diagnosis Box -->
+    <rect x="42" y="412" width="260" height="124" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+    <text x="54" y="430" font-size="12" font-weight="bold" fill="#27ae60">Ознака: Чітке позиціонування</text>
+    <text x="54" y="448" font-size="12" fill="#1a1a1a">• Відсутні хибні спрацьовування</text>
+    <text x="54" y="466" font-size="12" fill="#1a1a1a">• Чистий аналоговий сигнал FB</text>
+    <text x="54" y="488" font-size="12" font-weight="bold" fill="#27ae60">Діагноз: Система справна</text>
+    <text x="54" y="506" font-size="12" fill="#6b7280">• Дії: Регулярне ТО, змащення</text>
+    <text x="54" y="524" font-size="12" fill="#6b7280">• Струм спокою: &lt; 15 мА</text>
+  </g>
+
+  <!-- PANEL 2: POTENTIOMETER WEAR / NOISE -->
+  <g>
+    <rect x="338" y="75" width="284" height="470" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="350" y="87" width="260" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="480" y="108" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">2. Знос потенціометра</text>
+
+    <!-- TP1 Screen -->
+    <text x="350" y="136" font-size="12" font-weight="bold" fill="#1a1a1a">TP1: V_pot</text>
+    <text x="610" y="136" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Викиди та збої</text>
+    <rect x="350" y="144" width="260" height="56" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+    <!-- Grid -->
+    <line x1="358" y1="158" x2="602" y2="158" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="358" y1="172" x2="602" y2="172" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="358" y1="186" x2="602" y2="186" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="415" y1="148" x2="415" y2="196" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="480" y1="148" x2="480" y2="196" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="545" y1="148" x2="545" y2="196" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <!-- Waveform -->
+    <path d="M 360,186 L 410,186 L 414,194 L 418,150 L 422,194 L 426,186 L 440,160 L 444,196 L 448,150 L 452,160 L 456,160 L 600,160" fill="none" stroke="#c0392b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- TP2 Screen -->
+    <text x="350" y="236" font-size="12" font-weight="bold" fill="#1a1a1a">TP2: V_err</text>
+    <text x="610" y="236" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Хаотичні спалахи</text>
+    <rect x="350" y="244" width="260" height="56" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+    <!-- Grid -->
+    <line x1="358" y1="258" x2="602" y2="258" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="358" y1="272" x2="602" y2="272" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="358" y1="286" x2="602" y2="286" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="415" y1="248" x2="415" y2="296" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="480" y1="248" x2="480" y2="296" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="545" y1="248" x2="545" y2="296" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <!-- Waveform -->
+    <path d="M 360,286 L 410,286 L 410,258 L 416,258 L 416,286 L 420,286 L 420,258 L 428,258 L 428,286 L 440,286 L 440,258 L 456,258 L 456,286 L 600,286" fill="none" stroke="#c0392b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- TP3 Screen -->
+    <text x="350" y="336" font-size="12" font-weight="bold" fill="#1a1a1a">TP3: V_out</text>
+    <text x="610" y="336" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Тремтіння (дребезг)</text>
+    <rect x="350" y="344" width="260" height="56" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+    <!-- Grid -->
+    <line x1="358" y1="358" x2="602" y2="358" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="358" y1="372" x2="602" y2="372" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="358" y1="386" x2="602" y2="386" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="415" y1="348" x2="415" y2="396" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="480" y1="348" x2="480" y2="396" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="545" y1="348" x2="545" y2="396" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <!-- Waveform -->
+    <path d="M 360,386 L 410,386 L 410,358 L 414,358 L 414,386 L 418,386 L 418,358 L 424,358 L 424,386 L 440,386 L 440,358 L 454,358 L 454,386 L 600,386" fill="none" stroke="#c0392b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Diagnosis Box -->
+    <rect x="350" y="412" width="260" height="124" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+    <text x="362" y="430" font-size="12" font-weight="bold" fill="#c0392b">Ознака: Тремтіння та перегрів</text>
+    <text x="362" y="448" font-size="12" fill="#1a1a1a">• Шум резистивного шару POT1</text>
+    <text x="362" y="466" font-size="12" fill="#1a1a1a">• Неперервні мікрокорекції</text>
+    <text x="362" y="488" font-size="12" font-weight="bold" fill="#c0392b">Діагноз: Знос потенціометра</text>
+    <text x="362" y="506" font-size="12" fill="#27ae60">• Рішення: Замінити POT1</text>
+    <text x="362" y="524" font-size="12" fill="#6b7280">• Встановити C_fb = 10 нФ</text>
+  </g>
+
+  <!-- PANEL 3: H-BRIDGE TRANSISTOR SHORT -->
+  <g>
+    <rect x="646" y="75" width="284" height="470" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="658" y="87" width="260" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="788" y="108" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">3. Пробій ключів H-мосту</text>
+
+    <!-- TP1 Screen -->
+    <text x="658" y="136" font-size="12" font-weight="bold" fill="#1a1a1a">TP1: V_pot</text>
+    <text x="918" y="136" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">Постійний розсоглас</text>
+    <rect x="658" y="144" width="260" height="56" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+    <!-- Grid -->
+    <line x1="666" y1="158" x2="910" y2="158" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="666" y1="172" x2="910" y2="172" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="666" y1="186" x2="910" y2="186" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="723" y1="148" x2="723" y2="196" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="788" y1="148" x2="788" y2="196" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="853" y1="148" x2="853" y2="196" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <!-- Waveform -->
+    <line x1="668" y1="164" x2="908" y2="164" stroke="#6b7280" stroke-width="2" stroke-dasharray="6,4"/>
+
+    <!-- TP2 Screen -->
+    <text x="658" y="236" font-size="12" font-weight="bold" fill="#1a1a1a">TP2: V_err</text>
+    <text x="918" y="236" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Насичення (лог. 1)</text>
+    <rect x="658" y="244" width="260" height="56" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+    <!-- Grid -->
+    <line x1="666" y1="258" x2="910" y2="258" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="666" y1="272" x2="910" y2="272" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="666" y1="286" x2="910" y2="286" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="723" y1="248" x2="723" y2="296" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="788" y1="248" x2="788" y2="296" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="853" y1="248" x2="853" y2="296" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <!-- Waveform -->
+    <line x1="668" y1="258" x2="908" y2="258" stroke="#c0392b" stroke-width="2.5"/>
+
+    <!-- TP3 Screen -->
+    <text x="658" y="336" font-size="12" font-weight="bold" fill="#1a1a1a">TP3: V_out</text>
+    <text x="918" y="336" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Постійний 0 В (КЗ)</text>
+    <rect x="658" y="344" width="260" height="56" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+    <!-- Grid -->
+    <line x1="666" y1="358" x2="910" y2="358" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="666" y1="372" x2="910" y2="372" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="666" y1="386" x2="910" y2="386" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="723" y1="348" x2="723" y2="396" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="788" y1="348" x2="788" y2="396" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="853" y1="348" x2="853" y2="396" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+    <!-- Waveform -->
+    <line x1="668" y1="386" x2="908" y2="386" stroke="#c0392b" stroke-width="3"/>
+
+    <!-- Diagnosis Box -->
+    <rect x="658" y="412" width="260" height="124" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+    <text x="670" y="430" font-size="12" font-weight="bold" fill="#c0392b">Ознака: Вал заклинений / 0 руху</text>
+    <text x="670" y="448" font-size="12" fill="#1a1a1a">• Постійний максимальний V_err</text>
+    <text x="670" y="466" font-size="12" fill="#1a1a1a">• Відсутній вихідний ШІМ-струм</text>
+    <text x="670" y="488" font-size="12" font-weight="bold" fill="#c0392b">Діагноз: Пробій H-мосту AA5188</text>
+    <text x="670" y="506" font-size="12" fill="#27ae60">• Рішення: Заміна IC AA5188</text>
+    <text x="670" y="524" font-size="12" fill="#6b7280">• Перевірити КЗ обмотки двигуна</text>
+  </g>
+</svg>

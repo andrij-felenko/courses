@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння оптосимісторів: випадкова фаза vs детектор нуля (Zero-Cross)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Вмикання у довільний момент створює крутий фронт напруги та EMI, а Zero-Cross вмикає лише при перетині нуля</text>
+
+  <!-- PANEL 1: Random Phase (Left) -->
+  <rect x="30" y="75" width="435" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel 1 Header Banner -->
+  <rect x="42" y="87" width="411" height="34" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247" y="109" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Випадкова фаза (MOC302x) — Фазове регулювання</text>
+
+  <!-- Signal I_LED (Panel 1) -->
+  <text x="45" y="140" font-size="12" font-weight="bold" fill="#1a1a1a">Сигнал керування I_LED</text>
+  <line x1="85" y1="172" x2="425" y2="172" stroke="#9ca3af" stroke-width="1" stroke-dasharray="2,2"/>
+  <path d="M 85,172 L 130,172 L 130,155 L 425,155" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="260" y="146" font-size="12" font-weight="bold" fill="#2457d6">I_LED > I_FT</text>
+
+  <!-- Vertical Trigger Marker Line (Panel 1 - Upper segment) -->
+  <line x1="130" y1="155" x2="130" y2="172" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Panel 1 Clear Belt Labels (y=192) -->
+  <text x="45" y="192" font-size="12" font-weight="bold" fill="#1a1a1a">Вихідна напруга V_LOAD</text>
+  <text x="205" y="192" font-size="12" font-weight="bold" fill="#c0392b">Стрибок ΔV = 325 В!</text>
+  <text x="345" y="192" font-size="12" fill="#6b7280">V_AC (230 В)</text>
+
+  <!-- Callout Pointer Line (Panel 1) -->
+  <path d="M 190,200 Q 155,200 135,225" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Waveform V_LOAD & V_AC Graph (Panel 1) -->
+  <!-- Axes & Ticks (Panel 1) -->
+  <text x="80" y="234" font-size="12" fill="#6b7280" text-anchor="end">+V_max</text>
+  <text x="80" y="294" font-size="12" fill="#6b7280" text-anchor="end">0 В</text>
+  <text x="80" y="354" font-size="12" fill="#6b7280" text-anchor="end">-V_max</text>
+
+  <line x1="85" y1="230" x2="415" y2="230" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="85" y1="350" x2="415" y2="350" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="85" y1="290" x2="430" y2="290" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="435" y="294" font-size="12" fill="#6b7280">t</text>
+
+  <!-- Full AC Sine Reference Curve (Panel 1) -->
+  <path d="M 90,290 L 100,267 L 110,247.6 L 120,234.6 L 130,230 L 140,234.6 L 150,247.6 L 160,267 L 170,290 L 180,313 L 190,332.4 L 200,345.4 L 210,350 L 220,345.4 L 230,332.4 L 240,313 L 250,290 L 260,267 L 270,247.6 L 280,234.6 L 290,230 L 300,234.6 L 310,247.6 L 320,267 L 330,290 L 340,313 L 350,332.4 L 360,345.4 L 370,350 L 380,345.4 L 390,332.4 L 400,313 L 410,290" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Filled Active V_LOAD Region (Panel 1) -->
+  <path d="M 90,290 L 130,290 L 130,230 L 140,234.6 L 150,247.6 L 160,267 L 170,290 L 180,313 L 190,332.4 L 200,345.4 L 210,350 L 220,345.4 L 230,332.4 L 240,313 L 250,290 L 260,267 L 270,247.6 L 280,234.6 L 290,230 L 300,234.6 L 310,247.6 L 320,267 L 330,290 L 340,313 L 350,332.4 L 360,345.4 L 370,350 L 380,345.4 L 390,332.4 L 400,313 L 410,290 Z" fill="#fdecea" opacity="0.75"/>
+
+  <!-- Solid V_LOAD Curve (Panel 1) -->
+  <path d="M 90,290 L 130,290 L 130,230 L 140,234.6 L 150,247.6 L 160,267 L 170,290 L 180,313 L 190,332.4 L 200,345.4 L 210,350 L 220,345.4 L 230,332.4 L 240,313 L 250,290 L 260,267 L 270,247.6 L 280,234.6 L 290,230 L 300,234.6 L 310,247.6 L 320,267 L 330,290 L 340,313 L 350,332.4 L 360,345.4 L 370,350 L 380,345.4 L 390,332.4 L 400,313 L 410,290" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Sharp Edge Step Jump Line & Marker (Panel 1) -->
+  <line x1="130" y1="290" x2="130" y2="230" stroke="#c0392b" stroke-width="3"/>
+  <circle cx="130" cy="230" r="4" fill="#c0392b"/>
+
+  <!-- Solid V_LOAD Curve Label (Panel 1) -->
+  <text x="250" y="318" font-size="12" font-weight="bold" fill="#c0392b">Зрізана фаза</text>
+
+  <!-- Problem Description Card (Panel 1) -->
+  <rect x="42" y="385" width="411" height="95" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="54" y="407" font-size="13" font-weight="bold" fill="#c0392b">⚡ Проблема: миттєве відкриття (Random Phase)</text>
+  <text x="54" y="426" font-size="12" fill="#1a1a1a">• Сигнал I_LED подано при V_AC = V_max (фаза 90°)</text>
+  <text x="54" y="444" font-size="12" fill="#1a1a1a">• Стрибок напруги ΔV = 325 В створює високе dv/dt</text>
+  <text x="54" y="462" font-size="12" font-weight="bold" fill="#c0392b">• Наслідок: сильні завади (EMI) та кидки струму</text>
+
+
+  <!-- PANEL 2: Zero-Cross (Right) -->
+  <rect x="495" y="75" width="435" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel 2 Header Banner -->
+  <rect x="507" y="87" width="411" height="34" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="109" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Детектор нуля (MOC3063) — Релейний режим</text>
+
+  <!-- Signal I_LED (Panel 2) -->
+  <text x="510" y="140" font-size="12" font-weight="bold" fill="#1a1a1a">Сигнал керування I_LED</text>
+  <line x1="550" y1="172" x2="890" y2="172" stroke="#9ca3af" stroke-width="1" stroke-dasharray="2,2"/>
+  <path d="M 550,172 L 595,172 L 595,155 L 890,155" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="725" y="146" font-size="12" font-weight="bold" fill="#2457d6">I_LED > I_FT</text>
+
+  <!-- Signal Request Marker (Panel 2 - Upper segment) -->
+  <line x1="595" y1="155" x2="595" y2="172" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Panel 2 Clear Belt Labels (y=192) -->
+  <text x="510" y="192" font-size="12" font-weight="bold" fill="#1a1a1a">Вихідна напруга V_LOAD</text>
+  <text x="670" y="192" font-size="12" font-weight="bold" fill="#2457d6">Пауза (чекає нуля)</text>
+  <text x="805" y="192" font-size="12" fill="#6b7280">V_AC (230 В)</text>
+
+  <!-- Pause Callout Pointer Line (Panel 2) -->
+  <path d="M 665,200 Q 640,210 635,282" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Waveform V_LOAD & V_AC Graph (Panel 2) -->
+  <!-- Axes & Ticks (Panel 2) -->
+  <text x="545" y="234" font-size="12" fill="#6b7280" text-anchor="end">+V_max</text>
+  <text x="545" y="294" font-size="12" fill="#6b7280" text-anchor="end">0 В</text>
+  <text x="545" y="354" font-size="12" fill="#6b7280" text-anchor="end">-V_max</text>
+
+  <line x1="550" y1="230" x2="880" y2="230" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="550" y1="350" x2="880" y2="350" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="550" y1="290" x2="895" y2="290" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="900" y="294" font-size="12" fill="#6b7280">t</text>
+
+  <!-- Signal Request Dotted Marker in Graph (Panel 2) -->
+  <line x1="595" y1="230" x2="595" y2="290" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Full AC Sine Reference Curve (Panel 2) -->
+  <path d="M 555,290 L 565,267 L 575,247.6 L 585,234.6 L 595,230 L 605,234.6 L 615,247.6 L 625,267 L 635,290 L 645,313 L 655,332.4 L 665,345.4 L 675,350 L 685,345.4 L 695,332.4 L 705,313 L 715,290 L 725,267 L 735,247.6 L 745,234.6 L 755,230 L 765,234.6 L 775,247.6 L 785,267 L 795,290 L 805,313 L 815,332.4 L 825,345.4 L 835,350 L 845,345.4 L 855,332.4 L 865,313 L 875,290" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Filled Active V_LOAD Region (Panel 2) -->
+  <path d="M 555,290 L 635,290 L 645,313 L 655,332.4 L 665,345.4 L 675,350 L 685,345.4 L 695,332.4 L 705,313 L 715,290 L 725,267 L 735,247.6 L 745,234.6 L 755,230 L 765,234.6 L 775,247.6 L 785,267 L 795,290 L 805,313 L 815,332.4 L 825,345.4 L 835,350 L 845,345.4 L 855,332.4 L 865,313 L 875,290 Z" fill="#e9f7ef" opacity="0.75"/>
+
+  <!-- Solid V_LOAD Curve (Panel 2) -->
+  <path d="M 555,290 L 635,290 L 645,313 L 655,332.4 L 665,345.4 L 675,350 L 685,345.4 L 695,332.4 L 705,313 L 715,290 L 725,267 L 735,247.6 L 745,234.6 L 755,230 L 765,234.6 L 775,247.6 L 785,267 L 795,290 L 805,313 L 815,332.4 L 825,345.4 L 835,350 L 845,345.4 L 855,332.4 L 865,313 L 875,290" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Zero-Cross Start Point Dot & Label (Panel 2) -->
+  <circle cx="635" cy="290" r="4" fill="#27ae60"/>
+  <text x="560" y="318" font-size="12" font-weight="bold" fill="#27ae60">ΔV = 0 В</text>
+  <path d="M 605,312 Q 620,310 630,296" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Smooth Start Curve Label (Panel 2) -->
+  <text x="640" y="255" font-size="12" font-weight="bold" fill="#27ae60">Плавний старт</text>
+
+  <!-- Solution Description Card (Panel 2) -->
+  <rect x="507" y="385" width="411" height="95" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="519" y="407" font-size="13" font-weight="bold" fill="#27ae60">✔ Розв'язок: вмикання в нулі (MOC3063)</text>
+  <text x="519" y="426" font-size="12" fill="#1a1a1a">• Сигнал I_LED чекає перетину напругою нуля (V_AC ≈ 0 В)</text>
+  <text x="519" y="444" font-size="12" fill="#1a1a1a">• Плавне відкриття при ΔV = 0 В мінімізує dv/dt</text>
+  <text x="519" y="462" font-size="12" font-weight="bold" fill="#27ae60">• Наслідок: немає кидків струму та EMI (лише цілі півперіоди)</text>
+</svg>

@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Залежність втрат потужності MOSFET від частоти ШІМ</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">При прямому керуванні від GPIO обмеження струму затвора стрімко збільшує динамічні втрати з ростом частоти</text>
+
+  <!-- Shaded Regions in Plot -->
+  <!-- Zone 1: Safe GPIO region -->
+  <rect x="100" y="235" width="170" height="165" fill="#e9f7ef" opacity="0.6"/>
+  <!-- Zone 2: Overheating region -->
+  <rect x="270" y="100" width="290" height="135" fill="#fdecea" opacity="0.6"/>
+
+  <!-- Plot Grid Lines (Horizontal) -->
+  <line x1="100" y1="325" x2="560" y2="325" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="100" y1="250" x2="560" y2="250" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="100" y1="175" x2="560" y2="175" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="100" y1="100" x2="560" y2="100" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Plot Grid Lines (Vertical - Split to avoid text intersections) -->
+  <!-- 20 kHz grid line (x=192) -->
+  <line x1="192" y1="100" x2="192" y2="118" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="192" y1="385" x2="192" y2="400" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- 50 kHz grid line (x=330) -->
+  <line x1="330" y1="155" x2="330" y2="210" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="330" y1="240" x2="330" y2="355" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- 80 kHz grid line (x=468) -->
+  <line x1="468" y1="100" x2="468" y2="210" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="468" y1="240" x2="468" y2="355" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- 100 kHz grid line (x=560) -->
+  <line x1="560" y1="100" x2="560" y2="210" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="560" y1="240" x2="560" y2="400" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Static Losses Line (P_stat) -->
+  <line x1="100" y1="360" x2="560" y2="360" stroke="#6b7280" stroke-width="2" stroke-dasharray="6,4"/>
+
+  <!-- Maximum Allowable Loss Line (P_max) -->
+  <line x1="100" y1="235" x2="560" y2="235" stroke="#c0392b" stroke-width="2" stroke-dasharray="8,4"/>
+
+  <!-- Boundary Line (Vertical at f_bound = 37 kHz, x=270) -->
+  <line x1="270" y1="235" x2="270" y2="400" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Curves -->
+  <!-- Total Loss curve with Driver (I_G = 1.5 A) -->
+  <path d="M 100 360 Q 330 335 560 310" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Total Loss curve with GPIO (I_G = 15 mA) -->
+  <path d="M 100 360 Q 300 186 560 100" fill="none" stroke="#c0392b" stroke-width="3"/>
+
+  <!-- Boundary Point -->
+  <circle cx="270" cy="235" r="5" fill="#c0392b" stroke="white" stroke-width="2"/>
+
+  <!-- Callout Box for Boundary Point -->
+  <rect x="145" y="120" width="165" height="52" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="227" y="140" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Гранична частота f_bound</text>
+  <text x="227" y="158" font-size="12" fill="#c0392b" text-anchor="middle">≈ 37 кГц (межа для GPIO)</text>
+  <line x1="245" y1="172" x2="265" y2="225" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Plot Axes -->
+  <!-- Y Axis -->
+  <line x1="100" y1="405" x2="100" y2="85" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-main)"/>
+  <!-- X Axis -->
+  <line x1="95" y1="400" x2="580" y2="400" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-main)"/>
+
+  <!-- Axis Titles -->
+  <text x="100" y="70" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Втрати потужності P [Вт]</text>
+  <text x="330" y="455" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Частота ШІМ f_sw [кГц]</text>
+
+  <!-- Y Axis Ticks & Labels -->
+  <line x1="95" y1="100" x2="100" y2="100" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="90" y="104" font-size="12" fill="#6b7280" text-anchor="end">4 Вт</text>
+
+  <line x1="95" y1="175" x2="100" y2="175" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="90" y="179" font-size="12" fill="#6b7280" text-anchor="end">3 Вт</text>
+
+  <line x1="95" y1="250" x2="100" y2="250" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="90" y="254" font-size="12" fill="#6b7280" text-anchor="end">2 Вт</text>
+
+  <line x1="95" y1="325" x2="100" y2="325" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="90" y="329" font-size="12" fill="#6b7280" text-anchor="end">1 Вт</text>
+
+  <line x1="95" y1="400" x2="100" y2="400" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="90" y="404" font-size="12" fill="#6b7280" text-anchor="end">0 Вт</text>
+
+  <!-- X Axis Ticks & Labels -->
+  <line x1="100" y1="400" x2="100" y2="405" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="100" y="422" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <line x1="192" y1="400" x2="192" y2="405" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="192" y="422" font-size="12" fill="#6b7280" text-anchor="middle">20</text>
+
+  <line x1="270" y1="400" x2="270" y2="405" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="270" y="422" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">37 кГц</text>
+
+  <line x1="330" y1="400" x2="330" y2="405" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="330" y="422" font-size="12" fill="#6b7280" text-anchor="middle">50</text>
+
+  <line x1="468" y1="400" x2="468" y2="405" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="468" y="422" font-size="12" fill="#6b7280" text-anchor="middle">80</text>
+
+  <line x1="560" y1="400" x2="560" y2="405" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="560" y="422" font-size="12" fill="#6b7280" text-anchor="middle">100</text>
+
+  <!-- Zone Text Labels -->
+  <!-- Zone 1 Label -->
+  <text x="152" y="258" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Зона безпечної</text>
+  <text x="152" y="274" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">роботи GPIO</text>
+
+  <!-- Zone 2 Label -->
+  <text x="340" y="116" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ЗОНА ПЕРЕГРІВУ</text>
+  <text x="340" y="130" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">MOSFET-ключа</text>
+  <text x="340" y="144" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Потрібен драйвер!</text>
+
+  <!-- Curve Labels -->
+  <!-- Static Loss Line Label -->
+  <text x="108" y="380" font-size="12" fill="#6b7280" text-anchor="start">P_stat (статичні втрати)</text>
+
+  <!-- Max Limit Line Label -->
+  <text x="555" y="225" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">P_max (межа розсіювання без радіатора)</text>
+
+  <!-- GPIO Curve Label -->
+  <text x="105" y="215" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">P_tot від GPIO (15 мА)</text>
+
+  <!-- Driver Curve Label -->
+  <text x="420" y="280" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">P_tot з драйвером</text>
+  <text x="420" y="295" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">(I_G ≈ 1.5 А)</text>
+
+  <!-- Right Side Panel: Cards -->
+  <!-- Card 1: Loss Formulas -->
+  <rect x="600" y="85" width="330" height="180" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="615" y="110" font-size="14" font-weight="bold" fill="#1a1a1a">Формули втрат потужності</text>
+  
+  <text x="615" y="132" font-size="12" font-weight="bold" fill="#2457d6">1. Статичні втрати (провідність):</text>
+  <text x="630" y="150" font-size="13" font-weight="bold" fill="#1a1a1a">P_stat = I_D² × R_DS(on)</text>
+  <text x="630" y="166" font-size="12" fill="#6b7280">• Залежать лише від струму та опору</text>
+  
+  <text x="615" y="190" font-size="12" font-weight="bold" fill="#c0392b">2. Динамічні втрати (комутація):</text>
+  <text x="630" y="208" font-size="13" font-weight="bold" fill="#1a1a1a">P_sw = V_DS × I_D × f_sw × t_sw</text>
+  <text x="630" y="224" font-size="12" fill="#6b7280">• t_sw ≈ Q_g / I_G (час комутації)</text>
+  <text x="630" y="240" font-size="12" fill="#6b7280">• Зростають ЛІНІЙНО з частотою f_sw</text>
+
+  <!-- Card 2: Gate Drive Impact -->
+  <rect x="600" y="280" width="330" height="185" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="615" y="305" font-size="14" font-weight="bold" fill="#2457d6">Вплив струму затвора I_G</text>
+  
+  <text x="615" y="328" font-size="12" font-weight="bold" fill="#c0392b">Обмеження GPIO (I_G ≤ 20 мА):</text>
+  <text x="630" y="346" font-size="12" fill="#1a1a1a">• Повільний заряд затвора (тривалий t_sw)</text>
+  <text x="630" y="362" font-size="12" fill="#1a1a1a">• Стрімке зростання P_sw при рості f_sw</text>
+  <text x="630" y="378" font-size="12" fill="#c0392b">• Перегрів транзистора при f_sw &gt; f_bound</text>
+  
+  <text x="615" y="402" font-size="12" font-weight="bold" fill="#27ae60">Застосування драйвера (I_G ≥ 1 А):</text>
+  <text x="630" y="420" font-size="12" fill="#1a1a1a">• Швидка комутація (t_sw у 50+ разів менший)</text>
+  <text x="630" y="436" font-size="12" fill="#27ae60">• Мінімальні P_sw на високих частотах</text>
+  <text x="630" y="452" font-size="12" fill="#27ae60">• Надійна робота ШІМ до 100+ кГц</text>
+</svg>

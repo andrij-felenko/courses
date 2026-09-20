@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Часова діаграма струму та напруги при ввімкненні реле та Wi-Fi</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Сумарні сплески струму просаджують напругу; фільтруючі конденсатори запобігають скиданню МК</text>
+
+  <!-- Left Main Container -->
+  <rect x="30" y="70" width="630" height="440" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+
+  <!-- Vertical Time Guide Lines -->
+  <line x1="250" y1="108" x2="250" y2="190" stroke="#94a3b8" stroke-dasharray="3,4" stroke-width="1"/>
+  <line x1="370" y1="108" x2="370" y2="190" stroke="#94a3b8" stroke-dasharray="3,4" stroke-width="1"/>
+  <line x1="490" y1="108" x2="490" y2="190" stroke="#94a3b8" stroke-dasharray="3,4" stroke-width="1"/>
+
+  <line x1="250" y1="248" x2="250" y2="335" stroke="#94a3b8" stroke-dasharray="3,4" stroke-width="1"/>
+  <line x1="370" y1="248" x2="370" y2="335" stroke="#94a3b8" stroke-dasharray="3,4" stroke-width="1"/>
+  <line x1="490" y1="248" x2="490" y2="305" stroke="#94a3b8" stroke-dasharray="3,4" stroke-width="1"/>
+
+  <line x1="250" y1="398" x2="250" y2="455" stroke="#94a3b8" stroke-dasharray="3,4" stroke-width="1"/>
+  <line x1="370" y1="398" x2="370" y2="455" stroke="#94a3b8" stroke-dasharray="3,4" stroke-width="1"/>
+  <line x1="490" y1="398" x2="490" y2="455" stroke="#94a3b8" stroke-dasharray="3,4" stroke-width="1"/>
+
+  <!-- TRACE 1: CURRENT -->
+  <rect x="40" y="80" width="610" height="125" fill="#f4f6f8" stroke="#e1e4e8" stroke-width="1" rx="6"/>
+  <text x="50" y="98" font-size="13" font-weight="700" fill="#2457d6">1. Загальний струм споживання I_total(t)</text>
+
+  <line x1="130" y1="190" x2="130" y2="108" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="122" y="112" font-size="12" fill="#1a1a1a" text-anchor="end">I (mA)</text>
+
+  <line x1="130" y1="190" x2="635" y2="190" stroke="#d0d7de" stroke-width="1"/>
+  <text x="122" y="193" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <line x1="130" y1="172" x2="635" y2="172" stroke="#cbd5e1" stroke-dasharray="3,3"/>
+  <text x="122" y="175" font-size="12" fill="#6b7280" text-anchor="end">70</text>
+
+  <line x1="130" y1="152" x2="635" y2="152" stroke="#cbd5e1" stroke-dasharray="3,3"/>
+  <text x="122" y="155" font-size="12" fill="#6b7280" text-anchor="end">150</text>
+
+  <line x1="130" y1="118" x2="635" y2="118" stroke="#cbd5e1" stroke-dasharray="3,3"/>
+  <text x="122" y="121" font-size="12" fill="#6b7280" text-anchor="end">400</text>
+
+  <path d="M 130 172 L 250 172 L 253 138 L 260 152 L 370 152 L 375 118 L 395 118 L 400 152 L 415 152 L 420 118 L 440 118 L 445 152 L 455 152 L 460 118 L 480 118 L 485 152 L 635 152" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <text x="190" y="163" font-size="12" font-weight="600" fill="#2457d6" text-anchor="middle">ESP-01S (70 mA)</text>
+  <text x="310" y="143" font-size="12" font-weight="600" fill="#2457d6" text-anchor="middle">+ Реле (~80 mA)</text>
+  <text x="430" y="106" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Імпульси Wi-Fi TX (до 400 mA)</text>
+
+  <!-- TRACE 2: VOLTAGE WITHOUT DECOUPLING -->
+  <rect x="40" y="220" width="610" height="135" fill="#fdecea" stroke="#f5c6cb" stroke-width="1" rx="6"/>
+  <text x="50" y="238" font-size="13" font-weight="700" fill="#c0392b">2. Напруга живлення V_DD(t) БЕЗ фільтрації (Проблема)</text>
+
+  <line x1="130" y1="340" x2="130" y2="248" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="122" y="252" font-size="12" fill="#1a1a1a" text-anchor="end">V_DD (V)</text>
+
+  <line x1="130" y1="340" x2="635" y2="340" stroke="#d0d7de" stroke-width="1"/>
+  <text x="122" y="343" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <line x1="130" y1="295" x2="635" y2="295" stroke="#c0392b" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <text x="122" y="298" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">3.0V (V_RST)</text>
+
+  <line x1="130" y1="265" x2="635" y2="265" stroke="#94a3b8" stroke-dasharray="3,3"/>
+  <text x="122" y="268" font-size="12" fill="#6b7280" text-anchor="end">3.3V</text>
+
+  <path d="M 130 265 L 250 265 L 255 275 L 370 275 L 375 320 L 410 320 L 420 265 L 635 265" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <text x="510" y="318" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">V_DD &lt; V_RST -&gt; Скидання МК (Reset)!</text>
+
+  <!-- TRACE 3: VOLTAGE WITH DECOUPLING -->
+  <rect x="40" y="370" width="610" height="135" fill="#e9f7ef" stroke="#c3e6cb" stroke-width="1" rx="6"/>
+  <text x="50" y="388" font-size="13" font-weight="700" fill="#27ae60">3. Напруга живлення V_DD(t) З конденсаторами C1, C2 (Розв'язок)</text>
+
+  <line x1="130" y1="490" x2="130" y2="398" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="122" y="402" font-size="12" fill="#1a1a1a" text-anchor="end">V_DD (V)</text>
+
+  <line x1="130" y1="490" x2="635" y2="490" stroke="#d0d7de" stroke-width="1"/>
+  <text x="122" y="493" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <line x1="130" y1="445" x2="635" y2="445" stroke="#c0392b" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <text x="122" y="448" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">3.0V (V_RST)</text>
+
+  <line x1="130" y1="415" x2="635" y2="415" stroke="#94a3b8" stroke-dasharray="3,3"/>
+  <text x="122" y="418" font-size="12" fill="#6b7280" text-anchor="end">3.3V</text>
+
+  <path d="M 130 415 L 250 415 Q 260 420 270 420 L 370 420 Q 380 430 430 430 Q 480 430 490 420 Q 500 415 520 415 L 635 415" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <text x="430" y="472" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">C1, C2 розряджаються -&gt; V_DD &gt; V_RST (Без збоїв!)</text>
+
+  <!-- TIME LABELS -->
+  <text x="250" y="525" font-size="12" fill="#6b7280" text-anchor="middle">t1: Ввімкнення реле</text>
+  <text x="370" y="525" font-size="12" fill="#6b7280" text-anchor="middle">t2: Старт Wi-Fi TX</text>
+  <text x="490" y="525" font-size="12" fill="#6b7280" text-anchor="middle">t3: Кінець TX</text>
+
+  <!-- RIGHT CARDS -->
+  <rect x="680" y="70" width="250" height="135" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="695" y="92" font-size="13" font-weight="700" fill="#1a1a1a">Причина сплесків струму</text>
+  <text x="695" y="114" font-size="12" fill="#1a1a1a">• Котушка реле: ~80 mA</text>
+  <text x="695" y="134" font-size="12" fill="#1a1a1a">• Wi-Fi передавач: до 400 mA</text>
+  <text x="695" y="154" font-size="12" fill="#2457d6" font-weight="600">• Сумарний пік: ~480 mA</text>
+  <text x="695" y="178" font-size="12" fill="#6b7280">Падіння U = I × R_src</text>
+
+  <rect x="680" y="220" width="250" height="135" fill="#fdecea" stroke="#f5c6cb" stroke-width="1" rx="6"/>
+  <text x="695" y="242" font-size="13" font-weight="700" fill="#c0392b">❌ Без фільтрації</text>
+  <text x="695" y="264" font-size="12" fill="#1a1a1a">• V_DD падає нижче 3.0 V</text>
+  <text x="695" y="284" font-size="12" fill="#1a1a1a">• Спрацьовує Brown-Out Reset</text>
+  <text x="695" y="304" font-size="12" fill="#1a1a1a">• МК раптово перезавантажується</text>
+  <text x="695" y="328" font-size="12" fill="#c0392b" font-weight="600">Циклічне зависання / ребут</text>
+
+  <rect x="680" y="370" width="250" height="135" fill="#e9f7ef" stroke="#c3e6cb" stroke-width="1" rx="6"/>
+  <text x="695" y="392" font-size="13" font-weight="700" fill="#27ae60">✅ З конденсаторами C1, C2</text>
+  <text x="695" y="414" font-size="12" fill="#1a1a1a">• C1: 100–470 мкФ (буфер струму)</text>
+  <text x="695" y="434" font-size="12" fill="#1a1a1a">• C2: 0.1 мкФ (HF шунтирування)</text>
+  <text x="695" y="454" font-size="12" fill="#1a1a1a">• V_DD залишається &gt; 3.0 V</text>
+  <text x="695" y="478" font-size="12" fill="#27ae60" font-weight="600">Надійна та стабільна робота</text>
+</svg>

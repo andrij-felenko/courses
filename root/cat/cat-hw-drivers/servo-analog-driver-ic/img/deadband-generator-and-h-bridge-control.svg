@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка полотна -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Формування зони нечутливості та логіка керування H-мостом</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Двигун вмикається лише тоді, коли різниця імпульсів |Δt| перевищує поріг Δt_db</text>
+
+  <!-- ПАНЕЛЬ 1: Графік та імпульси (Ліва частина) -->
+  <rect x="30" y="75" width="435" height="420" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247.5" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Характеристика зони нечутливості (Deadband)</text>
+
+  <!-- Затінення зони нечутливості на графіку -->
+  <rect x="180" y="135" width="135" height="140" fill="#eaf0fd" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <!-- Осі координат -->
+  <line x1="247.5" y1="135" x2="247.5" y2="120" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="255" y="128" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">V_motor</text>
+
+  <line x1="65" y1="210" x2="430" y2="210" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="425" y="198" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Δt = t_in - t_ref</text>
+
+  <!-- Рівні напруги V_CC -->
+  <text x="172" y="154" font-size="12" fill="#6b7280" text-anchor="end">+V_CC</text>
+  <text x="172" y="262" font-size="12" fill="#6b7280" text-anchor="end">-V_CC</text>
+
+  <!-- Написи зони нечутливості -->
+  <text x="247.5" y="152" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Зона нечутливості</text>
+  <text x="247.5" y="168" font-size="12" fill="#2457d6" text-anchor="middle">|Δt| &lt; Δt_db</text>
+  <text x="247.5" y="240" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">V_motor = 0 В</text>
+  <text x="247.5" y="256" font-size="12" fill="#6b7280" text-anchor="middle">(Утримання / Stop)</text>
+
+  <!-- Сегменти вісі Y між написом та віссю X -->
+  <line x1="247.5" y1="176" x2="247.5" y2="224" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="247.5" y1="264" x2="247.5" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Порогові позначки -->
+  <text x="175" y="226" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">-Δt_db</text>
+  <text x="320" y="226" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">+Δt_db</text>
+
+  <!-- Передавальна крива (Характеристика перемикання) -->
+  <path d="M 65,270 L 180,270 L 180,210 L 315,210 L 315,150 L 430,150" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Режими обертання -->
+  <text x="120" y="150" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Режим CCW</text>
+  <text x="120" y="166" font-size="12" fill="#6b7280" text-anchor="middle">(OUT2 = HIGH)</text>
+
+  <text x="372" y="250" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Режим CW</text>
+  <text x="372" y="266" font-size="12" fill="#6b7280" text-anchor="middle">(OUT1 = HIGH)</text>
+
+  <!-- Нижній блок панелі 1: Порівняння часових імпульсів -->
+  <text x="247.5" y="315" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння тривалості імпульсів</text>
+
+  <text x="95" y="348" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">t_in</text>
+  <text x="215" y="327" font-size="12" fill="#2457d6" text-anchor="middle">Вхідний імпульс (1...2 мс)</text>
+  <path d="M 110,350 L 110,332 L 320,332 L 320,350" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <text x="95" y="388" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">t_ref</text>
+  <text x="207.5" y="367" font-size="12" fill="#6b7280" text-anchor="middle">Опорний імпульс (від потенціометра)</text>
+  <path d="M 110,390 L 110,372 L 305,372 L 305,390" fill="none" stroke="#6b7280" stroke-width="2"/>
+
+  <text x="335" y="360" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">|Δt| &lt; Δt_db</text>
+
+  <!-- Інформаційний рамковий блок внизу панелі 1 -->
+  <rect x="55" y="420" width="385" height="58" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="247.5" y="442" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Умова утримання позиції (Deadband):</text>
+  <text x="247.5" y="460" font-size="12" fill="#2457d6" text-anchor="middle">|t_in - t_ref| &lt; Δt_db  ⇒  OUT1 = 0 В, OUT2 = 0 В</text>
+
+  <!-- ПАНЕЛЬ 2: Блок-схема та H-міст (Права частина) -->
+  <rect x="495" y="75" width="435" height="420" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712.5" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Логіка керування H-мостом (AA5188 / KC0032)</text>
+
+  <!-- Блок 1: Компаратор помилки -->
+  <rect x="515" y="125" width="170" height="55" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="600" y="147" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Компаратор помилки</text>
+  <text x="600" y="165" font-size="12" fill="#1a1a1a" text-anchor="middle">Обчислення Δt</text>
+
+  <!-- Стрілка Блок 1 -> Блок 2 -->
+  <line x1="685" y1="152.5" x2="740" y2="152.5" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="712.5" y="145" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Δt</text>
+
+  <!-- Блок 2: Формувач Deadband -->
+  <rect x="740" y="125" width="170" height="55" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="825" y="147" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Формувач Deadband</text>
+  <text x="825" y="165" font-size="12" fill="#1a1a1a" text-anchor="middle">Поріг Δt_db (C_db)</text>
+
+  <!-- Стрілка Блок 2 -> Блок 3 -->
+  <path d="M 825,180 L 825,198 L 712.5,198 L 712.5,215" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Блок 3: Логіка напрямку -->
+  <rect x="625" y="215" width="175" height="55" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="712.5" y="237" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Логіка напрямку</text>
+  <text x="712.5" y="255" font-size="12" fill="#1a1a1a" text-anchor="middle">Драйвер OUT1 / OUT2</text>
+
+  <!-- Сигнали керування від Блоку 3 до H-моста -->
+  <line x1="660" y1="270" x2="660" y2="295" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="652" y="286" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Сигнал CW</text>
+
+  <line x1="765" y1="270" x2="765" y2="295" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="773" y="286" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Сигнал CCW</text>
+
+  <!-- Блок 4: Схема H-моста -->
+  <rect x="515" y="295" width="395" height="185" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712.5" y="314" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Силовий H-міст та перемикання ключів</text>
+
+  <!-- Опори живлення і землі -->
+  <line x1="565" y1="332" x2="860" y2="332" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="712.5" y="328" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+V_CC</text>
+
+  <line x1="565" y1="464" x2="860" y2="464" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="712.5" y="478" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND</text>
+
+  <!-- Ключі H-моста -->
+  <rect x="545" y="340" width="60" height="34" rx="4" ry="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="575" y="361" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Q1 (P)</text>
+
+  <rect x="545" y="422" width="60" height="34" rx="4" ry="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="575" y="443" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Q2 (N)</text>
+
+  <rect x="820" y="340" width="60" height="34" rx="4" ry="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="850" y="361" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Q3 (P)</text>
+
+  <rect x="820" y="422" width="60" height="34" rx="4" ry="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="850" y="443" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Q4 (N)</text>
+
+  <!-- З'єднання стійок -->
+  <line x1="575" y1="332" x2="575" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="575" y1="374" x2="575" y2="422" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="575" y1="456" x2="575" y2="464" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <line x1="850" y1="332" x2="850" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="850" y1="374" x2="850" y2="422" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="850" y1="456" x2="850" y2="464" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Вузли з'єднання -->
+  <circle cx="575" cy="398" r="3" fill="#1a1a1a"/>
+  <circle cx="850" cy="398" r="3" fill="#1a1a1a"/>
+
+  <!-- Двигун в центрі H-моста -->
+  <circle cx="712.5" cy="398" r="22" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="712.5" y="403" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">M</text>
+
+  <!-- Лінії OUT1 та OUT2 -->
+  <line x1="575" y1="398" x2="690.5" y2="398" stroke="#2457d6" stroke-width="2"/>
+  <text x="632.75" y="390" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">OUT1</text>
+
+  <line x1="734.5" y1="398" x2="850" y2="398" stroke="#2457d6" stroke-width="2"/>
+  <text x="792.25" y="390" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">OUT2</text>
+</svg>

@@ -1,0 +1,426 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Типові схеми включення двоканального MOSFET-драйвера DRV8833</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Порівняння двоканального режиму (2× DC-мотори) та паралельного з'єднання мостів (1× потужний мотор)</text>
+
+  <!-- ========================================== -->
+  <!-- PANEL 1: DUAL INDEPENDENT MOTOR MODE (LEFT) -->
+  <!-- ========================================== -->
+  <rect x="25" y="75" width="445" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel 1 Header Banner -->
+  <rect x="35" y="85" width="425" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247.5" y="105" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">Незалежне керування двома DC-моторами</text>
+
+  <!-- VMM Power Bus Line (Panel 1) -->
+  <line x1="35" y1="145" x2="395" y2="145" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="35" y="135" font-size="12" font-weight="bold" text-anchor="start" fill="#1a1a1a">VMM (2.7–10.8 V)</text>
+
+  <!-- C_BULK (10 µF) at x=175 -->
+  <text x="175" y="135" font-size="12" text-anchor="middle" fill="#1a1a1a">C_BULK</text>
+  <line x1="175" y1="145" x2="175" y2="153" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="167" y1="153" x2="183" y2="153" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="167" y1="159" x2="183" y2="159" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="175" y1="159" x2="175" y2="167" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- GND C_BULK -->
+  <line x1="168" y1="167" x2="182" y2="167" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="171" y1="170" x2="179" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="174" y1="173" x2="176" y2="173" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="175" y="188" font-size="12" text-anchor="middle" fill="#6b7280">10 µF</text>
+  <circle cx="175" cy="145" r="2.5" fill="#1a1a1a"/>
+
+  <!-- C1 (0.1 µF) at x=225 -->
+  <text x="225" y="135" font-size="12" text-anchor="middle" fill="#1a1a1a">C1</text>
+  <line x1="225" y1="145" x2="225" y2="153" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="217" y1="153" x2="233" y2="153" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="217" y1="159" x2="233" y2="159" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="225" y1="159" x2="225" y2="167" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- GND C1 -->
+  <line x1="218" y1="167" x2="232" y2="167" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="221" y1="170" x2="229" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="224" y1="173" x2="226" y2="173" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="225" y="188" font-size="12" text-anchor="middle" fill="#6b7280">0.1 µF</text>
+  <circle cx="225" cy="145" r="2.5" fill="#1a1a1a"/>
+
+  <!-- MCU Block (Panel 1) -->
+  <rect x="40" y="215" width="75" height="195" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="77.5" y="233" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">MCU</text>
+  <text x="77.5" y="247" font-size="12" text-anchor="middle" fill="#6b7280">(3.3 V)</text>
+
+  <text x="108" y="265" font-size="12" text-anchor="end" fill="#6b7280">GPIO</text>
+  <text x="108" y="290" font-size="12" text-anchor="end" fill="#2457d6">PWM1</text>
+  <text x="108" y="315" font-size="12" text-anchor="end" fill="#2457d6">PWM2</text>
+  <text x="108" y="340" font-size="12" text-anchor="end" fill="#2457d6">PWM3</text>
+  <text x="108" y="365" font-size="12" text-anchor="end" fill="#2457d6">PWM4</text>
+  <text x="108" y="390" font-size="12" text-anchor="end" fill="#c0392b">FLT</text>
+
+  <!-- Signal Lines MCU -> DRV8833 (Panel 1) -->
+  <!-- nSLEEP -->
+  <line x1="115" y1="265" x2="250" y2="265" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <!-- AIN1 -->
+  <line x1="115" y1="290" x2="250" y2="290" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <!-- AIN2 -->
+  <line x1="115" y1="315" x2="250" y2="315" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <!-- BIN1 -->
+  <line x1="115" y1="340" x2="250" y2="340" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <!-- BIN2 -->
+  <line x1="115" y1="365" x2="250" y2="365" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- nFAULT line & Pull-Up (Panel 1) -->
+  <line x1="250" y1="390" x2="115" y2="390" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <circle cx="145" cy="390" r="2.5" fill="#1a1a1a"/>
+  <line x1="145" y1="390" x2="145" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="139" y="400" width="12" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="155" y="412" font-size="12" text-anchor="start" fill="#6b7280">10k</text>
+  <line x1="145" y1="416" x2="145" y2="424" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="145" y="436" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">3.3V</text>
+
+  <!-- VINT Bypass Cap (Panel 1) -->
+  <line x1="250" y1="415" x2="205" y2="415" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="205" y1="415" x2="205" y2="420" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="197" y1="420" x2="213" y2="420" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="197" y1="425" x2="213" y2="425" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="205" y1="425" x2="205" y2="430" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- GND for VINT -->
+  <line x1="199" y1="430" x2="211" y2="430" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="202" y1="433" x2="208" y2="433" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="204" y1="436" x2="206" y2="436" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="205" y="448" font-size="12" text-anchor="middle" fill="#6b7280">C_VINT</text>
+  <text x="205" y="462" font-size="12" text-anchor="middle" fill="#6b7280">2.2 µF</text>
+
+  <!-- DRV8833 IC Chip (Panel 1) -->
+  <rect x="250" y="155" width="115" height="295" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="307.5" y="175" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">DRV8833</text>
+  <text x="307.5" y="190" font-size="12" text-anchor="middle" fill="#6b7280">Dual H-Bridge</text>
+
+  <!-- IC Pins Left (Panel 1) -->
+  <line x1="250" y1="205" x2="260" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="263" y="209" font-size="12" font-weight="bold" fill="#1a1a1a">VMM</text>
+  <circle cx="250" cy="145" r="2.5" fill="#1a1a1a"/>
+  <line x1="250" y1="145" x2="250" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <line x1="250" y1="265" x2="260" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="263" y="269" font-size="12" fill="#1a1a1a">nSLEEP</text>
+
+  <line x1="250" y1="290" x2="260" y2="290" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="263" y="294" font-size="12" fill="#2457d6">AIN1</text>
+
+  <line x1="250" y1="315" x2="260" y2="315" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="263" y="319" font-size="12" fill="#2457d6">AIN2</text>
+
+  <line x1="250" y1="340" x2="260" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="263" y="344" font-size="12" fill="#2457d6">BIN1</text>
+
+  <line x1="250" y1="365" x2="260" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="263" y="369" font-size="12" fill="#2457d6">BIN2</text>
+
+  <line x1="250" y1="390" x2="260" y2="390" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="263" y="394" font-size="12" fill="#c0392b">nFAULT</text>
+
+  <line x1="250" y1="415" x2="260" y2="415" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="263" y="419" font-size="12" fill="#1a1a1a">VINT</text>
+
+  <line x1="250" y1="435" x2="260" y2="435" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="263" y="439" font-size="12" fill="#1a1a1a">GND</text>
+  <!-- GND pin connection (Panel 1) -->
+  <line x1="250" y1="435" x2="250" y2="445" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="244" y1="445" x2="256" y2="445" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="247" y1="448" x2="253" y2="448" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="249" y1="451" x2="251" y2="451" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- IC Pins Right (Panel 1) -->
+  <text x="352" y="209" font-size="12" text-anchor="end" fill="#1a1a1a">VCP</text>
+  <line x1="355" y1="205" x2="365" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="352" y="254" font-size="12" text-anchor="end" font-weight="bold" fill="#2457d6">AOUT1</text>
+  <line x1="355" y1="250" x2="365" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="352" y="279" font-size="12" text-anchor="end" font-weight="bold" fill="#2457d6">AOUT2</text>
+  <line x1="355" y1="275" x2="365" y2="275" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="352" y="309" font-size="12" text-anchor="end" fill="#1a1a1a">AISEN</text>
+  <line x1="355" y1="305" x2="365" y2="305" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="352" y="349" font-size="12" text-anchor="end" font-weight="bold" fill="#2457d6">BOUT1</text>
+  <line x1="355" y1="345" x2="365" y2="345" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="352" y="374" font-size="12" text-anchor="end" font-weight="bold" fill="#2457d6">BOUT2</text>
+  <line x1="355" y1="370" x2="365" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="352" y="404" font-size="12" text-anchor="end" fill="#1a1a1a">BISEN</text>
+  <line x1="355" y1="400" x2="365" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- VCP Capacitor C_VCP (Panel 1) -->
+  <line x1="365" y1="205" x2="395" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="395" y1="205" x2="395" y2="187" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="387" y1="187" x2="403" y2="187" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="387" y1="181" x2="403" y2="181" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="395" y1="181" x2="395" y2="145" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="395" cy="145" r="2.5" fill="#1a1a1a"/>
+  <text x="408" y="175" font-size="12" text-anchor="start" fill="#1a1a1a">C_VCP</text>
+  <text x="408" y="189" font-size="12" text-anchor="start" fill="#6b7280">10 nF</text>
+
+  <!-- Motor A Connection (Panel 1) -->
+  <line x1="365" y1="250" x2="407" y2="250" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="365" y1="275" x2="407" y2="275" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="425" cy="262.5" r="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="425" y="267.5" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">M1</text>
+  <text x="425" y="228" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Мотор A</text>
+
+  <!-- AISEN Resistor R_ISEN1 (Panel 1) -->
+  <line x1="365" y1="305" x2="370" y2="305" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="370" y="299" width="22" height="12" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="392" y1="305" x2="400" y2="305" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="400" y1="305" x2="400" y2="315" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="394" y1="315" x2="406" y2="315" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="397" y1="318" x2="403" y2="318" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="399" y1="321" x2="401" y2="321" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="381" y="291" font-size="12" text-anchor="middle" fill="#1a1a1a">R_ISEN1</text>
+  <text x="381" y="333" font-size="12" text-anchor="middle" fill="#6b7280">0.2 Ω</text>
+
+  <!-- Motor B Connection (Panel 1) -->
+  <line x1="365" y1="345" x2="407" y2="345" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="365" y1="370" x2="407" y2="370" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="425" cy="357.5" r="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="425" y="362.5" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">M2</text>
+  <text x="425" y="323" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Мотор B</text>
+
+  <!-- BISEN Resistor R_ISEN2 (Panel 1) -->
+  <line x1="365" y1="400" x2="370" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="370" y="394" width="22" height="12" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="392" y1="400" x2="400" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="400" y1="400" x2="400" y2="410" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="394" y1="410" x2="406" y2="410" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="397" y1="413" x2="403" y2="413" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="399" y1="416" x2="401" y2="416" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="381" y="386" font-size="12" text-anchor="middle" fill="#1a1a1a">R_ISEN2</text>
+  <text x="381" y="428" font-size="12" text-anchor="middle" fill="#6b7280">0.2 Ω</text>
+
+  <!-- Panel 1 Footer Summary Badge -->
+  <rect x="35" y="475" width="425" height="25" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247.5" y="492" font-size="12" text-anchor="middle" fill="#1a1a1a">Мости A і B незалежні • Окремий струмоліміт R_ISEN для кожного</text>
+
+  <!-- ========================================== -->
+  <!-- PANEL 2: PARALLEL BRIDGE MODE (RIGHT)     -->
+  <!-- ========================================== -->
+  <rect x="490" y="75" width="445" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel 2 Header Banner -->
+  <rect x="500" y="85" width="425" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712.5" y="105" font-size="14" font-weight="bold" text-anchor="middle" fill="#27ae60">Паралельний режим (1× потужний мотор, струм 2×)</text>
+
+  <!-- VMM Power Bus Line (Panel 2) -->
+  <line x1="500" y1="145" x2="860" y2="145" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="500" y="135" font-size="12" font-weight="bold" text-anchor="start" fill="#1a1a1a">VMM (2.7–10.8 V)</text>
+
+  <!-- C_BULK (10 µF) at x=640 -->
+  <text x="640" y="135" font-size="12" text-anchor="middle" fill="#1a1a1a">C_BULK</text>
+  <line x1="640" y1="145" x2="640" y2="153" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="632" y1="153" x2="648" y2="153" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="632" y1="159" x2="648" y2="159" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="640" y1="159" x2="640" y2="167" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- GND C_BULK -->
+  <line x1="633" y1="167" x2="647" y2="167" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="636" y1="170" x2="644" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="639" y1="173" x2="641" y2="173" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="640" y="188" font-size="12" text-anchor="middle" fill="#6b7280">10 µF</text>
+  <circle cx="640" cy="145" r="2.5" fill="#1a1a1a"/>
+
+  <!-- C1 (0.1 µF) at x=690 -->
+  <text x="690" y="135" font-size="12" text-anchor="middle" fill="#1a1a1a">C1</text>
+  <line x1="690" y1="145" x2="690" y2="153" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="682" y1="153" x2="698" y2="153" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="682" y1="159" x2="698" y2="159" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="690" y1="159" x2="690" y2="167" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- GND C1 -->
+  <line x1="684" y1="167" x2="696" y2="167" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="687" y1="170" x2="693" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="689" y1="173" x2="691" y2="173" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="690" y="188" font-size="12" text-anchor="middle" fill="#6b7280">0.1 µF</text>
+  <circle cx="690" cy="145" r="2.5" fill="#1a1a1a"/>
+
+  <!-- MCU Block (Panel 2) -->
+  <rect x="505" y="215" width="70" height="195" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="540" y="233" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">MCU</text>
+  <text x="540" y="247" font-size="12" text-anchor="middle" fill="#6b7280">(3.3 V)</text>
+
+  <text x="567" y="265" font-size="12" text-anchor="end" fill="#6b7280">GPIO</text>
+  <text x="567" y="302.5" font-size="12" text-anchor="end" font-weight="bold" fill="#27ae60">IN1</text>
+  <text x="567" y="352.5" font-size="12" text-anchor="end" font-weight="bold" fill="#27ae60">IN2</text>
+  <text x="567" y="390" font-size="12" text-anchor="end" fill="#c0392b">FLT</text>
+
+  <!-- nSLEEP (Panel 2) -->
+  <line x1="575" y1="265" x2="715" y2="265" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Parallel Inputs Jumpers (Panel 2) -->
+  <!-- IN1 -> AIN1 (290) + BIN1 (340) -->
+  <line x1="575" y1="302.5" x2="675" y2="302.5" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="675" y1="290" x2="675" y2="340" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="675" y1="290" x2="715" y2="290" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="675" y1="340" x2="715" y2="340" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <circle cx="675" cy="302.5" r="2.5" fill="#27ae60"/>
+
+  <!-- IN2 -> AIN2 (315) + BIN2 (365) -->
+  <line x1="575" y1="352.5" x2="650" y2="352.5" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="650" y1="315" x2="650" y2="365" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="650" y1="315" x2="715" y2="315" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="650" y1="365" x2="715" y2="365" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <circle cx="650" cy="352.5" r="2.5" fill="#27ae60"/>
+
+  <!-- nFAULT (Panel 2) -->
+  <line x1="715" y1="390" x2="575" y2="390" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <circle cx="610" cy="390" r="2.5" fill="#1a1a1a"/>
+  <line x1="610" y1="390" x2="610" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="604" y="400" width="12" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="620" y="412" font-size="12" text-anchor="start" fill="#6b7280">10k</text>
+  <line x1="610" y1="416" x2="610" y2="424" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="610" y="436" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">3.3V</text>
+
+  <!-- VINT Bypass Cap (Panel 2) -->
+  <line x1="715" y1="415" x2="670" y2="415" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="670" y1="415" x2="670" y2="420" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="662" y1="420" x2="678" y2="420" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="662" y1="425" x2="678" y2="425" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="670" y1="425" x2="670" y2="430" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- GND for VINT -->
+  <line x1="664" y1="430" x2="676" y2="430" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="667" y1="433" x2="673" y2="433" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="669" y1="436" x2="671" y2="436" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="670" y="448" font-size="12" text-anchor="middle" fill="#6b7280">C_VINT</text>
+  <text x="670" y="462" font-size="12" text-anchor="middle" fill="#6b7280">2.2 µF</text>
+
+  <!-- DRV8833 IC Chip (Panel 2) -->
+  <rect x="715" y="155" width="115" height="295" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="772.5" y="175" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">DRV8833</text>
+  <text x="772.5" y="190" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Parallel Bridge</text>
+
+  <!-- IC Pins Left (Panel 2) -->
+  <line x1="715" y1="205" x2="725" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="728" y="209" font-size="12" font-weight="bold" fill="#1a1a1a">VMM</text>
+  <circle cx="715" cy="145" r="2.5" fill="#1a1a1a"/>
+  <line x1="715" y1="145" x2="715" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <line x1="715" y1="265" x2="725" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="728" y="269" font-size="12" fill="#1a1a1a">nSLEEP</text>
+
+  <line x1="715" y1="290" x2="725" y2="290" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="728" y="294" font-size="12" font-weight="bold" fill="#27ae60">AIN1</text>
+
+  <line x1="715" y1="315" x2="725" y2="315" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="728" y="319" font-size="12" font-weight="bold" fill="#27ae60">AIN2</text>
+
+  <line x1="715" y1="340" x2="725" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="728" y="344" font-size="12" font-weight="bold" fill="#27ae60">BIN1</text>
+
+  <line x1="715" y1="365" x2="725" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="728" y="369" font-size="12" font-weight="bold" fill="#27ae60">BIN2</text>
+
+  <line x1="715" y1="390" x2="725" y2="390" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="728" y="394" font-size="12" fill="#c0392b">nFAULT</text>
+
+  <line x1="715" y1="415" x2="725" y2="415" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="728" y="419" font-size="12" fill="#1a1a1a">VINT</text>
+
+  <line x1="715" y1="435" x2="725" y2="435" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="728" y="439" font-size="12" fill="#1a1a1a">GND</text>
+  <!-- GND pin connection (Panel 2) -->
+  <line x1="715" y1="435" x2="715" y2="445" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="709" y1="445" x2="721" y2="445" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="712" y1="448" x2="718" y2="448" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="714" y1="451" x2="716" y2="451" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- IC Pins Right (Panel 2) -->
+  <text x="817" y="209" font-size="12" text-anchor="end" fill="#1a1a1a">VCP</text>
+  <line x1="830" y1="205" x2="840" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="817" y="254" font-size="12" text-anchor="end" font-weight="bold" fill="#27ae60">AOUT1</text>
+  <line x1="830" y1="250" x2="840" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="817" y="279" font-size="12" text-anchor="end" font-weight="bold" fill="#27ae60">AOUT2</text>
+  <line x1="830" y1="275" x2="840" y2="275" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="817" y="309" font-size="12" text-anchor="end" font-weight="bold" fill="#27ae60">AISEN</text>
+  <line x1="830" y1="305" x2="840" y2="305" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="817" y="349" font-size="12" text-anchor="end" font-weight="bold" fill="#27ae60">BOUT1</text>
+  <line x1="830" y1="345" x2="840" y2="345" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="817" y="374" font-size="12" text-anchor="end" font-weight="bold" fill="#27ae60">BOUT2</text>
+  <line x1="830" y1="370" x2="840" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="817" y="404" font-size="12" text-anchor="end" font-weight="bold" fill="#27ae60">BISEN</text>
+  <line x1="830" y1="400" x2="840" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- VCP Capacitor C_VCP (Panel 2) -->
+  <line x1="840" y1="205" x2="860" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="860" y1="205" x2="860" y2="187" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="852" y1="187" x2="868" y2="187" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="852" y1="181" x2="868" y2="181" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="860" y1="181" x2="860" y2="145" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="860" cy="145" r="2.5" fill="#1a1a1a"/>
+  <text x="873" y="175" font-size="12" text-anchor="start" fill="#1a1a1a">C_VCP</text>
+  <text x="873" y="189" font-size="12" text-anchor="start" fill="#6b7280">10 nF</text>
+
+  <!-- Parallel ISEN Connection (Panel 2) -->
+  <!-- AISEN (305) + BISEN (400) connected vertically at x=840 -->
+  <line x1="840" y1="305" x2="840" y2="400" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="840" cy="305" r="2.5" fill="#27ae60"/>
+  <circle cx="840" cy="400" r="2.5" fill="#27ae60"/>
+  <!-- Branch out at y=400 to R_ISEN -->
+  <line x1="840" y1="400" x2="850" y2="400" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="850" y="394" width="22" height="12" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="872" y1="400" x2="885" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="885" y1="400" x2="885" y2="410" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="879" y1="410" x2="891" y2="410" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="882" y1="413" x2="888" y2="413" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="884" y1="416" x2="886" y2="416" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="861" y="386" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">R_ISEN</text>
+  <text x="861" y="428" font-size="12" text-anchor="middle" fill="#6b7280">0.1 Ω</text>
+
+  <!-- Parallel Outputs Connections (Panel 2) -->
+  <!-- OUT1: AOUT1 (250) + BOUT1 (345) joined at x=855 -->
+  <line x1="840" y1="250" x2="855" y2="250" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- Bridge arc for BOUT1 (345) crossing ISEN bus (840) -->
+  <path d="M 830 345 L 836 345 A 4 4 0 0 1 844 345 L 855 345" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="855" y1="250" x2="855" y2="345" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="855" cy="250" r="2.5" fill="#27ae60"/>
+  <circle cx="855" cy="345" r="2.5" fill="#27ae60"/>
+
+  <line x1="855" y1="278" x2="857" y2="278" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- OUT2: AOUT2 (275) + BOUT2 (370) joined at x=848 -->
+  <line x1="840" y1="275" x2="848" y2="275" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- Bridge arc for BOUT2 (370) crossing ISEN bus (840) -->
+  <path d="M 830 370 L 836 370 A 4 4 0 0 1 844 370 L 848 370" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="848" y1="275" x2="848" y2="370" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="848" cy="275" r="2.5" fill="#27ae60"/>
+  <circle cx="848" cy="370" r="2.5" fill="#27ae60"/>
+
+  <line x1="848" y1="302" x2="857" y2="302" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Parallel Motor Circle (Panel 2) -->
+  <circle cx="877" cy="290" r="20" fill="#e9f7ef" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="877" y="295" font-size="15" font-weight="bold" text-anchor="middle" fill="#27ae60">M1</text>
+  <text x="877" y="238" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Потужний DC-мотор</text>
+  <text x="877" y="252" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">(струм до 3.2 A)</text>
+
+  <!-- Panel 2 Footer Summary Badge -->
+  <rect x="500" y="475" width="425" height="25" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712.5" y="492" font-size="12" text-anchor="middle" fill="#27ae60">Входи та виходи з'єднані паралельно • Подвоєний робочий струм</text>
+</svg>

@@ -1,0 +1,249 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 550" width="960" height="550" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="550" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діаграма Боде контуру APC: оцінка стійкості та фазова компенсація</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Корекція зміщує частоту зрізу f_c та забезпечує необхідний запас фази (PM ≥ 45°)</text>
+
+  <!-- ================= LEFT SIDE: BODE PLOTS ================= -->
+
+  <!-- TOP PLOT: MAGNITUDE RESPONSE -->
+  <text x="90" y="80" font-size="13" font-weight="bold" fill="#1a1a1a">Амплітудна характеристика |T(f)| [дБ]</text>
+  <rect x="90" y="88" width="540" height="160" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Magnitude Y-Grid & Labels -->
+  <line x1="90" y1="98" x2="630" y2="98" stroke="#e5e7eb" stroke-dasharray="3 3"/>
+  <text x="82" y="102" font-size="12" fill="#6b7280" text-anchor="end">+40 дБ</text>
+
+  <!-- +20 dB line segmented around text box at x=170..244 -->
+  <line x1="90" y1="148" x2="166" y2="148" stroke="#e5e7eb" stroke-dasharray="3 3"/>
+  <line x1="248" y1="148" x2="346" y2="148" stroke="#e5e7eb" stroke-dasharray="3 3"/>
+  <line x1="428" y1="148" x2="630" y2="148" stroke="#e5e7eb" stroke-dasharray="3 3"/>
+  <text x="82" y="152" font-size="12" fill="#6b7280" text-anchor="end">+20 дБ</text>
+
+  <!-- 0 dB Unity Gain Line -->
+  <line x1="90" y1="198" x2="630" y2="198" stroke="#1a1a1a" stroke-width="1.2" stroke-dasharray="6 3"/>
+  <text x="82" y="202" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">0 дБ</text>
+
+  <line x1="90" y1="238" x2="630" y2="238" stroke="#e5e7eb" stroke-dasharray="3 3"/>
+  <text x="82" y="242" font-size="12" fill="#6b7280" text-anchor="end">-20 дБ</text>
+
+  <!-- TOP PLOT: Log Frequency Grid Lines -->
+  <!-- 100Hz - 1kHz Minor Grid Lines -->
+  <line x1="131" y1="88" x2="131" y2="248" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="154" y1="88" x2="154" y2="248" stroke="#f0f2f5" stroke-width="1"/>
+  <!-- 184 Hz Line: segmented around x=170..244, y=145..163 -->
+  <line x1="184" y1="88" x2="184" y2="142" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="184" y1="166" x2="184" y2="248" stroke="#f0f2f5" stroke-width="1"/>
+
+  <!-- 1 kHz Major Decade Line: segmented around x=170..244, y=145..163 -->
+  <line x1="225" y1="88" x2="225" y2="142" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="225" y1="166" x2="225" y2="248" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- 1kHz - 10kHz Minor Grid Lines -->
+  <line x1="266" y1="88" x2="266" y2="248" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="289" y1="88" x2="289" y2="248" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="319" y1="88" x2="319" y2="248" stroke="#f0f2f5" stroke-width="1"/>
+
+  <!-- 10 kHz Major Decade Line: segmented around x=350..424, y=115..133 -->
+  <line x1="360" y1="88" x2="360" y2="112" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="360" y1="136" x2="360" y2="248" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- 10kHz - 100kHz Minor Grid Lines -->
+  <!-- 401 Hz Line: segmented around x=350..424, y=115..133 -->
+  <line x1="401" y1="88" x2="401" y2="112" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="401" y1="136" x2="401" y2="248" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="424" y1="88" x2="424" y2="248" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="454" y1="88" x2="454" y2="248" stroke="#f0f2f5" stroke-width="1"/>
+
+  <!-- 100 kHz Major Decade Line -->
+  <line x1="495" y1="88" x2="495" y2="248" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- 100kHz - 1MHz Minor Grid Lines -->
+  <line x1="536" y1="88" x2="536" y2="248" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="559" y1="88" x2="559" y2="248" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="589" y1="88" x2="589" y2="248" stroke="#f0f2f5" stroke-width="1"/>
+
+  <!-- Magnitude Curves -->
+  <!-- Uncompensated Magnitude (Red Dashed) -->
+  <path d="M 90,98 L 210,98 Q 225,98 240,103 L 345,143 Q 360,148 375,156 L 448,198 L 495,225 L 550,246" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6 3"/>
+
+  <!-- Compensated Magnitude (Green Solid) -->
+  <path d="M 90,98 L 140,98 Q 154,98 170,104 L 225,123 L 360,173 L 406,198 L 495,233 L 550,248" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Slope Annotations -->
+  <rect x="170" y="145" width="74" height="18" fill="#ffffff" rx="3" stroke="#27ae60" stroke-width="0.8"/>
+  <text x="174" y="159" font-size="12" font-weight="bold" fill="#27ae60">-20 дБ/дек</text>
+
+  <rect x="350" y="115" width="74" height="18" fill="#ffffff" rx="3" stroke="#c0392b" stroke-width="0.8"/>
+  <text x="354" y="129" font-size="12" font-weight="bold" fill="#c0392b">-40 дБ/дек</text>
+
+  <!-- Crossover Circles on 0 dB Line -->
+  <circle cx="406" cy="198" r="4" fill="#27ae60"/>
+  <circle cx="448" cy="198" r="4" fill="#c0392b"/>
+
+  <!-- VERTICAL PROJECTION LINES (FC TO PHASE PLOT) -->
+  <!-- fc2 Vertical Projection (segmented around badge y=258..280) -->
+  <line x1="406" y1="198" x2="406" y2="254" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="406" y1="284" x2="406" y2="398" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- fc1 Vertical Projection (segmented around badge y=258..280) -->
+  <line x1="448" y1="198" x2="448" y2="254" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="448" y1="284" x2="448" y2="442" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- GAP BETWEEN PLOTS: CROSSOVER BADGES -->
+  <!-- fc2 (Compensated Crossover Badge) -->
+  <rect x="300" y="258" width="130" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="365" y="273" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">fc2 = 22 кГц (зріз)</text>
+
+  <!-- fc1 (Uncompensated Crossover Badge) -->
+  <rect x="444" y="258" width="144" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="516" y="273" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">fc1 = 45 кГц (без кор.)</text>
+
+  <!-- BOTTOM PLOT: PHASE RESPONSE -->
+  <text x="90" y="300" font-size="13" font-weight="bold" fill="#1a1a1a">Фазова характеристика arg T(f) [градуси]</text>
+  <rect x="90" y="308" width="540" height="170" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Phase Y-Grid & Labels -->
+  <line x1="90" y1="328" x2="630" y2="328" stroke="#e5e7eb" stroke-dasharray="3 3"/>
+  <text x="82" y="332" font-size="12" fill="#6b7280" text-anchor="end">0°</text>
+
+  <!-- -90° Line segmented around PM1 badge x=458..608 -->
+  <line x1="90" y1="378" x2="454" y2="378" stroke="#e5e7eb" stroke-dasharray="3 3"/>
+  <line x1="612" y1="378" x2="630" y2="378" stroke="#e5e7eb" stroke-dasharray="3 3"/>
+  <text x="82" y="382" font-size="12" fill="#6b7280" text-anchor="end">-90°</text>
+
+  <!-- -180° Critical Phase Line segmented around text x=196..344 -->
+  <line x1="90" y1="428" x2="190" y2="428" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <line x1="350" y1="428" x2="630" y2="428" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <text x="82" y="432" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">-180°</text>
+
+  <rect x="196" y="408" width="148" height="18" fill="#ffffff" rx="3"/>
+  <text x="200" y="422" font-size="12" font-weight="bold" fill="#c0392b">Межа стійкості (-180°)</text>
+
+  <line x1="90" y1="468" x2="630" y2="468" stroke="#e5e7eb" stroke-dasharray="3 3"/>
+  <text x="82" y="472" font-size="12" fill="#6b7280" text-anchor="end">-270°</text>
+
+  <!-- BOTTOM PLOT: Log Frequency Grid Lines -->
+  <!-- 100Hz - 1kHz Minor Lines -->
+  <line x1="131" y1="308" x2="131" y2="478" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="154" y1="308" x2="154" y2="478" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="184" y1="308" x2="184" y2="478" stroke="#f0f2f5" stroke-width="1"/>
+
+  <!-- 1 kHz Major Decade Line segmented around x=196..344, y=408..426 -->
+  <line x1="225" y1="308" x2="225" y2="404" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="225" y1="430" x2="225" y2="478" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- 1kHz - 10kHz Minor Lines segmented around x=196..344, y=408..426 -->
+  <line x1="266" y1="308" x2="266" y2="404" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="266" y1="430" x2="266" y2="478" stroke="#f0f2f5" stroke-width="1"/>
+
+  <line x1="289" y1="308" x2="289" y2="404" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="289" y1="430" x2="289" y2="478" stroke="#f0f2f5" stroke-width="1"/>
+
+  <line x1="319" y1="308" x2="319" y2="404" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="319" y1="430" x2="319" y2="478" stroke="#f0f2f5" stroke-width="1"/>
+
+  <!-- 10 kHz Major Decade Line segmented around x=320..396, y=342..362 -->
+  <line x1="360" y1="308" x2="360" y2="338" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="360" y1="366" x2="360" y2="478" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- 10kHz - 100kHz Minor Lines -->
+  <line x1="401" y1="308" x2="401" y2="478" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="424" y1="308" x2="424" y2="478" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="454" y1="308" x2="454" y2="478" stroke="#f0f2f5" stroke-width="1"/>
+
+  <!-- 100 kHz Major Decade Line segmented around x=458..608, y=382..402 -->
+  <line x1="495" y1="308" x2="495" y2="378" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="495" y1="406" x2="495" y2="478" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- 100kHz - 1MHz Minor Lines segmented around x=458..608, y=382..402 -->
+  <line x1="536" y1="308" x2="536" y2="378" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="536" y1="406" x2="536" y2="478" stroke="#f0f2f5" stroke-width="1"/>
+
+  <line x1="559" y1="308" x2="559" y2="378" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="559" y1="406" x2="559" y2="478" stroke="#f0f2f5" stroke-width="1"/>
+
+  <line x1="589" y1="308" x2="589" y2="378" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="589" y1="406" x2="589" y2="478" stroke="#f0f2f5" stroke-width="1"/>
+
+  <!-- Phase Curves -->
+  <!-- Uncompensated Phase (Red Dashed) -->
+  <path d="M 90,328 L 180,331 Q 225,338 270,358 T 360,398 Q 410,421 448,442 Q 495,458 550,466" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6 3"/>
+
+  <!-- Compensated Phase (Green Solid) -->
+  <path d="M 90,328 L 120,328 Q 154,338 200,361 T 300,383 Q 360,391 406,398 Q 460,408 550,443" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Intersection Circles on Phase Curves -->
+  <circle cx="406" cy="398" r="4" fill="#27ae60"/>
+  <circle cx="448" cy="442" r="4" fill="#c0392b"/>
+
+  <!-- PHASE MARGIN CALLOUTS & DIMENSIONS -->
+  <!-- Compensated Phase Margin (PM = +55°) -->
+  <line x1="406" y1="398" x2="406" y2="428" stroke="#27ae60" stroke-width="2"/>
+  <line x1="401" y1="398" x2="411" y2="398" stroke="#27ae60" stroke-width="2"/>
+  <line x1="401" y1="428" x2="411" y2="428" stroke="#27ae60" stroke-width="2"/>
+
+  <rect x="320" y="342" width="76" height="20" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="358" y="356" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">PM = +55°</text>
+
+  <!-- Uncompensated Phase Margin (PM1 = -25°) -->
+  <line x1="448" y1="428" x2="448" y2="442" stroke="#c0392b" stroke-width="2"/>
+  <line x1="443" y1="428" x2="453" y2="428" stroke="#c0392b" stroke-width="2"/>
+  <line x1="443" y1="442" x2="453" y2="442" stroke="#c0392b" stroke-width="2"/>
+
+  <rect x="458" y="382" width="150" height="20" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="533" y="396" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">PM1 = -25° (нестійкий)</text>
+
+  <!-- X-AXIS FREQUENCY LABELS & TITLE -->
+  <text x="90" y="498" font-size="12" fill="#1a1a1a" text-anchor="middle">100 Гц</text>
+  <text x="225" y="498" font-size="12" fill="#1a1a1a" text-anchor="middle">1 кГц</text>
+  <text x="360" y="498" font-size="12" fill="#1a1a1a" text-anchor="middle">10 кГц</text>
+  <text x="495" y="498" font-size="12" fill="#1a1a1a" text-anchor="middle">100 кГц</text>
+  <text x="630" y="498" font-size="12" fill="#1a1a1a" text-anchor="middle">1 МГц</text>
+
+  <text x="360" y="522" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Частота f [Гц]</text>
+
+  <!-- ================= RIGHT SIDE: SUMMARY CARDS ================= -->
+
+  <!-- CARD 1: LEGEND & MODES -->
+  <rect x="660" y="88" width="270" height="110" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="675" y="110" font-size="13" font-weight="bold" fill="#1a1a1a">Режими роботи контуру</text>
+
+  <line x1="675" y1="130" x2="700" y2="130" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="5 3"/>
+  <text x="708" y="133" font-size="12" font-weight="bold" fill="#c0392b">Без компенсації</text>
+  <text x="708" y="148" font-size="12" fill="#6b7280">PM = -25° (нестійкий контур)</text>
+
+  <line x1="675" y1="170" x2="700" y2="170" stroke="#27ae60" stroke-width="3"/>
+  <text x="708" y="173" font-size="12" font-weight="bold" fill="#27ae60">З компенсацією C_comp</text>
+  <text x="708" y="188" font-size="12" fill="#6b7280">PM = +55° (стійка система)</text>
+
+  <!-- CARD 2: PROBLEM (UNCOMPENSATED) -->
+  <rect x="660" y="212" width="270" height="135" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-opacity="0.6"/>
+  <text x="675" y="234" font-size="13" font-weight="bold" fill="#c0392b">Проблема: Без корекції</text>
+  <text x="675" y="256" font-size="12" fill="#1a1a1a">• Полюси фотодіода та ОУ</text>
+  <text x="675" y="276" font-size="12" fill="#1a1a1a">• Сумарний зсув фази &gt; 180°</text>
+  <text x="675" y="296" font-size="12" fill="#1a1a1a">• Автоколивання струму накачки</text>
+  <text x="675" y="316" font-size="12" font-weight="bold" fill="#c0392b">• Ризик пробою лазера</text>
+
+  <!-- CARD 3: SOLUTION (COMPENSATED) -->
+  <rect x="660" y="361" width="270" height="145" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" stroke-opacity="0.6"/>
+  <text x="675" y="383" font-size="13" font-weight="bold" fill="#27ae60">Розв'язок: Корекція C_comp</text>
+  <text x="675" y="405" font-size="12" fill="#1a1a1a">• Створення домінуючого полюса</text>
+  <text x="675" y="425" font-size="12" fill="#1a1a1a">• Зниження частоти зрізу f_c</text>
+  <text x="675" y="445" font-size="12" fill="#1a1a1a">• Запас фази PM ≥ 45° (тут 55°)</text>
+  <text x="675" y="465" font-size="12" font-weight="bold" fill="#27ae60">• Аперіодичний процес регулювання</text>
+</svg>

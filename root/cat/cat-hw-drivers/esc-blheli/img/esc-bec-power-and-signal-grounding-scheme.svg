@@ -1,0 +1,273 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Marker definitions -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема заземлення та підключення ESC з BEC (BLHeli 30 A)</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Зведення заземлень в одну точку та Low-ESR конденсатор запобігають земляним петлям і завадам BEC</text>
+
+  <!-- BLOCK 1: LiPo Battery -->
+  <rect x="25" y="70" width="130" height="150" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="90" y="93" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Акумулятор LiPo</text>
+  <text x="90" y="110" font-size="11" fill="#6b7280" text-anchor="middle">3S–4S (11.1–14.8 V)</text>
+
+  <!-- Battery cell symbol -->
+  <g>
+    <line x1="55" y1="130" x2="55" y2="186" stroke="#d0d7de" stroke-width="1"/>
+    <!-- Cell 1 -->
+    <line x1="68" y1="138" x2="68" y2="178" stroke="#1a1a1a" stroke-width="3"/>
+    <line x1="76" y1="146" x2="76" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+    <!-- Cell 2 -->
+    <line x1="84" y1="138" x2="84" y2="178" stroke="#1a1a1a" stroke-width="3"/>
+    <line x1="92" y1="146" x2="92" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="92" y1="158" x2="105" y2="158" stroke="#d0d7de" stroke-width="1"/>
+  </g>
+
+  <!-- Battery Terminals -->
+  <text x="142" y="130" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="end">+ BATT</text>
+  <circle cx="155" cy="138" r="4" fill="#c0392b"/>
+
+  <text x="142" y="170" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="end">– BATT</text>
+  <circle cx="155" cy="178" r="4" fill="#1a1a1a"/>
+
+  <!-- BLOCK 2: Low-ESR Capacitor Filter -->
+  <rect x="175" y="70" width="130" height="150" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <text x="240" y="93" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Low-ESR C</text>
+  <text x="240" y="110" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">470–1000 µF</text>
+
+  <!-- Capacitor Schematic Symbol -->
+  <line x1="240" y1="120" x2="240" y2="140" stroke="#c0392b" stroke-width="2"/>
+  <line x1="225" y1="140" x2="255" y2="140" stroke="#c0392b" stroke-width="3"/>
+  <text x="215" y="136" font-size="12" font-weight="bold" fill="#c0392b">+</text>
+  <path d="M 225 148 Q 240 154 255 148" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="240" y1="150" x2="240" y2="178" stroke="#1a1a1a" stroke-width="2"/>
+
+  <circle cx="240" cy="138" r="3.5" fill="#c0392b"/>
+  <circle cx="240" cy="178" r="3.5" fill="#1a1a1a"/>
+
+  <text x="240" y="204" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Фільтр завад 30 A</text>
+
+  <!-- BLOCK 3: Rules / Topology Notes (Bottom Left) -->
+  <rect x="25" y="240" width="280" height="295" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <text x="165" y="265" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Правила топології заземлення</text>
+
+  <text x="40" y="290" font-size="12" font-weight="bold" fill="#1a1a1a">1. Виключення земляних петель:</text>
+  <text x="40" y="308" font-size="11" fill="#6b7280">Signal GND підключається лише до ESC,</text>
+  <text x="40" y="324" font-size="11" fill="#6b7280">без другого зв'язку з мінусом АКБ.</text>
+
+  <text x="40" y="352" font-size="12" font-weight="bold" fill="#1a1a1a">2. Точка зведення (Star GND):</text>
+  <text x="40" y="370" font-size="11" fill="#6b7280">Силовий струм 30 A тече через BAT-,</text>
+  <text x="40" y="386" font-size="11" fill="#6b7280">не викликаючи зсуву потенціалу FC.</text>
+
+  <text x="40" y="414" font-size="12" font-weight="bold" fill="#1a1a1a">3. Фільтрація завад BEC:</text>
+  <text x="40" y="432" font-size="11" fill="#6b7280">Low-ESR конденсатор шунтує сплески</text>
+  <text x="40" y="448" font-size="11" fill="#6b7280">напруги при PWM-комутації ключами.</text>
+
+  <rect x="40" y="470" width="250" height="48" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="165" y="489" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Гарантія стабільності BEC</text>
+  <text x="165" y="505" font-size="11" fill="#1a1a1a" text-anchor="middle">і відсутності збоїв прошивки</text>
+
+  <!-- BLOCK 4: ESC BLHeli 30A -->
+  <rect x="325" y="70" width="330" height="465" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="8"/>
+  <text x="490" y="95" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">ESC BLHeli 30 A (з BEC)</text>
+
+  <!-- ESC Left Inputs -->
+  <circle cx="325" cy="138" r="4" fill="#c0392b"/>
+  <text x="348" y="130" font-size="11" font-weight="bold" fill="#c0392b">+ BAT</text>
+
+  <circle cx="325" cy="178" r="4" fill="#1a1a1a"/>
+  <text x="348" y="170" font-size="11" font-weight="bold" fill="#1a1a1a">– BAT</text>
+
+  <!-- Star GND Connection Hub Node -->
+  <circle cx="395" cy="178" r="6" fill="#27ae60"/>
+  <circle cx="395" cy="178" r="2.5" fill="#ffffff"/>
+  <text x="395" y="163" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Точка Star GND</text>
+
+  <!-- Line from Star GND node to Star GND Sub-panel -->
+  <line x1="395" y1="184" x2="395" y2="230" stroke="#27ae60" stroke-width="2" stroke-dasharray="3,3"/>
+
+  <!-- Sub-panel A: MOSFET Inverter -->
+  <rect x="465" y="110" width="120" height="110" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="525" y="127" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Силові MOSFET</text>
+  <text x="525" y="141" font-size="11" fill="#6b7280" text-anchor="middle">(3 фази)</text>
+
+  <!-- MOSFET Inverter Schematics -->
+  <g stroke="#2457d6" stroke-width="1.5">
+    <!-- Bridge Rails -->
+    <line x1="475" y1="152" x2="575" y2="152" stroke="#c0392b" stroke-width="1.5"/>
+    <line x1="475" y1="205" x2="575" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+
+    <!-- Phase Leg U -->
+    <line x1="495" y1="152" x2="495" y2="205"/>
+    <rect x="490" y="158" width="10" height="10" fill="#eaf0fd" stroke="#2457d6" rx="2"/>
+    <rect x="490" y="187" width="10" height="10" fill="#eaf0fd" stroke="#2457d6" rx="2"/>
+    <circle cx="495" cy="177" r="2" fill="#2457d6"/>
+
+    <!-- Phase Leg V -->
+    <line x1="525" y1="152" x2="525" y2="205"/>
+    <rect x="520" y="158" width="10" height="10" fill="#eaf0fd" stroke="#2457d6" rx="2"/>
+    <rect x="520" y="187" width="10" height="10" fill="#eaf0fd" stroke="#2457d6" rx="2"/>
+    <circle cx="525" cy="177" r="2" fill="#2457d6"/>
+
+    <!-- Phase Leg W -->
+    <line x1="555" y1="152" x2="555" y2="205"/>
+    <rect x="550" y="158" width="10" height="10" fill="#eaf0fd" stroke="#2457d6" rx="2"/>
+    <rect x="550" y="187" width="10" height="10" fill="#eaf0fd" stroke="#2457d6" rx="2"/>
+    <circle cx="555" cy="177" r="2" fill="#2457d6"/>
+  </g>
+
+  <!-- Sub-panel B: Star GND Point -->
+  <rect x="345" y="230" width="240" height="105" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="465" y="250" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Точка зведення заземлення (Star GND)</text>
+  <text x="465" y="268" font-size="11" fill="#1a1a1a" text-anchor="middle">З'єднання силового мінуса BAT-</text>
+  <text x="465" y="284" font-size="11" fill="#1a1a1a" text-anchor="middle">та сигнальної землі Signal GND</text>
+  <text x="465" y="314" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Запобігає струмам мотора через FC</text>
+
+  <!-- Sub-panel C: MCU & BEC -->
+  <rect x="345" y="350" width="240" height="170" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="465" y="370" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вбудований BEC 5V та MCU BLHeli</text>
+  <text x="465" y="388" font-size="11" fill="#6b7280" text-anchor="middle">Живлення FC/серво та DShot/PWM</text>
+
+  <!-- Internal VCC feed to BEC Reg -->
+  <path d="M 338 138 L 338 397 L 475 397 L 475 405" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+  <!-- MCU & BEC Internal Blocks -->
+  <rect x="355" y="405" width="100" height="60" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="405" y="428" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">MCU BLHeli</text>
+  <text x="405" y="446" font-size="11" fill="#6b7280" text-anchor="middle">ATmega / EFM8</text>
+
+  <rect x="475" y="405" width="100" height="60" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="525" y="428" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">BEC 5V Reg</text>
+  <text x="525" y="446" font-size="11" fill="#6b7280" text-anchor="middle">Step-Down 5V</text>
+
+  <!-- ESC Right Outputs -->
+  <!-- Phase Outputs -->
+  <circle cx="655" cy="145" r="4" fill="#2457d6"/>
+  <text x="647" y="137" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="end">U</text>
+
+  <circle cx="655" cy="170" r="4" fill="#2457d6"/>
+  <text x="647" y="162" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="end">V</text>
+
+  <circle cx="655" cy="195" r="4" fill="#2457d6"/>
+  <text x="647" y="187" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="end">W</text>
+
+  <!-- Low Voltage Signal/BEC Outputs -->
+  <circle cx="655" cy="435" r="4" fill="#2457d6"/>
+  <text x="647" y="427" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="end">Signal</text>
+
+  <circle cx="655" cy="465" r="4" fill="#c0392b"/>
+  <text x="647" y="457" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="end">+5V BEC</text>
+
+  <circle cx="655" cy="495" r="4" fill="#1a1a1a"/>
+  <text x="647" y="487" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="end">Signal GND</text>
+
+  <!-- BLOCK 5: BLDC Motor (Top Right) -->
+  <rect x="685" y="70" width="250" height="140" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="810" y="93" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">BLDC Мотор</text>
+  <text x="810" y="111" font-size="12" fill="#6b7280" text-anchor="middle">3-фазна обмотка (без датчиків)</text>
+
+  <!-- Motor Stator Graphic -->
+  <circle cx="845" cy="160" r="28" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="845" cy="160" r="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="845" y="164" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">M</text>
+
+  <!-- Motor Phase Input Terminals -->
+  <circle cx="685" cy="145" r="4" fill="#2457d6"/>
+  <text x="696" y="140" font-size="11" font-weight="bold" fill="#2457d6">U</text>
+
+  <circle cx="685" cy="170" r="4" fill="#2457d6"/>
+  <text x="696" y="165" font-size="11" font-weight="bold" fill="#2457d6">V</text>
+
+  <circle cx="685" cy="195" r="4" fill="#2457d6"/>
+  <text x="696" y="190" font-size="11" font-weight="bold" fill="#2457d6">W</text>
+
+  <!-- Lines inside motor from terminals to stator -->
+  <path d="M 685 145 L 817 155" fill="none" stroke="#2457d6" stroke-width="1"/>
+  <path d="M 685 170 L 817 165" fill="none" stroke="#2457d6" stroke-width="1"/>
+  <path d="M 685 195 L 823 175" fill="none" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- BLOCK 6: Flight Controller (Middle Right) -->
+  <rect x="685" y="230" width="250" height="145" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="810" y="253" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Польотний контролер (FC)</text>
+  <text x="810" y="271" font-size="12" fill="#6b7280" text-anchor="middle">Генератор сигналів PWM / DShot</text>
+
+  <circle cx="685" cy="295" r="4" fill="#2457d6"/>
+  <text x="696" y="290" font-size="11" font-weight="bold" fill="#2457d6">Signal (PWM/DShot)</text>
+
+  <circle cx="685" cy="325" r="4" fill="#c0392b"/>
+  <text x="696" y="320" font-size="11" font-weight="bold" fill="#c0392b">+5V (BEC)</text>
+
+  <circle cx="685" cy="355" r="4" fill="#1a1a1a"/>
+  <text x="696" y="350" font-size="11" font-weight="bold" fill="#1a1a1a">GND</text>
+
+  <!-- FC MCU Graphic -->
+  <rect x="825" y="290" width="80" height="65" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="865" y="318" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">MCU FC</text>
+  <text x="865" y="336" font-size="11" fill="#6b7280" text-anchor="middle">STM32</text>
+
+  <!-- BLOCK 7: Servos / 5V Load (Bottom Right) -->
+  <rect x="685" y="395" width="250" height="140" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="810" y="418" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сервоприводи / 5V Навантаження</text>
+  <text x="810" y="436" font-size="11" fill="#6b7280" text-anchor="middle">Бортове споживання від BEC</text>
+
+  <circle cx="685" cy="465" r="4" fill="#c0392b"/>
+  <text x="696" y="460" font-size="11" font-weight="bold" fill="#c0392b">+5V</text>
+
+  <circle cx="685" cy="495" r="4" fill="#1a1a1a"/>
+  <text x="696" y="490" font-size="11" font-weight="bold" fill="#1a1a1a">GND</text>
+
+  <!-- Servo Graphic -->
+  <rect x="810" y="450" width="90" height="55" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="855" y="473" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Servo Motor</text>
+  <text x="855" y="489" font-size="11" fill="#6b7280" text-anchor="middle">5V Power</text>
+
+  <!-- INTERCONNECTING WIRES AND LINES -->
+
+  <!-- 1. VCC Power Wire (+LiPo) -->
+  <line x1="155" y1="138" x2="240" y2="138" stroke="#c0392b" stroke-width="3.5"/>
+  <line x1="240" y1="138" x2="325" y2="138" stroke="#c0392b" stroke-width="3.5"/>
+  <line x1="325" y1="138" x2="465" y2="138" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- 2. Power GND Wire (-LiPo) -->
+  <line x1="155" y1="178" x2="240" y2="178" stroke="#1a1a1a" stroke-width="3.5"/>
+  <line x1="240" y1="178" x2="325" y2="178" stroke="#1a1a1a" stroke-width="3.5"/>
+  <line x1="325" y1="178" x2="395" y2="178" stroke="#1a1a1a" stroke-width="3.5"/>
+  <line x1="395" y1="178" x2="465" y2="205" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- 3. Motor Phases (U, V, W) -->
+  <line x1="655" y1="145" x2="685" y2="145" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <line x1="655" y1="170" x2="685" y2="170" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <line x1="655" y1="195" x2="685" y2="195" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- 4. Control Signals and BEC Power -->
+  <!-- PWM / DShot Signal: FC -> ESC -->
+  <path d="M 685 295 L 670 295 L 670 435 L 655 435" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-blue)"/>
+
+  <!-- BEC 5V Output: ESC -> FC & Servos -->
+  <path d="M 655 465 L 675 465 L 675 325 L 685 325" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <path d="M 675 465 L 685 465" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Signal GND: FC & Servos -> ESC -->
+  <path d="M 685 355 L 665 355 L 665 495 L 655 495" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M 685 495 L 665 495" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Internal Signal GND trace connecting Signal GND pin to Star GND node in left margin channel -->
+  <path d="M 655 495 L 643 495 L 643 525 L 330 525 L 330 178 L 395 178" fill="none" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+</svg>

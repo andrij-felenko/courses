@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Внутрішня структурна схема реле G3MB-202P</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Гальванічна розв'язка та відкривання вихідного симістора при переході через нуль</text>
+
+  <!-- External IC Package Outer Boundary -->
+  <rect x="150" y="75" width="660" height="295" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="165" y="85" width="145" height="24" rx="4" fill="#eef2f7" stroke="#d0d7de" stroke-width="1"/>
+  <text x="237.5" y="101" text-anchor="middle" font-size="12" font-weight="bold" fill="#4b5563">G3MB-202P (SIP-4)</text>
+
+  <!-- External Wires & Terminals -->
+  <!-- Pin 3 (+5V DC Input) -->
+  <text x="85" y="145" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Pin 3 (+5V)</text>
+  <line x1="25" y1="165" x2="150" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="85" y="185" text-anchor="middle" font-size="12" fill="#6b7280">Вхід керування</text>
+
+  <!-- Pin 4 (GND Input) -->
+  <text x="85" y="315" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Pin 4 (GND)</text>
+  <line x1="150" y1="335" x2="25" y2="335" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="85" y="355" text-anchor="middle" font-size="12" fill="#6b7280">Ключ MCU</text>
+
+  <!-- Pin 1 (AC Load Terminal 1) -->
+  <text x="875" y="145" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Pin 1 (AC1)</text>
+  <line x1="810" y1="165" x2="935" y2="165" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="875" y="185" text-anchor="middle" font-size="12" fill="#6b7280">~100–240 В AC</text>
+
+  <!-- Pin 2 (AC Load Terminal 2) -->
+  <text x="875" y="315" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Pin 2 (AC2)</text>
+  <line x1="810" y1="335" x2="935" y2="335" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="875" y="355" text-anchor="middle" font-size="12" fill="#6b7280">До навантаження</text>
+
+  <!-- Input Internal Circuit -->
+  <!-- Wire from Pin 3 entry to Resistor -->
+  <line x1="150" y1="165" x2="185" y2="165" stroke="#2457d6" stroke-width="2"/>
+  <text x="207.5" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">R_in (440 Ом)</text>
+  <rect x="185" y="155" width="45" height="20" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Wire from Resistor to LED Anode -->
+  <line x1="230" y1="165" x2="260" y2="165" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- LED Symbol -->
+  <polygon points="260,153 260,177 280,165" fill="#2457d6"/>
+  <line x1="280" y1="153" x2="280" y2="177" stroke="#2457d6" stroke-width="2"/>
+  <line x1="280" y1="165" x2="310" y2="165" stroke="#2457d6" stroke-width="2"/>
+  <line x1="310" y1="165" x2="310" y2="335" stroke="#2457d6" stroke-width="2"/>
+  <line x1="310" y1="335" x2="150" y2="335" stroke="#2457d6" stroke-width="2"/>
+  <text x="260" y="196" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вхідний LED</text>
+
+  <!-- Light Emission Rays & Label -->
+  <text x="345" y="144" text-anchor="middle" font-size="12" fill="#2457d6">Світло</text>
+  <line x1="285" y1="157" x2="405" y2="157" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+  <line x1="285" y1="165" x2="405" y2="165" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+  <line x1="285" y1="173" x2="405" y2="173" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Optical Isolation Barrier -->
+  <text x="357.5" y="93" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">
+    <tspan x="357.5" dy="0">Оптична</tspan>
+    <tspan x="357.5" dy="14">ізоляція</tspan>
+  </text>
+  <rect x="330" y="115" width="55" height="230" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="357.5" y="225" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">2.5 кВ</text>
+  <text x="357.5" y="241" text-anchor="middle" font-size="12" fill="#2457d6">AC</text>
+
+  <!-- Zero-Cross Circuit Box -->
+  <rect x="410" y="120" width="165" height="225" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <rect x="415" y="128" width="155" height="24" rx="4" fill="#eaf0fd"/>
+  <text x="492.5" y="144" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Схема Zero-Cross</text>
+
+  <text x="492.5" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Фотосимістор</text>
+  <text x="492.5" y="188" text-anchor="middle" font-size="12" fill="#6b7280">+ Детектор нуля</text>
+  <line x1="420" y1="198" x2="565" y2="198" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="492.5" y="218" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Дозвіл вмикання:</text>
+  <text x="492.5" y="236" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">тільки при V_AC ≈ 0 В</text>
+  <text x="492.5" y="254" text-anchor="middle" font-size="12" fill="#6b7280">(мінімум завад та EMI)</text>
+  <text x="492.5" y="276" text-anchor="middle" font-size="12" fill="#c0392b">Блокує при V_AC &gt;&gt; 0 В</text>
+  <text x="492.5" y="294" text-anchor="middle" font-size="12" fill="#6b7280">(захист від сплесків)</text>
+
+  <!-- Voltage Sensing Lines to Zero-Cross -->
+  <path d="M 540 120 L 540 100 L 605 100 L 605 165" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="605" cy="165" r="3" fill="#6b7280"/>
+  <text x="572.5" y="93" text-anchor="middle" font-size="12" fill="#6b7280">Контроль V_AC</text>
+
+  <path d="M 540 345 L 540 355 L 605 355 L 605 335" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="605" cy="335" r="3" fill="#6b7280"/>
+
+  <!-- Trigger Output Wire from Zero-Cross to Triac Gate -->
+  <line x1="575" y1="225" x2="625" y2="225" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="600" y="215" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Імпульс</text>
+
+  <!-- AC Lines inside package -->
+  <line x1="605" y1="165" x2="810" y2="165" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="605" y1="335" x2="810" y2="335" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Output Power Triac Box -->
+  <rect x="635" y="120" width="165" height="225" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="640" y="128" width="155" height="24" rx="4" fill="#f4f6f8"/>
+  <text x="717.5" y="144" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Силовий симістор</text>
+
+  <!-- Triac Internal Symbol -->
+  <line x1="675" y1="165" x2="675" y2="195" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="675" y1="235" x2="675" y2="335" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="663,195 687,195 675,215" fill="#1a1a1a"/>
+  <polygon points="663,235 687,235 675,215" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="575" y1="225" x2="663" y2="225" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Triac Specs Tag -->
+  <rect x="690" y="255" width="102" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="741" y="273" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">2 А RMS</text>
+  <text x="741" y="289" text-anchor="middle" font-size="12" fill="#c0392b">100–240 В AC</text>
+
+  <!-- Bottom Explanatory Legend Cards -->
+  <!-- Card 1: Zero-Cross Explanation -->
+  <rect x="40" y="390" width="430" height="68" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="55" y="408" font-size="12" font-weight="bold" fill="#27ae60">Режим Zero-Cross (Комутація при 0 В):</text>
+  <text x="55" y="426" font-size="12" fill="#1a1a1a">• Вмикання силового ключа відбувається тільки при V_AC ≈ 0 В.</text>
+  <text x="55" y="444" font-size="12" fill="#1a1a1a">• Усуває імпульсні завади (EMI) та високі пускові струми.</text>
+
+  <!-- Card 2: Operating Limits & Snubber Recommendation -->
+  <rect x="490" y="390" width="430" height="68" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="505" y="408" font-size="12" font-weight="bold" fill="#c0392b">Характеристики та обмеження G3MB-202P:</text>
+  <text x="505" y="426" font-size="12" fill="#1a1a1a">• Граничний струм: 2 А RMS (зменшується при T &gt; 40 °C).</text>
+  <text x="505" y="444" font-size="12" fill="#1a1a1a">• Для індуктивного навантаження потрібен RC-снабер.</text>
+</svg>

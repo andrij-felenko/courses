@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-gray-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня структура та часові діаграми серводрайвера AA5188</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Порівняння тривалостей Tin і Tmono визначає полярність та тривалість імпульсу H-моста</text>
+
+  <!-- Left Panel: Internal Structure of AA5188 IC -->
+  <rect x="25" y="75" width="500" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="40" y="98" font-size="14" font-weight="bold" fill="#2457d6">Мікросхема AA5188 (Аналоговий сервопідсилювач)</text>
+
+  <!-- Block 1: Input Buffer -->
+  <rect x="45" y="120" width="135" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="112.5" y="143" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідний буфер</text>
+  <text x="112.5" y="163" font-size="12" fill="#2457d6" text-anchor="middle">Pin 1: PPM In</text>
+
+  <!-- External Input Signal Arrow to Buffer -->
+  <path d="M 20,150 L 45,150" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="32.5" y="140" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">PPM</text>
+
+  <!-- Block 2: Monostable Timer -->
+  <rect x="45" y="220" width="135" height="80" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="112.5" y="243" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Моностабільний</text>
+  <text x="112.5" y="263" font-size="12" fill="#1a1a1a" text-anchor="middle">таймер (Tmono)</text>
+  <text x="112.5" y="283" font-size="12" fill="#6b7280" text-anchor="middle">Задається C1, Rpot</text>
+
+  <!-- Buffer to Monostable Signal -->
+  <path d="M 112.5,180 L 112.5,220" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="120" y="205" font-size="12" fill="#2457d6" text-anchor="start">Запуск (Trig)</text>
+
+  <!-- Block 3: Pulse Width Comparator -->
+  <rect x="220" y="160" width="145" height="75" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="292.5" y="183" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Компаратор</text>
+  <text x="292.5" y="203" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">ΔT = Tin - Tmono</text>
+  <text x="292.5" y="223" font-size="12" fill="#6b7280" text-anchor="middle">Формування помилки</text>
+
+  <!-- Buffer to Comparator Signal -->
+  <path d="M 180,150 L 200,150 L 200,185 L 220,185" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="200" y="140" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Tin</text>
+
+  <!-- Monostable to Comparator Signal -->
+  <path d="M 180,260 L 200,260 L 200,210 L 220,210" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="200" y="275" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Tmono</text>
+
+  <!-- Block 4: Deadband Circuit -->
+  <rect x="220" y="280" width="145" height="75" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="292.5" y="303" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зона нечутливості</text>
+  <text x="292.5" y="323" font-size="12" fill="#1a1a1a" text-anchor="middle">(Deadband Circuit)</text>
+  <text x="292.5" y="343" font-size="12" fill="#6b7280" text-anchor="middle">Поріг: |ΔT| &gt; Tdead</text>
+
+  <!-- Comparator to Deadband Signal -->
+  <path d="M 292.5,235 L 292.5,280" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="300" y="260" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">ΔT</text>
+
+  <!-- Block 5: H-Bridge Drivers -->
+  <rect x="395" y="190" width="115" height="150" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="452.5" y="213" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Логіка H-моста</text>
+  <text x="452.5" y="231" font-size="12" fill="#6b7280" text-anchor="middle">та драйвери</text>
+  <line x1="405" y1="245" x2="500" y2="245" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="452.5" y="265" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Out1 (Pin 6)</text>
+  <text x="452.5" y="282" font-size="12" fill="#27ae60" text-anchor="middle">Сигнал CW</text>
+  <text x="452.5" y="308" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Out2 (Pin 11)</text>
+  <text x="452.5" y="325" font-size="12" fill="#c0392b" text-anchor="middle">Сигнал CCW</text>
+
+  <!-- Deadband to H-Bridge Signal -->
+  <path d="M 365,317.5 L 380,317.5 L 380,265 L 395,265" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="380" y="252" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дозвіл</text>
+
+  <!-- External Block A: Potentiometer R_POT -->
+  <rect x="45" y="400" width="135" height="65" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="112.5" y="423" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Потенціометр R_POT</text>
+  <text x="112.5" y="441" font-size="12" fill="#6b7280" text-anchor="middle">Pin 2: FB (Зв'язок)</text>
+  <text x="112.5" y="456" font-size="12" fill="#6b7280" text-anchor="middle">Задає час Tmono</text>
+
+  <!-- Potentiometer Feedback to Monostable Signal -->
+  <path d="M 112.5,400 L 112.5,300" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arr-gray)"/>
+  <text x="120" y="375" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">R_POT</text>
+
+  <!-- External Block B: DC Motor -->
+  <rect x="385" y="400" width="125" height="65" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="447.5" y="423" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Двигун ПС</text>
+  <text x="447.5" y="441" font-size="12" fill="#1a1a1a" text-anchor="middle">(Серводвигун)</text>
+  <text x="447.5" y="456" font-size="12" fill="#6b7280" text-anchor="middle">Вал редуктора</text>
+
+  <!-- H-Bridge Outputs to Motor Signals -->
+  <path d="M 425,340 L 425,400" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="418" y="373" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Out1</text>
+
+  <path d="M 480,340 L 480,400" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="487" y="373" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Out2</text>
+
+  <!-- Mechanical Link from Motor to Potentiometer -->
+  <path d="M 385,432.5 L 180,432.5" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arr-gray)"/>
+  <text x="282.5" y="418" font-size="12" fill="#6b7280" text-anchor="middle">Механічний зв'язок вала з R_POT</text>
+
+  <!-- Right Panel: Timing Diagrams -->
+  <rect x="545" y="75" width="390" height="465" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <text x="560" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Часові діаграми сигналів (умова Tin &gt; Tmono)</text>
+
+  <!-- Grid / Alignment Vertical Dashed Lines -->
+  <line x1="680" y1="115" x2="680" y2="405" stroke="#bdc3c7" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="770" y1="115" x2="770" y2="405" stroke="#bdc3c7" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="850" y1="115" x2="850" y2="405" stroke="#bdc3c7" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Track 1: Tin (PPM In) -->
+  <text x="560" y="150" font-size="12" font-weight="bold" fill="#2457d6">Tin (PPM In)</text>
+  <path d="M 660,160 L 680,160 L 680,130 L 850,130 L 850,160 L 910,160" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <line x1="680" y1="120" x2="850" y2="120" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="765" y="114" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Tin = 1.6 ms</text>
+
+  <!-- Track 2: Tmono (Internal) -->
+  <text x="560" y="220" font-size="12" font-weight="bold" fill="#6b7280">Tmono (Внутр.)</text>
+  <path d="M 660,230 L 680,230 L 680,200 L 770,200 L 770,230 L 910,230" fill="none" stroke="#6b7280" stroke-width="2"/>
+  <line x1="680" y1="190" x2="770" y2="190" stroke="#6b7280" stroke-width="1.2" marker-start="url(#arr-gray-rev)" marker-end="url(#arr-gray)"/>
+  <text x="725" y="184" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Tmono = 1.2 ms</text>
+
+  <!-- Track 3: Delta T (Error Pulse) -->
+  <text x="560" y="300" font-size="12" font-weight="bold" fill="#c0392b">ΔT (Помилка)</text>
+  <polygon points="770,310 770,280 850,280 850,310" fill="#fdecea" opacity="0.8"/>
+  <path d="M 660,310 L 770,310 L 770,280 L 850,280 L 850,310 L 910,310" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <line x1="770" y1="270" x2="850" y2="270" stroke="#c0392b" stroke-width="1.2" marker-start="url(#arr-red-rev)" marker-end="url(#arr-red)"/>
+  <text x="810" y="264" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ΔT = 0.4 ms</text>
+
+  <!-- Track 4: Out1 Motor Pulse -->
+  <text x="560" y="380" font-size="12" font-weight="bold" fill="#27ae60">Out1 (CW)</text>
+  <polygon points="770,390 770,360 850,360 850,390" fill="#e9f7ef" opacity="0.8"/>
+  <path d="M 660,390 L 770,390 L 770,360 L 850,360 L 850,390 L 910,390" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="810" y="378" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Імпульс на мотор</text>
+
+  <!-- Explanatory Legend / Text at bottom of Timing Panel -->
+  <line x1="560" y1="415" x2="920" y2="415" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="560" y="438" font-size="13" font-weight="bold" fill="#1a1a1a">Логіка керування серводвигуном:</text>
+  <text x="560" y="460" font-size="12" fill="#27ae60">• При Tin &gt; Tmono: Out1 активний, вал повертається в бік CW</text>
+  <text x="560" y="482" font-size="12" fill="#c0392b">• При Tin &lt; Tmono: Out2 активний, вал повертається в бік CCW</text>
+  <text x="560" y="504" font-size="12" fill="#6b7280">• При Tin ≈ Tmono (в межах Tdead): мотор нерухомий</text>
+</svg>

@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-right-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-left-blue" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Діаграма зворотної ЕРС (BEMF) та визначення Zero-Crossing</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Комутація ключів ESC відбувається з фіксованою затримкою 30° el. після перетину нуля BEMF</text>
+
+  <!-- Legend Bar -->
+  <rect x="90" y="72" width="780" height="26" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <line x1="105" y1="85" x2="130" y2="85" stroke="#2457d6" stroke-width="3"/>
+  <text x="137" y="89" text-anchor="start" font-size="12" fill="#1a1a1a">Фаза A (e_A)</text>
+
+  <line x1="240" y1="85" x2="265" y2="85" stroke="#d97706" stroke-width="3"/>
+  <text x="272" y="89" text-anchor="start" font-size="12" fill="#1a1a1a">Фаза B (e_B)</text>
+
+  <line x1="375" y1="85" x2="400" y2="85" stroke="#059669" stroke-width="3"/>
+  <text x="407" y="89" text-anchor="start" font-size="12" fill="#1a1a1a">Фаза C (e_C)</text>
+
+  <line x1="510" y1="85" x2="535" y2="85" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="542" y="89" text-anchor="start" font-size="12" fill="#1a1a1a">Нейтраль (V_DC / 2)</text>
+
+  <circle cx="690" cy="85" r="4.5" fill="#c0392b"/>
+  <text x="700" y="89" text-anchor="start" font-size="12" fill="#1a1a1a">Перетин нуля (ZC)</text>
+
+  <!-- Vertical Callout Lines -->
+  <!-- Red vertical line at ZC (150 deg, x=440) -->
+  <line x1="440" y1="136" x2="440" y2="475" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <!-- Green vertical line at Commutation (180 deg, x=500) -->
+  <line x1="500" y1="136" x2="500" y2="475" stroke="#27ae60" stroke-width="2" stroke-dasharray="5,3"/>
+
+  <!-- ZC Callout Badge above top graph -->
+  <rect x="330" y="112" width="180" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="420" y="128" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Точка перетину нуля (ZC)</text>
+
+  <!-- Upper Graph Background Shaded Region for 30 deg Delay -->
+  <rect x="440" y="150" width="60" height="120" fill="#eaf0fd" fill-opacity="0.6"/>
+
+  <!-- Horizontal Reference Lines -->
+  <line x1="140" y1="150" x2="920" y2="150" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="140" y1="210" x2="920" y2="210" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <line x1="140" y1="270" x2="920" y2="270" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Vertical Grid & Sector Lines -->
+  <line x1="140" y1="150" x2="140" y2="270" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="260" y1="150" x2="260" y2="270" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="380" y1="150" x2="380" y2="270" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="500" y1="150" x2="500" y2="270" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="620" y1="150" x2="620" y2="270" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="740" y1="150" x2="740" y2="270" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="860" y1="150" x2="860" y2="270" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="920" y1="150" x2="920" y2="270" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Y-Axis Labels -->
+  <text x="130" y="138" text-anchor="end" font-size="12" font-weight="bold" fill="#6b7280">Напруга фази</text>
+  <text x="130" y="154" text-anchor="end" font-size="12" fill="#1a1a1a">V_DC</text>
+  <text x="130" y="214" text-anchor="end" font-size="12" fill="#6b7280">V_DC / 2</text>
+  <text x="130" y="274" text-anchor="end" font-size="12" fill="#1a1a1a">0 В</text>
+
+  <!-- BEMF Waveforms -->
+  <!-- Phase A: Blue -->
+  <path d="M 140,150 L 380,150 L 500,270 L 740,270 L 860,150 L 920,150" fill="none" stroke="#2457d6" stroke-width="3" stroke-linejoin="round"/>
+  <!-- Phase B: Amber -->
+  <path d="M 140,150 L 260,270 L 500,270 L 620,150 L 860,150 L 920,210" fill="none" stroke="#d97706" stroke-width="3" stroke-linejoin="round"/>
+  <!-- Phase C: Emerald -->
+  <path d="M 140,270 L 260,270 L 380,150 L 620,150 L 740,270 L 920,270" fill="none" stroke="#059669" stroke-width="3" stroke-linejoin="round"/>
+
+  <!-- Zero-Crossing Markers (Red circles) -->
+  <circle cx="200" cy="210" r="4" fill="#c0392b"/>
+  <circle cx="320" cy="210" r="4" fill="#c0392b"/>
+  <circle cx="440" cy="210" r="6" fill="#c0392b" stroke="#ffffff" stroke-width="2"/>
+  <circle cx="560" cy="210" r="4" fill="#c0392b"/>
+  <circle cx="680" cy="210" r="4" fill="#c0392b"/>
+  <circle cx="800" cy="210" r="4" fill="#c0392b"/>
+
+  <!-- 30 deg Delay Annotations inside Shaded Region -->
+  <line x1="443" y1="175" x2="497" y2="175" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-left-blue)" marker-end="url(#arr-right-blue)"/>
+  <text x="470" y="195" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">30° el.</text>
+
+  <!-- Angle Axis Ticks & Labels -->
+  <text x="140" y="292" text-anchor="middle" font-size="12" fill="#6b7280">0°</text>
+  <text x="260" y="292" text-anchor="middle" font-size="12" fill="#6b7280">60°</text>
+  <text x="380" y="292" text-anchor="middle" font-size="12" fill="#6b7280">120°</text>
+  <text x="500" y="292" text-anchor="middle" font-size="12" fill="#6b7280">180°</text>
+  <text x="620" y="292" text-anchor="middle" font-size="12" fill="#6b7280">240°</text>
+  <text x="740" y="292" text-anchor="middle" font-size="12" fill="#6b7280">300°</text>
+  <text x="860" y="292" text-anchor="middle" font-size="12" fill="#6b7280">360°</text>
+
+  <!-- Commutation Callout Badge in middle gap -->
+  <rect x="400" y="308" width="200" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="500" y="324" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Момент комутації ключів ESC</text>
+
+  <!-- Lower Diagram: ESC Commutation & Phase States -->
+  <!-- Row Y-Labels -->
+  <text x="130" y="362" text-anchor="end" font-size="13" font-weight="bold" fill="#2457d6">Фаза A</text>
+  <text x="130" y="406" text-anchor="end" font-size="13" font-weight="bold" fill="#d97706">Фаза B</text>
+  <text x="130" y="450" text-anchor="end" font-size="13" font-weight="bold" fill="#059669">Фаза C</text>
+
+  <!-- Row 1: Phase A Blocks -->
+  <rect x="140" y="344" width="240" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="260" y="362" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">+V_DC (High-Side A ON)</text>
+
+  <rect x="380" y="344" width="120" height="28" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="440" y="362" text-anchor="middle" font-size="12" font-weight="bold" fill="#b45309">BEMF / Hi-Z</text>
+
+  <rect x="500" y="344" width="240" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="620" y="362" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">0 В (Low-Side A ON)</text>
+
+  <rect x="740" y="344" width="120" height="28" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="800" y="362" text-anchor="middle" font-size="12" font-weight="bold" fill="#b45309">BEMF / Hi-Z</text>
+
+  <rect x="860" y="344" width="60" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="890" y="362" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">+V_DC</text>
+
+  <!-- Row 2: Phase B Blocks -->
+  <rect x="140" y="388" width="120" height="28" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="200" y="406" text-anchor="middle" font-size="12" font-weight="bold" fill="#b45309">BEMF / Hi-Z</text>
+
+  <rect x="260" y="388" width="240" height="28" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="380" y="406" text-anchor="middle" font-size="12" font-weight="bold" fill="#b45309">0 В (Low-Side B ON)</text>
+
+  <rect x="500" y="388" width="120" height="28" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="560" y="406" text-anchor="middle" font-size="12" font-weight="bold" fill="#b45309">BEMF / Hi-Z</text>
+
+  <rect x="620" y="388" width="240" height="28" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="740" y="406" text-anchor="middle" font-size="12" font-weight="bold" fill="#b45309">+V_DC (High-Side B ON)</text>
+
+  <rect x="860" y="388" width="60" height="28" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="890" y="406" text-anchor="middle" font-size="12" font-weight="bold" fill="#b45309">Hi-Z</text>
+
+  <!-- Row 3: Phase C Blocks -->
+  <rect x="140" y="432" width="120" height="28" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="200" y="450" text-anchor="middle" font-size="12" font-weight="bold" fill="#047857">0 В (Low C)</text>
+
+  <rect x="260" y="432" width="120" height="28" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="320" y="450" text-anchor="middle" font-size="12" font-weight="bold" fill="#b45309">BEMF / Hi-Z</text>
+
+  <rect x="380" y="432" width="240" height="28" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="500" y="450" text-anchor="middle" font-size="12" font-weight="bold" fill="#047857">+V_DC (High-Side C ON)</text>
+
+  <rect x="620" y="432" width="120" height="28" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="680" y="450" text-anchor="middle" font-size="12" font-weight="bold" fill="#b45309">BEMF / Hi-Z</text>
+
+  <rect x="740" y="432" width="180" height="28" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="830" y="450" text-anchor="middle" font-size="12" font-weight="bold" fill="#047857">0 В (Low-Side C ON)</text>
+
+  <!-- Bottom Summary Panel -->
+  <rect x="90" y="488" width="780" height="26" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="480" y="505" text-anchor="middle" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">Правило 30°:</tspan> Детектування перетину нуля → відлік таймера затримки (30° el.) → перемикання силової пари MOSFET</text>
+</svg>

@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Низькостороннє керування DC-навантаженням: BJT проти MOSFET</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">BJT потребує постійного струму бази I_B, а MOSFET керується напругою V_GS без статичного споживання</text>
+
+  <!-- Left Panel: BJT Driver -->
+  <rect x="40" y="80" width="425" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="252" y="108" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема на BJT (NPN)</text>
+  <text x="252" y="128" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Струмове керування (I_B &gt; 0)</text>
+
+  <!-- BJT Power Rail V_CC -->
+  <line x1="200" y1="155" x2="304" y2="155" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="252" y="148" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">+V_CC (+12V)</text>
+  <line x1="256" y1="155" x2="256" y2="165" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Load Box -->
+  <rect x="226" y="165" width="60" height="40" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="256" y="190" font-size="12" fill="#1a1a1a" text-anchor="middle">R_L / Load</text>
+
+  <!-- Collector Wire & Current I_C -->
+  <line x1="256" y1="205" x2="256" y2="252" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="272" y1="215" x2="272" y2="235" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="280" y="229" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">I_C</text>
+
+  <!-- MCU Input Node & Signal -->
+  <circle cx="95" cy="275" r="4" fill="#c0392b"/>
+  <text x="95" y="252" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MCU GPIO</text>
+  <text x="95" y="292" font-size="12" fill="#6b7280" text-anchor="middle">3.3V / 5V</text>
+
+  <!-- Base Current Arrow & Label -->
+  <line x1="99" y1="275" x2="145" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="102" y1="267" x2="135" y2="267" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="120" y="235" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">I_B (постійний)</text>
+
+  <!-- Base Resistor R_B -->
+  <rect x="145" y="267" width="40" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="2"/>
+  <text x="165" y="261" font-size="12" fill="#1a1a1a" text-anchor="middle">R_B</text>
+  <line x1="185" y1="275" x2="240" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Transistor BJT (NPN) -->
+  <circle cx="248" cy="275" r="24" fill="none" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="240" y1="260" x2="240" y2="290" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="240" y1="266" x2="256" y2="252" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="240" y1="284" x2="256" y2="298" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="256,298 246,293 251,286" fill="#1a1a1a"/>
+  <text x="282" y="270" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Q1 (NPN)</text>
+  <text x="282" y="290" font-size="12" fill="#c0392b" text-anchor="start">V_CE(sat) ≈ 0.3V</text>
+
+  <!-- Emitter Ground -->
+  <line x1="256" y1="298" x2="256" y2="335" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="244" y1="335" x2="268" y2="335" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="248" y1="339" x2="264" y2="339" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="252" y1="343" x2="260" y2="343" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="256" y="357" font-size="12" fill="#6b7280" text-anchor="middle">GND (0V)</text>
+
+  <!-- Left Callout Box -->
+  <rect x="55" y="370" width="395" height="90" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="70" y="388" font-size="12" font-weight="bold" fill="#c0392b">Особливості BJT низькостороннього ключа:</text>
+  <text x="70" y="407" font-size="12" fill="#1a1a1a">• Постійний струм бази I_B = I_C / h_FE в режимі включено</text>
+  <text x="70" y="426" font-size="12" fill="#1a1a1a">• Постійне падіння V_CE(sat) спричиняє нагрів при великих I_C</text>
+  <text x="70" y="445" font-size="12" fill="#1a1a1a">• Поволі вимикається через накопичення неосновних носіїв</text>
+
+  <!-- Right Panel: MOSFET Driver -->
+  <rect x="495" y="80" width="425" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="707" y="108" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема на MOSFET (N-Channel)</text>
+  <text x="707" y="128" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Потенціальне керування (V_GS)</text>
+
+  <!-- MOSFET Power Rail V_CC -->
+  <line x1="655" y1="155" x2="759" y2="155" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="707" y="148" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">+V_CC (+12V)</text>
+  <line x1="711" y1="155" x2="711" y2="165" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Load Box -->
+  <rect x="681" y="165" width="60" height="40" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="711" y="190" font-size="12" fill="#1a1a1a" text-anchor="middle">R_L / Load</text>
+
+  <!-- Drain Wire & Current I_D -->
+  <line x1="711" y1="205" x2="711" y2="252" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="727" y1="215" x2="727" y2="235" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="735" y="229" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">I_D</text>
+
+  <!-- MCU Input Node & Signal -->
+  <circle cx="550" cy="275" r="4" fill="#27ae60"/>
+  <text x="550" y="252" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MCU GPIO</text>
+  <text x="550" y="292" font-size="12" fill="#6b7280" text-anchor="middle">3.3V / 5V</text>
+
+  <!-- Gate Current Indicator (Static 0A) -->
+  <text x="575" y="235" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">I_G = 0 A (статичний)</text>
+
+  <!-- MCU to Gate & Pull-down Wire -->
+  <line x1="554" y1="275" x2="605" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="580" y1="275" x2="580" y2="290" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="573" y="290" width="14" height="25" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="2"/>
+  <text x="566" y="306" font-size="12" fill="#6b7280" text-anchor="end">R_GS</text>
+  <line x1="580" y1="315" x2="580" y2="335" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Gate Resistor R_G -->
+  <rect x="605" y="267" width="35" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="2"/>
+  <text x="622.5" y="261" font-size="12" fill="#1a1a1a" text-anchor="middle">R_G</text>
+  <line x1="640" y1="275" x2="693" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Transistor MOSFET (N-Channel) -->
+  <circle cx="703" cy="275" r="24" fill="none" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="693" y1="260" x2="693" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="699" y1="260" x2="699" y2="268" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="699" y1="272" x2="699" y2="278" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="699" y1="282" x2="699" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="699" y1="264" x2="711" y2="264" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="699" y1="286" x2="711" y2="286" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="699" y1="275" x2="711" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="699,275 706,271 706,279" fill="#1a1a1a"/>
+  <text x="737" y="270" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Q1 (Logic N-FET)</text>
+  <text x="737" y="290" font-size="12" fill="#27ae60" text-anchor="start">R_DS(on) ≈ 10...30 mΩ</text>
+
+  <!-- Source Ground & Bus -->
+  <line x1="711" y1="286" x2="711" y2="335" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="580" y1="335" x2="711" y2="335" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="699" y1="335" x2="723" y2="335" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="703" y1="339" x2="719" y2="339" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="707" y1="343" x2="715" y2="343" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="711" y="357" font-size="12" fill="#6b7280" text-anchor="middle">GND (0V)</text>
+
+  <!-- Right Callout Box -->
+  <rect x="510" y="370" width="395" height="90" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="525" y="388" font-size="12" font-weight="bold" fill="#27ae60">Особливості Logic-Level MOSFET ключа:</text>
+  <text x="525" y="407" font-size="12" fill="#1a1a1a">• Нульовий струм затвора I_G = 0 A у стаціонарному режимі</text>
+  <text x="525" y="426" font-size="12" fill="#1a1a1a">• Мінімальні втрати потужності P = I_D² × R_DS(on) (мВт)</text>
+  <text x="525" y="445" font-size="12" fill="#1a1a1a">• Висока швидкість перемикання для високочастотної ШІМ</text>
+</svg>

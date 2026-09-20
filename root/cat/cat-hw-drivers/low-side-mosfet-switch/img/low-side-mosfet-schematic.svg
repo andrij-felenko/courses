@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принципова схема низькостороннього ключа (Low-Side Switch) на N-MOSFET</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Сигнал 3.3 В МК керує затвором Q1, R_GS фіксує стан, а діод Шотткі гасить ЕРС самоіндукції</text>
+
+  <!-- Main Schematic Panel P1 -->
+  <rect x="30" y="70" width="580" height="445" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="94" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="start">Схемотехніка низькостороннього N-MOSFET ключа</text>
+
+  <!-- Right Panel P2 Container -->
+  <rect x="625" y="70" width="305" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="777" y="94" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ПРИНЦИПИ ТА РОЗРАХУНОК СХЕМИ</text>
+
+  <!-- Card 1: Gate Drive -->
+  <rect x="637" y="108" width="281" height="122" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="647" y="126" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">1. Керування затвором (R_G, R_GS)</text>
+  <text x="647" y="146" font-size="12" fill="#1a1a1a" text-anchor="start">• R_G (10–100 Ом): обмежує пиковий</text>
+  <text x="647" y="162" font-size="12" fill="#6b7280" text-anchor="start">  струм заряду ємності затвора C_iss</text>
+  <text x="647" y="184" font-size="12" fill="#1a1a1a" text-anchor="start">• R_GS (10 кОм): стягує затвор до GND</text>
+  <text x="647" y="200" font-size="12" fill="#6b7280" text-anchor="start">  запобігає наводкам під час скидання МК</text>
+
+  <!-- Card 2: MOSFET Parameters -->
+  <rect x="637" y="240" width="281" height="128" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="647" y="258" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">2. Ключові параметри MOSFET Q1</text>
+  <text x="647" y="278" font-size="12" fill="#1a1a1a" text-anchor="start">• V_GS(th) &lt; 2.5 В: Logic-Level затвор</text>
+  <text x="647" y="294" font-size="12" fill="#6b7280" text-anchor="start">  гарантує відкриття від сигналу 3.3 В</text>
+  <text x="647" y="316" font-size="12" fill="#1a1a1a" text-anchor="start">• R_DS(on): мін. опір у відкритому стані</text>
+  <text x="647" y="332" font-size="12" fill="#6b7280" text-anchor="start">  зменшує статечні втрати та нагрів</text>
+  <text x="647" y="352" font-size="12" fill="#1a1a1a" text-anchor="start">• V_DS max: запас напруги за стоком</text>
+
+  <!-- Card 3: Protection Schottky Diode -->
+  <rect x="637" y="378" width="281" height="124" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="647" y="396" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">3. Діод Шотткі D_FW (Flyback)</text>
+  <text x="647" y="416" font-size="12" fill="#1a1a1a" text-anchor="start">• Швидкодія: шунтує сплеск ЕРС</text>
+  <text x="647" y="432" font-size="12" fill="#6b7280" text-anchor="start">  самоіндукції (-L·di/dt) при вимкненні</text>
+  <text x="647" y="454" font-size="12" fill="#1a1a1a" text-anchor="start">• Захист: рятує сток Q1 від пробою</text>
+  <text x="647" y="470" font-size="12" fill="#6b7280" text-anchor="start">  та гасить високочастотні резонанси</text>
+
+  <!-- SCHEMATIC GRAPHICS INSIDE P1 -->
+
+  <!-- Power Rail (+V_LOAD) -->
+  <line x1="260" y1="120" x2="550" y2="120" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="260" cy="120" r="4" fill="#c0392b"/>
+  <text x="250" y="118" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="end">+V_LOAD</text>
+  <text x="250" y="134" font-size="12" fill="#6b7280" text-anchor="end">(+12 В ... +24 В)</text>
+
+  <!-- Ground Rail (GND) -->
+  <line x1="92" y1="440" x2="540" y2="440" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="408" y1="440" x2="432" y2="440" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="412" y1="445" x2="428" y2="445" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="416" y1="450" x2="424" y2="450" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="419" y1="455" x2="421" y2="455" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="420" y="472" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Спільна земля (GND)</text>
+  <text x="420" y="490" font-size="12" fill="#6b7280" text-anchor="middle">З'єднання сигнального та силового GND у 1 точці</text>
+
+  <!-- MCU Block -->
+  <rect x="45" y="270" width="95" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="92" y="295" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">МК (MCU)</text>
+  <text x="92" y="318" font-size="12" fill="#1a1a1a" text-anchor="middle">Вихід GPIO</text>
+  <text x="92" y="340" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">3.3 В (ШІМ)</text>
+
+  <!-- MCU GND Wire -->
+  <line x1="92" y1="360" x2="92" y2="440" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="92" cy="440" r="3" fill="#1a1a1a"/>
+
+  <!-- GPIO Output Wire -->
+  <line x1="140" y1="315" x2="185" y2="315" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Gate Resistor R_G -->
+  <rect x="185" y="305" width="45" height="20" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="207" y="288" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">R_G = 10...100 Ом</text>
+  <text x="207" y="343" font-size="12" fill="#6b7280" text-anchor="middle">Обмеження I_G</text>
+
+  <!-- Wire R_G to Node A -->
+  <line x1="230" y1="315" x2="260" y2="315" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="260" cy="315" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Pull-Down Resistor R_GS -->
+  <line x1="260" y1="315" x2="260" y2="345" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="250" y="345" width="20" height="50" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="260" y1="395" x2="260" y2="440" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="260" cy="440" r="3" fill="#1a1a1a"/>
+
+  <text x="278" y="362" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">R_GS = 10 кОм</text>
+  <text x="278" y="380" font-size="12" fill="#6b7280" text-anchor="start">Фіксація стану (OFF)</text>
+  <text x="278" y="396" font-size="12" fill="#6b7280" text-anchor="start">при скиданні МК</text>
+
+  <!-- Wire Node A to Gate -->
+  <line x1="260" y1="315" x2="395" y2="315" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- N-MOSFET Q1 Symbol -->
+  <!-- Gate Plate -->
+  <line x1="395" y1="295" x2="395" y2="335" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Channel Segments (x=403) -->
+  <line x1="403" y1="295" x2="403" y2="307" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="403" y1="310" x2="403" y2="320" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="403" y1="323" x2="403" y2="335" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Substrate Arrow (pointing LEFT into channel) -->
+  <polygon points="397,315 403,311 403,319" fill="#1a1a1a"/>
+
+  <!-- Drain Connection from Channel -->
+  <line x1="403" y1="301" x2="420" y2="301" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="420" y1="301" x2="420" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Source Connection from Channel & Substrate -->
+  <line x1="403" y1="329" x2="420" y2="329" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="403" y1="315" x2="420" y2="315" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="420" y1="315" x2="420" y2="329" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="420" y1="329" x2="420" y2="440" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="420" cy="440" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Internal Body Diode -->
+  <line x1="420" y1="295" x2="435" y2="295" stroke="#6b7280" stroke-width="1"/>
+  <line x1="420" y1="329" x2="435" y2="329" stroke="#6b7280" stroke-width="1"/>
+  <line x1="435" y1="295" x2="435" y2="329" stroke="#6b7280" stroke-width="1"/>
+  <polygon points="435,306 429,320 441,320" fill="none" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="429" y1="306" x2="441" y2="306" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Dashed Box Q1 -->
+  <rect x="385" y="280" width="58" height="70" rx="4" fill="none" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <!-- Q1 Text Labels -->
+  <text x="445" y="295" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Q1 (N-MOSFET)</text>
+  <text x="445" y="313" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">V_GS(th) &lt; 2.5 В</text>
+  <text x="445" y="329" font-size="12" fill="#6b7280" text-anchor="start">R_DS(on) низький</text>
+  <text x="445" y="345" font-size="12" fill="#6b7280" text-anchor="start">I_D max з запасом</text>
+
+  <!-- Drain Node B (x=420, y=220) -->
+  <circle cx="420" cy="220" r="4" fill="#1a1a1a"/>
+  <text x="410" y="242" font-size="12" fill="#6b7280" text-anchor="end">Сток (Drain)</text>
+
+  <!-- Drain to Load & Flyback Lines -->
+  <line x1="350" y1="220" x2="470" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Load Branch (x=350) -->
+  <line x1="350" y1="220" x2="350" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="325" y="140" width="50" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="350" y="162" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">LOAD</text>
+  <text x="350" y="178" font-size="12" fill="#1a1a1a" text-anchor="middle">(Двигун)</text>
+  <line x1="350" y1="140" x2="350" y2="120" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="350" cy="120" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Load Current Arrow (I_LOAD) -->
+  <line x1="350" y1="195" x2="350" y2="215" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="340" y="215" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">I_LOAD (ON)</text>
+
+  <!-- Flyback Diode D_FW Branch (x=470) -->
+  <line x1="470" y1="220" x2="470" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Diode Triangle (Anode at y=175, Cathode at y=150) -->
+  <polygon points="470,150 458,172 482,172" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- Schottky Cathode Bar -->
+  <path d="M455,146 L458,150 L482,150 L485,154" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <line x1="470" y1="150" x2="470" y2="120" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="470" cy="120" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Flyback Diode Labels -->
+  <text x="488" y="152" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">D_FW (Шотткі)</text>
+  <text x="488" y="168" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Захисний діод</text>
+  <text x="488" y="184" font-size="12" fill="#27ae60" text-anchor="start">Гасіння ЕРС</text>
+  <text x="488" y="200" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">I_flyback (OFF)</text>
+
+  <!-- Flyback Current Loop Arrow -->
+  <path d="M464,185 Q460,198 440,198 Q420,198 420,190" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+</svg>

@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Індуктивні викиди та теплове розсіювання в ESC BLHeli 30 A</text>
+  <text x="480" y="57" text-anchor="middle" font-size="13" fill="#6b7280">Високовольтні піки вимагають Low-ESR конденсаторів, а струм 30 А спричиняє максимальний нагрів</text>
+
+  <!-- ================= ЛІВА ПАНЕЛЬ: ОСЦИЛОГРАМА ФАЗОВОЇ НАПРУГИ ================= -->
+  <rect x="30" y="78" width="435" height="417" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <text x="247.5" y="102" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Осцилограма фазової напруги (V_phase)</text>
+  <text x="247.5" y="119" text-anchor="middle" font-size="12" fill="#6b7280">Імпульсні перенапруги при комутації фаз мотора</text>
+
+  <!-- Сітка осцилограми -->
+  <rect x="130" y="138" width="315" height="215" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Горизонтальні рівні напруги -->
+  <line x1="130" y1="168" x2="240" y2="168" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="122" y="172" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">V_max (30 В)</text>
+
+  <line x1="130" y1="238" x2="270" y2="238" stroke="#2457d6" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="122" y="242" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">V_BAT (15 В)</text>
+
+  <line x1="130" y1="295.5" x2="445" y2="295.5" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="122" y="299.5" text-anchor="end" font-size="12" fill="#6b7280">V_BAT / 2</text>
+
+  <line x1="130" y1="353" x2="445" y2="353" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="122" y="357" text-anchor="end" font-size="12" fill="#6b7280">0 В (GND)</text>
+
+  <!-- Осі координат -->
+  <line x1="130" y1="353" x2="130" y2="138" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="122" y="132" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">V (В)</text>
+
+  <line x1="130" y1="353" x2="445" y2="353" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="445" y="375" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">t (мкс)</text>
+
+  <!-- Мітки часу -->
+  <line x1="165" y1="353" x2="165" y2="358" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="165" y="373" text-anchor="middle" font-size="12" fill="#6b7280">t1</text>
+
+  <line x1="225" y1="353" x2="225" y2="358" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="225" y="373" text-anchor="middle" font-size="12" fill="#6b7280">t2</text>
+
+  <line x1="270" y1="353" x2="270" y2="358" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="270" y="373" text-anchor="middle" font-size="12" fill="#6b7280">t3</text>
+
+  <line x1="360" y1="353" x2="360" y2="358" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="360" y="373" text-anchor="middle" font-size="12" fill="#6b7280">t4</text>
+
+  <!-- Графік осцилограми -->
+  <path d="M 130,353 L 165,353 L 165,238 L 225,238 L 232,168 L 237,258 L 242,230 L 247,243 L 252,238 L 270,238 L 360,353 L 435,353" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- Позначення індуктивного піку -->
+  <circle cx="232" cy="168" r="4.5" fill="#c0392b"/>
+  <line x1="247" y1="168" x2="238" y2="168" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+  <rect x="248" y="146" width="194" height="44" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="345" y="162" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Індуктивний пік: e = −L · di/dt</text>
+  <text x="345" y="178" text-anchor="middle" font-size="11" fill="#1a1a1a">Ризик пробою силового FET</text>
+
+  <!-- Позначення детектування BEMF -->
+  <circle cx="315" cy="295.5" r="4.5" fill="#2457d6"/>
+  <line x1="357.5" y1="240" x2="330" y2="285" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+  <rect x="280" y="195" width="155" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="357.5" y="211" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Детектування BEMF</text>
+  <text x="357.5" y="227" text-anchor="middle" font-size="11" fill="#1a1a1a">Точка переходу через 0</text>
+
+  <!-- Блок рекомендацій лівої панелі -->
+  <rect x="45" y="405" width="405" height="74" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="423" font-size="12" font-weight="bold" fill="#2457d6">Способи захисту та фільтрації:</text>
+  <text x="60" y="443" font-size="12" fill="#1a1a1a">• Електроліт Low-ESR 330–1000 мкФ згладжує шину DC</text>
+  <text x="60" y="463" font-size="12" fill="#1a1a1a">• Керамічні SMD-конденсатори 100 нФ біля кожного FET</text>
+
+  <!-- ================= ПРАВА ПАНЕЛЬ: ТЕПЛОВИЙ РЕЖИМ І РОЗСІЮВАННЯ ================= -->
+  <rect x="495" y="78" width="435" height="417" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <text x="712.5" y="102" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Тепловий режим та розсіювання потужності</text>
+  <text x="712.5" y="119" text-anchor="middle" font-size="12" fill="#6b7280">Втрати на нагрів P = I² · R_DS(on) при струмі 30 А</text>
+
+  <!-- Схема плати ESC з тепловою картою -->
+  <rect x="510" y="138" width="405" height="152" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="525" y="156" font-size="12" font-weight="bold" fill="#1a1a1a">Друк. плата ESC (Top View):</text>
+
+  <!-- Друкована плата ESC -->
+  <rect x="525" y="168" width="250" height="112" rx="5" fill="#1c3325" stroke="#122419" stroke-width="1"/>
+
+  <text x="565" y="185" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Фаза A</text>
+  <text x="650" y="185" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Фаза B</text>
+  <text x="735" y="185" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Фаза C</text>
+
+  <!-- Теплові ореоли нагріву -->
+  <rect x="540" y="191" width="220" height="82" rx="12" fill="#e67e22" fill-opacity="0.3"/>
+  <rect x="546" y="194" width="208" height="76" rx="8" fill="#e74c3c" fill-opacity="0.5"/>
+  <rect x="550" y="197" width="200" height="70" rx="6" fill="#c0392b" fill-opacity="0.7"/>
+
+  <!-- MOSFET транзистори Q1-Q6 -->
+  <rect x="548" y="201" width="34" height="26" rx="3" fill="#2d3748" stroke="#a0aec0" stroke-width="1"/>
+  <text x="565" y="218" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Q1</text>
+
+  <rect x="548" y="235" width="34" height="26" rx="3" fill="#2d3748" stroke="#a0aec0" stroke-width="1"/>
+  <text x="565" y="252" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Q2</text>
+
+  <rect x="633" y="201" width="34" height="26" rx="3" fill="#2d3748" stroke="#a0aec0" stroke-width="1"/>
+  <text x="650" y="218" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Q3</text>
+
+  <rect x="633" y="235" width="34" height="26" rx="3" fill="#2d3748" stroke="#a0aec0" stroke-width="1"/>
+  <text x="650" y="252" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Q4</text>
+
+  <rect x="718" y="201" width="34" height="26" rx="3" fill="#2d3748" stroke="#a0aec0" stroke-width="1"/>
+  <text x="735" y="218" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Q5</text>
+
+  <rect x="718" y="235" width="34" height="26" rx="3" fill="#2d3748" stroke="#a0aec0" stroke-width="1"/>
+  <text x="735" y="252" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Q6</text>
+
+  <!-- Блок попередження про температуру -->
+  <rect x="788" y="168" width="117" height="112" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="846.5" y="190" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">T_max ≈ 105°C</text>
+  <text x="846.5" y="209" text-anchor="middle" font-size="12" fill="#1a1a1a">при I = 30 А</text>
+  <text x="846.5" y="227" text-anchor="middle" font-size="12" fill="#6b7280">(без обдуву)</text>
+  <text x="846.5" y="249" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Потрібен обдув!</text>
+  <text x="846.5" y="267" text-anchor="middle" font-size="12" fill="#c0392b">або радіатор</text>
+
+  <!-- Графік теплових втрат P(I) -->
+  <rect x="510" y="302" width="405" height="183" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Осі координат графіку -->
+  <line x1="565" y1="448" x2="565" y2="330" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="560" y="318" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">P_втрат (Вт)</text>
+
+  <line x1="565" y1="448" x2="885" y2="448" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="885" y="468" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">I_нав (А)</text>
+
+  <!-- Позначки осі Y -->
+  <text x="558" y="452" text-anchor="end" font-size="12" fill="#6b7280">0 Вт</text>
+  <text x="558" y="347" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">6,5 Вт</text>
+
+  <!-- Позначки осі X -->
+  <line x1="565" y1="448" x2="565" y2="453" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="565" y="466" text-anchor="middle" font-size="12" fill="#6b7280">0</text>
+
+  <line x1="645" y1="448" x2="645" y2="453" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="645" y="466" text-anchor="middle" font-size="12" fill="#6b7280">10 A</text>
+
+  <line x1="725" y1="448" x2="725" y2="453" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="725" y="466" text-anchor="middle" font-size="12" fill="#6b7280">20 A</text>
+
+  <line x1="805" y1="448" x2="805" y2="453" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="805" y="466" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">30 A</text>
+
+  <!-- Пунктирні лінії робочої точки 30 A / 6.5 Вт -->
+  <line x1="805" y1="448" x2="805" y2="343" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="565" y1="343" x2="805" y2="343" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Крива втрат -->
+  <path d="M 565,448 Q 710,440 805,343" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="805" cy="343" r="4.5" fill="#c0392b"/>
+
+  <!-- Формула втрат та опис (розміщені без перетинів з лініями) -->
+  <rect x="575" y="354" width="160" height="38" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="655" y="369" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">P_втрат = I² · R_DS(on)</text>
+  <text x="655" y="385" text-anchor="middle" font-size="11" fill="#1a1a1a">Квадратичне зростання</text>
+  <line x1="735" y1="368" x2="796" y2="348" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+</svg>

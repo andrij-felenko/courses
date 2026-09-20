@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 580" width="960" height="580" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="580" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння вхідних протоколів керування BLHeli</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Часові характеристики аналогових протоколів та структура 16-бітного цифрового кадру DShot</text>
+
+  <!-- Верхня панель: Порівняння протоколів -->
+  <rect x="30" y="75" width="900" height="273" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+
+  <!-- Заголовки таблиці -->
+  <text x="50" y="98" font-size="13" font-weight="bold" fill="#1a1a1a">Протокол</text>
+  <text x="220" y="98" font-size="13" font-weight="bold" fill="#1a1a1a">Форма сигналу та тривалість імпульсу</text>
+  <text x="660" y="98" font-size="13" font-weight="bold" fill="#1a1a1a">Особливості та джитер</text>
+  <line x1="50" y1="106" x2="910" y2="106" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Рядок 1: Servo PWM -->
+  <text x="50" y="143" font-size="13" font-weight="bold" fill="#1a1a1a">Servo PWM</text>
+  <text x="50" y="158" font-size="12" fill="#6b7280">50–400 Гц</text>
+
+  <rect x="220" y="133" width="160" height="20" fill="#eaf0fd" opacity="0.7"/>
+  <path d="M 200 153 L 220 153 L 220 133 L 380 133 L 380 153 L 620 153" stroke="#2457d6" stroke-width="2" fill="none"/>
+
+  <text x="300" y="122" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1000…2000 мкс</text>
+  <line x1="220" y1="127" x2="380" y2="127" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+
+  <line x1="220" y1="161" x2="620" y2="161" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="420" y="176" font-size="12" fill="#6b7280" text-anchor="middle">Період кадру T = 2.5…20 мс (50–400 Гц)</text>
+
+  <text x="660" y="143" font-size="12" fill="#c0392b">Аналоговий сигнал</text>
+  <text x="660" y="158" font-size="12" fill="#c0392b">Високий джитер (±1…2 мкс)</text>
+
+  <!-- Рядок 2: OneShot125 -->
+  <text x="50" y="214" font-size="13" font-weight="bold" fill="#1a1a1a">OneShot125</text>
+  <text x="50" y="229" font-size="12" fill="#6b7280">1–4 кГц</text>
+
+  <rect x="220" y="203" width="40" height="20" fill="#eaf0fd" opacity="0.7"/>
+  <path d="M 200 223 L 220 223 L 220 203 L 260 203 L 260 223 L 620 223" stroke="#2457d6" stroke-width="2" fill="none"/>
+
+  <text x="240" y="192" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">125…250 мкс</text>
+  <line x1="220" y1="197" x2="260" y2="197" stroke="#2457d6" stroke-width="1.5"/>
+
+  <text x="660" y="214" font-size="12" fill="#1a1a1a">8× швидше за Servo PWM</text>
+  <text x="660" y="229" font-size="12" fill="#6b7280">Синхронізація з циклом PID</text>
+
+  <!-- Рядок 3: Multishot -->
+  <text x="50" y="267" font-size="13" font-weight="bold" fill="#1a1a1a">Multishot</text>
+  <text x="50" y="282" font-size="12" fill="#6b7280">8–32 кГц</text>
+
+  <rect x="220" y="256" width="12" height="20" fill="#eaf0fd" opacity="0.7"/>
+  <path d="M 200 276 L 220 276 L 220 256 L 232 256 L 232 276 L 620 276" stroke="#2457d6" stroke-width="2" fill="none"/>
+
+  <text x="226" y="245" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">5…25 мкс</text>
+  <line x1="220" y1="250" x2="232" y2="250" stroke="#2457d6" stroke-width="1.5"/>
+
+  <text x="660" y="267" font-size="12" fill="#1a1a1a">80× швидше за Servo PWM</text>
+  <text x="660" y="282" font-size="12" fill="#6b7280">Чутливий до завад і шумів живлення</text>
+
+  <!-- Рядок 4: DShot600 -->
+  <text x="50" y="318" font-size="13" font-weight="bold" fill="#27ae60">DShot600</text>
+  <text x="50" y="333" font-size="12" fill="#6b7280">600 кбіт/с</text>
+
+  <!-- Цифровий потік бітів (16 біт) -->
+  <g stroke="#27ae60" stroke-width="1.5" fill="none">
+    <!-- Bit 1 --> <path d="M 220 330 L 220 308 L 231 308 L 231 330 L 235 330"/>
+    <!-- Bit 2 --> <path d="M 235 330 L 235 308 L 246 308 L 246 330 L 250 330"/>
+    <!-- Bit 3 --> <path d="M 250 330 L 250 308 L 255 308 L 255 330 L 265 330"/>
+    <!-- Bit 4 --> <path d="M 265 330 L 265 308 L 276 308 L 276 330 L 280 330"/>
+    <!-- Bit 5 --> <path d="M 280 330 L 280 308 L 285 308 L 285 330 L 295 330"/>
+    <!-- Bit 6 --> <path d="M 295 330 L 295 308 L 300 308 L 300 330 L 310 330"/>
+    <!-- Bit 7 --> <path d="M 310 330 L 310 308 L 321 308 L 321 330 L 325 330"/>
+    <!-- Bit 8 --> <path d="M 325 330 L 325 308 L 330 308 L 330 330 L 340 330"/>
+    <!-- Bit 9 --> <path d="M 340 330 L 340 308 L 351 308 L 351 330 L 355 330"/>
+    <!-- Bit 10 --> <path d="M 355 330 L 355 308 L 366 308 L 366 330 L 370 330"/>
+    <!-- Bit 11 --> <path d="M 370 330 L 370 308 L 375 308 L 375 330 L 385 330"/>
+    <!-- Bit 12 --> <path d="M 385 330 L 385 308 L 396 308 L 396 330 L 400 330"/>
+    <!-- Bit 13 --> <path d="M 400 330 L 400 308 L 405 308 L 405 330 L 415 330"/>
+    <!-- Bit 14 --> <path d="M 415 330 L 415 308 L 426 308 L 426 330 L 430 330"/>
+    <!-- Bit 15 --> <path d="M 430 330 L 430 308 L 435 308 L 435 330 L 445 330"/>
+    <!-- Bit 16 --> <path d="M 445 330 L 445 308 L 450 308 L 450 330 L 460 330 L 620 330"/>
+  </g>
+
+  <text x="340" y="297" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">16-бітний пакет = 26.7 мкс</text>
+  <line x1="220" y1="302" x2="460" y2="302" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green-start)" marker-end="url(#arr-green)"/>
+
+  <text x="660" y="318" font-size="12" font-weight="bold" fill="#27ae60">Цифровий протокол</text>
+  <text x="660" y="333" font-size="12" fill="#27ae60">Нульовий джитер + CRC перевірка</text>
+
+  <!-- Нижня панель: Структура кадру DShot та кодування бітів -->
+  <rect x="30" y="365" width="900" height="195" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+
+  <text x="45" y="386" font-size="14" font-weight="bold" fill="#1a1a1a">Детальна структура 16-бітного кадру DShot та кодування бітів</text>
+
+  <!-- Поле 1: Дані газу (11 біт) -->
+  <rect x="45" y="398" width="545" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="317" y="420" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Дані газу: 11 біт (Bit 15 … Bit 5)</text>
+  <text x="317" y="450" font-size="12" fill="#1a1a1a" text-anchor="middle">0…2047 (0 = Стоп, 1…47 = Команди, 48…2047 = Газ)</text>
+
+  <!-- Поле 2: Телеметрія (1 біт) -->
+  <rect x="598" y="398" width="80" height="36" rx="4" fill="#fef5e7" stroke="#d35400" stroke-width="1.5"/>
+  <text x="638" y="420" font-size="13" font-weight="bold" fill="#d35400" text-anchor="middle">TLM: 1 біт</text>
+  <text x="638" y="450" font-size="12" fill="#1a1a1a" text-anchor="middle">Bit 4: Телеметрія</text>
+
+  <!-- Поле 3: Контрольна сума CRC (4 біти) -->
+  <rect x="686" y="398" width="199" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="785" y="420" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">CRC: 4 біти (Bit 3 … Bit 0)</text>
+  <text x="785" y="450" font-size="12" fill="#1a1a1a" text-anchor="middle">4-бітна контрольна сума</text>
+
+  <!-- Блок кодування біта 0 -->
+  <rect x="45" y="464" width="415" height="84" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="60" y="484" font-size="12" font-weight="bold" fill="#1a1a1a">Кодування біта «0»</text>
+  <text x="216" y="494" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">37.5% T</text>
+  <rect x="190" y="499" width="52.5" height="28" fill="#e9f7ef" opacity="0.8"/>
+  <path d="M 190 527 L 190 499 L 242.5 499 L 242.5 527 L 330 527" stroke="#27ae60" stroke-width="2" fill="none"/>
+  <text x="345" y="516" font-size="12" fill="#6b7280">T_High = 37.5% T</text>
+
+  <!-- Блок кодування біта 1 -->
+  <rect x="475" y="464" width="415" height="84" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="490" y="484" font-size="12" font-weight="bold" fill="#1a1a1a">Кодування біта «1»</text>
+  <text x="672" y="494" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">75% T</text>
+  <rect x="620" y="499" width="105" height="28" fill="#e9f7ef" opacity="0.8"/>
+  <path d="M 620 527 L 620 499 L 725 499 L 725 527 L 760 527" stroke="#27ae60" stroke-width="2" fill="none"/>
+  <text x="775" y="516" font-size="12" fill="#6b7280">T_High = 75% T</text>
+</svg>

@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зірчасте заземлення та фільтрація в колах ESC з BEC</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Розділення силових і сигнальних кіл GND та вхідний Low ESR конденсатор захищають FC від завад</text>
+
+  <!-- PANEL 1: Battery -->
+  <rect x="30" y="85" width="160" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 38 85 L 182 85 A 8 8 0 0 1 190 93 L 190 129 L 30 129 L 30 93 A 8 8 0 0 1 38 85 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="110" y="103" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Джерело живлення</text>
+  <text x="110" y="119" font-size="12" fill="#6b7280" text-anchor="middle">LiPo 3S–6S (11–22 В)</text>
+
+  <rect x="42" y="145" width="136" height="330" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  
+  <rect x="52" y="165" width="28" height="18" rx="3" fill="#c0392b"/>
+  <text x="66" y="179" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">+</text>
+  
+  <rect x="52" y="435" width="28" height="18" rx="3" fill="#1a1a1a"/>
+  <text x="66" y="449" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">−</text>
+
+  <text x="110" y="215" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Акумуляторна</text>
+  <text x="110" y="233" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">батарея LiPo</text>
+  <text x="110" y="275" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Силовий струм</text>
+  <text x="110" y="293" font-size="12" fill="#c0392b" text-anchor="middle">до 30 А (пік 40 А)</text>
+  <text x="110" y="340" font-size="12" fill="#6b7280" text-anchor="middle">Високий рівень</text>
+  <text x="110" y="358" font-size="12" fill="#6b7280" text-anchor="middle">пульсацій струму</text>
+
+  <!-- PANEL 2: ESC -->
+  <rect x="220" y="85" width="470" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 228 85 L 682 85 A 8 8 0 0 1 690 93 L 690 129 L 220 129 L 220 93 A 8 8 0 0 1 228 85 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="455" y="103" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Модуль ESC (BLHeli 30А з BEC)</text>
+  <text x="455" y="119" font-size="12" fill="#6b7280" text-anchor="middle">Точка зірчастого заземлення (Star GND) та фільтрація</text>
+
+  <!-- Component 1: Low ESR Capacitor Box -->
+  <rect x="235" y="150" width="120" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="295" y="170" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Low ESR</text>
+  <text x="295" y="188" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конденсатор</text>
+  <text x="295" y="206" font-size="12" fill="#1a1a1a" text-anchor="middle">470–1000 мкФ</text>
+  <text x="295" y="226" font-size="12" fill="#6b7280" text-anchor="middle">Поглинає піки</text>
+
+  <!-- Component 2: MOSFET Bridge Box -->
+  <rect x="420" y="150" width="250" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="545" y="170" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Силовий місток (3× MOSFET)</text>
+  <text x="545" y="188" font-size="12" fill="#6b7280" text-anchor="middle">Комутація фаз (U, V, W)</text>
+  <text x="545" y="206" font-size="12" fill="#c0392b" text-anchor="middle">Імпульсні завади</text>
+
+  <!-- Component 3: BEC Box -->
+  <rect x="420" y="255" width="250" height="90" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="545" y="278" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Вбудований BEC (5V / 2–3А)</text>
+  <text x="545" y="298" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Фільтрація виходу (C_out + LC)</text>
+  <text x="545" y="318" font-size="12" fill="#6b7280" text-anchor="middle">Очищене живлення</text>
+
+  <!-- Component 4: ESC MCU Box -->
+  <rect x="420" y="360" width="250" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="545" y="383" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер ESC (MCU)</text>
+  <text x="545" y="403" font-size="12" fill="#1a1a1a" text-anchor="middle">Обробка управляючих сигналів</text>
+  <text x="545" y="423" font-size="12" fill="#27ae60" text-anchor="middle">Окреме сигнальне коло</text>
+
+  <!-- Star GND Info Card -->
+  <rect x="250" y="275" width="115" height="55" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="307" y="295" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вузол «Зірка»</text>
+  <text x="307" y="313" font-size="12" fill="#6b7280" text-anchor="middle">Star GND</text>
+
+  <!-- Star GND Node Graphic at cx=297, cy=395 -->
+  <circle cx="297" cy="395" r="14" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <circle cx="297" cy="395" r="7" fill="#27ae60" stroke="#ffffff" stroke-width="2"/>
+
+  <!-- Internal Lines & Connections -->
+  <!-- Positive Power Rail (+) Red -->
+  <line x1="80" y1="174" x2="220" y2="174" stroke="#c0392b" stroke-width="3.5" marker-end="url(#arr-red)"/>
+  <line x1="220" y1="174" x2="235" y2="174" stroke="#c0392b" stroke-width="3"/>
+  <line x1="355" y1="174" x2="420" y2="174" stroke="#c0392b" stroke-width="3"/>
+  <path d="M 405 174 L 405 275 L 420 275" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Main Battery GND Wire (Dark) -->
+  <line x1="80" y1="444" x2="220" y2="444" stroke="#1a1a1a" stroke-width="3.5"/>
+  <line x1="220" y1="444" x2="297" y2="444" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="297" y1="444" x2="297" y2="395" stroke="#1a1a1a" stroke-width="3" marker-end="url(#arr-dark)"/>
+  <text x="225" y="462" font-size="12" fill="#1a1a1a" text-anchor="start">Головний GND</text>
+
+  <!-- Low ESR Cap GND Line to Star Node -->
+  <path d="M 295 245 L 245 245 L 245 395 L 297 395" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- MOSFET Power GND Line (Red/Dark) -->
+  <path d="M 420 222 L 392 222 L 392 395 L 297 395" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="412" y="216" font-size="12" fill="#c0392b" text-anchor="start">Силовий GND</text>
+
+  <!-- BEC GND Line -->
+  <path d="M 420 330 L 380 330 L 380 395 L 297 395" fill="none" stroke="#6b7280" stroke-width="2"/>
+  <text x="412" y="324" font-size="12" fill="#6b7280" text-anchor="start">Земля BEC</text>
+
+  <!-- MCU Signal GND Line -->
+  <path d="M 420 425 L 370 425 L 370 395 L 297 395" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="5 3"/>
+  <text x="410" y="440" font-size="12" fill="#27ae60" text-anchor="end">Sig GND</text>
+
+  <!-- PANEL 3: Flight Controller -->
+  <rect x="720" y="85" width="210" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 728 85 L 922 85 A 8 8 0 0 1 930 93 L 930 129 L 720 129 L 720 93 A 8 8 0 0 1 728 85 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="825" y="103" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Польотний контролер</text>
+  <text x="825" y="119" font-size="12" fill="#6b7280" text-anchor="middle">(FC / Радіоприймач)</text>
+
+  <rect x="732" y="145" width="186" height="330" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="825" y="173" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ядро FC та давачі</text>
+  <text x="825" y="193" font-size="12" fill="#6b7280" text-anchor="middle">(IMU / Гіроскоп / MCU)</text>
+  <text x="825" y="225" font-size="12" fill="#27ae60" text-anchor="middle">Захищено від</text>
+  <text x="825" y="243" font-size="12" fill="#27ae60" text-anchor="middle">земляних петель</text>
+
+  <!-- Terminals on FC -->
+  <circle cx="732" cy="275" r="4" fill="#2457d6"/>
+  <text x="742" y="279" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">+5V (BEC)</text>
+
+  <circle cx="732" cy="315" r="4" fill="#6b7280"/>
+  <text x="742" y="319" font-size="12" fill="#6b7280" text-anchor="start">GND (BEC)</text>
+
+  <circle cx="732" cy="385" r="4" fill="#2457d6"/>
+  <text x="742" y="389" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">PWM / DShot</text>
+
+  <circle cx="732" cy="425" r="4" fill="#27ae60"/>
+  <text x="742" y="429" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Signal GND</text>
+
+  <!-- Wires ESC <-> FC -->
+  <!-- +5V BEC Output -->
+  <line x1="670" y1="275" x2="732" y2="275" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="701" y="267" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+5V</text>
+
+  <!-- GND BEC Return -->
+  <line x1="670" y1="315" x2="732" y2="315" stroke="#6b7280" stroke-width="2"/>
+  <text x="701" y="331" font-size="12" fill="#6b7280" text-anchor="middle">GND</text>
+
+  <!-- Signal PWM/DShot -->
+  <line x1="732" y1="385" x2="670" y2="385" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="701" y="377" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DShot</text>
+
+  <!-- Signal GND Return -->
+  <line x1="732" y1="425" x2="670" y2="425" stroke="#27ae60" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arr-green)"/>
+  <text x="701" y="441" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Sig GND</text>
+</svg>

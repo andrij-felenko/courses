@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Standard black arrow -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <!-- Up red arrow -->
+    <marker id="arr-up-red" markerWidth="7" markerHeight="7" refX="3.5" refY="1" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,7 L3.5,0 L7,7 Z" fill="#c0392b"/>
+    </marker>
+    <!-- Down red arrow -->
+    <marker id="arr-down-red" markerWidth="7" markerHeight="7" refX="3.5" refY="6" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L3.5,7 L7,0 Z" fill="#c0392b"/>
+    </marker>
+    <!-- Up green arrow -->
+    <marker id="arr-up-green" markerWidth="7" markerHeight="7" refX="3.5" refY="1" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,7 L3.5,0 L7,7 Z" fill="#27ae60"/>
+    </marker>
+    <!-- Down green arrow -->
+    <marker id="arr-down-green" markerWidth="7" markerHeight="7" refX="3.5" refY="6" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L3.5,7 L7,0 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пульсації струму в H-мості: Fast Decay проти Slow Decay</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">У режимі Slow Decay індуктивність розряджається повільніше, що суттєво зменшує амплітуду пульсацій ΔI</text>
+
+  <!-- ================= PANEL 1: FAST DECAY ================= -->
+  <rect x="30" y="75" width="900" height="200" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Panel 1 Header Badge & Notes -->
+  <rect x="45" y="87" width="220" height="26" rx="4" fill="#c0392b"/>
+  <text x="155" y="104" font-size="13" font-weight="bold" fill="white" text-anchor="middle">Fast Decay (Швидке згасання)</text>
+  <text x="915" y="104" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Напруга паузи: −V_CC | Рекуперація в джерело | Велика ΔI_fast</text>
+
+  <!-- PWM Sub-row Labels -->
+  <text x="125" y="135" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">V_OUT (ШІМ):</text>
+  <text x="135" y="124" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">+V_CC</text>
+  <text x="135" y="148" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">−V_CC</text>
+
+  <!-- Alignment vertical dashed lines -->
+  <line x1="140" y1="120" x2="140" y2="235" stroke="#e5e7eb" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="240" y1="120" x2="240" y2="235" stroke="#e5e7eb" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="340" y1="120" x2="340" y2="235" stroke="#e5e7eb" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="440" y1="120" x2="440" y2="235" stroke="#e5e7eb" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="540" y1="120" x2="540" y2="235" stroke="#e5e7eb" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="640" y1="120" x2="640" y2="235" stroke="#e5e7eb" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="740" y1="120" x2="740" y2="235" stroke="#e5e7eb" stroke-dasharray="2 2" stroke-width="1"/>
+
+  <!-- PWM Waveform -->
+  <path d="M 140 120 H 240 V 144 H 340 V 120 H 440 V 144 H 540 V 120 H 640 V 144 H 740" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Current Graph Axes & Gridlines -->
+  <text x="125" y="185" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Струм I(t):</text>
+  <line x1="140" y1="160" x2="140" y2="237" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="140" y1="235" x2="850" y2="235" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <line x1="140" y1="168" x2="740" y2="168" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="140" y1="195" x2="740" y2="195" stroke="#6b7280" stroke-dasharray="4 4" stroke-width="1"/>
+  <line x1="140" y1="222" x2="740" y2="222" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+
+  <text x="135" y="172" font-size="12" fill="#6b7280" text-anchor="end">I_max</text>
+  <text x="135" y="199" font-size="12" fill="#6b7280" text-anchor="end">I_avg</text>
+  <text x="135" y="226" font-size="12" fill="#6b7280" text-anchor="end">I_min</text>
+
+  <!-- Fast Decay Current Curve -->
+  <path d="M 140 222 C 170 180, 210 168, 240 168 C 270 210, 310 222, 340 222 C 370 180, 410 168, 440 168 C 470 210, 510 222, 540 222 C 570 180, 610 168, 640 168 C 670 210, 710 222, 740 222" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Ripple Dimension Arrow & Label -->
+  <line x1="755" y1="168" x2="755" y2="222" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-up-red)" marker-end="url(#arr-down-red)"/>
+  <text x="768" y="199" font-size="12" font-weight="bold" fill="#c0392b">ΔI_fast (велика)</text>
+
+  <!-- Callout Box 1 -->
+  <rect x="765" y="120" width="150" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="840" y="136" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Рекуперація струму</text>
+  <text x="840" y="153" font-size="11" fill="#6b7280" text-anchor="middle">назад у джерело V_CC</text>
+
+  <!-- Time Labels & Dimension Ticks -->
+  <line x1="140" y1="246" x2="240" y2="246" stroke="#6b7280" stroke-width="1"/>
+  <line x1="140" y1="242" x2="140" y2="250" stroke="#6b7280" stroke-width="1"/>
+  <line x1="240" y1="242" x2="240" y2="250" stroke="#6b7280" stroke-width="1"/>
+  <text x="190" y="262" font-size="12" fill="#6b7280" text-anchor="middle">t_ON</text>
+
+  <line x1="240" y1="246" x2="340" y2="246" stroke="#6b7280" stroke-width="1"/>
+  <line x1="340" y1="242" x2="340" y2="250" stroke="#6b7280" stroke-width="1"/>
+  <text x="290" y="262" font-size="12" fill="#6b7280" text-anchor="middle">t_OFF</text>
+
+  <line x1="340" y1="246" x2="540" y2="246" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="540" y1="242" x2="540" y2="250" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="440" y="262" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">T_PWM</text>
+
+  <text x="855" y="239" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Час t</text>
+
+  <!-- ================= PANEL 2: SLOW DECAY ================= -->
+  <rect x="30" y="295" width="900" height="200" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Panel 2 Header Badge & Notes -->
+  <rect x="45" y="307" width="220" height="26" rx="4" fill="#27ae60"/>
+  <text x="155" y="324" font-size="13" font-weight="bold" fill="white" text-anchor="middle">Slow Decay (Повільне згасання)</text>
+  <text x="915" y="324" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Напруга паузи: 0 В | Циркуляція в мості | Мала ΔI_slow</text>
+
+  <!-- PWM Sub-row Labels -->
+  <text x="125" y="355" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">V_OUT (ШІМ):</text>
+  <text x="135" y="344" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">+V_CC</text>
+  <text x="135" y="368" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">0 В</text>
+
+  <!-- Alignment vertical dashed lines -->
+  <line x1="140" y1="340" x2="140" y2="455" stroke="#e5e7eb" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="240" y1="340" x2="240" y2="455" stroke="#e5e7eb" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="340" y1="340" x2="340" y2="455" stroke="#e5e7eb" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="440" y1="340" x2="440" y2="455" stroke="#e5e7eb" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="540" y1="340" x2="540" y2="455" stroke="#e5e7eb" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="640" y1="340" x2="640" y2="455" stroke="#e5e7eb" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="740" y1="340" x2="740" y2="455" stroke="#e5e7eb" stroke-dasharray="2 2" stroke-width="1"/>
+
+  <!-- PWM Waveform -->
+  <path d="M 140 340 H 240 V 364 H 340 V 335 H 440 V 364 H 540 V 340 H 640 V 364 H 740" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Current Graph Axes & Gridlines -->
+  <text x="125" y="405" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Струм I(t):</text>
+  <line x1="140" y1="380" x2="140" y2="457" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="140" y1="455" x2="850" y2="455" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <line x1="140" y1="406" x2="740" y2="406" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="140" y1="415" x2="740" y2="415" stroke="#6b7280" stroke-dasharray="4 4" stroke-width="1"/>
+  <line x1="140" y1="424" x2="740" y2="424" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+
+  <text x="135" y="398" font-size="12" fill="#27ae60" text-anchor="end">I_max</text>
+  <text x="135" y="419" font-size="12" fill="#6b7280" text-anchor="end">I_avg</text>
+  <text x="135" y="440" font-size="12" fill="#27ae60" text-anchor="end">I_min</text>
+
+  <!-- Slow Decay Current Curve -->
+  <path d="M 140 424 C 180 410, 210 407, 240 406 C 280 420, 310 423, 340 424 C 380 410, 410 407, 440 406 C 480 420, 510 423, 540 424 C 580 410, 610 407, 640 406 C 680 420, 710 423, 740 424" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Ripple Dimension Arrow & Label -->
+  <line x1="755" y1="406" x2="755" y2="424" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-up-green)" marker-end="url(#arr-down-green)"/>
+  <text x="768" y="419" font-size="12" font-weight="bold" fill="#27ae60">ΔI_slow (мала)</text>
+
+  <!-- Callout Box 2 -->
+  <rect x="765" y="340" width="150" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="840" y="356" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Циркуляція струму</text>
+  <text x="840" y="373" font-size="11" fill="#6b7280" text-anchor="middle">всередині H-моста</text>
+
+  <!-- Time Labels & Dimension Ticks -->
+  <line x1="140" y1="466" x2="240" y2="466" stroke="#6b7280" stroke-width="1"/>
+  <line x1="140" y1="462" x2="140" y2="470" stroke="#6b7280" stroke-width="1"/>
+  <line x1="240" y1="462" x2="240" y2="470" stroke="#6b7280" stroke-width="1"/>
+  <text x="190" y="482" font-size="12" fill="#6b7280" text-anchor="middle">t_ON</text>
+
+  <line x1="240" y1="466" x2="340" y2="466" stroke="#6b7280" stroke-width="1"/>
+  <line x1="340" y1="462" x2="340" y2="470" stroke="#6b7280" stroke-width="1"/>
+  <text x="290" y="482" font-size="12" fill="#6b7280" text-anchor="middle">t_OFF</text>
+
+  <line x1="340" y1="466" x2="540" y2="466" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="540" y1="462" x2="540" y2="470" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="440" y="482" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">T_PWM</text>
+
+  <text x="855" y="459" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Час t</text>
+</svg>

@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура керування реле ESP-01S через MQTT та Web-інтерфейс</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Паралельна обробка HTTP-запитів і MQTT-повідомлень для керування силовим навантаженням</text>
+
+  <!-- Блок 1A: MQTT Брокер / Home Assistant -->
+  <rect x="40" y="120" width="210" height="130" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="145" y="145" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">MQTT Брокер / HA</text>
+  <text x="52" y="172" font-size="12" fill="#1a1a1a" text-anchor="start">• Topic cmd: home/relay/set</text>
+  <text x="52" y="194" font-size="12" fill="#1a1a1a" text-anchor="start">• Topic state: home/relay/st</text>
+  <text x="52" y="216" font-size="12" fill="#6b7280" text-anchor="start">• Протокол: TCP / MQTT</text>
+  <text x="52" y="238" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="start">(Двосторонній обмін)</text>
+
+  <!-- Блок 1B: HTTP Клієнт / Веб-браузер -->
+  <rect x="40" y="290" width="210" height="130" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="145" y="315" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">HTTP Клієнт / Web-UI</text>
+  <text x="52" y="342" font-size="12" fill="#1a1a1a" text-anchor="start">• Запити: GET / , POST /on</text>
+  <text x="52" y="364" font-size="12" fill="#1a1a1a" text-anchor="start">• Відповідь: HTML / JSON</text>
+  <text x="52" y="386" font-size="12" fill="#6b7280" text-anchor="start">• Мережа: Wi-Fi 802.11</text>
+  <text x="52" y="408" font-size="12" fill="#6b7280" text-anchor="start">(Локальне керування)</text>
+
+  <!-- Блок 2: Контролер ESP-01S -->
+  <rect x="330" y="100" width="310" height="360" rx="10" fill="#f8fafc" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 330,110 A 10,10 0 0 1 340,100 L 630,100 A 10,10 0 0 1 640,110 L 640,136 L 330,136 Z" fill="#2457d6"/>
+  <text x="485" y="123" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">Модуль ESP-01S (ESP8266)</text>
+
+  <!-- Внутрішній сервіс 2A: MQTT Client -->
+  <rect x="340" y="150" width="290" height="75" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="485" y="170" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">MQTT Сервіс (PubSubClient)</text>
+  <text x="485" y="190" font-size="12" fill="#6b7280" text-anchor="middle">Підписка: home/relay/set</text>
+  <text x="485" y="210" font-size="12" fill="#1a1a1a" text-anchor="middle">Публікація: home/relay/st</text>
+
+  <!-- Внутрішній блок 2C: Логіка & EEPROM -->
+  <rect x="340" y="242" width="290" height="60" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="485" y="262" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Ядро керування &amp; EEPROM</text>
+  <text x="485" y="284" font-size="12" fill="#1a1a1a" text-anchor="middle">Збереження стану та логіка GPIO0</text>
+
+  <!-- Внутрішній сервіс 2B: HTTP Web Server -->
+  <rect x="340" y="318" width="290" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="485" y="338" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">HTTP Веб-сервер (Port 80)</text>
+  <text x="485" y="358" font-size="12" fill="#6b7280" text-anchor="middle">Обробка REST API &amp; Web-UI</text>
+  <text x="485" y="378" font-size="12" fill="#1a1a1a" text-anchor="middle">Управління сесіями сокетів</text>
+
+  <!-- Примітка про GPIO0 підтяжку внизу ESP -->
+  <rect x="340" y="405" width="290" height="38" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-dasharray="3,3"/>
+  <text x="485" y="428" font-size="12" fill="#2457d6" text-anchor="middle">GPIO0 підтягнуто до VCC при завантаженні</text>
+
+  <!-- Блок 3A: Модуль реле ESP-01S -->
+  <rect x="710" y="195" width="210" height="130" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="815" y="220" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Модуль реле ESP-01S</text>
+  <text x="722" y="247" font-size="12" fill="#1a1a1a" text-anchor="start">• Ключ на транзисторі Q1</text>
+  <text x="722" y="270" font-size="12" fill="#1a1a1a" text-anchor="start">• Котушка реле (5V DC)</text>
+  <text x="722" y="293" font-size="12" fill="#1a1a1a" text-anchor="start">• Вхід: GPIO0 (Active LOW)</text>
+  <text x="722" y="315" font-size="12" fill="#6b7280" text-anchor="start">• Захисний діод котушки</text>
+
+  <!-- Блок 3B: Силове навантаження -->
+  <rect x="710" y="355" width="210" height="100" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="815" y="378" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Силове навантаження</text>
+  <text x="722" y="403" font-size="12" fill="#1a1a1a" text-anchor="start">• Клеми: NO, COM, NC</text>
+  <text x="722" y="425" font-size="12" fill="#6b7280" text-anchor="start">• Напруга: ~230V AC</text>
+  <text x="722" y="445" font-size="12" fill="#6b7280" text-anchor="start">• Струм: до 10A (2200W)</text>
+
+  <!-- Лінії зв'язку та стрілки -->
+
+  <!-- 1. MQTT -> ESP (Command) -->
+  <line x1="250" y1="175" x2="330" y2="175" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="290" y="165" font-size="12" fill="#2457d6" text-anchor="middle">MQTT Cmd →</text>
+
+  <!-- 2. ESP -> MQTT (State) -->
+  <line x1="330" y1="198" x2="250" y2="198" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="290" y="213" font-size="12" fill="#2457d6" text-anchor="middle">← MQTT State</text>
+
+  <!-- 3. HTTP Client -> ESP Web Server (Request) -->
+  <line x1="250" y1="343" x2="330" y2="343" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="290" y="333" font-size="12" fill="#1a1a1a" text-anchor="middle">HTTP Req →</text>
+
+  <!-- 4. ESP Web Server -> HTTP Client (Response) -->
+  <line x1="330" y1="366" x2="250" y2="366" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="290" y="381" font-size="12" fill="#6b7280" text-anchor="middle">← HTML / UI</text>
+
+  <!-- 5. Внутрішні стрілки ESP до ядра -->
+  <line x1="435" y1="225" x2="435" y2="242" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="427" y="238" font-size="12" fill="#2457d6" text-anchor="end">Команда</text>
+
+  <line x1="535" y1="318" x2="535" y2="302" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="543" y="314" font-size="12" fill="#1a1a1a" text-anchor="start">Керування</text>
+
+  <!-- 6. Сигнал GPIO0 від ESP до Реле -->
+  <line x1="640" y1="272" x2="710" y2="272" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="675" y="258" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">GPIO0</text>
+  <text x="675" y="286" font-size="12" fill="#27ae60" text-anchor="middle">(LOW/HIGH)</text>
+
+  <!-- 7. Реле до Навантаження -->
+  <line x1="815" y1="325" x2="815" y2="355" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="805" y="344" font-size="12" fill="#1a1a1a" text-anchor="end">NO / COM</text>
+</svg>

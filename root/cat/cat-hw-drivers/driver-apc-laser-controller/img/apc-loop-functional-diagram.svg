@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Функціональна схема контуру автоматичного регулювання потужності (APC)</text>
+  <text x="450" y="48" font-size="13" text-anchor="middle" fill="#6b7280">Зворотний зв'язок через фотодіод моніторингу стабілізує вихідну потужність лазера</text>
+
+  <!-- Power Supply Label & Line -->
+  <text x="870" y="48" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Живлення V_CC</text>
+  <path d="M 870,55 L 870,123" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <!-- Panel 1: APC IC Driver -->
+  <rect x="30" y="75" width="580" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="45" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Мікросхема драйвера лазерного діода (APC IC)</text>
+
+  <!-- Enable Input Line & Text -->
+  <path d="M 10,397.5 L 43,397.5" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="25" y="385" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">ENABLE</text>
+
+  <!-- Block 1: V_ref Source -->
+  <rect x="45" y="125" width="130" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="110" y="152" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Джерело V_ref</text>
+  <text x="110" y="174" font-size="12" text-anchor="middle" fill="#6b7280">(Задання P_set)</text>
+
+  <!-- Block 2: Soft-Start & Protection -->
+  <rect x="45" y="360" width="130" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="110" y="385" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Плавний пуск</text>
+  <text x="110" y="405" font-size="12" text-anchor="middle" fill="#6b7280">та захист (Fault)</text>
+
+  <!-- Control Line Soft-Start to V_ref -->
+  <path d="M 110,360 L 110,202" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-gray)"/>
+  <text x="100" y="245" font-size="12" text-anchor="end" fill="#6b7280">Плавна рампа</text>
+
+  <!-- Connection line V_ref to EA (+) -->
+  <path d="M 175,145 L 223,145" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="200" y="136" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">V_ref</text>
+
+  <!-- Block 3: Error Amplifier (EA) -->
+  <rect x="225" y="125" width="115" height="110" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="282.5" y="165" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Підсилювач</text>
+  <text x="282.5" y="187" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">помилки (EA)</text>
+  <text x="237" y="149" font-size="14" font-weight="bold" fill="#2457d6">+</text>
+  <text x="237" y="211" font-size="16" font-weight="bold" fill="#c0392b">-</text>
+
+  <!-- Connection line EA to Current Regulator -->
+  <path d="M 340,165 L 398,165" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="370" y="154" font-size="12" text-anchor="middle" fill="#6b7280">Керування</text>
+
+  <!-- Block 4: Current Regulator -->
+  <rect x="400" y="125" width="135" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="467.5" y="148" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Регулятор струму</text>
+  <text x="467.5" y="168" font-size="12" text-anchor="middle" fill="#1a1a1a">Силовий каскад</text>
+  <text x="467.5" y="188" font-size="12" text-anchor="middle" fill="#6b7280">(Джерело I_LD)</text>
+
+  <!-- Connection inside IC: Current Regulator to Pin LD -->
+  <path d="M 535,162.5 L 553,162.5" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- IC Pin LD -->
+  <rect x="555" y="145" width="40" height="35" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="575" y="167" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">LD</text>
+
+  <!-- Signal I_LD line (from Pin LD to Laser Diode) -->
+  <path d="M 595,162.5 L 678,162.5" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="637.5" y="148" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">I_LD</text>
+  <text x="637.5" y="180" font-size="12" text-anchor="middle" fill="#6b7280">(струм лазера)</text>
+
+  <!-- IC Pin MD -->
+  <rect x="555" y="360" width="40" height="35" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="575" y="382" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">MD</text>
+
+  <!-- Signal I_PD line (from MPD to Pin MD) -->
+  <path d="M 680,377.5 L 597,377.5" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="637.5" y="363" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">I_PD</text>
+  <text x="637.5" y="395" font-size="12" text-anchor="middle" fill="#6b7280">(струм моніторингу)</text>
+
+  <!-- Connection inside IC: Pin MD to Sensor MD -->
+  <path d="M 555,377.5 L 527,377.5" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Block 5: Sensor MD inside IC -->
+  <rect x="380" y="340" width="145" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="452.5" y="362" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Сенсор струму MD</text>
+  <text x="452.5" y="380" font-size="12" text-anchor="middle" fill="#6b7280">Перетворення</text>
+  <text x="452.5" y="398" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">I_PD → V_FB</text>
+
+  <!-- Feedback Line V_FB (from Sensor MD to EA inverting input '-') -->
+  <path d="M 380,377.5 L 195,377.5 L 195,205 L 223,205" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="185" y="280" font-size="12" font-weight="bold" text-anchor="end" fill="#c0392b">V_FB</text>
+  <text x="185" y="296" font-size="12" text-anchor="end" fill="#6b7280">(зворотний зв'язок)</text>
+
+  <!-- Panel 2: Laser Module -->
+  <rect x="660" y="75" width="270" height="390" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="795" y="98" font-size="14" font-weight="bold" text-anchor="middle" fill="#27ae60">Лазерний модуль (LD + MPD)</text>
+
+  <!-- Laser Diode Box -->
+  <rect x="680" y="125" width="190" height="75" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="775" y="148" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">Лазерний діод (LD)</text>
+  <text x="775" y="168" font-size="12" text-anchor="middle" fill="#6b7280">Генерація випромінювання</text>
+  <text x="775" y="188" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Оптична потужність P_opt</text>
+
+  <!-- Output Laser Beam P_opt (Right Arrow) -->
+  <path d="M 870,162.5 L 943,162.5" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="907.5" y="148" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">P_opt</text>
+  <text x="907.5" y="178" font-size="12" text-anchor="middle" fill="#27ae60">(вихід)</text>
+
+  <!-- Optical Feedback Rays to MPD -->
+  <path d="M 705,200 L 705,338" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arr-green)"/>
+  <path d="M 725,200 L 725,338" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arr-green)"/>
+  <path d="M 745,200 L 745,338" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arr-green)"/>
+
+  <!-- Optical Feedback Rays Label -->
+  <text x="755" y="252" font-size="12" font-weight="bold" fill="#27ae60">Оптичний</text>
+  <text x="755" y="270" font-size="12" fill="#6b7280">зворотний зв'язок</text>
+  <text x="755" y="288" font-size="12" font-weight="bold" fill="#27ae60">(P_opt → MPD)</text>
+
+  <!-- Monitor Photodiode Box -->
+  <rect x="680" y="340" width="190" height="75" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="775" y="362" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">Фотодіод моніторингу</text>
+  <text x="775" y="380" font-size="12" text-anchor="middle" fill="#6b7280">(Monitor Photodiode)</text>
+  <text x="775" y="398" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Струм I_PD ∝ P_opt</text>
+
+  <!-- IC Pin SET -->
+  <rect x="432.5" y="435" width="40" height="25" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="452.5" y="452" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">SET</text>
+
+  <!-- Line from Sensor MD to SET Pin -->
+  <path d="M 452.5,415 L 452.5,435" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- External Resistor R_SET -->
+  <path d="M 452.5,460 L 452.5,490" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="437.5" y="490" width="30" height="20" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 452.5,510 L 452.5,525" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- GND line -->
+  <line x1="437.5" y1="525" x2="467.5" y2="525" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="442.5" y1="529" x2="462.5" y2="529" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="447.5" y1="533" x2="457.5" y2="533" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- R_SET Labels -->
+  <text x="480" y="500" font-size="12" font-weight="bold" fill="#1a1a1a">R_SET</text>
+  <text x="480" y="518" font-size="12" fill="#6b7280">(задання оптичної потужності)</text>
+
+</svg>

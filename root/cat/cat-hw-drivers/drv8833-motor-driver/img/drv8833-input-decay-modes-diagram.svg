@@ -1,0 +1,215 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 570" width="960" height="570" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="570" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Логіка керування та режими спадання струму H-моста DRV8833</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Сигнали IN1/IN2 вибирають між активним гальмуванням (Slow Decay) та вільним ходом (Fast Decay)</text>
+
+  <!-- LEFT PANEL: Slow Decay -->
+  <rect x="30" y="70" width="435" height="300" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="70" width="435" height="30" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="247" y="90" font-size="14" font-weight="bold" fill="#1e7e34" text-anchor="middle">Slow Decay — Активне гальмування (IN1=1, IN2=1)</text>
+
+  <!-- Rails Left Panel -->
+  <text x="247" y="116" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">VM (Живлення двигуна)</text>
+  <line x1="90" y1="125" x2="405" y2="125" stroke="#6b7280" stroke-width="2"/>
+
+  <!-- Switches Left Panel -->
+  <!-- HS1 Top Left (OFF) -->
+  <rect x="105" y="145" width="60" height="36" rx="4" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="135" y="167" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">HS1: OFF</text>
+
+  <!-- HS2 Top Right (OFF) -->
+  <rect x="330" y="145" width="60" height="36" rx="4" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="360" y="167" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">HS2: OFF</text>
+
+  <!-- LS1 Bottom Left (ON) -->
+  <rect x="105" y="250" width="60" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="135" y="272" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">LS1: ON</text>
+
+  <!-- LS2 Bottom Right (ON) -->
+  <rect x="330" y="250" width="60" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="360" y="272" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">LS2: ON</text>
+
+  <!-- Wires Left Panel -->
+  <line x1="135" y1="125" x2="135" y2="145" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="360" y1="125" x2="360" y2="145" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="135" y1="181" x2="135" y2="250" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="360" y1="181" x2="360" y2="250" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="135" y1="286" x2="135" y2="310" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="360" y1="286" x2="360" y2="310" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="135" y1="215" x2="225" y2="215" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="269" y1="215" x2="360" y2="215" stroke="#9ca3af" stroke-width="1.5"/>
+
+  <!-- Node Labels Left Panel -->
+  <text x="125" y="210" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">OUT1</text>
+  <text x="370" y="210" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">OUT2</text>
+
+  <!-- Motor Left Panel -->
+  <circle cx="247" cy="215" r="22" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="247" y="220" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">M</text>
+
+  <!-- GND Rail Left Panel -->
+  <line x1="90" y1="310" x2="405" y2="310" stroke="#6b7280" stroke-width="2"/>
+  <text x="247" y="328" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">GND (Спільна шина)</text>
+
+  <!-- Current Path Slow Decay (Green dashed) -->
+  <path d="M 225,215 L 145,215" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="6,3" marker-end="url(#arr-green)"/>
+  <path d="M 135,215 L 135,250" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <path d="M 135,286 L 135,310 L 345,310" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="6,3" marker-end="url(#arr-green)"/>
+  <path d="M 360,310 L 360,286" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <path d="M 360,250 L 360,215 L 269,215" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="6,3" marker-end="url(#arr-green)"/>
+
+  <!-- Summary Box Left Panel -->
+  <rect x="42" y="338" width="411" height="26" rx="4" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="247" y="355" font-size="12" font-weight="bold" fill="#1e7e34" text-anchor="middle">Замкнений контур: струм циркулює через відкриті LS1 та LS2</text>
+
+
+  <!-- RIGHT PANEL: Fast Decay -->
+  <rect x="495" y="70" width="435" height="300" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="495" y="70" width="435" height="30" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="712" y="90" font-size="14" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Fast Decay — Вільний хід / Coast (IN1=0, IN2=0)</text>
+
+  <!-- Rails Right Panel -->
+  <text x="712" y="116" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">VM (Живлення двигуна)</text>
+  <line x1="555" y1="125" x2="870" y2="125" stroke="#6b7280" stroke-width="2"/>
+
+  <!-- Switches Right Panel -->
+  <!-- HS1 Top Left (OFF) -->
+  <rect x="570" y="145" width="60" height="36" rx="4" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="600" y="167" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">HS1: OFF</text>
+
+  <!-- HS2 Top Right (OFF) -->
+  <rect x="795" y="145" width="60" height="36" rx="4" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="825" y="167" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">HS2: OFF</text>
+
+  <!-- LS1 Bottom Left (OFF) -->
+  <rect x="570" y="250" width="60" height="36" rx="4" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="600" y="272" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">LS1: OFF</text>
+
+  <!-- LS2 Bottom Right (OFF) -->
+  <rect x="795" y="250" width="60" height="36" rx="4" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="825" y="272" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">LS2: OFF</text>
+
+  <!-- Wires Right Panel -->
+  <line x1="600" y1="125" x2="600" y2="145" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="825" y1="125" x2="825" y2="145" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="600" y1="181" x2="600" y2="250" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="825" y1="181" x2="825" y2="250" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="600" y1="286" x2="600" y2="310" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="825" y1="286" x2="825" y2="310" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="600" y1="215" x2="690" y2="215" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="734" y1="215" x2="825" y2="215" stroke="#9ca3af" stroke-width="1.5"/>
+
+  <!-- Node Labels Right Panel -->
+  <text x="590" y="210" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">OUT1</text>
+  <text x="835" y="210" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">OUT2</text>
+
+  <!-- Motor Right Panel -->
+  <circle cx="712" cy="215" r="22" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="712" y="220" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">M</text>
+
+  <!-- GND Rail Right Panel -->
+  <line x1="555" y1="310" x2="870" y2="310" stroke="#6b7280" stroke-width="2"/>
+  <text x="712" y="328" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">GND (Спільна шина)</text>
+
+  <!-- Current Path Fast Decay (Blue dashed) -->
+  <path d="M 600,310 L 600,286" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <path d="M 600,250 L 600,215" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="6,3" marker-end="url(#arr-blue)"/>
+  <path d="M 600,215 L 680,215" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="6,3" marker-end="url(#arr-blue)"/>
+  <path d="M 734,215 L 815,215" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="6,3" marker-end="url(#arr-blue)"/>
+  <path d="M 825,215 L 825,181" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <path d="M 825,145 L 825,125" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="6,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Summary Box Right Panel -->
+  <rect x="507" y="338" width="411" height="26" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="712" y="355" font-size="12" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Рекуперація: струм скидається у VM через зворотні діоди MOSFET</text>
+
+
+  <!-- BOTTOM PANEL: Control Logic & Decay Modes Table -->
+  <rect x="30" y="385" width="900" height="170" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="385" width="900" height="28" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="404" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Таблиця станів вхідної логіки DRV8833 та режимів роботи H-моста</text>
+
+  <!-- Table Header Row -->
+  <rect x="45" y="420" width="870" height="20" fill="#d0d7de"/>
+  <text x="80" y="434" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">nSLEEP</text>
+  <text x="142" y="434" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">IN1</text>
+  <text x="197" y="434" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">IN2</text>
+  <text x="255" y="434" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">OUT1</text>
+  <text x="315" y="434" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">OUT2</text>
+  <text x="360" y="434" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Режим H-моста / Спадання струму</text>
+
+  <!-- Row 1: Sleep -->
+  <rect x="45" y="440" width="870" height="20" fill="white"/>
+  <text x="80" y="454" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="142" y="454" font-size="12" fill="#6b7280" text-anchor="middle">X</text>
+  <text x="197" y="454" font-size="12" fill="#6b7280" text-anchor="middle">X</text>
+  <text x="255" y="454" font-size="12" fill="#6b7280" text-anchor="middle">Hi-Z</text>
+  <text x="315" y="454" font-size="12" fill="#6b7280" text-anchor="middle">Hi-Z</text>
+  <text x="360" y="454" font-size="12" fill="#6b7280" text-anchor="start">Сон (Sleep Mode) — знижене споживання, міст знеструмлено</text>
+
+  <!-- Row 2: Fast Decay -->
+  <rect x="45" y="460" width="870" height="20" fill="#eaf0fd"/>
+  <text x="80" y="474" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="142" y="474" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="197" y="474" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="255" y="474" font-size="12" fill="#1a1a1a" text-anchor="middle">Hi-Z</text>
+  <text x="315" y="474" font-size="12" fill="#1a1a1a" text-anchor="middle">Hi-Z</text>
+  <text x="360" y="474" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Fast Decay (Вільний хід / Coast) — рекуперація струму в VM</text>
+
+  <!-- Row 3: Forward -->
+  <rect x="45" y="480" width="870" height="20" fill="white"/>
+  <text x="80" y="494" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="142" y="494" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="197" y="494" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="255" y="494" font-size="12" fill="#1a1a1a" text-anchor="middle">H</text>
+  <text x="315" y="494" font-size="12" fill="#1a1a1a" text-anchor="middle">L</text>
+  <text x="360" y="494" font-size="12" fill="#1a1a1a" text-anchor="start">Прямий хід (Forward) — обертання за годинниковою стрілкою</text>
+
+  <!-- Row 4: Reverse -->
+  <rect x="45" y="500" width="870" height="20" fill="white"/>
+  <text x="80" y="514" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="142" y="514" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="197" y="514" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="255" y="514" font-size="12" fill="#1a1a1a" text-anchor="middle">L</text>
+  <text x="315" y="514" font-size="12" fill="#1a1a1a" text-anchor="middle">H</text>
+  <text x="360" y="514" font-size="12" fill="#1a1a1a" text-anchor="start">Реверс (Reverse) — обертання проти годинникової стрілки</text>
+
+  <!-- Row 5: Slow Decay -->
+  <rect x="45" y="520" width="870" height="25" fill="#e9f7ef"/>
+  <text x="80" y="537" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="142" y="537" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="197" y="537" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="255" y="537" font-size="12" fill="#1a1a1a" text-anchor="middle">L</text>
+  <text x="315" y="537" font-size="12" fill="#1a1a1a" text-anchor="middle">L</text>
+  <text x="360" y="537" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Slow Decay (Гальмування / Brake) — замикання через нижні ключі</text>
+
+  <!-- Table Grid Lines -->
+  <line x1="115" y1="420" x2="115" y2="545" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="170" y1="420" x2="170" y2="545" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="225" y1="420" x2="225" y2="545" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="285" y1="420" x2="285" y2="545" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="345" y1="420" x2="345" y2="545" stroke="#d0d7de" stroke-width="1"/>
+
+  <line x1="45" y1="440" x2="915" y2="440" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="45" y1="460" x2="915" y2="460" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="45" y1="480" x2="915" y2="480" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="45" y1="500" x2="915" y2="500" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="45" y1="520" x2="915" y2="520" stroke="#d0d7de" stroke-width="1"/>
+
+  <rect x="45" y="420" width="870" height="125" fill="none" stroke="#d0d7de" stroke-width="1.5"/>
+</svg>

@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема керування симістором BTA16-600B через оптосимістор MOC3041</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Гальванічна розв'язка безпечно ізолює мікроконтролер від високої напруги мережі 230 В</text>
+
+  <!-- Left Panel: Low-Voltage DC Control Section -->
+  <rect x="25" y="65" width="240" height="290" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <rect x="35" y="75" width="220" height="24" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="145" y="91" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Керування DC (3.3 В / 5 В)</text>
+
+  <!-- Microcontroller Block -->
+  <rect x="38" y="115" width="125" height="225" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="100" y="137" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер</text>
+  <text x="100" y="153" font-size="12" fill="#6b7280" text-anchor="middle">(STM32 / ESP32)</text>
+
+  <!-- MCU GPIO Pin -->
+  <circle cx="163" cy="210" r="4" fill="#2457d6"/>
+  <text x="153" y="214" font-size="12" fill="#1a1a1a" text-anchor="end">GPIO</text>
+
+  <!-- MCU GND Pin -->
+  <circle cx="163" cy="290" r="4" fill="#6b7280"/>
+  <text x="153" y="294" font-size="12" fill="#1a1a1a" text-anchor="end">GND</text>
+
+  <!-- R_LED Resistor -->
+  <line x1="163" y1="210" x2="185" y2="210" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="185" y="202" width="45" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="2"/>
+  <line x1="230" y1="210" x2="260" y2="210" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="207" y="194" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_LED</text>
+  <text x="207" y="232" font-size="12" fill="#6b7280" text-anchor="middle">330 Ом</text>
+
+  <!-- GND Wire from MCU to MOC3041 -->
+  <line x1="163" y1="290" x2="260" y2="290" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Isolation Boundary -->
+  <line x1="295" y1="65" x2="295" y2="355" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,4"/>
+  <rect x="235" y="75" width="120" height="24" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="295" y="91" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Ізоляція ~5 кВ</text>
+
+  <!-- Optocoupler MOC3041 DIP-6 Package -->
+  <rect x="260" y="125" width="70" height="210" fill="#2c3e50" stroke="#1a252f" stroke-width="1.5" rx="6"/>
+  <!-- Notch -->
+  <path d="M 289,125 A 6,6 0 0,0 301,125 Z" fill="#f4f6f8"/>
+
+  <!-- Chip Labels -->
+  <text x="295" y="148" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">MOC3041</text>
+  <text x="295" y="164" font-size="12" fill="#bdc3c7" text-anchor="middle">Zero-Cross</text>
+
+  <!-- Chip Pins -->
+  <!-- Left side pins -->
+  <line x1="250" y1="210" x2="260" y2="210" stroke="#bdc3c7" stroke-width="2"/>
+  <text x="270" y="214" font-size="12" fill="#ecf0f1">1</text>
+  <line x1="250" y1="290" x2="260" y2="290" stroke="#bdc3c7" stroke-width="2"/>
+  <text x="270" y="294" font-size="12" fill="#ecf0f1">2</text>
+  <line x1="250" y1="324" x2="260" y2="324" stroke="#7f8c8d" stroke-width="2"/>
+  <text x="270" y="328" font-size="12" fill="#7f8c8d">3</text>
+
+  <!-- Right side pins -->
+  <line x1="330" y1="210" x2="340" y2="210" stroke="#bdc3c7" stroke-width="2"/>
+  <text x="320" y="214" font-size="12" fill="#ecf0f1" text-anchor="end">6</text>
+  <line x1="330" y1="250" x2="340" y2="250" stroke="#7f8c8d" stroke-width="2"/>
+  <text x="320" y="254" font-size="12" fill="#7f8c8d" text-anchor="end">5</text>
+  <line x1="330" y1="290" x2="340" y2="290" stroke="#bdc3c7" stroke-width="2"/>
+  <text x="320" y="294" font-size="12" fill="#ecf0f1" text-anchor="end">4</text>
+
+  <!-- Internal Schematics inside MOC3041 -->
+  <!-- Internal LED -->
+  <polygon points="274,235 286,235 280,247" fill="#27ae60"/>
+  <line x1="274" y1="247" x2="286" y2="247" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="280" y1="210" x2="280" y2="235" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="280" y1="247" x2="280" y2="290" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Zero Cross block inside chip -->
+  <rect x="290" y="235" width="22" height="24" fill="#eaf0fd" stroke="#2457d6" rx="2"/>
+  <text x="301" y="251" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">ZC</text>
+
+  <!-- Internal Opto-Triac switch -->
+  <line x1="322" y1="210" x2="322" y2="230" stroke="#e74c3c" stroke-width="1.5"/>
+  <polygon points="317,230 327,230 322,242" fill="none" stroke="#e74c3c" stroke-width="1.5"/>
+  <polygon points="317,242 327,242 322,230" fill="none" stroke="#e74c3c" stroke-width="1.5"/>
+  <line x1="322" y1="242" x2="322" y2="290" stroke="#e74c3c" stroke-width="1.5"/>
+
+  <!-- Right Panel: High-Voltage AC Power Section -->
+  <rect x="350" y="65" width="585" height="290" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <rect x="360" y="75" width="270" height="24" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="495" y="91" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Силова мережа 230 В змінного струму</text>
+
+  <!-- Trigger Resistor R_G1 -->
+  <line x1="340" y1="210" x2="365" y2="210" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="365" y="202" width="50" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="2"/>
+  <line x1="415" y1="210" x2="470" y2="210" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="390" y="194" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_G1</text>
+  <text x="390" y="232" font-size="12" fill="#6b7280" text-anchor="middle">360 Ом</text>
+
+  <!-- Gate Drive Line & R_G2 -->
+  <path d="M 340,290 L 440,290 L 440,270 L 458,270" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="430" y="270" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">G (УЕ)</text>
+
+  <!-- Resistor R_G2 (stabilizing Gate to MT1) -->
+  <line x1="440" y1="290" x2="440" y2="298" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="432" y="298" width="16" height="26" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="2"/>
+  <line x1="440" y1="324" x2="440" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="424" y="315" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">R_G2 = 1 кОм</text>
+
+  <!-- Connection dot at Gate/MT1 node -->
+  <circle cx="440" cy="330" r="3" fill="#1a1a1a"/>
+
+  <!-- Triac BTA16-600B Symbol -->
+  <!-- MT2 Line from node (470, 140) down to Triac -->
+  <line x1="470" y1="140" x2="470" y2="242" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Triac Triangles -->
+  <polygon points="458,242 482,242 470,260" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="458,278 482,278 470,260" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Triac Gate lead internal -->
+  <line x1="458" y1="270" x2="467" y2="265" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- MT1 Line down from Triac to node (470, 330) -->
+  <line x1="470" y1="278" x2="470" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- MT2 & MT1 Terminal Labels -->
+  <text x="485" y="232" font-size="12" font-weight="bold" fill="#1a1a1a">MT2</text>
+  <text x="485" y="300" font-size="12" font-weight="bold" fill="#1a1a1a">MT1</text>
+  <circle cx="470" cy="210" r="3" fill="#1a1a1a"/>
+  <circle cx="470" cy="330" r="3" fill="#1a1a1a"/>
+
+  <!-- Triac Information Box -->
+  <text x="515" y="244" font-size="14" font-weight="bold" fill="#1a1a1a">BTA16-600B</text>
+  <text x="515" y="262" font-size="12" fill="#6b7280">16 A / 600 V</text>
+  <rect x="515" y="272" width="135" height="22" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="3"/>
+  <text x="582" y="287" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Ізольований корпус</text>
+
+  <!-- RC Snubber Circuit -->
+  <line x1="470" y1="140" x2="670" y2="140" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="670" cy="140" r="3" fill="#1a1a1a"/>
+  <line x1="670" y1="140" x2="670" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- R_S Snubber Resistor -->
+  <rect x="662" y="175" width="16" height="30" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="2"/>
+  <line x1="670" y1="205" x2="670" y2="240" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- C_S Snubber Capacitor -->
+  <line x1="658" y1="240" x2="682" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="658" y1="246" x2="682" y2="246" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="670" y1="246" x2="670" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="470" y1="330" x2="670" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="670" cy="330" r="3" fill="#1a1a1a"/>
+
+  <!-- Snubber Labels -->
+  <text x="692" y="178" font-size="12" font-weight="bold" fill="#2457d6">RC-демпфер</text>
+  <text x="692" y="198" font-size="12" fill="#1a1a1a">R_S = 39 Ом</text>
+  <text x="692" y="268" font-size="12" fill="#1a1a1a">C_S = 10 нФ</text>
+
+  <!-- Load Box (Навантаження R_L) -->
+  <line x1="670" y1="140" x2="770" y2="140" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="770" y="120" width="130" height="40" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="4"/>
+  <text x="835" y="136" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Навантаження R_L</text>
+  <text x="835" y="152" font-size="12" fill="#6b7280" text-anchor="middle">(до 3.5 кВт / 16 А)</text>
+  <line x1="900" y1="140" x2="930" y2="140" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Neutral line continuation to far right -->
+  <line x1="670" y1="330" x2="930" y2="330" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Mains Terminals (L and N) -->
+  <circle cx="930" cy="140" r="5" fill="#c0392b"/>
+  <text x="920" y="116" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">L (Фаза ~230В)</text>
+
+  <circle cx="930" cy="330" r="5" fill="#2457d6"/>
+  <text x="920" y="350" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">N (Нейтраль)</text>
+
+  <!-- Bottom Explanatory Banner -->
+  <rect x="25" y="370" width="910" height="92" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="40" y="392" font-size="13" font-weight="bold" fill="#2457d6">Схемотехнічні особливості та шлях струму керування затвора (I_GT):</text>
+  <text x="40" y="411" font-size="12" fill="#1a1a1a">1. МК подає HIGH → світлодіод MOC3041 вмикає внутрішній оптосимістор у момент переходу напруги через 0 В (Zero-Cross).</text>
+  <text x="40" y="429" font-size="12" fill="#1a1a1a">2. Шлях струму затвора: L → Навантаження R_L → R_G1 → MOC3041 (6→4) → Затвор (G) BTA16 → MT1 → N (відкриває BTA16).</text>
+  <text x="40" y="447" font-size="12" font-weight="bold" fill="#27ae60">3. Корпус BTA16 ізольований від фланця (2500 В RMS) — не потребує слюдяної прокладки при монтажі на радіатор.</text>
+</svg>

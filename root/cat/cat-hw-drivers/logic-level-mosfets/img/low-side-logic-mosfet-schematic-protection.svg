@@ -1,0 +1,220 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема Low-Side MOSFET-ключа та шляхи струмів керування і захисту</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Резистори R_G та R_GS задають динаміку затвора, а діод VD_D шунтує індуктивний викид самоіндукції</text>
+
+  <!-- PANEL 1: Left Main Schematic -->
+  <rect x="30" y="75" width="420" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="48" y="102" font-size="14" font-weight="bold" fill="#1a1a1a">1. Принципова схема ключа (Low-Side)</text>
+
+  <!-- Explanatory Badges inside Panel 1 -->
+  <rect x="42" y="118" width="124" height="44" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="135" font-size="12" font-weight="bold" fill="#1a1a1a">• R_G: обмежує I_G</text>
+  <text x="48" y="151" font-size="12" fill="#6b7280">  гасить осциляції</text>
+
+  <rect x="42" y="395" width="124" height="44" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="412" font-size="12" font-weight="bold" fill="#1a1a1a">• R_GS: фіксує 0 В</text>
+  <text x="48" y="428" font-size="12" fill="#6b7280">  при High-Z GPIO</text>
+
+  <!-- Power Rail (+V_DD) -->
+  <text x="235" y="116" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">+V_DD (+5V ... +24V)</text>
+  <line x1="235" y1="122" x2="235" y2="145" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="235" cy="122" r="3" fill="#1a1a1a"/>
+
+  <!-- Load (R_load + L_load) -->
+  <!-- R_load -->
+  <rect x="228" y="145" width="14" height="28" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="218" y="163" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">R_load</text>
+  <line x1="235" y1="173" x2="235" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- L_load (Inductor coils) -->
+  <path d="M 235,180 A 6,6 0 0,1 235,192 A 6,6 0 0,1 235,204 A 6,6 0 0,1 235,216" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="218" y="201" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">L_load</text>
+  <line x1="235" y1="216" x2="235" y2="235" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Drain Node N2 -->
+  <circle cx="235" cy="235" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Flyback Diode Branch (Parallel to Load) -->
+  <line x1="235" y1="130" x2="330" y2="130" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="235" cy="130" r="3" fill="#1a1a1a"/>
+  <line x1="330" y1="130" x2="330" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="235" y1="235" x2="330" y2="235" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="330" y1="235" x2="330" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Diode Symbol VD_D -->
+  <polygon points="330,175 320,195 340,195" fill="#1a1a1a"/>
+  <line x1="320" y1="175" x2="340" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="348" y="180" font-size="13" font-weight="bold" fill="#1a1a1a">VD_D</text>
+  <text x="348" y="196" font-size="12" fill="#6b7280">(Flyback діод)</text>
+
+  <!-- MOSFET (N-Channel Logic Level) -->
+  <line x1="235" y1="235" x2="235" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="235" cy="310" r="30" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <!-- Gate Plate -->
+  <line x1="221" y1="292" x2="221" y2="328" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="175" y1="311" x2="221" y2="311" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Channel Segments -->
+  <line x1="229" y1="292" x2="229" y2="302" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="229" y1="306" x2="229" y2="314" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="229" y1="318" x2="229" y2="328" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Drain Connection Pin -->
+  <line x1="235" y1="265" x2="235" y2="297" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="235" y1="297" x2="229" y2="297" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Source Connection Pin -->
+  <line x1="235" y1="355" x2="235" y2="323" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="235" y1="323" x2="229" y2="323" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Substrate / Bulk Connection -->
+  <line x1="229" y1="310" x2="235" y2="310" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="229,310 235,306 235,314" fill="#1a1a1a"/>
+  <line x1="235" y1="310" x2="235" y2="323" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Body Diode (Internal) -->
+  <line x1="247" y1="323" x2="247" y2="297" stroke="#1a1a1a" stroke-width="1"/>
+  <polygon points="247,305 242,315 252,315" fill="#1a1a1a"/>
+  <line x1="242" y1="305" x2="252" y2="305" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="235" y1="297" x2="247" y2="297" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="235" y1="323" x2="247" y2="323" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Pin Labels -->
+  <text x="245" y="262" font-size="12" font-weight="bold" fill="#1a1a1a">D</text>
+  <text x="202" y="304" font-size="12" font-weight="bold" fill="#1a1a1a">G</text>
+  <text x="245" y="358" font-size="12" font-weight="bold" fill="#1a1a1a">S</text>
+
+  <!-- MOSFET Text Info Box (Moved to Right of Symbol) -->
+  <rect x="275" y="280" width="155" height="60" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="283" y="300" font-size="12" font-weight="bold" fill="#2457d6">Logic-Level MOSFET</text>
+  <text x="283" y="316" font-size="12" fill="#6b7280">(IRLZ44N / IRL540N)</text>
+  <text x="283" y="332" font-size="12" fill="#1a1a1a">V_GS(th) = 1.0...2.0 В</text>
+
+  <!-- GPIO Source Block -->
+  <rect x="42" y="293" width="54" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="69" y="308" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">GPIO</text>
+  <text x="69" y="322" font-size="12" fill="#2457d6" text-anchor="middle">3.3V/5V</text>
+  <line x1="96" y1="311" x2="118" y2="311" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Gate Resistor R_G -->
+  <rect x="118" y="304" width="34" height="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="135" y="296" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_G</text>
+  <text x="135" y="331" font-size="12" fill="#6b7280" text-anchor="middle">22..100 Ω</text>
+  <line x1="152" y1="311" x2="175" y2="311" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Node N1 (Gate Node) -->
+  <circle cx="175" cy="311" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Pull-down Resistor R_GS -->
+  <line x1="175" y1="311" x2="175" y2="345" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="168" y="345" width="14" height="35" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="160" y="358" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">R_GS</text>
+  <text x="160" y="374" font-size="12" fill="#6b7280" text-anchor="end">10 kΩ</text>
+  <line x1="175" y1="380" x2="175" y2="435" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Ground Line & Symbol -->
+  <line x1="235" y1="355" x2="235" y2="435" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="175" y1="435" x2="235" y2="435" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="205" y1="435" x2="205" y2="445" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="193" y1="445" x2="217" y2="445" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="198" y1="449" x2="212" y2="449" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="202" y1="453" x2="208" y2="453" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="205" y="472" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND (0 В)</text>
+
+
+  <!-- PANEL 2: Top Right Card - Turn-ON Mode -->
+  <rect x="470" y="75" width="460" height="200" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="488" y="102" font-size="14" font-weight="bold" fill="#2457d6">2. Стан ВВІМКНЕНО (GPIO = HIGH)</text>
+  
+  <rect x="745" y="85" width="170" height="24" rx="4" fill="#eaf0fd"/>
+  <text x="830" y="101" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Прямий струм I_D</text>
+
+  <!-- Diagram inside Top Right Card -->
+  <!-- GPIO HIGH Box -->
+  <rect x="490" y="145" width="50" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="515" y="164" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">HIGH</text>
+
+  <!-- Gate Current Arrow -->
+  <path d="M 540,160 L 585,160" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="562" y="152" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I_G</text>
+
+  <!-- MOSFET ON Symbol -->
+  <line x1="600" y1="135" x2="600" y2="215" stroke="#2457d6" stroke-width="3"/>
+  <text x="612" y="180" font-size="12" font-weight="bold" fill="#2457d6">ON</text>
+
+  <!-- Load Path I_D -->
+  <path d="M 600,120 L 600,230" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arr-blue)"/>
+  <text x="588" y="195" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">I_D</text>
+
+  <!-- Diode VD_D OFF Badge -->
+  <rect x="645" y="145" width="75" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="682" y="164" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">VD_D OFF</text>
+  <text x="682" y="180" font-size="12" fill="#c0392b" text-anchor="middle">Заперечений</text>
+
+  <!-- Card 1 Info List Box -->
+  <rect x="725" y="118" width="195" height="142" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="733" y="138" font-size="12" font-weight="bold" fill="#1a1a1a">• V_GS = 3.3V/5V &gt; V_GS(th)</text>
+  <text x="733" y="158" font-size="12" fill="#1a1a1a">• Канал повністю відкритий</text>
+  <text x="733" y="178" font-size="12" fill="#6b7280">• R_DS(on) мінімальний</text>
+  <text x="733" y="198" font-size="12" fill="#1a1a1a">• Струм I_D тече у GND</text>
+  <text x="733" y="218" font-size="12" fill="#2457d6">• Втрати: P = I_D² · R_DS(on)</text>
+  <text x="733" y="238" font-size="12" fill="#6b7280">• Діод VD_D закритий</text>
+
+
+  <!-- PANEL 3: Bottom Right Card - Turn-OFF / Flyback Mode -->
+  <rect x="470" y="295" width="460" height="200" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="488" y="322" font-size="14" font-weight="bold" fill="#27ae60">3. Стан ВИМКНЕНО (GPIO = LOW)</text>
+
+  <rect x="745" y="305" width="170" height="24" rx="4" fill="#e9f7ef"/>
+  <text x="830" y="321" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Струм гасіння I_flyback</text>
+
+  <!-- Diagram inside Bottom Right Card -->
+  <!-- GPIO LOW Box -->
+  <rect x="490" y="365" width="50" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="515" y="384" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">0V</text>
+
+  <!-- MOSFET OFF Channel Symbol -->
+  <line x1="600" y1="360" x2="600" y2="385" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+  <line x1="600" y1="395" x2="600" y2="420" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="585" y="390" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">OFF</text>
+
+  <!-- Recirculating Flyback Loop -->
+  <path d="M 600,420 L 675,420 L 675,355 L 600,355 Z" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="5,3"/>
+  <path d="M 675,395 L 675,375" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M 645,355 L 620,355" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M 600,375 L 600,395" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="638" y="388" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">I_flyback</text>
+
+  <!-- Diode VD_D ON Badge -->
+  <rect x="645" y="432" width="75" height="44" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="682" y="449" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">VD_D ON</text>
+  <text x="682" y="465" font-size="12" fill="#27ae60" text-anchor="middle">Відкритий</text>
+
+  <!-- Card 2 Info List Box -->
+  <rect x="725" y="338" width="195" height="142" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="733" y="358" font-size="12" font-weight="bold" fill="#c0392b">• V_GS = 0 В &lt; V_GS(th)</text>
+  <text x="733" y="378" font-size="12" fill="#1a1a1a">• L_load генерує -L·di/dt</text>
+  <text x="733" y="398" font-size="12" font-weight="bold" fill="#27ae60">• V_D зростає до V_DD + 0.7В</text>
+  <text x="733" y="418" font-size="12" fill="#1a1a1a">• Струм тече через VD_D</text>
+  <text x="733" y="438" font-size="12" fill="#27ae60">• Енергія ½L·I² розсіюється</text>
+  <text x="733" y="458" font-size="12" fill="#6b7280">• Захист MOSFET від пробою</text>
+</svg>
