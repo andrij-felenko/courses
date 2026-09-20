@@ -35,7 +35,22 @@ const CEIL_X = 4;            // стеля дописування — вчетв
 const FORCE_SHORT = 1 / 3;   // бракує понад третину — аналіз мусить назвати, де дописати
 const BASIC_OVER = 1.5;      // детальна довша за стелю базової в півтора раза → базова обов'язкова
 const KEEP_SHARE = 0.9;      // відповідь, що з'їла більше десятої частини прози, не приймається
-const GROUPS = { 1: 2, 2: 3, 3: 5 };   // груп письма за рівнем, коли каркас їх не дав; 5 на рівні 3 — автор
+/* Груп письма — за наповненням рівня (автор, 14.09): діапазон рівня — від його норми до норми
+   наступного (на найвищому — до стелі), береться середина й ділиться на порцію PART_MAX;
+   стаття рівня 3 — три групи, вставка на 600 слів — одна. Стелю каркас дістає даними, і більше
+   за неї конвеєр не пускає — зайві групи зливає. */
+const maxGroups = (u, level) => {
+  const lv = level >= 1 && level <= 3 ? level : 2;
+  const lo = LOC.size("", u.type, lv).need;
+  const hi = lv < 3 ? LOC.size("", u.type, lv + 1).need : LOC.size("", u.type, lv).ceiling;
+  return Math.max(1, Math.ceil((lo + Math.max(lo, hi)) / 2 / PART_MAX));
+};
+/** Не більше стелі: зайві групи зливаються з попередньою, порядок розділів той самий. */
+function capGroups(groups, max) {
+  const out = groups.map((g) => [...g]);
+  while (out.length > max) { const last = out.pop(); out[out.length - 1].push(...last); }
+  return out;
+}
 const IMP = { "висока": 3, "середня": 2, "низька": 1 };
 /* Фігур — за обсягом (автор, 11.09): одна на 750 слів статті, API — одна на 500. У каркасі
    обсяг — норма типу за рівнем, у письмі — вже написане. Без міри каталог дістав 118 SVG на
@@ -50,7 +65,7 @@ const capFigs = (figs, cap) => (figs || []).slice(0, Math.max(0, cap));
 const SHORT_OK = 0.85;       // менше 85 % норми — дописуємо; інакше коротше — добре
 const OVER_X = 1.25;         // понад норму на чверть — стискаємо до норми
 /* Стелі автора (14.09), яких агентові не кажуть — перелік іде за важливістю, решту ріжемо самі. */
-const PART_MAX = 1500;            // слів на одну порцію письма — не більше
+const PART_MAX = 2500;            // слів на одну порцію письма — не більше (автор, 14.09: було 1500)
 const MAX_NEW_TOPICS = 7;         // нових тем на одиницю
 const MAX_INSERTS_PER_TYPE = 3;   // вставок на кожен тип
 const MAX_ITEMS_PER_SECTION = 3;  // абзаців дописування на розділ за коло
@@ -161,15 +176,20 @@ function digestText(parts) {
 
 /* Рядок плану («6 | важливість: висока | …») у ТЕКСТ повертають і письмо, і стиснення; у файлі
    він ставав абзацом, а заголовок під ним — другим таким самим H2. Розбір його не бере. */
-const cleanText = (t) => String(t || "").replace(/^\d+\s*\|\s*(?:[^|\n]*\|\s*)?(?:важливість\s*:\s*)?(?:висока|середня|низька)\s*\|[^\n]*\n?/gim, "");
+const cleanText = (t) => String(t || "").replace(/^\d+\s*\|\s*(?:[^|\n]*\|\s*)?(?:важливість\s*:\s*)?(?:висока|середня|низька)\s*\|[^\n]*\n?/gim, "")
+  /* Рядок плану їде письму як «1 | Назва | важливість | ціль», і писар ставив у H2 «1 | Назва»
+     (612 заголовків у 156 файлах за тиждень, 20.09) — номер із рискою із заголовка знімаємо. */
+  .replace(/^(#{2,3}\s+)\d+\s*\|\s*(?=\S)/gm, "$1");
 
 /** Норми обсягу типу за рівнем і міра фігур — каркасові, щоб рівень обирали з числом перед очима. */
 function normsText(u) {
   const b = LOC.BANDS[u.type === "article" ? "detail" : u.type] || LOC.BANDS.detail;
   const per = u.type === "api" ? FIG_PER.api : FIG_PER.default;
-  if (u.type === "basic") return `до ${b[0]} слів`;
+  if (u.type === "basic") return `до ${b[0]} слів; груп письма — ${maxGroups(u, 1)}`;
+  const g = [1, 2, 3].map((l) => maxGroups(u, l));
   return `рівень 1 — до ${b[0]} слів, 2 — до ${b[1]}, 3 — до ${b[2]}; фігур — одна на ${per} слів: ` +
-    `${Math.floor(b[0] / per)}, ${Math.floor(b[1] / per)} і ${Math.floor(b[2] / per)} відповідно`;
+    `${Math.floor(b[0] / per)}, ${Math.floor(b[1] / per)} і ${Math.floor(b[2] / per)} відповідно; ` +
+    `груп письма — не більше ${g[0]}, ${g[1]} і ${g[2]} відповідно`;
 }
 
 /** Фігура базової з каркаса: ім'я з другої колонки чи перше слово опису, завжди під `img/`. */
@@ -222,13 +242,33 @@ const CTRL = /[\x00-\x08\x0b\x0c\x0e-\x1f]/;
  * taurus — бик»): аналіз їх фактами не вважає, а вигадані корені трапляються.
  */
 function etymologyLines(text) {
-  const prose = String(text || "").replace(/```[\s\S]*?```/g, "");
+  /* ⛔ ЛИШЕ ПРОЗОВІ АБЗАЦИ І ЦІЛІ РЕЧЕННЯ (15.09). Доти текст зшивався в один рядок і різався
+     за крапкою: (1) рядки `:::tabs`/`:::code` ставали частиною «речення», агент вертав його в
+     ЗАМІНАХ, і розбір узяв за «старе» один символ «:» — заміна переписала кожну двокрапку
+     статті (progarch/port-smelling-of-storage, дві одиниці); (2) речення обривалось на «(англ.»,
+     агент вертав ціле, заміна ставила його на місце обрізка, і хвіст оригіналу лишався вдруге
+     (28 одиниць). Тому: абзаци без директив, заголовків, фігур, таблиць і передумов; крапка
+     після скорочення мови не кінчає речення. */
   const out = [];
-  for (const s of prose.replace(/\n+/g, " ").split(/(?<=[.!?])\s+/)) {
-    if (/\((?:від\s+)?(?:лат|латин|грец|давньогрец|англ|нім|франц|фр\.|італ|ісп|порт|голл|нідерл|швед|дан|норв|пол|чес|санскр|араб|перс|тур|япон|кит|укр|праслов|старослов)/i.test(s) && s.length < 400)
-      out.push(s.trim());
+  const prose = String(text || "").replace(/```[\s\S]*?```/g, "\n\n").replace(/<preknowlist>[\s\S]*?<\/preknowlist>/g, "\n\n");
+  for (const para of prose.split(/\n\s*\n/)) {
+    const p = para.split("\n").filter((l) => !/^\s*(:::|!\[|\||#)/.test(l)).join(" ").trim();
+    if (!p) continue;
+    for (const s of sentencesOf(p))
+      if (/\((?:від\s+)?(?:лат|латин|грец|давньогрец|англ|нім|франц|фр\.|італ|ісп|порт|голл|нідерл|швед|дан|норв|пол|чес|санскр|араб|перс|тур|япон|кит|укр|праслов|старослов)/i.test(s) && s.length < 400)
+        out.push(s.trim());
   }
   return [...new Set(out)];
+}
+/** Скорочення, після крапки яких речення триває: мови-джерела, «р.», «ст.», «див.», «т. зв.». */
+const ABBR_END = /(?:^|[\s(«"'])(?:від\s+)?(?:лат|латин|грец|давньогрец|англ|давньоангл|середньоангл|нім|франц|фр|італ|ісп|порт|голл|нідерл|швед|дан|норв|пол|чес|санскр|араб|перс|тур|япон|кит|укр|праслов|старослов|давньоскан|скан|р|рр|ст|див|напр|тис|млн|млрд|зв|п|д)\.$/i;
+function sentencesOf(para) {
+  const out = [];
+  for (const s of para.split(/(?<=[.!?])\s+/)) {
+    if (out.length && ABBR_END.test(out[out.length - 1])) out[out.length - 1] += " " + s;
+    else out.push(s);
+  }
+  return out;
 }
 
 /** Оновити оцінки розділу після дописування чи стиснення — старі рядки про нього геть. */
@@ -293,9 +333,9 @@ function offline(parts) {
 }
 
 /** Групи письма, коли каркас їх не дав: рівномірно, кількістю за рівнем. */
-function groupsFor(level, secs) {
+function groupsFor(u, level, secs) {
   const n = secs.length;
-  const g = Math.max(1, Math.min(n, GROUPS[level] || GROUPS[2]));
+  const g = Math.max(1, Math.min(n, maxGroups(u, level)));
   const out = [];
   for (let i = 0; i < g; i++) out.push(secs.slice(Math.floor(i * n / g), Math.floor((i + 1) * n / g)).map((s) => s.n));
   return out.filter((x) => x.length);
@@ -355,20 +395,34 @@ const formOf = (k, x) => ((k && k.insertForms) || []).find((f) => f.key === inse
 const fullInserts = (st, k) => ((st && st.inserts) || []).filter((x) => { const f = formOf(k, x); return !f || f.mode !== "short"; });
 const shortInserts = (st, k) => ((st && st.inserts) || []).map((x) => ({ x, f: formOf(k, x) }))
   .filter(({ f }) => f && f.mode === "short").map(({ x, f }) => ({ ...x, section: f.section }));
-/** Одиниці повних вставок. Назву дав етап 2 — вона стає заголовком; без назви — назва теми. */
-const insertUnitsOf = (u, inserts) => (inserts || []).map((x) => ({
-  ...LOC.unitOf(u.book, u.slug, x.insert, "", insertKey(x)), ...(x.title ? { title: x.title } : {}), about: x.about, parent: u.id,
-}));
+/** Одиниці повних вставок. Назву дав етап 2 — вона стає заголовком. Без назви (відповідь у
+    старій формі «ім'я | опис») — НЕ назва теми: так усі вставки теми діставали той самий H1
+    «<тема>», хоч усередині про різне (progarch/scale-of-care, 15.09), — а перше речення опису. */
+const titleOfAbout = (about) => {
+  const t = firstSentence(about).replace(/[.!?]+$/, "").trim();
+  if (t.length <= 90) return t;
+  const head = t.slice(0, 90);
+  const at = Math.max(head.lastIndexOf(", "), head.lastIndexOf(" — "), head.lastIndexOf(" ("));
+  return (at > 30 ? head.slice(0, at) : head.slice(0, head.lastIndexOf(" "))).trim();
+};
+const insertUnitsOf = (u, inserts) => (inserts || []).map((x) => {
+  const title = x.title || titleOfAbout(x.about);
+  return { ...LOC.unitOf(u.book, u.slug, x.insert, "", insertKey(x)), ...(title ? { title } : {}), about: x.about, parent: u.id };
+});
 
-/** Що письмо має інтегрувати: вставки з адресами, короткі — абзацом, фігури без місця, директиви на код. */
+/** Перше речення опису — письму досить назви й речення, повна ціль іде тому, хто пише вставку. */
+const firstSentence = (s) => (String(s || "").trim().match(/^[^.!?]*[.!?]/) || [String(s || "").trim()])[0].trim();
+
+/** Що письмо має інтегрувати: вставки з адресами, короткі — абзацом, фігури без місця, директиви на код.
+    По рядку на кожну, назва й перше речення (автор, 14.09): повні описи важили 20 КБ у кожній порції. */
 function integrateList(u, st, k, figs, used, code) {
   const rows = [];
   for (const x of fullInserts(st, k))
-    rows.push(`вставка ${insertKey(x)}${x.title ? ` «${x.title}»` : ""} — ${x.about}\n  лінк рівно такий: root:${u.book}/${u.slug}/${insertKey(x)}.md`);
+    rows.push(`вставка ${insertKey(x)}${x.title ? ` «${x.title}»` : ""} — ${firstSentence(x.about)}\n  лінк рівно такий: root:${u.book}/${u.slug}/${insertKey(x)}.md`);
   for (const x of shortInserts(st, k))
     rows.push(`коротка вставка${x.title ? ` «${x.title}»` : ""} — ${x.about}\n  абзац у тексті${x.section ? ` розділу ${x.section}` : ""}: без файла й без лінка`);
   for (const f of figs || []) if (!used.has(f.file))
-    rows.push(`фігура — ${f.what}\n  рядок: ![{що показано і що з неї видно}](${f.file}) — шлях рівно цей, у дужках твої слова`);
+    rows.push(`фігура — ${firstSentence(f.what)}\n  рядок: ![{що показано і що з неї видно}](${f.file}) — шлях рівно цей, у дужках твої слова`);
   for (const c of code || []) {
     const files = LOC.codeFiles(u, c.lang);
     if (files.length) rows.push(`код ${c.lang} — ${c.what}\n${files.map((f) => `  :::code ${f}`).join("\n")}`);
@@ -444,7 +498,7 @@ async function algorithm(unit, ctx, o = {}) {
   if (!ctx.get("karkas")) {
     const res = await ctx.call("каркас", () => ask(P.karkas(u, {
       goal: goal.text, passed, detailed, known: LOC.linkable(u), norms: normsText(u),
-      inserts: st.inserts.map((x) => `${insertKey(x)}${x.title ? ` «${x.title}»` : ""}: ${x.about}`).join("\n"),
+      inserts: st.inserts.map((x) => `${insertKey(x)}${x.title ? ` «${x.title}»` : ""}: ${firstSentence(x.about)}`).join("\n"),
     }), "каркас"));
     const b = R.blocks(res);
     const secs = R.sections(b["РОЗДІЛИ"] || b["КРОКИ"] || b["ПОДІЇ"] || "");
@@ -456,7 +510,7 @@ async function algorithm(unit, ctx, o = {}) {
     const k = {
       level, sections: secs, depth: b["ГЛИБИНА"] || "",
       /* Групи мають бути; не дав каркас — ділимо самі, кількістю за рівнем. */
-      groups: groups.length ? groups : groupsFor(level, secs),
+      groups: groups.length ? capGroups(groups, maxGroups(u, level)) : groupsFor(u, level, secs),
       /* Передумови — усім типам, і базовій (автор, 07.09). */
       preknow: R.preknow(b["ПЕРЕДУМОВИ"] || ""),
       /* Базова бере фігури з детальної — готові файли; малювати їй нічого. */
@@ -591,7 +645,8 @@ async function algorithm(unit, ctx, o = {}) {
               how: kind === "deepen" ? "поглибити цей абзац — повернути його ж, розгорнутий тим, що названо"
                 : "новий абзац після цього — повернути лише новий абзац, без сусідів",
               add: `${t.level} | ${it.what}`, theses: thesesText(parts, t.section),
-              integrate: integrateList(u, st, k, allFigs(k), usedFigs(parts), k.code),
+              /* Абзацу список інтеграції не потрібен (автор, 14.09): він важив 20 КБ у кожному з 60 запитів. */
+              integrate: "",
             }), label));
             const para = cleanText(need(res, ["АБЗАЦ"], "дописування")["АБЗАЦ"]).trim();
             if (!para) continue;
@@ -690,13 +745,21 @@ async function algorithm(unit, ctx, o = {}) {
       /* Вердикт на кожне речення (14.09): без нього перевірка була словом. */
       checked = R.verdicts(b["ПЕРЕВІРКА"] || "");
     }
-    let applied = 0;
-    for (const p of parts) for (const r of reps)
-      if (p.text.includes(r.from)) { p.text = p.text.split(r.from).join(r.to); applied++; }
+    /* ⛔ ЗАМІНА — ЛИШЕ ЦІЛОГО РЕЧЕННЯ (15.09). split/join міняє кожне входження, і для цілого
+       речення це правильно; шкодили уламки: «старе» = «:» переписало кожну двокрапку статті
+       разом із :::tabs і кодом, а обрізок на «(англ.» лишав хвіст оригіналу вдруге. Тож
+       коротке, не завершене як речення чи обірване на скороченні мови — не міняємо, рахуємо. */
+    let applied = 0, skipped = 0;
+    for (const r of reps) {
+      if (r.from.length < 20 || !/[.!?…»")]$/.test(r.from) || ABBR_END.test(r.from) || r.to.length > r.from.length * 2 + 80) { skipped++; continue; }
+      let hit = false;
+      for (const p of parts) if (p.text.includes(r.from)) { p.text = p.text.split(r.from).join(r.to); hit = true; }
+      if (hit) applied++; else skipped++;
+    }
     ctx.set("sections", parts);
     const count = (v) => checked.filter((x) => x.verdict === v).length;
     ctx.set("facts", { asked: lines.length, checked: checked.length, unchecked: Math.max(0, lines.length - checked.length),
-      exact: count("точне"), wrong: count("неточне"), unknown: count("невідомо"), returned: reps.length, applied });
+      exact: count("точне"), wrong: count("неточне"), unknown: count("невідомо"), returned: reps.length, applied, skipped });
   }
 
   /* ── 6 · РОЗСТАВЛЕННЯ · фігури й лінки без місця — один запит (автор, 14.09) ─── */
@@ -1129,5 +1192,5 @@ async function codeAlgorithm(u, ctx, o) {
 
 module.exports = {
   algorithm, finishBatch, codeAlgorithm, codeUnitsOf, figAlgorithm, figUnitsOf, figId, plan, offline, groupsFor,
-  MAX_EXTEND, MAX_COMPRESS, MAX_REWRITE, MAX_FIG_ROUNDS, PASS_SCORE, MAX_SCORE, FLOOR, CEIL_X, GROUPS,
+  MAX_EXTEND, MAX_COMPRESS, MAX_REWRITE, MAX_FIG_ROUNDS, PASS_SCORE, MAX_SCORE, FLOOR, CEIL_X, PART_MAX, maxGroups, capGroups,
 };

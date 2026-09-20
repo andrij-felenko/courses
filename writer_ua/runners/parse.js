@@ -270,11 +270,17 @@ function verdicts(s) {
   }).filter(Boolean);
 }
 
-/** `старе речення :: нове речення` → {from, to}. */
+/**
+ * `старе речення :: нове речення` → {from, to}. Розділювач — « :: » із пробілами, як у
+ * контракті `facts-check.md`. Голе «::» буває в самому реченні (`std::move`, `:::tabs`), і
+ * ледачий розбір за ним брав за «старе» один символ «:» (15.09).
+ */
 function replacements(s) {
   return lines(s).map((l) => {
-    const m = /^([\s\S]+?)\s*::\s*([\s\S]+)$/.exec(l);
-    return m && m[1].trim() && m[2].trim() ? { from: m[1].trim(), to: m[2].trim() } : null;
+    const i = l.indexOf(" :: ");
+    if (i < 0) return null;
+    const from = l.slice(0, i).trim(), to = l.slice(i + 4).trim();
+    return from && to ? { from, to } : null;
   }).filter(Boolean);
 }
 

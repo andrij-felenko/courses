@@ -115,6 +115,12 @@ async function main(argv) {
   }
   const ask = loadAsk(o.ask);
 
+  /* Хеш — тут, а не в оркестраторі, щоб надрукувати його першим рядком: після збою батч
+     піднімають тим самим хешем, і ведучий має бачити команду ще до першого запиту. */
+  const runId = o.id === undefined ? O.newId() : String(o.id);
+  console.log(`батч ${runId} · тека inwork/${runId}` + (o.id === undefined ? "" : " · піднято") +
+    `\nпідняти після збою: node writer_ua/runners/start.js --id ${runId}${o.ask ? ` --ask ${o.ask}` : ""}\n`);
+
   /* Перше, що бачить ведучий у терміналі, — порядок, за яким він працює. */
   console.log("[ПОРЯДОК] Хто веде цей батч, робить рівно те, що каже README.md репо, розділ «Хто веде батч — робить рівно це». " +
     "Виконується повністю, без винятків: на кожен [ЗАПИТ] окремий субагент, який виконує завдання так, як написано; " +
@@ -135,7 +141,7 @@ async function main(argv) {
   };
 
   const report = await O.run({
-    id: o.id, units,
+    id: runId, units,
     active: Number(o.active) || 8,
     stagger: o.stagger === undefined ? 2000 : Number(o.stagger),
     /* Стеля НОВИХ одиниць прогону: тема з фігурами на кожен розділ дає їх до 35, тож

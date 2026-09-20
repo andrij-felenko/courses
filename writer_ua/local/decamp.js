@@ -57,20 +57,24 @@ function plan(file, { min = TXT.DECAMP } = {}) {
   const used = new Set();
   let i = 0, n = 0;
   while (i < lines.length) {
-    const open = /^\s*```([A-Za-z0-9+#._-]+)\s*$/.exec(lines[i]);
+    /* Мітка буває «мова|платформа» (c|esp-idf): без «|» у класі такі огорожі не виносились зовсім. */
+    const open = /^\s*```([A-Za-z0-9+#._|-]+)\s*$/.exec(lines[i]);
     if (!open) { i++; continue; }
     let j = i + 1;
     while (j < lines.length && !/^\s*```\s*$/.test(lines[j])) j++;
     const body = lines.slice(i + 1, j).join("\n");
-    const tag = TXT.platformOf(open[1]) || open[1].toLowerCase();   // мітка — платформа, коли вона є
+    const plat = TXT.platformOf(open[1]).replace(/[^a-z0-9]+/g, "-");
+    const tag = plat || open[1].toLowerCase();   // мітка — платформа, коли вона є
     const dir = TXT.LANGS[TXT.baseLang(open[1])];
     if (dir && j - i - 1 >= min) {
       const name = nameOf(body, ++n);
       /* ⛔ ОДНЕ ІМ'Я — ОДИН ФАЙЛ. Три блоки з `st7789_hw_reset` для stm32 / esp-idf / arduino
          давали одне ім'я: останній затирав попередні, а в тексті стояли три однакові
          директиви. Збіг — додаємо мітку мови з огорожі, далі номер. */
-      const base = `${carrier}/${dir}/${name}`, ext = EXT[dir] || dir;
-      const mark = tag.replace(/[^a-z0-9]+/g, "-") !== dir ? tag.replace(/[^a-z0-9]+/g, "-") : "";
+      /* Платформа — окремим рівнем під мовою (code-rules.md): <носій>/c/esp-idf/…, тож рушій
+         підпише вкладку платформою, а суфікс-мітка імені їй уже не потрібен. */
+      const base = `${carrier}/${dir}${plat ? "/" + plat : ""}/${name}`, ext = EXT[dir] || dir;
+      const mark = !plat && tag.replace(/[^a-z0-9]+/g, "-") !== dir ? tag.replace(/[^a-z0-9]+/g, "-") : "";
       let rel = `${base}.${ext}`;
       if (used.has(rel) && mark) rel = `${base}-${mark}.${ext}`;
       for (let k = 2; used.has(rel); k++) rel = `${base}${mark ? "-" + mark : ""}-${k}.${ext}`;
