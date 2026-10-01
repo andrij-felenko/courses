@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 510" width="960" height="510" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="510" fill="white"/>
+
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Header -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Еволюція архітектури DAPLink: від v1 (HID) до v2 (Bulk &amp; WebUSB)</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Перехід на WinUSB Bulk-трансфери підвищив швидкість у 25+ разів та додав прямий доступ через WebUSB</text>
+
+  <!-- Panel 1: DAPLink v1 Architecture -->
+  <rect x="25" y="70" width="445" height="425" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="247" y="94" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">DAPLink v1 — Стек CMSIS-DAP v1 (HID)</text>
+  <text x="247" y="112" text-anchor="middle" font-size="12" fill="#6b7280">Обмежена швидкість HID-переривань (Legacy)</text>
+
+  <!-- Host Software Block v1 -->
+  <rect x="45" y="128" width="405" height="46" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="247" y="146" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Класичне ПЗ зневадження</text>
+  <text x="247" y="163" text-anchor="middle" font-size="12" fill="#6b7280">OpenOCD / Keil MDK / GDB Server</text>
+
+  <line x1="247" y1="174" x2="247" y2="194" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- OS Driver Block v1 -->
+  <rect x="45" y="195" width="405" height="48" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="247" y="213" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Стандартний USB HID Драйвер</text>
+  <text x="247" y="230" text-anchor="middle" font-size="12" fill="#6b7280">Опитування кадру (1 мс) • Без додаткових драйверів</text>
+
+  <line x1="247" y1="243" x2="247" y2="263" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- USB Transport Block v1 -->
+  <rect x="45" y="264" width="405" height="60" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="247" y="282" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Interrupt Endpoints (HID Packets)</text>
+
+  <rect x="60" y="295" width="115" height="20" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="117" y="309" text-anchor="middle" font-size="12" fill="#1a1a1a">64 байти/пакет</text>
+
+  <rect x="190" y="295" width="115" height="20" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="247" y="309" text-anchor="middle" font-size="12" fill="#1a1a1a">Частота 1 кГц</text>
+
+  <rect x="320" y="295" width="115" height="20" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="377" y="309" text-anchor="middle" font-size="12" fill="#c0392b">До 64 кБ/с</text>
+
+  <line x1="247" y1="324" x2="247" y2="344" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- DAPLink Firmware v1 Block -->
+  <rect x="45" y="345" width="405" height="85" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="364" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Інтерфейси прошивки DAPLink v1</text>
+
+  <rect x="55" y="375" width="115" height="45" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="112" y="393" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">CMSIS-DAP</text>
+  <text x="112" y="409" text-anchor="middle" font-size="12" fill="#6b7280">(HID Debug)</text>
+
+  <rect x="190" y="375" width="115" height="45" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="393" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">MSC (Disk)</text>
+  <text x="247" y="409" text-anchor="middle" font-size="12" fill="#6b7280">(Drag-and-Drop)</text>
+
+  <rect x="325" y="375" width="115" height="45" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="382" y="393" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">CDC VCP</text>
+  <text x="382" y="409" text-anchor="middle" font-size="12" fill="#6b7280">(COM-порт)</text>
+
+  <!-- v1 Status Banner -->
+  <rect x="45" y="440" width="405" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247" y="457" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Обмеження: Низька швидкість зневадження</text>
+  <text x="247" y="473" text-anchor="middle" font-size="12" fill="#1a1a1a">Потрібні спеціальні локальні утиліти для запису</text>
+
+
+  <!-- Panel 2: DAPLink v2 Architecture -->
+  <rect x="490" y="70" width="445" height="425" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712" y="94" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">DAPLink v2 — Стек CMSIS-DAP v2 (Bulk &amp; WebUSB)</text>
+  <text x="712" y="112" text-anchor="middle" font-size="12" fill="#6b7280">Високошвидкісні Bulk-трансфери та прошивка з браузера</text>
+
+  <!-- Host Software Block v2 -->
+  <rect x="510" y="128" width="405" height="46" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="146" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Сучасне ПЗ + Веб-додатки</text>
+  <text x="712" y="163" text-anchor="middle" font-size="12" fill="#2457d6">WebUSB (Chrome) / OpenOCD / PyOCD</text>
+
+  <line x1="712" y1="174" x2="712" y2="194" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- OS Driver Block v2 -->
+  <rect x="510" y="195" width="405" height="48" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="213" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">WinUSB / libusb (Бездрайверний доступ)</text>
+  <text x="712" y="230" text-anchor="middle" font-size="12" fill="#6b7280">Автоматична енумерація WCID • Прямий доступ з Web</text>
+
+  <line x1="712" y1="243" x2="712" y2="263" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- USB Transport Block v2 -->
+  <rect x="510" y="264" width="405" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="712" y="282" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Bulk Endpoints (High-Speed Packets)</text>
+
+  <rect x="525" y="295" width="115" height="20" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="582" y="309" text-anchor="middle" font-size="12" fill="#1a1a1a">512 байт/пакет</text>
+
+  <rect x="655" y="295" width="115" height="20" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="712" y="309" text-anchor="middle" font-size="12" fill="#1a1a1a">Прямий потік</text>
+
+  <rect x="785" y="295" width="115" height="20" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="842" y="309" text-anchor="middle" font-size="12" fill="#27ae60">&gt; 1.5 МБ/с</text>
+
+  <line x1="712" y1="324" x2="712" y2="344" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- DAPLink Firmware v2 Block -->
+  <rect x="510" y="345" width="405" height="85" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712" y="364" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Інтерфейси прошивки DAPLink v2</text>
+
+  <rect x="520" y="375" width="115" height="45" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="577" y="393" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">WinUSB Bulk</text>
+  <text x="577" y="409" text-anchor="middle" font-size="12" fill="#6b7280">(CMSIS-DAP v2)</text>
+
+  <rect x="655" y="375" width="115" height="45" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="393" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">WebUSB</text>
+  <text x="712" y="409" text-anchor="middle" font-size="12" fill="#6b7280">(URL Descriptor)</text>
+
+  <rect x="790" y="375" width="115" height="45" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="847" y="393" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">CDC VCP</text>
+  <text x="847" y="409" text-anchor="middle" font-size="12" fill="#6b7280">(High-Speed)</text>
+
+  <!-- v2 Status Banner -->
+  <rect x="510" y="440" width="405" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="457" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Переваги: У 25+ разів швидше за v1</text>
+  <text x="712" y="473" text-anchor="middle" font-size="12" fill="#1a1a1a">Прошивка безпосередньо з веб-сторінки без утиліт</text>
+</svg>

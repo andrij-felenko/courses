@@ -1,0 +1,166 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема автоматичного скидання MCU на двох транзисторах</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Формування сигналів RESET та GPIO0 від ліній DTR і RTS CH340 для автоматичної прошивки</text>
+
+  <!-- Left Block: CH340 USB-UART -->
+  <rect x="30" y="85" width="170" height="300" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <path d="M30,93 a8,8 0 0 1 8,-8 h154 a8,8 0 0 1 8,8 v30 h-170 z" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="115" y="110" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">CH340 (USB-UART)</text>
+  <text x="115" y="140" font-size="12" fill="#6b7280" text-anchor="middle">Мікросхема-міст</text>
+
+  <!-- CH340 Pins & Stubs -->
+  <text x="185" y="184" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">DTR</text>
+  <line x1="188" y1="180" x2="200" y2="180" stroke="#2457d6" stroke-width="2"/>
+
+  <text x="185" y="324" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">RTS</text>
+  <line x1="188" y1="320" x2="200" y2="320" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- DTR Signal Routing -->
+  <line x1="200" y1="180" x2="280" y2="180" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="280" cy="180" r="3.5" fill="#2457d6"/>
+  <!-- DTR to Q1 Emitter -->
+  <line x1="280" y1="180" x2="480" y2="180" stroke="#2457d6" stroke-width="2"/>
+  <line x1="480" y1="180" x2="480" y2="192" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="480" cy="180" r="3.5" fill="#2457d6"/>
+  <!-- DTR to R2 (Q2 Base) -->
+  <line x1="280" y1="180" x2="280" y2="310" stroke="#2457d6" stroke-width="2"/>
+  <line x1="280" y1="310" x2="330" y2="310" stroke="#2457d6" stroke-width="2"/>
+  <text x="220" y="172" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">DTR</text>
+
+  <!-- RTS Signal Routing -->
+  <line x1="200" y1="320" x2="240" y2="320" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="240" cy="320" r="3.5" fill="#2457d6"/>
+  <!-- RTS to R1 (Q1 Base) -->
+  <line x1="240" y1="320" x2="240" y2="210" stroke="#2457d6" stroke-width="2"/>
+  <line x1="240" y1="210" x2="330" y2="210" stroke="#2457d6" stroke-width="2"/>
+  <!-- RTS to Q2 Emitter -->
+  <line x1="240" y1="320" x2="240" y2="350" stroke="#2457d6" stroke-width="2"/>
+  <line x1="240" y1="350" x2="480" y2="350" stroke="#2457d6" stroke-width="2"/>
+  <line x1="480" y1="350" x2="480" y2="328" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="480" cy="350" r="3.5" fill="#2457d6"/>
+  <text x="210" y="338" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">RTS</text>
+
+  <!-- Resistor R1 -->
+  <rect x="330" y="202" width="50" height="16" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="380" y1="210" x2="435" y2="210" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="355" y="194" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R1</text>
+  <text x="355" y="235" font-size="12" fill="#6b7280" text-anchor="middle">10 kΩ</text>
+
+  <!-- Resistor R2 -->
+  <rect x="330" y="302" width="50" height="16" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="380" y1="310" x2="435" y2="310" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="355" y="294" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R2</text>
+  <text x="355" y="335" font-size="12" fill="#6b7280" text-anchor="middle">10 kΩ</text>
+
+  <!-- Transistor Q1 (NPN) -->
+  <circle cx="455" cy="200" r="22" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="435" y1="190" x2="435" y2="210" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="435" y1="195" x2="455" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="455" y1="175" x2="465" y2="160" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="465" y1="160" x2="465" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="435" y1="205" x2="455" y2="225" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="455,225 445,221 449,215" fill="#1a1a1a"/>
+  <line x1="455" y1="225" x2="480" y2="225" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="480" y1="225" x2="480" y2="192" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="490" y="195" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Q1</text>
+  <text x="490" y="210" font-size="12" fill="#6b7280" text-anchor="start">S8050</text>
+  <text x="490" y="224" font-size="12" fill="#6b7280" text-anchor="start">(NPN)</text>
+
+  <!-- Transistor Q2 (NPN) -->
+  <circle cx="455" cy="300" r="22" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="435" y1="290" x2="435" y2="310" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="435" y1="295" x2="455" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="455" y1="275" x2="465" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="435" y1="305" x2="455" y2="325" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="455,325 445,321 449,315" fill="#1a1a1a"/>
+  <line x1="455" y1="325" x2="480" y2="325" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="480" y1="325" x2="480" y2="338" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="490" y="295" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Q2</text>
+  <text x="490" y="310" font-size="12" fill="#6b7280" text-anchor="start">S8050</text>
+  <text x="490" y="324" font-size="12" fill="#6b7280" text-anchor="start">(NPN)</text>
+
+  <!-- Output Lines to MCU -->
+  <!-- RESET Line -->
+  <line x1="465" y1="150" x2="710" y2="150" stroke="#c0392b" stroke-width="2"/>
+  <line x1="710" y1="150" x2="710" y2="190" stroke="#c0392b" stroke-width="2"/>
+  <line x1="710" y1="190" x2="722" y2="190" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="600" y="142" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">RESET / EN</text>
+
+  <!-- GPIO0 Line -->
+  <line x1="465" y1="275" x2="710" y2="275" stroke="#27ae60" stroke-width="2"/>
+  <line x1="710" y1="275" x2="710" y2="290" stroke="#27ae60" stroke-width="2"/>
+  <line x1="710" y1="290" x2="722" y2="290" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="600" y="267" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">GPIO0 / BOOT</text>
+
+  <!-- Right Block: MCU (ESP8266 / ESP32) -->
+  <rect x="730" y="85" width="200" height="300" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <path d="M730,93 a8,8 0 0 1 8,-8 h184 a8,8 0 0 1 8,8 v30 h-200 z" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="830" y="110" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">MCU (ESP8266/ESP32)</text>
+
+  <!-- MCU VCC Rail & Pull-ups -->
+  <text x="830" y="130" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">VCC (+3.3V)</text>
+  <line x1="770" y1="135" x2="890" y2="135" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- RESET Pin & Pull-Up R3 -->
+  <text x="740" y="186" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">RESET</text>
+  <line x1="722" y1="190" x2="800" y2="190" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="800" cy="190" r="3" fill="#c0392b"/>
+  <line x1="800" y1="135" x2="800" y2="148" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="794" y="148" width="12" height="30" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="800" y1="178" x2="800" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="812" y="168" font-size="12" fill="#6b7280" text-anchor="start">R3 10k</text>
+
+  <!-- GPIO0 Pin & Pull-Up R4 -->
+  <text x="740" y="286" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">GPIO0</text>
+  <line x1="722" y1="290" x2="870" y2="290" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="870" cy="290" r="3" fill="#27ae60"/>
+  <line x1="870" y1="135" x2="870" y2="248" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="864" y="248" width="12" height="30" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="870" y1="278" x2="870" y2="290" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="882" y="268" font-size="12" fill="#6b7280" text-anchor="start">R4 10k</text>
+
+  <!-- MCU Logic Note -->
+  <text x="830" y="345" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Логіка завантаження</text>
+  <text x="830" y="365" font-size="12" fill="#6b7280" text-anchor="middle">GPIO0=0 → Bootloader</text>
+
+  <!-- Bottom Panel: Truth Table -->
+  <rect x="30" y="410" width="900" height="110" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="428" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Логіка керування транзисторами Q1 та Q2 під час прошивки</text>
+
+  <!-- Card 1: Normal -->
+  <rect x="45" y="438" width="280" height="70" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="185" y="456" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Робочий режим</text>
+  <text x="185" y="474" font-size="12" fill="#6b7280" text-anchor="middle">DTR = 1, RTS = 1</text>
+  <text x="185" y="494" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Q1/Q2 OFF | RESET=1, IO0=1</text>
+
+  <!-- Card 2: Bootloader -->
+  <rect x="340" y="438" width="280" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="456" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Вхід у режим Boot</text>
+  <text x="480" y="474" font-size="12" fill="#1a1a1a" text-anchor="middle">DTR = 1, RTS = 0</text>
+  <text x="480" y="494" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Q2 ON | GPIO0 = 0 (LOW)</text>
+
+  <!-- Card 3: Reset -->
+  <rect x="635" y="438" width="280" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="775" y="456" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Скидання (Reset)</text>
+  <text x="775" y="474" font-size="12" fill="#1a1a1a" text-anchor="middle">DTR = 0, RTS = 1</text>
+  <text x="775" y="494" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Q1 ON | RESET = 0 (LOW)</text>
+</svg>

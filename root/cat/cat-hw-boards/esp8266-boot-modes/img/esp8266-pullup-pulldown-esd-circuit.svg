@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+  
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зовнішні підтяжки Pull-Up/Pull-Down та розв'язка ESD-діодів</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Внутрішні захисні діоди та паразитна ємність створюють шляхи витоку струму під час скидання</text>
+  
+  <!-- Left Panel: Internal ESD Circuit & Parasitic Path -->
+  <rect x="30" y="85" width="430" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="112" font-size="15" font-weight="bold" fill="#1a1a1a">Внутрішній захисний каскад ESP8266 (ESD)</text>
+
+  <!-- Power Rails inside Left Panel -->
+  <line x1="120" y1="140" x2="380" y2="140" stroke="#2457d6" stroke-width="2"/>
+  <text x="120" y="130" font-size="12" font-weight="bold" fill="#2457d6">VCC (3.3V)</text>
+
+  <line x1="120" y1="340" x2="380" y2="340" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="120" y="356" font-size="12" font-weight="bold" fill="#1a1a1a">GND (0V)</text>
+
+  <!-- Pin Terminal & Signal Line -->
+  <rect x="45" y="225" width="80" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="85" y="244" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">GPIO Pin</text>
+  <line x1="125" y1="240" x2="360" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Upper ESD Diode D1 -->
+  <line x1="200" y1="140" x2="200" y2="240" stroke="#c0392b" stroke-width="2"/>
+  <polygon points="193,195 207,195 200,180" fill="#c0392b"/>
+  <line x1="193" y1="180" x2="207" y2="180" stroke="#c0392b" stroke-width="2"/>
+  <text x="215" y="192" font-size="11" font-weight="bold" fill="#c0392b">D_upper (ESD)</text>
+
+  <!-- Lower ESD Diode D2 -->
+  <line x1="200" y1="240" x2="200" y2="340" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="193,295 207,295 200,280" fill="#1a1a1a"/>
+  <line x1="193" y1="280" x2="207" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="215" y="292" font-size="11" fill="#6b7280">D_lower (ESD)</text>
+
+  <!-- Internal Pull-Up Resistor -->
+  <line x1="310" y1="140" x2="310" y2="240" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="302" y="175" width="16" height="30" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="325" y="194" font-size="11" fill="#6b7280">R_int (~40k)</text>
+
+  <!-- Leakage Current Path Arrow -->
+  <path d="M 85,225 L 85,160 L 185,160" fill="none" stroke="#c0392b" stroke-dasharray="4,3" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="45" y="152" font-size="11" font-weight="bold" fill="#c0392b">Струм витоку I_leak</text>
+
+  <!-- Left Panel Problem Box -->
+  <rect x="45" y="375" width="400" height="95" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="60" y="396" font-size="13" font-weight="bold" fill="#c0392b">Ефект паразитного живлення (Phantom Powering)</text>
+  <text x="60" y="416" font-size="12" fill="#1a1a1a">При підключенні 5V сигналів або незнеструмленої периферії</text>
+  <text x="60" y="434" font-size="12" fill="#1a1a1a">струм тече через ESD-діод у внутрішню шину VCC (3.3V).</text>
+  <text x="60" y="452" font-size="12" fill="#c0392b">Це блокує скидання чипа та зсуває потенціал GND.</text>
+
+  <!-- Right Panel: Pull Resistor & RC Calculations -->
+  <rect x="490" y="85" width="440" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="505" y="112" font-size="15" font-weight="bold" fill="#1a1a1a">Розрахунок обв'язки R_pull та часової сталої RC</text>
+
+  <!-- Right Box 1: R_ext calculation -->
+  <rect x="505" y="130" width="410" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="152" font-size="13" font-weight="bold" fill="#1a1a1a">Розрахунок граничного опору підтяжки R_ext_max</text>
+  <text x="520" y="174" font-size="12" font-weight="bold" fill="#2457d6">R_ext_max = (V_CC - V_IH) / I_leak = 82.5 кОм</text>
+  <text x="520" y="194" font-size="12" fill="#6b7280">Обирають R_ext = 10 кОм (забезпечує 8-кратний запас)</text>
+
+  <!-- Right Box 2: RC Rise Time -->
+  <rect x="505" y="220" width="410" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="242" font-size="13" font-weight="bold" fill="#1a1a1a">Час наростання фронту сигналу (Rise Time τ)</text>
+  <text x="520" y="264" font-size="12" font-weight="bold" fill="#2457d6">τ = R_ext · (C_pin + C_cable) = 10 кОм · 20 пФ = 200 нс</text>
+  <text x="520" y="286" font-size="12" fill="#6b7280">Занадто великий R_ext затягує фронт і затримує логіку</text>
+
+  <!-- Right Box 3: Recommendations -->
+  <rect x="505" y="315" width="410" height="160" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="520" y="338" font-size="13" font-weight="bold" fill="#27ae60">Рекомендації для стабільного запуску ESP8266</text>
+  <text x="520" y="362" font-size="12" fill="#1a1a1a">• R_ext = 10 кОм на VCC/GND — стандарт для strapping pins</text>
+  <text x="520" y="386" font-size="12" fill="#1a1a1a">• Використовувати двонаправлені Level Shifters для 5V</text>
+  <text x="520" y="410" font-size="12" fill="#1a1a1a">• Додавати керамічні фільтри C = 100 нФ біля живлення</text>
+  <text x="520" y="434" font-size="12" fill="#1a1a1a">• Захищати GPIO0 та GPIO15 від завад і довгих ліній</text>
+  <text x="520" y="458" font-size="12" fill="#27ae60" font-weight="bold">• Гарантує чіткі рівні напруги при старті системи</text>
+</svg>

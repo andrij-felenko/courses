@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння шин пам'яті: Quad SPI (ESP32) проти Octal SPI DDR (ESP32-S3)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Подвоєння шини та режим DDR усувають затримки шини під час завантаження векторів у PIE</text>
+
+  <!-- Panel 1: Quad SPI (Classic ESP32) -->
+  <rect x="40" y="85" width="420" height="315" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="250" y="112" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">Quad SPI PSRAM (ESP32)</text>
+  <text x="250" y="132" font-size="12" fill="#6b7280" text-anchor="middle">4 лінії даних (SDR) · f_CLK = 80 МГц</text>
+
+  <!-- Quad SPI Specifications Box -->
+  <rect x="60" y="150" width="380" height="105" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="75" y="172" font-size="12" font-weight="bold" fill="#1a1a1a">Параметри шини Quad SPI:</text>
+  <text x="75" y="194" font-size="12" fill="#1a1a1a">• Ширина шини: 4 лінії (D0, D1, D2, D3)</text>
+  <text x="75" y="214" font-size="12" fill="#1a1a1a">• Режим передачі: SDR (Single Data Rate)</text>
+  <text x="75" y="236" font-size="12" fill="#6b7280">• Фізичний обсяг передачі: 0.5 байта / такт</text>
+
+  <!-- Quad SPI Performance & Warning Box -->
+  <rect x="60" y="268" width="380" height="112" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="75" y="290" font-size="12" font-weight="bold" fill="#c0392b">Пропускна здатність Quad SPI:</text>
+  <text x="75" y="312" font-size="12" font-weight="bold" fill="#1a1a1a">B_peak = 80 МГц × 4 біти / 8 = 40 МБ/с</text>
+  <text x="75" y="334" font-size="12" fill="#c0392b">⚠ Шинне вузьке місце (Bus Bottleneck):</text>
+  <text x="75" y="356" font-size="12" fill="#1a1a1a">Ядра LX6 застопорюються при завантаженні</text>
+
+  <!-- Panel 2: Octal SPI DDR (ESP32-S3) -->
+  <rect x="500" y="85" width="420" height="315" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="710" y="112" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">Octal SPI DDR PSRAM (ESP32-S3)</text>
+  <text x="710" y="132" font-size="12" fill="#6b7280" text-anchor="middle">8 ліній даних (DDR) · f_CLK = 80 / 120 МГц</text>
+
+  <!-- Octal SPI Specifications Box -->
+  <rect x="520" y="150" width="380" height="105" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="535" y="172" font-size="12" font-weight="bold" fill="#1a1a1a">Параметри шини Octal SPI DDR:</text>
+  <text x="535" y="194" font-size="12" fill="#1a1a1a">• Ширина шини: 8 ліній (D0, D1, D2 ... D7)</text>
+  <text x="535" y="214" font-size="12" fill="#1a1a1a">• Режим передачі: DDR (Double Data Rate)</text>
+  <text x="535" y="236" font-size="12" fill="#27ae60">• Фізичний обсяг передачі: 2.0 байти / такт</text>
+
+  <!-- Octal SPI Performance & Triumph Box -->
+  <rect x="520" y="268" width="380" height="112" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="535" y="290" font-size="12" font-weight="bold" fill="#27ae60">Пропускна здатність Octal SPI DDR:</text>
+  <text x="535" y="312" font-size="12" font-weight="bold" fill="#1a1a1a">B_peak = 80 МГц × 8 бітів × 2 / 8 = 160 МБ/с</text>
+  <text x="535" y="334" font-size="12" fill="#27ae60">✓ Прискорення 4x–6x (B_max = 240 МБ/с):</text>
+  <text x="535" y="356" font-size="12" fill="#1a1a1a">Безперервний потік у 128-бітні Q-регістри PIE</text>
+
+  <!-- Bottom Chart Panel -->
+  <rect x="40" y="412" width="880" height="112" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="60" y="432" font-size="13" font-weight="bold" fill="#1a1a1a">Порівняння пікової пропускної здатності шин пам'яті (МБ/с):</text>
+
+  <!-- Bar 1: Quad SPI 80MHz -->
+  <text x="60" y="457" font-size="12" font-weight="bold" fill="#c0392b">Quad SPI 80MHz:</text>
+  <rect x="210" y="446" width="580" height="14" fill="#f4f6f8" rx="3"/>
+  <rect x="210" y="446" width="97" height="14" fill="#c0392b" rx="3"/>
+  <text x="315" y="457" font-size="12" font-weight="bold" fill="#c0392b">40 МБ/с (базова)</text>
+
+  <!-- Bar 2: Octal DDR 80MHz -->
+  <text x="60" y="480" font-size="12" font-weight="bold" fill="#27ae60">Octal DDR 80MHz:</text>
+  <rect x="210" y="469" width="580" height="14" fill="#f4f6f8" rx="3"/>
+  <rect x="210" y="469" width="386" height="14" fill="#27ae60" rx="3"/>
+  <text x="605" y="480" font-size="12" font-weight="bold" fill="#27ae60">160 МБ/с (4x)</text>
+
+  <!-- Bar 3: Octal DDR 120MHz -->
+  <text x="60" y="503" font-size="12" font-weight="bold" fill="#2457d6">Octal DDR 120MHz:</text>
+  <rect x="210" y="492" width="580" height="14" fill="#f4f6f8" rx="3"/>
+  <rect x="210" y="492" width="580" height="14" fill="#2457d6" rx="3"/>
+  <text x="670" y="503" font-size="12" font-weight="bold" fill="#2457d6">240 МБ/с (6x прискорення)</text>
+</svg>

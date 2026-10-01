@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Diagram Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема підключення програматора DAPLink до цільової плати</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Зневадження через SWD (SWCLK, SWDIO, NRST) та зв'язок через USB-UART (TX, RX)</text>
+
+  <!-- BLOCK 1: Host PC -->
+  <rect x="40" y="80" width="170" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="40" y="80" width="170" height="36" fill="#e5e9f0" stroke="#d0d7de" stroke-width="2"/>
+  <text x="125" y="103" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Хост-ПК (USB Host)</text>
+
+  <!-- Inside Host PC: Software Panel -->
+  <rect x="52" y="130" width="146" height="130" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="125" y="150" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ПЗ розробки</text>
+  <text x="60" y="175" font-size="12" fill="#1a1a1a">• pyOCD / OpenOCD</text>
+  <text x="60" y="198" font-size="12" fill="#1a1a1a">• CMSIS-DAP драйвер</text>
+  <text x="60" y="221" font-size="12" fill="#1a1a1a">• Термінал (VCP)</text>
+  <text x="60" y="244" font-size="12" fill="#1a1a1a">• USB Mass Storage</text>
+
+  <!-- Inside Host PC: USB Port -->
+  <rect x="52" y="320" width="146" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="125" y="345" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Порт USB Type-A</text>
+  <text x="125" y="375" font-size="12" fill="#1a1a1a" text-anchor="middle">5V, GND, D+, D-</text>
+
+  <!-- USB Connection line & label between PC and DAPLink -->
+  <line x1="198" y1="360" x2="268" y2="360" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="234" y="346" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">USB кабель</text>
+
+  <!-- BLOCK 2: DAPLink Programmer (STM32F103C8) -->
+  <rect x="270" y="80" width="330" height="410" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <rect x="270" y="80" width="330" height="36" fill="#2457d6"/>
+  <text x="435" y="103" font-size="14" font-weight="bold" fill="white" text-anchor="middle">Програматор DAPLink (STM32F103C8)</text>
+
+  <!-- USB Port on DAPLink -->
+  <rect x="278" y="340" width="40" height="40" rx="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="298" y="364" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">USB</text>
+
+  <!-- Microcontroller Core inside DAPLink -->
+  <rect x="330" y="130" width="140" height="230" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="400" y="152" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер</text>
+  <text x="400" y="170" font-size="12" fill="#6b7280" text-anchor="middle">STM32F103C8T6</text>
+  <line x1="340" y1="180" x2="460" y2="180" stroke="#d0d7de" stroke-width="1"/>
+  <text x="338" y="202" font-size="12" fill="#1a1a1a">• DAPLink FW</text>
+  <text x="338" y="227" font-size="12" fill="#1a1a1a">• CMSIS-DAP Engine</text>
+  <text x="338" y="252" font-size="12" fill="#1a1a1a">• USB-CDC (VCP)</text>
+  <text x="338" y="277" font-size="12" fill="#1a1a1a">• MSC Bootloader</text>
+  <text x="338" y="302" font-size="12" fill="#1a1a1a">• Індикація стану</text>
+
+  <!-- Output Pin Header on DAPLink -->
+  <rect x="485" y="130" width="105" height="340" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="537" y="150" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Виводи</text>
+
+  <!-- DAPLink Pins -->
+  <rect x="495" y="165" width="85" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="537" y="183" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">PA14 / SWCLK</text>
+
+  <rect x="495" y="210" width="85" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="537" y="228" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">PA13 / SWDIO</text>
+
+  <rect x="495" y="255" width="85" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="537" y="273" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">PB0 / nRESET</text>
+
+  <rect x="495" y="300" width="85" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="537" y="318" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">PA2 / TXD</text>
+
+  <rect x="495" y="345" width="85" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="537" y="363" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">PA3 / RXD</text>
+
+  <rect x="495" y="390" width="85" height="28" rx="4" fill="#f4f6f8" stroke="#1a1a1a"/>
+  <text x="537" y="408" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND</text>
+
+  <rect x="495" y="435" width="85" height="28" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="537" y="453" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">3.3V (VCC)</text>
+
+  <!-- BLOCK 3: Target Board -->
+  <rect x="700" y="80" width="235" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="700" y="80" width="235" height="36" fill="#d0d7de"/>
+  <text x="817" y="103" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цільова плата (Target)</text>
+
+  <!-- Target Input Header Pins -->
+  <rect x="710" y="165" width="85" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="752" y="183" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SWCLK</text>
+
+  <rect x="710" y="210" width="85" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="752" y="228" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SWDIO</text>
+
+  <rect x="710" y="255" width="85" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="752" y="273" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">NRST</text>
+
+  <rect x="710" y="300" width="85" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="752" y="318" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">RXD</text>
+
+  <rect x="710" y="345" width="85" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="752" y="363" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">TXD</text>
+
+  <rect x="710" y="390" width="85" height="28" rx="4" fill="#f4f6f8" stroke="#1a1a1a"/>
+  <text x="752" y="408" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND</text>
+
+  <rect x="710" y="435" width="85" height="28" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="752" y="453" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">3.3V / VCC</text>
+
+  <!-- Target Core Box -->
+  <rect x="810" y="165" width="115" height="298" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="867" y="190" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цільовий МК</text>
+  <text x="867" y="210" font-size="12" fill="#6b7280" text-anchor="middle">Cortex-M</text>
+  <line x1="820" y1="220" x2="915" y2="220" stroke="#d0d7de" stroke-width="1"/>
+  <text x="818" y="250" font-size="12" fill="#1a1a1a">• SWD Debug</text>
+  <text x="818" y="277" font-size="12" fill="#1a1a1a">• HW Reset</text>
+  <text x="818" y="330" font-size="12" fill="#1a1a1a">• UART Port</text>
+  <text x="818" y="395" font-size="12" fill="#1a1a1a">• Земля GND</text>
+
+  <!-- INTERCONNECT WIRES & LABELS -->
+  <!-- Wire 1: SWCLK -->
+  <line x1="580" y1="179" x2="710" y2="179" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="645" y="171" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SWCLK (CLK)</text>
+
+  <!-- Wire 2: SWDIO -->
+  <line x1="580" y1="224" x2="710" y2="224" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="645" y="216" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SWDIO (Дані)</text>
+
+  <!-- Wire 3: nRESET -->
+  <line x1="580" y1="269" x2="710" y2="269" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="645" y="261" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">nRESET (RST)</text>
+
+  <!-- Wire 4: TXD -> RXD -->
+  <line x1="580" y1="314" x2="710" y2="314" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="645" y="306" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">TXD → RXD</text>
+
+  <!-- Wire 5: RXD <- TXD -->
+  <line x1="710" y1="359" x2="580" y2="359" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="645" y="351" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">RXD ← TXD</text>
+
+  <!-- Wire 6: GND -->
+  <line x1="580" y1="404" x2="710" y2="404" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="645" y="396" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND (Земля)</text>
+
+  <!-- Wire 7: 3.3V Power -->
+  <line x1="580" y1="449" x2="710" y2="449" stroke="#c0392b" stroke-width="2" stroke-dasharray="6 3" marker-end="url(#arr-red)"/>
+  <text x="645" y="441" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">3.3V (VCC)</text>
+
+  <!-- Legend Box at bottom -->
+  <rect x="200" y="490" width="560" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="506" font-size="12" fill="#1a1a1a" text-anchor="middle">Синій: SWD  |  Зелений: UART (VCP)  |  Червоний: 3.3V  |  Чорний: GND</text>
+</svg>

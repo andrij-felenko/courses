@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Titles -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема станів AT-інтерпретатора ESP8266 при SSL/TLS з'єднанні</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Послідовність конфігурування буферів, криптографічного рукостискання та передачі даних</text>
+
+  <!-- State 1: IDLE / READY -->
+  <rect x="30" y="95" width="145" height="75" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="102" y="118" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. IDLE / READY</text>
+  <text x="102" y="138" font-size="12" fill="#2457d6" text-anchor="middle">Готовність AT</text>
+  <text x="102" y="156" font-size="12" fill="#6b7280" text-anchor="middle">Wi-Fi підключено</text>
+
+  <!-- Transition 1 -> 2 -->
+  <path d="M 175 132.5 L 265 132.5" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="220" y="120" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">AT+CIPSSLCCONF</text>
+
+  <!-- State 2: SSL_CONFIGURED -->
+  <rect x="275" y="95" width="145" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="347" y="118" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. SSL_CONFIGURED</text>
+  <text x="347" y="138" font-size="12" fill="#2457d6" text-anchor="middle">MFLN та буфери</text>
+  <text x="347" y="156" font-size="12" fill="#6b7280" text-anchor="middle">CA-сертифікати</text>
+
+  <!-- Transition 2 -> 3 -->
+  <path d="M 420 132.5 L 510 132.5" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="465" y="120" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">AT+CIPSTART</text>
+
+  <!-- State 3: TLS_HANDSHAKE -->
+  <rect x="520" y="95" width="150" height="75" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="595" y="118" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. TLS_HANDSHAKE</text>
+  <text x="595" y="138" font-size="12" fill="#2457d6" text-anchor="middle">Обмін ключами</text>
+  <text x="595" y="156" font-size="12" fill="#6b7280" text-anchor="middle">Перевірка CA / Heap</text>
+
+  <!-- Transition 3 -> 4 (OK) -->
+  <path d="M 670 132.5 L 770 132.5" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="720" y="120" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Успіх (OK)</text>
+
+  <!-- State 4: TLS_CONNECTED -->
+  <rect x="780" y="95" width="150" height="75" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="855" y="118" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4. TLS_CONNECTED</text>
+  <text x="855" y="138" font-size="12" fill="#27ae60" text-anchor="middle">Сесію відкрито</text>
+  <text x="855" y="156" font-size="12" fill="#6b7280" text-anchor="middle">Готовність сокета</text>
+
+  <!-- Transition 3 -> 6 (Error/OOM) -->
+  <path d="M 595 170 L 595 230" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="605" y="205" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">OOM / Auth Fail</text>
+
+  <!-- State 6: SSL_ERROR / OOM -->
+  <rect x="515" y="240" width="160" height="75" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="595" y="263" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">6. SSL_ERROR / OOM</text>
+  <text x="595" y="282" font-size="12" fill="#c0392b" text-anchor="middle">Вичерпання DRAM</text>
+  <text x="595" y="300" font-size="12" fill="#6b7280" text-anchor="middle">Збій рукостискання</text>
+
+  <!-- Transition 4 -> 5 -->
+  <path d="M 855 170 L 855 230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="865" y="205" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">AT+CIPSEND</text>
+
+  <!-- State 5: DATA_TRANSFER -->
+  <rect x="780" y="240" width="150" height="75" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="855" y="263" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">5. DATA_TRANSFER</text>
+  <text x="855" y="282" font-size="12" fill="#1a1a1a" text-anchor="middle">Прозорий режим</text>
+  <text x="855" y="300" font-size="12" fill="#6b7280" text-anchor="middle">Шифрування SSL</text>
+
+  <!-- Transition 5 -> 1 (Close) -->
+  <path d="M 855 315 L 855 352 L 102 352 L 102 178" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arr-green)"/>
+  <text x="478" y="366" font-size="12" fill="#27ae60" text-anchor="middle">AT+CIPCLOSE / Завершення сесії</text>
+
+  <!-- Transition 6 -> 1 (Recovery) -->
+  <path d="M 515 277.5 L 102 277.5 L 102 178" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arr-red)"/>
+  <text x="308" y="271" font-size="12" fill="#c0392b" text-anchor="middle">Скидання сокета / Відновлення купи</text>
+
+  <!-- System Invariants Panel -->
+  <rect x="30" y="380" width="900" height="85" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="402" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">Системні вимоги та криптографічні обмеження ESP8266 AT SSL:</text>
+  <text x="45" y="424" font-size="12" fill="#1a1a1a" text-anchor="start">• Вільна DRAM: &gt;= 35 КБ для handshake</text>
+  <text x="45" y="444" font-size="12" fill="#c0392b" text-anchor="start">• При OOM: повернення ERROR &amp; скидання</text>
+  <text x="330" y="424" font-size="12" fill="#1a1a1a" text-anchor="start">• Оптимізація MFLN: буфери з 16 КБ до 2 КБ</text>
+  <text x="330" y="444" font-size="12" fill="#27ae60" text-anchor="start">• Зменшення оверхеду сокета: з 37 КБ до 9.5 КБ</text>
+  <text x="640" y="424" font-size="12" fill="#1a1a1a" text-anchor="start">• Макс. сокетів: N_max &lt;= 3 (при MFLN=2048)</text>
+  <text x="640" y="444" font-size="12" fill="#6b7280" text-anchor="start">• mbedTLS контекст: 2048 Б + LwIP PCB</text>
+</svg>

@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+  
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Режим прозорого моста CIPMODE=1 на модулі ESP-01</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Ініціалізація сокета, прямий прозорий транзит даних UART ↔ TCP/IP та вихід через серію +++ з тайм-аутами</text>
+
+  <!-- PANEL 1: INITIALIZATION -->
+  <rect x="30" y="80" width="280" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="90" width="260" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="170" y="111" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Ініціалізація моста</text>
+
+  <rect x="45" y="140" width="250" height="45" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="158" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">AT+CIPMUX=0</text>
+  <text x="170" y="175" font-size="12" fill="#6b7280" text-anchor="middle">Одиночне з'єднання</text>
+
+  <line x1="170" y1="185" x2="170" y2="202" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <rect x="45" y="210" width="250" height="45" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="228" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">AT+CIPMODE=1</text>
+  <text x="170" y="245" font-size="12" fill="#6b7280" text-anchor="middle">Режим прозорості</text>
+
+  <line x1="170" y1="255" x2="170" y2="272" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <rect x="45" y="280" width="250" height="45" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="298" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">AT+CIPSTART="TCP",...</text>
+  <text x="170" y="315" font-size="12" fill="#27ae60" text-anchor="middle">Відповідь: CONNECT</text>
+
+  <line x1="170" y1="325" x2="170" y2="342" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <rect x="45" y="350" width="250" height="55" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="170" y="371" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">AT+CIPSEND</text>
+  <text x="170" y="391" font-size="12" fill="#2457d6" text-anchor="middle">Отримано запрошення ">"</text>
+
+  <!-- TRANSITION 1 -> 2 -->
+  <line x1="310" y1="275" x2="330" y2="275" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- PANEL 2: TRANSPARENT DATA FLOW -->
+  <rect x="340" y="80" width="280" height="390" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="350" y="90" width="260" height="32" rx="6" fill="#27ae60" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="111" font-size="14" font-weight="bold" fill="white" text-anchor="middle">2. Прозорий транзит</text>
+
+  <rect x="355" y="140" width="70" height="150" rx="6" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="390" y="218" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">МК (UART)</text>
+
+  <rect x="445" y="140" width="70" height="150" rx="6" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="218" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP-01</text>
+
+  <rect x="535" y="140" width="75" height="150" rx="6" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="572" y="218" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сервер</text>
+
+  <!-- TX Flow -->
+  <line x1="425" y1="175" x2="437" y2="175" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="515" y1="175" x2="527" y2="175" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="480" y="165" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">TX Байти</text>
+
+  <!-- RX Flow -->
+  <line x1="535" y1="255" x2="523" y2="255" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="445" y1="255" x2="433" y2="255" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="480" y="273" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">RX Байти</text>
+
+  <!-- Feature Badge -->
+  <rect x="355" y="310" width="250" height="95" rx="6" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="330" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Особливості режиму:</text>
+  <text x="480" y="350" font-size="12" fill="#1a1a1a" text-anchor="middle">• Без префіксів +IPD</text>
+  <text x="480" y="370" font-size="12" fill="#1a1a1a" text-anchor="middle">• Без команд CIPSEND</text>
+  <text x="480" y="390" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">• Прямий байтовий міст</text>
+
+  <!-- TRANSITION 2 -> 3 -->
+  <line x1="620" y1="275" x2="640" y2="275" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- PANEL 3: EXIT ESCAPE SEQUENCE -->
+  <rect x="650" y="80" width="280" height="390" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="660" y="90" width="260" height="32" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="790" y="111" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">3. Вихід із прозорості</text>
+
+  <rect x="665" y="140" width="250" height="45" rx="6" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="790" y="158" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Пауза UART > 1000 мс</text>
+  <text x="790" y="175" font-size="12" fill="#6b7280" text-anchor="middle">Повна тиша на лінії</text>
+
+  <line x1="790" y1="185" x2="790" y2="202" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <rect x="665" y="210" width="250" height="45" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="790" y="228" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Передача "+++"</text>
+  <text x="790" y="245" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Без символів \r\n !</text>
+
+  <line x1="790" y1="255" x2="790" y2="272" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <rect x="665" y="280" width="250" height="45" rx="6" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="790" y="298" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Пауза UART > 1000 мс</text>
+  <text x="790" y="315" font-size="12" fill="#6b7280" text-anchor="middle">Повна тиша на лінії</text>
+
+  <line x1="790" y1="325" x2="790" y2="342" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <rect x="665" y="350" width="250" height="55" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="790" y="371" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Повернення в режим AT</text>
+  <text x="790" y="391" font-size="12" fill="#6b7280" text-anchor="middle">Доступна команда AT+CIPCLOSE</text>
+</svg>

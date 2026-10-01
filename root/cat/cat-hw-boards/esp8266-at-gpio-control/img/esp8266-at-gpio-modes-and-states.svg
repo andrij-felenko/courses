@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Діаграма станів виводу GPIO ESP8266 при керуванні AT-командами</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Переходи між станами IOMUX, конфігурація Input/Output/Pull-up та зчитування/запис рівнів</text>
+
+  <!-- COLUMN 1: RESET & PIPELINE -->
+  <rect x="20" y="75" width="240" height="465" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="140" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Початковий стан МК</text>
+  <text x="140" y="116" text-anchor="middle" font-size="12" fill="#6b7280">Скидання / Hardware Reset</text>
+
+  <!-- Node 1A: Hi-Z -->
+  <rect x="32" y="135" width="216" height="105" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="2"/>
+  <text x="140" y="160" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Hi-Z (High Impedance)</text>
+  <text x="140" y="180" text-anchor="middle" font-size="12" fill="#6b7280">Вивід високоімпедансний</text>
+  <text x="140" y="202" text-anchor="middle" font-size="12" fill="#4b5563">IOMUX: MUX_CFG_DEFAULT</text>
+  <text x="140" y="222" text-anchor="middle" font-size="12" fill="#4b5563">GPIO_PIN: Disabled</text>
+
+  <!-- Node 1B: AT Core Info -->
+  <rect x="32" y="255" width="216" height="265" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="140" y="278" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Обробка AT-команд</text>
+  <text x="44" y="302" font-size="12" fill="#374151">1. Прийом кадру UART0</text>
+  <text x="44" y="324" font-size="12" fill="#374151">2. Парсер ядра Xtensa</text>
+  <text x="44" y="346" font-size="12" fill="#374151">3. Запис в регістри APB</text>
+
+  <line x1="44" y1="360" x2="236" y2="360" stroke="#e5e7eb" stroke-width="1"/>
+
+  <text x="140" y="380" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Відповіді інтерпретатора:</text>
+  <text x="48" y="404" font-size="12" font-weight="bold" fill="#15803d">• OK</text>
+  <text x="85" y="404" font-size="12" fill="#4b5563">— успішно</text>
+  <text x="48" y="430" font-size="12" font-weight="bold" fill="#b91c1c">• ERROR</text>
+  <text x="105" y="430" font-size="12" fill="#4b5563">— помилка</text>
+  <text x="48" y="456" font-size="12" font-weight="bold" fill="#d97706">• BUSY</text>
+  <text x="98" y="456" font-size="12" fill="#4b5563">— шина зайнята</text>
+
+  <!-- COLUMN 2: INPUT MODE -->
+  <rect x="330" y="75" width="290" height="465" rx="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="475" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1d4ed8">РЕЖИМ ВХОДУ (INPUT MODE)</text>
+  <text x="475" y="116" text-anchor="middle" font-size="12" fill="#2563eb">Команда напрямку: AT+SYSGPIODIR=&lt;pin&gt;,0</text>
+
+  <!-- Node 2A: Input Floating -->
+  <rect x="342" y="135" width="266" height="95" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="475" y="158" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Input Floating (Hi-Z)</text>
+  <rect x="357" y="170" width="236" height="24" rx="4" fill="#eff6ff" stroke="#bfdbfe"/>
+  <text x="475" y="186" text-anchor="middle" font-size="12" font-weight="bold" fill="#1d4ed8">AT+SYSGPIOPULL=&lt;pin&gt;,0</text>
+  <text x="475" y="216" text-anchor="middle" font-size="12" fill="#4b5563">Плаваючий вхід без підтяжки</text>
+
+  <!-- Transitions between 2A and 2B -->
+  <path d="M 405 230 L 405 265" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <path d="M 545 265 L 545 230" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <rect x="425" y="240" width="100" height="18" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="475" y="253" text-anchor="middle" font-size="11" font-weight="bold" fill="#1d4ed8">PULL=1 / PULL=0</text>
+
+  <!-- Node 2B: Input Pull-Up -->
+  <rect x="342" y="265" width="266" height="95" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="475" y="288" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Input Pull-Up (3.3V)</text>
+  <rect x="357" y="300" width="236" height="24" rx="4" fill="#eff6ff" stroke="#bfdbfe"/>
+  <text x="475" y="316" text-anchor="middle" font-size="12" font-weight="bold" fill="#1d4ed8">AT+SYSGPIOPULL=&lt;pin&gt;,1</text>
+  <text x="475" y="346" text-anchor="middle" font-size="12" fill="#4b5563">Внутрішній резистор ~33 кОм до VDD</text>
+
+  <!-- Transition 2B -> 2C -->
+  <path d="M 475 360 L 475 385" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-main)"/>
+
+  <!-- Node 2C: Read Action -->
+  <rect x="342" y="385" width="266" height="135" rx="8" fill="#ffffff" stroke="#1d4ed8" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <text x="475" y="407" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e40af">Зчитати рівень на виводі</text>
+  <rect x="362" y="417" width="226" height="22" rx="4" fill="#eff6ff"/>
+  <text x="475" y="432" text-anchor="middle" font-size="12" font-weight="bold" fill="#1d4ed8">AT+SYSGPIOREAD=&lt;pin&gt;</text>
+  <text x="475" y="460" text-anchor="middle" font-size="12" font-weight="bold" fill="#15803d">+SYSGPIOREAD:&lt;pin&gt;,&lt;val&gt;</text>
+  <text x="475" y="482" text-anchor="middle" font-size="12" fill="#4b5563">&lt;val&gt; належить {0 (LOW), 1 (HIGH)}</text>
+  <text x="475" y="504" text-anchor="middle" font-size="11" fill="#6b7280">(працює в режимах INPUT та OUTPUT)</text>
+
+  <!-- COLUMN 3: OUTPUT MODE -->
+  <rect x="690" y="75" width="250" height="465" rx="10" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="815" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#15803d">РЕЖИМ ВИХОДУ (OUTPUT MODE)</text>
+  <text x="815" y="116" text-anchor="middle" font-size="12" fill="#16a34a">Команда напрямку: AT+SYSGPIODIR=&lt;pin&gt;,1</text>
+
+  <!-- Node 3A: Output LOW -->
+  <rect x="702" y="135" width="226" height="140" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="815" y="158" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Output LOW (0V)</text>
+  <rect x="712" y="170" width="206" height="24" rx="4" fill="#f0fdf4" stroke="#bbf7d0"/>
+  <text x="815" y="186" text-anchor="middle" font-size="12" font-weight="bold" fill="#15803d">AT+SYSGPIOWRITE=&lt;pin&gt;,0</text>
+  <text x="815" y="212" text-anchor="middle" font-size="12" fill="#374151">Регістр GPIO_OUT[pin] = 0</text>
+  <text x="815" y="232" text-anchor="middle" font-size="12" fill="#374151">Струм тече через N-FET до GND</text>
+  <text x="815" y="256" text-anchor="middle" font-size="12" font-weight="bold" fill="#15803d">Фізична напруга: 0 В</text>
+
+  <!-- Transitions between 3A and 3B -->
+  <path d="M 740 275 L 740 315" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M 890 315 L 890 275" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <rect x="750" y="286" width="130" height="18" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="815" y="299" text-anchor="middle" font-size="11" font-weight="bold" fill="#15803d">WRITE=1 / WRITE=0</text>
+
+  <!-- Node 3B: Output HIGH -->
+  <rect x="702" y="315" width="226" height="205" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="815" y="338" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Output HIGH (3.3V)</text>
+  <rect x="712" y="350" width="206" height="24" rx="4" fill="#f0fdf4" stroke="#bbf7d0"/>
+  <text x="815" y="366" text-anchor="middle" font-size="12" font-weight="bold" fill="#15803d">AT+SYSGPIOWRITE=&lt;pin&gt;,1</text>
+  <text x="815" y="392" text-anchor="middle" font-size="12" fill="#374151">Регістр GPIO_OUT[pin] = 1</text>
+  <text x="815" y="412" text-anchor="middle" font-size="12" fill="#374151">Струм тече через P-FET від VDD</text>
+  <text x="815" y="436" text-anchor="middle" font-size="12" font-weight="bold" fill="#15803d">Фізична напруга: 3.3 В</text>
+  <text x="815" y="466" text-anchor="middle" font-size="12" fill="#6b7280">(Підтяжка: AT+SYSGPIOPULL)</text>
+
+  <!-- INTER-COLUMN TRANSITIONS -->
+  <!-- Reset -> Input -->
+  <path d="M 248 180 L 340 180" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <rect x="266" y="152" width="58" height="18" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="295" y="165" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">DIR=0</text>
+
+  <!-- Input -> Output -->
+  <path d="M 608 180 L 690 180" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <rect x="621" y="152" width="58" height="18" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="650" y="165" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">DIR=1</text>
+
+  <!-- Output -> Input Return -->
+  <path d="M 702 450 L 608 450" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <rect x="626" y="422" width="58" height="18" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="655" y="435" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">DIR=0</text>
+</svg>

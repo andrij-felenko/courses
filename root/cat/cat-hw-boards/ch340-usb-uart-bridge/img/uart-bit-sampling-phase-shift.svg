@@ -1,0 +1,177 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Накопичення фазового зсуву стробування в кадрі UART 8N1</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Відхилення частоти тактування CH340 зсуває точки вибірки від центра біта до його меж</text>
+
+  <!-- Bit Column Backgrounds (alternating tint) -->
+  <rect x="170" y="96" width="64" height="182" fill="#f4f6f8" opacity="0.5"/>
+  <rect x="298" y="96" width="64" height="182" fill="#f4f6f8" opacity="0.5"/>
+  <rect x="426" y="96" width="64" height="182" fill="#f4f6f8" opacity="0.5"/>
+  <rect x="554" y="96" width="64" height="182" fill="#f4f6f8" opacity="0.5"/>
+  <rect x="682" y="96" width="64" height="182" fill="#f4f6f8" opacity="0.5"/>
+
+  <!-- Danger Zone Tint (SP right half to boundary) -->
+  <rect x="778" y="96" width="32" height="182" fill="#fdecea" opacity="0.5"/>
+
+  <!-- Vertical Grid Dashed Lines (bit boundaries) -->
+  <line x1="170" y1="96" x2="170" y2="278" stroke="#d0d7de" stroke-dasharray="3 3" stroke-width="1.5"/>
+  <line x1="234" y1="96" x2="234" y2="278" stroke="#d0d7de" stroke-dasharray="3 3" stroke-width="1"/>
+  <line x1="298" y1="96" x2="298" y2="278" stroke="#d0d7de" stroke-dasharray="3 3" stroke-width="1"/>
+  <line x1="362" y1="96" x2="362" y2="278" stroke="#d0d7de" stroke-dasharray="3 3" stroke-width="1"/>
+  <line x1="426" y1="96" x2="426" y2="278" stroke="#d0d7de" stroke-dasharray="3 3" stroke-width="1"/>
+  <line x1="490" y1="96" x2="490" y2="278" stroke="#d0d7de" stroke-dasharray="3 3" stroke-width="1"/>
+  <line x1="554" y1="96" x2="554" y2="278" stroke="#d0d7de" stroke-dasharray="3 3" stroke-width="1"/>
+  <line x1="618" y1="96" x2="618" y2="278" stroke="#d0d7de" stroke-dasharray="3 3" stroke-width="1"/>
+  <line x1="682" y1="96" x2="682" y2="278" stroke="#d0d7de" stroke-dasharray="3 3" stroke-width="1"/>
+  <line x1="746" y1="96" x2="746" y2="278" stroke="#d0d7de" stroke-dasharray="3 3" stroke-width="1"/>
+  <line x1="810" y1="96" x2="810" y2="278" stroke="#c0392b" stroke-dasharray="4 3" stroke-width="2"/>
+
+  <!-- Bit Headers -->
+  <text x="202" y="88" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">ST</text>
+  <text x="266" y="88" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">D0</text>
+  <text x="330" y="88" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">D1</text>
+  <text x="394" y="88" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">D2</text>
+  <text x="458" y="88" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">D3</text>
+  <text x="522" y="88" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">D4</text>
+  <text x="586" y="88" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">D5</text>
+  <text x="650" y="88" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">D6</text>
+  <text x="714" y="88" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">D7</text>
+  <text x="778" y="88" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">SP</text>
+
+  <!-- Track 1: Signal RX Labels -->
+  <text x="30" y="132" font-size="13" font-weight="bold" fill="#1a1a1a">Сигнал RX</text>
+  <text x="30" y="148" font-size="12" fill="#6b7280">(кадр 8N1)</text>
+
+  <!-- Track 1: UART Waveform -->
+  <path d="M 120,120 L 170,120 L 170,155 L 234,155 L 234,120 L 298,120 L 298,155 L 362,155 L 362,120 L 426,120 L 426,155 L 490,155 L 490,120 L 618,120 L 618,155 L 682,155 L 682,120 L 865,120" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- Track 2: Ideal Sampling Labels -->
+  <text x="30" y="192" font-size="13" font-weight="bold" fill="#27ae60">Ідеальні вибірки</text>
+  <text x="30" y="208" font-size="12" fill="#6b7280">(f_clk = f_nom)</text>
+
+  <!-- Track 2: Axis & Strobe Lines -->
+  <line x1="170" y1="195" x2="810" y2="195" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="6 4"/>
+
+  <line x1="202" y1="155" x2="202" y2="195" stroke="#27ae60" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="266" y1="120" x2="266" y2="195" stroke="#27ae60" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="330" y1="155" x2="330" y2="195" stroke="#27ae60" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="394" y1="120" x2="394" y2="195" stroke="#27ae60" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="458" y1="155" x2="458" y2="195" stroke="#27ae60" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="522" y1="120" x2="522" y2="195" stroke="#27ae60" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="586" y1="120" x2="586" y2="195" stroke="#27ae60" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="650" y1="155" x2="650" y2="195" stroke="#27ae60" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="714" y1="120" x2="714" y2="195" stroke="#27ae60" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="778" y1="120" x2="778" y2="195" stroke="#27ae60" stroke-dasharray="2 2" stroke-width="1"/>
+
+  <!-- Track 2: Ideal Dots -->
+  <circle cx="202" cy="195" r="4.5" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="266" cy="195" r="4.5" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="330" cy="195" r="4.5" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="394" cy="195" r="4.5" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="458" cy="195" r="4.5" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="522" cy="195" r="4.5" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="586" cy="195" r="4.5" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="650" cy="195" r="4.5" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="714" cy="195" r="4.5" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="778" cy="195" r="4.5" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+
+  <!-- Track 2: Time Labels -->
+  <text x="202" y="222" text-anchor="middle" font-size="12" fill="#27ae60">0.5T</text>
+  <text x="266" y="222" text-anchor="middle" font-size="12" fill="#27ae60">1.5T</text>
+  <text x="330" y="222" text-anchor="middle" font-size="12" fill="#27ae60">2.5T</text>
+  <text x="394" y="222" text-anchor="middle" font-size="12" fill="#27ae60">3.5T</text>
+  <text x="458" y="222" text-anchor="middle" font-size="12" fill="#27ae60">4.5T</text>
+  <text x="522" y="222" text-anchor="middle" font-size="12" fill="#27ae60">5.5T</text>
+  <text x="586" y="222" text-anchor="middle" font-size="12" fill="#27ae60">6.5T</text>
+  <text x="650" y="222" text-anchor="middle" font-size="12" fill="#27ae60">7.5T</text>
+  <text x="714" y="222" text-anchor="middle" font-size="12" fill="#27ae60">8.5T</text>
+  <text x="778" y="222" text-anchor="middle" font-size="12" fill="#27ae60">9.5T</text>
+
+  <!-- Track 3: Actual Sampling Labels -->
+  <text x="30" y="260" font-size="13" font-weight="bold" fill="#c0392b">Реальні вибірки</text>
+  <text x="30" y="276" font-size="12" fill="#c0392b">(CH340, +4.5% f)</text>
+
+  <!-- Track 3: Axis & Strobe Lines -->
+  <line x1="170" y1="265" x2="810" y2="265" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6 4"/>
+
+  <line x1="203" y1="232" x2="203" y2="265" stroke="#c0392b" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="270" y1="232" x2="270" y2="265" stroke="#c0392b" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="337" y1="232" x2="337" y2="265" stroke="#c0392b" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="404" y1="232" x2="404" y2="265" stroke="#c0392b" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="471" y1="232" x2="471" y2="265" stroke="#c0392b" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="538" y1="232" x2="538" y2="265" stroke="#c0392b" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="605" y1="232" x2="605" y2="265" stroke="#c0392b" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="672" y1="232" x2="672" y2="265" stroke="#c0392b" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="739" y1="232" x2="739" y2="265" stroke="#c0392b" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="806" y1="232" x2="806" y2="265" stroke="#c0392b" stroke-dasharray="2 2" stroke-width="1"/>
+
+  <!-- Track 3: Actual Dots -->
+  <circle cx="203" cy="265" r="4.5" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="270" cy="265" r="4.5" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="337" cy="265" r="4.5" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="404" cy="265" r="4.5" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="471" cy="265" r="4.5" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="538" cy="265" r="4.5" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="605" cy="265" r="4.5" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="672" cy="265" r="4.5" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="739" cy="265" r="4.5" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="806" cy="265" r="5" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+
+  <!-- Shift Measurement Arrow at SP -->
+  <line x1="778" y1="248" x2="806" y2="248" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="814" y="252" font-size="12" font-weight="bold" fill="#c0392b">Δt_max</text>
+
+  <!-- Key Delta Labels under Actual Axis -->
+  <text x="203" y="295" text-anchor="middle" font-size="12" fill="#c0392b">Δt ≈ 0</text>
+  <text x="490" y="295" text-anchor="middle" font-size="12" fill="#c0392b">Накопичення фазового зсуву (Δt = N · ΔT)</text>
+  <text x="806" y="295" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Δt_max ≈ 43% T_bit</text>
+
+  <!-- Danger Zone Warning Badge (Right side, clear of lines) -->
+  <rect x="858" y="140" width="92" height="75" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="904" y="162" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Межа біта</text>
+  <text x="904" y="178" text-anchor="middle" font-size="12" fill="#c0392b">(0.5 T_bit)</text>
+  <text x="904" y="196" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">→ Збій!</text>
+  <line x1="810" y1="178" x2="852" y2="178" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-red)"/>
+
+  <!-- Bottom Panel Container -->
+  <rect x="30" y="340" width="900" height="135" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Card 1: Cause of Phase Shift -->
+  <rect x="45" y="352" width="275" height="110" rx="6" fill="#ffffff" stroke="#e0e0e0"/>
+  <text x="60" y="374" font-size="13" font-weight="bold" fill="#1a1a1a">1. Причина зсуву</text>
+  <text x="60" y="396" font-size="12" fill="#6b7280">• Відхилення частоти f_clk CH340</text>
+  <text x="60" y="416" font-size="12" fill="#6b7280">• Похибка baud rate: δ = Δf / f</text>
+  <text x="60" y="436" font-size="12" fill="#6b7280">• Зміщення кожного біта на ΔT</text>
+
+  <!-- Card 2: Accumulation Formula -->
+  <rect x="342.5" y="352" width="275" height="110" rx="6" fill="#ffffff" stroke="#e0e0e0"/>
+  <text x="357.5" y="374" font-size="13" font-weight="bold" fill="#2457d6">2. Формула накопичення</text>
+  <text x="357.5" y="396" font-size="12" fill="#1a1a1a">• Зсув: Δt_N = (N + 0.5) × ΔT</text>
+  <text x="357.5" y="416" font-size="12" fill="#6b7280">• Набір похибки від ST до SP</text>
+  <text x="357.5" y="436" font-size="12" fill="#6b7280">• Максимум на стоп-біті (N=9.5)</text>
+
+  <!-- Card 3: Failure Condition -->
+  <rect x="640" y="352" width="275" height="110" rx="6" fill="#fdecea" stroke="#f5c6cb"/>
+  <text x="655" y="374" font-size="13" font-weight="bold" fill="#c0392b">3. Умова втрати кадру</text>
+  <text x="655" y="396" font-size="12" font-weight="bold" fill="#c0392b">• Критичний зсув: Δt &gt; 0.5 T_bit</text>
+  <text x="655" y="416" font-size="12" font-weight="bold" fill="#c0392b">• Допустима похибка: δ &lt; 5%</text>
+  <text x="655" y="436" font-size="12" font-weight="bold" fill="#c0392b">• Виникнення Framing Error</text>
+</svg>

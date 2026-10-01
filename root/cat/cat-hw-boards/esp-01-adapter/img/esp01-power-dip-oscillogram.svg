@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Просідання напруги живлення ESP-01 під час Wi-Fi сплесків</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Конденсатори утримують напругу 3,3 В у межах норми та запобігають перезавантаженню</text>
+
+  <!-- LEFT PANEL: WITHOUT CAPACITORS -->
+  <rect x="40" y="85" width="425" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="52" y="95" width="401" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="252" y="115" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">БЕЗ ФІЛЬТРАЦІЇ: просідання V_CC та Reset</text>
+
+  <!-- Left Graph Screen -->
+  <rect x="95" y="140" width="350" height="260" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Left Grid Lines -->
+  <line x1="95" y1="186" x2="445" y2="186" stroke="#27ae60" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="95" y1="266" x2="445" y2="266" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="95" y1="360" x2="445" y2="360" stroke="#d0d7de" stroke-width="1"/>
+  
+  <line x1="160" y1="186" x2="160" y2="360" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="230" y1="186" x2="230" y2="360" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="2 2"/>
+
+  <!-- Left Y-Axis Scale Labels -->
+  <text x="87" y="190" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">3,3 В</text>
+  <text x="87" y="270" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">2,8 В</text>
+  <text x="87" y="364" font-size="12" fill="#6b7280" text-anchor="end">0,0 В</text>
+
+  <!-- Left Graph Trace Labels -->
+  <text x="102" y="174" font-size="12" fill="#27ae60" text-anchor="start">V_CC (норма 3,3 В)</text>
+  <text x="100" y="234" font-size="12" fill="#c0392b" text-anchor="start">
+    <tspan x="100" dy="0">Поріг BOR</tspan>
+    <tspan x="100" dy="15">(2,8 В)</tspan>
+  </text>
+
+  <!-- Left Traces -->
+  <!-- I_TX Current Trace (Blue dashed) -->
+  <path d="M 95,360 L 160,360 L 163,325 L 230,325 L 233,360 L 445,360" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="6 3"/>
+
+  <!-- V_CC Voltage Trace (Red solid) -->
+  <path d="M 95,186 L 160,186 C 175,186 185,266 195,295 C 205,312 215,312 225,310 C 235,305 250,220 275,186 L 445,186" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Left Callout Box -->
+  <rect x="235" y="285" width="195" height="52" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="332" y="304" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Просідання до ~2,4 В!</text>
+  <text x="332" y="324" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Перезавантаження (Reset)</text>
+  <line x1="235" y1="305" x2="208" y2="305" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Left X-axis label -->
+  <text x="220" y="392" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Імпульс струму I_TX (~350 мА)</text>
+
+
+  <!-- RIGHT PANEL: WITH CAPACITORS -->
+  <rect x="495" y="85" width="425" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="507" y="95" width="401" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="707" y="115" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">З КОНДЕНСАТОРМАМИ: стабільна робота 3,3 В</text>
+
+  <!-- Right Graph Screen -->
+  <rect x="550" y="140" width="350" height="260" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Right Grid Lines -->
+  <line x1="550" y1="186" x2="900" y2="186" stroke="#27ae60" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="550" y1="266" x2="900" y2="266" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="550" y1="360" x2="900" y2="360" stroke="#d0d7de" stroke-width="1"/>
+
+  <line x1="615" y1="186" x2="615" y2="360" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="730" y1="186" x2="730" y2="360" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="2 2"/>
+
+  <!-- Right Y-Axis Scale Labels -->
+  <text x="542" y="190" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">3,3 В</text>
+  <text x="542" y="270" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">2,8 В</text>
+  <text x="542" y="364" font-size="12" fill="#6b7280" text-anchor="end">0,0 В</text>
+
+  <!-- Right Graph Trace Labels -->
+  <text x="555" y="174" font-size="12" fill="#27ae60" text-anchor="start">V_CC (норма 3,3 В)</text>
+  <text x="555" y="234" font-size="12" fill="#c0392b" text-anchor="start">
+    <tspan x="555" dy="0">Поріг BOR</tspan>
+    <tspan x="555" dy="15">(2,8 В)</tspan>
+  </text>
+
+  <!-- Right Traces -->
+  <!-- I_TX Current Trace (Blue dashed) -->
+  <path d="M 550,360 L 615,360 L 618,325 L 730,325 L 733,360 L 900,360" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="6 3"/>
+
+  <!-- V_CC Voltage Trace (Green solid) -->
+  <path d="M 550,186 L 615,186 C 625,186 635,194 650,194 L 710,194 C 720,194 725,186 735,186 L 900,186" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Right Callout Box -->
+  <rect x="680" y="285" width="205" height="52" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="782" y="304" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ΔV ≈ 0,1 В (в межах норми)</text>
+  <text x="782" y="324" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ESP-01 працює без збоїв</text>
+  <line x1="730" y1="285" x2="685" y2="200" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Right X-axis label -->
+  <text x="675" y="392" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Імпульс струму I_TX (~350 мА)</text>
+
+  <!-- BOTTOM LEGEND PANEL -->
+  <rect x="40" y="475" width="880" height="42" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <line x1="60" y1="496" x2="85" y2="496" stroke="#2457d6" stroke-width="2" stroke-dasharray="5 3"/>
+  <text x="92" y="500" font-size="12" fill="#1a1a1a" text-anchor="start">I_TX (струм Wi-Fi, до 350 мА)</text>
+
+  <line x1="320" y1="496" x2="345" y2="496" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="352" y="500" font-size="12" fill="#c0392b" text-anchor="start">V_CC без конденсаторів (падіння &gt; 0,8 В)</text>
+
+  <line x1="640" y1="496" x2="665" y2="496" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="672" y="500" font-size="12" fill="#27ae60" text-anchor="start">V_CC з C = 100 мкФ + 0,1 мкФ</text>
+</svg>

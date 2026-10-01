@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схемотехніка Dual-USB у чипах ESP32-S3</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Розмежування нативного USB OTG/CDC/JTAG та зовнішнього моста USB-to-UART з автоскиданням</text>
+
+  <!-- Left Column: USB Connectors -->
+  <!-- Port 1: Native USB -->
+  <rect x="40" y="95" width="140" height="165" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="110" y="120" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">USB-Порт 1 (Native)</text>
+  <text x="110" y="138" font-size="12" fill="#1a1a1a" text-anchor="middle">Type-C Роз'єм</text>
+  <line x1="55" y1="150" x2="165" y2="150" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="110" y="175" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Нативний USB OTG</text>
+  <text x="110" y="193" font-size="12" fill="#2457d6" text-anchor="middle">CDC / JTAG / HID</text>
+  <text x="110" y="218" font-size="12" fill="#6b7280" text-anchor="middle">Пряме підключення</text>
+  <text x="110" y="236" font-size="12" fill="#6b7280" text-anchor="middle">без моста</text>
+
+  <!-- Port 2: UART USB -->
+  <rect x="40" y="305" width="140" height="180" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="110" y="330" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">USB-Порт 2 (UART)</text>
+  <text x="110" y="348" font-size="12" fill="#1a1a1a" text-anchor="middle">Type-C Роз'єм</text>
+  <line x1="55" y1="360" x2="165" y2="360" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="110" y="385" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Зовнішній мост</text>
+  <text x="110" y="403" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">USB-to-UART</text>
+  <text x="110" y="440" font-size="12" fill="#6b7280" text-anchor="middle">Автопрошивка</text>
+  <text x="110" y="458" font-size="12" fill="#6b7280" text-anchor="middle">та консоль</text>
+
+  <!-- Middle Column: Protection & Adapters -->
+  <!-- ESD & Resistors Box -->
+  <rect x="230" y="130" width="150" height="95" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="305" y="152" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Захист та узгодження</text>
+  <text x="305" y="174" font-size="12" fill="#1a1a1a" text-anchor="middle">ESD (USBLC6-2SC6)</text>
+  <text x="305" y="195" font-size="12" fill="#1a1a1a" text-anchor="middle">Резистори 22 Ом</text>
+
+  <!-- USB-to-UART Bridge Box -->
+  <rect x="230" y="320" width="140" height="85" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="300" y="345" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Мост USB-to-UART</text>
+  <text x="300" y="367" font-size="12" fill="#1a1a1a" text-anchor="middle">CP2102N / CH340</text>
+  <text x="300" y="388" font-size="12" fill="#6b7280" text-anchor="middle">TXD / RXD / DTR / RTS</text>
+
+  <!-- Auto-Reset Circuit Box -->
+  <rect x="410" y="410" width="150" height="75" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="485" y="432" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Вузол автоскидання</text>
+  <text x="485" y="452" font-size="12" fill="#1a1a1a" text-anchor="middle">Транзистори NPN</text>
+  <text x="485" y="470" font-size="12" fill="#6b7280" text-anchor="middle">Керування EN / GPIO0</text>
+
+  <!-- Right Column: ESP32-S3 SoC Container -->
+  <rect x="620" y="95" width="300" height="390" rx="8" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="770" y="122" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP32-S3 SoC</text>
+
+  <!-- Sub-block 1: Native USB Controller -->
+  <rect x="640" y="140" width="260" height="100" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="770" y="162" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Нативний USB контролер</text>
+  <text x="652" y="187" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">GPIO19 (USB D-)</text>
+  <text x="652" y="209" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">GPIO20 (USB D+)</text>
+  <text x="888" y="198" font-size="12" fill="#6b7280" text-anchor="end">JTAG / CDC / OTG</text>
+
+  <!-- Sub-block 2: UART0 Controller -->
+  <rect x="640" y="255" width="260" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="770" y="277" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">UART0 контролер</text>
+  <text x="652" y="302" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">GPIO44 (RXD0)</text>
+  <text x="652" y="324" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">GPIO43 (TXD0)</text>
+  <text x="888" y="313" font-size="12" fill="#6b7280" text-anchor="end">Bootloader / Logs</text>
+
+  <!-- Sub-block 3: Strapping & Reset Logic -->
+  <rect x="640" y="365" width="260" height="105" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="770" y="387" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Скидання та защепкування</text>
+  <text x="652" y="412" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">EN (Чип-активація)</text>
+  <text x="652" y="434" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">GPIO0 (Strapping)</text>
+  <text x="888" y="423" font-size="12" fill="#6b7280" text-anchor="end">UART / Flash Boot</text>
+
+  <!-- Connections / Lines -->
+  <!-- 1. Native USB Lines -->
+  <!-- D- Line -->
+  <line x1="180" y1="165" x2="230" y2="165" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="380" y1="165" x2="640" y2="183" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="495" y="150" font-size="12" fill="#2457d6" text-anchor="middle">D- (USB D-)</text>
+
+  <!-- D+ Line -->
+  <line x1="180" y1="195" x2="230" y2="195" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="380" y1="195" x2="640" y2="205" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="495" y="228" font-size="12" fill="#2457d6" text-anchor="middle">D+ (USB D+)</text>
+
+  <!-- 2. UART D+/D- Line -->
+  <line x1="180" y1="362" x2="230" y2="362" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="205" y="348" font-size="12" fill="#27ae60" text-anchor="middle">D+/D-</text>
+
+  <!-- 3. UART TXD0/RXD0 Lines -->
+  <!-- TXD -> RXD0 -->
+  <line x1="370" y1="340" x2="640" y2="298" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="495" y="296" font-size="12" fill="#27ae60" text-anchor="middle">TXD -&gt; RXD0</text>
+
+  <!-- RXD <- TXD0 -->
+  <line x1="640" y1="324" x2="370" y2="375" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="495" y="376" font-size="12" fill="#27ae60" text-anchor="middle">RXD &lt;- TXD0</text>
+
+  <!-- 4. Auto-Reset Lines -->
+  <!-- DTR / RTS to Auto-Reset -->
+  <path d="M 300 405 L 300 447 L 410 447" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="355" y="435" font-size="12" fill="#1a1a1a" text-anchor="middle">DTR / RTS</text>
+
+  <!-- Auto-Reset -> EN -->
+  <line x1="560" y1="430" x2="640" y2="408" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="595" y="398" font-size="12" fill="#c0392b" text-anchor="middle">EN</text>
+
+  <!-- Auto-Reset -> GPIO0 -->
+  <line x1="560" y1="465" x2="640" y2="435" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="595" y="482" font-size="12" fill="#c0392b" text-anchor="middle">GPIO0</text>
+</svg>

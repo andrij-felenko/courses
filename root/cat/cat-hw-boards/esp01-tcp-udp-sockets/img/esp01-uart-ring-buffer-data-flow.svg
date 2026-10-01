@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Асинхронний потік даних UART, кільцевий буфер та парсер FSM</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Апаратна розв'язка затримок: від переривання Rx ISR до виділення пакета +IPD в прикладний код</text>
+
+  <!-- Column 1: ISR Hardware Interrupt Layer -->
+  <rect x="30" y="85" width="275" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="167" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Апаратне джерело (ISR)</text>
+
+  <!-- Box 1.1 -->
+  <rect x="45" y="130" width="245" height="85" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="152" font-size="12" font-weight="bold" fill="#1a1a1a">ESP-01 UART Output</text>
+  <text x="55" y="174" font-size="11" fill="#6b7280">• Вхідний каскад ASCII-символів</text>
+  <text x="55" y="194" font-size="11" fill="#6b7280">• Швидкість 115200 бод</text>
+
+  <!-- Arrow 1.1 -> 1.2 -->
+  <line x1="167" y1="215" x2="167" y2="238" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Box 1.2 -->
+  <rect x="45" y="242" width="245" height="105" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="55" y="264" font-size="12" font-weight="bold" fill="#2457d6">Переривання USART_RX_vect</text>
+  <text x="55" y="286" font-size="11" fill="#1a1a1a">• Зчитування байта з регістру DR</text>
+  <text x="55" y="306" font-size="11" fill="#6b7280">• Запис за вказівником head</text>
+  <text x="55" y="326" font-size="11" fill="#6b7280">• Швидкий вихід із ISR (&lt;1 мкс)</text>
+
+  <!-- Arrow 1.2 -> 1.3 -->
+  <line x1="167" y1="347" x2="167" y2="370" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Box 1.3 -->
+  <rect x="45" y="374" width="245" height="110" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="396" font-size="12" font-weight="bold" fill="#1a1a1a">Керування вказівником Head</text>
+  <text x="55" y="418" font-size="11" fill="#6b7280">• head = (head + 1) % SIZE</text>
+  <text x="55" y="438" font-size="11" fill="#6b7280">• Інкремент без блокування</text>
+  <text x="55" y="458" font-size="11" fill="#6b7280">• Перевірка переповнення</text>
+
+
+  <!-- Column 2: Ring Buffer Layer -->
+  <rect x="342" y="85" width="275" height="425" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="479" y="110" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Кільцевий буфер (Ring)</text>
+
+  <!-- Box 2.1 -->
+  <rect x="357" y="130" width="245" height="90" rx="6" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="367" y="152" font-size="12" font-weight="bold" fill="#2457d6">Буфер у DRAM (1–2 КБ)</text>
+  <text x="367" y="174" font-size="11" fill="#1a1a1a">[ + | I | P | D | , | 0 | , | 1 | 2 | : ]</text>
+  <text x="367" y="194" font-size="11" fill="#6b7280">head ↑ (ISR)        tail ↑ (FSM)</text>
+
+  <!-- Arrow 2.1 -> 2.2 -->
+  <line x1="479" y1="220" x2="479" y2="238" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Box 2.2 -->
+  <rect x="357" y="242" width="245" height="105" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="367" y="264" font-size="12" font-weight="bold" fill="#2457d6">Розв'язка часових затримок</text>
+  <text x="367" y="286" font-size="11" fill="#1a1a1a">• Згладжування піків трафіку</text>
+  <text x="367" y="306" font-size="11" fill="#6b7280">• Незалежність FSM від ISR</text>
+  <text x="367" y="326" font-size="11" fill="#6b7280">• Збереження цілісності даних</text>
+
+  <!-- Arrow 2.2 -> 2.3 -->
+  <line x1="479" y1="347" x2="479" y2="370" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Box 2.3 -->
+  <rect x="357" y="374" width="245" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="367" y="396" font-size="12" font-weight="bold" fill="#27ae60">Апаратний захист RTS/CTS</text>
+  <text x="367" y="418" font-size="11" fill="#1a1a1a">• Заповнення &gt;75% → RTS HIGH</text>
+  <text x="367" y="438" font-size="11" fill="#6b7280">• Призупинення передачі ESP-01</text>
+  <text x="367" y="458" font-size="11" fill="#6b7280">• Відновлення при заповненні &lt;25%</text>
+
+
+  <!-- Column 3: FSM Parser & Application Layer -->
+  <rect x="655" y="85" width="275" height="425" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="792" y="110" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Парсер FSM &amp; App Payload</text>
+
+  <!-- Box 3.1 -->
+  <rect x="670" y="130" width="245" height="85" rx="6" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="680" y="152" font-size="12" font-weight="bold" fill="#27ae60">Посимвольний парсер FSM</text>
+  <text x="680" y="174" font-size="11" fill="#1a1a1a">• Детекція префікса +IPD</text>
+  <text x="680" y="194" font-size="11" fill="#6b7280">• Розбір сокета ID та довжини</text>
+
+  <!-- Arrow 3.1 -> 3.2 -->
+  <line x1="792" y1="215" x2="792" y2="238" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Box 3.2 -->
+  <rect x="670" y="242" width="245" height="105" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="680" y="264" font-size="12" font-weight="bold" fill="#27ae60">Тіло мережевого пакета</text>
+  <text x="680" y="286" font-size="11" fill="#1a1a1a">• Socket ID: 0 | Length: 12</text>
+  <text x="680" y="306" font-size="11" fill="#6b7280">• Payload: "HELLO WORLD!"</text>
+  <text x="680" y="326" font-size="11" fill="#6b7280">• Відокремлення службових спецкоманд</text>
+
+  <!-- Arrow 3.2 -> 3.3 -->
+  <line x1="792" y1="347" x2="792" y2="370" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Box 3.3 -->
+  <rect x="670" y="374" width="245" height="110" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="680" y="396" font-size="12" font-weight="bold" fill="#1a1a1a">Прикладний обробник (App Queue)</text>
+  <text x="680" y="418" font-size="11" fill="#6b7280">• Виклик callback-функції</text>
+  <text x="680" y="438" font-size="11" fill="#6b7280">• Передача даних у головний цикл</text>
+  <text x="680" y="458" font-size="11" fill="#6b7280">• Виколупування з черги без затримок</text>
+
+
+  <!-- Inter-panel connecting paths -->
+  <!-- Path 1: ISR -> Ring Buffer -->
+  <path d="M 290 294 L 320 294 L 320 175 L 350 175" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="320" y="165" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">Байт у буфер</text>
+
+  <!-- Path 2: Ring Buffer -> FSM Parser -->
+  <path d="M 602 175 L 663 175" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="632" y="165" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">Зчитування FSM</text>
+</svg>

@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-orange" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#e67e22"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Структурна схема плати ESP32-S3-Zero</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Нативний USB OTG підключається напряму до GPIO19/20 без чипа USB-UART</text>
+
+  <!-- LDO Регулятор (Живлення) -->
+  <rect x="230" y="90" width="170" height="90" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="315" y="120" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">LDO-регулятор 3.3В</text>
+  <text x="315" y="142" text-anchor="middle" font-size="12" fill="#6b7280">Вхід: 5В (VBUS)</text>
+  <text x="315" y="162" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Вихід: 3.3В (VDD)</text>
+
+  <!-- Роз'єм USB Type-C -->
+  <rect x="30" y="200" width="150" height="140" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="105" y="228" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Роз'єм USB Type-C</text>
+  <text x="105" y="248" text-anchor="middle" font-size="12" fill="#6b7280">(Живлення + Дані)</text>
+
+  <text x="45" y="274" font-size="12" font-weight="bold" fill="#e67e22">VBUS (5В)</text>
+  <text x="45" y="299" font-size="12" font-weight="bold" fill="#2457d6">D- (GPIO19)</text>
+  <text x="45" y="324" font-size="12" font-weight="bold" fill="#2457d6">D+ (GPIO20)</text>
+
+  <!-- Лінія 5В живлення від USB до LDO -->
+  <path d="M 180 270 L 205 270 L 205 142 L 230 142" fill="none" stroke="#e67e22" stroke-width="2" marker-end="url(#arr-orange)"/>
+  <text x="192" y="210" text-anchor="end" font-size="12" font-weight="bold" fill="#e67e22">5В</text>
+
+  <!-- Лінія 3.3В живлення від LDO до ESP32-S3 -->
+  <path d="M 400 142 L 450 142" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="425" y="134" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">3.3В</text>
+
+  <!-- Лінії даних USB D-/D+ від USB до ESP32-S3 -->
+  <path d="M 180 295 L 430 295 L 430 185 L 470 185" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 180 320 L 415 320 L 415 200 L 470 200" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Плашка підпису для ліній USB -->
+  <rect x="210" y="335" width="190" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="305" y="352" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">USB D+ / D- (Нативні лінії)</text>
+
+  <!-- Головний блок: ESP32-S3 SoC -->
+  <rect x="450" y="90" width="300" height="370" rx="10" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <text x="600" y="118" text-anchor="middle" font-size="16" font-weight="bold" fill="#2457d6">Чип ESP32-S3 (SoC)</text>
+  <text x="600" y="136" text-anchor="middle" font-size="12" fill="#6b7280">Двоядерний 32-бітний Xtensa LX7</text>
+
+  <!-- Внутрішній блок: Нативний USB -->
+  <rect x="470" y="150" width="260" height="85" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="600" y="172" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Нативний USB OTG / CDC / JTAG</text>
+  <text x="600" y="192" text-anchor="middle" font-size="12" fill="#1a1a1a">Вхідні піни: GPIO19 (D-) та GPIO20 (D+)</text>
+  <rect x="490" y="202" width="220" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="600" y="218" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">✓ Пряме підключення без UART</text>
+
+  <!-- Внутрішній блок: Ядра та Пам'ять -->
+  <rect x="470" y="245" width="260" height="70" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="600" y="267" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">2× Процесори Xtensa LX7</text>
+  <text x="600" y="286" text-anchor="middle" font-size="12" fill="#6b7280">Тактова частота до 240 МГц</text>
+  <text x="600" y="303" text-anchor="middle" font-size="12" fill="#6b7280">512 КБ SRAM / 384 КБ ROM</text>
+
+  <!-- Внутрішній блок: Бездротовий зв'язок та Периферія -->
+  <rect x="470" y="325" width="260" height="120" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="600" y="347" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Бездротові інтерфейси</text>
+  <text x="600" y="367" text-anchor="middle" font-size="12" fill="#1a1a1a">Wi-Fi 2.4 ГГц (802.11 b/g/n) + BLE 5.0</text>
+  <line x1="480" y1="377" x2="720" y2="377" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="600" y="397" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Матриця GPIO та периферія</text>
+  <text x="600" y="417" text-anchor="middle" font-size="12" fill="#6b7280">SPI, I2C, UART, ADC, PWM, I2S</text>
+  <text x="600" y="435" text-anchor="middle" font-size="12" fill="#6b7280">(Підтримка castellated holes)</text>
+
+  <!-- Зовнішній блок 1: Flash пам'ять -->
+  <rect x="780" y="90" width="150" height="90" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="855" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Flash-пам'ять</text>
+  <text x="855" y="135" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">4 МБ SPI Flash</text>
+  <text x="855" y="157" text-anchor="middle" font-size="12" fill="#6b7280">Quad SPI (QSPI)</text>
+
+  <line x1="750" y1="135" x2="780" y2="135" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="765" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">SPI</text>
+
+  <!-- Зовнішній блок 2: RGB-світлодіод -->
+  <rect x="780" y="210" width="150" height="100" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="855" y="235" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">RGB-світлодіод</text>
+  <text x="855" y="255" text-anchor="middle" font-size="12" fill="#1a1a1a">Адресний WS2812B</text>
+  <text x="855" y="275" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Керування: GPIO21</text>
+  <text x="855" y="293" text-anchor="middle" font-size="12" fill="#6b7280">(однопровідний DIN)</text>
+
+  <line x1="750" y1="260" x2="780" y2="260" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="765" y="250" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">GPIO21</text>
+
+  <!-- Зовнішній блок 3: Зубчасті контакти -->
+  <rect x="780" y="340" width="150" height="120" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="855" y="363" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Зубчасті контакти</text>
+  <text x="855" y="381" text-anchor="middle" font-size="12" fill="#6b7280">(Castellated Holes)</text>
+  <text x="855" y="403" text-anchor="middle" font-size="12" fill="#1a1a1a">Виходи GPIO, 3.3V, 5V, GND</text>
+  <text x="855" y="423" text-anchor="middle" font-size="12" fill="#6b7280">Прямий поверхневий</text>
+  <text x="855" y="441" text-anchor="middle" font-size="12" fill="#6b7280">монтаж на плату</text>
+
+  <line x1="750" y1="400" x2="780" y2="400" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <text x="765" y="392" text-anchor="middle" font-size="12" fill="#6b7280">GPIO</text>
+</svg>

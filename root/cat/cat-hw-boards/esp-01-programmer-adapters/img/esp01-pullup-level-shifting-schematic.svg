@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема підтяжки та узгодження рівнів для модуля ESP-01</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Підтяжка CH_PD/RST/GPIO0/GPIO2 до 3.3 В та дільник R1/R2 на RX 5V-&gt;3.3V забезпечують старт</text>
+
+  <!-- Left Panel: Signal & Power Inputs -->
+  <rect x="30" y="95" width="140" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="95" width="140" height="32" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="100" y="116" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">USB-UART / Джерело</text>
+
+  <text x="100" y="154" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Живлення +3.3V</text>
+  <text x="100" y="394" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхід TX 5V</text>
+  <text x="100" y="449" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вихід RX 3.3V</text>
+  <text x="100" y="484" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Земля GND</text>
+
+  <!-- Power Rails -->
+  <!-- +3.3V Rail (Red) -->
+  <line x1="170" y1="150" x2="195" y2="150" stroke="#c0392b" stroke-width="2"/>
+  <line x1="195" y1="150" x2="195" y2="110" stroke="#c0392b" stroke-width="2"/>
+  <line x1="195" y1="110" x2="640" y2="110" stroke="#c0392b" stroke-width="2"/>
+  <text x="410" y="102" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Шина живлення +3.3V</text>
+
+  <!-- GND Rail (Dark) -->
+  <line x1="170" y1="480" x2="640" y2="480" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="410" y="498" font-size="12" fill="#6b7280" text-anchor="middle">Спільна шина GND</text>
+
+  <!-- Capacitor C1 (Power Decoupling) -->
+  <line x1="195" y1="110" x2="195" y2="136" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="185" y1="136" x2="205" y2="136" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="185" y1="144" x2="205" y2="144" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="195" y1="144" x2="195" y2="480" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="210" y="144" font-size="12" fill="#1a1a1a" text-anchor="start">C1 (10 µF)</text>
+  <circle cx="195" cy="110" r="3.5" fill="#c0392b"/>
+  <circle cx="195" cy="480" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Pull-Up Resistor Labels at y=155 -->
+  <text x="290" y="155" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">R_RST 10k</text>
+  <text x="360" y="155" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">R_EN 10k</text>
+  <text x="440" y="155" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">R_GP0 10k</text>
+  <text x="520" y="155" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">R_GP2 10k</text>
+
+  <!-- Pull-Up Resistors & Lines -->
+
+  <!-- 1. RST Line & R_RST (x=290) -->
+  <line x1="290" y1="110" x2="290" y2="165" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="282" y="165" width="16" height="36" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="290" y1="201" x2="290" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="290" y1="260" x2="640" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Switch SW_RST to GND -->
+  <line x1="290" y1="260" x2="290" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="290" cy="280" r="3" fill="#1a1a1a"/>
+  <line x1="282" y1="288" x2="298" y2="278" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="290" cy="296" r="3" fill="#1a1a1a"/>
+  <line x1="290" y1="296" x2="290" y2="480" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="276" y="292" font-size="12" fill="#1a1a1a" text-anchor="end">SW_RST (Reset)</text>
+  <circle cx="290" cy="110" r="3.5" fill="#c0392b"/>
+  <circle cx="290" cy="260" r="3.5" fill="#1a1a1a"/>
+  <circle cx="290" cy="480" r="3.5" fill="#1a1a1a"/>
+
+  <!-- 2. CH_PD / EN Line & R_EN (x=360) -->
+  <line x1="360" y1="110" x2="360" y2="165" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="352" y="165" width="16" height="36" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="360" y1="201" x2="360" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="360" y1="220" x2="640" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="360" cy="110" r="3.5" fill="#c0392b"/>
+  <circle cx="360" cy="220" r="3.5" fill="#1a1a1a"/>
+
+  <!-- 3. GPIO0 Line & R_GP0 (x=440) -->
+  <line x1="440" y1="110" x2="440" y2="165" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="432" y="165" width="16" height="36" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="440" y1="201" x2="440" y2="300" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="440" y1="300" x2="640" y2="300" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Switch PROG to GND -->
+  <line x1="440" y1="300" x2="440" y2="324" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="440" cy="324" r="3" fill="#1a1a1a"/>
+  <line x1="432" y1="332" x2="448" y2="322" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="440" cy="340" r="3" fill="#1a1a1a"/>
+  <line x1="440" y1="340" x2="440" y2="480" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="426" y="336" font-size="12" fill="#c0392b" text-anchor="end">PROG (GND)</text>
+  <circle cx="440" cy="110" r="3.5" fill="#c0392b"/>
+  <circle cx="440" cy="300" r="3.5" fill="#1a1a1a"/>
+  <circle cx="440" cy="480" r="3.5" fill="#1a1a1a"/>
+
+  <!-- 4. GPIO2 Line & R_GP2 (x=520) -->
+  <line x1="520" y1="110" x2="520" y2="165" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="512" y="165" width="16" height="36" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="520" y1="201" x2="520" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="520" y1="340" x2="640" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="520" cy="110" r="3.5" fill="#c0392b"/>
+  <circle cx="520" cy="340" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Level Shifter / Divider for RX Line (x=170 to 640, y=390) -->
+  <line x1="170" y1="390" x2="200" y2="390" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="200" y="382" width="44" height="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="222" y="374" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R1 1 kΩ</text>
+  <line x1="244" y1="390" x2="640" y2="390" stroke="#2457d6" stroke-width="2"/>
+  <text x="460" y="382" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сигнал RXD 3.33V (до ESP-01)</text>
+
+  <!-- Shunt Resistor R2 to GND -->
+  <line x1="280" y1="390" x2="280" y2="415" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="272" y="415" width="16" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="294" y="437" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">R2 2 kΩ</text>
+  <line x1="280" y1="451" x2="280" y2="480" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="280" cy="390" r="3.5" fill="#2457d6"/>
+  <circle cx="280" cy="480" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Divider Formula Badge Box -->
+  <rect x="165" y="415" width="100" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="215" y="431" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">U_out = 3.33V</text>
+  <text x="215" y="447" font-size="12" fill="#6b7280" text-anchor="middle">5V × 2k/(1k+2k)</text>
+
+  <!-- TXD Direct Line (3.3V Output) (y=445) -->
+  <line x1="640" y1="445" x2="170" y2="445" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="460" y="437" font-size="12" fill="#27ae60" text-anchor="middle">Пряме підключення TXD (3.3V)</text>
+
+  <!-- Right Panel: ESP-01 Module Pinout -->
+  <rect x="640" y="95" width="280" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="640" y="95" width="280" height="36" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="780" y="118" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Модуль ESP-01 (Роз'єм 2x4)</text>
+
+  <!-- Pins inside ESP-01 Box -->
+  <circle cx="640" cy="150" r="4" fill="#c0392b"/>
+  <text x="655" y="154" font-size="12" font-weight="bold" fill="#c0392b">VCC (+3.3V) [Pin 7]</text>
+
+  <circle cx="640" cy="220" r="4" fill="#27ae60"/>
+  <text x="655" y="224" font-size="12" fill="#1a1a1a">CH_PD / EN [Pin 4] (HIGH)</text>
+
+  <circle cx="640" cy="260" r="4" fill="#27ae60"/>
+  <text x="655" y="264" font-size="12" fill="#1a1a1a">RST [Pin 5] (HIGH)</text>
+
+  <circle cx="640" cy="300" r="4" fill="#27ae60"/>
+  <text x="655" y="304" font-size="12" fill="#1a1a1a">GPIO0 [Pin 6] (HIGH/LOW)</text>
+
+  <circle cx="640" cy="340" r="4" fill="#27ae60"/>
+  <text x="655" y="344" font-size="12" fill="#1a1a1a">GPIO2 [Pin 3] (HIGH)</text>
+
+  <circle cx="640" cy="390" r="4" fill="#2457d6"/>
+  <text x="655" y="394" font-size="12" font-weight="bold" fill="#2457d6">RXD (GPIO3) [Pin 8]</text>
+
+  <circle cx="640" cy="445" r="4" fill="#27ae60"/>
+  <text x="655" y="449" font-size="12" font-weight="bold" fill="#27ae60">TXD (GPIO1) [Pin 2]</text>
+
+  <circle cx="640" cy="480" r="4" fill="#1a1a1a"/>
+  <text x="655" y="484" font-size="12" font-weight="bold" fill="#1a1a1a">GND [Pin 1]</text>
+
+  <!-- Bottom Panel: Operating Modes -->
+  <rect x="30" y="508" width="890" height="42" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="475" y="525" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Режим виконання (Flash Boot): GPIO0 = HIGH (підтяжка), GPIO2 = HIGH, CH_PD = HIGH</text>
+  <text x="475" y="542" font-size="12" fill="#1a1a1a" text-anchor="middle">Режим прошивки (UART Download): GPIO0 = LOW (замкнено PROG на GND при скиданні RST)</text>
+</svg>

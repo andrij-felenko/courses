@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Definitions for Markers -->
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема живлення та сокета плати-адаптера ESP32-CAM</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Перетворення 5V в 3.3V (LDO), фільтрація та керування режимами BOOT/RESET</text>
+
+  <!-- Panel 1: Type-C Connector -->
+  <rect x="30" y="85" width="220" height="405" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+  <text x="140" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Роз'єм USB Type-C</text>
+
+  <rect x="45" y="125" width="190" height="350" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="55" y="148" font-size="13" font-weight="bold" fill="#2457d6">Контакти Type-C:</text>
+
+  <!-- VBUS Pin -->
+  <circle cx="140" cy="178" r="5" fill="#c0392b"/>
+  <text x="55" y="178" font-size="12" font-weight="bold" fill="#c0392b">VBUS (5V)</text>
+  <text x="55" y="196" font-size="12" fill="#6b7280">Вхід 5V від USB</text>
+
+  <!-- GND Pin -->
+  <circle cx="140" cy="234" r="5" fill="#1a1a1a"/>
+  <text x="55" y="234" font-size="12" font-weight="bold" fill="#1a1a1a">GND (0V)</text>
+  <text x="55" y="252" font-size="12" fill="#6b7280">Спільна земля</text>
+
+  <!-- CC1 / CC2 Pins -->
+  <circle cx="140" cy="290" r="5" fill="#6b7280"/>
+  <text x="55" y="290" font-size="12" font-weight="bold" fill="#1a1a1a">CC1 / CC2</text>
+  <text x="55" y="308" font-size="12" fill="#6b7280">5.1 kΩ до GND</text>
+  <text x="55" y="326" font-size="12" fill="#6b7280">(визначення Type-C)</text>
+
+  <!-- D- / D+ Pins -->
+  <circle cx="140" cy="364" r="5" fill="#2457d6"/>
+  <text x="55" y="364" font-size="12" font-weight="bold" fill="#2457d6">D- / D+ (Дані)</text>
+  <text x="55" y="382" font-size="12" fill="#6b7280">До моста CH340</text>
+
+  <!-- Shield -->
+  <text x="55" y="428" font-size="12" fill="#6b7280">SHIELD → GND</text>
+  <text x="55" y="446" font-size="12" fill="#6b7280">(екранування)</text>
+
+  <!-- Panel 2: LDO & Auto-Reset -->
+  <rect x="275" y="85" width="360" height="405" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+  <text x="455" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LDO 3.3V та схема авто-скидання</text>
+
+  <!-- LDO Chip AMS1117-3.3 -->
+  <rect x="375" y="128" width="160" height="82" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <text x="455" y="152" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">AMS1117-3.3</text>
+  <text x="455" y="170" font-size="12" fill="#1a1a1a" text-anchor="middle">Стабілізатор 5V → 3.3V</text>
+  <text x="455" y="188" font-size="12" fill="#6b7280" text-anchor="middle">I_max = 800 mA</text>
+
+  <text x="365" y="162" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">VIN (5V)</text>
+  <text x="545" y="162" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">VOUT (3.3V)</text>
+
+  <!-- Capacitors -->
+  <rect x="305" y="195" width="24" height="30" fill="#ffffff" stroke="#d0d7de" rx="3"/>
+  <text x="290" y="238" font-size="12" font-weight="bold" fill="#1a1a1a">C1: 10 µF</text>
+  <text x="290" y="254" font-size="12" fill="#6b7280">Вхідний електроліт</text>
+
+  <rect x="580" y="195" width="24" height="30" fill="#ffffff" stroke="#d0d7de" rx="3"/>
+  <text x="480" y="238" font-size="12" font-weight="bold" fill="#1a1a1a">C2: 10 µF | C3: 0.1 µF</text>
+  <text x="480" y="254" font-size="12" fill="#6b7280">Вихідна фільтрація</text>
+
+  <!-- Auto-Reset Subpanel -->
+  <rect x="290" y="270" width="330" height="205" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="455" y="292" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Автоматичне скидання (DTR / RTS)</text>
+
+  <!-- Transistors Q1 and Q2 -->
+  <rect x="340" y="312" width="80" height="52" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="380" y="334" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Q1 (S8050)</text>
+  <text x="380" y="350" font-size="12" fill="#6b7280" text-anchor="middle">Керує EN/RST</text>
+
+  <rect x="530" y="312" width="80" height="52" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="570" y="334" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Q2 (S8050)</text>
+  <text x="570" y="350" font-size="12" fill="#6b7280" text-anchor="middle">Керує GPIO0</text>
+
+  <!-- Control lines -->
+  <text x="300" y="385" font-size="12" font-weight="bold" fill="#2457d6">DTR</text>
+  <text x="300" y="410" font-size="12" font-weight="bold" fill="#2457d6">RTS</text>
+
+  <!-- Resistors -->
+  <text x="330" y="445" font-size="12" fill="#1a1a1a">R1: 10 kΩ (EN → 3.3V)</text>
+  <text x="330" y="468" font-size="12" fill="#1a1a1a">R2: 10 kΩ (IO0 → 3.3V)</text>
+
+  <!-- Panel 3: ESP32-CAM Socket -->
+  <rect x="665" y="85" width="265" height="405" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+  <text x="797" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сокет модуля ESP32-CAM</text>
+
+  <rect x="680" y="125" width="235" height="350" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="797" y="145" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Контакти та сигнальні лінії</text>
+
+  <!-- Socket Pins -->
+  <circle cx="700" cy="175" r="5" fill="#c0392b"/>
+  <text x="715" y="175" font-size="12" font-weight="bold" fill="#c0392b">5V</text>
+  <text x="715" y="190" font-size="12" fill="#6b7280">Вхід живлення від USB</text>
+
+  <circle cx="700" cy="220" r="5" fill="#27ae60"/>
+  <text x="715" y="220" font-size="12" font-weight="bold" fill="#27ae60">3V3</text>
+  <text x="715" y="235" font-size="12" fill="#6b7280">Вихід стабілізатора LDO</text>
+
+  <circle cx="700" cy="265" r="5" fill="#1a1a1a"/>
+  <text x="715" y="265" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+  <text x="715" y="280" font-size="12" fill="#6b7280">Спільний нульовий провід</text>
+
+  <circle cx="700" cy="310" r="5" fill="#2457d6"/>
+  <text x="715" y="310" font-size="12" font-weight="bold" fill="#2457d6">GPIO0 (BOOT)</text>
+  <text x="715" y="325" font-size="12" fill="#6b7280">GND = режим прошивки</text>
+
+  <circle cx="700" cy="355" r="5" fill="#2457d6"/>
+  <text x="715" y="355" font-size="12" font-weight="bold" fill="#2457d6">EN / RST</text>
+  <text x="715" y="370" font-size="12" fill="#6b7280">Скидання мікроконтролера</text>
+
+  <circle cx="700" cy="400" r="5" fill="#1a1a1a"/>
+  <text x="715" y="400" font-size="12" font-weight="bold" fill="#1a1a1a">U0TXD / U0RXD</text>
+  <text x="715" y="415" font-size="12" fill="#6b7280">Послідовний інтерфейс</text>
+
+  <circle cx="700" cy="445" r="5" fill="#27ae60"/>
+  <text x="715" y="445" font-size="12" font-weight="bold" fill="#27ae60">PWR LED &amp; CAM VCC</text>
+  <text x="715" y="460" font-size="12" fill="#6b7280">Індикація та камера</text>
+
+  <!-- Wires connecting panels -->
+  <!-- 5V Wire: Type-C -> LDO -> ESP32-CAM 5V Pin -->
+  <path d="M 145 178 L 275 178 M 275 178 L 375 162 M 635 178 L 695 175" stroke="#c0392b" stroke-width="2" fill="none" marker-end="url(#arr-red)"/>
+
+  <!-- 3.3V Wire: LDO VOUT -> ESP32-CAM 3V3 Pin -->
+  <path d="M 535 162 L 635 220 M 635 220 L 695 220" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+
+  <!-- Reset / Boot Wires: Q1/Q2 -> EN / GPIO0 -->
+  <path d="M 620 334 L 695 310" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <path d="M 620 350 L 695 355" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- GND Bus line -->
+  <line x1="50" y1="498" x2="910" y2="498" stroke="#1a1a1a" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="480" y="516" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Спільна лінія заземлення (GND Bus)</text>
+</svg>

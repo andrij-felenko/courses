@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Життєвий цикл кадрового буфера camera_fb_t в ESP32 PSRAM</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Захоплення через esp_camera_fb_get() та обов'язкове повернення через esp_camera_fb_return()</text>
+
+  <!-- Column 1: Hardware & DMA -->
+  <rect x="40" y="80" width="250" height="320" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="52" y="92" width="226" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="165" y="113" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Апаратне DMA захоплення</text>
+
+  <rect x="52" y="136" width="226" height="100" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="64" y="156" font-size="12" font-weight="bold" fill="#1a1a1a">Матриця OV2640 / DVP:</text>
+  <text x="64" y="176" font-size="12" fill="#1a1a1a">· Передача кадрів по шині DVP</text>
+  <text x="64" y="196" font-size="12" fill="#1a1a1a">· Тактування XCLK (20 МГц)</text>
+  <text x="64" y="216" font-size="12" fill="#6b7280">· DMA пише напряму в PSRAM</text>
+
+  <rect x="52" y="248" width="226" height="142" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="64" y="268" font-size="12" font-weight="bold" fill="#2457d6">Кільцевий пул DMA:</text>
+  <text x="64" y="288" font-size="12" fill="#1a1a1a">· Буферів у конфізі: fb_count</text>
+  <text x="64" y="308" font-size="12" fill="#1a1a1a">· Локація: PSRAM (SPIRAM)</text>
+  <text x="64" y="328" font-size="12" fill="#27ae60">· Вхід: FREE буфери</text>
+  <text x="64" y="348" font-size="12" fill="#2457d6">· Вихід: READY буфери</text>
+  <text x="64" y="368" font-size="12" fill="#6b7280">Автоматичний ISR запис</text>
+
+  <!-- Arrow 1: Column 1 -> Column 2 -->
+  <path d="M290,185 L347,185" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="318" y="173" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Запис DMA</text>
+  <text x="318" y="202" font-size="12" fill="#6b7280" text-anchor="middle">в PSRAM</text>
+
+  <!-- Column 2: Memory & camera_fb_t -->
+  <rect x="355" y="80" width="250" height="320" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="367" y="92" width="226" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="113" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Пам'ять та camera_fb_t</text>
+
+  <rect x="367" y="136" width="226" height="135" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="379" y="156" font-size="12" font-weight="bold" fill="#1a1a1a">Поля структури camera_fb_t:</text>
+  <text x="379" y="176" font-size="12" fill="#2457d6">· uint8_t* buf  [вказує в PSRAM]</text>
+  <text x="379" y="196" font-size="12" fill="#1a1a1a">· size_t len    [розмір кадру]</text>
+  <text x="379" y="216" font-size="12" fill="#1a1a1a">· size_t width / height</text>
+  <text x="379" y="236" font-size="12" fill="#1a1a1a">· pixformat_t format (JPEG/RAW)</text>
+  <text x="379" y="256" font-size="12" fill="#6b7280">· struct timeval timestamp</text>
+
+  <rect x="367" y="283" width="226" height="107" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="379" y="303" font-size="12" font-weight="bold" fill="#1a1a1a">Стани буфера в пулі:</text>
+  <text x="379" y="323" font-size="12" fill="#27ae60">1. FREE: Готовий для DMA</text>
+  <text x="379" y="343" font-size="12" fill="#2457d6">2. READY: Очікує fb_get()</text>
+  <text x="379" y="363" font-size="12" fill="#c0392b">3. LOCKED: У користуванні</text>
+
+  <!-- Arrow 2: Column 2 -> Column 3 -->
+  <path d="M605,185 L662,185" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="633" y="173" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">fb_get()</text>
+  <text x="633" y="202" font-size="12" fill="#6b7280" text-anchor="middle">Вказівник</text>
+
+  <!-- Column 3: Application API -->
+  <rect x="670" y="80" width="250" height="320" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="682" y="92" width="226" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="795" y="113" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Прикладний рівень API</text>
+
+  <rect x="682" y="136" width="226" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="694" y="156" font-size="12" font-weight="bold" fill="#2457d6">esp_camera_fb_get()</text>
+  <text x="694" y="176" font-size="12" fill="#1a1a1a">Отримання READY кадра</text>
+  <text x="694" y="196" font-size="12" fill="#c0392b">Буфер стає LOCKED</text>
+
+  <rect x="682" y="219" width="226" height="75" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="694" y="239" font-size="12" font-weight="bold" fill="#1a1a1a">Обробка / Передача:</text>
+  <text x="694" y="259" font-size="12" fill="#1a1a1a">· Відправка в HTTP stream</text>
+  <text x="694" y="279" font-size="12" fill="#1a1a1a">· Запис на SD / розпізнавання</text>
+
+  <rect x="682" y="302" width="226" height="88" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="694" y="322" font-size="12" font-weight="bold" fill="#27ae60">esp_camera_fb_return(fb)</text>
+  <text x="694" y="342" font-size="12" fill="#1a1a1a">Повернення в пул DMA</text>
+  <text x="694" y="362" font-size="12" fill="#27ae60">· Перехід: LOCKED → FREE</text>
+  <text x="694" y="380" font-size="12" fill="#6b7280">· Обов'язково: fb = NULL</text>
+
+  <!-- Return Path Loop (Green) -->
+  <path d="M 795,390 L 795,414 L 165,414 L 165,395" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="480" y="410" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Зворотний цикл: esp_camera_fb_return(fb) віддає буфер у пул DMA</text>
+
+  <!-- Bottom Warning Box (Leak Alert) -->
+  <rect x="40" y="428" width="880" height="75" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="449" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">⛔ Критичне правило: Витік пам'яті PSRAM при пропущенні esp_camera_fb_return()</text>
+  <text x="480" y="470" font-size="12" fill="#1a1a1a" text-anchor="middle">Без esp_camera_fb_return(fb) слоти лишаються LOCKED: після вичерпання fb_count виклики fb_get() повертають NULL.</text>
+  <text x="480" y="490" font-size="12" fill="#6b7280" text-anchor="middle">Наслідки: повна зупинка відеопотоку, переповнення heap та перезавантаження за спрацюванням Task WDT.</text>
+</svg>

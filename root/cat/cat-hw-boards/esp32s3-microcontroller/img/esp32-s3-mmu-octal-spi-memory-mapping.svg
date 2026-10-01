@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Мапування пам'яті ESP32-S3 через MMU та Octal SPI DDR</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Трансляція віртуальних адрес CPU через L1-кеш та MMU-таблиці на зовнішню Octal SPI PSRAM та Flash</text>
+
+  <!-- Region 1: CPU & Virtual Address Space -->
+  <rect x="30" y="75" width="170" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="115" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Ядра Xtensa LX7</text>
+  <text x="115" y="114" text-anchor="middle" font-size="11" fill="#6b7280">Віртуальний простір</text>
+
+  <!-- Block 1.1: Cores -->
+  <rect x="42" y="130" width="146" height="54" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="115" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Core 0 / Core 1</text>
+  <text x="115" y="169" text-anchor="middle" font-size="11" fill="#6b7280">240 МГц (32-біт RISC)</text>
+
+  <!-- Block 1.2: VAddr PSRAM -->
+  <rect x="42" y="200" width="146" height="105" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="115" y="222" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">VAddr: PSRAM</text>
+  <text x="115" y="240" text-anchor="middle" font-size="11" fill="#1a1a1a">0x3C00_0000</text>
+  <text x="115" y="256" text-anchor="middle" font-size="11" fill="#1a1a1a">до 0x3DFF_FFFF</text>
+  <text x="115" y="274" text-anchor="middle" font-size="11" fill="#6b7280">Дані та буфери</text>
+
+  <!-- Block 1.3: VAddr Flash -->
+  <rect x="42" y="320" width="146" height="120" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="115" y="342" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">VAddr: Flash</text>
+  <text x="115" y="360" text-anchor="middle" font-size="11" fill="#1a1a1a">0x4200_0000</text>
+  <text x="115" y="376" text-anchor="middle" font-size="11" fill="#1a1a1a">до 0x43FF_FFFF</text>
+  <text x="115" y="394" text-anchor="middle" font-size="11" fill="#6b7280">Код прошивки (IRAM)</text>
+  <text x="115" y="410" text-anchor="middle" font-size="11" fill="#6b7280">та константи (ROData)</text>
+
+  <!-- Region 2: L1 Cache Subsystem -->
+  <rect x="240" y="75" width="170" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="325" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Двоканальний L1-кеш</text>
+  <text x="325" y="114" text-anchor="middle" font-size="11" fill="#6b7280">Кешування 32/64 КБ</text>
+
+  <!-- Block 2.1: Cache memory & Hits/Misses -->
+  <rect x="252" y="130" width="146" height="175" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="325" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">L1 Instruction/Data Cache</text>
+  <text x="325" y="174" text-anchor="middle" font-size="11" fill="#1a1a1a">Розмір кеш-лінії:</text>
+  <text x="325" y="190" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">16, 32 або 64 байти</text>
+  <text x="325" y="218" text-anchor="middle" font-size="11" fill="#27ae60">Cache Hit (1 такт):</text>
+  <text x="325" y="234" text-anchor="middle" font-size="11" fill="#1a1a1a">Пряма видача в CPU</text>
+  <text x="325" y="260" text-anchor="middle" font-size="11" fill="#c0392b">Cache Miss (12–20 т.):</text>
+  <text x="325" y="276" text-anchor="middle" font-size="11" fill="#1a1a1a">Запит до MMU / SPI</text>
+
+  <!-- Block 2.2: Cache Management Registers -->
+  <rect x="252" y="320" width="146" height="120" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="325" y="342" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Управління кешем</text>
+  <text x="325" y="364" text-anchor="middle" font-size="11" fill="#6b7280">Cache Invalidate</text>
+  <text x="325" y="380" text-anchor="middle" font-size="11" fill="#6b7280">Cache Writeback</text>
+  <text x="325" y="400" text-anchor="middle" font-size="11" fill="#6b7280">Синхронізація DMA</text>
+
+  <!-- Region 3: MMU & Page Tables -->
+  <rect x="450" y="75" width="190" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="545" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Блок MMU та таблиці</text>
+  <text x="545" y="114" text-anchor="middle" font-size="11" fill="#6b7280">Трансляція адрес</text>
+
+  <!-- Block 3.1: Page Table Entries -->
+  <rect x="462" y="130" width="166" height="175" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="545" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Таблиці сторінок MMU</text>
+  <text x="545" y="174" text-anchor="middle" font-size="11" fill="#1a1a1a">Розмір сторінки: 64 КБ</text>
+  <text x="545" y="196" text-anchor="middle" font-size="11" fill="#1a1a1a">Віртуальна сторінка N</text>
+  <text x="545" y="212" text-anchor="middle" font-size="11" fill="#2457d6">↓ Трансляція MMU ↓</text>
+  <text x="545" y="230" text-anchor="middle" font-size="11" fill="#1a1a1a">Фізичний блок N (Ext)</text>
+  <text x="545" y="254" text-anchor="middle" font-size="11" fill="#6b7280">Контроль доступу R/W</text>
+  <text x="545" y="270" text-anchor="middle" font-size="11" fill="#6b7280">Мапування до 32 МБ</text>
+
+  <!-- Block 3.2: Ext Bus Arbiter -->
+  <rect x="462" y="320" width="166" height="120" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="545" y="342" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Арбітр шини ExtBus</text>
+  <text x="545" y="364" text-anchor="middle" font-size="11" fill="#6b7280">Пріоритезація CPU та DMA</text>
+  <text x="545" y="380" text-anchor="middle" font-size="11" fill="#6b7280">Формування SPI-транзакцій</text>
+  <text x="545" y="400" text-anchor="middle" font-size="11" fill="#6b7280">Спеціальні команди Flash/PSRAM</text>
+
+  <!-- Region 4: Octal SPI Controller & External Memory -->
+  <rect x="680" y="75" width="250" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="805" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Контролер Octal SPI</text>
+  <text x="805" y="114" text-anchor="middle" font-size="11" fill="#6b7280">8-бітна шина OPI DDR @ 80 МГц</text>
+
+  <!-- Block 4.1: Octal SPI Controller Physical Interface -->
+  <rect x="692" y="130" width="226" height="80" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="805" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Інтерфейс Octal SPI (OPI)</text>
+  <text x="805" y="168" text-anchor="middle" font-size="11" fill="#1a1a1a">8 ліній даних (D0–D7) + DQS</text>
+  <text x="805" y="184" text-anchor="middle" font-size="11" fill="#1a1a1a">Режим DDR: 160 МБ/с пропускність</text>
+
+  <!-- Block 4.2: External PSRAM Chip -->
+  <rect x="692" y="225" width="226" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="805" y="247" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Зовнішня PSRAM (SiP / Discrete)</text>
+  <text x="805" y="266" text-anchor="middle" font-size="11" fill="#1a1a1a">Обсяг: 2 МБ, 8 МБ або 16 МБ</text>
+  <text x="805" y="282" text-anchor="middle" font-size="11" fill="#1a1a1a">Кадрові буфери, нейромережі, heap</text>
+  <text x="805" y="298" text-anchor="middle" font-size="11" fill="#6b7280">Виклики heap_caps_malloc(..., MALLOC_CAP_SPIRAM)</text>
+
+  <!-- Block 4.3: External Flash Chip -->
+  <rect x="692" y="330" width="226" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="805" y="352" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Зовнішня NOR Flash</text>
+  <text x="805" y="370" text-anchor="middle" font-size="11" fill="#1a1a1a">Обсяг: 4 МБ, 8 МБ, 16 МБ, 32 МБ</text>
+  <text x="805" y="386" text-anchor="middle" font-size="11" fill="#1a1a1a">Секції коду .text, .rodata, NVS</text>
+  <text x="805" y="404" text-anchor="middle" font-size="11" fill="#6b7280">XIP (Execute-In-Place) вибірка інструкцій</text>
+
+  <!-- Connecting Arrows -->
+  <path d="M 188 252 L 252 252" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 188 380 L 252 380" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M 398 217 L 462 217" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 628 217 L 692 170" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 805 210 L 805 225" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 918 170 L 935 170 L 935 385 L 918 385" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+</svg>

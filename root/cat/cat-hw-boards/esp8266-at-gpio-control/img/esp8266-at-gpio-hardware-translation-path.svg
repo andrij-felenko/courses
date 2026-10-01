@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Шлях проходження AT-команди керування GPIO у чипі ESP8266</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Трансляція інструкції AT+GPIOWRITE від порту UART через інтерпретатор ESP-AT, регістри та IOMUX до фізичного піну</text>
+
+  <!-- Outer Panel Container -->
+  <rect x="25" y="85" width="910" height="370" rx="12" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+
+  <!-- Step 1: Host Controller -->
+  <rect x="40" y="115" width="140" height="310" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <text x="110" y="142" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Хост-контролер</text>
+  <text x="110" y="162" text-anchor="middle" font-size="12" fill="#6b7280">(ПК / MCU)</text>
+  <rect x="50" y="180" width="120" height="95" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="110" y="202" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">AT-команда:</text>
+  <text x="110" y="224" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">AT+GPIOWRITE</text>
+  <text x="110" y="244" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">=2,1\r\n</text>
+  <text x="110" y="305" text-anchor="middle" font-size="12" fill="#6b7280">Послідовний</text>
+  <text x="110" y="325" text-anchor="middle" font-size="12" fill="#6b7280">інтерфейс</text>
+  <text x="110" y="345" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">UART TX</text>
+
+  <!-- Step 2: UART Peripheral -->
+  <rect x="215" y="115" width="145" height="310" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="287" y="142" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Модуль UART</text>
+  <text x="287" y="162" text-anchor="middle" font-size="12" fill="#6b7280">(ESP8266 HW)</text>
+  <text x="287" y="200" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">UART0 RX FIFO</text>
+  <text x="287" y="222" text-anchor="middle" font-size="12" fill="#1a1a1a">Апаратне буферизація</text>
+  <text x="287" y="242" text-anchor="middle" font-size="12" fill="#6b7280">байтів у ОЗП</text>
+  <text x="287" y="305" text-anchor="middle" font-size="12" fill="#1a1a1a">Переривання UART</text>
+  <text x="287" y="325" text-anchor="middle" font-size="12" fill="#6b7280">ISR прийому кадру</text>
+
+  <!-- Step 3: ESP-AT Interpreter -->
+  <rect x="395" y="115" width="160" height="310" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="475" y="142" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Інтерпретатор ESP-AT</text>
+  <text x="475" y="162" text-anchor="middle" font-size="12" fill="#6b7280">(Firmware Task)</text>
+  <text x="475" y="200" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Синтаксичний аналіз</text>
+  <text x="475" y="222" text-anchor="middle" font-size="12" fill="#1a1a1a">Парсинг тексту</text>
+  <text x="475" y="242" text-anchor="middle" font-size="12" fill="#6b7280">Перевірка аргументів</text>
+  <text x="475" y="305" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Виклик драйвера HAL</text>
+  <text x="475" y="325" text-anchor="middle" font-size="12" fill="#1a1a1a">gpio_output_set()</text>
+
+  <!-- Step 4: Registers & IOMUX -->
+  <rect x="590" y="115" width="160" height="310" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="670" y="142" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Регістри &amp; IOMUX</text>
+  <text x="670" y="162" text-anchor="middle" font-size="12" fill="#6b7280">(ESP8266 Peripheral)</text>
+  <text x="670" y="200" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Мультиплексор IOMUX</text>
+  <text x="670" y="222" text-anchor="middle" font-size="12" fill="#1a1a1a">Вибір функції GPIO</text>
+  <text x="670" y="242" text-anchor="middle" font-size="12" fill="#6b7280">PERIPHS_IO_MUX</text>
+  <text x="670" y="305" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Регістр GPIO_OUT</text>
+  <text x="670" y="325" text-anchor="middle" font-size="12" fill="#1a1a1a">GPIO_OUT_W1TS = BIT2</text>
+
+  <!-- Step 5: Physical Pin -->
+  <rect x="785" y="115" width="145" height="310" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="857" y="142" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Фізичний Pin</text>
+  <text x="857" y="162" text-anchor="middle" font-size="12" fill="#6b7280">(GPIO2 Output)</text>
+  <text x="857" y="200" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Вихідний буфер</text>
+  <text x="857" y="222" text-anchor="middle" font-size="12" fill="#1a1a1a">CMOS-каскад</text>
+  <text x="857" y="242" text-anchor="middle" font-size="12" fill="#27ae60">Логічний рівень 1</text>
+  <text x="857" y="305" text-anchor="middle" font-size="12" fill="#1a1a1a">Фізична напруга</text>
+  <text x="857" y="325" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">V_out = 3.3 В</text>
+
+  <!-- Forward Flow Arrows -->
+  <path d="M180,225 L215,225" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="197" y="214" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">TXD</text>
+
+  <path d="M360,225 L395,225" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="377" y="214" text-anchor="middle" font-size="12" fill="#2457d6">FIFO</text>
+
+  <path d="M555,225 L590,225" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="572" y="214" text-anchor="middle" font-size="12" fill="#27ae60">HAL</text>
+
+  <path d="M750,225 L785,225" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="767" y="214" text-anchor="middle" font-size="12" fill="#27ae60">3.3V</text>
+
+  <!-- Return Flow Arrow (OK Response) -->
+  <path d="M395,385 L180,385" fill="none" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arr-dark)"/>
+  <text x="287" y="405" text-anchor="middle" font-size="12" fill="#6b7280">Зворотна відповідь "OK\r\n" по RXD</text>
+
+  <!-- Bottom Summary Line -->
+  <text x="480" y="442" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Результат: AT-команда перетворюється на прямий запис регістра GPIO_OUT_W1TS за кілька мікросекунд</text>
+</svg>

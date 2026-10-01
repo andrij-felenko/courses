@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Часова діаграма обробки AT-команди керування GPIO через UART</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Загальна затримка реакції визначається тривалістю кадру UART 115200 бод та програмним парсингом прошивки ESP-AT</text>
+
+  <!-- Main Container Panel -->
+  <rect x="30" y="70" width="900" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Left Column Header Divider -->
+  <line x1="210" y1="70" x2="210" y2="415" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Timeline Guidelines (Vertical) -->
+  <line x1="230" y1="90" x2="230" y2="410" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="580" y1="90" x2="580" y2="410" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="660" y1="90" x2="660" y2="410" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="870" y1="90" x2="870" y2="410" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Guideline Time Markers at top of waveform area -->
+  <text x="230" y="87" font-size="12" font-weight="bold" text-anchor="middle" fill="#6b7280">t = 0</text>
+  <text x="580" y="87" font-size="12" text-anchor="middle" fill="#6b7280">1.74 мс</text>
+  <text x="660" y="87" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">1.80 мс</text>
+  <text x="870" y="87" font-size="12" text-anchor="middle" fill="#6b7280">2.32 мс</text>
+
+  <!-- Dimension Bar for t_total -->
+  <line x1="230" y1="108" x2="300" y2="108" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-start)"/>
+  <line x1="590" y1="108" x2="660" y2="108" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <rect x="305" y="94" width="280" height="26" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="445" y="111" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">t_total = t_tx + t_proc ≈ 1.80 мс</text>
+
+  <!-- Row 1: TXD (Host -> ESP8266) -->
+  <text x="45" y="162" font-size="13" font-weight="bold" fill="#1a1a1a">TXD (Host → ESP)</text>
+  <text x="45" y="179" font-size="12" fill="#6b7280">AT+SYSGPIOWRITE=12,1\r\n</text>
+  <line x1="210" y1="195" x2="910" y2="195" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- TXD Frame Box -->
+  <rect x="230" y="145" width="350" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="405" y="170" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">20 байтів кадру (115200 бод) — t_tx = 1.736 мс</text>
+
+  <!-- Row 2: Software Processing -->
+  <text x="45" y="232" font-size="13" font-weight="bold" fill="#1a1a1a">Обробка прошивкою</text>
+  <text x="45" y="249" font-size="12" fill="#6b7280">FIFO → ISR → Parser → SDK</text>
+  <line x1="210" y1="265" x2="910" y2="265" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Software Processing Frame Box -->
+  <rect x="580" y="215" width="80" height="40" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="620" y="232" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">t_proc</text>
+  <text x="620" y="247" font-size="12" text-anchor="middle" fill="#c0392b">~62 мкс</text>
+
+  <!-- Row 3: GPIO12 Output -->
+  <text x="45" y="302" font-size="13" font-weight="bold" fill="#1a1a1a">Вивід GPIO12</text>
+  <text x="45" y="319" font-size="12" fill="#6b7280">Фізичний перехід 0 В → 3.3 В</text>
+  <line x1="210" y1="335" x2="910" y2="335" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- GPIO Trace Waveform -->
+  <path d="M 230 320 L 660 320 L 660 292 L 910 292" fill="none" stroke="#27ae60" stroke-width="3"/>
+  <!-- Circle at toggle point -->
+  <circle cx="660" cy="292" r="4" fill="#27ae60"/>
+  <text x="672" y="286" font-size="12" font-weight="bold" fill="#27ae60">▲ Перемикання GPIO (t = 1.80 мс)</text>
+
+  <!-- Row 4: RXD (ESP8266 -> Host) -->
+  <text x="45" y="372" font-size="13" font-weight="bold" fill="#1a1a1a">RXD (ESP → Host)</text>
+  <text x="45" y="389" font-size="12" fill="#6b7280">Відповідь \r\nOK\r\n</text>
+
+  <!-- RXD Frame Box -->
+  <rect x="660" y="355" width="210" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="765" y="379" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">\r\nOK\r\n (6 байтів) — 0.52 мс</text>
+
+  <!-- Bottom Legend Bar -->
+  <rect x="30" y="423" width="900" height="27" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="441" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Фізичний час передачі кадру UART (1.74 мс) становить понад 96% від загальної затримки спрацьовування GPIO</text>
+</svg>

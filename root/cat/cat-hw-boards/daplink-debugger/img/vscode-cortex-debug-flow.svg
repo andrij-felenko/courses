@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Послідовність запуску зневадження в VS Code (Cortex-Debug)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Взаємодія launch.json, tasks.json, OpenOCD та CMSIS-DAP від натискання F5 до зупинки ядра</text>
+
+  <!-- Колонки-панелі -->
+  <!-- 1. VS Code -->
+  <rect x="20" y="78" width="190" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="28" y="86" width="174" height="44" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="115" y="104" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. VS Code</text>
+  <text x="115" y="121" font-size="12" fill="#6b7280" text-anchor="middle">launch.json (Cortex-Debug)</text>
+
+  <!-- 2. Система збірки -->
+  <rect x="260" y="78" width="190" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="268" y="86" width="174" height="44" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="355" y="104" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Система збірки</text>
+  <text x="355" y="121" font-size="12" fill="#6b7280" text-anchor="middle">tasks.json (GCC / CMake)</text>
+
+  <!-- 3. OpenOCD Server -->
+  <rect x="500" y="78" width="190" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="508" y="86" width="174" height="44" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="595" y="104" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">3. OpenOCD Server</text>
+  <text x="595" y="121" font-size="12" fill="#6b7280" text-anchor="middle">GDB Server (:3333)</text>
+
+  <!-- 4. Апаратна частина -->
+  <rect x="740" y="78" width="200" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="748" y="86" width="184" height="44" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="840" y="104" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">4. Апаратна частина</text>
+  <text x="840" y="121" font-size="12" fill="#6b7280" text-anchor="middle">WeAct DAPLink &amp; STM32</text>
+
+  <!-- Крок 1: Збірка проєкту -->
+  <rect x="28" y="148" width="174" height="52" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="115" y="168" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Крок 1: Запуск F5</text>
+  <text x="115" y="186" font-size="12" fill="#6b7280" text-anchor="middle">читання launch.json</text>
+
+  <line x1="202" y1="166" x2="266" y2="166" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="235" y="149" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle"><tspan x="235" dy="0">preLaunch</tspan><tspan x="235" dy="13">Task</tspan></text>
+
+  <rect x="268" y="148" width="174" height="52" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="355" y="168" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Виклик tasks.json</text>
+  <text x="355" y="186" font-size="12" fill="#27ae60" text-anchor="middle">Збірка app.elf</text>
+
+  <line x1="268" y1="192" x2="204" y2="192" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+  <text x="236" y="187" font-size="12" fill="#27ae60" text-anchor="middle">ELF ok</text>
+
+  <!-- Крок 2: Запуск OpenOCD -->
+  <rect x="28" y="228" width="174" height="52" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="115" y="248" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Крок 2: Старт GDB</text>
+  <text x="115" y="266" font-size="12" fill="#6b7280" text-anchor="middle">Cortex-Debug → OpenOCD</text>
+
+  <line x1="202" y1="256" x2="506" y2="256" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="355" y="237" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Запуск сервера OpenOCD</text>
+  <text x="355" y="250" font-size="12" fill="#2457d6" text-anchor="middle">-f cmsis-dap.cfg -f stm32f4x.cfg</text>
+
+  <rect x="508" y="228" width="174" height="52" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="595" y="248" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Крок 3: OpenOCD</text>
+  <text x="595" y="266" font-size="12" fill="#6b7280" text-anchor="middle">GDB Server :3333 active</text>
+
+  <!-- Крок 3: CMSIS-DAP HW Зв'язок -->
+  <rect x="508" y="308" width="174" height="52" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="595" y="328" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Крок 4: USB HID</text>
+  <text x="595" y="346" font-size="12" fill="#6b7280" text-anchor="middle">CMSIS-DAP протокол</text>
+
+  <line x1="682" y1="334" x2="746" y2="334" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="715" y="326" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SWD лінк</text>
+
+  <rect x="748" y="308" width="184" height="52" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="840" y="328" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">WeAct Mini Debugger</text>
+  <text x="840" y="346" font-size="12" fill="#1a1a1a" text-anchor="middle">SWCLK / SWDIO → STM32</text>
+
+  <!-- Крок 4: Reset, Halt & Breakpoint -->
+  <rect x="508" y="388" width="174" height="52" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="595" y="408" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Крок 5: Команди</text>
+  <text x="595" y="426" font-size="12" fill="#6b7280" text-anchor="middle">reset halt &amp; BP main</text>
+
+  <line x1="682" y1="414" x2="746" y2="414" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="715" y="406" font-size="12" fill="#27ae60" text-anchor="middle">Halt core</text>
+
+  <rect x="748" y="388" width="184" height="52" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="840" y="408" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Ядро ARM Cortex-M</text>
+  <text x="840" y="426" font-size="12" fill="#1a1a1a" text-anchor="middle">Зупинка на main()</text>
+
+  <!-- Крок 5: Синхронізація та активна сесія -->
+  <path d="M 840,440 L 840,471 L 204,471" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3" fill="none" marker-end="url(#arr-green)"/>
+  <text x="525" y="463" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Статус: Core halted at main() → Готовність до зневадження</text>
+
+  <rect x="28" y="450" width="174" height="44" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="115" y="467" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Сесія активна</text>
+  <text x="115" y="483" font-size="12" fill="#1a1a1a" text-anchor="middle">Крок, регістри, пам'ять</text>
+</svg>

@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діаграма послідовності рукостискання та прошивки esptool ↔ ESP8266 ROM</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Покроковий протокол авторизації, синхронізації (SYNC), стирання та поблочного запису у SPI Flash</text>
+
+  <!-- Lifelines -->
+  <!-- Left Lifeline: Host esptool -->
+  <rect x="120" y="80" width="220" height="45" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="230" y="108" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Хост (esptool.py)</text>
+  <line x1="230" y1="125" x2="230" y2="520" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,4"/>
+
+  <!-- Right Lifeline: ESP8266 ROM -->
+  <rect x="620" y="80" width="220" height="45" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="730" y="108" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">ESP8266 ROM Bootloader</text>
+  <line x1="730" y1="125" x2="730" y2="520" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,4"/>
+
+  <!-- PHASE 1: Auto-Reset & Bootloader Entry -->
+  <rect x="325" y="142" width="310" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="162" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Апаратне скидання: DTR=0, RTS=1 (GPIO0=LOW)</text>
+
+  <!-- PHASE 2: SYNC Handshake -->
+  <!-- Step 2a: SYNC Request -->
+  <line x1="230" y1="205" x2="730" y2="205" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="197" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2. SYNC Request (0x08, SLIP-пакет 0x55...)</text>
+
+  <!-- Step 2b: SYNC Response ACK -->
+  <line x1="730" y1="240" x2="230" y2="240" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="480" y="232" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3. SYNC Response ACK (Отримано підтвердження)</text>
+
+  <!-- PHASE 3: Flash Init (FLASH_BEGIN) -->
+  <!-- Step 3a: FLASH_BEGIN -->
+  <line x1="230" y1="290" x2="730" y2="290" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="282" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">4. FLASH_BEGIN (0x02, розмір образу та секторів)</text>
+
+  <!-- Step 3b: FLASH_BEGIN ACK -->
+  <line x1="730" y1="325" x2="230" y2="325" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="480" y="317" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">5. ACK (Сектори Flash стираються...)</text>
+
+  <!-- PHASE 4: Data Blocks Transfer Loop -->
+  <!-- Loop Box Indicator -->
+  <rect x="145" y="355" width="70" height="75" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="180" y="385" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Цикл</text>
+  <text x="180" y="405" font-size="12" fill="#6b7280" text-anchor="middle">блоків</text>
+
+  <!-- Step 4a: FLASH_DATA -->
+  <line x1="230" y1="375" x2="730" y2="375" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="367" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">6. FLASH_DATA (0x03, блок #i, 1024B даних + MD5)</text>
+
+  <!-- Step 4b: FLASH_DATA ACK -->
+  <line x1="730" y1="415" x2="230" y2="415" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="480" y="407" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">7. ACK (Блок #i успішно записаний у Flash)</text>
+
+  <!-- PHASE 5: Flash Finish & Reboot -->
+  <!-- Step 5a: FLASH_END -->
+  <line x1="230" y1="465" x2="730" y2="465" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="457" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">8. FLASH_END (0x04, завершення запису та reboot)</text>
+
+  <!-- Target Action Box -->
+  <rect x="625" y="488" width="210" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="730" y="509" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Запуск нової прошивки!</text>
+</svg>

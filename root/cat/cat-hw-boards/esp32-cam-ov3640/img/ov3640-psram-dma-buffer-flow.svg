@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Потік кадрових буферів OV3640 через DMA у PSRAM</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Подвійна пинг-понг буферизація в DRAM запобігає переповненню FIFO камери</text>
+
+  <!-- Panel 1: OV3640 Sensor -->
+  <rect x="20" y="75" width="185" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="112.5" y="96" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Сенсор OV3640</text>
+
+  <rect x="30" y="110" width="165" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="112.5" y="130" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">JPEG / DVP Ядро</text>
+  <text x="112.5" y="150" text-anchor="middle" font-size="12" fill="#6b7280">2 МП Матриця (UXGA)</text>
+  <text x="112.5" y="170" text-anchor="middle" font-size="12" fill="#6b7280">Апаратне стиснення</text>
+  <text x="112.5" y="190" text-anchor="middle" font-size="12" fill="#2457d6">PCLK до 24 МГц</text>
+
+  <rect x="30" y="235" width="165" height="200" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="112.5" y="256" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Апаратний FIFO</text>
+  <text x="112.5" y="276" text-anchor="middle" font-size="12" fill="#1a1a1a">Тимчасова черга байтів</text>
+  <rect x="38" y="290" width="149" height="26" rx="4" fill="#ffffff" stroke="#2457d6" stroke-dasharray="3,3"/>
+  <text x="112.5" y="307" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Шина DVP (8 біт)</text>
+  <text x="112.5" y="335" text-anchor="middle" font-size="12" fill="#6b7280">VSYNC, HREF, PCLK</text>
+  <text x="112.5" y="360" text-anchor="middle" font-size="12" fill="#27ae60">Без блокування шини</text>
+  <text x="112.5" y="385" text-anchor="middle" font-size="12" fill="#27ae60">Запобігання Overflow</text>
+
+  <!-- Panel 2: Internal DRAM (DMA Engine) -->
+  <rect x="265" y="75" width="200" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="365" y="96" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Внутрішня DRAM (I2S DMA)</text>
+
+  <rect x="275" y="110" width="180" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="365" y="130" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">DMA Буфер A (Ping)</text>
+  <rect x="285" y="142" width="160" height="22" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="365" y="157" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Прийом з DVP [Активний]</text>
+  <text x="365" y="182" text-anchor="middle" font-size="12" fill="#6b7280">Розмір: 4 КБ / 8 КБ SRAM</text>
+  <text x="365" y="202" text-anchor="middle" font-size="12" fill="#6b7280">Прямий запис без CPU</text>
+
+  <rect x="275" y="235" width="180" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="365" y="255" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">DMA Буфер B (Pong)</text>
+  <rect x="285" y="267" width="160" height="22" rx="4" fill="#ffffff" stroke="#27ae60"/>
+  <text x="365" y="282" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Трансфер у PSRAM [Готовий]</text>
+  <text x="365" y="307" text-anchor="middle" font-size="12" fill="#6b7280">Пин-понг перемикання</text>
+  <text x="365" y="327" text-anchor="middle" font-size="12" fill="#6b7280">Звільнення для циклу</text>
+
+  <rect x="275" y="360" width="180" height="75" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="365" y="382" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Ланцюжок дескрипторів DMA</text>
+  <text x="365" y="402" text-anchor="middle" font-size="12" fill="#6b7280">Автоматична адресація</text>
+  <text x="365" y="420" text-anchor="middle" font-size="12" fill="#6b7280">Кільцевий зв'язаний список</text>
+
+  <!-- Panel 3: SPI / PSRAM Controller -->
+  <rect x="525" y="75" width="180" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="615" y="96" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Шина та контролер</text>
+
+  <rect x="535" y="110" width="160" height="145" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="615" y="130" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">SPI / QSPI Арбітр</text>
+  <text x="615" y="152" text-anchor="middle" font-size="12" fill="#6b7280">Частота: 80 МГц</text>
+  <text x="615" y="174" text-anchor="middle" font-size="12" fill="#6b7280">Burst-передача 32 B</text>
+  <text x="615" y="198" text-anchor="middle" font-size="12" fill="#2457d6">Висока пропускна</text>
+  <text x="615" y="218" text-anchor="middle" font-size="12" fill="#2457d6">здатність шини</text>
+
+  <rect x="535" y="275" width="160" height="160" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="615" y="298" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Запобігання OOM</text>
+  <text x="615" y="324" text-anchor="middle" font-size="12" fill="#1a1a1a">Захист від затримок</text>
+  <text x="615" y="348" text-anchor="middle" font-size="12" fill="#6b7280">Без низькорівневих</text>
+  <text x="615" y="368" text-anchor="middle" font-size="12" fill="#6b7280">просідань частоти</text>
+  <text x="615" y="405" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Стабільний потік</text>
+
+  <!-- Panel 4: External PSRAM -->
+  <rect x="755" y="75" width="185" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="847.5" y="96" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Зовнішня PSRAM (4-8 МБ)</text>
+
+  <rect x="765" y="110" width="165" height="145" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="847.5" y="130" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Кадровий буфер 0 (FB0)</text>
+  <rect x="775" y="142" width="145" height="22" rx="4" fill="#ffffff" stroke="#27ae60"/>
+  <text x="847.5" y="157" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Запис кадру [Active]</text>
+  <text x="847.5" y="182" text-anchor="middle" font-size="12" fill="#6b7280">Обсяг: до 600 КБ (JPEG)</text>
+  <text x="847.5" y="202" text-anchor="middle" font-size="12" fill="#6b7280">Нефрагментована купа</text>
+  <text x="847.5" y="227" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Прямий DMA розвантаж</text>
+
+  <rect x="765" y="275" width="165" height="160" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="847.5" y="295" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Кадровий буфер 1 (FB1)</text>
+  <rect x="775" y="307" width="145" height="22" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="847.5" y="322" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Зчитування CPU [Ready]</text>
+  <text x="847.5" y="347" text-anchor="middle" font-size="12" fill="#6b7280">Передача у Wi-Fi / HTTP</text>
+  <text x="847.5" y="369" text-anchor="middle" font-size="12" fill="#6b7280">Асинхронний доступ CPU</text>
+  <text x="847.5" y="407" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Почерговий swap кадрів</text>
+
+  <!-- Flow Paths & Labels -->
+  <!-- Arrow 1: DVP output from Panel 1 to DMA Buffer A in Panel 2 -->
+  <path d="M205,303 H235 V165 H275" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="235" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">8-біт DVP</text>
+
+  <!-- Arrow 2: DMA Out from DMA Buffer B in Panel 2 to SPI Arbiter in Panel 3 -->
+  <path d="M465,290 H495 V165 H535" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="495" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">DMA Out</text>
+
+  <!-- Arrow 3: Burst transfer from SPI Arbiter in Panel 3 to FB0 in Panel 4 -->
+  <path d="M695,165 H765" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+  <text x="730" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Burst</text>
+
+  <!-- Arrow 4: Frame swap arrow inside Panel 4 -->
+  <path d="M847.5,255 V275" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Footer Legend -->
+  <rect x="20" y="465" width="920" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="50" y="490" font-size="12" font-weight="bold" fill="#2457d6">■ DMA Прийом (Ping-Pong)</text>
+  <text x="350" y="490" font-size="12" font-weight="bold" fill="#27ae60">■ Запис у PSRAM (FB0)</text>
+  <text x="630" y="490" font-size="12" font-weight="bold" fill="#6b7280">■ Незалежне зчитування CPU (FB1)</text>
+</svg>

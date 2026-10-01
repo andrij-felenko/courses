@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура самодіагностики та перехресного контролю модуля F-DI (SIL 3)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Двоканальна обробка з перехресним моніторингом MCU1/MCU2 та компараторами контролю живлення</text>
+
+  <!-- Left Input Block -->
+  <rect x="40" y="140" width="130" height="140" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="105" y="165" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхідні клемники</text>
+  <text x="105" y="190" font-size="12" fill="#1a1a1a" text-anchor="middle">Канал IN1 (Ch 1)</text>
+  <text x="105" y="215" font-size="12" fill="#1a1a1a" text-anchor="middle">Канал IN2 (Ch 2)</text>
+  <text x="105" y="250" font-size="11" fill="#6b7280" text-anchor="middle">Оптична розв'язка</text>
+
+  <!-- Signal Lines from Input to Optocouplers -->
+  <line x1="170" y1="185" x2="210" y2="185" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="170" y1="210" x2="210" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Optocoupler & Threshold Block -->
+  <rect x="210" y="140" width="130" height="140" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="275" y="165" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Оптопари та</text>
+  <text x="275" y="182" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Компаратори</text>
+  <text x="275" y="208" font-size="12" fill="#6b7280" text-anchor="middle">Пороговий опис</text>
+  <text x="275" y="228" font-size="12" fill="#6b7280" text-anchor="middle">рівнів 24V DC</text>
+  <text x="275" y="255" font-size="11" fill="#2457d6" text-anchor="middle">Гальванорозв'язка</text>
+
+  <!-- Signal Lines from Optocouplers to MCU Core -->
+  <line x1="340" y1="165" x2="400" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 340,205 L 370,205 L 370,105 L 610,105 L 610,165 L 625,165" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Dual MCU Processing Core Panel -->
+  <rect x="380" y="85" width="420" height="270" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="590" y="110" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Двоканальне ядро обробки та діагностики (1Oo2 / 2Oo2)</text>
+
+  <!-- MCU1 Box -->
+  <rect x="400" y="130" width="155" height="100" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="477.5" y="152" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Мікроконтролер MCU1</text>
+  <text x="477.5" y="172" font-size="11" fill="#1a1a1a" text-anchor="middle">Обробка Каналу 1</text>
+  <text x="477.5" y="190" font-size="11" fill="#2457d6" text-anchor="middle">Генерація імпульсів T1</text>
+  <text x="477.5" y="208" font-size="11" fill="#6b7280" text-anchor="middle">Перевірка CRC / WDT</text>
+
+  <!-- MCU2 Box -->
+  <rect x="625" y="130" width="155" height="100" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="702.5" y="152" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Мікроконтролер MCU2</text>
+  <text x="702.5" y="172" font-size="11" fill="#1a1a1a" text-anchor="middle">Обробка Каналу 2</text>
+  <text x="702.5" y="190" font-size="11" fill="#2457d6" text-anchor="middle">Генерація імпульсів T2</text>
+  <text x="702.5" y="208" font-size="11" fill="#6b7280" text-anchor="middle">Перевірка CRC / WDT</text>
+
+  <!-- Cross-Monitoring Inter-MCU Lines -->
+  <line x1="555" y1="165" x2="625" y2="165" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="625" y1="195" x2="555" y2="195" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="590" y="156" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">Cross-Check</text>
+  <text x="590" y="186" font-size="10" fill="#6b7280" text-anchor="middle">Звірка станів</text>
+
+  <!-- Voltage Supervisor & Comparator Box -->
+  <rect x="440" y="250" width="300" height="85" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="477.5" y1="230" x2="477.5" y2="250" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="702.5" y1="230" x2="702.5" y2="250" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="590" y="272" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Компаратори контролю напруг та WDT</text>
+  <text x="590" y="292" font-size="11" fill="#1a1a1a" text-anchor="middle">Моніторинг шин живлення 3.3V / 5V / 24V</text>
+  <text x="590" y="312" font-size="11" fill="#c0392b" text-anchor="middle">Скидання та пасивація при просіданні</text>
+
+  <!-- Line from MCU Core to Safety Fieldbus -->
+  <line x1="780" y1="180" x2="830" y2="180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Safety Fieldbus Interface Box -->
+  <rect x="830" y="140" width="100" height="140" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="880" y="165" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Шина</text>
+  <text x="880" y="182" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Safety</text>
+  <text x="880" y="210" font-size="11" fill="#1a1a1a" text-anchor="middle">PROFIsafe /</text>
+  <text x="880" y="228" font-size="11" fill="#1a1a1a" text-anchor="middle">FSoE</text>
+  <text x="880" y="255" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">SIL 3 / PL e</text>
+
+  <!-- Lower Banner: Diagnostics & Passivation Logic -->
+  <rect x="40" y="380" width="880" height="115" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="40" y="380" width="880" height="32" rx="8" fill="#27ae60"/>
+  <text x="480" y="401" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">АЛГОРИТМИ ПАСИВАЦІЇ ТА ДІАГНОСТИЧНОГО ПОКРИТТЯ (DC ≥ 99%)</text>
+
+  <text x="180" y="435" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Динамічне тактування T1/T2</text>
+  <text x="180" y="455" font-size="11" fill="#1a1a1a" text-anchor="middle">Виявлення коротких замикань</text>
+  <text x="180" y="472" font-size="11" fill="#1a1a1a" text-anchor="middle">між суміжними вхідними лініями</text>
+
+  <text x="480" y="435" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Перехресний аналіз (Cross-Check)</text>
+  <text x="480" y="455" font-size="11" fill="#1a1a1a" text-anchor="middle">Контроль розбіжності часу (Discrepancy)</text>
+  <text x="480" y="472" font-size="11" fill="#1a1a1a" text-anchor="middle">Автоматична пасивація при розходженні</text>
+
+  <text x="780" y="435" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Незалежне відключення (STO)</text>
+  <text x="780" y="455" font-size="11" fill="#1a1a1a" text-anchor="middle">Перехід у безпечний вимкнений стан</text>
+  <text x="780" y="472" font-size="11" fill="#27ae60" text-anchor="middle">Гарантована безпека системи</text>
+</svg>

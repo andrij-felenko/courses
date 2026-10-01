@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Логічні пороги V_IL, V_IH та часова діаграма защепкування strapping pins ESP8266</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Вибірка сигналів GPIO0, GPIO2, GPIO15 відбувається на висхідному фронті EXT_RSTB поза сірою зоною напруг</text>
+
+  <!-- Left Panel: Voltage Thresholds -->
+  <rect x="30" y="85" width="340" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="200" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Логічні пороги (CMOS / Шмітт)</text>
+
+  <!-- Voltage Scale Bar & Zones -->
+  <!-- High Zone (VDD to V_IH) -->
+  <rect x="120" y="135" width="75" height="85" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="205" y="170" font-size="12" font-weight="bold" fill="#27ae60">Логічний 1 (High)</text>
+  <text x="205" y="188" font-size="12" fill="#1a1a1a">V_IH ≥ 2.475 В (0.75 VDD)</text>
+
+  <!-- Gray Zone (V_IH to V_IL) -->
+  <rect x="120" y="220" width="75" height="155" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="205" y="285" font-size="13" font-weight="bold" fill="#c0392b">Невизначена зона</text>
+  <text x="205" y="305" font-size="12" fill="#c0392b">(Сіра зона / Помилка)</text>
+
+  <!-- Low Zone (V_IL to GND) -->
+  <rect x="120" y="375" width="75" height="85" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="205" y="410" font-size="12" font-weight="bold" fill="#27ae60">Логічний 0 (Low)</text>
+  <text x="205" y="428" font-size="12" fill="#1a1a1a">V_IL ≤ 0.825 В (0.25 VDD)</text>
+
+  <!-- Voltage Axis Markers -->
+  <line x1="120" y1="135" x2="120" y2="460" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <line x1="112" y1="135" x2="120" y2="135" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="106" y="139" text-anchor="end" font-size="12" fill="#1a1a1a">3.3 В (VDD)</text>
+
+  <line x1="112" y1="220" x2="120" y2="220" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="106" y="224" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">2.475 В</text>
+
+  <line x1="112" y1="375" x2="120" y2="375" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="106" y="379" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">0.825 В</text>
+
+  <line x1="112" y1="460" x2="120" y2="460" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="106" y="464" text-anchor="end" font-size="12" fill="#1a1a1a">0.0 В (GND)</text>
+
+  <!-- Right Panel: Timing Diagram -->
+  <rect x="390" y="85" width="540" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="660" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Часова діаграма сигналів під час скидання (RST)</text>
+
+  <!-- Top Badge for Sampling Point -->
+  <rect x="605" y="122" width="150" height="24" rx="4" fill="#2457d6"/>
+  <text x="680" y="138" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Момент защепкування</text>
+
+  <!-- Sampling Vertical Line -->
+  <line x1="680" y1="148" x2="680" y2="460" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,4"/>
+
+  <!-- Left Signal Labels in Timing Diagram -->
+  <text x="405" y="152" font-size="13" font-weight="bold" fill="#1a1a1a">EXT_RSTB</text>
+  <text x="405" y="170" font-size="12" fill="#6b7280">(Вхід RST)</text>
+
+  <text x="405" y="240" font-size="13" font-weight="bold" fill="#27ae60">GPIO0, GPIO2</text>
+  <text x="405" y="258" font-size="12" fill="#6b7280">(High = 1)</text>
+
+  <text x="405" y="330" font-size="13" font-weight="bold" fill="#27ae60">GPIO15</text>
+  <text x="405" y="348" font-size="12" fill="#6b7280">(Low = 0)</text>
+
+  <text x="405" y="420" font-size="12" font-weight="bold" fill="#c0392b">Паразитна C</text>
+  <text x="405" y="438" font-size="12" fill="#c0392b">(Затримка)</text>
+
+  <!-- Signal 1: EXT_RSTB Waveform -->
+  <path d="M 500,175 L 550,175 L 590,150 L 910,150" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- t_latch Window Box -->
+  <rect x="545" y="185" width="130" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="610" y="201" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t_latch (1.5–3.0 мс)</text>
+
+  <!-- Signal 2: GPIO0, GPIO2 Signal (Valid High) -->
+  <path d="M 500,245 L 910,245" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="680" cy="245" r="5" fill="#27ae60"/>
+  <text x="695" y="235" font-size="12" font-weight="bold" fill="#27ae60">Надійний High (≥ 2.475 В)</text>
+
+  <!-- Signal 3: GPIO15 Signal (Valid Low) -->
+  <path d="M 500,335 L 910,335" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="680" cy="335" r="5" fill="#27ae60"/>
+  <text x="695" y="325" font-size="12" font-weight="bold" fill="#27ae60">Надійний Low (≤ 0.825 В)</text>
+
+  <!-- Signal 4: Gray Zone Band & Faulty Delayed Signal -->
+  <rect x="500" y="415" width="410" height="40" fill="#fdecea" opacity="0.6"/>
+  <line x1="500" y1="415" x2="910" y2="415" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="500" y1="455" x2="910" y2="455" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Faulty Delayed Signal (Slow RC Ramp) -->
+  <path d="M 500,465 L 560,465 C 620,465 650,445 720,410 L 910,410" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,3"/>
+  <circle cx="680" cy="430" r="5" fill="#c0392b"/>
+
+  <!-- Warning Badge for Faulty Signal (placed safely below gray zone) -->
+  <rect x="635" y="470" width="260" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="765" y="488" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Зчитування в сірій зоні (Помилка!)</text>
+</svg>

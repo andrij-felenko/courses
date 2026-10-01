@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Режими прийому даних UART: кадрування +IPD проти прозорого тунелю</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Префікс +IPD дає мультиплексування й метадані; прозорий тунель передає сирий потік без затримок</text>
+
+  <!-- Panel 1: IPD Framing Mode -->
+  <rect x="30" y="85" width="900" height="195" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="112" font-size="15" font-weight="bold" fill="#2457d6">1. Командний режим з кадруванням: +IPD,&lt;link_id&gt;,&lt;len&gt;:&lt;data&gt;</text>
+  <text x="885" y="112" text-anchor="end" font-size="12" fill="#6b7280">Службовий оверхед + метадані каналу</text>
+
+  <!-- Left Box: Network Stack -->
+  <rect x="50" y="130" width="160" height="130" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="155" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Мережевий стек</text>
+  <text x="130" y="177" text-anchor="middle" font-size="12" fill="#2457d6">Пакет TCP / UDP</text>
+  <text x="130" y="202" text-anchor="middle" font-size="12" fill="#6b7280">Сокет ID: 0..4</text>
+  <text x="130" y="227" text-anchor="middle" font-size="12" fill="#6b7280">Payload: N байтів</text>
+
+  <!-- Arrow 1 -->
+  <line x1="210" y1="195" x2="252" y2="195" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="231" y="187" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">LwIP</text>
+
+  <!-- Middle Box: ESP Firmware -->
+  <rect x="260" y="130" width="180" height="130" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="350" y="155" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Прошивка AT</text>
+  <text x="350" y="177" text-anchor="middle" font-size="12" fill="#2457d6">Генерація префікса</text>
+  <text x="350" y="202" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">+IPD,0,12:</text>
+  <text x="350" y="227" text-anchor="middle" font-size="12" fill="#6b7280">(кадрування)</text>
+
+  <!-- Arrow 2 -->
+  <line x1="440" y1="195" x2="482" y2="195" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="461" y="187" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">UART</text>
+
+  <!-- Right Container: UART Frame -->
+  <rect x="490" y="130" width="420" height="130" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="505" y="152" font-size="12" font-weight="bold" fill="#1a1a1a">Кадр послідовного порту UART:</text>
+
+  <!-- Frame blocks -->
+  <rect x="505" y="162" width="65" height="42" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="537" y="188" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">+IPD,</text>
+
+  <rect x="575" y="162" width="55" height="42" rx="3" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1.5"/>
+  <text x="602" y="188" text-anchor="middle" font-size="12" font-weight="bold" fill="#8e44ad">id,</text>
+
+  <rect x="635" y="162" width="60" height="42" rx="3" fill="#fef9e7" stroke="#d35400" stroke-width="1.5"/>
+  <text x="665" y="188" text-anchor="middle" font-size="12" font-weight="bold" fill="#d35400">len</text>
+
+  <rect x="700" y="162" width="25" height="42" rx="3" fill="#f2f4f4" stroke="#7f8c8d" stroke-width="1.5"/>
+  <text x="712" y="188" text-anchor="middle" font-size="14" font-weight="bold" fill="#2c3e50">:</text>
+
+  <rect x="730" y="162" width="165" height="42" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="812" y="188" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e8449">[ Двійкові дані (len) ]</text>
+
+  <!-- Legend -->
+  <text x="505" y="235" font-size="12" fill="#6b7280">Службовий оверхед кадрування</text>
+  <text x="730" y="235" font-size="12" fill="#27ae60">Корисне навантаження</text>
+
+  <!-- Panel 2: Passthrough Mode -->
+  <rect x="30" y="295" width="900" height="225" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="322" font-size="15" font-weight="bold" fill="#27ae60">2. Прозорий тунельний режим (Passthrough): напряму без заголовків</text>
+  <text x="885" y="322" text-anchor="end" font-size="12" fill="#6b7280">Максимальна швидкість, без оверхеду</text>
+
+  <!-- Left Box: Single Socket -->
+  <rect x="50" y="340" width="160" height="160" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="130" y="368" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Мережевий сокет</text>
+  <text x="130" y="390" text-anchor="middle" font-size="12" fill="#27ae60">Одиночний TCP/UDP</text>
+  <text x="130" y="415" text-anchor="middle" font-size="12" fill="#6b7280">(AT+CIPMODE=1)</text>
+  <text x="130" y="440" text-anchor="middle" font-size="12" fill="#6b7280">Пряма прив'язка</text>
+  <text x="130" y="465" text-anchor="middle" font-size="12" fill="#6b7280">до послідовного порту</text>
+
+  <!-- Arrow 1 -->
+  <line x1="210" y1="420" x2="252" y2="420" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="231" y="412" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Тунель</text>
+
+  <!-- Middle Box: Transparent Bridge -->
+  <rect x="260" y="340" width="180" height="160" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="350" y="368" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Модуль ESP8266</text>
+  <text x="350" y="390" text-anchor="middle" font-size="12" fill="#27ae60">Прозорий міст</text>
+  <text x="350" y="415" text-anchor="middle" font-size="12" fill="#6b7280">Без обробки префіксів</text>
+  <text x="350" y="440" text-anchor="middle" font-size="12" fill="#6b7280">Без розбору кадрів</text>
+  <text x="350" y="465" text-anchor="middle" font-size="12" fill="#6b7280">Низька затримка</text>
+
+  <!-- Arrow 2 -->
+  <line x1="440" y1="420" x2="482" y2="420" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="461" y="412" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">UART</text>
+
+  <!-- Right Container: Raw Stream & Escape Sequence -->
+  <rect x="490" y="340" width="420" height="160" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <rect x="505" y="352" width="390" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="700" y="378" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e8449">[ 100% Сирий безперервний потік байтів без метаданих ]</text>
+
+  <rect x="505" y="404" width="390" height="82" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="520" y="424" font-size="12" font-weight="bold" fill="#c0392b">Спецпослідовність виходу з тунелю (Escape Sequence):</text>
+  <text x="520" y="447" font-size="12" fill="#1a1a1a">Пауза 1с  →  "+++" (без \r\n)  →  Пауза 1с</text>
+  <text x="520" y="470" font-size="12" fill="#6b7280">Будь-який байт у вікні тиші скасовує вихід у командний режим</text>
+</svg>

@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Накопичення фазового зсуву та точки стробування у 10-бітному UART-кадрі</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Зсув точок вибірки через похибку Baud Rate та ризик викривлення Стоп-біта (Framing Error)</text>
+
+  <!-- Bit Labels Header -->
+  <text x="217" y="90" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">START</text>
+  <text x="291" y="90" font-size="12" fill="#1a1a1a" text-anchor="middle">D0</text>
+  <text x="365" y="90" font-size="12" fill="#1a1a1a" text-anchor="middle">D1</text>
+  <text x="439" y="90" font-size="12" fill="#1a1a1a" text-anchor="middle">D2</text>
+  <text x="513" y="90" font-size="12" fill="#1a1a1a" text-anchor="middle">D3</text>
+  <text x="587" y="90" font-size="12" fill="#1a1a1a" text-anchor="middle">D4</text>
+  <text x="661" y="90" font-size="12" fill="#1a1a1a" text-anchor="middle">D5</text>
+  <text x="735" y="90" font-size="12" fill="#1a1a1a" text-anchor="middle">D6</text>
+  <text x="809" y="90" font-size="12" fill="#1a1a1a" text-anchor="middle">D7</text>
+  <text x="883" y="90" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">STOP</text>
+
+  <!-- Vertical Bit Boundary Grid Lines -->
+  <line x1="180" y1="100" x2="180" y2="340" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="254" y1="100" x2="254" y2="340" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="328" y1="100" x2="328" y2="340" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="402" y1="100" x2="402" y2="340" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="476" y1="100" x2="476" y2="340" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="550" y1="100" x2="550" y2="340" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="624" y1="100" x2="624" y2="340" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="698" y1="100" x2="698" y2="340" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="772" y1="100" x2="772" y2="340" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="846" y1="100" x2="846" y2="340" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="920" y1="100" x2="920" y2="340" stroke="#d0d7de" stroke-dasharray="2,2"/>
+
+  <!-- Danger Zone Box for Stop Bit -->
+  <rect x="846" y="240" width="74" height="95" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="883" y="257" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зсув</text>
+
+  <!-- Signal Waveform Path -->
+  <path d="M 140,130 L 180,130 L 180,170 L 254,170 L 254,130 L 328,130 L 328,170 L 402,170 L 402,130 L 476,130 L 476,170 L 550,170 L 550,130 L 624,130 L 624,170 L 698,170 L 698,130 L 772,130 L 772,170 L 846,170 L 846,130 L 940,130" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+
+  <!-- Track 1: Nominal Sampling Track -->
+  <text x="25" y="214" font-size="12" font-weight="bold" fill="#27ae60">Ідеальні вибірки:</text>
+  <line x1="180" y1="210" x2="920" y2="210" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="217" cy="210" r="4" fill="#27ae60"/>
+  <circle cx="291" cy="210" r="4" fill="#27ae60"/>
+  <circle cx="365" cy="210" r="4" fill="#27ae60"/>
+  <circle cx="439" cy="210" r="4" fill="#27ae60"/>
+  <circle cx="513" cy="210" r="4" fill="#27ae60"/>
+  <circle cx="587" cy="210" r="4" fill="#27ae60"/>
+  <circle cx="661" cy="210" r="4" fill="#27ae60"/>
+  <circle cx="735" cy="210" r="4" fill="#27ae60"/>
+  <circle cx="809" cy="210" r="4" fill="#27ae60"/>
+  <circle cx="883" cy="210" r="4" fill="#27ae60"/>
+
+  <!-- Track 2: Actual Drifted Sampling Track -->
+  <text x="25" y="294" font-size="12" font-weight="bold" fill="#c0392b">Вибірки зі зсувом:</text>
+  <line x1="180" y1="290" x2="920" y2="290" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="217" cy="290" r="4" fill="#c0392b"/>
+  <circle cx="294" cy="290" r="4" fill="#c0392b"/>
+  <circle cx="372" cy="290" r="4" fill="#c0392b"/>
+  <circle cx="449" cy="290" r="4" fill="#c0392b"/>
+  <circle cx="527" cy="290" r="4" fill="#c0392b"/>
+  <circle cx="604" cy="290" r="4" fill="#c0392b"/>
+  <circle cx="682" cy="290" r="4" fill="#c0392b"/>
+  <circle cx="759" cy="290" r="4" fill="#c0392b"/>
+  <circle cx="837" cy="290" r="4" fill="#c0392b"/>
+  <circle cx="914" cy="290" r="4" fill="#c0392b"/>
+
+  <!-- Phase Drift Arrow on Stop Bit -->
+  <line x1="883" y1="315" x2="914" y2="315" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="898" y="332" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Δt_total</text>
+
+  <!-- Bottom Panel Left: Oversampling Mechanism -->
+  <rect x="40" y="360" width="420" height="160" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="385" font-size="13" font-weight="bold" fill="#1a1a1a">Механізм 16-кратного передискретизування (Oversampling):</text>
+  <text x="60" y="412" font-size="12" fill="#1a1a1a">• Таймер ділить бітовий інтервал T_bit на 16 тактів.</text>
+  <text x="60" y="437" font-size="12" fill="#1a1a1a">• Ідеальна вибірка виконується у центрі біта (7, 8, 9 такти).</text>
+  <text x="60" y="462" font-size="12" fill="#1a1a1a">• Мажоритарний вибір з 3 тактів пригнічує імпульсні завади.</text>
+  <text x="60" y="492" font-size="13" font-weight="bold" fill="#2457d6">• Допустимий бюджет похибки кадру: err &lt; 2.5%</text>
+
+  <!-- Bottom Panel Right: Framing Error Rationale -->
+  <rect x="480" y="360" width="440" height="160" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="500" y="385" font-size="13" font-weight="bold" fill="#c0392b">Причина кадрової помилки (Framing Error):</text>
+  <text x="500" y="412" font-size="12" fill="#1a1a1a">• Сумарний накопичений зсув: Δt_total = 9.5 × T_bit × (err / 100%)</text>
+  <text x="500" y="437" font-size="12" fill="#1a1a1a">• При err &gt; 2.5% вибірка Стоп-біта виходить за межу T_bit.</text>
+  <text x="500" y="462" font-size="12" fill="#1a1a1a">• Замість високого рівня (1) зчитується 0 наступного кадру.</text>
+  <text x="500" y="492" font-size="13" font-weight="bold" fill="#c0392b">• Фіксується апаратний збій кадрового синхронізму!</text>
+</svg>

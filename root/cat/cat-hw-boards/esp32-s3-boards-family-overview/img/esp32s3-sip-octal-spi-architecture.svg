@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Еволюція архітектури підключення пам'яті в ESP32-S3</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Перехід від дискретної 4-бітної Quad SPI пам'яті на друкованій платі до 8-бітної Octal SPI System-in-Package (SiP)</text>
+
+  <!-- Left Column: Discrete Quad SPI -->
+  <rect x="40" y="80" width="420" height="450" fill="#fdecea" stroke="#c0392b" stroke-width="2" rx="8"/>
+  <text x="250" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Класичне дискретне підключення (Quad SPI)</text>
+  <text x="250" y="125" text-anchor="middle" font-size="12" fill="#6b7280">Зовнішній монтаж на друкованій платі (PCB)</text>
+
+  <!-- Left: ESP32-S3 SoC Box -->
+  <rect x="60" y="150" width="150" height="200" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="135" y="175" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">ESP32-S3 SoC</text>
+  <text x="135" y="198" text-anchor="middle" font-size="11" fill="#6b7280">Xtensa LX7 Dual-Core</text>
+  <text x="135" y="220" text-anchor="middle" font-size="11" fill="#6b7280">Internal SRAM (512 KB)</text>
+  <text x="135" y="242" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">SPI / QSPI Controller</text>
+  <text x="135" y="264" text-anchor="middle" font-size="11" fill="#6b7280">4-bit Data (IO0–IO3)</text>
+
+  <!-- Left: External Flash Box -->
+  <rect x="280" y="150" width="160" height="85" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="360" y="175" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Зовнішня Flash</text>
+  <text x="360" y="195" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Quad SPI (4 біти)</text>
+  <text x="360" y="215" text-anchor="middle" font-size="11" fill="#6b7280">N4 / N8 / N16 (SPI)</text>
+
+  <!-- Left: External PSRAM Box -->
+  <rect x="280" y="265" width="160" height="85" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="360" y="290" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Зовнішня PSRAM</text>
+  <text x="360" y="310" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Quad SPI (4 біти)</text>
+  <text x="360" y="330" text-anchor="middle" font-size="11" fill="#6b7280">R2 (4-bit QSPI)</text>
+
+  <!-- Left: QSPI Buses -->
+  <line x1="210" y1="190" x2="270" y2="190" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="245" y="182" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">4 біти</text>
+
+  <line x1="210" y1="305" x2="270" y2="305" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="245" y="297" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">4 біти</text>
+
+  <!-- Left: Summary Card -->
+  <rect x="60" y="380" width="380" height="130" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="250" y="402" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Обмеження дискретної Quad SPI пам'яті:</text>
+  <text x="250" y="425" text-anchor="middle" font-size="11" fill="#1a1a1a">• Пропускна здатність обмежена 4-бітною шиною (40–80 МБ/с)</text>
+  <text x="250" y="448" text-anchor="middle" font-size="11" fill="#1a1a1a">• Більша площа монтажу на друкованій платі (PCB)</text>
+  <text x="250" y="471" text-anchor="middle" font-size="11" fill="#1a1a1a">• Паразитні індуктивності зовнішніх провідників плати</text>
+  <text x="250" y="494" text-anchor="middle" font-size="11" fill="#1a1a1a">• Вузьке місце для векторних обчислень Xtensa LX7</text>
+
+  <!-- Right Column: Integrated SiP (Octal SPI) -->
+  <rect x="500" y="80" width="420" height="450" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="8"/>
+  <text x="710" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Інтегрована SiP-архітектура (Octal SPI)</text>
+  <text x="710" y="125" text-anchor="middle" font-size="12" fill="#6b7280">System-in-Package (SiP) у єдиному корпусі модуля</text>
+
+  <!-- Right: SiP Package Box -->
+  <rect x="520" y="150" width="380" height="200" fill="#ffffff" stroke="#27ae60" stroke-width="2" stroke-dasharray="4 4" rx="6"/>
+  <text x="710" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Єдиний SiP-корпус (System-in-Package)</text>
+
+  <!-- Right: SoC Die -->
+  <rect x="540" y="190" width="150" height="140" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="615" y="212" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Кристал ESP32-S3</text>
+  <text x="615" y="235" text-anchor="middle" font-size="11" fill="#1a1a1a">Xtensa LX7 + Vector AI</text>
+  <text x="615" y="258" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Octal SPI Controller</text>
+  <text x="615" y="281" text-anchor="middle" font-size="11" fill="#6b7280">8-bit Dual Data Rate</text>
+
+  <!-- Right: Memory Die -->
+  <rect x="730" y="190" width="150" height="140" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="805" y="212" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Інтегрована пам'ять</text>
+  <text x="805" y="235" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Octal PSRAM (8 бітів)</text>
+  <text x="805" y="258" text-anchor="middle" font-size="11" fill="#1a1a1a">N8R8 / N16R8 (8-bit)</text>
+  <text x="805" y="281" text-anchor="middle" font-size="11" fill="#6b7280">Внутрішні мікророзварки</text>
+
+  <!-- Right: Octal SPI Bus -->
+  <line x1="690" y1="260" x2="720" y2="260" stroke="#27ae60" stroke-width="4" marker-end="url(#arr-green)"/>
+  <text x="710" y="248" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Octal SPI</text>
+
+  <!-- Right: Summary Card -->
+  <rect x="520" y="380" width="380" height="130" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="710" y="402" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Переваги технології SiP та Octal SPI:</text>
+  <text x="710" y="425" text-anchor="middle" font-size="11" fill="#1a1a1a">• Подвоєна пропускна здатність пам'яті (до 160–240 МБ/с)</text>
+  <text x="710" y="448" text-anchor="middle" font-size="11" fill="#1a1a1a">• Мінімальні затримки та коротші внутрішні з'єднання</text>
+  <text x="710" y="471" text-anchor="middle" font-size="11" fill="#1a1a1a">• Компактний формфактор для мікроплат (Pico / Zero)</text>
+  <text x="710" y="494" text-anchor="middle" font-size="11" fill="#1a1a1a">• Повна підтримка навантажень TinyML та відеостримінгу</text>
+</svg>

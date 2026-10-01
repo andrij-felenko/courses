@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Definitions for Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Фазовий зсув та стробування бітів UART</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Накопичення похибки дільника частоти та межа кадрової помилки (Framing Error)</text>
+
+  <!-- Panel 1: Waveform & Timelines Container -->
+  <rect x="40" y="75" width="880" height="285" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+
+  <!-- Panel 1 Title Label -->
+  <text x="55" y="98" text-anchor="start" font-size="13" font-weight="bold" fill="#2457d6">Осцилограма вхідного сигналу RX та стробування бітів (8N1)</text>
+
+  <!-- Bit Name Labels Above Waveform (y=118) -->
+  <text x="156" y="118" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Start</text>
+  <text x="228" y="118" text-anchor="middle" font-size="12" fill="#1a1a1a">D0</text>
+  <text x="300" y="118" text-anchor="middle" font-size="12" fill="#1a1a1a">D1</text>
+  <text x="372" y="118" text-anchor="middle" font-size="12" fill="#1a1a1a">D2</text>
+  <text x="444" y="118" text-anchor="middle" font-size="12" fill="#1a1a1a">D3</text>
+  <text x="516" y="118" text-anchor="middle" font-size="12" fill="#1a1a1a">D4</text>
+  <text x="588" y="118" text-anchor="middle" font-size="12" fill="#1a1a1a">D5</text>
+  <text x="660" y="118" text-anchor="middle" font-size="12" fill="#1a1a1a">D6</text>
+  <text x="732" y="118" text-anchor="middle" font-size="12" fill="#1a1a1a">D7</text>
+  <text x="804" y="118" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Stop</text>
+
+  <!-- Bit Boundary Lines (Dashed Vertical) starting from x=120 -->
+  <line x1="120" y1="125" x2="120" y2="295" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="192" y1="125" x2="192" y2="295" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="264" y1="125" x2="264" y2="295" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="336" y1="125" x2="336" y2="295" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="408" y1="125" x2="408" y2="295" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="480" y1="125" x2="480" y2="295" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="552" y1="125" x2="552" y2="295" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="624" y1="125" x2="624" y2="295" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="696" y1="125" x2="696" y2="295" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="768" y1="125" x2="768" y2="295" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="840" y1="125" x2="840" y2="295" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- RX Digital Waveform -->
+  <path d="M 55,135 L 120,135 L 120,175 L 192,175 L 192,135 L 264,135 L 264,175 L 336,175 L 336,135 L 408,135 L 408,175 L 480,175 L 480,135 L 552,135 L 552,175 L 624,175 L 624,135 L 696,135 L 696,175 L 768,175 L 768,135 L 870,135" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+
+  <!-- Ideal Sampling Axis & Line (starting at x=120) -->
+  <text x="55" y="202" text-anchor="start" font-size="11" font-weight="bold" fill="#27ae60">Ідеальна:</text>
+  <line x1="120" y1="210" x2="840" y2="210" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Ideal Sampling Points (Green Dots at Center of Bits) -->
+  <circle cx="156" cy="210" r="4" fill="#27ae60"/>
+  <circle cx="228" cy="210" r="4" fill="#27ae60"/>
+  <circle cx="300" cy="210" r="4" fill="#27ae60"/>
+  <circle cx="372" cy="210" r="4" fill="#27ae60"/>
+  <circle cx="444" cy="210" r="4" fill="#27ae60"/>
+  <circle cx="516" cy="210" r="4" fill="#27ae60"/>
+  <circle cx="588" cy="210" r="4" fill="#27ae60"/>
+  <circle cx="660" cy="210" r="4" fill="#27ae60"/>
+  <circle cx="732" cy="210" r="4" fill="#27ae60"/>
+  <circle cx="804" cy="210" r="4" fill="#27ae60"/>
+
+  <!-- Actual Sampling Axis with Frequency Drift (starting at x=120) -->
+  <text x="55" y="262" text-anchor="start" font-size="11" font-weight="bold" fill="#c0392b">Реальна:</text>
+  <line x1="120" y1="270" x2="840" y2="270" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Actual Sampling Points (Accumulating Drift) -->
+  <circle cx="156" cy="270" r="4" fill="#27ae60"/>
+  <circle cx="232" cy="270" r="4" fill="#27ae60"/>
+  <circle cx="308" cy="270" r="4" fill="#27ae60"/>
+  <circle cx="384" cy="270" r="4" fill="#27ae60"/>
+  <circle cx="460" cy="270" r="4" fill="#27ae60"/>
+  <circle cx="536" cy="270" r="4" fill="#27ae60"/>
+  <circle cx="612" cy="270" r="4" fill="#c0392b"/>
+  <circle cx="688" cy="270" r="4" fill="#c0392b"/>
+  <circle cx="764" cy="270" r="4" fill="#c0392b"/>
+  <circle cx="840" cy="270" r="5" fill="#c0392b"/>
+
+  <!-- Connector Lines between Ideal and Real Points -->
+  <line x1="804" y1="214" x2="840" y2="266" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+  <!-- Phase Shift Indicator Arrow & Text at Stop Bit -->
+  <path d="M 804,295 L 840,295" stroke="#c0392b" stroke-width="1.5" fill="none" marker-end="url(#arr-red)"/>
+  <text x="822" y="315" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Δt ≥ 0.5 T_bit</text>
+
+  <!-- Framing Error Badge -->
+  <rect x="745" y="324" width="155" height="26" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="822" y="341" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Framing Error!</text>
+
+  <!-- Panel 2: Summary Badges -->
+  <rect x="40" y="375" width="880" height="85" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+
+  <rect x="55" y="388" width="260" height="60" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="185" y="410" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Допустима похибка: &lt; 2.5%</text>
+  <text x="185" y="432" text-anchor="middle" font-size="12" fill="#1a1a1a">Вибірка біта в безпечній зоні</text>
+
+  <rect x="330" y="388" width="300" height="60" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="480" y="410" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Умова відсутності помилок:</text>
+  <text x="480" y="432" text-anchor="middle" font-size="12" fill="#1a1a1a">Δt_sum = N_bits × |T_rx - T_tx| &lt; 0.5 T_bit</text>
+
+  <rect x="645" y="388" width="260" height="60" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="775" y="410" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Кадрова помилка (Framing Error)</text>
+  <text x="775" y="432" text-anchor="middle" font-size="12" fill="#1a1a1a">Стробування на фронті або за межою</text>
+</svg>

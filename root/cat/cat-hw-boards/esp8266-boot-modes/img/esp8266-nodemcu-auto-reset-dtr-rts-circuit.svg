@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема автозавантажувача NodeMCU DTR/RTS та часова діаграма</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Автоматичне переведення ESP8266 у режим UART Download при зчитуванні/запису прошивки</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Схема -->
+  <rect x="40" y="85" width="430" height="450" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="255" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Принципова схема транзисторної пари</text>
+  <text x="255" y="135" text-anchor="middle" font-size="12" fill="#6b7280">Сигнали USB-to-UART мосту (CP2102 / CH340)</text>
+
+  <!-- Вхідні блоки лівої панелі -->
+  <rect x="65" y="170" width="70" height="45" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="100" y="197" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">DTR</text>
+
+  <rect x="65" y="300" width="70" height="45" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="100" y="327" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">RTS</text>
+
+  <!-- Блоки транзисторів Q1 і Q2 -->
+  <rect x="210" y="170" width="100" height="55" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="260" y="193" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Q1 (NPN)</text>
+  <text x="260" y="213" text-anchor="middle" font-size="12" fill="#6b7280">RST ctrl</text>
+
+  <rect x="210" y="300" width="100" height="55" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="260" y="323" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Q2 (NPN)</text>
+  <text x="260" y="343" text-anchor="middle" font-size="12" fill="#6b7280">GPIO0 ctrl</text>
+
+  <!-- Вихідні блоки лівої панелі -->
+  <rect x="360" y="185" width="85" height="40" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="402" y="209" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ESP_RST</text>
+
+  <rect x="360" y="315" width="85" height="40" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="402" y="339" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">GPIO0</text>
+
+  <!-- Лінії зв'язку між блоками -->
+  <path d="M135,192 L210,192" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M135,322 L210,322" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M165,192 L165,340 L210,340" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <path d="M180,322 L180,210 L210,210" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <path d="M310,197 L360,205" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M310,327 L360,335" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Блок опису логіки спрацювання на лівій панелі -->
+  <rect x="60" y="405" width="390" height="115" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="75" y="428" font-size="13" font-weight="bold" fill="#1a1a1a">Логіка спрацювання транзисторів:</text>
+  <text x="75" y="452" font-size="12" fill="#1a1a1a">• DTR=1, RTS=0 =&gt; Q1 відкритий =&gt; RST = LOW</text>
+  <text x="75" y="477" font-size="12" fill="#1a1a1a">• DTR=0, RTS=1 =&gt; Q2 відкритий =&gt; GPIO0 = LOW</text>
+  <text x="75" y="502" font-size="12" fill="#2457d6">• DTR=1, RTS=1 =&gt; обидва Q1/Q2 закриті (Захист)</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Часова діаграма -->
+  <rect x="490" y="85" width="430" height="450" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="705" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Часова діаграма сигналів (Timing)</text>
+  <text x="705" y="135" text-anchor="middle" font-size="12" fill="#6b7280">Послідовність імпульсів скидання esptool</text>
+
+  <!-- Позначки фаз на таймлайні -->
+  <text x="590" y="153" text-anchor="middle" font-size="12" fill="#6b7280">Run</text>
+  <text x="665" y="153" text-anchor="middle" font-size="12" fill="#6b7280">GPIO0=0</text>
+  <text x="755" y="153" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">RST Pulse</text>
+  <text x="845" y="153" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">UART Boot</text>
+
+  <line x1="625" y1="160" x2="625" y2="445" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="710" y1="160" x2="710" y2="445" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="800" y1="160" x2="800" y2="445" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Сигнал 1: DTR -->
+  <text x="505" y="180" font-size="12" font-weight="bold" fill="#2457d6">DTR</text>
+  <path d="M545,170 L625,170 L625,195 L800,195 L800,170 L890,170" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Сигнал 2: RTS -->
+  <text x="505" y="250" font-size="12" font-weight="bold" fill="#2457d6">RTS</text>
+  <path d="M545,240 L710,240 L710,265 L770,265 L770,240 L890,240" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Сигнал 3: GPIO0 -->
+  <text x="505" y="320" font-size="12" font-weight="bold" fill="#27ae60">GPIO0</text>
+  <path d="M545,310 L625,310 L625,335 L800,335 L800,310 L890,310" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Сигнал 4: RST -->
+  <text x="505" y="390" font-size="12" font-weight="bold" fill="#c0392b">RST</text>
+  <path d="M545,380 L710,380 L710,405 L770,405 L770,380 L890,380" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Аннотація знизу правої панелі -->
+  <rect x="510" y="455" width="390" height="65" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="525" y="478" font-size="12" font-weight="bold" fill="#27ae60">Момент фіксації режиму UART Download:</text>
+  <text x="525" y="500" font-size="12" fill="#1a1a1a">В момент переднього фронту RST (↑) GPIO0=0</text>
+</svg>

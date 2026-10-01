@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Скінченний автомат хоста для парсингу +IPD та асинхронних SSL-подій</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Асинхронний розбір потоку UART із відокремленням службових заголовків від бінарного корисного навантаження</text>
+
+  <!-- ЛІНІЇ ТРАНЗИЦІЙ (Стрілки) -->
+
+  <!-- Перехід 1: IDLE -> PARSE_HEADER -->
+  <path d="M 260,200 L 340,175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="290" y="170" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Отримано "+IPD,"</text>
+
+  <!-- Перехід 2: PARSE_HEADER -> READ_PAYLOAD -->
+  <path d="M 560,175 L 700,200" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="630" y="170" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Символ ':' (&lt;len&gt; байт)</text>
+
+  <!-- Перехід 3: READ_PAYLOAD -> IDLE (Повернення після завершення кадру) -->
+  <path d="M 800,285 L 800,320 L 160,320 L 160,285" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arr-green)"/>
+  <text x="480" y="312" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Зчитано &lt;len&gt; байт -&gt; Кадр оброблено</text>
+
+  <!-- Перехід 4: IDLE -> ASYNC_EVENT -->
+  <path d="M 110,285 L 110,420 L 340,420" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="225" y="412" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Події "CLOSED", "CONNECT FAIL"</text>
+
+  <!-- Перехід 5: ASYNC_EVENT -> IDLE -->
+  <path d="M 340,450 L 210,450 L 210,285" fill="none" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <text x="275" y="442" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">Скидання FSM -&gt; В стан IDLE</text>
+
+  <!-- БЛОКИ СТАНІВ FSM -->
+
+  <!-- Стан 1: IDLE -->
+  <rect x="60" y="175" width="200" height="110" rx="8" ry="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="160" y="202" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">1. STATE_IDLE</text>
+  <text x="160" y="225" text-anchor="middle" font-size="12" fill="#2457d6">Пошук префікса</text>
+  <text x="160" y="245" text-anchor="middle" font-size="11" fill="#6b7280">Буферизація UART символів</text>
+  <text x="160" y="265" text-anchor="middle" font-size="11" fill="#6b7280">Детекція "+IPD," чи подій</text>
+
+  <!-- Стан 2: PARSE_HEADER -->
+  <rect x="340" y="120" width="220" height="110" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="450" y="147" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">2. STATE_PARSE_HEADER</text>
+  <text x="450" y="170" text-anchor="middle" font-size="12" fill="#1a1a1a">Розбір метаданих</text>
+  <text x="450" y="190" text-anchor="middle" font-size="11" fill="#6b7280">Зчитування &lt;link_id&gt; та &lt;len&gt;</text>
+  <text x="450" y="210" text-anchor="middle" font-size="11" fill="#6b7280">Очікування роздільника ':'</text>
+
+  <!-- Стан 3: READ_PAYLOAD -->
+  <rect x="700" y="175" width="200" height="110" rx="8" ry="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="800" y="202" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">3. STATE_READ_PAYLOAD</text>
+  <text x="800" y="225" text-anchor="middle" font-size="12" fill="#27ae60">Пряме зчитування</text>
+  <text x="800" y="245" text-anchor="middle" font-size="11" fill="#6b7280">Прийом &lt;len&gt; бінарних байт</text>
+  <text x="800" y="265" text-anchor="middle" font-size="11" fill="#6b7280">Захист від несправжніх разривів</text>
+
+  <!-- Стан 4: ASYNC_EVENT -->
+  <rect x="340" y="365" width="220" height="110" rx="8" ry="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="450" y="392" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">4. STATE_ASYNC_EVENT</text>
+  <text x="450" y="415" text-anchor="middle" font-size="12" fill="#c0392b">Обробка мережевих подій</text>
+  <text x="450" y="435" text-anchor="middle" font-size="11" fill="#6b7280">Закриття сокета / Помилка TLS</text>
+  <text x="450" y="455" text-anchor="middle" font-size="11" fill="#6b7280">Сповіщення вищого рівня ПЗ</text>
+</svg>

@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Порівняння транспортування команд CMSIS-DAP v1 та v2</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">v1 обмежений фіксованими HID-кадрами з доповненням, а v2 реалізує прямий Bulk-потік</text>
+
+  <!-- LEFT PANEL: CMSIS-DAP v1 (USB HID) -->
+  <rect x="40" y="75" width="425" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="55" y="100" font-size="15" font-weight="bold" fill="#c0392b">CMSIS-DAP v1 (USB HID)</text>
+  <text x="55" y="118" font-size="12" fill="#6b7280">Фіксовані кадри з накладними витратами</text>
+
+  <!-- Left Sub-box 1: Host Driver Stack -->
+  <rect x="55" y="135" width="395" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="70" y="153" font-size="12" font-weight="bold" fill="#c0392b">Хост-драйвер: Стандартний USB HID</text>
+  <text x="70" y="170" font-size="12" fill="#1a1a1a">Канал: Interrupt Endpoints (64 B/пакет)</text>
+
+  <!-- Left Sub-box 2: Frame Structure -->
+  <rect x="55" y="198" width="395" height="155" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="70" y="218" font-size="12" font-weight="bold" fill="#1a1a1a">Структура HID-кадру (Фіксований 64 B буфер):</text>
+
+  <!-- Field 1: Report ID -->
+  <rect x="70" y="232" width="70" height="46" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="105" y="251" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Report ID</text>
+  <text x="105" y="266" text-anchor="middle" font-size="12" fill="#c0392b">0x00 (1 B)</text>
+
+  <!-- Field 2: Command Payload -->
+  <rect x="147" y="232" width="155" height="46" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="224" y="251" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">DAP Дані</text>
+  <text x="224" y="266" text-anchor="middle" font-size="12" fill="#2457d6">Команда (N B)</text>
+
+  <!-- Field 3: Padding Overhead -->
+  <rect x="309" y="232" width="126" height="46" rx="3" fill="#fdecea" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <text x="372" y="251" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Padding</text>
+  <text x="372" y="266" text-anchor="middle" font-size="12" fill="#c0392b">0x00 (63-N B)</text>
+
+  <!-- Left Frame notes -->
+  <text x="70" y="298" font-size="12" font-weight="bold" fill="#c0392b">• Обов'язкове доповнення нулями до 64 байтів</text>
+  <text x="70" y="315" font-size="12" fill="#6b7280">• Затримки при передачі через HID-опитування</text>
+  <text x="70" y="332" font-size="12" fill="#6b7280">• Заголовок Report ID вимагає зсуву байтів</text>
+
+  <!-- Left Sub-box 3: Parameters -->
+  <rect x="55" y="365" width="395" height="115" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="70" y="385" font-size="12" font-weight="bold" fill="#1a1a1a">Ключові параметри v1:</text>
+  <text x="70" y="405" font-size="12" fill="#1a1a1a">1. Драйвери OS: Не потрібні (вбудовані в OS)</text>
+  <text x="70" y="425" font-size="12" fill="#1a1a1a">2. Буфер кадру: Фіксований (64 B)</text>
+  <text x="70" y="445" font-size="12" fill="#c0392b">3. Продуктивність: Обмежена (Low-Speed)</text>
+
+
+  <!-- RIGHT PANEL: CMSIS-DAP v2 (WinUSB / Bulk) -->
+  <rect x="495" y="75" width="425" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="510" y="100" font-size="15" font-weight="bold" fill="#27ae60">CMSIS-DAP v2 (WinUSB / Bulk)</text>
+  <text x="510" y="118" font-size="12" fill="#6b7280">Прямий бінарний потік без оверхеду</text>
+
+  <!-- Right Sub-box 1: Host Driver Stack -->
+  <rect x="510" y="135" width="395" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="525" y="153" font-size="12" font-weight="bold" fill="#27ae60">Хост-драйвер: WinUSB / libusb (Bulk)</text>
+  <text x="525" y="170" font-size="12" fill="#1a1a1a">Канал: Bulk Endpoints (High-Speed, 512+ B)</text>
+
+  <!-- Right Sub-box 2: Frame Structure -->
+  <rect x="510" y="198" width="395" height="155" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="525" y="218" font-size="12" font-weight="bold" fill="#1a1a1a">Структура Bulk-пакета (Прямий бінарний потік):</text>
+
+  <!-- Field 1: Direct Payload Stream -->
+  <rect x="525" y="232" width="365" height="46" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="707" y="251" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">CMSIS-DAP Пакет Команд (Payload)</text>
+  <text x="707" y="266" text-anchor="middle" font-size="12" fill="#27ae60">Точний розмір N байтів (Жодного доповнення / Padding)</text>
+
+  <!-- Right Frame notes -->
+  <text x="525" y="298" font-size="12" font-weight="bold" fill="#27ae60">• Zero Padding — відсутність зайвих байтів</text>
+  <text x="525" y="315" font-size="12" fill="#6b7280">• Пряма передача даних без заголовків HID</text>
+  <text x="525" y="332" font-size="12" fill="#6b7280">• Пакетна обробка в DMA буферах мікроконтролера</text>
+
+  <!-- Right Sub-box 3: Parameters -->
+  <rect x="510" y="365" width="395" height="115" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="525" y="385" font-size="12" font-weight="bold" fill="#1a1a1a">Ключові параметри v2:</text>
+  <text x="525" y="405" font-size="12" fill="#1a1a1a">1. Драйвери OS: Потрібен WinUSB / libusb</text>
+  <text x="525" y="425" font-size="12" fill="#1a1a1a">2. Буфер кадру: Динамічний (512 B – 4 KB+)</text>
+  <text x="525" y="445" font-size="12" fill="#27ae60">3. Продуктивність: Максимальна (High-Speed Bulk)</text>
+</svg>

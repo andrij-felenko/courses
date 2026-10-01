@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-purple" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#8e44ad"/>
+    </marker>
+    <marker id="arr-orange" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#e67e22"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Карта розподілу пам'яті в ESP-IDF між DRAM та PSRAM</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Маршрутизація викликів heap_caps_malloc() за прапорцями атрибутів та конфігурацією SDK</text>
+
+  <!-- API Entry Box -->
+  <rect x="240" y="70" width="480" height="52" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="90" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Запит пам'яті: heap_caps_malloc(size, caps)</text>
+  <text x="480" y="109" text-anchor="middle" font-size="12" fill="#1a1a1a">Виклик з коду: malloc(size) або heap_caps_malloc(size, caps)</text>
+
+  <!-- Flow Arrows from API to Branches -->
+  <path d="M360,122 L170,160" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M480,122 L480,160" fill="none" stroke="#e67e22" stroke-width="2" marker-end="url(#arr-orange)"/>
+  <path d="M600,122 L790,160" fill="none" stroke="#8e44ad" stroke-width="2" marker-end="url(#arr-purple)"/>
+
+  <!-- Branch 1: MALLOC_CAP_INTERNAL | DMA -->
+  <rect x="40" y="160" width="260" height="60" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="170" y="180" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">MALLOC_CAP_INTERNAL | DMA</text>
+  <text x="170" y="202" text-anchor="middle" font-size="12" fill="#1a1a1a">Примусово у внутрішню DRAM</text>
+
+  <!-- Branch 2: MALLOC_CAP_8BIT / malloc -->
+  <rect x="350" y="160" width="260" height="60" rx="6" fill="#fef5e7" stroke="#e67e22" stroke-width="1.5"/>
+  <text x="480" y="180" text-anchor="middle" font-size="13" font-weight="bold" fill="#e67e22">MALLOC_CAP_8BIT / malloc()</text>
+  <text x="480" y="202" text-anchor="middle" font-size="12" fill="#1a1a1a">Перевірка порогу розміру size</text>
+
+  <!-- Branch 3: MALLOC_CAP_SPIRAM -->
+  <rect x="660" y="160" width="260" height="60" rx="6" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1.5"/>
+  <text x="790" y="180" text-anchor="middle" font-size="13" font-weight="bold" fill="#8e44ad">MALLOC_CAP_SPIRAM</text>
+  <text x="790" y="202" text-anchor="middle" font-size="12" fill="#1a1a1a">Примусово у зовнішню PSRAM</text>
+
+  <!-- Routing Lines & Labels from Branches to Memory Domains -->
+  <!-- Branch 1 -> DRAM -->
+  <path d="M170,220 L170,300" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Branch 2 -> DRAM (solid line for size < threshold) -->
+  <path d="M430,220 L430,255 L270,255 L270,300" fill="none" stroke="#e67e22" stroke-width="2" marker-end="url(#arr-orange)"/>
+  <text x="350" y="246" text-anchor="middle" font-size="12" fill="#e67e22">size &lt; limit</text>
+
+  <!-- Branch 2 -> PSRAM (dashed line for size >= threshold) -->
+  <path d="M530,220 L530,255 L670,255 L670,300" fill="none" stroke="#e67e22" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr-orange)"/>
+  <text x="600" y="246" text-anchor="middle" font-size="12" fill="#e67e22">size ≥ limit</text>
+
+  <!-- Branch 3 -> PSRAM -->
+  <path d="M790,220 L790,300" fill="none" stroke="#8e44ad" stroke-width="2" marker-end="url(#arr-purple)"/>
+
+  <!-- Memory Domain 1: Internal DRAM -->
+  <rect x="40" y="300" width="420" height="200" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="2"/>
+  <rect x="40" y="300" width="420" height="34" rx="8" fill="#27ae60"/>
+  <rect x="40" y="318" width="420" height="16" fill="#27ae60"/>
+  <text x="250" y="322" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Внутрішня пам'ять DRAM (SoC SRAM)</text>
+
+  <!-- DRAM Sub-block 1: DMA Capable -->
+  <rect x="55" y="344" width="390" height="58" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="70" y="362" font-size="12" font-weight="bold" fill="#27ae60">Пул з підтримкою DMA (MALLOC_CAP_DMA)</text>
+  <text x="70" y="378" font-size="12" fill="#1a1a1a">• Буфери периферії: SPI, I2S, Camera, Wi-Fi pbuf</text>
+  <text x="70" y="393" font-size="12" fill="#1a1a1a">• Стек та завдання FreeRTOS, обробники переривань</text>
+
+  <!-- DRAM Sub-block 2: Non-DMA / Internal Heap -->
+  <rect x="55" y="410" width="390" height="48" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="70" y="428" font-size="12" font-weight="bold" fill="#1a1a1a">Загальна внутрішня купа (Internal Heap)</text>
+  <text x="70" y="446" font-size="12" fill="#6b7280">Дрібні динамічні об'єкти, сокети, системні структури</text>
+
+  <!-- DRAM Specs Badge -->
+  <text x="250" y="482" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Швидкість: 80 МГц (1 такт) | Обсяг: ~386 КБ | DMA: Так</text>
+
+  <!-- Memory Domain 2: External PSRAM -->
+  <rect x="500" y="300" width="420" height="200" rx="8" fill="#f4f6f8" stroke="#8e44ad" stroke-width="2"/>
+  <rect x="500" y="300" width="420" height="34" rx="8" fill="#8e44ad"/>
+  <rect x="500" y="318" width="420" height="16" fill="#8e44ad"/>
+  <text x="710" y="322" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Зовнішня пам'ять PSRAM (Octal / Quad SPI)</text>
+
+  <!-- PSRAM Sub-block 1: SPIRAM Pool -->
+  <rect x="515" y="344" width="390" height="58" rx="6" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1"/>
+  <text x="530" y="362" font-size="12" font-weight="bold" fill="#8e44ad">Виділений купольний пул PSRAM (MALLOC_CAP_SPIRAM)</text>
+  <text x="530" y="378" font-size="12" fill="#1a1a1a">• Кадрові буфери графіки (Framebuffers RGB/LCD)</text>
+  <text x="530" y="393" font-size="12" fill="#1a1a1a">• Тензори нейромереж TinyML та масиви моделей ШІ</text>
+
+  <!-- PSRAM Sub-block 2: Large Allocations -->
+  <rect x="515" y="410" width="390" height="48" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="530" y="428" font-size="12" font-weight="bold" fill="#1a1a1a">Автоматичне виділення для великих блоків</text>
+  <text x="530" y="446" font-size="12" fill="#6b7280">Великі буфери HTTP/TLS, аудіоплеєр, файлові масиви</text>
+
+  <!-- PSRAM Specs Badge -->
+  <text x="710" y="482" text-anchor="middle" font-size="12" font-weight="bold" fill="#8e44ad">Швидкість: Octal SPI 80-120 МГц | Обсяг: 2–8 МБ | DMA: Ні</text>
+</svg>

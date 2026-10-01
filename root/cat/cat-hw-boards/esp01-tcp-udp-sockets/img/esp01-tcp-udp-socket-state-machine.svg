@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діаграма станів і переходів сокетів у прошивці ESP-AT</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Послідовність виконання AT-команд для ініціалізації, мультиплексування, обміну даними та закриття каналів</text>
+
+  <!-- Group Containers -->
+  <rect x="30" y="70" width="235" height="465" fill="#f4f6f8" rx="8" ry="8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="147.5" y="92" font-size="13" font-weight="bold" fill="#6b7280" text-anchor="middle">ІНІЦІАЛІЗАЦІЯ ТА ПОМИЛКИ</text>
+
+  <rect x="345" y="70" width="270" height="465" fill="#f4f6f8" rx="8" ry="8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="92" font-size="13" font-weight="bold" fill="#6b7280" text-anchor="middle">РЕЖИМИ ТА СЕРВЕР</text>
+
+  <rect x="695" y="70" width="235" height="465" fill="#f4f6f8" rx="8" ry="8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="812.5" y="92" font-size="13" font-weight="bold" fill="#6b7280" text-anchor="middle">АКТИВНІ СОКЕТИ ТА ОБМІН</text>
+
+  <!-- Node 1: CLOSED / IDLE -->
+  <rect x="45" y="110" width="205" height="70" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="147.5" y="135" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CLOSED / IDLE</text>
+  <text x="147.5" y="160" font-size="12" fill="#6b7280" text-anchor="middle">Сокети не створено</text>
+
+  <!-- Node 2: CIPMUX CONFIG -->
+  <rect x="360" y="110" width="240" height="70" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="132" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">КОНФІГУРАЦІЯ CIPMUX</text>
+  <text x="480" y="152" font-size="12" fill="#1a1a1a" text-anchor="middle">AT+CIPMUX=0 (Single)</text>
+  <text x="480" y="168" font-size="12" fill="#1a1a1a" text-anchor="middle">AT+CIPMUX=1 (Multi: 5 ch)</text>
+
+  <!-- Node 3: CONNECTED -->
+  <rect x="710" y="110" width="205" height="70" rx="6" ry="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="812.5" y="132" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">CONNECTED</text>
+  <text x="812.5" y="152" font-size="12" fill="#1a1a1a" text-anchor="middle">AT+CIPSTART="TCP"/"UDP"</text>
+  <text x="812.5" y="168" font-size="12" fill="#6b7280" text-anchor="middle">Канал відкрито (CONNECT)</text>
+
+  <!-- Node 4: DATA TRANSFER -->
+  <rect x="710" y="260" width="205" height="85" rx="6" ry="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="812.5" y="283" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">ПЕРЕДАЧА ДАНИХ</text>
+  <text x="812.5" y="305" font-size="12" fill="#1a1a1a" text-anchor="middle">AT+CIPSEND / CIPSENDBUF</text>
+  <text x="812.5" y="325" font-size="12" fill="#27ae60" text-anchor="middle">Вхідні пакети: +IPD,&lt;len&gt;</text>
+
+  <!-- Node 5: PASSTHROUGH -->
+  <rect x="360" y="260" width="240" height="75" rx="6" ry="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="282" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">ПРОЗОРЕ ТУНЕЛЮВАННЯ</text>
+  <text x="480" y="302" font-size="12" fill="#1a1a1a" text-anchor="middle">AT+CIPMODE=1 (Single)</text>
+  <text x="480" y="320" font-size="12" fill="#6b7280" text-anchor="middle">Прямий потік UART &lt;-&gt; TCP</text>
+
+  <!-- Node 6: SERVER LISTEN -->
+  <rect x="360" y="415" width="240" height="75" rx="6" ry="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="436" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">TCP-СЕРВЕР (LISTEN)</text>
+  <text x="480" y="456" font-size="12" fill="#1a1a1a" text-anchor="middle">AT+CIPSERVER=1,&lt;port&gt;</text>
+  <text x="480" y="474" font-size="12" fill="#6b7280" text-anchor="middle">Очікування клієнтів (Multi)</text>
+
+  <!-- Node 7: ERROR BOX -->
+  <rect x="45" y="260" width="205" height="230" rx="6" ry="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="147.5" y="283" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">ОБРОБКА ПОМИЛОК</text>
+  <text x="147.5" y="311" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">link is builded</text>
+  <text x="147.5" y="329" font-size="12" fill="#1a1a1a" text-anchor="middle">CIPMUX при відкритому</text>
+  <text x="147.5" y="361" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ALREADY CONNECTED</text>
+  <text x="147.5" y="379" font-size="12" fill="#1a1a1a" text-anchor="middle">Повторний CIPSTART</text>
+  <text x="147.5" y="411" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">CLOSED / ERROR</text>
+  <text x="147.5" y="429" font-size="12" fill="#1a1a1a" text-anchor="middle">Розрив мережі / таймаут</text>
+
+  <!-- Connections & Labels -->
+
+  <!-- 1. IDLE -> CIPMUX CONFIG -->
+  <line x1="250" y1="145" x2="360" y2="145" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="305" y="135" font-size="12" fill="#2457d6" text-anchor="middle">Налаштування</text>
+
+  <!-- 2. CIPMUX CONFIG -> CONNECTED -->
+  <line x1="600" y1="145" x2="710" y2="145" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="655" y="124" font-size="12" fill="#27ae60" text-anchor="middle">
+    <tspan x="655" dy="0">Відкриття</tspan>
+    <tspan x="655" dy="14">сокета</tspan>
+  </text>
+
+  <!-- 3. CONNECTED -> DATA TRANSFER -->
+  <line x1="750" y1="180" x2="750" y2="260" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="758" y="210" font-size="12" fill="#2457d6" text-anchor="start">AT+CIPSEND</text>
+
+  <!-- 4. DATA TRANSFER -> CONNECTED -->
+  <line x1="875" y1="260" x2="875" y2="180" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="867" y="240" font-size="12" fill="#27ae60" text-anchor="end">SEND OK / +IPD</text>
+
+  <!-- 5. CONNECTED -> PASSTHROUGH -->
+  <path d="M 710 160 L 640 160 L 640 285 L 600 285" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="632" y="200" font-size="12" fill="#2457d6" text-anchor="end">AT+CIPMODE=1</text>
+
+  <!-- 6. PASSTHROUGH -> CONNECTED -->
+  <path d="M 600 310 L 665 310 L 665 170 L 710 170" fill="none" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-dark)"/>
+  <text x="673" y="245" font-size="12" fill="#1a1a1a" text-anchor="start">Вихід: +++</text>
+
+  <!-- 7. CIPMUX CONFIG -> SERVER LISTEN -->
+  <path d="M 380 180 L 380 215 L 305 215 L 305 452.5 L 360 452.5" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="313" y="240" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="start">AT+CIPSERVER=1</text>
+
+  <!-- 8. SERVER LISTEN -> CONNECTED -->
+  <path d="M 600 452.5 L 725 452.5 L 725 180" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="608" y="425" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="start">
+    <tspan x="608" dy="0">Вхідне з'єднання</tspan>
+    <tspan x="608" dy="14">(+LINK_CONN)</tspan>
+  </text>
+
+  <!-- 9. CONNECTED -> CLOSED / IDLE -->
+  <path d="M 890 180 L 890 515 L 147.5 515 L 147.5 180" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-gray)"/>
+  <text x="518.75" y="505" font-size="12" fill="#6b7280" text-anchor="middle">Закриття каналу: AT+CIPCLOSE</text>
+
+  <!-- 10. CIPMUX CONFIG -> ERROR BOX -->
+  <path d="M 360 165 L 285 165 L 285 280 L 250 280" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="277" y="200" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="end">Помилка режиму</text>
+</svg>

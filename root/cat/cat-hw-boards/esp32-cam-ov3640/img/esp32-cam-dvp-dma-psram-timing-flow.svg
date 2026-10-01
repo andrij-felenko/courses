@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Top Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова діаграма DVP та конвеєр буферизації DVP → FIFO → DMA → PSRAM</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Синхронізація сигналів VSYNC/HREF/PCLK та заповнення буферів при передачі кадрів у PSRAM</text>
+
+  <!-- Panel 1: DVP Timing Diagram -->
+  <rect x="30" y="75" width="900" height="215" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="45" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">1. Часова діаграма сигналів DVP</text>
+
+  <!-- VSYNC Signal -->
+  <text x="45" y="132" font-size="12" font-weight="bold" fill="#2457d6">VSYNC</text>
+  <text x="150" y="116" text-anchor="middle" font-size="11" fill="#6b7280">Кадровий імпульс VSYNC</text>
+  <path d="M 120 138 L 130 138 L 130 120 L 170 120 L 170 138 L 880 138" stroke="#2457d6" stroke-width="2" fill="none"/>
+
+  <!-- HREF Signal -->
+  <text x="45" y="172" font-size="12" font-weight="bold" fill="#2457d6">HREF</text>
+  <text x="510" y="152" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Активний рядок (Line Active)</text>
+  <text x="850" y="170" text-anchor="middle" font-size="11" fill="#6b7280">HBLANK</text>
+  <path d="M 120 178 L 200 178 L 200 158 L 820 158 L 820 178 L 880 178" stroke="#2457d6" stroke-width="2" fill="none"/>
+
+  <!-- PCLK Signal -->
+  <text x="45" y="212" font-size="12" font-weight="bold" fill="#2457d6">PCLK</text>
+  <text x="510" y="193" text-anchor="middle" font-size="11" fill="#6b7280">Стробування зчитування даних PCLK</text>
+  <path d="M 120 220 L 200 220 L 200 200 L 212.5 200 L 212.5 220 L 225 220 L 225 200 L 237.5 200 L 237.5 220 L 250 220 L 250 200 L 262.5 200 L 262.5 220 L 275 220 L 275 200 L 287.5 200 L 287.5 220 L 300 220 L 300 200 L 312.5 200 L 312.5 220 L 325 220 L 325 200 L 337.5 200 L 337.5 220 L 350 220 L 350 200 L 362.5 200 L 362.5 220 L 375 220 L 375 200 L 387.5 200 L 387.5 220 L 400 220 L 400 200 L 412.5 200 L 412.5 220 L 425 220 L 425 200 L 437.5 200 L 437.5 220 L 450 220 L 450 200 L 462.5 200 L 462.5 220 L 475 220 L 475 200 L 487.5 200 L 487.5 220 L 500 220 L 500 200 L 512.5 200 L 512.5 220 L 525 220 L 525 200 L 537.5 200 L 537.5 220 L 550 220 L 550 200 L 562.5 200 L 562.5 220 L 575 220 L 575 200 L 587.5 200 L 587.5 220 L 600 220 L 600 200 L 612.5 200 L 612.5 220 L 625 220 L 625 200 L 637.5 200 L 637.5 220 L 650 220 L 650 200 L 662.5 200 L 662.5 220 L 675 220 L 675 200 L 687.5 200 L 687.5 220 L 700 220 L 700 200 L 712.5 200 L 712.5 220 L 725 220 L 725 200 L 737.5 200 L 737.5 220 L 750 220 L 750 200 L 762.5 200 L 762.5 220 L 775 220 L 775 200 L 787.5 200 L 787.5 220 L 800 220 L 880 220" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+
+  <!-- D[7:0] Data Bus -->
+  <text x="45" y="254" font-size="12" font-weight="bold" fill="#2457d6">D[7:0]</text>
+  <rect x="210" y="240" width="60" height="22" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="240" y="255" text-anchor="middle" font-size="11" fill="#2457d6">Байт 0</text>
+
+  <rect x="280" y="240" width="60" height="22" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="310" y="255" text-anchor="middle" font-size="11" fill="#2457d6">Байт 1</text>
+
+  <rect x="350" y="240" width="60" height="22" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="380" y="255" text-anchor="middle" font-size="11" fill="#2457d6">Байт 2</text>
+
+  <rect x="420" y="240" width="60" height="22" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="450" y="255" text-anchor="middle" font-size="11" fill="#2457d6">Байт 3</text>
+
+  <text x="520" y="255" text-anchor="middle" font-size="12" fill="#6b7280">...</text>
+
+  <rect x="560" y="240" width="60" height="22" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="590" y="255" text-anchor="middle" font-size="11" fill="#2457d6">Байт K</text>
+
+  <text x="660" y="255" text-anchor="middle" font-size="12" fill="#6b7280">...</text>
+
+  <rect x="720" y="240" width="60" height="22" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="750" y="255" text-anchor="middle" font-size="11" fill="#2457d6">Байт N</text>
+
+  <!-- Panel 2: Pipeline Data Flow Architecture -->
+  <rect x="30" y="305" width="900" height="230" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="45" y="328" font-size="14" font-weight="bold" fill="#1a1a1a">2. Конвеєр проходження даних: OV3640 → FIFO → DMA → PSRAM</text>
+
+  <!-- Stage 1 Box: Sensor -->
+  <rect x="50" y="345" width="170" height="170" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="135" y="368" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Сенсор OV3640</text>
+  <rect x="65" y="380" width="140" height="30" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="135" y="400" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">8-біт DVP шина</text>
+  <text x="135" y="430" text-anchor="middle" font-size="11" fill="#6b7280">PCLK: 10–24 МГц</text>
+  <text x="135" y="450" text-anchor="middle" font-size="11" fill="#6b7280">RAW / YUV / JPEG</text>
+  <text x="135" y="475" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Потокові байти</text>
+  <text x="135" y="495" text-anchor="middle" font-size="11" fill="#6b7280">(VSYNC / HREF)</text>
+
+  <!-- Arrow 1 -->
+  <line x1="220" y1="430" x2="265" y2="430" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="242" y="420" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">DVP Data</text>
+
+  <!-- Stage 2 Box: FIFO -->
+  <rect x="270" y="345" width="180" height="170" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="360" y="368" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Буфер FIFO (I2S/CAM)</text>
+  <rect x="285" y="380" width="150" height="40" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="360" y="397" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">32-бітний FIFO</text>
+  <text x="360" y="412" text-anchor="middle" font-size="11" fill="#2457d6">(упаковка 4 × 8 біт)</text>
+  <text x="360" y="440" text-anchor="middle" font-size="11" fill="#6b7280">Обсяг: 64–512 байт</text>
+  <rect x="285" y="455" width="150" height="48" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="360" y="473" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Захист від Overrun</text>
+  <text x="360" y="490" text-anchor="middle" font-size="11" fill="#c0392b">(критичний опук)</text>
+
+  <!-- Arrow 2 -->
+  <line x1="450" y1="430" x2="495" y2="430" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="472" y="420" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">32-біт</text>
+
+  <!-- Stage 3 Box: DMA -->
+  <rect x="500" y="345" width="180" height="170" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="590" y="368" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">DMA Контролер</text>
+  <rect x="515" y="380" width="150" height="40" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="590" y="397" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Дескриптори DMA</text>
+  <text x="590" y="412" text-anchor="middle" font-size="11" fill="#27ae60">(зв'язаний список)</text>
+  <text x="590" y="440" text-anchor="middle" font-size="11" fill="#6b7280">Буфер: 4092 байти</text>
+  <text x="590" y="465" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Автоматичний переключ.</text>
+  <text x="590" y="485" text-anchor="middle" font-size="11" fill="#6b7280">кадрових сегментів</text>
+
+  <!-- Arrow 3 -->
+  <line x1="680" y1="430" x2="725" y2="430" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="702" y="420" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Burst</text>
+
+  <!-- Stage 4 Box: PSRAM -->
+  <rect x="730" y="345" width="180" height="170" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="820" y="368" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Зовнішня PSRAM</text>
+  <rect x="745" y="380" width="150" height="40" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="820" y="397" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Кадровий буфер</text>
+  <text x="820" y="412" text-anchor="middle" font-size="11" fill="#2457d6">(fb_count = 1..2)</text>
+  <text x="820" y="440" text-anchor="middle" font-size="11" fill="#6b7280">Обсяг: 2–8 МБ PSRAM</text>
+  <rect x="745" y="455" width="150" height="48" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="820" y="473" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Готовий JPEG / RAW</text>
+  <text x="820" y="490" text-anchor="middle" font-size="11" fill="#27ae60">для прикладного ПЗ</text>
+</svg>

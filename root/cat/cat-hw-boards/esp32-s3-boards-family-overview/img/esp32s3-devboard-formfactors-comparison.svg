@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+  
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння формфакторів розробницьких плат серії ESP32-S3</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Еволюція від еталонного DevKitC до ультракомпактних Zero та SuperMini: габарити, розпіновка й USB</text>
+
+  <!-- Panel 1: ESP32-S3-DevKitC-1 -->
+  <rect x="30" y="70" width="285" height="405" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="70" width="285" height="42" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="31" y="100" width="283" height="12" fill="#eaf0fd"/>
+  <text x="172" y="96" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">ESP32-S3-DevKitC-1</text>
+
+  <!-- DevKitC Schema Illustration -->
+  <rect x="78" y="135" width="8" height="105" rx="1" fill="#f59e0b"/>
+  <rect x="259" y="135" width="8" height="105" rx="1" fill="#f59e0b"/>
+  <rect x="90" y="130" width="165" height="115" rx="4" fill="#1e293b"/>
+  
+  <rect x="105" y="140" width="55" height="24" rx="3" fill="#cbd5e1" stroke="#475569"/>
+  <text x="132" y="156" font-size="12" font-weight="bold" fill="#0f172a" text-anchor="middle">UART</text>
+  <rect x="185" y="140" width="55" height="24" rx="3" fill="#2457d6" stroke="#1d4ed8"/>
+  <text x="212" y="156" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">USB</text>
+  
+  <rect x="105" y="176" width="135" height="55" rx="3" fill="#94a3b8" stroke="#64748b"/>
+  <text x="172" y="198" font-size="12" font-weight="bold" fill="#0f172a" text-anchor="middle">ESP32-S3</text>
+  <text x="172" y="218" font-size="12" fill="#334155" text-anchor="middle">WROOM-1</text>
+
+  <!-- Panel 1 Specifications -->
+  <line x1="45" y1="265" x2="300" y2="265" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="290" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Формфактор:</tspan> 25.4 × 62.5 мм (DIP-44)</text>
+  <text x="45" y="320" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Пам'ять:</tspan> Зовнішня Flash + PSRAM</text>
+  <text x="45" y="350" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Шина пам'яті:</tspan> Octal SPI / Quad SPI</text>
+  <text x="45" y="380" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">USB інтерфейс:</tspan> CP2102 + Native CDC</text>
+  <text x="45" y="410" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Доступні GPIO:</tspan> 36 виводів (Макс.)</text>
+  <text x="45" y="440" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Призначення:</tspan> Відлагодження макетів</text>
+
+  <!-- Panel 2: ESP32-S3-Zero -->
+  <rect x="335" y="70" width="285" height="405" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="335" y="70" width="285" height="42" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="336" y="100" width="283" height="12" fill="#e9f7ef"/>
+  <text x="477" y="96" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">ESP32-S3-Zero (Waveshare)</text>
+
+  <!-- Zero Schema Illustration -->
+  <rect x="405" y="138" width="6" height="98" rx="1" fill="#f59e0b"/>
+  <rect x="544" y="138" width="6" height="98" rx="1" fill="#f59e0b"/>
+  <rect x="427" y="249" width="101" height="6" rx="1" fill="#f59e0b"/>
+  <rect x="415" y="130" width="125" height="115" rx="4" fill="#0f172a"/>
+  
+  <rect x="440" y="140" width="75" height="24" rx="3" fill="#27ae60" stroke="#15803d"/>
+  <text x="477" y="156" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">USB Type-C</text>
+  
+  <rect x="440" y="176" width="75" height="55" rx="3" fill="#334155" stroke="#64748b"/>
+  <text x="477" y="198" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">SiP MCU</text>
+  <text x="477" y="218" font-size="12" fill="#cbd5e1" text-anchor="middle">FH4R2</text>
+
+  <!-- Panel 2 Specifications -->
+  <line x1="350" y1="265" x2="605" y2="265" stroke="#d0d7de" stroke-width="1"/>
+  <text x="350" y="290" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Формфактор:</tspan> 18.0 × 23.5 мм (SMD)</text>
+  <text x="350" y="320" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Пам'ять:</tspan> SiP у корпусі (4M+2M)</text>
+  <text x="350" y="350" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Шина пам'яті:</tspan> Внутрішня QSPI/OSPI</text>
+  <text x="350" y="380" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">USB інтерфейс:</tspan> Один нативний CDC/JTAG</text>
+  <text x="350" y="410" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Доступні GPIO:</tspan> 18 пін-падів</text>
+  <text x="350" y="440" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Призначення:</tspan> Компактні IoT-сенсори</text>
+
+  <!-- Panel 3: ESP32-S3 SuperMini -->
+  <rect x="640" y="70" width="285" height="405" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="640" y="70" width="285" height="42" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="641" y="100" width="283" height="12" fill="#f4f6f8"/>
+  <text x="782" y="96" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP32-S3 SuperMini (WeAct)</text>
+
+  <!-- SuperMini Schema Illustration -->
+  <rect x="710" y="138" width="6" height="98" rx="1" fill="#f59e0b"/>
+  <rect x="849" y="138" width="6" height="98" rx="1" fill="#f59e0b"/>
+  <rect x="720" y="130" width="125" height="115" rx="4" fill="#0f172a"/>
+  
+  <rect x="745" y="140" width="75" height="24" rx="3" fill="#2457d6" stroke="#1d4ed8"/>
+  <text x="782" y="156" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">USB Type-C</text>
+  
+  <rect x="745" y="176" width="75" height="55" rx="3" fill="#334155" stroke="#64748b"/>
+  <text x="782" y="198" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">SiP MCU</text>
+  <text x="782" y="218" font-size="12" fill="#cbd5e1" text-anchor="middle">FH4R2</text>
+
+  <!-- Panel 3 Specifications -->
+  <line x1="655" y1="265" x2="910" y2="265" stroke="#d0d7de" stroke-width="1"/>
+  <text x="655" y="290" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Формфактор:</tspan> 17.8 × 22.5 мм (Nano)</text>
+  <text x="655" y="320" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Пам'ять:</tspan> SiP у корпусі (4M+2M)</text>
+  <text x="655" y="350" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Шина пам'яті:</tspan> Внутрішня Quad SPI</text>
+  <text x="655" y="380" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">USB інтерфейс:</tspan> Один нативний CDC/JTAG</text>
+  <text x="655" y="410" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Доступні GPIO:</tspan> 13 виводів + SMD pads</text>
+  <text x="655" y="440" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Призначення:</tspan> Ношувана електроніка й дрони</text>
+
+  <!-- Bottom Comparison Summary Bar -->
+  <rect x="30" y="490" width="895" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="477" y="513" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Ключовий висновок: SiP-чипи та нативний USB знизили площу плат на 70% без втрати швидкодії ядра Xtensa LX7</text>
+</svg>

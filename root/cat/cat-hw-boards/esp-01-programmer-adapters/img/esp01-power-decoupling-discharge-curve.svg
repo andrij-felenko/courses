@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Перехідний процес напруги живлення ESP-01 при піку струму Wi-Fi</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Розв'язувальний конденсатор запобігає просіданню напруги нижче порогу Brownout Reset (2.5 В)</text>
+
+  <!-- Main Content Container Panel -->
+  <rect x="30" y="85" width="900" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Wi-Fi TX Current Pulse Region Background (Graph area) -->
+  <rect x="220" y="120" width="300" height="295" fill="#eaf0fd" fill-opacity="0.4" stroke="#2457d6" stroke-dasharray="4,4" stroke-width="1"/>
+  <text x="370" y="142" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Імпульс струму Wi-Fi (I_TX = 400–500 мА)</text>
+
+  <!-- Grid Lines (Horizontal) -->
+  <!-- 3.3V Line -->
+  <line x1="140" y1="160" x2="630" y2="160" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="134" y1="160" x2="140" y2="160" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="128" y="158" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">3.3 В</text>
+  <text x="128" y="172" font-size="12" fill="#6b7280" text-anchor="end">(V_nom)</text>
+
+  <!-- 2.5V Brownout Reset Threshold Line -->
+  <line x1="140" y1="280" x2="630" y2="280" stroke="#c0392b" stroke-dasharray="6,4" stroke-width="1.5"/>
+  <line x1="134" y1="280" x2="140" y2="280" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="128" y="276" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">2.5 В</text>
+  <text x="128" y="292" font-size="12" fill="#c0392b" text-anchor="end">(V_BOR)</text>
+  <text x="625" y="272" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Поріг Brownout Reset V_BOR = 2.5 В</text>
+
+  <!-- Y-Axis (Voltage V_CC) -->
+  <line x1="140" y1="415" x2="140" y2="118" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="135" y="112" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">Напруга V_CC</text>
+
+  <!-- X-Axis (Time t) -->
+  <line x1="140" y1="415" x2="640" y2="415" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="128" y="419" font-size="12" fill="#6b7280" text-anchor="end">0.0 В</text>
+  <text x="640" y="435" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">Час t</text>
+
+  <!-- Time Ticks & Pulse Duration -->
+  <!-- t0 tick -->
+  <line x1="220" y1="415" x2="220" y2="421" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="220" y="435" font-size="12" fill="#1a1a1a" text-anchor="middle">t_0</text>
+  <line x1="220" y1="441" x2="220" y2="465" stroke="#6b7280" stroke-dasharray="2,2" stroke-width="1"/>
+
+  <!-- t1 tick -->
+  <line x1="520" y1="415" x2="520" y2="421" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="520" y="435" font-size="12" fill="#1a1a1a" text-anchor="middle">t_1</text>
+  <line x1="520" y1="441" x2="520" y2="465" stroke="#6b7280" stroke-dasharray="2,2" stroke-width="1"/>
+
+  <!-- Pulse Duration Arrow & Text -->
+  <line x1="220" y1="465" x2="520" y2="465" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="370" y="482" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Тривалість імпульсу Wi-Fi (Δt_TX ≈ 100–300 мкс)</text>
+
+  <!-- Green Curve: With Decoupling Capacitor -->
+  <path d="M 140 160 L 220 160 C 270 160, 320 195, 370 195 C 420 195, 470 160, 520 160 L 630 160" stroke="#27ae60" stroke-width="3" fill="none"/>
+  <circle cx="370" cy="195" r="4" fill="#27ae60"/>
+  <line x1="370" y1="195" x2="370" y2="222" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="375" y="222" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">З C_dec ≥ 10 мкФ: V_min ≈ 3.05 В</text>
+
+  <!-- Red Curve: Without Decoupling Capacitor -->
+  <path d="M 140 160 L 220 160 C 230 160, 240 240, 245 280 C 250 320, 260 340, 275 340 C 290 340, 320 200, 350 160 L 630 160" stroke="#c0392b" stroke-width="3" fill="none"/>
+
+  <!-- Red Curve Callout Badge & Indicator -->
+  <circle cx="245" cy="280" r="4.5" fill="#c0392b"/>
+  <rect x="330" y="300" width="180" height="48" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="330" y1="308" x2="253" y2="282" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="340" y="318" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">⚡ Brownout Reset!</text>
+  <text x="340" y="336" font-size="12" fill="#c0392b" text-anchor="start">V_CC падає нижче 2.5 В</text>
+
+  <!-- Right Side Summary Cards Panel -->
+
+  <!-- Card 1: Problem -->
+  <rect x="660" y="115" width="250" height="110" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="675" y="137" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">❌ Без конденсатора</text>
+  <text x="675" y="159" font-size="12" fill="#1a1a1a" text-anchor="start">• Великий опір ESR і ліній</text>
+  <text x="675" y="179" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="start">• V_CC &lt; 2.5 В → RESET</text>
+  <text x="675" y="199" font-size="12" fill="#1a1a1a" text-anchor="start">• Циклічні перезавантаження</text>
+
+  <!-- Card 2: Solution -->
+  <rect x="660" y="240" width="250" height="115" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="675" y="260" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">✅ З розв'язувальним C</text>
+  <text x="675" y="280" font-size="12" fill="#1a1a1a" text-anchor="start">• C_dec = 10–100 мкФ (тантал)</text>
+  <text x="675" y="299" font-size="12" fill="#1a1a1a" text-anchor="start">• C_hf = 0.1 мкФ (кераміка)</text>
+  <text x="675" y="318" font-size="12" fill="#1a1a1a" text-anchor="start">• Компенсація імпульсу струму</text>
+  <text x="675" y="337" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="start">• V_CC &gt; 3.0 В (стабільність)</text>
+
+  <!-- Card 3: Formula & Rule -->
+  <rect x="660" y="370" width="250" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="675" y="390" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">💡 Формула ємності C_min</text>
+  <text x="675" y="411" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">C_min = (I_TX · Δt_TX) / ΔV_max</text>
+  <text x="675" y="430" font-size="12" fill="#6b7280" text-anchor="start">C = (0.45 A · 100 мкс) / 0.3 В</text>
+  <text x="675" y="450" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">C_min ≈ 150 мкФ (або 10+100 мкФ)</text>
+  <text x="675" y="469" font-size="12" fill="#1a1a1a" text-anchor="start">Монтувати максимально близько!</text>
+</svg>

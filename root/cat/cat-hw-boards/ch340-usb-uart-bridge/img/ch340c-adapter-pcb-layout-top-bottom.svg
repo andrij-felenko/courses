@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Топологія двошарової плати USB-UART адаптера CH340C</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Трасування диференціальної пари D+/D- на верхньому шарі та суцільний полігон GND на нижньому</text>
+
+  <!-- LEFT PANEL: Top Layer -->
+  <rect x="30" y="75" width="435" height="425" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="45" y="102" font-size="14" font-weight="bold" fill="#1a1a1a">Верхній шар (Top Layer: Сигнали і компоненти)</text>
+
+  <!-- PCB Outline (Top) -->
+  <rect x="45" y="120" width="405" height="235" fill="#ffffff" stroke="#2457d6" stroke-width="2" rx="8"/>
+
+  <!-- USB Connector -->
+  <rect x="55" y="190" width="45" height="95" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="77.5" y="242" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">USB</text>
+
+  <!-- Component F1 (PPTC Fuse) -->
+  <rect x="115" y="145" width="24" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="2"/>
+  <text x="127" y="138" text-anchor="middle" font-size="12" fill="#6b7280">F1</text>
+
+  <!-- Component ESD Protection (USBLC6) -->
+  <rect x="140" y="210" width="26" height="45" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="2"/>
+  <text x="153" y="200" text-anchor="middle" font-size="12" fill="#6b7280">ESD</text>
+
+  <!-- Traces D+ / D- -->
+  <!-- D- trace (blue) -->
+  <line x1="100" y1="225" x2="140" y2="225" stroke="#2457d6" stroke-width="2"/>
+  <line x1="166" y1="225" x2="220" y2="225" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- D+ trace (green) -->
+  <line x1="100" y1="245" x2="140" y2="245" stroke="#27ae60" stroke-width="2"/>
+  <line x1="166" y1="245" x2="220" y2="245" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Callout label for Diff Pair -->
+  <line x1="153" y1="308" x2="153" y2="258" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+  <text x="60" y="325" font-size="12" font-weight="bold" fill="#2457d6">Диференціальна пара D+/D- (90 Ом)</text>
+
+  <!-- CH340C IC (SOP-16) -->
+  <rect x="220" y="190" width="65" height="95" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="4"/>
+  <circle cx="230" cy="202" r="3" fill="#2457d6"/>
+  <text x="252.5" y="234" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">CH340C</text>
+  <text x="252.5" y="252" text-anchor="middle" font-size="12" fill="#6b7280">SOP-16</text>
+
+  <!-- Capacitors C1 & C2 -->
+  <rect x="205" y="140" width="16" height="22" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="1"/>
+  <text x="180" y="134" font-size="12" fill="#1a1a1a">C1 100nF</text>
+
+  <rect x="275" y="140" width="16" height="22" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="1"/>
+  <text x="260" y="134" font-size="12" fill="#1a1a1a">C2 100nF</text>
+
+  <!-- VCC/GND Lines to Capacitors -->
+  <line x1="213" y1="162" x2="213" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="283" y1="162" x2="283" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Voltage Selector Switch (3.3V / 5V) -->
+  <rect x="305" y="210" width="32" height="50" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="3"/>
+  <text x="321" y="202" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">3.3V/5V</text>
+
+  <!-- UART Header 1x6 -->
+  <rect x="380" y="165" width="45" height="140" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="3"/>
+  <text x="402.5" y="155" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">UART 1x6</text>
+  
+  <text x="388" y="184" font-size="12" font-weight="bold" fill="#c0392b">VCC</text>
+  <text x="388" y="204" font-size="12" font-weight="bold" fill="#2457d6">TX</text>
+  <text x="388" y="224" font-size="12" font-weight="bold" fill="#27ae60">RX</text>
+  <text x="388" y="244" font-size="12" fill="#1a1a1a">RTS</text>
+  <text x="388" y="264" font-size="12" fill="#1a1a1a">DTR</text>
+  <text x="388" y="284" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+
+  <!-- Top Layer Summary Card -->
+  <rect x="45" y="370" width="405" height="115" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="55" y="392" font-size="12" font-weight="bold" fill="#2457d6">Правила трасування Top Layer:</text>
+  <text x="55" y="412" font-size="12" fill="#1a1a1a">• Паралельне трасування D+/D- з однаковою довжиною</text>
+  <text x="55" y="432" font-size="12" fill="#1a1a1a">• Блокувальні ємності C1, C2 поруч із виводами V3 та VCC</text>
+  <text x="55" y="452" font-size="12" fill="#1a1a1a">• Короткі сигнальні провідники, мінімум перехідних отворів</text>
+
+  <!-- RIGHT PANEL: Bottom Layer -->
+  <rect x="495" y="75" width="435" height="425" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="510" y="102" font-size="14" font-weight="bold" fill="#1a1a1a">Нижній шар (Bottom Layer: Полігон GND)</text>
+
+  <!-- PCB Outline (Bottom) -->
+  <rect x="510" y="120" width="405" height="235" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="8"/>
+
+  <!-- Continuous GND Plane Text -->
+  <text x="712.5" y="150" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Суцільний полігон землі (GND Plane)</text>
+
+  <!-- Projection of D+/D- (Dashed Zone on GND Plane) -->
+  <text x="645" y="200" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Без розривів полігону під D+/D-!</text>
+  <rect x="565" y="215" width="160" height="40" fill="none" stroke="#27ae60" stroke-dasharray="4,4" stroke-width="1.5" rx="4"/>
+
+  <!-- Vias (GND Vias connecting Top & Bottom) -->
+  <!-- Via 1 near USB GND -->
+  <circle cx="535" cy="280" r="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="535" cy="280" r="1.5" fill="#27ae60"/>
+  <text x="535" y="300" text-anchor="middle" font-size="12" fill="#6b7280">Via 1</text>
+
+  <!-- Via 2 near ESD GND -->
+  <circle cx="645" cy="280" r="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="645" cy="280" r="1.5" fill="#27ae60"/>
+  <text x="645" y="300" text-anchor="middle" font-size="12" fill="#6b7280">Via 2</text>
+
+  <!-- Via 3 near CH340C GND -->
+  <circle cx="755" cy="280" r="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="755" cy="280" r="1.5" fill="#27ae60"/>
+  <text x="755" y="300" text-anchor="middle" font-size="12" fill="#6b7280">Via 3</text>
+
+  <!-- Via 4 near C1/C2 GND -->
+  <circle cx="780" cy="180" r="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="780" cy="180" r="1.5" fill="#27ae60"/>
+  <text x="815" y="184" font-size="12" fill="#6b7280">Via 4 (C1/C2)</text>
+
+  <!-- Via 5 near UART GND -->
+  <circle cx="865" cy="280" r="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="865" cy="280" r="1.5" fill="#27ae60"/>
+  <text x="865" y="300" text-anchor="middle" font-size="12" fill="#6b7280">Via 5</text>
+
+  <!-- Bottom Layer Summary Card -->
+  <rect x="510" y="370" width="405" height="115" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="520" y="392" font-size="12" font-weight="bold" fill="#27ae60">Правила трасування Bottom Layer:</text>
+  <text x="520" y="412" font-size="12" fill="#1a1a1a">• Суцільний полігон GND забезпечує низький імпеданс</text>
+  <text x="520" y="432" font-size="12" fill="#1a1a1a">• Заборонено розрізати полігон під диференціальною парою</text>
+  <text x="520" y="452" font-size="12" fill="#1a1a1a">• Множинні Vias відводять високочастотні струми завад</text>
+</svg>

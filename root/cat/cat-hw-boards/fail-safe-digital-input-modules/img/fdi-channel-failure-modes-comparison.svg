@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Реакція вхідних модулів на коротке замикання лінії живлення +24V</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Звичайний DI сприймає КЗ як хибне нормування, а F-DI виявляє дефект через імпульси T1</text>
+
+  <!-- Left Side Container: Standard DI (Problem / Danger) -->
+  <rect x="30" y="75" width="435" height="420" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="247.5" y="102" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">Звичайний вхід DI (Стандартний ПЛК)</text>
+
+  <!-- External Power Line +24V -->
+  <line x1="50" y1="135" x2="165" y2="135" stroke="#c0392b" stroke-width="2"/>
+  <text x="107.5" y="123" font-size="12" fill="#c0392b" text-anchor="middle">Шина +24V DC</text>
+
+  <!-- Emergency Stop Switch Box -->
+  <rect x="50" y="145" width="115" height="65" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="107.5" y="170" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">E-Stop</text>
+  <text x="107.5" y="192" font-size="11" fill="#c0392b" text-anchor="middle">(Натиснуто / Розкрито)</text>
+
+  <!-- Input Signal Line -->
+  <line x1="165" y1="177.5" x2="275" y2="177.5" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="240" y="165" font-size="12" fill="#1a1a1a" text-anchor="middle">Лінія DI</text>
+
+  <!-- Short Circuit Fault to +24V -->
+  <path d="M 107.5,135 L 205,135 L 205,177.5" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 3"/>
+  <line x1="205" y1="177.5" x2="205" y2="215" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-red)"/>
+  <rect x="145" y="215" width="120" height="48" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="205" y="233" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">КЗ на +24V!</text>
+  <text x="205" y="251" font-size="12" fill="#c0392b" text-anchor="middle">(Пряме пробиття)</text>
+
+  <!-- Standard DI Optocoupler / Circuit Box -->
+  <rect x="275" y="135" width="175" height="130" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="362.5" y="158" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Канал DI</text>
+  <text x="362.5" y="182" font-size="12" fill="#6b7280" text-anchor="middle">Світлодіод оптопари:</text>
+  <text x="362.5" y="202" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">СВІТИТЬСЯ ПОСТІЙНО</text>
+  <text x="362.5" y="232" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Логіка ЦП = "1" (Замкнено)</text>
+
+  <!-- Left Outcome Banner -->
+  <rect x="45" y="285" width="405" height="195" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="45" y="285" width="405" height="34" rx="6" fill="#c0392b"/>
+  <text x="247.5" y="307" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">НЕБЕЗПЕЧНИЙ СТАН (Dangerous Undetected)</text>
+  <text x="247.5" y="338" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Прихована відмова: Помилка НЕ виявлена!</text>
+  <text x="247.5" y="362" font-size="12" fill="#1a1a1a" text-anchor="middle">• Кнопка E-Stop натиснута (кола розімкнено)</text>
+  <text x="247.5" y="384" font-size="12" fill="#1a1a1a" text-anchor="middle">• Через КЗ на вході присутні постійні +24V</text>
+  <text x="247.5" y="406" font-size="12" fill="#c0392b" text-anchor="middle">• ПЛК вважає, що кнопка НЕ натиснута!</text>
+  <text x="247.5" y="428" font-size="12" fill="#c0392b" text-anchor="middle">• Привід продовжує рух — ризик аварії</text>
+  <text x="247.5" y="455" font-size="12" fill="#6b7280" text-anchor="middle">Рівень безпеки: SIL 0 / PL a (Неприпустимо)</text>
+
+  <!-- Right Side Container: Fail-Safe DI / F-DI (Solution / Safe) -->
+  <rect x="495" y="75" width="435" height="420" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712.5" y="102" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">Захищений канал F-DI (Safety PLC)</text>
+
+  <!-- Test Pulse Generator Terminal T1 Box -->
+  <rect x="510" y="145" width="105" height="70" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="562.5" y="166" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Вихід T1</text>
+  <text x="562.5" y="184" font-size="11" fill="#2457d6" text-anchor="middle">Тестовий імпульс</text>
+  <!-- Mini Waveform T1 -->
+  <path d="M 530,198 L 545,198 L 545,205 L 553,205 L 553,198 L 577,198 L 577,205 L 585,205 L 585,198 L 595,198" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Line connecting T1 to Switch -->
+  <line x1="615" y1="180" x2="635" y2="180" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Emergency Stop Switch Box -->
+  <rect x="635" y="145" width="105" height="70" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="687.5" y="170" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">E-Stop</text>
+  <text x="687.5" y="192" font-size="11" fill="#c0392b" text-anchor="middle">(Натиснуто)</text>
+
+  <!-- F-DI Input Signal Line -->
+  <line x1="740" y1="180" x2="805" y2="180" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="785" y="165" font-size="11" fill="#1a1a1a" text-anchor="middle">F-DI1</text>
+
+  <!-- External +24V Line for Short Circuit Fault -->
+  <line x1="710" y1="135" x2="770" y2="135" stroke="#c0392b" stroke-width="2"/>
+  <text x="740" y="123" font-size="11" fill="#c0392b" text-anchor="middle">Шина +24V DC</text>
+
+  <!-- Short Circuit Fault Connection to Line F-DI1 -->
+  <path d="M 755,135 L 755,180" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 3"/>
+  <line x1="755" y1="180" x2="755" y2="220" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-red)"/>
+  <rect x="690" y="220" width="130" height="48" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="755" y="238" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">КЗ на +24V!</text>
+  <text x="755" y="256" font-size="11" fill="#c0392b" text-anchor="middle">(Згладжує T1)</text>
+
+  <!-- F-DI Diagnostic & Safety Evaluator Box -->
+  <rect x="805" y="135" width="115" height="135" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="862.5" y="156" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Канал F-DI</text>
+  <text x="862.5" y="178" font-size="11" fill="#6b7280" text-anchor="middle">Аналіз T1:</text>
+  <text x="862.5" y="198" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Провали T1</text>
+  <text x="862.5" y="213" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">ВІДСУТНІ!</text>
+  <text x="862.5" y="240" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Статус: STO</text>
+  <text x="862.5" y="256" font-size="11" fill="#27ae60" text-anchor="middle">(Аварійне вимкн.)</text>
+
+  <!-- Right Outcome Banner -->
+  <rect x="510" y="285" width="405" height="195" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="510" y="285" width="405" height="34" rx="6" fill="#27ae60"/>
+  <text x="712.5" y="307" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">БЕЗПЕЧНЕ ВИЯВЛЕННЯ (Safe Detected Fault)</text>
+  <text x="712.5" y="338" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Помилка розпізнана за мікросекунди!</text>
+  <text x="712.5" y="362" font-size="12" fill="#1a1a1a" text-anchor="middle">• Постійні +24V маскують тестові провали T1</text>
+  <text x="712.5" y="384" font-size="12" fill="#1a1a1a" text-anchor="middle">• Модуль F-DI фіксує зникнення тактування</text>
+  <text x="712.5" y="406" font-size="12" fill="#27ae60" text-anchor="middle">• Аварійне вимкнення каналу (STO / Пасивація)</text>
+  <text x="712.5" y="428" font-size="12" fill="#27ae60" text-anchor="middle">• Безпечне зупинення обладнання</text>
+  <text x="712.5" y="455" font-size="12" fill="#6b7280" text-anchor="middle">Рівень безпеки: SIL 3 / PL e (Повна відповідність)</text>
+</svg>

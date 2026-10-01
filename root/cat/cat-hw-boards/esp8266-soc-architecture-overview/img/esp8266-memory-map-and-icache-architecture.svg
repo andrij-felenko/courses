@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Картографія пам'яті та архітектура ICache в ESP8266EX</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Відображення адресного простору CPU Xtensa L106 на IRAM, DRAM та Flash через 32 КБ ICache</text>
+
+  <!-- Left Panel: Xtensa L106 CPU Core -->
+  <rect x="30" y="75" width="190" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="125" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ядро Xtensa L106</text>
+
+  <!-- IBus Sub-block -->
+  <rect x="40" y="125" width="170" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="125" y="146" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Шина інструкцій IBus</text>
+  <text x="48" y="168" font-size="12" fill="#1a1a1a">• Вибірка коду (32-біт)</text>
+  <text x="48" y="188" font-size="12" fill="#1a1a1a">• Адреси: 0x40000000</text>
+  <text x="48" y="208" font-size="12" fill="#2457d6">• Доступ: IRAM / ICache</text>
+
+  <!-- DBus Sub-block -->
+  <rect x="40" y="255" width="170" height="180" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="125" y="276" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Шина даних DBus</text>
+  <text x="48" y="298" font-size="12" fill="#1a1a1a">• Зчитування / Запис даних</text>
+  <text x="48" y="318" font-size="12" fill="#1a1a1a">• Адреси: 0x3FFE0000</text>
+  <text x="48" y="338" font-size="12" fill="#27ae60">• Доступ: DRAM / DRAM0</text>
+  <text x="48" y="358" font-size="12" fill="#6b7280">• Периферія: 0x60000000</text>
+  <text x="48" y="378" font-size="12" fill="#6b7280">• Всі вирівняні доступи</text>
+  <text x="48" y="398" font-size="12" fill="#6b7280">• Захист вирівнювання</text>
+
+  <!-- Inter-panel Connections in Gap 1 (x=220 to 285) -->
+  <!-- IBus -> IRAM Connection -->
+  <line x1="210" y1="165" x2="295" y2="165" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-accent)"/>
+  <text x="252.5" y="156" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">0-wait</text>
+
+  <!-- IBus -> ICache Connection -->
+  <line x1="210" y1="205" x2="295" y2="205" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="252.5" y="196" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Flash Code</text>
+
+  <!-- DBus -> DRAM Connection -->
+  <line x1="210" y1="255" x2="295" y2="255" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="252.5" y="246" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">R/W</text>
+
+  <!-- Center Panel: Internal Memory & ICache MMU -->
+  <rect x="285" y="75" width="400" height="375" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="485" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня пам'ять та ICache MMU</text>
+
+  <!-- IRAM Block -->
+  <rect x="295" y="125" width="380" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="485" y="145" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">IRAM: 32–64 КБ (0x40100000 – 0x4010BFFF)</text>
+  <text x="305" y="167" font-size="12" fill="#1a1a1a">• Високошвидкісне виконання без затримок (0 wait states)</text>
+  <text x="305" y="186" font-size="12" fill="#2457d6">• Обробники переривань (ISR), критичний код (IRAM_ATTR)</text>
+
+  <!-- DRAM Block -->
+  <rect x="295" y="215" width="380" height="75" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="485" y="235" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">DRAM: 80 КБ (0x3FFE8000 – 0x3FFFFFFF)</text>
+  <text x="305" y="257" font-size="12" fill="#1a1a1a">• Оперативна пам'ять для змінних, кучі (Heap) та стека</text>
+  <text x="305" y="276" font-size="12" fill="#27ae60">• Динамічне виділення у Купі: os_malloc(), os_free()</text>
+
+  <!-- ICache Controller & MMU -->
+  <rect x="295" y="305" width="380" height="130" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="485" y="325" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">ICache: 32 КБ Кеш інструкцій (0x40200000)</text>
+  <text x="305" y="347" font-size="12" fill="#1a1a1a">• 4-канальний асоціативний кеш інструкцій з SPI Flash</text>
+  <text x="305" y="367" font-size="12" fill="#1a1a1a">• Вікно мапування MMU розміром 1 МБ (сторінки по 64 КБ)</text>
+  <text x="305" y="387" font-size="12" fill="#c0392b">• Джитер при промаху кешу (Cache Miss) → вибірка з Flash</text>
+  <text x="305" y="407" font-size="12" fill="#6b7280">• Код з атрибутом ICACHE_FLASH_ATTR / PROGMEM</text>
+  <text x="305" y="425" font-size="12" fill="#6b7280">• Кешування прошивки реального часу</text>
+
+  <!-- Inter-panel Connections in Gap 2 (x=685 to 740, width=55 px) -->
+  <!-- ICache -> SPI Flash Controller Connection -->
+  <path d="M 675,370 L 698,370 L 698,162.5 L 750,162.5" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-red)"/>
+  <text x="704" y="254" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="start">
+    <tspan x="704" dy="0">Cache</tspan>
+    <tspan x="704" dy="13">Miss</tspan>
+  </text>
+
+  <!-- Right Panel: External SPI Flash Storage -->
+  <rect x="740" y="75" width="190" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="835" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зовнішня SPI Flash</text>
+
+  <!-- SPI Controller -->
+  <rect x="750" y="125" width="170" height="75" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="835" y="145" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">SPI контролер</text>
+  <text x="758" y="167" font-size="12" fill="#1a1a1a">• Вибірка блоків 64 КБ</text>
+  <text x="758" y="186" font-size="12" fill="#c0392b">• Вибірка: ~10-20 тактів</text>
+
+  <!-- Flash Partition Array -->
+  <line x1="835" y1="200" x2="835" y2="215" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <rect x="750" y="215" width="170" height="220" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="835" y="235" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SPI Flash (1–16 МБ)</text>
+
+  <rect x="758" y="246" width="154" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="835" y="266" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">user1.bin (Прошивка A)</text>
+
+  <rect x="758" y="286" width="154" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="835" y="306" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">user2.bin (Прошивка B)</text>
+
+  <rect x="758" y="326" width="154" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="835" y="346" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">LittleFS / SPIFFS (Дані)</text>
+
+  <rect x="758" y="366" width="154" height="56" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="835" y="386" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Системні сектори SDK</text>
+  <text x="835" y="404" font-size="11" fill="#c0392b" text-anchor="middle">(0x3FC000, 0x3FE000)</text>
+</svg>

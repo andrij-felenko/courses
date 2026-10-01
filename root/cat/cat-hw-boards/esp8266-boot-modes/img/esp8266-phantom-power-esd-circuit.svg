@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Паразитне фантомне живлення ESP8266 через ESD-діод</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Високий рівень на лінії TXD USB-UART подає напругу на знеструмлену шину VDD через захисний діод</text>
+
+  <!-- PANEL 1: USB-UART Converter (Active) -->
+  <rect x="40" y="75" width="310" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="75" width="310" height="42" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="40" y="105" width="310" height="12" fill="#eaf0fd"/>
+  <line x1="40" y1="117" x2="350" y2="117" stroke="#2457d6" stroke-width="1.5"/>
+
+  <text x="195" y="101" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">USB-UART Конвертер</text>
+  <text x="195" y="132" text-anchor="middle" font-size="12" fill="#6b7280">Активний стан (Підключено до USB)</text>
+
+  <!-- Inner Output Driver Container -->
+  <rect x="60" y="155" width="270" height="295" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="195" y="178" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Вихідний каскад TXD</text>
+
+  <!-- VCC Rail inside USB-UART -->
+  <line x1="100" y1="210" x2="290" y2="210" stroke="#2457d6" stroke-width="2"/>
+  <text x="195" y="200" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Шина живлення USB: 3.3 В</text>
+
+  <!-- Upper Switch (P-MOS / Pull-up ON) -->
+  <line x1="195" y1="210" x2="195" y2="225" stroke="#2457d6" stroke-width="2"/>
+  <rect x="165" y="225" width="60" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="195" y="244" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ВВІМК</text>
+  <line x1="195" y1="255" x2="195" y2="270" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Junction TXD Output -->
+  <circle cx="195" cy="270" r="4" fill="#2457d6"/>
+  <line x1="195" y1="270" x2="350" y2="270" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Lower Switch (N-MOS / Pull-down OFF) -->
+  <line x1="195" y1="270" x2="195" y2="285" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="165" y="285" width="60" height="30" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="195" y="304" text-anchor="middle" font-size="12" fill="#6b7280">ВИМК</text>
+  <line x1="195" y1="315" x2="195" y2="330" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- GND Rail inside USB-UART -->
+  <line x1="100" y1="330" x2="290" y2="330" stroke="#6b7280" stroke-width="2"/>
+  <text x="195" y="348" text-anchor="middle" font-size="12" fill="#6b7280">Земля GND: 0 В</text>
+
+  <text x="195" y="390" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Логічний вихід TXD = 3.3 В</text>
+  <text x="340" y="260" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">TXD (3.3 В)</text>
+
+  <!-- TXD Output Terminal Circle -->
+  <circle cx="350" cy="270" r="5" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+
+
+  <!-- INTERCONNECTION & PARASITIC CURRENT PATH -->
+  <line x1="350" y1="270" x2="510" y2="270" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+
+  <!-- Callout box on interconnection wire -->
+  <rect x="362" y="215" width="136" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="430" y="233" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Паразитний струм</text>
+  <text x="430" y="249" text-anchor="middle" font-size="12" fill="#c0392b">I_phantom ≈ 5..15 mA</text>
+
+
+  <!-- PANEL 2: ESP8266 Microcontroller (Unpowered Main VCC) -->
+  <rect x="510" y="75" width="410" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="510" y="75" width="410" height="42" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="510" y="105" width="410" height="12" fill="#fdecea"/>
+  <line x1="510" y1="117" x2="920" y2="117" stroke="#c0392b" stroke-width="1.5"/>
+
+  <text x="715" y="101" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">ESP8266 Вхідний каскад GPIO / RXD</text>
+  <text x="715" y="132" text-anchor="middle" font-size="12" fill="#6b7280">Головне джерело живлення 3.3 В вимкнене (VCC_EXT = 0 В)</text>
+
+  <!-- Internal VDD Rail -->
+  <line x1="550" y1="175" x2="880" y2="175" stroke="#c0392b" stroke-width="3.5" stroke-dasharray="6 3"/>
+  <text x="715" y="163" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Внутрішня шина VDD (Фантомна напруга ~2.7 В)</text>
+
+  <!-- Internal GND Rail -->
+  <line x1="550" y1="420" x2="880" y2="420" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="715" y="442" text-anchor="middle" font-size="12" fill="#6b7280">Спільна земля GND (0 В)</text>
+
+  <!-- GPIO Input Terminal Circle -->
+  <circle cx="510" cy="270" r="5" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <text x="520" y="255" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">Вхід RXD (3.3 В)</text>
+
+  <!-- Wire inside ESP8266 to ESD node -->
+  <line x1="510" y1="270" x2="640" y2="270" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="640" cy="270" r="4" fill="#c0392b"/>
+
+  <!-- Upper ESD Diode (CONDUCTING / FORWARD BIASED) -->
+  <line x1="640" y1="270" x2="640" y2="240" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <!-- Diode Symbol (Anode at bottom y=240, Cathode at top y=210) -->
+  <polygon points="630,240 650,240 640,210" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="628" y1="210" x2="652" y2="210" stroke="#c0392b" stroke-width="3"/>
+  <!-- Connection from cathode to VDD rail -->
+  <line x1="640" y1="210" x2="640" y2="175" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- Voltage Drop Label -->
+  <text x="625" y="230" text-anchor="end" font-size="12" fill="#c0392b">V_F ≈ 0.6 В</text>
+
+  <!-- Upper ESD Diode Status Callout Box -->
+  <rect x="655" y="195" width="125" height="46" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="717" y="213" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Верхній ESD-діод</text>
+  <text x="717" y="231" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ПРЯМЕ ЗМІЩЕННЯ</text>
+
+  <!-- Lower ESD Diode (OFF / REVERSE BIASED) -->
+  <line x1="640" y1="420" x2="640" y2="370" stroke="#6b7280" stroke-width="1.5"/>
+  <!-- Diode Symbol (Anode at bottom y=370, Cathode at top y=340) -->
+  <polygon points="633,370 647,370 640,340" fill="#6b7280" stroke="#6b7280" stroke-width="1"/>
+  <line x1="631" y1="340" x2="649" y2="340" stroke="#6b7280" stroke-width="2"/>
+  <line x1="640" y1="340" x2="640" y2="270" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Lower ESD Diode Label -->
+  <text x="655" y="355" text-anchor="start" font-size="12" fill="#6b7280">Нижній ESD-діод (OFF)</text>
+
+  <!-- Signal Path to Input Buffer & Core -->
+  <line x1="640" y1="270" x2="755" y2="270" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- Schmitt Trigger / Input Buffer Symbol -->
+  <polygon points="755,255 785,270 755,285" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="785" y1="270" x2="795" y2="270" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- VDD Power Feed line from VDD rail to Core -->
+  <line x1="852" y1="175" x2="852" y2="200" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- ESP8266 Core Logic Box -->
+  <rect x="795" y="200" width="115" height="195" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 2"/>
+  <text x="852" y="220" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Ядро ESP8266</text>
+
+  <rect x="805" y="232" width="95" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="852" y="249" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">VDD ≈ 2.7 В</text>
+
+  <text x="802" y="280" text-anchor="start" font-size="12" fill="#1a1a1a">• Неповний старт</text>
+  <text x="802" y="300" text-anchor="start" font-size="12" fill="#c0392b">• Boot Loop</text>
+  <text x="802" y="320" text-anchor="start" font-size="12" fill="#1a1a1a">• Збій GPIO0/2</text>
+  <text x="802" y="340" text-anchor="start" font-size="12" fill="#6b7280">• Перегрів ESD</text>
+  <text x="802" y="360" text-anchor="start" font-size="12" fill="#6b7280">• Сбой ROM Boot</text>
+
+  <!-- BOTTOM BANNER: Summary & Resolution -->
+  <rect x="40" y="485" width="880" height="60" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="55" y="508" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">ПРОБЛЕМА:</text>
+  <text x="135" y="508" text-anchor="start" font-size="12" fill="#1a1a1a">Струм від TXD через ESD-діод піднімає напругу VDD до ~2.7 В, спричиняючи хаотичний запуск чипа (Boot Loop).</text>
+
+  <text x="55" y="530" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">РІШЕННЯ:</text>
+  <text x="135" y="530" text-anchor="start" font-size="12" fill="#1a1a1a">Встановлення послідовного резистора 1 кОм на лінії TX обмежить паразитний струм до безпечних мкА.</text>
+</svg>

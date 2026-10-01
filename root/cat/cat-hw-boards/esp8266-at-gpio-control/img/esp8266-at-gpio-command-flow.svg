@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 515" width="960" height="515" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="515" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Послідовність обміну даними при керуванні GPIO через AT-команди</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Хост надсилає текстові команди через UART, ESP8266 налаштовує периферію та повертає статус і рівні</text>
+
+  <!-- Participant Boxes -->
+  <rect x="100" y="75" width="240" height="50" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="220" y="96" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Хост-мікроконтролер</text>
+  <text x="220" y="114" font-size="12" fill="#6b7280" text-anchor="middle">Master (UART TX/RX)</text>
+
+  <rect x="620" y="75" width="240" height="50" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="740" y="96" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP8266 (AT-прошивка)</text>
+  <text x="740" y="114" font-size="12" fill="#6b7280" text-anchor="middle">Slave (Периферія GPIO)</text>
+
+  <!-- Lifelines -->
+  <line x1="220" y1="125" x2="220" y2="435" stroke="#d0d7de" stroke-width="2" stroke-dasharray="6,4"/>
+  <line x1="740" y1="125" x2="740" y2="435" stroke="#d0d7de" stroke-width="2" stroke-dasharray="6,4"/>
+
+  <!-- Activation Blocks -->
+  <rect x="732" y="165" width="16" height="40" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <rect x="732" y="265" width="16" height="40" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <rect x="732" y="365" width="16" height="40" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+
+  <!-- Step 1: Configuration -->
+  <text x="475" y="142" font-size="12" fill="#6b7280" text-anchor="middle">1. Конфігурація: GPIO4 = Вихід (Output, push-pull)</text>
+  <text x="475" y="158" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">AT+GPIOCFG=4,1,0</text>
+  <line x1="220" y1="165" x2="730" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="758" y="165" width="175" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="766" y="180" font-size="12" fill="#1a1a1a">Ініціалізація IO MUX</text>
+  <text x="766" y="194" font-size="12" fill="#6b7280">та регістрів GPIO</text>
+
+  <line x1="730" y1="205" x2="230" y2="205" stroke="#27ae60" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-green)"/>
+  <text x="475" y="198" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">OK</text>
+  <text x="475" y="222" font-size="12" fill="#6b7280" text-anchor="middle">Підтвердження успішної конфігурації</text>
+
+  <!-- Step 2: Write Logic Level -->
+  <text x="475" y="242" font-size="12" fill="#6b7280" text-anchor="middle">2. Запис: Встановлення високого рівня (HIGH / 3.3V) на GPIO4</text>
+  <text x="475" y="258" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">AT+GPIOWRITE=4,1</text>
+  <line x1="220" y1="265" x2="730" y2="265" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="758" y="265" width="175" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="766" y="280" font-size="12" fill="#1a1a1a">Перемикання тригера</text>
+  <text x="766" y="294" font-size="12" fill="#6b7280">вихідного регістру</text>
+
+  <line x1="730" y1="305" x2="230" y2="305" stroke="#27ae60" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-green)"/>
+  <text x="475" y="298" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">OK</text>
+  <text x="475" y="322" font-size="12" fill="#6b7280" text-anchor="middle">Фізичний рівень змінено на виводі</text>
+
+  <!-- Step 3: Read Logic Level -->
+  <text x="475" y="342" font-size="12" fill="#6b7280" text-anchor="middle">3. Читання: Опитування цифрового стану вхідного виводу GPIO5</text>
+  <text x="475" y="358" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">AT+GPIOREAD=5</text>
+  <line x1="220" y1="365" x2="730" y2="365" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="758" y="365" width="175" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="766" y="380" font-size="12" fill="#1a1a1a">Зчитування буфера</text>
+  <text x="766" y="394" font-size="12" fill="#6b7280">вхідного виводу GPIO</text>
+
+  <line x1="730" y1="405" x2="230" y2="405" stroke="#27ae60" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-green)"/>
+  <text x="475" y="398" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">+GPIOREAD:5,1    OK</text>
+  <text x="475" y="422" font-size="12" fill="#6b7280" text-anchor="middle">Повернення логічного рівня 1 (HIGH) та підтвердження</text>
+
+  <!-- Summary Panel -->
+  <rect x="60" y="448" width="840" height="48" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="80" y="468" font-size="13" font-weight="bold" fill="#27ae60">Ключовий принцип:</text>
+  <text x="215" y="468" font-size="12" fill="#1a1a1a">Кожна AT-команда виконується послідовно через UART: хост чекає відповіді OK/ERROR перед наступною.</text>
+  <text x="215" y="484" font-size="12" fill="#6b7280">При читанні ESP8266 спочатку повертає дані (+GPIOREAD:&lt;pin&gt;,&lt;state&gt;), а потім підтвердження OK.</text>
+</svg>

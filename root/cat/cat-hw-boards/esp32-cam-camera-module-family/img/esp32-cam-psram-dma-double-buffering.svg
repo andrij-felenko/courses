@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двокрокова буферизація кадрів у сімействі ESP32-CAM</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Прийом кадрів з DVP у малі DMA-буфери в SRAM та передача заповнених масивів у PSRAM</text>
+
+  <!-- Domain 1: Camera Sensor & DVP -->
+  <rect x="25" y="85" width="170" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="110" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сенсор (OV2640)</text>
+
+  <rect x="40" y="130" width="140" height="85" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="110" y="153" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Шина DVP (8 біт)</text>
+  <text x="110" y="173" font-size="12" fill="#6b7280" text-anchor="middle">PCLK, VSYNC, HREF</text>
+  <text x="110" y="193" font-size="12" fill="#6b7280" text-anchor="middle">Паралельний потік</text>
+
+  <rect x="40" y="325" width="140" height="95" rx="5" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="110" y="350" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратний вихід</text>
+  <text x="110" y="370" font-size="12" fill="#6b7280" text-anchor="middle">Безперервні піксельні</text>
+  <text x="110" y="388" font-size="12" fill="#6b7280" text-anchor="middle">пакети кадру</text>
+  <text x="110" y="406" font-size="12" fill="#27ae60" text-anchor="middle">Швидкість: до 20 МБ/с</text>
+
+  <!-- Domain 2: SRAM DMA Ring -->
+  <rect x="225" y="85" width="300" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="375" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня SRAM (DMA Ring)</text>
+  <text x="375" y="130" font-size="12" fill="#6b7280" text-anchor="middle">Кільцеві буфери DMA (блоки 2–4 кБ)</text>
+
+  <rect x="240" y="148" width="125" height="55" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="302.5" y="170" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">DMA Buffer 0</text>
+  <text x="302.5" y="188" font-size="11" fill="#1a1a1a" text-anchor="middle">Прийом з DVP</text>
+
+  <rect x="385" y="148" width="125" height="55" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="447.5" y="170" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DMA Buffer 1</text>
+  <text x="447.5" y="188" font-size="11" fill="#1a1a1a" text-anchor="middle">Готовий до копії</text>
+
+  <rect x="240" y="215" width="125" height="55" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="302.5" y="237" font-size="12" fill="#1a1a1a" text-anchor="middle">DMA Buffer 2</text>
+  <text x="302.5" y="255" font-size="11" fill="#6b7280" text-anchor="middle">Очікування</text>
+
+  <rect x="385" y="215" width="125" height="55" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="447.5" y="237" font-size="12" fill="#1a1a1a" text-anchor="middle">DMA Buffer 3</text>
+  <text x="447.5" y="255" font-size="11" fill="#6b7280" text-anchor="middle">Очікування</text>
+
+  <rect x="240" y="290" width="270" height="130" rx="5" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="375" y="313" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Периферія I2S/LCD &amp; DMA</text>
+  <text x="255" y="338" font-size="12" fill="#1a1a1a">1. Автоматичне зчитування DVP</text>
+  <text x="255" y="358" font-size="12" fill="#1a1a1a">2. Генерування переривання ISR</text>
+  <text x="255" y="378" font-size="12" fill="#2457d6">3. Копіювання блоку в PSRAM</text>
+  <text x="255" y="398" font-size="12" fill="#27ae60">4. Повернення буфера в кільце</text>
+
+  <!-- Domain 3: External PSRAM Frame Buffers -->
+  <rect x="605" y="85" width="330" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="770" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зовнішня PSRAM (4–8 МБ)</text>
+  <text x="770" y="130" font-size="12" fill="#6b7280" text-anchor="middle">Подвійна буферизація (Double Buffering)</text>
+
+  <rect x="620" y="148" width="300" height="112" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="635" y="173" font-size="14" font-weight="bold" fill="#27ae60">Кадровий буфер 0 (FB0)</text>
+  <text x="905" y="173" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="end">АКТИВНИЙ ЗАПИС</text>
+  <text x="635" y="198" font-size="12" fill="#1a1a1a">Стан: Заповнення масиву даними з DMA</text>
+  <text x="635" y="218" font-size="12" fill="#6b7280">Обсяг: 600 кБ (неперервна область пам'яті)</text>
+  <text x="635" y="238" font-size="12" fill="#27ae60">Режим: Запис поточного кадру (Write)</text>
+
+  <rect x="620" y="280" width="300" height="112" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="635" y="305" font-size="14" font-weight="bold" fill="#2457d6">Кадровий буфер 1 (FB1)</text>
+  <text x="905" y="305" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="end">ГОТОВИЙ / READ</text>
+  <text x="635" y="330" font-size="12" fill="#1a1a1a">Стан: Зчитування завершеного кадру</text>
+  <text x="635" y="350" font-size="12" fill="#6b7280">Призначення: Кодування / Wi-Fi streaming</text>
+  <text x="635" y="370" font-size="12" fill="#2457d6">Режим: Передача застосунком (Read)</text>
+
+  <text x="770" y="422" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Перемикання вказівників (Ping-Pong Swap)</text>
+
+  <!-- Connectors / Arrows -->
+  <line x1="180" y1="172.5" x2="233" y2="172.5" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="206.5" y="164" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">DVP</text>
+
+  <path d="M 510 340 H 565 V 204 H 613" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="565" y="190" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">DMA → PSRAM</text>
+</svg>

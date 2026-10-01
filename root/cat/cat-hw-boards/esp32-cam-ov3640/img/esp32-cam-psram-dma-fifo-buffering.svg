@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subheader -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Блок-схема руху кадрових буферів у системі ESP32-CAM (OV3640)</text>
+  <text x="480" y="62" text-anchor="middle" font-size="13" fill="#6b7280">Двокаскадна буферизація через DMA FIFO та PSRAM усуває втрати кадрів і компенсує затримки шини</text>
+
+  <!-- PANEL 1: OV3640 Sensor -->
+  <rect x="40" y="95" width="210" height="290" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="145" y="120" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">CMOS-сенсор OV3640</text>
+
+  <!-- Top Box in Panel 1: FIFO -->
+  <rect x="55" y="135" width="180" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="145" y="160" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Внутрішнє FIFO сенсора</text>
+  <text x="145" y="180" text-anchor="middle" font-size="11" fill="#6b7280">Буфер кадру DVP</text>
+  <text x="145" y="198" text-anchor="middle" font-size="11" fill="#1a1a1a">Первинне згладжування</text>
+
+  <!-- Arrow UP inside Panel 1 -->
+  <path d="M145,245 L145,223" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="155" y="238" text-anchor="start" font-size="10" fill="#6b7280">JPEG</text>
+
+  <!-- Bottom Box in Panel 1: Matrix & Codec -->
+  <rect x="55" y="245" width="180" height="130" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="145" y="270" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">CMOS-матриця &amp; DSP</text>
+  <text x="145" y="290" text-anchor="middle" font-size="11" fill="#6b7280">Роздільність UXGA / QXGA</text>
+  <line x1="70" y1="305" x2="220" y2="305" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="145" y="330" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Апаратний кодек JPEG</text>
+  <text x="145" y="352" text-anchor="middle" font-size="11" fill="#6b7280">Стиснення на кристалі</text>
+
+  <!-- INTER-PANEL ARROW 1: DVP BUS -->
+  <path d="M235,175 L287,175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="265" y="160" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Шина DVP</text>
+  <text x="265" y="193" text-anchor="middle" font-size="10" fill="#6b7280">D0–D7 + PCLK</text>
+
+  <!-- PANEL 2: MCU ESP32 / ESP32-S3 -->
+  <rect x="295" y="95" width="385" height="290" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="487" y="120" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Мікроконтролер ESP32 / ESP32-S3</text>
+
+  <!-- Top-Left Box in Panel 2: DVP Interface -->
+  <rect x="310" y="135" width="160" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="390" y="160" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Інтерфейс DVP / I2S</text>
+  <text x="390" y="180" text-anchor="middle" font-size="11" fill="#6b7280">Фіксація байтів</text>
+  <text x="390" y="198" text-anchor="middle" font-size="11" fill="#1a1a1a">Тактування PCLK</text>
+
+  <!-- Arrow DVP Interface to DMA FIFO -->
+  <path d="M470,175 L487,175" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="482" y="162" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">Пакет</text>
+
+  <!-- Top-Right Box in Panel 2: DMA FIFO -->
+  <rect x="495" y="135" width="170" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="580" y="160" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Буфери DMA FIFO</text>
+  <text x="580" y="180" text-anchor="middle" font-size="11" fill="#6b7280">Кільцеві дескриптори</text>
+  <text x="580" y="198" text-anchor="middle" font-size="11" fill="#1a1a1a">Апаратна SRAM</text>
+
+  <!-- Arrow DOWN DMA FIFO to PSRAM Controller -->
+  <path d="M580,215 L580,237" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="590" y="233" text-anchor="start" font-size="10" font-weight="bold" fill="#2457d6">Транзит DMA</text>
+
+  <!-- Bottom Box in Panel 2: PSRAM Controller -->
+  <rect x="310" y="245" width="355" height="130" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="487" y="270" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Контролер шини PSRAM (SPI / Octal SPI)</text>
+  <text x="487" y="292" text-anchor="middle" font-size="11" fill="#6b7280">Прямий апаратний запис блоками без участі CPU</text>
+  <line x1="325" y1="307" x2="650" y2="307" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="487" y="330" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Захист від переповнення буфера</text>
+  <text x="487" y="352" text-anchor="middle" font-size="11" fill="#6b7280">Компенсація затримок арбітражу шини</text>
+
+  <!-- INTER-PANEL ARROW 2: SPI BUS -->
+  <path d="M665,310 L702,310" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="687" y="295" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Шина SPI</text>
+  <text x="687" y="328" text-anchor="middle" font-size="10" fill="#6b7280">Quad/Octal</text>
+
+  <!-- PANEL 3: PSRAM -->
+  <rect x="710" y="95" width="210" height="290" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="815" y="120" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Пам'ять PSRAM</text>
+
+  <!-- Top Box in Panel 3: Frame Buffer 0 -->
+  <rect x="725" y="135" width="180" height="105" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="815" y="160" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Кадровий буфер 0</text>
+  <text x="815" y="182" text-anchor="middle" font-size="11" fill="#1a1a1a">Запис нового кадру (DMA)</text>
+  <line x1="740" y1="197" x2="890" y2="197" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="815" y="220" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Статус: НАКОПИЧЕННЯ</text>
+
+  <!-- Bottom Box in Panel 3: Frame Buffer 1 -->
+  <rect x="725" y="255" width="180" height="105" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="815" y="280" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Кадровий буфер 1</text>
+  <text x="815" y="302" text-anchor="middle" font-size="11" fill="#1a1a1a">Зчитування для Wi-Fi / HTTP</text>
+  <line x1="740" y1="317" x2="890" y2="317" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="815" y="340" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Статус: ГОТОВИЙ ДО ПЕРЕДАЧІ</text>
+
+  <!-- Bottom Summary Panel -->
+  <rect x="40" y="402" width="880" height="36" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="424" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Двокаскадна буферизація: FIFO сенсора гасить піки DVP → DMA накопичує блоки в SRAM → PSRAM зберігає кадри без втрат</text>
+</svg>

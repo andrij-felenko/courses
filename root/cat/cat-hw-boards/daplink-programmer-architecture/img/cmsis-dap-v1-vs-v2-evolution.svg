@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еволюція специфікації CMSIS-DAP: від v1.0 до v2.0</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Перехід від USB HID Interrupt до WinUSB Bulk забезпечив багаторазове зростання швидкості та підтримку WebUSB</text>
+
+  <!-- ================= LEFT PANEL: CMSIS-DAP v1.0 ================= -->
+  <rect x="30" y="75" width="425" height="375" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Header Badge -->
+  <rect x="45" y="90" width="395" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="242" y="113" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">CMSIS-DAP v1.0 (USB HID)</text>
+
+  <!-- Sub-block 1: Transport -->
+  <rect x="55" y="145" width="375" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="68" y="168" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Транспортний клас:</text>
+  <text x="202" y="168" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">USB HID (Human Interface Device)</text>
+  <text x="68" y="192" font-size="12" fill="#6b7280" text-anchor="start">Кінцеві точки:</text>
+  <text x="165" y="192" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Interrupt IN / OUT (64 байти/пакет)</text>
+
+  <!-- Sub-block 2: OS Drivers -->
+  <rect x="55" y="222" width="375" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="68" y="245" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Драйвери ОС:</text>
+  <text x="168" y="245" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">Вбудовані у Windows/Linux/macOS</text>
+  <text x="68" y="269" font-size="12" fill="#6b7280" text-anchor="start">Опитування:</text>
+  <text x="145" y="269" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Інтервал 1 мс (обмеження системного стеку)</text>
+
+  <!-- Sub-block 3: Speed limitation -->
+  <rect x="55" y="300" width="375" height="75" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="242" y="322" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Пропускна здатність:</text>
+  <text x="242" y="345" font-size="18" font-weight="bold" fill="#c0392b" text-anchor="middle">до 64 КБ/с</text>
+  <text x="242" y="364" font-size="12" fill="#6b7280" text-anchor="middle">Повільне прошивання великих образів</text>
+
+  <!-- Bottom Badge 1 -->
+  <rect x="45" y="395" width="395" height="40" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="242" y="420" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Головна перевага: бездрайверне підключення з коробки</text>
+
+  <!-- ================= CENTER EVOLUTION ARROW ================= -->
+  <text x="478" y="222" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2019 р.</text>
+  <path d="M 458,240 L 496,240" stroke="#2457d6" stroke-width="3" marker-end="url(#arr)"/>
+  <text x="478" y="260" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Еволюція</text>
+
+  <!-- ================= RIGHT PANEL: CMSIS-DAP v2.0 ================= -->
+  <rect x="505" y="75" width="425" height="375" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Header Badge -->
+  <rect x="520" y="90" width="395" height="36" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="717" y="113" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">CMSIS-DAP v2.0 (WinUSB Bulk &amp; WebUSB)</text>
+
+  <!-- Sub-block 1: Transport -->
+  <rect x="530" y="145" width="375" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="543" y="168" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Транспортний клас:</text>
+  <text x="677" y="168" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">WinUSB Bulk Endpoints</text>
+  <text x="543" y="192" font-size="12" fill="#6b7280" text-anchor="start">Кінцеві точки:</text>
+  <text x="640" y="192" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Bulk IN / OUT (High-Speed USB 2.0)</text>
+
+  <!-- Sub-block 2: Features -->
+  <rect x="530" y="222" width="375" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="543" y="245" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Нові можливості:</text>
+  <text x="677" y="245" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">Підтримка WebUSB (браузер)</text>
+  <text x="543" y="269" font-size="12" fill="#6b7280" text-anchor="start">Прямий доступ:</text>
+  <text x="633" y="269" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Хмарні IDE (Keil Studio, pyOCD)</text>
+
+  <!-- Sub-block 3: Speed Advantage -->
+  <rect x="530" y="300" width="375" height="75" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="717" y="322" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Пропускна здатність:</text>
+  <text x="717" y="345" font-size="18" font-weight="bold" fill="#27ae60" text-anchor="middle">понад 1.5–3.0 МБ/с</text>
+  <text x="717" y="364" font-size="12" fill="#6b7280" text-anchor="middle">Миттєва прошивка та трасування в реальному часі</text>
+
+  <!-- Bottom Badge 2 -->
+  <rect x="520" y="395" width="395" height="40" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="717" y="420" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Максимальна швидкість та підтримка браузерних інструментів</text>
+</svg>

@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема підключення 24-контактного FPC-роз'єму камери OV2640 до ESP32</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Призначення ліній шини DVP, інтерфейсу SCCB та триканального живлення AVDD/DVDD/DOVDD</text>
+
+  <!-- LEFT PANEL: FPC CONNECTOR PINOUT -->
+  <rect x="24" y="68" width="250" height="432" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="34" y="78" width="230" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="149" y="99" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">FPC-роз'єм 24-Pin (DVP)</text>
+
+  <rect x="34" y="118" width="230" height="370" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="149" y="136" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">Цокольовка шлейфу OV2640</text>
+  <line x1="34" y1="142" x2="264" y2="142" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Column 1 (Pins 1-12) -->
+  <text x="42" y="160" font-size="11" fill="#1a1a1a"><tspan font-weight="bold" fill="#6b7280">1.</tspan> STROBE / NC</text>
+  <text x="42" y="186" font-size="11" fill="#1a1a1a"><tspan font-weight="bold" fill="#6b7280">2.</tspan> AGND (GND)</text>
+  <text x="42" y="212" font-size="11" fill="#2457d6"><tspan font-weight="bold" fill="#6b7280">3.</tspan> SIOD (SDA)</text>
+  <text x="42" y="238" font-size="11" fill="#d97706"><tspan font-weight="bold" fill="#6b7280">4.</tspan> AVDD 2.8V</text>
+  <text x="42" y="264" font-size="11" fill="#2457d6"><tspan font-weight="bold" fill="#6b7280">5.</tspan> SIOC (SCL)</text>
+  <text x="42" y="290" font-size="11" fill="#2457d6"><tspan font-weight="bold" fill="#6b7280">6.</tspan> RESET</text>
+  <text x="42" y="316" font-size="11" fill="#7e22ce"><tspan font-weight="bold" fill="#6b7280">7.</tspan> VSYNC</text>
+  <text x="42" y="342" font-size="11" fill="#2457d6"><tspan font-weight="bold" fill="#6b7280">8.</tspan> PWDN</text>
+  <text x="42" y="368" font-size="11" fill="#7e22ce"><tspan font-weight="bold" fill="#6b7280">9.</tspan> HREF</text>
+  <text x="42" y="394" font-size="11" fill="#d97706"><tspan font-weight="bold" fill="#6b7280">10.</tspan> DVDD 1.2V</text>
+  <text x="42" y="420" font-size="11" fill="#d97706"><tspan font-weight="bold" fill="#6b7280">11.</tspan> DOVDD 3.3V</text>
+  <text x="42" y="446" font-size="11" fill="#27ae60"><tspan font-weight="bold" fill="#6b7280">12.</tspan> Y9 (D7)</text>
+
+  <!-- Divider line between pin columns -->
+  <line x1="145" y1="142" x2="145" y2="488" stroke="#f4f6f8" stroke-width="1"/>
+
+  <!-- Column 2 (Pins 13-24) -->
+  <text x="152" y="160" font-size="11" fill="#d97706"><tspan font-weight="bold" fill="#6b7280">13.</tspan> XCLK</text>
+  <text x="152" y="186" font-size="11" fill="#27ae60"><tspan font-weight="bold" fill="#6b7280">14.</tspan> Y8 (D6)</text>
+  <text x="152" y="212" font-size="11" fill="#1a1a1a"><tspan font-weight="bold" fill="#6b7280">15.</tspan> DGND (GND)</text>
+  <text x="152" y="238" font-size="11" fill="#27ae60"><tspan font-weight="bold" fill="#6b7280">16.</tspan> Y7 (D5)</text>
+  <text x="152" y="264" font-size="11" fill="#7e22ce"><tspan font-weight="bold" fill="#6b7280">17.</tspan> PCLK</text>
+  <text x="152" y="290" font-size="11" fill="#27ae60"><tspan font-weight="bold" fill="#6b7280">18.</tspan> Y6 (D4)</text>
+  <text x="152" y="316" font-size="11" fill="#27ae60"><tspan font-weight="bold" fill="#6b7280">19.</tspan> Y2 (D0)</text>
+  <text x="152" y="342" font-size="11" fill="#27ae60"><tspan font-weight="bold" fill="#6b7280">20.</tspan> Y5 (D3)</text>
+  <text x="152" y="368" font-size="11" fill="#27ae60"><tspan font-weight="bold" fill="#6b7280">21.</tspan> Y3 (D1)</text>
+  <text x="152" y="394" font-size="11" fill="#27ae60"><tspan font-weight="bold" fill="#6b7280">22.</tspan> Y4 (D2)</text>
+  <text x="152" y="420" font-size="11" fill="#1a1a1a"><tspan font-weight="bold" fill="#6b7280">23.</tspan> DGND (GND)</text>
+  <text x="152" y="446" font-size="11" fill="#1a1a1a"><tspan font-weight="bold" fill="#6b7280">24.</tspan> NC / GND</text>
+
+  <!-- GROUP 1: POWER & XCLK (Amber/Orange) -->
+  <rect x="296" y="68" width="310" height="205" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+  <rect x="296" y="68" width="310" height="32" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="451" y="89" text-anchor="middle" font-size="13" font-weight="bold" fill="#d97706">Живлення та тактовий сигнал XCLK</text>
+
+  <text x="310" y="122" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#d97706">AVDD (Pin 4):</tspan> 2.8В LDO (Аналогова частина)</text>
+  <text x="310" y="146" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#d97706">DVDD (Pin 10):</tspan> 1.2В LDO (Цифрове ядро)</text>
+  <text x="310" y="170" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#d97706">DOVDD (Pin 11):</tspan> 3.3В Rail (Буфери I/O)</text>
+  <text x="310" y="194" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#d97706">AGND/DGND:</tspan> Роздільні лінії заземлення</text>
+
+  <rect x="306" y="214" width="290" height="46" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <text x="451" y="232" text-anchor="middle" font-size="12" font-weight="bold" fill="#d97706">XCLK (Pin 13) ──► ESP32 GPIO0</text>
+  <text x="451" y="249" text-anchor="middle" font-size="11" fill="#6b7280">Тактова частота сенсора 20 МГц (LEDC)</text>
+
+  <!-- GROUP 2: SCCB & CONTROL (Blue) -->
+  <rect x="626" y="68" width="310" height="205" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="626" y="68" width="310" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="781" y="89" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Інтерфейс конфігурації SCCB</text>
+
+  <text x="640" y="122" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">SIOD (Pin 3):</tspan> Дані SCCB ──► <tspan font-weight="bold" fill="#2457d6">ESP32 GPIO26</tspan></text>
+  <text x="640" y="146" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">SIOC (Pin 5):</tspan> Тактування ──► <tspan font-weight="bold" fill="#2457d6">ESP32 GPIO27</tspan></text>
+  <text x="640" y="170" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">RESET (Pin 6):</tspan> Скидання ──► <tspan font-weight="bold" fill="#2457d6">ESP32 GPIO15</tspan></text>
+  <text x="640" y="194" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">PWDN (Pin 8):</tspan> Живлення ──► <tspan font-weight="bold" fill="#2457d6">ESP32 GPIO32</tspan></text>
+
+  <rect x="636" y="214" width="290" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="781" y="232" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Сумісність SCCB з протоколом I2C</text>
+  <text x="781" y="249" text-anchor="middle" font-size="11" fill="#6b7280">Потрібні зовнішні підтяжки 4.7 кОм до 3.3В</text>
+
+  <!-- GROUP 3: DVP SYNC (Purple) -->
+  <rect x="296" y="295" width="310" height="205" rx="6" fill="#ffffff" stroke="#7e22ce" stroke-width="1.5"/>
+  <rect x="296" y="295" width="310" height="32" rx="6" fill="#f3e8ff" stroke="#7e22ce" stroke-width="1.5"/>
+  <text x="451" y="316" text-anchor="middle" font-size="13" font-weight="bold" fill="#7e22ce">Сигнали синхронізації DVP</text>
+
+  <text x="310" y="348" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#7e22ce">VSYNC (Pin 7):</tspan> Кадр ──► <tspan font-weight="bold" fill="#7e22ce">ESP32 GPIO25</tspan></text>
+  <text x="310" y="372" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#7e22ce">HREF (Pin 9):</tspan> Рядок ──► <tspan font-weight="bold" fill="#7e22ce">ESP32 GPIO23</tspan></text>
+  <text x="310" y="396" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#7e22ce">PCLK (Pin 17):</tspan> Піксель ──► <tspan font-weight="bold" fill="#7e22ce">ESP32 GPIO22</tspan></text>
+
+  <rect x="306" y="416" width="290" height="72" rx="4" fill="#f3e8ff" stroke="#7e22ce" stroke-width="1"/>
+  <text x="451" y="434" text-anchor="middle" font-size="11" font-weight="bold" fill="#7e22ce">Принцип зчитування кадрів</text>
+  <text x="451" y="452" text-anchor="middle" font-size="11" fill="#1a1a1a">PCLK стробує 8-бітні дані Y2..Y9</text>
+  <text x="451" y="470" text-anchor="middle" font-size="11" fill="#6b7280">Пряме захоплення через шину I2S0 ESP32</text>
+
+  <!-- GROUP 4: DVP DATA BUS (Green) -->
+  <rect x="626" y="295" width="310" height="205" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="626" y="295" width="310" height="32" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="781" y="316" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">8-бітна шина даних DVP (Y2..Y9)</text>
+
+  <text x="640" y="345" font-size="11" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">Y2 (D0):</tspan> GPIO5  │ <tspan font-weight="bold" fill="#27ae60">Y6 (D4):</tspan> GPIO36</text>
+  <text x="640" y="365" font-size="11" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">Y3 (D1):</tspan> GPIO18 │ <tspan font-weight="bold" fill="#27ae60">Y7 (D5):</tspan> GPIO39</text>
+  <text x="640" y="385" font-size="11" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">Y4 (D2):</tspan> GPIO4  │ <tspan font-weight="bold" fill="#27ae60">Y8 (D6):</tspan> GPIO34</text>
+  <text x="640" y="405" font-size="11" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">Y5 (D3):</tspan> GPIO19 │ <tspan font-weight="bold" fill="#27ae60">Y9 (D7):</tspan> GPIO35</text>
+
+  <rect x="636" y="420" width="290" height="68" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="781" y="438" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Зауваження щодо апаратного конфлікту</text>
+  <text x="781" y="456" text-anchor="middle" font-size="11" fill="#1a1a1a">GPIO4 використовується для D2 камери</text>
+  <text x="781" y="472" text-anchor="middle" font-size="11" fill="#c0392b">та спалаху LED / шини SDMMC (Data1)</text>
+</svg>

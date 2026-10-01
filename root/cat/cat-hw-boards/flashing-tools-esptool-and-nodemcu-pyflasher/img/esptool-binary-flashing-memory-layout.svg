@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл адрес SPI Flash та зсуви запису бінарних образів esptool</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Команда write_flash записує кожен бінарний файл за відповідною фізичною адресою в пам'яті</text>
+
+  <!-- Command Line Panel -->
+  <rect x="50" y="70" width="860" height="60" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="70" y="90" font-size="12" font-weight="bold" fill="#2457d6">Команда прошивання esptool.py:</text>
+  <text x="70" y="112" font-size="13" font-weight="bold" fill="#1a1a1a">esptool.py -p /dev/ttyUSB0 -b 921600 write_flash 0x1000 bootloader.bin 0x8000 partitions.bin 0x10000 app.bin</text>
+
+  <!-- Callout Cards -->
+  <!-- Bootloader Card -->
+  <rect x="110" y="150" width="160" height="65" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="120" y="170" font-size="12" font-weight="bold" fill="#2457d6">0x1000 → Bootloader</text>
+  <text x="120" y="188" font-size="12" font-weight="bold" fill="#1a1a1a">bootloader.bin</text>
+  <text x="120" y="204" font-size="11" fill="#6b7280">Початкова ініціалізація</text>
+  <line x1="190" y1="215" x2="190" y2="248" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Partition Table Card -->
+  <rect x="290" y="150" width="170" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="300" y="170" font-size="12" font-weight="bold" fill="#27ae60">0x8000 → Partition Table</text>
+  <text x="300" y="188" font-size="12" font-weight="bold" fill="#1a1a1a">partitions.bin</text>
+  <text x="300" y="204" font-size="11" fill="#6b7280">Структура розділів Flash</text>
+  <line x1="375" y1="215" x2="375" y2="248" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- App Card -->
+  <rect x="480" y="150" width="200" height="65" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="490" y="170" font-size="12" font-weight="bold" fill="#2457d6">0x10000 → Application</text>
+  <text x="490" y="188" font-size="12" font-weight="bold" fill="#1a1a1a">app.bin / firmware.bin</text>
+  <text x="490" y="204" font-size="11" fill="#6b7280">Основний код прошивки</text>
+  <line x1="580" y1="215" x2="580" y2="248" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Memory Layout Bar -->
+  <rect x="50" y="255" width="60" height="70" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="80" y="295" font-size="11" fill="#6b7280" text-anchor="middle">Зарезерв.</text>
+
+  <rect x="115" y="255" width="150" height="70" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="190" y="285" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Bootloader</text>
+  <text x="190" y="305" font-size="11" fill="#1a1a1a" text-anchor="middle">bootloader.bin</text>
+
+  <rect x="270" y="255" width="190" height="70" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="365" y="285" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Таблиця розділів</text>
+  <text x="365" y="305" font-size="11" fill="#1a1a1a" text-anchor="middle">partitions.bin + NVS</text>
+
+  <rect x="465" y="255" width="240" height="70" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="585" y="285" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Прикладна програма</text>
+  <text x="585" y="305" font-size="11" fill="#1a1a1a" text-anchor="middle">app.bin (Factory App)</text>
+
+  <rect x="710" y="255" width="200" height="70" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="810" y="285" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">OTA_0 / OTA_1 / SPIFFS</text>
+  <text x="810" y="305" font-size="11" fill="#6b7280" text-anchor="middle">Файлова система / Дані</text>
+
+  <!-- Memory Address Scale -->
+  <line x1="50" y1="340" x2="910" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <line x1="50" y1="335" x2="50" y2="345" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="50" y="360" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0x0000</text>
+
+  <line x1="115" y1="335" x2="115" y2="345" stroke="#2457d6" stroke-width="2"/>
+  <text x="115" y="360" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">0x1000</text>
+
+  <line x1="270" y1="335" x2="270" y2="345" stroke="#27ae60" stroke-width="2"/>
+  <text x="270" y="360" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">0x8000</text>
+
+  <line x1="465" y1="335" x2="465" y2="345" stroke="#2457d6" stroke-width="2"/>
+  <text x="465" y="360" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">0x10000</text>
+
+  <line x1="710" y1="335" x2="710" y2="345" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="710" y="360" font-size="12" fill="#6b7280" text-anchor="middle">0x100000</text>
+
+  <line x1="910" y1="335" x2="910" y2="345" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="910" y="360" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0x400000 (4 MB)</text>
+
+  <!-- Legend & Notes Footer Box -->
+  <rect x="50" y="385" width="860" height="70" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="70" y="408" font-size="12" font-weight="bold" fill="#2457d6">Важливі правила адресації при прошиванні:</text>
+  <text x="70" y="428" font-size="12" fill="#1a1a1a">• Адреса 0x1000 використовується для ESP32 (в ESP8266 первинний завантажувач починається з 0x0000).</text>
+  <text x="70" y="446" font-size="12" fill="#1a1a1a">• Запис бінарного образу за помилковим зсувом перезаписує таблицю розділів або пошкоджує Bootloader.</text>
+</svg>

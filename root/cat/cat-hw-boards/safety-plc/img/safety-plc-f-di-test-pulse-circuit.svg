@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Схемотехніка двоканального входу ПЛК безпеки з імпульсною діагностикою</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Ін'єкція тестових імпульсів T1/T2 для виявлення коротких замикань та перехресних наводок</text>
+
+  <!-- ПАНЕЛЬ 1: Модуль входу F-DI (Safety PLC) -->
+  <rect x="30" y="75" width="410" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Модуль F-DI (Safety PLC)</text>
+
+  <!-- Генератор T1 -->
+  <rect x="45" y="115" width="160" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="125" y="138" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Генератор T1</text>
+  <text x="125" y="157" font-size="12" text-anchor="middle" fill="#6b7280">Ключ 24V DC (Ch 1)</text>
+
+  <!-- Генератор T2 -->
+  <rect x="45" y="190" width="160" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="125" y="213" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Генератор T2</text>
+  <text x="125" y="232" font-size="12" text-anchor="middle" fill="#6b7280">Ключ 24V DC (Ch 2)</text>
+
+  <!-- Канал зчитування IN1 -->
+  <rect x="45" y="275" width="160" height="60" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="125" y="298" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Вхідний канал IN1</text>
+  <text x="125" y="317" font-size="12" text-anchor="middle" fill="#6b7280">Фільтр / Оптопара 1</text>
+
+  <!-- Канал зчитування IN2 -->
+  <rect x="45" y="350" width="160" height="60" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="125" y="373" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Вхідний канал IN2</text>
+  <text x="125" y="392" font-size="12" text-anchor="middle" fill="#6b7280">Фільтр / Оптопара 2</text>
+
+  <!-- Логіка діагностики / Safety MCU -->
+  <rect x="235" y="115" width="185" height="295" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="327" y="140" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Логіка діагностики</text>
+  <text x="327" y="158" font-size="12" text-anchor="middle" fill="#6b7280">ПЛК (Dual MCU)</text>
+
+  <text x="327" y="195" font-size="12" text-anchor="middle" fill="#1a1a1a">Формування T1 / T2</text>
+  <text x="327" y="215" font-size="12" text-anchor="middle" fill="#6b7280">(імпульси зсунуті в часі)</text>
+
+  <text x="327" y="255" font-size="12" text-anchor="middle" fill="#1a1a1a">Аналіз сигналів IN1, IN2</text>
+  <text x="327" y="275" font-size="12" text-anchor="middle" fill="#6b7280">Перевірка збігу тестових</text>
+  <text x="327" y="295" font-size="12" text-anchor="middle" fill="#6b7280">паттернів та часу</text>
+
+  <!-- Блок результату діагностики у мікроконтролері -->
+  <rect x="245" y="325" width="165" height="75" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="327" y="344" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Виявлення відмов:</text>
+  <text x="327" y="364" font-size="12" text-anchor="middle" fill="#1a1a1a">• Перехресне КЗ T1-T2</text>
+  <text x="327" y="384" font-size="12" text-anchor="middle" fill="#1a1a1a">• КЗ на 24V / GND</text>
+
+  <!-- Внутрішньомодульні зв'язки -->
+  <path d="M 235 145 L 214 145" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+  <path d="M 235 220 L 214 220" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+  <path d="M 205 305 L 226 305" stroke="#1a1a1a" stroke-width="1.5" fill="none" marker-end="url(#arr-dark)"/>
+  <path d="M 205 380 L 226 380" stroke="#1a1a1a" stroke-width="1.5" fill="none" marker-end="url(#arr-dark)"/>
+
+  <!-- Клемник F-DI модуля -->
+  <circle cx="440" cy="145" r="5" fill="#2457d6"/>
+  <text x="430" y="140" font-size="12" font-weight="bold" text-anchor="end" fill="#2457d6">T1</text>
+
+  <circle cx="440" cy="220" r="5" fill="#2457d6"/>
+  <text x="430" y="215" font-size="12" font-weight="bold" text-anchor="end" fill="#2457d6">T2</text>
+
+  <circle cx="440" cy="305" r="5" fill="#1a1a1a"/>
+  <text x="430" y="300" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">IN1</text>
+
+  <circle cx="440" cy="380" r="5" fill="#1a1a1a"/>
+  <text x="430" y="375" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">IN2</text>
+
+  <!-- ПАНЕЛЬ 2: Польовий пристрій (E-Stop / Датчик) -->
+  <rect x="495" y="75" width="200" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="595" y="98" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Аварійна кнопка (E-Stop)</text>
+
+  <!-- Схема контакту 1 -->
+  <text x="550" y="125" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Контакт 1 (NC)</text>
+  <circle cx="530" cy="145" r="3.5" fill="#1a1a1a"/>
+  <circle cx="570" cy="145" r="3.5" fill="#1a1a1a"/>
+  <line x1="530" y1="145" x2="568" y2="137" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Схема контакту 2 -->
+  <text x="550" y="200" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Контакт 2 (NC)</text>
+  <circle cx="530" cy="220" r="3.5" fill="#1a1a1a"/>
+  <circle cx="570" cy="220" r="3.5" fill="#1a1a1a"/>
+  <line x1="530" y1="220" x2="568" y2="212" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Лінії польової проводки (Канал 1) -->
+  <path d="M 440 145 L 530 145" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <path d="M 570 145 L 675 145 L 675 305 L 440 305" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <text x="668" y="225" font-size="12" text-anchor="end" fill="#2457d6">Коло 1</text>
+
+  <!-- Лінії польової проводки (Канал 2) -->
+  <path d="M 440 220 L 530 220" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <path d="M 570 220 L 655 220 L 655 380 L 440 380" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <text x="648" y="300" font-size="12" text-anchor="end" fill="#2457d6">Коло 2</text>
+
+  <!-- Симуляція потенційного короткого замикання між каналами -->
+  <line x1="585" y1="145" x2="585" y2="220" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 3"/>
+  <path d="M 581 176 L 588 182 L 583 183 L 589 190" stroke="#c0392b" stroke-width="2" fill="none"/>
+
+  <rect x="515" y="245" width="120" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="575" y="262" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Перехресне КЗ</text>
+  <text x="575" y="278" font-size="12" text-anchor="middle" fill="#c0392b">(виявляється T1/T2)</text>
+
+  <!-- ПАНЕЛЬ 3: Тестові імпульси та реакція -->
+  <rect x="710" y="75" width="220" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="820" y="98" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Тестові імпульси</text>
+
+  <!-- Осцилограма T1 -->
+  <text x="725" y="125" font-size="13" font-weight="bold" fill="#2457d6">Сигнал T1 (24V DC)</text>
+  <rect x="725" y="133" width="190" height="50" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 735 145 L 765 145 L 765 173 L 780 173 L 780 145 L 905 145" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <text x="772" y="141" font-size="12" text-anchor="middle" fill="#c0392b">~1 ms</text>
+
+  <!-- Осцилограма T2 -->
+  <text x="725" y="200" font-size="13" font-weight="bold" fill="#2457d6">Сигнал T2 (24V DC)</text>
+  <rect x="725" y="208" width="190" height="50" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 735 220 L 835 220 L 835 248 L 850 248 L 850 220 L 905 220" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <text x="842" y="216" font-size="12" text-anchor="middle" fill="#c0392b">~1 ms</text>
+
+  <!-- Таблиця реакцій логіки -->
+  <rect x="725" y="265" width="190" height="160" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="820" y="283" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Реакція логіки на відмови</text>
+
+  <rect x="732" y="293" width="176" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="738" y="309" font-size="12" font-weight="bold" fill="#27ae60">Норма:</text>
+  <text x="782" y="309" font-size="12" fill="#1a1a1a">IN1=T1, IN2=T2</text>
+  <text x="738" y="322" font-size="12" fill="#6b7280">Канали справні (SIL OK)</text>
+
+  <rect x="732" y="333" width="176" height="40" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="738" y="349" font-size="12" font-weight="bold" fill="#c0392b">КЗ T1-T2:</text>
+  <text x="795" y="349" font-size="12" fill="#1a1a1a">T1 видно на IN2</text>
+  <text x="738" y="366" font-size="12" fill="#c0392b">→ Відсічка (Fail-Safe)</text>
+
+  <rect x="732" y="378" width="176" height="40" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="738" y="394" font-size="12" font-weight="bold" fill="#c0392b">КЗ на 24V:</text>
+  <text x="800" y="394" font-size="12" fill="#1a1a1a">Зникли імпульси</text>
+  <text x="738" y="411" font-size="12" fill="#c0392b">→ Тривога діагностики</text>
+</svg>

@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-start" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-start" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Потік даних JTAG-зневадження WeAct ESP32-C6-Mini</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Маршрутизація команд GDB та логів CDC через єдиний порт USB Type-C до вбудованого JTAG-контролера</text>
+
+  <rect x="40" y="75" width="350" height="380" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="55" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">Хост-ПК (Розробка &amp; Зневадження)</text>
+
+  <rect x="55" y="115" width="320" height="95" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="70" y="138" font-size="13" font-weight="bold" fill="#1a1a1a">IDE / GDB Клієнт (VS Code / ESP-IDF)</text>
+  <text x="70" y="162" font-size="12" fill="#6b7280">• Команди: step, break, continue, info</text>
+  <text x="70" y="186" font-size="12" fill="#6b7280">• Протокол: RSP (Remote Serial Protocol)</text>
+
+  <line x1="215" y1="215" x2="215" y2="260" stroke="#2457d6" stroke-width="2" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+  <text x="230" y="242" font-size="12" font-weight="bold" fill="#2457d6">TCP (порт 3333)</text>
+
+  <rect x="55" y="265" width="320" height="170" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="70" y="290" font-size="13" font-weight="bold" fill="#2457d6">OpenOCD Сервер (esp_usb_jtag)</text>
+  <text x="70" y="315" font-size="12" fill="#1a1a1a">• Драйвер: builtin USB-JTAG adapter</text>
+  <text x="70" y="340" font-size="12" fill="#1a1a1a">• Трансляція RSP ↔ USB JTAG пакети</text>
+  <text x="70" y="365" font-size="12" fill="#6b7280">• Читання/запис внутрішніх регістрів</text>
+  <text x="70" y="390" font-size="12" fill="#6b7280">• Обробка точок зупину (Breakpoints)</text>
+  <text x="70" y="415" font-size="12" fill="#27ae60">• CDC Serial Console (UART над USB)</text>
+
+  <line x1="375" y1="315" x2="585" y2="315" stroke="#2457d6" stroke-width="2.5" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+  <text x="480" y="298" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">USB JTAG (D+ / D-)</text>
+
+  <rect x="445" y="332" width="70" height="36" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="18"/>
+  <text x="480" y="354" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Type-C</text>
+
+  <line x1="375" y1="385" x2="585" y2="385" stroke="#27ae60" stroke-width="2" stroke-dasharray="5,3" marker-start="url(#arr-green-start)" marker-end="url(#arr-green)"/>
+  <text x="480" y="407" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">USB CDC Console (Log)</text>
+
+  <rect x="570" y="75" width="350" height="380" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="585" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">Плата WeAct ESP32-C6-Mini</text>
+
+  <rect x="585" y="115" width="320" height="95" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="600" y="138" font-size="13" font-weight="bold" fill="#27ae60">Ядро HP CPU (RISC-V 32-bit)</text>
+  <text x="600" y="162" font-size="12" fill="#1a1a1a">• Hardware Breakpoints &amp; Watchpoints</text>
+  <text x="600" y="186" font-size="12" fill="#6b7280">• Прямий доступ до RAM і регістрів CPU</text>
+
+  <line x1="735" y1="215" x2="735" y2="260" stroke="#2457d6" stroke-width="2" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+  <text x="725" y="242" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">JTAG-шина чипа</text>
+
+  <rect x="585" y="265" width="320" height="170" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="600" y="290" font-size="13" font-weight="bold" fill="#2457d6">Вбудований USB-Serial/JTAG Блок</text>
+  <text x="600" y="315" font-size="12" fill="#1a1a1a">• Вбудований Full-Speed USB PHY</text>
+  <text x="600" y="340" font-size="12" fill="#1a1a1a">• GPIO12 (USB D-) &amp; GPIO13 (USB D+)</text>
+  <text x="600" y="365" font-size="12" fill="#6b7280">• Апаратний контролер JTAG TAP</text>
+  <text x="600" y="390" font-size="12" fill="#6b7280">• USB CDC ACM Консоль (потік логів)</text>
+  <text x="600" y="415" font-size="12" fill="#27ae60">• Прямий USB-зв'язок без USB-UART мікросхеми</text>
+</svg>

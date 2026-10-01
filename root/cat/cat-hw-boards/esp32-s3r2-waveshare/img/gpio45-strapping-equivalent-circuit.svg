@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еквівалентна електрична схема дільника напруги виводу GPIO45</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Формування напруги защеплення V_GPIO45 з урахуванням зовнішніх R_1, R_2 та внутрішньої підтяжки R_int</text>
+
+  <!-- Panel 1: Electrical Schematic (Left Area) -->
+  <rect x="30" y="90" width="530" height="430" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="295" y="118" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схематична модель дільника при затисканні CHIP_PU</text>
+
+  <!-- Boundary line: External Board vs ESP32-S3 Chip -->
+  <line x1="270" y1="130" x2="270" y2="490" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="170" y="145" font-size="12" fill="#6b7280" text-anchor="middle">Зовнішня плата</text>
+  <text x="370" y="145" font-size="12" fill="#6b7280" text-anchor="middle">Кристал ESP32-S3</text>
+
+  <!-- Power Rails -->
+  <!-- VDD3V3 Top Rail -->
+  <line x1="70" y1="165" x2="470" y2="165" stroke="#2457d6" stroke-width="2"/>
+  <text x="75" y="158" font-size="12" font-weight="bold" fill="#2457d6">VDD3V3 (3.3 В)</text>
+
+  <!-- GND Bottom Rail -->
+  <line x1="70" y1="470" x2="470" y2="470" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="75" y="490" font-size="12" font-weight="bold" fill="#1a1a1a">GND (0 В)</text>
+
+  <!-- External R1 (Pull-up) -->
+  <line x1="150" y1="165" x2="150" y2="185" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="130" y="185" width="40" height="55" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+  <text x="150" y="217" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R_1</text>
+  <line x1="150" y1="240" x2="150" y2="280" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- External R2 (Pull-down) -->
+  <line x1="150" y1="280" x2="150" y2="320" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="130" y="320" width="40" height="55" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="3"/>
+  <text x="150" y="352" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_2</text>
+  <line x1="150" y1="375" x2="150" y2="470" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- External Node & Connection Line to Pin -->
+  <circle cx="150" cy="280" r="4" fill="#2457d6"/>
+  <line x1="150" y1="280" x2="270" y2="280" stroke="#2457d6" stroke-width="2"/>
+  <text x="210" y="270" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вивід GPIO45</text>
+
+  <!-- Internal Node & Internal Pull-down R_int -->
+  <line x1="270" y1="280" x2="410" y2="280" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="350" cy="280" r="4" fill="#2457d6"/>
+
+  <line x1="350" y1="280" x2="350" y2="320" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="330" y="320" width="40" height="55" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" rx="3"/>
+  <text x="350" y="352" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">R_int</text>
+  <line x1="350" y1="375" x2="350" y2="470" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Schmitt Trigger Input Buffer -->
+  <polygon points="410,255 465,280 410,305" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="428" y="284" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ST</text>
+
+  <line x1="465" y1="280" x2="510" y2="280" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="490" y="302" font-size="12" fill="#2457d6" text-anchor="middle">До тригера LDO</text>
+
+  <!-- Panel 2: Formulas and Threshold Criteria (Right Area) -->
+  <rect x="580" y="90" width="350" height="430" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="755" y="118" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Математичний розрахунок і умови</text>
+
+  <!-- Formula Box 1: Equivalent Resistance -->
+  <rect x="595" y="135" width="320" height="110" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="755" y="158" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Еквівалентний опір плеча R_down:</text>
+  <text x="610" y="183" font-size="12" fill="#1a1a1a">R_down = (R_2 · R_int) ÷ (R_2 + R_int)</text>
+  <text x="610" y="208" font-size="12" fill="#1a1a1a">V_GPIO45 = V_DD · [R_down ÷ (R_1 + R_down)]</text>
+  <text x="610" y="231" font-size="12" fill="#6b7280">R_int ≈ 45 кОм (внутрішній pull-down)</text>
+
+  <!-- Criteria Box 2: LOW Level (VDD_SPI = 3.3V Mode) -->
+  <rect x="595" y="260" width="320" height="110" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="755" y="283" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Умова логічного нуля LOW (0):</text>
+  <text x="610" y="308" font-size="12" fill="#1a1a1a">V_GPIO45 &lt; V_IL = 0.25 · V_DD = 0.825 В</text>
+  <text x="610" y="333" font-size="12" font-weight="bold" fill="#27ae60">Вихід LDO VDD_SPI = 3.3 В</text>
+  <text x="610" y="356" font-size="12" fill="#6b7280">Стандартні плати з 3.3V Flash</text>
+
+  <!-- Criteria Box 3: HIGH Level (1.8V Octal PSRAM Mode) -->
+  <rect x="595" y="385" width="320" height="115" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="6"/>
+  <text x="755" y="408" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Умова логічної одиниці HIGH (1):</text>
+  <text x="610" y="433" font-size="12" fill="#1a1a1a">V_GPIO45 &gt; V_IH = 0.75 · V_DD = 2.475 В</text>
+  <text x="610" y="458" font-size="12" font-weight="bold" fill="#c0392b">Вихід LDO VDD_SPI = 1.8 В</text>
+  <text x="610" y="481" font-size="12" fill="#6b7280">Waveshare ESP32-S3R2 (1.8V PSRAM)</text>
+</svg>

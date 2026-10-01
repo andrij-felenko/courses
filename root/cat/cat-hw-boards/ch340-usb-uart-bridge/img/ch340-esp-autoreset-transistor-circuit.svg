@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схемотехніка автоскидання ESP8266 / ESP32 на транзисторах DTR / RTS</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Взаємне блокування сигналів DTR і RTS унеможливлює одночасне притискання ліній EN та GPIO0</text>
+
+  <!-- Left Panel: CH340 USB-UART Chip -->
+  <rect x="40" y="75" width="180" height="320" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="130" y="105" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">CH340 (USB-UART)</text>
+
+  <!-- DTR Line from CH340 -->
+  <text x="212" y="133" text-anchor="end" font-size="13" font-weight="bold" fill="#2457d6">DTR</text>
+  <path d="M 220 140 L 470 140" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  
+  <!-- RTS Line from CH340 -->
+  <text x="212" y="313" text-anchor="end" font-size="13" font-weight="bold" fill="#2457d6">RTS</text>
+  <path d="M 220 320 L 610 320" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- DTR Branch to Q2 Base -->
+  <circle cx="320" cy="140" r="3.5" fill="#1a1a1a"/>
+  <path d="M 320 140 L 320 290 L 525 290" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  
+  <!-- Resistor R2 (10k) on DTR->Q2 Base -->
+  <rect x="525" y="284" width="32" height="12" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="541" y="278" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">R2 10k</text>
+  <path d="M 557 290 L 585 290" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+
+  <!-- RTS Branch to Q1 Base -->
+  <circle cx="360" cy="320" r="3.5" fill="#1a1a1a"/>
+  <path d="M 360 320 L 360 170 L 385 170" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  
+  <!-- Resistor R1 (10k) on RTS->Q1 Base -->
+  <rect x="385" y="164" width="32" height="12" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="401" y="158" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">R1 10k</text>
+  <path d="M 417 170 L 445 170" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+
+  <!-- Transistor Q1 (NPN) -->
+  <circle cx="460" cy="180" r="24" fill="none" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <!-- Q1 Base Bar & Base Lead -->
+  <line x1="445" y1="155" x2="445" y2="195" stroke="#1a1a1a" stroke-width="3"/>
+  <!-- Q1 Emitter (top leg connecting to DTR line at y=140) -->
+  <line x1="445" y1="165" x2="475" y2="140" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="467,148 475,140 462,143" fill="#1a1a1a"/>
+  <circle cx="475" cy="140" r="3.5" fill="#1a1a1a"/>
+  <!-- Q1 Collector (bottom leg connecting to EN line at y=200) -->
+  <line x1="445" y1="185" x2="475" y2="200" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="460" y="225" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Q1 (S8050)</text>
+
+  <!-- EN / RST Output Line (from Q1 Collector to Target ESP) -->
+  <path d="M 475 200 L 730 200" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- Transistor Q2 (NPN) -->
+  <circle cx="600" cy="300" r="24" fill="none" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <!-- Q2 Base Bar & Base Lead -->
+  <line x1="585" y1="275" x2="585" y2="315" stroke="#1a1a1a" stroke-width="3"/>
+  <!-- Q2 Collector (top leg connecting to GPIO0 line at y=260) -->
+  <line x1="585" y1="285" x2="615" y2="260" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Q2 Emitter (bottom leg connecting to RTS line at y=320) -->
+  <line x1="585" y1="305" x2="615" y2="320" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="607,308 615,320 600,317" fill="#1a1a1a"/>
+  <circle cx="615" cy="320" r="3.5" fill="#1a1a1a"/>
+  <text x="600" y="345" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Q2 (S8050)</text>
+
+  <!-- GPIO0 Output Line (from Q2 Collector to Target ESP) -->
+  <path d="M 615 260 L 730 260" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- Right Panel: ESP8266 / ESP32 Target -->
+  <rect x="740" y="75" width="190" height="320" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="835" y="96" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">ESP8266 / ESP32</text>
+
+  <!-- Power Rail (+3.3V) inside Panel -->
+  <path d="M 750 120 L 915 120" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <text x="750" y="114" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">+3.3V</text>
+
+  <!-- EN Pin & Pull-up R3 -->
+  <circle cx="825" cy="200" r="3.5" fill="#1a1a1a"/>
+  <circle cx="825" cy="120" r="3.5" fill="#c0392b"/>
+  <path d="M 825 120 L 825 135" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+  <rect x="819" y="135" width="12" height="30" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="833" y="154" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">R3 10k</text>
+  <path d="M 825 165 L 825 200" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+  <text x="748" y="193" text-anchor="start" font-size="13" font-weight="bold" fill="#2457d6">EN / RST</text>
+
+  <!-- GPIO0 Pin & Pull-up R4 -->
+  <circle cx="875" cy="260" r="3.5" fill="#1a1a1a"/>
+  <circle cx="875" cy="120" r="3.5" fill="#c0392b"/>
+  <path d="M 875 120 L 875 175" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+  <rect x="869" y="175" width="12" height="30" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="883" y="194" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">R4 10k</text>
+  <path d="M 875 205 L 875 260" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+  <text x="748" y="253" text-anchor="start" font-size="13" font-weight="bold" fill="#2457d6">GPIO0</text>
+
+  <!-- Truth Table Panel (Bottom) -->
+  <rect x="40" y="412" width="880" height="105" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="433" font-size="13" font-weight="bold" fill="#1a1a1a">Логіка функціонування режимів автоскидання (Таблиця станів):</text>
+
+  <!-- Card 1 -->
+  <rect x="60" y="444" width="200" height="62" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="160" y="462" text-anchor="middle" font-size="12" fill="#1a1a1a">DTR = 0, RTS = 0</text>
+  <text x="160" y="478" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">EN = 1, GPIO0 = 1</text>
+  <text x="160" y="495" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Робочий режим (Run)</text>
+
+  <!-- Card 2 -->
+  <rect x="275" y="444" width="200" height="62" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="375" y="462" text-anchor="middle" font-size="12" fill="#1a1a1a">DTR = 1, RTS = 0</text>
+  <text x="375" y="478" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">EN = 0, GPIO0 = 1</text>
+  <text x="375" y="495" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Апаратне скидання</text>
+
+  <!-- Card 3 -->
+  <rect x="490" y="444" width="200" height="62" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="590" y="462" text-anchor="middle" font-size="12" fill="#1a1a1a">DTR = 0, RTS = 1</text>
+  <text x="590" y="478" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">EN = 1, GPIO0 = 0</text>
+  <text x="590" y="495" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Режим прошивки (Flash)</text>
+
+  <!-- Card 4 -->
+  <rect x="705" y="444" width="200" height="62" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="805" y="462" text-anchor="middle" font-size="12" fill="#1a1a1a">DTR = 1, RTS = 1</text>
+  <text x="805" y="478" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">EN = 1, GPIO0 = 1</text>
+  <text x="805" y="495" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Захисне блокування</text>
+</svg>

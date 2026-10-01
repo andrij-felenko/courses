@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розподіл виводів GPIO у модулях ESP32-S3 з Octal SPI PSRAM</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Видно виводи, вилучені 8-бітною шиною Octal SPI, та доступні лінії периферії у N8R8 / N16R8</text>
+
+  <!-- Legend Bar -->
+  <rect x="30" y="72" width="900" height="40" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  
+  <rect x="45" y="82" width="20" height="20" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="3"/>
+  <text x="73" y="96" font-size="12" font-weight="bold" fill="#c0392b">Шина Octal SPI PSRAM (Вилучені GPIO)</text>
+
+  <rect x="375" y="82" width="20" height="20" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="3"/>
+  <text x="403" y="96" font-size="12" font-weight="bold" fill="#27ae60">Вільні GPIO для периферії</text>
+
+  <rect x="675" y="82" width="20" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+  <text x="703" y="96" font-size="12" font-weight="bold" fill="#2457d6">USB OTG / Strapping виводи</text>
+
+  <!-- Left Block: MCU Architecture -->
+  <rect x="30" y="125" width="340" height="375" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <rect x="30" y="125" width="340" height="35" fill="#2457d6" rx="8"/>
+  <rect x="30" y="150" width="340" height="10" fill="#2457d6"/>
+  <text x="200" y="148" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="bold">Модуль ESP32-S3 (WROOM-1 / WROOM-2)</text>
+
+  <!-- Sub-block 1: SiP Memory -->
+  <rect x="45" y="172" width="310" height="98" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="200" y="192" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Внутрішній SiP кристальний блок</text>
+  <text x="200" y="212" text-anchor="middle" font-size="12" fill="#1a1a1a">Flash (SPI / QSPI) + PSRAM (Octal SPI 8-bit)</text>
+  <text x="200" y="232" text-anchor="middle" font-size="12" fill="#6b7280">Тактування 80 / 120 МГц (VDD_SPI)</text>
+  <text x="200" y="254" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">8 шинних ліній жорстко зарезервовано!</text>
+
+  <!-- Sub-block 2: System Pins -->
+  <rect x="45" y="280" width="310" height="92" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="200" y="300" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Системна периферія &amp; Strapping</text>
+  <text x="200" y="320" text-anchor="middle" font-size="12" fill="#1a1a1a">USB OTG / JTAG: GPIO19 (D-), GPIO20 (D+)</text>
+  <text x="200" y="340" text-anchor="middle" font-size="12" fill="#1a1a1a">Strapping: GPIO0, GPIO3, GPIO45, GPIO46</text>
+  <text x="200" y="358" text-anchor="middle" font-size="12" fill="#6b7280">Фіксуються під час скидання (POR)</text>
+
+  <!-- Sub-block 3: Available Pins -->
+  <rect x="45" y="382" width="310" height="106" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="200" y="402" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Користувацька матриця GPIO</text>
+  <text x="200" y="422" text-anchor="middle" font-size="12" fill="#1a1a1a">GPIO1–18, GPIO21, GPIO38, GPIO40–44</text>
+  <text x="200" y="442" text-anchor="middle" font-size="12" fill="#1a1a1a">ADC, DAC, PWM, I2C, SPI2, UART, Touch</text>
+  <text x="200" y="462" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Повністю вільні для схеми розробника</text>
+
+  <!-- Connection Arrow 1 (Red) -->
+  <path d="M 355 221 L 388 221" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  
+  <!-- Connection Arrow 2 (Green) -->
+  <path d="M 355 435 L 388 435" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Right Block: Pin Status Details -->
+  <rect x="390" y="125" width="540" height="375" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <rect x="390" y="125" width="540" height="35" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="660" y="148" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Деталізація статусу виводів у модифікаціях Octal PSRAM</text>
+
+  <!-- Reserved Pins Table Panel -->
+  <rect x="405" y="172" width="510" height="138" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="420" y="194" font-size="13" font-weight="bold" fill="#c0392b">⛔ ВИЛУЧЕНІ ВИВОДИ (Зайняті 8-бітною шиною Octal SPI)</text>
+  <text x="420" y="216" font-size="12" fill="#1a1a1a">• GPIO33 (SPIIO4)   • GPIO34 (SPIIO5)   • GPIO35 (SPIIO6)</text>
+  <text x="420" y="236" font-size="12" fill="#1a1a1a">• GPIO36 (SPIIO7)   • GPIO37 (SPIDQS)   • GPIO39 (SPICS1)</text>
+  <text x="420" y="256" font-size="12" fill="#1a1a1a">• GPIO47 (SPICLK_P) • GPIO48 (SPICLK_N)</text>
+  <text x="420" y="280" font-size="12" font-style="italic" fill="#c0392b">⚠️ Підключення периферії до GPIO33–37, 39, 47, 48 руйнує обмін з PSRAM</text>
+  <text x="420" y="298" font-size="12" font-style="italic" fill="#c0392b">і призводить до миттєвого перезавантаження ядра (Guru Meditation)!</text>
+
+  <!-- Free Pins Table Panel -->
+  <rect x="405" y="322" width="510" height="166" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="420" y="344" font-size="13" font-weight="bold" fill="#27ae60">✅ ВІЛЬНІ СИГНАЛЬНІ ЛІНІЇ (Для зовнішніх пристроїв)</text>
+  <text x="420" y="366" font-size="12" fill="#1a1a1a">• GPIO1–14  : Вільні GPIO / АЦП / Сенсори / ШІМ-виходи</text>
+  <text x="420" y="386" font-size="12" fill="#1a1a1a">• GPIO15–18 : Вільні GPIO / Шина SPI2 (FSPI) / Шина I2C</text>
+  <text x="420" y="406" font-size="12" fill="#1a1a1a">• GPIO21, 38: Вільні GPIO / Світлодіоди / Кнопки керування</text>
+  <text x="420" y="426" font-size="12" fill="#1a1a1a">• GPIO40–42 : Вільні GPIO / РК-дисплей / Камера / I2S Аудіо</text>
+  <text x="420" y="446" font-size="12" fill="#1a1a1a">• GPIO43, 44: Послідовний порт UART0 (TXD0 / RXD0)</text>
+  <text x="420" y="470" font-size="12" font-weight="bold" fill="#27ae60">Загалом понад 30 вільних ліній для повноцінної розробки!</text>
+</svg>

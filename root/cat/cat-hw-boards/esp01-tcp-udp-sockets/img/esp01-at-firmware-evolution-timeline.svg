@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова лінія еволюції AT-прошивки ESP8266 (ESP-01)</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Трансформація від простого послідовного моста 2014 року до апаратно-криптографічного стека mbedTLS у версіях ESP-AT</text>
+
+  <!-- Timeline Central Axis Line -->
+  <line x1="50" y1="230" x2="905" y2="230" stroke="#6b7280" stroke-width="3" marker-end="url(#arr-main)"/>
+
+  <!-- Milestone 1: 2014, v0.9 (Top) -->
+  <line x1="140" y1="200" x2="140" y2="230" stroke="#c0392b" stroke-width="2"/>
+  <rect x="50" y="90" width="180" height="110" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="140" y="110" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">2014 · AT v0.9</text>
+  <text x="140" y="130" text-anchor="middle" font-size="12" fill="#1a1a1a">Базовий UART-міст</text>
+  <text x="140" y="148" text-anchor="middle" font-size="12" fill="#1a1a1a">Лише прості TCP/UDP</text>
+  <text x="140" y="166" text-anchor="middle" font-size="12" fill="#1a1a1a">Однопотоковий режим</text>
+  <text x="140" y="184" text-anchor="middle" font-size="12" fill="#6b7280">Flash 512 КБ</text>
+
+  <!-- Milestone 2: 2015, v1.0-v1.3 (Bottom) -->
+  <line x1="380" y1="230" x2="380" y2="260" stroke="#2457d6" stroke-width="2"/>
+  <rect x="280" y="260" width="200" height="115" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="380" y="280" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2015 · AT v1.0–v1.3</text>
+  <text x="380" y="300" text-anchor="middle" font-size="12" fill="#1a1a1a">Інтеграція стека LwIP</text>
+  <text x="380" y="318" text-anchor="middle" font-size="12" fill="#1a1a1a">Режим AT+CIPMUX (мульти)</text>
+  <text x="380" y="336" text-anchor="middle" font-size="12" fill="#1a1a1a">Асинхронні кадри +IPD</text>
+  <text x="380" y="354" text-anchor="middle" font-size="12" fill="#6b7280">Наскрізний Passthrough</text>
+
+  <!-- Milestone 3: 2017, v1.5-v1.7 (Top) -->
+  <line x1="620" y1="200" x2="620" y2="230" stroke="#2457d6" stroke-width="2"/>
+  <rect x="520" y="90" width="200" height="110" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="620" y="110" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2017 · AT v1.5–v1.7</text>
+  <text x="620" y="130" text-anchor="middle" font-size="12" fill="#1a1a1a">Ранній порт mbedTLS</text>
+  <text x="620" y="148" text-anchor="middle" font-size="12" fill="#1a1a1a">Підтримка SSL/TLS 1.2</text>
+  <text x="620" y="166" text-anchor="middle" font-size="12" fill="#1a1a1a">Розширення SNI (AT+CIPSSLCSNI)</text>
+  <text x="620" y="184" text-anchor="middle" font-size="12" fill="#6b7280">Динамічні SSL-буфери</text>
+
+  <!-- Milestone 4: 2020+, ESP-AT v2.x (Bottom) -->
+  <line x1="840" y1="230" x2="840" y2="260" stroke="#27ae60" stroke-width="2"/>
+  <rect x="740" y="260" width="200" height="115" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="840" y="280" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">2020+ · ESP-AT v2.x</text>
+  <text x="840" y="300" text-anchor="middle" font-size="12" fill="#1a1a1a">Ядро FreeRTOS та ESP-IDF</text>
+  <text x="840" y="318" text-anchor="middle" font-size="12" fill="#1a1a1a">Повноцінний стек mbedTLS</text>
+  <text x="840" y="336" text-anchor="middle" font-size="12" fill="#1a1a1a">Розділи Flash сертифікатів</text>
+  <text x="840" y="354" text-anchor="middle" font-size="12" fill="#6b7280">Модульна конфігурація</text>
+
+  <!-- Timeline Node Circles -->
+  <circle cx="140" cy="230" r="7" fill="#c0392b" stroke="white" stroke-width="2"/>
+  <circle cx="380" cy="230" r="7" fill="#2457d6" stroke="white" stroke-width="2"/>
+  <circle cx="620" cy="230" r="7" fill="#2457d6" stroke="white" stroke-width="2"/>
+  <circle cx="840" cy="230" r="7" fill="#27ae60" stroke="white" stroke-width="2"/>
+
+  <!-- Footer Summary Card -->
+  <rect x="45" y="398" width="870" height="32" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="419" text-anchor="middle" font-size="12" fill="#1a1a1a">Висновок: Прошивка ESP8266 еволюціонувала від найпростішого модемного інтерфейсу до надійної криптографічної ОС.</text>
+</svg>

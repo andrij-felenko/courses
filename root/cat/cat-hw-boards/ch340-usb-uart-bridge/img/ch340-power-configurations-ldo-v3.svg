@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топології живлення USB-UART перетворювача CH340</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">У режимі 5 В вивід V3 фільтрується конденсатором, а при 3,3 В — об'єднується з VCC</text>
+
+  <!-- Left Panel: 5V Mode -->
+  <rect x="30" y="80" width="435" height="380" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  
+  <rect x="45" y="95" width="405" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="247.5" y="116" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Режим живлення 5 В (VCC = +5V)</text>
+
+  <!-- Left IC Block -->
+  <rect x="230" y="155" width="200" height="230" fill="#ffffff" stroke="#1a1a1a" stroke-width="2" rx="6"/>
+  <text x="330" y="180" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CH340 (IC)</text>
+
+  <rect x="280" y="205" width="135" height="95" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="4 3" rx="4"/>
+  <text x="347.5" y="228" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Внутрішній LDO</text>
+  <text x="347.5" y="246" font-size="12" fill="#2457d6" text-anchor="middle">(5V ➔ 3.3V)</text>
+  <text x="347.5" y="278" font-size="12" fill="#2457d6" text-anchor="middle">Вихід 3,3 В</text>
+
+  <!-- Left Internal Connections -->
+  <path d="M 230,215 L 280,215" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 347.5,300 L 347.5,320 L 230,320" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- Left Pin Labels -->
+  <text x="238" y="205" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">VCC</text>
+  <text x="238" y="310" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">V3</text>
+  <text x="238" y="355" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">GND</text>
+
+  <!-- Left External Power & Components -->
+  <text x="55" y="200" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">+5V (VBUS)</text>
+  <line x1="55" y1="215" x2="230" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- C1 Decoupling Capacitor -->
+  <circle cx="110" cy="215" r="3" fill="#1a1a1a"/>
+  <line x1="110" y1="215" x2="110" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="100" y1="245" x2="120" y2="245" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="100" y1="255" x2="120" y2="255" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="110" y1="255" x2="110" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="110" cy="365" r="3" fill="#1a1a1a"/>
+
+  <text x="90" y="245" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">C1</text>
+  <text x="90" y="260" font-size="12" fill="#6b7280" text-anchor="end">100 нФ</text>
+
+  <!-- C2 V3 Capacitor -->
+  <line x1="170" y1="320" x2="230" y2="320" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="170" cy="320" r="3" fill="#1a1a1a"/>
+  <line x1="170" y1="320" x2="170" y2="335" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="160" y1="335" x2="180" y2="335" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="160" y1="345" x2="180" y2="345" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="170" y1="345" x2="170" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="170" cy="365" r="3" fill="#1a1a1a"/>
+
+  <text x="150" y="333" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">C2 (V3)</text>
+  <text x="150" y="348" font-size="12" fill="#6b7280" text-anchor="end">100 нФ</text>
+
+  <!-- Left GND -->
+  <text x="55" y="355" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">GND</text>
+  <line x1="55" y1="365" x2="230" y2="365" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="55" y1="365" x2="55" y2="373" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="47" y1="373" x2="63" y2="373" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="50" y1="377" x2="60" y2="377" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="53" y1="381" x2="57" y2="381" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Left Bottom Note -->
+  <rect x="45" y="405" width="405" height="42" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="247.5" y="422" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✔ V3 — тільки фільтруючий C = 100 нФ</text>
+  <text x="247.5" y="438" font-size="12" fill="#1a1a1a" text-anchor="middle">Внутрішній LDO формує 3,3 В для ядра</text>
+
+  <!-- Right Panel: 3.3V Mode -->
+  <rect x="495" y="80" width="435" height="380" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+
+  <rect x="510" y="95" width="405" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="712.5" y="116" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Режим живлення 3,3 В (VCC = +3.3V)</text>
+
+  <!-- Right IC Block -->
+  <rect x="695" y="155" width="200" height="230" fill="#ffffff" stroke="#1a1a1a" stroke-width="2" rx="6"/>
+  <text x="795" y="180" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CH340 (IC)</text>
+
+  <rect x="745" y="205" width="135" height="95" fill="#f4f6f8" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3 3" rx="4"/>
+  <text x="812.5" y="228" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Внутрішній LDO</text>
+  <text x="812.5" y="246" font-size="12" fill="#6b7280" text-anchor="middle">вимкнено / обхід</text>
+  <text x="812.5" y="273" font-size="12" fill="#6b7280" text-anchor="middle">(3,3 В ззовні)</text>
+
+  <!-- Right Pin Labels -->
+  <text x="703" y="205" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">VCC</text>
+  <text x="703" y="310" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">V3</text>
+  <text x="703" y="355" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">GND</text>
+
+  <!-- Right External Power & Components -->
+  <text x="520" y="200" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">+3.3V</text>
+  <line x1="520" y1="215" x2="695" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Right C1 Decoupling Capacitor -->
+  <circle cx="560" cy="215" r="3" fill="#1a1a1a"/>
+  <line x1="560" y1="215" x2="560" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="550" y1="245" x2="570" y2="245" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="550" y1="255" x2="570" y2="255" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="560" y1="255" x2="560" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="560" cy="365" r="3" fill="#1a1a1a"/>
+
+  <text x="545" y="245" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">C1</text>
+  <text x="545" y="260" font-size="12" fill="#6b7280" text-anchor="end">100 нФ</text>
+
+  <!-- Jumper connecting VCC and V3 -->
+  <circle cx="655" cy="215" r="4" fill="#2457d6"/>
+  <line x1="655" y1="215" x2="655" y2="320" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="655" y1="320" x2="695" y2="320" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="655" cy="320" r="4" fill="#2457d6"/>
+
+  <text x="645" y="262" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Об'єднання</text>
+  <text x="645" y="277" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">VCC та V3</text>
+
+  <!-- Right GND -->
+  <text x="520" y="355" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">GND</text>
+  <line x1="520" y1="365" x2="695" y2="365" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="520" y1="365" x2="520" y2="373" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="512" y1="373" x2="528" y2="373" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="515" y1="377" x2="525" y2="377" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="518" y1="381" x2="522" y2="381" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Right Bottom Note -->
+  <rect x="510" y="405" width="405" height="42" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="712.5" y="422" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✔ V3 з'єднано з VCC і джерелом +3,3 В</text>
+  <text x="712.5" y="438" font-size="12" fill="#1a1a1a" text-anchor="middle">Внутрішній LDO вимкнено</text>
+</svg>

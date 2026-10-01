@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Алгоритм перемикання банків завантаження rBoot</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Покрокова перевірка цілісності образів та вибір активного слота прошивки</text>
+
+  <!-- Connecting Lines & Flow Arrows -->
+
+  <!-- Node 1 -> Node 2 -->
+  <line x1="480" y1="130" x2="480" y2="150" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Node 2 -> Node 3 -->
+  <line x1="480" y1="202" x2="480" y2="222" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Node 3 -> Node 3b (GPIO Override Yes) -->
+  <line x1="620" y1="249" x2="680" y2="249" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="650" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Так</text>
+
+  <!-- Node 3b -> Node 4 -->
+  <path d="M 780 276 V 329 H 620" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Node 3 -> Node 4 (GPIO Override No) -->
+  <line x1="480" y1="276" x2="480" y2="302" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <text x="495" y="293" text-anchor="start" font-size="12" font-weight="bold" fill="#6b7280">Ні</text>
+
+  <!-- Node 4 -> Node 5 (Header Magic OK) -->
+  <line x1="480" y1="356" x2="480" y2="382" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="495" y="373" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">Так</text>
+
+  <!-- Node 4 -> Outcome 2 (Header Corrupt No) -->
+  <path d="M 340 329 H 180 V 338" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="260" y="321" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Ні (помилка)</text>
+
+  <!-- Node 5 -> Outcome 2 (Checksum Fail No) -->
+  <path d="M 340 409 H 310" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="325" y="401" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Ні</text>
+
+  <!-- Node 5 -> Outcome 1 (Checksum OK Yes) -->
+  <line x1="480" y1="436" x2="480" y2="462" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="495" y="453" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">Так (OK)</text>
+
+  <!-- Diagram Nodes -->
+
+  <!-- Node 1: Start -->
+  <rect x="390" y="90" width="180" height="40" rx="20" ry="20" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="115" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Старт rBoot / Скидання</text>
+
+  <!-- Node 2: Read Config -->
+  <rect x="350" y="150" width="260" height="52" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="170" text-anchor="middle" font-size="12" fill="#1a1a1a">Зчитування конфігурації</text>
+  <text x="480" y="188" text-anchor="middle" font-size="12" fill="#6b7280">з flash (0x1000) або RTC</text>
+
+  <!-- Node 3: GPIO Check -->
+  <rect x="340" y="222" width="280" height="54" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="244" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Натиснуто GPIO перевизначення?</text>
+  <text x="480" y="262" text-anchor="middle" font-size="12" fill="#6b7280">(кнопка вибору слота)</text>
+
+  <!-- Node 3b: GPIO Override Target -->
+  <rect x="680" y="222" width="200" height="54" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="780" y="244" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Вибір іншого слота</text>
+  <text x="780" y="262" text-anchor="middle" font-size="12" fill="#2457d6">ROM slot = next_rom</text>
+
+  <!-- Node 4: Header Verification -->
+  <rect x="340" y="302" width="280" height="54" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="324" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Перевірка заголовка образу</text>
+  <text x="480" y="342" text-anchor="middle" font-size="12" fill="#6b7280">Магічний байт == 0xE9 / 0xEA?</text>
+
+  <!-- Node 5: Checksum Verification -->
+  <rect x="340" y="382" width="280" height="54" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="404" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Перевірка контрольної суми</text>
+  <text x="480" y="422" text-anchor="middle" font-size="12" fill="#6b7280">Обчислення XOR по тілу образу</text>
+
+  <!-- Outcome 1: Success -->
+  <rect x="340" y="462" width="280" height="54" rx="8" ry="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="480" y="484" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Передача керування (Jump)</text>
+  <text x="480" y="502" text-anchor="middle" font-size="12" fill="#1a1a1a">Запуск прошивки з обраного слота</text>
+
+  <!-- Outcome 2: Fallback -->
+  <rect x="50" y="338" width="260" height="80" rx="8" ry="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="180" y="362" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Помилка цілісності образу</text>
+  <text x="180" y="380" text-anchor="middle" font-size="12" fill="#1a1a1a">Перемикання на резервний ROM</text>
+  <text x="180" y="398" text-anchor="middle" font-size="12" fill="#6b7280">(Fallback / Recovery Boot)</text>
+</svg>

@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двоядерний процесор Xtensa LX7 із векторним співпроцесором PIE</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Векторний блок PIE (128 біт) інтегрований у кожне ядро та підключений до 128-бітної шини пам'яті</text>
+
+  <!-- Core 0 Panel -->
+  <rect x="40" y="75" width="340" height="280" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="210" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ядро 0 (Xtensa LX7)</text>
+
+  <!-- Core 0 Scalar LX7 -->
+  <rect x="60" y="115" width="300" height="60" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="210" y="138" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Скалярне ядро CPU LX7 (ALU / FPU)</text>
+  <text x="210" y="158" font-size="11" fill="#6b7280" text-anchor="middle">32-бітний інструкційний конвеєр (7 ступенів)</text>
+
+  <!-- Core 0 Control Arrow -->
+  <line x1="210" y1="175" x2="210" y2="195" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="220" y="188" font-size="11" fill="#6b7280">Управління PIE</text>
+
+  <!-- Core 0 PIE Coprocessor -->
+  <rect x="60" y="195" width="300" height="145" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="210" y="218" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">128-бітний векторний співпроцесор PIE</text>
+
+  <rect x="75" y="230" width="270" height="40" rx="4" fill="white" stroke="#2457d6"/>
+  <text x="210" y="255" font-size="12" fill="#1a1a1a" text-anchor="middle">Векторні регістри Q0–Q7 (128 бітів)</text>
+
+  <rect x="75" y="280" width="270" height="45" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="210" y="300" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Векторний SIMD ALU / MAC</text>
+  <text x="210" y="316" font-size="11" fill="#1a1a1a" text-anchor="middle">16 × INT8 або 8 × INT16 паралельно</text>
+
+  <!-- Core 1 Panel -->
+  <rect x="400" y="75" width="340" height="280" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="570" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ядро 1 (Xtensa LX7)</text>
+
+  <!-- Core 1 Scalar LX7 -->
+  <rect x="420" y="115" width="300" height="60" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="570" y="138" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Скалярне ядро CPU LX7 (ALU / FPU)</text>
+  <text x="570" y="158" font-size="11" fill="#6b7280" text-anchor="middle">32-бітний інструкційний конвеєр (7 ступенів)</text>
+
+  <!-- Core 1 Control Arrow -->
+  <line x1="570" y1="175" x2="570" y2="195" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="580" y="188" font-size="11" fill="#6b7280">Управління PIE</text>
+
+  <!-- Core 1 PIE Coprocessor -->
+  <rect x="420" y="195" width="300" height="145" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="570" y="218" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">128-бітний векторний співпроцесор PIE</text>
+
+  <rect x="435" y="230" width="270" height="40" rx="4" fill="white" stroke="#2457d6"/>
+  <text x="570" y="255" font-size="12" fill="#1a1a1a" text-anchor="middle">Векторні регістри Q0–Q7 (128 бітів)</text>
+
+  <rect x="435" y="280" width="270" height="45" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="570" y="300" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Векторний SIMD ALU / MAC</text>
+  <text x="570" y="316" font-size="11" fill="#1a1a1a" text-anchor="middle">16 × INT8 або 8 × INT16 паралельно</text>
+
+  <!-- Memory Subsystem Panel -->
+  <rect x="760" y="75" width="160" height="280" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="840" y="100" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пам'ять та шини</text>
+
+  <rect x="775" y="115" width="130" height="55" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="840" y="136" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">L1 Кеш / SRAM</text>
+  <text x="840" y="154" font-size="11" fill="#6b7280" text-anchor="middle">512 КБ Internal SRAM</text>
+
+  <rect x="775" y="185" width="130" height="55" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="840" y="206" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MMU / Матриця</text>
+  <text x="840" y="224" font-size="11" fill="#6b7280" text-anchor="middle">Віртуальні адреси</text>
+
+  <rect x="775" y="255" width="130" height="85" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="840" y="278" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Зовнішня пам'ять</text>
+  <text x="840" y="298" font-size="11" fill="#1a1a1a" text-anchor="middle">Octal SPI PSRAM</text>
+  <text x="840" y="316" font-size="11" fill="#6b7280" text-anchor="middle">80/120 МГц DDR</text>
+
+  <!-- Bus Interconnect Line (Bottom) -->
+  <line x1="210" y1="340" x2="210" y2="390" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <line x1="570" y1="340" x2="570" y2="390" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <line x1="840" y1="340" x2="840" y2="390" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Main 128-bit Interconnect Bus Bar -->
+  <rect x="60" y="390" width="840" height="14" rx="4" fill="#2457d6"/>
+  <text x="480" y="425" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">128-бітна внутрішня шина даних для вибірки векторів у PIE (Direct Bus Interconnect)</text>
+</svg>

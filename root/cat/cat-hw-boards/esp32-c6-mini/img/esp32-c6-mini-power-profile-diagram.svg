@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- White background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Діаграма споживання струму ESP32-C6-Mini за робочий цикл</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Співвідношення тривалості й струмів фаз для розрахунку середнього струму I_avg</text>
+
+  <!-- Main Graph Background Panel -->
+  <rect x="35" y="75" width="890" height="320" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+
+  <!-- Horizontal dashed grid lines -->
+  <line x1="140" y1="140" x2="860" y2="140" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="140" y1="205" x2="860" y2="205" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="140" y1="265" x2="860" y2="265" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Shaded area under the power profile -->
+  <path d="M 140,338 L 310,338 L 325,285 L 345,285 L 345,265 L 490,265 L 490,205 L 520,205 L 520,140 L 620,140 L 620,205 L 670,205 L 670,338 L 860,338 L 860,340 L 140,340 Z" fill="#eaf0fd" opacity="0.7"/>
+  <!-- Highlight TX Peak shaded area -->
+  <path d="M 520,140 L 620,140 L 620,205 L 520,205 Z" fill="#fdecea" opacity="0.8"/>
+
+  <!-- Axes -->
+  <line x1="140" y1="350" x2="140" y2="95" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="135" y1="340" x2="880" y2="340" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Axis Titles -->
+  <text x="140" y="88" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">I (mA)</text>
+  <text x="880" y="362" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">Час t</text>
+
+  <!-- Y-Axis Ticks & Labels -->
+  <line x1="135" y1="140" x2="140" y2="140" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="130" y="144" text-anchor="end" font-size="12" fill="#6b7280">240 mA (TX)</text>
+
+  <line x1="135" y1="205" x2="140" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="130" y="209" text-anchor="end" font-size="12" fill="#6b7280">80 mA (RX)</text>
+
+  <line x1="135" y1="265" x2="140" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="130" y="269" text-anchor="end" font-size="12" fill="#6b7280">35 mA (CPU)</text>
+
+  <line x1="135" y1="340" x2="140" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="130" y="344" text-anchor="end" font-size="12" fill="#6b7280">7 µA (Sleep)</text>
+
+  <!-- Profile Waveform Line -->
+  <path d="M 140,338 L 310,338 L 325,285 L 345,285 L 345,265 L 490,265 L 490,205 L 520,205 L 520,140 L 620,140 L 620,205 L 670,205 L 670,338 L 860,338" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- Phase Annotations -->
+  <!-- Phase 1: Deep Sleep -->
+  <text x="225" y="300" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">1. Глибокий сон</text>
+  <text x="225" y="316" text-anchor="middle" font-size="12" fill="#6b7280">I_sleep ≈ 7 µA</text>
+
+  <!-- Phase 2: Wakeup -->
+  <text x="330" y="200" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">2. Пробудження</text>
+  <text x="330" y="215" text-anchor="middle" font-size="12" fill="#6b7280">T_wake ~ 3 ms</text>
+
+  <!-- Phase 3: CPU Data Processing -->
+  <text x="440" y="200" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">3. Обробка даних</text>
+  <text x="440" y="215" text-anchor="middle" font-size="12" fill="#6b7280">I_proc ≈ 35 mA</text>
+
+  <!-- Phase 4: Radio TX Peak -->
+  <text x="570" y="105" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">4. Передача (TX)</text>
+  <text x="570" y="120" text-anchor="middle" font-size="12" fill="#c0392b">Wi-Fi 6 / 802.15.4</text>
+
+  <!-- Phase 5: RX ACK -->
+  <text x="645" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">5. Прийом (RX)</text>
+  <text x="645" y="185" text-anchor="middle" font-size="12" fill="#6b7280">I_rx ≈ 80 mA</text>
+
+  <!-- Time Brackets -->
+  <!-- Sleep 1 Bracket -->
+  <line x1="140" y1="358" x2="310" y2="358" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="140" y1="353" x2="140" y2="363" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="310" y1="353" x2="310" y2="363" stroke="#310" stroke-width="1.5"/>
+  <text x="225" y="373" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">T_sleep</text>
+
+  <!-- Active Phase Bracket -->
+  <line x1="310" y1="358" x2="670" y2="358" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="310" y1="353" x2="310" y2="363" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="670" y1="353" x2="670" y2="363" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="490" y="373" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">T_active (активний стан)</text>
+
+  <!-- Full Cycle Bracket -->
+  <line x1="140" y1="388" x2="860" y2="388" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="140" y1="383" x2="140" y2="393" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="860" y1="383" x2="860" y2="393" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="500" y="402" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Повний робочий цикл: T_cycle = T_sleep + T_active</text>
+
+  <!-- Bottom Info Card / Mathematical Model -->
+  <rect x="35" y="415" width="890" height="90" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+
+  <!-- Left Column -->
+  <text x="55" y="435" text-anchor="start" font-size="13" font-weight="bold" fill="#2457d6">Середньозважений струм циклу (I_avg):</text>
+  <text x="55" y="455" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">I_avg = (I_sleep × T_sleep + I_active × T_active) / T_cycle</text>
+  <text x="55" y="475" text-anchor="start" font-size="12" fill="#6b7280">Оскільки T_sleep &gt;&gt; T_active, I_sleep визначає базисне енергоспоживання</text>
+  <text x="55" y="493" text-anchor="start" font-size="12" fill="#6b7280">Час автономності: t_bat = (C_bat × η_LDO) / (I_avg + I_self_discharge)</text>
+
+  <!-- Right Column -->
+  <text x="560" y="435" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Вплив живлення та ККД LDO:</text>
+  <text x="560" y="455" text-anchor="start" font-size="12" fill="#1a1a1a">• ККД LDO: η_LDO = V_VDD / V_bat (3.3V / V_bat)</text>
+  <text x="560" y="475" text-anchor="start" font-size="12" fill="#6b7280">• При 4.2V Li-Ion ККД становить лише ~78%</text>
+  <text x="560" y="493" text-anchor="start" font-size="12" fill="#6b7280">• Саморозряд АКБ критичний при T_sleep &gt; 1 год</text>
+</svg>

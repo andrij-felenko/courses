@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема потоків даних та тактування шин DVP, SCCB і PSRAM</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Передача відеопотоку від CMOS-сенсора через контролер DMA до зовнішньої пам'яті PSRAM</text>
+
+  <!-- BLOCK 1: Camera Sensor -->
+  <rect x="40" y="80" width="220" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="150" y="105" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Сенсор зображення</text>
+
+  <!-- Sub-box 1: DVP -->
+  <rect x="55" y="120" width="190" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="150" y="138" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Матриця &amp; DVP</text>
+  <text x="68" y="158" font-size="12" fill="#1a1a1a">• Шина даних D[0..7]</text>
+  <text x="68" y="176" font-size="12" fill="#1a1a1a">• Тактування PCLK</text>
+  <text x="68" y="194" font-size="12" fill="#1a1a1a">• Синхронізація VSYNC/HREF</text>
+
+  <!-- Sub-box 2: SCCB -->
+  <rect x="55" y="230" width="190" height="95" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="150" y="248" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Регістри SCCB</text>
+  <text x="68" y="268" font-size="12" fill="#1a1a1a">• Адресація регістрів</text>
+  <text x="68" y="286" font-size="12" fill="#1a1a1a">• Линії SIOC / SIOD</text>
+  <text x="68" y="304" font-size="12" fill="#1a1a1a">• Конфігурація AEC/AGC</text>
+
+  <!-- Sub-box 3: Clock In -->
+  <rect x="55" y="340" width="190" height="90" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="150" y="358" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Вхід тактування</text>
+  <text x="68" y="378" font-size="12" fill="#1a1a1a">• Вхід XCLK (10..20 МГц)</text>
+  <text x="68" y="396" font-size="12" fill="#1a1a1a">• Генератор такту LEDC</text>
+  <text x="68" y="414" font-size="12" fill="#1a1a1a">• Живлення AVDD/DVDD</text>
+
+  <!-- BLOCK 2: ESP32 Microcontroller -->
+  <rect x="370" y="80" width="220" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="480" y="105" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Контролер ESP32</text>
+
+  <!-- Sub-box 1: DMA/DVP -->
+  <rect x="385" y="120" width="190" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="138" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Контролер DMA / DVP</text>
+  <text x="398" y="158" font-size="12" fill="#1a1a1a">• I2S / LCD_CAM порт</text>
+  <text x="398" y="176" font-size="12" fill="#1a1a1a">• Прямий доступ DMA</text>
+  <text x="398" y="194" font-size="12" fill="#1a1a1a">• Кільцеві буфери FIFO</text>
+
+  <!-- Sub-box 2: I2C Master -->
+  <rect x="385" y="230" width="190" height="95" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="480" y="248" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">I2C / SCCB Мастер</text>
+  <text x="398" y="268" font-size="12" fill="#1a1a1a">• Драйвер esp_camera</text>
+  <text x="398" y="286" font-size="12" fill="#1a1a1a">• Запис регістрів I2C</text>
+  <text x="398" y="304" font-size="12" fill="#1a1a1a">• Контролер sensor_t</text>
+
+  <!-- Sub-box 3: SPI Controller -->
+  <rect x="385" y="340" width="190" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="358" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">SPI / PSRAM Контролер</text>
+  <text x="398" y="378" font-size="12" fill="#1a1a1a">• Quad / Octal SPI шина</text>
+  <text x="398" y="396" font-size="12" fill="#1a1a1a">• Частота SPI 80 МГц</text>
+  <text x="398" y="414" font-size="12" fill="#1a1a1a">• Арбітр системної шини</text>
+
+  <!-- BLOCK 3: PSRAM Memory -->
+  <rect x="700" y="80" width="220" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="810" y="105" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Пам'ять PSRAM (4/8 МБ)</text>
+
+  <!-- Sub-box 1: Frame Buffers -->
+  <rect x="715" y="120" width="190" height="150" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="810" y="138" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Кадрові буфери</text>
+  <text x="728" y="160" font-size="12" fill="#1a1a1a">• Буфер 0: camera_fb_t</text>
+  <text x="728" y="180" font-size="12" fill="#1a1a1a">• Буфер 1: camera_fb_t</text>
+  <text x="728" y="200" font-size="12" fill="#1a1a1a">• Кадри JPEG / RGB565</text>
+  <text x="728" y="220" font-size="12" fill="#1a1a1a">• Буферизація UXGA</text>
+  <text x="728" y="240" font-size="12" fill="#1a1a1a">• Швидкість до 80 МБ/с</text>
+
+  <!-- Sub-box 2: SRAM -->
+  <rect x="715" y="285" width="190" height="145" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="810" y="303" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Внутрішня SRAM</text>
+  <text x="728" y="325" font-size="12" fill="#1a1a1a">• Внутрішній обсяг 520 КБ</text>
+  <text x="728" y="345" font-size="12" fill="#1a1a1a">• Двобуферний ping-pong</text>
+  <text x="728" y="365" font-size="12" fill="#1a1a1a">• Швидкі дескриптори DMA</text>
+  <text x="728" y="385" font-size="12" fill="#1a1a1a">• Захист від помилок OOM</text>
+  <text x="728" y="405" font-size="12" fill="#1a1a1a">• Купа системи ESP-IDF</text>
+
+  <!-- CONNECTIONS & BADGES -->
+  <!-- Line 1: DVP Data -->
+  <line x1="245" y1="167" x2="268" y2="167" stroke="#2457d6" stroke-width="2"/>
+  <line x1="362" y1="167" x2="385" y2="167" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="268" y="156" width="94" height="22" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="315" y="171" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">DVP (D0..D7)</text>
+
+  <!-- Line 2: SCCB -->
+  <line x1="385" y1="277" x2="362" y2="277" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,2"/>
+  <line x1="268" y1="277" x2="245" y2="277" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,2"/>
+  <rect x="268" y="266" width="94" height="22" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="315" y="281" text-anchor="middle" font-size="11" fill="#6b7280">SCCB (SIOC/D)</text>
+
+  <!-- Line 3: XCLK -->
+  <line x1="385" y1="387" x2="362" y2="387" stroke="#27ae60" stroke-width="2"/>
+  <line x1="268" y1="387" x2="245" y2="387" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="268" y="376" width="94" height="22" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="315" y="391" text-anchor="middle" font-size="11" fill="#27ae60">← XCLK (LEDC)</text>
+
+  <!-- Line 4: SPI PSRAM -->
+  <line x1="575" y1="195" x2="598" y2="195" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="692" y1="195" x2="715" y2="195" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <rect x="598" y="184" width="94" height="22" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="645" y="199" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">SPI (80 МГц) →</text>
+
+  <!-- Line 5: DMA Descriptors -->
+  <line x1="575" y1="360" x2="598" y2="360" stroke="#27ae60" stroke-width="2"/>
+  <line x1="692" y1="360" x2="715" y2="360" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="598" y="349" width="94" height="22" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="645" y="364" text-anchor="middle" font-size="10.5" fill="#27ae60">DMA Descriptors</text>
+</svg>

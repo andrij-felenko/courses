@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Апаратна архітектура проходження сигналу керування GPIO в ESP8266</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Шлях від текстової AT-команди через буфер RX, парсер, регістри та IOMUX до фізичного виводу</text>
+
+  <!-- Stage 1: UART RX FIFO -->
+  <rect x="35" y="90" width="150" height="310" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <rect x="45" y="102" width="130" height="24" fill="#2457d6" rx="4"/>
+  <text x="110" y="118" text-anchor="middle" font-size="12" fill="white" font-weight="bold">1. Послідовний порт</text>
+  <text x="110" y="150" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">UART RX FIFO</text>
+  <rect x="47" y="165" width="126" height="40" fill="white" stroke="#2457d6" stroke-dasharray="3,3" rx="4"/>
+  <text x="110" y="190" text-anchor="middle" font-size="12" fill="#2457d6" font-family="monospace">AT+CIOWRITE=2,1</text>
+  <text x="110" y="235" text-anchor="middle" font-size="12" fill="#6b7280">Кадр: 8-N-1 (10 біт)</text>
+  <text x="110" y="260" text-anchor="middle" font-size="12" fill="#6b7280">Швидкість: 115200</text>
+  <text x="110" y="285" text-anchor="middle" font-size="12" fill="#6b7280">Затримка: 1.48 мс</text>
+  <text x="110" y="335" text-anchor="middle" font-size="12" fill="#2457d6" font-weight="bold">Апаратне RX FIFO</text>
+  <text x="110" y="355" text-anchor="middle" font-size="12" fill="#6b7280">128 байтів DRAM</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M 185,245 L 210,245" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Stage 2: AT Parser & CPU -->
+  <rect x="215" y="90" width="165" height="310" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <rect x="225" y="102" width="145" height="24" fill="#2457d6" rx="4"/>
+  <text x="297" y="118" text-anchor="middle" font-size="12" fill="white" font-weight="bold">2. Інтерпретатор AT</text>
+  <text x="297" y="150" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">AT Command Parser</text>
+  <rect x="227" y="165" width="141" height="32" fill="white" stroke="#2457d6" rx="4"/>
+  <text x="297" y="186" text-anchor="middle" font-size="12" fill="#2457d6" font-weight="bold">Tensilica L106 80MHz</text>
+  <text x="227" y="235" text-anchor="start" font-size="12" fill="#1a1a1a">• Розбір символів AT+</text>
+  <text x="227" y="265" text-anchor="start" font-size="12" fill="#1a1a1a">• Номер виводу: GPIO2</text>
+  <text x="227" y="295" text-anchor="start" font-size="12" fill="#1a1a1a">• Стан: 1 (HIGH)</text>
+  <text x="227" y="345" text-anchor="start" font-size="12" fill="#2457d6" font-weight="bold">• Парсинг: ~350 мкс</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M 380,245 L 405,245" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Stage 3: GPIO Registers -->
+  <rect x="410" y="90" width="165" height="310" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <rect x="420" y="102" width="145" height="24" fill="#1a1a1a" rx="4"/>
+  <text x="492" y="118" text-anchor="middle" font-size="12" fill="white" font-weight="bold">3. Регістри GPIO</text>
+  <rect x="422" y="145" width="141" height="48" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="492" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO_ENABLE</text>
+  <text x="492" y="182" text-anchor="middle" font-size="12" fill="#6b7280">Напрямок: Вихід (1)</text>
+  <rect x="422" y="205" width="141" height="48" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="492" y="225" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">GPIO_OUT_W1TS</text>
+  <text x="492" y="242" text-anchor="middle" font-size="12" fill="#2457d6">Встановити 1 (BIT2)</text>
+  <rect x="422" y="265" width="141" height="48" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="492" y="285" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO_OUT_W1TC</text>
+  <text x="492" y="302" text-anchor="middle" font-size="12" fill="#6b7280">Скинути 0 (Очистити)</text>
+  <rect x="422" y="325" width="141" height="48" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="492" y="345" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO_IN</text>
+  <text x="492" y="362" text-anchor="middle" font-size="12" fill="#6b7280">Зчитати стани ліній</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <path d="M 575,245 L 600,245" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+
+  <!-- Stage 4: IOMUX Matrix -->
+  <rect x="605" y="90" width="155" height="310" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <rect x="615" y="102" width="135" height="24" fill="#1a1a1a" rx="4"/>
+  <text x="682" y="118" text-anchor="middle" font-size="12" fill="white" font-weight="bold">4. Матриця IOMUX</text>
+  <text x="682" y="150" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">IOMUX Multiplexer</text>
+  <rect x="617" y="165" width="131" height="52" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="682" y="186" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">PERIPHS_IO_MUX</text>
+  <text x="682" y="206" text-anchor="middle" font-size="12" fill="#2457d6" font-weight="bold">FUNC_GPIO2 (Mode 0)</text>
+  <text x="617" y="250" text-anchor="start" font-size="12" fill="#1a1a1a">• Підтяжка Pull-Up</text>
+  <text x="617" y="278" text-anchor="start" font-size="12" fill="#1a1a1a">• Комутація сигналу</text>
+  <text x="617" y="306" text-anchor="start" font-size="12" fill="#1a1a1a">• Відключення SPI</text>
+  <text x="617" y="350" text-anchor="start" font-size="12" fill="#6b7280">Затримка: ~1 нс</text>
+
+  <!-- Arrow 4 -> 5 -->
+  <path d="M 760,245 L 785,245" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Stage 5: Physical Pin & Driver -->
+  <rect x="790" y="90" width="135" height="310" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <rect x="798" y="102" width="119" height="24" fill="#27ae60" rx="4"/>
+  <text x="857" y="118" text-anchor="middle" font-size="12" fill="white" font-weight="bold">5. Фізичний вивід</text>
+  <text x="857" y="150" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Output Pad Driver</text>
+  <rect x="802" y="165" width="111" height="90" fill="white" stroke="#27ae60" rx="4"/>
+  <text x="857" y="190" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Push-Pull Driver</text>
+  <text x="857" y="215" text-anchor="middle" font-size="12" fill="#27ae60">Струм до 12 мА</text>
+  <text x="857" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">HIGH = 3.3V</text>
+  <circle cx="857" cy="310" r="28" fill="#27ae60" stroke="white" stroke-width="3"/>
+  <text x="857" y="315" text-anchor="middle" font-size="12" fill="white" font-weight="bold">GPIO2</text>
+  <text x="857" y="360" text-anchor="middle" font-size="12" fill="#27ae60" font-weight="bold">Фізична ніжка</text>
+
+  <!-- Summary Footer Bar -->
+  <rect x="35" y="412" width="890" height="34" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="480" y="434" text-anchor="middle" font-size="12" fill="#1a1a1a">Загальний час обробки від надходження першого біта AT-команди до зміни рівня на ніжці GPIO2 становить ~1.83 мс</text>
+</svg>

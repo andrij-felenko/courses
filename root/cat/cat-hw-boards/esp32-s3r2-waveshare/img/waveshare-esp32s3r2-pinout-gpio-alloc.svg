@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розподіл виводів GPIO та системних шин Waveshare ESP32-S3R2</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Внутрішнє підключення PSRAM/Flash обмежує GPIO33–37, інші виводи безпечні для периферії</text>
+
+  <!-- Left Panel: Restricted & Service Pins -->
+  <rect x="30" y="75" width="280" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="170" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Застереження та сигнали</text>
+
+  <!-- Danger Card -->
+  <rect x="42" y="112" width="256" height="88" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="54" y="132" font-size="13" font-weight="bold" fill="#c0392b">Зайняті внутрішньою пам'яттю:</text>
+  <text x="54" y="151" font-size="12" fill="#1a1a1a">• GPIO33, GPIO34, GPIO35</text>
+  <text x="54" y="169" font-size="12" fill="#1a1a1a">• GPIO36, GPIO37 (Octal SPI)</text>
+  <text x="54" y="187" font-size="12" font-weight="bold" fill="#c0392b">Підключати периферію заборонено!</text>
+
+  <!-- Service Card -->
+  <rect x="42" y="208" width="256" height="88" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="54" y="228" font-size="13" font-weight="bold" fill="#2457d6">Службові інтерфейси плати:</text>
+  <text x="54" y="247" font-size="12" fill="#1a1a1a">• GPIO19 (USB D-), GPIO20 (USB D+)</text>
+  <text x="54" y="265" font-size="12" fill="#1a1a1a">• GPIO0 (кнопка BOOT / старт)</text>
+  <text x="54" y="283" font-size="12" font-weight="bold" fill="#2457d6">Нативний USB та завантажувач</text>
+
+  <!-- Power Card -->
+  <rect x="42" y="304" width="256" height="158" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="54" y="324" font-size="13" font-weight="bold" fill="#1a1a1a">Живлення та подільник:</text>
+  <text x="54" y="344" font-size="12" fill="#1a1a1a">• 5V (USB / зовнішній вхід 5 В)</text>
+  <text x="54" y="362" font-size="12" fill="#1a1a1a">• 3.3V (вихід стабілізатора)</text>
+  <text x="54" y="380" font-size="12" fill="#1a1a1a">• GND (спільний дріт заземлення)</text>
+  <text x="54" y="398" font-size="12" fill="#1a1a1a">• VBAT / ADC (контроль АКБ)</text>
+  <text x="54" y="416" font-size="12" fill="#6b7280">• Подільник 1:2 на вхід ADC</text>
+
+  <!-- Middle Panel: Board Architecture -->
+  <rect x="340" y="75" width="280" height="400" rx="10" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <text x="480" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Waveshare ESP32-S3R2</text>
+
+  <!-- Chip Box -->
+  <rect x="355" y="115" width="250" height="190" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="140" text-anchor="middle" font-size="15" font-weight="bold" fill="#2457d6">ESP32-S3R2 (SiP)</text>
+  <text x="480" y="160" text-anchor="middle" font-size="12" fill="#1a1a1a">Xtensa LX7 (до 240 МГц)</text>
+
+  <!-- Memory Inner Box -->
+  <rect x="370" y="175" width="220" height="115" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="196" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Внутрішні шини (SiP):</text>
+  <text x="480" y="218" text-anchor="middle" font-size="12" fill="#1a1a1a">2 МБ PSRAM (Octal/Quad)</text>
+  <text x="480" y="238" text-anchor="middle" font-size="12" fill="#1a1a1a">16 МБ SPI Flash</text>
+  <text x="480" y="258" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Займають GPIO33–GPIO37</text>
+
+  <!-- Board Peripherals -->
+  <rect x="355" y="318" width="120" height="95" rx="5" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="415" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">RGB LED</text>
+  <text x="415" y="360" text-anchor="middle" font-size="12" fill="#6b7280">WS2812B</text>
+  <text x="415" y="380" text-anchor="middle" font-size="12" fill="#2457d6">GPIO21</text>
+
+  <rect x="485" y="318" width="120" height="95" rx="5" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="545" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Кнопки</text>
+  <text x="545" y="360" text-anchor="middle" font-size="12" fill="#6b7280">BOOT (GPIO0)</text>
+  <text x="545" y="380" text-anchor="middle" font-size="12" fill="#6b7280">RST (CH_PD)</text>
+
+  <!-- USB Connector -->
+  <rect x="410" y="426" width="140" height="36" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="480" y="449" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">USB Type-C</text>
+
+  <!-- Right Panel: Safe GPIOs -->
+  <rect x="650" y="75" width="280" height="400" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="790" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Вільні користувацькі GPIO</text>
+
+  <!-- Safe GPIO List Card -->
+  <rect x="662" y="112" width="256" height="110" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="674" y="132" font-size="13" font-weight="bold" fill="#27ae60">Доступні GPIO для периферії:</text>
+  <text x="674" y="151" font-size="12" fill="#1a1a1a">• GPIO1 – GPIO18 (ADC, Touch)</text>
+  <text x="674" y="169" font-size="12" fill="#1a1a1a">• GPIO38 – GPIO42 (General IO)</text>
+  <text x="674" y="187" font-size="12" fill="#1a1a1a">• GPIO43, GPIO44 (UART0)</text>
+  <text x="674" y="205" font-size="12" font-weight="bold" fill="#27ae60">Повна сумісність із матрицею</text>
+
+  <!-- Bus Mapping Card -->
+  <rect x="662" y="230" width="256" height="120" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="674" y="250" font-size="13" font-weight="bold" fill="#1a1a1a">Рекомендована розводка шин:</text>
+  <text x="674" y="270" font-size="12" fill="#1a1a1a">• I2C: SDA=GPIO8, SCL=GPIO9</text>
+  <text x="674" y="288" font-size="12" fill="#1a1a1a">• SPI: MOSI=11, MISO=13, SCLK=12</text>
+  <text x="674" y="306" font-size="12" fill="#1a1a1a">• UART: TX=GPIO43, RX=GPIO44</text>
+  <text x="674" y="324" font-size="12" fill="#1a1a1a">• PWM / I2S: довільні вільні GPIO</text>
+
+  <!-- Rules Card -->
+  <rect x="662" y="358" width="256" height="104" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="674" y="378" font-size="12" font-weight="bold" fill="#1a1a1a">Головне правило розводки:</text>
+  <text x="674" y="398" font-size="12" fill="#1a1a1a">Перед призначенням виводу</text>
+  <text x="674" y="416" font-size="12" fill="#1a1a1a">перевіряйте відсутність конфлікту</text>
+  <text x="674" y="434" font-size="12" fill="#6b7280">із системною пам'яттю PSRAM!</text>
+</svg>

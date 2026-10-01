@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розводка роз'єму 2x4 та режими роботи ESP-01 / ESP-01S</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Тумблер UART/PROG комутує лінію GPIO0 для вибору між стартом із Flash та прошиванням</text>
+
+  <!-- Left Panel: 2x4 Connector Pinout -->
+  <rect x="30" y="75" width="435" height="450" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="45" y="87" width="405" height="30" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="247.5" y="107" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Розпінування 8-контактного роз'єму 2x4</text>
+
+  <!-- 2x4 Socket Diagram Box -->
+  <rect x="117.5" y="130" width="260" height="120" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="6"/>
+  <text x="247.5" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Роз'єм розширювача (Вигляд зверху)</text>
+
+  <!-- Pin Grid Row 1 -->
+  <circle cx="147.5" cy="175" r="13" fill="#1a1a1a"/>
+  <text x="147.5" y="179" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">GND</text>
+
+  <circle cx="207.5" cy="175" r="13" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="207.5" y="179" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">IO2</text>
+
+  <circle cx="267.5" cy="175" r="13" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="267.5" y="179" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">IO0</text>
+
+  <circle cx="327.5" cy="175" r="13" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="327.5" y="179" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">RX</text>
+
+  <!-- Pin Grid Row 2 -->
+  <circle cx="147.5" cy="215" r="13" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="147.5" y="219" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">TX</text>
+
+  <circle cx="207.5" cy="215" r="13" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="207.5" y="219" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">EN</text>
+
+  <circle cx="267.5" cy="215" r="13" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="267.5" y="219" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">RST</text>
+
+  <circle cx="327.5" cy="215" r="13" fill="#c0392b"/>
+  <text x="327.5" y="219" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">3V3</text>
+
+  <!-- Pin Function Cards -->
+  <!-- Row 1 Cards -->
+  <rect x="45" y="265" width="195" height="52" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="55" y="283" font-size="12" font-weight="bold" fill="#1a1a1a">GND (Земля)</text>
+  <text x="55" y="301" font-size="12" fill="#6b7280">Спільна шина 0 В</text>
+
+  <rect x="255" y="265" width="195" height="52" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="265" y="283" font-size="12" font-weight="bold" fill="#c0392b">VCC (3.3 В)</text>
+  <text x="265" y="301" font-size="12" fill="#6b7280">Живлення до 500 мА</text>
+
+  <!-- Row 2 Cards -->
+  <rect x="45" y="325" width="195" height="52" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="55" y="343" font-size="12" font-weight="bold" fill="#c0392b">GPIO0 (Boot Mode)</text>
+  <text x="55" y="361" font-size="12" fill="#1a1a1a">0 = PROG, 1 = UART Run</text>
+
+  <rect x="255" y="325" width="195" height="52" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="265" y="343" font-size="12" font-weight="bold" fill="#2457d6">GPIO2 (Boot Pin)</text>
+  <text x="265" y="361" font-size="12" fill="#6b7280">Підтяжка 3.3 В при старті</text>
+
+  <!-- Row 3 Cards -->
+  <rect x="45" y="385" width="195" height="52" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="55" y="403" font-size="12" font-weight="bold" fill="#27ae60">CH_PD / EN (Enable)</text>
+  <text x="55" y="421" font-size="12" fill="#1a1a1a">1 = Чип активний (3.3 В)</text>
+
+  <rect x="255" y="385" width="195" height="52" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="265" y="403" font-size="12" font-weight="bold" fill="#2457d6">RST (Reset)</text>
+  <text x="265" y="421" font-size="12" fill="#6b7280">Активний 0 для скидання</text>
+
+  <!-- Row 4 Cards -->
+  <rect x="45" y="445" width="195" height="52" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="55" y="463" font-size="12" font-weight="bold" fill="#2457d6">RXD (Приймач UART)</text>
+  <text x="55" y="481" font-size="12" fill="#6b7280">Вхід (до TX адаптера)</text>
+
+  <rect x="255" y="445" width="195" height="52" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="265" y="463" font-size="12" font-weight="bold" fill="#2457d6">TXD (Передавач UART)</text>
+  <text x="265" y="481" font-size="12" fill="#6b7280">Вихід (до RX адаптера)</text>
+
+  <!-- Right Panel: Switch & ESP-01 / ESP-01S comparison -->
+  <rect x="495" y="75" width="435" height="450" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+
+  <!-- Top Box: PROG/UART Switch -->
+  <rect x="510" y="87" width="405" height="173" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="712.5" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Схема перемикача режимів PROG / UART</text>
+
+  <!-- UART Mode Box -->
+  <rect x="525" y="125" width="180" height="120" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="615" y="143" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Режим UART (Run)</text>
+  <text x="535" y="166" font-size="12" fill="#1a1a1a">• Тумблер: розімкнено</text>
+  <text x="535" y="184" font-size="12" fill="#1a1a1a">• GPIO0 підтягнуто</text>
+  <text x="535" y="202" font-size="12" fill="#1a1a1a">  через 10k до 3.3 В</text>
+  <text x="535" y="226" font-size="12" font-weight="bold" fill="#2457d6">→ Старт з Flash</text>
+
+  <!-- PROG Mode Box -->
+  <rect x="720" y="125" width="180" height="120" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="810" y="143" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Режим PROG (Flash)</text>
+  <text x="730" y="166" font-size="12" fill="#1a1a1a">• Тумблер: замкнено</text>
+  <text x="730" y="184" font-size="12" fill="#1a1a1a">• GPIO0 з'єднано з GND</text>
+  <text x="730" y="202" font-size="12" fill="#1a1a1a">  (логічний 0)</text>
+  <text x="730" y="226" font-size="12" font-weight="bold" fill="#c0392b">→ Вхід у Bootloader</text>
+
+  <!-- Bottom Box: ESP-01 vs ESP-01S Differences -->
+  <rect x="510" y="270" width="405" height="232" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="712.5" y="293" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Особливості модулів ESP-01 та ESP-01S</text>
+
+  <!-- ESP-01 Card -->
+  <rect x="525" y="308" width="375" height="88" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="535" y="326" text-anchor="start" font-size="13" font-weight="bold" fill="#c0392b">ESP-01 (Без вбудованих підтяжок):</text>
+  <text x="535" y="346" font-size="12" fill="#1a1a1a">• Вимагає Pull-up 10 кОм на CH_PD, RST, GPIO0, GPIO2</text>
+  <text x="535" y="364" font-size="12" fill="#1a1a1a">• Без резисторів на адаптері модуль не стартує</text>
+  <text x="535" y="384" font-size="12" font-weight="bold" fill="#c0392b">⚠ Потребує повного обв'язування на адаптері</text>
+
+  <!-- ESP-01S Card -->
+  <rect x="525" y="408" width="375" height="84" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="535" y="426" text-anchor="start" font-size="13" font-weight="bold" fill="#27ae60">ESP-01S (Інтегроване обв'язування):</text>
+  <text x="535" y="446" font-size="12" fill="#1a1a1a">• Має SMD-резистори 10 кОм на CH_PD, RST та GPIO0</text>
+  <text x="535" y="464" font-size="12" fill="#1a1a1a">• Працює навіть у найпростіших перехідниках</text>
+  <text x="535" y="482" font-size="12" font-weight="bold" fill="#27ae60">✔ Повна сумісність з усіма програматорами</text>
+</svg>

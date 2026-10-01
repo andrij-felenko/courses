@@ -1,0 +1,232 @@
+<svg viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Main Header -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрія посадкової площадки (Footprint) ESP32-S3-Zero</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Рекомендовані геометричні розміри SMD-майданчиків, крок контактів та масковий зазор</text>
+
+  <!-- PANEL 1: Motherboard Footprint Overview -->
+  <rect x="30" y="80" width="520" height="420" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="50" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">Топологія майданчиків материнської плати</text>
+
+  <!-- Panel 1: Top Width Dimension -->
+  <line x1="160" y1="120" x2="160" y2="155" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="400" y1="120" x2="400" y2="155" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="160" y1="138" x2="400" y2="138" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-start)" marker-end="url(#arr)"/>
+  <text x="280" y="130" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ширина плати: 18.00 мм</text>
+
+  <!-- Panel 1: Module Outline -->
+  <path d="M 160,160 H 400 V 440 H 160 Z" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Panel 1: USB-C Connector -->
+  <rect x="245" y="160" width="70" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="280" y="178" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Type-C</text>
+
+  <!-- Panel 1: Pitch Dimension P = 2.54 mm (Left) -->
+  <line x1="96" y1="186" x2="144" y2="186" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="96" y1="212" x2="144" y2="212" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="108" y1="186" x2="108" y2="212" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-start)" marker-end="url(#arr)"/>
+  <text x="100" y="203" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">P = 2.54 мм</text>
+
+  <!-- Panel 1: Left Pads (9 pins) -->
+  <!-- Pad 1 -->
+  <rect x="144" y="180" width="32" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 160,181 A 5,5 0 0,0 160,191 Z" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+  <text x="184" y="190" font-size="12" fill="#6b7280" text-anchor="start">3V3</text>
+
+  <!-- Pad 2 -->
+  <rect x="144" y="206" width="32" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 160,207 A 5,5 0 0,0 160,217 Z" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+  <text x="184" y="216" font-size="12" fill="#6b7280" text-anchor="start">GND</text>
+
+  <!-- Pad 3 -->
+  <rect x="144" y="232" width="32" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 160,233 A 5,5 0 0,0 160,243 Z" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+  <text x="184" y="242" font-size="12" fill="#6b7280" text-anchor="start">GPIO0</text>
+
+  <!-- Pad 4 -->
+  <rect x="144" y="258" width="32" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 160,259 A 5,5 0 0,0 160,269 Z" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+  <text x="184" y="268" font-size="12" fill="#6b7280" text-anchor="start">GPIO1</text>
+
+  <!-- Pad 5 -->
+  <rect x="144" y="284" width="32" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 160,285 A 5,5 0 0,0 160,295 Z" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+  <text x="184" y="294" font-size="12" fill="#6b7280" text-anchor="start">GPIO2</text>
+
+  <!-- Pad 6 -->
+  <rect x="144" y="310" width="32" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 160,311 A 5,5 0 0,0 160,321 Z" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+  <text x="184" y="320" font-size="12" fill="#6b7280" text-anchor="start">GPIO3</text>
+
+  <!-- Pad 7 -->
+  <rect x="144" y="336" width="32" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 160,337 A 5,5 0 0,0 160,347 Z" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+  <text x="184" y="346" font-size="12" fill="#6b7280" text-anchor="start">GPIO4</text>
+
+  <!-- Pad 8 -->
+  <rect x="144" y="362" width="32" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 160,363 A 5,5 0 0,0 160,373 Z" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+  <text x="184" y="372" font-size="12" fill="#6b7280" text-anchor="start">GPIO5</text>
+
+  <!-- Pad 9 -->
+  <rect x="144" y="388" width="32" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 160,389 A 5,5 0 0,0 160,399 Z" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+  <text x="184" y="398" font-size="12" fill="#6b7280" text-anchor="start">GPIO6</text>
+
+  <!-- Panel 1: Right Pads (9 pins) -->
+  <!-- Pad 10 -->
+  <rect x="384" y="180" width="32" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 400,181 A 5,5 0 0,1 400,191 Z" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+  <text x="376" y="190" font-size="12" fill="#6b7280" text-anchor="end">5V</text>
+
+  <!-- Pad 11 -->
+  <rect x="384" y="206" width="32" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 400,207 A 5,5 0 0,1 400,217 Z" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+  <text x="376" y="216" font-size="12" fill="#6b7280" text-anchor="end">GND</text>
+
+  <!-- Pad 12 -->
+  <rect x="384" y="232" width="32" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 400,233 A 5,5 0 0,1 400,243 Z" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+  <text x="376" y="242" font-size="12" fill="#6b7280" text-anchor="end">TX</text>
+
+  <!-- Pad 13 -->
+  <rect x="384" y="258" width="32" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 400,259 A 5,5 0 0,1 400,269 Z" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+  <text x="376" y="268" font-size="12" fill="#6b7280" text-anchor="end">RX</text>
+
+  <!-- Pad 14 -->
+  <rect x="384" y="284" width="32" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 400,285 A 5,5 0 0,1 400,295 Z" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+  <text x="376" y="294" font-size="12" fill="#6b7280" text-anchor="end">GPIO7</text>
+
+  <!-- Pad 15 -->
+  <rect x="384" y="310" width="32" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 400,311 A 5,5 0 0,1 400,321 Z" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+  <text x="376" y="320" font-size="12" fill="#6b7280" text-anchor="end">GPIO8</text>
+
+  <!-- Pad 16 -->
+  <rect x="384" y="336" width="32" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 400,337 A 5,5 0 0,1 400,347 Z" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+  <text x="376" y="346" font-size="12" fill="#6b7280" text-anchor="end">GPIO9</text>
+
+  <!-- Pad 17 -->
+  <rect x="384" y="362" width="32" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 400,363 A 5,5 0 0,1 400,373 Z" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+  <text x="376" y="372" font-size="12" fill="#6b7280" text-anchor="end">GPIO10</text>
+
+  <!-- Pad 18 -->
+  <rect x="384" y="388" width="32" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 400,389 A 5,5 0 0,1 400,399 Z" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+  <text x="376" y="398" font-size="12" fill="#6b7280" text-anchor="end">GPIO11</text>
+
+  <!-- Panel 1: Height Dimension H = 23.50 mm (Right) -->
+  <line x1="400" y1="160" x2="464" y2="160" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="400" y1="440" x2="464" y2="440" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="452" y1="160" x2="452" y2="440" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-start)" marker-end="url(#arr)"/>
+  <text x="458" y="305" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">H = 23.50 мм</text>
+
+  <!-- Panel 1: Central Keepout Area -->
+  <rect x="228" y="325" width="104" height="70" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="280" y="345" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зона заборони</text>
+  <text x="280" y="362" font-size="12" fill="#c0392b" text-anchor="middle">Без міді й трас</text>
+  <text x="280" y="379" font-size="12" fill="#6b7280" text-anchor="middle">(Keepout Area)</text>
+
+  <!-- Panel 1: Bottom Pads (5 pins) -->
+  <rect x="198" y="424" width="12" height="32" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 199,440 A 5,5 0 0,0 209,440 Z" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+  <text x="204" y="416" font-size="12" fill="#6b7280" text-anchor="middle">GND</text>
+
+  <rect x="236" y="424" width="12" height="32" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 237,440 A 5,5 0 0,0 247,440 Z" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+  <text x="242" y="416" font-size="12" fill="#6b7280" text-anchor="middle">IO12</text>
+
+  <rect x="274" y="424" width="12" height="32" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 275,440 A 5,5 0 0,0 285,440 Z" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+  <text x="280" y="416" font-size="12" fill="#6b7280" text-anchor="middle">IO13</text>
+
+  <rect x="312" y="424" width="12" height="32" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 313,440 A 5,5 0 0,0 323,440 Z" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+  <text x="318" y="416" font-size="12" fill="#6b7280" text-anchor="middle">IO14</text>
+
+  <rect x="350" y="424" width="12" height="32" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 351,440 A 5,5 0 0,0 361,440 Z" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+  <text x="356" y="416" font-size="12" fill="#6b7280" text-anchor="middle">3V3</text>
+
+  <!-- PANEL 2: Detailed Pad Geometry -->
+  <rect x="570" y="80" width="360" height="420" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="590" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">Параметри контактного майданчика</text>
+
+  <!-- Panel 2: Board Edge Line Label -->
+  <text x="710" y="122" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Край плати-модуля</text>
+
+  <!-- Panel 2: Length Dimension L = 2.40 mm -->
+  <text x="710" y="144" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">L = 2.40 мм (Довжина)</text>
+  <line x1="630" y1="150" x2="630" y2="198" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="790" y1="150" x2="790" y2="198" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="630" y1="156" x2="790" y2="156" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-start)" marker-end="url(#arr)"/>
+
+  <!-- Panel 2: Board Edge Dashed Line Segments (Clear of all text/lines) -->
+  <line x1="710" y1="162" x2="710" y2="198" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Panel 2: Solder Mask Opening (Clearance +0.05 mm) -->
+  <rect x="624" y="204" width="172" height="62" rx="4" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Panel 2: SMD Copper Pad -->
+  <rect x="630" y="210" width="160" height="50" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Panel 2: Castellated Hole on Module Edge -->
+  <path d="M 710,205 A 30,30 0 0,0 710,265 Z" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 710,210 A 25,25 0 0,0 710,260" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Panel 2: Paste Stencil Opening (1:1 window) -->
+  <rect x="635" y="215" width="150" height="40" rx="2" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+
+  <!-- Panel 2: Board Edge Dashed Line Lower Segment -->
+  <line x1="710" y1="270" x2="710" y2="282" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Panel 2: Pad Extension E = 0.60 mm Dimension (Bottom) -->
+  <line x1="710" y1="260" x2="710" y2="288" stroke="#2457d6" stroke-width="1"/>
+  <line x1="790" y1="260" x2="790" y2="288" stroke="#2457d6" stroke-width="1"/>
+  <line x1="710" y1="288" x2="790" y2="288" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+  <text x="750" y="306" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">E = 0.60 мм (Винос)</text>
+
+  <!-- Panel 2: Pad Width W = 1.00 mm Dimension (Right) -->
+  <line x1="790" y1="210" x2="842" y2="210" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="790" y1="260" x2="842" y2="260" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="836" y1="210" x2="836" y2="260" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-start)" marker-end="url(#arr)"/>
+  <text x="844" y="239" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">W = 1.00 мм</text>
+
+  <!-- Panel 2: Divider Line -->
+  <line x1="590" y1="335" x2="910" y2="335" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Panel 2: Legend / Specs List -->
+  <rect x="590" y="348" width="14" height="14" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="612" y="360" font-size="12" fill="#1a1a1a">Масковий зазор: +0.05 мм (Clearance)</text>
+
+  <rect x="590" y="373" width="14" height="14" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="612" y="385" font-size="12" fill="#1a1a1a">Вікно пасти: 1:1 (або 90% площі)</text>
+
+  <rect x="590" y="398" width="14" height="14" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="612" y="410" font-size="12" fill="#1a1a1a">Майданчик материнки (SMD Pad)</text>
+
+  <text x="590" y="436" font-size="12" font-weight="bold" fill="#1a1a1a">Напів-отвір плати: Ø 0.80–0.90 мм</text>
+  <text x="590" y="456" font-size="12" fill="#6b7280">Радіус скруглення кутів: R = 0.20 мм</text>
+  <text x="590" y="476" font-size="12" fill="#6b7280">Рекомендована товщина трафарету: 0.12 мм</text>
+</svg>

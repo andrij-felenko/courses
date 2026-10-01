@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діаграма станів апаратного вибору режимів старту ESP8266</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Залежність обраного джерела пам'яті від логічних рівнів на виводах GPIO0, GPIO2 та GPIO15</text>
+
+  <!-- Початковий вузол (POR / RESET) -->
+  <rect x="330" y="75" width="300" height="55" rx="8" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5"/>
+  <text x="480" y="97" font-size="14" font-weight="bold" fill="#8a5a00" text-anchor="middle">Початкове скидання (POR / RST)</text>
+  <text x="480" y="117" font-size="12" fill="#6b7280" text-anchor="middle">Зчитання рівнів GPIO0, GPIO2, GPIO15</text>
+
+  <!-- Стрілки розгалуження -->
+  <path d="M 360,130 L 360,150 L 172.5,150 L 172.5,212" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="266" y="142" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">GPIO15=0, GPIO0=1, GPIO2=1</text>
+
+  <path d="M 480,130 L 480,212" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="492" y="175" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">GPIO15=0, GPIO0=0, GPIO2=1</text>
+
+  <path d="M 600,130 L 600,150 L 787.5,150 L 787.5,212" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="694" y="142" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">GPIO15=1 або (0, 0, 0)</text>
+
+  <!-- Картка 1: SPI Flash Boot -->
+  <rect x="35" y="220" width="275" height="250" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="172.5" y="248" font-size="15" font-weight="bold" fill="#1e8449" text-anchor="middle">SPI Flash Boot</text>
+  <text x="172.5" y="266" font-size="12" fill="#27ae60" text-anchor="middle">Стандартний запуск</text>
+
+  <rect x="55" y="278" width="235" height="90" rx="6" fill="white" stroke="#a3e4d7" stroke-width="1"/>
+  <text x="172.5" y="301" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO15 = LOW (0 В)</text>
+  <text x="172.5" y="324" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO0 = HIGH (3.3 В)</text>
+  <text x="172.5" y="347" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO2 = HIGH (3.3 В)</text>
+
+  <text x="172.5" y="392" font-size="12" fill="#1e8449" text-anchor="middle">Запуск прошивки з флеш</text>
+  <text x="172.5" y="412" font-size="12" fill="#6b7280" text-anchor="middle">Виконання коду у зв'язці</text>
+  <text x="172.5" y="432" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ROM -> rboot -> App</text>
+
+  <!-- Картка 2: UART Download Mode -->
+  <rect x="342.5" y="220" width="275" height="250" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="248" font-size="15" font-weight="bold" fill="#1b4f72" text-anchor="middle">UART Download Mode</text>
+  <text x="480" y="266" font-size="12" fill="#2457d6" text-anchor="middle">Режим прошивання</text>
+
+  <rect x="362.5" y="278" width="235" height="90" rx="6" fill="white" stroke="#aed6f1" stroke-width="1"/>
+  <text x="480" y="301" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO15 = LOW (0 В)</text>
+  <text x="480" y="324" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO0 = LOW (0 В)</text>
+  <text x="480" y="347" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO2 = HIGH (3.3 В)</text>
+
+  <text x="480" y="392" font-size="12" fill="#1b4f72" text-anchor="middle">Запис коду через UART0</text>
+  <text x="480" y="412" font-size="12" fill="#6b7280" text-anchor="middle">Прийом пакетів esptool</text>
+  <text x="480" y="432" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Запис у SPI Flash</text>
+
+  <!-- Картка 3: SDIO Boot / Заборонений -->
+  <rect x="650" y="220" width="275" height="250" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="787.5" y="248" font-size="15" font-weight="bold" fill="#78281f" text-anchor="middle">SDIO Boot / Заборонений</text>
+  <text x="787.5" y="266" font-size="12" fill="#c0392b" text-anchor="middle">Нештатний режим</text>
+
+  <rect x="670" y="278" width="235" height="90" rx="6" fill="white" stroke="#f5b7b1" stroke-width="1"/>
+  <text x="787.5" y="301" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">GPIO15 = HIGH (3.3 В)</text>
+  <text x="787.5" y="324" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO0 = будь-який</text>
+  <text x="787.5" y="347" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO2 = будь-який</text>
+
+  <text x="787.5" y="392" font-size="12" fill="#78281f" text-anchor="middle">Завантаження з SDIO</text>
+  <text x="787.5" y="412" font-size="12" fill="#6b7280" text-anchor="middle">або збій підтяжки на нозі</text>
+  <text x="787.5" y="432" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Пристрій блокується</text>
+
+  <!-- Нижня інформаційна панель -->
+  <rect x="35" y="482" width="890" height="26" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="499" font-size="12" fill="#6b7280" text-anchor="middle">Усі рівні зчитуються первинним ROM-завантажувачем строго під час підняття сигналу скидання (RST/POR)</text>
+</svg>

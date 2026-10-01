@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл шин і виводів GPIO: Quad SPI проти Octal SPI в ESP32-S3</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Octal SPI подвоює швидкість пам'яті (до 160 МБ/с), але зарезервовує лінії GPIO33–GPIO37</text>
+
+  <!-- LEFT PANEL: Quad SPI -->
+  <rect x="30" y="75" width="435" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="90" width="405" height="36" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="247.5" y="113" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">Quad SPI (4 біти) — Економічний режим</text>
+
+  <!-- Left SoC & Memory -->
+  <rect x="50" y="145" width="130" height="100" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="115" y="190" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">ESP32-S3</text>
+  <text x="115" y="210" font-size="12" fill="#6b7280" text-anchor="middle">Quad Controller</text>
+
+  <rect x="300" y="145" width="135" height="100" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="367.5" y="180" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Flash / PSRAM</text>
+  <text x="367.5" y="200" font-size="12" fill="#6b7280" text-anchor="middle">Quad SPI (4-bit)</text>
+  <text x="367.5" y="220" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">40–80 МБ/с</text>
+
+  <!-- Left Bus Lines -->
+  <line x1="180" y1="175" x2="291" y2="175" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="240" y="168" font-size="12" fill="#6b7280" text-anchor="middle">CS / CLK</text>
+
+  <line x1="180" y1="215" x2="291" y2="215" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+  <text x="240" y="208" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">4-bit Data (D0–D3)</text>
+
+  <!-- Left GPIO Allocation Box -->
+  <rect x="50" y="265" width="385" height="75" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <text x="65" y="290" font-size="13" font-weight="bold" fill="#27ae60">Вільні порти GPIO (не потрібні для 4-бітної шини):</text>
+  <text x="65" y="318" font-size="12" fill="#1a1a1a">GPIO33  •  GPIO34  •  GPIO35  •  GPIO36  •  GPIO37  ➔  Вільні</text>
+
+  <!-- Left Status Summary Box -->
+  <rect x="45" y="360" width="405" height="145" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="60" y="385" font-size="14" font-weight="bold" fill="#27ae60">Особливості конфігурації Quad SPI:</text>
+  <text x="60" y="412" font-size="12" fill="#1a1a1a">• Вивільняє 5 системних виводів (GPIO33–GPIO37)</text>
+  <text x="60" y="434" font-size="12" fill="#1a1a1a">• Дозволяє підключати додаткові датчики (I2C, UART, ADC)</text>
+  <text x="60" y="456" font-size="12" fill="#6b7280">• Оптимальний вибір для компактних пристроїв IoT</text>
+  <text x="60" y="478" font-size="12" fill="#27ae60" font-weight="bold">• Пропускна здатність шини: до 80 МБ/с</text>
+
+  <!-- RIGHT PANEL: Octal SPI -->
+  <rect x="495" y="75" width="435" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="510" y="90" width="405" height="36" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="712.5" y="113" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">Octal SPI (8 бітів) — Швидкісний режим</text>
+
+  <!-- Right SoC & Memory -->
+  <rect x="515" y="145" width="130" height="100" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="580" y="190" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">ESP32-S3</text>
+  <text x="580" y="210" font-size="12" fill="#6b7280" text-anchor="middle">Octal Controller</text>
+
+  <rect x="765" y="145" width="135" height="100" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="832.5" y="180" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Flash / PSRAM</text>
+  <text x="832.5" y="200" font-size="12" fill="#6b7280" text-anchor="middle">Octal SPI (8-bit DDR)</text>
+  <text x="832.5" y="220" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">120–160 МБ/с</text>
+
+  <!-- Right Bus Lines -->
+  <line x1="645" y1="175" x2="756" y2="175" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="705" y="168" font-size="12" fill="#6b7280" text-anchor="middle">CS / CLK / DQS</text>
+
+  <line x1="645" y1="215" x2="756" y2="215" stroke="#c0392b" stroke-width="4" marker-end="url(#arr-red)"/>
+  <text x="705" y="208" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">8-bit Data (D0–D7)</text>
+
+  <!-- Right GPIO Allocation Box -->
+  <rect x="515" y="265" width="385" height="75" rx="6" fill="#fdecea" stroke="#c0392b" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <text x="530" y="290" font-size="13" font-weight="bold" fill="#c0392b">Зарезервовані порти (використані для 8-бітної шини):</text>
+  <text x="530" y="318" font-size="12" fill="#1a1a1a">GPIO33  •  GPIO34  •  GPIO35  •  GPIO36  •  GPIO37  ➔  Заняті</text>
+
+  <!-- Right Status Summary Box -->
+  <rect x="510" y="360" width="405" height="145" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="525" y="385" font-size="14" font-weight="bold" fill="#c0392b">Особливості конфігурації Octal SPI:</text>
+  <text x="525" y="412" font-size="12" fill="#1a1a1a">• Максимальна швидкість обміну даними (до 160 МБ/с)</text>
+  <text x="525" y="434" font-size="12" fill="#1a1a1a">• Зарезервовує GPIO33–GPIO37 (заборонено комутувати)</text>
+  <text x="525" y="456" font-size="12" fill="#6b7280">• Необхідно для задач Edge AI, відеопотоку та графіки</text>
+  <text x="525" y="478" font-size="12" fill="#c0392b" font-weight="bold">• Втрата 5 універсальних ліній вводу-виводу</text>
+</svg>

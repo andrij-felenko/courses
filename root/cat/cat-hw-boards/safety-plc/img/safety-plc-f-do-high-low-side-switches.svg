@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двоканальне керування F-DO та контур зворотного зв’язку контактора (EDM)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Ключі High-Side / Low-Side комутують котушку контактора K1, а NC-контакт передає стан у блок EDM</text>
+
+  <!-- ГОЛОВНИЙ КОРПУС -->
+  <rect x="24" y="75" width="912" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- ЗОНА 1: Вихідний модуль F-DO -->
+  <rect x="44" y="95" width="320" height="425" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="60" y="118" font-size="13" font-weight="bold" fill="#1a1a1a">Вихідний модуль F-DO (Safety PLC)</text>
+
+  <!-- Ключ High-Side (FET 1) -->
+  <rect x="60" y="140" width="280" height="85" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="74" y="163" font-size="12" font-weight="bold" fill="#1a1a1a">Ключ High-Side (FET 1 / P-CH)</text>
+  <text x="74" y="183" font-size="12" fill="#2457d6">Підключено до +24V Safety Power</text>
+  <text x="74" y="203" font-size="12" fill="#6b7280">Керування від Каналу 1 (CPU 1)</text>
+
+  <!-- Клема P+ -->
+  <rect x="240" y="240" width="100" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="290" y="265" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Клема P+</text>
+
+  <!-- Стрілка FET1 -> P+ -->
+  <path d="M 290 225 L 290 238" stroke="#2457d6" stroke-width="1.8" fill="none" marker-end="url(#arr-accent)"/>
+
+  <!-- Ключ Low-Side (FET 2) -->
+  <rect x="60" y="300" width="280" height="85" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="74" y="323" font-size="12" font-weight="bold" fill="#1a1a1a">Ключ Low-Side (FET 2 / N-CH)</text>
+  <text x="74" y="343" font-size="12" fill="#2457d6">Підключено до 0V (M / GND)</text>
+  <text x="74" y="363" font-size="12" fill="#6b7280">Керування від Каналу 2 (CPU 2)</text>
+
+  <!-- Клема M- -->
+  <rect x="240" y="400" width="100" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="290" y="425" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Клема M-</text>
+
+  <!-- Стрілка FET2 -> M- -->
+  <path d="M 290 385 L 290 398" stroke="#2457d6" stroke-width="1.8" fill="none" marker-end="url(#arr-accent)"/>
+
+  <!-- ЗОНА 2: Виконавчий контактор K1 -->
+  <rect x="384" y="95" width="240" height="425" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="398" y="118" font-size="13" font-weight="bold" fill="#1a1a1a">Виконавчий контактор K1</text>
+
+  <!-- Котушка контактора K1 -->
+  <rect x="404" y="170" width="200" height="90" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="504" y="198" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Котушка контактора K1</text>
+  <text x="504" y="218" font-size="12" fill="#27ae60" text-anchor="middle">24V DC / Power Relay</text>
+  <text x="504" y="238" font-size="12" fill="#6b7280" text-anchor="middle">Головний силовий ланцюг</text>
+
+  <!-- Лінії живлення від P+ і M- до котушки K1 -->
+  <path d="M 340 260 L 402 200" stroke="#2457d6" stroke-width="1.8" fill="none" marker-end="url(#arr-accent)"/>
+  <path d="M 340 420 L 372 420 L 372 230 L 402 230" stroke="#2457d6" stroke-width="1.8" fill="none" marker-end="url(#arr-accent)"/>
+
+  <!-- Механічна розмичка між котушкою та NC-контактом -->
+  <path d="M 504 260 L 504 328" stroke="#6b7280" stroke-dasharray="4 3" stroke-width="1.5" fill="none"/>
+  <text x="512" y="298" font-size="12" fill="#6b7280">Механічний зв’язок</text>
+
+  <!-- Допоміжний NC-контакт K1_NC -->
+  <rect x="404" y="330" width="200" height="90" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="504" y="358" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Допоміжний NC-контакт</text>
+  <text x="504" y="378" font-size="12" fill="#27ae60" text-anchor="middle">K1_NC (Примусовий рух)</text>
+  <text x="504" y="398" font-size="12" fill="#6b7280" text-anchor="middle">Mirror Contact (IEC 60947)</text>
+
+  <!-- ЗОНА 3: Контроль EDM -->
+  <rect x="644" y="95" width="272" height="425" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="658" y="118" font-size="13" font-weight="bold" fill="#1a1a1a">Контроль EDM (Safety PLC)</text>
+
+  <!-- Генератор Т1 -->
+  <rect x="660" y="150" width="240" height="65" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="780" y="175" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Тестовий імпульс T1</text>
+  <text x="780" y="195" font-size="12" fill="#6b7280" text-anchor="middle">Стробування для діагностики</text>
+
+  <!-- Стрілка від T1 до NC-контакту K1_NC -->
+  <path d="M 660 182 L 624 182 L 624 350 L 606 350" stroke="#2457d6" stroke-width="1.8" fill="none" marker-end="url(#arr-accent)"/>
+
+  <!-- Логіка перевірки EDM -->
+  <rect x="660" y="235" width="240" height="135" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="780" y="258" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Логіка перевірки EDM</text>
+  <text x="672" y="280" font-size="12" fill="#1a1a1a">• K1 ON  -> K1_NC розімкнено</text>
+  <text x="672" y="300" font-size="12" fill="#1a1a1a">• K1 OFF -> K1_NC замкнено</text>
+  <text x="672" y="320" font-size="12" font-weight="bold" fill="#c0392b">• Зварювання -> Lockout</text>
+  <text x="672" y="340" font-size="12" fill="#6b7280">Аварійне блокування виходу</text>
+
+  <!-- Вхід F-DI (EDM Feed) -->
+  <rect x="660" y="395" width="240" height="65" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="780" y="420" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхід F-DI (EDM Feed)</text>
+  <text x="780" y="440" font-size="12" fill="#6b7280" text-anchor="middle">Зчитування стану NC-контакту</text>
+
+  <!-- Стрілка від NC-контакту до F-DI EDM -->
+  <path d="M 604 395 L 624 395 L 624 427 L 658 427" stroke="#27ae60" stroke-width="1.8" fill="none" marker-end="url(#arr-green)"/>
+
+  <!-- Стрілка від F-DI до Логіки EDM -->
+  <path d="M 780 395 L 780 372" stroke="#2457d6" stroke-width="1.8" fill="none" marker-end="url(#arr-accent)"/>
+</svg>

@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еволюція адаптерів та програматорів для ESP-01</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Від базового USB-UART перехідника до автоматичного прошивача на NPN-транзисторах</text>
+
+  <!-- PANEL 1: Generation 1 (Basic CH340G) -->
+  <rect x="25" y="75" width="285" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Tag Badge 1 -->
+  <rect x="35" y="88" width="110" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="90" y="103" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1-ше покоління</text>
+
+  <text x="167" y="130" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Базовий CH340G</text>
+  <text x="167" y="148" font-size="12" fill="#6b7280" text-anchor="middle">Тільки USB-UART міст</text>
+
+  <!-- Feature Box 1 -->
+  <rect x="40" y="165" width="255" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="167" y="185" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схемотехнічні особливості:</text>
+  <text x="50" y="205" font-size="12" fill="#1a1a1a" text-anchor="start">• Немає кнопок Reset і Flash</text>
+  <text x="50" y="225" font-size="12" fill="#1a1a1a" text-anchor="start">• GPIO0 не виведено або VCC</text>
+  <text x="50" y="245" font-size="12" fill="#1a1a1a" text-anchor="start">• Жодних кіл автоскидання</text>
+  <text x="50" y="265" font-size="12" fill="#1a1a1a" text-anchor="start">• Струм 3.3V обмежено CH340</text>
+
+  <!-- Problem Callout Box 1 -->
+  <rect x="40" y="290" width="255" height="155" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="167" y="310" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Недоліки та ручний режим:</text>
+  <text x="50" y="330" font-size="12" fill="#1a1a1a" text-anchor="start">1. Потрібно замикати GPIO0</text>
+  <text x="63" y="348" font-size="12" fill="#1a1a1a" text-anchor="start">на GND зовнішнім дротом.</text>
+  <text x="50" y="370" font-size="12" fill="#1a1a1a" text-anchor="start">2. Перезапуск висмикуванням</text>
+  <text x="63" y="388" font-size="12" fill="#1a1a1a" text-anchor="start">адаптера з USB-порту.</text>
+  <text x="50" y="410" font-size="12" fill="#c0392b" text-anchor="start">• Часті збої при прошивці.</text>
+  <text x="50" y="430" font-size="12" fill="#c0392b" text-anchor="start">• Просідання 3.3V при Wi-Fi.</text>
+
+
+  <!-- PANEL 2: Generation 2 (Buttons Edition) -->
+  <rect x="337" y="75" width="285" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Tag Badge 2 -->
+  <rect x="347" y="88" width="110" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="402" y="103" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2-ге покоління</text>
+
+  <text x="480" y="130" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Адаптер із кнопками</text>
+  <text x="480" y="148" font-size="12" fill="#6b7280" text-anchor="middle">Ручні кнопки Flash + Reset</text>
+
+  <!-- Feature Box 2 -->
+  <rect x="352" y="165" width="255" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="185" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схемотехнічні покращення:</text>
+  <text x="362" y="205" font-size="12" fill="#1a1a1a" text-anchor="start">• Вбудовано кнопку Flash</text>
+  <text x="362" y="225" font-size="12" fill="#1a1a1a" text-anchor="start">• Вбудовано кнопку Reset</text>
+  <text x="362" y="245" font-size="12" fill="#1a1a1a" text-anchor="start">• Додано LDO 3.3V (AMS1117)</text>
+  <text x="362" y="265" font-size="12" fill="#1a1a1a" text-anchor="start">• Стабільне живлення 500мА</text>
+
+  <!-- Procedure Box 2 -->
+  <rect x="352" y="290" width="255" height="155" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="310" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Ручний алгоритм прошивки:</text>
+  <text x="362" y="330" font-size="12" fill="#1a1a1a" text-anchor="start">1. Натиснути й утримувати</text>
+  <text x="375" y="348" font-size="12" fill="#1a1a1a" text-anchor="start">кнопку Flash (BOOT).</text>
+  <text x="362" y="370" font-size="12" fill="#1a1a1a" text-anchor="start">2. Коротко клікнути Reset.</text>
+  <text x="362" y="392" font-size="12" fill="#1a1a1a" text-anchor="start">3. Відпустити кнопку Flash.</text>
+  <text x="362" y="414" font-size="12" fill="#6b7280" text-anchor="start">• Потребує ручних дій при</text>
+  <text x="375" y="430" font-size="12" fill="#6b7280" text-anchor="start">кожній прошивці з IDE.</text>
+
+
+  <!-- PANEL 3: Generation 3 (Auto-reset NPN) -->
+  <rect x="650" y="75" width="285" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Tag Badge 3 -->
+  <rect x="660" y="88" width="110" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="715" y="103" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3-тє покоління</text>
+
+  <text x="792" y="130" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Програматор з автоскидом</text>
+  <text x="792" y="148" font-size="12" fill="#6b7280" text-anchor="middle">Авто-перехід на NPN (DTR/RTS)</text>
+
+  <!-- Feature Box 3 -->
+  <rect x="665" y="165" width="255" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="792" y="185" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратна реалізація:</text>
+  <text x="675" y="205" font-size="12" fill="#1a1a1a" text-anchor="start">• Двотранзисторний ключ Q1/Q2</text>
+  <text x="675" y="225" font-size="12" fill="#1a1a1a" text-anchor="start">• Входи DTR і RTS від USB</text>
+  <text x="675" y="245" font-size="12" fill="#1a1a1a" text-anchor="start">• Перехресне блокування</text>
+  <text x="675" y="265" font-size="12" fill="#1a1a1a" text-anchor="start">• Вбудована кнопка Flash</text>
+
+  <!-- Solution Callout Box 3 -->
+  <rect x="665" y="290" width="255" height="155" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="792" y="310" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Повністю автоматичний режим:</text>
+  <text x="675" y="330" font-size="12" fill="#1a1a1a" text-anchor="start">1. esptool автоматично</text>
+  <text x="688" y="348" font-size="12" fill="#1a1a1a" text-anchor="start">керує сигналами DTR/RTS.</text>
+  <text x="675" y="370" font-size="12" fill="#1a1a1a" text-anchor="start">2. Авто-вхід у Bootloader</text>
+  <text x="688" y="388" font-size="12" fill="#1a1a1a" text-anchor="start">та автоматичний скид.</text>
+  <text x="675" y="410" font-size="12" fill="#27ae60" text-anchor="start">• Zero-touch прошивка з IDE!</text>
+  <text x="675" y="430" font-size="12" fill="#27ae60" text-anchor="start">• Максимальна надійність.</text>
+</svg>

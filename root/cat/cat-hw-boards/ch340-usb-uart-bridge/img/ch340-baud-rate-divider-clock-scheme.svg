@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Definitions for Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Структурна схема дільника частоти CH340</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Порядок перетворення тактової частоти 12 МГц у 16-кратну частоту дискретизації UART (16 × Baud)</text>
+
+  <!-- Block 1: Oscillator Source -->
+  <rect x="30" y="80" width="150" height="250" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="105" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Джерело такту</text>
+
+  <rect x="45" y="125" width="120" height="180" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="105" y="155" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">XI / XO</text>
+  <text x="105" y="180" text-anchor="middle" font-size="12" fill="#1a1a1a">Кварц 12 МГц</text>
+  <text x="105" y="215" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">f_osc = 12 МГц</text>
+  <!-- Clock sine / pulse representation -->
+  <path d="M 65 260 L 75 260 L 75 240 L 85 240 L 85 260 L 95 260 L 95 240 L 105 240 L 105 260 L 115 260 L 115 240 L 125 240 L 125 260 L 135 260" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Block 2: Prescaler Stage (M) -->
+  <rect x="210" y="80" width="190" height="250" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="305" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Стадія преддільника</text>
+
+  <!-- Top Reg N Box -->
+  <rect x="225" y="125" width="160" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="305" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Регістр N (Преддільник)</text>
+
+  <!-- Main Prescaler Box -->
+  <rect x="225" y="185" width="160" height="120" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="305" y="215" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Преддільник M</text>
+  <text x="305" y="240" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">M = 8ⁿ</text>
+  <text x="305" y="270" text-anchor="middle" font-size="12" fill="#6b7280">f_pres = f_osc ÷ M</text>
+
+  <!-- Control Line from Reg N to Prescaler M -->
+  <line x1="305" y1="165" x2="305" y2="185" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Block 3: 16-bit Counter Divider (B) -->
+  <rect x="430" y="80" width="210" height="250" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="535" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Основний дільник</text>
+
+  <!-- Top Reg B Box -->
+  <rect x="455" y="125" width="160" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="535" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Регістр B (16 біт)</text>
+
+  <!-- Main Counter Box -->
+  <rect x="455" y="185" width="160" height="120" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="535" y="215" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Лічильник B</text>
+  <text x="535" y="240" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">f_samp = 16 × Baud</text>
+  <text x="535" y="270" text-anchor="middle" font-size="12" fill="#6b7280">f_samp = f_pres ÷ B</text>
+
+  <!-- Control Line from Reg B to Counter B -->
+  <line x1="535" y1="165" x2="535" y2="185" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Block 4: Oversampling & UART Output -->
+  <rect x="670" y="80" width="260" height="250" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="800" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Дискретизація та UART</text>
+
+  <rect x="690" y="125" width="220" height="180" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="800" y="155" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">16-кратна дискретизація</text>
+  <text x="800" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">f_baud = f_samp ÷ 16</text>
+  <text x="800" y="210" text-anchor="middle" font-size="12" fill="#6b7280">Замір у 8-му такті біта</text>
+
+  <rect x="710" y="240" width="180" height="45" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="800" y="267" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Вихід Baud Rate (TX/RX)</text>
+
+  <!-- Signal Flow Arrows -->
+  <!-- 1. Osc to Prescaler -->
+  <line x1="165" y1="245" x2="225" y2="245" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="195" y="235" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">12 МГц</text>
+
+  <!-- 2. Prescaler to Counter B -->
+  <line x1="385" y1="245" x2="455" y2="245" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="420" y="235" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">f_pres</text>
+
+  <!-- 3. Counter B to Oversampling -->
+  <line x1="615" y1="245" x2="690" y2="245" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="652" y="235" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">16 × Baud</text>
+
+  <!-- Bottom Summary Panel (Formula & Example) -->
+  <rect x="30" y="350" width="900" height="150" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="375" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Математична формула синтезу швидкості передачі (Baud Rate)</text>
+
+  <!-- Left Formula Box -->
+  <rect x="50" y="395" width="400" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="250" y="425" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Baud = f_osc ÷ (16 × M × B)</text>
+  <text x="250" y="455" text-anchor="middle" font-size="12" fill="#1a1a1a">де M = 8ⁿ (N ∈ {0, 1, 2, 3}), B — 16-бітний лічильник</text>
+
+  <!-- Right Calculation Example Box -->
+  <rect x="465" y="395" width="450" height="90" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="690" y="425" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Приклад (115200 Baud): M = 1, B = 6.51</text>
+  <text x="690" y="455" text-anchor="middle" font-size="12" fill="#1a1a1a">Baud_real = 12 МГц ÷ (16 × 1 × 6.51) ≈ 115 385 Baud (Похибка +0.16%)</text>
+</svg>

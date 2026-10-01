@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Узгодження рівнів CH340 та захист від паразитного живлення</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Шляхи витоку струму через ESD-діоди MCU та схеми розв’язки напруг</text>
+
+  <!-- ================= PANEL 1: WITHOUT PROTECTION (PROBLEM) ================= -->
+  <rect x="30" y="65" width="435" height="455" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Panel 1 Header -->
+  <rect x="42" y="77" width="411" height="32" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="247.5" y="98" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">❌ Без захисту: паразитне живлення MCU</text>
+
+  <!-- CH340 Box (Panel 1) -->
+  <rect x="50" y="140" width="110" height="210" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="105" y="165" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CH340</text>
+  <text x="105" y="185" font-size="12" fill="#6b7280" text-anchor="middle">VCC = 5.0 V</text>
+  <text x="145" y="235" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">TXD</text>
+  <text x="145" y="255" font-size="12" fill="#2457d6" text-anchor="end">HIGH (5V)</text>
+
+  <!-- MCU Box (Panel 1) -->
+  <rect x="290" y="140" width="160" height="210" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="370" y="165" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MCU</text>
+  <text x="370" y="185" font-size="12" fill="#6b7280" text-anchor="middle">VCC = 3.3V (або 0V)</text>
+
+  <!-- MCU Internal VCC Bus (Panel 1) -->
+  <line x1="310" y1="200" x2="430" y2="200" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="370" y="196" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шина VCC_MCU</text>
+
+  <!-- Internal ESD Diode D_ESD (Panel 1) -->
+  <line x1="340" y1="240" x2="340" y2="200" stroke="#c0392b" stroke-width="2"/>
+  <polygon points="334,223 346,223 340,211" fill="#c0392b"/>
+  <line x1="334" y1="211" x2="346" y2="211" stroke="#c0392b" stroke-width="2"/>
+  <text x="352" y="222" font-size="12" font-weight="bold" fill="#c0392b">D_ESD</text>
+
+  <!-- MCU Pin RXD & Core Logic (Panel 1) -->
+  <text x="298" y="235" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">RXD</text>
+  <rect x="320" y="280" width="110" height="50" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="375" y="310" font-size="12" fill="#1a1a1a" text-anchor="middle">Ядро MCU</text>
+  <line x1="340" y1="240" x2="340" y2="280" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="340" cy="240" r="3.5" fill="#c0392b"/>
+
+  <!-- Parasitic Current Path Wire (Panel 1) -->
+  <line x1="160" y1="240" x2="282" y2="240" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6,3" marker-end="url(#arr-red)"/>
+  <text x="225" y="226" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">I_leak → (паразитний струм)</text>
+
+  <!-- Panel 1 Callout Box -->
+  <rect x="50" y="370" width="395" height="135" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="62" y="392" font-size="12" font-weight="bold" fill="#c0392b">Проблема витоку струму (I_leak):</text>
+  <text x="62" y="414" font-size="12" fill="#1a1a1a">1. Вихід TXD (5V) передає високий рівень на RXD MCU.</text>
+  <text x="62" y="434" font-size="12" fill="#1a1a1a">2. Напруга 5V відкриває захисний ESD-діод MCU (D_ESD).</text>
+  <text x="62" y="454" font-size="12" fill="#c0392b">3. Струм витоку живить шину VCC (3.3V / 0V), перевантажує</text>
+  <text x="62" y="474" font-size="12" fill="#c0392b">   CH340 та викликає нестабільний хаотичний запуск MCU.</text>
+
+  <!-- ================= PANEL 2: WITH PROTECTION (SOLUTION) ================= -->
+  <rect x="495" y="65" width="435" height="455" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Panel 2 Header -->
+  <rect x="507" y="77" width="411" height="32" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="712.5" y="98" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Захисна схема: діод Шотткі + Pull-up</text>
+
+  <!-- CH340 Box (Panel 2) -->
+  <rect x="515" y="140" width="110" height="210" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="570" y="165" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CH340</text>
+  <text x="570" y="185" font-size="12" fill="#6b7280" text-anchor="middle">VCC = 5.0 V</text>
+  <text x="610" y="235" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">TXD</text>
+  <text x="610" y="255" font-size="12" fill="#2457d6" text-anchor="end">5V / 0V</text>
+
+  <!-- Diode D1 (Schottky) in series -->
+  <line x1="625" y1="240" x2="655" y2="240" stroke="#27ae60" stroke-width="2"/>
+  <!-- Cathode bar -->
+  <line x1="655" y1="232" x2="655" y2="248" stroke="#27ae60" stroke-width="2"/>
+  <line x1="655" y1="232" x2="651" y2="232" stroke="#27ae60" stroke-width="2"/>
+  <line x1="655" y1="248" x2="659" y2="248" stroke="#27ae60" stroke-width="2"/>
+  <!-- Diode triangle (facing left towards CH340 TXD) -->
+  <polygon points="675,232 675,248 655,240" fill="#27ae60"/>
+  <line x1="675" y1="240" x2="710" y2="240" stroke="#27ae60" stroke-width="2"/>
+  <text x="665" y="220" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D1 (BAT54)</text>
+  <text x="665" y="268" font-size="12" fill="#6b7280" text-anchor="middle">Діод Шотткі</text>
+
+  <!-- Pull-up Resistor R_p to +3.3V MCU -->
+  <text x="710" y="160" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">+3.3V MCU</text>
+  <line x1="710" y1="168" x2="710" y2="185" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="703" y="185" width="14" height="30" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="725" y="203" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">R_p 10k</text>
+  <line x1="710" y1="215" x2="710" y2="240" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="710" cy="240" r="3.5" fill="#27ae60"/>
+
+  <!-- Connection Wire from Node to MCU -->
+  <line x1="710" y1="240" x2="757" y2="240" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="737.5" y="226" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3.3V (LOW/HIGH)</text>
+
+  <!-- MCU Box (Panel 2) -->
+  <rect x="765" y="140" width="155" height="210" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="842.5" y="165" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MCU</text>
+  <text x="842.5" y="185" font-size="12" fill="#6b7280" text-anchor="middle">VCC = 3.3 V</text>
+
+  <!-- MCU Internal VCC Bus (Panel 2) -->
+  <line x1="780" y1="200" x2="905" y2="200" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="842.5" y="196" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шина VCC_MCU</text>
+
+  <!-- Internal ESD Diode D_ESD (Panel 2 - Inactive) -->
+  <line x1="815" y1="240" x2="815" y2="200" stroke="#6b7280" stroke-width="1.5"/>
+  <polygon points="809,223 821,223 815,211" fill="#6b7280"/>
+  <line x1="809" y1="211" x2="821" y2="211" stroke="#6b7280" stroke-width="2"/>
+  <text x="827" y="222" font-size="12" fill="#6b7280">D_ESD</text>
+
+  <!-- MCU Pin RXD & Core Logic (Panel 2) -->
+  <text x="773" y="235" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">RXD</text>
+  <rect x="795" y="280" width="110" height="50" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="850" y="310" font-size="12" fill="#1a1a1a" text-anchor="middle">Ядро MCU</text>
+  <line x1="815" y1="240" x2="815" y2="280" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="815" cy="240" r="3.5" fill="#27ae60"/>
+
+  <!-- Panel 2 Callout Box -->
+  <rect x="515" y="370" width="395" height="135" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="527" y="392" font-size="12" font-weight="bold" fill="#27ae60">Принцип роботи захисту:</text>
+  <text x="527" y="414" font-size="12" fill="#1a1a1a">1. При TXD = HIGH (5V): діод D1 закритий (зворотний біас).</text>
+  <text x="527" y="434" font-size="12" fill="#1a1a1a">2. Резистор R_p підтягує RXD MCU до безпечних 3.3V.</text>
+  <text x="527" y="454" font-size="12" fill="#27ae60">3. Струм витоку I_leak = 0; паразитне живлення повністю</text>
+  <text x="527" y="474" font-size="12" fill="#27ae60">   заблоковано; ESD-діод MCU залишається закритим.</text>
+</svg>

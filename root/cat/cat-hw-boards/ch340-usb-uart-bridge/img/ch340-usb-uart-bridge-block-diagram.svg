@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Блок-схема перетворення даних у мікросхемі CH340</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Конвертація пакетів USB в UART через буфери FIFO та генератор бод-рейту</text>
+
+  <!-- Left Panel: USB Host -->
+  <rect x="30" y="90" width="150" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="105" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">USB Хост (ПК)</text>
+
+  <rect x="45" y="140" width="120" height="70" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="105" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">VCP Драйвер</text>
+  <text x="105" y="188" text-anchor="middle" font-size="11" fill="#6b7280">Віртуальний COM</text>
+
+  <rect x="45" y="230" width="120" height="90" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="105" y="258" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">USB Порт</text>
+  <text x="105" y="278" text-anchor="middle" font-size="11" fill="#1a1a1a">Лінії D+ / D-</text>
+  <text x="105" y="298" text-anchor="middle" font-size="11" fill="#6b7280">Живлення VBUS 5V</text>
+
+  <!-- Middle Main Panel: CH340 IC -->
+  <rect x="220" y="90" width="520" height="390" rx="10" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 220,100 A 10,10 0 0,1 230,90 L 730,90 A 10,10 0 0,1 740,100 L 740,125 L 220,125 Z" fill="#2457d6"/>
+  <text x="480" y="113" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">Мікросхема CH340 (USB-to-UART Bridge)</text>
+
+  <!-- Block 1: USB PHY -->
+  <rect x="240" y="145" width="140" height="110" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="310" y="168" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">USB PHY</text>
+  <text x="310" y="192" text-anchor="middle" font-size="11" fill="#6b7280">Приймач / Передавач</text>
+  <text x="310" y="212" text-anchor="middle" font-size="11" fill="#6b7280">Диференційні D+/D-</text>
+  <text x="310" y="232" text-anchor="middle" font-size="11" fill="#2457d6">12 Мбіт/с Full-Speed</text>
+
+  <!-- Block 2: USB SIE & FIFO -->
+  <rect x="410" y="145" width="140" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="168" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">SIE &amp; FIFO Буфери</text>
+  <text x="480" y="192" text-anchor="middle" font-size="11" fill="#1a1a1a">TX FIFO (64 байти)</text>
+  <text x="480" y="212" text-anchor="middle" font-size="11" fill="#1a1a1a">RX FIFO (64 байти)</text>
+  <text x="480" y="232" text-anchor="middle" font-size="11" fill="#6b7280">Управління пакетами</text>
+
+  <!-- Block 3: UART Controller -->
+  <rect x="580" y="145" width="140" height="110" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="650" y="168" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">UART Контролер</text>
+  <text x="650" y="192" text-anchor="middle" font-size="11" fill="#6b7280">Генератор бод-рейту</text>
+  <text x="650" y="212" text-anchor="middle" font-size="11" fill="#6b7280">Формувач кадру 8N1</text>
+  <text x="650" y="232" text-anchor="middle" font-size="11" fill="#2457d6">Сигнали DTR/RTS/CTS</text>
+
+  <!-- Internal Connections inside CH340 -->
+  <line x1="380" y1="200" x2="401" y2="200" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="550" y1="200" x2="571" y2="200" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Block 4: Clock Unit -->
+  <rect x="240" y="285" width="220" height="180" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="350" y="308" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Тактування (Clock Gen)</text>
+
+  <rect x="250" y="320" width="200" height="65" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="350" y="340" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Зовнішній кварц 12 МГц</text>
+  <text x="350" y="358" text-anchor="middle" font-size="11" fill="#6b7280">XI / XO піни (CH340G)</text>
+  <text x="350" y="374" text-anchor="middle" font-size="10" fill="#6b7280">Зовнішні конденсатори</text>
+
+  <rect x="250" y="393" width="200" height="62" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="350" y="413" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Внутрішній RC-генератор</text>
+  <text x="350" y="431" text-anchor="middle" font-size="11" fill="#6b7280">Без кварцю (CH340C/E/N)</text>
+  <text x="350" y="447" text-anchor="middle" font-size="10" fill="#6b7280">Точність тактування 1%</text>
+
+  <!-- Block 5: Power Unit V3 -->
+  <rect x="480" y="285" width="240" height="180" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="600" y="308" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Управління живленням (V3)</text>
+
+  <rect x="490" y="320" width="220" height="135" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="600" y="340" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Вхід VCC: 5V або 3.3V</text>
+  <text x="600" y="362" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">При VCC = 5V:</text>
+  <text x="600" y="380" text-anchor="middle" font-size="11" fill="#1a1a1a">V3 -> конденсатор 100 nF на GND</text>
+  <text x="600" y="402" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">При VCC = 3.3V:</text>
+  <text x="600" y="420" text-anchor="middle" font-size="11" fill="#1a1a1a">V3 з'єднують прямо з VCC</text>
+  <text x="600" y="442" text-anchor="middle" font-size="10" fill="#6b7280">Узгодження логічних рівнів</text>
+
+  <!-- Clock signal line internally -->
+  <line x1="350" y1="285" x2="350" y2="265" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="350" y1="265" x2="650" y2="265" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="650" y1="265" x2="650" y2="256" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Right Panel: Target MCU -->
+  <rect x="780" y="90" width="150" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="855" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Цільовий МК</text>
+
+  <rect x="795" y="145" width="120" height="150" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="855" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">UART Порт</text>
+  <text x="855" y="195" text-anchor="middle" font-size="11" fill="#2457d6">RXD (Вхід)</text>
+  <text x="855" y="225" text-anchor="middle" font-size="11" fill="#1a1a1a">TXD (Вихід)</text>
+  <text x="855" y="255" text-anchor="middle" font-size="11" fill="#27ae60">DTR / RTS / CTS</text>
+
+  <rect x="795" y="310" width="120" height="145" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="855" y="335" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Автоскидання</text>
+  <text x="855" y="360" text-anchor="middle" font-size="11" fill="#1a1a1a">Схема DTR/RTS</text>
+  <text x="855" y="385" text-anchor="middle" font-size="11" fill="#1a1a1a">NPN Транзистори</text>
+  <text x="855" y="410" text-anchor="middle" font-size="10" fill="#6b7280">ESP8266/ESP32</text>
+  <text x="855" y="430" text-anchor="middle" font-size="10" fill="#6b7280">Reset / Boot0</text>
+
+  <!-- External Bus Interconnections -->
+  <!-- Host USB to CH340 PHY -->
+  <line x1="165" y1="185" x2="231" y2="185" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="235" y1="215" x2="169" y2="215" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="200" y="175" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">D+ / D-</text>
+
+  <!-- CH340 UART Controller to Target MCU Pins -->
+  <line x1="720" y1="175" x2="786" y2="175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="753" y="166" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">TXD</text>
+
+  <line x1="795" y1="205" x2="729" y2="205" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="753" y="196" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a1a1a">RXD</text>
+
+  <line x1="720" y1="235" x2="786" y2="235" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="753" y="226" text-anchor="middle" font-size="10" font-weight="bold" fill="#27ae60">DTR/RTS</text>
+</svg>

@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Домени живлення ESP32-S3 у режимі Deep Sleep</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Вимкнення основної системи та збереження стану RTC Peripherals і RTC SRAM під керуванням ULP</text>
+
+  <!-- LEFT DOMAIN: Digital Core Domain (OFF) -->
+  <rect x="40" y="75" width="405" height="395" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6,4" rx="8"/>
+  <text x="55" y="98" font-size="14" font-weight="bold" fill="#c0392b">Основний домен (Digital Core)</text>
+  <text x="285" y="98" font-size="12" font-weight="bold" fill="#c0392b">[ СТАН: ВІМКНЕНО / OFF ]</text>
+
+  <!-- Left Block 1: CPU -->
+  <rect x="55" y="115" width="375" height="65" fill="white" stroke="#c0392b" stroke-width="1.2" rx="6"/>
+  <text x="70" y="138" font-size="13" font-weight="bold" fill="#1a1a1a">Процесорні ядра Xtensa LX7 (Core 0 / Core 1)</text>
+  <text x="70" y="160" font-size="12" fill="#6b7280">128-бітний векторний прискорювач PIE (Вимкнено)</text>
+
+  <!-- Left Block 2: SRAM -->
+  <rect x="55" y="195" width="375" height="65" fill="white" stroke="#c0392b" stroke-width="1.2" rx="6"/>
+  <text x="70" y="218" font-size="13" font-weight="bold" fill="#1a1a1a">Основна оперативна пам'ять SRAM (512 КБ)</text>
+  <text x="70" y="240" font-size="12" fill="#c0392b">Втрата вмісту даних при знеструмленні</text>
+
+  <!-- Left Block 3: Peripherals -->
+  <rect x="55" y="275" width="375" height="65" fill="white" stroke="#c0392b" stroke-width="1.2" rx="6"/>
+  <text x="70" y="298" font-size="13" font-weight="bold" fill="#1a1a1a">Високошвидкісна периферія (DMA, Octal SPI, USB)</text>
+  <text x="70" y="320" font-size="12" fill="#6b7280">Знеструмлено для мінімізації споживання</text>
+
+  <!-- Left Block 4: Clock & Power Status -->
+  <rect x="55" y="355" width="375" height="95" fill="#fdecea" stroke="#c0392b" stroke-width="1.2" rx="6"/>
+  <text x="70" y="380" font-size="13" font-weight="bold" fill="#c0392b">Тактування зупинено (f_CPU = 0 МГц)</text>
+  <text x="70" y="402" font-size="12" fill="#6b7280">Тактовий генератор PLL та основні LDO вимкнено.</text>
+  <text x="70" y="424" font-size="12" fill="#6b7280">Струм споживання основного домену: 0 мкА.</text>
+
+  <!-- RIGHT DOMAIN: RTC Domain (ACTIVE) -->
+  <rect x="515" y="75" width="405" height="395" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <text x="530" y="98" font-size="14" font-weight="bold" fill="#27ae60">Домен низького споживання (RTC)</text>
+  <text x="785" y="98" font-size="12" font-weight="bold" fill="#27ae60">[ СТАН: АКТИВНИЙ ]</text>
+
+  <!-- Right Block 1: ULP -->
+  <rect x="530" y="115" width="375" height="65" fill="white" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="545" y="138" font-size="13" font-weight="bold" fill="#27ae60">RTC-копроцесор ULP (RISC-V / FSM)</text>
+  <text x="545" y="160" font-size="12" fill="#1a1a1a">Автономне опитування сенсорів та обробка ADC/I2C</text>
+
+  <!-- Right Block 2: RTC SRAM -->
+  <rect x="530" y="195" width="375" height="65" fill="white" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="545" y="218" font-size="13" font-weight="bold" fill="#27ae60">Пам'ять RTC SRAM (16 КБ FAST/SLOW)</text>
+  <text x="545" y="240" font-size="12" fill="#1a1a1a">Збереження коду ULP, даних та стану контексту</text>
+
+  <!-- Right Block 3: RTC Peripherals -->
+  <rect x="530" y="275" width="375" height="65" fill="white" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="545" y="298" font-size="13" font-weight="bold" fill="#27ae60">RTC Peripherals та RTC GPIO (GPIO0..21)</text>
+  <text x="545" y="320" font-size="12" fill="#1a1a1a">Контролер пробудження (Wakeup Source Controller)</text>
+
+  <!-- Right Block 4: RTC Status -->
+  <rect x="530" y="355" width="375" height="95" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2" rx="6"/>
+  <text x="545" y="380" font-size="13" font-weight="bold" fill="#2457d6">Низькочастотне тактування (RTC FAST/SLOW CLK)</text>
+  <text x="545" y="402" font-size="12" fill="#1a1a1a">Сигнал WAKEUP ініціює включення LDO та старт CPU.</text>
+  <text x="545" y="424" font-size="12" fill="#27ae60">Загальне споживання у Deep Sleep: ~7–8 мкА.</text>
+
+  <!-- Link between ULP and RTC SRAM -->
+  <path d="M 717 180 L 717 195" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- WAKEUP Signal Path & Label -->
+  <path d="M 530 307 L 480 307 L 480 232" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="480" y="221" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">WAKEUP</text>
+  <path d="M 480 205 L 480 148 L 430 148" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Bottom Summary Bar -->
+  <rect x="40" y="482" width="880" height="28" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="480" y="501" font-size="12" fill="#1a1a1a" text-anchor="middle">Режим Deep Sleep: Основний домен знеструмлено; ULP та RTC SRAM зберігають стан і пробуджують ядра при порогових подіях</text>
+</svg>

@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Послідовність апаратного скиду та сопряження з ESP ROM Bootloader</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Узгодження DTR/RTS ліній автоскиду, опитування каналу UART0 та завантаження Stub в IRAM</text>
+
+  <!-- Lifeline Header Boxes -->
+  <!-- Box 1: Host PC -->
+  <rect x="60" y="85" width="180" height="40" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="150" y="110" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">esptool.py (Host)</text>
+
+  <!-- Box 2: Auto-Reset -->
+  <rect x="390" y="85" width="180" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="110" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Схема DTR / RTS</text>
+
+  <!-- Box 3: ESP ROM Bootloader -->
+  <rect x="720" y="85" width="180" height="40" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="810" y="110" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">ROM Bootloader</text>
+
+  <!-- Vertical Lifelines -->
+  <line x1="150" y1="125" x2="150" y2="465" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="480" y1="125" x2="480" y2="465" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="810" y1="125" x2="810" y2="465" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Step 1: DTR=0, RTS=1 -->
+  <text x="315" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1. DTR=0, RTS=1 (Активація скиду)</text>
+  <line x1="150" y1="155" x2="470" y2="155" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <text x="645" y="148" text-anchor="middle" font-size="12" fill="#1a1a1a">EN=0 (Reset), GPIO0=0</text>
+  <line x1="480" y1="155" x2="800" y2="155" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Step 2: DTR=1, RTS=0 -->
+  <text x="315" y="203" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">2. DTR=1, RTS=0 (Зняття скиду)</text>
+  <line x1="150" y1="210" x2="470" y2="210" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <text x="645" y="203" text-anchor="middle" font-size="12" fill="#27ae60">EN=1 (Start), GPIO0=0 (Boot)</text>
+  <line x1="480" y1="210" x2="800" y2="210" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Step 3: Boot log -->
+  <text x="480" y="258" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">3. Лог завантажувача UART0: "boot mode:(1,7)" (74880 бод)</text>
+  <line x1="810" y1="265" x2="160" y2="265" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Step 4: SYNC Packet -->
+  <text x="480" y="313" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">4. Пакет сопряження SYNC (0xC0 0x00 0x08 ... 0xC0)</text>
+  <line x1="150" y1="320" x2="800" y2="320" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 5: SYNC ACK -->
+  <text x="480" y="368" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">5. Відповідь-підтвердження SYNC ACK (0xC0 0x01 ... 0xC0)</text>
+  <line x1="810" y1="375" x2="160" y2="375" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Step 6: RAM Stub Upload -->
+  <text x="480" y="423" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">6. Завантаження Stub у RAM (IRAM 0x40100000, 921600 бод)</text>
+  <line x1="150" y1="430" x2="800" y2="430" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Bottom Legend Bar -->
+  <rect x="60" y="480" width="840" height="35" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <rect x="80" y="490" width="14" height="14" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="100" y="502" font-size="12" fill="#1a1a1a">Режим UART Bootloader (GPIO0=0)</text>
+
+  <rect x="340" y="490" width="14" height="14" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="360" y="502" font-size="12" fill="#1a1a1a">SLIP-кадри протоколу (0xC0)</text>
+
+  <text x="580" y="502" font-size="12" font-weight="bold" fill="#2457d6">Прискорення через RAM Stub</text>
+</svg>

@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схемотехніка strapping-виводу GPIO45 та вибір напруги VDD_SPI</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Стан GPIO45 під час апаратного скидання POR визначає рівень регулятора Flash/PSRAM (3.3 В або 1.8 В)</text>
+
+  <!-- Left Panel: Mode 3.3V -->
+  <rect x="40" y="85" width="420" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="55" y="100" width="390" height="34" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="250" y="122" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Режим 3.3 В (GPIO45 = 0 / Pull-Down)</text>
+
+  <!-- Left: ESP32-S3 IC -->
+  <rect x="60" y="150" width="145" height="170" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="132" y="172" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">ESP32-S3</text>
+  <text x="132" y="188" text-anchor="middle" font-size="12" fill="#6b7280">SoC (QFN56)</text>
+  <text x="132" y="215" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">GPIO45 Pin</text>
+  <text x="132" y="230" text-anchor="middle" font-size="12" fill="#27ae60">Sampler @ POR</text>
+  <text x="132" y="270" text-anchor="middle" font-size="12" fill="#1a1a1a">VDD_SPI LDO</text>
+  <text x="132" y="286" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Вихід: 3.3 В</text>
+
+  <!-- Left: Pull-Down Resistor & Wiring -->
+  <path d="M 205 215 L 260 215 L 260 225" stroke="#27ae60" stroke-width="2" fill="none"/>
+  <rect x="248" y="225" width="24" height="40" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="280" y="242" font-size="12" font-weight="bold" fill="#27ae60">R_pd</text>
+  <text x="280" y="258" font-size="12" font-weight="bold" fill="#1a1a1a">10 кОм</text>
+
+  <line x1="260" y1="265" x2="260" y2="280" stroke="#27ae60" stroke-width="2"/>
+  <line x1="248" y1="280" x2="272" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="252" y1="284" x2="268" y2="284" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="256" y1="288" x2="264" y2="288" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="260" y="298" text-anchor="middle" font-size="12" fill="#6b7280">GND (0 В)</text>
+
+  <!-- Left: VDD_SPI Output Wire to Flash -->
+  <path d="M 205 300 L 335 300" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="270" y="320" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">3.3V Rail</text>
+
+  <rect x="335" y="270" width="110" height="60" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="390" y="295" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Flash / PSRAM</text>
+  <text x="390" y="313" text-anchor="middle" font-size="12" fill="#1a1a1a">Живлення 3.3В</text>
+
+  <!-- Left: Summary Box -->
+  <rect x="55" y="340" width="390" height="160" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="70" y="362" font-size="13" font-weight="bold" fill="#27ae60">Параметри режиму 3.3 В:</text>
+  <text x="70" y="384" font-size="12" fill="#1a1a1a">• GPIO45 підтягнуто до GND (0 В) під час POR</text>
+  <text x="70" y="404" font-size="12" fill="#1a1a1a">• Внутрішній регулятор LDO генерує VDD_SPI = 3.3 В</text>
+  <text x="70" y="424" font-size="12" fill="#1a1a1a">• Використовується для стандартних 3.3V Flash/PSRAM</text>
+  <text x="70" y="444" font-size="12" fill="#27ae60" font-weight="bold">• Стандартне значення за замовчуванням у модулях</text>
+  <text x="70" y="464" font-size="12" fill="#6b7280">• R_pd = 10 кОм (або внутрішній pull-down)</text>
+
+  <!-- Right Panel: Mode 1.8V -->
+  <rect x="500" y="85" width="420" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="515" y="100" width="390" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="710" y="122" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Режим 1.8 В (GPIO45 = 1 / Pull-Up)</text>
+
+  <!-- Right: ESP32-S3 IC -->
+  <rect x="520" y="150" width="145" height="170" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="592" y="172" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">ESP32-S3</text>
+  <text x="592" y="188" text-anchor="middle" font-size="12" fill="#6b7280">SoC (QFN56)</text>
+  <text x="592" y="215" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">GPIO45 Pin</text>
+  <text x="592" y="230" text-anchor="middle" font-size="12" fill="#2457d6">Sampler @ POR</text>
+  <text x="592" y="270" text-anchor="middle" font-size="12" fill="#1a1a1a">VDD_SPI LDO</text>
+  <text x="592" y="286" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вихід: 1.8 В</text>
+
+  <!-- Right: Pull-Up Resistor & Wiring -->
+  <path d="M 665 215 L 720 215" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <rect x="708" y="175" width="24" height="40" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="740" y="192" font-size="12" font-weight="bold" fill="#2457d6">R_pu</text>
+  <text x="740" y="208" font-size="12" font-weight="bold" fill="#1a1a1a">10 кОм</text>
+
+  <line x1="720" y1="175" x2="720" y2="162" stroke="#2457d6" stroke-width="2"/>
+  <line x1="705" y1="162" x2="735" y2="162" stroke="#2457d6" stroke-width="2"/>
+  <text x="720" y="154" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">+3.3V Rail</text>
+
+  <!-- Right: VDD_SPI Output Wire to 1.8V Flash -->
+  <path d="M 665 300 L 795 300" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="730" y="320" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1.8V Rail</text>
+
+  <rect x="795" y="270" width="110" height="60" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="850" y="295" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1.8V Octal Flash</text>
+  <text x="850" y="313" text-anchor="middle" font-size="12" fill="#1a1a1a">Живлення 1.8В</text>
+
+  <!-- Right: Summary Box -->
+  <rect x="515" y="340" width="390" height="160" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="530" y="362" font-size="13" font-weight="bold" fill="#2457d6">Параметри режиму 1.8 В:</text>
+  <text x="530" y="384" font-size="12" fill="#1a1a1a">• GPIO45 підтягнуто до 3.3 В (1) під час POR</text>
+  <text x="530" y="404" font-size="12" fill="#1a1a1a">• Внутрішній регулятор LDO генерує VDD_SPI = 1.8 В</text>
+  <text x="530" y="424" font-size="12" fill="#1a1a1a">• Використовується для високошвидкісних 1.8V пам'ятей</text>
+  <text x="530" y="444" font-size="12" fill="#c0392b" font-weight="bold">⚠ Помилка підтяжки 3.3V пам'яті спалить чип!</text>
+  <text x="530" y="464" font-size="12" fill="#6b7280">• R_pu = 10 кОм до лінії живлення 3.3 В</text>
+</svg>

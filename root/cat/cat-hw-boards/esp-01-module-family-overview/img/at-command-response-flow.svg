@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Потік обміну даними через UART між мікроконтролером та ESP-01</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">AT-команди завершуються CR/LF, повертають OK/ERROR/BUSY та відокремлені від асинхронного +IPD</text>
+
+  <!-- Host Microcontroller Container -->
+  <rect x="30" y="85" width="190" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="125" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер (Host)</text>
+  <text x="125" y="126" font-size="12" fill="#6b7280" text-anchor="middle">Інтерфейс UART (TX/RX)</text>
+
+  <!-- Host Logic Sub-box -->
+  <rect x="42" y="140" width="166" height="162" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="125" y="160" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Логіка керування</text>
+  <text x="52" y="184" font-size="12" fill="#1a1a1a">• Формування AT-рядка</text>
+  <text x="52" y="208" font-size="12" fill="#1a1a1a">• Додавання \r\n (CR/LF)</text>
+  <text x="52" y="232" font-size="12" fill="#1a1a1a">• Очікування OK/ERROR</text>
+  <text x="52" y="256" font-size="12" fill="#1a1a1a">• Парсинг пакетів +IPD</text>
+  <text x="52" y="280" font-size="12" fill="#1a1a1a">• Обробка таймаутів</text>
+
+  <!-- Host UART Settings Sub-box -->
+  <rect x="42" y="314" width="166" height="192" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="125" y="334" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Параметри UART</text>
+  <text x="52" y="358" font-size="12" fill="#1a1a1a">Baud: 115200 bps</text>
+  <text x="52" y="382" font-size="12" fill="#1a1a1a">Data bits: 8</text>
+  <text x="52" y="406" font-size="12" fill="#1a1a1a">Parity: None</text>
+  <text x="52" y="430" font-size="12" fill="#1a1a1a">Stop bits: 1</text>
+  <text x="52" y="454" font-size="12" fill="#6b7280">Рівні: 3.3V TTL</text>
+  <text x="52" y="478" font-size="12" fill="#6b7280">CR (0x0D), LF (0x0A)</text>
+
+  <!-- ESP-01 Module Container -->
+  <rect x="740" y="85" width="190" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="835" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Модуль ESP-01</text>
+  <text x="835" y="126" font-size="12" fill="#6b7280" text-anchor="middle">ESP8266 (AT Firmware)</text>
+
+  <!-- ESP-01 AT Interpreter Sub-box -->
+  <rect x="752" y="140" width="166" height="162" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="835" y="160" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Інтерпретатор AT</text>
+  <text x="762" y="184" font-size="12" fill="#1a1a1a">• Декодування команд</text>
+  <text x="762" y="208" font-size="12" fill="#1a1a1a">• Перевірка синтаксису</text>
+  <text x="762" y="232" font-size="12" fill="#1a1a1a">• Виконання операцій</text>
+  <text x="762" y="256" font-size="12" fill="#1a1a1a">• Формування відповідей</text>
+  <text x="762" y="280" font-size="12" fill="#1a1a1a">• Маркери OK / ERROR</text>
+
+  <!-- ESP-01 Wi-Fi & URC Sub-box -->
+  <rect x="752" y="314" width="166" height="192" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="835" y="334" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Wi-Fi Стек &amp; URC</text>
+  <text x="762" y="358" font-size="12" fill="#1a1a1a">Режими: STA / AP / Dual</text>
+  <text x="762" y="382" font-size="12" fill="#1a1a1a">Прийом TCP/UDP даних</text>
+  <text x="762" y="406" font-size="12" fill="#1a1a1a">Генерація +IPD кадру</text>
+  <text x="762" y="430" font-size="12" fill="#1a1a1a">Асинхронний вивід</text>
+  <text x="762" y="454" font-size="12" fill="#6b7280">Події: CONNECT / CLOSED</text>
+  <text x="762" y="478" font-size="12" fill="#6b7280">Статус: ready, busy p...</text>
+
+  <!-- Stage 1: AT Command Request (TX -> RX) -->
+  <rect x="235" y="85" width="490" height="130" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="248" y="102" font-size="13" font-weight="bold" fill="#1a1a1a">1. Відправка AT-команди (потік TX → RX)</text>
+  <line x1="248" y1="136" x2="712" y2="136" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="122" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">AT+CWJAP="SSID","PASSWORD"\r\n</text>
+
+  <!-- Frame Structure Sub-box -->
+  <rect x="248" y="144" width="464" height="63" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="258" y="159" font-size="12" fill="#6b7280">Структура байтового каду в послідовному каналі UART:</text>
+  <rect x="258" y="167" width="270" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="393" y="187" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Символи AT-команди (ASCII)</text>
+  <rect x="536" y="167" width="84" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="578" y="187" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">CR (0x0D)</text>
+  <rect x="628" y="167" width="84" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="670" y="187" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">LF (0x0A)</text>
+
+  <!-- Stage 2: System Response & Status Markers (RX <- TX) -->
+  <rect x="235" y="228" width="490" height="140" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="248" y="242" font-size="13" font-weight="bold" fill="#1a1a1a">2. Системна відповідь ESP-01 (потік RX ← TX)</text>
+  <line x1="712" y1="272" x2="248" y2="272" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+  <text x="480" y="258" font-size="12" fill="#1a1a1a" text-anchor="middle">Текст відповіді (Ехо / Повідомлення) + Маркер статусу + \r\n</text>
+
+  <!-- Status Cards -->
+  <rect x="248" y="282" width="148" height="76" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="322" y="302" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">OK</text>
+  <text x="322" y="322" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Успішне виконання</text>
+  <text x="322" y="344" font-size="12" fill="#6b7280" text-anchor="middle">\r\nOK\r\n</text>
+
+  <rect x="406" y="282" width="148" height="76" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="302" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">ERROR</text>
+  <text x="480" y="322" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Помилка / Збій</text>
+  <text x="480" y="344" font-size="12" fill="#6b7280" text-anchor="middle">\r\nERROR\r\n</text>
+
+  <rect x="564" y="282" width="148" height="76" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="638" y="302" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">BUSY</text>
+  <text x="638" y="322" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зайнятий процес</text>
+  <text x="638" y="344" font-size="12" fill="#6b7280" text-anchor="middle">busy p...</text>
+
+  <!-- Stage 3: Async URC Notifications (+IPD) -->
+  <rect x="235" y="380" width="490" height="140" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="248" y="398" font-size="13" font-weight="bold" fill="#2457d6">3. Асинхронний потік даних URC (RX ← TX)</text>
+  <line x1="712" y1="428" x2="248" y2="428" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arr-blue)"/>
+  <text x="480" y="416" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Незалежний вивід у будь-який момент (надходження даних TCP/UDP)</text>
+
+  <!-- +IPD Frame Breakdown -->
+  <rect x="248" y="436" width="464" height="74" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="258" y="452" font-size="12" fill="#1a1a1a">Структура асинхронного кадру сповіщення мережі:</text>
+
+  <rect x="258" y="460" width="70" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="293" y="475" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+IPD</text>
+  <text x="293" y="491" font-size="12" fill="#6b7280" text-anchor="middle">префікс</text>
+
+  <rect x="332" y="460" width="20" height="38" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="342" y="483" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">,</text>
+
+  <rect x="356" y="460" width="55" height="38" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="383" y="475" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">id</text>
+  <text x="383" y="491" font-size="12" fill="#6b7280" text-anchor="middle">сесія</text>
+
+  <rect x="415" y="460" width="20" height="38" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="425" y="483" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">,</text>
+
+  <rect x="439" y="460" width="60" height="38" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="469" y="475" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">len</text>
+  <text x="469" y="491" font-size="12" fill="#6b7280" text-anchor="middle">довжина</text>
+
+  <rect x="503" y="460" width="20" height="38" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="513" y="483" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">:</text>
+
+  <rect x="527" y="460" width="175" height="38" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="614" y="475" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">корисні дані (байтони)</text>
+  <text x="614" y="491" font-size="12" fill="#6b7280" text-anchor="middle">N байтів з мережі</text>
+</svg>

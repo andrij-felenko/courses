@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конвеєр прошивки ESP-01: від esptool до Flash-пам'яті</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Передача команд керування (DTR/RTS) і даних (TX/RX) через USB-UART та схему автоскидання</text>
+
+  <!-- Panel 1: ПЗ розробки (ПК) -->
+  <rect x="35" y="80" width="200" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="90" width="180" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="135" y="110" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">ПЗ розробки (ПК)</text>
+
+  <rect x="50" y="135" width="170" height="75" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="135" y="160" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">esptool.py / IDE</text>
+  <text x="135" y="180" font-size="12" fill="#6b7280" text-anchor="middle">Формування прошивки</text>
+  <text x="135" y="198" font-size="12" fill="#2457d6" text-anchor="middle">DTR/RTS &amp; Дані</text>
+
+  <rect x="50" y="275" width="170" height="75" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="135" y="300" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Драйвер USB VCP</text>
+  <text x="135" y="322" font-size="12" fill="#6b7280" text-anchor="middle">Виклики OS / USB-пакети</text>
+  <text x="135" y="340" font-size="12" fill="#2457d6" text-anchor="middle">Bulk OUT / Control</text>
+
+  <path d="M 135,210 L 135,275" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="143" y="246" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Команди ПЗ</text>
+
+  <!-- Connection Panel 1 -> Panel 2 -->
+  <path d="M 220,312.5 L 247,312.5 L 247,177.5 L 275,177.5" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="235" y="170" font-size="12" fill="#2457d6" text-anchor="middle">USB-пакети</text>
+
+  <!-- Panel 2: Адаптер USB-UART -->
+  <rect x="260" y="80" width="230" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="270" y="90" width="210" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="375" y="110" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Адаптер USB-UART</text>
+
+  <rect x="275" y="135" width="200" height="85" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="375" y="160" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Чип USB-UART</text>
+  <text x="375" y="180" font-size="12" fill="#6b7280" text-anchor="middle">(CH340G / CP2102)</text>
+  <text x="375" y="205" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">TXD, RXD / DTR, RTS</text>
+
+  <rect x="275" y="270" width="200" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="375" y="295" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Схема Автоскидання</text>
+  <text x="375" y="316" font-size="12" fill="#1a1a1a" text-anchor="middle">2× NPN транзистори</text>
+  <text x="375" y="342" font-size="12" fill="#6b7280" text-anchor="middle">DTR=1, RTS=0 → GPIO0=0</text>
+  <text x="375" y="362" font-size="12" fill="#6b7280" text-anchor="middle">DTR=0, RTS=1 → RST=0</text>
+  <text x="375" y="388" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Авто-вхід у Bootloader</text>
+
+  <path d="M 375,220 L 375,270" stroke="#2457d6" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-blue)"/>
+  <text x="382" y="248" font-size="12" fill="#2457d6" text-anchor="start">DTR / RTS</text>
+
+  <!-- Connections Panel 2 -> Panel 3 -->
+  <!-- TXD Data Line -->
+  <path d="M 475,177.5 L 496,177.5 L 496,337.5 L 530,337.5" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="492" y="250" font-size="12" fill="#2457d6" text-anchor="end">TXD → RXD</text>
+
+  <!-- Auto-reset Control Line -->
+  <path d="M 475,337.5 L 509,337.5 L 509,177.5 L 530,177.5" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+  <text x="513" y="250" font-size="12" fill="#27ae60" text-anchor="start">RST / GPIO0</text>
+
+  <!-- Panel 3: Модуль ESP-01 -->
+  <rect x="515" y="80" width="220" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="525" y="90" width="200" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="625" y="110" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Модуль ESP-01 (ESP8266)</text>
+
+  <rect x="530" y="135" width="190" height="85" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="625" y="160" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ROM Bootloader</text>
+  <text x="625" y="180" font-size="12" fill="#6b7280" text-anchor="middle">Опитування GPIO0 при RST</text>
+  <text x="625" y="205" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">UART Download Mode</text>
+
+  <rect x="530" y="270" width="190" height="135" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="625" y="295" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">UART &amp; SPI Контролер</text>
+  <text x="625" y="316" font-size="12" fill="#6b7280" text-anchor="middle">Прийом даних (SLIP)</text>
+  <text x="625" y="342" font-size="12" fill="#6b7280" text-anchor="middle">Стирання / Запис блоків</text>
+  <text x="625" y="362" font-size="12" fill="#6b7280" text-anchor="middle">Верифікація CRC32</text>
+  <text x="625" y="388" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Передача у Flash</text>
+
+  <path d="M 625,220 L 625,270" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="632" y="248" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Режим активний</text>
+
+  <!-- Connection Panel 3 -> Panel 4 -->
+  <path d="M 720,337.5 L 746,337.5 L 746,270 L 772.5,270" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="742" y="300" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">SPI Шина</text>
+
+  <!-- Panel 4: Пам'ять SPI Flash -->
+  <rect x="760" y="80" width="165" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="770" y="90" width="145" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="842.5" y="110" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Пам'ять SPI Flash</text>
+
+  <rect x="772.5" y="180" width="140" height="180" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="842.5" y="210" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">SPI Flash чип</text>
+  <text x="842.5" y="232" font-size="12" fill="#6b7280" text-anchor="middle">(1 МБ / 4 МБ)</text>
+  <text x="842.5" y="265" font-size="12" fill="#1a1a1a" text-anchor="middle">Запис бінарного</text>
+  <text x="842.5" y="285" font-size="12" fill="#1a1a1a" text-anchor="middle">образу у пам'ять</text>
+  <text x="842.5" y="310" font-size="12" fill="#6b7280" text-anchor="middle">Сектори: 4 КБ</text>
+  <text x="842.5" y="340" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Успішно: 100%</text>
+</svg>

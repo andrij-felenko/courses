@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Підключення WeAct Mini Debugger до мікроконтролера STM32</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Спільне заземлення, підтягувальні резистори та коректний UART забезпечують надійне зневадження</text>
+
+  <!-- Left Panel: Debugger -->
+  <rect x="40" y="90" width="250" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="50" y="100" width="230" height="44" rx="6" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="165" y="120" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">WeAct Mini Debugger</text>
+  <text x="165" y="137" font-size="12" fill="#6b7280" text-anchor="middle">(DAPLink / ST-Link V2.1)</text>
+
+  <!-- Left Panel Pins -->
+  <rect x="200" y="156" width="80" height="28" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="240" y="174" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3.3V (VCC)</text>
+
+  <rect x="200" y="206" width="80" height="28" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="240" y="224" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SWDIO</text>
+
+  <rect x="200" y="256" width="80" height="28" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="240" y="274" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SWCLK</text>
+
+  <rect x="200" y="306" width="80" height="28" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="240" y="324" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">NRST</text>
+
+  <rect x="200" y="356" width="80" height="28" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="240" y="374" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">TX (UART)</text>
+
+  <rect x="200" y="406" width="80" height="28" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="240" y="424" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RX (UART)</text>
+
+  <rect x="200" y="456" width="80" height="28" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="240" y="474" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND</text>
+
+  <!-- Right Panel: Target MCU -->
+  <rect x="670" y="90" width="250" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="680" y="100" width="230" height="44" rx="6" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="795" y="120" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Цільовий МК STM32</text>
+  <text x="795" y="137" font-size="12" fill="#6b7280" text-anchor="middle">(STM32F1 / F4 / G4 / L4)</text>
+
+  <!-- Right Panel Pins -->
+  <rect x="680" y="156" width="100" height="28" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="730" y="174" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">VDD / 3.3V</text>
+
+  <rect x="680" y="206" width="100" height="28" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="730" y="224" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">PA13 (SWDIO)</text>
+
+  <rect x="680" y="256" width="100" height="28" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="730" y="274" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">PA14 (SWCLK)</text>
+
+  <rect x="680" y="306" width="100" height="28" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="730" y="324" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">NRST</text>
+
+  <rect x="680" y="356" width="100" height="28" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="730" y="374" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">PA10 (RX)</text>
+
+  <rect x="680" y="406" width="100" height="28" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="730" y="424" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">PA9 (TX)</text>
+
+  <rect x="680" y="456" width="100" height="28" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="730" y="474" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND</text>
+
+  <!-- Right Panel Function Notes -->
+  <text x="840" y="224" font-size="12" fill="#6b7280" text-anchor="middle">Дані SWD</text>
+  <text x="840" y="274" font-size="12" fill="#6b7280" text-anchor="middle">Тактування</text>
+  <text x="840" y="324" font-size="12" fill="#6b7280" text-anchor="middle">Скидання</text>
+  <text x="840" y="374" font-size="12" fill="#6b7280" text-anchor="middle">USART1_RX</text>
+  <text x="840" y="424" font-size="12" fill="#6b7280" text-anchor="middle">USART1_TX</text>
+
+  <!-- Connecting Lines -->
+  <!-- Line 1: Power 3.3V -->
+  <line x1="280" y1="170" x2="680" y2="170" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="480" y="160" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Живлення VCC (3.3V)</text>
+
+  <!-- Vertical 3.3V pull-up bus at x=330 -->
+  <line x1="330" y1="170" x2="330" y2="320" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Resistor 1: SWDIO Pull-up -->
+  <rect x="323" y="187" width="14" height="20" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="348" y="201" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">R_pu 10 кОм</text>
+
+  <!-- Line 2: SWDIO -->
+  <line x1="280" y1="220" x2="680" y2="220" stroke="#2457d6" stroke-width="2" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+  <text x="540" y="210" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SWDIO (двонапрямні дані)</text>
+
+  <!-- Line 3: SWCLK -->
+  <line x1="280" y1="270" x2="680" y2="270" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="260" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SWCLK (тактовий сигнал)</text>
+
+  <!-- Resistor 2: NRST Pull-up -->
+  <rect x="323" y="287" width="14" height="20" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="348" y="301" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">R_pu 10 кОм</text>
+
+  <!-- Line 4: NRST -->
+  <line x1="280" y1="320" x2="680" y2="320" stroke="#2457d6" stroke-width="2" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+  <text x="540" y="310" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">NRST (скидання МК)</text>
+
+  <!-- Vertical capacitor branch at x=330 for NRST -->
+  <line x1="330" y1="320" x2="330" y2="470" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <rect x="323" y="438" width="14" height="14" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="348" y="449" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">C_rst 100 nF</text>
+
+  <!-- Line 5: UART TX -> RX -->
+  <line x1="280" y1="370" x2="680" y2="370" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="480" y="360" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">UART TX → RX (передача)</text>
+
+  <!-- Line 6: UART RX <- TX -->
+  <line x1="280" y1="420" x2="680" y2="420" stroke="#27ae60" stroke-width="2" marker-start="url(#arr-green-start)"/>
+  <text x="480" y="410" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">UART RX ← TX (прийом)</text>
+
+  <!-- Line 7: GND -->
+  <line x1="280" y1="470" x2="680" y2="470" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- GND Symbol -->
+  <line x1="480" y1="470" x2="480" y2="482" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="468" y1="482" x2="492" y2="482" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="472" y1="486" x2="488" y2="486" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="476" y1="490" x2="484" y2="490" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="550" y="460" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND (спільна земля обов'язково)</text>
+</svg>

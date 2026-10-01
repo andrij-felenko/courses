@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топологія шин пам'яті Quad SPI та Octal SPI в ESP32-S3</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Octal SPI з DDR подвоює розрядність і такт, підвищуючи пропускну здатність ціною 8 ліній GPIO</text>
+
+  <!-- LEFT PANEL: Quad SPI Topology -->
+  <rect x="40" y="75" width="425" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="252" y="100" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Quad SPI (QSPI / SDR)</text>
+  <text x="252" y="120" font-size="12" fill="#6b7280" text-anchor="middle">4-бітна шина даних, передача SDR (1 біт/такт)</text>
+
+  <!-- ESP32-S3 Box (Quad) -->
+  <rect x="55" y="145" width="120" height="220" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="115" y="175" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP32-S3</text>
+  <text x="115" y="197" font-size="12" fill="#6b7280" text-anchor="middle">SPI0 / SPI1</text>
+  <text x="115" y="225" font-size="12" fill="#1a1a1a" text-anchor="middle">Контролер</text>
+  <text x="115" y="245" font-size="12" fill="#1a1a1a" text-anchor="middle">пам'яті</text>
+  <text x="115" y="325" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вільні GPIO:</text>
+  <text x="115" y="345" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">40+ виводів</text>
+
+  <!-- Quad Flash Box -->
+  <rect x="320" y="145" width="130" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="385" y="175" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Quad Flash</text>
+  <text x="385" y="197" font-size="12" fill="#6b7280" text-anchor="middle">4 МБ / 8 МБ</text>
+  <text x="385" y="222" font-size="12" fill="#2457d6" text-anchor="middle">4 лінії (D0..D3)</text>
+
+  <!-- Quad PSRAM Box -->
+  <rect x="320" y="270" width="130" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="385" y="300" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Quad PSRAM</text>
+  <text x="385" y="322" font-size="12" fill="#6b7280" text-anchor="middle">2 МБ / 8 МБ</text>
+  <text x="385" y="347" font-size="12" fill="#2457d6" text-anchor="middle">4 лінії (D0..D3)</text>
+
+  <!-- QSPI Arrows & Bus Labels -->
+  <line x1="175" y1="180" x2="320" y2="180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="247" y="170" font-size="11" fill="#2457d6" text-anchor="middle">CS, CLK, D0..D3 (4 біти)</text>
+
+  <line x1="175" y1="315" x2="320" y2="315" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="247" y="305" font-size="11" fill="#2457d6" text-anchor="middle">CS, CLK, D0..D3 (4 біти)</text>
+
+  <!-- QSPI Summary Box -->
+  <rect x="55" y="385" width="395" height="90" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="70" y="410" font-size="12" fill="#1a1a1a">• Швидкість: ~80 МБ/с (передача SDR, 1 біт/такт)</text>
+  <text x="70" y="432" font-size="12" fill="#1a1a1a">• Використання GPIO: помірне (загалом ~10 виводів)</text>
+  <text x="70" y="454" font-size="12" font-weight="bold" fill="#27ae60">• Перевага: залишає більше GPIO під периферію</text>
+
+
+  <!-- RIGHT PANEL: Octal SPI Topology -->
+  <rect x="495" y="75" width="425" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="707" y="100" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">Octal SPI (OPI / DDR)</text>
+  <text x="707" y="120" font-size="12" fill="#6b7280" text-anchor="middle">8-бітна шина даних, передача DDR (2 біти/такт)</text>
+
+  <!-- ESP32-S3 Box (Octal) -->
+  <rect x="515" y="145" width="120" height="220" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="575" y="175" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP32-S3</text>
+  <text x="575" y="197" font-size="12" fill="#6b7280" text-anchor="middle">SPI0 / SPI1</text>
+  <text x="575" y="225" font-size="12" fill="#1a1a1a" text-anchor="middle">Octal Controller</text>
+  <text x="575" y="245" font-size="12" fill="#1a1a1a" text-anchor="middle">(OPI Mode)</text>
+  <text x="575" y="325" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зайнято GPIO33..37</text>
+  <text x="575" y="345" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">-8 ліній GPIO</text>
+
+  <!-- Octal Memory Module Box -->
+  <rect x="780" y="145" width="125" height="220" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="842" y="175" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Octal PSRAM /</text>
+  <text x="842" y="197" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Octal Flash</text>
+  <text x="842" y="222" font-size="12" fill="#6b7280" text-anchor="middle">8 МБ / 16 МБ</text>
+  <text x="842" y="250" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">8 ліній даних</text>
+  <text x="842" y="270" font-size="12" fill="#c0392b" text-anchor="middle">(D0..D7 + DQS)</text>
+  <text x="842" y="300" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Режим DDR</text>
+  <text x="842" y="320" font-size="12" fill="#2457d6" text-anchor="middle">2 біти/такт</text>
+
+  <!-- Octal Arrows & Bus Labels -->
+  <line x1="635" y1="190" x2="780" y2="190" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+  <text x="707" y="180" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">D0..D7 (8 бітів)</text>
+
+  <line x1="635" y1="245" x2="780" y2="245" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="707" y="235" font-size="11" fill="#2457d6" text-anchor="middle">CS, CLK, DQS строб</text>
+
+  <line x1="635" y1="300" x2="780" y2="300" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+  <text x="707" y="290" font-size="11" fill="#6b7280" text-anchor="middle">DDR (фронт+зріз)</text>
+
+  <!-- Octal Summary Box -->
+  <rect x="510" y="385" width="395" height="90" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="525" y="410" font-size="12" font-weight="bold" fill="#2457d6">• Швидкість: 320+ МБ/с (Octal DDR, 2 біти/такт)</text>
+  <text x="525" y="432" font-size="12" font-weight="bold" fill="#c0392b">• Використання GPIO: займає GPIO33..GPIO37 (+8 ліній)</text>
+  <text x="525" y="454" font-size="12" fill="#1a1a1a">• Призначення: обробка відео, Edge AI, графіка, дисплеї</text>
+</svg>

@@ -1,0 +1,177 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Трансляція команд CMSIS-DAP у фізичні сигнали SWD</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Конвертація USB-пакетів DAP_Transfer у тактові імпульси SWCLK, лінії SWDIO та nRESET</text>
+
+  <!-- Section 1: USB Packet (CMSIS-DAP) -->
+  <rect x="40" y="75" width="880" height="92" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="55" y="95" font-size="13" font-weight="bold" fill="#1a1a1a">Структура USB HID пакета CMSIS-DAP (Host → DAPLink):</text>
+
+  <!-- Packet field 1 -->
+  <rect x="55" y="110" width="160" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="135" y="126" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Command ID (0x05)</text>
+  <text x="135" y="140" text-anchor="middle" font-size="12" fill="#6b7280">DAP_Transfer</text>
+
+  <text x="227" y="133" text-anchor="middle" font-size="14" font-weight="bold" fill="#6b7280">+</text>
+
+  <!-- Packet field 2 -->
+  <rect x="242" y="110" width="160" height="38" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="322" y="126" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">DAP Index &amp; Count</text>
+  <text x="322" y="140" text-anchor="middle" font-size="12" fill="#6b7280">Index=0, Count=1</text>
+
+  <text x="414" y="133" text-anchor="middle" font-size="14" font-weight="bold" fill="#6b7280">+</text>
+
+  <!-- Packet field 3 -->
+  <rect x="429" y="110" width="245" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="551" y="126" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Transfer Request Byte</text>
+  <text x="551" y="140" text-anchor="middle" font-size="12" fill="#2457d6">RnW=1 (Read), APnDP=1 (AP)</text>
+
+  <!-- Target Operation Box -->
+  <rect x="689" y="110" width="216" height="38" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="797" y="126" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Цільова операція</text>
+  <text x="797" y="140" text-anchor="middle" font-size="12" fill="#6b7280">Читання регістру AP</text>
+
+  <!-- Hardware Translation Arrow -->
+  <line x1="480" y1="167" x2="480" y2="197" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="495" y="186" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">Апаратна трансляція прошивкою DAPLink</text>
+
+  <!-- Section 2: SWD Timing Diagram Panel -->
+  <rect x="40" y="202" width="880" height="322" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="55" y="224" font-size="14" font-weight="bold" fill="#1a1a1a">Часова діаграма шини SWD (Serial Wire Debug)</text>
+
+  <!-- Legend -->
+  <rect x="600" y="213" width="14" height="14" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="620" y="225" font-size="12" fill="#1a1a1a">Передача DAPLink (Host)</text>
+  <rect x="770" y="213" width="14" height="14" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="790" y="225" font-size="12" fill="#1a1a1a">Відповідь MCU (Target)</text>
+
+  <!-- Phase background bands -->
+  <!-- Phase 1: Request -->
+  <rect x="160" y="238" width="260" height="214" fill="#eaf0fd" fill-opacity="0.4" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1"/>
+  <text x="290" y="252" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1. Фаза запиту (Host → Target)</text>
+
+  <!-- Phase 2: TRN -->
+  <rect x="420" y="238" width="40" height="214" fill="#f4f6f8" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <text x="440" y="252" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">TRN</text>
+
+  <!-- Phase 3: ACK -->
+  <rect x="460" y="238" width="100" height="214" fill="#e9f7ef" fill-opacity="0.4" stroke="#27ae60" stroke-dasharray="3,3" stroke-width="1"/>
+  <text x="510" y="252" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">2. ACK (OK)</text>
+
+  <!-- Phase 4: Data -->
+  <rect x="560" y="238" width="300" height="214" fill="#e9f7ef" fill-opacity="0.4" stroke="#27ae60" stroke-dasharray="3,3" stroke-width="1"/>
+  <text x="710" y="252" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">3. Фаза даних (Target → Host)</text>
+
+  <!-- Phase 5: Idle -->
+  <rect x="860" y="238" width="40" height="214" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="880" y="252" text-anchor="middle" font-size="12" fill="#6b7280">Idle</text>
+
+  <!-- Signal 1: nRESET -->
+  <text x="55" y="278" font-size="13" font-weight="bold" fill="#1a1a1a">nRESET</text>
+  <text x="55" y="292" font-size="12" fill="#6b7280">(Скидання)</text>
+  <line x1="160" y1="280" x2="900" y2="280" stroke="#27ae60" stroke-width="2"/>
+  <text x="170" y="274" font-size="12" fill="#27ae60">HIGH (активний робочий стан target MCU)</text>
+
+  <!-- Signal 2: SWCLK -->
+  <text x="55" y="335" font-size="13" font-weight="bold" fill="#1a1a1a">SWCLK</text>
+  <text x="55" y="349" font-size="12" fill="#6b7280">(Тактування)</text>
+
+  <!-- SWCLK waveform: High=320, Low=350 -->
+  <path d="M 160,350
+           L 160,320 L 176,320 L 176,350 L 192,350
+           L 192,320 L 208,320 L 208,350 L 225,350
+           L 225,320 L 241,320 L 241,350 L 257,350
+           L 257,320 L 273,320 L 273,350 L 290,350
+           L 290,320 L 306,320 L 306,350 L 322,350
+           L 322,320 L 338,320 L 338,350 L 355,350
+           L 355,320 L 371,320 L 371,350 L 387,350
+           L 387,320 L 403,320 L 403,350 L 420,350
+           L 420,320 L 440,320 L 440,350 L 460,350
+           L 460,320 L 476,320 L 476,350 L 493,350
+           L 493,320 L 510,320 L 510,350 L 526,350
+           L 526,320 L 543,320 L 543,350 L 560,350
+           L 560,320 L 585,320 L 585,350 L 610,350
+           L 610,320 L 635,320 L 635,350 L 660,350
+           L 660,320 L 685,320 L 685,350 L 710,350
+           L 710,320 L 735,320 L 735,350 L 760,350
+           L 760,320 L 785,320 L 785,350 L 810,350
+           L 810,320 L 835,320 L 835,350 L 860,350
+           L 900,350"
+        fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Signal 3: SWDIO -->
+  <text x="55" y="405" font-size="13" font-weight="bold" fill="#1a1a1a">SWDIO</text>
+  <text x="55" y="419" font-size="12" fill="#6b7280">(Дані)</text>
+
+  <!-- SWDIO Waveform & Annotations -->
+  <!-- Phase 1: Request (Host -> Target), High=385, Low=425 -->
+  <!-- Bit waveforms -->
+  <path d="M 160,385 L 192,385
+           L 192,385 L 225,385
+           L 225,385 L 257,385
+           L 257,425 L 290,425
+           L 290,385 L 322,385
+           L 322,385 L 355,385
+           L 355,425 L 387,425
+           L 387,385 L 420,385"
+        fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Bit labels -->
+  <text x="176" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Start=1</text>
+  <text x="208" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">AP=1</text>
+  <text x="241" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">RnW=1</text>
+  <text x="273" y="440" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">A[2]=0</text>
+  <text x="306" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">A[3]=1</text>
+  <text x="338" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">P=1</text>
+  <text x="371" y="440" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Stop=0</text>
+  <text x="403" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Park=1</text>
+
+  <!-- Phase 2: TRN (High-Z at mid level 405) -->
+  <line x1="420" y1="405" x2="460" y2="405" stroke="#6b7280" stroke-width="2" stroke-dasharray="3,3"/>
+  <text x="440" y="398" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">High-Z</text>
+
+  <!-- Phase 3: ACK (OK: 1 0 0) Target -> Host -->
+  <path d="M 460,385 L 493,385 L 493,425 L 560,425" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="476" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">1</text>
+  <text x="510" y="440" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">0</text>
+  <text x="543" y="440" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">0</text>
+
+  <!-- Phase 4: Data Bus Shape (560 to 820) -->
+  <polygon points="560,405 570,385 810,385 820,405 810,425 570,425" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="690" y="409" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">32-бітні дані читання (D0 ... D31)</text>
+
+  <!-- Parity Box (820 to 860) -->
+  <polygon points="820,405 825,385 855,385 860,405 855,425 825,425" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="840" y="409" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Parity</text>
+
+  <!-- Phase 5: Idle line -->
+  <line x1="860" y1="385" x2="900" y2="385" stroke="#d0d7de" stroke-width="2"/>
+
+  <!-- Summary Cards at bottom of diagram -->
+  <rect x="55" y="460" width="255" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="65" y="478" font-size="12" font-weight="bold" fill="#2457d6">1. DAPLink передає 8-бітний запит</text>
+  <text x="65" y="495" font-size="12" fill="#1a1a1a">SWCLK тактує біти: Start, AP, RnW...</text>
+
+  <rect x="325" y="460" width="220" height="48" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="335" y="478" font-size="12" font-weight="bold" fill="#6b7280">2. Перемикання шини (TRN)</text>
+  <text x="335" y="495" font-size="12" fill="#1a1a1a">1 такт паузи для зміни драйвера</text>
+
+  <rect x="560" y="460" width="340" height="48" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="570" y="478" font-size="12" font-weight="bold" fill="#27ae60">3. Target MCU відповідає та видає дані</text>
+  <text x="570" y="495" font-size="12" fill="#1a1a1a">Передача ACK (OK: 001), 32 бітів даних і Parity</text>
+</svg>

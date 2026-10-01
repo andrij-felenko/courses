@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Diagram Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розпіновка та електричні характеристики плати ESP-01 (ESP8266)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Конфігурація виводів, вимоги до підтяжки 3.3 В та ролі в режимах завантаження</text>
+
+  <!-- PANEL 1: Electrical Limits & Boot Modes (Left) -->
+  <rect x="40" y="80" width="220" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="40" y="80" width="220" height="36" fill="#e5e9f0" stroke="#d0d7de" stroke-width="2"/>
+  <text x="150" y="103" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Параметри та режими</text>
+
+  <!-- Electrical Limits Card -->
+  <rect x="52" y="128" width="196" height="85" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="150" y="148" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Електричні межі</text>
+  <text x="60" y="170" font-size="12" fill="#1a1a1a">• VCC: 3.0 В ... 3.6 В</text>
+  <text x="60" y="191" font-size="12" fill="#1a1a1a">• Піковий струм: 300 мА</text>
+
+  <!-- Boot Modes Sub-panel -->
+  <rect x="52" y="225" width="196" height="250" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="150" y="247" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Режими завантаження</text>
+
+  <!-- Flash Boot Mode -->
+  <rect x="60" y="260" width="180" height="85" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="150" y="278" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Flash Boot (Робочий)</text>
+  <text x="68" y="298" font-size="12" fill="#1a1a1a">• GPIO0 = HIGH (3.3В)</text>
+  <text x="68" y="316" font-size="12" fill="#1a1a1a">• GPIO2 = HIGH (3.3В)</text>
+  <text x="68" y="334" font-size="12" fill="#6b7280">  Запуск із Flash</text>
+
+  <!-- UART Download Mode -->
+  <rect x="60" y="358" width="180" height="102" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="150" y="376" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">UART Download (Прошивка)</text>
+  <text x="68" y="396" font-size="12" fill="#1a1a1a">• GPIO0 = LOW (GND)</text>
+  <text x="68" y="414" font-size="12" fill="#1a1a1a">• GPIO2 = HIGH (3.3В)</text>
+  <text x="68" y="432" font-size="12" fill="#6b7280">  Запис коду у Flash</text>
+  <text x="68" y="450" font-size="12" fill="#6b7280">  (CH_PD=1, RST=1)</text>
+
+  <!-- PANEL 2: ESP-01 Board Diagram (Center) -->
+  <rect x="275" y="80" width="200" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="275" y="80" width="200" height="36" fill="#e5e9f0" stroke="#d0d7de" stroke-width="2"/>
+  <text x="375" y="103" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Плата ESP-01</text>
+
+  <!-- ESP-01 PCB Board Body -->
+  <rect x="290" y="130" width="170" height="345" rx="8" fill="#1b2a4a" stroke="#101828" stroke-width="2"/>
+
+  <!-- PCB Antenna -->
+  <rect x="305" y="142" width="140" height="40" rx="4" fill="#142038" stroke="#d4af37" stroke-width="1.5"/>
+  <path d="M 315 170 L 315 150 L 330 150 L 330 170 L 345 170 L 345 150 L 360 150 L 360 170 L 375 170 L 375 150 L 390 150 L 390 170 L 405 170 L 405 150 L 420 150 L 420 170 L 435 170" stroke="#d4af37" stroke-width="2" fill="none"/>
+  <text x="375" y="194" font-size="12" fill="#d4af37" text-anchor="middle">PCB Антена</text>
+
+  <!-- ESP8266EX SoC Chip -->
+  <rect x="340" y="212" width="70" height="70" rx="4" fill="#0d1117" stroke="#30363d" stroke-width="1.5"/>
+  <text x="375" y="245" font-size="12" font-weight="bold" fill="white" text-anchor="middle">ESP8266EX</text>
+  <text x="375" y="265" font-size="12" fill="#8b949e" text-anchor="middle">SoC</text>
+
+  <!-- Flash Memory -->
+  <rect x="345" y="295" width="60" height="45" rx="3" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="375" y="322" font-size="12" fill="white" text-anchor="middle">Flash 1MB</text>
+
+  <!-- 2x4 Header Connector Housing -->
+  <rect x="320" y="355" width="110" height="110" rx="4" fill="#2d3748" stroke="#1a202c" stroke-width="1.5"/>
+  <text x="375" y="370" font-size="12" fill="#e2e8f0" text-anchor="middle">Гніздо 2×4</text>
+
+  <!-- Pins 1..8 inside header -->
+  <!-- Row 1 -->
+  <circle cx="340" cy="385" r="7" fill="#1a1a1a" stroke="white" stroke-width="1.5"/>
+  <text x="340" y="389" font-size="12" font-weight="bold" fill="white" text-anchor="middle">1</text>
+
+  <circle cx="410" cy="385" r="7" fill="#27ae60" stroke="white" stroke-width="1.5"/>
+  <text x="410" y="389" font-size="12" font-weight="bold" fill="white" text-anchor="middle">2</text>
+
+  <!-- Row 2 -->
+  <circle cx="340" cy="405" r="7" fill="#27ae60" stroke="white" stroke-width="1.5"/>
+  <text x="340" y="409" font-size="12" font-weight="bold" fill="white" text-anchor="middle">3</text>
+
+  <circle cx="410" cy="405" r="7" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <text x="410" y="409" font-size="12" font-weight="bold" fill="white" text-anchor="middle">4</text>
+
+  <!-- Row 3 -->
+  <circle cx="340" cy="425" r="7" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <text x="340" y="429" font-size="12" font-weight="bold" fill="white" text-anchor="middle">5</text>
+
+  <circle cx="410" cy="425" r="7" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <text x="410" y="429" font-size="12" font-weight="bold" fill="white" text-anchor="middle">6</text>
+
+  <!-- Row 4 -->
+  <circle cx="340" cy="445" r="7" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <text x="340" y="449" font-size="12" font-weight="bold" fill="white" text-anchor="middle">7</text>
+
+  <circle cx="410" cy="445" r="7" fill="#c0392b" stroke="white" stroke-width="1.5"/>
+  <text x="410" y="449" font-size="12" font-weight="bold" fill="white" text-anchor="middle">8</text>
+
+  <!-- PANEL 3: Pin Specification Cards (Right) -->
+  <rect x="490" y="80" width="430" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="490" y="80" width="430" height="36" fill="#e5e9f0" stroke="#d0d7de" stroke-width="2"/>
+  <text x="705" y="103" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Опис сигналів та вимоги до підтяжки</text>
+
+  <!-- Card 1: GND -->
+  <rect x="500" y="125" width="200" height="80" rx="6" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="508" y="133" width="70" height="22" rx="3" fill="#f4f6f8" stroke="#1a1a1a"/>
+  <text x="543" y="148" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. GND</text>
+  <text x="508" y="172" font-size="12" fill="#1a1a1a">Загальний дріт (0В)</text>
+  <text x="508" y="192" font-size="12" fill="#6b7280">Спільна земля схеми</text>
+
+  <!-- Card 2: GPIO2 -->
+  <rect x="710" y="125" width="200" height="80" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="718" y="133" width="75" height="22" rx="3" fill="white" stroke="#27ae60"/>
+  <text x="755" y="148" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">2. GPIO2</text>
+  <text x="718" y="172" font-size="12" font-weight="bold" fill="#1a1a1a">Pull-up 10 кОм до 3.3В</text>
+  <text x="718" y="192" font-size="12" fill="#27ae60">HIGH при старті!</text>
+
+  <!-- Card 3: GPIO0 -->
+  <rect x="500" y="215" width="200" height="80" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="508" y="223" width="75" height="22" rx="3" fill="white" stroke="#27ae60"/>
+  <text x="545" y="238" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3. GPIO0</text>
+  <text x="508" y="262" font-size="12" font-weight="bold" fill="#1a1a1a">Pull-up 10 кОм до 3.3В</text>
+  <text x="508" y="282" font-size="12" fill="#27ae60">GND = UART Flash</text>
+
+  <!-- Card 4: RXD -->
+  <rect x="710" y="215" width="200" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="718" y="223" width="85" height="22" rx="3" fill="white" stroke="#2457d6"/>
+  <text x="760" y="238" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">4. RXD (IO3)</text>
+  <text x="718" y="262" font-size="12" fill="#1a1a1a">Вхід UART (3.3В)</text>
+  <text x="718" y="282" font-size="12" fill="#c0392b">5В потребує дільника</text>
+
+  <!-- Card 5: TXD -->
+  <rect x="500" y="305" width="200" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="508" y="313" width="85" height="22" rx="3" fill="white" stroke="#2457d6"/>
+  <text x="550" y="328" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">5. TXD (IO1)</text>
+  <text x="508" y="352" font-size="12" fill="#1a1a1a">Вихід UART (3.3В)</text>
+  <text x="508" y="372" font-size="12" fill="#6b7280">Логи завантажувача</text>
+
+  <!-- Card 6: CH_PD -->
+  <rect x="710" y="305" width="200" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="718" y="313" width="95" height="22" rx="3" fill="white" stroke="#2457d6"/>
+  <text x="765" y="328" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">6. CH_PD (EN)</text>
+  <text x="718" y="352" font-size="12" font-weight="bold" fill="#1a1a1a">Pull-up 10 кОм до 3.3В</text>
+  <text x="718" y="372" font-size="12" fill="#2457d6">Вмикання чипа (HIGH)</text>
+
+  <!-- Card 7: RST -->
+  <rect x="500" y="395" width="200" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="508" y="403" width="70" height="22" rx="3" fill="white" stroke="#2457d6"/>
+  <text x="543" y="418" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">7. RST</text>
+  <text x="508" y="442" font-size="12" font-weight="bold" fill="#1a1a1a">Pull-up 10 кОм до 3.3В</text>
+  <text x="508" y="462" font-size="12" fill="#6b7280">Скидання: LOW (GND)</text>
+
+  <!-- Card 8: VCC -->
+  <rect x="710" y="395" width="200" height="80" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="718" y="403" width="65" height="22" rx="3" fill="white" stroke="#c0392b"/>
+  <text x="750" y="418" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">8. VCC</text>
+  <text x="718" y="442" font-size="12" font-weight="bold" fill="#c0392b">Живлення +3.3В</text>
+  <text x="718" y="462" font-size="12" font-weight="bold" fill="#c0392b">5В ДАВАТИ ЗАБОРОНЕНО</text>
+
+  <!-- Legend text at bottom -->
+  <text x="480" y="506" font-size="12" fill="#1a1a1a" text-anchor="middle">Зелений: Конфігураційні виводи (Boot)  |  Синій: Інтерфейсні виводи  |  Червоний: Живлення 3.3В</text>
+</svg>

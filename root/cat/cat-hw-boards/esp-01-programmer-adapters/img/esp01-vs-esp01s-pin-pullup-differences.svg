@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цокольовка та резистори підтяжки: ESP-01 проти ESP-01S</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">ESP-01S має вбудовані підтяжки 10 кОм на GPIO0, GPIO2, CH_PD та RST, а ESP-01 вимагає зовнішньої обв'язки</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: ESP-01 -->
+  <rect x="30" y="80" width="435" height="440" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+
+  <!-- Заголовок лівої панелі -->
+  <rect x="45" y="92" width="405" height="48" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="247" y="112" font-size="16" font-weight="bold" fill="#c0392b" text-anchor="middle">ESP-01 (Класична версія)</text>
+  <text x="247" y="130" font-size="12" fill="#1a1a1a" text-anchor="middle">Внутрішні резистори підтяжки відсутні</text>
+
+  <!-- Схема роз'єму лівої панелі -->
+  <rect x="45" y="152" width="405" height="146" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="247" y="170" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цокольовка роз'єму 2×4 (Вигляд зверху)</text>
+  
+  <rect x="70" y="194" width="355" height="84" fill="none" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 3" rx="4"/>
+
+  <!-- Позначки відсутності підтяжки зверху та знизу -->
+  <text x="195" y="190" font-size="12" fill="#c0392b" text-anchor="middle">без підтяжки</text>
+  <text x="295" y="190" font-size="12" fill="#c0392b" text-anchor="middle">без підтяжки</text>
+  <text x="195" y="290" font-size="12" fill="#c0392b" text-anchor="middle">без підтяжки</text>
+  <text x="295" y="290" font-size="12" fill="#c0392b" text-anchor="middle">без підтяжки</text>
+
+  <!-- Піни ESP-01 (Верхній ряд) -->
+  <circle cx="95" cy="214" r="15" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="95" y="218" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND</text>
+
+  <circle cx="195" cy="214" r="15" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="195" y="218" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">IO2</text>
+
+  <circle cx="295" cy="214" r="15" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="295" y="218" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">IO0</text>
+
+  <circle cx="395" cy="214" r="15" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="395" y="218" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RX</text>
+
+  <!-- Піни ESP-01 (Нижній ряд) -->
+  <circle cx="95" cy="258" r="15" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="95" y="262" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">VCC</text>
+
+  <circle cx="195" cy="258" r="15" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="195" y="262" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">RST</text>
+
+  <circle cx="295" cy="258" r="15" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="295" y="262" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">EN</text>
+
+  <circle cx="395" cy="258" r="15" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="395" y="262" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">TX</text>
+
+  <!-- Детальний стан виводів ESP-01 -->
+  <rect x="45" y="310" width="405" height="142" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="247" y="328" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Параметри виводів (ESP-01)</text>
+
+  <text x="60" y="352" font-size="12" font-weight="bold" fill="#c0392b">GPIO0 (Boot):</text>
+  <text x="185" y="352" font-size="12" fill="#6b7280">немає R_pullup</text>
+  <text x="305" y="352" font-size="12" fill="#c0392b">→ збій старту</text>
+
+  <text x="60" y="376" font-size="12" font-weight="bold" fill="#c0392b">GPIO2 (Boot):</text>
+  <text x="185" y="376" font-size="12" fill="#6b7280">немає R_pullup</text>
+  <text x="305" y="376" font-size="12" fill="#c0392b">→ плаваючий рівень</text>
+
+  <text x="60" y="400" font-size="12" font-weight="bold" fill="#c0392b">CH_PD (EN):</text>
+  <text x="185" y="400" font-size="12" fill="#6b7280">немає R_pullup</text>
+  <text x="305" y="400" font-size="12" fill="#c0392b">→ чип вимкнений</text>
+
+  <text x="60" y="424" font-size="12" font-weight="bold" fill="#c0392b">RST (Reset):</text>
+  <text x="185" y="424" font-size="12" fill="#6b7280">немає R_pullup</text>
+  <text x="305" y="424" font-size="12" fill="#c0392b">→ хибні ресети</text>
+
+  <!-- Підсумковий блок ESP-01 -->
+  <rect x="45" y="464" width="405" height="44" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="247" y="481" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠️ Вимагає підтяжки 10 кОм на адаптері</text>
+  <text x="247" y="498" font-size="12" fill="#1a1a1a" text-anchor="middle">Не працює у простих USB-планках без доробки</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: ESP-01S -->
+  <rect x="495" y="80" width="435" height="440" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+
+  <!-- Заголовок правої панелі -->
+  <rect x="510" y="92" width="405" height="48" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="712" y="112" font-size="16" font-weight="bold" fill="#27ae60" text-anchor="middle">ESP-01S (Покращена версія)</text>
+  <text x="712" y="130" font-size="12" fill="#1a1a1a" text-anchor="middle">Вбудовані SMD-резистори 10 кОм на платі</text>
+
+  <!-- Схема роз'єму правої панелі -->
+  <rect x="510" y="152" width="405" height="146" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="712" y="170" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цокольовка роз'єму 2×4 (Вбудована підтяжка)</text>
+
+  <rect x="535" y="194" width="355" height="84" fill="none" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 3" rx="4"/>
+
+  <!-- Позначки наявності підтяжки зверху та знизу -->
+  <text x="660" y="190" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">10 кОм SMD</text>
+  <text x="760" y="190" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">10 кОм SMD</text>
+  <text x="660" y="290" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">10 кОм SMD</text>
+  <text x="760" y="290" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">10 кОм SMD</text>
+
+  <!-- Піни ESP-01S (Верхній ряд) -->
+  <circle cx="560" cy="214" r="15" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="560" y="218" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND</text>
+
+  <circle cx="660" cy="214" r="15" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="660" y="218" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">IO2</text>
+
+  <circle cx="760" cy="214" r="15" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="760" y="218" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">IO0</text>
+
+  <circle cx="860" cy="214" r="15" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="860" y="218" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RX</text>
+
+  <!-- Піни ESP-01S (Нижній ряд) -->
+  <circle cx="560" cy="258" r="15" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="560" y="262" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">VCC</text>
+
+  <circle cx="660" cy="258" r="15" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="660" y="262" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">RST</text>
+
+  <circle cx="760" cy="258" r="15" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="760" y="262" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">EN</text>
+
+  <circle cx="860" cy="258" r="15" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="860" y="262" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">TX</text>
+
+  <!-- Детальний стан виводів ESP-01S -->
+  <rect x="510" y="310" width="405" height="142" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="712" y="328" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Параметри виводів (ESP-01S)</text>
+
+  <text x="525" y="352" font-size="12" font-weight="bold" fill="#27ae60">GPIO0 (Boot):</text>
+  <text x="650" y="352" font-size="12" fill="#27ae60">10 кОм на VCC</text>
+  <text x="770" y="352" font-size="12" fill="#1a1a1a">→ High (Run mode)</text>
+
+  <text x="525" y="376" font-size="12" font-weight="bold" fill="#27ae60">GPIO2 (Boot):</text>
+  <text x="650" y="376" font-size="12" fill="#27ae60">10 кОм на VCC</text>
+  <text x="770" y="376" font-size="12" fill="#1a1a1a">→ High (стабільний)</text>
+
+  <text x="525" y="400" font-size="12" font-weight="bold" fill="#27ae60">CH_PD (EN):</text>
+  <text x="650" y="400" font-size="12" fill="#27ae60">10 кОм на VCC</text>
+  <text x="770" y="400" font-size="12" fill="#1a1a1a">→ чип активовано</text>
+
+  <text x="525" y="424" font-size="12" font-weight="bold" fill="#27ae60">RST (Reset):</text>
+  <text x="650" y="424" font-size="12" fill="#27ae60">10 кОм на VCC</text>
+  <text x="770" y="424" font-size="12" fill="#1a1a1a">→ захист від завад</text>
+
+  <!-- Підсумковий блок ESP-01S -->
+  <rect x="510" y="464" width="405" height="44" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="712" y="481" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Працює у будь-яких USB-адаптерах</text>
+  <text x="712" y="498" font-size="12" fill="#1a1a1a" text-anchor="middle">Для прошивки потрібно лише замкнути GPIO0 на GND</text>
+</svg>

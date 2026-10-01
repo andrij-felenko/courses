@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема руху даних та спрацьовування таймаутів VCP-драйвера CH340</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Циркуляція байтів від USB-пакетів мосту через кільцевий буфер ядра до буфера застосунку</text>
+
+  <!-- Stage Titles -->
+  <text x="125" y="95" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Апаратне джерело</text>
+  <text x="355" y="95" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Буферизація ядра</text>
+  <text x="590" y="95" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Контроль таймаутів</text>
+  <text x="830" y="95" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4. Приймальний буфер</text>
+
+  <!-- Stage 1: CH340 USB-UART -->
+  <g>
+    <rect x="40" y="115" width="170" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="125" y="137" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CH340 USB-UART</text>
+    <text x="125" y="155" font-size="12" fill="#6b7280" text-anchor="middle">Апаратний FIFO</text>
+    <line x1="55" y1="165" x2="195" y2="165" stroke="#d0d7de"/>
+
+    <rect x="55" y="180" width="140" height="45" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+    <text x="125" y="199" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідний потік UART</text>
+    <text x="125" y="215" font-size="12" fill="#6b7280" text-anchor="middle">Зчитування ніжки RxD</text>
+
+    <rect x="55" y="240" width="140" height="115" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+    <text x="125" y="258" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB Bulk IN кадри:</text>
+
+    <rect x="65" y="268" width="120" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="125" y="283" font-size="12" fill="#2457d6" text-anchor="middle">Пакет #1 (64 Б)</text>
+
+    <rect x="65" y="298" width="120" height="22" rx="3" fill="#fdecea" stroke="#c0392b"/>
+    <text x="125" y="313" font-size="12" fill="#c0392b" text-anchor="middle">Пакет #2 (12 Б)</text>
+
+    <text x="125" y="343" font-size="12" fill="#6b7280" text-anchor="middle">(пауза в прийомі)</text>
+  </g>
+
+  <!-- Flow Arrow 1 -> 2 -->
+  <g>
+    <line x1="210" y1="245" x2="262" y2="245" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <text x="240" y="233" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">USB Bulk IN</text>
+    <text x="240" y="261" font-size="12" fill="#6b7280" text-anchor="middle">(пакети 64B)</text>
+  </g>
+
+  <!-- Stage 2: OS VCP Driver -->
+  <g>
+    <rect x="270" y="115" width="170" height="260" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="355" y="137" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Драйвер VCP ОС</text>
+    <text x="355" y="155" font-size="12" fill="#2457d6" text-anchor="middle">Кільцевий буфер</text>
+    <line x1="285" y1="165" x2="425" y2="165" stroke="#2457d6"/>
+
+    <rect x="285" y="180" width="140" height="175" rx="4" fill="#ffffff" stroke="#2457d6"/>
+    
+    <rect x="295" y="195" width="120" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="355" y="213" font-size="12" fill="#2457d6" text-anchor="middle">Блок 1: [64 Байт]</text>
+
+    <rect x="295" y="231" width="120" height="28" rx="3" fill="#fdecea" stroke="#c0392b"/>
+    <text x="355" y="249" font-size="12" fill="#c0392b" text-anchor="middle">Блок 2: [12 Байт]</text>
+
+    <rect x="295" y="267" width="120" height="28" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+    <text x="355" y="285" font-size="12" fill="#6b7280" text-anchor="middle">Вільні комірки...</text>
+
+    <text x="355" y="320" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Накопичено: 76 Б</text>
+    <text x="355" y="342" font-size="12" fill="#6b7280" text-anchor="middle">(з 512 запитаних)</text>
+  </g>
+
+  <!-- Flow Arrow 2 -> 3 -->
+  <g>
+    <line x1="440" y1="245" x2="492" y2="245" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <text x="466" y="233" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Заповнення</text>
+    <text x="466" y="261" font-size="12" fill="#6b7280" text-anchor="middle">(буфера VCP)</text>
+  </g>
+
+  <!-- Stage 3: Timeout Controller -->
+  <g>
+    <rect x="500" y="115" width="180" height="260" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="590" y="137" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Контролер таймаутів</text>
+    <text x="590" y="155" font-size="12" fill="#6b7280" text-anchor="middle">COMMTIMEOUTS / VTIME</text>
+    <line x1="515" y1="165" x2="665" y2="165" stroke="#c0392b"/>
+
+    <rect x="515" y="180" width="150" height="60" rx="4" fill="#fdecea" stroke="#c0392b"/>
+    <text x="590" y="200" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Інтервальний таймер</text>
+    <text x="590" y="222" font-size="12" fill="#1a1a1a" text-anchor="middle">ReadIntervalTimeout</text>
+
+    <rect x="515" y="250" width="150" height="105" rx="4" fill="#ffffff" stroke="#c0392b"/>
+    <text x="590" y="270" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Пауза прийому > 100мс</text>
+    <text x="590" y="292" font-size="12" fill="#6b7280" text-anchor="middle">Нові байти відсутні</text>
+    <line x1="525" y1="305" x2="655" y2="305" stroke="#fdecea"/>
+    <text x="590" y="324" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ТАЙМАУТ ВИНИК</text>
+    <text x="590" y="342" font-size="12" fill="#1a1a1a" text-anchor="middle">Примусовий скид</text>
+  </g>
+
+  <!-- Flow Arrow 3 -> 4 -->
+  <g>
+    <line x1="680" y1="245" x2="732" y2="245" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+    <text x="710" y="233" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Повернення</text>
+    <text x="710" y="261" font-size="12" fill="#27ae60" text-anchor="middle">(з таймаутом)</text>
+  </g>
+
+  <!-- Stage 4: App Buffer -->
+  <g>
+    <rect x="740" y="115" width="180" height="260" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="830" y="137" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Буфер застосунку</text>
+    <text x="830" y="155" font-size="12" fill="#6b7280" text-anchor="middle">ReadFile() / read()</text>
+    <line x1="755" y1="165" x2="905" y2="165" stroke="#27ae60"/>
+
+    <rect x="755" y="180" width="150" height="90" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+    <text x="830" y="202" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Запитано: 512 Байт</text>
+    <text x="830" y="226" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Отримано: 76 Байт</text>
+    <text x="830" y="250" font-size="12" fill="#6b7280" text-anchor="middle">(частковий блок)</text>
+
+    <rect x="755" y="280" width="150" height="75" rx="4" fill="#ffffff" stroke="#27ae60"/>
+    <text x="830" y="302" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Потік розблоковано</text>
+    <text x="830" y="324" font-size="12" fill="#1a1a1a" text-anchor="middle">Управління повернуто</text>
+    <text x="830" y="342" font-size="12" fill="#6b7280" text-anchor="middle">без помилок каналу</text>
+  </g>
+
+  <!-- Summary Footer Bar -->
+  <g>
+    <rect x="40" y="395" width="880" height="60" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+    <text x="480" y="420" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">При виникненні інтервального таймауту VCP-драйвер припиняє очікування повного блоку та негайно передає накопичені 76 байт застосунку.</text>
+    <text x="480" y="440" font-size="12" fill="#6b7280" text-anchor="middle">Це запобігає нескінченному блокуванню потоку виконання під час перерв у прийомі даних по послідовному порту.</text>
+  </g>
+</svg>

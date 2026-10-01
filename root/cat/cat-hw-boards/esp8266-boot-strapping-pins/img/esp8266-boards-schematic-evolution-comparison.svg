@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еволюція схемотехніки обв'язки strapping-виводів ESP8266</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Порівняння реалізації підтяжок GPIO0, GPIO2 та GPIO15 на платах ESP-01, ESP-01S та NodeMCU</text>
+
+  <!-- PANEL 1: ESP-01 -->
+  <g id="panel-esp01">
+    <rect x="30" y="75" width="280" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="30" y="75" width="280" height="55" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="170" y="97" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">ESP-01 (базова версія)</text>
+    <text x="170" y="117" font-size="12" fill="#c0392b" text-anchor="middle">Без внутрішніх підтяжок</text>
+
+    <!-- Inner Diagram Box -->
+    <rect x="45" y="145" width="250" height="230" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+    <text x="170" y="168" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема підключення виводів</text>
+
+    <!-- GPIO0 -->
+    <text x="65" y="196" font-size="12" font-weight="bold" fill="#c0392b">GPIO0</text>
+    <line x1="110" y1="192" x2="135" y2="192" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3"/>
+    <text x="140" y="196" font-size="12" fill="#c0392b">Плаває (необхідний R_pu)</text>
+
+    <!-- GPIO2 -->
+    <text x="65" y="246" font-size="12" font-weight="bold" fill="#c0392b">GPIO2</text>
+    <line x1="110" y1="242" x2="135" y2="242" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3"/>
+    <text x="140" y="246" font-size="12" fill="#c0392b">Плаває (необхідний R_pu)</text>
+
+    <!-- GPIO15 -->
+    <text x="65" y="296" font-size="12" font-weight="bold" fill="#27ae60">GPIO15</text>
+    <line x1="115" y1="292" x2="135" y2="292" stroke="#27ae60" stroke-width="2"/>
+    <text x="140" y="296" font-size="12" fill="#1a1a1a">З'єднано з GND на платі</text>
+
+    <!-- Internal Note inside panel 1 -->
+    <rect x="55" y="325" width="230" height="35" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+    <text x="170" y="347" font-size="12" fill="#c0392b" text-anchor="middle">⚠ Нестабільний старт без обв'язки</text>
+
+    <!-- Operational Features Box -->
+    <rect x="45" y="390" width="250" height="115" rx="6" fill="#fdecea" stroke="#c0392b"/>
+    <text x="170" y="412" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Особливості експлуатації:</text>
+    <text x="55" y="435" font-size="12" fill="#1a1a1a">• Вимагає зовнішніх R_pu 10 кОм</text>
+    <text x="55" y="458" font-size="12" fill="#1a1a1a">• Без них — високий ризик збоїв</text>
+    <text x="55" y="481" font-size="12" fill="#1a1a1a">• Перші випуски плати (2014)</text>
+  </g>
+
+  <!-- PANEL 2: ESP-01S -->
+  <g id="panel-esp01s">
+    <rect x="340" y="75" width="280" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="340" y="75" width="280" height="55" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="480" y="97" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">ESP-01S (модернізована)</text>
+    <text x="480" y="117" font-size="12" fill="#27ae60" text-anchor="middle">Інтегровані підтяжки 10 кОм</text>
+
+    <!-- Inner Diagram Box -->
+    <rect x="355" y="145" width="250" height="230" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+    <text x="480" y="168" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вбудовані SMD-резистори</text>
+
+    <!-- GPIO0 with SMD 10k resistor -->
+    <text x="365" y="196" font-size="12" font-weight="bold" fill="#27ae60">GPIO0</text>
+    <rect x="415" y="182" width="42" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+    <text x="436" y="196" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">10k</text>
+    <text x="465" y="196" font-size="12" fill="#2457d6">→ 3.3V (Pull-Up)</text>
+
+    <!-- GPIO2 with SMD 10k resistor -->
+    <text x="365" y="246" font-size="12" font-weight="bold" fill="#27ae60">GPIO2</text>
+    <rect x="415" y="232" width="42" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+    <text x="436" y="246" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">10k</text>
+    <text x="465" y="246" font-size="12" fill="#2457d6">→ 3.3V (Pull-Up)</text>
+
+    <!-- GPIO15 pulled LOW -->
+    <text x="365" y="296" font-size="12" font-weight="bold" fill="#27ae60">GPIO15</text>
+    <rect x="415" y="282" width="42" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+    <text x="436" y="296" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">10k</text>
+    <text x="465" y="296" font-size="12" fill="#1a1a1a">→ GND (Pull-Down)</text>
+
+    <!-- Internal Note inside panel 2 -->
+    <rect x="365" y="325" width="230" height="35" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="480" y="347" font-size="12" fill="#27ae60" text-anchor="middle">✔ Автоматичний Flash Boot</text>
+
+    <!-- Operational Features Box -->
+    <rect x="355" y="390" width="250" height="115" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+    <text x="480" y="412" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Особливості експлуатації:</text>
+    <text x="365" y="435" font-size="12" fill="#1a1a1a">• Готова до Flash Boot з коробки</text>
+    <text x="365" y="458" font-size="12" fill="#1a1a1a">• Не потребує зовнішніх резисторів</text>
+    <text x="365" y="481" font-size="12" fill="#1a1a1a">• Виключає зависання завантажувача</text>
+  </g>
+
+  <!-- PANEL 3: NodeMCU -->
+  <g id="panel-nodemcu">
+    <rect x="650" y="75" width="280" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="650" y="75" width="280" height="55" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="790" y="97" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">NodeMCU / ESP-12F</text>
+    <text x="790" y="117" font-size="12" fill="#2457d6" text-anchor="middle">Схема автопрошивання DTR/RTS</text>
+
+    <!-- Inner Diagram Box -->
+    <rect x="665" y="145" width="250" height="230" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+    <text x="790" y="168" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Активне керування ключами</text>
+
+    <!-- Auto-reset Block -->
+    <rect x="675" y="182" width="230" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="790" y="200" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Транзистори DTR / RTS (NPN)</text>
+    <text x="790" y="217" font-size="12" fill="#1a1a1a" text-anchor="middle">Автоперемикання Flash / UART</text>
+
+    <!-- Pin details -->
+    <text x="675" y="248" font-size="12" fill="#1a1a1a">• GPIO0: 10k Pull-Up + Q2 до GND</text>
+    <text x="675" y="273" font-size="12" fill="#1a1a1a">• GPIO2: 10k Pull-Up до 3.3V</text>
+    <text x="675" y="298" font-size="12" fill="#1a1a1a">• GPIO15: 10k Pull-Down до GND</text>
+    <text x="675" y="323" font-size="12" fill="#1a1a1a">• RST: 10k Pull-Up + Q1 до GND</text>
+
+    <!-- Operational Features Box -->
+    <rect x="665" y="390" width="250" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="790" y="412" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Особливості експлуатації:</text>
+    <text x="675" y="435" font-size="12" fill="#1a1a1a">• Автопрошивання без кнопок</text>
+    <text x="675" y="458" font-size="12" fill="#1a1a1a">• Вбудований USB-UART міст</text>
+    <text x="675" y="481" font-size="12" fill="#1a1a1a">• Максимальна завадостійкість</text>
+  </g>
+
+  <!-- Footer Note -->
+  <text x="480" y="542" font-size="12" fill="#6b7280" text-anchor="middle">Примітка: Всі плати вимагають утримання логічних рівнів засувок у момент виходу з Reset</text>
+</svg>

@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Архітектура ядра Xtensa LX7 та векторного співпроцесора PIE</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Зв'язок конвеєра вибірки інструкцій із 128-бітними векторними регістрами та блоками ALU/MAC</text>
+
+  <!-- Main Container -->
+  <rect x="20" y="65" width="920" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- ================= COLUMN 1: INSTRUCTION PIPELINE ================= -->
+  <rect x="35" y="75" width="225" height="350" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="85" width="205" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="147.5" y="104" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Конвеєр інструкцій (5-Stage)</text>
+
+  <!-- Fetch -->
+  <rect x="45" y="122" width="205" height="52" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="147.5" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Вибірка інструкцій (IF)</text>
+  <text x="147.5" y="160" text-anchor="middle" font-size="12" fill="#6b7280">I-Cache &amp; Instruction Buffer</text>
+
+  <!-- Decode -->
+  <rect x="45" y="184" width="205" height="52" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="147.5" y="204" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Декодер інструкцій (ID)</text>
+  <text x="147.5" y="222" text-anchor="middle" font-size="12" fill="#6b7280">Декодування скалярних/PIE</text>
+
+  <!-- Dispatch -->
+  <rect x="45" y="246" width="205" height="52" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="147.5" y="266" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Маршрутизатор команд (Issue)</text>
+  <text x="147.5" y="284" text-anchor="middle" font-size="12" fill="#1a1a1a">Scalar / PIE Instruction Flow</text>
+
+  <!-- Memory & DMA Interface -->
+  <rect x="45" y="315" width="205" height="100" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="147.5" y="336" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Інтерфейс пам'яті &amp; DMA</text>
+  <text x="147.5" y="356" text-anchor="middle" font-size="12" fill="#6b7280">32-bit Скалярна шина даних</text>
+  <text x="147.5" y="376" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">128-bit Векторна шина пам'яті</text>
+  <text x="147.5" y="396" text-anchor="middle" font-size="12" fill="#6b7280">Прямий доступ (DMA)</text>
+
+
+  <!-- ================= COLUMN 2: SCALAR CPU CORE ================= -->
+  <rect x="320" y="75" width="250" height="225" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="330" y="85" width="230" height="28" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="445" y="104" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Скалярне ядро CPU (32-біт)</text>
+
+  <!-- AR Registers -->
+  <rect x="335" y="122" width="220" height="52" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="445" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Регістровий файл AR0..AR63</text>
+  <text x="445" y="160" text-anchor="middle" font-size="12" fill="#6b7280">32-бітні скалярні регістри</text>
+
+  <!-- Scalar ALU -->
+  <rect x="335" y="184" width="220" height="48" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="445" y="202" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Скалярне АЛУ (Scalar ALU)</text>
+  <text x="445" y="220" text-anchor="middle" font-size="12" fill="#1a1a1a">Арифметика, зсуви, логіка</text>
+
+  <!-- Hardware Mul/Div & Status -->
+  <rect x="335" y="242" width="220" height="48" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="445" y="258" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Апаратний множник / дільник</text>
+  <text x="445" y="276" text-anchor="middle" font-size="12" fill="#6b7280">Регістри управління (PC, PS)</text>
+
+
+  <!-- ================= COLUMN 3: PIE VECTOR COPROCESSOR ================= -->
+  <rect x="600" y="75" width="325" height="350" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="610" y="85" width="305" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="762.5" y="104" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Векторний співпроцесор PIE (128-біт)</text>
+
+  <!-- Vector Registers -->
+  <rect x="615" y="122" width="295" height="64" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="762.5" y="140" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">128-бітні векторні регістри Q0..Q7</text>
+  <text x="762.5" y="158" text-anchor="middle" font-size="12" fill="#1a1a1a">Упаковка: 4×32b, 8×16b, 16×8b</text>
+  <text x="762.5" y="174" text-anchor="middle" font-size="12" fill="#6b7280">128-bit SIMD Register File</text>
+
+  <!-- Vector SIMD ALU -->
+  <rect x="615" y="196" width="295" height="52" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="762.5" y="216" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Векторне АЛУ (Vector SIMD ALU)</text>
+  <text x="762.5" y="234" text-anchor="middle" font-size="12" fill="#1a1a1a">128-бітна паралельна арифметика</text>
+
+  <!-- Vector MAC Units -->
+  <rect x="615" y="258" width="295" height="62" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="762.5" y="276" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Паралельні блоки Vector MAC</text>
+  <text x="762.5" y="294" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">2× 16-bit / 4× 8-bit MAC за 1 такт</text>
+  <text x="762.5" y="310" text-anchor="middle" font-size="12" fill="#27ae60">Прискорення AI / TinyML / FFT</text>
+
+  <!-- Vector Load/Store Unit -->
+  <rect x="615" y="365" width="295" height="50" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="762.5" y="385" text-anchor="middle" font-size="12" fill="#1a1a1a">Блок вирівнювання завантаження PIE</text>
+  <text x="762.5" y="403" text-anchor="middle" font-size="12" fill="#6b7280">128-bit Vector Load/Store Unit</text>
+
+
+  <!-- ================= BUSES & CONNECTIONS ================= -->
+  <!-- Internal Column 1 Arrows -->
+  <line x1="147.5" y1="174" x2="147.5" y2="184" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="147.5" y1="236" x2="147.5" y2="246" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Internal Column 2 Arrows -->
+  <line x1="445" y1="174" x2="445" y2="184" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="445" y1="232" x2="445" y2="242" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Internal Column 3 Arrows -->
+  <line x1="762.5" y1="186" x2="762.5" y2="196" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="762.5" y1="248" x2="762.5" y2="258" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="762.5" y1="320" x2="762.5" y2="365" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Issue to Scalar CPU Core -->
+  <line x1="250" y1="272" x2="320" y2="272" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="285" y="262" text-anchor="middle" font-size="12" fill="#1a1a1a">Скалярні</text>
+
+  <!-- Issue to PIE Coprocessor (Routed below Column 2 with dedicated label box) -->
+  <path d="M 250,272 L 285,272 L 285,340 L 340,340 M 530,340 L 585,340 L 585,222 L 615,222" fill="none" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <rect x="340" y="328" width="190" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="435" y="344" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Інструкції PIE (128-bit)</text>
+
+  <!-- 128-bit Memory Bus to Vector Load/Store Unit -->
+  <line x1="250" y1="390" x2="615" y2="390" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <rect x="330" y="402" width="210" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="435" y="418" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">128-bit Векторна шина даних</text>
+</svg>

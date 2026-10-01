@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова діаграма стробування конфігураційних виводів ESP8266</text>
+  <text x="480" y="53" text-anchor="middle" font-size="13" fill="#6b7280">Защепкування логічних рівнів GPIO0, GPIO2, GPIO15 D-тригерами ROM Bootloader на фронті RST</text>
+
+  <!-- Головна панель діаграми -->
+  <rect x="30" y="75" width="900" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="50" y="100" font-size="13" font-weight="bold" fill="#1a1a1a">Часові залежності рівнів напруги та вікно фіксації режимів завантаження</text>
+
+  <!-- Поле графіків -->
+  <rect x="190" y="115" width="720" height="325" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Підписи сигналів ліворуч -->
+  <text x="175" y="145" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Живлення V_DD / CH_PD</text>
+  <text x="175" y="205" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">Лінія скидання RST</text>
+  <text x="175" y="282" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">Строб D-тригера ROM</text>
+  <text x="175" y="368" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Страпінг-виводи GPIO</text>
+
+  <!-- Підсвічування вікна защепкування t_latch -->
+  <rect x="420" y="125" width="160" height="275" fill="#e9f7ef" opacity="0.6" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <rect x="430" y="132" width="140" height="24" rx="4" fill="#27ae60"/>
+  <text x="500" y="148" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">Вікно защепкування t_latch</text>
+
+  <!-- Пунктирні вертикальні сітки часів t0, t1, t2 -->
+  <line x1="230" y1="125" x2="230" y2="400" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="420" y1="125" x2="420" y2="400" stroke="#2457d6" stroke-dasharray="4,4"/>
+  <line x1="580" y1="125" x2="580" y2="400" stroke="#27ae60" stroke-dasharray="4,4"/>
+
+  <!-- Сигнал 1: V_DD / CH_PD -->
+  <path d="M 200,160 L 230,160 L 240,140 L 890,140" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="250" y="134" font-size="11" font-weight="bold" fill="#1a1a1a">3.3 В</text>
+
+  <!-- Сигнал 2: RST (RC експоненційне наростання) -->
+  <line x1="200" y1="200" x2="890" y2="200" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="270" y="193" font-size="11" font-weight="bold" fill="#c0392b">Поріг V_IH = 2.5 В</text>
+  <path d="M 200,225 L 250,225 C 310,225 370,210 420,200 L 450,190 L 890,190" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Сигнал 3: Внутрішній строб защепкування ROM Bootloader -->
+  <path d="M 200,295 L 420,295 L 420,265 L 580,265 L 580,295 L 890,295" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="500" y="282" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Строб защепкування D-тригера</text>
+
+  <!-- Сигнал 4: Страпінг-виводи (Шина високого та низького рівнів) -->
+  <path d="M 200,345 L 890,345" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 200,385 L 890,385" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Прямокутник валидного стану у вікні защепкування -->
+  <rect x="420" y="340" width="160" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="500" y="358" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">GPIO0 = 1, GPIO2 = 1</text>
+  <text x="500" y="376" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">GPIO15 = 0 (SPI Flash Boot)</text>
+
+  <!-- Часова вісь під діаграмою -->
+  <line x1="200" y1="405" x2="890" y2="405" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="895" y="409" font-size="11" font-weight="bold" fill="#6b7280">t</text>
+
+  <!-- Часові мітки -->
+  <text x="230" y="423" text-anchor="middle" font-size="11" fill="#6b7280">t_0: V_DD ON</text>
+  <text x="420" y="423" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">t_1: RST &gt; V_IH</text>
+  <text x="580" y="423" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">t_2: Фіксація режимів</text>
+</svg>

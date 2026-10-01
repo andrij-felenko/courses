@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Виділення подвійного буфера в PSRAM та асинхронне виведення через DMA</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">CPU малює кадр N+1 у Buffer B, поки контролер DMA безперервно передає кадр N з Buffer A на дисплей</text>
+
+  <!-- LEFT COLUMN -->
+  <!-- Internal SRAM Panel -->
+  <rect x="30" y="85" width="235" height="115" rx="8" ry="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="147.5" y="110" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Внутрішня SRAM (512 КБ)</text>
+  <text x="147.5" y="132" font-size="12" fill="#1a1a1a" text-anchor="middle">• Обмежена ємність чипа</text>
+  <text x="147.5" y="152" font-size="12" fill="#1a1a1a" text-anchor="middle">• Недостатньо для 2×FB</text>
+  <text x="147.5" y="172" font-size="12" fill="#6b7280" text-anchor="middle">(потрібно &gt;600 КБ для 480×320)</text>
+
+  <!-- CPU Core Panel -->
+  <rect x="30" y="220" width="235" height="135" rx="8" ry="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="147.5" y="245" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Процесор ESP32-S3 (CPU)</text>
+  <text x="147.5" y="270" font-size="12" fill="#1a1a1a" text-anchor="middle">• Рендеринг графіки (LVGL)</text>
+  <text x="147.5" y="290" font-size="12" fill="#1a1a1a" text-anchor="middle">• Запис нового кадру N+1</text>
+  <text x="147.5" y="315" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">0% очікування виведення</text>
+
+  <!-- MIDDLE COLUMN -->
+  <!-- PSRAM Panel -->
+  <rect x="285" y="85" width="390" height="270" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зовнішня PSRAM (2 МБ QSPI / 8 МБ OPI)</text>
+  <text x="480" y="128" font-size="12" fill="#2457d6" text-anchor="middle">heap_caps_malloc(..., MALLOC_CAP_SPIRAM)</text>
+
+  <!-- Buffer B (Draw Buffer) -->
+  <rect x="298" y="145" width="165" height="190" rx="6" ry="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="380.5" y="170" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Buffer B</text>
+  <text x="380.5" y="188" font-size="12" fill="#27ae60" text-anchor="middle">(Кадр N+1)</text>
+  <text x="380.5" y="215" font-size="12" fill="#1a1a1a" text-anchor="middle">Фоновий рендер</text>
+  <text x="380.5" y="235" font-size="12" fill="#1a1a1a" text-anchor="middle">Запис від CPU</text>
+  <text x="380.5" y="270" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">СТАТУС: DRAW</text>
+  <text x="380.5" y="315" font-size="12" fill="#6b7280" text-anchor="middle">0x3C04B000</text>
+
+  <!-- Buffer A (Active Buffer) -->
+  <rect x="507" y="145" width="165" height="190" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="589.5" y="170" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Buffer A</text>
+  <text x="589.5" y="188" font-size="12" fill="#2457d6" text-anchor="middle">(Кадр N)</text>
+  <text x="589.5" y="215" font-size="12" fill="#1a1a1a" text-anchor="middle">Активний кадр</text>
+  <text x="589.5" y="235" font-size="12" fill="#1a1a1a" text-anchor="middle">Зчитування DMA</text>
+  <text x="589.5" y="270" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">СТАТУС: READ</text>
+  <text x="589.5" y="315" font-size="12" fill="#6b7280" text-anchor="middle">0x3C000000</text>
+
+  <!-- Buffer Swap Indicator -->
+  <path d="M 467 235 L 503 235" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-gray)" marker-start="url(#arr-gray)"/>
+  <text x="485" y="222" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">SWAP</text>
+  <text x="485" y="252" font-size="12" fill="#6b7280" text-anchor="middle">(VSYNC)</text>
+
+  <!-- GDMA Controller Panel -->
+  <rect x="285" y="385" width="390" height="105" rx="8" ry="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="410" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Контролер GDMA (SPI / LCD Cam Peripheral)</text>
+  <text x="480" y="433" font-size="12" fill="#1a1a1a" text-anchor="middle">Зчитує Buffer A посиланнями дескрипторів</text>
+  <text x="480" y="453" font-size="12" fill="#1a1a1a" text-anchor="middle">Пряме перекачування даних без залучення ядра CPU</text>
+  <text x="480" y="473" font-size="12" fill="#2457d6" text-anchor="middle">Апаратна передача пакетів через SPI/RGB шину</text>
+
+  <!-- RIGHT COLUMN: Display Subsystem -->
+  <rect x="700" y="85" width="235" height="405" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="817.5" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дисплейний модуль</text>
+  <text x="817.5" y="132" font-size="12" fill="#6b7280" text-anchor="middle">TFT / IPS (ST7789 / ILI9488)</text>
+
+  <!-- Screen Frame -->
+  <rect x="725" y="150" width="185" height="220" rx="8" ry="8" fill="#1a1a1a" stroke="#d0d7de"/>
+  <rect x="735" y="160" width="165" height="200" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="817.5" y="235" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">Кадр N</text>
+  <text x="817.5" y="260" font-size="12" fill="#27ae60" text-anchor="middle">Плавне зображення</text>
+  <text x="817.5" y="280" font-size="12" fill="#1a1a1a" text-anchor="middle">Без артефактів</text>
+  <text x="817.5" y="300" font-size="12" fill="#6b7280" text-anchor="middle">(Zero Tearing)</text>
+
+  <text x="817.5" y="395" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шина даних SPI / RGB</text>
+  <text x="817.5" y="415" font-size="12" fill="#6b7280" text-anchor="middle">Сигнал синхронізації TE</text>
+  <text x="817.5" y="435" font-size="12" fill="#2457d6" text-anchor="middle">Частота: 60 FPS</text>
+
+  <!-- ARROWS & FLOWS -->
+  <!-- CPU -> Buffer B Arrow -->
+  <line x1="265" y1="287.5" x2="298" y2="287.5" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="281.5" y="277" font-size="12" fill="#27ae60" text-anchor="middle">Запис</text>
+
+  <!-- Buffer A -> GDMA Arrow -->
+  <line x1="589.5" y1="335" x2="589.5" y2="385" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="600" y="363" font-size="12" fill="#2457d6" text-anchor="start">DMA потік</text>
+
+  <!-- GDMA -> Display Arrow -->
+  <line x1="675" y1="437.5" x2="700" y2="437.5" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="687.5" y="427" font-size="12" fill="#2457d6" text-anchor="middle">SPI/RGB</text>
+
+</svg>

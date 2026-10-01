@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема підтяжок виводів та логічна матриця режимів завантаження ESP8266</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Комбінація логічних рівнів на GPIO15, GPIO0 та GPIO2 під час RST визначає режим старту SoC</text>
+
+  <!-- Left Panel: Hardware Schematic -->
+  <rect x="30" y="90" width="435" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247" y="115" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схемотехніка конфігураційних виводів</text>
+
+  <!-- ESP8266 SoC Box -->
+  <rect x="330" y="135" width="120" height="370" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="390" y="158" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">ESP8266 SoC</text>
+
+  <!-- Pin Labels inside SoC Box -->
+  <text x="342" y="165" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">GPIO15</text>
+  <text x="342" y="315" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">GPIO0</text>
+  <text x="342" y="455" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">GPIO2</text>
+
+  <!-- GPIO15 Channel (Y = 145) -->
+  <rect x="45" y="132" width="95" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="92" y="149" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Фіксовано LOW</text>
+  <!-- Wire from State Box to SoC -->
+  <line x1="140" y1="145" x2="330" y2="145" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="175" cy="145" r="3.5" fill="#2457d6"/>
+  <!-- Pull-Down Resistor R1 Branch at X = 175 -->
+  <line x1="175" y1="145" x2="175" y2="158" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="163" y="158" width="24" height="34" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="175" y="179" font-size="11" fill="#1a1a1a" text-anchor="middle">R1</text>
+  <text x="193" y="172" font-size="11" fill="#1a1a1a" text-anchor="start">10 кОм</text>
+  <text x="193" y="186" font-size="11" fill="#27ae60" text-anchor="start">Pull-Down</text>
+  <line x1="175" y1="192" x2="175" y2="202" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- GND Symbol -->
+  <line x1="160" y1="202" x2="190" y2="202" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="165" y1="206" x2="185" y2="206" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="170" y1="210" x2="180" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="175" y="224" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">GND (0V)</text>
+
+  <!-- GPIO0 Channel (Y = 295) -->
+  <rect x="45" y="282" width="95" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="92" y="299" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">HIGH / LOW</text>
+  <!-- Wire from State Box to SoC -->
+  <line x1="140" y1="295" x2="330" y2="295" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="245" cy="295" r="3.5" fill="#2457d6"/>
+  <!-- Pull-Up Resistor R2 Branch at X = 245 -->
+  <line x1="245" y1="295" x2="245" y2="282" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="233" y="248" width="24" height="34" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="245" y="269" font-size="11" fill="#1a1a1a" text-anchor="middle">R2</text>
+  <text x="261" y="262" font-size="11" fill="#1a1a1a" text-anchor="start">10 кОм</text>
+  <text x="261" y="276" font-size="11" fill="#2457d6" text-anchor="start">Pull-Up</text>
+  <line x1="245" y1="248" x2="245" y2="238" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- 3.3V Rail Symbol -->
+  <line x1="233" y1="238" x2="257" y2="238" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="245" y="228" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">3.3V</text>
+  <!-- Flash/PROG Switch Branch at X = 245 -->
+  <line x1="245" y1="295" x2="245" y2="310" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="245" cy="310" r="2.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="245" y1="312.5" x2="257" y2="327.5" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="245" cy="330" r="2.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="261" y="324" font-size="11" fill="#6b7280" text-anchor="start">Кнопка PROG</text>
+  <line x1="245" y1="332.5" x2="245" y2="342" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="230" y1="342" x2="260" y2="342" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="235" y1="346" x2="255" y2="346" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="240" y1="350" x2="250" y2="350" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="245" y="364" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">GND (UART)</text>
+
+  <!-- GPIO2 Channel (Y = 435) -->
+  <rect x="45" y="422" width="95" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="92" y="439" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Фіксовано HIGH</text>
+  <!-- Wire from State Box to SoC -->
+  <line x1="140" y1="435" x2="330" y2="435" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="175" cy="435" r="3.5" fill="#2457d6"/>
+  <!-- Pull-Up Resistor R3 Branch at X = 175 -->
+  <line x1="175" y1="435" x2="175" y2="422" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="163" y="388" width="24" height="34" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="175" y="409" font-size="11" fill="#1a1a1a" text-anchor="middle">R3</text>
+  <text x="193" y="402" font-size="11" fill="#1a1a1a" text-anchor="start">10 кОм</text>
+  <text x="193" y="416" font-size="11" fill="#27ae60" text-anchor="start">Pull-Up</text>
+  <line x1="175" y1="388" x2="175" y2="378" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- 3.3V Rail Symbol -->
+  <line x1="163" y1="378" x2="187" y2="378" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="175" y="368" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">3.3V</text>
+
+  <!-- Internal SoC Latch Box -->
+  <rect x="340" y="465" width="100" height="34" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="390" y="478" font-size="11" fill="#6b7280" text-anchor="middle">Засувки Latch</text>
+  <text x="390" y="492" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Засув при RST</text>
+
+  <!-- Right Panel: Logic Matrix Table & Explanations -->
+  <rect x="485" y="90" width="445" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="707" y="115" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Матриця режимів завантаження</text>
+
+  <!-- Table Header Row -->
+  <rect x="500" y="135" width="415" height="35" rx="4" fill="#2457d6"/>
+  <text x="550" y="157" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Режим</text>
+  <text x="635" y="157" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">GPIO15</text>
+  <text x="705" y="157" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">GPIO0</text>
+  <text x="775" y="157" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">GPIO2</text>
+  <text x="855" y="157" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Опис призначення</text>
+
+  <!-- Table Row 1: Flash Boot -->
+  <rect x="500" y="175" width="415" height="45" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="550" y="202" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Flash Boot</text>
+  <text x="635" y="202" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LOW (0)</text>
+  <text x="705" y="202" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">HIGH (1)</text>
+  <text x="775" y="202" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">HIGH (1)</text>
+  <text x="855" y="202" font-size="12" fill="#1a1a1a" text-anchor="middle">SPI Flash (Робочий)</text>
+
+  <!-- Table Row 2: UART Download -->
+  <rect x="500" y="227" width="415" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="550" y="254" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">UART Download</text>
+  <text x="635" y="254" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LOW (0)</text>
+  <text x="705" y="254" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">LOW (0)</text>
+  <text x="775" y="254" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">HIGH (1)</text>
+  <text x="855" y="254" font-size="12" fill="#1a1a1a" text-anchor="middle">Прошивання (UART0)</text>
+
+  <!-- Table Row 3: SDIO Boot -->
+  <rect x="500" y="279" width="415" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="550" y="306" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SDIO Boot</text>
+  <text x="635" y="306" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">HIGH (1)</text>
+  <text x="705" y="306" font-size="11" fill="#6b7280" text-anchor="middle">Довільний</text>
+  <text x="775" y="306" font-size="11" fill="#6b7280" text-anchor="middle">Довільний</text>
+  <text x="855" y="306" font-size="12" fill="#1a1a1a" text-anchor="middle">Завантаження SDIO</text>
+
+  <!-- Table Row 4: Hardware Fault -->
+  <rect x="500" y="331" width="415" height="45" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="550" y="358" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Сбій старту</text>
+  <text x="635" y="358" font-size="11" fill="#6b7280" text-anchor="middle">Довільний</text>
+  <text x="705" y="358" font-size="11" fill="#6b7280" text-anchor="middle">Довільний</text>
+  <text x="775" y="358" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">LOW (0)</text>
+  <text x="855" y="358" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Циклічний RST</text>
+
+  <!-- Cards Section below Table -->
+  <!-- Card 1: Normal Boot Requirements -->
+  <rect x="500" y="390" width="200" height="115" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="600" y="410" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вимоги до обв'язки</text>
+  <text x="510" y="430" font-size="11" fill="#1a1a1a" text-anchor="start">• GPIO15: Pull-Down (GND)</text>
+  <text x="510" y="448" font-size="11" fill="#1a1a1a" text-anchor="start">• GPIO2: Pull-Up (3.3V)</text>
+  <text x="510" y="466" font-size="11" fill="#1a1a1a" text-anchor="start">• GPIO0: Pull-Up (3.3V)</text>
+  <text x="600" y="488" font-size="11" fill="#6b7280" text-anchor="middle">(Номінали 4.7 – 10 кОм)</text>
+
+  <!-- Card 2: Common Hardware Errors -->
+  <rect x="715" y="390" width="200" height="115" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="815" y="410" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Причини блокування</text>
+  <text x="725" y="430" font-size="11" fill="#1a1a1a" text-anchor="start">• Висячий GPIO15 -&gt; SDIO</text>
+  <text x="725" y="448" font-size="11" fill="#1a1a1a" text-anchor="start">• LOW на GPIO2 -&gt; Reset loop</text>
+  <text x="725" y="466" font-size="11" fill="#1a1a1a" text-anchor="start">• Низький опір підтяжки</text>
+  <text x="815" y="488" font-size="11" fill="#6b7280" text-anchor="middle">(Невизначені стани при RST)</text>
+</svg>

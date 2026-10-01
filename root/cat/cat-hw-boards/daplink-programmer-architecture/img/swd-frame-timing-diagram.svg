@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма кадру протоколу SWD (Serial Wire Debug)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Фази передачі: Заголовок (Host) → Перехід TRN → Відповідь ACK (Target) → Дані 32 біти + Parity</text>
+
+  <!-- Main Panel -->
+  <rect x="30" y="75" width="900" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Phase Header Boxes -->
+  <rect x="130" y="90" width="230" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="245" y="110" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Заголовок пакета (8 бітів)</text>
+
+  <rect x="370" y="90" width="55" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="397.5" y="110" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">TRN</text>
+
+  <rect x="435" y="90" width="115" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="492.5" y="110" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ACK (3 біти)</text>
+
+  <rect x="560" y="90" width="350" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="735" y="110" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Корисне навантаження (32 біти Data + Parity)</text>
+
+  <!-- Signal Name Labels -->
+  <text x="45" y="180" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">SWCLK</text>
+  <text x="45" y="250" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">SWDIO</text>
+  <text x="45" y="312" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">Напрямок</text>
+
+  <!-- Row 1: SWCLK Waveform -->
+  <path d="M 130,195 L 142.5,195 L 142.5,165 L 155,165 L 155,195 L 167.5,195 L 167.5,165 L 180,165 L 180,195 L 192.5,195 L 192.5,165 L 205,165 L 205,195 L 217.5,195 L 217.5,165 L 230,165 L 230,195 L 242.5,195 L 242.5,165 L 255,165 L 255,195 L 267.5,195 L 267.5,165 L 280,165 L 280,195 L 292.5,195 L 292.5,165 L 305,165 L 305,195 L 317.5,195 L 317.5,165 L 330,165 L 330,195 L 342.5,195 L 342.5,165 L 360,165 L 360,195 L 395,195 L 395,165 L 425,165 L 425,195 L 447.5,195 L 447.5,165 L 470,165 L 470,195 L 492.5,195 L 492.5,165 L 515,165 L 515,195 L 550,195 L 550,165 L 572.5,165 L 572.5,195 L 595,195 L 595,165 L 617.5,165 L 617.5,195 L 880,195 L 880,165 L 910,165" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Row 2: SWDIO Data Waveform -->
+  <!-- Header Bits -->
+  <path d="M 130,230 L 155,230 L 155,260 L 180,260 L 180,230 L 205,230 L 205,260 L 255,260 L 255,230 L 280,230 L 280,260 L 305,260 L 305,230 L 360,230" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Bit labels inside Header -->
+  <text x="142.5" y="222" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Start</text>
+  <text x="167.5" y="222" font-size="12" fill="#6b7280" text-anchor="middle">AP/DP</text>
+  <text x="192.5" y="222" font-size="12" fill="#6b7280" text-anchor="middle">RnW</text>
+  <text x="230" y="222" font-size="12" fill="#6b7280" text-anchor="middle">A2, A3</text>
+  <text x="267.5" y="222" font-size="12" fill="#6b7280" text-anchor="middle">Parity</text>
+  <text x="292.5" y="222" font-size="12" fill="#6b7280" text-anchor="middle">Stop</text>
+  <text x="332.5" y="222" font-size="12" fill="#6b7280" text-anchor="middle">Park</text>
+
+  <!-- TRN Phase High-Z Line -->
+  <line x1="360" y1="245" x2="425" y2="245" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="392.5" y="222" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">TRN</text>
+
+  <!-- ACK Phase Waveform -->
+  <path d="M 425,245 L 435,230 L 470,230 L 470,260 L 550,260" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="492.5" y="222" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ACK = OK (100b)</text>
+
+  <!-- Data Payload Bus Polygon Waveform -->
+  <path d="M 550,260 L 560,230 L 860,230 L 870,260 L 560,260 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="710" y="248" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">32-bit Data (WDATA / RDATA LSB-first)</text>
+
+  <!-- Parity Bit Payload -->
+  <path d="M 870,260 L 875,230 L 910,230" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="892.5" y="222" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Parity</text>
+
+  <!-- Row 3: Bus Direction Bar -->
+  <rect x="130" y="295" width="230" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="245" y="312" font-size="12" fill="#2457d6" text-anchor="middle">Хост керує шиною</text>
+
+  <rect x="370" y="295" width="55" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="397.5" y="312" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">TRN</text>
+
+  <rect x="435" y="295" width="475" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="672.5" y="312" font-size="12" fill="#27ae60" text-anchor="middle">Таргет керує шиною (ACK + Data у режимі Read)</text>
+
+  <!-- Row 4: Sampling Points Indication -->
+  <circle cx="142.5" cy="165" r="4" fill="#27ae60"/>
+  <circle cx="447.5" cy="165" r="4" fill="#27ae60"/>
+  <circle cx="572.5" cy="165" r="4" fill="#27ae60"/>
+
+  <text x="130" y="358" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">↑ Замір даних проводиться на зростаючому фронті SWCLK (Sampling Instants)</text>
+
+  <!-- Bottom Explanatory Box -->
+  <rect x="50" y="375" width="860" height="50" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="395" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">• Передача даних іде LSB-першим; зміна станів SWDIO на спаді SWCLK, замір — на зростаючому фронті.</text>
+  <text x="480" y="413" font-size="12" fill="#1a1a1a" text-anchor="middle">• Напрямок шини SWDIO перемикається під час фази TRN (1 такт SWCLK) між запитом та відповіддю.</text>
+</svg>

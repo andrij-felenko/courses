@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Причинно-наслідкові зв'язки апаратних завад та Boot Loop на ESP8266</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Некоректні рівні strapping-пінів та просідання живлення викликають циклічні перезавантаження</text>
+
+  <!-- Column 1: Hardware Causes -->
+  <rect x="30" y="75" width="205" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="132" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">1. Апаратні завади</text>
+
+  <rect x="42" y="115" width="181" height="95" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="132" y="136" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Плаваючі GPIO0 / GPIO15</text>
+  <text x="132" y="156" text-anchor="middle" font-size="12" fill="#1a1a1a">Відсутність підтяжок</text>
+  <text x="132" y="174" text-anchor="middle" font-size="12" fill="#6b7280">Шум на пінах при RST</text>
+  <text x="132" y="192" text-anchor="middle" font-size="12" fill="#6b7280">(Помилка boot mode)</text>
+
+  <rect x="42" y="235" width="181" height="95" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="132" y="256" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Падіння напруги 3.3V</text>
+  <text x="132" y="276" text-anchor="middle" font-size="12" fill="#1a1a1a">Піковий струм &gt;300мА</text>
+  <text x="132" y="294" text-anchor="middle" font-size="12" fill="#6b7280">Просідання в момент RF</text>
+  <text x="132" y="312" text-anchor="middle" font-size="12" fill="#6b7280">(Brownout / Reset)</text>
+
+  <rect x="42" y="355" width="181" height="95" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="132" y="376" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Шуми шини SPI Flash</text>
+  <text x="132" y="396" text-anchor="middle" font-size="12" fill="#1a1a1a">Поганий контакт/довгі лінії</text>
+  <text x="132" y="414" text-anchor="middle" font-size="12" fill="#6b7280">Збої ліній CS/CLK/D0</text>
+  <text x="132" y="432" text-anchor="middle" font-size="12" fill="#6b7280">(Flash read error)</text>
+
+  <!-- Arrows Col 1 -> Col 2 -->
+  <line x1="223" y1="162" x2="257" y2="162" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="223" y1="282" x2="257" y2="282" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="223" y1="402" x2="257" y2="402" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Column 2: ROM Bootloader Failures -->
+  <rect x="265" y="75" width="205" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="367" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">2. Збої ROM Bootloader</text>
+
+  <rect x="277" y="115" width="181" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="367" y="136" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Помилковий Boot Mode</text>
+  <text x="367" y="156" text-anchor="middle" font-size="12" fill="#1a1a1a">boot mode:(1,7) / (3,6)</text>
+  <text x="367" y="174" text-anchor="middle" font-size="12" fill="#6b7280">Запуск UART download</text>
+  <text x="367" y="192" text-anchor="middle" font-size="12" fill="#6b7280">замість Flash boot</text>
+
+  <rect x="277" y="235" width="181" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="367" y="256" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Flash Read Error</text>
+  <text x="367" y="276" text-anchor="middle" font-size="12" fill="#1a1a1a">rst cause:2 / cause:1</text>
+  <text x="367" y="294" text-anchor="middle" font-size="12" fill="#6b7280">Пошкодження заголовка</text>
+  <text x="367" y="312" text-anchor="middle" font-size="12" fill="#6b7280">або збій CRC сегмента</text>
+
+  <rect x="277" y="355" width="181" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="367" y="376" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">WDT Reset / Crash</text>
+  <text x="367" y="396" text-anchor="middle" font-size="12" fill="#1a1a1a">rst cause:4 (wdt reset)</text>
+  <text x="367" y="414" text-anchor="middle" font-size="12" fill="#6b7280">Зависання при старті</text>
+  <text x="367" y="432" text-anchor="middle" font-size="12" fill="#6b7280">ініціалізації периферії</text>
+
+  <!-- Arrows Col 2 -> Col 3 -->
+  <line x1="458" y1="162" x2="492" y2="162" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="458" y1="282" x2="492" y2="282" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="458" y1="402" x2="492" y2="402" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Column 3: Boot Loop State -->
+  <rect x="500" y="75" width="205" height="425" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="602" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">3. Аварійний Boot Loop</text>
+
+  <rect x="512" y="115" width="181" height="335" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="602" y="138" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Цикл перезавантаження</text>
+
+  <rect x="522" y="152" width="161" height="55" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="602" y="172" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">ROM Log (74880 baud)</text>
+  <text x="602" y="191" text-anchor="middle" font-size="12" fill="#6b7280">Вивід rst cause/boot mode</text>
+
+  <line x1="602" y1="207" x2="602" y2="223" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <rect x="522" y="232" width="161" height="55" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="602" y="252" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Крах / Недосяжність</text>
+  <text x="602" y="271" text-anchor="middle" font-size="12" fill="#6b7280">Зависання або Exception</text>
+
+  <line x1="602" y1="287" x2="602" y2="303" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <rect x="522" y="312" width="161" height="55" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="602" y="332" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Спрацювання WDT</text>
+  <text x="602" y="351" text-anchor="middle" font-size="12" fill="#6b7280">Апаратне скидання (Reset)</text>
+
+  <text x="602" y="395" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">↻ Повтор кожні ~1-3 сек</text>
+  <text x="602" y="415" text-anchor="middle" font-size="12" fill="#6b7280">(Нескінченний ребут)</text>
+
+  <!-- Arrow Col 3 -> Col 4 -->
+  <line x1="705" y1="282" x2="727" y2="282" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+
+  <!-- Column 4: Remedies & Failsafe -->
+  <rect x="735" y="75" width="195" height="425" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="832" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">4. Розв'язок та Failsafe</text>
+
+  <rect x="745" y="115" width="175" height="95" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="832" y="136" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Апаратна обв'язка</text>
+  <text x="832" y="156" text-anchor="middle" font-size="12" fill="#1a1a1a">Підтяжки 10k: GPIO0/2 (UP)</text>
+  <text x="832" y="174" text-anchor="middle" font-size="12" fill="#1a1a1a">GPIO15 (DOWN), CH_PD (UP)</text>
+  <text x="832" y="192" text-anchor="middle" font-size="12" fill="#6b7280">(Фіксація Boot Mode 3)</text>
+
+  <rect x="745" y="235" width="175" height="95" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="832" y="256" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Фільтрація живлення</text>
+  <text x="832" y="276" text-anchor="middle" font-size="12" fill="#1a1a1a">Конденсатори 100nF + 470uF</text>
+  <text x="832" y="294" text-anchor="middle" font-size="12" fill="#1a1a1a">LDO 3.3V на струм &gt;500мА</text>
+  <text x="832" y="312" text-anchor="middle" font-size="12" fill="#6b7280">(Захист від Brownout)</text>
+
+  <rect x="745" y="355" width="175" height="95" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="832" y="376" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Завантажувач rBoot</text>
+  <text x="832" y="396" text-anchor="middle" font-size="12" fill="#1a1a1a">Детекція ребутів / Failsafe</text>
+  <text x="832" y="414" text-anchor="middle" font-size="12" fill="#1a1a1a">Авто-відкочення на Slot 0</text>
+  <text x="832" y="432" text-anchor="middle" font-size="12" fill="#6b7280">при краху нової прошивки</text>
+</svg>

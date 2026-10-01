@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Структура бінарного заголовка прошивки та карта пам'яті ESP8266</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Завантаження сегментів IRAM/DRAM первинним завантажувачем ROM з SPI Flash та картування IROM через MMU</text>
+
+  <!-- Left Panel: SPI Flash Image & Header Structure -->
+  <rect x="30" y="85" width="390" height="445" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="225" y="110" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Бінарний образ у SPI Flash (Offset 0x00000)</text>
+
+  <!-- Main Image Header (8 Bytes) -->
+  <rect x="45" y="125" width="360" height="100" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="225" y="143" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Заголовок образа прошивки (Main Header: 8 байтів)</text>
+
+  <!-- Header Fields -->
+  <rect x="55" y="152" width="80" height="60" rx="3" fill="white" stroke="#2457d6"/>
+  <text x="95" y="172" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Magic Byte</text>
+  <text x="95" y="194" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">0xE9</text>
+
+  <rect x="142" y="152" width="75" height="60" rx="3" fill="white" stroke="#2457d6"/>
+  <text x="179" y="172" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Сегменти</text>
+  <text x="179" y="194" font-size="12" text-anchor="middle" fill="#6b7280">Count (N)</text>
+
+  <rect x="224" y="152" width="85" height="60" rx="3" fill="white" stroke="#2457d6"/>
+  <text x="266" y="172" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">SPI Mode/Freq</text>
+  <text x="266" y="194" font-size="12" text-anchor="middle" fill="#6b7280">QIO / 40MHz</text>
+
+  <rect x="316" y="152" width="80" height="60" rx="3" fill="white" stroke="#2457d6"/>
+  <text x="356" y="172" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Entry Point</text>
+  <text x="356" y="194" font-size="11" font-weight="bold" text-anchor="middle" fill="#2457d6">0x40100000</text>
+
+  <!-- Segment 1 Block (IRAM Segment) -->
+  <rect x="45" y="235" width="360" height="115" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="55" y="245" width="340" height="32" rx="3" fill="white" stroke="#27ae60"/>
+  <text x="225" y="266" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Заголовок 1: Adr=0x40100000 | Size=Size_IRAM</text>
+  
+  <rect x="55" y="284" width="340" height="56" rx="3" fill="white" stroke="#27ae60"/>
+  <text x="225" y="306" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Дані сегмента 1: Текст та обробники IRAM (.iram0.text)</text>
+  <text x="225" y="326" font-size="12" text-anchor="middle" fill="#6b7280">Виконуваний код завантажується у внутрішню IRAM</text>
+
+  <!-- Segment 2 Block (DRAM Segment) -->
+  <rect x="45" y="360" width="360" height="115" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="55" y="370" width="340" height="32" rx="3" fill="white" stroke="#c0392b"/>
+  <text x="225" y="391" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Заголовок 2: Adr=0x3FFE8000 | Size=Size_DRAM</text>
+  
+  <rect x="55" y="409" width="340" height="56" rx="3" fill="white" stroke="#c0392b"/>
+  <text x="225" y="431" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Дані сегмента 2: Глобальні змінні (.data / .rodata)</text>
+  <text x="225" y="451" font-size="12" text-anchor="middle" fill="#6b7280">Ініціалізовані дані завантажуються в оперативну DRAM</text>
+
+  <!-- Checksum Block -->
+  <rect x="45" y="485" width="360" height="30" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="225" y="505" font-size="12" text-anchor="middle" fill="#6b7280">Байт контрольної суми (XOR Checksum) + Вирівнювання</text>
+
+  <!-- Center Transfer Paths & Labels -->
+  <!-- Entry Vector Pointer -->
+  <path d="M 396 182 C 450 182, 470 149, 565 149" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <rect x="425" y="152" width="110" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="480" y="166" font-size="11" font-weight="bold" text-anchor="middle" fill="#2457d6">Вектор входу (Entry)</text>
+
+  <!-- IRAM Segment Load Path -->
+  <path d="M 395 312 C 450 312, 470 180, 555 180" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <rect x="425" y="235" width="110" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="480" y="250" font-size="11" font-weight="bold" text-anchor="middle" fill="#27ae60">Копіювання в IRAM</text>
+
+  <!-- DRAM Segment Load Path -->
+  <path d="M 395 437 C 450 437, 470 303, 555 303" fill="none" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <rect x="425" y="358" width="110" height="22" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="480" y="373" font-size="11" font-weight="bold" text-anchor="middle" fill="#c0392b">Копіювання в DRAM</text>
+
+  <!-- Right Panel: ESP8266 Memory Map Address Space -->
+  <rect x="540" y="85" width="390" height="445" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="735" y="110" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Адресний простір пам'яті ESP8266</text>
+
+  <!-- IRAM0 Block -->
+  <rect x="555" y="125" width="360" height="110" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <rect x="565" y="135" width="340" height="28" rx="3" fill="white" stroke="#27ae60"/>
+  <text x="735" y="154" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">IRAM0: 0x40100000 – 0x40108000 (32 КБ)</text>
+  <text x="735" y="180" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Оперативна пам'ять інструкцій ядра Xtensa L106</text>
+  <text x="735" y="200" font-size="12" text-anchor="middle" fill="#6b7280">Виконання коду без затримок (Zero Wait-State)</text>
+  <text x="735" y="220" font-size="11" font-style="italic" text-anchor="middle" fill="#27ae60">Призначення: Цільовий простір Сегмента 1 (IRAM)</text>
+
+  <!-- DRAM0 Block -->
+  <rect x="555" y="248" width="360" height="110" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <rect x="565" y="258" width="340" height="28" rx="3" fill="white" stroke="#c0392b"/>
+  <text x="735" y="277" font-size="13" font-weight="bold" text-anchor="middle" fill="#c0392b">DRAM0: 0x3FFE8000 – 0x3FFFFFFF (80 КБ)</text>
+  <text x="735" y="303" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Оперативна пам'ять даних, стек та купа (Heap)</text>
+  <text x="735" y="323" font-size="12" text-anchor="middle" fill="#6b7280">Підтримує 8, 16 та 32-бітний доступ до змінних</text>
+  <text x="735" y="343" font-size="11" font-style="italic" text-anchor="middle" fill="#c0392b">Призначення: Цільовий простір Сегмента 2 (DRAM)</text>
+
+  <!-- IROM0 Block (MMU Flash Window) -->
+  <rect x="555" y="371" width="360" height="144" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <rect x="565" y="381" width="340" height="28" rx="3" fill="white" stroke="#2457d6"/>
+  <text x="735" y="400" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">IROM0: 0x40200000 – 0x40300000 (1 МБ MMU Window)</text>
+  <text x="735" y="426" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Пряме виконання коду з Flash (XIP)</text>
+  <text x="735" y="446" font-size="12" text-anchor="middle" fill="#6b7280">Апаратне картування сторінок по 64 КБ через MMU</text>
+  <text x="735" y="466" font-size="12" text-anchor="middle" fill="#6b7280">Кешування інструкцій через ICache (32 КБ)</text>
+  <text x="735" y="494" font-size="11" font-style="italic" text-anchor="middle" fill="#2457d6">Не потребує копіювання в SRAM при старті</text>
+</svg>

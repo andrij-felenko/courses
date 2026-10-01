@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратна архітектура плати ESP32-CAM</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Взаємодія ядра ESP32 з камери OV2640 через I2S/DMA, DVP/SCCB шини та зовнішню PSRAM</text>
+
+  <!-- Panel 1: OV2640 Camera Sensor -->
+  <rect x="30" y="80" width="210" height="450" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="135" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сенсор камери OV2640</text>
+
+  <!-- Box 1.1: Optical Sensor -->
+  <rect x="45" y="125" width="180" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="135" y="147" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Оптична матриця</text>
+  <text x="135" y="167" font-size="11" fill="#1a1a1a" text-anchor="middle">Роздільна здатність 2 Мп</text>
+  <text x="135" y="185" font-size="11" fill="#6b7280" text-anchor="middle">Формати UXGA/JPEG/RGB</text>
+
+  <!-- Box 1.2: DVP Parallel Port -->
+  <rect x="45" y="215" width="180" height="150" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="135" y="237" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Паралельний порт DVP</text>
+  <text x="135" y="259" font-size="11" fill="#1a1a1a" text-anchor="middle">Дані D0..D7 (8 біт)</text>
+  <text x="135" y="279" font-size="11" fill="#1a1a1a" text-anchor="middle">PCLK (Тактування)</text>
+  <text x="135" y="299" font-size="11" fill="#1a1a1a" text-anchor="middle">VSYNC / HREF (Синхр.)</text>
+  <text x="135" y="319" font-size="11" fill="#2457d6" text-anchor="middle">XCLK (Вхідна частота)</text>
+  <text x="135" y="344" font-size="11" fill="#6b7280" text-anchor="middle">Виводи GPIO Y2..Y9</text>
+
+  <!-- Box 1.3: SCCB Control Bus -->
+  <rect x="45" y="380" width="180" height="130" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="135" y="402" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шина налаштування SCCB</text>
+  <text x="135" y="424" font-size="11" fill="#1a1a1a" text-anchor="middle">SIOC (Тактування I2C)</text>
+  <text x="135" y="444" font-size="11" fill="#1a1a1a" text-anchor="middle">SIOD (Дані I2C)</text>
+  <text x="135" y="467" font-size="11" fill="#6b7280" text-anchor="middle">GPIO27 (SIOC), GPIO26 (SIOD)</text>
+  <text x="135" y="490" font-size="11" fill="#6b7280" text-anchor="middle">Керування регістрами</text>
+
+  <!-- Panel 2: ESP32 SoC -->
+  <rect x="310" y="80" width="340" height="450" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="105" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Мікроконтролер ESP32-S SoC</text>
+
+  <!-- Box 2.1: CPU Cores -->
+  <rect x="325" y="125" width="310" height="65" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="480" y="147" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двоядерний 32-біт Xtensa LX6</text>
+  <text x="480" y="170" font-size="11" fill="#6b7280" text-anchor="middle">Внутрішня SRAM 520 кБ + DMA</text>
+
+  <!-- Box 2.2: I2S Camera Peripheral -->
+  <rect x="325" y="205" width="310" height="120" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="480" y="227" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Периферія I2S (Camera Mode)</text>
+  <text x="480" y="249" font-size="11" fill="#1a1a1a" text-anchor="middle">Прямоточне зчитування 8-біт DVP</text>
+  <text x="480" y="269" font-size="11" fill="#1a1a1a" text-anchor="middle">Апаратний DMA-буфер у пам'яті</text>
+  <text x="480" y="289" font-size="11" fill="#2457d6" text-anchor="middle">Тактування XCLK через LEDC (20 МГц)</text>
+  <text x="480" y="309" font-size="11" fill="#6b7280" text-anchor="middle">Без залучення обчислень CPU</text>
+
+  <!-- Box 2.3: Bus Controllers -->
+  <rect x="325" y="340" width="310" height="175" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="480" y="362" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контролер SCCB / I2C Master</text>
+  <text x="480" y="392" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Quad SPI Controller (PSRAM)</text>
+  <text x="480" y="422" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SDMMC Controller (MicroSD)</text>
+  <text x="480" y="452" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO Controller (UART / LED)</text>
+  <text x="480" y="485" font-size="11" fill="#6b7280" text-anchor="middle">Матриця мультиплексування IOMUX</text>
+
+  <!-- Panel 3: External Modules -->
+  <!-- Box 3.1: PSRAM Memory -->
+  <rect x="720" y="80" width="210" height="130" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="825" y="103" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Зовнішня PSRAM</text>
+  <text x="825" y="125" font-size="11" fill="#1a1a1a" text-anchor="middle">Обсяг 4 МБ / 8 МБ</text>
+  <text x="825" y="145" font-size="11" fill="#1a1a1a" text-anchor="middle">Шина Quad SPI (80 МГц)</text>
+  <text x="825" y="165" font-size="11" fill="#6b7280" text-anchor="middle">Кадрові буфери JPEG / RGB565</text>
+  <text x="825" y="188" font-size="11" fill="#6b7280" text-anchor="middle">GPIO16 / GPIO17 (CS, SCLK)</text>
+
+  <!-- Box 3.2: MicroSD Slot -->
+  <rect x="720" y="225" width="210" height="115" rx="8" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="825" y="248" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Слот картки MicroSD</text>
+  <text x="825" y="269" font-size="11" fill="#1a1a1a" text-anchor="middle">Шина SDMMC (1-біт / 4-біт)</text>
+  <text x="825" y="289" font-size="11" fill="#6b7280" text-anchor="middle">Запис фото та відеопотоку</text>
+  <text x="825" y="312" font-size="11" fill="#6b7280" text-anchor="middle">GPIO12, 13, 14, 15, 2, 4</text>
+
+  <!-- Box 3.3: Flash LED & Power -->
+  <rect x="720" y="355" width="210" height="175" rx="8" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="825" y="378" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Спалаховий LED (GPIO4)</text>
+  <text x="825" y="398" font-size="11" fill="#6b7280" text-anchor="middle">Світлодіод підсвічування</text>
+  <text x="825" y="425" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">UART Програмування</text>
+  <text x="825" y="445" font-size="11" fill="#6b7280" text-anchor="middle">TXD (GPIO1), RXD (GPIO3)</text>
+  <text x="825" y="472" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стабілізатор AMS1117</text>
+  <text x="825" y="492" font-size="11" fill="#6b7280" text-anchor="middle">Живлення 5V -&gt; 3.3V LDO</text>
+
+  <!-- Connections / Arrows -->
+  <!-- DVP Bus (Camera -> ESP32) -->
+  <line x1="225" y1="255" x2="320" y2="255" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="272" y="246" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">DVP (8 біт + синхр.)</text>
+
+  <!-- XCLK Clock (ESP32 -> Camera) -->
+  <line x1="325" y1="290" x2="230" y2="290" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <text x="277" y="308" font-size="11" fill="#2457d6" text-anchor="middle">XCLK (20 МГц)</text>
+
+  <!-- SCCB Bus (ESP32 -> Camera) -->
+  <line x1="325" y1="435" x2="230" y2="435" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="277" y="425" font-size="11" fill="#1a1a1a" text-anchor="middle">SCCB (SIOC/SIOD)</text>
+
+  <!-- Quad SPI (ESP32 -> PSRAM) -->
+  <line x1="635" y1="145" x2="715" y2="145" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="675" y="135" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Quad SPI (80 МГц)</text>
+
+  <!-- SDMMC (ESP32 -> MicroSD) -->
+  <line x1="635" y1="280" x2="715" y2="280" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="675" y="270" font-size="11" fill="#1a1a1a" text-anchor="middle">Шина SDMMC</text>
+
+  <!-- GPIO / UART (ESP32 -> Peripherals) -->
+  <line x1="635" y1="430" x2="715" y2="430" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="675" y="420" font-size="11" fill="#1a1a1a" text-anchor="middle">GPIO / UART</text>
+</svg>

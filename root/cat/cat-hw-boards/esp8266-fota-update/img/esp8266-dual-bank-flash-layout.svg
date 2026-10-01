@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Двобанківська розкладка Dual Bank та перемикання слотів eBoot</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Завантажувач eBoot зчитує прапор у секторі конфігурації та передає керування активному слоту (user1 / user2)</text>
+
+  <!-- SPI Flash Outer Panel -->
+  <rect x="40" y="90" width="880" height="145" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="114" font-size="13" font-weight="bold" fill="#1a1a1a">Карта SPI Flash-пам'яті ESP8266 (Dual Bank):</text>
+
+  <!-- Flash Sector 1: eBoot -->
+  <rect x="50" y="128" width="100" height="92" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="100" y="160" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">eBoot</text>
+  <text x="100" y="178" text-anchor="middle" font-size="11" fill="#6b7280">0x00000</text>
+  <text x="100" y="196" text-anchor="middle" font-size="11" fill="#2457d6">Завантажувач</text>
+
+  <!-- Flash Sector 2: Slot 1 (user1.bin) -->
+  <rect x="160" y="128" width="280" height="92" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="300" y="155" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Слот 1: user1.bin (Активний)</text>
+  <text x="300" y="175" text-anchor="middle" font-size="11" fill="#1a1a1a">0x02000 (виконання коду)</text>
+  <text x="300" y="195" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">✔ Статус: RUNNING</text>
+
+  <!-- Flash Sector 3: Slot 2 (user2.bin) -->
+  <rect x="450" y="128" width="280" height="92" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="590" y="155" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Слот 2: user2.bin (Резервний)</text>
+  <text x="590" y="175" text-anchor="middle" font-size="11" fill="#1a1a1a">0x81000 (запис нового FOTA)</text>
+  <text x="590" y="195" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">⬇ Запис FOTA по Wi-Fi</text>
+
+  <!-- Flash Sector 4: Config / EOT -->
+  <rect x="740" y="128" width="170" height="92" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="825" y="155" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Конфігурація FOTA</text>
+  <text x="825" y="173" text-anchor="middle" font-size="11" fill="#1a1a1a">Прапор eBoot / RTC</text>
+  <text x="825" y="191" text-anchor="middle" font-size="11" fill="#6b7280">RF init (верхні)</text>
+
+  <!-- Step 1 Panel -->
+  <rect x="40" y="255" width="270" height="175" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="50" y="267" width="250" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="175" y="286" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1. Прийом FOTA по HTTP/Wi-Fi</text>
+  <text x="60" y="320" font-size="12" fill="#1a1a1a">• user1.bin виконує програму</text>
+  <text x="60" y="342" font-size="12" fill="#1a1a1a">• Отримання образу по мережі</text>
+  <text x="60" y="364" font-size="12" fill="#1a1a1a">• Посекторний запис у user2.bin</text>
+  <text x="60" y="386" font-size="12" fill="#1a1a1a">• Перевірка CRC32 / MD5 цілісності</text>
+
+  <!-- Step 2 Panel -->
+  <rect x="345" y="255" width="270" height="175" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="355" y="267" width="250" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="286" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">2. Фіксація перемикання</text>
+  <text x="365" y="320" font-size="12" fill="#1a1a1a">• Успішна валідація даних</text>
+  <text x="365" y="342" font-size="12" fill="#1a1a1a">• Запис прапора «Boot Slot = 2»</text>
+  <text x="365" y="364" font-size="12" fill="#1a1a1a">• Збереження стану у сектор eBoot</text>
+  <text x="365" y="386" font-size="12" fill="#1a1a1a">• Команда системного скидання (RST)</text>
+
+  <!-- Step 3 Panel -->
+  <rect x="650" y="255" width="270" height="175" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="660" y="267" width="250" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="785" y="286" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">3. Старт з нового слота</text>
+  <text x="670" y="320" font-size="12" fill="#1a1a1a">• eBoot зчитує новий прапор</text>
+  <text x="670" y="342" font-size="12" fill="#1a1a1a">• Встановлює MMU offset на user2</text>
+  <text x="670" y="364" font-size="12" fill="#1a1a1a">• Передає виконання в 0x40200000</text>
+  <text x="670" y="386" font-size="12" font-weight="bold" fill="#27ae60">✔ Нова прошивка активно працює</text>
+
+  <!-- Connecting Arrows between Panels -->
+  <line x1="310" y1="342" x2="338" y2="342" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="615" y1="342" x2="643" y2="342" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+</svg>

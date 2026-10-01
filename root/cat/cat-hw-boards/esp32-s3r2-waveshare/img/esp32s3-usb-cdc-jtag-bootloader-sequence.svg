@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Послідовність сигналів для входу в режим ROM Bootloader ESP32-S3</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Утримання виводу BOOT (IO0) у LOW під час відпускання RESET (EN) активує USB CDC/JTAG завантажувач</text>
+
+  <!-- Definitions -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Main Waveform Panel -->
+  <rect x="40" y="85" width="880" height="250" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel Column Separator -->
+  <line x1="160" y1="85" x2="160" y2="335" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Phase Headers -->
+  <text x="245" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">1. Нормальний запуск</text>
+  <text x="395" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">2. Натискання BOOT</text>
+  <text x="545" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">3. Скидання EN</text>
+  <text x="690" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">4. Фіксація IO0=0</text>
+  <text x="830" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">5. ROM Bootloader</text>
+
+  <!-- Phase Vertical Dividers -->
+  <line x1="320" y1="118" x2="320" y2="315" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="470" y1="118" x2="470" y2="315" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="620" y1="118" x2="620" y2="315" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="760" y1="118" x2="760" y2="315" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- Signal Labels (In Left Column, No Rect Intersection) -->
+  <text x="55" y="160" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">BOOT (GPIO0)</text>
+  <text x="55" y="225" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">RESET (EN)</text>
+  <text x="55" y="290" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Режим USB CDC</text>
+
+  <!-- BOOT Signal Waveform -->
+  <path d="M 170,145 L 320,145 L 320,180 L 760,180 L 760,145 L 900,145" stroke="#2457d6" stroke-width="3" fill="none"/>
+  <text x="245" y="138" text-anchor="middle" font-size="12" fill="#2457d6">HIGH (3.3V)</text>
+  <text x="545" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">LOW (GND) — затиснуто</text>
+
+  <!-- RESET Signal Waveform -->
+  <path d="M 170,210 L 470,210 L 470,245 L 620,245 L 620,210 L 900,210" stroke="#c0392b" stroke-width="3" fill="none"/>
+  <text x="245" y="203" text-anchor="middle" font-size="12" fill="#c0392b">HIGH (3.3V)</text>
+  <text x="545" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">RESET (GND)</text>
+
+  <!-- Sampling Point at Rising Edge of EN -->
+  <line x1="620" y1="135" x2="620" y2="255" stroke="#27ae60" stroke-width="2" stroke-dasharray="3 3"/>
+  <circle cx="620" cy="210" r="5" fill="#27ae60"/>
+  <circle cx="620" cy="180" r="5" fill="#27ae60"/>
+  <text x="630" y="198" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">Опитування IO0=0 при старті</text>
+
+  <!-- State Banners (Starting at X=170) -->
+  <rect x="170" y="270" width="300" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="320" y="291" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Користувацька прошивка (USB CDC)</text>
+
+  <rect x="470" y="270" width="150" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="545" y="291" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Скидання SoC</text>
+
+  <rect x="620" y="270" width="280" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="760" y="291" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ROM Bootloader (Download Mode)</text>
+
+  <!-- Bottom Procedure Cards -->
+  <rect x="40" y="355" width="205" height="125" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="355" width="205" height="28" rx="6" fill="#eaf0fd"/>
+  <text x="142" y="374" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. Затискання BOOT</text>
+  <text x="52" y="402" font-size="12" fill="#1a1a1a">• Натиснути кнопку BOOT</text>
+  <text x="52" y="422" font-size="12" fill="#1a1a1a">• Вивід IO0 підтягується</text>
+  <text x="52" y="440" font-size="12" fill="#1a1a1a">  до рівня 0V (GND)</text>
+  <text x="52" y="462" font-size="12" fill="#6b7280">• Опитування готується</text>
+
+  <rect x="265" y="355" width="205" height="125" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="265" y="355" width="205" height="28" rx="6" fill="#fdecea"/>
+  <text x="367" y="374" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">2. Коротке RESET</text>
+  <text x="277" y="402" font-size="12" fill="#1a1a1a">• Натиснути кнопку RESET</text>
+  <text x="277" y="422" font-size="12" fill="#1a1a1a">• Вивід EN заземлюється</text>
+  <text x="277" y="440" font-size="12" fill="#1a1a1a">  і перезапускає чип</text>
+  <text x="277" y="462" font-size="12" fill="#6b7280">• BOOT утримується LOW</text>
+
+  <rect x="490" y="355" width="205" height="125" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="490" y="355" width="205" height="28" rx="6" fill="#e9f7ef"/>
+  <text x="592" y="374" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">3. Відпускання RESET</text>
+  <text x="502" y="402" font-size="12" fill="#1a1a1a">• Відпустити RESET (EN=1)</text>
+  <text x="502" y="422" font-size="12" fill="#1a1a1a">• ROM зчитує стан IO0</text>
+  <text x="502" y="440" font-size="12" fill="#1a1a1a">  під час фронту EN</text>
+  <text x="502" y="462" font-size="12" fill="#27ae60">• Визначено завантажувач</text>
+
+  <rect x="715" y="355" width="205" height="125" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="715" y="355" width="205" height="28" rx="6" fill="#e9f7ef"/>
+  <text x="817" y="374" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">4. Відпускання BOOT</text>
+  <text x="727" y="402" font-size="12" fill="#1a1a1a">• Відпустити BOOT (IO0=1)</text>
+  <text x="727" y="422" font-size="12" fill="#1a1a1a">• USB CDC переходить у</text>
+  <text x="727" y="440" font-size="12" fill="#1a1a1a">  режим Download Mode</text>
+  <text x="727" y="462" font-size="12" fill="#27ae60">• Готовий до esptool.py</text>
+</svg>

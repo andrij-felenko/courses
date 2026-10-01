@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структура кадру +IPD у послідовному потоці UART ESP8266</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Розбір префікса, ID сокета, довжини корисного навантаження та бінарного блоку даних</text>
+
+  <!-- Верхня панель структури кадру -->
+  <rect x="40" y="85" width="880" height="160" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="60" y="110" font-size="14" font-weight="bold" fill="#1a1a1a">Послідовний потік байтів UART (ASCII-заголовок та бінарне навантаження)</text>
+
+  <!-- Блок 1: Префікс -->
+  <rect x="60" y="125" width="150" height="65" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <text x="135" y="164" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">+IPD,</text>
+  <text x="135" y="215" font-size="12" fill="#1a1a1a" text-anchor="middle">Префікс сповіщення</text>
+
+  <!-- Блок 2: Link ID -->
+  <rect x="225" y="125" width="130" height="65" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="6"/>
+  <text x="290" y="164" font-size="16" font-weight="bold" fill="#27ae60" text-anchor="middle">0</text>
+  <text x="290" y="215" font-size="12" fill="#1a1a1a" text-anchor="middle">ID сокета (0..4)</text>
+
+  <!-- Блок 3: Кома -->
+  <rect x="370" y="125" width="40" height="65" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="6"/>
+  <text x="390" y="164" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">,</text>
+  <text x="390" y="215" font-size="12" fill="#6b7280" text-anchor="middle">Розділювач</text>
+
+  <!-- Блок 4: Довжина -->
+  <rect x="425" y="125" width="140" height="65" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <text x="495" y="164" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">12</text>
+  <text x="495" y="215" font-size="12" fill="#1a1a1a" text-anchor="middle">Довжина в байтах</text>
+
+  <!-- Блок 5: Двокрапка -->
+  <rect x="580" y="125" width="40" height="65" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="6"/>
+  <text x="600" y="164" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">:</text>
+  <text x="600" y="215" font-size="12" fill="#6b7280" text-anchor="middle">Кінець заголовка</text>
+
+  <!-- Блок 6: Payload -->
+  <rect x="635" y="125" width="265" height="65" fill="#fdecea" stroke="#c0392b" stroke-width="2" rx="6"/>
+  <text x="767" y="164" font-size="16" font-weight="bold" fill="#c0392b" text-anchor="middle">Hello World!</text>
+  <text x="767" y="215" font-size="12" fill="#1a1a1a" text-anchor="middle">Корисне навантаження (N байт)</text>
+
+  <!-- Нижня панель етапів розбору -->
+  <rect x="40" y="260" width="880" height="175" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="60" y="285" font-size="14" font-weight="bold" fill="#1a1a1a">Етапи розбору вхідного потоку парсером AT-команд</text>
+
+  <!-- Крок 1 -->
+  <rect x="60" y="305" width="250" height="110" fill="white" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="75" y="328" font-size="13" font-weight="bold" fill="#2457d6">1. Пошук префікса</text>
+  <text x="75" y="353" font-size="12" fill="#1a1a1a">Накопичення символів до</text>
+  <text x="75" y="373" font-size="12" fill="#6b7280">виявлення префікса +IPD,</text>
+  <text x="75" y="393" font-size="12" fill="#6b7280">підготовка до розбору</text>
+
+  <!-- Стрілка 1-2 -->
+  <line x1="310" y1="360" x2="348" y2="360" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Крок 2 -->
+  <rect x="355" y="305" width="250" height="110" fill="white" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="370" y="328" font-size="13" font-weight="bold" fill="#27ae60">2. Зчитування заголовка</text>
+  <text x="370" y="353" font-size="12" fill="#1a1a1a">Парсинг ID сокета та len</text>
+  <text x="370" y="373" font-size="12" fill="#6b7280">до розділової двокрапки ':'</text>
+  <text x="370" y="393" font-size="12" fill="#6b7280">Виділення буфера даних</text>
+
+  <!-- Стрілка 2-3 -->
+  <line x1="605" y1="360" x2="643" y2="360" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Крок 3 -->
+  <rect x="650" y="305" width="250" height="110" fill="white" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="665" y="328" font-size="13" font-weight="bold" fill="#c0392b">3. Пряме зчитування даних</text>
+  <text x="665" y="353" font-size="12" fill="#1a1a1a">Пряме зчитування len байт</text>
+  <text x="665" y="373" font-size="12" fill="#6b7280">байтового масиву без розбору</text>
+  <text x="665" y="393" font-size="12" fill="#6b7280">Передача в сокетний буфер</text>
+</svg>

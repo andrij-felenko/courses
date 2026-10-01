@@ -1,0 +1,127 @@
+<svg viewBox="0 0 960 520" width="960" height="520" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма сигналів паралельної шини DVP та шини SCCB</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Стробування пікселів PCLK і рядків HREF під час конфігурації SCCB та передачі даних кадри</text>
+
+  <!-- Panel 1: SCCB Interface -->
+  <rect x="40" y="70" width="880" height="105" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="55" y="90" font-size="13" font-weight="bold" fill="#1a1a1a">Фаза I: Налаштування регістрів камери через шину SCCB (I2C-подібний інтерфейс)</text>
+
+  <text x="55" y="122" font-size="12" font-weight="bold" fill="#1a1a1a">SIOC (SCL):</text>
+  <text x="55" y="157" font-size="12" font-weight="bold" fill="#1a1a1a">SIOD (SDA):</text>
+
+  <!-- SIOC Clock waveform (ends cleanly at x=560 before info box) -->
+  <path d="M 160,114 L 220,114 L 220,130 L 240,130 L 240,114 L 260,114 L 260,130 L 280,130 L 280,114 L 300,114 L 300,130 L 320,130 L 320,114 L 340,114 L 340,130 L 360,130 L 360,114 L 380,114 L 380,130 L 400,130 L 400,114 L 420,114 L 420,130 L 440,130 L 440,114 L 460,114 L 460,130 L 480,130 L 480,114 L 500,114 L 500,130 L 520,130 L 520,114 L 560,114" stroke="#1a1a1a" stroke-width="1.8" fill="none"/>
+
+  <!-- SIOD Data Blocks -->
+  <rect x="190" y="144" width="30" height="18" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="205" y="157" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">START</text>
+
+  <rect x="225" y="144" width="95" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="272" y="157" font-size="10" fill="#2457d6" text-anchor="middle">DEV_ADDR (0x60)</text>
+
+  <rect x="325" y="144" width="95" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="372" y="157" font-size="10" fill="#2457d6" text-anchor="middle">REG_ADDR (0x12)</text>
+
+  <rect x="425" y="144" width="95" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="472" y="157" font-size="10" fill="#2457d6" text-anchor="middle">DATA (0x80)</text>
+
+  <rect x="525" y="144" width="30" height="18" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="540" y="157" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">STOP</text>
+
+  <!-- SCCB Explanatory note (positioned cleanly at x=580..900, y=90..160) -->
+  <rect x="580" y="90" width="320" height="70" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="595" y="112" font-size="11" font-weight="bold" fill="#1a1a1a">Послідовне програмне налаштування:</text>
+  <text x="595" y="130" font-size="11" fill="#6b7280">1. Адреса пристрою OV3640 (0x60 / 0x42)</text>
+  <text x="595" y="148" font-size="11" fill="#6b7280">2. Запис значення у конфігураційний регістр</text>
+
+  <!-- Panel 2: DVP Stream -->
+  <rect x="40" y="190" width="880" height="315" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="55" y="212" font-size="13" font-weight="bold" fill="#1a1a1a">Фаза II: Високошвидкісний піксельний потік DVP (Digital Video Port)</text>
+
+  <!-- DVP Signal Labels -->
+  <text x="55" y="250" font-size="12" font-weight="bold" fill="#1a1a1a">VSYNC:</text>
+  <text x="55" y="265" font-size="10" fill="#6b7280">Кадрова синхр.</text>
+
+  <text x="55" y="315" font-size="12" font-weight="bold" fill="#1a1a1a">HREF:</text>
+  <text x="55" y="330" font-size="10" fill="#6b7280">Рядкова синхр.</text>
+
+  <text x="55" y="380" font-size="12" font-weight="bold" fill="#1a1a1a">PCLK:</text>
+  <text x="55" y="395" font-size="10" fill="#6b7280">Піксельний такт</text>
+
+  <text x="55" y="445" font-size="12" font-weight="bold" fill="#1a1a1a">D0–D7 (Y2–Y9):</text>
+  <text x="55" y="460" font-size="10" fill="#6b7280">Паралельні дані</text>
+
+  <!-- VSYNC Waveform -->
+  <path d="M 160,240 L 260,240 L 260,260 L 900,260" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <rect x="165" y="222" width="90" height="15" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="210" y="233" font-size="10" fill="#c0392b" text-anchor="middle">VSYNC High (Пауза)</text>
+
+  <rect x="520" y="222" width="130" height="15" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="585" y="233" font-size="10" fill="#27ae60" text-anchor="middle">VSYNC Low (Передача кадру)</text>
+
+  <!-- HREF Waveform -->
+  <path d="M 160,325 L 290,325 L 290,300 L 550,300 L 550,325 L 610,325 L 610,300 L 870,300 L 870,325 L 900,325" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <text x="420" y="293" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">Активний рядок 1 (HREF High)</text>
+  <text x="580" y="293" font-size="10" fill="#6b7280" text-anchor="middle">Пауза рядка</text>
+  <text x="740" y="293" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">Активний рядок 2 (HREF High)</text>
+
+  <!-- PCLK Waveform -->
+  <path d="M 160,385 L 290,385 L 290,365 L 305,365 L 305,385 L 320,385 L 320,365 L 335,365 L 335,385 L 350,385 L 350,365 L 365,365 L 365,385 L 380,385 L 380,365 L 395,365 L 395,385 L 410,385 L 410,365 L 425,365 L 425,385 L 440,385 L 440,365 L 455,365 L 455,385 L 470,385 L 470,365 L 485,365 L 485,385 L 500,385 L 500,365 L 515,365 L 515,385 L 610,385 L 610,365 L 625,365 L 625,385 L 640,385 L 640,365 L 655,365 L 655,385 L 670,385 L 670,365 L 685,365 L 685,385 L 700,385 L 700,365 L 715,365 L 715,385 L 730,385 L 730,365 L 745,365 L 745,385 L 760,385 L 760,365 L 775,365 L 775,385 L 790,385 L 790,365 L 805,365 L 805,385 L 820,385 L 820,365 L 835,365 L 835,385 L 900,385" stroke="#1a1a1a" stroke-width="1.8" fill="none"/>
+
+  <!-- Vertical Sampling Dashed Lines -->
+  <line x1="290" y1="362" x2="290" y2="433" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="2,2" marker-end="url(#arr-green)"/>
+  <line x1="350" y1="362" x2="350" y2="433" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="2,2" marker-end="url(#arr-green)"/>
+  <line x1="410" y1="362" x2="410" y2="433" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="2,2" marker-end="url(#arr-green)"/>
+  <line x1="470" y1="362" x2="470" y2="433" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="2,2" marker-end="url(#arr-green)"/>
+  <text x="390" y="354" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">Зчитування байта по зростаючому фронту PCLK</text>
+
+  <!-- Data Bus D0-D7 Bytes -->
+  <line x1="160" y1="445" x2="290" y2="445" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Line 1 Bytes -->
+  <rect x="290" y="433" width="58" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="319" y="449" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Байт 1 (Y0)</text>
+
+  <rect x="350" y="433" width="58" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="379" y="449" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Байт 2 (U0)</text>
+
+  <rect x="410" y="433" width="58" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="439" y="449" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Байт 3 (Y1)</text>
+
+  <rect x="470" y="433" width="58" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="499" y="449" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Байт 4 (V0)</text>
+
+  <line x1="528" y1="445" x2="610" y2="445" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Line 2 Bytes -->
+  <rect x="610" y="433" width="58" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="639" y="449" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Байт 1 (Y2)</text>
+
+  <rect x="670" y="433" width="58" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="699" y="449" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Байт 2 (U1)</text>
+
+  <rect x="730" y="433" width="58" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="759" y="449" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Байт 3 (Y3)</text>
+
+  <rect x="790" y="433" width="58" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="819" y="449" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Байт 4 (V1)</text>
+
+  <line x1="848" y1="445" x2="900" y2="445" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Bottom Summary Note Banner -->
+  <rect x="160" y="470" width="730" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="525" y="486" font-size="11" fill="#1a1a1a" text-anchor="middle">Структура пікселя: 2 такти PCLK формують 1 піксель YUV422 / RGB565 [Байт старший + Байт молодший]</text>
+</svg>

@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Апаратна архітектура та потік даних плати ESP32-CAM</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Взаємодія камери OV2640/OV3640, паралельної шини DVP, контролера DMA та пам'яті PSRAM</text>
+
+  <!-- Block 1: Camera Sensor -->
+  <rect x="30" y="75" width="200" height="360" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="130" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Сенсор камери</text>
+  <text x="130" y="118" text-anchor="middle" font-size="12" fill="#6b7280">(OV2640 / OV3640)</text>
+
+  <rect x="45" y="135" width="170" height="95" rx="5" ry="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="130" y="158" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Паралельний вихід DVP</text>
+  <text x="130" y="178" text-anchor="middle" font-size="12" fill="#6b7280">Дані: D0–D7 (8 біт)</text>
+  <text x="130" y="196" text-anchor="middle" font-size="12" fill="#6b7280">Тактування: PCLK</text>
+  <text x="130" y="214" text-anchor="middle" font-size="12" fill="#6b7280">Синхр: HREF, VSYNC</text>
+
+  <rect x="45" y="240" width="170" height="70" rx="5" ry="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="130" y="263" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Інтерфейс SCCB</text>
+  <text x="130" y="283" text-anchor="middle" font-size="12" fill="#6b7280">Керування регістрами</text>
+  <text x="130" y="299" text-anchor="middle" font-size="12" fill="#6b7280">Лінії: SIOC, SIOD</text>
+
+  <rect x="45" y="320" width="170" height="100" rx="5" ry="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="130" y="343" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Тактування й скидання</text>
+  <text x="130" y="363" text-anchor="middle" font-size="12" fill="#6b7280">Вхід XCLK (20 МГц)</text>
+  <text x="130" y="381" text-anchor="middle" font-size="12" fill="#6b7280">Скидання: RESET (актив. 0)</text>
+  <text x="130" y="399" text-anchor="middle" font-size="12" fill="#6b7280">Вимкнення: PWDN (актив. 1)</text>
+
+  <!-- Block 2: ESP32 Microcontroller -->
+  <rect x="360" y="75" width="350" height="360" rx="8" ry="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="535" y="100" text-anchor="middle" font-size="15" font-weight="bold" fill="#2457d6">Мікроконтролер ESP32</text>
+  <text x="535" y="118" text-anchor="middle" font-size="12" fill="#6b7280">(Двоядерний Xtensa LX6 @ 240 МГц)</text>
+
+  <!-- Inner Block A: DMA / DVP Engine -->
+  <rect x="375" y="135" width="320" height="80" rx="6" ry="6" fill="#2457d6"/>
+  <text x="535" y="160" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">Контролер I2S / LCD_CAM + DMA</text>
+  <text x="535" y="180" text-anchor="middle" font-size="12" fill="#eaf0fd">Апаратне захоплення DVP кадру в фоновому режимі</text>
+  <text x="535" y="198" text-anchor="middle" font-size="12" fill="#eaf0fd">Кільцеві DMA-дескриптори у внутрішній DRAM</text>
+
+  <!-- Inner Block B: Processors -->
+  <rect x="375" y="225" width="155" height="100" rx="5" ry="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="452" y="248" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Ядра CPU (Core 0/1)</text>
+  <text x="452" y="268" text-anchor="middle" font-size="12" fill="#6b7280">Обробка драйвером</text>
+  <text x="452" y="286" text-anchor="middle" font-size="12" fill="#6b7280">esp_camera_fb_get()</text>
+  <text x="452" y="304" text-anchor="middle" font-size="12" fill="#6b7280">HTTP / Wi-Fi стек</text>
+
+  <!-- Inner Block C: Peripherals -->
+  <rect x="540" y="225" width="155" height="100" rx="5" ry="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="617" y="248" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Периферія GPIO</text>
+  <text x="617" y="268" text-anchor="middle" font-size="12" fill="#6b7280">Генератор LEDC XCLK</text>
+  <text x="617" y="286" text-anchor="middle" font-size="12" fill="#6b7280">Магістраль SCCB (I2C)</text>
+  <text x="617" y="304" text-anchor="middle" font-size="12" fill="#6b7280">Спалах LED (GPIO4)</text>
+
+  <!-- Inner Block D: SPI Host -->
+  <rect x="375" y="335" width="320" height="85" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="535" y="358" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Шинний контролер SPI / PSRAM</text>
+  <text x="535" y="378" text-anchor="middle" font-size="12" fill="#6b7280">Швидкісний прямий допуск DMA до зовнішньої пам'яті</text>
+  <text x="535" y="398" text-anchor="middle" font-size="12" fill="#6b7280">Подвійна буферизація (Double Buffering)</text>
+
+  <!-- Block 3: External Memory & Storage -->
+  <rect x="740" y="75" width="190" height="360" rx="8" ry="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="835" y="100" text-anchor="middle" font-size="15" font-weight="bold" fill="#27ae60">Зовнішня периферія</text>
+  <text x="835" y="118" text-anchor="middle" font-size="12" fill="#6b7280">(SPI / SDMMC шина)</text>
+
+  <!-- Sub-block PSRAM -->
+  <rect x="755" y="135" width="160" height="135" rx="5" ry="5" fill="#ffffff" stroke="#27ae60"/>
+  <text x="835" y="160" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Пам'ять PSRAM</text>
+  <text x="835" y="180" text-anchor="middle" font-size="12" fill="#1a1a1a">Обсяг: 4 МБ / 8 МБ</text>
+  <text x="835" y="200" text-anchor="middle" font-size="12" fill="#6b7280">Буфер 0 (DMA write)</text>
+  <text x="835" y="220" text-anchor="middle" font-size="12" fill="#6b7280">Буфер 1 (Wi-Fi read)</text>
+  <text x="835" y="240" text-anchor="middle" font-size="12" fill="#27ae60">Зберігання кадрів</text>
+
+  <!-- Sub-block SD Card -->
+  <rect x="755" y="285" width="160" height="135" rx="5" ry="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="835" y="310" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Карта MicroSD</text>
+  <text x="835" y="330" text-anchor="middle" font-size="12" fill="#6b7280">Інтерфейс SDMMC</text>
+  <text x="835" y="350" text-anchor="middle" font-size="12" fill="#6b7280">1-bit / 4-bit режими</text>
+  <text x="835" y="370" text-anchor="middle" font-size="12" fill="#c0392b">Конфлікт з DAT1</text>
+  <text x="835" y="390" text-anchor="middle" font-size="12" fill="#c0392b">на GPIO4 (спалах)</text>
+
+  <!-- Buses & Connecting Arrows -->
+  <!-- DVP Bus Arrow -->
+  <line x1="215" y1="175" x2="366" y2="175" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="290" y="165" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Шина DVP (D0–D7, PCLK)</text>
+
+  <!-- SCCB Bus Arrow -->
+  <line x1="215" y1="275" x2="531" y2="275" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-dark)"/>
+  <text x="290" y="265" text-anchor="middle" font-size="11" fill="#6b7280">SCCB (SIOC, SIOD)</text>
+
+  <!-- XCLK Clock Line Arrow -->
+  <line x1="540" y1="365" x2="224" y2="365" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="290" y="355" text-anchor="middle" font-size="11" fill="#1a1a1a">Тактовий XCLK</text>
+
+  <!-- SPI / DMA to PSRAM Line Arrow -->
+  <line x1="695" y1="175" x2="746" y2="175" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="722" y="165" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">DMA</text>
+</svg>

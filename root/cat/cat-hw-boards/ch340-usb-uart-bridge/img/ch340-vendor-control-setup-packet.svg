@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структура Setup-пакета вендорного контрольного USB-запиту CH340</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Формат 8-байтового пакета контрольної транзакції EP0 для налаштування швидкості, кадру та ліній DTR/RTS</text>
+
+  <!-- Підписи зсувів (Offset Labels) -->
+  <text x="112.5" y="84" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Offset 0</text>
+  <text x="217.5" y="84" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Offset 1</text>
+  <text x="375" y="84" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Offset 2..3 (wValue)</text>
+  <text x="585" y="84" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Offset 4..5 (wIndex)</text>
+  <text x="795" y="84" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Offset 6..7 (wLength)</text>
+
+  <!-- Карта 8 байтів Setup-пакета -->
+  <!-- Byte 0: bmRequestType -->
+  <rect x="60" y="92" width="105" height="72" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="112.5" y="114" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">bmRequestType</text>
+  <text x="112.5" y="134" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0x40 / 0xC0</text>
+  <text x="112.5" y="152" font-size="12" fill="#6b7280" text-anchor="middle">Vendor Out/In</text>
+
+  <!-- Byte 1: bRequest -->
+  <rect x="165" y="92" width="105" height="72" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="217.5" y="114" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">bRequest</text>
+  <text x="217.5" y="134" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Код команди</text>
+  <text x="217.5" y="152" font-size="12" fill="#6b7280" text-anchor="middle">0x9A, 0xA1, 0xA4</text>
+
+  <!-- Bytes 2..3: wValue -->
+  <rect x="270" y="92" width="210" height="72" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <line x1="375" y1="92" x2="375" y2="164" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <text x="375" y="114" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">wValue (16 біт)</text>
+  <text x="322.5" y="134" font-size="12" fill="#6b7280" text-anchor="middle">LSB (Байт 2)</text>
+  <text x="427.5" y="134" font-size="12" fill="#6b7280" text-anchor="middle">MSB (Байт 3)</text>
+  <text x="375" y="152" font-size="12" fill="#2457d6" text-anchor="middle">Параметр / Baud Rate</text>
+
+  <!-- Bytes 4..5: wIndex -->
+  <rect x="480" y="92" width="210" height="72" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <line x1="585" y1="92" x2="585" y2="164" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <text x="585" y="114" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">wIndex (16 біт)</text>
+  <text x="532.5" y="134" font-size="12" fill="#6b7280" text-anchor="middle">LSB (Байт 4)</text>
+  <text x="637.5" y="134" font-size="12" fill="#6b7280" text-anchor="middle">MSB (Байт 5)</text>
+  <text x="585" y="152" font-size="12" fill="#2457d6" text-anchor="middle">Індекс / Маска</text>
+
+  <!-- Bytes 6..7: wLength -->
+  <rect x="690" y="92" width="210" height="72" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <line x1="795" y1="92" x2="795" y2="164" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <text x="795" y="114" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">wLength (16 біт)</text>
+  <text x="742.5" y="134" font-size="12" fill="#6b7280" text-anchor="middle">LSB (Байт 6)</text>
+  <text x="847.5" y="134" font-size="12" fill="#6b7280" text-anchor="middle">MSB (Байт 7)</text>
+  <text x="795" y="152" font-size="12" fill="#2457d6" text-anchor="middle">0x0000 / 0x0002</text>
+
+  <!-- Картка 1: bmRequestType & bRequest -->
+  <g transform="translate(0, 0)">
+    <rect x="50" y="190" width="410" height="145" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="50" y="190" width="410" height="30" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="65" y="210" font-size="13" font-weight="bold" fill="#2457d6">1. bmRequestType &amp; bRequest (Команди CH340)</text>
+    
+    <text x="65" y="240" font-size="12" font-weight="bold" fill="#1a1a1a">bmRequestType:</text>
+    <text x="175" y="240" font-size="12" fill="#6b7280">0x40 (Host→Device), 0xC0 (Device→Host)</text>
+    
+    <text x="65" y="263" font-size="12" font-weight="bold" fill="#1a1a1a">bRequest 0x9A:</text>
+    <text x="175" y="263" font-size="12" fill="#1a1a1a">Запис у внутрішні регістри CH340</text>
+    
+    <text x="65" y="286" font-size="12" font-weight="bold" fill="#1a1a1a">bRequest 0xA1:</text>
+    <text x="175" y="286" font-size="12" fill="#1a1a1a">Ініціалізація та скидання стану CH340</text>
+    
+    <text x="65" y="309" font-size="12" font-weight="bold" fill="#1a1a1a">bRequest 0xA4:</text>
+    <text x="175" y="309" font-size="12" fill="#1a1a1a">Керування лініями DTR/RTS та модемом</text>
+  </g>
+
+  <!-- Картка 2: wValue -->
+  <g transform="translate(0, 0)">
+    <rect x="480" y="190" width="430" height="145" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="480" y="190" width="430" height="30" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="495" y="210" font-size="13" font-weight="bold" fill="#2457d6">2. wValue (Значення параметрів і швидкості)</text>
+    
+    <text x="495" y="240" font-size="12" font-weight="bold" fill="#1a1a1a">Налаштування Baud Rate (bRequest = 0x9A):</text>
+    <text x="505" y="260" font-size="12" fill="#6b7280">• wValue містить коефіцієнт дільника частоти</text>
+    <text x="505" y="278" font-size="12" fill="#6b7280">• Наприклад, для 115200 Baud: wValue = 0xCC81</text>
+
+    <text x="495" y="298" font-size="12" font-weight="bold" fill="#1a1a1a">Керування лініями (bRequest = 0xA4):</text>
+    <text x="505" y="318" font-size="12" fill="#6b7280">• Біт 5: стан DTR | Біт 6: стан RTS (0=HIGH, 1=LOW)</text>
+  </g>
+
+  <!-- Картка 3: wIndex -->
+  <g transform="translate(0, 0)">
+    <rect x="50" y="350" width="410" height="145" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="50" y="350" width="410" height="30" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="65" y="370" font-size="13" font-weight="bold" fill="#2457d6">3. wIndex (Регістри та маски)</text>
+    
+    <text x="65" y="400" font-size="12" font-weight="bold" fill="#1a1a1a">wIndex = 0x1312:</text>
+    <text x="175" y="400" font-size="12" fill="#1a1a1a">Адреси регістрів дільника тактування</text>
+    
+    <text x="65" y="422" font-size="12" font-weight="bold" fill="#1a1a1a">wIndex = 0x2518:</text>
+    <text x="175" y="422" font-size="12" fill="#1a1a1a">Формат кадру (8 біт, 1 stop, no parity)</text>
+    
+    <text x="65" y="444" font-size="12" font-weight="bold" fill="#1a1a1a">Маска DTR/RTS:</text>
+    <text x="175" y="444" font-size="12" fill="#6b7280">wIndex визначає дозволені біти зміни</text>
+    
+    <text x="65" y="466" font-size="12" font-weight="bold" fill="#1a1a1a">Зчитування 0x95:</text>
+    <text x="175" y="466" font-size="12" fill="#6b7280">Повертає стан входів CTS, DSR, RI, DCD</text>
+  </g>
+
+  <!-- Картка 4: wLength та Структура транзакції -->
+  <g transform="translate(0, 0)">
+    <rect x="480" y="350" width="430" height="145" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="480" y="350" width="430" height="30" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="495" y="370" font-size="13" font-weight="bold" fill="#2457d6">4. wLength та Потік транзакції USB</text>
+    
+    <text x="495" y="400" font-size="12" font-weight="bold" fill="#1a1a1a">wLength = 0x0000:</text>
+    <text x="620" y="400" font-size="12" fill="#6b7280">Команда без додаткової фази даних</text>
+    
+    <text x="495" y="422" font-size="12" font-weight="bold" fill="#1a1a1a">wLength = 0x0002:</text>
+    <text x="620" y="422" font-size="12" fill="#6b7280">Читання/запис 2 байтів у Data Stage</text>
+    
+    <text x="495" y="444" font-size="12" font-weight="bold" fill="#27ae60">Послідовність:</text>
+    <text x="600" y="444" font-size="12" fill="#1a1a1a">SETUP (8 байт) → DATA (опціонально) → STATUS</text>
+    
+    <text x="495" y="466" font-size="12" fill="#6b7280">Усі транзакції обробляються через Control Endpoint 0 (EP0)</text>
+  </g>
+
+  <!-- Підвальний підпис -->
+  <text x="480" y="518" font-size="12" fill="#6b7280" text-anchor="middle">Драйвер VCP або бібліотека libusb формує ці 8 байтів для відправки через usb_control_msg()</text>
+</svg>

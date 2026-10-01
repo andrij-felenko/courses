@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Marker Definitions -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура транспортів CMSIS-DAP</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Порівняння стеків драйверів та шляхів передачі даних для v1 (HID), v2 (Bulk) та WebUSB</text>
+
+  <!-- Column 1 Container (v1: USB HID) -->
+  <rect x="40" y="80" width="280" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="180" y="104" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v1: USB HID (Legacy)</text>
+
+  <!-- Column 1 / Row 1: Host App -->
+  <rect x="55" y="120" width="250" height="55" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="180" y="142" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">OpenOCD / pyOCD</text>
+  <text x="180" y="160" font-size="12" fill="#6b7280" text-anchor="middle">Виклики DAP_Transfer</text>
+
+  <!-- Column 1 / Arrow 1 -->
+  <line x1="180" y1="175" x2="180" y2="194" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Column 1 / Row 2: Driver Stack -->
+  <rect x="55" y="200" width="250" height="60" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="180" y="222" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Драйвер OS HID (hidapi)</text>
+  <text x="180" y="244" font-size="12" fill="#6b7280" text-anchor="middle">Стандартний клас OS (без inf)</text>
+
+  <!-- Column 1 / Arrow 2 -->
+  <line x1="180" y1="260" x2="180" y2="279" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Column 1 / Row 3: USB Channel -->
+  <rect x="55" y="285" width="250" height="75" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="180" y="307" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">HID Interrupt / Feature</text>
+  <text x="180" y="327" font-size="12" fill="#6b7280" text-anchor="middle">Фіксовані звіти 64 байти</text>
+  <text x="180" y="347" font-size="12" fill="#c0392b" text-anchor="middle">Затримки опитання (Polling)</text>
+
+  <!-- Column 1 / Arrow 3 -->
+  <line x1="180" y1="360" x2="180" y2="379" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Column 1 / Row 4: Firmware & Target -->
+  <rect x="55" y="385" width="250" height="115" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="180" y="407" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Плата зневаджувача</text>
+  <text x="180" y="428" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB HID EP (IN/OUT)</text>
+  <text x="180" y="448" font-size="12" fill="#1a1a1a" text-anchor="middle">Декодер CMSIS-DAP v1</text>
+  <line x1="75" y1="462" x2="285" y2="462" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <text x="180" y="484" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SWD / JTAG до МК-мішені</text>
+
+
+  <!-- Column 2 Container (v2: USB Bulk) -->
+  <rect x="340" y="80" width="280" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="480" y="104" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v2: USB Bulk (High Speed)</text>
+
+  <!-- Column 2 / Row 1: Host App -->
+  <rect x="355" y="120" width="250" height="55" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="480" y="142" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">OpenOCD / pyOCD / probe-rs</text>
+  <text x="480" y="160" font-size="12" fill="#6b7280" text-anchor="middle">Прямий доступ до Bulk EP</text>
+
+  <!-- Column 2 / Arrow 1 -->
+  <line x1="480" y1="175" x2="480" y2="194" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Column 2 / Row 2: Driver Stack -->
+  <rect x="355" y="200" width="250" height="60" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="480" y="222" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">WinUSB / libusb</text>
+  <text x="480" y="244" font-size="12" fill="#6b7280" text-anchor="middle">Драйвер без обгортки HID</text>
+
+  <!-- Column 2 / Arrow 2 -->
+  <line x1="480" y1="260" x2="480" y2="279" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Column 2 / Row 3: USB Channel -->
+  <rect x="355" y="285" width="250" height="75" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="480" y="307" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">USB Bulk Endpoints</text>
+  <text x="480" y="327" font-size="12" fill="#1a1a1a" text-anchor="middle">Пакети 512 байт (USB 2.0 HS)</text>
+  <text x="480" y="347" font-size="12" fill="#27ae60" text-anchor="middle">Висока швидкість передачі</text>
+
+  <!-- Column 2 / Arrow 3 -->
+  <line x1="480" y1="360" x2="480" y2="379" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Column 2 / Row 4: Firmware & Target -->
+  <rect x="355" y="385" width="250" height="115" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="480" y="407" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Плата зневаджувача</text>
+  <text x="480" y="428" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB Bulk EP (IN/OUT)</text>
+  <text x="480" y="448" font-size="12" fill="#1a1a1a" text-anchor="middle">Декодер CMSIS-DAP v2</text>
+  <line x1="375" y1="462" x2="585" y2="462" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <text x="480" y="484" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SWD / JTAG до МК-мішені</text>
+
+
+  <!-- Column 3 Container (WebUSB Transport) -->
+  <rect x="640" y="80" width="280" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="780" y="104" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">WebUSB (Direct Browser)</text>
+
+  <!-- Column 3 / Row 1: Host App -->
+  <rect x="655" y="120" width="250" height="55" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="780" y="142" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Вебдодаток у браузері</text>
+  <text x="780" y="160" font-size="12" fill="#6b7280" text-anchor="middle">JS / WASM (Chrome, Edge)</text>
+
+  <!-- Column 3 / Arrow 1 -->
+  <line x1="780" y1="175" x2="780" y2="194" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Column 3 / Row 2: Driver Stack -->
+  <rect x="655" y="200" width="250" height="60" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="780" y="222" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">WebUSB API + WinUSB</text>
+  <text x="780" y="244" font-size="12" fill="#6b7280" text-anchor="middle">Прямий доступ із вкладки</text>
+
+  <!-- Column 3 / Arrow 2 -->
+  <line x1="780" y1="260" x2="780" y2="279" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Column 3 / Row 3: USB Channel -->
+  <rect x="655" y="285" width="250" height="75" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="780" y="307" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Vendor / Bulk Transfer</text>
+  <text x="780" y="327" font-size="12" fill="#6b7280" text-anchor="middle">BOS / Landing Page Descr.</text>
+  <text x="780" y="347" font-size="12" fill="#27ae60" text-anchor="middle">Робота без встановлення ПО</text>
+
+  <!-- Column 3 / Arrow 3 -->
+  <line x1="780" y1="360" x2="780" y2="379" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Column 3 / Row 4: Firmware & Target -->
+  <rect x="655" y="385" width="250" height="115" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="780" y="407" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Плата зневаджувача</text>
+  <text x="780" y="428" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">WebUSB Descriptors + EP</text>
+  <text x="780" y="448" font-size="12" fill="#1a1a1a" text-anchor="middle">Декодер CMSIS-DAP v2</text>
+  <line x1="675" y1="462" x2="885" y2="462" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <text x="780" y="484" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SWD / JTAG до МК-мішені</text>
+</svg>

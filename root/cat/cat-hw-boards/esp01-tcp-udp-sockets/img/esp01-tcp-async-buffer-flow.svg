@@ -1,0 +1,100 @@
+<svg viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Потік даних та стан пам'яті при асинхронному обміні TCP у ESP-01</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Послідовне виділення та обов'язкове вивільнення pbuf у зворотних викликах розв'язує проблему витоків RAM</text>
+
+  <!-- Column 1: Connection Initialization -->
+  <rect x="40" y="75" width="270" height="245" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="75" width="270" height="40" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="175" y="100" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Крок: connect_cb</text>
+
+  <rect x="55" y="130" width="240" height="55" rx="5" fill="white" stroke="#d0d7de"/>
+  <text x="65" y="150" font-size="13" font-weight="bold" fill="#1a1a1a">З'єднання клієнта</text>
+  <text x="65" y="170" font-size="12" fill="#6b7280">espconn_regist_connectcb()</text>
+
+  <rect x="55" y="195" width="240" height="55" rx="5" fill="white" stroke="#d0d7de"/>
+  <text x="65" y="215" font-size="13" font-weight="bold" fill="#1a1a1a">Виділення сокета</text>
+  <text x="65" y="235" font-size="12" fill="#2457d6">malloc(sizeof(conn_ctx))</text>
+
+  <rect x="55" y="260" width="240" height="45" rx="5" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="175" y="287" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Heap: −128 байт (сокет)</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="310" y1="197" x2="343" y2="197" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="327" y="185" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Дані</text>
+
+  <!-- Column 2: Data Transfer & Recv Callback -->
+  <rect x="345" y="75" width="270" height="245" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="345" y="75" width="270" height="40" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="100" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Крок: recv_cb / send_cb</text>
+
+  <rect x="360" y="130" width="240" height="55" rx="5" fill="white" stroke="#d0d7de"/>
+  <text x="370" y="150" font-size="13" font-weight="bold" fill="#1a1a1a">Прийом пакета pbuf</text>
+  <text x="370" y="170" font-size="12" fill="#6b7280">Копіювання телеметрії</text>
+
+  <rect x="360" y="195" width="240" height="55" rx="5" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="370" y="215" font-size="13" font-weight="bold" fill="#27ae60">pbuf_free(pbuf)</text>
+  <text x="370" y="235" font-size="12" fill="#27ae60">Обов'язкове звільнення</text>
+
+  <rect x="360" y="260" width="240" height="45" rx="5" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="480" y="287" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Heap: Буфер pbuf вивільнено</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="615" y1="197" x2="648" y2="197" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="632" y="185" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Розрив</text>
+
+  <!-- Column 3: Disconnect & Cleanup -->
+  <rect x="650" y="75" width="270" height="245" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="650" y="75" width="270" height="40" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="785" y="100" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Крок: discon_cb</text>
+
+  <rect x="665" y="130" width="240" height="55" rx="5" fill="white" stroke="#d0d7de"/>
+  <text x="675" y="150" font-size="13" font-weight="bold" fill="#1a1a1a">Розрив з'єднання</text>
+  <text x="675" y="170" font-size="12" fill="#6b7280">espconn_regist_disconcb()</text>
+
+  <rect x="665" y="195" width="240" height="55" rx="5" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="675" y="215" font-size="13" font-weight="bold" fill="#27ae60">free(conn_ctx)</text>
+  <text x="675" y="235" font-size="12" fill="#27ae60">Очищення сокета в RAM</text>
+
+  <rect x="665" y="260" width="240" height="45" rx="5" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="785" y="287" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Heap: +128 B (Витоків немає)</text>
+
+  <!-- Bottom Panel: Memory State Timeline -->
+  <rect x="40" y="335" width="880" height="160" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="360" font-size="14" font-weight="bold" fill="#1a1a1a">Монітор балансу оперативної пам'яті Heap (ESP-01 RAM Limit ~24-36 КБ)</text>
+
+  <line x1="80" y1="435" x2="880" y2="435" stroke="#d0d7de" stroke-width="2"/>
+
+  <!-- Node 1 -->
+  <line x1="185" y1="385" x2="185" y2="445" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <circle cx="185" cy="435" r="6" fill="#2457d6"/>
+  <text x="185" y="380" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Виділено сокет</text>
+  <text x="185" y="455" font-size="12" fill="#6b7280" text-anchor="middle">Heap −128 B</text>
+  <text x="185" y="475" font-size="12" fill="#1a1a1a" text-anchor="middle">RAM: 24 448 B</text>
+
+  <!-- Node 2 -->
+  <line x1="480" y1="385" x2="480" y2="445" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <circle cx="480" cy="435" r="6" fill="#27ae60"/>
+  <text x="480" y="380" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">2. pbuf_free() виконано</text>
+  <text x="480" y="455" font-size="12" fill="#27ae60" text-anchor="middle">Пакет вивільнено (0 B витоку)</text>
+  <text x="480" y="475" font-size="12" fill="#1a1a1a" text-anchor="middle">RAM: 24 448 B</text>
+
+  <!-- Node 3 -->
+  <line x1="775" y1="385" x2="775" y2="445" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <circle cx="775" cy="435" r="6" fill="#27ae60"/>
+  <text x="775" y="380" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3. free(conn_ctx)</text>
+  <text x="775" y="455" font-size="12" fill="#27ae60" text-anchor="middle">Повне очищення (+128 B)</text>
+  <text x="775" y="475" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">RAM: 24 576 B (Початкова)</text>
+</svg>

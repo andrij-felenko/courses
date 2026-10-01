@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма асинхронного парсингу вхідного потоку UART (префікс +IPD)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Автомат станів відокремлює службові команди +IPD і CLOSED від бінарних даних сокета без втрати байтів</text>
+
+  <!-- SECTION 1: UART RX STREAM -->
+  <rect x="30" y="80" width="900" height="105" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="45" y="104" font-size="13" font-weight="bold" fill="#1a1a1a">1. Вхідний потік UART RX</text>
+
+  <!-- Timeline axis below boxes -->
+  <line x1="140" y1="173" x2="915" y2="173" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <text x="915" y="165" font-size="11" fill="#6b7280" text-anchor="end">Час (t) →</text>
+
+  <!-- RX Stream Annotations -->
+  <text x="300" y="118" font-size="11" fill="#2457d6" text-anchor="middle">Префікс та метадані</text>
+  <text x="470" y="118" font-size="11" fill="#27ae60" text-anchor="middle">Payload (5 байт)</text>
+  <text x="685" y="118" font-size="11" fill="#c0392b" text-anchor="middle">Подія розриву</text>
+
+  <!-- RX Stream Blocks -->
+  <rect x="160" y="125" width="50" height="36" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="185" y="147" font-size="11" fill="#6b7280" text-anchor="middle">...</text>
+
+  <rect x="220" y="125" width="160" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="300" y="148" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">+IPD,0,5:</text>
+
+  <rect x="390" y="125" width="160" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="470" y="148" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">"H" "e" "l" "l" "o"</text>
+
+  <rect x="560" y="125" width="40" height="36" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="580" y="147" font-size="11" fill="#6b7280" text-anchor="middle">...</text>
+
+  <rect x="610" y="125" width="150" height="36" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="685" y="148" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">0,CLOSED</text>
+
+  <rect x="770" y="125" width="90" height="36" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="815" y="147" font-size="11" fill="#6b7280" text-anchor="middle">Очікування...</text>
+
+  <!-- SECTION 2: PARSER STATE MACHINE -->
+  <rect x="30" y="195" width="900" height="125" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="45" y="212" font-size="13" font-weight="bold" fill="#1a1a1a">2. Автомат станів парсера AT-команд</text>
+
+  <!-- Dashed vertical projections between section 1 and section 2 -->
+  <line x1="220" y1="161" x2="220" y2="195" stroke="#2457d6" stroke-dasharray="3,3"/>
+  <line x1="380" y1="161" x2="380" y2="195" stroke="#2457d6" stroke-dasharray="3,3"/>
+  <line x1="550" y1="161" x2="550" y2="195" stroke="#27ae60" stroke-dasharray="3,3"/>
+  <line x1="610" y1="161" x2="610" y2="195" stroke="#c0392b" stroke-dasharray="3,3"/>
+  <line x1="760" y1="161" x2="760" y2="195" stroke="#c0392b" stroke-dasharray="3,3"/>
+
+  <line x1="220" y1="220" x2="220" y2="235" stroke="#2457d6" stroke-dasharray="3,3"/>
+  <line x1="380" y1="220" x2="380" y2="235" stroke="#2457d6" stroke-dasharray="3,3"/>
+  <line x1="550" y1="220" x2="550" y2="235" stroke="#27ae60" stroke-dasharray="3,3"/>
+  <line x1="610" y1="220" x2="610" y2="235" stroke="#c0392b" stroke-dasharray="3,3"/>
+  <line x1="760" y1="220" x2="760" y2="235" stroke="#c0392b" stroke-dasharray="3,3"/>
+
+  <!-- State Boxes -->
+  <rect x="160" y="235" width="50" height="65" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="185" y="261" font-size="11" fill="#6b7280" text-anchor="middle">IDLE</text>
+  <text x="185" y="278" font-size="11" fill="#6b7280" text-anchor="middle">Пошук</text>
+
+  <rect x="220" y="235" width="160" height="65" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="300" y="253" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">PARSE_HEADER</text>
+  <text x="300" y="269" font-size="11" fill="#1a1a1a" text-anchor="middle">Виділення ID=0, len=5</text>
+  <text x="300" y="285" font-size="11" fill="#6b7280" text-anchor="middle">Знайдено двокрапку ':'</text>
+
+  <rect x="390" y="235" width="160" height="65" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="470" y="253" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">READ_BINARY</text>
+  <text x="470" y="269" font-size="11" fill="#1a1a1a" text-anchor="middle">Лічильник N = 5 байт</text>
+  <text x="470" y="285" font-size="11" fill="#6b7280" text-anchor="middle">Без перевірки спецсимволів</text>
+
+  <rect x="560" y="235" width="40" height="65" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="580" y="270" font-size="11" fill="#6b7280" text-anchor="middle">IDLE</text>
+
+  <rect x="610" y="235" width="150" height="65" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="685" y="253" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">PROCESS_EVENT</text>
+  <text x="685" y="269" font-size="11" fill="#1a1a1a" text-anchor="middle">Аналіз "0,CLOSED"</text>
+  <text x="685" y="285" font-size="11" fill="#6b7280" text-anchor="middle">Сигнал закриття сокета</text>
+
+  <rect x="770" y="235" width="90" height="65" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="815" y="261" font-size="11" fill="#6b7280" text-anchor="middle">IDLE_SEARCH</text>
+  <text x="815" y="278" font-size="11" fill="#6b7280" text-anchor="middle">Очікування '+IPD'</text>
+
+  <!-- SECTION 3: MEMORY & APP ACTIONS -->
+  <rect x="30" y="335" width="900" height="135" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="45" y="358" font-size="13" font-weight="bold" fill="#1a1a1a">3. Реакція сокетного стека та буферизація в DRAM</text>
+
+  <!-- Connecting arrows from section 2 to section 3 -->
+  <line x1="470" y1="300" x2="470" y2="368" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="685" y1="300" x2="685" y2="368" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Card A (Rule Box) -->
+  <rect x="45" y="375" width="325" height="83" rx="4" fill="#ffffff" stroke="#2457d6" stroke-dasharray="4,4"/>
+  <text x="60" y="395" font-size="11" font-weight="bold" fill="#2457d6">Механізм захисту від збоїв:</text>
+  <text x="60" y="411" font-size="11" fill="#1a1a1a">• Точний розмір N виключає помилкове спрацювання AT</text>
+  <text x="60" y="427" font-size="11" fill="#1a1a1a">• Дані записуються в буфер безпосередньо через DMA</text>
+  <text x="60" y="443" font-size="11" fill="#1a1a1a">• Асинхронні статуси (CLOSED) оновлюють таблицю PCB</text>
+
+  <!-- Card B (Data Buffer) -->
+  <rect x="390" y="375" width="160" height="83" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="470" y="395" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Буфер TCP/UDP</text>
+  <text x="470" y="412" font-size="11" fill="#1a1a1a" text-anchor="middle">Копіювання 5 байт</text>
+  <text x="470" y="428" font-size="11" fill="#27ae60" text-anchor="middle">Подія rx_callback()</text>
+  <text x="470" y="444" font-size="11" fill="#6b7280" text-anchor="middle">Пам'ять DRAM</text>
+
+  <!-- Card C (Socket Closed) -->
+  <rect x="610" y="375" width="150" height="83" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="685" y="395" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Статус сокета</text>
+  <text x="685" y="412" font-size="11" fill="#1a1a1a" text-anchor="middle">Звільнення PCB</text>
+  <text x="685" y="428" font-size="11" fill="#c0392b" text-anchor="middle">Подія err_callback()</text>
+  <text x="685" y="444" font-size="11" fill="#6b7280" text-anchor="middle">Очищення ресурсів</text>
+
+  <!-- Card D (Protection) -->
+  <rect x="770" y="375" width="140" height="83" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="840" y="395" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Захист WDT</text>
+  <text x="840" y="412" font-size="11" fill="#6b7280" text-anchor="middle">Запобігання</text>
+  <text x="840" y="427" font-size="11" fill="#6b7280" text-anchor="middle">переповнення</text>
+  <text x="840" y="442" font-size="11" fill="#6b7280" text-anchor="middle">буфера UART</text>
+</svg>

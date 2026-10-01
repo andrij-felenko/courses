@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Архітектура радіотракту та RF-арбітражу ESP32-C6</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Взаємодія ядра RISC-V, арбітра співіснування та бездротових протоколів Wi-Fi 6, BT 5 LE й 802.15.4</text>
+
+  <!-- Main Chip Frame (ESP32-C6 SoC) -->
+  <rect x="30" y="75" width="830" height="360" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Мікроконтролер ESP32-C6 SoC</text>
+
+  <!-- PANEL 1: Compute Subsystem -->
+  <rect x="45" y="112" width="240" height="308" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="165" y="134" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Обчислювальна система</text>
+
+  <!-- Box A1: RISC-V HP Core -->
+  <rect x="55" y="145" width="220" height="78" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="165" y="168" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Ядро RISC-V HP</text>
+  <text x="165" y="189" text-anchor="middle" font-size="12" fill="#1a1a1a">32-bit, до 160 МГц</text>
+  <text x="165" y="209" text-anchor="middle" font-size="12" fill="#6b7280">RV32IMAC / FPU</text>
+
+  <!-- Box A2: System Bus & DMA -->
+  <rect x="55" y="238" width="220" height="74" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="165" y="263" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Системна шина та DMA</text>
+  <text x="165" y="285" text-anchor="middle" font-size="12" fill="#6b7280">AHB Матриця комутації</text>
+  <text x="165" y="303" text-anchor="middle" font-size="12" fill="#6b7280">Прямий доступ пам'яті</text>
+
+  <!-- Box A3: RISC-V LP Core -->
+  <rect x="55" y="327" width="220" height="78" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="165" y="350" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Ядро RISC-V LP</text>
+  <text x="165" y="371" text-anchor="middle" font-size="12" fill="#1a1a1a">32-bit, 20 МГц</text>
+  <text x="165" y="391" text-anchor="middle" font-size="12" fill="#6b7280">Режими Глибокого Сну</text>
+
+  <!-- Core-to-Bus Arrows -->
+  <line x1="165" y1="223" x2="165" y2="238" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="165" y1="327" x2="165" y2="312" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- PANEL 2: Wireless Protocols -->
+  <rect x="305" y="112" width="260" height="308" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="435" y="134" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Бездротові протоколи 2.4 ГГц</text>
+
+  <!-- Box B1: Wi-Fi 6 -->
+  <rect x="315" y="145" width="240" height="78" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="435" y="168" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Wi-Fi 6 (802.11ax)</text>
+  <text x="435" y="189" text-anchor="middle" font-size="12" fill="#1a1a1a">2.4 GHz 1x1, 20 MHz канал</text>
+  <text x="435" y="209" text-anchor="middle" font-size="12" fill="#6b7280">OFDMA, Target Wake Time</text>
+
+  <!-- Box B2: Bluetooth 5 -->
+  <rect x="315" y="238" width="240" height="74" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="435" y="261" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Bluetooth 5.0 (LE / Mesh)</text>
+  <text x="435" y="282" text-anchor="middle" font-size="12" fill="#1a1a1a">2 Mbps PHY, Long Range</text>
+  <text x="435" y="302" text-anchor="middle" font-size="12" fill="#6b7280">Coded PHY, Advertising Ext</text>
+
+  <!-- Box B3: IEEE 802.15.4 -->
+  <rect x="315" y="327" width="240" height="78" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="435" y="350" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">IEEE 802.15.4 Subsystem</text>
+  <text x="435" y="371" text-anchor="middle" font-size="12" fill="#1a1a1a">Zigbee 3.0 / Thread 1.3</text>
+  <text x="435" y="391" text-anchor="middle" font-size="12" fill="#6b7280">Сумісність із Matter</text>
+
+  <!-- Bus to Protocol Interconnect -->
+  <line x1="275" y1="275" x2="295" y2="275" stroke="#2457d6" stroke-width="2"/>
+  <line x1="295" y1="184" x2="295" y2="366" stroke="#2457d6" stroke-width="2"/>
+  <line x1="295" y1="184" x2="315" y2="184" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="295" y1="275" x2="315" y2="275" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="295" y1="366" x2="315" y2="366" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="295" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Шина</text>
+
+  <!-- PANEL 3: Arbiter & RF Front-End -->
+  <rect x="585" y="112" width="260" height="308" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="715" y="134" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Арбітраж та RF-тракт</text>
+
+  <!-- Box C1: Internal Coexistence Arbiter -->
+  <rect x="595" y="145" width="240" height="88" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="715" y="167" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Внутрішній RF-арбітр</text>
+  <text x="715" y="188" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Арбітраж співіснування (Coex)</text>
+  <text x="715" y="208" text-anchor="middle" font-size="12" fill="#6b7280">Динамічний розподіл часу</text>
+  <text x="715" y="225" text-anchor="middle" font-size="12" fill="#6b7280">Пріоритезація Wi-Fi/BT/Zigbee</text>
+
+  <!-- Box C2: RF Front-End -->
+  <rect x="595" y="248" width="240" height="76" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="715" y="270" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">RF Front-End / Модем</text>
+  <text x="715" y="291" text-anchor="middle" font-size="12" fill="#1a1a1a">Вбудований Balun та Switch</text>
+  <text x="715" y="311" text-anchor="middle" font-size="12" fill="#6b7280">PA (+20 dBm) / LNA підсилювач</text>
+
+  <!-- Box C3: Antenna Interface -->
+  <rect x="595" y="339" width="240" height="66" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="715" y="362" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Вивід антени (RF Pin)</text>
+  <text x="715" y="384" text-anchor="middle" font-size="12" fill="#1a1a1a">Вихід 50 Ом на RF-тракт</text>
+
+  <!-- Protocol to Arbiter Connections -->
+  <line x1="555" y1="184" x2="575" y2="184" stroke="#27ae60" stroke-width="2"/>
+  <line x1="555" y1="275" x2="575" y2="275" stroke="#27ae60" stroke-width="2"/>
+  <line x1="555" y1="366" x2="575" y2="366" stroke="#27ae60" stroke-width="2"/>
+  <line x1="575" y1="184" x2="575" y2="366" stroke="#27ae60" stroke-width="2"/>
+  <line x1="575" y1="189" x2="595" y2="189" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="575" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Запити RF</text>
+
+  <!-- Internal RF Chain Arrows -->
+  <line x1="715" y1="233" x2="715" y2="248" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="725" y="244" font-size="12" fill="#27ae60">Обраний RF-потік</text>
+
+  <line x1="715" y1="324" x2="715" y2="339" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="725" y="335" font-size="12" fill="#2457d6">Модульований RF</text>
+
+  <!-- Antenna Output -->
+  <line x1="835" y1="372" x2="895" y2="372" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="905" y1="372" x2="905" y2="348" stroke="#2457d6" stroke-width="2.5"/>
+  <polygon points="893,332 917,332 905,348" fill="#2457d6"/>
+  <text x="905" y="394" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">2.4 ГГц</text>
+  <text x="905" y="412" text-anchor="middle" font-size="12" fill="#6b7280">Антена</text>
+</svg>

@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема мультиплексування та конфліктів виводів GPIO на платах ESP32-CAM</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Суміщення сигналів між слотом карт MicroSD, LED-спалахом (GPIO4), лініями завантаження (GPIO0) та шиною UART</text>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Left Block: ESP32 SoC Pin Controller -->
+  <rect x="40" y="95" width="200" height="355" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="140" y="122" text-anchor="middle" font-size="15" font-weight="bold" fill="#2457d6">ESP32 SoC (GPIO)</text>
+  <text x="140" y="140" text-anchor="middle" font-size="12" fill="#6b7280">(Контролер виводів)</text>
+
+  <!-- Pin Rows inside ESP32 Box -->
+  <rect x="55" y="165" width="170" height="35" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="65" y="187" font-size="12" font-weight="bold" fill="#c0392b">GPIO4 (Flash / D1)</text>
+
+  <rect x="55" y="225" width="170" height="35" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="65" y="247" font-size="12" font-weight="bold" fill="#c0392b">GPIO0 (XCLK / Boot)</text>
+
+  <rect x="55" y="285" width="170" height="35" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="65" y="307" font-size="12" font-weight="bold" fill="#2457d6">GPIO2 (Boot / D0)</text>
+
+  <rect x="55" y="345" width="170" height="35" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="65" y="367" font-size="12" font-weight="bold" fill="#27ae60">GPIO1 / GPIO3 (UART)</text>
+
+  <rect x="55" y="395" width="170" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="414" font-size="11" fill="#6b7280">GPIO12–15 (SDMMC)</text>
+  <text x="65" y="428" font-size="11" fill="#6b7280">DVP Signals (D0–D7)</text>
+
+  <!-- Middle Conflict Nodes -->
+  <!-- Node 1: LED Flash -->
+  <rect x="380" y="150" width="230" height="65" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="495" y="172" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Вбудований LED-спалах</text>
+  <text x="495" y="190" text-anchor="middle" font-size="11" fill="#6b7280">Транзисторний ключ на GPIO4</text>
+  <text x="495" y="206" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Блимає при обміні з SDMMC</text>
+
+  <!-- Node 2: Boot Logic (GPIO0) -->
+  <rect x="380" y="235" width="230" height="65" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="495" y="257" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Схема завантаження (GPIO0)</text>
+  <text x="495" y="275" text-anchor="middle" font-size="11" fill="#6b7280">Генерація XCLK та Strapping Pin</text>
+  <text x="495" y="291" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Низька підтяжка зриває XCLK</text>
+
+  <!-- Right Blocks -->
+  <!-- MicroSD Card Slot -->
+  <rect x="680" y="95" width="240" height="185" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="800" y="120" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Слот карт MicroSD</text>
+  <text x="800" y="138" text-anchor="middle" font-size="12" fill="#6b7280">(Інтерфейс SDMMC 4-bit)</text>
+
+  <text x="695" y="168" font-size="12" font-weight="bold" fill="#c0392b">• DAT1 (GPIO4) — конфлікт!</text>
+  <text x="695" y="190" font-size="12" fill="#1a1a1a">• DAT0 (GPIO2)</text>
+  <text x="695" y="212" font-size="12" fill="#1a1a1a">• CLK (GPIO14), CMD (GPIO15)</text>
+  <text x="695" y="234" font-size="12" fill="#1a1a1a">• DAT2 (GPIO12), DAT3 (GPIO13)</text>
+  <text x="695" y="258" font-size="11" fill="#6b7280">Потребує 1-bit SD-режиму для GPIO4</text>
+
+  <!-- USB-UART Programmer -->
+  <rect x="680" y="300" width="240" height="150" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="800" y="325" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">USB-UART Програматор</text>
+  <text x="800" y="343" text-anchor="middle" font-size="12" fill="#6b7280">(Адаптер CH340 / CP2102)</text>
+
+  <text x="695" y="372" font-size="12" fill="#1a1a1a">• TXD -&gt; RXD (GPIO3)</text>
+  <text x="695" y="394" font-size="12" fill="#1a1a1a">• RXD &lt;- TXD (GPIO1)</text>
+  <text x="695" y="416" font-size="12" fill="#1a1a1a">• Послідовний монітор консолі</text>
+  <text x="695" y="438" font-size="11" font-weight="bold" fill="#27ae60">Автоскид через DTR / RTS</text>
+
+  <!-- Connecting Lines & Arrows -->
+  <!-- GPIO4 Line to Flash & MicroSD -->
+  <text x="302" y="174" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">GPIO4</text>
+  <line x1="225" y1="182" x2="371" y2="182" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <text x="645" y="174" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">SD_D1</text>
+  <line x1="610" y1="182" x2="671" y2="182" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- GPIO0 Line to Boot Logic -->
+  <text x="302" y="235" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">GPIO0</text>
+  <line x1="225" y1="242" x2="371" y2="242" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- GPIO2 Line to MicroSD DAT0 -->
+  <text x="302" y="295" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">GPIO2 (SD_D0)</text>
+  <path d="M 225 302 L 640 302 L 640 190 L 671 190" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- UART Line to Programmer -->
+  <text x="455" y="354" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">UART TX / RX (GPIO1 / GPIO3)</text>
+  <line x1="225" y1="362" x2="671" y2="362" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- SDMMC Group Arrow for GPIO12-15 -->
+  <text x="455" y="407" text-anchor="middle" font-size="11" fill="#6b7280">SDMMC Lines (GPIO12-15)</text>
+  <line x1="225" y1="415" x2="671" y2="415" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arr-gray)"/>
+</svg>

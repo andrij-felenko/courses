@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Структура заголовка бінарного образу та мапування сегментів ESP8266</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Зчитування з SPI Flash та розподіл секцій коду й даних за адресами IRAM (0x40100000) і DRAM (0x3FFE8000)</text>
+
+
+  <!-- Left Panel: SPI Flash Image Structure -->
+  <rect x="40" y="85" width="380" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="230" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Бінарний образ у SPI Flash</text>
+
+  <!-- Header Box -->
+  <rect x="60" y="125" width="340" height="65" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="75" y="146" font-size="13" font-weight="bold" fill="#2457d6">Заголовок образу (Image Header)</text>
+  <text x="75" y="170" font-size="12" fill="#1a1a1a">Magic: 0xE9 | Segments: N | Entry: 0x40100000</text>
+
+  <!-- Segment 1 Box (.text) -->
+  <rect x="60" y="200" width="340" height="95" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="75" y="222" font-size="13" font-weight="bold" fill="#27ae60">Сегмент 1: Код інструкцій (.text)</text>
+  <text x="75" y="244" font-size="12" fill="#1a1a1a">Target Addr: 0x40100000 | Size: 16384 B</text>
+  <text x="75" y="266" font-size="12" fill="#6b7280">Швидкодіючий код переривань та ISR функцій</text>
+
+  <!-- Segment 2 Box (.data) -->
+  <rect x="60" y="305" width="340" height="95" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="75" y="327" font-size="13" font-weight="bold" fill="#2457d6">Сегмент 2: Ініціалізовані дані (.data)</text>
+  <text x="75" y="349" font-size="12" fill="#1a1a1a">Target Addr: 0x3FFE8000 | Size: 4096 B</text>
+  <text x="75" y="371" font-size="12" fill="#6b7280">Глобальні та статичні змінні програми</text>
+
+  <!-- Checksum Box -->
+  <rect x="60" y="410" width="340" height="30" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="230" y="430" text-anchor="middle" font-size="12" fill="#1a1a1a">CRC8 / Checksum byte (баланс 0xEF)</text>
+
+
+  <!-- Mapping Connectors / Flow Lines -->
+  <!-- Segment 1 -> IRAM Arrow -->
+  <path d="M 400 247 C 460 247, 490 196, 552 196" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="476" y="212" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Завантаження коду</text>
+
+  <!-- Segment 2 -> DRAM Arrow -->
+  <path d="M 400 352 L 552 352" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="476" y="344" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Завантаження даних</text>
+
+
+  <!-- Right Panel: RAM Memory Mapping -->
+  <rect x="540" y="85" width="380" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="730" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Адресний простір ОЗП (SoC RAM)</text>
+
+  <!-- IRAM Box -->
+  <rect x="560" y="130" width="340" height="135" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="575" y="152" font-size="13" font-weight="bold" fill="#27ae60">IRAM (Instruction RAM) — 32/64 КБ</text>
+  <text x="575" y="174" font-size="12" font-weight="bold" fill="#1a1a1a">Базова адреса: 0x40100000</text>
+  <text x="575" y="196" font-size="12" fill="#1a1a1a">Цельова область мапування Сегмента 1 (.text)</text>
+  <text x="575" y="218" font-size="12" fill="#6b7280">Виконання інструкцій ядра без затримок</text>
+  <text x="575" y="240" font-size="12" font-weight="bold" fill="#27ae60">Вектор старту: 0x40100000</text>
+
+  <!-- DRAM Box -->
+  <rect x="560" y="285" width="340" height="135" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="575" y="307" font-size="13" font-weight="bold" fill="#2457d6">DRAM (Data RAM) — ~80 КБ</text>
+  <text x="575" y="329" font-size="12" font-weight="bold" fill="#1a1a1a">Базова адреса: 0x3FFE8000</text>
+  <text x="575" y="351" font-size="12" fill="#1a1a1a">Цельова область мапування Сегмента 2 (.data)</text>
+  <text x="575" y="373" font-size="12" fill="#6b7280">Зберігання статичних змінних, Купи та Стеку</text>
+  <text x="575" y="395" font-size="12" fill="#2457d6">Очищення BSS секторів під час старту</text>
+</svg>

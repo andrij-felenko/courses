@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-purple" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#8e44ad"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-orange" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d35400"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Карта виводів та призначення функцій GPIO у мікроконтролерах ESP32-S3</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Поділ на зарезервовані шини Octal SPI, апаратний USB, strapping-виводи та безпечні лінії периферії</text>
+
+  <!-- Left Panel: Strapping Configuration -->
+  <rect x="30" y="70" width="280" height="465" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="45" y="94" font-size="14" font-weight="bold" fill="#8e44ad" text-anchor="start">Strapping-виводи (Режими старту)</text>
+
+  <!-- Box 1: GPIO0 -->
+  <rect x="42" y="108" width="256" height="75" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1" rx="6"/>
+  <text x="52" y="128" font-size="13" font-weight="bold" fill="#8e44ad">GPIO0 — Вибір режиму завантаження</text>
+  <text x="52" y="146" font-size="12" fill="#1a1a1a">0 = UART Download (прошивання)</text>
+  <text x="52" y="164" font-size="12" fill="#1a1a1a">1 = SPI Flash Boot (нормальний запуск)</text>
+
+  <!-- Box 2: GPIO45 -->
+  <rect x="42" y="193" width="256" height="92" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="6"/>
+  <text x="52" y="213" font-size="13" font-weight="bold" fill="#c0392b">GPIO45 — Напруга VDD_SPI (Увага!)</text>
+  <text x="52" y="231" font-size="12" fill="#1a1a1a">0 = 3.3 В (за замовчуванням)</text>
+  <text x="52" y="249" font-size="12" fill="#c0392b" font-weight="bold">1 = 1.8 В (помилкова підтяжка розтікає</text>
+  <text x="52" y="267" font-size="12" fill="#c0392b" font-weight="bold">живлення Flash і блокує старт чипа)</text>
+
+  <!-- Box 3: GPIO46 -->
+  <rect x="42" y="295" width="256" height="75" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1" rx="6"/>
+  <text x="52" y="315" font-size="13" font-weight="bold" fill="#8e44ad">GPIO46 — Контроль логування ROM</text>
+  <text x="52" y="333" font-size="12" fill="#1a1a1a">0 = Друк логів ROM увімкнено</text>
+  <text x="52" y="351" font-size="12" fill="#1a1a1a">1 = Логування пригнічено / JTAG</text>
+
+  <!-- Box 4: GPIO3 -->
+  <rect x="42" y="380" width="256" height="75" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1" rx="6"/>
+  <text x="52" y="400" font-size="13" font-weight="bold" fill="#8e44ad">GPIO3 — Режим джерела JTAG</text>
+  <text x="52" y="418" font-size="12" fill="#1a1a1a">Визначає керування зчитуванням JTAG</text>
+  <text x="52" y="436" font-size="12" fill="#1a1a1a">під час первинного скидання RST</text>
+
+  <text x="45" y="480" font-size="12" fill="#6b7280" text-anchor="start">Увага: не підтягуйте зовн. резисторами</text>
+  <text x="45" y="496" font-size="12" fill="#6b7280" text-anchor="start">ці виводи без урахування карти старту!</text>
+
+  <!-- Center Panel: Chip Architecture -->
+  <rect x="325" y="70" width="310" height="465" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="480" y="94" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структура блоків та виводів чипа</text>
+
+  <!-- Chip Body -->
+  <rect x="350" y="110" width="260" height="410" fill="#2c3e50" stroke="#1a252f" stroke-width="2" rx="10"/>
+  <text x="480" y="134" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">ESP32-S3 SoC</text>
+  <text x="480" y="150" font-size="12" fill="#bdc3c7" text-anchor="middle">Xtensa LX7 Dual-Core + Vector PIE</text>
+
+  <!-- Sub-block 1: Strapping Pins -->
+  <rect x="365" y="165" width="230" height="65" fill="#8e44ad" rx="5"/>
+  <text x="480" y="185" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Дешифратор Strapping Pins</text>
+  <text x="480" y="202" font-size="12" fill="#f4ecf7" text-anchor="middle">GPIO0, GPIO3, GPIO45, GPIO46</text>
+  <text x="480" y="218" font-size="12" fill="#e8daef" text-anchor="middle">(Фіксація станів при скиданні RST)</text>
+
+  <!-- Sub-block 2: Octal SPI Controller -->
+  <rect x="365" y="240" width="230" height="75" fill="#c0392b" rx="5"/>
+  <text x="480" y="260" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Контролер Octal SPI / PSRAM</text>
+  <text x="480" y="278" font-size="12" fill="#fdecea" text-anchor="middle">GPIO33–37, GPIO10–14 (8-біт шина)</text>
+  <text x="480" y="295" font-size="12" fill="#f9ebea" text-anchor="middle">(Зарезервовано в N8R8 / N16R8)</text>
+
+  <!-- Sub-block 3: USB OTG PHY -->
+  <rect x="365" y="325" width="230" height="65" fill="#d35400" rx="5"/>
+  <text x="480" y="345" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Апаратний USB Serial / JTAG PHY</text>
+  <text x="480" y="362" font-size="12" fill="#fef5e7" text-anchor="middle">GPIO19 (USB D-), GPIO20 (USB D+)</text>
+  <text x="480" y="378" font-size="12" fill="#fdebd0" text-anchor="middle">(Пряме підключення до USB Type-C)</text>
+
+  <!-- Sub-block 4: Peripheral IO Matrix -->
+  <rect x="365" y="400" width="230" height="105" fill="#27ae60" rx="5"/>
+  <text x="480" y="420" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Матриця вільних периферійних GPIO</text>
+  <text x="480" y="438" font-size="12" fill="#e9f7ef" text-anchor="middle">GPIO1–2, GPIO4–9, GPIO15–18,</text>
+  <text x="480" y="455" font-size="12" fill="#e9f7ef" text-anchor="middle">GPIO21, GPIO38–42, GPIO47–48</text>
+  <text x="480" y="473" font-size="12" fill="#d4efdf" text-anchor="middle">(Для камери DVP, I2C, SPI, ADC, PWM</text>
+  <text x="480" y="490" font-size="12" fill="#d4efdf" text-anchor="middle">та зовнішніх датчиків систем)</text>
+
+  <!-- Right Panel: Rules & Restrictions -->
+  <rect x="650" y="70" width="280" height="465" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="665" y="94" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">Правила використання GPIO</text>
+
+  <!-- Right Box 1: Octal SPI -->
+  <rect x="662" y="108" width="256" height="85" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="6"/>
+  <text x="672" y="128" font-size="13" font-weight="bold" fill="#c0392b">Зарезервовано Octal SPI / PSRAM</text>
+  <text x="672" y="146" font-size="12" fill="#1a1a1a">GPIO33, 34, 35, 36, 37 (Octal IO)</text>
+  <text x="672" y="164" font-size="12" fill="#1a1a1a">GPIO10, 11, 12, 13, 14 (Octal IO)</text>
+  <text x="672" y="182" font-size="12" fill="#c0392b">Не використовувати при Octal ОЗП!</text>
+
+  <!-- Right Box 2: USB -->
+  <rect x="662" y="203" width="256" height="75" fill="#fef5e7" stroke="#d35400" stroke-width="1" rx="6"/>
+  <text x="672" y="223" font-size="13" font-weight="bold" fill="#d35400">Апаратний порт USB (CDC / JTAG)</text>
+  <text x="672" y="241" font-size="12" fill="#1a1a1a">GPIO19 (D-) та GPIO20 (D+)</text>
+  <text x="672" y="259" font-size="12" fill="#1a1a1a">Зайняті при відлагодженні по USB</text>
+
+  <!-- Right Box 3: Strapping -->
+  <rect x="662" y="288" width="256" height="85" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1" rx="6"/>
+  <text x="672" y="308" font-size="13" font-weight="bold" fill="#8e44ad">Обмеження Strapping-виводів</text>
+  <text x="672" y="326" font-size="12" fill="#1a1a1a">GPIO0, GPIO3, GPIO45, GPIO46</text>
+  <text x="672" y="344" font-size="12" fill="#1a1a1a">Периферія не повинна притягувати</text>
+  <text x="672" y="362" font-size="12" fill="#8e44ad">їх до небезпечних рівнів при RST</text>
+
+  <!-- Right Box 4: Safe GPIOs -->
+  <rect x="662" y="383" width="256" height="115" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="672" y="403" font-size="13" font-weight="bold" fill="#27ae60">Безпечні користувацькі GPIO</text>
+  <text x="672" y="421" font-size="12" fill="#1a1a1a">GPIO1–2, 4–9, 15–18, 21,</text>
+  <text x="672" y="438" font-size="12" fill="#1a1a1a">GPIO38–42, GPIO47, GPIO48</text>
+  <text x="672" y="456" font-size="12" fill="#27ae60">Повна свобода для підключення:</text>
+  <text x="672" y="473" font-size="12" fill="#27ae60">• DVP камера (8 біт + PCLK/VSYNC)</text>
+  <text x="672" y="490" font-size="12" fill="#27ae60">• Шини I2C, SPI, UART, АЦП, ШІМ</text>
+
+  <!-- Connecting Arrows / Dash Paths -->
+  <path d="M 298 145 L 365 197" stroke="#8e44ad" stroke-width="1.5" stroke-dasharray="4 2" marker-end="url(#arr-purple)"/>
+  <path d="M 595 277 L 662 150" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 2" marker-end="url(#arr-red)"/>
+  <path d="M 595 357 L 662 240" stroke="#d35400" stroke-width="1.5" stroke-dasharray="4 2" marker-end="url(#arr-orange)"/>
+  <path d="M 595 452 L 662 440" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 2" marker-end="url(#arr-green)"/>
+</svg>

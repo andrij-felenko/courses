@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діагностичне дерево стартових логів ESP8266 (74880 бод)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Аналіз параметрів rst cause та boot mode для визначення причин апаратних збоїв і помилок завантажувача</text>
+
+  <!-- Root Node -->
+  <rect x="300" y="75" width="360" height="55" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="96" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Систематичне повідомлення логу UART0 (74880 бод)</text>
+  <text x="480" y="116" font-size="12" fill="#1a1a1a" text-anchor="middle">ets Jan 8 2013, rst cause: X, boot mode: (Y, Z)</text>
+
+  <!-- Level 1 Bus Lines -->
+  <line x1="480" y1="130" x2="480" y2="150" stroke="#2457d6" stroke-width="2"/>
+  <line x1="170" y1="150" x2="790" y2="150" stroke="#2457d6" stroke-width="2"/>
+  <line x1="170" y1="150" x2="170" y2="170" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="480" y1="150" x2="480" y2="170" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="790" y1="150" x2="790" y2="170" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Left Column Header: Normal Boot (rst cause 1/2) -->
+  <rect x="40" y="170" width="260" height="50" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="170" y="190" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">rst cause: 1 або 2</text>
+  <text x="170" y="207" font-size="11" fill="#1a1a1a" text-anchor="middle">Штатне ввімкнення / Скидання RST</text>
+
+  <!-- Middle Column Header: Hardware WDT (rst cause 4) -->
+  <rect x="350" y="170" width="260" height="50" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="190" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">rst cause: 4 (wdt reset)</text>
+  <text x="480" y="207" font-size="11" fill="#1a1a1a" text-anchor="middle">Апаратне тайм-аут перезавантаження</text>
+
+  <!-- Right Column Header: Software WDT (rst cause 6) -->
+  <rect x="660" y="170" width="260" height="50" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="790" y="190" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">rst cause: 6 (soft wdt reset)</text>
+  <text x="790" y="207" font-size="11" fill="#1a1a1a" text-anchor="middle">Програмне зависання циклу</text>
+
+  <!-- Left Column: Level 2 Decision (boot mode) -->
+  <line x1="170" y1="220" x2="170" y2="255" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="40" y="255" width="260" height="45" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="170" y="274" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Аналіз комбінації бітів boot mode</text>
+  <text x="170" y="290" font-size="11" fill="#6b7280" text-anchor="middle">(GPIO15, GPIO0, GPIO2)</text>
+
+  <line x1="170" y1="300" x2="170" y2="335" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Outcome A: Flash Boot -->
+  <rect x="30" y="335" width="280" height="95" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="170" y="355" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">boot mode: (3,6) — Flash Boot</text>
+  <text x="170" y="373" font-size="11" fill="#1a1a1a" text-anchor="middle">GPIO15=0, GPIO0=1, GPIO2=1</text>
+  <text x="170" y="392" font-size="11" fill="#27ae60" text-anchor="middle">✓ Виконання програми з SPI Flash</text>
+  <text x="170" y="412" font-size="11" fill="#6b7280" text-anchor="middle">csum err → Помилка QIO/DIO Flash</text>
+
+  <line x1="170" y1="430" x2="170" y2="445" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Outcome B: UART Download -->
+  <rect x="30" y="445" width="280" height="85" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="170" y="465" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">boot mode: (1,6) — UART Mode</text>
+  <text x="170" y="483" font-size="11" fill="#1a1a1a" text-anchor="middle">GPIO15=0, GPIO0=0, GPIO2=1</text>
+  <text x="170" y="503" font-size="11" fill="#2457d6" text-anchor="middle">Очікування прошивки по UART0</text>
+
+  <!-- Middle Column: Causes & Solutions -->
+  <line x1="480" y1="220" x2="480" y2="255" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <rect x="340" y="255" width="280" height="125" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="275" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Причини wdt reset:</text>
+  <text x="355" y="296" font-size="11" fill="#1a1a1a">• Просідання живлення VCC &lt; 3.0V</text>
+  <text x="355" y="316" font-size="11" fill="#1a1a1a">• Завадний фронт на RST / CH_PD</text>
+  <text x="355" y="336" font-size="11" fill="#1a1a1a">• Помилка читання шини QSPI</text>
+  <text x="355" y="358" font-size="11" font-weight="bold" fill="#c0392b">→ Апаратний таймер скидає чип</text>
+
+  <line x1="480" y1="380" x2="480" y2="400" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="340" y="400" width="280" height="130" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="420" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Діагностика та усунення:</text>
+  <text x="355" y="441" font-size="11" fill="#1a1a1a">• Встановити кераміку 100 нФ біля VCC</text>
+  <text x="355" y="461" font-size="11" fill="#1a1a1a">• Підтягнути CH_PD та RST до 3.3V</text>
+  <text x="355" y="481" font-size="11" fill="#1a1a1a">• Змінити режим Flash з QIO на DIO</text>
+  <text x="355" y="504" font-size="11" font-weight="bold" fill="#27ae60">✓ Стабільне живлення та фронти</text>
+
+  <!-- Right Column: Causes & Solutions -->
+  <line x1="790" y1="220" x2="790" y2="255" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <rect x="650" y="255" width="280" height="125" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="790" y="275" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Причини soft wdt reset:</text>
+  <text x="665" y="296" font-size="11" fill="#1a1a1a">• Нескінченний цикл без yield()</text>
+  <text x="665" y="316" font-size="11" fill="#1a1a1a">• Блокуючі затримки delay() &gt; 3 с</text>
+  <text x="665" y="336" font-size="11" fill="#1a1a1a">• Пошкодження вказівника коду</text>
+  <text x="665" y="358" font-size="11" font-weight="bold" fill="#c0392b">→ Сторожовий пес скидає ядро</text>
+
+  <line x1="790" y1="380" x2="790" y2="400" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="650" y="400" width="280" height="130" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="790" y="420" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Діагностика та усунення:</text>
+  <text x="665" y="441" font-size="11" fill="#1a1a1a">• Вставити yield() або delay(0)</text>
+  <text x="665" y="461" font-size="11" fill="#1a1a1a">• Очистити довгі обробники ISR</text>
+  <text x="665" y="481" font-size="11" fill="#1a1a1a">• Перевірити адреси вказівників</text>
+  <text x="665" y="504" font-size="11" font-weight="bold" fill="#27ae60">✓ Періодична передача квантів ОС</text>
+</svg>

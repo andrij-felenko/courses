@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принципова схема та логіка двотранзисторного кола автоскидання ESP8266</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Формування імпульсів скидання RST та вибору режиму GPIO0 за сигналами DTR# та RTS# USB-UART моста</text>
+
+  <!-- Main Container Panel -->
+  <rect x="30" y="70" width="900" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- LEFT BOX: TRANSISTOR CIRCUIT -->
+  <rect x="45" y="85" width="540" height="310" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="315" y="110" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Вузол автоматичного скидання (DTR/RTS NPN Cross-Coupling)</text>
+
+  <!-- Inputs from USB-UART Bridge -->
+  <rect x="60" y="145" width="70" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="95" y="165" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DTR#</text>
+
+  <rect x="60" y="265" width="70" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="95" y="285" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">RTS#</text>
+
+  <!-- Interconnect Wires from Inputs -->
+  <!-- DTR# wire branching to R2 and Q1 Emitter -->
+  <line x1="130" y1="160" x2="150" y2="160" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="150" cy="160" r="3" fill="#1a1a1a"/>
+  <!-- DTR# to R2 input -->
+  <line x1="150" y1="160" x2="150" y2="290" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="150" y1="290" x2="160" y2="290" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- DTR# to Q1 Emitter -->
+  <line x1="150" y1="160" x2="260" y2="160" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="260" y1="160" x2="260" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- RTS# wire branching to R1 and Q2 Emitter -->
+  <line x1="130" y1="280" x2="140" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="140" cy="280" r="3" fill="#1a1a1a"/>
+  <!-- RTS# to R1 input -->
+  <line x1="140" y1="280" x2="140" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="140" y1="175" x2="160" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- RTS# to Q2 Emitter -->
+  <line x1="140" y1="280" x2="260" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="260" y1="280" x2="260" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Resistors R1 & R2 -->
+  <rect x="160" y="165" width="40" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="2"/>
+  <text x="180" y="155" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R1 (10 кОм)</text>
+  <line x1="200" y1="175" x2="240" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <rect x="160" y="280" width="40" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="2"/>
+  <text x="180" y="315" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R2 (10 кОм)</text>
+  <line x1="200" y1="290" x2="240" y2="290" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Transistor Q1 (RST Control NPN) -->
+  <line x1="240" y1="165" x2="240" y2="185" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="240" y1="170" x2="260" y2="160" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="240" y1="180" x2="260" y2="190" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="290" y="180" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Q1 (RST)</text>
+
+  <!-- Transistor Q2 (GPIO0 Control NPN) -->
+  <line x1="240" y1="280" x2="240" y2="300" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="240" y1="295" x2="260" y2="305" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="240" y1="285" x2="260" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="290" y="300" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Q2 (GPIO0)</text>
+
+  <!-- Output Lines from Collectors -->
+  <!-- Q1 Collector to RST -->
+  <line x1="260" y1="160" x2="460" y2="160" stroke="#c0392b" stroke-width="2"/>
+  <!-- Q2 Collector to GPIO0 -->
+  <line x1="260" y1="305" x2="260" y2="320" stroke="#27ae60" stroke-width="2"/>
+  <line x1="260" y1="320" x2="460" y2="320" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Pull-Up Resistors on Board/Module side -->
+  <!-- VDD Power Rail for Pull-Ups -->
+  <line x1="450" y1="110" x2="530" y2="110" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="490" y="103" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">VDD 3.3V</text>
+
+  <!-- R_pu1 (RST) -->
+  <line x1="472" y1="110" x2="472" y2="115" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="460" y="115" width="24" height="35" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="2"/>
+  <text x="490" y="136" font-size="12" fill="#6b7280" text-anchor="start">R_pu1 (10 кОм)</text>
+  <line x1="472" y1="150" x2="472" y2="160" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="472" cy="160" r="3.5" fill="#1a1a1a"/>
+
+  <!-- R_pu2 (GPIO0) -->
+  <line x1="472" y1="160" x2="472" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="460" y="245" width="24" height="35" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="2"/>
+  <text x="490" y="266" font-size="12" fill="#6b7280" text-anchor="start">R_pu2 (10 кОм)</text>
+  <line x1="472" y1="280" x2="472" y2="320" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="472" cy="320" r="3.5" fill="#1a1a1a"/>
+
+  <!-- RIGHT BOX: ESP8266 SOC & PINS -->
+  <rect x="605" y="85" width="310" height="310" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="760" y="110" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Модуль / SoC ESP8266</text>
+
+  <!-- Line continuation into ESP8266 -->
+  <line x1="472" y1="160" x2="670" y2="160" stroke="#c0392b" stroke-width="2"/>
+  <text x="615" y="152" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">RST#</text>
+
+  <line x1="472" y1="320" x2="670" y2="320" stroke="#27ae60" stroke-width="2"/>
+  <text x="615" y="312" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">GPIO0</text>
+
+  <!-- ESP8266 Chip Outer Box -->
+  <rect x="670" y="130" width="225" height="245" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- ESP8266 Pins -->
+  <rect x="670" y="150" width="70" height="22" fill="#fdecea" stroke="#c0392b"/>
+  <text x="705" y="165" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">RST</text>
+
+  <rect x="670" y="310" width="70" height="22" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="705" y="325" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">GPIO0</text>
+
+  <rect x="670" y="235" width="70" height="22" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="705" y="250" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">GPIO2</text>
+
+  <rect x="670" y="270" width="70" height="22" fill="#f4f6f8" stroke="#6b7280"/>
+  <text x="705" y="285" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">GPIO15</text>
+
+  <!-- Internal ROM Bootloader Logic Box -->
+  <rect x="755" y="145" width="130" height="215" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="820" y="167" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ROM Bootloader</text>
+  <text x="820" y="187" font-size="12" fill="#6b7280" text-anchor="middle">Защеплення рівнів</text>
+  <text x="820" y="205" font-size="12" fill="#6b7280" text-anchor="middle">під час POR/RST</text>
+  <text x="820" y="235" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">UART Boot:</text>
+  <text x="820" y="255" font-size="12" fill="#1a1a1a" text-anchor="middle">GPIO15 = 0</text>
+  <text x="820" y="275" font-size="12" fill="#1a1a1a" text-anchor="middle">GPIO0 = 0</text>
+  <text x="820" y="295" font-size="12" fill="#1a1a1a" text-anchor="middle">GPIO2 = 1</text>
+  <text x="820" y="330" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">готовність esptool</text>
+
+  <!-- BOTTOM PANEL: TRUTH TABLE & TIMING SEQUENCE -->
+  <rect x="45" y="410" width="870" height="115" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="430" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Таблиця істинності станів DTR/RTS та часова послідовність автоскидання esptool:</text>
+
+  <!-- Column 1: Idle -->
+  <rect x="60" y="442" width="195" height="73" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="157" y="460" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">1. Очікування (Idle)</text>
+  <text x="157" y="480" font-size="12" fill="#1a1a1a" text-anchor="middle">DTR=1, RTS=1 → Q1=OFF, Q2=OFF</text>
+  <text x="157" y="500" font-size="12" fill="#2457d6" text-anchor="middle">RST=HIGH, GPIO0=HIGH</text>
+
+  <!-- Column 2: Prepare GPIO0 -->
+  <rect x="270" y="442" width="200" height="73" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="370" y="460" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Підготовка GPIO0</text>
+  <text x="370" y="480" font-size="12" fill="#1a1a1a" text-anchor="middle">DTR=0, RTS=1 → Q1=OFF, Q2=ON</text>
+  <text x="370" y="500" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">RST=HIGH, GPIO0=LOW</text>
+
+  <!-- Column 3: Reset Pulse -->
+  <rect x="485" y="442" width="200" height="73" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="585" y="460" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">3. Імпульс скидання</text>
+  <text x="585" y="480" font-size="12" fill="#1a1a1a" text-anchor="middle">DTR=1, RTS=0 → Q1=ON, Q2=OFF</text>
+  <text x="585" y="500" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">RST=LOW (100 ms), GPIO0=LOW</text>
+
+  <!-- Column 4: Latch & Boot -->
+  <rect x="700" y="442" width="200" height="73" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="800" y="460" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">4. Фіксація (Latch)</text>
+  <text x="800" y="480" font-size="12" fill="#1a1a1a" text-anchor="middle">DTR=1, RTS=1 → Q1=OFF, Q2=OFF</text>
+  <text x="800" y="500" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ROM фіксує UART Download!</text>
+</svg>

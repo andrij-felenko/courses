@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Дефіцит внутрішньої пам'яті SRAM при спробі буферизації відеокадру</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Внутрішньої пам'яті DRAM (300 КБ) недостатньо для некодованого кадру VGA (614.4 КБ) без PSRAM</text>
+
+  <!-- Column 1: Frame Buffer Requirements -->
+  <rect x="40" y="85" width="260" height="345" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="52" y="97" width="236" height="36" rx="4" fill="#2457d6"/>
+  <text x="170" y="120" text-anchor="middle" font-size="14" font-weight="bold" fill="white">Відеокадр VGA (RGB565)</text>
+
+  <rect x="52" y="145" width="236" height="48" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="64" y="165" font-size="12" font-weight="bold" fill="#1a1a1a">Роздільність кадру:</text>
+  <text x="64" y="183" font-size="12" fill="#6b7280">640 × 480 пікселів</text>
+
+  <rect x="52" y="205" width="236" height="48" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="64" y="225" font-size="12" font-weight="bold" fill="#1a1a1a">Формат пікселя:</text>
+  <text x="64" y="243" font-size="12" fill="#6b7280">RGB565 (2 байти на піксель)</text>
+
+  <rect x="52" y="265" width="236" height="70" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="170" y="287" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Необхідний буфер:</text>
+  <text x="170" y="307" text-anchor="middle" font-size="16" font-weight="bold" fill="#c0392b">614.4 КБ</text>
+  <text x="170" y="325" text-anchor="middle" font-size="12" fill="#6b7280">(640 × 480 × 2 байти)</text>
+
+  <text x="170" y="360" text-anchor="middle" font-size="12" fill="#1a1a1a">Подвійний буфер:</text>
+  <text x="170" y="380" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">1228.8 КБ (1.23 МБ)</text>
+
+  <!-- Arrow Col 1 -> Col 2 -->
+  <path d="M300,250 L332,250" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="320" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Запит</text>
+
+  <!-- Column 2: ESP32 SRAM Memory Structure -->
+  <rect x="350" y="85" width="260" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="362" y="97" width="236" height="36" rx="4" fill="#1a1a1a"/>
+  <text x="480" y="120" text-anchor="middle" font-size="14" font-weight="bold" fill="white">Внутрішня SRAM (520 КБ)</text>
+
+  <!-- Reserved Block -->
+  <rect x="362" y="145" width="236" height="65" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="480" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Зарезервовано системою</text>
+  <text x="480" y="186" text-anchor="middle" font-size="12" fill="#6b7280">~220 КБ (Wi-Fi, IRAM, OS kernel)</text>
+
+  <!-- DRAM Heap Block -->
+  <rect x="362" y="220" width="236" height="110" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4"/>
+  <text x="480" y="243" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Вільна куча DRAM</text>
+  <text x="480" y="263" text-anchor="middle" font-size="15" font-weight="bold" fill="#27ae60">Доступно: ~300 КБ</text>
+  <line x1="372" y1="275" x2="588" y2="275" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="295" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Дефіцит: -314.4 КБ</text>
+  <text x="480" y="315" text-anchor="middle" font-size="12" fill="#c0392b">Буфер (614.4 КБ) не вміщується!</text>
+
+  <!-- RTC Block -->
+  <rect x="362" y="340" width="236" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="480" y="365" text-anchor="middle" font-size="12" fill="#6b7280">Пам'ять RTC: 16 КБ</text>
+
+  <!-- Arrow Col 2 -> Col 3 -->
+  <path d="M610,275 L642,275" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="630" y="265" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Збій</text>
+
+  <!-- Column 3: System Consequences -->
+  <rect x="660" y="85" width="260" height="345" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="672" y="97" width="236" height="36" rx="4" fill="#c0392b"/>
+  <text x="790" y="120" text-anchor="middle" font-size="14" font-weight="bold" fill="white">Наслідки для системи</text>
+
+  <rect x="672" y="145" width="236" height="60" rx="4" fill="white" stroke="#c0392b"/>
+  <text x="684" y="167" font-size="12" font-weight="bold" fill="#c0392b">1. Помилка пам'яті</text>
+  <text x="684" y="187" font-size="12" fill="#1a1a1a">heap_caps_malloc() -> NULL</text>
+
+  <rect x="672" y="215" width="236" height="60" rx="4" fill="white" stroke="#c0392b"/>
+  <text x="684" y="237" font-size="12" font-weight="bold" fill="#c0392b">2. Переповнення DVP FIFO</text>
+  <text x="684" y="257" font-size="12" fill="#1a1a1a">Втрата піксельних рядків</text>
+
+  <rect x="672" y="285" width="236" height="60" rx="4" fill="white" stroke="#c0392b"/>
+  <text x="684" y="307" font-size="12" font-weight="bold" fill="#c0392b">3. Збій роботи системи</text>
+  <text x="684" y="327" font-size="12" fill="#1a1a1a">Паніка ядра / скидання кадрів</text>
+
+  <!-- Solution Note -->
+  <rect x="672" y="355" width="236" height="60" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="790" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Розв'язок: PSRAM (2–8 МБ)</text>
+  <text x="790" y="395" text-anchor="middle" font-size="12" fill="#1a1a1a">Забезпечує буфер у SiP</text>
+</svg>

@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топологія шин та MMU сторінкової адресації ESP32-S3</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Прозоре відображення зовнішніх Flash та PSRAM через MMU в адресний простір CPU та L1 Cache</text>
+
+  <!-- Section Background Panels (Groupings) -->
+  <!-- Chip Boundary / Internal SoC -->
+  <rect x="20" y="75" width="760" height="425" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="35" y="95" font-size="12" font-weight="bold" fill="#6b7280">Внутрішній кристал SoC ESP32-S3</text>
+
+  <!-- External Board Component Panel -->
+  <rect x="790" y="75" width="150" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="865" y="95" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Зовнішня SiP / PCB</text>
+
+  <!-- CPU Block -->
+  <rect x="35" y="120" width="160" height="170" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="115" y="145" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">CPU Xtensa LX7</text>
+  <text x="115" y="163" font-size="12" fill="#1a1a1a" text-anchor="middle">Dual-Core 240 MHz</text>
+  
+  <rect x="45" y="175" width="140" height="45" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="115" y="195" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Core 0 / Core 1</text>
+  <text x="115" y="210" font-size="12" fill="#6b7280" text-anchor="middle">+ Векторний блок PIE</text>
+
+  <rect x="45" y="230" width="140" height="45" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="115" y="250" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шини IBus / DBus</text>
+  <text x="115" y="265" font-size="12" fill="#6b7280" text-anchor="middle">Інструкції та Дані</text>
+
+  <!-- L1 Cache Block -->
+  <rect x="225" y="120" width="140" height="170" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <text x="295" y="145" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">L1 Cache</text>
+  <text x="295" y="163" font-size="12" fill="#6b7280" text-anchor="middle">Внутрішній кеш</text>
+
+  <rect x="235" y="175" width="120" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="295" y="195" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I-Cache (32 KB)</text>
+  <text x="295" y="210" font-size="12" fill="#6b7280" text-anchor="middle">Кеш інструкцій</text>
+
+  <rect x="235" y="230" width="120" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="295" y="250" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D-Cache (32 KB)</text>
+  <text x="295" y="265" font-size="12" fill="#6b7280" text-anchor="middle">Кеш даних</text>
+
+  <!-- Internal SRAM Block (Top Middle) -->
+  <rect x="400" y="115" width="360" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="580" y="138" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Внутрішня пам'ять SRAM (512 KB)</text>
+  <text x="580" y="160" font-size="12" fill="#1a1a1a" text-anchor="middle">SRAM0 / SRAM1 (Інструкції) &amp; SRAM2 (Дані / DMA)</text>
+
+  <!-- Bus Matrix (Center High) -->
+  <rect x="400" y="200" width="360" height="55" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="580" y="225" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шинна матриця (Bus Matrix / AHB Crossbar)</text>
+  <text x="580" y="242" font-size="12" fill="#6b7280" text-anchor="middle">Маршрутизація звернень CPU, DMA та периферії</text>
+
+  <!-- MMU Block (Center Low) -->
+  <rect x="400" y="275" width="220" height="205" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="510" y="300" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Блок MMU</text>
+  <text x="510" y="318" font-size="12" fill="#6b7280" text-anchor="middle">Memory Management Unit</text>
+
+  <rect x="412" y="330" width="196" height="42" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="510" y="348" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Таблиця сторінок MMU</text>
+  <text x="510" y="363" font-size="12" fill="#6b7280" text-anchor="middle">Розмір сторінки: 64 KB</text>
+
+  <rect x="412" y="380" width="196" height="42" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="510" y="398" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вікно Flash (32 MB)</text>
+  <text x="510" y="413" font-size="12" fill="#6b7280" text-anchor="middle">0x4200_0000..0x43FF_FFFF</text>
+
+  <rect x="412" y="430" width="196" height="42" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="510" y="448" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вікно PSRAM (32 MB)</text>
+  <text x="510" y="463" font-size="12" fill="#6b7280" text-anchor="middle">0x3D00_0000..0x3EFF_FFFF</text>
+
+  <!-- MSPI Controller Block -->
+  <rect x="640" y="275" width="120" height="205" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="700" y="300" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MSPI Controller</text>
+  <text x="700" y="318" font-size="12" fill="#6b7280" text-anchor="middle">SPI0 / SPI1</text>
+
+  <rect x="650" y="340" width="100" height="55" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="700" y="360" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Quad SPI</text>
+  <text x="700" y="378" font-size="12" fill="#6b7280" text-anchor="middle">SDR (4-bit)</text>
+
+  <rect x="650" y="410" width="100" height="55" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="700" y="430" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Octal SPI</text>
+  <text x="700" y="448" font-size="12" fill="#6b7280" text-anchor="middle">DDR (8-bit)</text>
+
+  <!-- External Modules -->
+  <!-- Flash -->
+  <rect x="805" y="160" width="120" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="865" y="190" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Зовнішня Flash</text>
+  <text x="865" y="210" font-size="12" fill="#1a1a1a" text-anchor="middle">NOR Flash</text>
+  <text x="865" y="230" font-size="12" fill="#6b7280" text-anchor="middle">До 16 MB</text>
+  <text x="865" y="248" font-size="12" fill="#6b7280" text-anchor="middle">Quad / Octal</text>
+
+  <!-- PSRAM -->
+  <rect x="805" y="320" width="120" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="865" y="350" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Зовнішня PSRAM</text>
+  <text x="865" y="370" font-size="12" fill="#1a1a1a" text-anchor="middle">Pseudo-SRAM</text>
+  <text x="865" y="390" font-size="12" fill="#6b7280" text-anchor="middle">До 32 MB</text>
+  <text x="865" y="410" font-size="12" fill="#6b7280" text-anchor="middle">Octal DDR</text>
+
+  <!-- Connecting Arrows / Paths -->
+  <!-- CPU to L1 Cache -->
+  <line x1="195" y1="205" x2="225" y2="205" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="210" y="198" font-size="12" fill="#2457d6" text-anchor="middle">Bus</text>
+
+  <!-- L1 Cache to Bus Matrix -->
+  <path d="M 295 120 L 295 90 L 580 90 L 580 115" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Bus Matrix to Internal SRAM -->
+  <line x1="580" y1="200" x2="580" y2="180" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Bus Matrix to MMU -->
+  <line x1="510" y1="255" x2="510" y2="275" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+
+  <!-- MMU to MSPI Controller -->
+  <line x1="620" y1="375" x2="640" y2="375" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- MSPI to External Flash -->
+  <path d="M 760 360 L 780 360 L 780 215 L 805 215" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="780" y="195" font-size="12" fill="#27ae60" text-anchor="middle">Flash Bus</text>
+
+  <!-- MSPI to External PSRAM -->
+  <path d="M 760 430 L 780 430 L 780 375 L 805 375" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="780" y="445" font-size="12" fill="#2457d6" text-anchor="middle">PSRAM Bus</text>
+</svg>

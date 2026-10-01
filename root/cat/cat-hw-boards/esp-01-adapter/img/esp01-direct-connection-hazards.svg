@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ризики прямого підключення ESP-01 до 5V-мікроконтролера</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Перегрів захисних діодів від 5V на RX та просідання живлення під час піків струму Wi-Fi</text>
+
+  <!-- Left Panel: 5V MCU -->
+  <rect x="35" y="85" width="220" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="145" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">5V-мікроконтролер</text>
+  <text x="145" y="128" font-size="12" fill="#6b7280" text-anchor="middle">(Arduino / MCU 5V)</text>
+
+  <!-- MCU Pin 1: 3.3V Out -->
+  <rect x="50" y="145" width="190" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="167" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">Клема 3.3V (Out)</text>
+  <text x="60" y="186" font-size="12" fill="#6b7280" text-anchor="start">I_src ≤ 50 мА</text>
+  <text x="60" y="204" font-size="12" fill="#c0392b" text-anchor="start">(вбудований LDO)</text>
+
+  <!-- MCU Pin 2: TX 5V Out -->
+  <rect x="50" y="275" width="190" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="297" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">Клема TX (5V Out)</text>
+  <text x="60" y="316" font-size="12" fill="#6b7280" text-anchor="start">V_OH = 5.0 В</text>
+  <text x="60" y="334" font-size="12" fill="#1a1a1a" text-anchor="start">Прямий сигнал UART</text>
+
+  <!-- MCU Pin 3: GND -->
+  <rect x="50" y="405" width="190" height="55" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="427" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Клема GND</text>
+  <text x="60" y="445" font-size="12" fill="#6b7280" text-anchor="start">Спільна шина 0 В</text>
+
+  <!-- Right Panel: ESP-01 Module -->
+  <rect x="705" y="85" width="220" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="815" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Модуль ESP-01</text>
+  <text x="815" y="128" font-size="12" fill="#6b7280" text-anchor="middle">(чип ESP8266, 3.3V)</text>
+
+  <!-- ESP-01 Pin 1: VCC -->
+  <rect x="720" y="145" width="190" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="730" y="167" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">Клема VCC (3.3V)</text>
+  <text x="730" y="186" font-size="12" fill="#6b7280" text-anchor="start">V_CC = 3.0–3.6 В</text>
+  <text x="730" y="204" font-size="12" fill="#c0392b" text-anchor="start">I_peak ≈ 200–400 мА</text>
+
+  <!-- ESP-01 Pin 2: RX -->
+  <rect x="720" y="275" width="190" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="730" y="297" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">Клема RX (3.3V max)</text>
+  <text x="730" y="316" font-size="12" fill="#6b7280" text-anchor="start">V_IH_max = 3.6 В</text>
+  <text x="730" y="334" font-size="12" fill="#c0392b" text-anchor="start">Без 5V-толерантності</text>
+
+  <!-- ESP-01 Pin 3: GND -->
+  <rect x="720" y="405" width="190" height="55" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="730" y="427" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Клема GND</text>
+  <text x="730" y="445" font-size="12" fill="#6b7280" text-anchor="start">Спільна шина 0 В</text>
+
+  <!-- Central Hazard Box 1: Power Sag & Brownout -->
+  <rect x="275" y="138" width="410" height="116" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="157" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">РИЗИК 1: Просідання живлення (Wi-Fi піки струму)</text>
+  <text x="480" y="176" font-size="12" fill="#1a1a1a" text-anchor="middle">Джерело: I_src ≤ 50 мА  |  Wi-Fi пік: I_peak ≈ 200–400 мА</text>
+  <text x="480" y="195" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Результат: Падіння напруги ΔV = I_peak × R_src → V_CC &lt; 2.7 В</text>
+  <text x="480" y="214" font-size="12" fill="#1a1a1a" text-anchor="middle">Наслідок: Спонтанне перезавантаження (BOD) та збій зв'язку</text>
+  <text x="480" y="233" font-size="12" fill="#6b7280" text-anchor="middle">Фізичний чинник: перевантаження LDO й брак буферної ємності</text>
+
+  <!-- Connecting Lines for Power -->
+  <line x1="240" y1="182" x2="270" y2="182" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="685" y1="182" x2="715" y2="182" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Central Hazard Box 2: Overvoltage & Thermal Degradation on RX -->
+  <rect x="275" y="270" width="410" height="140" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="290" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">РИЗИК 2: Висока напруга 5V на виході/вході UART (RX)</text>
+  <text x="480" y="310" font-size="12" fill="#1a1a1a" text-anchor="middle">Напруга сигналу TX = 5.0 В   >   Максимум ESP-01 V_IH_max = 3.6 В</text>
+  <text x="480" y="329" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="middle">Механізм: Прямий струм через вбудований захисний діод I_clamp</text>
+  <text x="480" y="348" font-size="12" fill="#1a1a1a" text-anchor="middle">Потужність: P_d = I_clamp × (5.0 В - V_CC) → Тепловий перегрів</text>
+  <text x="480" y="367" font-size="12" fill="#1a1a1a" text-anchor="middle">Наслідок: Деградація p-n переходу та деструктивний пробій RX</text>
+  <text x="480" y="386" font-size="12" fill="#6b7280" text-anchor="middle">Фізичний чинник: відсутність дільника або конвертера рівнів</text>
+
+  <!-- Connecting Lines for Data -->
+  <line x1="240" y1="312" x2="270" y2="312" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="685" y1="312" x2="715" y2="312" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Ground Connection Line -->
+  <line x1="240" y1="432" x2="720" y2="432" stroke="#1a1a1a" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="480" y="453" font-size="12" fill="#1a1a1a" text-anchor="middle">Спільна лінія заземлення (GND) — єдиний безпечний прямий зв'язок</text>
+
+  <!-- Conclusion Banner -->
+  <rect x="275" y="468" width="410" height="42" rx="6" fill="#fdecea" stroke="#c0392b" stroke-dasharray="4,3"/>
+  <text x="480" y="494" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⛔ ВИСНОВОК: Пряме підключення ESP-01 до 5V є деструктивним!</text>
+</svg>

@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схемотехніка 24-пінового FPC-роз'єму та LDO-живлення сенсора OV3640</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Розподіл 3 ліній живлення (AVDD 2.8V, DVDD 1.5V, DOVDD 2.8V) та сигналів DVP / SCCB з розв'язувальними конденсаторами</text>
+
+  <!-- Panel 1: LDO Power Block -->
+  <rect x="40" y="80" width="260" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="52" y="92" width="236" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="170" y="113" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Блок LDO живлення</text>
+
+  <rect x="52" y="136" width="236" height="82" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="64" y="156" font-size="12" font-weight="bold" fill="#27ae60">AVDD (2.8V) — Аналог матриці</text>
+  <text x="64" y="176" font-size="12" fill="#1a1a1a">LDO 1: Low-Noise Regulator</text>
+  <text x="64" y="196" font-size="12" fill="#6b7280">Конденсатори: 10 мкФ + 0.1 мкФ</text>
+
+  <rect x="52" y="228" width="236" height="82" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="64" y="248" font-size="12" font-weight="bold" fill="#2457d6">DVDD (1.5V) — Цифрове ядро</text>
+  <text x="64" y="268" font-size="12" fill="#1a1a1a">LDO 2: Internal Core Supply</text>
+  <text x="64" y="288" font-size="12" fill="#6b7280">Конденсатори: 1 мкФ + 0.1 мкФ</text>
+
+  <rect x="52" y="320" width="236" height="82" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="64" y="340" font-size="12" font-weight="bold" fill="#1a1a1a">DOVDD (2.8V) — Живлення I/O</text>
+  <text x="64" y="360" font-size="12" fill="#1a1a1a">LDO 3 / VCC_3V3 (ESP32-CAM)</text>
+  <text x="64" y="380" font-size="12" fill="#6b7280">Конденсатори: 1 мкФ + 0.1 мкФ</text>
+
+  <!-- Power Connection Arrow -->
+  <path d="M 300,177 L 343,177" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="325" y="165" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3x LDO</text>
+  <text x="325" y="195" font-size="12" fill="#6b7280" text-anchor="middle">AVDD/DVDD</text>
+
+  <!-- Panel 2: FPC-24 Connector Pinout -->
+  <rect x="350" y="80" width="260" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="362" y="92" width="236" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="113" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. FPC-24 Роз'єм OV3640</text>
+
+  <rect x="362" y="136" width="236" height="82" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="374" y="156" font-size="12" font-weight="bold" fill="#1a1a1a">Піни 1–6 (Живлення та Земля):</text>
+  <text x="374" y="176" font-size="12" fill="#27ae60">· Pin 1: AVDD (2.8V) │ Pin 2: AGND</text>
+  <text x="374" y="196" font-size="12" fill="#2457d6">· Pin 3: DVDD (1.5V) │ Pin 4: DGND</text>
+  <text x="374" y="210" font-size="12" fill="#1a1a1a">· Pin 5: DOVDD 2.8V │ Pin 6: PWDN</text>
+
+  <rect x="362" y="228" width="236" height="82" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="374" y="248" font-size="12" font-weight="bold" fill="#2457d6">Піни 7–18 (Паралельний DVP):</text>
+  <text x="374" y="268" font-size="12" fill="#1a1a1a">· Дані: D0–D7 (8-біт паралельно)</text>
+  <text x="374" y="288" font-size="12" fill="#1a1a1a">· Синхронізація: PCLK, VSYNC, HREF</text>
+  <text x="374" y="302" font-size="12" fill="#2457d6">· Тактування: XVCLK (24 МГц)</text>
+
+  <rect x="362" y="320" width="236" height="82" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="374" y="340" font-size="12" font-weight="bold" fill="#1a1a1a">Піни 19–24 (SCCB та Керування):</text>
+  <text x="374" y="360" font-size="12" fill="#1a1a1a">· SIOC, SIOD (SCCB) + 4.7k R_pull</text>
+  <text x="374" y="380" font-size="12" fill="#1a1a1a">· RESET (Pin 21), STROBE (Pin 22)</text>
+
+  <!-- Signal Connection Arrow -->
+  <path d="M 610,270 L 653,270" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="635" y="258" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DVP/SCCB</text>
+  <text x="635" y="288" font-size="12" fill="#6b7280" text-anchor="middle">Шина D0-D7</text>
+
+  <!-- Panel 3: ESP32 SoC Interface -->
+  <rect x="660" y="80" width="260" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="672" y="92" width="236" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="790" y="113" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Інтерфейс ESP32 SoC</text>
+
+  <rect x="672" y="136" width="236" height="82" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="684" y="156" font-size="12" font-weight="bold" fill="#1a1a1a">Прив'язка GPIO до DVP шини:</text>
+  <text x="684" y="176" font-size="12" fill="#1a1a1a">· D0–D7: GPIO5,18,19,21..23,34,35</text>
+  <text x="684" y="196" font-size="12" fill="#1a1a1a">· PCLK: GPIO22 │ VSYNC: GPIO25</text>
+  <text x="684" y="210" font-size="12" fill="#1a1a1a">· HREF: GPIO23 │ XVCLK: GPIO0</text>
+
+  <rect x="672" y="228" width="236" height="82" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="684" y="248" font-size="12" font-weight="bold" fill="#1a1a1a">Шина керування SCCB / I2C:</text>
+  <text x="684" y="268" font-size="12" fill="#1a1a1a">· SIOD (SDA): GPIO26</text>
+  <text x="684" y="288" font-size="12" fill="#1a1a1a">· SIOC (SCL): GPIO27</text>
+  <text x="684" y="302" font-size="12" fill="#6b7280">· PWDN: GPIO32 │ RESET: GPIO15</text>
+
+  <rect x="672" y="320" width="236" height="82" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="684" y="340" font-size="12" font-weight="bold" fill="#27ae60">Маршрутизація DMA в PSRAM:</text>
+  <text x="684" y="360" font-size="12" fill="#1a1a1a">· I2S DMA контролер ESP32</text>
+  <text x="684" y="380" font-size="12" fill="#27ae60">· Буфер 3MP кадру в PSRAM</text>
+
+  <!-- Bottom PCB Guidelines Bar -->
+  <rect x="40" y="432" width="880" height="75" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="453" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Правила розв'язування живлення та трасування друкованої плати (PCB Layout)</text>
+  <text x="480" y="474" font-size="12" fill="#1a1a1a" text-anchor="middle">1. Керамічні розв'язувальні конденсатори 0.1 мкФ ставляться якомога ближче до виводів AVDD/DVDD/DOVDD FPC-роз'єму.</text>
+  <text x="480" y="494" font-size="12" fill="#6b7280" text-anchor="middle">2. Тактова лінія XVCLK екранується копланарними земляними провідниками DGND для запобігання фазовому джитеру та наведенням на AVDD.</text>
+</svg>

@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Проходження даних через стек lwIP: TCP проти UDP</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">TCP забезпечує гарантовану доставку з буферизацією та ACK, а UDP надсилає датаграми напряму без зворотного зв'язку</text>
+
+  <!-- LEFT PANEL: TCP -->
+  <rect x="40" y="75" width="425" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="55" y="90" width="395" height="32" rx="4" fill="#2457d6"/>
+  <text x="252" y="111" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">TCP (Transmission Control Protocol)</text>
+
+  <!-- Application Layer TCP -->
+  <rect x="65" y="135" width="375" height="48" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="252" y="155" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Прикладний код ESP-01 (Socket API)</text>
+  <text x="252" y="171" font-size="12" fill="#6b7280" text-anchor="middle">Виклик write() / netconn_write()</text>
+
+  <!-- Arrow App -> lwIP TCP -->
+  <line x1="252" y1="183" x2="252" y2="201" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- lwIP TCP Stack Layer -->
+  <rect x="65" y="208" width="375" height="150" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="252" y="228" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Стек lwIP: TCP PCB (Protocol Control Block)</text>
+
+  <!-- Sub-box 1: Retransmit buffer -->
+  <rect x="77" y="240" width="170" height="55" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="162" y="258" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Буфер повторів (unacked)</text>
+  <text x="162" y="274" font-size="12" fill="#6b7280" text-anchor="middle">Збереження кадрів до ACK</text>
+
+  <!-- Sub-box 2: Sliding Window -->
+  <rect x="258" y="240" width="170" height="55" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="343" y="258" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ковзне вікно та таймери</text>
+  <text x="343" y="274" font-size="12" fill="#6b7280" text-anchor="middle">Керування потоком і RTO</text>
+
+  <!-- Sub-box 3: ACK Processing -->
+  <rect x="77" y="303" width="351" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="252" y="321" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Обробка підтверджень ACK та очищення буфера</text>
+  <text x="252" y="337" font-size="12" fill="#6b7280" text-anchor="middle">Гарантія послідовності та цілісності даних</text>
+
+  <!-- Arrow lwIP TCP -> MAC -->
+  <line x1="252" y1="358" x2="252" y2="376" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- MAC Layer TCP -->
+  <rect x="65" y="383" width="375" height="45" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="252" y="402" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Рівень IP / Wi-Fi Driver (802.11 MAC)</text>
+  <text x="252" y="418" font-size="12" fill="#6b7280" text-anchor="middle">Формування IP-пакетів та передача в ефір</text>
+
+  <!-- Arrows MAC <-> Remote Host -->
+  <line x1="170" y1="428" x2="170" y2="446" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="120" y="442" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="end">TX Data</text>
+
+  <line x1="330" y1="453" x2="330" y2="435" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="380" y="447" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="start">RX ACK</text>
+
+  <!-- Remote Host TCP -->
+  <rect x="65" y="453" width="375" height="42" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="252" y="471" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Віддалений TCP-вузол (Сервер / Клієнт)</text>
+  <text x="252" y="487" font-size="12" fill="#27ae60" text-anchor="middle">Зворотний зв'язок: Відправка ACK підтверджень</text>
+
+
+  <!-- RIGHT PANEL: UDP -->
+  <rect x="495" y="75" width="425" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="510" y="90" width="395" height="32" rx="4" fill="#6b7280"/>
+  <text x="707" y="111" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">UDP (User Datagram Protocol)</text>
+
+  <!-- Application Layer UDP -->
+  <rect x="520" y="135" width="375" height="48" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="707" y="155" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Прикладний код ESP-01 (Socket API)</text>
+  <text x="707" y="171" font-size="12" fill="#6b7280" text-anchor="middle">Виклик sendto() / netconn_send()</text>
+
+  <!-- Arrow App -> lwIP UDP -->
+  <line x1="707" y1="183" x2="707" y2="201" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <!-- lwIP UDP Stack Layer -->
+  <rect x="520" y="208" width="375" height="150" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="707" y="228" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стек lwIP: UDP PCB (Пряма передача)</text>
+
+  <!-- Sub-box 1: pbuf allocation -->
+  <rect x="532" y="240" width="170" height="55" rx="4" fill="#f4f6f8" stroke="#6b7280"/>
+  <text x="617" y="258" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Виділення pbuf буфера</text>
+  <text x="617" y="274" font-size="12" fill="#6b7280" text-anchor="middle">Без тривалого захисту</text>
+
+  <!-- Sub-box 2: No TX queue -->
+  <rect x="713" y="240" width="170" height="55" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="798" y="258" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Відсутність черги TX</text>
+  <text x="798" y="274" font-size="12" fill="#6b7280" text-anchor="middle">Без повторів відправки</text>
+
+  <!-- Sub-box 3: No Feedback -->
+  <rect x="532" y="303" width="351" height="42" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="707" y="321" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Немає контролю з'єднання та підтверджень</text>
+  <text x="707" y="337" font-size="12" fill="#6b7280" text-anchor="middle">Мінімальні накладні витрати й затримки</text>
+
+  <!-- Arrow lwIP UDP -> MAC -->
+  <line x1="707" y1="358" x2="707" y2="376" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <!-- MAC Layer UDP -->
+  <rect x="520" y="383" width="375" height="45" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="707" y="402" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Рівень IP / Wi-Fi Driver (802.11 MAC)</text>
+  <text x="707" y="418" font-size="12" fill="#6b7280" text-anchor="middle">Пряма відправка датаграми без перевірки</text>
+
+  <!-- Arrow MAC -> Remote Host -->
+  <line x1="707" y1="428" x2="707" y2="446" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <text x="760" y="442" font-size="12" fill="#6b7280" font-weight="bold" text-anchor="start">Одностороння датаграма</text>
+
+  <!-- Remote Host UDP -->
+  <rect x="520" y="453" width="375" height="42" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="707" y="471" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Приймач UDP (Без з'єднання)</text>
+  <text x="707" y="487" font-size="12" fill="#c0392b" text-anchor="middle">Відсутній зворотний зв'язок (Без ACK)</text>
+</svg>

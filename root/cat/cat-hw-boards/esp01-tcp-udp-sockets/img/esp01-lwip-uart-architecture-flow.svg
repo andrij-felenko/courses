@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура проходження мережевих даних у модулі ESP-01</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Послідовний потік пакетів від Wi-Fi ефіру через стек LwIP та буфери DRAM до шини UART хоста</text>
+
+  <!-- Block 1: Wi-Fi MAC/PHY -->
+  <rect x="35" y="85" width="195" height="275" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="132" y="110" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Радіоінтерфейс Wi-Fi</text>
+
+  <rect x="50" y="125" width="165" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="132" y="149" font-size="12" fill="#1a1a1a" text-anchor="middle">Антена 802.11 b/g/n</text>
+
+  <rect x="50" y="180" width="165" height="40" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="132" y="204" font-size="12" fill="#1a1a1a" text-anchor="middle">Апаратний MAC/PHY</text>
+
+  <rect x="50" y="235" width="165" height="40" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="132" y="259" font-size="12" fill="#1a1a1a" text-anchor="middle">Hardware DMA RX</text>
+
+  <text x="132" y="315" font-size="11" fill="#6b7280" text-anchor="middle">Фільтрація кадрів &amp; CRC</text>
+
+  <!-- Internal arrows inside Block 1 -->
+  <line x1="132" y1="165" x2="132" y2="180" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="132" y1="220" x2="132" y2="235" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="230" y1="200" x2="265" y2="200" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="247" y="190" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">802.11</text>
+
+  <!-- Block 2: LwIP Stack -->
+  <rect x="265" y="85" width="210" height="275" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="370" y="110" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Стек LwIP &amp; ESP-AT</text>
+
+  <rect x="280" y="125" width="180" height="40" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="370" y="149" font-size="12" fill="#1a1a1a" text-anchor="middle">Ланцюг pbuf (RAM)</text>
+
+  <rect x="280" y="180" width="180" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="370" y="204" font-size="12" fill="#1a1a1a" text-anchor="middle">TCP / UDP Декодер</text>
+
+  <rect x="280" y="235" width="180" height="40" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="370" y="259" font-size="12" fill="#1a1a1a" text-anchor="middle">Двигун ESP-AT Сокетів</text>
+
+  <text x="370" y="315" font-size="11" fill="#6b7280" text-anchor="middle">Формувальник +IPD</text>
+
+  <!-- Internal arrows inside Block 2 -->
+  <line x1="370" y1="165" x2="370" y2="180" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="370" y1="220" x2="370" y2="235" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="475" y1="200" x2="510" y2="200" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="492" y="190" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">+IPD</text>
+
+  <!-- Block 3: DRAM Buffers -->
+  <rect x="510" y="85" width="200" height="275" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="610" y="110" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Буферизація DRAM</text>
+
+  <rect x="525" y="125" width="170" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="610" y="149" font-size="12" fill="#1a1a1a" text-anchor="middle">Кільцевий буфер RX</text>
+
+  <rect x="525" y="180" width="170" height="40" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="610" y="204" font-size="12" fill="#1a1a1a" text-anchor="middle">Буфер команд AT</text>
+
+  <rect x="525" y="235" width="170" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="610" y="259" font-size="12" fill="#1a1a1a" text-anchor="middle">UART FIFO (128 байт)</text>
+
+  <text x="610" y="315" font-size="11" fill="#6b7280" text-anchor="middle">Захист від переповнення</text>
+
+  <!-- Internal arrows inside Block 3 -->
+  <line x1="610" y1="165" x2="610" y2="180" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="610" y1="220" x2="610" y2="235" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Arrow 3 -> 4 -->
+  <line x1="710" y1="200" x2="745" y2="200" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="727" y="190" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">UART</text>
+
+  <!-- Block 4: Host MCU -->
+  <rect x="745" y="85" width="180" height="275" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="835" y="110" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4. Хост MCU</text>
+
+  <rect x="760" y="125" width="150" height="40" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="835" y="149" font-size="12" fill="#1a1a1a" text-anchor="middle">Апаратний UART RX</text>
+
+  <rect x="760" y="180" width="150" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="835" y="204" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Парсер потоку +IPD</text>
+
+  <rect x="760" y="235" width="150" height="40" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="835" y="259" font-size="12" fill="#1a1a1a" text-anchor="middle">Буфер застосунку</text>
+
+  <text x="835" y="315" font-size="11" fill="#6b7280" text-anchor="middle">Обробка пакетів</text>
+
+  <!-- Internal arrows inside Block 4 -->
+  <line x1="835" y1="165" x2="835" y2="180" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="835" y1="220" x2="835" y2="235" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Summary Panel -->
+  <rect x="35" y="375" width="890" height="75" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="398" font-size="12" font-weight="bold" fill="#2457d6">Ключовий інваріант обробки трафіку:</text>
+  <text x="50" y="418" font-size="12" fill="#1a1a1a">Дані з Wi-Fi ефіру копіюються в буфери pbuf LwIP, після чого ESP-AT формує кадр +IPD і передає його в UART FIFO.</text>
+  <text x="50" y="436" font-size="11" fill="#6b7280">При перевищенні швидкості прийому над пропускною здатністю UART виникає загроза переповнення DRAM та скидання сокета.</text>
+</svg>

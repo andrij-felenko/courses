@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл секторів SPI Flash та параметри esptool write_flash</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Карта адресації пам'яті ESP-01 (1 МБ) та вибір режимів роботи шини SPI Flash (QIO/DIO/DOUT)</text>
+
+  <!-- Підписи зсувів пам'яті (Offset Labels) -->
+  <text x="60" y="82" font-size="12" font-weight="bold" fill="#2457d6">0x00000</text>
+  <text x="240" y="82" font-size="12" font-weight="bold" fill="#27ae60">0x10000</text>
+  <text x="600" y="82" font-size="12" font-weight="bold" fill="#1a1a1a">0x90000</text>
+  <text x="750" y="82" font-size="12" font-weight="bold" fill="#c0392b">0xFC000</text>
+  <text x="900" y="82" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">0x100000 (1 МБ)</text>
+
+  <!-- Карта секторів SPI Flash -->
+  <!-- Сектор 0: Bootloader (0x00000..0x10000) -->
+  <rect x="60" y="90" width="180" height="65" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="150" y="116" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">0x00000 (Bootloader)</text>
+  <text x="150" y="136" font-size="12" fill="#1a1a1a" text-anchor="middle">boot.bin / 64 КБ</text>
+
+  <!-- Сектор 1: User Application (0x10000..0x90000) -->
+  <rect x="240" y="90" width="360" height="65" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="420" y="116" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">0x10000 (User Application)</text>
+  <text x="420" y="136" font-size="12" fill="#1a1a1a" text-anchor="middle">firmware.bin / user1.bin (Основний код)</text>
+
+  <!-- Сектор 2: Data FS (0x90000..0xFC000) -->
+  <rect x="600" y="90" width="150" height="65" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="675" y="116" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0x90000 (Data FS)</text>
+  <text x="675" y="136" font-size="12" fill="#6b7280" text-anchor="middle">LittleFS / SPIFFS</text>
+
+  <!-- Сектор 3: RF System Params (0xFC000..0x100000) -->
+  <rect x="750" y="90" width="150" height="65" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="825" y="116" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">0xFC000 (System)</text>
+  <text x="825" y="136" font-size="12" fill="#c0392b" text-anchor="middle">esp_init_data / blank</text>
+
+  <!-- ЛІВА КАРТКА: Синтаксис write_flash -->
+  <g transform="translate(0,0)">
+    <rect x="50" y="185" width="410" height="300" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="50" y="185" width="410" height="32" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="65" y="206" font-size="13" font-weight="bold" fill="#2457d6">1. Команда CLI esptool.py write_flash</text>
+
+    <text x="65" y="236" font-size="12" font-weight="bold" fill="#1a1a1a">Приклад виклику утиліти esptool:</text>
+    <text x="75" y="254" font-size="12" fill="#2457d6">esptool.py --port /dev/ttyUSB0 --baud 115200</text>
+    <text x="75" y="272" font-size="12" fill="#2457d6">  write_flash -fm dout -ff 40m -fs 1MB</text>
+    <text x="75" y="290" font-size="12" fill="#2457d6">  0x00000 boot.bin 0x10000 firmware.bin</text>
+
+    <text x="65" y="312" font-size="12" font-weight="bold" fill="#1a1a1a">Параметри адресації та стирання:</text>
+    <text x="75" y="330" font-size="12" fill="#6b7280">• 0x00000: первинний завантажник (Bootloader)</text>
+    <text x="75" y="348" font-size="12" fill="#6b7280">• 0x10000: точка входу основної прошивки</text>
+    <text x="75" y="366" font-size="12" fill="#6b7280">• Автоматичне стирання (erase) секторів 4 КБ</text>
+    <text x="75" y="384" font-size="12" fill="#27ae60">• Верифікація даних під час запису (CRC32 checksum)</text>
+    <text x="75" y="402" font-size="12" fill="#c0392b">• Помилка 'Image too large': прошивка > розмір сектора</text>
+    <text x="75" y="420" font-size="12" fill="#6b7280">• 0xFC000 / 0xFE000: системні RF-параметри та Wi-Fi MAC</text>
+  </g>
+
+  <!-- ПРАВА КАРТКА: Режими шини SPI Flash -->
+  <g transform="translate(0,0)">
+    <rect x="480" y="185" width="430" height="300" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="480" y="185" width="430" height="32" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="495" y="206" font-size="13" font-weight="bold" fill="#2457d6">2. Режими роботи шини SPI (-fm / flash_mode)</text>
+
+    <text x="495" y="236" font-size="12" font-weight="bold" fill="#27ae60">DOUT (Dual Output / 2 лінії даних):</text>
+    <text x="510" y="254" font-size="12" fill="#1a1a1a">• Найбільш сумісний та безпечний режим для ESP-01</text>
+    <text x="510" y="272" font-size="12" fill="#6b7280">• Працює з усіма чипами Flash (Winbond, PUYA, Berg)</text>
+
+    <text x="495" y="294" font-size="12" font-weight="bold" fill="#2457d6">DIO (Dual I/O / 2 лінії адреси й даних):</text>
+    <text x="510" y="312" font-size="12" fill="#1a1a1a">• Підвищена швидкість зчитування даних</text>
+
+    <text x="495" y="334" font-size="12" font-weight="bold" fill="#c0392b">QIO / QOUT (Quad I/O / 4 лінії даних):</text>
+    <text x="510" y="352" font-size="12" fill="#c0392b">• Потребує підключення виводів GPIO9 та GPIO10</text>
+    <text x="510" y="370" font-size="12" fill="#c0392b">• У платах ESP-01 (8-pin) GPIO9/10 не розведені!</text>
+    <text x="510" y="388" font-size="12" font-weight="bold" fill="#c0392b">• УВАГА: Вибір QIO на ESP-01 викликає циклічний crash!</text>
+
+    <text x="495" y="410" font-size="12" font-weight="bold" fill="#1a1a1a">Рекомендовані частоти (-ff):</text>
+    <text x="510" y="428" font-size="12" fill="#27ae60">• 40m (40 МГц) - дефолт | 80m (80 МГц) - максимальна</text>
+  </g>
+
+  <!-- Підвальний підпис -->
+  <text x="480" y="516" font-size="12" fill="#6b7280" text-anchor="middle">Правило для ESP-01: Завжди вказуйте прапорці -fm dout -fs 1MB для стабільного завантаження без циклічних перезапусків</text>
+</svg>

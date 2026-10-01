@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-orange" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Скінченний автомат (FSM) драйвера AT-команд та URC-подій</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Діаграма станів і переходів для неблокуючої обробки команд GPIO та асинхронних сповіщень</text>
+
+  <!-- Outer Diagram Panel -->
+  <rect x="30" y="75" width="900" height="365" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Transition Paths & Lines -->
+
+  <!-- 1. IDLE -> SEND_CMD (Blue) -->
+  <path d="M 230,172.5 L 288,172.5" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="260" y="160" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Команда в черзі</text>
+
+  <!-- 2. SEND_CMD -> WAIT_RESP (Blue) -->
+  <path d="M 470,172.5 L 528,172.5" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="500" y="160" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">TX завершено</text>
+
+  <!-- 3. WAIT_RESP -> IDLE (Green Return Loop) -->
+  <path d="M 620,130 L 620,98 L 145,98 L 145,128" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="382" y="91" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Отримано "OK" [Успішне завершення]</text>
+
+  <!-- 4. WAIT_RESP -> ERROR_RETRY (Red) -->
+  <path d="M 710,172.5 L 840,172.5 L 840,228" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="720" y="162" text-anchor="start" font-size="11" font-weight="bold" fill="#c0392b">Таймаут / "ERROR"</text>
+
+  <!-- 5. ERROR_RETRY -> SEND_CMD (Blue Retry Loop) -->
+  <path d="M 760,272.5 L 380,272.5 L 380,217" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="570" y="265" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Повтор [Retries &lt; Max]</text>
+
+  <!-- 6. ERROR_RETRY -> IDLE (Red Max Retries Fail) -->
+  <path d="M 840,315 L 840,415 L 145,415 L 145,217" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="492" y="410" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Збій: Ліміт спроб вичерпано</text>
+
+  <!-- 7. IDLE -> PARSE_URC (Orange) -->
+  <path d="M 145,215 L 145,352.5 L 288,352.5" fill="none" stroke="#d97706" stroke-width="2" marker-end="url(#arr-orange)"/>
+  <text x="152" y="280" text-anchor="start" font-size="11" font-weight="bold" fill="#d97706">Асинхронний URC (+GPIO...)</text>
+
+  <!-- 8. WAIT_RESP -> PARSE_URC (Orange) -->
+  <path d="M 620,215 L 620,308" fill="none" stroke="#d97706" stroke-width="2" marker-end="url(#arr-orange)"/>
+  <text x="626" y="260" text-anchor="start" font-size="11" font-weight="bold" fill="#d97706">URC під час очікування</text>
+
+  <!-- FSM State Boxes -->
+
+  <!-- Node 1: IDLE -->
+  <rect x="60" y="130" width="170" height="85" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="145" y="153" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">1. IDLE</text>
+  <text x="145" y="171" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">(Очікування / Готовий)</text>
+  <text x="145" y="189" text-anchor="middle" font-size="11" fill="#6b7280">Прийом URC в фоні</text>
+  <text x="145" y="203" text-anchor="middle" font-size="11" fill="#6b7280">Перевірка черги TX</text>
+
+  <!-- Node 2: SEND_CMD -->
+  <rect x="290" y="130" width="180" height="85" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="380" y="153" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">2. SEND_CMD</text>
+  <text x="380" y="171" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">(Відправка AT-команди)</text>
+  <text x="380" y="189" text-anchor="middle" font-size="11" fill="#6b7280">AT+SYSGPIOWRITE=2,1</text>
+  <text x="380" y="203" text-anchor="middle" font-size="11" fill="#6b7280">Старт таймера T_resp</text>
+
+  <!-- Node 3: WAIT_RESP -->
+  <rect x="530" y="130" width="180" height="85" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="620" y="153" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">3. WAIT_RESP</text>
+  <text x="620" y="171" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">(Аналіз відповіді)</text>
+  <text x="620" y="189" text-anchor="middle" font-size="11" fill="#6b7280">Парсинг "OK" / "ERROR"</text>
+  <text x="620" y="203" text-anchor="middle" font-size="11" fill="#6b7280">Перехоплення URC</text>
+
+  <!-- Node 4: ERROR_RETRY -->
+  <rect x="760" y="230" width="160" height="85" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="840" y="253" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">4. RETRY / ERR</text>
+  <text x="840" y="271" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">(Обробка помилок)</text>
+  <text x="840" y="289" text-anchor="middle" font-size="11" fill="#6b7280">Таймаут або ERROR</text>
+  <text x="840" y="303" text-anchor="middle" font-size="11" fill="#6b7280">Лічильник повторів</text>
+
+  <!-- Node 5: PARSE_URC -->
+  <rect x="290" y="310" width="420" height="85" rx="8" fill="#fff8e6" stroke="#d97706" stroke-width="2"/>
+  <text x="500" y="333" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">5. PARSE_URC (Асинхронні події URC)</text>
+  <text x="500" y="353" text-anchor="middle" font-size="12" font-weight="bold" fill="#d97706">Витягнення параметра +GPIO:... або +SYSGPIOREAD:...</text>
+  <text x="500" y="373" text-anchor="middle" font-size="11" fill="#6b7280">Виклик callback-обробника події та повернення в попередній стан</text>
+</svg>

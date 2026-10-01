@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цокольовка та електричні характеристики роз'єму 2×4 ESP-01</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Призначення 8 виводів, логіка завантаження Flash/Run та електричні параметри живлення 3.3 В</text>
+
+  <!-- PANEL 1: PINOUT & ELECTRICAL (LEFT) -->
+  <rect x="35" y="80" width="435" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="90" width="415" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="252.5" y="111" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Розводка 8 виводів роз'єму 2×4 (Top View)</text>
+
+  <!-- 2x4 Header Graphic Base -->
+  <rect x="180" y="135" width="145" height="175" rx="6" fill="#1a1a1a" stroke="#6b7280" stroke-width="2"/>
+  <text x="252.5" y="152" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">ESP-01 2×4 Header</text>
+
+  <!-- Left Pins (1 to 4) -->
+  <!-- Pin 1 GND -->
+  <circle cx="215" cy="175" r="10" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="215" y="179" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1</text>
+  <line x1="205" y1="175" x2="155" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="150" y="179" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">1: GND (0 В)</text>
+
+  <!-- Pin 2 TXD -->
+  <circle cx="215" cy="210" r="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="215" y="214" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2</text>
+  <line x1="205" y1="210" x2="155" y2="210" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="150" y="214" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">2: TXD / GPIO1</text>
+
+  <!-- Pin 3 GPIO2 -->
+  <circle cx="215" cy="245" r="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="215" y="249" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">3</text>
+  <line x1="205" y1="245" x2="155" y2="245" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="150" y="249" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">3: GPIO2 (Boot)</text>
+
+  <!-- Pin 4 CH_PD -->
+  <circle cx="215" cy="280" r="10" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="215" y="284" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">4</text>
+  <line x1="205" y1="280" x2="155" y2="280" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="150" y="284" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">4: CH_PD / EN</text>
+
+
+  <!-- Right Pins (5 to 8) -->
+  <!-- Pin 5 RST -->
+  <circle cx="290" cy="175" r="10" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="290" y="179" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">5</text>
+  <line x1="300" y1="175" x2="350" y2="175" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="355" y="179" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">5: RST (Reset)</text>
+
+  <!-- Pin 6 GPIO0 -->
+  <circle cx="290" cy="210" r="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="290" y="214" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">6</text>
+  <line x1="300" y1="210" x2="350" y2="210" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="355" y="214" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">6: GPIO0 (Flash)</text>
+
+  <!-- Pin 7 RXD -->
+  <circle cx="290" cy="245" r="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="290" y="249" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">7</text>
+  <line x1="300" y1="245" x2="350" y2="245" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="355" y="249" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">7: RXD / GPIO3</text>
+
+  <!-- Pin 8 VCC -->
+  <circle cx="290" cy="280" r="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="290" y="284" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">8</text>
+  <line x1="300" y1="280" x2="350" y2="280" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="355" y="284" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">8: VCC (+3.3В)</text>
+
+  <!-- Note Box Panel 1 -->
+  <rect x="45" y="325" width="415" height="90" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="252.5" y="345" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Електричні параметри живлення:</text>
+  <text x="252.5" y="364" font-size="12" fill="#1a1a1a" text-anchor="middle">• VCC: 3.0 В ... 3.6 В (номінал 3.3 В, пік 300 мА)</text>
+  <text x="252.5" y="383" font-size="12" fill="#1a1a1a" text-anchor="middle">• Сигнальні лінії: рівні 3.3 В (НЕ 5V tolerant!)</text>
+  <text x="252.5" y="402" font-size="12" fill="#27ae60" text-anchor="middle">• CH_PD / EN: обов'язкова підтяжка 10 кОм до VCC</text>
+
+
+  <!-- PANEL 2: BOOT MATRIX (RIGHT) -->
+  <rect x="495" y="80" width="430" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="505" y="90" width="410" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="710" y="111" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Конфігурація виводів завантаження (Boot Mode)</text>
+
+  <!-- Boot Table Outer Box -->
+  <rect x="505" y="135" width="410" height="150" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Table Header Row -->
+  <rect x="506" y="136" width="408" height="26" fill="#f4f6f8"/>
+  <text x="565" y="153" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Режим роботи</text>
+  <text x="670" y="153" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO0</text>
+  <text x="760" y="153" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO2</text>
+  <text x="860" y="153" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CH_PD / RST</text>
+
+  <!-- Table Row 1 (Flash Boot) -->
+  <rect x="506" y="163" width="408" height="38" fill="#fdecea"/>
+  <text x="565" y="186" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Flash Boot (Прошивка)</text>
+  <text x="670" y="186" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">0 (LOW)</text>
+  <text x="760" y="186" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1 (HIGH)</text>
+  <text x="860" y="186" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1 (HIGH)</text>
+
+  <!-- Table Row 2 (Run Mode) -->
+  <rect x="506" y="203" width="408" height="38" fill="#e9f7ef"/>
+  <text x="565" y="226" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Run Mode (Виконання)</text>
+  <text x="670" y="226" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1 (HIGH)</text>
+  <text x="760" y="226" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1 (HIGH)</text>
+  <text x="860" y="226" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1 (HIGH)</text>
+
+  <!-- Table Row 3 (SDIO Boot) -->
+  <text x="565" y="266" font-size="12" fill="#6b7280" text-anchor="middle">SDIO Boot (Резерв)</text>
+  <text x="670" y="266" font-size="12" fill="#6b7280" text-anchor="middle">0 / 1</text>
+  <text x="760" y="266" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">0 (LOW)</text>
+  <text x="860" y="266" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1 (HIGH)</text>
+
+  <!-- Grid Lines -->
+  <line x1="505" y1="162" x2="915" y2="162" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="505" y1="202" x2="915" y2="202" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="505" y1="242" x2="915" y2="242" stroke="#d0d7de" stroke-width="1"/>
+
+  <line x1="625" y1="135" x2="625" y2="285" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="715" y1="135" x2="715" y2="285" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="805" y1="135" x2="805" y2="285" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Note Box Panel 2 -->
+  <rect x="505" y="300" width="410" height="115" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="710" y="320" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Правила перемикання режимів:</text>
+  <text x="710" y="340" font-size="12" fill="#1a1a1a" text-anchor="middle">• Для прошивки: притягнути GPIO0 до 0 В та подати імпульс 0 на RST.</text>
+  <text x="710" y="360" font-size="12" fill="#1a1a1a" text-anchor="middle">• Для виконання коду: GPIO0 має бути у стані 3.3 В під час скидання.</text>
+  <text x="710" y="380" font-size="12" fill="#1a1a1a" text-anchor="middle">• Для активності чипа: CH_PD (EN) та RST повинні перебувати в 3.3 В.</text>
+  <text x="710" y="400" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">• Рекомендовані підтягуючі резистори: 10 кОм до шини VCC (+3.3 В).</text>
+</svg>

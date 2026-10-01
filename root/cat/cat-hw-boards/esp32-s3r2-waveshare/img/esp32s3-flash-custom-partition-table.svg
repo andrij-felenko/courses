@@ -1,0 +1,97 @@
+<svg viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Схема розподілу 16 МБ Flash-пам'яті ESP32-S3 (partitions.csv)</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Зсуви адрес, розміри та призначення розділів Bootloader, NVS, app0, app1 (OTA) та LittleFS</text>
+
+  <!-- TOP SECTION: Flash Address Space Rail -->
+  <rect x="35" y="85" width="890" height="85" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="105" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Адресний простір NOR Flash 16 МБ (0x00000000 — 0x01000000)</text>
+
+  <!-- Rail Memory Blocks -->
+  <!-- System / Boot / NVS -->
+  <rect x="55" y="115" width="45" height="40" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="77.5" y="139" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Sys</text>
+
+  <!-- App 0 -->
+  <rect x="105" y="115" width="200" height="40" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="205" y="133" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">app0 (OTA_0)</text>
+  <text x="205" y="149" font-size="12" fill="#6b7280" text-anchor="middle">3.875 MB</text>
+
+  <!-- App 1 -->
+  <rect x="310" y="115" width="200" height="40" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="410" y="133" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">app1 (OTA_1)</text>
+  <text x="410" y="149" font-size="12" fill="#6b7280" text-anchor="middle">3.875 MB</text>
+
+  <!-- Storage (LittleFS / SPIFFS) -->
+  <rect x="515" y="115" width="390" height="40" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="710" y="133" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">spiffs / littlefs (Файлова система)</text>
+  <text x="710" y="149" font-size="12" fill="#6b7280" text-anchor="middle">8.125 MB (Вільний простір для даних)</text>
+
+  <!-- BOTTOM SECTION: Partition Cards -->
+
+  <!-- Card 1: System & NVS -->
+  <rect x="35" y="190" width="265" height="155" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="200" width="245" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="167.5" y="219" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">1. System &amp; NVS (0x0000 — 0x20000)</text>
+  <text x="45" y="243" font-size="12" fill="#1a1a1a">• Bootloader: 0x0000 (36 KB)</text>
+  <text x="45" y="263" font-size="12" fill="#1a1a1a">• NVS: 0x9000 (24 KB, Конфіг)</text>
+  <text x="45" y="283" font-size="12" fill="#1a1a1a">• Otadata: 0xF000 (8 KB, OTA)</text>
+  <text x="45" y="303" font-size="12" fill="#1a1a1a">• PHY: 0x11000 (4 KB, RF)</text>
+  <text x="45" y="325" font-size="12" fill="#6b7280">Завантаження та налаштування</text>
+
+  <!-- Card 2: App 0 (OTA_0) -->
+  <rect x="315" y="190" width="295" height="155" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="325" y="200" width="275" height="28" rx="4" fill="#2457d6"/>
+  <text x="462.5" y="219" font-size="12" font-weight="bold" text-anchor="middle" fill="white">2. Розділ App 0 (0x20000 — 0x400000)</text>
+  <text x="325" y="243" font-size="12" font-weight="bold" fill="#1a1a1a">Тип: app, Підтип: ota_0</text>
+  <text x="325" y="263" font-size="12" fill="#1a1a1a">Початкова адреса: 0x00020000</text>
+  <text x="325" y="283" font-size="12" fill="#1a1a1a">Розмір: 0x003E0000 (3.875 MB)</text>
+  <text x="325" y="303" font-size="12" fill="#2457d6">Основний виконуваний слот</text>
+  <text x="325" y="325" font-size="12" fill="#6b7280">Виконуваний код ESP-IDF/Arduino</text>
+
+  <!-- Card 3: App 1 (OTA_1) -->
+  <rect x="625" y="190" width="300" height="155" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="635" y="200" width="280" height="28" rx="4" fill="#2457d6"/>
+  <text x="775" y="219" font-size="12" font-weight="bold" text-anchor="middle" fill="white">3. Розділ App 1 (0x400000 — 0x7E0000)</text>
+  <text x="635" y="243" font-size="12" font-weight="bold" fill="#1a1a1a">Тип: app, Підтип: ota_1</text>
+  <text x="635" y="263" font-size="12" fill="#1a1a1a">Початкова адреса: 0x00400000</text>
+  <text x="635" y="283" font-size="12" fill="#1a1a1a">Розмір: 0x003E0000 (3.875 MB)</text>
+  <text x="635" y="303" font-size="12" fill="#27ae60">Слот фонового оновлення OTA</text>
+  <text x="635" y="325" font-size="12" fill="#6b7280">Безпечне оновлення «по повітрю»</text>
+
+  <!-- Card 4: LittleFS / SPIFFS Storage -->
+  <rect x="35" y="360" width="575" height="175" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="45" y="370" width="555" height="28" rx="4" fill="#27ae60"/>
+  <text x="322.5" y="389" font-size="12" font-weight="bold" text-anchor="middle" fill="white">4. Розділ LittleFS / SPIFFS (0x7E0000 — 0x1000000)</text>
+  <text x="55" y="415" font-size="12" font-weight="bold" fill="#1a1a1a">Тип: data, Підтип: spiffs / littlefs</text>
+  <text x="55" y="435" font-size="12" fill="#1a1a1a">Початкова адреса: 0x007E0000</text>
+  <text x="55" y="455" font-size="12" fill="#1a1a1a">Розмір: 0x00820000 (8320 KB / ~8.125 MB)</text>
+  <text x="55" y="475" font-size="12" fill="#27ae60">Понад 50% загального обсягу 16 МБ Flash</text>
+  <text x="55" y="495" font-size="12" fill="#6b7280">Зберігає файли веб-сервера, графіку, шрифти та накопичені логи</text>
+
+  <!-- Card 5: partitions.csv Spec -->
+  <rect x="625" y="360" width="300" height="175" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="635" y="370" width="280" height="28" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="775" y="389" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Специфікація partitions.csv</text>
+  <text x="640" y="415" font-size="12" font-weight="bold" fill="#2457d6"># Name, Type, SubType, Offset, Size</text>
+  <text x="640" y="435" font-size="12" fill="#1a1a1a">nvs, data, nvs, 0x9000, 0x6000</text>
+  <text x="640" y="455" font-size="12" fill="#1a1a1a">otadata, data, ota, 0xF000, 0x2000</text>
+  <text x="640" y="475" font-size="12" fill="#1a1a1a">app0, app, ota_0, 0x20000, 0x3E0000</text>
+  <text x="640" y="495" font-size="12" fill="#1a1a1a">app1, app, ota_1, 0x400000, 0x3E0000</text>
+  <text x="640" y="515" font-size="12" fill="#27ae60">spiffs, data, spiffs, 0x7E0000, 0x820000</text>
+</svg>

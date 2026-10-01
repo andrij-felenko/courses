@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Маршрутизація сигналів в ESP32-S3: IO MUX та GPIO Matrix</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Пряме швидкісне підключення периферії проти гнучкого комутувача GPIO Matrix</text>
+
+  <!-- Column 1: Physical Pins QFN56 -->
+  <rect x="40" y="85" width="240" height="320" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="160" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фізичні ніжки QFN56</text>
+  <text x="160" y="130" font-size="12" fill="#6b7280" text-anchor="middle">Вхідні/вихідні буфери (Pads)</text>
+
+  <!-- Direct Pins Box -->
+  <rect x="55" y="148" width="210" height="105" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="68" y="170" font-size="12" font-weight="bold" fill="#2457d6">Прямі виводи (Direct Pads):</text>
+  <text x="68" y="190" font-size="12" fill="#1a1a1a">• GPIO26..37 (Octal SPI)</text>
+  <text x="68" y="210" font-size="12" fill="#1a1a1a">• GPIO19, GPIO20 (USB D-/D+)</text>
+  <text x="68" y="230" font-size="12" fill="#1a1a1a">• GPIO1..10 (АЦП / RTC)</text>
+
+  <!-- Matrix Pins Box -->
+  <rect x="55" y="268" width="210" height="120" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="68" y="290" font-size="12" font-weight="bold" fill="#27ae60">Матричні виводи (Matrix):</text>
+  <text x="68" y="310" font-size="12" fill="#1a1a1a">• GPIO0..18, GPIO21..25</text>
+  <text x="68" y="330" font-size="12" fill="#1a1a1a">• GPIO38..48 (Вільні)</text>
+  <text x="68" y="350" font-size="12" fill="#1a1a1a">• Будь-яка функціональність</text>
+
+  <!-- Flow Arrows Column 1 -> 2 -->
+  <line x1="265" y1="190" x2="350" y2="190" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="265" y1="325" x2="350" y2="325" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Column 2: Switching Layer -->
+  <rect x="340" y="85" width="280" height="320" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="480" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Комутаційний шар (Switching Layer)</text>
+
+  <!-- IO MUX Path Box -->
+  <rect x="355" y="135" width="250" height="110" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="370" y="158" font-size="12" font-weight="bold" fill="#2457d6">Контролер IO MUX (Прямий шлях)</text>
+  <text x="370" y="180" font-size="12" fill="#1a1a1a">✓ Пряме з'єднання з периферією</text>
+  <text x="370" y="200" font-size="12" fill="#1a1a1a">✓ Нульова затримка (0 тактів)</text>
+  <text x="370" y="222" font-size="12" font-weight="bold" fill="#2457d6">Шини: Octal SPI, USB, LCD_CAM</text>
+
+  <!-- GPIO Matrix Path Box -->
+  <rect x="355" y="260" width="250" height="130" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="370" y="282" font-size="12" font-weight="bold" fill="#27ae60">GPIO Matrix (Матричний шлях)</text>
+  <text x="370" y="304" font-size="12" fill="#1a1a1a">✓ Повна довільна комутація</text>
+  <text x="370" y="324" font-size="12" fill="#1a1a1a">• Затримка: +1..2 такти APB</text>
+  <text x="370" y="344" font-size="12" fill="#1a1a1a">• Крос-матричний комутатор</text>
+  <text x="370" y="366" font-size="12" font-weight="bold" fill="#27ae60">Шини: UART, SPI2/3, I2C, PWM</text>
+
+  <!-- Flow Arrows Column 2 -> 3 -->
+  <line x1="605" y1="190" x2="690" y2="190" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="605" y1="325" x2="690" y2="325" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Column 3: Peripheral IP Cores -->
+  <rect x="680" y="85" width="240" height="320" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="800" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Периферійні блоки</text>
+  <text x="800" y="130" font-size="12" fill="#6b7280" text-anchor="middle">Внутрішні контролери SoC</text>
+
+  <!-- High-Speed Dedicated IP Box -->
+  <rect x="695" y="148" width="210" height="105" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="708" y="170" font-size="12" font-weight="bold" fill="#2457d6">Пряма периферія (High Speed):</text>
+  <text x="708" y="190" font-size="12" fill="#1a1a1a">• Octal SPI (Flash/PSRAM)</text>
+  <text x="708" y="210" font-size="12" fill="#1a1a1a">• Native USB CDC/JTAG IP</text>
+  <text x="708" y="230" font-size="12" fill="#1a1a1a">• АЦП / RTC контролер</text>
+
+  <!-- Matrix-Bound IP Box -->
+  <rect x="695" y="268" width="210" height="120" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="708" y="290" font-size="12" font-weight="bold" fill="#27ae60">Матрична периферія (Flex):</text>
+  <text x="708" y="310" font-size="12" fill="#1a1a1a">• UART0, UART1, UART2</text>
+  <text x="708" y="330" font-size="12" fill="#1a1a1a">• General SPI (SPI2 / SPI3)</text>
+  <text x="708" y="350" font-size="12" fill="#1a1a1a">• I2C0, I2C1, LEDC, MCPWM</text>
+
+  <!-- Bottom Comparison Panel -->
+  <rect x="40" y="415" width="880" height="105" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="60" y="436" font-size="13" font-weight="bold" fill="#1a1a1a">Інженерне порівняння прямих ліній IO MUX та гнучкого маршрутизатора GPIO Matrix:</text>
+
+  <!-- Direct IO Card -->
+  <rect x="60" y="448" width="410" height="60" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="75" y="468" font-size="12" font-weight="bold" fill="#2457d6">Пряме підключення через IO MUX (Direct IO):</text>
+  <text x="75" y="490" font-size="12" fill="#1a1a1a">Максимальна частота (до 120 МГц), 0 затримок, для Octal PSRAM/USB</text>
+
+  <!-- Matrix IO Card -->
+  <rect x="490" y="448" width="410" height="60" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="505" y="468" font-size="12" font-weight="bold" fill="#27ae60">Комутація через GPIO Matrix (Flexible IO):</text>
+  <text x="505" y="490" font-size="12" fill="#1a1a1a">Довільна комутація ніжок, +1..2 такти затримки, для UART/I2C/SPI</text>
+</svg>

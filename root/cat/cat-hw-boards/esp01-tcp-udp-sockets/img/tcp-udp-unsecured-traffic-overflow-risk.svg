@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ризики використання незахищених сокетів TCP/UDP на модулі ESP-01</text>
+  <text x="480" y="53" font-size="13" fill="#6b7280" text-anchor="middle">Перехоплення трафіку при відсутності шифрування та переповнення пам'яті DRAM при навантаженні</text>
+
+  <!-- COLUMN 1: Traffic Interception Risk -->
+  <rect x="30" y="85" width="435" height="300" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="40" y="97" width="415" height="32" rx="4" fill="#c0392b"/>
+  <text x="247" y="118" font-size="13" font-weight="bold" fill="white" text-anchor="middle">1. Загроза перехоплення трафіку (Unencrypted TCP/UDP)</text>
+
+  <!-- Flow nodes -->
+  <rect x="50" y="145" width="120" height="50" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="110" y="166" font-size="11" fill="#1a1a1a" text-anchor="middle">Хост MCU / ESP-01</text>
+  <text x="110" y="184" font-size="10" fill="#c0392b" text-anchor="middle">Без шифрування</text>
+
+  <line x1="170" y1="170" x2="310" y2="170" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="240" y="162" font-size="11" fill="#c0392b" text-anchor="middle">Відкритий потік IP</text>
+
+  <rect x="310" y="145" width="120" height="50" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="370" y="166" font-size="11" fill="#1a1a1a" text-anchor="middle">Мережевий сервер</text>
+  <text x="370" y="184" font-size="10" fill="#6b7280" text-anchor="middle">Порт HTTP / TCP</text>
+
+  <!-- Attacker / Sniffer box -->
+  <rect x="175" y="210" width="130" height="55" rx="4" fill="white" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="240" y1="170" x2="240" y2="210" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="240" y="228" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Перехоплювач (MITM)</text>
+  <text x="240" y="248" font-size="10" fill="#1a1a1a" text-anchor="middle">Sniffing API / Data</text>
+
+  <!-- Consequences left box -->
+  <rect x="50" y="280" width="395" height="90" rx="4" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="60" y="300" font-size="11" fill="#1a1a1a">• Витоки ключових паролів, API-ключів та даних</text>
+  <text x="60" y="320" font-size="11" fill="#1a1a1a">• Підміна даних у відкритому каналі (MITM)</text>
+  <text x="60" y="348" font-size="11" font-weight="bold" fill="#27ae60">Захист: Використання TLS/SSL (AT+CIPSTART="SSL",...)</text>
+
+
+  <!-- COLUMN 2: DRAM Memory Overflow Risk -->
+  <rect x="495" y="85" width="435" height="300" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="505" y="97" width="415" height="32" rx="4" fill="#c0392b"/>
+  <text x="712" y="118" font-size="13" font-weight="bold" fill="white" text-anchor="middle">2. Загроза вичерпання DRAM при навантаженні (OOM)</text>
+
+  <!-- Flow nodes right -->
+  <rect x="515" y="145" width="115" height="50" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="572" y="166" font-size="11" fill="#1a1a1a" text-anchor="middle">Швидкі пакети</text>
+  <text x="572" y="184" font-size="10" fill="#6b7280" text-anchor="middle">Високий FPS</text>
+
+  <line x1="630" y1="170" x2="685" y2="170" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <rect x="685" y="145" width="120" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="745" y="166" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Накопичення pbuf</text>
+  <text x="745" y="184" font-size="10" fill="#c0392b" text-anchor="middle">Пам'ять &lt; 5-10 KB</text>
+
+  <line x1="805" y1="170" x2="825" y2="170" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+  <rect x="825" y="145" width="90" height="50" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="870" y="166" font-size="11" fill="#1a1a1a" text-anchor="middle">Повільний UART</text>
+  <text x="870" y="184" font-size="10" fill="#c0392b" text-anchor="middle">Хост MCU</text>
+
+  <!-- Memory Gauge Box -->
+  <rect x="515" y="210" width="395" height="55" rx="4" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="525" y="226" font-size="10" font-weight="bold" fill="#c0392b">DRAM Heap (Заповнено 90%+ · Ризик Out of Memory)</text>
+  <rect x="525" y="234" width="375" height="14" rx="3" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="525" y="234" width="340" height="14" rx="3" fill="#c0392b"/>
+
+  <!-- Consequences right box -->
+  <rect x="515" y="280" width="395" height="90" rx="4" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="525" y="300" font-size="11" fill="#1a1a1a">• Спонтанне розірвання сокетів (&lt;id&gt;,CLOSED)</text>
+  <text x="525" y="320" font-size="11" fill="#1a1a1a">• Відмова у виконанні команд (BUSY s... / ERROR)</text>
+  <text x="525" y="348" font-size="11" font-weight="bold" fill="#27ae60">Захист: Апаратний потік UART, таймаут AT+CIPSTO</text>
+
+
+  <!-- BOTTOM SUMMARY BAR -->
+  <rect x="30" y="400" width="900" height="55" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="45" y="422" font-size="12" font-weight="bold" fill="#2457d6">Комплексний захист мережевого вузла ESP-01:</text>
+  <text x="45" y="442" font-size="11" fill="#1a1a1a">Шифрування SSL/TLS для захисту від перехоплення + контрольовані таймаути CIPSTO й апаратне керування RTS/CTS</text>
+</svg>

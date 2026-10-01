@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Порівняння шинних архітектур пам'яті Quad SPI та Octal SPI в ESP32-S3</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">4-бітна Quad SPI звільняє GPIO33–37, тоді як 8-бітна Octal SPI SiP подвоює швидкість ціною їх зарезервування</text>
+
+  <!-- Left Panel: Quad SPI -->
+  <rect x="30" y="70" width="435" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="95" font-size="15" font-weight="bold" fill="#1a1a1a">Quad SPI (QSPI) — 4-бітна пам'ять</text>
+  <text x="50" y="113" font-size="12" fill="#6b7280">Пропускна здатність: до 40–80 МБ/с (4 лінії даних)</text>
+
+  <!-- Left Panel: SoC Die -->
+  <rect x="50" y="130" width="140" height="175" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="120" y="155" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">ESP32-S3 SoC</text>
+  <text x="120" y="180" text-anchor="middle" font-size="12" fill="#6b7280">Контролер SPI1/2</text>
+  <text x="120" y="210" text-anchor="middle" font-size="12" fill="#1a1a1a">GPIO27–32</text>
+  <text x="120" y="235" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">GPIO33–37</text>
+  <text x="120" y="255" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ВІЛЬНІ</text>
+  <text x="120" y="285" text-anchor="middle" font-size="12" fill="#6b7280">Дискретний чип</text>
+
+  <!-- Left Panel: Bus Lines -->
+  <line x1="190" y1="180" x2="280" y2="180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="235" y="172" text-anchor="middle" font-size="12" fill="#2457d6">4-bit (D0-D3)</text>
+
+  <line x1="190" y1="230" x2="280" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="235" y="222" text-anchor="middle" font-size="12" fill="#2457d6">CLK / CS</text>
+
+  <!-- Left Panel: QSPI Flash/PSRAM Chip -->
+  <rect x="285" y="130" width="160" height="175" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="365" y="160" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">QSPI Flash / PSRAM</text>
+  <text x="365" y="190" text-anchor="middle" font-size="12" fill="#6b7280">Зовнішній чип</text>
+  <text x="365" y="220" text-anchor="middle" font-size="12" fill="#1a1a1a">Шина Quad SPI</text>
+  <text x="365" y="250" text-anchor="middle" font-size="12" fill="#6b7280">Модулі N4 / N8R2</text>
+
+  <!-- Left Panel: Free Pins Box (Green) -->
+  <rect x="50" y="320" width="395" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="65" y="345" font-size="13" font-weight="bold" fill="#27ae60">Вільні виводи для периферії: GPIO33–GPIO37</text>
+  <text x="65" y="368" font-size="12" fill="#1a1a1a">• Лінії GPIO33–37 виведені на зовнішні контакти модуля</text>
+  <text x="65" y="392" font-size="12" fill="#1a1a1a">• Доступні під I2C, SPI, UART, PWM та ADC без конфліктів</text>
+
+  <!-- Right Panel: Octal SPI -->
+  <rect x="495" y="70" width="435" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="515" y="95" font-size="15" font-weight="bold" fill="#1a1a1a">Octal SPI (OSPI) — 8-бітна SiP пам'ять</text>
+  <text x="515" y="113" font-size="12" fill="#6b7280">Пропускна здатність: до 160 МБ/с (8 ліній DDR)</text>
+
+  <!-- Right Panel: SiP Outer Package Box -->
+  <rect x="515" y="130" width="395" height="175" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="525" y="148" font-size="12" font-weight="bold" fill="#2457d6">Корпус SiP (System-in-Package)</text>
+
+  <!-- Right Panel: SoC Sub-Die -->
+  <rect x="530" y="160" width="125" height="130" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="592" y="190" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">ESP32-S3 Die</text>
+  <text x="592" y="215" text-anchor="middle" font-size="12" fill="#6b7280">Вектори LX7</text>
+  <text x="592" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">GPIO33–37 Z-BUS</text>
+
+  <!-- Right Panel: OSPI Bus Connections -->
+  <line x1="655" y1="195" x2="760" y2="195" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="707" y="187" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">8-bit OSPI</text>
+  <text x="707" y="212" text-anchor="middle" font-size="12" fill="#2457d6">D0-D7 + DQS</text>
+
+  <line x1="655" y1="235" x2="760" y2="235" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="707" y="228" text-anchor="middle" font-size="12" fill="#2457d6">PCLK / CS</text>
+
+  <!-- Right Panel: OSPI PSRAM Sub-Die -->
+  <rect x="765" y="160" width="130" height="130" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="830" y="190" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Octal PSRAM</text>
+  <text x="830" y="215" text-anchor="middle" font-size="12" fill="#6b7280">8-bit DDR</text>
+  <text x="830" y="240" text-anchor="middle" font-size="12" fill="#2457d6">Внутрішній SiP</text>
+
+  <!-- Right Panel: Reserved Pins Box (Red) -->
+  <rect x="515" y="320" width="395" height="95" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="530" y="345" font-size="13" font-weight="bold" fill="#c0392b">Зарезервовані виводи: GPIO33–GPIO37</text>
+  <text x="530" y="368" font-size="12" fill="#1a1a1a">• Лінії GPIO33–37 жорстко задействовані під шину OSPI</text>
+  <text x="530" y="392" font-size="12" fill="#1a1a1a">• Підключення периферії викликає конфлікт і boot loop!</text>
+</svg>

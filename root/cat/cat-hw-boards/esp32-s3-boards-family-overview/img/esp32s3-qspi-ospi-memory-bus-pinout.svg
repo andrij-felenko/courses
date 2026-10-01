@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Топологія шин пам'яті ESP32-S3: Quad SPI проти Octal SPI</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Octal SPI подвоює пропускну здатність, але повністю резервує виводи GPIO26–GPIO37</text>
+
+  <!-- LEFT PANEL: Quad SPI -->
+  <rect x="35" y="75" width="435" height="455" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="252.5" y="102" text-anchor="middle" font-size="16" font-weight="bold" fill="#2457d6">Quad SPI (4-bit Flash / PSRAM)</text>
+  <text x="252.5" y="122" text-anchor="middle" font-size="12" fill="#6b7280">6 виводів шини • GPIO26–GPIO37 вільні для периферії</text>
+
+  <!-- Left: MCU Box -->
+  <rect x="55" y="145" width="160" height="165" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="135" y="170" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">ESP32-S3 MCU</text>
+  <text x="135" y="190" text-anchor="middle" font-size="12" fill="#2457d6">Контролер SPI0/SPI1</text>
+  <line x1="65" y1="202" x2="205" y2="202" stroke="#eaf0fd" stroke-width="1"/>
+  <text x="65" y="222" font-size="12" fill="#1a1a1a">SPICS0 (GPIO10)</text>
+  <text x="65" y="240" font-size="12" fill="#1a1a1a">SPICLK (GPIO12)</text>
+  <text x="65" y="258" font-size="12" fill="#1a1a1a">SPIQ, SPID (GPIO13,11)</text>
+  <text x="65" y="276" font-size="12" fill="#1a1a1a">SPIWP, SPIHD (GPIO9,14)</text>
+
+  <!-- Left: Bus Arrow & Labels -->
+  <line x1="215" y1="225" x2="290" y2="225" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="255" y="215" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">6 ліній SPI</text>
+  <text x="255" y="242" text-anchor="middle" font-size="11" fill="#6b7280">4-bit data</text>
+
+  <!-- Left: Memory Box -->
+  <rect x="295" y="145" width="160" height="165" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="375" y="170" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Quad Memory</text>
+  <text x="375" y="190" text-anchor="middle" font-size="12" fill="#27ae60">Flash + PSRAM</text>
+  <line x1="305" y1="202" x2="445" y2="202" stroke="#e9f7ef" stroke-width="1"/>
+  <text x="305" y="222" font-size="12" fill="#1a1a1a">• Quad Flash (N4/N8)</text>
+  <text x="305" y="240" font-size="12" fill="#1a1a1a">• Quad PSRAM (R2)</text>
+  <text x="305" y="258" font-size="12" fill="#1a1a1a">• Частота: 80 МГц</text>
+  <text x="305" y="276" font-size="12" fill="#27ae60">• Низьке споживання</text>
+
+  <!-- Left: Status Box -->
+  <rect x="55" y="325" width="400" height="185" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="255" y="350" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Статус виводів GPIO26–GPIO37</text>
+  <rect x="95" y="362" width="320" height="28" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="255" y="381" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">✓ ПОВНІСТЮ ВІЛЬНІ ДЛЯ ПЕРИФЕРІЇ</text>
+  <text x="75" y="412" font-size="12" fill="#1a1a1a">• GPIO26–GPIO32: Доступні користувачеві</text>
+  <text x="75" y="434" font-size="12" fill="#1a1a1a">• GPIO33–GPIO37: Доступні користувачеві</text>
+  <text x="75" y="456" font-size="12" fill="#1a1a1a">• Можна підключати: I2C, SPI2, ADC, UART</text>
+  <text x="75" y="478" font-size="12" fill="#6b7280">• Максимальна гнучкість розпіновки</text>
+
+
+  <!-- RIGHT PANEL: Octal SPI -->
+  <rect x="490" y="75" width="435" height="455" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="707.5" y="102" text-anchor="middle" font-size="16" font-weight="bold" fill="#c0392b">Octal SPI (8-bit OPI Flash / PSRAM)</text>
+  <text x="707.5" y="122" text-anchor="middle" font-size="12" fill="#6b7280">12 виводів шини • GPIO26–GPIO37 зарезервовані</text>
+
+  <!-- Right: MCU Box -->
+  <rect x="510" y="145" width="160" height="165" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="590" y="170" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">ESP32-S3 MCU</text>
+  <text x="590" y="190" text-anchor="middle" font-size="12" fill="#c0392b">Octal SPI Controller</text>
+  <line x1="520" y1="202" x2="660" y2="202" stroke="#fdecea" stroke-width="1"/>
+  <text x="520" y="222" font-size="12" fill="#1a1a1a">SPICS0, SPICLK (10,12)</text>
+  <text x="520" y="240" font-size="12" fill="#1a1a1a">D0–D3 (GPIO11,13,9,14)</text>
+  <text x="520" y="258" font-size="12" fill="#c0392b">D4–D7 (GPIO33..36)</text>
+  <text x="520" y="276" font-size="12" fill="#c0392b">DQS (GPIO26), CS1 (37)</text>
+
+  <!-- Right: Bus Arrow & Labels -->
+  <line x1="670" y1="225" x2="745" y2="225" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+  <text x="710" y="215" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">12 ліній OPI</text>
+  <text x="710" y="242" text-anchor="middle" font-size="11" fill="#6b7280">8-bit DDR</text>
+
+  <!-- Right: Memory Box -->
+  <rect x="750" y="145" width="160" height="165" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="830" y="170" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Octal Memory</text>
+  <text x="830" y="190" text-anchor="middle" font-size="12" fill="#c0392b">OPI Flash + PSRAM</text>
+  <line x1="760" y1="202" x2="900" y2="202" stroke="#fdecea" stroke-width="1"/>
+  <text x="760" y="222" font-size="12" fill="#1a1a1a">• Octal Flash (N16)</text>
+  <text x="760" y="240" font-size="12" fill="#1a1a1a">• Octal PSRAM (R8)</text>
+  <text x="760" y="258" font-size="12" fill="#1a1a1a">• Частота: 120 МГц DDR</text>
+  <text x="760" y="276" font-size="12" fill="#c0392b">• Подвійна швидкість</text>
+
+  <!-- Right: Status Box -->
+  <rect x="510" y="325" width="400" height="185" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="710" y="350" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Статус виводів GPIO26–GPIO37</text>
+  <rect x="550" y="362" width="320" height="28" fill="#ffffff" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="710" y="381" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">⛔ ЗАРЕЗЕРВОВАНІ ПІД ШИНУ OPI</text>
+  <text x="530" y="412" font-size="12" fill="#1a1a1a">• GPIO26–GPIO32: Зайняті під D4-D7, DQS</text>
+  <text x="530" y="434" font-size="12" fill="#1a1a1a">• GPIO33–GPIO37: Зайняті під CLK, CS1</text>
+  <text x="530" y="456" font-size="12" fill="#c0392b">• ❌ Заборонено використовувати як GPIO</text>
+  <text x="530" y="478" font-size="12" fill="#6b7280">• Використовуються лише всередині модуля</text>
+</svg>

@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розподіл пам'яті lwIP pbuf та захист від вичерпання RAM в ESP-01</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Структура буферів pbuf (RAM, POOL, REF/ROM) та багаторівневий захист від вичерпання купи (Heap)</text>
+
+  <!-- Панель 1: Карта RAM ESP-01 -->
+  <rect x="25" y="75" width="280" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="165" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Карта оперативної пам'яті (SRAM)</text>
+
+  <!-- Системна RAM -->
+  <rect x="40" y="115" width="250" height="60" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="138" font-size="13" font-weight="bold" fill="#1a1a1a">Системна RAM (DRAM)</text>
+  <text x="50" y="158" font-size="12" fill="#6b7280">Стек ОС, змінні прошивки, SDK</text>
+
+  <!-- Мережева пам'ять lwIP -->
+  <rect x="40" y="187" width="250" height="195" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="50" y="210" font-size="13" font-weight="bold" fill="#2457d6">Пам'ять стеків lwIP</text>
+
+  <rect x="52" y="222" width="226" height="68" rx="4" fill="#ffffff" stroke="#2457d6" stroke-dasharray="3 3" stroke-width="1"/>
+  <text x="62" y="242" font-size="12" font-weight="bold" fill="#2457d6">MEMP_PBUF_POOL</text>
+  <text x="62" y="260" font-size="12" fill="#1a1a1a">Фіксовані блоки (~512B кожен)</text>
+  <text x="62" y="278" font-size="12" fill="#6b7280">Швидкий прийом RX-пакетів</text>
+
+  <rect x="52" y="298" width="226" height="72" rx="4" fill="#ffffff" stroke="#2457d6" stroke-dasharray="3 3" stroke-width="1"/>
+  <text x="62" y="318" font-size="12" font-weight="bold" fill="#2457d6">MEM_SIZE (lwIP Heap)</text>
+  <text x="62" y="336" font-size="12" fill="#1a1a1a">Динамічне виділення pbuf_ram</text>
+  <text x="62" y="354" font-size="12" fill="#6b7280">Вихідні буфери TCP/UDP</text>
+
+  <!-- Поріг безпеки -->
+  <rect x="40" y="394" width="250" height="92" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="50" y="416" font-size="13" font-weight="bold" fill="#c0392b">Поріг безпеки (Watermark)</text>
+  <text x="50" y="436" font-size="12" fill="#1a1a1a">Зарезервований мінімум Heap</text>
+  <text x="50" y="454" font-size="12" fill="#c0392b">Критичний ліміт: ~4–8 KB</text>
+  <text x="50" y="472" font-size="12" fill="#6b7280">Захист від Fatal OOM Crash</text>
+
+  <!-- Панель 2: Типи pbuf -->
+  <rect x="320" y="75" width="350" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="495" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Типи буферів pbuf у пам'яті</text>
+
+  <!-- PBUF_RAM -->
+  <rect x="335" y="115" width="320" height="108" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="348" y="135" font-size="13" font-weight="bold" fill="#1a1a1a">1. PBUF_RAM (динамічний у Heap)</text>
+  <rect x="348" y="146" width="90" height="42" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="393" y="163" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">struct pbuf</text>
+  <text x="393" y="179" text-anchor="middle" font-size="12" fill="#6b7280">16 байт</text>
+
+  <rect x="442" y="146" width="198" height="42" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="541" y="163" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Корисні дані (Payload)</text>
+  <text x="541" y="179" text-anchor="middle" font-size="12" fill="#1a1a1a">Виділяються одним блоком</text>
+  <text x="348" y="208" font-size="12" fill="#6b7280">Заголовок і дані розміщені послідовно в Heap</text>
+
+  <!-- PBUF_POOL -->
+  <rect x="335" y="235" width="320" height="120" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="348" y="255" font-size="13" font-weight="bold" fill="#1a1a1a">2. PBUF_POOL (зв'язаний список)</text>
+  <rect x="348" y="266" width="125" height="42" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="410" y="283" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">pbuf 1 (Pool)</text>
+  <text x="410" y="299" text-anchor="middle" font-size="12" fill="#1a1a1a">512 B блок</text>
+
+  <line x1="477" y1="287" x2="505" y2="287" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="491" y="280" text-anchor="middle" font-size="12" fill="#2457d6">next</text>
+
+  <rect x="510" y="266" width="130" height="42" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="575" y="283" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">pbuf 2 (Pool)</text>
+  <text x="575" y="299" text-anchor="middle" font-size="12" fill="#1a1a1a">залишок даних</text>
+  <text x="348" y="328" font-size="12" fill="#6b7280">Каскадне об'єднання декількох фіксованих блоків</text>
+  <text x="348" y="344" font-size="12" fill="#6b7280">Використовується для мережевого прийому RX</text>
+
+  <!-- PBUF_REF / PBUF_ROM -->
+  <rect x="335" y="367" width="320" height="118" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="348" y="387" font-size="13" font-weight="bold" fill="#1a1a1a">3. PBUF_REF / PBUF_ROM (Zero-Copy)</text>
+  <rect x="348" y="398" width="110" height="42" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="403" y="415" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">struct pbuf</text>
+  <text x="403" y="431" text-anchor="middle" font-size="12" fill="#6b7280">RAM (16 B)</text>
+
+  <line x1="462" y1="419" x2="505" y2="419" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-blue)"/>
+  <text x="483" y="412" text-anchor="middle" font-size="12" fill="#2457d6">payload</text>
+
+  <rect x="510" y="398" width="130" height="42" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="575" y="415" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Flash / ROM</text>
+  <text x="575" y="431" text-anchor="middle" font-size="12" fill="#6b7280">статичні дані</text>
+  <text x="348" y="460" font-size="12" fill="#6b7280">Дані не копіюються в RAM (Zero-Copy TX)</text>
+  <text x="348" y="476" font-size="12" fill="#6b7280">Вказівник payload посилається прямо у Flash</text>
+
+  <!-- Панель 3: Механізм захисту RAM -->
+  <rect x="685" y="75" width="250" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="810" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Захист від вичерпання RAM</text>
+
+  <!-- Крок 1 -->
+  <rect x="702" y="115" width="216" height="48" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="810" y="134" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Вхідний пакет (RX Packet)</text>
+  <text x="810" y="151" text-anchor="middle" font-size="12" fill="#6b7280">Запит виділення pbuf_alloc()</text>
+
+  <line x1="810" y1="163" x2="810" y2="180" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Крок 2 -->
+  <rect x="702" y="180" width="216" height="48" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="810" y="199" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Оцінка вільній RAM</text>
+  <text x="810" y="216" text-anchor="middle" font-size="12" fill="#6b7280">Порівняння з Watermark</text>
+
+  <!-- Гілки -->
+  <line x1="754" y1="228" x2="754" y2="248" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="866" y1="228" x2="866" y2="248" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Гілка OK -->
+  <rect x="702" y="248" width="104" height="75" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="754" y="267" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">RAM > Watermark</text>
+  <text x="754" y="286" text-anchor="middle" font-size="12" fill="#1a1a1a">pbuf виділено</text>
+  <text x="754" y="304" text-anchor="middle" font-size="12" fill="#6b7280">Передача в сокет</text>
+
+  <!-- Гілка CRITICAL -->
+  <rect x="814" y="248" width="104" height="75" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="866" y="267" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">RAM &lt; Watermark</text>
+  <text x="866" y="286" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">pbuf = NULL</text>
+  <text x="866" y="304" text-anchor="middle" font-size="12" fill="#6b7280">Захисна відмова</text>
+
+  <line x1="866" y1="323" x2="866" y2="340" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Блок захисних дій -->
+  <rect x="702" y="340" width="216" height="145" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="712" y="362" font-size="12" font-weight="bold" fill="#c0392b">Дії захисту системи:</text>
+  <text x="712" y="384" font-size="12" fill="#1a1a1a">• TCP: надсилання Zero Window</text>
+  <text x="712" y="404" font-size="12" fill="#1a1a1a">• UDP: відкидання пакета (Drop)</text>
+  <text x="712" y="424" font-size="12" fill="#1a1a1a">• Звільнення старих pbuf</text>
+  <text x="712" y="456" font-size="12" font-weight="bold" fill="#27ae60">Результат: запобігання Crash/OOM</text>
+</svg>

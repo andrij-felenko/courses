@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Системна архітектура ядер Xtensa LX7 та векторний прискорювач PIE</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Конвеєр SIMD-обробки даних, векторні регістри Q0–Q7 та вибірка 128-бітних інструкцій</text>
+
+  <!-- Лівий блок: Двоядерний процесор Xtensa LX7 -->
+  <rect x="30" y="70" width="320" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="70" width="320" height="34" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="190" y="93" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">Двоядерна система Xtensa LX7</text>
+
+  <!-- Ядро 0 (PRO_CPU) -->
+  <rect x="42" y="115" width="296" height="150" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="54" y="135" font-size="13" font-weight="bold" fill="#1a1a1a">Процесорне ядро Core 0 (PRO_CPU)</text>
+  <rect x="54" y="147" width="272" height="32" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="190" y="168" font-size="12" text-anchor="middle" fill="#1a1a1a">7-ступеневий конвеєр інструкцій LX7</text>
+  <rect x="54" y="187" width="272" height="32" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="190" y="208" font-size="12" text-anchor="middle" fill="#1a1a1a">Локальна I-Cache / D-Cache пам'ять</text>
+  <rect x="54" y="227" width="272" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="190" y="246" font-size="12" text-anchor="middle" fill="#27ae60">Апаратний прискорювач FPU (32-bit)</text>
+
+  <!-- Ядро 1 (APP_CPU) -->
+  <rect x="42" y="280" width="296" height="110" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="54" y="300" font-size="13" font-weight="bold" fill="#1a1a1a">Процесорне ядро Core 1 (APP_CPU)</text>
+  <rect x="54" y="312" width="272" height="32" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="190" y="333" font-size="12" text-anchor="middle" fill="#1a1a1a">7-ступеневий конвеєр LX7 + FPU</text>
+  <rect x="54" y="350" width="272" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="190" y="369" font-size="12" text-anchor="middle" fill="#2457d6">Сопроцесорний декодер інструкцій PIE</text>
+
+  <!-- Контролер пам'яті та системні шини -->
+  <rect x="42" y="405" width="296" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="190" y="426" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Внутрішня шина та контролер пам'яті</text>
+  <rect x="54" y="438" width="272" height="30" rx="4" fill="white" stroke="#2457d6"/>
+  <text x="190" y="458" font-size="12" text-anchor="middle" fill="#1a1a1a">Кеш-контролер MMU (SRAM &amp; PSRAM)</text>
+  <rect x="54" y="476" width="272" height="32" rx="4" fill="white" stroke="#2457d6"/>
+  <text x="190" y="497" font-size="12" text-anchor="middle" fill="#1a1a1a">128-бітна шина DMA та арбітр SRAM</text>
+
+  <!-- Правий блок: Векторний модуль PIE -->
+  <rect x="430" y="70" width="500" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="430" y="70" width="500" height="34" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="680" y="93" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">Векторний прискорювач PIE (SIMD Coprocessor)</text>
+
+  <!-- Векторні регістри Q0-Q7 -->
+  <rect x="444" y="115" width="472" height="130" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="456" y="133" font-size="13" font-weight="bold" fill="#1a1a1a">Файл векторних регістрів Q0–Q7 (128 біт кожен)</text>
+
+  <!-- Схема регістра Q0 -->
+  <rect x="456" y="143" width="448" height="38" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="462" y="167" font-size="12" font-weight="bold" fill="#2457d6">Q0:</text>
+  <rect x="490" y="147" width="94" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="537" y="166" font-size="11" text-anchor="middle" fill="#2457d6">32-bit [127:96]</text>
+  <rect x="590" y="147" width="94" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="637" y="166" font-size="11" text-anchor="middle" fill="#2457d6">32-bit [95:64]</text>
+  <rect x="690" y="147" width="94" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="737" y="166" font-size="11" text-anchor="middle" fill="#2457d6">32-bit [63:32]</text>
+  <rect x="790" y="147" width="94" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="837" y="166" font-size="11" text-anchor="middle" fill="#2457d6">32-bit [31:0]</text>
+
+  <!-- Опис Q1-Q7 та допоміжних регістрів -->
+  <rect x="456" y="187" width="448" height="48" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="464" y="205" font-size="12" font-weight="bold" fill="#6b7280">Q1..Q7:</text>
+  <text x="515" y="205" font-size="12" fill="#1a1a1a">Формати SIMD: 16 × 8-bit | 8 × 16-bit | 4 × 32-bit</text>
+  <text x="464" y="225" font-size="11" fill="#6b7280">Спеціальні регістри: SAR (зсув) та 32-бітові акумулятори ACC0–ACC1</text>
+
+  <!-- Блок конвеєра SIMD -->
+  <rect x="444" y="258" width="472" height="155" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="680" y="278" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">Векторний конвеєр обчислень SIMD</text>
+
+  <rect x="456" y="290" width="215" height="52" rx="4" fill="white" stroke="#27ae60"/>
+  <text x="563" y="311" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Паралельний векторний MAC</text>
+  <text x="563" y="331" font-size="12" text-anchor="middle" fill="#6b7280">16×8-bit або 8×16-bit за 1 такт</text>
+
+  <rect x="679" y="290" width="225" height="52" rx="4" fill="white" stroke="#27ae60"/>
+  <text x="791" y="311" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Векторне АЛУ та насичення</text>
+  <text x="791" y="331" font-size="12" text-anchor="middle" fill="#6b7280">Додавання, зсув та нормалізація</text>
+
+  <rect x="456" y="350" width="448" height="50" rx="4" fill="white" stroke="#27ae60"/>
+  <text x="680" y="371" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Прискорювач нелінійних активацій та LUT (TinyML / DSP)</text>
+  <text x="680" y="390" font-size="12" text-anchor="middle" fill="#6b7280">Апаратна таблична вибірка та поліноміальна апроксимація</text>
+
+  <!-- Блок вибірки й вирівнювання пам'яті -->
+  <rect x="444" y="425" width="472" height="95" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="680" y="445" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">128-бітний інтерфейс завантаження та вирівнювання пам'яті</text>
+
+  <rect x="456" y="455" width="215" height="52" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="563" y="476" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Прямий доступ 128-bit Load/Store</text>
+  <text x="563" y="496" font-size="12" text-anchor="middle" fill="#6b7280">Вибірка 16 байт за один цикл</text>
+
+  <rect x="679" y="455" width="225" height="52" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="791" y="476" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Блок вирівнювання даних</text>
+  <text x="791" y="496" font-size="12" text-anchor="middle" fill="#6b7280">Обробка невирівняних векторів</text>
+
+  <!-- Зв'язки (стрілки) у 80px просвіті між блоками (x=350..430) -->
+  <path d="M350,364 L422,364" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="390" y="352" font-size="12" text-anchor="middle" fill="#1a1a1a">Інструкції</text>
+
+  <path d="M350,492 L422,492" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="390" y="480" font-size="12" text-anchor="middle" fill="#2457d6">Шина 128b</text>
+</svg>

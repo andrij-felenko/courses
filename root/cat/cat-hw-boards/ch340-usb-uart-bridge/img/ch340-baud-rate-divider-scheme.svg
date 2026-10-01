@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Синтез частоти Baud Rate в апаратному дільнику CH340</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Формування тактування UART з базової частоти 6 МГц через прескалер K та дільник C</text>
+
+  <!-- Top Panel: USB Setup Packet Input -->
+  <rect x="160" y="75" width="640" height="70" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="180" y="96" font-size="13" font-weight="bold" fill="#1a1a1a">Вхідні параметри USB Setup-пакета (bRequest = 0x9A):</text>
+  
+  <rect x="180" y="105" width="280" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="190" y="125" font-size="12" fill="#1a1a1a">wValue: прескалер n (K = 2ⁿ)</text>
+  
+  <rect x="490" y="105" width="290" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="500" y="125" font-size="12" fill="#1a1a1a">wIndex: значення дільника C (0...255)</text>
+
+  <!-- Down Control Arrows from Setup Packet to Blocks -->
+  <line x1="320" y1="135" x2="320" y2="190" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr-blue)"/>
+  <text x="328" y="165" font-size="12" fill="#2457d6">n → K</text>
+
+  <line x1="635" y1="135" x2="635" y2="190" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr-blue)"/>
+  <text x="643" y="165" font-size="12" fill="#2457d6">C → N=256-C</text>
+
+  <!-- Block 1: Base Clock Generator -->
+  <rect x="40" y="190" width="180" height="140" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="130" y="215" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішній генератор</text>
+  <text x="130" y="240" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">F_base = 6.0 МГц</text>
+  <text x="130" y="265" font-size="12" fill="#6b7280" text-anchor="middle">Тактування від 12 МГц</text>
+  <text x="130" y="285" font-size="12" fill="#6b7280" text-anchor="middle">кварцу чи RC-кола</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="220" y1="260" x2="260" y2="260" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="240" y="248" font-size="12" fill="#1a1a1a" text-anchor="middle">F_base</text>
+
+  <!-- Block 2: Prescaler -->
+  <rect x="260" y="190" width="220" height="140" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="370" y="215" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Попередній прескалер</text>
+  <text x="370" y="240" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Коефіцієнт K = 2ⁿ</text>
+  <text x="370" y="265" font-size="12" fill="#1a1a1a" text-anchor="middle">n ∈ {0, 1, 2, 3}</text>
+  <text x="370" y="285" font-size="12" fill="#6b7280" text-anchor="middle">K ∈ {1, 2, 4, 8}</text>
+  <text x="370" y="310" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">F_presc = F_base / K</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="480" y1="260" x2="520" y2="260" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="500" y="248" font-size="12" fill="#1a1a1a" text-anchor="middle">F_presc</text>
+
+  <!-- Block 3: 8-bit Down Counter -->
+  <rect x="520" y="190" width="230" height="140" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="635" y="215" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">8-бітний лічильник N</text>
+  <text x="635" y="240" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">N = 256 - C</text>
+  <text x="635" y="265" font-size="12" fill="#1a1a1a" text-anchor="middle">C — регістр з wIndex</text>
+  <text x="635" y="285" font-size="12" fill="#6b7280" text-anchor="middle">Кількість імпульсів на біт</text>
+  <text x="635" y="310" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">F_out = F_presc / N</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <line x1="750" y1="260" x2="790" y2="260" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="770" y="248" font-size="12" fill="#27ae60" text-anchor="middle">F_out</text>
+
+  <!-- Block 4: Baud Clock Output -->
+  <rect x="790" y="190" width="130" height="140" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="855" y="225" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Baud Clock</text>
+  <text x="855" y="255" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">B_real</text>
+  <text x="855" y="285" font-size="12" fill="#6b7280" text-anchor="middle">Тактування</text>
+  <text x="855" y="305" font-size="12" fill="#6b7280" text-anchor="middle">UART TX/RX</text>
+
+  <!-- Bottom Panel Left: Formulas -->
+  <rect x="40" y="360" width="420" height="160" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="385" font-size="13" font-weight="bold" fill="#1a1a1a">Математичні формули синтезу частоти:</text>
+  <text x="60" y="415" font-size="13" font-weight="bold" fill="#2457d6">1. N = round( F_base / (Baud × K) )</text>
+  <text x="60" y="445" font-size="13" font-weight="bold" fill="#2457d6">2. C = 256 - N</text>
+  <text x="60" y="475" font-size="13" font-weight="bold" fill="#27ae60">3. B_real = F_base / (N × K)</text>
+  <text x="60" y="502" font-size="12" fill="#6b7280">Похибка: err = ( |B_real - Baud| / Baud ) × 100%</text>
+
+  <!-- Bottom Panel Right: Example Calculation -->
+  <rect x="480" y="360" width="440" height="160" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="500" y="385" font-size="13" font-weight="bold" fill="#27ae60">Приклад розрахунку (Baud = 115200 біт/с, K = 1):</text>
+  <text x="500" y="412" font-size="12" fill="#1a1a1a">• N = 6 000 000 / (115200 × 1) = 52.083 → N = 52</text>
+  <text x="500" y="437" font-size="12" fill="#1a1a1a">• C = 256 - 52 = 204 (0xCC) → wIndex = 0x00CC</text>
+  <text x="500" y="462" font-size="12" fill="#1a1a1a">• B_real = 6 000 000 / (52 × 1) = 115 384.6 біт/с</text>
+  <text x="500" y="492" font-size="13" font-weight="bold" fill="#27ae60">• Похибка err = 0.16%  (&lt; 2.5% допуску UART — ТАК)</text>
+</svg>

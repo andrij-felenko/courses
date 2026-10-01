@@ -1,0 +1,150 @@
+<svg width="960" height="530" viewBox="0 0 960 530" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Title Header -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схемотехніка живлення та USB CDC/JTAG плати Waveshare ESP32-S3R2</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Пряме підключення USB D+/D- до кристала ESP32-S3R2 (SiP) та стабілізація напруги LDO 3.3В</text>
+
+  <!-- PANEL 1: USB TYPE-C INTERFACE -->
+  <rect x="24" y="75" width="220" height="255" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="36" y="85" width="196" height="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="134" y="102" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Роз'єм USB Type-C</text>
+
+  <rect x="36" y="120" width="196" height="135" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="48" y="140" font-size="12" font-weight="bold" fill="#c0392b">VBUS (5V)</text>
+  <line x1="165" y1="145" x2="220" y2="145" stroke="#c0392b" stroke-width="2"/>
+
+  <text x="48" y="170" font-size="12" font-weight="bold" fill="#2457d6">D- (Data-)</text>
+  <line x1="165" y1="175" x2="220" y2="175" stroke="#2457d6" stroke-width="2"/>
+
+  <text x="48" y="200" font-size="12" font-weight="bold" fill="#2457d6">D+ (Data+)</text>
+  <line x1="165" y1="205" x2="220" y2="205" stroke="#2457d6" stroke-width="2"/>
+
+  <text x="48" y="230" font-size="12" font-weight="bold" fill="#1a1a1a">GND (0V)</text>
+  <line x1="165" y1="235" x2="220" y2="235" stroke="#1a1a1a" stroke-width="2"/>
+
+  <rect x="36" y="265" width="196" height="55" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="46" y="285" font-size="11" fill="#6b7280">• CC1 / CC2: 5.1kΩ до GND</text>
+  <text x="46" y="305" font-size="11" fill="#6b7280">• Апаратний вибір 5V</text>
+
+  <!-- PANEL 2: LDO POWER REGULATOR -->
+  <rect x="268" y="75" width="240" height="255" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="280" y="85" width="216" height="26" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="388" y="102" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">LDO-стабілізатор 3.3V</text>
+
+  <!-- 5V Input Line -->
+  <text x="248" y="135" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">+5V</text>
+  <line x1="220" y1="145" x2="345" y2="145" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- C_in Capacitor -->
+  <line x1="300" y1="145" x2="300" y2="172" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="292" y="172" width="16" height="18" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="300" y1="190" x2="300" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="314" y="178" font-size="11" font-weight="bold" fill="#1a1a1a">C_in</text>
+  <text x="314" y="193" font-size="11" fill="#6b7280">10µF</text>
+
+  <!-- LDO Chip -->
+  <rect x="345" y="125" width="90" height="85" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="390" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">ME6211</text>
+  <text x="390" y="165" text-anchor="middle" font-size="11" fill="#6b7280">500mA LDO</text>
+  <text x="390" y="193" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Вихід 3.3 В</text>
+
+  <!-- 3.3V Output Line -->
+  <text x="495" y="135" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">+3.3V</text>
+  <line x1="435" y1="145" x2="548" y2="145" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- C_out Capacitor -->
+  <line x1="460" y1="145" x2="460" y2="172" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="452" y="172" width="16" height="18" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="460" y1="190" x2="460" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="472" y="178" font-size="11" font-weight="bold" fill="#1a1a1a">C_out</text>
+  <text x="472" y="193" font-size="11" fill="#6b7280">10µF + 0.1µF</text>
+
+  <!-- GND Rail inside Panel 2 -->
+  <line x1="280" y1="230" x2="496" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="388" y="246" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">GND (0V Rail)</text>
+
+  <rect x="280" y="265" width="216" height="55" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="286" y="285" font-size="11" fill="#6b7280">• Діод Шотткі захисту від струму</text>
+  <text x="286" y="305" font-size="11" fill="#6b7280">• Низький рівень завад для радіо</text>
+
+  <!-- PANEL 3: ESP32-S3R2 SOC & MEMORY -->
+  <rect x="532" y="75" width="404" height="255" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="544" y="85" width="380" height="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="734" y="102" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Система-в-корпусі (SiP) ESP32-S3R2</text>
+
+  <!-- Direct USB Data Lines Routing (Under Panel 2) -->
+  <path d="M 220,175 L 244,175 L 244,345 L 520,345 L 520,225 L 556,225" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <path d="M 220,205 L 254,205 L 254,355 L 528,355 L 528,241 L 556,241" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <text x="387" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Прямі лінії USB D-/D+ (GPIO19 / GPIO20)</text>
+
+  <!-- SoC Core Chip Box -->
+  <rect x="548" y="120" width="212" height="198" fill="#ffffff" stroke="#1a1a1a" stroke-width="2" rx="6"/>
+  <text x="654" y="138" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">ESP32-S3R2 SoC</text>
+  <text x="654" y="154" text-anchor="middle" font-size="11" fill="#6b7280">Dual-Core Xtensa LX7</text>
+
+  <!-- Internal SiP PSRAM -->
+  <rect x="556" y="166" width="196" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="654" y="186" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">2 МБ Octal PSRAM (SiP)</text>
+
+  <!-- Internal USB CDC / JTAG -->
+  <rect x="556" y="208" width="196" height="44" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="654" y="225" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Вбудований USB CDC / JTAG</text>
+  <text x="654" y="241" text-anchor="middle" font-size="11" fill="#1a1a1a">GPIO19 (D-) / GPIO20 (D+)</text>
+
+  <!-- Cryptography Block -->
+  <rect x="556" y="260" width="196" height="46" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="654" y="278" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">RSA / AES / HMAC / eFuse</text>
+  <text x="654" y="294" text-anchor="middle" font-size="11" fill="#6b7280">Апаратний захист прошивки</text>
+
+  <!-- External SPI Flash Box -->
+  <rect x="780" y="120" width="144" height="92" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="6"/>
+  <text x="852" y="138" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Зовнішня Flash</text>
+  <text x="852" y="155" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">16 МБ Quad SPI</text>
+  <text x="852" y="172" text-anchor="middle" font-size="11" fill="#6b7280">Пам'ять прошивки</text>
+  <text x="852" y="190" text-anchor="middle" font-size="11" fill="#6b7280">W25Q128 / GD25Q128</text>
+
+  <!-- QSPI bus lines to Flash -->
+  <text x="768" y="142" text-anchor="middle" font-size="11" fill="#1a1a1a">QSPI</text>
+  <line x1="760" y1="150" x2="780" y2="150" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="760" y1="165" x2="780" y2="165" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="760" y1="180" x2="780" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Control Buttons Box -->
+  <rect x="780" y="225" width="144" height="93" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="852" y="243" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Кнопки &amp; Strapping</text>
+  <text x="852" y="261" text-anchor="middle" font-size="11" fill="#6b7280">• RST / EN (Скидання)</text>
+  <text x="852" y="279" text-anchor="middle" font-size="11" fill="#6b7280">• BOOT (GPIO0 до GND)</text>
+  <text x="852" y="299" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">✓ Прошивання по USB</text>
+
+  <!-- SUMMARY CARDS (BOTTOM) -->
+  <rect x="24" y="395" width="444" height="120" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="36" y="416" font-size="12" font-weight="bold" fill="#27ae60">⚡ Схемотехніка живлення та стабілізації:</text>
+  <text x="36" y="435" font-size="11" fill="#1a1a1a">• Вхідна напруга 5V USB зменшується стабілізатором ME6211 до 3.3V.</text>
+  <text x="36" y="453" font-size="11" fill="#1a1a1a">• Ємності 10 мкФ згладжують пікові струми Wi-Fi трансивера.</text>
+  <text x="36" y="471" font-size="11" fill="#1a1a1a">• Захисний діод Шотткі запобігає зворотним струмам у коло.</text>
+  <text x="36" y="494" font-size="11" font-weight="bold" fill="#27ae60">✓ Стабільне живлення без спрацьовувань Brownout Detector</text>
+
+  <rect x="492" y="395" width="444" height="120" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="504" y="416" font-size="12" font-weight="bold" fill="#2457d6">🛠 Переваги апаратного USB CDC/JTAG та SiP:</text>
+  <text x="504" y="435" font-size="11" fill="#1a1a1a">• Апаратний USB-контролер підключено напряму до GPIO19 / GPIO20.</text>
+  <text x="504" y="453" font-size="11" fill="#1a1a1a">• Відлагодження JTAG та консоль CDC працюють без зовнішніх чипів.</text>
+  <text x="504" y="471" font-size="11" fill="#1a1a1a">• Внутрішня 2 МБ Octal PSRAM (SiP) вивільняє контактні майданчики.</text>
+  <text x="504" y="494" font-size="11" font-weight="bold" fill="#2457d6">✓ Максимальна мініатюризація плати та висока швидкість шини</text>
+</svg>

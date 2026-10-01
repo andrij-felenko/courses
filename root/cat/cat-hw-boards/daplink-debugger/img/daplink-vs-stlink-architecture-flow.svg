@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Архітектура та потік даних: DAPLink проти ST-Link V2.1</text>
+  <text x="480" y="60" font-size="13" text-anchor="middle" fill="#6b7280">Трансляція команд хоста у SWD-транзакції через USB-ендпоінти зневаджувача</text>
+
+  <!-- Panel 1: Host PC -->
+  <rect x="30" y="75" width="900" height="95" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="93" font-size="13" font-weight="bold" fill="#1a1a1a">Хост-комп'ютер (ПЗ та інструменти розробки)</text>
+
+  <rect x="50" y="103" width="410" height="57" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="255" y="123" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">OpenOCD / pyOCD / WebUSB / Drag-and-Drop</text>
+  <text x="255" y="145" font-size="12" text-anchor="middle" fill="#1a1a1a">Драйвери: CMSIS-DAP (HID/WinUSB) &amp; USB-MSD</text>
+
+  <rect x="500" y="103" width="410" height="57" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="705" y="123" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">STM32CubeProgrammer / STM32CubeIDE / Keil</text>
+  <text x="705" y="145" font-size="12" text-anchor="middle" fill="#1a1a1a">Драйвери: ST-Link USB Driver (Vendor Bulk)</text>
+
+  <!-- Flow Arrows: Host -> Debugger -->
+  <line x1="255" y1="160" x2="255" y2="225" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="267" y="197" font-size="12" font-weight="bold" fill="#2457d6">USB HID / Bulk / MSD</text>
+
+  <line x1="705" y1="160" x2="705" y2="225" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="717" y="197" font-size="12" font-weight="bold" fill="#27ae60">ST-Vendor Bulk / MSD</text>
+
+  <!-- Panel 2: WeAct Mini Debugger -->
+  <rect x="30" y="225" width="900" height="230" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="244" font-size="13" font-weight="bold" fill="#1a1a1a">Зневаджувач WeAct Mini Debugger (Апаратна платформа та USB-ендпоінти)</text>
+
+  <!-- DAPLink Column -->
+  <rect x="50" y="253" width="410" height="192" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="255" y="271" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Прошивка DAPLink (CMSIS-DAP v1/v2)</text>
+
+  <rect x="60" y="280" width="185" height="46" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="0.8"/>
+  <text x="152" y="298" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">HID / WinUSB Endpoint</text>
+  <text x="152" y="316" font-size="12" text-anchor="middle" fill="#6b7280">Команди зневадження SWD</text>
+
+  <rect x="255" y="280" width="195" height="46" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="0.8"/>
+  <text x="352" y="298" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">MSC (Mass Storage)</text>
+  <text x="352" y="316" font-size="12" text-anchor="middle" fill="#6b7280">Drag-and-Drop (.bin)</text>
+
+  <rect x="60" y="334" width="390" height="42" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="255" y="351" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">CDC UART (Virtual COM) + WebUSB</text>
+  <text x="255" y="368" font-size="12" text-anchor="middle" fill="#6b7280">Моніторинг порту та браузерна прошивка</text>
+
+  <rect x="60" y="384" width="390" height="53" rx="3" fill="#2457d6"/>
+  <text x="255" y="404" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">CMSIS-DAP Command Handler &amp; Flash Algo</text>
+  <text x="255" y="424" font-size="12" text-anchor="middle" fill="#eaf0fd">Декодування пакетів → Генерація SWD-сигналів</text>
+
+  <!-- ST-Link Column -->
+  <rect x="500" y="253" width="410" height="192" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="705" y="271" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">Прошивка ST-Link V2.1 (STMicroelectronics)</text>
+
+  <rect x="510" y="280" width="185" height="46" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="0.8"/>
+  <text x="602" y="298" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">ST Vendor Bulk Endpoint</text>
+  <text x="602" y="316" font-size="12" text-anchor="middle" fill="#6b7280">Протокол ST-Link V2</text>
+
+  <rect x="705" y="280" width="195" height="46" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="0.8"/>
+  <text x="802" y="298" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">MSC (Virtual Disk)</text>
+  <text x="802" y="316" font-size="12" text-anchor="middle" fill="#6b7280">Прошивка файлом флеш</text>
+
+  <rect x="510" y="334" width="390" height="42" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="705" y="351" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">ST-Link Virtual COM Port (CDC UART)</text>
+  <text x="705" y="368" font-size="12" text-anchor="middle" fill="#6b7280">Міст UART для обміну даними з терміналом</text>
+
+  <rect x="510" y="384" width="390" height="53" rx="3" fill="#27ae60"/>
+  <text x="705" y="404" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">ST-Link Firmware Engine (Proprietary)</text>
+  <text x="705" y="424" font-size="12" text-anchor="middle" fill="#e9f7ef">Трансляція ST-команд → SWD/JTAG таймінги</text>
+
+  <!-- Flow Arrows: Debugger -> Target MCU -->
+  <line x1="255" y1="437" x2="255" y2="483" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="243" y="468" font-size="12" font-weight="bold" text-anchor="end" fill="#2457d6">SWCLK, SWDIO, NRST</text>
+
+  <line x1="705" y1="437" x2="705" y2="483" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="717" y="468" font-size="12" font-weight="bold" text-anchor="start" fill="#27ae60">SWCLK, SWDIO, NRST</text>
+
+  <!-- Panel 3: Target MCU -->
+  <rect x="30" y="475" width="900" height="70" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="493" font-size="12" font-weight="bold" fill="#1a1a1a">Цільовий МК (Target MCU)</text>
+
+  <rect x="210" y="483" width="705" height="54" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="562" y="503" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Debug Port (Cortex-M SW-DP / AP Register Access)</text>
+  <text x="562" y="523" font-size="12" text-anchor="middle" fill="#6b7280">Пряме читання/запис пам'яті (AHB-AP) та регістрів CPU через інтерфейс SWD</text>
+</svg>

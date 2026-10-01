@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Взаємодія ядер Xtensa LX7, MMU, L1-кешу та DMA з PSRAM</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Трансляція адрес MMU, 32-байтові лінії L1-кешу та геометричне вирівнювання буфера для DMA</text>
+
+  <!-- Top Panel Left: Bus Masters -->
+  <rect x="30" y="75" width="255" height="220" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="98" font-size="13" font-weight="bold" fill="#1a1a1a">Джерела запитів (Bus Masters)</text>
+
+  <rect x="45" y="110" width="225" height="70" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="157" y="132" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Ядра Xtensa LX7</text>
+  <text x="157" y="155" font-size="12" fill="#1a1a1a" text-anchor="middle">Віртуальні адреси 0x3C000000+</text>
+
+  <rect x="45" y="195" width="225" height="80" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="157" y="218" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">DMA Контролер (GDMA)</text>
+  <text x="157" y="240" font-size="12" fill="#1a1a1a" text-anchor="middle">Прямий доступ пам'яті (LCD/Cam)</text>
+
+  <!-- Top Panel Middle: MMU & Cache -->
+  <rect x="310" y="75" width="340" height="220" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="325" y="98" font-size="13" font-weight="bold" fill="#1a1a1a">Підсистема трансляції та кешування</text>
+
+  <rect x="325" y="110" width="310" height="70" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="132" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MMU (Memory Management Unit)</text>
+  <text x="480" y="155" font-size="12" fill="#6b7280" text-anchor="middle">Трансляція VAddr -> PAddr (64 KB сторінки)</text>
+
+  <rect x="325" y="195" width="310" height="80" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="218" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">L1 Data Cache (32-Byte Lines)</text>
+  <text x="480" y="240" font-size="12" fill="#6b7280" text-anchor="middle">Списання / Інвалідація блоками по 32 B</text>
+
+  <!-- Top Panel Right: PSRAM -->
+  <rect x="675" y="75" width="255" height="220" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="690" y="98" font-size="13" font-weight="bold" fill="#1a1a1a">Зовнішня PSRAM</text>
+
+  <rect x="690" y="110" width="225" height="165" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="802" y="132" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2 МБ PSRAM (SiP)</text>
+  <text x="802" y="155" font-size="12" fill="#6b7280" text-anchor="middle">Фізичний простір</text>
+  <text x="802" y="180" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">0x3C000000 - 0x3C1FFFFF</text>
+  <text x="802" y="205" font-size="12" fill="#1a1a1a" text-anchor="middle">Шина 8-bit OSPI / 4-bit QSPI</text>
+  <text x="802" y="230" font-size="12" fill="#6b7280" text-anchor="middle">Живлення VDD_SPI (1.8 V / 3.3 V)</text>
+
+  <!-- Flow Arrows -->
+  <line x1="270" y1="145" x2="321" y2="145" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="270" y1="235" x2="321" y2="235" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="480" y1="180" x2="480" y2="191" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="635" y1="235" x2="686" y2="235" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+
+  <!-- Bottom Panel Left: Unaligned Buffer -->
+  <rect x="30" y="310" width="440" height="230" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="45" y="335" font-size="14" font-weight="bold" fill="#c0392b">НЕВИРІВНЯНИЙ БУФЕР: malloc(64)</text>
+  <text x="45" y="358" font-size="12" fill="#c0392b">Адреса 0x3C000006 (0x3C000006 mod 32 = 6 ≠ 0)</text>
+
+  <rect x="45" y="375" width="130" height="55" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="110" y="394" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Кеш-рядок 0</text>
+  <text x="110" y="415" font-size="12" fill="#6b7280" text-anchor="middle">Байти 0..25</text>
+
+  <rect x="185" y="375" width="130" height="55" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="250" y="394" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Кеш-рядок 1</text>
+  <text x="250" y="415" font-size="12" fill="#6b7280" text-anchor="middle">Байти 26..57</text>
+
+  <rect x="325" y="375" width="130" height="55" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="390" y="394" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Кеш-рядок 2</text>
+  <text x="390" y="415" font-size="12" fill="#6b7280" text-anchor="middle">Байти 58..63</text>
+
+  <text x="45" y="465" font-size="13" font-weight="bold" fill="#c0392b">⛔ Проблема: Буфер перетинає 3 кеш-лінії!</text>
+  <text x="45" y="490" font-size="12" fill="#1a1a1a">Призводить до подвійних циклів інвалідації,</text>
+  <text x="45" y="512" font-size="12" fill="#1a1a1a">колізій шини DMA та випадання кадрів.</text>
+
+  <!-- Bottom Panel Right: Aligned Buffer -->
+  <rect x="490" y="310" width="440" height="230" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="505" y="335" font-size="14" font-weight="bold" fill="#27ae60">ВИРІВНЯНИЙ БУФЕР: heap_caps_aligned_alloc</text>
+  <text x="505" y="358" font-size="12" fill="#27ae60">Адреса 0x3C000020 (0x3C000020 mod 32 = 0)</text>
+
+  <rect x="505" y="375" width="195" height="55" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="602" y="394" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Кеш-рядок 0 (32B)</text>
+  <text x="602" y="415" font-size="12" fill="#6b7280" text-anchor="middle">Байти 0..31</text>
+
+  <rect x="715" y="375" width="195" height="55" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="812" y="394" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Кеш-рядок 1 (32B)</text>
+  <text x="812" y="415" font-size="12" fill="#6b7280" text-anchor="middle">Байти 32..63</text>
+
+  <text x="505" y="465" font-size="13" font-weight="bold" fill="#27ae60">✓ Оптимально: Рівно 2 кеш-лінії!</text>
+  <text x="505" y="490" font-size="12" fill="#1a1a1a">Повний збіг із межами дескрипторів DMA,</text>
+  <text x="505" y="512" font-size="12" fill="#1a1a1a">максимальна швидкість та нульові затримки.</text>
+</svg>

@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Main Header & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Апаратний захист від фантомного живлення в DAPLink</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">Буфери з функцією Ioff та діодні розв'язки запобігають витоку струму через ESD-діоди цілі</text>
+
+  <!-- ================= LEFT PANEL: WITHOUT PROTECTION ================= -->
+  <rect x="30" y="75" width="435" height="440" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Left Panel Header -->
+  <text x="247.5" y="100" font-size="15" font-weight="bold" text-anchor="middle" fill="#c0392b">Схема БЕЗ захисту (Паразитний струм)</text>
+  <text x="247.5" y="120" font-size="12" text-anchor="middle" fill="#6b7280">DAPLink увімкнений (3.3V), Target MCU вимкнений (VDD = 0V)</text>
+
+  <!-- DAPLink Block (Left) -->
+  <rect x="45" y="145" width="105" height="230" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="97.5" y="170" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">DAPLink</text>
+  <text x="97.5" y="190" font-size="12" text-anchor="middle" fill="#6b7280">(STM32F103)</text>
+  <text x="97.5" y="212" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">VDD = 3.3V</text>
+  <text x="97.5" y="230" font-size="12" text-anchor="middle" fill="#27ae60">(Живлення ON)</text>
+
+  <!-- Target MCU Block (Left) -->
+  <rect x="305" y="145" width="145" height="230" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="377.5" y="165" font-size="13" font-weight="bold" text-anchor="middle" fill="#c0392b">Target MCU</text>
+  <text x="377.5" y="181" font-size="12" text-anchor="middle" fill="#6b7280">(Цільовий МК)</text>
+  <text x="377.5" y="197" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">VDD = 0V (OFF)</text>
+
+  <!-- Internal VDD Rail & ESD Diode inside Target MCU (Left) -->
+  <text x="377.5" y="214" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Паразитна VDD (~2.6V)</text>
+  <line x1="315" y1="222" x2="440" y2="222" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,2"/>
+  
+  <!-- Node and Internal Diode -->
+  <line x1="305" y1="300" x2="365" y2="300" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="365" cy="300" r="3.5" fill="#c0392b"/>
+  <line x1="365" y1="300" x2="365" y2="275" stroke="#c0392b" stroke-width="2"/>
+  <!-- ESD Diode symbol -->
+  <polygon points="359,275 371,275 365,263" fill="#c0392b"/>
+  <line x1="359" y1="263" x2="371" y2="263" stroke="#c0392b" stroke-width="2"/>
+  <line x1="365" y1="263" x2="365" y2="222" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="378" y="272" font-size="12" font-weight="bold" text-anchor="start" fill="#c0392b">D_ESD</text>
+
+  <!-- Signal Wires (Left Panel) -->
+  <!-- SWCLK -->
+  <line x1="150" y1="250" x2="305" y2="250" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="227.5" y="242" font-size="12" text-anchor="middle" fill="#6b7280">SWCLK (3.3V)</text>
+
+  <!-- SWDIO (Parasitic Flow Line) -->
+  <line x1="150" y1="300" x2="305" y2="300" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="227.5" y="276" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">SWDIO: 3.3V</text>
+  <text x="227.5" y="291" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">(Паразитний струм)</text>
+
+  <!-- UART_TX -->
+  <line x1="150" y1="345" x2="305" y2="345" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="227.5" y="337" font-size="12" text-anchor="middle" fill="#6b7280">UART_TX (3.3V)</text>
+
+  <!-- Left Callout Box -->
+  <rect x="45" y="390" width="405" height="105" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="60" y="412" font-size="13" font-weight="bold" fill="#c0392b">⚠️ Проблема фантомного живлення:</text>
+  <text x="60" y="432" font-size="12" fill="#1a1a1a">1. Струм витікає з DAPLink (3.3V) у вимкнений Target.</text>
+  <text x="60" y="452" font-size="12" fill="#1a1a1a">2. Через ESD-діод запитується шина VDD цілі (~2.6V).</text>
+  <text x="60" y="472" font-size="12" fill="#1a1a1a">3. Ризик хаотичного запуску, зависання та пошкодження МК.</text>
+
+
+  <!-- ================= RIGHT PANEL: WITH PROTECTION ================= -->
+  <rect x="495" y="75" width="435" height="440" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Right Panel Header -->
+  <text x="712.5" y="100" font-size="15" font-weight="bold" text-anchor="middle" fill="#27ae60">Схема З ЗАХИСТОМ (Повна ізоляція)</text>
+  <text x="712.5" y="120" font-size="12" text-anchor="middle" fill="#6b7280">DAPLink увімкнений (3.3V), Target MCU вимкнений (VDD = 0V)</text>
+
+  <!-- DAPLink Block (Right) -->
+  <rect x="508" y="145" width="90" height="230" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="553" y="170" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">DAPLink</text>
+  <text x="553" y="190" font-size="12" text-anchor="middle" fill="#6b7280">(STM32F103)</text>
+  <text x="553" y="212" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">VDD = 3.3V</text>
+  <text x="553" y="230" font-size="12" text-anchor="middle" fill="#27ae60">(Живлення ON)</text>
+
+  <!-- Protection Module Container Block -->
+  <rect x="618" y="145" width="160" height="230" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="698" y="165" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">Модуль захисту</text>
+
+  <!-- Sub-box 1: Ioff Buffer -->
+  <rect x="623" y="175" width="150" height="92" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="698" y="192" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Буфер 74LVC1T45 (Ioff)</text>
+  <text x="698" y="208" font-size="12" text-anchor="middle" fill="#1a1a1a">SWCLK / SWDIO</text>
+  <text x="698" y="226" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">VCC_TARGET = 0V</text>
+  <text x="698" y="244" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Виходи ➔ High-Z (Z)</text>
+  <text x="698" y="260" font-size="12" text-anchor="middle" fill="#6b7280">(Ізоляція активна)</text>
+
+  <!-- Sub-box 2: Schottky Diodes & Series R -->
+  <rect x="623" y="277" width="150" height="88" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="698" y="295" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Діоди Шотткі BAT54S</text>
+  <text x="698" y="313" font-size="12" text-anchor="middle" fill="#1a1a1a">+ R_lim (33...100 Ом)</text>
+  <text x="698" y="333" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Захист ліній UART</text>
+  <text x="698" y="351" font-size="12" text-anchor="middle" fill="#6b7280">(Блокування витоку)</text>
+
+  <!-- Target MCU Block (Right) -->
+  <rect x="825" y="145" width="95" height="230" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="872.5" y="168" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">Target MCU</text>
+  <text x="872.5" y="186" font-size="12" text-anchor="middle" fill="#6b7280">(Цільовий МК)</text>
+  <text x="872.5" y="204" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">VDD = 0V</text>
+  <text x="872.5" y="220" font-size="12" text-anchor="middle" fill="#c0392b">(Вимкнений)</text>
+  
+  <text x="872.5" y="238" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">VDD = 0.0V (OK)</text>
+  <line x1="833" y1="242" x2="912" y2="242" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- High-Z Status Label Badge inside Target MCU -->
+  <rect x="831" y="275" width="83" height="24" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="872.5" y="291" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">I_leak = 0 мкА</text>
+
+  <!-- Wires from DAPLink to Protection Module (Right Panel) -->
+  <line x1="598" y1="200" x2="618" y2="200" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="598" y1="240" x2="618" y2="240" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="598" y1="320" x2="618" y2="320" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Wires from Protection Module to Target MCU (Right Panel) - Disconnected / High-Z -->
+  <!-- SWCLK High-Z line -->
+  <line x1="778" y1="200" x2="796" y2="200" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="796" y1="194" x2="796" y2="206" stroke="#27ae60" stroke-width="2"/>
+  <line x1="800" y1="194" x2="800" y2="206" stroke="#27ae60" stroke-width="2"/>
+  <line x1="800" y1="200" x2="825" y2="200" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- SWDIO High-Z line -->
+  <line x1="778" y1="240" x2="796" y2="240" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="796" y1="234" x2="796" y2="246" stroke="#27ae60" stroke-width="2"/>
+  <line x1="800" y1="234" x2="800" y2="246" stroke="#27ae60" stroke-width="2"/>
+  <line x1="800" y1="240" x2="825" y2="240" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- UART High-Z line -->
+  <line x1="778" y1="320" x2="796" y2="320" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="796" y1="314" x2="796" y2="326" stroke="#27ae60" stroke-width="2"/>
+  <line x1="800" y1="314" x2="800" y2="326" stroke="#27ae60" stroke-width="2"/>
+  <line x1="800" y1="320" x2="825" y2="320" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Right Callout Box -->
+  <rect x="510" y="390" width="405" height="105" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="525" y="412" font-size="13" font-weight="bold" fill="#27ae60">✅ Принцип дії апаратного захисту:</text>
+  <text x="525" y="432" font-size="12" fill="#1a1a1a">1. Буфер Ioff переходить у Z-стан при VDD_TARGET = 0V.</text>
+  <text x="525" y="452" font-size="12" fill="#1a1a1a">2. Діоди Шотткі й R_lim відсікають зворотні струми.</text>
+  <text x="525" y="472" font-size="12" fill="#1a1a1a">3. Витік струму дорівнює 0 мкА, пристрої повністю захищені.</text>
+</svg>

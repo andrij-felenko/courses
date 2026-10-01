@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння кадрової структури пакетів CMSIS-DAP v1 та v2</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Перехід від фіксованого буфера USB HID (v1) до високошвидкісного потоку WinUSB Bulk (v2)</text>
+
+  <!-- ==================== PANEL 1: CMSIS-DAP v1 (USB HID) ==================== -->
+  <rect x="30" y="70" width="900" height="175" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel 1 Header -->
+  <text x="45" y="93" font-size="14" font-weight="bold" fill="#2457d6">CMSIS-DAP v1 (USB HID Transport)</text>
+  <rect x="740" y="77" width="175" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="827.5" y="93" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Обмеження: 64B HID Frame</text>
+
+  <!-- Sub-description -->
+  <text x="45" y="114" font-size="12" fill="#6b7280">Структура пакету HID Report: фіксована довжина 64 байти, обов'язковий Report ID та заповнення невикористаного буфера</text>
+
+  <!-- Packet Byte Bar for v1 -->
+  <!-- Block 1: Byte 0 - Report ID -->
+  <rect x="45" y="130" width="120" height="45" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="105" y="148" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Байт 0</text>
+  <text x="105" y="164" font-size="12" fill="#2457d6" text-anchor="middle">Report ID (0x00)</text>
+
+  <!-- Block 2: Byte 1 - Command ID -->
+  <rect x="165" y="130" width="160" height="45" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="245" y="148" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Байт 1</text>
+  <text x="245" y="164" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ID команди (DAP_*)</text>
+
+  <!-- Block 3: Bytes 2..N - Payload -->
+  <rect x="325" y="130" width="370" height="45" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="510" y="148" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Байти 2..N</text>
+  <text x="510" y="164" font-size="12" fill="#1a1a1a" text-anchor="middle">Параметри та дані команди (Payload)</text>
+
+  <!-- Block 4: Bytes N+1..63 - Zero Padding -->
+  <rect x="695" y="130" width="220" height="45" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="805" y="148" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Байти (N+1)..63</text>
+  <text x="805" y="164" font-size="12" fill="#c0392b" text-anchor="middle">Заповнення нулями (Padding)</text>
+
+  <!-- Footer Notes Panel 1 -->
+  <text x="45" y="200" font-size="12" fill="#6b7280">• Обов'язковий байт Report ID вимагається стеком USB HID. Невикористаний залишок пакету доповнюється нулями до 64B.</text>
+  <text x="45" y="218" font-size="12" fill="#6b7280">• Затримка опитування (HID Polling Interval): пропускна здатність обмежена частотою переривань HID (максимум ~1 МБ/с).</text>
+
+  <!-- ==================== PANEL 2: CMSIS-DAP v2 (WinUSB Bulk) ==================== -->
+  <rect x="30" y="260" width="900" height="175" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel 2 Header -->
+  <text x="45" y="283" font-size="14" font-weight="bold" fill="#27ae60">CMSIS-DAP v2 (WinUSB Bulk Transport)</text>
+  <rect x="715" y="267" width="200" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="815" y="283" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">High-Speed: Динамічний буфер</text>
+
+  <!-- Sub-description -->
+  <text x="45" y="304" font-size="12" fill="#6b7280">Пряма передача через USB Bulk Endpoints: відсутність Report ID та заповнюючих нулів, довільний розмір пакета (512B – 64KB)</text>
+
+  <!-- Packet Byte Bar for v2 -->
+  <!-- Block 1: Byte 0 - Command ID -->
+  <rect x="45" y="320" width="180" height="45" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="135" y="338" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Байт 0</text>
+  <text x="135" y="354" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ID команди (DAP_*)</text>
+
+  <!-- Block 2: Bytes 1..M - Parameters -->
+  <rect x="225" y="320" width="180" height="45" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="315" y="338" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Байти 1..M</text>
+  <text x="315" y="354" font-size="12" fill="#2457d6" text-anchor="middle">Параметри / Лічильник</text>
+
+  <!-- Block 3: Bytes M+1..K - Direct High-Speed Payload -->
+  <rect x="405" y="320" width="510" height="45" fill="#e9f7ef" fill-opacity="0.4" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="660" y="338" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Байти (M+1)..K — Динамічне корисне навантаження (Payload)</text>
+  <text x="660" y="354" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Без балластного заповнення нулями (Без 64B Padding)</text>
+
+  <!-- Footer Notes Panel 2 -->
+  <text x="45" y="390" font-size="12" fill="#27ae60" font-weight="bold">• Відсутність заголовочного байта Report ID: весь масив передається безпосередньо в роз'єм USB Bulk Endpoint.</text>
+  <text x="45" y="408" font-size="12" fill="#27ae60" font-weight="bold">• Пропускна здатність шини WinUSB Bulk: швидкість досягає 5–10+ МБ/с без штучних затримок тактування HID.</text>
+</svg>

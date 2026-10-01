@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратна магістраль MMU та підключення пам'яті ESP32-S3R2</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Трансляція віртуальних адрес Xtensa LX7 в апаратні Quad SPI транзакції флеш-пам'яті та SiP PSRAM</text>
+
+  <!-- Main Container Panel -->
+  <rect x="35" y="65" width="890" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="55" y="85" font-size="13" font-weight="bold" fill="#6b7280">ESP32-S3R2 System-in-Package (SiP) / SoC Architecture</text>
+
+  <!-- Block 1: CPU Cores -->
+  <rect x="55" y="105" width="210" height="280" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="160" y="130" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Xtensa Dual-Core LX7</text>
+  <text x="160" y="150" font-size="12" fill="#1a1a1a" text-anchor="middle">Core 0 / Core 1 (до 240 МГц)</text>
+
+  <rect x="70" y="170" width="180" height="95" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="160" y="190" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Адресний простір ядра</text>
+  <text x="160" y="210" font-size="12" fill="#6b7280" text-anchor="middle">0x3C00_0000..0x3DFF_FFFF</text>
+  <text x="160" y="230" font-size="12" fill="#2457d6" text-anchor="middle">Віртуальна PSRAM / Flash</text>
+  <text x="160" y="250" font-size="12" fill="#6b7280" text-anchor="middle">(Шини I-Bus / D-Bus)</text>
+
+  <rect x="70" y="280" width="180" height="90" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="160" y="300" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня SRAM (512 КБ)</text>
+  <text x="160" y="320" font-size="12" fill="#6b7280" text-anchor="middle">Прямий доступ без MMU</text>
+  <text x="160" y="340" font-size="12" fill="#6b7280" text-anchor="middle">IRAM інструкцій + DRAM даних</text>
+  <text x="160" y="360" font-size="12" fill="#27ae60" text-anchor="middle">Нульова затримка (Zero Latency)</text>
+
+  <!-- Arrow CPU to MMU -->
+  <line x1="265" y1="215" x2="305" y2="215" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="285" y="205" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Запити</text>
+
+  <!-- Block 2: Cache & MMU Controller -->
+  <rect x="310" y="105" width="270" height="280" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="445" y="130" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Кеш та MMU Контролер</text>
+
+  <rect x="325" y="145" width="240" height="65" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="445" y="165" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4-Way Set-Associative Cache</text>
+  <text x="445" y="185" font-size="12" fill="#6b7280" text-anchor="middle">32 КБ I-Cache + 32 КБ D-Cache</text>
+  <text x="445" y="200" font-size="12" fill="#2457d6" text-anchor="middle">Кейшування кеш-рядків (Cache Line)</text>
+
+  <rect x="325" y="220" width="240" height="80" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="445" y="240" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Таблиці MMU (Сторінки 64 КБ)</text>
+  <text x="445" y="260" font-size="12" fill="#1a1a1a" text-anchor="middle">Мапування віртуальних адрес в physical</text>
+  <text x="445" y="285" font-size="12" fill="#6b7280" text-anchor="middle">Контроль прав доступу та кеш-промахів</text>
+
+  <rect x="325" y="310" width="240" height="65" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="445" y="330" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Арбітр та контролери SPI</text>
+  <text x="445" y="350" font-size="12" fill="#6b7280" text-anchor="middle">SPI0/1 (Flash) та SPI2 (PSRAM)</text>
+  <text x="445" y="365" font-size="12" fill="#1a1a1a" text-anchor="middle">Генерація апаратних транзакцій</text>
+
+  <!-- Arrows MMU to Memories -->
+  <!-- Upper arrow to Flash -->
+  <path d="M 580,180 L 610,180 L 610,165 L 635,165" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="610" y="155" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Quad SPI</text>
+
+  <!-- Lower arrow to PSRAM -->
+  <path d="M 580,340 L 610,340 L 610,320 L 635,320" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="610" y="310" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Quad SPI</text>
+
+  <!-- Block 3: Physical Memories -->
+  <!-- External Flash -->
+  <rect x="640" y="105" width="265" height="120" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="772" y="130" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Зовнішня Flash-пам'ять (16 МБ)</text>
+  <text x="772" y="150" font-size="12" fill="#1a1a1a" text-anchor="middle">Шина Quad SPI (4 біти даних + CLK + CS)</text>
+  <text x="772" y="170" font-size="12" fill="#6b7280" text-anchor="middle">Збереження прошивки та файлової системи</text>
+  <text x="772" y="190" font-size="12" fill="#6b7280" text-anchor="middle">Фізична адресація 0x4200_0000</text>
+  <text x="772" y="210" font-size="12" fill="#2457d6" text-anchor="middle">Окремий корпус на платі Waveshare</text>
+
+  <!-- SiP PSRAM -->
+  <rect x="640" y="245" width="265" height="140" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="772" y="270" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Інтегрована SiP PSRAM (2 МБ)</text>
+  <text x="772" y="290" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вбудована всередину корпусу ESP32-S3R2</text>
+  <text x="772" y="310" font-size="12" fill="#1a1a1a" text-anchor="middle">Шина Quad SPI / Псевдостатична RAM</text>
+  <text x="772" y="330" font-size="12" fill="#6b7280" text-anchor="middle">Виділення динамичної кучі (heap_caps)</text>
+  <text x="772" y="350" font-size="12" fill="#6b7280" text-anchor="middle">Буфери камери, дисплея та мережі</text>
+  <text x="772" y="370" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Без зовнішніх трас на платі!</text>
+
+  <!-- Bottom Summary Line -->
+  <rect x="55" y="395" width="850" height="35" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="417" font-size="12" fill="#1a1a1a" text-anchor="middle">MMU прозоро транслює звернення ядра до віртуальної пам'яті у фізичні SPI-транзакції, зберігаючи вільними зовнішні виводи GPIO</text>
+</svg>

@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розподіл оперативної пам'яті та виділення купи в ESP32-S3R2</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Маршрутизація алокацій heap_caps_malloc() між внутрішньою SRAM (512 КБ) та зовнішньою Quad PSRAM (2 МБ)</text>
+
+  <!-- Connecting Wires (Behind Panels) -->
+  <!-- Call 1: SRAM Call -->
+  <path d="M235,210 L295,210" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="265" y="202" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">SRAM</text>
+
+  <!-- Call 2: PSRAM Call -->
+  <path d="M235,310 L265,310 L265,350 L295,350" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="250" y="302" text-anchor="middle" font-size="10" font-weight="bold" fill="#27ae60">PSRAM</text>
+
+  <!-- Call 3: DMA Call -->
+  <path d="M235,410 L255,410 L255,230 L295,230" fill="none" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+  <text x="255" y="424" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">DMA</text>
+
+  <!-- Router to Internal SRAM Panel -->
+  <path d="M485,210 L530,210" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="507" y="202" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">Internal</text>
+
+  <!-- Router to Quad PSRAM Panel -->
+  <path d="M485,390 L530,390" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="507" y="382" text-anchor="middle" font-size="10" font-weight="bold" fill="#27ae60">QSPI</text>
+
+  <!-- Left Panel: Heap API Calls -->
+  <rect x="40" y="105" width="210" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="145" y="128" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Виклики Heap API</text>
+  <text x="145" y="146" text-anchor="middle" font-size="12" fill="#6b7280">Прикладний код / ESP-IDF</text>
+
+  <!-- Sub-box 1: Internal Allocation Call -->
+  <rect x="55" y="170" width="180" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="65" y="190" font-size="12" font-weight="bold" fill="#2457d6">heap_caps_malloc()</text>
+  <text x="65" y="210" font-size="12" font-weight="bold" fill="#1a1a1a">MALLOC_CAP_INTERNAL</text>
+  <text x="65" y="235" font-size="11" fill="#6b7280">Внутрішня SRAM (Швидка)</text>
+
+  <!-- Sub-box 2: PSRAM Allocation Call -->
+  <rect x="55" y="270" width="180" height="80" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="65" y="290" font-size="12" font-weight="bold" fill="#27ae60">heap_caps_malloc()</text>
+  <text x="65" y="310" font-size="12" font-weight="bold" fill="#1a1a1a">MALLOC_CAP_SPIRAM</text>
+  <text x="65" y="335" font-size="11" fill="#6b7280">Зовнішня PSRAM (2 МБ)</text>
+
+  <!-- Sub-box 3: DMA Allocation Call -->
+  <rect x="55" y="370" width="180" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="65" y="390" font-size="12" font-weight="bold" fill="#1a1a1a">heap_caps_malloc()</text>
+  <text x="65" y="410" font-size="12" font-weight="bold" fill="#c0392b">MALLOC_CAP_DMA</text>
+  <text x="65" y="435" font-size="11" fill="#6b7280">Лише Internal SRAM!</text>
+
+  <!-- Middle Panel: Allocator Router & MMU -->
+  <rect x="280" y="105" width="205" height="380" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="382" y="128" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Heap Allocator &amp; MMU</text>
+  <text x="382" y="146" text-anchor="middle" font-size="12" fill="#6b7280">Маршрутизатор прапорців</text>
+
+  <!-- Router Sub-box 1: SRAM Route -->
+  <rect x="290" y="170" width="185" height="100" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="382" y="195" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Маршрут SRAM</text>
+  <text x="382" y="215" text-anchor="middle" font-size="12" fill="#1a1a1a">Шина: Internal (32-bit)</text>
+  <text x="382" y="235" text-anchor="middle" font-size="11" fill="#6b7280">Адреси: 0x3FC80000</text>
+  <text x="382" y="252" text-anchor="middle" font-size="11" fill="#6b7280">Без затримок кешу</text>
+
+  <!-- Router Sub-box 2: PSRAM Route -->
+  <rect x="290" y="295" width="185" height="165" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="382" y="320" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Маршрут PSRAM (ExtMEM)</text>
+  <text x="382" y="342" text-anchor="middle" font-size="12" fill="#1a1a1a">L1 Data Cache (32 КБ)</text>
+  <text x="382" y="364" text-anchor="middle" font-size="12" fill="#1a1a1a">ExtMEM MMU Page Tables</text>
+  <text x="382" y="386" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Шина QSPI (@ 80MHz)</text>
+  <text x="382" y="410" text-anchor="middle" font-size="11" fill="#6b7280">Вікно: 0x3D000000</text>
+  <text x="382" y="430" text-anchor="middle" font-size="11" fill="#6b7280">Обсяг: 2 МБ PSRAM</text>
+
+  <!-- Right Panel 1: Physical Internal SRAM -->
+  <rect x="530" y="105" width="390" height="170" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="725" y="130" text-anchor="middle" font-size="15" font-weight="bold" fill="#2457d6">Внутрішня пам'ять Internal SRAM (512 КБ)</text>
+  <text x="725" y="148" text-anchor="middle" font-size="12" fill="#6b7280">Адресний простір: 0x3FC80000 – 0x3FCE0000</text>
+
+  <!-- Sub-box 1A: Internal Heap -->
+  <rect x="550" y="162" width="165" height="98" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="632" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Internal Heap</text>
+  <text x="632" y="202" text-anchor="middle" font-size="11" fill="#1a1a1a">Викликається через:</text>
+  <text x="632" y="220" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">malloc() / DRAM</text>
+  <text x="632" y="242" text-anchor="middle" font-size="11" fill="#6b7280">Швидкий доступ</text>
+
+  <!-- Sub-box 1B: DMA & Stack -->
+  <rect x="735" y="162" width="165" height="98" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="817" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">DMA &amp; Stack</text>
+  <text x="817" y="202" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">MALLOC_CAP_DMA</text>
+  <text x="817" y="222" text-anchor="middle" font-size="11" fill="#1a1a1a">Буфери SPI / I2S / Wi-Fi</text>
+  <text x="817" y="242" text-anchor="middle" font-size="11" fill="#6b7280">Вимога апаратури</text>
+
+  <!-- Right Panel 2: Physical Quad PSRAM -->
+  <rect x="530" y="305" width="390" height="180" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.8"/>
+  <text x="725" y="330" text-anchor="middle" font-size="15" font-weight="bold" fill="#27ae60">Зовнішня пам'ять Quad PSRAM (2 МБ)</text>
+  <text x="725" y="348" text-anchor="middle" font-size="12" fill="#6b7280">Вікно MMU: 0x3D000000 – 0x3D200000</text>
+
+  <!-- Sub-box 2A: PSRAM Heap -->
+  <rect x="550" y="362" width="165" height="108" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="632" y="382" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">PSRAM Heap</text>
+  <text x="632" y="402" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">MALLOC_CAP_SPIRAM</text>
+  <text x="632" y="424" text-anchor="middle" font-size="11" fill="#1a1a1a">Великі кадрові буфери</text>
+  <text x="632" y="444" text-anchor="middle" font-size="11" fill="#6b7280">Camera FB / Audio</text>
+  <text x="632" y="460" text-anchor="middle" font-size="10" fill="#6b7280">(Через L1 Cache)</text>
+
+  <!-- Sub-box 2B: PSRAM Rules -->
+  <rect x="735" y="362" width="165" height="108" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="817" y="382" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Обмеження PSRAM</text>
+  <text x="817" y="404" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">⛔ Не для DMA!</text>
+  <text x="817" y="426" text-anchor="middle" font-size="11" fill="#1a1a1a">DMA не бачить PSRAM</text>
+  <text x="817" y="446" text-anchor="middle" font-size="11" fill="#6b7280">Потрібен скопійований</text>
+  <text x="817" y="462" text-anchor="middle" font-size="11" fill="#6b7280">буфер у SRAM</text>
+</svg>

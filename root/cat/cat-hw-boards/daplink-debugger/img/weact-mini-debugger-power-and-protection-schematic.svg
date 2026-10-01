@@ -1,0 +1,180 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема живлення та апаратного захисту WeAct Mini Debugger</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">PPTC-запобіжник, LDO 3.3V та захисні резистори сигнальних ліній</text>
+
+  <!-- Main Container: Debugger Board -->
+  <rect x="30" y="70" width="690" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="45" y="92" font-size="13" font-weight="bold" fill="#2457d6">ПЛАТА ЗНЕВАДЖУВАЧА WEACT MINI DEBUGGER</text>
+
+  <!-- Secondary Container: Target Board -->
+  <rect x="735" y="70" width="195" height="430" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="832" y="92" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">ЦІЛЬОВА ПЛАТА (MCU)</text>
+
+  <!-- Callout 1: PPTC Power Protection Info -->
+  <rect x="195" y="105" width="335" height="45" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="362" y="123" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Захист живлення PPTC</text>
+  <text x="362" y="139" font-size="12" fill="#1a1a1a" text-anchor="middle">Обмежує струм при КЗ на шині 5В до безпечного рівня</text>
+
+  <!-- Sub-block: USB Type-C Port -->
+  <rect x="50" y="125" width="110" height="355" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="105" y="148" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB Type-C</text>
+  <text x="105" y="166" font-size="12" fill="#6b7280" text-anchor="middle">Вхід живлення</text>
+
+  <circle cx="160" cy="195" r="4" fill="#c0392b"/>
+  <text x="105" y="200" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">VBUS (5V)</text>
+
+  <circle cx="160" cy="340" r="4" fill="#6b7280"/>
+  <text x="105" y="335" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">D+ / D-</text>
+
+  <circle cx="160" cy="460" r="4" fill="#1a1a1a"/>
+  <text x="105" y="455" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND</text>
+
+  <!-- Sub-block: PPTC Resettable Fuse -->
+  <rect x="195" y="165" width="155" height="75" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="272" y="187" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Запобіжник PPTC</text>
+  <text x="272" y="205" font-size="12" fill="#1a1a1a" text-anchor="middle">I_hold = 500 mA</text>
+  <text x="272" y="223" font-size="12" fill="#6b7280" text-anchor="middle">Захист від КЗ / 5V</text>
+
+  <!-- Sub-block: LDO 3.3V Regulator -->
+  <rect x="385" y="205" width="145" height="75" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="457" y="227" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">LDO-стабілізатор</text>
+  <text x="457" y="245" font-size="12" fill="#1a1a1a" text-anchor="middle">3.3V / 300 mA</text>
+  <text x="457" y="263" font-size="12" fill="#6b7280" text-anchor="middle">Живлення МКУ та 3.3V</text>
+
+  <!-- Sub-block: Onboard Debugger MCU -->
+  <rect x="195" y="305" width="335" height="140" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="362" y="328" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер зневаджувача</text>
+  <text x="362" y="346" font-size="12" fill="#6b7280" text-anchor="middle">STM32F103 / MM32F0163 (DAPLink/ST-Link)</text>
+
+  <text x="520" y="374" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">SWCLK</text>
+  <text x="520" y="394" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">SWDIO</text>
+  <text x="520" y="414" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">NRST</text>
+  <text x="520" y="434" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">UART TX/RX</text>
+
+  <!-- Callout 2: Signal Protection Info -->
+  <rect x="560" y="250" width="140" height="45" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="630" y="268" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Захист портів</text>
+  <text x="630" y="284" font-size="12" fill="#1a1a1a" text-anchor="middle">Обмеження струму</text>
+
+  <!-- Sub-block: Signal Line Protection Resistors -->
+  <rect x="560" y="305" width="140" height="140" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="630" y="326" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Захист сигналів</text>
+  <text x="630" y="343" font-size="12" fill="#1a1a1a" text-anchor="middle">R = 22...100 Ω</text>
+
+  <!-- Resistors inside Signal Protection block -->
+  <rect x="590" y="363" width="80" height="14" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="630" y="374" font-size="12" fill="#1a1a1a" text-anchor="middle">22 Ω</text>
+
+  <rect x="590" y="383" width="80" height="14" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="630" y="394" font-size="12" fill="#1a1a1a" text-anchor="middle">22 Ω</text>
+
+  <rect x="590" y="403" width="80" height="14" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="630" y="414" font-size="12" fill="#1a1a1a" text-anchor="middle">22 Ω</text>
+
+  <rect x="590" y="423" width="80" height="14" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="630" y="434" font-size="12" fill="#1a1a1a" text-anchor="middle">22 Ω</text>
+
+  <!-- WIRING CONNECTIONS -->
+
+  <!-- 1. VBUS 5V Wiring -->
+  <path d="M 160 195 L 195 195" stroke="#c0392b" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="177" y="187" font-size="12" fill="#c0392b" text-anchor="middle">5V USB</text>
+
+  <path d="M 350 195 L 700 195" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="525" y="187" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Шина 5 В (Захищена PPTC)</text>
+
+  <path d="M 365 195 L 365 242.5 L 385 242.5" stroke="#27ae60" stroke-width="1.5" fill="none" marker-end="url(#arr-green)"/>
+  <circle cx="365" cy="195" r="3.5" fill="#27ae60"/>
+
+  <!-- 2. LDO 3.3V Wiring -->
+  <path d="M 530 242.5 L 700 242.5" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="615" y="234" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Шина 3.3 В (LDO)</text>
+
+  <path d="M 545 242.5 L 545 285 L 362 285 L 362 305" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+  <circle cx="545" cy="242.5" r="3.5" fill="#2457d6"/>
+
+  <!-- 3. USB D+/D- Wiring -->
+  <path d="M 160 340 L 195 340" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="177" y="332" font-size="12" fill="#6b7280" text-anchor="middle">USB D+/D-</text>
+
+  <!-- 4. Signal Lines Wiring through Resistors -->
+  <!-- SWCLK -->
+  <path d="M 530 370 L 590 370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 670 370 L 700 370" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- SWDIO -->
+  <path d="M 530 390 L 590 390" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 670 390 L 700 390" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- NRST -->
+  <path d="M 530 410 L 590 410" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 670 410 L 700 410" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- UART TX/RX -->
+  <path d="M 530 430 L 590 430" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 670 430 L 700 430" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- 5. GND Ground Line -->
+  <path d="M 160 460 L 700 460" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="6 3" marker-end="url(#arr)"/>
+  <text x="430" y="452" font-size="12" fill="#6b7280" text-anchor="middle">Спільне заземлення (GND)</text>
+
+  <!-- Connectors between Debugger Output Pins (x=700) and Target Board Pins (x=750) -->
+  <path d="M 700 195 L 750 195" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <circle cx="700" cy="195" r="4" fill="#27ae60"/>
+
+  <path d="M 700 242.5 L 750 242.5" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <circle cx="700" cy="242.5" r="4" fill="#2457d6"/>
+
+  <path d="M 700 370 L 750 370" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <circle cx="700" cy="370" r="3.5" fill="#1a1a1a"/>
+
+  <path d="M 700 390 L 750 390" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <circle cx="700" cy="390" r="3.5" fill="#1a1a1a"/>
+
+  <path d="M 700 410 L 750 410" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <circle cx="700" cy="410" r="3.5" fill="#1a1a1a"/>
+
+  <path d="M 700 430 L 750 430" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <circle cx="700" cy="430" r="3.5" fill="#1a1a1a"/>
+
+  <path d="M 700 460 L 750 460" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="6 3" marker-end="url(#arr)"/>
+  <circle cx="700" cy="460" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Target Board Pin Terminals & Labels -->
+  <circle cx="750" cy="195" r="4" fill="#27ae60"/>
+  <text x="762" y="199" font-size="12" font-weight="bold" fill="#27ae60">5V VCC</text>
+
+  <circle cx="750" cy="242.5" r="4" fill="#2457d6"/>
+  <text x="762" y="246" font-size="12" font-weight="bold" fill="#2457d6">3.3V VCC</text>
+
+  <circle cx="750" cy="370" r="3.5" fill="#1a1a1a"/>
+  <text x="762" y="374" font-size="12" font-weight="bold" fill="#1a1a1a">SWCLK</text>
+
+  <circle cx="750" cy="390" r="3.5" fill="#1a1a1a"/>
+  <text x="762" y="394" font-size="12" font-weight="bold" fill="#1a1a1a">SWDIO</text>
+
+  <circle cx="750" cy="410" r="3.5" fill="#1a1a1a"/>
+  <text x="762" y="414" font-size="12" font-weight="bold" fill="#1a1a1a">NRST</text>
+
+  <circle cx="750" cy="430" r="3.5" fill="#1a1a1a"/>
+  <text x="762" y="434" font-size="12" font-weight="bold" fill="#1a1a1a">UART RX/TX</text>
+
+  <circle cx="750" cy="460" r="3.5" fill="#1a1a1a"/>
+  <text x="762" y="464" font-size="12" font-weight="bold" fill="#6b7280">GND</text>
+</svg>

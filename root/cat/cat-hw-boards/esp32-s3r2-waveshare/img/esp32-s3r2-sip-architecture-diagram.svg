@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня архітектура SiP-модуля ESP32-S3R2</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Інтеграція 16 МБ Flash та 2 МБ PSRAM з ядром ESP32-S3 через шину Octal SPI у єдиному корпусі SiP</text>
+
+  <!-- Outer SiP Container -->
+  <rect x="40" y="75" width="880" height="425" rx="12" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="60" y="100" font-size="14" font-weight="bold" fill="#2457d6">ESP32-S3R2 System-in-Package (SiP)</text>
+  <text x="895" y="100" font-size="12" fill="#6b7280" text-anchor="end">Корпус BGA / LGA</text>
+
+  <!-- Left Block: ESP32-S3 SoC -->
+  <rect x="65" y="120" width="280" height="325" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="205" y="145" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Двоядерний SoC ESP32-S3</text>
+
+  <!-- Sub-block 1: CPU -->
+  <rect x="80" y="160" width="250" height="52" rx="6" fill="white" stroke="#2457d6"/>
+  <text x="205" y="181" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2× Tensilica Xtensa LX7</text>
+  <text x="205" y="198" font-size="12" fill="#6b7280" text-anchor="middle">240 МГц, векторні інструкції AI</text>
+
+  <!-- Sub-block 2: SRAM -->
+  <rect x="80" y="222" width="250" height="48" rx="6" fill="white" stroke="#2457d6"/>
+  <text x="205" y="243" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня SRAM (512 КБ)</text>
+  <text x="205" y="259" font-size="12" fill="#6b7280" text-anchor="middle">IRAM / DRAM / RTC SRAM</text>
+
+  <!-- Sub-block 3: MMU & Cache -->
+  <rect x="80" y="280" width="250" height="58" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="205" y="303" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Кеш-контролер та MMU</text>
+  <text x="205" y="322" font-size="12" fill="#1a1a1a" text-anchor="middle">32 КБ ICACHE + DCACHE XIP</text>
+
+  <!-- Sub-block 4: Peripherals / USB -->
+  <rect x="80" y="348" width="250" height="85" rx="6" fill="white" stroke="#2457d6"/>
+  <text x="205" y="370" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Периферія та USB-контролер</text>
+  <text x="205" y="388" font-size="12" fill="#6b7280" text-anchor="middle">Native USB OTG + USB-JTAG</text>
+  <text x="205" y="406" font-size="12" fill="#6b7280" text-anchor="middle">Доступні GPIO (GPIO0–GPIO21, ...)</text>
+  <text x="205" y="423" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="middle">Заблоковано: GPIO26–GPIO32</text>
+
+  <!-- Center Block: Octal SPI Bus Interconnect -->
+  <rect x="375" y="160" width="220" height="273" rx="8" fill="white" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="485" y="185" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Шина Octal SPI (OSPI / MSPI)</text>
+  <text x="485" y="202" font-size="12" fill="#6b7280" text-anchor="middle">Високошвидкісний обмін даних</text>
+
+  <rect x="390" y="215" width="190" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="485" y="234" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Тактування та вибір CS</text>
+  <text x="485" y="250" font-size="12" fill="#2457d6" text-anchor="middle">SPICLK, CS0 (Flash), CS1 (PSRAM)</text>
+
+  <rect x="390" y="267" width="190" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="485" y="287" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">8-бітна шина даних (D0–D7)</text>
+  <text x="485" y="303" font-size="12" fill="#2457d6" text-anchor="middle">80 МГц SDR / DDR Режим</text>
+
+  <rect x="390" y="325" width="190" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="485" y="344" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стробування DQS / DM</text>
+  <text x="485" y="360" font-size="12" fill="#6b7280" text-anchor="middle">Синхронізація зчитування</text>
+
+  <rect x="390" y="377" width="190" height="45" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="485" y="396" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠️ Внутрішнє розведення</text>
+  <text x="485" y="412" font-size="12" fill="#1a1a1a" text-anchor="middle">Виводи зафіксовано у SiP</text>
+
+  <!-- Right Block 1: 16 MB NOR Flash -->
+  <rect x="625" y="120" width="270" height="150" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="760" y="145" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">16 МБ NOR Flash-пам'ять</text>
+  <text x="760" y="167" font-size="12" fill="#1a1a1a" text-anchor="middle">Збереження прошивки, NVS та файлових систем</text>
+  <text x="760" y="187" font-size="12" fill="#6b7280" text-anchor="middle">Підключення: Quad/Octal SPI (CS0)</text>
+  <text x="760" y="207" font-size="12" fill="#1a1a1a" text-anchor="middle">Таблиця розділів: 16 МБ (custom 16MB partition)</text>
+  <text x="760" y="227" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Виконання коду на місці (XIP) через ICACHE</text>
+  <text x="760" y="247" font-size="12" fill="#6b7280" text-anchor="middle">Адресація: 0x40200000 віртуальне вікно</text>
+
+  <!-- Right Block 2: 2 MB PSRAM -->
+  <rect x="625" y="285" width="270" height="160" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="760" y="310" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2 МБ PSRAM (Pseudo-Static RAM)</text>
+  <text x="760" y="332" font-size="12" fill="#1a1a1a" text-anchor="middle">Розширення системної оперативної пам'яті</text>
+  <text x="760" y="352" font-size="12" fill="#6b7280" text-anchor="middle">Інтерфейс: Octal SPI (CS1)</text>
+  <text x="760" y="372" font-size="12" fill="#1a1a1a" text-anchor="middle">Виділення: heap_caps_malloc(..., SPIRAM)</text>
+  <text x="760" y="392" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Кадрові буфери (Framebuffers) та AI масиви</text>
+  <text x="760" y="412" font-size="12" fill="#1a1a1a" text-anchor="middle">Доступ через DCACHE та RAM Heap</text>
+  <text x="760" y="432" font-size="12" fill="#6b7280" text-anchor="middle">Особл. чипа: Waveshare ESP32-S3R2 SiP</text>
+
+  <!-- Arrows -->
+  <!-- MMU/Cache to Bus -->
+  <path d="M 330 309 L 367 309" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <path d="M 367 317 L 330 317" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- Bus to Flash -->
+  <path d="M 595 195 L 617 195" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <path d="M 617 203 L 595 203" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- Bus to PSRAM -->
+  <path d="M 595 365 L 617 365" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <path d="M 617 373 L 595 373" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Bottom Warning / Note Box -->
+  <rect x="65" y="455" width="830" height="32" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="476" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">📌 Обмеження SiP: виводи GPIO26–GPIO32 задіяні шиною Octal SPI усередині корпусу та недоступні у зовнішній схемотехніці</text>
+</svg>

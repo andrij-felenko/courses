@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма скидання та виводу логу ROM-завантажувача ESP8266</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Защепкування станів GPIO при відпусканні RST та формат службового логу на швидкості 74880 бод</text>
+
+  <!-- Panel 1: Timing Diagram -->
+  <rect x="30" y="75" width="900" height="225" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Часові інтервали защепкування сигналів та передачі UART-логу</text>
+
+  <!-- Latching Window Highlights (Non-overlapping blocks) -->
+  <!-- Setup Time Box (t_setup) -->
+  <rect x="250" y="112" width="105" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="302" y="127" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">t_setup ≥ 10 мкс</text>
+
+  <!-- Hold Time Box (t_hold) -->
+  <rect x="365" y="112" width="105" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="417" y="127" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">t_hold ≥ 50 мкс</text>
+
+  <!-- Vertical marker lines -->
+  <line x1="360" y1="110" x2="360" y2="280" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="360" y="105" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">t_rst (Фронт RST)</text>
+
+  <!-- Time axis line -->
+  <line x1="200" y1="275" x2="880" y2="275" stroke="#9ca3af" stroke-width="1" marker-end="url(#arr-main)"/>
+  <text x="890" y="279" font-size="12" font-weight="bold" fill="#6b7280">Час (t)</text>
+
+  <!-- Signal 1: RST -->
+  <text x="45" y="152" font-size="12" font-weight="bold" fill="#1a1a1a">RST (Скидання)</text>
+  <polyline points="200,160 360,160 360,140 880,140" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="210" y="176" font-size="11" fill="#6b7280">GND (Скинуто)</text>
+  <text x="480" y="134" font-size="11" fill="#2457d6">3.3 V (Робочий стан)</text>
+
+  <!-- Signal 2: Strapping Pins (GPIO0, 2, 15) -->
+  <text x="45" y="195" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO0, 2, 15 (Strapping)</text>
+  <line x1="200" y1="195" x2="470" y2="195" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="470" y1="195" x2="880" y2="195" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="210" y="188" font-size="11" font-weight="bold" fill="#27ae60">Стабільні логічні рівні режимів</text>
+  <text x="480" y="188" font-size="11" fill="#6b7280">Перехід у режим вводу-виводу (GPIO)</text>
+
+  <!-- Signal 3: Internal ROM State -->
+  <text x="45" y="234" font-size="12" font-weight="bold" fill="#1a1a1a">ROM-завантажувач</text>
+  <rect x="200" y="220" width="155" height="24" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="277" y="236" font-size="11" fill="#6b7280" text-anchor="middle">Апаратне скидання</text>
+  <rect x="360" y="220" width="105" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="412" y="236" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Зчитування засувок</text>
+  <rect x="470" y="220" width="410" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="675" y="236" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Виконання ROM-коду та ініціалізація UART0</text>
+
+  <!-- Signal 4: UART0 TXD (74880 baud) -->
+  <text x="45" y="260" font-size="12" font-weight="bold" fill="#1a1a1a">UART0 TXD (GPIO1)</text>
+  <line x1="200" y1="256" x2="520" y2="256" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- UART serial pulse sequence -->
+  <polyline points="520,256 530,256 530,246 540,246 540,266 550,266 550,246 560,246 560,256 570,256 570,266 580,266 580,246 590,246 590,256 880,256" fill="none" stroke="#1a1a1a" stroke-width="1.8"/>
+  <text x="600" y="250" font-size="11" font-weight="bold" fill="#1a1a1a">Передача кадру логу на 74880 бод</text>
+
+  <!-- Panel 2: Log Format & Mode Table -->
+  <rect x="30" y="315" width="900" height="165" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Sub-panel 2A: Serial Log Text Display -->
+  <rect x="45" y="330" width="420" height="135" rx="6" fill="#1a1a1a" stroke="#d0d7de"/>
+  <text x="60" y="352" font-size="12" font-weight="bold" fill="#9ca3af">Формат службового логу (UART0 / 74880 бод):</text>
+
+  <!-- Log text lines in terminal style -->
+  <rect x="58" y="362" width="394" height="28" rx="4" fill="#2d3748"/>
+  <text x="68" y="381" font-size="12" font-family="Courier New, monospace" font-weight="bold" fill="#68d391">ets Jan  8 2013,rst cause:2, boot mode:(3,6)</text>
+
+  <text x="60" y="410" font-size="11" fill="#e2e8f0">• rst cause:2 — апаратний запуск / скидання кнопкою (Power-On / RST)</text>
+  <text x="60" y="428" font-size="11" fill="#e2e8f0">• boot mode:(x, y) — зафіксовані стани виводів (x) та конфігурація (y)</text>
+  <text x="60" y="446" font-size="11" fill="#cbd5e0">• Обчислення x: (GPIO15 &lt;&lt; 2) | (GPIO0 &lt;&lt; 1) | GPIO2</text>
+
+  <!-- Sub-panel 2B: Mode Decoding Table -->
+  <rect x="480" y="330" width="435" height="135" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="495" y="350" font-size="12" font-weight="bold" fill="#1a1a1a">Розшифровка значень boot mode (x):</text>
+
+  <!-- Row 1: Mode 3 (Flash Boot) -->
+  <rect x="495" y="360" width="405" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="505" y="380" font-size="12" font-weight="bold" fill="#27ae60">boot mode:(3,6)</text>
+  <text x="615" y="380" font-size="11" font-weight="bold" fill="#1a1a1a">GPIO15=0, GPIO0=1, GPIO2=1</text>
+  <text x="795" y="380" font-size="11" font-weight="bold" fill="#27ae60">Flash Boot (Штатний)</text>
+
+  <!-- Row 2: Mode 1 (UART Mode) -->
+  <rect x="495" y="395" width="405" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="505" y="415" font-size="12" font-weight="bold" fill="#2457d6">boot mode:(1,6)</text>
+  <text x="615" y="415" font-size="11" font-weight="bold" fill="#1a1a1a">GPIO15=0, GPIO0=0, GPIO2=1</text>
+  <text x="795" y="415" font-size="11" font-weight="bold" fill="#2457d6">UART Mode (Прошивка)</text>
+
+  <!-- Row 3: Mode 7 (SDIO Boot) -->
+  <rect x="495" y="430" width="405" height="30" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="505" y="450" font-size="12" font-weight="bold" fill="#c0392b">boot mode:(7,6)</text>
+  <text x="615" y="450" font-size="11" font-weight="bold" fill="#1a1a1a">GPIO15=1, GPIO0=x, GPIO2=x</text>
+  <text x="795" y="450" font-size="11" font-weight="bold" fill="#c0392b">SDIO Boot (Помилка)</text>
+
+</svg>

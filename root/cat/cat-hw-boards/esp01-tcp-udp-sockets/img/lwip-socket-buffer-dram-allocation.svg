@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розподіл оперативної пам'яті DRAM у стекі lwIP на ESP-01</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Структура DRAM між системним стеком, пулами pbuf та сокетними буферами в умовах обмеженого RAM</text>
+
+  <!-- Definitions -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Top Memory Map Bar (Total ~80 KB DRAM) -->
+  <rect x="40" y="90" width="880" height="45" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- DRAM Block 1: System SDK -->
+  <rect x="40" y="90" width="280" height="45" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="180" y="117" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Системна пам'ять SDK / Wi-Fi (~32 КБ)</text>
+
+  <!-- DRAM Block 2: lwIP Heap & pbuf -->
+  <rect x="320" y="90" width="310" height="45" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="475" y="117" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">lwIP Пули &amp; Структури pbuf (~32 КБ)</text>
+
+  <!-- DRAM Block 3: Socket Buffers -->
+  <rect x="630" y="90" width="190" height="45" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="725" y="117" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Сокети TCP/UDP (~12 КБ)</text>
+
+  <!-- DRAM Block 4: Free DRAM -->
+  <rect x="820" y="90" width="100" height="45" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="870" y="117" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Вільна (~4 КБ)</text>
+
+  <!-- Detailed Breakdown Cards Panel -->
+
+  <!-- Card 1: System SDK Details -->
+  <rect x="40" y="160" width="275" height="315" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="160" width="275" height="32" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="177" y="181" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">1. Системний стек SDK</text>
+
+  <text x="52" y="215" font-size="12" fill="#1a1a1a">• Wi-Fi Драйвер &amp; MAC-прошарок</text>
+  <text x="52" y="237" font-size="12" fill="#6b7280">  (Буфери бездротових кадрів)</text>
+
+  <text x="52" y="267" font-size="12" fill="#1a1a1a">• Системні стеки та OS BSS/DATA</text>
+  <text x="52" y="289" font-size="12" fill="#6b7280">  (Виділені статичні області)</text>
+
+  <text x="52" y="319" font-size="12" fill="#1a1a1a">• NVS та фонові черги SDK</text>
+  <text x="52" y="341" font-size="12" fill="#6b7280">  (Збереження конфігурації)</text>
+
+  <text x="52" y="371" font-size="12" fill="#1a1a1a">• Критичний залишок DRAM</text>
+  <text x="52" y="393" font-size="12" fill="#6b7280">  (Ризик OOM при дефіциті)</text>
+
+  <text x="52" y="435" font-size="12" font-weight="bold" fill="#c0392b">Високий оверхед: ~32 КБ</text>
+  <text x="52" y="455" font-size="12" fill="#6b7280">Фіксований обсяг SDK</text>
+
+
+  <!-- Card 2: lwIP Memory Pool & pbuf Details -->
+  <rect x="335" y="160" width="290" height="315" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="335" y="160" width="290" height="32" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="181" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. Менеджер пам'яті lwIP &amp; pbuf</text>
+
+  <text x="347" y="215" font-size="12" fill="#1a1a1a">• Структура pbuf (Заголовок 16 B)</text>
+  <text x="347" y="237" font-size="12" fill="#6b7280">  (Покажчики next, payload, len)</text>
+
+  <text x="347" y="267" font-size="12" fill="#1a1a1a">• PBUF_RAM: Динамічні пакети</text>
+  <text x="347" y="289" font-size="12" fill="#6b7280">  (Виділення з купи lwIP Heap)</text>
+
+  <text x="347" y="319" font-size="12" fill="#1a1a1a">• PBUF_POOL: Фіксовані блоки</text>
+  <text x="347" y="341" font-size="12" fill="#6b7280">  (Швидкі буфери 128–512 байтів)</text>
+
+  <text x="347" y="371" font-size="12" fill="#1a1a1a">• PBUF_ROM / PBUF_REF</text>
+  <text x="347" y="393" font-size="12" fill="#6b7280">  (Вказівники на Flash без копи)</text>
+
+  <text x="347" y="435" font-size="12" font-weight="bold" fill="#2457d6">Динамічний пул pbuf</text>
+  <text x="347" y="455" font-size="12" fill="#6b7280">Гнучка фрагментація</text>
+
+
+  <!-- Card 3: Socket Buffers & Controls Details -->
+  <rect x="645" y="160" width="275" height="315" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="645" y="160" width="275" height="32" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="782" y="181" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">3. Сокетні буфери TCP/UDP</text>
+
+  <text x="657" y="215" font-size="12" fill="#1a1a1a">• tcp_pcb: Контрольний блок TCP</text>
+  <text x="657" y="237" font-size="12" fill="#6b7280">  (Стан, таймери, ~120 байтів)</text>
+
+  <text x="657" y="267" font-size="12" fill="#1a1a1a">• TCP Window (Ковзне вікно)</text>
+  <text x="657" y="289" font-size="12" fill="#6b7280">  (Буфер прийому TCP_WND)</text>
+
+  <text x="657" y="319" font-size="12" fill="#1a1a1a">• UDP PCB &amp; Черги пакетів</text>
+  <text x="657" y="341" font-size="12" fill="#6b7280">  (Низькі накладні витрати)</text>
+
+  <text x="657" y="371" font-size="12" fill="#1a1a1a">• Буфери повторної передачі</text>
+  <text x="657" y="393" font-size="12" fill="#6b7280">  (Збереження до ACK)</text>
+
+  <text x="657" y="435" font-size="12" font-weight="bold" fill="#27ae60">Масштабування сокетів</text>
+  <text x="657" y="455" font-size="12" fill="#6b7280">Обмеження за RAM</text>
+</svg>

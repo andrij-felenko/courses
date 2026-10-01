@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Порівняння часових затримок керування GPIO у мікроконтролері ESP8266</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Передача й парсинг AT-команди по UART займає ~2.1 мс, тоді як прямий запис у MMIO виконується за 12.5 нс</text>
+
+  <!-- Section 1: AT Command Flow Panel -->
+  <rect x="40" y="80" width="880" height="165" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  
+  <rect x="55" y="95" width="440" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="65" y="112" font-size="13" font-weight="bold" fill="#c0392b">Варіант 1: Керування через AT-команду по UART (ESP-AT)</text>
+  <text x="515" y="112" font-size="12" font-weight="bold" fill="#6b7280">Сумарна затримка: ~2133 мкс (2.13 мс)</text>
+
+  <!-- Block 1: UART TX -->
+  <rect x="55" y="135" width="310" height="54" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="210" y="155" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. Передача по UART (115200 біт/с)</text>
+  <text x="210" y="174" text-anchor="middle" font-size="12" fill="#1a1a1a">"AT+SYSGPIOWRITE=5,1\r\n" (20 Б) — ~1736 мкс</text>
+
+  <!-- Arrow 1 -->
+  <line x1="365" y1="162" x2="385" y2="162" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+
+  <!-- Block 2: Parser Overhead -->
+  <rect x="390" y="135" width="220" height="54" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="500" y="155" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">2. Парсинг та IOMUX</text>
+  <text x="500" y="174" text-anchor="middle" font-size="12" fill="#1a1a1a">Декодування рядка ~50 мкс</text>
+
+  <!-- Arrow 2 -->
+  <line x1="610" y1="162" x2="630" y2="162" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+
+  <!-- Block 3: UART RX -->
+  <rect x="635" y="135" width="270" height="54" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="770" y="155" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">3. Відповідь "OK\r\n"</text>
+  <text x="770" y="174" text-anchor="middle" font-size="12" fill="#1a1a1a">"OK\r\n" (4 Б) — ~347 мкс</text>
+
+  <!-- Time ticks line -->
+  <line x1="55" y1="208" x2="905" y2="208" stroke="#6b7280" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="55" y1="204" x2="55" y2="212" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="365" y1="204" x2="365" y2="212" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="610" y1="204" x2="610" y2="212" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="905" y1="204" x2="905" y2="212" stroke="#6b7280" stroke-width="1.5"/>
+
+  <text x="55" y="226" text-anchor="start" font-size="12" fill="#6b7280">0 мкс</text>
+  <text x="365" y="226" text-anchor="middle" font-size="12" fill="#6b7280">1736 мкс</text>
+  <text x="610" y="226" text-anchor="middle" font-size="12" fill="#6b7280">1786 мкс</text>
+  <text x="905" y="226" text-anchor="end" font-size="12" fill="#6b7280">2133 мкс</text>
+
+  <!-- Section 2: MMIO Direct Access Panel -->
+  <rect x="40" y="265" width="880" height="170" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <rect x="55" y="280" width="440" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="65" y="297" font-size="13" font-weight="bold" fill="#27ae60">Варіант 2: Прямий доступ до регістрів MMIO (C SDK / ESP-IDF)</text>
+  <text x="515" y="297" font-size="12" font-weight="bold" fill="#6b7280">Сумарна затримка: 0.0125 мкс (12.5 нс)</text>
+
+  <!-- MMIO Instruction Block -->
+  <rect x="55" y="320" width="510" height="60" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="70" y="342" font-size="13" font-weight="bold" fill="#27ae60">Апаратний запис у відображений регістр пам'яті (MMIO)</text>
+  <text x="70" y="362" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO_REG_WRITE(GPIO_OUT_W1TS_ADDRESS, BIT5);</text>
+
+  <!-- Speedup / Timing Card -->
+  <rect x="585" y="320" width="320" height="60" rx="6" fill="#27ae60"/>
+  <text x="745" y="342" text-anchor="middle" font-size="14" font-weight="bold" fill="white">Тривалість: 1 такт APB (80 МГц) = 12.5 нс</text>
+  <text x="745" y="362" text-anchor="middle" font-size="12" fill="#e9f7ef">Прискорення у ~170 000 разів порівняно з AT-командою</text>
+
+  <!-- Summary Footer Card -->
+  <rect x="55" y="395" width="850" height="28" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="414" text-anchor="middle" font-size="12" fill="#1a1a1a">Висновок: AT-команди зручні для віддаленого керування, але для високої швидкодії потрібен MMIO.</text>
+</svg>

@@ -1,0 +1,95 @@
+<svg viewBox="0 0 960 520" width="960" height="520" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура двоядерного процесора Xtensa LX7 із прискорювачем PIE</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Векторне розширення PIE (128 біт / SIMD) для обчислень Edge AI та зв'язок із шинами пам'яті</text>
+
+  <!-- Core 0 Panel -->
+  <rect x="40" y="75" width="410" height="335" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="55" y="98" font-size="13" font-weight="bold" fill="#1a1a1a">Ядро 0 (Core 0 / PRO CPU — 32-біт Xtensa LX7)</text>
+
+  <!-- Core 0 Scalar Engine -->
+  <rect x="60" y="115" width="370" height="60" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="75" y="136" font-size="12" font-weight="bold" fill="#1a1a1a">Скалярне ядро ALU / FPU (32-біт RISC)</text>
+  <text x="75" y="156" font-size="11" fill="#6b7280">Виконання керуючого коду, RTOS та стандартних операцій</text>
+
+  <!-- Core 0 PIE Vector Extension -->
+  <rect x="60" y="190" width="370" height="135" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="75" y="212" font-size="12" font-weight="bold" fill="#2457d6">128-бітний векторний прискорювач PIE (Vector Extension)</text>
+
+  <rect x="75" y="225" width="340" height="36" rx="3" fill="#ffffff" stroke="#2457d6"/>
+  <text x="245" y="248" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Векторні регістри Q0–Q7 (8 × 128 біт / 16 × 8-біт SIMD)</text>
+
+  <rect x="75" y="272" width="160" height="38" rx="3" fill="#ffffff" stroke="#27ae60"/>
+  <text x="155" y="288" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">2 × 16-біт MAC / 8 × 8-біт</text>
+  <text x="155" y="301" font-size="10" fill="#6b7280" text-anchor="middle">Множення з накопиченням</text>
+
+  <rect x="255" y="272" width="160" height="38" rx="3" fill="#ffffff" stroke="#27ae60"/>
+  <text x="335" y="288" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">128-біт SIMD ALU</text>
+  <text x="335" y="301" font-size="10" fill="#6b7280" text-anchor="middle">Паралельне додавання/зсув</text>
+
+  <!-- Core 0 Cache -->
+  <rect x="60" y="340" width="370" height="55" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="75" y="362" font-size="11" font-weight="bold" fill="#1a1a1a">Кеш інструкцій I-Cache та даних D-Cache (32 КБ)</text>
+  <text x="75" y="380" font-size="11" fill="#6b7280">Пряме сполучення з внутрішнім SRAM та шиною L1</text>
+
+  <!-- Core 1 Panel -->
+  <rect x="510" y="75" width="410" height="335" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="525" y="98" font-size="13" font-weight="bold" fill="#1a1a1a">Ядро 1 (Core 1 / APP CPU — 32-біт Xtensa LX7)</text>
+
+  <!-- Core 1 Scalar Engine -->
+  <rect x="530" y="115" width="370" height="60" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="545" y="136" font-size="12" font-weight="bold" fill="#1a1a1a">Скалярне ядро ALU / FPU (32-біт RISC)</text>
+  <text x="545" y="156" font-size="11" fill="#6b7280">Виконання мережевих стеків Wi-Fi/BLE та периферії</text>
+
+  <!-- Core 1 PIE Vector Extension -->
+  <rect x="530" y="190" width="370" height="135" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="545" y="212" font-size="12" font-weight="bold" fill="#2457d6">128-бітний векторний прискорювач PIE (Vector Extension)</text>
+
+  <rect x="545" y="225" width="340" height="36" rx="3" fill="#ffffff" stroke="#2457d6"/>
+  <text x="715" y="248" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Векторні регістри Q0–Q7 (8 × 128 біт / 16 × 8-біт SIMD)</text>
+
+  <rect x="545" y="272" width="160" height="38" rx="3" fill="#ffffff" stroke="#27ae60"/>
+  <text x="625" y="288" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">2 × 16-біт MAC / 8 × 8-біт</text>
+  <text x="625" y="301" font-size="10" fill="#6b7280" text-anchor="middle">Обчислення матриць NPU</text>
+
+  <rect x="725" y="272" width="160" height="38" rx="3" fill="#ffffff" stroke="#27ae60"/>
+  <text x="805" y="288" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">128-біт SIMD ALU</text>
+  <text x="805" y="301" font-size="10" fill="#6b7280" text-anchor="middle">Паралельне додавання/зсув</text>
+
+  <!-- Core 1 Cache -->
+  <rect x="530" y="340" width="370" height="55" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="545" y="362" font-size="11" font-weight="bold" fill="#1a1a1a">Кеш інструкцій I-Cache та даних D-Cache (32 КБ)</text>
+  <text x="545" y="380" font-size="11" fill="#6b7280">Пряме сполучення з внутрішнім SRAM та шиною L1</text>
+
+  <!-- Core Bus Interconnect Arrows -->
+  <line x1="245" y1="410" x2="245" y2="423" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="715" y1="410" x2="715" y2="423" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Shared Memory System Panel -->
+  <rect x="40" y="425" width="880" height="80" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="55" y="445" font-size="12" font-weight="bold" fill="#27ae60">Система зв'язку з пам'яттю (Internal SRAM + External Flash &amp; PSRAM Interface)</text>
+
+  <rect x="55" y="455" width="260" height="38" rx="4" fill="#ffffff" stroke="#27ae60"/>
+  <text x="185" y="472" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня ОЗП (512 КБ SRAM)</text>
+  <text x="185" y="485" font-size="10" fill="#6b7280" text-anchor="middle">Високошвидкісний доступ DMA</text>
+
+  <rect x="335" y="455" width="290" height="38" rx="4" fill="#ffffff" stroke="#27ae60"/>
+  <text x="480" y="472" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шини MSPI (Quad SPI / Octal SPI)</text>
+  <text x="480" y="485" font-size="10" fill="#6b7280" text-anchor="middle">SDR / DDR до 80 МГц (80–160 МБ/с)</text>
+
+  <rect x="645" y="455" width="260" height="38" rx="4" fill="#ffffff" stroke="#27ae60"/>
+  <text x="775" y="472" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зовнішня Flash та PSRAM пам'ять</text>
+  <text x="775" y="485" font-size="10" fill="#6b7280" text-anchor="middle">До 16 МБ Flash / 8–16 МБ PSRAM</text>
+</svg>

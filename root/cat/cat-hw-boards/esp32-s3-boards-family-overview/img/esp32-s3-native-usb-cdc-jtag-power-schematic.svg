@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схемотехніка нативного USB CDC/JTAG та системи живлення ESP32-S3</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Організація дубльованого живлення VBUS/LDO, фільтрація та підключення диференційної пари D+/D-</text>
+
+  <!-- PANEL 1: USB Ports & Power Ingestion -->
+  <rect x="40" y="75" width="250" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="165" y="98" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">1. USB Роз'єми &amp; Входи</text>
+
+  <!-- Native USB Box -->
+  <rect x="55" y="115" width="220" height="130" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="165" y="136" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Type-C (Native USB)</text>
+  <text x="65" y="160" font-size="12" fill="#c0392b" font-weight="bold">VBUS (5V Output)</text>
+  <text x="65" y="185" font-size="12" fill="#2457d6">D- (лінія GPIO19)</text>
+  <text x="65" y="210" font-size="12" fill="#2457d6">D+ (лінія GPIO20)</text>
+  <text x="65" y="232" font-size="12" fill="#6b7280">GND (Спільна земля)</text>
+
+  <!-- UART USB Box -->
+  <rect x="55" y="260" width="220" height="130" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="165" y="281" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Type-C (USB-UART / Debug)</text>
+  <text x="65" y="305" font-size="12" fill="#c0392b" font-weight="bold">VBUS (5V Output)</text>
+  <text x="65" y="330" font-size="12" fill="#1a1a1a">Мост CP2102 / CH340</text>
+  <text x="65" y="355" font-size="12" fill="#1a1a1a">Сигнали UART0 TX/RX</text>
+  <text x="65" y="377" font-size="12" fill="#6b7280">GND (Спільна земля)</text>
+
+  <!-- Diode Protection Box -->
+  <rect x="55" y="405" width="220" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="165" y="426" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розв'язка VBUS (BAT54C)</text>
+  <text x="65" y="450" font-size="12" fill="#6b7280">Діоди Шотткі (D1, D2)</text>
+  <text x="65" y="475" font-size="12" fill="#27ae60" font-weight="bold">Шина VBUS_RAW (+5V)</text>
+  <text x="65" y="497" font-size="12" fill="#6b7280">Захист портів від звороту</text>
+
+  <!-- PANEL 2: LDO & Filtering -->
+  <rect x="315" y="75" width="330" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="98" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">2. LDO Стабілізатор &amp; Фільтри</text>
+
+  <!-- LDO Box -->
+  <rect x="335" y="115" width="290" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="138" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LDO 3.3V (ME6211 / AMS1117)</text>
+  <text x="350" y="163" font-size="12" fill="#c0392b">VIN: Вхід +5V VBUS_RAW</text>
+  <text x="350" y="188" font-size="12" fill="#27ae60" font-weight="bold">VOUT: Вихід +3.3V (I ≥ 800mA)</text>
+  <text x="350" y="213" font-size="12" fill="#6b7280">Падіння напруги (Dropout): ~250 mV</text>
+  <text x="350" y="235" font-size="12" fill="#1a1a1a">Захист від перегріву та КЗ</text>
+
+  <!-- Decoupling Box -->
+  <rect x="335" y="265" width="290" height="120" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="287" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фільтруючі ємності VDD33</text>
+  <text x="350" y="312" font-size="12" fill="#1a1a1a">C_in: 10 µF + 0.1 µF (кераміка, VIN)</text>
+  <text x="350" y="337" font-size="12" fill="#27ae60" font-weight="bold">C_out: 22 µF + 10 µF + 0.1 µF (VOUT)</text>
+  <text x="350" y="362" font-size="12" fill="#c0392b">Компенсація імпульсів Wi-Fi/BT</text>
+
+  <!-- Reset RC Box -->
+  <rect x="335" y="400" width="290" height="115" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="422" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема скидання CHIP_PU (EN)</text>
+  <text x="350" y="447" font-size="12" fill="#1a1a1a">RC-кола: R = 10 kΩ, C = 1 µF</text>
+  <text x="350" y="472" font-size="12" fill="#6b7280">Час затримки t &gt; 50 µs для 3.3V</text>
+  <text x="350" y="497" font-size="12" fill="#1a1a1a">Кнопка RESET: замикання на GND</text>
+
+  <!-- PANEL 3: ESP32-S3 SoC -->
+  <rect x="665" y="75" width="255" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="792" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Модуль ESP32-S3</text>
+
+  <!-- SoC Core -->
+  <rect x="680" y="115" width="225" height="400" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="792" y="138" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">ESP32-S3 SoC</text>
+
+  <text x="695" y="165" font-size="12" font-weight="bold" fill="#27ae60">VDD33 (Вхід +3.3V)</text>
+  <text x="695" y="190" font-size="12" font-weight="bold" fill="#6b7280">GND (Заземлення)</text>
+  <text x="695" y="215" font-size="12" font-weight="bold" fill="#1a1a1a">CHIP_PU (Скидання/EN)</text>
+
+  <!-- Sub USB Box -->
+  <rect x="690" y="235" width="205" height="90" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="792" y="255" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">USB Serial/JTAG Контролер</text>
+  <text x="700" y="278" font-size="12" fill="#1a1a1a">GPIO19: USB_D- (90Ω Diff)</text>
+  <text x="700" y="303" font-size="12" fill="#1a1a1a">GPIO20: USB_D+ (90Ω Diff)</text>
+
+  <!-- Sub Strapping Box -->
+  <rect x="690" y="335" width="205" height="85" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="792" y="354" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Strapping Pins (GPIO0)</text>
+  <text x="700" y="376" font-size="12" fill="#1a1a1a">HIGH (10k Pull-up): SPI Boot</text>
+  <text x="700" y="398" font-size="12" fill="#1a1a1a">LOW (Кнопка BOOT): Download</text>
+
+  <text x="695" y="442" font-size="12" fill="#1a1a1a">GPIO43: U0TXD | GPIO44: U0RXD</text>
+  <text x="695" y="470" font-size="12" fill="#6b7280">100 nF локально біля кожного VDD</text>
+  <text x="695" y="495" font-size="12" fill="#27ae60">Подвійне живлення VBUS/LDO</text>
+
+  <!-- CONNECTING ARROWS & PATHS -->
+  <!-- VBUS 5V Paths to Diodes -->
+  <path d="M275,160 L290,160 L290,440 L300,440" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <path d="M275,305 L290,305 L290,470 L300,470" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- VBUS RAW to LDO Input -->
+  <path d="M275,480 L310,480 L310,163 L335,163" fill="none" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- LDO Output 3.3V to ESP32-S3 VDD33 -->
+  <path d="M625,188 L645,188 L645,165 L680,165" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- CHIP_PU Reset Output to ESP32-S3 CHIP_PU -->
+  <path d="M625,447 L650,447 L650,215 L680,215" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- USB D- Line (Native USB to GPIO19) -->
+  <path d="M275,185 L300,185 L300,530 L660,530 L660,278 L690,278" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-blue)"/>
+
+  <!-- USB D+ Line (Native USB to GPIO20) -->
+  <path d="M275,210 L295,210 L295,540 L650,540 L650,303 L690,303" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+</svg>

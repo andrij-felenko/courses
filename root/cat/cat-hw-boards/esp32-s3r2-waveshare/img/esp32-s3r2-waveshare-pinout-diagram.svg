@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Карта цокольовки та функціональних груп Waveshare ESP32-S3R2</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Призначення виводів: системні лінії, Strapping GPIO45, Octal PSRAM, USB та безпечний ввод-вивід</text>
+
+  <!-- Left Functional Pin Groups -->
+  <!-- Card 1: Power & Reset -->
+  <rect x="40" y="90" width="300" height="52" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="52" y="110" font-size="12" font-weight="bold" fill="#c0392b">3V3, GND, EN (CHIP_PU)</text>
+  <text x="52" y="130" font-size="12" fill="#1a1a1a">Живлення 3.3 В та апаратне скидання</text>
+
+  <!-- Card 2: Strapping GPIO45 -->
+  <rect x="40" y="150" width="300" height="60" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="52" y="170" font-size="12" font-weight="bold" fill="#c0392b">GPIO45 (Strapping VDD_SPI)</text>
+  <text x="52" y="192" font-size="12" fill="#1a1a1a">0 = 3.3 V | 1 = 1.8 V (Octal PSRAM)</text>
+
+  <!-- Card 3: USB Serial/JTAG -->
+  <rect x="40" y="218" width="300" height="52" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="52" y="238" font-size="12" font-weight="bold" fill="#2457d6">GPIO19 (USB D-) / GPIO20 (USB D+)</text>
+  <text x="52" y="258" font-size="12" fill="#1a1a1a">Вбудований USB-консоль та CDC/JTAG</text>
+
+  <!-- Card 4: Safe GPIO ADC/I2C -->
+  <rect x="40" y="278" width="300" height="52" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="52" y="298" font-size="12" font-weight="bold" fill="#27ae60">GPIO1, GPIO2, GPIO4, GPIO5</text>
+  <text x="52" y="318" font-size="12" fill="#1a1a1a">АЦП1, I2C, Touch, загальне призначення</text>
+
+  <!-- Card 5: Safe GPIO FSPI -->
+  <rect x="40" y="338" width="300" height="52" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="52" y="358" font-size="12" font-weight="bold" fill="#27ae60">GPIO10, GPIO11, GPIO12, GPIO13</text>
+  <text x="52" y="378" font-size="12" fill="#1a1a1a">FSPI HD/CS/CLK/MOSI (Екран / SD-карта)</text>
+
+  <!-- Connector Lines Left -->
+  <line x1="340" y1="180" x2="360" y2="180" stroke="#c0392b" stroke-width="2"/>
+  <line x1="340" y1="244" x2="360" y2="244" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Central MCU Box -->
+  <rect x="360" y="90" width="240" height="300" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2" rx="8"/>
+  <rect x="380" y="105" width="200" height="105" fill="#1a1a1a" rx="6"/>
+  <text x="480" y="132" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">ESP32-S3R2</text>
+  <text x="480" y="154" font-size="12" font-weight="bold" fill="#eaf0fd" text-anchor="middle">Dual-Core LX7 @ 240 MHz</text>
+  <text x="480" y="174" font-size="12" fill="#27ae60" text-anchor="middle">512 KB Internal SRAM</text>
+  <text x="480" y="194" font-size="12" fill="#d0d7de" text-anchor="middle">WROOM-1 / Waveshare</text>
+
+  <!-- Internal Flash Block -->
+  <rect x="380" y="222" width="200" height="72" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="392" y="242" font-size="12" font-weight="bold" fill="#1a1a1a">16 MB Quad Flash</text>
+  <text x="392" y="262" font-size="12" fill="#6b7280">Шина SPI (GPIO26..32)</text>
+  <text x="392" y="280" font-size="12" fill="#27ae60">Живлення 3.3 В (VDD_SPI)</text>
+
+  <!-- Internal PSRAM Block -->
+  <rect x="380" y="302" width="200" height="75" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="392" y="322" font-size="12" font-weight="bold" fill="#2457d6">2 MB Octal PSRAM</text>
+  <text x="392" y="342" font-size="12" fill="#1a1a1a">80 MHz DDR (Octal SPI)</text>
+  <text x="392" y="362" font-size="12" fill="#c0392b">Заняті GPIO33..37 (в межах)</text>
+
+  <!-- Connector Lines Right -->
+  <line x1="600" y1="116" x2="620" y2="116" stroke="#c0392b" stroke-width="2"/>
+  <line x1="600" y1="360" x2="620" y2="360" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3"/>
+
+  <!-- Right Functional Pin Groups -->
+  <!-- Card 1: Strapping GPIO0 -->
+  <rect x="620" y="90" width="300" height="52" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="632" y="110" font-size="12" font-weight="bold" fill="#c0392b">GPIO0 (Strapping Boot Mode)</text>
+  <text x="632" y="130" font-size="12" fill="#1a1a1a">0 = Прошивка | 1 = Нормальний старт</text>
+
+  <!-- Card 2: UART0 Console -->
+  <rect x="620" y="150" width="300" height="52" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="632" y="170" font-size="12" font-weight="bold" fill="#2457d6">GPIO43 (TXD0) / GPIO44 (RXD0)</text>
+  <text x="632" y="190" font-size="12" fill="#1a1a1a">Апаратний послідовний порт UART0</text>
+
+  <!-- Card 3: Safe GPIO PWM/ADC2 -->
+  <rect x="620" y="210" width="300" height="52" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="632" y="230" font-size="12" font-weight="bold" fill="#27ae60">GPIO6, GPIO7, GPIO8, GPIO9</text>
+  <text x="632" y="250" font-size="12" fill="#1a1a1a">Генерація ШІМ, сенсори, АЦП</text>
+
+  <!-- Card 4: Safe GPIO I2S/SPI -->
+  <rect x="620" y="270" width="300" height="52" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="632" y="290" font-size="12" font-weight="bold" fill="#27ae60">GPIO14, GPIO17, GPIO18, GPIO21</text>
+  <text x="632" y="310" font-size="12" fill="#1a1a1a">Аудіо шина I2S, додатковий SPI</text>
+
+  <!-- Card 5: PSRAM Reserved GPIOs -->
+  <rect x="620" y="330" width="300" height="60" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="632" y="350" font-size="12" font-weight="bold" fill="#c0392b">GPIO33, GPIO34, GPIO35, GPIO36, GPIO37</text>
+  <text x="632" y="372" font-size="12" fill="#c0392b">Зайняті шиною Octal PSRAM</text>
+
+  <!-- Bottom Safety Rules Panel -->
+  <rect x="40" y="405" width="880" height="115" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="60" y="428" font-size="13" font-weight="bold" fill="#1a1a1a">Правила безпечної розпіновки та конфігурації Waveshare ESP32-S3R2:</text>
+
+  <text x="60" y="450" font-size="12" font-weight="bold" fill="#c0392b">1. GPIO45 (Strapping VDD_SPI):</text>
+  <text x="265" y="450" font-size="12" fill="#1a1a1a">Визначає напругу PSRAM (1.8 В). Не підтягувати до 3.3 В при старті!</text>
+
+  <text x="60" y="472" font-size="12" font-weight="bold" fill="#6b7280">2. Внутрішня Octal PSRAM:</text>
+  <text x="265" y="472" font-size="12" fill="#1a1a1a">Виводи GPIO33–37 розводяться всередині і недоступні зовні.</text>
+
+  <text x="60" y="494" font-size="12" font-weight="bold" fill="#27ae60">3. Вільні виводи периферії:</text>
+  <text x="265" y="494" font-size="12" fill="#1a1a1a">GPIO1–14, 17–18, 21 є безпечними для підключення будь-якої периферії.</text>
+</svg>

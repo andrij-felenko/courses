@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Паразитне заживлення ESP8266 через верхній ESD-діод</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Подача 5V на GPIO відкриває верхній діод D_ESD, піднімає шину VDD_INT та блокує скидання</text>
+
+  <!-- Main Container Panel -->
+  <rect x="30" y="70" width="900" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- LEFT BOX: INTERNAL CMOS & ESD DIODE STRUCTURE -->
+  <rect x="50" y="85" width="410" height="400" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="255" y="110" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Внутрішня КМОН-структура та верхній ESD-діод</text>
+
+  <!-- Internal VDD Power Rail -->
+  <line x1="140" y1="135" x2="380" y2="135" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="260" y="128" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Шина VDD_INT (паразитно ~4.3V)</text>
+
+  <!-- External 5V Signal -->
+  <text x="65" y="215" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Зовнішній сигнал 5V</text>
+  <line x1="65" y1="230" x2="220" y2="230" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- Node GPIO (Cross Junction at 230, 230) -->
+  <circle cx="230" cy="230" r="4.5" fill="#1a1a1a"/>
+  <!-- Label placed at X=245, Y=246 (Quadrant 4) to prevent vertical line crossing -->
+  <text x="245" y="246" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">GPIO Pad</text>
+
+  <!-- Upper ESD Diode D_ESD -->
+  <line x1="230" y1="230" x2="230" y2="135" stroke="#c0392b" stroke-width="2"/>
+  <polygon points="230,165 220,185 240,185" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <line x1="218" y1="165" x2="242" y2="165" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="250" y="172" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">D_ESD (верхній)</text>
+  <text x="250" y="188" font-size="12" fill="#6b7280" text-anchor="start">Захисний діод VDD</text>
+
+  <!-- Leakage Current Flow Arrow -->
+  <line x1="195" y1="222" x2="195" y2="142" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+  <text x="188" y="182" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">I_phantom (витік)</text>
+
+  <!-- Lower ESD Diode -->
+  <line x1="230" y1="230" x2="230" y2="330" stroke="#2457d6" stroke-width="1.5"/>
+  <polygon points="230,280 220,300 240,300" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <line x1="218" y1="280" x2="242" y2="280" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="250" y="287" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">D_ESD (нижній)</text>
+  <text x="250" y="303" font-size="12" fill="#6b7280" text-anchor="start">Захисний діод GND</text>
+
+  <!-- Internal CMOS Gate & Core -->
+  <line x1="230" y1="230" x2="330" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="330,205 385,230 330,255" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="350" y="234" font-size="12" fill="#1a1a1a" text-anchor="middle">CMOS</text>
+  <line x1="385" y1="230" x2="420" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="350" y="195" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ядро ESP8266</text>
+
+  <!-- Internal Ground -->
+  <line x1="200" y1="330" x2="260" y2="330" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="215" y1="335" x2="245" y2="335" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="222" y1="340" x2="238" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="230" y="356" font-size="12" fill="#6b7280" text-anchor="middle">GND (0V)</text>
+
+  <!-- Left Explanatory Card -->
+  <rect x="65" y="375" width="380" height="95" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="255" y="396" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Формула паразитної напруги VDD_INT:</text>
+  <text x="255" y="418" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">VDD_INT = V_IN - V_D ≈ 5.0V - 0.7V = 4.3V</text>
+  <text x="255" y="440" font-size="12" fill="#1a1a1a" text-anchor="middle">Кристал заживлюється навіть при вимкненому 3.3V!</text>
+
+  <!-- RIGHT BOX: HARDWARE EFFECTS & PROTECTION METHODS -->
+  <rect x="495" y="85" width="415" height="400" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="702" y="110" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Наслідки та захист від фантомного живлення</text>
+
+  <!-- Problem Card -->
+  <rect x="510" y="125" width="385" height="110" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="525" y="145" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Негативні наслідки фантомного живлення:</text>
+  <text x="525" y="166" font-size="12" fill="#1a1a1a" text-anchor="start">• Блокування скидання RST (процесор не стартує)</text>
+  <text x="525" y="186" font-size="12" fill="#1a1a1a" text-anchor="start">• Зміщення порогів V_IH / V_IL тригера Шмітта</text>
+  <text x="525" y="206" font-size="12" fill="#1a1a1a" text-anchor="start">• Збій зчитування strapping pins (GPIO0 / GPIO15)</text>
+  <text x="525" y="226" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">• Ризик деградації кристала та засувки Latch-Up!</text>
+
+  <!-- Solution Card -->
+  <rect x="510" y="248" width="385" height="115" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="525" y="268" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Правильні методи схемотехнічного захисту:</text>
+  <text x="525" y="289" font-size="12" fill="#1a1a1a" text-anchor="start">• Конвертер рівнів (Level Shifter 5V ↔ 3.3V)</text>
+  <text x="525" y="309" font-size="12" fill="#1a1a1a" text-anchor="start">• Обмежувальний резистор R_lim (1–4.7 kΩ) у колі 5V</text>
+  <text x="525" y="329" font-size="12" fill="#1a1a1a" text-anchor="start">• Діод Шотткі для розв'язки ліній живлення</text>
+  <text x="525" y="351" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Результат: Повна ізоляція 3.3V та 100% старт ROM</text>
+
+  <!-- Right Summary Box -->
+  <rect x="510" y="375" width="385" height="95" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="702" y="396" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Правило проектирования ліній GPIO ESP8266:</text>
+  <text x="702" y="418" font-size="12" fill="#1a1a1a" text-anchor="middle">Не подавайте потенціал &gt; 3.6V на GPIO при вимкненому VDD!</text>
+  <text x="702" y="440" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Завжди узгоджуйте рівні сигналів 5V логіки перед підключенням</text>
+</svg>

@@ -1,0 +1,200 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 610" width="960" height="610" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="610" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розпіновка та мультиплексування виводів ESP32-CAM (AI-Thinker)</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Спільні ресурси GPIO для DVP камери, MicroSD картридера, спалаху та режиму прошивки</text>
+
+  <!-- Panel Left: J3 Header -->
+  <rect x="30" y="80" width="280" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="102" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Ліва гребінка (J3: Живлення/UART)</text>
+
+  <!-- Row 1: 5V -->
+  <rect x="38" y="124" width="52" height="22" rx="4" fill="#fee2e2" stroke="#ef4444"/>
+  <text x="64" y="139" text-anchor="middle" font-size="12" font-weight="bold" fill="#991b1b">5V</text>
+  <text x="98" y="139" text-anchor="start" font-size="12" fill="#1a1a1a">Вхід живлення 5V (AMS1117)</text>
+
+  <!-- Row 2: GND -->
+  <rect x="38" y="156" width="52" height="22" rx="4" fill="#e5e7eb" stroke="#9ca3af"/>
+  <text x="64" y="171" text-anchor="middle" font-size="12" font-weight="bold" fill="#374151">GND</text>
+  <text x="98" y="171" text-anchor="start" font-size="12" fill="#1a1a1a">Спільна земля (GND)</text>
+
+  <!-- Row 3: GPIO3 -->
+  <rect x="38" y="188" width="52" height="22" rx="4" fill="#e0e7ff" stroke="#6366f1"/>
+  <text x="64" y="203" text-anchor="middle" font-size="12" font-weight="bold" fill="#3730a3">GPIO3</text>
+  <text x="98" y="203" text-anchor="start" font-size="12" fill="#1a1a1a">U0RXD (UART / Прошивка)</text>
+
+  <!-- Row 4: GPIO1 -->
+  <rect x="38" y="220" width="52" height="22" rx="4" fill="#e0e7ff" stroke="#6366f1"/>
+  <text x="64" y="235" text-anchor="middle" font-size="12" font-weight="bold" fill="#3730a3">GPIO1</text>
+  <text x="98" y="235" text-anchor="start" font-size="12" fill="#1a1a1a">U0TXD (UART / Прошивка)</text>
+
+  <!-- Row 5: GPIO16 -->
+  <rect x="38" y="252" width="52" height="22" rx="4" fill="#f3f4f6" stroke="#d1d5db"/>
+  <text x="64" y="267" text-anchor="middle" font-size="12" font-weight="bold" fill="#4b5563">GPIO16</text>
+  <text x="98" y="267" text-anchor="start" font-size="12" fill="#6b7280">PSRAM CS (Зайнято)</text>
+
+  <!-- Row 6: GPIO0 -->
+  <rect x="38" y="284" width="52" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="64" y="299" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e7e34">GPIO0</text>
+  <text x="98" y="299" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">GND=Boot | Open=XCLK</text>
+
+  <!-- Row 7: GND -->
+  <rect x="38" y="316" width="52" height="22" rx="4" fill="#e5e7eb" stroke="#9ca3af"/>
+  <text x="64" y="331" text-anchor="middle" font-size="12" font-weight="bold" fill="#374151">GND</text>
+  <text x="98" y="331" text-anchor="start" font-size="12" fill="#1a1a1a">Спільна земля (GND)</text>
+
+  <!-- Row 8: 3V3 -->
+  <rect x="38" y="348" width="52" height="22" rx="4" fill="#fee2e2" stroke="#ef4444"/>
+  <text x="64" y="363" text-anchor="middle" font-size="12" font-weight="bold" fill="#991b1b">3V3</text>
+  <text x="98" y="363" text-anchor="start" font-size="12" fill="#1a1a1a">Вихід стабілізатора 3.3V</text>
+
+  <!-- Connecting Lines Left Header to Board Pins -->
+  <line x1="310" y1="135" x2="380" y2="135" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="310" y1="167" x2="380" y2="167" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="310" y1="199" x2="380" y2="199" stroke="#6366f1" stroke-width="1.5"/>
+  <line x1="310" y1="231" x2="380" y2="231" stroke="#6366f1" stroke-width="1.5"/>
+  <line x1="310" y1="263" x2="380" y2="263" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="310" y1="295" x2="380" y2="295" stroke="#27ae60" stroke-width="2"/>
+  <line x1="310" y1="327" x2="380" y2="327" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="310" y1="359" x2="380" y2="359" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Panel Center: ESP32-CAM Graphic -->
+  <rect x="340" y="80" width="280" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="102" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Плата ESP32-CAM (AI-Thinker)</text>
+
+  <!-- Board PCB -->
+  <rect x="390" y="118" width="180" height="310" rx="6" fill="#1b4332" stroke="#2d6a4f" stroke-width="2"/>
+
+  <!-- ESP32-S Shield -->
+  <rect x="415" y="128" width="130" height="76" rx="4" fill="#d0d7de" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="480" y="160" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2937">ESP32-S</text>
+  <text x="480" y="180" text-anchor="middle" font-size="12" fill="#4b5563">Wi-Fi + BT + PSRAM</text>
+
+  <!-- Flash LED (GPIO4) -->
+  <rect x="396" y="218" width="24" height="24" rx="4" fill="#fef08a" stroke="#eab308" stroke-width="1.5"/>
+  <text x="408" y="234" text-anchor="middle" font-size="12" font-weight="bold" fill="#854d0e">LED</text>
+
+  <!-- Camera Module Connector & Lens -->
+  <rect x="428" y="214" width="104" height="56" rx="4" fill="#374151"/>
+  <circle cx="480" cy="242" r="16" fill="#111827" stroke="#9ca3af" stroke-width="2"/>
+  <circle cx="480" cy="242" r="7" fill="#2563eb"/>
+  <text x="480" y="290" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Камера OV2640 (DVP)</text>
+
+  <!-- MicroSD Slot -->
+  <rect x="420" y="315" width="120" height="95" rx="3" fill="#9ca3af" stroke="#6b7280"/>
+  <text x="480" y="367" text-anchor="middle" font-size="12" font-weight="bold" fill="#111827">Слот MicroSD</text>
+
+  <!-- PCB Pins Left (x=380..390) -->
+  <rect x="380" y="129" width="10" height="12" rx="1" fill="#f59e0b" stroke="#b45309"/>
+  <rect x="380" y="161" width="10" height="12" rx="1" fill="#f59e0b" stroke="#b45309"/>
+  <rect x="380" y="193" width="10" height="12" rx="1" fill="#f59e0b" stroke="#b45309"/>
+  <rect x="380" y="225" width="10" height="12" rx="1" fill="#f59e0b" stroke="#b45309"/>
+  <rect x="380" y="257" width="10" height="12" rx="1" fill="#f59e0b" stroke="#b45309"/>
+  <rect x="380" y="289" width="10" height="12" rx="1" fill="#27ae60" stroke="#1e7e34"/>
+  <rect x="380" y="321" width="10" height="12" rx="1" fill="#f59e0b" stroke="#b45309"/>
+  <rect x="380" y="353" width="10" height="12" rx="1" fill="#f59e0b" stroke="#b45309"/>
+
+  <!-- PCB Pins Right (x=570..580) -->
+  <rect x="570" y="129" width="10" height="12" rx="1" fill="#f59e0b" stroke="#b45309"/>
+  <rect x="570" y="161" width="10" height="12" rx="1" fill="#f59e0b" stroke="#b45309"/>
+  <rect x="570" y="193" width="10" height="12" rx="1" fill="#f59e0b" stroke="#b45309"/>
+  <rect x="570" y="225" width="10" height="12" rx="1" fill="#c0392b" stroke="#991b1b"/>
+  <rect x="570" y="257" width="10" height="12" rx="1" fill="#f59e0b" stroke="#b45309"/>
+  <rect x="570" y="289" width="10" height="12" rx="1" fill="#f59e0b" stroke="#b45309"/>
+  <rect x="570" y="321" width="10" height="12" rx="1" fill="#f59e0b" stroke="#b45309"/>
+  <rect x="570" y="353" width="10" height="12" rx="1" fill="#f59e0b" stroke="#b45309"/>
+
+  <!-- Connecting Lines Board Pins to Right Header -->
+  <line x1="580" y1="135" x2="650" y2="135" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="580" y1="167" x2="650" y2="167" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="580" y1="199" x2="650" y2="199" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="580" y1="231" x2="650" y2="231" stroke="#c0392b" stroke-width="2"/>
+  <line x1="580" y1="263" x2="650" y2="263" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="580" y1="295" x2="650" y2="295" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="580" y1="327" x2="650" y2="327" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="580" y1="359" x2="650" y2="359" stroke="#d97706" stroke-width="1.5"/>
+
+  <!-- Panel Right: J2 Header -->
+  <rect x="650" y="80" width="280" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="790" y="102" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Права гребінка (J2: SD / DVP / LED)</text>
+
+  <!-- Row 1: GPIO15 -->
+  <rect x="658" y="124" width="54" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="685" y="139" text-anchor="middle" font-size="12" font-weight="bold" fill="#1d4ed8">GPIO15</text>
+  <text x="720" y="139" text-anchor="start" font-size="12" fill="#1a1a1a">MicroSD CMD / DVP D3</text>
+
+  <!-- Row 2: GPIO14 -->
+  <rect x="658" y="156" width="54" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="685" y="171" text-anchor="middle" font-size="12" font-weight="bold" fill="#1d4ed8">GPIO14</text>
+  <text x="720" y="171" text-anchor="start" font-size="12" fill="#1a1a1a">MicroSD CLK / DVP D2</text>
+
+  <!-- Row 3: GPIO2 -->
+  <rect x="658" y="188" width="54" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="685" y="203" text-anchor="middle" font-size="12" font-weight="bold" fill="#1d4ed8">GPIO2</text>
+  <text x="720" y="203" text-anchor="start" font-size="12" fill="#1a1a1a">MicroSD D0 / Onboard LED</text>
+
+  <!-- Row 4: GPIO4 -->
+  <rect x="658" y="220" width="54" height="22" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="685" y="235" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">GPIO4</text>
+  <text x="720" y="235" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">MicroSD D1 / Спалах LED!</text>
+
+  <!-- Row 5: GPIO12 -->
+  <rect x="658" y="252" width="54" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="685" y="267" text-anchor="middle" font-size="12" font-weight="bold" fill="#1d4ed8">GPIO12</text>
+  <text x="720" y="267" text-anchor="start" font-size="12" fill="#1a1a1a">MicroSD D2 / DVP D0</text>
+
+  <!-- Row 6: GPIO13 -->
+  <rect x="658" y="284" width="54" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="685" y="299" text-anchor="middle" font-size="12" font-weight="bold" fill="#1d4ed8">GPIO13</text>
+  <text x="720" y="299" text-anchor="start" font-size="12" fill="#1a1a1a">MicroSD D3 / DVP D1</text>
+
+  <!-- Row 7: GPIO17 -->
+  <rect x="658" y="316" width="54" height="22" rx="4" fill="#f3f4f6" stroke="#d1d5db"/>
+  <text x="685" y="331" text-anchor="middle" font-size="12" font-weight="bold" fill="#4b5563">GPIO17</text>
+  <text x="720" y="331" text-anchor="start" font-size="12" fill="#6b7280">PSRAM CS (Зайнято)</text>
+
+  <!-- Row 8: GPIO5 -->
+  <rect x="658" y="348" width="54" height="22" rx="4" fill="#fef3c7" stroke="#d97706"/>
+  <text x="685" y="363" text-anchor="middle" font-size="12" font-weight="bold" fill="#b45309">GPIO5</text>
+  <text x="720" y="363" text-anchor="start" font-size="12" fill="#1a1a1a">DVP VSYNC (Кадр)</text>
+
+  <!-- Bottom Cards Section -->
+
+  <!-- Card 1: Flashing Mode -->
+  <rect x="30" y="460" width="285" height="125" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="42" y="482" text-anchor="start" font-size="13" font-weight="bold" fill="#1e7e34">Режим завантажувача (Boot Mode)</text>
+  <text x="42" y="503" text-anchor="start" font-size="12" fill="#1a1a1a">• З'єднати GPIO0 з GND для прошивки</text>
+  <text x="42" y="522" text-anchor="start" font-size="12" fill="#1a1a1a">• TXD/RXD підключити до USB-UART (3.3V)</text>
+  <text x="42" y="541" text-anchor="start" font-size="12" fill="#1a1a1a">• Роз'єднати GPIO0 і GND для запуску</text>
+  <text x="42" y="560" text-anchor="start" font-size="12" fill="#6b7280">В робочому режимі GPIO0 видає XCLK 20MHz</text>
+
+  <!-- Card 2: Flash LED & MicroSD Conflict -->
+  <rect x="337.5" y="460" width="285" height="125" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="349.5" y="482" text-anchor="start" font-size="13" font-weight="bold" fill="#c0392b">Конфлікт GPIO4 (Спалах vs SD)</text>
+  <text x="349.5" y="503" text-anchor="start" font-size="12" fill="#1a1a1a">• GPIO4 суміщає SD_DAT1 та спалах</text>
+  <text x="349.5" y="522" text-anchor="start" font-size="12" fill="#1a1a1a">• 4-bit SD: спалах миготить при обміні</text>
+  <text x="349.5" y="541" text-anchor="start" font-size="12" fill="#1a1a1a">• 1-bit SD: GPIO4 вільний для світлодіода</text>
+  <text x="349.5" y="560" text-anchor="start" font-size="12" fill="#6b7280">Використовуйте 1-bit mode щоб уникнути спалахів</text>
+
+  <!-- Card 3: Internal I2C / SCCB & PSRAM -->
+  <rect x="645" y="460" width="285" height="125" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="657" y="482" text-anchor="start" font-size="13" font-weight="bold" fill="#1d4ed8">Шина I2C / SCCB та PSRAM</text>
+  <text x="657" y="503" text-anchor="start" font-size="12" fill="#1a1a1a">• SIOC (GPIO27), SIOD (GPIO26): I2C</text>
+  <text x="657" y="522" text-anchor="start" font-size="12" fill="#1a1a1a">• Керування регістрами камери OV2640</text>
+  <text x="657" y="541" text-anchor="start" font-size="12" fill="#1a1a1a">• GPIO16/17 зарезервовані для PSRAM</text>
+  <text x="657" y="560" text-anchor="start" font-size="12" fill="#6b7280">Не використовуйте GPIO16/17 для периферії</text>
+</svg>

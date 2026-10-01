@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 460" width="1000" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="1000" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="500" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Принципова схема безпечного підключення силового реле до ESP8266</text>
+  <text x="500" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Оптопара PC817 забезпечує гальванічну розв'язку, а діод 1N4007 захищає транзистор від індуктивних викидів</text>
+
+  <!-- Galvanic Isolation Barrier Line -->
+  <line x1="285" y1="95" x2="285" y2="365" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5 5"/>
+  <text x="285" y="86" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Межа гальванічної розв'язки</text>
+
+  <!-- Module 1: ESP8266 Block -->
+  <rect x="45" y="95" width="170" height="270" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="130" y="120" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">ESP8266 / ESP-01</text>
+  <text x="130" y="140" text-anchor="middle" font-size="12" fill="#6b7280">Логіка 3.3 В</text>
+
+  <!-- ESP8266 Pin Labels -->
+  <circle cx="215" cy="170" r="4" fill="#2457d6"/>
+  <text x="203" y="174" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">GPIO4</text>
+
+  <circle cx="215" cy="310" r="4" fill="#1a1a1a"/>
+  <text x="203" y="314" text-anchor="end" font-size="12" fill="#1a1a1a">GND</text>
+
+  <!-- Signal Line from GPIO4 to R1 -->
+  <line x1="215" y1="170" x2="235" y2="170" stroke="#2457d6" stroke-width="2"/>
+  <line x1="285" y1="170" x2="330" y2="170" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Resistor R1 -->
+  <rect x="235" y="158" width="50" height="24" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="260" y="174" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">R1 1k</text>
+
+  <!-- ESP GND Line to Optocoupler LED Cathode -->
+  <path d="M 215 310 L 350 310 L 350 260" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Module 2: Optocoupler PC817 -->
+  <rect x="330" y="130" width="140" height="190" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="400" y="152" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Оптопара PC817</text>
+
+  <!-- Internal Optocoupler LED (Anode top, Cathode bottom) -->
+  <circle cx="350" cy="170" r="3" fill="#2457d6"/>
+  <line x1="350" y1="170" x2="350" y2="200" stroke="#2457d6" stroke-width="2"/>
+  <polygon points="340,200 360,200 350,215" fill="#2457d6"/>
+  <line x1="340" y1="215" x2="360" y2="215" stroke="#2457d6" stroke-width="2"/>
+  <line x1="350" y1="215" x2="350" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="350" cy="260" r="3" fill="#1a1a1a"/>
+
+  <!-- Phototransistor inside PC817 (Collector top right, Emitter bottom right) -->
+  <line x1="430" y1="170" x2="430" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="430" y1="230" x2="430" y2="270" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="420" y1="205" x2="420" y2="235" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="420" y1="210" x2="430" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="420" y1="230" x2="430" y2="235" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- External 5V Rail -->
+  <line x1="430" y1="110" x2="815" y2="110" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="430" cy="110" r="4" fill="#c0392b"/>
+  <text x="620" y="102" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">+5 В (Зовнішнє живлення силового реле)</text>
+
+  <!-- Connect Optocoupler Collector to +5V -->
+  <line x1="430" y1="170" x2="430" y2="110" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Optocoupler Emitter to Transistor Base & Pull-Down R2 -->
+  <line x1="430" y1="270" x2="500" y2="270" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="550" y1="270" x2="608" y2="270" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+
+  <!-- Resistor R2 (Base Pull-Down) -->
+  <rect x="500" y="258" width="50" height="24" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="525" y="274" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">R2 10k</text>
+
+  <!-- External GND Rail -->
+  <line x1="430" y1="340" x2="635" y2="340" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="635" cy="340" r="4" fill="#1a1a1a"/>
+  <text x="530" y="356" text-anchor="middle" font-size="12" fill="#1a1a1a">GND (5 В Силова земля)</text>
+
+  <!-- NPN Transistor VT1 (2N2222) -->
+  <circle cx="630" cy="270" r="22" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="620" y1="260" x2="620" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="608" y1="270" x2="620" y2="270" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="620" y1="263" x2="635" y2="253" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="620" y1="277" x2="635" y2="287" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="595" y="305" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">VT1 2N2222</text>
+
+  <!-- Transistor Emitter to GND -->
+  <line x1="635" y1="287" x2="635" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Transistor Collector to Protection Diode & Relay Coil -->
+  <line x1="635" y1="253" x2="635" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="635" y1="230" x2="710" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="635" y1="230" x2="815" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Protection Diode VD1 (1N4007) in Parallel with Relay Coil -->
+  <rect x="710" y="170" width="55" height="60" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="737" y="193" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">VD1</text>
+  <text x="737" y="210" text-anchor="middle" font-size="12" fill="#c0392b">1N4007</text>
+  <text x="737" y="248" text-anchor="middle" font-size="12" fill="#c0392b">(Захист ЕРС)</text>
+
+  <!-- Connect VD1 Cathode to +5V Rail -->
+  <line x1="737" y1="170" x2="737" y2="110" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="737" cy="110" r="3" fill="#c0392b"/>
+
+  <!-- Connect Relay Coil Top to +5V Rail -->
+  <line x1="815" y1="170" x2="815" y2="110" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="815" cy="110" r="3" fill="#c0392b"/>
+
+  <!-- Module 3: Power Relay K1 -->
+  <rect x="780" y="130" width="180" height="190" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="870" y="152" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Силове реле K1 (5 В)</text>
+
+  <!-- Relay Coil Symbol -->
+  <rect x="800" y="170" width="30" height="60" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="800" y1="170" x2="830" y2="230" stroke="#27ae60" stroke-width="1"/>
+  <text x="815" y="248" text-anchor="middle" font-size="12" fill="#27ae60">Котушка 5В</text>
+
+  <!-- Relay Switch Terminals COM & NO -->
+  <circle cx="870" cy="190" r="4" fill="#1a1a1a"/>
+  <line x1="870" y1="190" x2="905" y2="205" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="910" cy="220" r="4" fill="#27ae60"/>
+
+  <text x="860" y="184" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">COM</text>
+  <text x="910" y="245" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">NO (Навантаження)</text>
+  <text x="870" y="295" text-anchor="middle" font-size="12" fill="#6b7280">220 В AC / 10 А Комутація</text>
+
+  <!-- Summary Footer Box -->
+  <rect x="45" y="385" width="910" height="36" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="500" y="408" text-anchor="middle" font-size="12" fill="#1a1a1a">Пояснення захисту: Оптопара розв'язує 3.3 В МК від завад реле, а діод VD1 гасить зворотну ЕРС самоіндукції котушки.</text>
+</svg>

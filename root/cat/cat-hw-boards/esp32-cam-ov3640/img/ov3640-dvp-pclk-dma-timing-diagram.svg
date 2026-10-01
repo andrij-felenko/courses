@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 510" width="960" height="510" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="510" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма тактування DVP шини OV3640 та накопичення в DMA FIFO</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Співвідношення сигналів VSYNC, HREF, PCLK з наповненням буфера FIFO та ризиком переповнення</text>
+
+  <!-- Signal Labels (Left Axis) -->
+  <text x="160" y="112" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">VSYNC</text>
+  <text x="160" y="177" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">HREF (Line Valid)</text>
+  <text x="160" y="242" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">PCLK &amp; D[7:0]</text>
+  <text x="160" y="330" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">DMA FIFO Level</text>
+
+  <!-- FIFO Level Threshold Labels -->
+  <text x="175" y="288" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">100% (Limit)</text>
+  <text x="175" y="363" font-size="12" fill="#6b7280" text-anchor="end">0%</text>
+
+  <!-- Interval Annotations -->
+  <text x="220" y="148" font-size="12" fill="#6b7280" text-anchor="middle">t_HBLANK</text>
+  <text x="420" y="148" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Передача пікселів активного рядка</text>
+  <text x="620" y="148" font-size="12" fill="#6b7280" text-anchor="middle">t_HBLANK</text>
+
+  <!-- Signal 1: VSYNC -->
+  <path d="M 180,100 L 240,100 L 240,125 L 880,125" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+
+  <!-- Signal 2: HREF -->
+  <path d="M 180,190 L 260,190 L 260,165 L 580,165 L 580,190 L 660,190 L 660,165 L 880,165" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+
+  <!-- Vertical Guide Lines for Blanking -->
+  <line x1="260" y1="160" x2="260" y2="375" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="580" y1="160" x2="580" y2="375" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="660" y1="160" x2="660" y2="375" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Signal 3: PCLK & Data Burst -->
+  <path d="M 180,255 L 260,255 L 260,230 L 275,230 L 275,255 L 290,255 L 290,230 L 305,230 L 305,255 L 320,255 L 320,230 L 335,230 L 335,255 L 350,255 L 350,230 L 365,230 L 365,255 L 380,255 L 380,230 L 395,230 L 395,255 L 410,255 L 410,230 L 425,230 L 425,255 L 440,255 L 440,230 L 455,230 L 455,255 L 470,255 L 470,230 L 485,230 L 485,255 L 500,255 L 500,230 L 515,230 L 515,255 L 530,255 L 530,230 L 545,230 L 545,255 L 560,255 L 560,230 L 575,230 L 575,255 L 580,255 L 660,255 L 660,230 L 675,230 L 675,255 L 690,255 L 690,230 L 705,230 L 705,255 L 720,255 L 720,230 L 735,230 L 735,255 L 750,255 L 750,230 L 765,230 L 765,255 L 780,255 L 780,230 L 795,230 L 795,255 L 810,255 L 810,230 L 825,230 L 825,255 L 840,255 L 840,230 L 855,230 L 855,255 L 870,255 L 870,230 L 880,230" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+
+  <!-- Signal 4: DMA FIFO Level Area & Curve -->
+  <line x1="180" y1="295" x2="880" y2="295" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="180" y1="370" x2="880" y2="370" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <polygon points="180,370 260,370 460,330 560,295 580,370 880,370" fill="#fdecea" opacity="0.6"/>
+  <path d="M 180,370 L 260,370 L 460,330 L 560,295 L 580,370 L 880,370" stroke="#c0392b" stroke-width="2" fill="none"/>
+
+  <!-- Peak Indicator Dot & Pointer Arrow -->
+  <circle cx="560" cy="295" r="4" fill="#c0392b"/>
+  <line x1="564" y1="295" x2="660" y2="320" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+
+  <!-- Alert Box at Overflow Point (Positioned outside curve lines) -->
+  <rect x="665" y="304" width="170" height="44" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="750" y="322" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠️ Переповнення FIFO</text>
+  <text x="750" y="340" font-size="12" fill="#c0392b" text-anchor="middle">Затримка в шині PSRAM</text>
+
+  <!-- Bottom Panel -->
+  <rect x="40" y="415" width="880" height="75" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <rect x="52" y="425" width="413" height="55" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="64" y="443" font-size="12" font-weight="bold" fill="#c0392b">⚠️ Причина переповнення (DMA FIFO Overflow)</text>
+  <text x="64" y="463" font-size="12" fill="#1a1a1a">Висока частота f_PCLK або затримки шини Quad SPI PSRAM</text>
+
+  <rect x="495" y="425" width="425" height="55" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="507" y="443" font-size="12" font-weight="bold" fill="#27ae60">✓ Заходи запобігання переповненню</text>
+  <text x="507" y="463" font-size="12" fill="#1a1a1a">Збільшення t_HBLANK, режим Octal PSRAM або стиснення JPEG</text>
+</svg>

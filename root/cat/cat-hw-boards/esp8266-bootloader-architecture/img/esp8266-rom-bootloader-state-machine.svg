@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Скінченний автомат ROM-завантажувача ESP8266</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Послідовність станів ініціалізації: від опитування strapping pins та регістрів RTC до передачі управління</text>
+
+  <!-- Row 1: State Sequence -->
+  <!-- Box 1: Reset -->
+  <rect x="40" y="80" width="180" height="70" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="130" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">1. Скидання (POR / RST)</text>
+  <text x="130" y="125" text-anchor="middle" font-size="12" fill="#6b7280">Подача VDD > 2.7V</text>
+
+  <line x1="220" y1="115" x2="252" y2="115" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <!-- Box 2: RTC Status -->
+  <rect x="260" y="80" width="195" height="70" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="357" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">2. Аналіз регістрів RTC</text>
+  <text x="357" y="125" text-anchor="middle" font-size="12" fill="#6b7280">Фіксація причини скидання</text>
+
+  <line x1="455" y1="115" x2="487" y2="115" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <!-- Box 3: Strapping Pins -->
+  <rect x="495" y="80" width="205" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="597" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">3. Опитування Strapping Pins</text>
+  <text x="597" y="125" text-anchor="middle" font-size="12" fill="#1a1a1a">Зчитування GPIO0, 2, 15</text>
+
+  <line x1="700" y1="115" x2="727" y2="115" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <!-- Box 4: State Machine Arbiter -->
+  <rect x="735" y="80" width="185" height="70" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="827" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">4. Арбітр автомата</text>
+  <text x="827" y="125" text-anchor="middle" font-size="12" fill="#6b7280">Декодування вектора</text>
+
+
+  <!-- Branch Lines from Arbiter to Row 2 -->
+  <!-- Left Branch (Forbidden) -->
+  <path d="M 735 115 L 165 115 L 165 202" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arr-red)"/>
+  <text x="310" y="172" font-size="12" fill="#c0392b" font-weight="bold">GPIO15=1 або GPIO2=0</text>
+
+  <!-- Middle Branch (SPI Flash Boot) -->
+  <path d="M 827 150 L 827 180 L 480 180 L 480 202" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="635" y="172" font-size="12" fill="#27ae60" font-weight="bold">GPIO15=0, GPIO0=1, GPIO2=1</text>
+
+  <!-- Right Branch (UART Download) -->
+  <path d="M 885 150 L 885 202" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="890" y="180" font-size="12" fill="#2457d6" font-weight="bold">0, 0, 1</text>
+
+
+  <!-- Row 2: Target Execution Modes -->
+  <!-- Branch 1 Box (Left) -->
+  <rect x="40" y="210" width="250" height="80" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="165" y="232" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Заборонений стан / SDIO</text>
+  <text x="165" y="252" text-anchor="middle" font-size="12" fill="#1a1a1a">GPIO15=1: SDIO Boot (немає ПЗ)</text>
+  <text x="165" y="272" text-anchor="middle" font-size="12" fill="#c0392b">GPIO2=0: Зациклення / Збій ROM</text>
+
+  <!-- Branch 2 Box (Middle) -->
+  <rect x="350" y="210" width="260" height="80" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="232" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">SPI Flash Boot (Штатний запуск)</text>
+  <text x="480" y="252" text-anchor="middle" font-size="12" fill="#1a1a1a">Ініціалізація шини SPI Flash</text>
+  <text x="480" y="272" text-anchor="middle" font-size="12" fill="#6b7280">Вибір режимів QIO / QOUT / DIO</text>
+
+  <!-- Branch 3 Box (Right) -->
+  <rect x="670" y="210" width="250" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="795" y="232" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">UART Download Mode</text>
+  <text x="795" y="252" text-anchor="middle" font-size="12" fill="#1a1a1a">Лог старту: 74880 бод</text>
+  <text x="795" y="272" text-anchor="middle" font-size="12" fill="#6b7280">Очікування кадру прошивача</text>
+
+
+  <!-- Row 3: SPI Flash Header Parsing -->
+  <line x1="480" y1="290" x2="480" y2="322" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <rect x="350" y="330" width="260" height="80" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="352" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Розпаршування заголовка бінарника</text>
+  <text x="480" y="372" text-anchor="middle" font-size="12" fill="#1a1a1a">Мапування сегментів в IRAM / DRAM</text>
+  <text x="480" y="392" text-anchor="middle" font-size="12" fill="#6b7280">Перевірка CRC контрольної суми</text>
+
+
+  <!-- Row 4: Entry Point Transfer -->
+  <line x1="480" y1="410" x2="480" y2="437" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <rect x="350" y="445" width="260" height="55" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="467" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Передача управління (entry_point)</text>
+  <text x="480" y="487" text-anchor="middle" font-size="12" fill="#1a1a1a">Старт користувацької прошивки / SDK</text>
+</svg>

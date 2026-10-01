@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title Block -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Двонаправлений узгоджувач логічних рівнів на MOSFET</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Принцип з'єднання кіл 3.3 В (LV) і 5.0 В (HV) та роботи в обох напрямках</text>
+
+  <!-- Upper Panel: Schematic Diagram -->
+  <rect x="30" y="72" width="900" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="98" text-anchor="start" font-size="14" font-weight="bold" fill="#1a1a1a">Принципова схема одного каналу узгоджувача</text>
+
+  <!-- 3.3V Power Rail -->
+  <line x1="180" y1="120" x2="480" y2="120" stroke="#2457d6" stroke-width="2"/>
+  <rect x="150" y="110" width="60" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="180" y="124" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">3.3V</text>
+  <text x="310" y="108" text-anchor="middle" font-size="12" fill="#6b7280">Шина 3.3 В (VCC_LV)</text>
+  <circle cx="260" cy="120" r="3.5" fill="#2457d6"/>
+  <circle cx="480" cy="120" r="3.5" fill="#2457d6"/>
+
+  <!-- 5.0V Power Rail -->
+  <line x1="700" y1="120" x2="780" y2="120" stroke="#c0392b" stroke-width="2"/>
+  <rect x="780" y="110" width="60" height="20" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="810" y="124" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">5.0V</text>
+  <text x="740" y="108" text-anchor="middle" font-size="12" fill="#6b7280">Шина 5.0 В (VCC_HV)</text>
+  <circle cx="700" cy="120" r="3.5" fill="#c0392b"/>
+
+  <!-- Resistor R1 (10 kΩ pull-up to 3.3V) -->
+  <line x1="260" y1="120" x2="260" y2="155" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="250" y="155" width="20" height="40" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="260" y1="195" x2="260" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="240" y="170" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">R1</text>
+  <text x="240" y="186" text-anchor="end" font-size="12" fill="#6b7280">10 кОм</text>
+
+  <!-- Resistor R2 (10 kΩ pull-up to 5.0V) -->
+  <line x1="700" y1="120" x2="700" y2="155" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="690" y="155" width="20" height="40" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="700" y1="195" x2="700" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="720" y="170" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">R2</text>
+  <text x="720" y="186" text-anchor="start" font-size="12" fill="#6b7280">10 кОм</text>
+
+  <!-- Signal Lines -->
+  <!-- LV Side Line -->
+  <rect x="50" y="215" width="80" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="90" y="234" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">LV (3.3V)</text>
+  <line x1="130" y1="230" x2="455" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="260" cy="230" r="3.5" fill="#1a1a1a"/>
+  <text x="195" y="214" text-anchor="middle" font-size="12" fill="#6b7280">Сигнал 3.3 В</text>
+
+  <!-- HV Side Line -->
+  <rect x="830" y="215" width="80" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="870" y="234" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">HV (5.0V)</text>
+  <line x1="505" y1="230" x2="830" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="700" cy="230" r="3.5" fill="#1a1a1a"/>
+  <text x="765" y="214" text-anchor="middle" font-size="12" fill="#6b7280">Сигнал 5.0 В</text>
+
+  <!-- MOSFET Transistor Q1 Structure -->
+  <!-- Label Q1 -->
+  <text x="495" y="148" text-anchor="start" font-size="13" font-weight="bold" fill="#2457d6">Q1 (N-MOSFET)</text>
+
+  <!-- Gate Lead & Electrode -->
+  <line x1="480" y1="120" x2="480" y2="195" stroke="#2457d6" stroke-width="2"/>
+  <line x1="445" y1="195" x2="515" y2="195" stroke="#2457d6" stroke-width="3"/>
+  <text x="495" y="176" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">G (3.3V)</text>
+
+  <!-- Channel Segments (y = 201) -->
+  <line x1="445" y1="201" x2="465" y2="201" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="472" y1="201" x2="488" y2="201" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="495" y1="201" x2="515" y2="201" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Source Lead (Left) -->
+  <line x1="455" y1="201" x2="455" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="455" cy="230" r="3.5" fill="#1a1a1a"/>
+  <text x="415" y="214" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">S (Витік)</text>
+
+  <!-- Drain Lead (Right) -->
+  <line x1="505" y1="201" x2="505" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="505" cy="230" r="3.5" fill="#1a1a1a"/>
+  <text x="545" y="214" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">D (Стік)</text>
+
+  <!-- Substrate / Bulk Connection with Arrow pointing UP into Channel -->
+  <line x1="480" y1="201" x2="480" y2="216" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="480" y1="216" x2="455" y2="216" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="455" cy="216" r="3" fill="#1a1a1a"/>
+  <polygon points="476,208 480,201 484,208" fill="#1a1a1a"/>
+
+  <!-- Body Diode (Parallel Source to Drain, Anode at Source, Cathode at Drain) -->
+  <line x1="455" y1="230" x2="455" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="455" y1="255" x2="472" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="472,249 472,261 488,255" fill="#1a1a1a"/>
+  <line x1="488" y1="249" x2="488" y2="261" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="488" y1="255" x2="505" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="505" y1="255" x2="505" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="480" y="284" text-anchor="middle" font-size="12" fill="#6b7280">Вбудований діод (Body Diode)</text>
+
+  <!-- Upper Panel Bottom Note -->
+  <text x="480" y="312" text-anchor="middle" font-size="12" fill="#1a1a1a">Порогова напруга відкривання транзистора: V_GS(th) ≈ 0.8...1.5 В (наприклад, BSS138)</text>
+
+  <!-- Lower Section: 3 Operational Mode Cards -->
+
+  <!-- Card 1: Passive State / Logical 1 -->
+  <rect x="30" y="346" width="288" height="188" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="346" width="288" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="174" y="367" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. Стан спокою (Логічна «1»)</text>
+
+  <text x="42" y="398" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">• LV (3.3В):</tspan><tspan fill="#6b7280"> підтягнуто R1</tspan></text>
+  <text x="42" y="418" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">• MOSFET:</tspan><tspan fill="#6b7280"> V_GS = 3.3В - 3.3В = 0В</tspan></text>
+  <text x="42" y="438" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">• Стан Q1:</tspan><tspan font-weight="bold" fill="#c0392b"> ЗАКРИТИЙ (OFF)</tspan></text>
+  <text x="42" y="458" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">• HV (5.0В):</tspan><tspan fill="#6b7280"> підтягнуто R2 до 5 В</tspan></text>
+
+  <rect x="42" y="476" width="264" height="46" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="174" y="494" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Результат: LV = 3.3 В, HV = 5.0 В</text>
+  <text x="174" y="510" text-anchor="middle" font-size="12" fill="#27ae60">Обидві лінії у стані High (1)</text>
+
+  <!-- Card 2: Transmission '0' LV -> HV -->
+  <rect x="336" y="346" width="288" height="188" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="336" y="346" width="288" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="367" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. Передача «0» (LV → HV)</text>
+
+  <text x="348" y="398" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">• LV вхід:</tspan><tspan fill="#6b7280"> притягнуто до 0 В (Low)</tspan></text>
+  <text x="348" y="418" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">• MOSFET:</tspan><tspan fill="#6b7280"> V_GS = 3.3В - 0В = 3.3В</tspan></text>
+  <text x="348" y="438" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">• Стан Q1:</tspan><tspan font-weight="bold" fill="#27ae60"> ВІДКРИТИЙ (ON)</tspan></text>
+  <text x="348" y="458" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">• Струм:</tspan><tspan fill="#6b7280"> HV розряджається через Q1</tspan></text>
+
+  <rect x="348" y="476" width="264" height="46" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="494" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Результат: HV = 0 В</text>
+  <text x="480" y="510" text-anchor="middle" font-size="12" fill="#27ae60">Логічний 0 передано на HV сторону</text>
+
+  <!-- Card 3: Transmission '0' HV -> LV -->
+  <rect x="642" y="346" width="288" height="188" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="642" y="346" width="288" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="786" y="367" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">3. Передача «0» (HV → LV)</text>
+
+  <text x="654" y="398" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">• HV вхід:</tspan><tspan fill="#6b7280"> притягнуто до 0 В (Low)</tspan></text>
+  <text x="654" y="418" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">• Діод:</tspan><tspan fill="#6b7280"> проводить S → D (до 0.7В)</tspan></text>
+  <text x="654" y="438" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">• MOSFET:</tspan><tspan fill="#6b7280"> V_GS = 2.6В &gt; V_th ⇒ ON</tspan></text>
+  <text x="654" y="458" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">• Струм:</tspan><tspan fill="#6b7280"> Q1 повністю відкривається</tspan></text>
+
+  <rect x="654" y="476" width="264" height="46" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="786" y="494" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Результат: LV = 0 В</text>
+  <text x="786" y="510" text-anchor="middle" font-size="12" fill="#27ae60">Логічний 0 передано на LV сторону</text>
+</svg>

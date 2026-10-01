@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Автомат станів TCP в lwIP та точки вивільнення ресурсів ESP-01</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Встановлення з'єднання, закриття та вивільнення пам'яті PCB і буферів при RST / tcp_abort()</text>
+
+  <!-- Top Return Line (Emergency & Timeout PCB Release -> CLOSED) -->
+  <path d="M 850 442 L 850 460 L 950 460 L 950 75 L 105 75 L 105 95" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arr-green)"/>
+  <text x="505" y="70" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Негайне скидання та повернення пам'яті в пул MEMP_TCP_PCB</text>
+
+  <!-- State 1: CLOSED -->
+  <rect x="40" y="95" width="130" height="46" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="105" y="123" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CLOSED</text>
+
+  <!-- State 2: LISTEN -->
+  <rect x="240" y="95" width="130" height="46" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="305" y="123" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LISTEN</text>
+
+  <!-- Transition: CLOSED -> LISTEN -->
+  <path d="M 170 118 L 240 118" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="205" y="108" font-size="12" fill="#1a1a1a" text-anchor="middle">пасівне відкриття</text>
+  <text x="205" y="133" font-size="12" fill="#6b7280" text-anchor="middle">tcp_listen()</text>
+
+  <!-- State 3: SYN_SENT -->
+  <rect x="40" y="200" width="130" height="46" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="105" y="228" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SYN_SENT</text>
+
+  <!-- Transition: CLOSED -> SYN_SENT -->
+  <path d="M 105 141 L 105 200" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="115" y="166" font-size="12" fill="#1a1a1a">tcp_connect()</text>
+  <text x="115" y="182" font-size="12" fill="#6b7280">[активний SYN]</text>
+
+  <!-- State 4: SYN_RCVD -->
+  <rect x="240" y="200" width="130" height="46" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="305" y="228" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SYN_RCVD</text>
+
+  <!-- Transition: LISTEN -> SYN_RCVD -->
+  <path d="M 305 141 L 305 200" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="315" y="166" font-size="12" fill="#1a1a1a">вхідний SYN</text>
+  <text x="315" y="182" font-size="12" fill="#6b7280">[SYN+ACK]</text>
+
+  <!-- State 5: ESTABLISHED -->
+  <rect x="420" y="183" width="170" height="80" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="505" y="210" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">ESTABLISHED</text>
+  <text x="505" y="230" font-size="12" fill="#1a1a1a" text-anchor="middle">Активне з'єднання</text>
+  <text x="505" y="248" font-size="12" fill="#6b7280" text-anchor="middle">tcp_write() / tcp_output()</text>
+
+  <!-- Transition: SYN_SENT -> ESTABLISHED (Routed below SYN_RCVD) -->
+  <path d="M 105 246 L 105 275 L 430 275 L 430 263" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="265" y="292" font-size="12" fill="#2457d6" text-anchor="middle">Отримано SYN+ACK [відправка ACK]</text>
+
+  <!-- Transition: SYN_RCVD -> ESTABLISHED -->
+  <path d="M 370 223 L 420 223" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="395" y="213" font-size="12" fill="#2457d6" text-anchor="middle">Вхідний ACK</text>
+
+  <!-- State 6: FIN_WAIT_1 -->
+  <rect x="420" y="320" width="170" height="44" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="505" y="347" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">FIN_WAIT_1</text>
+
+  <!-- Transition: ESTABLISHED -> FIN_WAIT_1 -->
+  <path d="M 505 263 L 505 320" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="515" y="292" font-size="12" fill="#1a1a1a">tcp_close() [FIN]</text>
+
+  <!-- State 7: FIN_WAIT_2 -->
+  <rect x="420" y="390" width="170" height="44" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="505" y="417" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">FIN_WAIT_2</text>
+
+  <!-- Transition: FIN_WAIT_1 -> FIN_WAIT_2 -->
+  <path d="M 505 364 L 505 390" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="515" y="380" font-size="12" fill="#6b7280">Отримано ACK</text>
+
+  <!-- State 8: TIME_WAIT -->
+  <rect x="420" y="460" width="170" height="44" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="505" y="487" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">TIME_WAIT</text>
+
+  <!-- Transition: FIN_WAIT_2 -> TIME_WAIT -->
+  <path d="M 505 434 L 505 460" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="515" y="450" font-size="12" fill="#27ae60">Отримано FIN [ACK]</text>
+
+  <!-- Normal Return: TIME_WAIT -> CLOSED -->
+  <path d="M 420 482 L 210 482 L 210 518 L 105 518 L 105 141" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#arr-green)"/>
+  <text x="315" y="512" font-size="12" fill="#27ae60" text-anchor="middle">2MSL таймаут -> вивільнення PCB (memp_free)</text>
+
+  <!-- State 9: CLOSE_WAIT -->
+  <rect x="610" y="320" width="130" height="44" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="675" y="347" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CLOSE_WAIT</text>
+
+  <!-- Transition: ESTABLISHED -> CLOSE_WAIT -->
+  <path d="M 590 223 L 675 223 L 675 320" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="632" y="213" font-size="12" fill="#1a1a1a" text-anchor="middle">Вхідний FIN [ACK]</text>
+
+  <!-- State 10: LAST_ACK -->
+  <rect x="610" y="390" width="130" height="44" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="675" y="417" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LAST_ACK</text>
+
+  <!-- Transition: CLOSE_WAIT -> LAST_ACK -->
+  <path d="M 675 364 L 675 390" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="685" y="380" font-size="12" fill="#6b7280">tcp_close() [FIN]</text>
+
+  <!-- Transition: LAST_ACK -> TIME_WAIT -->
+  <path d="M 675 434 L 675 482 L 590 482" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="632" y="474" font-size="12" fill="#27ae60" text-anchor="middle">ACK на FIN</text>
+
+  <!-- Emergency Abort Panel -->
+  <rect x="760" y="95" width="180" height="409" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="850" y="120" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Аварійне скидання</text>
+  <text x="850" y="138" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">(RST / tcp_abort)</text>
+
+  <!-- Inner Box 1: Triggers -->
+  <rect x="772" y="152" width="156" height="114" rx="4" fill="white" stroke="#f5c6cb"/>
+  <text x="850" y="170" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Причини спрацювання:</text>
+  <text x="780" y="190" font-size="12" fill="#1a1a1a">• Виклик tcp_abort()</text>
+  <text x="780" y="208" font-size="12" fill="#1a1a1a">• Таймаут RTO (збій)</text>
+  <text x="780" y="226" font-size="12" fill="#1a1a1a">• Сегмент RST</text>
+  <text x="780" y="244" font-size="12" fill="#1a1a1a">• Брак RAM модуля</text>
+
+  <!-- Inner Box 2: Memory Actions -->
+  <rect x="772" y="278" width="156" height="164" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="850" y="298" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вивільнення ресурсів:</text>
+  <text x="780" y="320" font-size="12" font-weight="bold" fill="#1a1a1a">1. tcp_pcb_purge()</text>
+  <text x="780" y="336" font-size="12" fill="#6b7280">   Очищення Tx/Rx</text>
+  <text x="780" y="358" font-size="12" font-weight="bold" fill="#1a1a1a">2. memp_free()</text>
+  <text x="780" y="374" font-size="12" fill="#6b7280">   Повернення PCB в RAM</text>
+  <text x="780" y="396" font-size="12" font-weight="bold" fill="#1a1a1a">3. Стан CLOSED</text>
+  <text x="780" y="412" font-size="12" fill="#6b7280">   Негайне вивільнення</text>
+
+  <!-- Trigger Lines pointing from ESTABLISHED to Abort Panel -->
+  <path d="M 590 205 L 760 205" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-red)"/>
+  <text x="675" y="197" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Аварійне скидання (RST)</text>
+
+</svg>

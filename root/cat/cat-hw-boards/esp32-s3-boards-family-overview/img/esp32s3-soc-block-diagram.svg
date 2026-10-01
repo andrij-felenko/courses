@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структурна схема кристала ESP32-S3</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Двоядерний процесор Xtensa LX7 з векторним прискорювачем, багатошаровою шиною та блоками безпеки</text>
+
+  <!-- Main SoC Boundary -->
+  <rect x="30" y="75" width="900" height="455" fill="#f4f6f8" stroke="#2457d6" stroke-width="2" rx="12"/>
+  <text x="50" y="96" font-size="14" font-weight="bold" fill="#2457d6">Кристал ESP32-S3 (SoC Architecture)</text>
+
+  <!-- BLOCK 1: CPU & Coprocessors -->
+  <g id="cpu-block">
+    <rect x="50" y="110" width="420" height="148" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+    <text x="65" y="128" font-size="13" font-weight="bold" fill="#2457d6">Процесорні ядра та векторний прискорювач</text>
+    
+    <!-- Core 0 -->
+    <rect x="65" y="138" width="180" height="72" fill="white" stroke="#2457d6" stroke-width="1.2" rx="6"/>
+    <text x="155" y="156" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Xtensa LX7 (Core 0)</text>
+    <text x="155" y="174" font-size="12" fill="#6b7280" text-anchor="middle">до 240 МГц</text>
+    <text x="155" y="196" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Vector Instructions (AI)</text>
+
+    <!-- Core 1 -->
+    <rect x="270" y="138" width="180" height="72" fill="white" stroke="#2457d6" stroke-width="1.2" rx="6"/>
+    <text x="360" y="156" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Xtensa LX7 (Core 1)</text>
+    <text x="360" y="174" font-size="12" fill="#6b7280" text-anchor="middle">до 240 МГц</text>
+    <text x="360" y="196" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Vector Instructions (AI)</text>
+
+    <!-- ULP Coprocessor -->
+    <rect x="65" y="218" width="385" height="30" fill="white" stroke="#d0d7de" stroke-width="1" rx="5"/>
+    <text x="257" y="238" font-size="12" fill="#1a1a1a" text-anchor="middle">ULP Сопроцесор (RISC-V / FSM для режимів сну)</text>
+  </g>
+
+  <!-- BLOCK 2: Memory & Bus Controllers -->
+  <g id="memory-block">
+    <rect x="490" y="110" width="420" height="148" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+    <text x="505" y="128" font-size="13" font-weight="bold" fill="#2457d6">Пам'ять та контролери шин</text>
+
+    <!-- Internal Memory -->
+    <rect x="505" y="138" width="185" height="110" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+    <text x="597" y="158" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SRAM: 512 КБ</text>
+    <text x="597" y="178" font-size="12" fill="#1a1a1a" text-anchor="middle">ROM: 384 КБ</text>
+    <text x="597" y="202" font-size="12" fill="#6b7280" text-anchor="middle">RTC FAST: 16 КБ</text>
+    <text x="597" y="222" font-size="12" fill="#6b7280" text-anchor="middle">RTC SLOW: 8 КБ</text>
+
+    <!-- External Memory Ctrl -->
+    <rect x="705" y="138" width="190" height="110" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+    <text x="800" y="158" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Cache Controller</text>
+    <text x="800" y="180" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Octal / Quad SPI Ctrl</text>
+    <text x="800" y="206" font-size="12" fill="#6b7280" text-anchor="middle">Зовнішня Flash/PSRAM</text>
+  </g>
+
+  <!-- Connectors from Top Blocks to Interconnect Bus -->
+  <line x1="155" y1="258" x2="155" y2="271" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="360" y1="258" x2="360" y2="271" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="597" y1="258" x2="597" y2="271" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="800" y1="258" x2="800" y2="271" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- INTERCONNECT BUS MATRIX -->
+  <g id="bus-matrix">
+    <rect x="50" y="275" width="860" height="38" fill="#2457d6" stroke="#1a1a1a" stroke-width="1" rx="6"/>
+    <text x="480" y="299" font-size="13" font-weight="bold" fill="white" text-anchor="middle">Багатошарова системна шина інтеркомбінації (AHB / AXI Matrix &amp; DMA)</text>
+  </g>
+
+  <!-- Connectors from Interconnect Bus to Bottom Blocks -->
+  <line x1="185" y1="313" x2="185" y2="326" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="480" y1="313" x2="480" y2="326" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="775" y1="313" x2="775" y2="326" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- BOTTOM ROW BLOCKS -->
+
+  <!-- BLOCK 3: Wireless Subsystem -->
+  <g id="rf-block">
+    <rect x="50" y="330" width="270" height="182" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+    <text x="65" y="348" font-size="13" font-weight="bold" fill="#1a1a1a">Бездротовий зв'язок</text>
+
+    <!-- Wi-Fi Box -->
+    <rect x="65" y="358" width="240" height="42" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="5"/>
+    <text x="185" y="375" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Wi-Fi 802.11 b/g/n (2.4 GHz)</text>
+    <text x="185" y="392" font-size="12" fill="#6b7280" text-anchor="middle">до 150 Мбіт/с (HT40)</text>
+
+    <!-- Bluetooth Box -->
+    <rect x="65" y="408" width="240" height="42" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="5"/>
+    <text x="185" y="425" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Bluetooth 5 (LE) &amp; Mesh</text>
+    <text x="185" y="442" font-size="12" fill="#6b7280" text-anchor="middle">2 Mbps PHY / Long Range</text>
+
+    <!-- RF Balun Box -->
+    <rect x="65" y="458" width="240" height="42" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="5"/>
+    <text x="185" y="475" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вбудований Balun &amp; RF Switch</text>
+    <text x="185" y="492" font-size="12" fill="#6b7280" text-anchor="middle">Спільна антена Wi-Fi/BLE</text>
+  </g>
+
+  <!-- BLOCK 4: Hardware Security -->
+  <g id="security-block">
+    <rect x="345" y="330" width="270" height="182" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+    <text x="360" y="348" font-size="13" font-weight="bold" fill="#1a1a1a">Апаратна безпека</text>
+
+    <!-- AES/SHA Box -->
+    <rect x="360" y="358" width="240" height="42" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="5"/>
+    <text x="480" y="375" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">AES-128/256, SHA-256, RSA</text>
+    <text x="480" y="392" font-size="12" fill="#6b7280" text-anchor="middle">Апаратні прискорювачі</text>
+
+    <!-- HMAC & DS Box -->
+    <rect x="360" y="408" width="240" height="42" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="5"/>
+    <text x="480" y="425" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">HMAC &amp; Digital Signature</text>
+    <text x="480" y="442" font-size="12" fill="#6b7280" text-anchor="middle">Апаратний підпис пристрою</text>
+
+    <!-- Secure Boot & eFuse -->
+    <rect x="360" y="458" width="240" height="42" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="5"/>
+    <text x="480" y="475" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Flash Encryption &amp; eFuse</text>
+    <text x="480" y="492" font-size="12" fill="#6b7280" text-anchor="middle">RNG (Генератор випадкових)</text>
+  </g>
+
+  <!-- BLOCK 5: Peripherals & I/O -->
+  <g id="peripherals-block">
+    <rect x="640" y="330" width="270" height="182" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+    <text x="655" y="348" font-size="13" font-weight="bold" fill="#1a1a1a">Периферія та ввід/вивід</text>
+
+    <!-- USB Box -->
+    <rect x="655" y="358" width="240" height="42" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="5"/>
+    <text x="775" y="375" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">USB OTG &amp; USB Serial/JTAG</text>
+    <text x="775" y="392" font-size="12" fill="#6b7280" text-anchor="middle">Нативний USB-інтерфейс</text>
+
+    <!-- LCD / Camera Box -->
+    <rect x="655" y="408" width="240" height="42" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="5"/>
+    <text x="775" y="425" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LCD / Camera (I2S/RGB/DVP)</text>
+    <text x="775" y="442" font-size="12" fill="#6b7280" text-anchor="middle">GPIO Matrix / SDIO / TWAI</text>
+
+    <!-- Analog & Timers Box -->
+    <rect x="655" y="458" width="240" height="42" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="5"/>
+    <text x="775" y="475" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">12-bit ADC, Touch Sensor</text>
+    <text x="775" y="492" font-size="12" fill="#6b7280" text-anchor="middle">MCPWM, LEDC, Temp Sensor</text>
+  </g>
+
+  <!-- Bottom Legend / Notes -->
+  <text x="50" y="546" font-size="12" fill="#6b7280">Векторні інструкції Xtensa LX7 прискорюють Edge AI</text>
+  <text x="910" y="546" font-size="12" fill="#6b7280" text-anchor="end">Окремий контролер Octal SPI для зовнішньої PSRAM</text>
+</svg>

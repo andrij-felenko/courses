@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діаграма станів та переходу в режим passthrough (AT+CIPMODE=1)</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Активація прозорого тунелювання даних та безпечний вихід через комбінацію +++ із захисним таймаутом</text>
+
+  <!-- Left Main State: Normal AT Mode -->
+  <rect x="40" y="85" width="375" height="225" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="227" y="112" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Командний режим (CIPMODE=0)</text>
+  <text x="227" y="130" font-size="12" fill="#6b7280" text-anchor="middle">Посимвольна обробка AT-команд</text>
+
+  <rect x="55" y="145" width="345" height="48" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="227" y="165" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Формування префіксів +IPD,&lt;id&gt;,&lt;len&gt;:</text>
+  <text x="227" y="182" font-size="11" fill="#6b7280" text-anchor="middle">Обмеження швидкості парсингу хостом</text>
+
+  <rect x="55" y="202" width="345" height="92" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="227" y="222" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Послідовність команд активації:</text>
+  <text x="227" y="242" font-size="11" fill="#6b7280" text-anchor="middle">AT+CIPMUX=0  →  Одиночне з'єднання</text>
+  <text x="227" y="260" font-size="11" fill="#2457d6" text-anchor="middle">AT+CIPMODE=1 →  Увімкнути тунелювання</text>
+  <text x="227" y="278" font-size="11" fill="#2457d6" text-anchor="middle">AT+CIPSEND   →  Старт транзиту даних</text>
+
+  <!-- Right Main State: Passthrough Mode -->
+  <rect x="545" y="85" width="375" height="225" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="732" y="112" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Прозорий режим (CIPMODE=1)</text>
+  <text x="732" y="130" font-size="12" fill="#6b7280" text-anchor="middle">Пряме тунелювання даних UART ↔ TCP</text>
+
+  <rect x="560" y="145" width="345" height="48" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="732" y="165" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Безпрефіксна передача (Raw Data)</text>
+  <text x="732" y="182" font-size="11" fill="#6b7280" text-anchor="middle">Усі байти RXD надсилаються безпосередньо у сокет</text>
+
+  <rect x="560" y="202" width="345" height="92" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="732" y="222" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Переваги режиму passthrough:</text>
+  <text x="732" y="242" font-size="11" fill="#6b7280" text-anchor="middle">• Нульові накладні витрати на парсинг</text>
+  <text x="732" y="260" font-size="11" fill="#6b7280" text-anchor="middle">• Гранична швидкість послідовної шини</text>
+  <text x="732" y="278" font-size="11" fill="#27ae60" text-anchor="middle">• Прямий потік без розриву пакетів</text>
+
+  <!-- Transition Arrows & Labels -->
+  <line x1="415" y1="150" x2="533" y2="150" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <rect x="425" y="125" width="110" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="140" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">AT+CIPSEND</text>
+
+  <line x1="545" y1="265" x2="427" y2="265" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <rect x="425" y="275" width="110" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="290" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Вихід «+++»</text>
+
+  <!-- Bottom Panel: Guard Time Timeline -->
+  <rect x="40" y="325" width="880" height="115" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="347" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Логіка захисних таймаутів (Guard Time) для запобігання хибним спрацьовуванням «+++»</text>
+
+  <!-- Step 1: Pre-Guard -->
+  <rect x="55" y="360" width="250" height="65" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="180" y="380" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Попередня тиша</text>
+  <text x="180" y="398" font-size="11" fill="#6b7280" text-anchor="middle">Не менше 1000 мс без байтів</text>
+  <text x="180" y="414" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Лінія RXD = High</text>
+
+  <!-- Step 2: Escape sequence -->
+  <rect x="340" y="360" width="280" height="65" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="380" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">2. Символи розриву тунелю</text>
+  <text x="480" y="398" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Три байти 0x2B 0x2B 0x2B (+++)</text>
+  <text x="480" y="414" font-size="11" fill="#6b7280" text-anchor="middle">Затримка між символами &lt; 1000 мс</text>
+
+  <!-- Step 3: Post-Guard -->
+  <rect x="655" y="360" width="250" height="65" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="780" y="380" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Наступна тиша</text>
+  <text x="780" y="398" font-size="11" fill="#6b7280" text-anchor="middle">Не менше 1000 мс без байтів</text>
+  <text x="780" y="414" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Повернення відповіді OK</text>
+
+</svg>

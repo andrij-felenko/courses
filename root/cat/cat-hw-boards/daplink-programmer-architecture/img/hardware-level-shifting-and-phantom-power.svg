@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Узгодження рівнів напруги та протидія фантомному живленню в DAPLink</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Активний буфер з VTREF ізолює вимкнений МК та усуває витік струму через діоди D_ESD</text>
+
+  <!-- LEFT PANEL: PROBLEM -->
+  <rect x="30" y="75" width="435" height="465" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="45" y="87" width="405" height="30" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="247.5" y="106" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Проблема: Фантомне живлення без VTREF (3.3V → 0V)</text>
+
+  <!-- DAPLink Box (Problem Side) -->
+  <rect x="45" y="130" width="135" height="280" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="112.5" y="152" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DAPLink МК</text>
+  <text x="112.5" y="170" font-size="12" fill="#6b7280" text-anchor="middle">VCC = 3.3 В</text>
+
+  <!-- SWD Driver Box -->
+  <rect x="55" y="240" width="115" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="112.5" y="275" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вихід SWDIO</text>
+
+  <!-- Output Wire & Signal Label -->
+  <line x1="170" y1="270" x2="295" y2="270" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="232.5" y="255" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">3.3V High</text>
+
+  <!-- Target MCU Box (Problem Side) -->
+  <rect x="295" y="130" width="155" height="280" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="372.5" y="152" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Цільовий МК</text>
+  <text x="372.5" y="170" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">VCC_TG = 0 В</text>
+
+  <!-- Internal VDD_TG Rail -->
+  <line x1="305" y1="200" x2="440" y2="200" stroke="#c0392b" stroke-width="2"/>
+  <text x="372.5" y="193" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Шина VDD_TG = 0 В</text>
+
+  <!-- SWDIO Pin Node -->
+  <circle cx="330" cy="270" r="3.5" fill="#c0392b"/>
+  <text x="302" y="265" font-size="12" fill="#c0392b">SWDIO</text>
+
+  <!-- Upper ESD Diode (FORWARD BIASED / ON) -->
+  <line x1="330" y1="270" x2="330" y2="243" stroke="#c0392b" stroke-width="2"/>
+  <polygon points="330,230 323,243 337,243" fill="#c0392b"/>
+  <line x1="322" y1="230" x2="338" y2="230" stroke="#c0392b" stroke-width="2"/>
+  <line x1="330" y1="230" x2="330" y2="200" stroke="#c0392b" stroke-width="2"/>
+  <text x="342" y="243" font-size="12" font-weight="bold" fill="#c0392b">D_ESD (ВІДКРИТИЙ)</text>
+
+  <!-- Lower ESD Diode (OFF) -->
+  <line x1="330" y1="385" x2="330" y2="333" stroke="#6b7280" stroke-width="1.5"/>
+  <polygon points="330,320 323,333 337,333" fill="#6b7280"/>
+  <line x1="322" y1="320" x2="338" y2="320" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="330" y1="320" x2="330" y2="270" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="342" y="333" font-size="12" fill="#6b7280">D_ESD (закритий)</text>
+
+  <!-- Phantom Current Path (Red Arrow) -->
+  <path d="M 170 270 L 330 270 L 330 200 L 420 200" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="5 3" marker-end="url(#arr-red)"/>
+  <text x="380" y="223" font-size="12" font-weight="bold" fill="#c0392b">I_phantom</text>
+
+  <!-- GND Rail (Problem Side) -->
+  <line x1="305" y1="385" x2="440" y2="385" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="372.5" y="399" font-size="12" fill="#6b7280" text-anchor="middle">GND</text>
+
+  <!-- Problem Callout Box -->
+  <rect x="45" y="422" width="405" height="106" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="55" y="440" font-size="12" font-weight="bold" fill="#c0392b">Ознаки та наслідки фантомного живлення:</text>
+  <text x="55" y="458" font-size="12" fill="#1a1a1a">• 3.3 В з SWDIO відкриває захисний діод D_ESD</text>
+  <text x="55" y="476" font-size="12" fill="#1a1a1a">• Струм I_phantom ненавмисно живить шину VDD_TG</text>
+  <text x="55" y="494" font-size="12" fill="#1a1a1a">• Наслідки: збій POR, хаотичний скид, ризик збою МК</text>
+  <text x="55" y="512" font-size="12" font-weight="bold" fill="#c0392b">• Витік струму: від 1 мА до десятків мА</text>
+
+  <!-- RIGHT PANEL: SOLUTION -->
+  <rect x="495" y="75" width="435" height="465" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="510" y="87" width="405" height="30" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="712.5" y="106" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Розв'язок: Узгодження через VTREF та активний буфер</text>
+
+  <!-- DAPLink Box (Solution Side) -->
+  <rect x="510" y="130" width="105" height="280" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="562.5" y="152" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DAPLink МК</text>
+  <text x="562.5" y="170" font-size="12" fill="#6b7280" text-anchor="middle">VCC = 3.3 В</text>
+
+  <rect x="520" y="240" width="85" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="562.5" y="275" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SWD MCU</text>
+
+  <!-- Input Wire to Level Shifter -->
+  <line x1="605" y1="270" x2="635" y2="270" stroke="#2457d6" stroke-width="2"/>
+  <text x="620" y="255" font-size="12" fill="#2457d6" text-anchor="middle">3.3V</text>
+
+  <!-- Level Shifter / Buffer Box -->
+  <rect x="635" y="130" width="150" height="280" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="710" y="152" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Транслятор рівнів</text>
+  <text x="710" y="170" font-size="12" fill="#6b7280" text-anchor="middle">(TXS0108E / SN74)</text>
+
+  <text x="645" y="198" font-size="12" fill="#2457d6">VCC_A</text>
+  <text x="735" y="198" font-size="12" font-weight="bold" fill="#27ae60">VCC_B</text>
+
+  <!-- Internal Buffer Gate with Hi-Z State -->
+  <rect x="655" y="240" width="110" height="60" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="710" y="263" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Z-стан (Hi-Z)</text>
+  <text x="710" y="281" font-size="12" fill="#27ae60" text-anchor="middle">при VTREF = 0 В</text>
+
+  <!-- Sense Wire from VCC_B to Buffer OE Pin -->
+  <line x1="760" y1="200" x2="760" y2="240" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <text x="752" y="223" font-size="12" fill="#27ae60" text-anchor="end">Sense</text>
+
+  <!-- Output Wire in Hi-Z State -->
+  <line x1="785" y1="270" x2="805" y2="270" stroke="#27ae60" stroke-width="2" stroke-dasharray="4 2"/>
+  <text x="795" y="255" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Hi-Z</text>
+
+  <!-- VTREF Sensing Line -->
+  <line x1="805" y1="200" x2="775" y2="200" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="790" y="190" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">VTREF</text>
+
+  <!-- Target MCU Box (Solution Side) -->
+  <rect x="805" y="130" width="110" height="280" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="860" y="152" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Цільовий МК</text>
+  <text x="860" y="170" font-size="12" fill="#27ae60" text-anchor="middle">VCC_TG = 0 В</text>
+
+  <!-- Target Internal VDD Rail -->
+  <line x1="815" y1="200" x2="905" y2="200" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="815" cy="200" r="3.5" fill="#27ae60"/>
+  <text x="860" y="193" font-size="12" fill="#6b7280" text-anchor="middle">VDD_TG = 0 В</text>
+
+  <!-- Protected ESD Diode (Inactive / OFF) -->
+  <line x1="860" y1="270" x2="860" y2="243" stroke="#27ae60" stroke-width="1.5"/>
+  <polygon points="860,230 853,243 867,243" fill="#27ae60"/>
+  <line x1="852" y1="230" x2="868" y2="230" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="860" y1="230" x2="860" y2="200" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="860" y="325" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D_ESD (OFF)</text>
+
+  <!-- Common GND Line -->
+  <line x1="510" y1="385" x2="915" y2="385" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="712.5" y="399" font-size="12" fill="#6b7280" text-anchor="middle">Спільний провід заземлення (GND)</text>
+
+  <!-- Solution Callout Box -->
+  <rect x="510" y="422" width="405" height="106" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="520" y="440" font-size="12" font-weight="bold" fill="#27ae60">Переваги схеми з VTREF та буфером:</text>
+  <text x="520" y="458" font-size="12" fill="#1a1a1a">• Пін VTREF живить сторону B буфера напругою цілі</text>
+  <text x="520" y="476" font-size="12" fill="#1a1a1a">• При VCC_TG = 0 В буфер переходить у стан Hi-Z</text>
+  <text x="520" y="494" font-size="12" fill="#1a1a1a">• Повна ізоляція: струм витоку I_phantom = 0 мА</text>
+  <text x="520" y="512" font-size="12" font-weight="bold" fill="#27ae60">• Автоматичне підлаштування рівнів: 1.2 В – 3.3 В</text>
+</svg>

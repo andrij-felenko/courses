@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема розподілу пам'яті DRAM у мікроконтролері ESP8266 (ESP-01)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Розподіл оперативної пам'яті 80 КБ між системною прошивкою, стеком LwIP та динамічною купою pbuf</text>
+
+  <!-- Top Memory Bar -->
+  <rect x="40" y="80" width="320" height="55" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="200" y="103" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Системний стек та Wi-Fi</text>
+  <text x="200" y="123" font-size="12" fill="#6b7280" text-anchor="middle">Зарезервовано (~32 КБ)</text>
+
+  <rect x="370" y="80" width="210" height="55" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="475" y="103" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Парсер ESP-AT</text>
+  <text x="475" y="123" font-size="12" fill="#6b7280" text-anchor="middle">Змінні ядра (~16 КБ)</text>
+
+  <rect x="590" y="80" width="330" height="55" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="755" y="103" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Динамічна купа DRAM</text>
+  <text x="755" y="123" font-size="12" fill="#6b7280" text-anchor="middle">Доступно для сокетів (~32 КБ)</text>
+
+  <!-- Heap Breakdown Container -->
+  <rect x="40" y="160" width="880" height="275" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="60" y="185" font-size="14" font-weight="bold" fill="#1a1a1a">Структурний розбір динамічної купи (Heap DRAM ~32 КБ)</text>
+
+  <!-- Card 1: PCB -->
+  <rect x="60" y="205" width="260" height="215" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="5"/>
+  <text x="75" y="230" font-size="13" font-weight="bold" fill="#2457d6">1. Керуючі блоки PCB</text>
+  <text x="75" y="255" font-size="12" fill="#1a1a1a">• S_pcb_tcp = 196 байт</text>
+  <text x="75" y="277" font-size="12" fill="#1a1a1a">• S_pcb_udp = 32 байти</text>
+  <text x="75" y="299" font-size="12" fill="#1a1a1a">• Таблиці портів сокета</text>
+  <text x="75" y="325" font-size="12" fill="#6b7280">Фіксований оверхед</text>
+  <text x="75" y="345" font-size="12" fill="#6b7280">при відкритті сесії</text>
+
+  <rect x="75" y="370" width="230" height="35" fill="white" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="190" y="392" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Статичні блоки сесій</text>
+
+  <!-- Card 2: pbuf Pool -->
+  <rect x="340" y="205" width="310" height="215" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="5"/>
+  <text x="355" y="230" font-size="13" font-weight="bold" fill="#27ae60">2. Черга буферів pbuf</text>
+  <text x="355" y="255" font-size="12" fill="#1a1a1a">• S_pbuf_hdr = 16 байт (Заголовок)</text>
+  <text x="355" y="277" font-size="12" fill="#1a1a1a">• MSS = 1460 байт (Сегмент TCP)</text>
+  <text x="355" y="299" font-size="12" fill="#1a1a1a">• N_pbuf = 2 буфери на сокет</text>
+  <text x="355" y="325" font-size="12" fill="#6b7280">Витрати на сокет TCP:</text>
+  <text x="355" y="345" font-size="12" font-weight="bold" fill="#27ae60">M_conn = 196 + 2·(16+1460+4) = 3156 B</text>
+
+  <rect x="355" y="370" width="280" height="35" fill="white" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="495" y="392" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Буферизація кадрового потоку</text>
+
+  <!-- Card 3: Reserve & OOM -->
+  <rect x="670" y="205" width="230" height="215" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="5"/>
+  <text x="685" y="230" font-size="13" font-weight="bold" fill="#c0392b">3. Критичний резерв OOM</text>
+  <text x="685" y="255" font-size="12" fill="#1a1a1a">• M_reserve ≈ 4096 байт</text>
+  <text x="685" y="277" font-size="12" fill="#1a1a1a">• Недоторканний запас</text>
+  <text x="685" y="303" font-size="12" fill="#c0392b">При вільно &lt; 4 КБ:</text>
+  <text x="685" y="325" font-size="12" fill="#c0392b">→ Помилки OOM</text>
+  <text x="685" y="345" font-size="12" fill="#c0392b">→ Скидання за WDT</text>
+
+  <rect x="685" y="370" width="200" height="35" fill="white" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="785" y="392" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Аварійна зона скидання</text>
+</svg>

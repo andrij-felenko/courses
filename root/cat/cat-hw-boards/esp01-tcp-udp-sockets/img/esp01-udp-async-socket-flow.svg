@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Header -->
+  <text x="480" y="38" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Асинхронна обробка UDP-датаграм у мережевому стеку ESP8266</text>
+  <text x="480" y="62" font-size="13" text-anchor="middle" fill="#6b7280">Зворотно-викликові функції обробляють події lwIP без блокування основного циклу loop()</text>
+
+  <!-- Column 1: External Client & Main Loop -->
+  <rect x="40" y="110" width="220" height="95" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="150" y="135" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зовнішній UDP-клієнт</text>
+  <text x="150" y="158" font-size="12" fill="#6b7280" text-anchor="middle">ПК / Смартфон / IoT-вузол</text>
+  <text x="150" y="178" font-size="12" fill="#2457d6" text-anchor="middle">Запити / Мережевий beacon</text>
+
+  <rect x="40" y="240" width="220" height="190" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="150" y="268" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Основний цикл loop()</text>
+  <text x="150" y="295" font-size="12" fill="#1a1a1a" text-anchor="middle">• Зчитування датчиків</text>
+  <text x="150" y="318" font-size="12" fill="#1a1a1a" text-anchor="middle">• Опитування периферії</text>
+  <text x="150" y="341" font-size="12" fill="#1a1a1a" text-anchor="middle">• Автоматичний yield()</text>
+  <rect x="55" y="365" width="190" height="32" rx="6" fill="#27ae60"/>
+  <text x="150" y="386" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Без затримок (0 ms latency)</text>
+
+  <!-- Column 2: ESP8266 Stack -->
+  <rect x="310" y="110" width="340" height="320" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="135" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мережевий стек ESP8266 (ESP-01)</text>
+
+  <rect x="330" y="150" width="300" height="70" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="175" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратний модуль Wi-Fi (MAC/PHY)</text>
+  <text x="480" y="196" font-size="12" fill="#6b7280" text-anchor="middle">Прийом кадрів 802.11 b/g/n</text>
+
+  <line x1="480" y1="220" x2="480" y2="242" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="492" y="235" font-size="10" font-weight="bold" fill="#2457d6">RX Interrupt</text>
+
+  <rect x="330" y="250" width="300" height="165" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="275" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Стек lwIP (UDP Socket Engine)</text>
+  <text x="480" y="298" font-size="12" fill="#1a1a1a" text-anchor="middle">1. Розбір заголовків IP/UDP</text>
+  <text x="480" y="318" font-size="12" fill="#1a1a1a" text-anchor="middle">2. Перевірка порту socket</text>
+  <text x="480" y="338" font-size="12" fill="#1a1a1a" text-anchor="middle">3. Асинхронна черга подій</text>
+  <rect x="350" y="358" width="260" height="30" rx="4" fill="#eaf0fd"/>
+  <text x="480" y="378" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Буфери pbuf у пам'яті DRAM</text>
+
+  <!-- Column 3: Async Callback Handler -->
+  <rect x="690" y="110" width="230" height="320" rx="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="805" y="135" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Обробник onPacket()</text>
+  <text x="805" y="153" font-size="11" fill="#6b7280" text-anchor="middle">(AsyncUDP Callback)</text>
+
+  <rect x="705" y="168" width="200" height="60" rx="6" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="805" y="190" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Отримання пакету</text>
+  <text x="805" y="211" font-size="11" fill="#6b7280" text-anchor="middle">IP, Port, Payload, Length</text>
+
+  <rect x="705" y="240" width="200" height="60" rx="6" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="805" y="262" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Логіка застосунку</text>
+  <text x="805" y="283" font-size="11" fill="#6b7280" text-anchor="middle">Парсинг команд / телеметрії</text>
+
+  <rect x="705" y="312" width="200" height="98" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="805" y="334" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Асинхронна відповідь</text>
+  <text x="805" y="356" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">packet.sendTo(...)</text>
+  <text x="805" y="377" font-size="11" fill="#6b7280" text-anchor="middle">Миттєве відправлення</text>
+  <text x="805" y="396" font-size="10" fill="#27ae60" text-anchor="middle">Без чекання в loop()</text>
+
+  <!-- Flow Arrows between columns -->
+  <line x1="260" y1="145" x2="322" y2="145" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="291" y="136" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">UDP RX</text>
+
+  <line x1="322" y1="185" x2="268" y2="185" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="295" y="202" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">UDP TX</text>
+
+  <line x1="630" y1="300" x2="682" y2="300" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="656" y="288" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Callback</text>
+  <text x="656" y="315" font-size="10" fill="#6b7280" text-anchor="middle">(Подія RX)</text>
+
+  <line x1="705" y1="365" x2="638" y2="365" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="671" y="355" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">sendTo()</text>
+  <text x="671" y="382" font-size="10" fill="#6b7280" text-anchor="middle">(Запит TX)</text>
+
+  <!-- Bottom Summary Panel -->
+  <rect x="40" y="455" width="880" height="80" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="480" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Перевага асинхронного підходу:</text>
+  <text x="480" y="502" font-size="12" fill="#27ae60" text-anchor="middle">Стек lwIP викликає onPacket() відразу після надходження датаграми на порт socket.</text>
+  <text x="480" y="522" font-size="12" fill="#6b7280" text-anchor="middle">Основний цикл loop() не блокується і не витрачає ресурси на очікування (polling / delay).</text>
+</svg>

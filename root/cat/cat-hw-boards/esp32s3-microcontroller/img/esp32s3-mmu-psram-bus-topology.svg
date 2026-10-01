@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-problem" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-solution" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Топологія шин ESP32-S3, MMU та підключення PSRAM</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Шина Octal SPI подвоює пропускну здатність, але монополізує виводи GPIO33–GPIO37</text>
+
+  <!-- Left Column: Internal ESP32-S3 SoC Architecture -->
+  <rect x="40" y="75" width="280" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="180" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">ESP32-S3 SoC Архітектура</text>
+
+  <!-- Processor Cores -->
+  <rect x="55" y="108" width="250" height="52" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="180" y="129" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Процесорні ядра Xtensa LX7</text>
+  <text x="180" y="148" text-anchor="middle" font-size="12" fill="#6b7280">(0x3D000000–0x3E000000)</text>
+
+  <!-- L1 Cache -->
+  <rect x="55" y="175" width="250" height="52" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="180" y="196" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Двоканальний L1 Кеш</text>
+  <text x="180" y="215" text-anchor="middle" font-size="12" fill="#6b7280">Синхронізація брудних ліній</text>
+
+  <!-- MMU Controller -->
+  <rect x="55" y="242" width="250" height="55" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="180" y="264" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Апаратний блок MMU</text>
+  <text x="180" y="284" text-anchor="middle" font-size="12" fill="#6b7280">Мапінг 64KB віртуальних сторінок</text>
+
+  <!-- SPI / Octal SPI Peripheral Bus Controller -->
+  <rect x="55" y="312" width="250" height="195" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="180" y="333" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">SPI / Octal SPI Контролер</text>
+
+  <!-- Conflict GPIOs Warning Box -->
+  <rect x="70" y="348" width="220" height="145" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="180" y="370" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Конфліктні виводи GPIO:</text>
+  <text x="180" y="392" text-anchor="middle" font-size="12" fill="#c0392b" font-weight="bold">GPIO33, GPIO34, GPIO35</text>
+  <text x="180" y="412" text-anchor="middle" font-size="12" fill="#c0392b" font-weight="bold">GPIO36, GPIO37</text>
+  <text x="180" y="440" text-anchor="middle" font-size="12" fill="#6b7280">Виділені під 8-лінійну шину</text>
+  <text x="180" y="460" text-anchor="middle" font-size="12" fill="#6b7280">(Недоступні в Octal SPI)</text>
+
+  <!-- Internal Bus Arrows -->
+  <line x1="180" y1="160" x2="180" y2="175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <line x1="180" y1="227" x2="180" y2="242" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <line x1="180" y1="297" x2="180" y2="312" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+
+  <!-- Right Column: Topologies Comparison -->
+  
+  <!-- Top Right Panel: Quad SPI Topology -->
+  <rect x="350" y="75" width="570" height="210" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="365" y="87" width="540" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="635" y="108" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Quad SPI PSRAM (4-лінійний SDR режим)</text>
+
+  <!-- Quad PSRAM Chip -->
+  <rect x="380" y="130" width="170" height="85" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="465" y="155" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Quad PSRAM</text>
+  <text x="465" y="177" text-anchor="middle" font-size="12" fill="#6b7280">4 лінії даних (D0–D3)</text>
+  <text x="465" y="197" text-anchor="middle" font-size="12" fill="#6b7280">Тактування: 80 МГц</text>
+
+  <!-- Available GPIO Status -->
+  <rect x="570" y="130" width="320" height="85" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="730" y="153" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Статус GPIO33–GPIO37:</text>
+  <text x="730" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ВІЛЬНІ ДЛЯ ПЕРИФЕРІЇ</text>
+  <text x="730" y="195" text-anchor="middle" font-size="12" fill="#6b7280">Доступні для LCD, камери DVP, Touch</text>
+
+  <!-- Summary Line (Quad) -->
+  <text x="635" y="250" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Пропускна здатність: ~80 МБ/с | Збережено 5 GPIO контактів</text>
+
+
+  <!-- Bottom Right Panel: Octal SPI Topology -->
+  <rect x="350" y="310" width="570" height="210" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="365" y="322" width="540" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="635" y="343" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Octal SPI PSRAM (8-лінійний DDR режим)</text>
+
+  <!-- Octal PSRAM Chip -->
+  <rect x="380" y="365" width="170" height="85" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="465" y="390" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Octal PSRAM</text>
+  <text x="465" y="412" text-anchor="middle" font-size="12" fill="#6b7280">8 ліній даних (D0–D7)</text>
+  <text x="465" y="432" text-anchor="middle" font-size="12" fill="#6b7280">DDR (Подвійний фронт)</text>
+
+  <!-- Occupied GPIO Status -->
+  <rect x="570" y="365" width="320" height="85" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="730" y="388" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Статус GPIO33–GPIO37:</text>
+  <text x="730" y="410" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">МОНОПОЛІЗОВАНІ ШИНОЮ</text>
+  <text x="730" y="430" text-anchor="middle" font-size="12" fill="#6b7280">Недоступні для зовнішнього підключення</text>
+
+  <!-- Summary Line (Octal) -->
+  <text x="635" y="485" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Пропускна здатність: до 160–250 МБ/с | Конфлікт виводів GPIO</text>
+
+
+  <!-- Bus Connection Lines -->
+  <line x1="305" y1="330" x2="380" y2="172" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-solution)"/>
+  <line x1="305" y1="445" x2="380" y2="407" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-problem)"/>
+</svg>

@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова послідовність автоматичного скидання та синхронізації esptool</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Керування сигналами DTR/RTS (прапори --before/--after) та квитування пакетів SYNC</text>
+
+  <!-- ==================== SECTION 1: TIMING DIAGRAM ==================== -->
+  <rect x="25" y="80" width="910" height="225" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="102" text-anchor="start" font-size="14" font-weight="bold" fill="#2457d6">Фаза --before default_reset: Часові імпульси DTR/RTS та стани виводів</text>
+
+  <!-- Time Markers -->
+  <text x="220" y="122" text-anchor="middle" font-size="12" fill="#6b7280">t0: 0 ms</text>
+  <text x="380" y="122" text-anchor="middle" font-size="12" fill="#6b7280">t1: 100 ms</text>
+  <text x="540" y="122" text-anchor="middle" font-size="12" fill="#6b7280">t2: 200 ms</text>
+  <text x="700" y="122" text-anchor="middle" font-size="12" fill="#6b7280">t3: 300 ms</text>
+  <text x="840" y="122" text-anchor="middle" font-size="12" fill="#6b7280">t4: 500 ms</text>
+
+  <!-- Vertical dashed guide lines -->
+  <line x1="220" y1="128" x2="220" y2="290" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="380" y1="128" x2="380" y2="290" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="540" y1="128" x2="540" y2="290" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="700" y1="128" x2="700" y2="290" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="840" y1="128" x2="840" y2="290" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Channel 1: DTR -->
+  <text x="45" y="154" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">DTR (Host)</text>
+  <path d="M 200,160 L 380,160 L 380,140 L 700,140 L 700,160 L 880,160" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+
+  <!-- Channel 2: RTS -->
+  <text x="45" y="194" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">RTS (Host)</text>
+  <path d="M 200,200 L 220,200 L 220,180 L 540,180 L 540,200 L 880,200" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+
+  <!-- Channel 3: GPIO0 -->
+  <text x="45" y="234" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">GPIO0 (Target)</text>
+  <path d="M 200,220 L 220,220 L 220,240 L 380,240 L 380,220 L 880,220" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <rect x="240" y="210" width="125" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="302" y="224" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">GPIO0 = 0 (Boot Mode)</text>
+
+  <!-- Channel 4: nRESET -->
+  <text x="45" y="274" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">nRESET (Target)</text>
+  <path d="M 200,260 L 540,260 L 540,280 L 700,280 L 700,260 L 880,260" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <rect x="560" y="282" width="125" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="622" y="296" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">nRESET = 0 (Reset Pulse)</text>
+
+
+  <!-- ==================== SECTION 2: PACKET EXCHANGE ==================== -->
+  <rect x="25" y="320" width="910" height="165" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="342" text-anchor="start" font-size="14" font-weight="bold" fill="#27ae60">Фаза синхронізації та передачі даних (SYNC &amp; Command Packets)</text>
+
+  <!-- Host Box -->
+  <rect x="55" y="355" width="170" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="140" y="378" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">esptool.py (Host)</text>
+  <text x="140" y="402" text-anchor="middle" font-size="12" fill="#1a1a1a">CLI Команди (write_flash)</text>
+  <text x="140" y="424" text-anchor="middle" font-size="12" fill="#6b7280">Пакет 0x08 (SYNC)</text>
+  <text x="140" y="446" text-anchor="middle" font-size="12" fill="#27ae60">--after hard_reset</text>
+
+  <!-- Target Box -->
+  <rect x="735" y="355" width="180" height="115" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="825" y="378" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">ROM Bootloader (ESP)</text>
+  <text x="825" y="402" text-anchor="middle" font-size="12" fill="#1a1a1a">UART0 115200 / 921600</text>
+  <text x="825" y="424" text-anchor="middle" font-size="12" fill="#2457d6">Квиток ACK (0x00)</text>
+  <text x="825" y="446" text-anchor="middle" font-size="12" fill="#6b7280">Запис у SPI Flash</text>
+
+  <!-- Packet Flow Arrows -->
+  <!-- 1. SYNC -->
+  <path d="M 225,380 L 735,380" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="372" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1. SYNC (0x08 0x07 0x07...)</text>
+
+  <!-- 2. ACK -->
+  <path d="M 735,410 L 225,410" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="480" y="402" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">2. ACK / OHAI (Синхронізовано)</text>
+
+  <!-- 3. Write / Reset -->
+  <path d="M 225,440 L 735,440" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="480" y="432" text-anchor="middle" font-size="12" fill="#1a1a1a">3. write_flash / SPI mode / --after reset</text>
+</svg>

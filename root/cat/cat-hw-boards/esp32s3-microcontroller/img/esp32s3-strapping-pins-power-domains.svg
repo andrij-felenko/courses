@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title Block -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Топологія strapping-виводів, доменів живлення та пам'яті ESP32-S3</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Конфігурація старт-апу, перемикач VDD_SPI (1.8V/3.3V) та зарезервовані виводи SiP-пам'яті</text>
+
+  <!-- Left Column: Strapping Pins -->
+  <rect x="25" y="65" width="295" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="25" y="65" width="295" height="34" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="172" y="87" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Strapping-виводи (GPIO0, 3, 45, 46)</text>
+
+  <!-- Card 1: GPIO0 -->
+  <rect x="35" y="108" width="275" height="85" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="125" font-size="13" font-weight="bold" fill="#1a1a1a">GPIO0 — Режим завантаження</text>
+  <rect x="42" y="132" width="261" height="22" rx="4" fill="#e9f7ef"/>
+  <text x="50" y="147" font-size="12" font-weight="bold" fill="#27ae60">High (1): SPI Boot (Нормальний запуск)</text>
+  <rect x="42" y="159" width="261" height="22" rx="4" fill="#eaf0fd"/>
+  <text x="50" y="174" font-size="12" font-weight="bold" fill="#2457d6">Low (0): Download Boot (Прошивка)</text>
+
+  <!-- Card 2: GPIO3 -->
+  <rect x="35" y="201" width="275" height="85" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="218" font-size="13" font-weight="bold" fill="#1a1a1a">GPIO3 — Джерело сигналів JTAG</text>
+  <rect x="42" y="225" width="261" height="22" rx="4" fill="#f4f6f8"/>
+  <text x="50" y="240" font-size="12" fill="#1a1a1a">High (1): Фізичний JTAG (CPU JTAG)</text>
+  <rect x="42" y="252" width="261" height="22" rx="4" fill="#eaf0fd"/>
+  <text x="50" y="267" font-size="12" font-weight="bold" fill="#2457d6">Low (0): Вбудований USB Serial/JTAG</text>
+
+  <!-- Card 3: GPIO45 -->
+  <rect x="35" y="294" width="275" height="105" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="311" font-size="13" font-weight="bold" fill="#1a1a1a">GPIO45 — Напруга VDD_SPI</text>
+  <rect x="42" y="318" width="261" height="22" rx="4" fill="#eaf0fd"/>
+  <text x="50" y="333" font-size="12" font-weight="bold" fill="#2457d6">High (1): VDD_SPI = 1.8V (Octal SPI)</text>
+  <rect x="42" y="345" width="261" height="22" rx="4" fill="#e9f7ef"/>
+  <text x="50" y="360" font-size="12" font-weight="bold" fill="#27ae60">Low (0): VDD_SPI = 3.3V (Quad SPI)</text>
+  <text x="50" y="385" font-size="12" fill="#6b7280">Зчитується при скиданні (Reset)</text>
+
+  <!-- Card 4: GPIO46 -->
+  <rect x="35" y="407" width="275" height="101" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="424" font-size="13" font-weight="bold" fill="#1a1a1a">GPIO46 — Логування ROM та Boot</text>
+  <rect x="42" y="431" width="261" height="22" rx="4" fill="#fdecea"/>
+  <text x="50" y="446" font-size="12" font-weight="bold" fill="#c0392b">Input-Only (нема вбудованого Pull)</text>
+  <text x="50" y="468" font-size="12" fill="#1a1a1a">High (1): ROM-лог увімкнено</text>
+  <text x="50" y="490" font-size="12" fill="#6b7280">Low (0): ROM-лог вимкнено</text>
+
+  <!-- Middle Column: VDD_SPI Power Domain -->
+  <rect x="338" y="65" width="284" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="338" y="65" width="284" height="34" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="87" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Домен живлення VDD_SPI</text>
+
+  <!-- Input Supply Card -->
+  <rect x="348" y="108" width="264" height="48" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="126" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Вхідне живлення SoC (VDD3P3)</text>
+  <text x="480" y="144" text-anchor="middle" font-size="12" fill="#6b7280">Зовнішнє джерело 3.3 В</text>
+
+  <!-- Arrow VDD3P3 to LDO -->
+  <line x1="480" y1="156" x2="480" y2="181" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="494" y="172" font-size="12" fill="#6b7280">3.3V</text>
+
+  <!-- LDO Regulator Card -->
+  <rect x="348" y="183" width="264" height="100" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="202" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Внутрішній LDO VDD_SPI</text>
+  <text x="480" y="221" text-anchor="middle" font-size="12" fill="#1a1a1a">Вибірка стану за допомогою GPIO45</text>
+  <text x="480" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Режими вихідної напруги:</text>
+  <text x="480" y="258" text-anchor="middle" font-size="12" fill="#27ae60">• 3.3V (GPIO45 = 0 / Quad SPI)</text>
+  <text x="480" y="275" text-anchor="middle" font-size="12" fill="#2457d6">• 1.8V (GPIO45 = 1 / Octal SPI)</text>
+
+  <!-- Arrow LDO to Rail -->
+  <line x1="480" y1="283" x2="480" y2="304" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Output Rail Card -->
+  <rect x="348" y="306" width="264" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="326" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Шина живлення VDD_SPI</text>
+  <text x="480" y="346" text-anchor="middle" font-size="12" fill="#1a1a1a">Живлення Flash та PSRAM пам'яті</text>
+
+  <!-- Danger Warning Card -->
+  <rect x="348" y="378" width="264" height="130" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="398" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">УВАГА: Конфлікт напруги!</text>
+  <text x="358" y="420" font-size="12" font-weight="bold" fill="#c0392b">1.8V чип + GPIO45=0 (3.3V):</text>
+  <text x="358" y="438" font-size="12" fill="#c0392b">→ Фізичне пошкодження пам'яті!</text>
+  <text x="358" y="462" font-size="12" font-weight="bold" fill="#1a1a1a">3.3V чип + GPIO45=1 (1.8V):</text>
+  <text x="358" y="480" font-size="12" fill="#6b7280">→ Чип не стартує (Boot Loop)</text>
+
+  <!-- Right Column: Reserved SiP Memory -->
+  <rect x="640" y="65" width="295" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="640" y="65" width="295" height="34" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="787" y="87" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Зарезервовані виводи SiP-пам'яті</text>
+
+  <!-- Warning Banner Card -->
+  <rect x="650" y="108" width="275" height="55" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="787" y="128" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">GPIO26 – GPIO37 (12 виводів)</text>
+  <text x="787" y="146" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">ЗАБОРОНЕНО для GPIO загального призначення!</text>
+
+  <!-- Memory Bus Details Card -->
+  <rect x="650" y="173" width="275" height="185" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="660" y="193" font-size="13" font-weight="bold" fill="#1a1a1a">Шина підключення пам'яті SiP:</text>
+  <text x="660" y="215" font-size="12" font-weight="bold" fill="#2457d6">1. Quad SPI Flash (SPI0/SPI1):</text>
+  <text x="670" y="233" font-size="12" fill="#6b7280">• GPIO27–GPIO32 (CS0, CLK, D0–D3)</text>
+  <text x="660" y="255" font-size="12" font-weight="bold" fill="#2457d6">2. Octal Flash / Octal PSRAM:</text>
+  <text x="670" y="273" font-size="12" fill="#6b7280">• GPIO33–37, GPIO26 (D4–D7, DQS)</text>
+  <text x="660" y="297" font-size="12" font-weight="bold" fill="#1a1a1a">Характеристики шини:</text>
+  <text x="670" y="317" font-size="12" fill="#1a1a1a">• Підключено до домену VDD_SPI</text>
+  <text x="670" y="337" font-size="12" fill="#27ae60">• Швидкість до 120 МГц (SDR/DDR)</text>
+
+  <!-- Modules Comparison Card -->
+  <rect x="650" y="368" width="275" height="140" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="660" y="388" font-size="13" font-weight="bold" fill="#1a1a1a">Використання у модулях SiP:</text>
+  <text x="660" y="410" font-size="12" font-weight="bold" fill="#1a1a1a">Модулі Quad SPI (напр. N8R2):</text>
+  <text x="670" y="428" font-size="12" fill="#6b7280">• GPIO33–37 доступні, якщо нема PSRAM</text>
+  <text x="660" y="450" font-size="12" font-weight="bold" fill="#c0392b">Модулі Octal SPI (напр. N16R8):</text>
+  <text x="670" y="468" font-size="12" font-weight="bold" fill="#c0392b">• Усі 12 виводів GPIO26–37 зайняті!</text>
+  <text x="660" y="493" font-size="12" font-weight="bold" fill="#27ae60">Правило: Не використовувати GPIO26–37</text>
+
+  <!-- Connecting Lines -->
+  <!-- Line 1: GPIO45 to LDO -->
+  <path d="M 310 346 L 329 346 L 329 233 L 348 233" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="329" y="222" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">GPIO45</text>
+
+  <!-- Line 2: VDD_SPI Rail to Memory Bus -->
+  <path d="M 612 336 L 631 336 L 631 205 L 650 205" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="631" y="194" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">VDD_SPI</text>
+</svg>

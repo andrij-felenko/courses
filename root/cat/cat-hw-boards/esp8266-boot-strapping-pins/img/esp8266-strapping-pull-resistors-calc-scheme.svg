@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розрахунок підтягувальних резисторів R_pullup та R_pulldown</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Розподіл потенціалів, струмів витоку I_leak та порогів V_IH / V_IL для конфігураційних виводів ESP8266</text>
+
+  <!-- Left Panel: Pull-Up -->
+  <rect x="30" y="70" width="435" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247" y="95" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Схема Pull-Up (GPIO0 / GPIO2)</text>
+
+  <!-- VDD Rail -->
+  <line x1="100" y1="120" x2="160" y2="120" stroke="#2457d6" stroke-width="3"/>
+  <text x="130" y="112" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">VDD = 3.3V</text>
+
+  <!-- Resistor R_pullup -->
+  <line x1="130" y1="120" x2="130" y2="140" stroke="#2457d6" stroke-width="2"/>
+  <rect x="120" y="140" width="20" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="2"/>
+  <text x="150" y="156" font-size="13" font-weight="bold" fill="#1a1a1a">R_pullup</text>
+  <text x="150" y="172" font-size="12" fill="#6b7280">(підтяжка до VDD)</text>
+  <line x1="130" y1="180" x2="130" y2="215" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Node & Pin Line -->
+  <circle cx="130" cy="215" r="4" fill="#1a1a1a"/>
+  <text x="130" y="235" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">V_pin ≥ V_IH</text>
+  <line x1="130" y1="215" x2="270" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Leakage Current Arrow -->
+  <line x1="170" y1="200" x2="230" y2="200" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="200" y="192" text-anchor="middle" font-size="12" fill="#c0392b">I_leak ≤ 10 µA</text>
+
+  <!-- ESP8266 Box Left -->
+  <rect x="270" y="125" width="180" height="145" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="360" y="148" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">ESP8266 SoC</text>
+  <text x="280" y="198" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO0 / GPIO2</text>
+  <line x1="270" y1="215" x2="340" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="340,197 375,215 340,233" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M348,211 L356,211 L352,219 L360,219" fill="none" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="375" y1="215" x2="430" y2="215" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="360" y="255" text-anchor="middle" font-size="12" fill="#6b7280">V_IH ≥ 2.475 V</text>
+
+  <!-- Left Math Box -->
+  <rect x="45" y="285" width="405" height="145" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="308" font-size="13" font-weight="bold" fill="#2457d6">Розрахунок номіналу R_pullup (max):</text>
+  <text x="60" y="330" font-size="12" fill="#1a1a1a">R_pullup = (VDD - V_IH) ÷ I_leak</text>
+  <text x="60" y="352" font-size="12" fill="#1a1a1a">= (3.3 В - 2.475 В) ÷ 10 мкА = <tspan font-weight="bold" fill="#2457d6">82.5 кОм</tspan></text>
+  <text x="60" y="374" font-size="12" fill="#6b7280">Параметри: VDD = 3.3V, V_IH = 0.75·VDD</text>
+  <text x="60" y="400" font-size="12" font-weight="bold" fill="#27ae60">Рекомендовано на практиці: 4.7 кОм ... 10 кОм</text>
+
+  <!-- Right Panel: Pull-Down -->
+  <rect x="495" y="70" width="435" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712" y="95" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Схема Pull-Down (GPIO15)</text>
+
+  <!-- ESP8266 Box Right -->
+  <rect x="510" y="125" width="180" height="145" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="600" y="148" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">ESP8266 SoC</text>
+  <line x1="520" y1="215" x2="575" y2="215" stroke="#27ae60" stroke-width="1.5"/>
+  <polygon points="575,197 610,215 575,233" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <path d="M583,211 L591,211 L587,219 L595,219" fill="none" stroke="#27ae60" stroke-width="1.2"/>
+  <line x1="610" y1="215" x2="690" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="635" y="198" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO15</text>
+  <text x="600" y="255" text-anchor="middle" font-size="12" fill="#6b7280">V_IL ≤ 0.825 V</text>
+
+  <!-- Wire from Pin to Node -->
+  <line x1="690" y1="215" x2="830" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="720" y1="200" x2="780" y2="200" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="750" y="190" text-anchor="middle" font-size="12" fill="#c0392b">I_leak ≤ 10 µA</text>
+
+  <!-- Node & Resistor R_pulldown -->
+  <circle cx="830" cy="215" r="4" fill="#1a1a1a"/>
+  <text x="830" y="172" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">V_pin ≤ V_IL</text>
+
+  <line x1="830" y1="215" x2="830" y2="230" stroke="#27ae60" stroke-width="2"/>
+  <rect x="820" y="230" width="20" height="40" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="2"/>
+  <text x="850" y="246" font-size="13" font-weight="bold" fill="#1a1a1a">R_pulldown</text>
+  <text x="850" y="262" font-size="12" fill="#6b7280">(підтяжка до GND)</text>
+
+  <!-- GND Symbol -->
+  <line x1="830" y1="270" x2="830" y2="280" stroke="#27ae60" stroke-width="2"/>
+  <line x1="815" y1="280" x2="845" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="820" y1="284" x2="840" y2="284" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="825" y1="288" x2="835" y2="288" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="830" y="302" text-anchor="middle" font-size="11" fill="#6b7280">GND (0V)</text>
+
+  <!-- Right Math Box -->
+  <rect x="510" y="315" width="405" height="115" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="525" y="335" font-size="13" font-weight="bold" fill="#27ae60">Розрахунок номіналу R_pulldown (max):</text>
+  <text x="525" y="355" font-size="12" fill="#1a1a1a">R_pulldown = V_IL ÷ I_leak</text>
+  <text x="525" y="375" font-size="12" fill="#1a1a1a">= 0.825 В ÷ 10 мкА = <tspan font-weight="bold" fill="#27ae60">82.5 кОм</tspan></text>
+  <text x="525" y="395" font-size="12" fill="#6b7280">Параметри: V_IL = 0.25·VDD = 0.825V</text>
+  <text x="525" y="415" font-size="12" font-weight="bold" fill="#27ae60">Рекомендовано на практиці: 4.7 кОм ... 10 кОм</text>
+</svg>

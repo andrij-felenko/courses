@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background canvas -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Організація адресної карти пам'яті та MMU в ESP32-S3</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Трансляція віртуальних адрес 64 КБ сторінками MMU у фізичний простір PSRAM та Flash через шини QSPI / Octal SPI</text>
+
+  <!-- COLUMN 1: CPU & VIRTUAL ADDRESS SPACE -->
+  <rect x="30" y="75" width="190" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="125" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Ядра Xtensa® LX7</text>
+  <text x="125" y="116" text-anchor="middle" font-size="12" fill="#6b7280">IBus / DBus (32-bit)</text>
+
+  <rect x="40" y="130" width="170" height="290" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="125" y="150" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Віртуальний простір</text>
+
+  <!-- Flash Virtual Window -->
+  <rect x="48" y="165" width="154" height="110" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="125" y="185" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Flash (Код / ROData)</text>
+  <text x="125" y="205" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">0x4200_0000</text>
+  <text x="125" y="220" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">0x43FF_FFFF</text>
+  <text x="125" y="242" text-anchor="middle" font-size="11" fill="#6b7280">Сторінки V-Pages</text>
+  <text x="125" y="258" text-anchor="middle" font-size="11" fill="#6b7280">розміром по 64 КБ</text>
+
+  <!-- PSRAM Virtual Window -->
+  <rect x="48" y="290" width="154" height="115" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="125" y="310" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">PSRAM (Heap / Buffers)</text>
+  <text x="125" y="330" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">0x3C00_0000</text>
+  <text x="125" y="345" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">0x3DFF_FFFF</text>
+  <text x="125" y="367" text-anchor="middle" font-size="11" fill="#6b7280">Сторінки V-Pages</text>
+  <text x="125" y="383" text-anchor="middle" font-size="11" fill="#6b7280">розміром по 64 КБ</text>
+
+  <!-- COLUMN 2: CACHE & MMU TRANSLATION -->
+  <rect x="255" y="75" width="220" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="365" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Кеш та блок MMU</text>
+  <text x="365" y="116" text-anchor="middle" font-size="12" fill="#6b7280">Управління адресацією</text>
+
+  <!-- Cache Box -->
+  <rect x="267" y="130" width="196" height="75" rx="4" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="365" y="150" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">L1 Cache (32 / 64 КБ)</text>
+  <text x="365" y="170" text-anchor="middle" font-size="11" fill="#6b7280">Кеш-лінії по 32 / 64 байти</text>
+  <text x="365" y="188" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Cache Hit → Запит до SRAM</text>
+
+  <!-- MMU Table Box -->
+  <rect x="267" y="220" width="196" height="200" rx="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="365" y="240" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Таблиця трансляції MMU</text>
+
+  <rect x="277" y="252" width="176" height="26" rx="3" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="365" y="269" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">V-Page 0 → Flash Block 0</text>
+
+  <rect x="277" y="284" width="176" height="26" rx="3" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="365" y="301" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">V-Page 1 → Flash Block 5</text>
+
+  <rect x="277" y="316" width="176" height="26" rx="3" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="365" y="333" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">V-Page N → PSRAM Block M</text>
+
+  <text x="365" y="362" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Табличний пошук (Lookup)</text>
+  <text x="365" y="380" text-anchor="middle" font-size="11" fill="#6b7280">Перевірка доступу (R/W/X)</text>
+  <text x="365" y="398" text-anchor="middle" font-size="11" fill="#6b7280">Cache Miss → Refill шини</text>
+
+  <!-- COLUMN 3: SPI BUS CONTROLLERS -->
+  <rect x="510" y="75" width="210" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="615" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Контролери шин SPI</text>
+  <text x="615" y="116" text-anchor="middle" font-size="12" fill="#6b7280">Інтерфейси SPI0 / SPI1</text>
+
+  <!-- QSPI Controller -->
+  <rect x="522" y="130" width="186" height="135" rx="4" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="615" y="152" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Quad SPI (4-bit)</text>
+  <text x="615" y="174" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Шина Flash (SPI0)</text>
+  <text x="615" y="194" text-anchor="middle" font-size="11" fill="#6b7280">4 лінії даних: D0..D3</text>
+  <text x="615" y="212" text-anchor="middle" font-size="11" fill="#6b7280">Тактування: CLK, CS#</text>
+  <text x="615" y="232" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">До 80 МГц SDR (~40 МБ/с)</text>
+
+  <!-- Octal SPI Controller -->
+  <rect x="522" y="280" width="186" height="140" rx="4" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="615" y="302" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Octal SPI (8-bit DDR)</text>
+  <text x="615" y="324" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Шина PSRAM (SPI1)</text>
+  <text x="615" y="344" text-anchor="middle" font-size="11" fill="#6b7280">8 ліній даних: D0..D7</text>
+  <text x="615" y="362" text-anchor="middle" font-size="11" fill="#6b7280">Строб даних: DQS + CLK</text>
+  <text x="615" y="382" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">80 МГц DDR (~160 МБ/с)</text>
+
+  <!-- COLUMN 4: EXTERNAL MEMORY CHIPS -->
+  <rect x="755" y="75" width="175" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="842" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Зовнішні чипи</text>
+  <text x="842" y="116" text-anchor="middle" font-size="12" fill="#6b7280">Поза чипом ESP32-S3</text>
+
+  <!-- SPI Flash Chip -->
+  <rect x="767" y="130" width="151" height="135" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="842" y="152" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">SPI NOR Flash</text>
+  <text x="842" y="174" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">До 16 / 32 МБ</text>
+  <text x="842" y="196" text-anchor="middle" font-size="11" fill="#6b7280">Виконання коду (XIP)</text>
+  <text x="842" y="214" text-anchor="middle" font-size="11" fill="#6b7280">Таблиці констант</text>
+  <text x="842" y="232" text-anchor="middle" font-size="11" fill="#6b7280">Файлова система NVS</text>
+
+  <!-- Octal PSRAM Chip -->
+  <rect x="767" y="280" width="151" height="140" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="842" y="302" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Octal PSRAM</text>
+  <text x="842" y="324" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">До 8 / 16 МБ</text>
+  <text x="842" y="346" text-anchor="middle" font-size="11" fill="#6b7280">Оперативна пам'ять</text>
+  <text x="842" y="364" text-anchor="middle" font-size="11" fill="#6b7280">Framebuffers LCD/CAM</text>
+  <text x="842" y="382" text-anchor="middle" font-size="11" fill="#6b7280">Тензори моделей AI</text>
+
+  <!-- BUS CONNECTORS & ARROWS -->
+  <!-- IBus: Virtual Flash -> MMU -->
+  <path d="M 202,220 L 267,220" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="234" y="212" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">IBus</text>
+
+  <!-- DBus: Virtual PSRAM -> MMU -->
+  <path d="M 202,347 L 267,347" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="234" y="339" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">DBus</text>
+
+  <!-- Refill: Cache -> QSPI Controller -->
+  <path d="M 463,195 L 522,195" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="492" y="187" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Refill</text>
+
+  <!-- ExtBus: MMU -> Octal SPI Controller -->
+  <path d="M 463,350 L 522,350" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="492" y="342" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">ExtBus</text>
+
+  <!-- QSPI Bus: QSPI Controller -> SPI Flash -->
+  <path d="M 708,195 L 767,195" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="737" y="187" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">QSPI</text>
+
+  <!-- Octal SPI Bus: Octal SPI Controller -> PSRAM -->
+  <path d="M 708,350 L 767,350" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="737" y="342" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">O-SPI</text>
+
+</svg>

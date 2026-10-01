@@ -1,0 +1,14 @@
+idf_component_register(
+    SRCS 
+        "main.c" 
+        "mjpeg_server.c"
+    INCLUDE_DIRS 
+        "."
+    REQUIRES 
+        esp_camera 
+        esp_http_server 
+        nvs_flash 
+        esp_wifi 
+        esp_event 
+        esp_psram
+)

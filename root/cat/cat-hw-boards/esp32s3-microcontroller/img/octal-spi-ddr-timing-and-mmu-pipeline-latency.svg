@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма транзакції шини Octal SPI DDR та затримок MMU</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Накладні витрати (Command, Address, Dummy Cycles, MMU Page Boundary) знижують ефективну пропускну здатність</text>
+
+  <!-- Main Panel -->
+  <rect x="35" y="85" width="890" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Signal Track Labels -->
+  <text x="155" y="125" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">CLK</text>
+  <text x="155" y="165" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">CS#</text>
+  <text x="155" y="205" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">DQS</text>
+  <text x="155" y="250" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">IO[7:0]</text>
+
+  <!-- CLK Trace (Square wave simulation) -->
+  <path d="M 170 135 L 190 135 L 190 115 L 210 115 L 210 135 L 230 135 L 230 115 L 250 115 L 250 135 L 270 135 L 270 115 L 290 115 L 290 135 L 310 135 L 310 115 L 330 115 L 330 135 L 350 135 L 350 115 L 370 115 L 370 135 L 390 135 L 390 115 L 410 115 L 410 135 L 430 135 L 430 115 L 450 115 L 450 135 L 470 135 L 470 115 L 490 115 L 490 135 L 510 135 L 510 115 L 530 115 L 530 135 L 550 135 L 550 115 L 570 115 L 570 135 L 590 135 L 590 115 L 610 115 L 610 135 L 630 135 L 630 115 L 650 115 L 650 135 L 670 135 L 670 115 L 690 115 L 690 135 L 710 135 L 710 115 L 730 115 L 730 135 L 750 135 L 750 115 L 770 115 L 770 135 L 790 135 L 790 115 L 810 115 L 810 135 L 830 135 L 830 115 L 850 115 L 850 135 L 870 135 L 870 115 L 880 115 L 880 135 L 900 135" stroke="#6b7280" stroke-width="1.5" fill="none"/>
+
+  <!-- CS# Trace (Active Low) -->
+  <path d="M 170 150 L 190 150 L 190 175 L 880 175 L 880 150 L 900 150" stroke="#2457d6" stroke-width="2" fill="none"/>
+
+  <!-- DQS Trace (Data Strobe) -->
+  <path d="M 170 205 L 610 205 L 610 195 L 625 195 L 625 215 L 640 215 L 640 195 L 655 195 L 655 215 L 670 215 L 670 195 L 685 195 L 685 215 L 700 215 L 700 195 L 715 195 L 715 215 L 730 215 L 730 195 L 745 195 L 745 215 L 760 215 L 760 195 L 775 195 L 775 215 L 790 215 L 790 195 L 805 195 L 805 215 L 820 215 L 820 195 L 835 195 L 835 215 L 850 215 L 850 195 L 865 195 L 865 215 L 880 215 L 880 205 L 900 205" stroke="#27ae60" stroke-width="1.5" fill="none"/>
+
+  <!-- IO[7:0] Data Bus Phases -->
+  <!-- Phase 1: CMD -->
+  <rect x="190" y="230" width="70" height="45" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="225" y="257" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">CMD</text>
+
+  <!-- Phase 2: ADDR -->
+  <rect x="260" y="230" width="100" height="45" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="310" y="257" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ADDR (32-bit)</text>
+
+  <!-- Phase 3: DUMMY -->
+  <rect x="360" y="230" width="130" height="45" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="425" y="257" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Dummy (t_dummy)</text>
+
+  <!-- Phase 4: MMU Latency -->
+  <rect x="490" y="230" width="120" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="550" y="248" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">MMU Page Boundary</text>
+  <text x="550" y="265" font-size="12" fill="#6b7280" text-anchor="middle">Затримка t_mmu</text>
+
+  <!-- Phase 5: DATA BURST -->
+  <rect x="610" y="230" width="270" height="45" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="745" y="248" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">DATA BURST (Octal DDR)</text>
+  <text x="745" y="265" font-size="12" fill="#6b7280" text-anchor="middle">2 B / cycle (DDR Mode)</text>
+
+  <!-- Cards Section -->
+  <!-- Card 1 (Overhead Penalty) -->
+  <rect x="55" y="295" width="410" height="130" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="70" y="318" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">Накладні такти очікування (Overhead)</text>
+  <text x="70" y="340" font-size="12" fill="#1a1a1a" text-anchor="start">• CMD + ADDR + Dummy Cycles: початкова затримка</text>
+  <text x="70" y="360" font-size="12" fill="#1a1a1a" text-anchor="start">• Перетин меж сторінок MMU: штраф за затримку</text>
+  <text x="70" y="380" font-size="12" fill="#1a1a1a" text-anchor="start">• L1 Cache Writeback: затримка витіснення</text>
+  <text x="70" y="405" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Вплив: Короткі транзакції суттєво втрачають швидкість</text>
+
+  <!-- Card 2 (Effective Bandwidth) -->
+  <rect x="495" y="295" width="410" height="130" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="510" y="318" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">Ефективна пропускна здатність (BW_eff)</text>
+  <text x="510" y="340" font-size="12" fill="#1a1a1a" text-anchor="start">• Формула: BW_eff = N_bytes / (t_overhead + t_data)</text>
+  <text x="510" y="360" font-size="12" fill="#1a1a1a" text-anchor="start">• Теоретичний максимум DDR (120 MHz): 240 MB/s</text>
+  <text x="510" y="380" font-size="12" fill="#1a1a1a" text-anchor="start">• Реальна швидкість пакета: ~180–210 MB/s</text>
+  <text x="510" y="405" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Висновок: Вирівнювання буферів підвищує BW_eff</text>
+</svg>

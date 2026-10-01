@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл буферів LwIP DRAM при мультиплексуванні сокетів ESP-01</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">П'ять паралельних з'єднань (link 0..4) конкурують за обмежену купу DRAM для черг pbuf</text>
+
+  <!-- Left Panel: Multiplexed Sockets -->
+  <rect x="30" y="80" width="220" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="140" y="103" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мультиплексування (CIPMUX=1)</text>
+  <text x="140" y="120" font-size="12" fill="#6b7280" text-anchor="middle">5 паралельних сокетів (link 0..4)</text>
+
+  <!-- Socket Cards -->
+  <!-- Card 0 -->
+  <rect x="42" y="132" width="196" height="66" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="52" y="152" font-size="13" font-weight="bold" fill="#2457d6">Сокет 0: TCP Server</text>
+  <text x="52" y="170" font-size="12" fill="#1a1a1a">Черга: 2 вхідних pbuf</text>
+  <text x="52" y="186" font-size="12" fill="#6b7280">Статус: Активне з'єднання</text>
+
+  <!-- Card 1 -->
+  <rect x="42" y="208" width="196" height="66" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="52" y="228" font-size="13" font-weight="bold" fill="#1a1a1a">Сокет 1: TCP Client</text>
+  <text x="52" y="246" font-size="12" fill="#1a1a1a">Черга: 3 вхідних pbuf</text>
+  <text x="52" y="262" font-size="12" fill="#6b7280">Статус: Завантаження HTTP</text>
+
+  <!-- Card 2 -->
+  <rect x="42" y="284" width="196" height="66" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="52" y="304" font-size="13" font-weight="bold" fill="#1a1a1a">Сокет 2: TCP Client</text>
+  <text x="52" y="322" font-size="12" fill="#1a1a1a">Черга: 1 вхідний pbuf</text>
+  <text x="52" y="338" font-size="12" fill="#6b7280">Статус: Cloud MQTT</text>
+
+  <!-- Card 3 -->
+  <rect x="42" y="360" width="196" height="66" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="52" y="380" font-size="13" font-weight="bold" fill="#1a1a1a">Сокет 3: UDP Node</text>
+  <text x="52" y="398" font-size="12" fill="#1a1a1a">Черга: 2 вхідних pbuf</text>
+  <text x="52" y="414" font-size="12" fill="#6b7280">Статус: Телеметрія UDP</text>
+
+  <!-- Card 4 (Overflow Risk) -->
+  <rect x="42" y="436" width="196" height="72" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="52" y="456" font-size="13" font-weight="bold" fill="#c0392b">Сокет 4: UDP Node</text>
+  <text x="52" y="474" font-size="12" font-weight="bold" fill="#c0392b">Черга: pbuf_alloc = NULL!</text>
+  <text x="52" y="494" font-size="12" font-weight="bold" fill="#c0392b">Скидання пакетів (Loss)</text>
+
+  <!-- Center Panel: DRAM Memory Pool -->
+  <rect x="275" y="80" width="410" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="103" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пул оперативної пам'яті DRAM (Heap ~24–36 КБ)</text>
+  <text x="480" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Розподіл структур pbuf в LwIP (~1536–1600 байт на пакет)</text>
+
+  <!-- Memory Bar -->
+  <rect x="290" y="132" width="310" height="30" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="445" y="151" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Виділено під pbuf: ~21.5 КБ (8 буферів)</text>
+
+  <rect x="600" y="132" width="75" height="30" fill="#fdecea" stroke="#c0392b"/>
+  <text x="637" y="151" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Залишок</text>
+
+  <!-- Memory Grid -->
+  <!-- Row 1 -->
+  <rect x="290" y="175" width="180" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="380" y="199" font-size="12" fill="#1a1a1a" text-anchor="middle">pbuf #1 (Link 0) - 1536 B</text>
+
+  <rect x="485" y="175" width="180" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="575" y="199" font-size="12" fill="#1a1a1a" text-anchor="middle">pbuf #2 (Link 0) - 1536 B</text>
+
+  <!-- Row 2 -->
+  <rect x="290" y="225" width="180" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="380" y="249" font-size="12" fill="#1a1a1a" text-anchor="middle">pbuf #3 (Link 1) - 1536 B</text>
+
+  <rect x="485" y="225" width="180" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="575" y="249" font-size="12" fill="#1a1a1a" text-anchor="middle">pbuf #4 (Link 1) - 1536 B</text>
+
+  <!-- Row 3 -->
+  <rect x="290" y="275" width="180" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="380" y="299" font-size="12" fill="#1a1a1a" text-anchor="middle">pbuf #5 (Link 1) - 1536 B</text>
+
+  <rect x="485" y="275" width="180" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="575" y="299" font-size="12" fill="#1a1a1a" text-anchor="middle">pbuf #6 (Link 2) - 1536 B</text>
+
+  <!-- Row 4 -->
+  <rect x="290" y="325" width="180" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="380" y="349" font-size="12" fill="#1a1a1a" text-anchor="middle">pbuf #7 (Link 3) - 1536 B</text>
+
+  <rect x="485" y="325" width="180" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="575" y="349" font-size="12" fill="#1a1a1a" text-anchor="middle">pbuf #8 (Link 3) - 1536 B</text>
+
+  <!-- Row 5 (Failed allocation) -->
+  <rect x="290" y="375" width="375" height="45" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="477" y="402" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">pbuf #9 (Link 4) -> ВИСНАЖЕННЯ КУПИ! (Втрата кадру)</text>
+
+  <!-- Summary Card in DRAM -->
+  <rect x="290" y="432" width="375" height="76" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="300" y="452" font-size="12" font-weight="bold" fill="#1a1a1a">Критичне правило буферизації LwIP:</text>
+  <text x="300" y="470" font-size="12" fill="#6b7280">Сума буферів усіх 5 сокетів не повинна перевищувати</text>
+  <text x="300" y="488" font-size="12" font-weight="bold" fill="#c0392b">ліміт вільної DRAM (~15-16 пакетів MTU 1500 байт)</text>
+
+  <!-- Right Panel: UART & Host -->
+  <rect x="705" y="80" width="225" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="817" y="103" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вигрузка в UART та Host</text>
+  <text x="817" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Серіалізація та парсинг +IPD</text>
+
+  <!-- UART TX Box -->
+  <rect x="717" y="132" width="201" height="155" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="727" y="152" font-size="13" font-weight="bold" fill="#2457d6">UART TX FIFO (115200 bps)</text>
+  <text x="727" y="168" font-size="12" fill="#6b7280">Кадрування AT-прошивки:</text>
+
+  <rect x="727" y="176" width="181" height="98" rx="4" fill="#f4f6f8"/>
+  <text x="735" y="196" font-size="12" font-family="monospace" fill="#2457d6">+IPD,0,1460:&lt;data&gt;</text>
+  <text x="735" y="216" font-size="12" font-family="monospace" fill="#1a1a1a">+IPD,1,1460:&lt;data&gt;</text>
+  <text x="735" y="236" font-size="12" font-family="monospace" fill="#1a1a1a">+IPD,3,512:&lt;data&gt;</text>
+  <text x="735" y="256" font-size="12" font-style="italic" fill="#6b7280">Послідовна передача...</text>
+
+  <!-- Host Ring Buffer Box -->
+  <rect x="717" y="297" width="201" height="211" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="727" y="320" font-size="13" font-weight="bold" fill="#27ae60">Host ISR Ring Buffer</text>
+  <text x="727" y="340" font-size="12" fill="#1a1a1a">Кільцевий буфер хоста:</text>
+  <text x="727" y="360" font-size="12" font-weight="bold" fill="#27ae60">S_ring ≥ 589 байт</text>
+  <text x="727" y="380" font-size="12" fill="#6b7280">Захист від затримок ISR</text>
+
+  <rect x="727" y="392" width="181" height="104" rx="4" fill="#ffffff" stroke="#27ae60"/>
+  <text x="735" y="412" font-size="12" font-weight="bold" fill="#1a1a1a">Парсер префіксів:</text>
+  <text x="735" y="430" font-size="12" fill="#2457d6">1. Пошук +IPD</text>
+  <text x="735" y="448" font-size="12" fill="#2457d6">2. Парсинг ID (0..4)</text>
+  <text x="735" y="466" font-size="12" fill="#2457d6">3. Читання len байт</text>
+  <text x="735" y="484" font-size="12" font-weight="bold" fill="#27ae60">4. Маршрутизація</text>
+
+  <!-- Flow Lines / Arrows -->
+  <line x1="238" y1="165" x2="275" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="238" y1="241" x2="275" y2="241" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="238" y1="472" x2="275" y2="397" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+
+  <line x1="685" y1="210" x2="717" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="817" y1="287" x2="817" y2="297" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Legend Bar -->
+  <rect x="30" y="530" width="900" height="22" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="480" y="545" font-size="12" fill="#6b7280" text-anchor="middle">Легенда:  ■ Синій — Активні буфери pbuf (LwIP)   ■ Зелений — Безпечна обробка хостом   ■ Червоний — Виснаження DRAM / Втрата пакетів</text>
+</svg>

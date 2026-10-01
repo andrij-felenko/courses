@@ -1,0 +1,221 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема двоступеневого фільтра зневадження живлення ESP8266</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Танталові та керамічні конденсатори гасять піки струму RF-передавача та ВЧ-завади</text>
+
+  <!-- Panel 1: Power Source -->
+  <rect x="40" y="75" width="190" height="375" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="135" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Джерело живлення</text>
+  <text x="135" y="118" font-size="12" fill="#6b7280" text-anchor="middle">LDO-регулятор 3.3 В</text>
+
+  <rect x="60" y="145" width="150" height="110" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="135" y="172" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">AMS1117-3.3</text>
+  <text x="135" y="192" font-size="12" fill="#6b7280" text-anchor="middle">Linear Regulator</text>
+  <text x="135" y="212" font-size="12" fill="#1a1a1a" text-anchor="middle">I_max = 800 mA</text>
+  <text x="135" y="232" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V_out = 3.3 V</text>
+
+  <!-- Input Line Vin -->
+  <line x1="15" y1="180" x2="60" y2="180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="37" y="170" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">V_in (+5V)</text>
+
+  <!-- Panel 2: Two-stage Decoupling Filter -->
+  <rect x="255" y="75" width="430" height="375" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="470" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двоступеневий фільтр зневадження</text>
+
+  <!-- Stage 1 Sub-box -->
+  <rect x="268" y="118" width="155" height="317" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="345" y="138" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I ступінь: Буфер НЧ</text>
+  <text x="345" y="154" font-size="11" fill="#6b7280" text-anchor="middle">(Поруч з LDO)</text>
+
+  <!-- Stage 2 Sub-box -->
+  <rect x="487" y="118" width="155" height="317" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="564" y="138" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">II ступінь: Локальний ВЧ</text>
+  <text x="564" y="154" font-size="11" fill="#6b7280" text-anchor="middle">(Біля виводів VDD)</text>
+
+  <!-- Main Power Rail (+3.3V Bus) -->
+  <line x1="210" y1="180" x2="437" y2="180" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Ferrite Bead FB1 -->
+  <rect x="437" y="170" width="36" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+  <text x="455" y="164" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">FB1</text>
+  <text x="455" y="184" font-size="10" font-weight="bold" fill="#1a1a1a" text-anchor="middle">600 Ом</text>
+
+  <line x1="473" y1="180" x2="710" y2="180" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- Nodes on +3.3V Bus -->
+  <circle cx="310" cy="180" r="3.5" fill="#2457d6"/>
+  <circle cx="380" cy="180" r="3.5" fill="#2457d6"/>
+  <circle cx="528" cy="180" r="3.5" fill="#27ae60"/>
+  <circle cx="600" cy="180" r="3.5" fill="#27ae60"/>
+
+  <!-- Component C1 (Tantalum 22uF) -->
+  <line x1="310" y1="180" x2="310" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="294" y="202" font-size="14" font-weight="bold" fill="#c0392b">+</text>
+  <line x1="298" y1="205" x2="322" y2="205" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="298" y1="213" x2="322" y2="213" stroke="#1a1a1a" stroke-width="3"/>
+  
+  <!-- C1 Ground Wire routed outside card at x=275 -->
+  <line x1="310" y1="213" x2="310" y2="222" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="310" y1="222" x2="275" y2="222" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="275" y1="222" x2="275" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="275" y1="400" x2="310" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- C1 Card -->
+  <rect x="278" y="228" width="58" height="165" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="307" y="244" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">C1: 22мкФ</text>
+  <text x="307" y="259" font-size="10" fill="#6b7280" text-anchor="middle">Тантал</text>
+  <text x="307" y="272" font-size="10" fill="#6b7280" text-anchor="middle">Low ESR</text>
+
+  <text x="307" y="292" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">Роль C1:</text>
+  <text x="307" y="307" font-size="10" fill="#1a1a1a" text-anchor="middle">Буфер піків</text>
+  <text x="307" y="321" font-size="10" fill="#1a1a1a" text-anchor="middle">струму PA</text>
+  <text x="307" y="335" font-size="10" fill="#1a1a1a" text-anchor="middle">до 400 мА</text>
+  <text x="307" y="349" font-size="10" fill="#1a1a1a" text-anchor="middle">при Wi-Fi TX</text>
+  <text x="307" y="365" font-size="10" fill="#6b7280" text-anchor="middle">НЧ-фільтр</text>
+  <text x="307" y="379" font-size="10" fill="#6b7280" text-anchor="middle">живлення</text>
+
+  <!-- Component C2 (MLCC 1uF) -->
+  <line x1="380" y1="180" x2="380" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="368" y1="205" x2="392" y2="205" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="368" y1="213" x2="392" y2="213" stroke="#1a1a1a" stroke-width="3"/>
+
+  <!-- C2 Ground Wire routed outside card at x=415 -->
+  <line x1="380" y1="213" x2="380" y2="222" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="380" y1="222" x2="415" y2="222" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="415" y1="222" x2="415" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="415" y1="400" x2="380" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- C2 Card -->
+  <rect x="352" y="228" width="58" height="165" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="381" y="244" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">C2: 1 мкФ</text>
+  <text x="381" y="259" font-size="10" fill="#6b7280" text-anchor="middle">MLCC</text>
+  <text x="381" y="272" font-size="10" fill="#6b7280" text-anchor="middle">Кераміка</text>
+
+  <text x="381" y="292" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">Роль C2:</text>
+  <text x="381" y="307" font-size="10" fill="#1a1a1a" text-anchor="middle">Фільтрація</text>
+  <text x="381" y="321" font-size="10" fill="#1a1a1a" text-anchor="middle">пульсацій</text>
+  <text x="381" y="335" font-size="10" fill="#1a1a1a" text-anchor="middle">LDO-виходу</text>
+  <text x="381" y="349" font-size="10" fill="#6b7280" text-anchor="middle">діапазону</text>
+  <text x="381" y="365" font-size="10" fill="#2457d6" text-anchor="middle">0.1-5 МГц</text>
+
+  <!-- Component C3 (MLCC 100nF) -->
+  <line x1="528" y1="180" x2="528" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="516" y1="205" x2="540" y2="205" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="516" y1="213" x2="540" y2="213" stroke="#1a1a1a" stroke-width="3"/>
+
+  <!-- C3 Ground Wire routed outside card at x=493 -->
+  <line x1="528" y1="213" x2="528" y2="222" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="528" y1="222" x2="493" y2="222" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="493" y1="222" x2="493" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="493" y1="400" x2="528" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- C3 Card -->
+  <rect x="499" y="228" width="58" height="165" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="528" y="244" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">C3: 100нФ</text>
+  <text x="528" y="259" font-size="10" fill="#6b7280" text-anchor="middle">MLCC</text>
+  <text x="528" y="272" font-size="10" fill="#6b7280" text-anchor="middle">X7R</text>
+
+  <text x="528" y="292" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">Роль C3:</text>
+  <text x="528" y="307" font-size="10" fill="#1a1a1a" text-anchor="middle">Шумування</text>
+  <text x="528" y="321" font-size="10" fill="#1a1a1a" text-anchor="middle">перемикань</text>
+  <text x="528" y="335" font-size="10" fill="#1a1a1a" text-anchor="middle">ядра CPU</text>
+  <text x="528" y="349" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">80/160 МГц</text>
+  <text x="528" y="365" font-size="10" fill="#6b7280" text-anchor="middle">Миттєвий</text>
+  <text x="528" y="379" font-size="10" fill="#6b7280" text-anchor="middle">струм ядра</text>
+
+  <!-- Component C4 (MLCC 10pF) -->
+  <line x1="600" y1="180" x2="600" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="588" y1="205" x2="612" y2="205" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="588" y1="213" x2="612" y2="213" stroke="#1a1a1a" stroke-width="3"/>
+
+  <!-- C4 Ground Wire routed outside card at x=635 -->
+  <line x1="600" y1="213" x2="600" y2="222" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="600" y1="222" x2="635" y2="222" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="635" y1="222" x2="635" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="635" y1="400" x2="600" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- C4 Card -->
+  <rect x="571" y="228" width="58" height="165" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="600" y="244" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">C4: 10 пФ</text>
+  <text x="600" y="259" font-size="10" fill="#6b7280" text-anchor="middle">MLCC</text>
+  <text x="600" y="272" font-size="10" fill="#6b7280" text-anchor="middle">C0G / NP0</text>
+
+  <text x="600" y="292" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">Роль C4:</text>
+  <text x="600" y="307" font-size="10" fill="#1a1a1a" text-anchor="middle">Гармоніки</text>
+  <text x="600" y="321" font-size="10" fill="#1a1a1a" text-anchor="middle">RF-завад</text>
+  <text x="600" y="335" font-size="10" fill="#1a1a1a" text-anchor="middle">несучої</text>
+  <text x="600" y="349" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">2.4 ГГц</text>
+  <text x="600" y="365" font-size="10" fill="#6b7280" text-anchor="middle">Ультра-</text>
+  <text x="600" y="379" font-size="10" fill="#6b7280" text-anchor="middle">низький ESR</text>
+
+  <!-- Panel 3: ESP8266 SoC -->
+  <rect x="710" y="75" width="210" height="375" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="815" y="100" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">ESP8266 SoC</text>
+  <text x="815" y="118" font-size="12" fill="#6b7280" text-anchor="middle">Навантаження живлення</text>
+
+  <!-- Sub-block RF PA -->
+  <rect x="725" y="135" width="180" height="85" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="815" y="155" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Wi-Fi Transceiver &amp; PA</text>
+  <text x="815" y="173" font-size="11" fill="#1a1a1a" text-anchor="middle">Струм TX: 170...400 мА</text>
+  <text x="815" y="190" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Генерує RF-піки струму</text>
+  <text x="815" y="207" font-size="10" fill="#6b7280" text-anchor="middle">Живлення: VDD33, VDD_A</text>
+
+  <!-- Sub-block CPU -->
+  <rect x="725" y="230" width="180" height="80" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="815" y="250" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Xtensa L106 CPU Core</text>
+  <text x="815" y="268" font-size="11" fill="#1a1a1a" text-anchor="middle">Частота: 80 / 160 МГц</text>
+  <text x="815" y="286" font-size="11" fill="#6b7280" text-anchor="middle">Цифрові перемикання</text>
+  <text x="815" y="302" font-size="10" fill="#6b7280" text-anchor="middle">Живлення: VDD_D</text>
+
+  <!-- Sub-block Pins -->
+  <rect x="725" y="320" width="180" height="80" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="815" y="340" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Виводи VDD / GND</text>
+  <text x="815" y="358" font-size="11" fill="#1a1a1a" text-anchor="middle">VDD33, VDD_A, VDD_D</text>
+  <text x="815" y="376" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Відстань MLCC &lt; 2 мм</text>
+  <text x="815" y="392" font-size="10" fill="#6b7280" text-anchor="middle">Прямо біля виводів чипа</text>
+
+  <!-- Ground Rail (GND Plane) -->
+  <line x1="135" y1="400" x2="815" y2="400" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Connections from components to GND -->
+  <line x1="135" y1="255" x2="135" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="815" y1="400" x2="815" y2="410" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="135" cy="400" r="3" fill="#1a1a1a"/>
+  <circle cx="310" cy="400" r="3" fill="#1a1a1a"/>
+  <circle cx="380" cy="400" r="3" fill="#1a1a1a"/>
+  <circle cx="528" cy="400" r="3" fill="#1a1a1a"/>
+  <circle cx="600" cy="400" r="3" fill="#1a1a1a"/>
+
+  <!-- Ground Symbol -->
+  <line x1="455" y1="400" x2="455" y2="412" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="442" y1="412" x2="468" y2="412" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="447" y1="417" x2="463" y2="417" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="452" y1="422" x2="458" y2="422" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="455" y="437" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Загальна шина землі (GND Plane / Суцільний шар)</text>
+
+  <!-- Bottom Summary Legend Box -->
+  <rect x="40" y="456" width="880" height="50" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <rect x="52" y="466" width="14" height="14" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="2"/>
+  <text x="74" y="478" font-size="11" fill="#1a1a1a">I ступінь (Тантал 22мкФ + MLCC 1мкФ): компенсує імпульси струму RF-передавача (до 400 мА) та пригнічує НЧ-пульсації регулятора</text>
+
+  <rect x="52" y="486" width="14" height="14" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="2"/>
+  <text x="74" y="498" font-size="11" fill="#1a1a1a">II ступінь (MLCC 100нФ + 10пФ + FB1): пригнічує високочастотний шум ядра Xtensa (80/160 МГц) та гармоніки несучої Wi-Fi (2.4 ГГц)</text>
+</svg>

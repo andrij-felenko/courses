@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура комутації GPIO, IO MUX та USB в ESP32-S3</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Маршрутизація сигналів через GPIO Matrix, нативний обхід USB (GPIO19/20) та зарезервовані виводи пам'яті</text>
+
+  <!-- Column Panels Background -->
+  <rect x="40" y="85" width="180" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="130" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Периферія SoC</text>
+
+  <rect x="260" y="85" width="190" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="355" y="110" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">GPIO Matrix</text>
+
+  <rect x="490" y="85" width="190" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="585" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Блок IO MUX</text>
+
+  <rect x="720" y="85" width="200" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="820" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фізичні виводи GPIO</text>
+
+  <!-- Row 1: General Peripherals -->
+  <rect x="55" y="125" width="150" height="95" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="147" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Загальна периферія</text>
+  <text x="130" y="169" font-size="12" fill="#1a1a1a" text-anchor="middle">UART, I2C, SPI2/3, PWM</text>
+  <text x="130" y="189" font-size="11" fill="#6b7280" text-anchor="middle">Гнучка маршрутизація</text>
+
+  <rect x="270" y="125" width="170" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="355" y="147" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Матриця сигналів</text>
+  <text x="355" y="169" font-size="12" fill="#1a1a1a" text-anchor="middle">Вхідний/вихідний крос</text>
+  <text x="355" y="189" font-size="11" fill="#2457d6" text-anchor="middle">Затримка: ~2 такти</text>
+
+  <rect x="505" y="125" width="160" height="95" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="585" y="147" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Мультиплексор IO</text>
+  <text x="585" y="169" font-size="12" fill="#1a1a1a" text-anchor="middle">Вибір MCU_SEL [2:0]</text>
+  <text x="585" y="189" font-size="11" fill="#6b7280" text-anchor="middle">Керування підтяжками</text>
+
+  <rect x="735" y="125" width="170" height="95" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="820" y="147" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">GPIO0 – GPIO18, ...</text>
+  <text x="820" y="169" font-size="12" fill="#1a1a1a" text-anchor="middle">Вільне призначення</text>
+  <text x="820" y="189" font-size="11" fill="#6b7280" text-anchor="middle">Strapping: GPIO0/3/45/46</text>
+
+  <line x1="205" y1="172" x2="268" y2="172" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="440" y1="172" x2="503" y2="172" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="665" y1="172" x2="733" y2="172" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Row 2: Native USB Bypass -->
+  <rect x="55" y="240" width="150" height="90" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="130" y="263" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Нативний USB</text>
+  <text x="130" y="285" font-size="12" fill="#1a1a1a" text-anchor="middle">USB Serial/JTAG &amp; OTG</text>
+  <text x="130" y="305" font-size="11" fill="#27ae60" font-weight="bold" text-anchor="middle">Пряме PHY підключення</text>
+
+  <rect x="270" y="240" width="170" height="90" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="355" y="260" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Нативний USB (Bypass)</text>
+  <text x="355" y="310" font-size="11" fill="#27ae60" font-weight="bold" text-anchor="middle">Обхід GPIO Matrix (D-/D+)</text>
+
+  <rect x="505" y="240" width="160" height="90" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="585" y="263" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">USB PHY / JTAG MUX</text>
+  <text x="585" y="285" font-size="12" fill="#1a1a1a" text-anchor="middle">Direct D- / D+ Bypass</text>
+  <text x="585" y="305" font-size="11" fill="#27ae60" text-anchor="middle">Нативний інтерфейс</text>
+
+  <rect x="735" y="240" width="170" height="90" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="820" y="263" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">GPIO19 / GPIO20</text>
+  <text x="820" y="285" font-size="12" fill="#1a1a1a" text-anchor="middle">GPIO19: USB D-</text>
+  <text x="820" y="305" font-size="12" fill="#1a1a1a" text-anchor="middle">GPIO20: USB D+</text>
+
+  <line x1="205" y1="285" x2="503" y2="285" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <line x1="665" y1="285" x2="733" y2="285" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- Row 3: Reserved Memory Bus -->
+  <rect x="55" y="355" width="150" height="95" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="130" y="378" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Контролер пам'яті</text>
+  <text x="130" y="400" font-size="12" fill="#1a1a1a" text-anchor="middle">Quad / Octal SPI Bus</text>
+  <text x="130" y="420" font-size="11" fill="#c0392b" font-weight="bold" text-anchor="middle">Зарезервовані виводи</text>
+
+  <rect x="270" y="355" width="170" height="95" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="355" y="375" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Шина пам'яті (Bypass)</text>
+  <text x="355" y="425" font-size="11" fill="#c0392b" font-weight="bold" text-anchor="middle">Прямий обхід Flash / PSRAM</text>
+
+  <rect x="505" y="355" width="160" height="95" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="585" y="378" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Фіксація ліній SPI</text>
+  <text x="585" y="400" font-size="12" fill="#1a1a1a" text-anchor="middle">Жорстке прив'язування</text>
+  <text x="585" y="420" font-size="11" fill="#c0392b" text-anchor="middle">Заборона перепризначення</text>
+
+  <rect x="735" y="355" width="170" height="95" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="820" y="378" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">GPIO26 – GPIO37</text>
+  <text x="820" y="400" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="middle">ЗАБОРОНЕНО ДЛЯ IO</text>
+  <text x="820" y="420" font-size="11" fill="#1a1a1a" text-anchor="middle">Підключено Flash/PSRAM</text>
+
+  <line x1="205" y1="400" x2="503" y2="400" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <line x1="665" y1="400" x2="733" y2="400" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- Footer Note -->
+  <text x="480" y="498" font-size="12" fill="#6b7280" text-anchor="middle">Блок IO MUX підтримує прямий обхід матриці для нативного USB (GPIO19/20) та фіксує виводи шини пам'яті (GPIO26–37)</text>
+</svg>

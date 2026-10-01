@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схемотехніка виводів та живлення Waveshare ESP32-S3R2</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Розподіл шин живлення, толерантності GPIO, задіяних ліній PSRAM та застережень щодо підключення</text>
+
+  <!-- Marker Definitions -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Left Panel: Power & USB Subsystem -->
+  <rect x="30" y="70" width="280" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="93" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Живлення та Вбудований USB</text>
+
+  <!-- USB Type-C Box -->
+  <rect x="45" y="105" width="250" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="170" y="125" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Роз'єм USB Type-C (5V In)</text>
+  <text x="170" y="145" text-anchor="middle" font-size="12" fill="#1a1a1a">Вхід 5V &amp; Нативні D-/D+</text>
+  <text x="170" y="163" text-anchor="middle" font-size="12" fill="#6b7280">Живлення + Прошивка/Debug</text>
+
+  <!-- LDO Box -->
+  <rect x="45" y="190" width="250" height="90" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="170" y="210" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">LDO Стабілізатор 3.3V (800 mA)</text>
+  <text x="170" y="230" text-anchor="middle" font-size="12" fill="#1a1a1a">Вхід: 5V (USB/Pin) → Вихід: 3.3V</text>
+  <text x="170" y="248" text-anchor="middle" font-size="12" fill="#6b7280">Конденсатори: 10 мкФ + 0.1 мкФ</text>
+  <text x="170" y="266" text-anchor="middle" font-size="12" fill="#c0392b">Захист BOR: скидання при &lt; 2.8V</text>
+
+  <!-- USB CDC / JTAG Box -->
+  <rect x="45" y="290" width="250" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="170" y="310" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Вбудований USB CDC / JTAG</text>
+  <text x="170" y="330" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO19 (D-) &amp; GPIO20 (D+)</text>
+  <text x="170" y="348" text-anchor="middle" font-size="12" fill="#1a1a1a">USB CDC: Логи та консоль (12 Мбіт/с)</text>
+  <text x="170" y="366" text-anchor="middle" font-size="12" fill="#1a1a1a">JTAG: OpenOCD / GDB зневадження</text>
+  <text x="170" y="384" text-anchor="middle" font-size="11" fill="#6b7280">Без зовнішніх перетворювачів UART!</text>
+
+  <!-- Middle Panel: ESP32-S3R2 SiP Chip -->
+  <rect x="330" y="70" width="300" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="93" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Чип ESP32-S3R2 (SiP Корпус)</text>
+
+  <!-- SiP Inner Frame -->
+  <rect x="345" y="105" width="270" height="300" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Xtensa Cores -->
+  <rect x="360" y="120" width="240" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="147" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2× Xtensa LX7 (до 240 МГц)</text>
+
+  <!-- SRAM -->
+  <rect x="360" y="172" width="240" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="192" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Внутрішня SRAM (512 КБ)</text>
+  <text x="480" y="208" text-anchor="middle" font-size="11" fill="#6b7280">Швидкий IRAM + DRAM Heap</text>
+
+  <!-- PSRAM Forbidden Area -->
+  <rect x="360" y="224" width="240" height="65" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="480" y="244" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Вбудована 2 МБ PSRAM (Quad SPI)</text>
+  <text x="480" y="262" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Шина SiP: GPIO33..GPIO37</text>
+  <text x="480" y="278" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">⛔ ВНУТРІШНЄ ЗВ'ЯЗУВАННЯ</text>
+
+  <!-- NOR Flash -->
+  <rect x="360" y="296" width="240" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="316" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Зовнішня 16 МБ NOR Flash</text>
+  <text x="480" y="332" text-anchor="middle" font-size="11" fill="#6b7280">Quad SPI (4 лінії: IO0..IO3)</text>
+
+  <!-- MMU & Cache -->
+  <rect x="360" y="348" width="240" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="368" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">MMU та L1 Кеш (32 КБ)</text>
+  <text x="480" y="384" text-anchor="middle" font-size="11" fill="#6b7280">Динамічна адресація сторінок 64 КБ</text>
+
+  <!-- Right Panel: GPIO Pinout Classification -->
+  <rect x="650" y="70" width="280" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="790" y="93" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Статус і Зони Виводів (Pinout)</text>
+
+  <!-- Safe GPIOs Box -->
+  <rect x="665" y="105" width="250" height="85" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="790" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">БЕЗПЕЧНІ ЗАГАЛЬНІ GPIO</text>
+  <text x="790" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO1-2, 4-18, 21, 38-42</text>
+  <text x="790" y="163" text-anchor="middle" font-size="11" fill="#6b7280">Для ADC, Touch, SPI, I2C, PWM, UART</text>
+  <text x="790" y="179" text-anchor="middle" font-size="11" fill="#27ae60">Вільні для підключення периферії</text>
+
+  <!-- Strapping Pins Box -->
+  <rect x="665" y="198" width="250" height="105" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="790" y="218" text-anchor="middle" font-size="11" font-weight="bold" fill="#d97706">СТРОПУВАЛЬНІ ВИВОДИ (STRAPPING)</text>
+  <text x="790" y="236" text-anchor="middle" font-size="11" fill="#1a1a1a">GPIO0: High = Flash / Low = DFU Boot</text>
+  <text x="790" y="254" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">GPIO45: Low = VDD_SPI 3.3V (НЕ 1.8V!)</text>
+  <text x="790" y="272" text-anchor="middle" font-size="11" fill="#1a1a1a">GPIO46: Low = ROM Log output</text>
+  <text x="790" y="290" text-anchor="middle" font-size="11" fill="#d97706">Увага до рівнів підтяжки при старті!</text>
+
+  <!-- Forbidden Pins Box -->
+  <rect x="665" y="310" width="250" height="95" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="790" y="330" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">⛔ ЗАБОРОНЕНІ ДЛЯ ПІДКТЮЧЕННЯ</text>
+  <text x="790" y="350" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">GPIO33, GPIO34, GPIO35, GPIO36, GPIO37</text>
+  <text x="790" y="368" text-anchor="middle" font-size="11" fill="#1a1a1a">Розведені всередині SiP на 2 МБ PSRAM</text>
+  <text x="790" y="386" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Підключення призведе до краху системи!</text>
+
+  <!-- Connecting Arrows / Flow Lines -->
+  <!-- Left to Middle (USB to GPIO19/20) -->
+  <path d="M295 348 L345 348" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <!-- Middle PSRAM to Right Forbidden Box -->
+  <path d="M600 256 L665 350" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+  <!-- Bottom Legend Panel -->
+  <rect x="30" y="435" width="900" height="65" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="455" font-size="12" font-weight="bold" fill="#1a1a1a">Умовні позначення кіл та зон безпеки:</text>
+
+  <!-- Legend Items -->
+  <rect x="45" y="468" width="16" height="16" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="68" y="481" font-size="12" fill="#1a1a1a">Вільні GPIO (Safe)</text>
+
+  <rect x="220" y="468" width="16" height="16" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="243" y="481" font-size="12" fill="#1a1a1a">Strapping виводи (Обережно)</text>
+
+  <rect x="475" y="468" width="16" height="16" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="498" y="481" font-size="12" fill="#1a1a1a">Заняті PSRAM (Заборонено)</text>
+
+  <rect x="725" y="468" width="16" height="16" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="748" y="481" font-size="12" fill="#1a1a1a">USB CDC/JTAG &amp; Живлення</text>
+</svg>

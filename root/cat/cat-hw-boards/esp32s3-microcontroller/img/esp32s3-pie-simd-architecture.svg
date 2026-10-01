@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-solution" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Архітектура векторного розширення PIE (SIMD) в ESP32-S3</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Одночасне виконання операцій над кількома 8-бітними або 16-бітними числами за 1 такт</text>
+
+  <!-- Dual Core Complex Overview (Top) -->
+  <!-- Core 0 Panel -->
+  <rect x="40" y="75" width="425" height="115" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="102" font-size="14" font-weight="bold" fill="#1a1a1a">Core 0 (PRO_CPU)</text>
+  <text x="60" y="122" font-size="12" fill="#6b7280">Xtensa LX7 (240 МГц)</text>
+  
+  <rect x="230" y="87" width="220" height="90" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="340" y="110" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">PIE / SIMD Векторний блок</text>
+  <text x="340" y="132" text-anchor="middle" font-size="12" fill="#2457d6">128-бітний регістровий файл</text>
+  <text x="340" y="154" text-anchor="middle" font-size="12" fill="#6b7280">16x8-біт або 8x16-біт MAC</text>
+
+  <!-- Core 1 Panel -->
+  <rect x="495" y="75" width="425" height="115" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="515" y="102" font-size="14" font-weight="bold" fill="#1a1a1a">Core 1 (APP_CPU)</text>
+  <text x="515" y="122" font-size="12" fill="#6b7280">Xtensa LX7 (240 МГц)</text>
+  
+  <rect x="685" y="87" width="220" height="90" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="795" y="110" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">PIE / SIMD Векторний блок</text>
+  <text x="795" y="132" text-anchor="middle" font-size="12" fill="#2457d6">128-бітний регістровий файл</text>
+  <text x="795" y="154" text-anchor="middle" font-size="12" fill="#6b7280">16x8-біт або 8x16-біт MAC</text>
+
+
+  <!-- Execution Unit Container (Bottom) -->
+  <rect x="40" y="205" width="880" height="330" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  
+  <rect x="55" y="217" width="850" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="240" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Механізм паралельної обробки даних (SIMD / PIE Execution Unit)</text>
+
+  <!-- Input Vector Register Q0 -->
+  <rect x="70" y="268" width="370" height="60" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="255" y="287" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Вектор Q0 (128 біт): 16 елементів A₀..A₁₅</text>
+  <rect x="80" y="297" width="75" height="22" rx="2" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="117" y="312" text-anchor="middle" font-size="12" fill="#2457d6">A₀ (8b)</text>
+  <rect x="165" y="297" width="75" height="22" rx="2" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="202" y="312" text-anchor="middle" font-size="12" fill="#2457d6">A₁ (8b)</text>
+  <rect x="250" y="297" width="75" height="22" rx="2" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="287" y="312" text-anchor="middle" font-size="12" fill="#2457d6">A₂ (8b)</text>
+  <rect x="345" y="297" width="85" height="22" rx="2" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="387" y="312" text-anchor="middle" font-size="12" fill="#2457d6">... A₁₅ (8b)</text>
+
+  <!-- Input Vector Register Q1 -->
+  <rect x="480" y="268" width="370" height="60" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="665" y="287" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Вектор Q1 (128 біт): 16 елементів B₀..B₁₅</text>
+  <rect x="490" y="297" width="75" height="22" rx="2" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="527" y="312" text-anchor="middle" font-size="12" fill="#2457d6">B₀ (8b)</text>
+  <rect x="575" y="297" width="75" height="22" rx="2" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="612" y="312" text-anchor="middle" font-size="12" fill="#2457d6">B₁ (8b)</text>
+  <rect x="660" y="297" width="75" height="22" rx="2" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="697" y="312" text-anchor="middle" font-size="12" fill="#2457d6">B₂ (8b)</text>
+  <rect x="755" y="297" width="85" height="22" rx="2" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="797" y="312" text-anchor="middle" font-size="12" fill="#2457d6">... B₁₅ (8b)</text>
+
+  <!-- Arrows from Regs to ALU -->
+  <line x1="255" y1="328" x2="255" y2="355" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <line x1="665" y1="328" x2="665" y2="355" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Parallel ALU Block -->
+  <rect x="70" y="355" width="780" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="460" y="377" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">16 Паралельних АЛП / MAC Блоків (Синхронний розрахунок за 1 такт)</text>
+  <text x="460" y="402" text-anchor="middle" font-size="12" fill="#1a1a1a">16 операцій Множення з Накопиченням (MAC) одночасно</text>
+
+  <!-- Arrow from ALU to Output -->
+  <line x1="460" y1="420" x2="460" y2="445" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-solution)"/>
+
+  <!-- Output Vector Register -->
+  <rect x="210" y="445" width="500" height="65" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="460" y="468" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Результат у Векторний Регістр Q2 (128 біт / 16 результатів)</text>
+  <text x="460" y="492" text-anchor="middle" font-size="12" fill="#6b7280">Прискорення інференсу нейромереж (ESP-NN) у 4–10 разів</text>
+</svg>

@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White canvas background -->
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма ШІМ-сигналу та керування GPIO в ESP8266</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Співвідношення між періодом T, тривалістю імпульсу t_ON та коефіцієнтом заповнення D</text>
+
+  <defs>
+    <!-- Arrow heads -->
+    <marker id="arr-blue-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L0,4 L7,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L0,4 L7,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-gray-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L0,4 L7,7 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-dark-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-dark-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L0,4 L7,7 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Main Background Panel -->
+  <rect x="40" y="70" width="880" height="350" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Vertical Channel Separator -->
+  <line x1="220" y1="80" x2="220" y2="410" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Horizontal Dividers -->
+  <line x1="45" y1="155" x2="915" y2="155" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="45" y1="285" x2="915" y2="285" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Update Trigger Vertical Line -->
+  <line x1="540" y1="85" x2="540" y2="410" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <rect x="440" y="78" width="200" height="24" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="540" y="94" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Застосування параметрів ШІМ</text>
+
+  <!-- Channel 1: UART AT-Command -->
+  <text x="55" y="122" font-size="14" font-weight="bold" fill="#1a1a1a">UART AT-команда</text>
+  <text x="55" y="140" font-size="12" fill="#6b7280">Передача конфігурації</text>
+
+  <line x1="240" y1="125" x2="300" y2="125" stroke="#6b7280" stroke-width="2"/>
+  <rect x="300" y="110" width="165" height="30" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="382" y="129" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">AT+CWPWD=1,500,200</text>
+  <line x1="465" y1="125" x2="475" y2="125" stroke="#6b7280" stroke-width="2"/>
+  <rect x="475" y="110" width="50" height="30" rx="4" ry="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="500" y="129" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">OK</text>
+  <line x1="525" y1="125" x2="880" y2="125" stroke="#6b7280" stroke-width="2"/>
+
+  <!-- Channel 2: GPIO PWM D = 20% -->
+  <text x="55" y="205" font-size="14" font-weight="bold" fill="#1a1a1a">GPIO ШІМ (D = 20%)</text>
+  <text x="55" y="223" font-size="12" fill="#6b7280">Початковий режим</text>
+
+  <!-- Waveform 1 -->
+  <path d="M 240,245 L 260,245 L 260,195 L 316,195 L 316,245 L 540,245" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+
+  <!-- Dimension t_ON1 -->
+  <line x1="260" y1="172" x2="260" y2="195" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="316" y1="172" x2="316" y2="195" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="260" y1="175" x2="316" y2="175" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue-end)"/>
+  <text x="288" y="169" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_ON1 = 200 µs</text>
+
+  <!-- Dimension t_OFF1 -->
+  <line x1="540" y1="172" x2="540" y2="245" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="316" y1="175" x2="540" y2="175" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-gray-start)" marker-end="url(#arr-gray-end)"/>
+  <text x="428" y="169" font-size="12" fill="#6b7280" text-anchor="middle">t_OFF1 = 800 µs (80%)</text>
+
+  <!-- Dimension Period T1 -->
+  <line x1="260" y1="245" x2="260" y2="272" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="540" y1="245" x2="540" y2="272" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="260" y1="265" x2="540" y2="265" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-dark-start)" marker-end="url(#arr-dark-end)"/>
+  <text x="400" y="280" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Період T = 1000 µs (f = 1 kHz)</text>
+
+  <!-- Channel 3: GPIO PWM D = 75% -->
+  <text x="55" y="335" font-size="14" font-weight="bold" fill="#1a1a1a">GPIO ШІМ (D = 75%)</text>
+  <text x="55" y="353" font-size="12" fill="#6b7280">Нова конфігурація</text>
+
+  <!-- Waveform 2 before update (faded reference) -->
+  <path d="M 240,375 L 260,375 L 260,325 L 316,325 L 316,375 L 540,375" stroke="#b0b7c0" stroke-width="1.5" stroke-dasharray="3,3" fill="none"/>
+
+  <!-- Waveform 2 after update -->
+  <path d="M 540,375 L 540,325 L 750,325 L 750,375 L 820,375 L 820,325 L 880,325" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+
+  <!-- Dimension t_ON2 -->
+  <line x1="540" y1="307" x2="540" y2="325" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="750" y1="307" x2="750" y2="325" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="540" y1="307" x2="750" y2="307" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green-start)" marker-end="url(#arr-green-end)"/>
+  <text x="645" y="302" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t_ON2 = 750 µs (D = 75%)</text>
+
+  <!-- Dimension t_OFF2 -->
+  <line x1="820" y1="307" x2="820" y2="375" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="750" y1="307" x2="820" y2="307" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-gray-start)" marker-end="url(#arr-gray-end)"/>
+  <text x="785" y="302" font-size="12" fill="#6b7280" text-anchor="middle">t_OFF2 = 250 µs</text>
+
+  <!-- Dimension Period T2 -->
+  <line x1="540" y1="375" x2="540" y2="402" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="820" y1="375" x2="820" y2="402" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="540" y1="396" x2="820" y2="396" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-dark-start)" marker-end="url(#arr-dark-end)"/>
+  <text x="680" y="412" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Період T = 1000 µs</text>
+
+  <!-- Bottom Informational Cards -->
+  <rect x="40" y="435" width="275" height="65" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="177" y="457" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Період ШІМ-сигналу</text>
+  <text x="177" y="480" font-size="12" fill="#1a1a1a" text-anchor="middle">T = 1 / f_PWM  (наприклад, 1000 µs)</text>
+
+  <rect x="342" y="435" width="275" height="65" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="457" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Коефіцієнт заповнення (Duty)</text>
+  <text x="480" y="480" font-size="12" fill="#1a1a1a" text-anchor="middle">D = (t_ON / T) · 100%</text>
+
+  <rect x="645" y="435" width="275" height="65" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="782" y="457" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Активна тривалість імпульсу</text>
+  <text x="782" y="480" font-size="12" fill="#1a1a1a" text-anchor="middle">t_ON = D · T = (duty / 1023) · T</text>
+</svg>

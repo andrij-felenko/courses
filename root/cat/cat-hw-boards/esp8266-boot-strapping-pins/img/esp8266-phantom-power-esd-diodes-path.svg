@@ -1,0 +1,142 @@
+<svg viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Паразитне живлення (Phantom Power) через ESD-діоди ESP8266</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Подача високого рівня 3.3 V на GPIO при вимкненому VDD створює струм витоку на внутрішню шину живлення</text>
+
+  <!-- Left Panel: External Signal Source -->
+  <rect x="40" y="75" width="210" height="340" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <rect x="40" y="75" width="210" height="35" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="145" y="97" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Зовнішнє джерело сигналу</text>
+
+  <rect x="55" y="130" width="180" height="52" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="145" y="149" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Активна шина +3.3 V</text>
+  <text x="145" y="167" text-anchor="middle" font-size="11" fill="#6b7280">(Джерело живлення / UART)</text>
+
+  <line x1="145" y1="182" x2="145" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="155" y="210" text-anchor="start" font-size="11" fill="#2457d6">V_OUT = 3.3 V</text>
+
+  <rect x="55" y="230" width="180" height="52" fill="white" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="145" y="249" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вихід I/O (3.3 V)</text>
+  <text x="145" y="267" text-anchor="middle" font-size="11" fill="#6b7280">Високий логічний рівень</text>
+
+  <rect x="55" y="330" width="180" height="72" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="145" y="348" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Особливість стану:</text>
+  <text x="145" y="364" text-anchor="middle" font-size="11" fill="#1a1a1a">Плата ESP8266 вимкнена,</text>
+  <text x="145" y="379" text-anchor="middle" font-size="11" fill="#1a1a1a">але зовнішній сигнал 3.3 V</text>
+  <text x="145" y="394" text-anchor="middle" font-size="11" fill="#1a1a1a">активно подається на пін</text>
+
+  <!-- Right Panel: ESP8266 Microcontroller -->
+  <rect x="280" y="75" width="640" height="340" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <rect x="280" y="75" width="640" height="35" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="8"/>
+  <text x="600" y="97" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Мікроконтролер ESP8266 — Головна шина VDD ВИНЕСТРУМЛЕНА (VDD_ext = 0 V)</text>
+
+  <!-- External Pins Column -->
+  <rect x="295" y="145" width="80" height="40" fill="white" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" rx="4"/>
+  <text x="335" y="162" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">VDD Pin</text>
+  <text x="335" y="176" text-anchor="middle" font-size="11" fill="#c0392b">0 V (Вимкн)</text>
+
+  <rect x="295" y="235" width="80" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="4"/>
+  <text x="335" y="252" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">GPIO Pin</text>
+  <text x="335" y="266" text-anchor="middle" font-size="11" fill="#2457d6">3.3 V (Вхід)</text>
+
+  <rect x="295" y="355" width="80" height="40" fill="white" stroke="#6b7280" stroke-width="1.5" rx="4"/>
+  <text x="335" y="372" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">GND Pin</text>
+  <text x="335" y="386" text-anchor="middle" font-size="11" fill="#6b7280">0 V (Спільна)</text>
+
+  <!-- Connection between Output Pad and GPIO Pin -->
+  <line x1="235" y1="255" x2="295" y2="255" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- Power and Ground Rails -->
+  <line x1="375" y1="165" x2="440" y2="165" stroke="#6b7280" stroke-dasharray="4,3" stroke-width="2"/>
+  <rect x="440" y="128" width="155" height="28" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="517.5" y="146" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">V_VDD(phantom) ≈ 2.8 V</text>
+
+  <line x1="440" y1="165" x2="785" y2="165" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="517.5" y1="165" x2="680" y2="165" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <line x1="375" y1="375" x2="870" y2="375" stroke="#6b7280" stroke-width="2"/>
+
+  <!-- GPIO Wire and I_phantom label -->
+  <line x1="375" y1="255" x2="480" y2="255" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="407.5" y="240" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">I_phantom</text>
+
+  <!-- ESD Sub-Panel -->
+  <rect x="440" y="180" width="155" height="180" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="517.5" y="198" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">ESD-каскад захисту</text>
+
+  <!-- D_top Diode -->
+  <line x1="480" y1="165" x2="480" y2="215" stroke="#c0392b" stroke-width="2"/>
+  <line x1="472" y1="215" x2="488" y2="215" stroke="#c0392b" stroke-width="2"/>
+  <polygon points="472,235 488,235 480,215" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="480" y1="235" x2="480" y2="255" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="480" y1="255" x2="480" y2="175" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <text x="495" y="220" text-anchor="start" font-size="11" font-weight="bold" fill="#c0392b">D_top (ON)</text>
+  <text x="495" y="234" text-anchor="start" font-size="10" fill="#c0392b">V_D ≈ 0.5 V</text>
+  <text x="495" y="247" text-anchor="start" font-size="10" fill="#c0392b">Пряме зміщення</text>
+
+  <!-- D_bottom Diode -->
+  <line x1="480" y1="255" x2="480" y2="305" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="472" y1="305" x2="488" y2="305" stroke="#6b7280" stroke-width="2"/>
+  <polygon points="472,325 488,325 480,305" fill="#6b7280" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="480" y1="325" x2="480" y2="375" stroke="#6b7280" stroke-width="1.5"/>
+
+  <text x="495" y="318" text-anchor="start" font-size="11" font-weight="bold" fill="#6b7280">D_bottom (OFF)</text>
+  <text x="495" y="332" text-anchor="start" font-size="10" fill="#6b7280">Зворотне зміщення</text>
+  <text x="495" y="345" text-anchor="start" font-size="10" fill="#6b7280">Струм відсутній</text>
+
+  <!-- Junction Dots -->
+  <circle cx="480" cy="255" r="4" fill="#c0392b"/>
+  <circle cx="480" cy="165" r="4" fill="#c0392b"/>
+  <circle cx="480" cy="375" r="3" fill="#6b7280"/>
+
+  <!-- Capacitor C_dec -->
+  <line x1="645" y1="165" x2="645" y2="250" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="637" y1="250" x2="653" y2="250" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="637" y1="258" x2="653" y2="258" stroke="#6b7280" stroke-width="2.5"/>
+  <line x1="645" y1="258" x2="645" y2="375" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="632" y="258" text-anchor="end" font-size="11" font-weight="bold" fill="#6b7280">C_dec</text>
+  <circle cx="645" cy="165" r="3" fill="#c0392b"/>
+  <circle cx="645" cy="375" r="3" fill="#6b7280"/>
+
+  <!-- Core / POR Load Panel -->
+  <rect x="665" y="180" width="240" height="180" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <rect x="665" y="180" width="240" height="28" fill="#c0392b" stroke="#c0392b" stroke-width="1" rx="6"/>
+  <text x="785" y="198" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Ядро CPU &amp; Схема скидання</text>
+
+  <rect x="680" y="218" width="210" height="42" fill="white" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="785" y="234" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Цифрова логіка CPU / RAM</text>
+  <text x="785" y="249" text-anchor="middle" font-size="11" fill="#c0392b">Паразитне споживання I_core</text>
+
+  <rect x="680" y="266" width="210" height="86" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="690" y="280" text-anchor="start" font-size="11" font-weight="bold" fill="#c0392b">Наслідки паразитного VDD:</text>
+  <text x="690" y="295" text-anchor="start" font-size="10" fill="#1a1a1a">• V_VDD (2.8 V) замала для CPU</text>
+  <text x="690" y="310" text-anchor="start" font-size="10" fill="#1a1a1a">• Схема POR блокує скидання</text>
+  <text x="690" y="325" text-anchor="start" font-size="10" fill="#1a1a1a">• Викликає хаотичний Boot Loop</text>
+  <text x="690" y="340" text-anchor="start" font-size="10" fill="#1a1a1a">• Ризик Latch-up та зависання</text>
+
+  <line x1="785" y1="165" x2="785" y2="180" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <circle cx="785" cy="165" r="4" fill="#c0392b"/>
+
+  <line x1="785" y1="360" x2="785" y2="375" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="785" cy="375" r="3" fill="#6b7280"/>
+
+  <!-- Bottom Summary Panel -->
+  <rect x="40" y="430" width="880" height="75" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="6"/>
+  <text x="55" y="448" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">Ключові висновки та інженерні рішення для запобігання Phantom Power:</text>
+  <text x="55" y="465" text-anchor="start" font-size="11" fill="#1a1a1a">1. Причина: Сигнал 3.3 V на GPIO при VDD=0 V відкриває верхній ESD-діод D_top, який живить VDD до ~2.8 V.</text>
+  <text x="55" y="480" text-anchor="start" font-size="11" fill="#1a1a1a">2. Наслідок: Схема POR чекає переходу 0 V → 3.3 V; залишковий потенціал 2.8 V блокує повноцінне скидання ядра.</text>
+  <text x="55" y="495" text-anchor="start" font-size="11" font-weight="bold" fill="#27ae60">3. Рішення: Застосовувати буфери із функцією I_off (74LVC1T45) або вимикати лінію TX під час вимкнення плати.</text>
+</svg>

@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Діаграма відповідності рівнів безпеки SIL (IEC 61508) та PL (ISO 13849-1)</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Зіставлення частоти небезпечних відмов PFHD, діагностичного покриття DC та категорії HFT для SIL3 / PL e</text>
+
+  <!-- TABLE HEADERS -->
+  <rect x="40" y="85" width="135" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="107.5" y="108" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Рівень PL</text>
+
+  <rect x="187" y="85" width="135" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="254.5" y="108" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Рівень SIL</text>
+
+  <rect x="334" y="85" width="220" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="444" y="108" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Частота відмов PFHD (1/h)</text>
+
+  <rect x="566" y="85" width="160" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="646" y="108" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Покриття DC</text>
+
+  <rect x="738" y="85" width="182" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="829" y="108" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Арх. HFT / Структура</text>
+
+
+  <!-- ROW 1: PL a -->
+  <rect x="40" y="130" width="135" height="54" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="107.5" y="162" text-anchor="middle" font-size="13" font-weight="bold" fill="#6b7280">PL a</text>
+
+  <rect x="187" y="130" width="135" height="54" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="254.5" y="162" text-anchor="middle" font-size="13" fill="#6b7280">— (Немає)</text>
+
+  <rect x="334" y="130" width="220" height="54" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="444" y="162" text-anchor="middle" font-size="13" fill="#6b7280">10⁻⁵ ≤ PFHD &lt; 10⁻⁴</text>
+
+  <rect x="566" y="130" width="160" height="54" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="646" y="162" text-anchor="middle" font-size="13" fill="#6b7280">DC &lt; 60% (Низьке)</text>
+
+  <rect x="738" y="130" width="182" height="54" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="829" y="162" text-anchor="middle" font-size="13" fill="#6b7280">HFT = 0 (1oo1 / Cat B)</text>
+
+
+  <!-- ROW 2: PL b / PL c / SIL 1 -->
+  <rect x="40" y="192" width="135" height="54" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="107.5" y="224" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">PL b / PL c</text>
+
+  <rect x="187" y="192" width="135" height="54" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="254.5" y="224" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">SIL 1</text>
+
+  <rect x="334" y="192" width="220" height="54" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="444" y="224" text-anchor="middle" font-size="13" fill="#1a1a1a">10⁻⁶ ≤ PFHD &lt; 10⁻⁵</text>
+
+  <rect x="566" y="192" width="160" height="54" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="646" y="224" text-anchor="middle" font-size="13" fill="#1a1a1a">60% ≤ DC &lt; 90%</text>
+
+  <rect x="738" y="192" width="182" height="54" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="829" y="224" text-anchor="middle" font-size="13" fill="#1a1a1a">HFT = 0 (Cat 1 / Cat 2)</text>
+
+
+  <!-- ROW 3: PL d / SIL 2 -->
+  <rect x="40" y="254" width="135" height="54" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="107.5" y="286" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">PL d</text>
+
+  <rect x="187" y="254" width="135" height="54" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="254.5" y="286" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">SIL 2</text>
+
+  <rect x="334" y="254" width="220" height="54" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="444" y="286" text-anchor="middle" font-size="13" fill="#1a1a1a">10⁻⁷ ≤ PFHD &lt; 10⁻⁶</text>
+
+  <rect x="566" y="254" width="160" height="54" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="646" y="286" text-anchor="middle" font-size="13" fill="#1a1a1a">90% ≤ DC &lt; 99%</text>
+
+  <rect x="738" y="254" width="182" height="54" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="829" y="286" text-anchor="middle" font-size="13" fill="#1a1a1a">HFT = 1 (1oo2 / Cat 3)</text>
+
+
+  <!-- ROW 4: HIGHLIGHTED TARGET LEVEL: PL e / SIL 3 -->
+  <rect x="40" y="316" width="135" height="64" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="107.5" y="353" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">PL e</text>
+
+  <rect x="187" y="316" width="135" height="64" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="254.5" y="353" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">SIL 3</text>
+
+  <rect x="334" y="316" width="220" height="64" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="444" y="344" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">10⁻⁸ ≤ PFHD &lt; 10⁻⁷</text>
+  <text x="444" y="364" text-anchor="middle" font-size="12" fill="#27ae60">(1 відмова на 10⁷-10⁸ год)</text>
+
+  <rect x="566" y="316" width="160" height="64" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="646" y="344" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">DC ≥ 99%</text>
+  <text x="646" y="364" text-anchor="middle" font-size="12" fill="#27ae60">(Високий DC)</text>
+
+  <rect x="738" y="316" width="182" height="64" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="829" y="344" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">HFT = 1 (Cat 4)</text>
+  <text x="829" y="364" text-anchor="middle" font-size="12" fill="#27ae60">(1oo2D / 2oo3 Lockstep)</text>
+
+
+  <!-- ROW 5: SIL 4 -->
+  <rect x="40" y="388" width="135" height="54" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="107.5" y="420" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">PL e (спец.)</text>
+
+  <rect x="187" y="388" width="135" height="54" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="254.5" y="420" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">SIL 4</text>
+
+  <rect x="334" y="388" width="220" height="54" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="444" y="420" text-anchor="middle" font-size="13" fill="#2457d6">10⁻⁹ ≤ PFHD &lt; 10⁻⁸</text>
+
+  <rect x="566" y="388" width="160" height="54" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="646" y="420" text-anchor="middle" font-size="13" fill="#2457d6">DC ≥ 99% + TMR</text>
+
+  <rect x="738" y="388" width="182" height="54" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="829" y="420" text-anchor="middle" font-size="13" fill="#2457d6">HFT = 2 (2oo3 / 2oo4)</text>
+
+
+  <!-- BOTTOM SUMMARY BANNER -->
+  <rect x="40" y="452" width="880" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="477" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">✓ Для досягнення SIL3 / PL e у Safety PLC необхідні: PFHD &lt; 10⁻⁷ 1/h, DC ≥ 99% та відмовостійкість HFT ≥ 1</text>
+</svg>

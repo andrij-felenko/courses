@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принципова схема підключення сенсора OV3640 до ESP32-CAM</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Розподіл ліній шини DVP, регуляторів триканального живлення LDO та тактування XVCLK</text>
+
+  <!-- Panel 1: ESP32-CAM Host -->
+  <rect x="35" y="85" width="245" height="450" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="157" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер ESP32</text>
+
+  <text x="50" y="140" font-size="12" font-weight="bold" fill="#2457d6">Шина DVP (GPIO):</text>
+  <text x="50" y="165" font-size="12" fill="#1a1a1a">D0..D7: GPIO5, 18, 19, 21...</text>
+  <text x="50" y="190" font-size="12" fill="#1a1a1a">PCLK: GPIO22 (Піксельне тактування)</text>
+  <text x="50" y="215" font-size="12" fill="#1a1a1a">VSYNC: GPIO25 (Строб кадру)</text>
+  <text x="50" y="240" font-size="12" fill="#1a1a1a">HREF: GPIO23 (Строб рядка)</text>
+
+  <text x="50" y="275" font-size="12" font-weight="bold" fill="#2457d6">Тактування та SCCB:</text>
+  <text x="50" y="300" font-size="12" fill="#1a1a1a">XVCLK: GPIO0 (LEDC 20 МГц)</text>
+  <text x="50" y="325" font-size="12" fill="#1a1a1a">SIOD / SIOC: GPIO26 / GPIO27</text>
+
+  <text x="50" y="360" font-size="12" font-weight="bold" fill="#2457d6">Живлення хоста:</text>
+  <text x="50" y="385" font-size="12" fill="#1a1a1a">VBUS: +5.0 В (Вхід USB)</text>
+  <text x="50" y="410" font-size="12" fill="#1a1a1a">VCC_3V3: +3.3 В (Системна)</text>
+  <text x="50" y="435" font-size="12" fill="#1a1a1a">GND: Спільний заземлювач</text>
+
+  <!-- Connection Line: Host Power to LDO Panel -->
+  <line x1="280" y1="385" x2="310" y2="385" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Panel 2: LDO Power & Clock Conditioning -->
+  <rect x="310" y="85" width="340" height="450" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="480" y="112" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Триканальне живлення LDO</text>
+
+  <!-- LDO 1: AVDD 2.8V -->
+  <rect x="325" y="135" width="310" height="85" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="340" y="158" font-size="12" font-weight="bold" fill="#27ae60">AVDD LDO (2.8 В) — Аналогове живлення</text>
+  <text x="340" y="180" font-size="12" fill="#6b7280">LC-фільтр + Кераміка 10 мкФ / 0.1 мкФ</text>
+  <text x="340" y="202" font-size="12" fill="#27ae60">Мінімальний шум аналогового матричного ядра</text>
+
+  <!-- LDO 2: DOVDD 2.8V -->
+  <rect x="325" y="235" width="310" height="85" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="340" y="258" font-size="12" font-weight="bold" fill="#2457d6">DOVDD LDO (2.8 В) — Живлення DVP I/O</text>
+  <text x="340" y="280" font-size="12" fill="#6b7280">Цифрові буфери ліній D0-D7, PCLK, VSYNC</text>
+  <text x="340" y="302" font-size="12" fill="#6b7280">Підтяжка SCCB (SIOD/SIOC) 4.7 кОм до DOVDD</text>
+
+  <!-- LDO 3: DVDD 1.5V -->
+  <rect x="325" y="335" width="310" height="85" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="340" y="358" font-size="12" font-weight="bold" fill="#1a1a1a">DVDD LDO (1.5 В) — Ядро фотосенсора</text>
+  <text x="340" y="380" font-size="12" fill="#6b7280">Живлення внутрішнього DSP та кодека JPEG</text>
+  <text x="340" y="402" font-size="12" fill="#6b7280">Автономний внутрішній регулятор 1.5 В</text>
+
+  <!-- Clock & Matching Notes in Panel 2 -->
+  <text x="480" y="455" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Демпфер R_series = 22 Ом на XVCLK (Z_0 = 50 Ом)</text>
+  <text x="480" y="480" font-size="12" fill="#2457d6" text-anchor="middle">Завадозахищене копланарне трасування тактування</text>
+
+  <!-- Power Connection Lines: LDOs to Camera -->
+  <line x1="635" y1="165" x2="680" y2="165" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="635" y1="265" x2="680" y2="265" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="635" y1="365" x2="680" y2="365" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Panel 3: OV3640 Sensor Module -->
+  <rect x="680" y="85" width="245" height="450" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="802" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сенсор OV3640 (2 МП)</text>
+
+  <text x="695" y="140" font-size="12" font-weight="bold" fill="#27ae60">Входи живлення:</text>
+  <text x="695" y="165" font-size="12" fill="#1a1a1a">AVDD: 2.8 В (Аналоговий)</text>
+  <text x="695" y="190" font-size="12" fill="#1a1a1a">DOVDD: 2.8 В (I/O DVP)</text>
+  <text x="695" y="215" font-size="12" fill="#1a1a1a">DVDD: 1.5 В (Внутр. ядро)</text>
+  <text x="695" y="240" font-size="12" fill="#1a1a1a">AGND / DGND: Заземлення</text>
+
+  <text x="695" y="275" font-size="12" font-weight="bold" fill="#2457d6">Порт відео DVP:</text>
+  <text x="695" y="300" font-size="12" fill="#1a1a1a">Y2..Y9 (Шина даних D0..D7)</text>
+  <text x="695" y="325" font-size="12" fill="#1a1a1a">PCLK / VSYNC / HREF</text>
+  <text x="695" y="350" font-size="12" fill="#1a1a1a">XVCLK (Вхід 20 МГц)</text>
+
+  <text x="695" y="385" font-size="12" font-weight="bold" fill="#2457d6">Шина шини SCCB:</text>
+  <text x="695" y="410" font-size="12" fill="#1a1a1a">SIOD (SDA) / SIOC (SCL)</text>
+  <text x="695" y="435" font-size="12" fill="#1a1a1a">16-бітна адреса регістрів</text>
+</svg>

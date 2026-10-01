@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Порівняння пропускної здатності та залучення GPIO для Quad SPI й Octal SPI</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Восьмибітна шина Octal SPI подвоює швидкість обміну з PSRAM, але блокує 12 ліній GPIO (GPIO26–GPIO37)</text>
+
+  <!-- LEFT PANEL: Quad SPI -->
+  <rect x="30" y="85" width="435" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="100" width="405" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="247" y="122" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">1. Quad SPI (4-бітна шина даних)</text>
+
+  <!-- Left Block 1: Bandwidth -->
+  <rect x="45" y="148" width="405" height="75" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="60" y="170" font-size="13" font-weight="bold" fill="#1a1a1a">Пропускна здатність:</text>
+  <text x="215" y="170" font-size="13" font-weight="bold" fill="#2457d6">до 80 МБ/с (4 біти / DDR)</text>
+  <text x="60" y="192" font-size="12" fill="#1a1a1a">• Лінії шини (6 GPIO):</text>
+  <text x="215" y="192" font-size="12" fill="#6b7280">CLK, CS, D0, D1, D2, D3</text>
+  <text x="60" y="210" font-size="11" fill="#6b7280">Задіяна шина: GPIO27, GPIO28, GPIO29, GPIO30, GPIO31, GPIO32</text>
+
+  <!-- Left Block 2: GPIO Availability -->
+  <rect x="45" y="235" width="405" height="185" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="55" y="245" width="385" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="247" y="262" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">✓ Збережено 6 ліній GPIO для периферії</text>
+  <text x="60" y="292" font-size="12" font-weight="bold" fill="#1a1a1a">Вільні виводи вводу-виводу:</text>
+  <text x="60" y="312" font-size="12" font-weight="bold" fill="#27ae60">• GPIO26, GPIO33, GPIO34, GPIO35, GPIO36, GPIO37</text>
+  <text x="60" y="338" font-size="11" fill="#1a1a1a">• Можливість підключення I2S аудіокодеків</text>
+  <text x="60" y="356" font-size="11" fill="#1a1a1a">• Підтримка сенсорів SPI/I2C та додаткових шин UART</text>
+  <text x="60" y="380" font-size="12" font-weight="bold" fill="#2457d6">➔ Оптимально: для складних периферійних систем</text>
+
+  <!-- RIGHT PANEL: Octal SPI -->
+  <rect x="495" y="85" width="435" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="510" y="100" width="405" height="34" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712" y="122" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">2. Octal SPI (8-бітна шина даних)</text>
+
+  <!-- Right Block 1: Bandwidth -->
+  <rect x="510" y="148" width="405" height="75" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="525" y="170" font-size="13" font-weight="bold" fill="#1a1a1a">Пропускна здатність:</text>
+  <text x="680" y="170" font-size="13" font-weight="bold" fill="#27ae60">160 МБ/с (×2 Швидкість!)</text>
+  <text x="525" y="192" font-size="12" fill="#1a1a1a">• Лінії шини (12 GPIO):</text>
+  <text x="680" y="192" font-size="12" fill="#6b7280">CLK, _CLK, DQS, CS, D0–D7</text>
+  <text x="525" y="210" font-size="11" fill="#6b7280">Задіяна шина: GPIO26–GPIO37 (усі 12 ліній блоку)</text>
+
+  <!-- Right Block 2: GPIO Loss -->
+  <rect x="510" y="235" width="405" height="185" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="520" y="245" width="385" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="712" y="262" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">⚠ Блокування 12 ліній GPIO (GPIO26–GPIO37)</text>
+  <text x="525" y="292" font-size="12" font-weight="bold" fill="#c0392b">Конфлікти з паралельними інтерфейсами:</text>
+  <text x="525" y="312" font-size="11" fill="#1a1a1a">• Блокує DVP паралельні шини камер (OV2640/OV5640)</text>
+  <text x="525" y="330" font-size="11" fill="#1a1a1a">• Унеможливлює підключення RGB 16-біт LCD-дисплеїв</text>
+  <text x="525" y="348" font-size="11" fill="#1a1a1a">• Займає виводи I2S аудіошини</text>
+  <text x="525" y="380" font-size="12" font-weight="bold" fill="#27ae60">➔ Оптимально: для обробки AI / векторних графічних буферів</text>
+</svg>

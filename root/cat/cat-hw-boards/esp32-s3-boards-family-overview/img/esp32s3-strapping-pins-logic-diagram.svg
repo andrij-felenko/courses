@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Логіка конфігураційних виводів (Strapping Pins) ESP32-S3</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Налаштування режимів завантаження, напруги VDD_SPI та інтерфейсу JTAG під час скидання (RESET)</text>
+
+  <!-- COLUMN 1: GPIO0 -->
+  <rect x="15" y="80" width="222" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="25" y="92" width="202" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="126" y="113" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">GPIO0: Boot Mode</text>
+
+  <rect x="25" y="134" width="202" height="115" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="35" y="156" font-size="11" font-weight="bold" fill="#1a1a1a">Підтяжка виводу:</text>
+  <text x="35" y="176" font-size="11" fill="#6b7280">• Pull-Up R = 45 кОм (внутр)</text>
+  <text x="35" y="194" font-size="11" fill="#6b7280">• Кнопка BOOT на GND</text>
+  <text x="35" y="214" font-size="11" font-weight="bold" fill="#2457d6">За замовчуванням: High (1)</text>
+
+  <rect x="25" y="260" width="202" height="68" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="126" y="282" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Рівень HIGH (1)</text>
+  <text x="126" y="302" text-anchor="middle" font-size="11" fill="#1a1a1a">SPI Flash Boot (Стандарт)</text>
+
+  <rect x="25" y="340" width="202" height="68" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="126" y="362" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Рівень LOW (0)</text>
+  <text x="126" y="382" text-anchor="middle" font-size="11" fill="#1a1a1a">Download Mode (UART/USB)</text>
+
+  <rect x="25" y="418" width="202" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="35" y="438" font-size="11" font-weight="bold" fill="#1a1a1a">Особливість:</text>
+  <text x="35" y="456" font-size="11" fill="#6b7280">Утримувати LOW при RESET</text>
+  <text x="35" y="474" font-size="11" fill="#6b7280">для входу в режим прошивки</text>
+
+  <!-- COLUMN 2: GPIO3 -->
+  <rect x="251" y="80" width="222" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="261" y="92" width="202" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="362" y="113" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">GPIO3: JTAG Control</text>
+
+  <rect x="261" y="134" width="202" height="115" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="271" y="156" font-size="11" font-weight="bold" fill="#1a1a1a">Підтяжка виводу:</text>
+  <text x="271" y="176" font-size="11" fill="#6b7280">• Pull-Down (внутрішня)</text>
+  <text x="271" y="194" font-size="11" fill="#6b7280">• Контроль JTAG джерела</text>
+  <text x="271" y="214" font-size="11" font-weight="bold" fill="#2457d6">За замовчуванням: Low (0)</text>
+
+  <rect x="261" y="260" width="202" height="68" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="362" y="282" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Рівень LOW (0)</text>
+  <text x="362" y="302" text-anchor="middle" font-size="11" fill="#1a1a1a">JTAG увімкнено (On)</text>
+
+  <rect x="261" y="340" width="202" height="68" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="362" y="362" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Рівень HIGH (1)</text>
+  <text x="362" y="382" text-anchor="middle" font-size="11" fill="#1a1a1a">JTAG вимкнено (Off)</text>
+
+  <rect x="261" y="418" width="202" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="271" y="438" font-size="11" font-weight="bold" fill="#1a1a1a">Особливість:</text>
+  <text x="271" y="456" font-size="11" fill="#6b7280">Впливає на відлагодження</text>
+  <text x="271" y="474" font-size="11" fill="#6b7280">через USB Serial/JTAG</text>
+
+  <!-- COLUMN 3: GPIO45 -->
+  <rect x="487" y="80" width="222" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="497" y="92" width="202" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="598" y="113" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">GPIO45: VDD_SPI Voltage</text>
+
+  <rect x="497" y="134" width="202" height="115" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="507" y="156" font-size="11" font-weight="bold" fill="#1a1a1a">Напруга живлення SPI:</text>
+  <text x="507" y="176" font-size="11" fill="#6b7280">• Pull-Down R = 45 кОм</text>
+  <text x="507" y="194" font-size="11" fill="#6b7280">• Живлення Flash/PSRAM</text>
+  <text x="507" y="214" font-size="11" font-weight="bold" fill="#27ae60">За замовчуванням: Low (0)</text>
+
+  <rect x="497" y="260" width="202" height="68" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="598" y="282" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Рівень LOW (0)</text>
+  <text x="598" y="302" text-anchor="middle" font-size="11" fill="#1a1a1a">VDD_SPI = 3.3 В (Стандарт)</text>
+
+  <rect x="497" y="340" width="202" height="68" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="598" y="362" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Рівень HIGH (1)</text>
+  <text x="598" y="382" text-anchor="middle" font-size="11" fill="#1a1a1a">VDD_SPI = 1.8 В (Octal SPI)</text>
+
+  <rect x="497" y="418" width="202" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="507" y="438" font-size="11" font-weight="bold" fill="#c0392b">Увага / Застереження!</text>
+  <text x="507" y="456" font-size="11" fill="#6b7280">Помилковий HIGH випалить</text>
+  <text x="507" y="474" font-size="11" fill="#6b7280">3.3V чип Flash/PSRAM</text>
+
+  <!-- COLUMN 4: GPIO46 -->
+  <rect x="723" y="80" width="222" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="733" y="92" width="202" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="834" y="113" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">GPIO46: ROM Log</text>
+
+  <rect x="733" y="134" width="202" height="115" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="743" y="156" font-size="11" font-weight="bold" fill="#1a1a1a">Контроль логів ROM:</text>
+  <text x="743" y="176" font-size="11" fill="#6b7280">• Pull-Up R = 45 кОм</text>
+  <text x="743" y="194" font-size="11" fill="#6b7280">• Тільки вхід (Input-only)</text>
+  <text x="743" y="214" font-size="11" font-weight="bold" fill="#2457d6">За замовчуванням: High (1)</text>
+
+  <rect x="733" y="260" width="202" height="68" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="834" y="282" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Рівень HIGH (1)</text>
+  <text x="834" y="302" text-anchor="middle" font-size="11" fill="#1a1a1a">Друк логів ROM увімкнено</text>
+
+  <rect x="733" y="340" width="202" height="68" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="834" y="362" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Рівень LOW (0)</text>
+  <text x="834" y="382" text-anchor="middle" font-size="11" fill="#6b7280">Друк логів ROM вимкнено</text>
+
+  <rect x="733" y="418" width="202" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="743" y="438" font-size="11" font-weight="bold" fill="#1a1a1a">Особливість:</text>
+  <text x="743" y="456" font-size="11" fill="#6b7280">Вивід є Input-only,</text>
+  <text x="743" y="474" font-size="11" fill="#6b7280">не має вихідного драйвера</text>
+</svg>

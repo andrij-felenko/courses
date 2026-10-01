@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема підключення сенсора OV3640 (DVP + SCCB) до ESP32</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Призначення виводів шини даних DVP (Y2–Y9), тактування XCLK/PCLK, синхронізації та SCCB</text>
+
+  <!-- Left Block: Sensor OV3640 -->
+  <rect x="40" y="80" width="220" height="450" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="150" y="105" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сенсор OV3640</text>
+  <text x="150" y="123" font-size="12" fill="#6b7280" text-anchor="middle">2 МП DVP Модуль</text>
+
+  <!-- Right Block: ESP32 Controller -->
+  <rect x="700" y="80" width="220" height="450" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="810" y="105" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP32 (ESP32-CAM)</text>
+  <text x="810" y="123" font-size="12" fill="#6b7280" text-anchor="middle">Периферія I2S / DMA</text>
+
+  <!-- Group 1: SCCB Control -->
+  <rect x="270" y="140" width="420" height="58" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-dasharray="4,4" stroke-width="1"/>
+  <text x="480" y="153" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Шина керування SCCB (I²C)</text>
+
+  <text x="245" y="172" font-size="12" fill="#1a1a1a" text-anchor="end">SIOC (SCL)</text>
+  <text x="715" y="172" font-size="12" fill="#1a1a1a" text-anchor="start">GPIO27</text>
+  <line x1="260" y1="168" x2="700" y2="168" stroke="#2457d6" stroke-width="2" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+
+  <text x="245" y="190" font-size="12" fill="#1a1a1a" text-anchor="end">SIOD (SDA)</text>
+  <text x="715" y="190" font-size="12" fill="#1a1a1a" text-anchor="start">GPIO26</text>
+  <line x1="260" y1="186" x2="700" y2="186" stroke="#2457d6" stroke-width="2" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+
+  <!-- Group 2: Clock & Sync -->
+  <rect x="270" y="208" width="420" height="114" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-dasharray="4,4" stroke-width="1"/>
+  <text x="480" y="222" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Тактування та синхронізація кадра</text>
+
+  <text x="245" y="241" font-size="12" fill="#1a1a1a" text-anchor="end">XCLK</text>
+  <text x="715" y="241" font-size="12" fill="#1a1a1a" text-anchor="start">GPIO0</text>
+  <line x1="700" y1="237" x2="260" y2="237" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <text x="245" y="262" font-size="12" fill="#1a1a1a" text-anchor="end">PCLK</text>
+  <text x="715" y="262" font-size="12" fill="#1a1a1a" text-anchor="start">GPIO22</text>
+  <line x1="260" y1="258" x2="700" y2="258" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <text x="245" y="283" font-size="12" fill="#1a1a1a" text-anchor="end">VSYNC</text>
+  <text x="715" y="283" font-size="12" fill="#1a1a1a" text-anchor="start">GPIO25</text>
+  <line x1="260" y1="279" x2="700" y2="279" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <text x="245" y="304" font-size="12" fill="#1a1a1a" text-anchor="end">HREF</text>
+  <text x="715" y="304" font-size="12" fill="#1a1a1a" text-anchor="start">GPIO23</text>
+  <line x1="260" y1="300" x2="700" y2="300" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Group 3: 8-bit Data Bus DVP Y2-Y9 -->
+  <rect x="270" y="330" width="420" height="120" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1"/>
+  <text x="480" y="343" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">8-бітна паралельна шина даних DVP (Y2–Y9 / D0–D7)</text>
+
+  <text x="245" y="360" font-size="11" fill="#1a1a1a" text-anchor="end">Y2 (D0)</text>
+  <text x="715" y="360" font-size="11" fill="#1a1a1a" text-anchor="start">GPIO5</text>
+  <line x1="260" y1="356" x2="700" y2="356" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <text x="245" y="371" font-size="11" fill="#1a1a1a" text-anchor="end">Y3 (D1)</text>
+  <text x="715" y="371" font-size="11" fill="#1a1a1a" text-anchor="start">GPIO18</text>
+  <line x1="260" y1="367" x2="700" y2="367" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <text x="245" y="382" font-size="11" fill="#1a1a1a" text-anchor="end">Y4 (D2)</text>
+  <text x="715" y="382" font-size="11" fill="#1a1a1a" text-anchor="start">GPIO19</text>
+  <line x1="260" y1="378" x2="700" y2="378" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <text x="245" y="393" font-size="11" fill="#1a1a1a" text-anchor="end">Y5 (D3)</text>
+  <text x="715" y="393" font-size="11" fill="#1a1a1a" text-anchor="start">GPIO21</text>
+  <line x1="260" y1="389" x2="700" y2="389" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <text x="245" y="404" font-size="11" fill="#1a1a1a" text-anchor="end">Y6 (D4)</text>
+  <text x="715" y="404" font-size="11" fill="#1a1a1a" text-anchor="start">GPIO36</text>
+  <line x1="260" y1="400" x2="700" y2="400" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <text x="245" y="415" font-size="11" fill="#1a1a1a" text-anchor="end">Y7 (D5)</text>
+  <text x="715" y="415" font-size="11" fill="#1a1a1a" text-anchor="start">GPIO39</text>
+  <line x1="260" y1="411" x2="700" y2="411" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <text x="245" y="426" font-size="11" fill="#1a1a1a" text-anchor="end">Y8 (D6)</text>
+  <text x="715" y="426" font-size="11" fill="#1a1a1a" text-anchor="start">GPIO34</text>
+  <line x1="260" y1="422" x2="700" y2="422" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <text x="245" y="437" font-size="11" fill="#1a1a1a" text-anchor="end">Y9 (D7)</text>
+  <text x="715" y="437" font-size="11" fill="#1a1a1a" text-anchor="start">GPIO35</text>
+  <line x1="260" y1="433" x2="700" y2="433" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Group 4: Power Down & Reset Control -->
+  <rect x="270" y="458" width="420" height="58" rx="6" fill="#fdecea" stroke="#c0392b" stroke-dasharray="4,4" stroke-width="1"/>
+  <text x="480" y="471" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Сигнали живлення та скидання</text>
+
+  <text x="245" y="488" font-size="12" fill="#1a1a1a" text-anchor="end">PWDN</text>
+  <text x="715" y="488" font-size="12" fill="#1a1a1a" text-anchor="start">GPIO32</text>
+  <line x1="700" y1="484" x2="260" y2="484" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <text x="245" y="506" font-size="12" fill="#1a1a1a" text-anchor="end">RESET</text>
+  <text x="715" y="506" font-size="12" fill="#1a1a1a" text-anchor="start">GPIO15</text>
+  <line x1="700" y1="502" x2="260" y2="502" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+</svg>

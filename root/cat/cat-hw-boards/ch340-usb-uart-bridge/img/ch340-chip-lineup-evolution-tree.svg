@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Definitions -->
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Еволюція лінійки USB-UART мостів WCH CH340</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Шлях від SOP-16 із кварцом до мікрокорпусів SOP-8/MSOP-10 із вбудованим RC-генератором</text>
+
+  <!-- COLUMN 1: 1st Generation (CH340G / CH340T) -->
+  <rect x="30" y="78" width="285" height="420" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="40" y="90" width="265" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="172.5" y="106" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1-ше покоління (2010+)</text>
+  <text x="172.5" y="120" text-anchor="middle" font-size="12" fill="#6b7280">CH340G / CH340T</text>
+
+  <!-- Chip 1: CH340G -->
+  <rect x="45" y="138" width="255" height="110" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="55" y="158" font-size="14" font-weight="bold" fill="#1a1a1a">CH340G</text>
+  <text x="290" y="158" text-anchor="end" font-size="12" font-weight="bold" fill="#6b7280">SOP-16</text>
+  <text x="55" y="180" font-size="12" fill="#1a1a1a">• Зовнішній кварц 12 МГц</text>
+  <text x="55" y="198" font-size="12" fill="#1a1a1a">• 2× конденсатори 22 pF на XI/XO</text>
+  <text x="55" y="216" font-size="12" fill="#1a1a1a">• Повний набір ліній UART (RTS, DTR)</text>
+  <text x="55" y="234" font-size="12" fill="#1a1a1a">• Конденсатор V3 = 100 nF (3.3V)</text>
+
+  <!-- Chip 2: CH340T -->
+  <rect x="45" y="258" width="255" height="95" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="55" y="278" font-size="14" font-weight="bold" fill="#1a1a1a">CH340T</text>
+  <text x="290" y="278" text-anchor="end" font-size="12" font-weight="bold" fill="#6b7280">SSOP-20</text>
+  <text x="55" y="300" font-size="12" fill="#1a1a1a">• Повні модемні сигнали (CTS, DSR...)</text>
+  <text x="55" y="318" font-size="12" fill="#1a1a1a">• Вимагає зовнішній кварц 12 МГц</text>
+  <text x="55" y="336" font-size="12" fill="#1a1a1a">• Широкий корпус 20 виводів</text>
+
+  <!-- Col 1 Summary -->
+  <rect x="45" y="363" width="255" height="120" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="6"/>
+  <text x="55" y="381" font-size="12" font-weight="bold" fill="#c0392b">Особливості 1-го покоління:</text>
+  <text x="55" y="401" font-size="12" fill="#1a1a1a">• Високі витрати площі плати</text>
+  <text x="55" y="421" font-size="12" fill="#1a1a1a">• Потрібна зовнішня обв'язка</text>
+  <text x="55" y="441" font-size="12" fill="#1a1a1a">• Ризик збоїв через резонатор</text>
+  <text x="55" y="461" font-size="12" fill="#1a1a1a">• Стандарт перших планок Arduino</text>
+
+  <!-- Connecting Arrow 1 -> 2 -->
+  <line x1="315" y1="210" x2="330" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- COLUMN 2: 2nd Generation (CH340C) -->
+  <rect x="330" y="78" width="285" height="420" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="340" y="90" width="265" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="472.5" y="106" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2-ге покоління (Інтеграція)</text>
+  <text x="472.5" y="120" text-anchor="middle" font-size="12" fill="#6b7280">CH340C</text>
+
+  <!-- Chip 3: CH340C -->
+  <rect x="345" y="138" width="255" height="215" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="355" y="158" font-size="14" font-weight="bold" fill="#27ae60">CH340C</text>
+  <text x="590" y="158" text-anchor="end" font-size="12" font-weight="bold" fill="#6b7280">SOP-16</text>
+  <text x="355" y="176" font-size="12" font-weight="bold" fill="#1a1a1a">100% Pin-to-Pin сумісний з CH340G</text>
+  <text x="355" y="200" font-size="12" fill="#1a1a1a">✓ Вбудований RC-генератор 12 МГц</text>
+  <text x="355" y="220" font-size="12" fill="#1a1a1a">✓ Виводи XI/XO вільні (NC)</text>
+  <text x="355" y="240" font-size="12" fill="#1a1a1a">✓ Мінус 3 компоненти обв'язки</text>
+  <text x="355" y="260" font-size="12" fill="#1a1a1a">✓ Повна сумісність за розпіновкою</text>
+  <text x="355" y="280" font-size="12" fill="#1a1a1a">✓ Підтримка DTR# та RTS# для ESP</text>
+  <text x="355" y="300" font-size="12" fill="#1a1a1a">✓ Точність генератора ±0.25%</text>
+  <text x="355" y="320" font-size="12" fill="#1a1a1a">✓ Зниження собівартості плати</text>
+
+  <!-- Col 2 Summary -->
+  <rect x="345" y="363" width="255" height="120" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="355" y="381" font-size="12" font-weight="bold" fill="#27ae60">Головна перевага CH340C:</text>
+  <text x="355" y="401" font-size="12" fill="#1a1a1a">• Пряма заміна CH340G без зміни PCB</text>
+  <text x="355" y="421" font-size="12" fill="#1a1a1a">• Відмова від кварцового резонатора</text>
+  <text x="355" y="441" font-size="12" fill="#1a1a1a">• Спрощення виробничого циклу</text>
+  <text x="355" y="461" font-size="12" fill="#1a1a1a">• Масове впровадження у NodeMCU</text>
+
+  <!-- Connecting Arrow 2 -> 3 -->
+  <line x1="615" y1="210" x2="630" y2="210" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- COLUMN 3: 3rd Generation (CH340E / CH340N / CH340K) -->
+  <rect x="630" y="78" width="300" height="420" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="640" y="90" width="280" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="780" y="106" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">3-тє покоління (Мікрокорпуси)</text>
+  <text x="780" y="120" text-anchor="middle" font-size="12" fill="#6b7280">CH340E / CH340N / CH340K</text>
+
+  <!-- Chip 4: CH340E -->
+  <rect x="645" y="138" width="270" height="68" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="655" y="156" font-size="13" font-weight="bold" fill="#1a1a1a">CH340E</text>
+  <text x="905" y="156" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">MSOP-10 (3×3 мм)</text>
+  <text x="655" y="174" font-size="12" fill="#1a1a1a">• Вбудований RC-генератор 12 МГц</text>
+  <text x="655" y="192" font-size="12" fill="#1a1a1a">• Сигнали TX, RX, RTS, DTR, TNOW</text>
+
+  <!-- Chip 5: CH340N -->
+  <rect x="645" y="214" width="270" height="68" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="655" y="232" font-size="13" font-weight="bold" fill="#1a1a1a">CH340N</text>
+  <text x="905" y="232" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">SOP-8 (ультрамалий)</text>
+  <text x="655" y="250" font-size="12" fill="#1a1a1a">• Усього 8 виводів, мінімум деталей</text>
+  <text x="655" y="268" font-size="12" fill="#1a1a1a">• Ідеально для ESP-01 та стіків</text>
+
+  <!-- Chip 6: CH340K / CH340B -->
+  <rect x="645" y="290" width="270" height="63" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="655" y="308" font-size="13" font-weight="bold" fill="#1a1a1a">CH340K / CH340B</text>
+  <text x="905" y="308" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">ESSOP-10 / EEPROM</text>
+  <text x="655" y="326" font-size="12" fill="#1a1a1a">• Вбудовані ESD-діоди захисту</text>
+  <text x="655" y="344" font-size="12" fill="#1a1a1a">• CH340B має конфігурований EEPROM</text>
+
+  <!-- Col 3 Summary -->
+  <rect x="645" y="363" width="270" height="120" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="655" y="381" font-size="12" font-weight="bold" fill="#2457d6">Сучасний стандарт електроніки:</text>
+  <text x="655" y="401" font-size="12" fill="#1a1a1a">• Економія площі PCB до 70%</text>
+  <text x="655" y="421" font-size="12" fill="#1a1a1a">• Мінімум зовнішніх деталей</text>
+  <text x="655" y="441" font-size="12" fill="#1a1a1a">• Низька собівартість пристроїв</text>
+  <text x="655" y="461" font-size="12" fill="#1a1a1a">• Вбудовані драйвери в OS</text>
+</svg>

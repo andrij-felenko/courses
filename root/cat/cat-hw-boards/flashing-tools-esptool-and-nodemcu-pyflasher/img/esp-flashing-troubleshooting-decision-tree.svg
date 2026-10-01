@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 580" width="960" height="580" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="580" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діагностика помилок прошивання ESP через esptool</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Покрокове дерево рішень для усунення збоїв зв'язку, авторесета DTR/RTS та режимів завантаження</text>
+
+  <!-- Row 1: Start Symptom Node -->
+  <rect x="390" y="75" width="320" height="40" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="550" y="100" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Симптом: "Timed out waiting for packet header"</text>
+
+  <!-- Arrow Row 1 -> Row 2 -->
+  <line x1="550" y1="115" x2="550" y2="145" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Row 2: Step 1 Center Box -->
+  <rect x="390" y="145" width="320" height="60" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="550" y="168" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Крок 1. Чи розпізнано COM-порт у системі?</text>
+  <text x="550" y="188" font-size="12" fill="#6b7280" text-anchor="middle">(Перевірка VCP-драйвера USB-UART конвертера)</text>
+
+  <!-- Left Box 1 (Fix 1) -->
+  <rect x="40" y="145" width="310" height="60" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="195" y="168" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Рішення: Встановити VCP-драйвер</text>
+  <text x="195" y="188" font-size="12" fill="#1a1a1a" text-anchor="middle">Замінити кабель на Data (а не тільки Power)</text>
+
+  <!-- Arrow Step 1 -> Left 1 (No) -->
+  <line x1="390" y1="175" x2="350" y2="175" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="370" y="165" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Ні</text>
+
+  <!-- Arrow Step 1 -> Step 2 (Yes) -->
+  <line x1="550" y1="205" x2="550" y2="240" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="560" y="225" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Так</text>
+
+  <!-- Row 3: Step 2 Center Box -->
+  <rect x="390" y="240" width="320" height="60" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="550" y="263" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Крок 2. Чи є спрацювання авторесета DTR/RTS?</text>
+  <text x="550" y="283" font-size="12" fill="#6b7280" text-anchor="middle">(Перехід чипа у режим завантаження BOOT)</text>
+
+  <!-- Left Box 2 (Fix 2) -->
+  <rect x="40" y="240" width="310" height="60" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="195" y="263" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Рішення: Перевірити транзистори DTR/RTS</text>
+  <text x="195" y="283" font-size="12" fill="#1a1a1a" text-anchor="middle">Затиснути GPIO0 у GND та коротко клокнути EN</text>
+
+  <!-- Arrow Step 2 -> Left 2 (No) -->
+  <line x1="390" y1="270" x2="350" y2="270" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="370" y="260" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Ні</text>
+
+  <!-- Arrow Step 2 -> Step 3 (Yes) -->
+  <line x1="550" y1="300" x2="550" y2="335" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="560" y="320" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Так</text>
+
+  <!-- Row 4: Step 3 Center Box -->
+  <rect x="390" y="335" width="320" height="60" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="550" y="358" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Крок 3. Чи витримані логічні рівні виводів?</text>
+  <text x="550" y="378" font-size="12" fill="#6b7280" text-anchor="middle">(GPIO0=LOW, GPIO2=HIGH, GPIO15=LOW, 3.3V)</text>
+
+  <!-- Left Box 3 (Fix 3) -->
+  <rect x="40" y="335" width="310" height="60" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="195" y="358" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Рішення: Живлення 3.3V (струм &gt;= 500 мА)</text>
+  <text x="195" y="378" font-size="12" fill="#1a1a1a" text-anchor="middle">Усунути паразитичні підтяжки на GPIO0/15</text>
+
+  <!-- Arrow Step 3 -> Left 3 (No) -->
+  <line x1="390" y1="365" x2="350" y2="365" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="370" y="355" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Ні</text>
+
+  <!-- Arrow Step 3 -> Step 4 (Yes) -->
+  <line x1="550" y1="395" x2="550" y2="430" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="560" y="415" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Так</text>
+
+  <!-- Row 5: Step 4 Success Center Box -->
+  <rect x="390" y="430" width="320" height="60" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="550" y="453" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Крок 4. Зв'язок встановлено! Chip ID зчитано</text>
+  <text x="550" y="473" font-size="12" fill="#1a1a1a" text-anchor="middle">(esptool відповідає: MAC, Flash size, Chip type)</text>
+
+  <!-- Arrow Step 4 -> Right Success Box -->
+  <line x1="710" y1="460" x2="750" y2="460" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="730" y="450" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Готово</text>
+
+  <!-- Right Success Action Box -->
+  <rect x="750" y="430" width="170" height="60" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="835" y="450" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Параметри прошивки:</text>
+  <text x="835" y="468" font-size="12" fill="#1a1a1a" text-anchor="middle">--flash_mode dout</text>
+  <text x="835" y="483" font-size="12" fill="#6b7280" text-anchor="middle">--flash_freq 40m</text>
+
+  <!-- Footer Note Box -->
+  <rect x="40" y="510" width="880" height="40" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="534" font-size="12" fill="#1a1a1a" text-anchor="middle">Порада: При стабільних помилках знижуйте baudrate до 115200 та використовуйте режим Flash DOUT.</text>
+</svg>

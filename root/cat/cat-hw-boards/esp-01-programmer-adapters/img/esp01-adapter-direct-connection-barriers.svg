@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Бар'єри прямого підключення модуля ESP-01 до USB-UART</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Причини апаратних збоїв: струмові піки 400 мА, невідповідність рівня 5В та відсутність комутації boot-режимів</text>
+
+  <!-- Column Headers -->
+  <text x="175" y="78" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">ПЕРЕТВОРЮВАЧ USB-UART</text>
+  <text x="480" y="78" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">ПРОБЛЕМА / ЗБОЙНИЙ БАР'ЄР</text>
+  <text x="785" y="78" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">МОДУЛЬ ESP-01 (ESP8266)</text>
+
+  <!-- Row 1: Power Barrier -->
+  <g>
+    <!-- Left Box -->
+    <rect x="35" y="95" width="280" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="175" y="122" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Лінія живлення 3.3В</text>
+    <text x="175" y="147" font-size="12" fill="#1a1a1a" text-anchor="middle">Вбудований LDO переходника</text>
+    <text x="175" y="170" font-size="12" fill="#6b7280" text-anchor="middle">Струмовий ліміт: I_max ≤ 100 мА</text>
+    <text x="175" y="190" font-size="12" fill="#c0392b" text-anchor="middle">Нездатний забезпечити піки</text>
+
+    <!-- Arrow 1a -->
+    <line x1="315" y1="150" x2="338" y2="150" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+    <!-- Center Box -->
+    <rect x="340" y="95" width="280" height="110" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="480" y="120" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Струмовий дефіцит (400 мА)</text>
+    <text x="480" y="145" font-size="12" fill="#1a1a1a" text-anchor="middle">Під час передачі Wi-Fi виникають</text>
+    <text x="480" y="165" font-size="12" fill="#1a1a1a" text-anchor="middle">імпульсні піки споживання 300–400 мА</text>
+    <text x="480" y="188" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">НАСЛІДОК: Brownout Reset (циклічне скидання)</text>
+
+    <!-- Arrow 1b -->
+    <line x1="620" y1="150" x2="643" y2="150" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+    <!-- Right Box -->
+    <rect x="645" y="95" width="280" height="110" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="785" y="122" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вивід VCC (ESP8266EX)</text>
+    <text x="785" y="147" font-size="12" fill="#1a1a1a" text-anchor="middle">Робоча напруга: 3.0В – 3.6В</text>
+    <text x="785" y="170" font-size="12" fill="#6b7280" text-anchor="middle">Піковий струм RF: I_peak ≈ 400 мА</text>
+    <text x="785" y="190" font-size="12" fill="#c0392b" text-anchor="middle">Чутливий до просідання напруги</text>
+  </g>
+
+  <!-- Row 2: Voltage Level Mismatch -->
+  <g>
+    <!-- Left Box -->
+    <rect x="35" y="225" width="280" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="175" y="252" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вихід TXD перетворювача</text>
+    <text x="175" y="277" font-size="12" fill="#1a1a1a" text-anchor="middle">Логічний рівень TTL: 5.0В</text>
+    <text x="175" y="300" font-size="12" fill="#6b7280" text-anchor="middle">Високий рівень V_OH ≈ 5.0В</text>
+    <text x="175" y="320" font-size="12" fill="#c0392b" text-anchor="middle">Пряма передача 5В без подільника</text>
+
+    <!-- Arrow 2a -->
+    <line x1="315" y1="280" x2="338" y2="280" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+    <!-- Center Box -->
+    <rect x="340" y="225" width="280" height="110" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="480" y="250" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">2. Несумісність рівнів (5В → 3.3В)</text>
+    <text x="480" y="275" font-size="12" fill="#1a1a1a" text-anchor="middle">Подача 5В на вхід RXD ESP-01</text>
+    <text x="480" y="295" font-size="12" fill="#1a1a1a" text-anchor="middle">перевантажує вхідний буфер чипа</text>
+    <text x="480" y="318" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">НАСЛІДОК: Ризик виходу з ладу GPIO/RXD</text>
+
+    <!-- Arrow 2b -->
+    <line x1="620" y1="280" x2="643" y2="280" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+    <!-- Right Box -->
+    <rect x="645" y="225" width="280" height="110" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="785" y="252" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхід RXD (GPIO3 / ESP8266)</text>
+    <text x="785" y="277" font-size="12" fill="#1a1a1a" text-anchor="middle">Максимальна напруга: 3.6В</text>
+    <text x="785" y="300" font-size="12" fill="#6b7280" text-anchor="middle">Відсутня 5V-толерантність</text>
+    <text x="785" y="320" font-size="12" fill="#c0392b" text-anchor="middle">Вимога: узгодження рівнів 5В/3.3В</text>
+  </g>
+
+  <!-- Row 3: Boot Mode Control -->
+  <g>
+    <!-- Left Box -->
+    <rect x="35" y="355" width="280" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="175" y="382" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Лінії DTR / RTS перетворювача</text>
+    <text x="175" y="407" font-size="12" fill="#1a1a1a" text-anchor="middle">Не підключені або відсутні</text>
+    <text x="175" y="430" font-size="12" fill="#6b7280" text-anchor="middle">Немає автоматичного скидання</text>
+    <text x="175" y="450" font-size="12" fill="#c0392b" text-anchor="middle">Потрібна ручна комутація</text>
+
+    <!-- Arrow 3a -->
+    <line x1="315" y1="410" x2="338" y2="410" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+    <!-- Center Box -->
+    <rect x="340" y="355" width="280" height="110" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="480" y="380" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">3. Висячі виводи CH_PD та GPIO0</text>
+    <text x="480" y="405" font-size="12" fill="#1a1a1a" text-anchor="middle">CH_PD без 3.3V підтяжки = чип вимкнено</text>
+    <text x="480" y="425" font-size="12" fill="#1a1a1a" text-anchor="middle">GPIO0 не підтягнутий до GND при старті</text>
+    <text x="480" y="448" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">НАСЛІДОК: Збій входу в режим прошивки</text>
+
+    <!-- Arrow 3b -->
+    <line x1="620" y1="410" x2="643" y2="410" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+    <!-- Right Box -->
+    <rect x="645" y="355" width="280" height="110" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="785" y="382" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Виводи CH_PD (EN) та GPIO0</text>
+    <text x="785" y="407" font-size="12" fill="#1a1a1a" text-anchor="middle">CH_PD = High (ввімкнення ядра)</text>
+    <text x="785" y="430" font-size="12" fill="#6b7280" text-anchor="middle">GPIO0 = Low (UART Bootloader / Flash)</text>
+    <text x="785" y="450" font-size="12" fill="#c0392b" text-anchor="middle">Потребують правильної комутації</text>
+  </g>
+
+  <!-- Solution Panel -->
+  <g>
+    <rect x="35" y="485" width="890" height="60" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="480" y="507" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Апаратний розв'язок: Використання спеціалізованого адаптера / програматора ESP-01</text>
+    <text x="480" y="530" font-size="12" fill="#1a1a1a" text-anchor="middle">✔ LDO 3.3В (≥500мА) + Конденсатори   │   ✔ Подільник/трансивер рівнів 5В→3.3В   │   ✔ Коло автоскидання (DTR/RTS) / кнопки</text>
+  </g>
+</svg>

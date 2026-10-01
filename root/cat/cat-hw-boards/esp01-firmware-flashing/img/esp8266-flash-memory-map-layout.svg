@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  
+  <!-- Header Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Карта розподілу секторів SPI Flash пам'яті ESP8266</text>
+  <text x="480" y="53" font-size="13" fill="#6b7280" text-anchor="middle">Фізичні адреси завантажувача, користувацького коду та системних секторів RF Cal для 512 КБ та 1 МБ</text>
+
+  <!-- Panel 1: 512 KB Flash -->
+  <rect x="40" y="72" width="420" height="360" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <rect x="40" y="72" width="420" height="36" fill="#2457d6" rx="6"/>
+  <rect x="40" y="96" width="420" height="12" fill="#2457d6"/>
+  <text x="250" y="95" font-size="14" font-weight="bold" fill="white" text-anchor="middle">ESP-01 Flash 512 КБ (4 Мбіт)</text>
+
+  <!-- Panel 1 Sector 1: Bootloader -->
+  <text x="125" y="142" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">0x00000</text>
+  <text x="125" y="157" font-size="11" fill="#6b7280" text-anchor="end">[32 КБ]</text>
+  <rect x="135" y="122" width="310" height="45" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="290" y="141" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Bootloader (eagle.flash.bin)</text>
+  <text x="290" y="157" font-size="11" fill="#1a1a1a" text-anchor="middle">Вектори переривань та завантажувач</text>
+
+  <!-- Panel 1 Sector 2: User Application -->
+  <text x="125" y="197" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">0x08000</text>
+  <text x="125" y="212" font-size="11" fill="#6b7280" text-anchor="end">[464 КБ]</text>
+  <rect x="135" y="177" width="310" height="130" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="290" y="222" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">User Application Code &amp; Data</text>
+  <text x="290" y="244" font-size="12" fill="#6b7280" text-anchor="middle">Основний образ (eagle.irom0text.bin)</text>
+  <text x="290" y="264" font-size="11" fill="#6b7280" text-anchor="middle">Секції коду з флеш-пам'яті (irom0)</text>
+  <text x="290" y="282" font-size="11" fill="#6b7280" text-anchor="middle">та ініціалізовані константи</text>
+
+  <!-- Panel 1 Sector 3: System Init Data -->
+  <text x="125" y="335" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">0x7C000</text>
+  <text x="125" y="350" font-size="11" fill="#6b7280" text-anchor="end">[8 КБ]</text>
+  <rect x="135" y="317" width="310" height="42" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="290" y="335" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">esp_init_data_default.bin</text>
+  <text x="290" y="351" font-size="11" fill="#1a1a1a" text-anchor="middle">Конфігурація системних параметрів SDK</text>
+
+  <!-- Panel 1 Sector 4: RF Calibration -->
+  <text x="125" y="385" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">0x7E000</text>
+  <text x="125" y="400" font-size="11" fill="#6b7280" text-anchor="end">[8 КБ]</text>
+  <text x="125" y="415" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="end">0x7FFFF</text>
+  <rect x="135" y="367" width="310" height="42" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="290" y="385" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">blank.bin / RF Calibration Sector</text>
+  <text x="290" y="401" font-size="11" fill="#1a1a1a" text-anchor="middle">Калібрувальні дані Wi-Fi та фінальний сектор</text>
+
+  <!-- Panel 2: 1 MB Flash -->
+  <rect x="500" y="72" width="420" height="360" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <rect x="500" y="72" width="420" height="36" fill="#2457d6" rx="6"/>
+  <rect x="500" y="96" width="420" height="12" fill="#2457d6"/>
+  <text x="710" y="95" font-size="14" font-weight="bold" fill="white" text-anchor="middle">ESP-01 / ESP-01S Flash 1 МБ (8 Мбіт)</text>
+
+  <!-- Panel 2 Sector 1: Bootloader -->
+  <text x="585" y="142" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">0x00000</text>
+  <text x="585" y="157" font-size="11" fill="#6b7280" text-anchor="end">[32 КБ]</text>
+  <rect x="595" y="122" width="310" height="45" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="750" y="141" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Bootloader (boot_v1.6+.bin)</text>
+  <text x="750" y="157" font-size="11" fill="#1a1a1a" text-anchor="middle">Вектори та завантажувач з підтримкою OTA</text>
+
+  <!-- Panel 2 Sector 2: User Application -->
+  <text x="585" y="197" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">0x08000</text>
+  <text x="585" y="212" font-size="11" fill="#6b7280" text-anchor="end">[976 КБ]</text>
+  <rect x="595" y="177" width="310" height="130" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="750" y="222" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">User App / Firmware Image Slot</text>
+  <text x="750" y="244" font-size="12" fill="#6b7280" text-anchor="middle">Основний образ програми (user1.bin)</text>
+  <text x="750" y="264" font-size="11" fill="#6b7280" text-anchor="middle">Розширений простір для коду програми</text>
+  <text x="750" y="282" font-size="11" fill="#6b7280" text-anchor="middle">та файлової системи SPIFFS / LittleFS</text>
+
+  <!-- Panel 2 Sector 3: System Init Data -->
+  <text x="585" y="335" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">0xFC000</text>
+  <text x="585" y="350" font-size="11" fill="#6b7280" text-anchor="end">[8 КБ]</text>
+  <rect x="595" y="317" width="310" height="42" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="750" y="335" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">esp_init_data_default.bin (0xFC000)</text>
+  <text x="750" y="351" font-size="11" fill="#1a1a1a" text-anchor="middle">Системна конфігурація та параметри SDK</text>
+
+  <!-- Panel 2 Sector 4: RF Calibration -->
+  <text x="585" y="385" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">0xFE000</text>
+  <text x="585" y="400" font-size="11" fill="#6b7280" text-anchor="end">[8 КБ]</text>
+  <text x="585" y="415" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="end">0xFFFFF</text>
+  <rect x="595" y="367" width="310" height="42" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="750" y="385" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">blank.bin / RF Calibration (0xFE000)</text>
+  <text x="750" y="401" font-size="11" fill="#1a1a1a" text-anchor="middle">Калібрування радіомодуля та Wi-Fi даних</text>
+
+  <!-- Legend Bar at bottom -->
+  <rect x="100" y="444" width="760" height="26" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  
+  <circle cx="125" cy="457" r="5" fill="#2457d6"/>
+  <text x="135" y="461" font-size="11" fill="#1a1a1a">Завантажувач (Bootloader)</text>
+
+  <circle cx="310" cy="457" r="5" fill="#6b7280"/>
+  <text x="320" y="461" font-size="11" fill="#1a1a1a">Код програми / Дані (User App)</text>
+
+  <circle cx="530" cy="457" r="5" fill="#27ae60"/>
+  <text x="540" y="461" font-size="11" fill="#1a1a1a">Параметри SDK (Init Data)</text>
+
+  <circle cx="730" cy="457" r="5" fill="#c0392b"/>
+  <text x="740" y="461" font-size="11" fill="#1a1a1a">RF-калібрування (RF Cal)</text>
+</svg>

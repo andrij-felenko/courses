@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топологія подвійної DMA-буферизації кадрових масивів у PSRAM</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Паралельне апаратне наповнення буфера FB0 через DMA та зчитання FB1 процесорним ядром</text>
+
+  <!-- Panel 1: Camera Sensor OV3640 -->
+  <rect x="20" y="75" width="185" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="112" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сенсор OV3640</text>
+  <text x="112" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Оптичний блок і JPEG</text>
+
+  <!-- Box 1.1: Sensor & JPEG -->
+  <rect x="30" y="132" width="164" height="65" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="112" y="156" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Матриця 3.2 МП</text>
+  <text x="112" y="176" font-size="12" fill="#6b7280" text-anchor="middle">Апаратний JPEG кодек</text>
+
+  <!-- Box 1.2: DVP Bus -->
+  <rect x="30" y="210" width="164" height="210" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="112" y="232" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шина DVP</text>
+
+  <text x="40" y="262" font-size="12" font-weight="bold" fill="#2457d6">PCLK</text>
+  <text x="82" y="262" font-size="12" fill="#6b7280">Строб пікселів</text>
+
+  <text x="40" y="300" font-size="12" font-weight="bold" fill="#2457d6">HREF</text>
+  <text x="82" y="300" font-size="12" fill="#6b7280">Рядкова рамка</text>
+
+  <text x="40" y="338" font-size="12" font-weight="bold" fill="#2457d6">D[0:7]</text>
+  <text x="90" y="338" font-size="12" fill="#6b7280">8-біт потік</text>
+
+  <text x="40" y="376" font-size="12" font-weight="bold" fill="#2457d6">VSYNC</text>
+  <text x="85" y="376" font-size="12" fill="#6b7280">Кадровий строб</text>
+
+  <!-- Panel 2: ESP32 Hardware DMA & SRAM -->
+  <rect x="245" y="75" width="245" height="360" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="367" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер ESP32</text>
+  <text x="367" y="116" font-size="12" fill="#2457d6" text-anchor="middle">Периферія I2S/LCD та DMA контролер</text>
+
+  <!-- Sub-box 2.1: Hardware FIFO -->
+  <rect x="255" y="132" width="225" height="55" rx="6" fill="#ffffff" stroke="#2457d6"/>
+  <text x="367" y="154" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратний DVP FIFO (64 B)</text>
+  <text x="367" y="172" font-size="12" fill="#6b7280" text-anchor="middle">Тимчасове накопичення байтів</text>
+
+  <!-- Sub-box 2.2: SRAM Descriptors -->
+  <rect x="255" y="202" width="225" height="125" rx="6" fill="#ffffff" stroke="#2457d6"/>
+  <text x="367" y="224" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дескриптори DMA в SRAM</text>
+
+  <rect x="264" y="238" width="207" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="271" y="260" font-size="12" font-weight="bold" fill="#27ae60">lldesc_t 0:</text>
+  <text x="340" y="260" font-size="12" fill="#1a1a1a">owner=1 (DMA)</text>
+  <text x="430" y="260" font-size="12" font-weight="bold" fill="#27ae60">→ FB0</text>
+
+  <rect x="264" y="280" width="207" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="271" y="302" font-size="12" font-weight="bold" fill="#6b7280">lldesc_t 1:</text>
+  <text x="340" y="302" font-size="12" fill="#1a1a1a">owner=0 (CPU)</text>
+  <text x="430" y="302" font-size="12" font-weight="bold" fill="#2457d6">→ FB1</text>
+
+  <!-- Sub-box 2.3: VSYNC ISR -->
+  <rect x="255" y="345" width="225" height="65" rx="6" fill="#ffffff" stroke="#2457d6"/>
+  <text x="367" y="368" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Обробник переривання VSYNC</text>
+  <text x="367" y="388" font-size="12" fill="#6b7280" text-anchor="middle">Ротація покажчиків FB0 ↔ FB1</text>
+
+  <!-- Panel 3: External PSRAM Framebuffers -->
+  <rect x="557" y="75" width="378" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="746" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зовнішня оперативна пам'ять PSRAM</text>
+  <text x="746" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Подвійний кадровий масив (fb_count = 2)</text>
+
+  <!-- FB0 Box -->
+  <rect x="572" y="132" width="338" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="586" y="158" font-size="14" font-weight="bold" fill="#27ae60">Кадровий буфер FB0 (Активний)</text>
+  <text x="586" y="180" font-size="12" fill="#1a1a1a">Статус: Заповнення апаратним DMA</text>
+  <text x="586" y="200" font-size="12" fill="#6b7280">Розмір: 384 КБ (UXGA) / 755 КБ (QXGA)</text>
+  <text x="586" y="222" font-size="12" font-weight="bold" fill="#27ae60">Блокування: Запис дозволено для DMA</text>
+
+  <!-- Rotation Banner / Text between FB0 and FB1 -->
+  <text x="741" y="262" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Атомарна ротація буферів FB0 ↔ FB1</text>
+
+  <!-- FB1 Box -->
+  <rect x="572" y="278" width="338" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="586" y="304" font-size="14" font-weight="bold" fill="#2457d6">Кадровий буфер FB1 (Готовий)</text>
+  <text x="586" y="326" font-size="12" fill="#1a1a1a">Статус: Читання програмним ядром CPU</text>
+  <text x="586" y="346" font-size="12" fill="#6b7280">Призначення: Wi-Fi Streamer / HTTP / SD</text>
+  <text x="586" y="368" font-size="12" font-weight="bold" fill="#2457d6">Блокування: Захищено від перезапису</text>
+
+  <!-- Flow Lines & Arrows -->
+
+  <!-- DVP Stream Arrow -->
+  <line x1="194" y1="160" x2="247" y2="160" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+  <text x="221" y="148" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DVP</text>
+
+  <!-- FIFO to Descriptor Queue -->
+  <line x1="367" y1="187" x2="367" y2="194" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- DMA Burst Transfer: Descriptors/SRAM to PSRAM FB0 -->
+  <path d="M 471 256 L 524 256 L 524 187 L 564 187" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="524" y="172" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">DMA Write</text>
+
+  <!-- VSYNC Signal to ISR -->
+  <line x1="194" y1="376" x2="247" y2="376" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <text x="221" y="364" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">VSYNC</text>
+
+  <!-- VSYNC Swap Arrow between FB0 and FB1 -->
+  <path d="M 910 187 Q 930 260 910 333" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+</svg>

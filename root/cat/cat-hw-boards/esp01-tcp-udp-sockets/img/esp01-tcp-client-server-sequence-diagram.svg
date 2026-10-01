@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Послідовність AT-команд TCP-клієнта на ESP-01</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Часовий цикл від встановлення з'єднання до передачі (CIPSEND, '>', SEND OK) та прийому (+IPD)</text>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Phase Background Panels -->
+  <rect x="15" y="115" width="930" height="80" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="15" y="205" width="930" height="140" rx="6" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="15" y="355" width="930" height="60" rx="6" fill="#e9f7ef" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="15" y="425" width="930" height="50" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Phase Side Labels -->
+  <text x="30" y="160" font-size="12" font-weight="bold" fill="#6b7280">1. З'єднання</text>
+  <text x="30" y="280" font-size="12" font-weight="bold" fill="#2457d6">2. Передача</text>
+  <text x="30" y="390" font-size="12" font-weight="bold" fill="#27ae60">3. Прийом</text>
+  <text x="30" y="455" font-size="12" font-weight="bold" fill="#6b7280">4. Закриття</text>
+
+  <!-- Lifelines -->
+  <line x1="180" y1="105" x2="180" y2="475" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="480" y1="105" x2="480" y2="475" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="780" y1="105" x2="780" y2="475" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- Top Entity Header Boxes -->
+  <rect x="110" y="65" width="140" height="40" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="180" y="90" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Хост-МК (MCU)</text>
+
+  <rect x="410" y="65" width="140" height="40" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="90" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Модуль ESP-01</text>
+
+  <rect x="710" y="65" width="140" height="40" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="780" y="90" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">TCP-Сервер</text>
+
+  <!-- Phase 1: Connection -->
+  <!-- 1. AT+CIPSTART -->
+  <text x="330" y="138" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">AT+CIPSTART="TCP","192.168.1.100",80</text>
+  <line x1="180" y1="145" x2="471" y2="145" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- 2. TCP Handshake -->
+  <text x="630" y="158" text-anchor="middle" font-size="12" fill="#6b7280">TCP 3-way Handshake</text>
+  <line x1="480" y1="165" x2="771" y2="165" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arr-gray)"/>
+
+  <!-- 3. CONNECT / OK -->
+  <text x="330" y="178" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">CONNECT \r\n OK</text>
+  <line x1="480" y1="185" x2="189" y2="185" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Phase 2: Send Data -->
+  <!-- 4. AT+CIPSEND -->
+  <text x="330" y="222" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">AT+CIPSEND=12</text>
+  <line x1="180" y1="230" x2="471" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- 5. Prompt > -->
+  <text x="330" y="252" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">&gt; (запрошення введення даних)</text>
+  <line x1="480" y1="260" x2="189" y2="260" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- 6. Raw Data -->
+  <text x="330" y="287" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Hello World! (12 байткоду)</text>
+  <line x1="180" y1="295" x2="471" y2="295" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- 7. TCP Payload -->
+  <text x="630" y="307" text-anchor="middle" font-size="12" fill="#2457d6">TCP Payload (12B)</text>
+  <line x1="480" y1="315" x2="771" y2="315" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- 8. SEND OK -->
+  <text x="330" y="327" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">SEND OK</text>
+  <line x1="480" y1="335" x2="189" y2="335" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Phase 3: Receive Data -->
+  <!-- 9. TCP Response -->
+  <text x="630" y="367" text-anchor="middle" font-size="12" fill="#2457d6">TCP Response (8B)</text>
+  <line x1="780" y1="375" x2="489" y2="375" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- 10. +IPD -->
+  <text x="330" y="397" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">+IPD,8:RECEIVED</text>
+  <line x1="480" y1="405" x2="189" y2="405" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Phase 4: Close Connection -->
+  <!-- 11. AT+CIPCLOSE -->
+  <text x="330" y="437" text-anchor="middle" font-size="13" fill="#6b7280">AT+CIPCLOSE</text>
+  <line x1="180" y1="445" x2="471" y2="445" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arr-gray)"/>
+
+  <!-- 12. CLOSED OK -->
+  <text x="330" y="457" text-anchor="middle" font-size="13" fill="#6b7280">CLOSED \r\n OK</text>
+  <line x1="480" y1="465" x2="189" y2="465" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arr-gray)"/>
+
+  <!-- Bottom Entity Boxes -->
+  <rect x="110" y="480" width="140" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="180" y="500" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Хост-МК (MCU)</text>
+
+  <rect x="410" y="480" width="140" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="500" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Модуль ESP-01</text>
+
+  <rect x="710" y="480" width="140" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="780" y="500" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">TCP-Сервер</text>
+</svg>

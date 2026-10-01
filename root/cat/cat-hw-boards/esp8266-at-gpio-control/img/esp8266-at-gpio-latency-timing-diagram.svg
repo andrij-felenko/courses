@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма затримок обробки AT-команд керування GPIO ESP8266</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Формування затримки: серіалізація в UART (115200 бод), парсинг прошивкою та перемикання фізичного виводу</text>
+
+  <!-- Вертикальні сітки часу T0..T4 -->
+  <line x1="180" y1="85" x2="180" y2="425" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="180" y="78" font-size="12" fill="#6b7280" text-anchor="middle">T0</text>
+
+  <line x1="480" y1="85" x2="480" y2="425" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="480" y="78" font-size="12" fill="#6b7280" text-anchor="middle">T1</text>
+
+  <line x1="620" y1="85" x2="620" y2="425" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="620" y="78" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">T2</text>
+
+  <line x1="660" y1="85" x2="660" y2="425" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="660" y="78" font-size="12" fill="#6b7280" text-anchor="middle">T3</text>
+
+  <line x1="840" y1="85" x2="840" y2="425" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="840" y="78" font-size="12" fill="#6b7280" text-anchor="middle">T4</text>
+
+  <!-- Підписи сигналів ліворуч -->
+  <text x="165" y="125" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">UART TXD (Вхід)</text>
+  <text x="165" y="205" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="end">Парсер ESP8266</text>
+  <text x="165" y="285" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="end">GPIO2 (Вихід)</text>
+  <text x="165" y="365" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">UART RXD (Відповідь)</text>
+
+  <!-- Сигнал 1: UART TXD Command Packet -->
+  <line x1="180" y1="135" x2="900" y2="135" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="180" y="105" width="300" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="4"/>
+  <text x="330" y="124" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">AT+SYSGPIOWR=2,1\r\n (16 байт)</text>
+
+  <!-- Затримка 1: t_ser1 -->
+  <line x1="180" y1="150" x2="480" y2="150" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="330" y="167" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_ser1 ≈ 1.39 мс (115200 бод)</text>
+
+  <!-- Сигнал 2: CPU Parsing -->
+  <line x1="180" y1="215" x2="900" y2="215" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="480" y="185" width="140" height="30" fill="#fdecea" stroke="#c0392b" stroke-width="2" rx="4"/>
+  <text x="550" y="204" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Парсинг AT</text>
+
+  <!-- Затримка 2: t_parse -->
+  <line x1="480" y1="230" x2="620" y2="230" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="550" y="247" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t_parse ≈ 0.25 мс</text>
+
+  <!-- Сигнал 3: GPIO Pin Output -->
+  <path d="M 180 295 L 620 295 L 620 265 L 900 265" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="300" y="290" font-size="11" fill="#6b7280" text-anchor="middle">LOW (0В)</text>
+  <text x="740" y="260" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">HIGH (3.3В)</text>
+
+  <!-- Загальна латентність: t_latency -->
+  <line x1="180" y1="315" x2="620" y2="315" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="400" y="332" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Затримка перемикання t_latency = t_ser1 + t_parse ≈ 1.64 мс</text>
+
+  <!-- Сигнал 4: UART RXD OK Packet -->
+  <line x1="180" y1="375" x2="900" y2="375" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="660" y="345" width="180" height="30" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="4"/>
+  <text x="750" y="364" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">OK\r\n (4 байти)</text>
+
+  <!-- Повний цикл t_total -->
+  <line x1="180" y1="410" x2="840" y2="410" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="510" y="430" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Повний цикл сесії t_total = t_latency + t_resp ≈ 2.0 мс (Макс. частота ~500 Гц)</text>
+</svg>

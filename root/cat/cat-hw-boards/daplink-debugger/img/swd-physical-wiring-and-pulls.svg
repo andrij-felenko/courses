@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Схема підключення сигналів SWD та кола скидання NRST</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">SWDIO (Pull-Up), SWCLK (Pull-Down) та NRST (Pull-Up + C_filter) забезпечують стабільне зневадження</text>
+
+  <!-- Left Panel: DAPLink Debugger -->
+  <rect x="40" y="75" width="220" height="415" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="150" y="100" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">Зневаджувач DAPLink</text>
+  <text x="150" y="118" font-size="12" text-anchor="middle" fill="#6b7280">WeAct / CMSIS-DAP</text>
+
+  <rect x="55" y="132" width="190" height="343" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="150" y="150" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Вихідні буфери / Піни</text>
+
+  <text x="238" y="174" font-size="12" font-weight="bold" text-anchor="end" fill="#c0392b">3.3V (VTref)</text>
+  <text x="238" y="234" font-size="12" font-weight="bold" text-anchor="end" fill="#2457d6">SWDIO</text>
+  <text x="238" y="314" font-size="12" font-weight="bold" text-anchor="end" fill="#2457d6">SWCLK</text>
+  <text x="238" y="394" font-size="12" font-weight="bold" text-anchor="end" fill="#27ae60">NRST</text>
+  <text x="238" y="454" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">GND</text>
+
+  <!-- Left Pin Terminals -->
+  <rect x="245" y="165" width="15" height="10" fill="#c0392b" rx="2"/>
+  <rect x="245" y="225" width="15" height="10" fill="#2457d6" rx="2"/>
+  <rect x="245" y="305" width="15" height="10" fill="#2457d6" rx="2"/>
+  <rect x="245" y="385" width="15" height="10" fill="#27ae60" rx="2"/>
+  <rect x="245" y="445" width="15" height="10" fill="#1a1a1a" rx="2"/>
+
+  <!-- Right Panel: Target MCU -->
+  <rect x="700" y="75" width="220" height="415" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="810" y="100" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Цільовий МК (Target)</text>
+  <text x="810" y="118" font-size="12" text-anchor="middle" fill="#6b7280">STM32 / Cortex-M</text>
+
+  <rect x="715" y="132" width="190" height="343" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="810" y="150" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">SWJ-DP / Ядро MCU</text>
+
+  <text x="722" y="174" font-size="12" font-weight="bold" text-anchor="start" fill="#c0392b">VDD (3.3V)</text>
+  <text x="722" y="234" font-size="12" font-weight="bold" text-anchor="start" fill="#1a1a1a">PA13 / SWDIO</text>
+  <text x="722" y="314" font-size="12" font-weight="bold" text-anchor="start" fill="#1a1a1a">PA14 / SWCLK</text>
+  <text x="722" y="394" font-size="12" font-weight="bold" text-anchor="start" fill="#1a1a1a">NRST (Reset)</text>
+  <text x="722" y="454" font-size="12" font-weight="bold" text-anchor="start" fill="#1a1a1a">VSS (GND)</text>
+
+  <!-- Right Pin Terminals -->
+  <rect x="700" y="165" width="15" height="10" fill="#c0392b" rx="2"/>
+  <rect x="700" y="225" width="15" height="10" fill="#2457d6" rx="2"/>
+  <rect x="700" y="305" width="15" height="10" fill="#2457d6" rx="2"/>
+  <rect x="700" y="385" width="15" height="10" fill="#27ae60" rx="2"/>
+  <rect x="700" y="445" width="15" height="10" fill="#1a1a1a" rx="2"/>
+
+  <!-- Horizontal Signal Wires -->
+  <!-- Line 1: VCC / VTref -->
+  <line x1="260" y1="170" x2="700" y2="170" stroke="#c0392b" stroke-width="2"/>
+  <text x="480" y="156" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Опорна напруга живлення (VTref = 3.3V)</text>
+
+  <!-- Line 2: SWDIO -->
+  <line x1="260" y1="230" x2="700" y2="230" stroke="#2457d6" stroke-width="2"/>
+  <text x="280" y="218" font-size="12" font-weight="bold" fill="#2457d6">SWDIO</text>
+  <text x="415" y="218" font-size="12" text-anchor="middle" fill="#2457d6">Двонаправлена лінія</text>
+
+  <!-- Line 3: SWCLK -->
+  <line x1="260" y1="310" x2="692" y2="310" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="280" y="298" font-size="12" font-weight="bold" fill="#2457d6">SWCLK</text>
+  <text x="480" y="298" font-size="12" text-anchor="middle" fill="#2457d6">Тактовий сигнал (DAPLink → MCU)</text>
+
+  <!-- Line 4: NRST -->
+  <line x1="260" y1="390" x2="692" y2="390" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="280" y="378" font-size="12" font-weight="bold" fill="#27ae60">NRST</text>
+  <text x="680" y="378" font-size="12" font-weight="bold" text-anchor="end" fill="#27ae60">Reset</text>
+
+  <!-- Line 5: GND -->
+  <line x1="260" y1="450" x2="700" y2="450" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="280" y="438" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+  <text x="510" y="438" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Спільна земля</text>
+
+  <!-- Vertical Branches and Passive Components -->
+
+  <!-- Branch 1: NRST Pull-Up and Capacitor (X = 330) -->
+  <circle cx="330" cy="170" r="3.5" fill="#c0392b"/>
+  <line x1="330" y1="170" x2="330" y2="257" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="318" y="257" width="24" height="26" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="330" y="274" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">R_PU</text>
+  <text x="352" y="265" font-size="12" font-weight="bold" fill="#27ae60">R_PU = 10 kΩ</text>
+  <text x="352" y="281" font-size="12" fill="#6b7280">Pull-Up (Скидання)</text>
+  <line x1="330" y1="283" x2="330" y2="390" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="330" cy="390" r="3.5" fill="#27ae60"/>
+
+  <line x1="330" y1="390" x2="330" y2="407" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="318" y="407" width="24" height="24" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="330" y="423" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">C1</text>
+  <text x="352" y="415" font-size="12" font-weight="bold" fill="#27ae60">C1 = 100 nF</text>
+  <text x="352" y="431" font-size="12" fill="#6b7280">Фільтр скидання</text>
+  <line x1="330" y1="431" x2="330" y2="450" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="330" cy="450" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Branch 2: SWDIO Pull-Up (X = 500) -->
+  <circle cx="500" cy="170" r="3.5" fill="#c0392b"/>
+  <line x1="500" y1="170" x2="500" y2="187" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="488" y="187" width="24" height="26" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="500" y="204" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">R_PU</text>
+  <text x="522" y="195" font-size="12" font-weight="bold" fill="#2457d6">R_PU = 100 kΩ</text>
+  <text x="522" y="211" font-size="12" fill="#6b7280">Pull-Up до 3.3V</text>
+  <line x1="500" y1="213" x2="500" y2="230" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="500" cy="230" r="3.5" fill="#2457d6"/>
+
+  <!-- Branch 3: SWCLK Pull-Down (X = 640) -->
+  <circle cx="640" cy="310" r="3.5" fill="#2457d6"/>
+  <line x1="640" y1="310" x2="640" y2="357" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="628" y="357" width="24" height="26" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="640" y="374" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">R_PD</text>
+  <text x="618" y="365" font-size="12" font-weight="bold" text-anchor="end" fill="#2457d6">R_PD = 100 kΩ</text>
+  <text x="618" y="381" font-size="12" text-anchor="end" fill="#6b7280">Pull-Down до GND</text>
+  <line x1="640" y1="383" x2="640" y2="450" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="640" cy="450" r="3.5" fill="#1a1a1a"/>
+</svg>

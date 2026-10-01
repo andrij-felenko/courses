@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема живлення та узгодження рівнів для ESP-01</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Конденсатори фільтрують імпульсні струми, а дільник знижує 5 В до 3,3 В на RX</text>
+
+  <!-- Панель 1: Джерело 5В / USB-UART -->
+  <rect x="30" y="80" width="200" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="130" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Джерело / USB-UART</text>
+  <text x="130" y="125" font-size="12" fill="#6b7280" text-anchor="middle">(Логічні рівні 5 В)</text>
+
+  <!-- Піни Джерела -->
+  <rect x="45" y="155" width="170" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="130" y="180" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">+5 В (Джерело)</text>
+
+  <rect x="45" y="225" width="170" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="130" y="250" font-size="12" fill="#1a1a1a" text-anchor="middle">GND (Спільна земля)</text>
+
+  <rect x="45" y="325" width="170" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="130" y="350" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">TX (Вихід 5 В)</text>
+
+  <rect x="45" y="435" width="170" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="130" y="455" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">RX (Прийом 3,3 В)</text>
+
+  <!-- Панель 2: Ланцюги живлення та узгодження -->
+  <rect x="250" y="80" width="420" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="460" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ланцюги живлення та дільник</text>
+
+  <!-- Подпанель 2A: Живлення 3,3В та фільтрація -->
+  <rect x="265" y="120" width="390" height="165" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="460" y="138" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Стабілізація та фільтрація живлення 3,3 В</text>
+
+  <!-- Позначення шини +3.3 В -->
+  <text x="480" y="156" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Шина +3,3 В</text>
+
+  <!-- LDO Стабілізатор -->
+  <rect x="280" y="150" width="75" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="317.5" y="170" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">AMS1117</text>
+  <text x="317.5" y="188" font-size="12" fill="#1a1a1a" text-anchor="middle">3.3V LDO</text>
+
+  <!-- Провід 5В до LDO -->
+  <line x1="215" y1="175" x2="280" y2="175" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Шина +3.3 В -->
+  <line x1="355" y1="175" x2="700" y2="175" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Спільна шина GND -->
+  <line x1="215" y1="245" x2="235" y2="245" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="235" y1="245" x2="235" y2="260" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="235" y1="260" x2="700" y2="260" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- GND від LDO -->
+  <line x1="317.5" y1="200" x2="317.5" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="317.5" cy="260" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Позначення шини GND -->
+  <text x="480" y="278" font-size="12" fill="#1a1a1a" text-anchor="middle">Спільна шина GND</text>
+
+  <!-- Конденсатор C1 (Електроліт) -->
+  <line x1="415" y1="175" x2="415" y2="192" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="415" cy="175" r="3.5" fill="#c0392b"/>
+  <line x1="403" y1="192" x2="427" y2="192" stroke="#c0392b" stroke-width="3"/>
+  <text x="395" y="190" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">+</text>
+  <line x1="403" y1="200" x2="427" y2="200" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="415" y1="200" x2="415" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="415" cy="260" r="3.5" fill="#1a1a1a"/>
+
+  <text x="433" y="196" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">C₁ = 10–100 мкФ</text>
+  <text x="433" y="212" font-size="12" fill="#6b7280" text-anchor="start">(Електроліт)</text>
+
+  <!-- Конденсатор C2 (Кераміка) -->
+  <line x1="555" y1="175" x2="555" y2="192" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="555" cy="175" r="3.5" fill="#c0392b"/>
+  <line x1="543" y1="192" x2="567" y2="192" stroke="#2457d6" stroke-width="3"/>
+  <line x1="543" y1="200" x2="567" y2="200" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="555" y1="200" x2="555" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="555" cy="260" r="3.5" fill="#1a1a1a"/>
+
+  <text x="573" y="196" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">C₂ = 0,1 мкФ</text>
+  <text x="573" y="212" font-size="12" fill="#6b7280" text-anchor="start">(Кераміка, ВЧ)</text>
+
+  <!-- Подпанель 2B: Узгодження рівня RX -->
+  <rect x="265" y="300" width="390" height="175" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="460" y="318" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Узгодження рівня RX (Резистивний дільник)</text>
+
+  <!-- Сигнал 5В від TX джерела -->
+  <line x1="215" y1="345" x2="315" y2="345" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="265" y="337" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">5 В Сигнал</text>
+
+  <!-- Резистор R1 -->
+  <rect x="315" y="332" width="70" height="26" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="350" y="349" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">R₁ = 1 кОм</text>
+
+  <!-- Вузол А (після R1) -->
+  <line x1="385" y1="345" x2="700" y2="345" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <circle cx="410" cy="345" r="4" fill="#27ae60"/>
+  <text x="450" y="337" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3,33 В на RX</text>
+
+  <!-- Резистор R2 -->
+  <line x1="410" y1="345" x2="410" y2="365" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="398" y="365" width="24" height="46" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="410" y1="411" x2="410" y2="425" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Земля дільника R2 -->
+  <line x1="396" y1="425" x2="424" y2="425" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="402" y1="429" x2="418" y2="429" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="407" y1="433" x2="413" y2="433" stroke="#1a1a1a" stroke-width="1"/>
+
+  <text x="428" y="384" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">R₂ = 2 кОм</text>
+  <text x="428" y="400" font-size="12" fill="#6b7280" text-anchor="start">(на GND)</text>
+
+  <!-- Блок формули -->
+  <rect x="490" y="328" width="165" height="88" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="572.5" y="345" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Формула дільника:</text>
+  <text x="572.5" y="365" font-size="12" fill="#6b7280" text-anchor="middle">V_out = V_in × R₂/(R₁+R₂)</text>
+  <text x="572.5" y="385" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">5 В × 2 / (1+2) = 3,33 В</text>
+  <text x="572.5" y="403" font-size="12" fill="#6b7280" text-anchor="middle">(Безпечно для ESP8266)</text>
+
+  <!-- Панель 3: Модуль ESP-01 -->
+  <rect x="685" y="80" width="245" height="410" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="807.5" y="105" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Модуль ESP-01</text>
+  <text x="807.5" y="125" font-size="12" fill="#6b7280" text-anchor="middle">(Чип ESP8266)</text>
+
+  <!-- Піни ESP-01 -->
+  <!-- VCC -->
+  <rect x="700" y="155" width="75" height="30" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="737.5" y="175" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">VCC</text>
+
+  <!-- CH_PD -->
+  <rect x="700" y="195" width="75" height="30" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="737.5" y="215" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">CH_PD</text>
+  <text x="785" y="215" font-size="12" fill="#2457d6" text-anchor="start">← Pull-Up 10 кОм</text>
+
+  <!-- GND -->
+  <rect x="700" y="245" width="75" height="30" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="737.5" y="265" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND</text>
+
+  <!-- RST -->
+  <rect x="700" y="285" width="75" height="30" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="737.5" y="305" font-size="12" fill="#1a1a1a" text-anchor="middle">RST</text>
+  <text x="785" y="305" font-size="12" fill="#6b7280" text-anchor="start">← Pull-Up / Reset</text>
+
+  <!-- RX -->
+  <rect x="700" y="330" width="75" height="30" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="737.5" y="350" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">RX (3.3V)</text>
+
+  <!-- TX -->
+  <rect x="700" y="425" width="75" height="30" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="737.5" y="445" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">TX (3.3V)</text>
+
+  <!-- Лінія TX напряму до RX джерела -->
+  <line x1="700" y1="455" x2="215" y2="455" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="460" y="448" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Лінія TX (3,3 В напряму до RX 5V)</text>
+
+  <!-- Інфо-блок GPIO0, GPIO2 -->
+  <rect x="698" y="462" width="219" height="22" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="807.5" y="477" font-size="12" fill="#6b7280" text-anchor="middle">GPIO0, GPIO2: HIGH</text>
+</svg>

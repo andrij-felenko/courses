@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пропускна здатність PSRAM та затримка L1-кешу при write-back penalty</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Залежність ефективної швидкості OPI/QSPI від розміру транзакції та збитки від кеш-промахів</text>
+
+  <!-- Panel 1: Left Chart Area -->
+  <rect x="50" y="90" width="470" height="430" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="285" y="118" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ефективна пропускна здатність B_eff (МБ/с)</text>
+
+  <!-- Axis Grid Lines (Dashed) -->
+  <line x1="100" y1="170" x2="490" y2="170" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="100" y1="242" x2="490" y2="242" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="100" y1="315" x2="490" y2="315" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="100" y1="387" x2="490" y2="387" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Chart Axes -->
+  <line x1="100" y1="460" x2="100" y2="150" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <line x1="100" y1="460" x2="490" y2="460" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <!-- Y-Axis Labels -->
+  <text x="92" y="174" font-size="12" fill="#1a1a1a" text-anchor="end">80</text>
+  <text x="92" y="246" font-size="12" fill="#1a1a1a" text-anchor="end">60</text>
+  <text x="92" y="319" font-size="12" fill="#1a1a1a" text-anchor="end">40</text>
+  <text x="92" y="391" font-size="12" fill="#1a1a1a" text-anchor="end">20</text>
+  <text x="92" y="464" font-size="12" fill="#1a1a1a" text-anchor="end">0</text>
+  <text x="65" y="140" font-size="12" font-weight="bold" fill="#1a1a1a">МБ/с</text>
+
+  <!-- X-Axis Ticks & Labels -->
+  <line x1="145" y1="460" x2="145" y2="465" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="230" y1="460" x2="230" y2="465" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="315" y1="460" x2="315" y2="465" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="400" y1="460" x2="400" y2="465" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="470" y1="460" x2="470" y2="465" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="145" y="480" font-size="12" fill="#1a1a1a" text-anchor="middle">4 Б</text>
+  <text x="230" y="480" font-size="12" fill="#1a1a1a" text-anchor="middle">16 Б</text>
+  <text x="315" y="480" font-size="12" fill="#1a1a1a" text-anchor="middle">32 Б (Кеш)</text>
+  <text x="400" y="480" font-size="12" fill="#1a1a1a" text-anchor="middle">64 Б</text>
+  <text x="470" y="480" font-size="12" fill="#1a1a1a" text-anchor="middle">256 Б</text>
+  <text x="480" y="502" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Розмір блоку</text>
+
+  <!-- Curve 1: Octal DDR Sequential (Green) -->
+  <path d="M 145 410 C 200 330, 260 250, 315 230 C 370 205, 430 180, 470 175" fill="none" stroke="#27ae60" stroke-width="3"/>
+  <circle cx="145" cy="410" r="4" fill="#27ae60"/>
+  <circle cx="230" cy="310" r="4" fill="#27ae60"/>
+  <circle cx="315" cy="230" r="4" fill="#27ae60"/>
+  <circle cx="400" cy="190" r="4" fill="#27ae60"/>
+  <circle cx="470" cy="175" r="4" fill="#27ae60"/>
+
+  <!-- Curve 2: Quad SDR Sequential (Blue Dashed) -->
+  <path d="M 145 435 C 200 400, 260 350, 315 330 C 370 310, 430 295, 470 290" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="6,4"/>
+  <circle cx="145" cy="435" r="4" fill="#2457d6"/>
+  <circle cx="230" cy="380" r="4" fill="#2457d6"/>
+  <circle cx="315" cy="330" r="4" fill="#2457d6"/>
+  <circle cx="400" cy="300" r="4" fill="#2457d6"/>
+  <circle cx="470" cy="290" r="4" fill="#2457d6"/>
+
+  <!-- Curve 3: Random Access with Write-Back Penalty (Red) -->
+  <path d="M 145 455 L 230 445 L 315 430 L 400 415 L 470 395" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="145" cy="455" r="4" fill="#c0392b"/>
+  <circle cx="230" cy="445" r="4" fill="#c0392b"/>
+  <circle cx="315" cy="430" r="4" fill="#c0392b"/>
+  <circle cx="400" cy="415" r="4" fill="#c0392b"/>
+  <circle cx="470" cy="395" r="4" fill="#c0392b"/>
+
+  <!-- Chart Legend (Inside Bottom) -->
+  <line x1="110" y1="140" x2="135" y2="140" stroke="#27ae60" stroke-width="3"/>
+  <text x="142" y="144" font-size="12" fill="#1a1a1a">Octal DDR (Послідовний)</text>
+
+  <line x1="280" y1="140" x2="305" y2="140" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="6,4"/>
+  <text x="312" y="144" font-size="12" fill="#1a1a1a">Quad SDR (Послідовний)</text>
+
+  <!-- Panel R1: Write-Back Penalty Mechanism (Top Right) -->
+  <rect x="550" y="90" width="380" height="200" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="8"/>
+  <text x="740" y="118" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Штраф заміни кеш-лінії (Write-Back Penalty)</text>
+
+  <text x="565" y="145" font-size="12" font-weight="bold" fill="#1a1a1a">Послідовність подій при Cache Miss:</text>
+  <text x="575" y="170" font-size="12" fill="#c0392b">1. Запис "брудної" лінії 32Б назад у PSRAM (Eviction)</text>
+  <text x="575" y="195" font-size="12" fill="#2457d6">2. Вибірка нової 32Б лінії з PSRAM (Read Fill)</text>
+  <text x="575" y="220" font-size="12" fill="#1a1a1a">3. Накладні такти (Command + Address + Dummy cycles)</text>
+
+  <rect x="565" y="235" width="350" height="40" fill="#ffffff" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="740" y="260" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">T_penalty = T_writeback + T_readfill ≈ 48..64 тактів</text>
+
+  <!-- Panel R2: Optimization Rules (Bottom Right) -->
+  <rect x="550" y="305" width="380" height="215" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <text x="740" y="333" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Правила оптимізації доступу до PSRAM</text>
+
+  <text x="565" y="360" font-size="12" font-weight="bold" fill="#1a1a1a">1. Вирівнювання буферів по 32 байти:</text>
+  <text x="580" y="382" font-size="12" fill="#6b7280">Уникає перетину меж кеш-ліній (Line Boundary Cross)</text>
+
+  <text x="565" y="410" font-size="12" font-weight="bold" fill="#1a1a1a">2. Послідовне прокачування (Sequential DMA):</text>
+  <text x="580" y="432" font-size="12" fill="#6b7280">Максимізує утилізацію OPI шини до 78 МБ/с</text>
+
+  <text x="565" y="460" font-size="12" font-weight="bold" fill="#1a1a1a">3. Локалізація даних у SRAM:</text>
+  <text x="580" y="482" font-size="12" fill="#6b7280">Часті довільні читання/записи тримати в внутрішній RAM</text>
+</svg>

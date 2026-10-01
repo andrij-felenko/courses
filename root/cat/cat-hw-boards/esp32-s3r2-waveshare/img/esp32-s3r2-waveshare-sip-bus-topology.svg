@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Топологія шин пам'яті ESP32-S3R2 (SiP PSRAM та зовнішня Flash)</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">Внутрішнє SiP-підключення 2 МБ QSPI PSRAM вивільняє GPIO, а MMU/L1-кеш забезпечують прозору адресацію</text>
+
+  <!-- Container 1: SiP Microcontroller (Left) -->
+  <rect x="30" y="80" width="600" height="440" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="50" y="104" font-size="14" font-weight="bold" fill="#2457d6">Мікроконтролер ESP32-S3R2 (System-in-Package)</text>
+
+  <!-- Block A: Xtensa LX7 Cores & L1 Cache -->
+  <rect x="50" y="120" width="560" height="75" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="330" y="145" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Двоядерний процесор Xtensa LX7 (Core 0 / Core 1, 240 МГц)</text>
+  <text x="330" y="170" font-size="12" text-anchor="middle" fill="#6b7280">L1 Instruction Cache (32 КБ)  |  L1 Data Cache (32 КБ)</text>
+
+  <!-- Arrow A -> B -->
+  <line x1="330" y1="195" x2="330" y2="223" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="345" y="214" font-size="11" fill="#6b7280">Шина L1 Cache / AHB</text>
+
+  <!-- Block B: MMU & Bus Matrix -->
+  <rect x="50" y="225" width="560" height="75" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="330" y="250" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Матриця шин та MMU (Memory Management Unit)</text>
+  <text x="330" y="275" font-size="12" text-anchor="middle" fill="#6b7280">Відображення сторінок 64 КБ | PSRAM: 0x3D00_0000 | Flash: 0x4200_0000</text>
+
+  <!-- Arrow B -> C -->
+  <line x1="330" y1="300" x2="330" y2="328" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="345" y="319" font-size="11" fill="#6b7280">Внутрішні запити MMU</text>
+
+  <!-- Block C: MSPI Controller -->
+  <rect x="50" y="330" width="560" height="65" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="330" y="353" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Контролер MSPI (Main SPI Controller)</text>
+  <text x="330" y="376" font-size="12" text-anchor="middle" fill="#6b7280">Арбітраж шини Quad SPI | Апаратне шифрування XTS-AES</text>
+
+  <!-- Arrow C -> D (Internal SiP PSRAM) -->
+  <line x1="185" y1="395" x2="185" y2="423" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="195" y="414" font-size="11" font-weight="bold" fill="#27ae60">Шина QSPI1 (SiP)</text>
+
+  <!-- Block D: In-package SiP PSRAM Die -->
+  <rect x="50" y="425" width="270" height="80" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="185" y="447" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">2 МБ QSPI PSRAM (SiP Die)</text>
+  <text x="185" y="468" font-size="12" text-anchor="middle" fill="#1a1a1a">Внутрішні лінії GPIO33–37</text>
+  <text x="185" y="489" font-size="11" text-anchor="middle" fill="#27ae60">Заховано всередині чипа</text>
+
+  <!-- Dotted Connection: SiP PSRAM -> Free GPIO Badge -->
+  <line x1="320" y1="465" x2="385" y2="465" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <rect x="385" y="449" width="230" height="32" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="500" y="469" font-size="11" font-weight="bold" text-anchor="middle" fill="#27ae60">GPIO33–37 вільні від зовнішніх шин</text>
+  <line x1="615" y1="465" x2="680" y2="465" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Path C -> Container 2 (External Flash) -->
+  <path d="M 610,362 H 655 V 190 H 698" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="635" y="178" font-size="11" font-weight="bold" fill="#2457d6">Шина QSPI0</text>
+
+  <!-- Container 2: External Flash (Top Right) -->
+  <rect x="680" y="80" width="250" height="200" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="805" y="104" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Компоненти плати Waveshare</text>
+
+  <rect x="700" y="120" width="210" height="140" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="805" y="148" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">16 МБ QSPI Flash</text>
+  <text x="805" y="172" font-size="12" text-anchor="middle" fill="#1a1a1a">Шина QSPI0 (GPIO26–32)</text>
+  <text x="805" y="196" font-size="12" text-anchor="middle" fill="#6b7280">Код прошивки та NVS</text>
+  <text x="805" y="220" font-size="11" text-anchor="middle" fill="#6b7280">Зовнішній чип на PCB</text>
+
+  <!-- Container 3: Free GPIO Pins (Bottom Right) -->
+  <rect x="680" y="300" width="250" height="220" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <text x="805" y="324" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">Вивільнені виводи GPIO</text>
+
+  <rect x="700" y="338" width="210" height="165" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="715" y="362" font-size="12" font-weight="bold" fill="#1a1a1a">Вільні GPIO для периферії:</text>
+  <text x="715" y="386" font-size="12" fill="#27ae60">• GPIO1–18, GPIO38–48</text>
+  <text x="715" y="414" font-size="12" font-weight="bold" fill="#1a1a1a">Нативний USB CDC/JTAG:</text>
+  <text x="715" y="438" font-size="12" fill="#2457d6">• GPIO19 (D-), GPIO20 (D+)</text>
+  <text x="715" y="468" font-size="11" font-weight="bold" fill="#27ae60">PSRAM не займає GPIO!</text>
+</svg>

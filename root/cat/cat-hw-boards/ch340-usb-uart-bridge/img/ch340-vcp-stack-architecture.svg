@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура стека VCP та рівні взаємодії CH340</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Трансформація потоку байтів застосунку в USB Bulk-пакети та послідовні кадри UART</text>
+
+  <!-- Контейнер 1: Програмне забезпечення хоста -->
+  <rect x="30" y="70" width="525" height="275" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="45" y="90" font-size="13" font-weight="bold" fill="#6b7280" text-anchor="start">ПРОГРАМНЕ ЗАБЕЗПЕЧЕННЯ ХОСТА (ПК / ОС)</text>
+
+  <!-- Блок 1: Прикладне ПЗ -->
+  <rect x="45" y="105" width="135" height="225" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="112.5" y="128" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Прикладне ПЗ</text>
+  <text x="112.5" y="146" font-size="12" fill="#6b7280" text-anchor="middle">(User Application)</text>
+  <text x="112.5" y="180" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Потік байтів</text>
+  <text x="112.5" y="198" font-size="12" fill="#1a1a1a" text-anchor="middle">Стрім (stream)</text>
+  <text x="112.5" y="232" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Системні виклики:</text>
+  <text x="112.5" y="250" font-size="12" fill="#1a1a1a" text-anchor="middle">read() / write()</text>
+  <text x="112.5" y="268" font-size="12" fill="#1a1a1a" text-anchor="middle">ioctl() / SetComm</text>
+
+  <!-- Стрілки між Блоком 1 та Блоком 2 -->
+  <line x1="180" y1="160" x2="230" y2="160" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="207.5" y="148" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Write()</text>
+
+  <line x1="235" y1="295" x2="185" y2="295" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="207.5" y="315" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Read()</text>
+
+  <!-- Блок 2: Драйвер VCP -->
+  <rect x="235" y="105" width="145" height="225" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="307.5" y="128" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Драйвер VCP</text>
+  <text x="307.5" y="146" font-size="12" fill="#6b7280" text-anchor="middle">(Virtual COM Port)</text>
+  <text x="307.5" y="180" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Емуляція COM</text>
+  <text x="307.5" y="198" font-size="12" fill="#1a1a1a" text-anchor="middle">ttyUSB / COMx</text>
+  <text x="307.5" y="232" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Буферизація:</text>
+  <text x="307.5" y="250" font-size="12" fill="#1a1a1a" text-anchor="middle">Буфери TX / RX</text>
+  <text x="307.5" y="268" font-size="12" fill="#1a1a1a" text-anchor="middle">Baud / RTS / DTR</text>
+
+  <!-- Стрілки між Блоком 2 та Блоком 3 -->
+  <line x1="380" y1="160" x2="425" y2="160" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="405" y="148" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">IOCTL</text>
+
+  <line x1="430" y1="295" x2="385" y2="295" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="405" y="315" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">IRP</text>
+
+  <!-- Блок 3: USB-стек ОС -->
+  <rect x="430" y="105" width="110" height="225" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="485" y="128" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB-стек ОС</text>
+  <text x="485" y="146" font-size="12" fill="#6b7280" text-anchor="middle">(Host Stack)</text>
+  <text x="485" y="180" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">USB URB</text>
+  <text x="485" y="198" font-size="12" fill="#1a1a1a" text-anchor="middle">Пакетний режим</text>
+  <text x="485" y="232" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Трансфери:</text>
+  <text x="485" y="250" font-size="12" fill="#1a1a1a" text-anchor="middle">Bulk OUT / IN</text>
+  <text x="485" y="268" font-size="12" fill="#1a1a1a" text-anchor="middle">Control EP0</text>
+
+  <!-- Стрілки між Блоком 3 (Хост) та Блоком 4 (CH340) - Межа USB Кабелю -->
+  <line x1="540" y1="160" x2="605" y2="160" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="572.5" y="132" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB Кабель</text>
+  <text x="572.5" y="148" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Bulk OUT</text>
+
+  <line x1="610" y1="295" x2="545" y2="295" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="577.5" y="315" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Bulk IN</text>
+  <text x="577.5" y="330" font-size="12" fill="#6b7280" text-anchor="middle">(D+ / D-)</text>
+
+  <!-- Контейнер 2: Апаратна частина -->
+  <rect x="595" y="70" width="335" height="275" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="610" y="90" font-size="13" font-weight="bold" fill="#6b7280" text-anchor="start">АПАРАТНА ЧАСТИНА (HARDWARE)</text>
+
+  <!-- Блок 4: Мікросхема CH340 -->
+  <rect x="610" y="105" width="145" height="225" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="682.5" y="128" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікросхема CH340</text>
+  <text x="682.5" y="146" font-size="12" fill="#6b7280" text-anchor="middle">(USB-UART Bridge)</text>
+  <text x="682.5" y="180" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Конвертор</text>
+  <text x="682.5" y="198" font-size="12" fill="#1a1a1a" text-anchor="middle">USB &lt;-&gt; UART</text>
+  <text x="682.5" y="232" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Модулі chip:</text>
+  <text x="682.5" y="250" font-size="12" fill="#1a1a1a" text-anchor="middle">FIFO 64B RX/TX</text>
+  <text x="682.5" y="268" font-size="12" fill="#1a1a1a" text-anchor="middle">Baud Generator</text>
+
+  <!-- Стрілки між Блоком 4 та Блоком 5 -->
+  <line x1="755" y1="160" x2="795" y2="160" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="777.5" y="148" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">TXD</text>
+
+  <line x1="800" y1="295" x2="760" y2="295" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="777.5" y="315" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">RXD</text>
+
+  <!-- Блок 5: UART-пристрій -->
+  <rect x="800" y="105" width="115" height="225" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="857.5" y="128" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">UART-пристрій</text>
+  <text x="857.5" y="146" font-size="12" fill="#6b7280" text-anchor="middle">(Target MCU)</text>
+  <text x="857.5" y="180" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Послідовний</text>
+  <text x="857.5" y="198" font-size="12" fill="#1a1a1a" text-anchor="middle">інтерфейс</text>
+  <text x="857.5" y="232" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сигнали:</text>
+  <text x="857.5" y="250" font-size="12" fill="#1a1a1a" text-anchor="middle">TXD / RXD</text>
+  <text x="857.5" y="268" font-size="12" fill="#1a1a1a" text-anchor="middle">RTS / CTS / DTR</text>
+
+  <!-- Панель трансформації даних (нижня) -->
+  <rect x="30" y="360" width="900" height="85" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="45" y="380" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">ТРАНСФОРМАЦІЯ ДАНИХ ПО СТЕКУ:</text>
+
+  <!-- Етап 1 -->
+  <rect x="45" y="390" width="245" height="45" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="55" y="407" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Байтовий потік (Stream):</text>
+  <text x="55" y="423" font-size="12" fill="#6b7280" text-anchor="start">0x48 0x65 0x6C 0x6C 0x6F ("Hello")</text>
+
+  <!-- Стрілка 1->2 -->
+  <line x1="295" y1="412" x2="320" y2="412" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="307.5" y="404" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">VCP Driver</text>
+
+  <!-- Етап 2 -->
+  <rect x="330" y="390" width="265" height="45" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="340" y="407" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">USB Bulk Packet (до 64B):</text>
+  <text x="340" y="423" font-size="12" fill="#6b7280" text-anchor="start">[USB Header | 48 65 6C 6C 6F | CRC]</text>
+
+  <!-- Стрілка 2->3 -->
+  <line x1="600" y1="412" x2="625" y2="412" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="612.5" y="404" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">CH340 IC</text>
+
+  <!-- Етап 3 -->
+  <rect x="635" y="390" width="280" height="45" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="645" y="407" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Послідовний кадр UART (8N1):</text>
+  <text x="645" y="423" font-size="12" fill="#6b7280" text-anchor="start">[Start(0) | 8 bits data | Stop(1)]</text>
+</svg>

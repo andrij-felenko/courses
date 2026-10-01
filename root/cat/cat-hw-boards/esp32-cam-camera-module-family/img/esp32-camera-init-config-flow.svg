@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конфігурація camera_config_t та процес ініціалізації esp_camera_init()</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Структура параметрів, зв'язування GPIO, виділення буферів у PSRAM та запуск драйвера</text>
+
+  <!-- Панель 1: Конфігурація структури -->
+  <rect x="40" y="85" width="400" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="240" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Заповнення структури camera_config_t</text>
+  <text x="240" y="130" font-size="12" fill="#6b7280" text-anchor="middle">Апаратні виводи, частота, формат та буфери</text>
+
+  <!-- Секція 1: GPIO Pinout -->
+  <rect x="55" y="148" width="370" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="70" y="168" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">Прив'язка виводів GPIO</text>
+  <text x="70" y="187" font-size="12" fill="#1a1a1a" text-anchor="start">pin_xclk = 0, pin_pclk = 22</text>
+  <text x="70" y="205" font-size="12" fill="#1a1a1a" text-anchor="start">pin_sscb_sda = 26, pin_sscb_scl = 27</text>
+  <text x="70" y="223" font-size="12" fill="#6b7280" text-anchor="start">pin_d0..d7 = [5,18,19,21,36,39,34,35]</text>
+
+  <!-- Секція 2: Clock & Formats -->
+  <rect x="55" y="253" width="370" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="70" y="273" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">Параметри сигналів та зображення</text>
+  <text x="70" y="292" font-size="12" fill="#1a1a1a" text-anchor="start">xclk_freq_hz = 20000000</text>
+  <text x="245" y="292" font-size="12" fill="#6b7280" text-anchor="start">(20 MHz XCLK)</text>
+  <text x="70" y="310" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">pixel_format = PIXFORMAT_JPEG</text>
+  <text x="70" y="328" font-size="12" fill="#1a1a1a" text-anchor="start">frame_size = FRAMESIZE_UXGA</text>
+
+  <!-- Секція 3: PSRAM & Buffers -->
+  <rect x="55" y="358" width="370" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="70" y="378" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">Буферизація в PSRAM (Критично)</text>
+  <text x="70" y="398" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">fb_location = CAMERA_FB_IN_PSRAM</text>
+  <text x="70" y="416" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">fb_count = 2</text>
+  <text x="160" y="416" font-size="12" fill="#6b7280" text-anchor="start">(Double buffering)</text>
+  <text x="70" y="434" font-size="12" fill="#1a1a1a" text-anchor="start">grab_mode = CAMERA_GRAB_LATEST</text>
+  <text x="70" y="454" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">✓ Потрібна зовнішня PSRAM для UXGA</text>
+
+  <!-- Стрілка передачі структури між панелями -->
+  <line x1="445" y1="285" x2="515" y2="285" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="480" y="265" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Передача</text>
+  <text x="480" y="305" font-size="12" fill="#6b7280" text-anchor="middle">вказівника</text>
+
+  <!-- Панель 2: Послідовність ініціалізації -->
+  <rect x="520" y="85" width="400" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="720" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Послідовність ініціалізації esp_camera_init()</text>
+  <text x="720" y="130" font-size="12" fill="#6b7280" text-anchor="middle">Внутрішній алгоритм створення та запуску драйвера</text>
+
+  <!-- Крок A -->
+  <rect x="540" y="148" width="360" height="52" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="555" y="168" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Крок A: Валідація та перевірка PSRAM</text>
+  <text x="555" y="186" font-size="12" fill="#6b7280" text-anchor="start">Перевірка наявності PSRAM та виводів GPIO</text>
+
+  <line x1="720" y1="200" x2="720" y2="214" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Крок B -->
+  <rect x="540" y="214" width="360" height="52" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="555" y="234" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Крок B: Запуск XCLK, I2C (SCCB) та DMA</text>
+  <text x="555" y="252" font-size="12" fill="#6b7280" text-anchor="start">Генерація 20MHz XCLK та конфігурація DVP</text>
+
+  <line x1="720" y1="266" x2="720" y2="280" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Крок C -->
+  <rect x="540" y="280" width="360" height="52" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="555" y="300" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Крок C: Детекція сенсора (OV2640/OV3660)</text>
+  <text x="555" y="318" font-size="12" fill="#6b7280" text-anchor="start">Зчитування ID та налаштування через I2C</text>
+
+  <line x1="720" y1="332" x2="720" y2="346" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Крок D -->
+  <rect x="540" y="346" width="360" height="52" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="555" y="366" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Крок D: Виділення буферів у PSRAM</text>
+  <text x="555" y="384" font-size="12" fill="#6b7280" text-anchor="start">Аллокація 2 буферів через heap_caps_malloc</text>
+
+  <line x1="720" y1="398" x2="720" y2="412" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Крок E: Результат -->
+  <rect x="540" y="412" width="360" height="63" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="548" y="420" width="168" height="47" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="632" y="438" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ ESP_OK (Успіх)</text>
+  <text x="632" y="455" font-size="12" fill="#1a1a1a" text-anchor="middle">Драйвер готовий</text>
+
+  <rect x="724" y="420" width="168" height="47" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="808" y="438" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠ ESP_FAIL (Помилка)</text>
+  <text x="808" y="455" font-size="12" fill="#1a1a1a" text-anchor="middle">Збій SCCB / PSRAM</text>
+</svg>

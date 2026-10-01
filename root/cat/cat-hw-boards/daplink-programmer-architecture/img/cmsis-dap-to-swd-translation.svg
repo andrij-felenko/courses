@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Трансляція команд CMSIS-DAP у фізичні сигнали SWD</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Перетворення пакета USB HID у послідовність тактових імпульсів SWCLK та даних SWDIO для ARM DAP</text>
+
+  <!-- PANEL 1: USB HID PACKET -->
+  <rect x="30" y="72" width="900" height="108" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="94" font-size="13" font-weight="bold" fill="#2457d6">1. USB HID Пакет від Host PC (OpenOCD / pyOCD)</text>
+
+  <!-- Box 1 -->
+  <rect x="60" y="108" width="195" height="54" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="157" y="126" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Command ID</text>
+  <text x="157" y="148" font-size="12" fill="#1a1a1a" text-anchor="middle">0x05 (DAP_Transfer)</text>
+
+  <!-- Box 2 -->
+  <rect x="275" y="108" width="195" height="54" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="372" y="126" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DAP Index</text>
+  <text x="372" y="148" font-size="12" fill="#1a1a1a" text-anchor="middle">0x00 (Target 0)</text>
+
+  <!-- Box 3 -->
+  <rect x="490" y="108" width="195" height="54" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="587" y="126" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Transfer Count</text>
+  <text x="587" y="148" font-size="12" fill="#1a1a1a" text-anchor="middle">0x01 (1 транзакція)</text>
+
+  <!-- Box 4 -->
+  <rect x="705" y="108" width="195" height="54" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="802" y="126" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Transfer Request</text>
+  <text x="802" y="148" font-size="12" fill="#1a1a1a" text-anchor="middle">0x02 (RnW=1, APnDP=0)</text>
+
+  <!-- Downward Arrow 1 -->
+  <line x1="480" y1="180" x2="480" y2="198" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="495" y="193" font-size="12" fill="#6b7280">Розпакування та формування бітів</text>
+
+  <!-- PANEL 2: DAPLINK FIRMWARE PROCESSING -->
+  <rect x="30" y="200" width="900" height="98" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="220" font-size="13" font-weight="bold" fill="#2457d6">2. Контролер DAPLink (Обробка у прошивці MCU)</text>
+
+  <!-- Sub-box A -->
+  <rect x="60" y="232" width="260" height="54" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="190" y="250" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Формування заголовка (8 біт)</text>
+  <text x="190" y="270" font-size="12" fill="#6b7280" text-anchor="middle">Start=1 | DP=0 | Read=1 | Parity</text>
+
+  <!-- Arrow A->B -->
+  <line x1="324" y1="259" x2="344" y2="259" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Sub-box B -->
+  <rect x="350" y="232" width="260" height="54" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="250" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зміна напрямку та ACK (3 біти)</text>
+  <text x="480" y="270" font-size="12" fill="#6b7280" text-anchor="middle">Перевірка відповіді: OK (100b)</text>
+
+  <!-- Arrow B->C -->
+  <line x1="614" y1="259" x2="634" y2="259" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Sub-box C -->
+  <rect x="640" y="232" width="260" height="54" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="770" y="250" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Прийом даних IDR (32+1 біт)</text>
+  <text x="770" y="270" font-size="12" fill="#6b7280" text-anchor="middle">Зчитування IDCODE та Parity</text>
+
+  <!-- Downward Arrow 2 -->
+  <line x1="480" y1="298" x2="480" y2="316" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="495" y="311" font-size="12" fill="#6b7280">Фізичні сигнали на лініях SWCLK та SWDIO</text>
+
+  <!-- PANEL 3: PHYSICAL SWD WAVEFORMS -->
+  <rect x="30" y="318" width="900" height="222" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="338" font-size="13" font-weight="bold" fill="#2457d6">3. Часова діаграма транзакції SWD (Читання DP IDR)</text>
+
+  <!-- Phase Header Boxes -->
+  <rect x="120" y="348" width="210" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="225" y="362" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">HEADER (Host -> Target: 8 біт)</text>
+
+  <rect x="330" y="348" width="40" height="20" rx="3" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="350" y="362" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">TRN</text>
+
+  <rect x="370" y="348" width="110" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="425" y="362" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ACK (Target: OK)</text>
+
+  <rect x="480" y="348" width="340" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="650" y="362" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">DATA READ (Target -> Host: 32 біти IDCODE)</text>
+
+  <rect x="820" y="348" width="40" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="840" y="362" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">PAR</text>
+
+  <rect x="860" y="348" width="40" height="20" rx="3" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="880" y="362" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">TRN</text>
+
+  <!-- Phase Boundary Grid Lines -->
+  <line x1="120" y1="343" x2="120" y2="483" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="330" y1="343" x2="330" y2="483" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="370" y1="343" x2="370" y2="483" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="480" y1="343" x2="480" y2="483" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="820" y1="343" x2="820" y2="483" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="860" y1="343" x2="860" y2="483" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="900" y1="343" x2="900" y2="483" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Signal Labels -->
+  <text x="45" y="396" font-size="13" font-weight="bold" fill="#1a1a1a">SWCLK</text>
+  <text x="45" y="456" font-size="13" font-weight="bold" fill="#1a1a1a">SWDIO</text>
+
+  <!-- SWCLK Waveform -->
+  <path d="M 120,404 V 384 H 130 V 404 H 140 V 384 H 150 V 404 H 160 V 384 H 170 V 404 H 180 V 384 H 190 V 404 H 200 V 384 H 210 V 404 H 220 V 384 H 230 V 404 H 240 V 384 H 250 V 404 H 260 V 384 H 270 V 404 H 280 V 384 H 290 V 404 H 300 V 384 H 310 V 404 H 320 V 384 H 330 V 404 H 340 V 384 H 350 V 404 H 360 V 384 H 370 V 404 H 380 V 384 H 390 V 404 H 400 V 384 H 410 V 404 H 420 V 384 H 430 V 404 H 440 V 384 H 450 V 404 H 460 V 384 H 470 V 404 H 480 V 384 H 490 V 404 H 500 V 384 H 510 V 404 H 520 V 384 H 530 V 404 H 540 V 384 H 550 V 404 H 560 V 384 H 570 V 404 H 580 V 384 H 590 V 404 H 600 V 384 H 610 V 404 H 620 V 384 H 630 V 404 H 640 V 384 H 650 V 404 H 660 V 384 H 670 V 404 H 680 V 384 H 690 V 404 H 700 V 384 H 710 V 404 H 720 V 384 H 730 V 404 H 740 V 384 H 750 V 404 H 760 V 384 H 770 V 404 H 780 V 384 H 790 V 404 H 800 V 384 H 810 V 404 H 820 V 384 H 830 V 404 H 840 V 384 H 850 V 404 H 860 V 384 H 870 V 404 H 880 V 384 H 890 V 404 H 900" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- SWDIO Waveform & Elements -->
+  <!-- Phase 1: Header SWDIO -->
+  <path d="M 120 438 H 146.25 V 468 H 172.5 V 438 H 198.75 V 468 H 251.25 V 438 H 277.5 V 468 H 303.75 V 438 H 330" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="225" y="488" font-size="12" fill="#2457d6" text-anchor="middle">1 0 1 0 0 1 0 1</text>
+
+  <!-- Phase 2: TRN 1 SWDIO (Hi-Z) -->
+  <line x1="330" y1="453" x2="370" y2="453" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="350" y="488" font-size="12" fill="#6b7280" text-anchor="middle">Z</text>
+
+  <!-- Phase 3: ACK SWDIO -->
+  <path d="M 370 438 H 406.67 V 468 H 480" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="425" y="488" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1 0 0 (OK)</text>
+
+  <!-- Phase 4: Data Read SWDIO Bus Polygon -->
+  <polygon points="480,453 490,438 810,438 820,453 810,468 490,468" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="650" y="457" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Data[0:31] = 0x4BA00477 (Cortex-M IDCODE)</text>
+  <text x="650" y="488" font-size="12" fill="#27ae60" text-anchor="middle">32 біти даних LSB-first</text>
+
+  <!-- Phase 5: Parity & TRN 2 SWDIO -->
+  <rect x="820" y="438" width="40" height="30" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="840" y="457" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">PAR</text>
+
+  <line x1="860" y1="453" x2="900" y2="453" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="880" y="488" font-size="12" fill="#6b7280" text-anchor="middle">TRN</text>
+
+  <!-- Footer / Summary Note -->
+  <text x="480" y="514" font-size="12" fill="#6b7280" text-anchor="middle">
+    <tspan x="480" dy="0">Примітка: Хост формує заголовок (Header), після чого ARM DAP приймає управління колом SWDIO</tspan>
+    <tspan x="480" dy="15">і повертає статус ACK (OK = 100b), 32-бітний код IDCODE та біт парності (Even Parity).</tspan>
+  </text>
+</svg>

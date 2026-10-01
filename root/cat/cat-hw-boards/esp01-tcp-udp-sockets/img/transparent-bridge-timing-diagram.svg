@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма режиму прозорого моста (CIPMODE=1) на ESP-01</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Двосторонній потік даних між UART та TCP без +IPD-префіксів і вихід за тайм-аутом +++</text>
+
+  <!-- Node Headers -->
+  <rect x="100" y="75" width="160" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="180" y="97" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Host MCU (UART)</text>
+
+  <rect x="400" y="75" width="160" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="480" y="97" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">ESP-01 (Bridge)</text>
+
+  <rect x="700" y="75" width="160" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="780" y="97" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">TCP Server (Socket)</text>
+
+  <!-- Vertical Lifelines -->
+  <line x1="180" y1="111" x2="180" y2="485" stroke="#d0d7de" stroke-width="2" stroke-dasharray="4 4"/>
+  <line x1="480" y1="111" x2="480" y2="485" stroke="#d0d7de" stroke-width="2" stroke-dasharray="4 4"/>
+  <line x1="780" y1="111" x2="780" y2="485" stroke="#d0d7de" stroke-width="2" stroke-dasharray="4 4"/>
+
+  <!-- PHASE 1: SETUP -->
+  <rect x="30" y="120" width="900" height="116" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <rect x="40" y="126" width="180" height="22" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="130" y="141" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Налаштування моста</text>
+
+  <!-- Step 1.1: AT+CIPMODE=1 -->
+  <text x="330" y="145" font-size="12" fill="#1a1a1a" text-anchor="middle">AT+CIPMODE=1</text>
+  <line x1="180" y1="149" x2="472" y2="149" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Step 1.2: OK -->
+  <text x="330" y="165" font-size="12" fill="#27ae60" text-anchor="middle">OK</text>
+  <line x1="480" y1="169" x2="188" y2="169" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-green)"/>
+
+  <!-- Step 1.3: AT+CIPSTART -->
+  <text x="330" y="185" font-size="12" fill="#1a1a1a" text-anchor="middle">AT+CIPSTART="TCP","192.168.1.100",8080</text>
+  <line x1="180" y1="189" x2="472" y2="189" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="630" y="185" font-size="12" fill="#2457d6" text-anchor="middle">TCP Handshake (SYN/ACK)</text>
+  <line x1="480" y1="189" x2="772" y2="189" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 1.4: AT+CIPSEND -->
+  <text x="330" y="204" font-size="12" fill="#1a1a1a" text-anchor="middle">AT+CIPSEND</text>
+  <line x1="180" y1="208" x2="472" y2="208" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Step 1.5: Prompt > -->
+  <text x="330" y="222" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">&gt; (вхід у прозорий режим)</text>
+  <line x1="480" y1="226" x2="188" y2="226" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-green)"/>
+
+  <!-- PHASE 2: TRANSPARENT FLOW -->
+  <rect x="30" y="244" width="900" height="128" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <rect x="40" y="250" width="240" height="22" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="160" y="265" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Прозорий потік даних (CIPMODE=1)</text>
+
+  <!-- TX Flow (MCU -> ESP -> Server) -->
+  <text x="330" y="276" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Прямі байти UART (без AT-команд)</text>
+  <line x1="180" y1="282" x2="472" y2="282" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ESP Buffer Badge -->
+  <rect x="445" y="278" width="70" height="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="3"/>
+  <text x="480" y="291" font-size="11" fill="#2457d6" text-anchor="middle">буфер 20 мс</text>
+
+  <text x="630" y="298" font-size="12" fill="#2457d6" text-anchor="middle">Пакет TCP (кожні 20 мс / 2048 байт)</text>
+  <line x1="480" y1="304" x2="772" y2="304" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- RX Flow (Server -> ESP -> MCU) -->
+  <text x="630" y="326" font-size="12" fill="#27ae60" text-anchor="middle">Вхідний пакет TCP з мережі</text>
+  <line x1="780" y1="332" x2="488" y2="332" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <text x="330" y="354" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вивід у UART (БЕЗ префікса +IPD,N:)</text>
+  <line x1="480" y1="360" x2="188" y2="360" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- PHASE 3: ESCAPE SEQUENCE -->
+  <rect x="30" y="380" width="900" height="112" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <rect x="40" y="386" width="250" height="22" fill="#ffffff" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="165" y="401" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">3. Вихід із моста (Escape-послідовність)</text>
+
+  <!-- Guard 1 -->
+  <rect x="80" y="412" width="85" height="20" fill="#ffffff" stroke="#c0392b" stroke-dasharray="2 2" stroke-width="1" rx="3"/>
+  <text x="122.5" y="426" font-size="11" fill="#c0392b" text-anchor="middle">t_guard &gt; 1 с</text>
+
+  <!-- Escape +++ -->
+  <text x="330" y="426" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+++ (без \r\n, суцільним пакетом)</text>
+  <line x1="180" y1="432" x2="472" y2="432" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Guard 2 -->
+  <rect x="495" y="442" width="85" height="20" fill="#ffffff" stroke="#c0392b" stroke-dasharray="2 2" stroke-width="1" rx="3"/>
+  <text x="537.5" y="456" font-size="11" fill="#c0392b" text-anchor="middle">t_guard &gt; 1 с</text>
+
+  <!-- Exit OK -->
+  <text x="330" y="466" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">OK (Повернення в командний AT-режим)</text>
+  <line x1="480" y1="472" x2="188" y2="472" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr)"/>
+</svg>

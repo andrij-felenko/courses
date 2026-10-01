@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл пам'яті DRAM ESP8266 при відкритті SSL/TLS сокета</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Стандартні буфери 2 × 16 КБ вичерпують вільну купу (~36 КБ) та викликають помилку Out of Memory (OOM)</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Стандартна конфігурація без MFL (ПРОБЛЕМА) -->
+  <rect x="40" y="80" width="420" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="250" y="105" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">Стандартна конфігурація TLS (Без MFL)</text>
+  <text x="250" y="125" font-size="12" fill="#6b7280" text-anchor="middle">Розмір фрагмента = 16384 B (16 KB)</text>
+
+  <!-- Контейнер стека DRAM (Ліва панель) -->
+  <rect x="70" y="145" width="360" height="200" rx="6" fill="white" stroke="#d0d7de"/>
+
+  <!-- Вхідний буфер RX (16 КБ) -->
+  <rect x="75" y="150" width="350" height="80" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="250" y="182" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">RX Buffer (Вхідний буфер TLS)</text>
+  <text x="250" y="202" font-size="12" fill="#1a1a1a" text-anchor="middle">16 384 байти (16 КБ)</text>
+
+  <!-- Вихідний буфер TX (16 КБ) -->
+  <rect x="75" y="234" width="350" height="80" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="250" y="266" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">TX Buffer (Вихідний буфер TLS)</text>
+  <text x="250" y="286" font-size="12" fill="#1a1a1a" text-anchor="middle">16 384 байти (16 КБ)</text>
+
+  <!-- Контекст mbedTLS -->
+  <rect x="75" y="318" width="350" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="250" y="333" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Контекст mbedTLS + Ключі (~4 КБ)</text>
+
+  <!-- Блок проблеми OOM -->
+  <rect x="60" y="355" width="380" height="60" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="250" y="376" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Всього потрібно: 16 КБ + 16 КБ + 4 КБ = 36 КБ</text>
+  <text x="250" y="396" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">КРИТИЧНО: Повне вичерпання вільної купи DRAM (OOM)</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Оптимізована конфігурація з MFL (РОЗВ'ЯЗОК) -->
+  <rect x="500" y="80" width="420" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="710" y="105" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">Оптимізована конфігурація (MFL)</text>
+  <text x="710" y="125" font-size="12" fill="#6b7280" text-anchor="middle">Розмір фрагмента = 2048 B (2 KB)</text>
+
+  <!-- Контейнер стека DRAM (Права панель) -->
+  <rect x="530" y="145" width="360" height="200" rx="6" fill="white" stroke="#d0d7de"/>
+
+  <!-- Вхідний буфер RX (2 КБ) -->
+  <rect x="535" y="150" width="350" height="25" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="710" y="167" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">RX Buffer: 2 048 B (2 КБ)</text>
+
+  <!-- Вихідний буфер TX (2 КБ) -->
+  <rect x="535" y="178" width="350" height="25" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="710" y="195" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">TX Buffer: 2 048 B (2 КБ)</text>
+
+  <!-- Контекст mbedTLS -->
+  <rect x="535" y="206" width="350" height="25" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="710" y="223" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Контекст mbedTLS + Ключі (~4 КБ)</text>
+
+  <!-- Вільна купа DRAM -->
+  <rect x="535" y="234" width="350" height="106" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="710" y="280" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Вільна купа DRAM (Free Heap)</text>
+  <text x="710" y="305" font-size="12" fill="#1a1a1a" text-anchor="middle">Залишок: ~28 КБ (Захищено від OOM)</text>
+
+  <!-- Блок успіху MFL -->
+  <rect x="520" y="355" width="380" height="60" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="710" y="376" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Використано пам'яті: 2 КБ + 2 КБ + 4 КБ = 8 КБ</text>
+  <text x="710" y="396" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">УСПІХ: Достатньо пам'яті для сесії та сокетів!</text>
+</svg>

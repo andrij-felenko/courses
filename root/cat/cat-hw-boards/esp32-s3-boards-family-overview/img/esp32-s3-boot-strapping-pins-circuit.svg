@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Main Title -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принципова схема вузла автоскиду та підтяжок strapping-виводів ESP32-S3</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Автоматична комутація режимів завантаження за сигналами DTR/RTS через NPN-транзисторний ключ</text>
+
+  <!-- Main Background Panel -->
+  <rect x="30" y="68" width="900" height="472" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Block A: USB / UART Bridge -->
+  <rect x="50" y="90" width="160" height="265" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="118" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB-UART Міст</text>
+  <text x="130" y="135" font-size="11" fill="#6b7280" text-anchor="middle">(CH340 / CP2102 / CDC)</text>
+
+  <!-- Signal Output Drivers -->
+  <rect x="145" y="155" width="55" height="26" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="172" y="172" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">DTR</text>
+
+  <rect x="145" y="245" width="55" height="26" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="172" y="262" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">RTS</text>
+
+  <!-- Block B: Auto-Reset Transistor Circuit -->
+  <rect x="245" y="90" width="365" height="265" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="427" y="118" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Автозавантаження (Auto-Reset)</text>
+
+  <!-- Q1 Transistor Block -->
+  <rect x="350" y="135" width="130" height="60" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="415" y="157" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Q1 (NPN)</text>
+  <text x="415" y="175" font-size="11" fill="#6b7280" text-anchor="middle">S8050 / S9014</text>
+
+  <!-- Q2 Transistor Block -->
+  <rect x="350" y="255" width="130" height="60" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="415" y="277" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Q2 (NPN)</text>
+  <text x="415" y="295" font-size="11" fill="#6b7280" text-anchor="middle">S8050 / S9014</text>
+
+  <!-- Base Resistors -->
+  <rect x="275" y="145" width="45" height="20" rx="2" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="297" y="159" font-size="11" fill="#1a1a1a" text-anchor="middle">12k</text>
+
+  <rect x="275" y="285" width="45" height="20" rx="2" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="297" y="299" font-size="11" fill="#1a1a1a" text-anchor="middle">12k</text>
+
+  <!-- Interconnecting Wires -->
+  <!-- DTR Signal Path -->
+  <path d="M 200,168 L 230,168 L 230,295 L 275,295" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="230" y1="180" x2="350" y2="180" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="230" cy="168" r="3" fill="#2457d6"/>
+
+  <!-- RTS Signal Path -->
+  <path d="M 200,258 L 220,258 L 220,155 L 275,155" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="220" y1="270" x2="350" y2="270" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="220" cy="258" r="3" fill="#2457d6"/>
+
+  <!-- Resistor to Base links -->
+  <line x1="320" y1="155" x2="350" y2="155" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="320" y1="295" x2="350" y2="295" stroke="#1a1a1a" stroke-width="1.2"/>
+
+  <!-- Q1 Collector -> EN -->
+  <path d="M 480,155 L 640,155" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- Q2 Collector -> GPIO0 -->
+  <path d="M 480,275 L 640,275" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- Block C: ESP32-S3 SoC & Strapping Circuits -->
+  <rect x="630" y="90" width="285" height="435" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="772" y="115" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP32-S3 Мікроконтролер</text>
+
+  <!-- VDD 3.3V Rail Top -->
+  <line x1="645" y1="130" x2="900" y2="130" stroke="#27ae60" stroke-width="2"/>
+  <text x="900" y="125" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="end">VDD 3.3V</text>
+
+  <!-- Pin 1: EN (CHIP_PU) -->
+  <circle cx="640" cy="155" r="4" fill="#2457d6"/>
+  <text x="650" y="148" font-size="11" font-weight="bold" fill="#2457d6">EN (CHIP_PU)</text>
+
+  <!-- EN Pull-Up R1 (10k to VDD) -->
+  <line x1="770" y1="130" x2="770" y2="155" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="770" cy="130" r="3" fill="#27ae60"/>
+  <line x1="770" y1="155" x2="770" y2="165" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="760" y="165" width="20" height="28" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="788" y="182" font-size="11" fill="#1a1a1a">R1 10k (Pull-up)</text>
+  <line x1="770" y1="193" x2="770" y2="202" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="640" y1="155" x2="770" y2="155" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="770" cy="155" r="3" fill="#1a1a1a"/>
+
+  <!-- EN Filter Cap C1 to GND -->
+  <line x1="770" y1="202" x2="840" y2="202" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="770" cy="202" r="3" fill="#1a1a1a"/>
+
+  <!-- C1 Cap -->
+  <line x1="840" y1="202" x2="840" y2="212" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="832" y1="212" x2="848" y2="212" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="832" y1="216" x2="848" y2="216" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="840" y1="216" x2="840" y2="225" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="854" y="218" font-size="11" fill="#6b7280">C1 1µF</text>
+
+  <!-- GND symbol C1 -->
+  <line x1="832" y1="225" x2="848" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="836" y1="228" x2="844" y2="228" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="838" y1="231" x2="842" y2="231" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Pin 2: GPIO0 (Boot Mode Strapping Pin) -->
+  <circle cx="640" cy="275" r="4" fill="#2457d6"/>
+  <text x="650" y="244" font-size="11" font-weight="bold" fill="#2457d6">GPIO0 (BOOT)</text>
+  <text x="650" y="256" font-size="11" fill="#6b7280">1=SPI Boot</text>
+  <text x="650" y="268" font-size="11" fill="#6b7280">0=UART Download</text>
+
+  <!-- GPIO0 Pull-Up R2 (10k to VDD) -->
+  <line x1="770" y1="130" x2="770" y2="275" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="760" y="285" width="20" height="28" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="788" y="302" font-size="11" fill="#1a1a1a">R2 10k (Pull-up)</text>
+  <line x1="770" y1="275" x2="770" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="770" y1="313" x2="770" y2="322" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="640" y1="275" x2="770" y2="275" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="770" cy="275" r="3" fill="#1a1a1a"/>
+
+  <!-- BOOT Button to GND -->
+  <line x1="770" y1="322" x2="835" y2="322" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="770" cy="322" r="3" fill="#1a1a1a"/>
+  <!-- Switch SW_BOOT -->
+  <circle cx="835" cy="322" r="2.5" fill="#1a1a1a"/>
+  <line x1="835" y1="319" x2="850" y2="309" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="855" cy="322" r="2.5" fill="#1a1a1a"/>
+  <text x="835" y="305" font-size="11" fill="#6b7280">BOOT SW</text>
+  <!-- GND SW_BOOT -->
+  <line x1="855" y1="322" x2="855" y2="337" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="847" y1="337" x2="863" y2="337" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="851" y1="340" x2="859" y2="340" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="853" y1="343" x2="857" y2="343" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Divider Line for Secondary Strapping Pins -->
+  <line x1="645" y1="355" x2="900" y2="355" stroke="#d0d7de" stroke-dasharray="3 3"/>
+
+  <!-- Pin 3: GPIO45 (VDD_SPI Voltage Select) -->
+  <circle cx="640" cy="388" r="4" fill="#1a1a1a"/>
+  <text x="650" y="370" font-size="11" font-weight="bold" fill="#1a1a1a">GPIO45 (VDD_SPI)</text>
+  <text x="650" y="381" font-size="11" fill="#6b7280">0=3.3V (Дефолт), 1=1.8V</text>
+
+  <!-- Pull-Down R3 to GND -->
+  <line x1="640" y1="388" x2="800" y2="388" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="800" y="378" width="30" height="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="838" y="392" font-size="11" fill="#6b7280">R3 10k → GND</text>
+
+  <!-- Pin 4: GPIO46 (ROM Log Print Control) -->
+  <circle cx="640" cy="458" r="4" fill="#1a1a1a"/>
+  <text x="650" y="440" font-size="11" font-weight="bold" fill="#1a1a1a">GPIO46 (LOG_PRINT)</text>
+  <text x="650" y="451" font-size="11" fill="#6b7280">0=Лог увімк., 1=Вимк.</text>
+
+  <!-- Pull-Down R4 to GND -->
+  <line x1="640" y1="458" x2="800" y2="458" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="800" y="448" width="30" height="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="838" y="462" font-size="11" fill="#6b7280">R4 10k → GND</text>
+
+  <!-- Truth Table Box Bottom Left -->
+  <rect x="50" y="375" width="560" height="150" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="68" y="398" font-size="12" font-weight="bold" fill="#2457d6">Режими роботи автоскиду за сигналами DTR та RTS:</text>
+
+  <text x="68" y="423" font-size="11" fill="#1a1a1a">• DTR=0, RTS=1  →  Q1 ON, Q2 OFF  →  EN = 0, GPIO0 = 1  [Імпульс RESET (Скидання)]</text>
+  <text x="68" y="447" font-size="11" fill="#1a1a1a">• DTR=1, RTS=0  →  Q1 OFF, Q2 ON  →  EN = 1, GPIO0 = 0  [Режим прошивання UART Download]</text>
+  <text x="68" y="471" font-size="11" fill="#1a1a1a">• DTR=0, RTS=0  →  Q1 OFF, Q2 OFF →  EN = 1, GPIO0 = 1  [Штатний запуск SPI Flash Boot]</text>
+
+  <line x1="68" y1="487" x2="592" y2="487" stroke="#d0d7de" stroke-width="1"/>
+  <text x="68" y="507" font-size="11" fill="#6b7280">Примітка: Підтяжки 10 кОм до VDD гарантують стабільний старт при відключеному USB</text>
+</svg>

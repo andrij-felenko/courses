@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Структурна схема апаратного дільника частоти CH340</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Ланцюжок формування швидкості обміну від 12 МГц через преддільник M і лічильник N до 16-кратної вибірки бітів</text>
+
+  <!-- ==================== STAGE 1: REFERENCE OSCILLATOR ==================== -->
+  <rect x="40" y="110" width="170" height="140" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="125" y="135" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Опорний генератор</text>
+  <text x="125" y="162" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">f_osc = 12 МГц</text>
+  <text x="125" y="188" text-anchor="middle" font-size="12" fill="#6b7280">(Кварц CH340G або</text>
+  <text x="125" y="206" text-anchor="middle" font-size="12" fill="#6b7280">RC-генератор CH340C)</text>
+
+  <!-- Arrow Stage 1 -> Stage 2 -->
+  <line x1="210" y1="180" x2="252" y2="180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="235" y="172" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">12 МГц</text>
+
+  <!-- ==================== STAGE 2: PRESCALER M ==================== -->
+  <rect x="260" y="110" width="180" height="140" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="350" y="135" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Попередній дільник</text>
+  <text x="350" y="162" text-anchor="middle" font-size="15" font-weight="bold" fill="#2457d6">M = 8ⁿ</text>
+  <text x="350" y="188" text-anchor="middle" font-size="12" fill="#6b7280">n ∈ {0, 1, 2, 3}</text>
+  <text x="350" y="206" text-anchor="middle" font-size="12" fill="#6b7280">M ∈ {1, 8, 64, 512}</text>
+
+  <!-- Arrow Stage 2 -> Stage 3 -->
+  <line x1="440" y1="180" x2="482" y2="180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="465" y="172" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">f_osc ÷ M</text>
+
+  <!-- ==================== STAGE 3: COUNTER N ==================== -->
+  <rect x="490" y="110" width="190" height="140" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="585" y="135" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">16-бітний лічильник</text>
+  <text x="585" y="162" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">N = round(D ÷ 8ⁿ)</text>
+  <text x="585" y="188" text-anchor="middle" font-size="12" fill="#6b7280">N ≤ 65535</text>
+  <text x="585" y="206" text-anchor="middle" font-size="12" fill="#6b7280">D = 750 000 ÷ Baud</text>
+
+  <!-- Arrow Stage 3 -> Stage 4 -->
+  <line x1="680" y1="180" x2="722" y2="180" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="705" y="172" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">16 × Baud</text>
+
+  <!-- ==================== STAGE 4: OVERSAMPLING & STROBE ==================== -->
+  <rect x="730" y="110" width="190" height="140" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="825" y="135" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">16× Передискретизація</text>
+  <text x="825" y="162" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">f_sample = 16 × Baud</text>
+  <text x="825" y="188" text-anchor="middle" font-size="12" fill="#1a1a1a">Стробування в центрі (50%)</text>
+  <text x="825" y="206" text-anchor="middle" font-size="12" fill="#6b7280">B_actual = 750 000 ÷ (N×8ⁿ)</text>
+
+  <!-- ==================== BOTTOM REGISTER CONTROL PANEL ==================== -->
+  <rect x="40" y="280" width="880" height="150" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel Header Badge -->
+  <rect x="55" y="295" width="850" height="30" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="315" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Регістрове керування та розрахунок апаратного коефіцієнта ділення CH340</text>
+
+  <!-- Column 1 -->
+  <text x="185" y="348" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">1. Базове співвідношення</text>
+  <text x="185" y="368" text-anchor="middle" font-size="12" fill="#6b7280">Базова частота = 12 МГц ÷ 16</text>
+  <text x="185" y="388" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">f_base = 750 000 Гц</text>
+  <text x="185" y="408" text-anchor="middle" font-size="12" fill="#1a1a1a">D = 750 000 ÷ B_target</text>
+
+  <!-- Vertical Separator 1-2 -->
+  <line x1="330" y1="340" x2="330" y2="415" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Column 2 -->
+  <text x="480" y="348" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">2. Кодування преддільника</text>
+  <text x="480" y="368" text-anchor="middle" font-size="12" fill="#6b7280">Індекс n вибирає M = 8ⁿ</text>
+  <text x="480" y="388" text-anchor="middle" font-size="12" fill="#1a1a1a">n (2 біти): 00=1, 01=8, 10=64, 11=512</text>
+  <text x="480" y="408" text-anchor="middle" font-size="12" fill="#6b7280">Вибирається мін. n при N ≤ 65535</text>
+
+  <!-- Vertical Separator 2-3 -->
+  <line x1="630" y1="340" x2="630" y2="415" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Column 3 -->
+  <text x="775" y="348" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">3. Точність та похибка</text>
+  <text x="775" y="368" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">N = round(D ÷ 8ⁿ)</text>
+  <text x="775" y="388" text-anchor="middle" font-size="12" fill="#1a1a1a">Error = (B_act - B_tar) ÷ B_tar</text>
+  <text x="775" y="408" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Допустимий ліміт: |E_total| ≤ 2.5%</text>
+</svg>

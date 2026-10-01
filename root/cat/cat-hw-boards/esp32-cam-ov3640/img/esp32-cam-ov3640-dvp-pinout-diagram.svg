@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема підключення сенсора OV3640 до ESP32 через 24-pin FPC та шину DVP</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Передача відеопотоку через паралельний інтерфейс DVP 8-bit та налаштування регістрів по SCCB</text>
+
+  <!-- Panel 1: OV3640 Camera Module -->
+  <rect x="30" y="80" width="270" height="450" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <rect x="45" y="90" width="240" height="26" fill="#1a1a1a" rx="4"/>
+  <text x="165" y="107" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Сенсор OV3640 (2 МП)</text>
+
+  <!-- Sub-box 1: SCCB Control -->
+  <rect x="45" y="125" width="240" height="75" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="55" y="145" font-size="12" font-weight="bold" fill="#1a1a1a">SIOC / SIOD (SCCB)</text>
+  <text x="55" y="165" font-size="12" fill="#1a1a1a">PWDN / RESET (Керування)</text>
+  <text x="55" y="185" font-size="11" fill="#6b7280">FPC коннектор (Pin 1..4)</text>
+
+  <!-- Sub-box 2: Clocks & Sync -->
+  <rect x="45" y="210" width="240" height="90" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="55" y="232" font-size="12" font-weight="bold" fill="#1e7e34">XCLK (Вхід тактування 20MHz)</text>
+  <text x="55" y="252" font-size="12" fill="#1a1a1a">PCLK (Pixel Clock Out)</text>
+  <text x="55" y="272" font-size="12" fill="#1a1a1a">VSYNC / HREF (Синхронізація)</text>
+  <text x="55" y="290" font-size="11" fill="#6b7280">FPC коннектор (Pin 5..8)</text>
+
+  <!-- Sub-box 3: DVP Data Bus -->
+  <rect x="45" y="310" width="240" height="90" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="55" y="332" font-size="12" font-weight="bold" fill="#1a3bb0">Шина DVP 8-bit (Y2..Y9)</text>
+  <text x="55" y="352" font-size="12" fill="#1a1a1a">Паралельні дані (D0..D7)</text>
+  <text x="55" y="372" font-size="12" fill="#1a1a1a">Кадрові буфери в PSRAM</text>
+  <text x="55" y="390" font-size="11" fill="#6b7280">FPC коннектор (Pin 9..16)</text>
+
+  <!-- Sub-box 4: Power -->
+  <rect x="45" y="410" width="240" height="105" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="55" y="432" font-size="12" font-weight="bold" fill="#1a1a1a">AVDD 2.8V, DOVDD 1.8/2.8V</text>
+  <text x="55" y="452" font-size="12" fill="#1a1a1a">DVDD 1.5V (Ядро сенсора)</text>
+  <text x="55" y="472" font-size="12" fill="#1a1a1a">GND, AGND (Спільна земля)</text>
+  <text x="55" y="495" font-size="11" fill="#6b7280">FPC коннектор (Pin 17..24)</text>
+
+  <!-- Panel 2: FPC Connector & Bus Routing -->
+  <rect x="335" y="80" width="290" height="450" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <rect x="350" y="90" width="260" height="26" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="480" y="107" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">24-Pin FPC Роз'єм та лінії зв'язку</text>
+
+  <!-- Middle Sub-box 1: SCCB -->
+  <rect x="350" y="125" width="260" height="75" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="480" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інтерфейс керування SCCB</text>
+  <text x="480" y="174" font-size="12" fill="#6b7280" text-anchor="middle">SIOC (SCL) &amp; SIOD (SDA)</text>
+
+  <!-- Middle Sub-box 2: Clocks -->
+  <rect x="350" y="210" width="260" height="90" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="480" y="242" font-size="12" font-weight="bold" fill="#1e7e34" text-anchor="middle">Тактування та синхронізація</text>
+  <text x="480" y="267" font-size="12" fill="#1a1a1a" text-anchor="middle">XCLK 20MHz | PCLK | VSYNC | HREF</text>
+
+  <!-- Middle Sub-box 3: DVP -->
+  <rect x="350" y="310" width="260" height="90" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="480" y="342" font-size="12" font-weight="bold" fill="#1a3bb0" text-anchor="middle">Паралельна шина DVP 8-bit</text>
+  <text x="480" y="367" font-size="12" fill="#1a1a1a" text-anchor="middle">Передача кадрових байтів DMA</text>
+
+  <!-- Middle Sub-box 4: Power -->
+  <rect x="350" y="410" width="260" height="105" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="480" y="447" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Лінії живлення та землі</text>
+  <text x="480" y="472" font-size="12" fill="#6b7280" text-anchor="middle">AVDD, DOVDD, DVDD, GND</text>
+
+  <!-- Panel 3: ESP32 Microcontroller -->
+  <rect x="660" y="80" width="270" height="450" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <rect x="675" y="90" width="240" height="26" fill="#2457d6" rx="4"/>
+  <text x="795" y="107" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Мікроконтролер ESP32</text>
+
+  <!-- Sub-box 1: GPIO SCCB -->
+  <rect x="675" y="125" width="240" height="75" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="685" y="145" font-size="12" font-weight="bold" fill="#1a1a1a">SIOC -> GPIO27 (SCL)</text>
+  <text x="685" y="165" font-size="12" font-weight="bold" fill="#1a1a1a">SIOD -> GPIO26 (SDA)</text>
+  <text x="685" y="185" font-size="11" fill="#6b7280">PWDN -> GPIO32 | RESET NC</text>
+
+  <!-- Sub-box 2: GPIO Clocks -->
+  <rect x="675" y="210" width="240" height="90" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="685" y="232" font-size="12" font-weight="bold" fill="#1e7e34">XCLK -> GPIO0 (LEDC/PWM)</text>
+  <text x="685" y="252" font-size="12" fill="#1a1a1a">PCLK -> GPIO22 (Тактування)</text>
+  <text x="685" y="272" font-size="12" fill="#1a1a1a">VSYNC -> GPIO25 | HREF -> 23</text>
+
+  <!-- Sub-box 3: GPIO DVP -->
+  <rect x="675" y="310" width="240" height="90" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="685" y="332" font-size="12" font-weight="bold" fill="#1a3bb0">Y2..Y5 -> GPIO5, 18, 19, 21</text>
+  <text x="685" y="352" font-size="12" font-weight="bold" fill="#1a3bb0">Y6..Y9 -> GPIO36, 39, 34, 35</text>
+  <text x="685" y="372" font-size="12" fill="#1a1a1a">Контролер LCD_CAM DMA</text>
+
+  <!-- Sub-box 4: GPIO Power -->
+  <rect x="675" y="410" width="240" height="105" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="685" y="432" font-size="12" font-weight="bold" fill="#1a1a1a">Живлення 3.3V / 5V</text>
+  <text x="685" y="452" font-size="12" fill="#1a1a1a">LDO стабілізатори плати</text>
+  <text x="685" y="472" font-size="12" fill="#1a1a1a">GND спільна шина заземлення</text>
+
+  <!-- Connecting Arrows -->
+  <!-- SCCB Lines -->
+  <line x1="285" y1="162" x2="348" y2="162" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="610" y1="162" x2="673" y2="162" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Clock Lines -->
+  <line x1="285" y1="255" x2="348" y2="255" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="610" y1="255" x2="673" y2="255" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- DVP Lines -->
+  <line x1="285" y1="355" x2="348" y2="355" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="610" y1="355" x2="673" y2="355" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Power Lines -->
+  <line x1="285" y1="462" x2="348" y2="462" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="610" y1="462" x2="673" y2="462" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+</svg>

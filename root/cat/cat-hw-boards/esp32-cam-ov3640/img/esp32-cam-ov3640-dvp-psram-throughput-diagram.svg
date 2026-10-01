@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Потік даних кадрування OV3640 та вузькі місця пропускної здатності</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Передача 3 МП зображення через шину DVP, контролер I2S DMA та запис у буфер PSRAM</text>
+
+  <!-- COLUMN 1: OV3640 Sensor -->
+  <rect x="25" y="85" width="240" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="35" y="98" width="220" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="145" y="119" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Сенсор OV3640 (3.1 МП)</text>
+
+  <rect x="35" y="142" width="220" height="120" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="47" y="164" font-size="12" font-weight="bold" fill="#1a1a1a">Формування зображення:</text>
+  <text x="47" y="186" font-size="11" fill="#6b7280">• Роздільність: 2048 × 1536</text>
+  <text x="47" y="204" font-size="11" fill="#6b7280">• Формати: JPEG, YUV422</text>
+  <text x="47" y="224" font-size="11" font-weight="bold" fill="#2457d6">Сирий кадр (YUV): ~6.3 МБ</text>
+
+  <rect x="35" y="274" width="220" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="47" y="296" font-size="12" font-weight="bold" fill="#1a1a1a">Тактування XCLK / PCLK:</text>
+  <text x="47" y="318" font-size="11" fill="#6b7280">• Вхідне XCLK: 10–20 МГц</text>
+  <text x="47" y="336" font-size="11" fill="#6b7280">• Пиксельне PCLK: до 24 МГц</text>
+  <text x="47" y="356" font-size="11" fill="#6b7280">• Синхронізація: VSYNC / HREF</text>
+  <text x="47" y="385" font-size="11" font-weight="bold" fill="#27ae60">Внутрішній JPEG-процесор</text>
+
+  <!-- GAP 1: Bottleneck 1 -->
+  <line x1="265" y1="215" x2="360" y2="215" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <rect x="269" y="165" width="87" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="312.5" y="179" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">Вузьке місце #1</text>
+  <text x="312.5" y="193" text-anchor="middle" font-size="10" fill="#c0392b">DVP (8 біт)</text>
+  <text x="312.5" y="233" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a1a1a">PCLK ≤ 24 МГц</text>
+
+  <!-- COLUMN 2: DVP Bus & I2S DMA -->
+  <rect x="360" y="85" width="240" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="370" y="98" width="220" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="119" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Шина DVP та I2S DMA</text>
+
+  <rect x="370" y="142" width="220" height="120" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="382" y="164" font-size="12" font-weight="bold" fill="#1a1a1a">Кадрування та DMA:</text>
+  <text x="382" y="186" font-size="11" fill="#6b7280">• Лінії Y2..Y9 (8-біт DVP)</text>
+  <text x="382" y="204" font-size="11" fill="#6b7280">• Буфер I2S FIFO (64 байти)</text>
+  <text x="382" y="224" font-size="11" font-weight="bold" fill="#2457d6">Границя пропускної здатності:</text>
+  <text x="382" y="242" font-size="11" fill="#1a1a1a">максимум 15–20 МБ/с</text>
+
+  <rect x="370" y="274" width="220" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="382" y="296" font-size="12" font-weight="bold" fill="#1a1a1a">Програмна обробка:</text>
+  <text x="382" y="318" font-size="11" fill="#6b7280">• Драйвер esp32-camera</text>
+  <text x="382" y="336" font-size="11" fill="#6b7280">• Подвійна буферизація</text>
+  <text x="382" y="356" font-size="11" fill="#6b7280">• Перевірка VSYNC / ping-pong</text>
+  <text x="382" y="385" font-size="11" font-weight="bold" fill="#27ae60">Прямий транзит в PSRAM</text>
+
+  <!-- GAP 2: Bottleneck 2 -->
+  <line x1="600" y1="215" x2="695" y2="215" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <rect x="604" y="165" width="87" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="647.5" y="179" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">Вузьке місце #2</text>
+  <text x="647.5" y="193" text-anchor="middle" font-size="10" fill="#c0392b">Шина PSRAM</text>
+  <text x="647.5" y="233" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a1a1a">QSPI 80 МГц</text>
+
+  <!-- COLUMN 3: Frame Buffer in PSRAM -->
+  <rect x="695" y="85" width="240" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="705" y="98" width="220" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="815" y="119" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Буфер кадру в PSRAM</text>
+
+  <rect x="705" y="142" width="220" height="120" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="717" y="164" font-size="12" font-weight="bold" fill="#1a1a1a">Кадровий буфер fb_t:</text>
+  <text x="717" y="186" font-size="11" fill="#6b7280">• Обсяг PSRAM: 4 МБ</text>
+  <text x="717" y="204" font-size="11" fill="#6b7280">• Буферизація: 1–2 кадри</text>
+  <text x="717" y="224" font-size="11" font-weight="bold" fill="#27ae60">Швидкість JPEG (3 МП):</text>
+  <text x="717" y="242" font-size="11" fill="#1a1a1a">6–12 кадр/с (300-500 кБ)</text>
+
+  <rect x="705" y="274" width="220" height="135" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="717" y="296" font-size="12" font-weight="bold" fill="#c0392b">Пастка YUV / RGB:</text>
+  <text x="717" y="318" font-size="11" fill="#1a1a1a">• Нестиснений кадр 6.3 МБ</text>
+  <text x="717" y="336" font-size="11" fill="#6b7280">не вміщується в один буфер</text>
+  <text x="717" y="356" font-size="11" fill="#6b7280">Падіння швидкості до 2 fps</text>
+  <text x="717" y="385" font-size="11" font-weight="bold" fill="#c0392b">Переповнення кучі</text>
+</svg>

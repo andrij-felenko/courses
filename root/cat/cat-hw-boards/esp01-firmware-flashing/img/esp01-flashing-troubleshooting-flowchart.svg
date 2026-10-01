@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діагностика збоїв прошивання ESP-01</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Алгоритм локалізації причин відсутності з'єднання, електричних збоїв та помилок CRC</text>
+
+  <!-- Left Legend Panel -->
+  <rect x="25" y="75" width="280" height="450" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="98" font-size="13" font-weight="bold" fill="#1a1a1a">Типові коди помилок esptool:</text>
+
+  <text x="40" y="123" font-size="12" font-weight="bold" fill="#c0392b">• Timed out waiting for packet</text>
+  <text x="52" y="140" font-size="12" fill="#6b7280">Немає підтяжки GPIO0 до GND</text>
+  <text x="52" y="156" font-size="12" fill="#6b7280">або відсутній спільний провід GND</text>
+
+  <text x="40" y="181" font-size="12" font-weight="bold" fill="#c0392b">• Failed to connect / Invalid head</text>
+  <text x="52" y="198" font-size="12" fill="#6b7280">TX/RX не перехрещені або</text>
+  <text x="52" y="214" font-size="12" fill="#6b7280">вивід CH_PD (EN) не підтягнутий</text>
+
+  <text x="40" y="239" font-size="12" font-weight="bold" fill="#c0392b">• wdt reset / rst cause:1</text>
+  <text x="52" y="256" font-size="12" fill="#6b7280">Просідання напруги 3.3V нижче 2.7V</text>
+  <text x="52" y="272" font-size="12" fill="#6b7280">під час імпульсного струму RF</text>
+
+  <text x="40" y="297" font-size="12" font-weight="bold" fill="#c0392b">• Error writing at 0x00... / CRC</text>
+  <text x="52" y="314" font-size="12" fill="#6b7280">Невідповідність режимів SPI</text>
+  <text x="52" y="330" font-size="12" fill="#6b7280">(обрано QIO замість DOUT/DIO)</text>
+
+  <text x="40" y="355" font-size="12" font-weight="bold" fill="#c0392b">• Invalid flash size / MD5 error</text>
+  <text x="52" y="372" font-size="12" fill="#6b7280">Запис вище фактичного розміру</text>
+  <text x="52" y="388" font-size="12" fill="#6b7280">або занадто високий baud rate</text>
+
+  <text x="40" y="413" font-size="12" font-weight="bold" fill="#c0392b">• Fatal error: Packet corrupt</text>
+  <text x="52" y="430" font-size="12" fill="#6b7280">Завади на довгих проводах UART</text>
+  <text x="52" y="446" font-size="12" fill="#6b7280">або відсутність дільника 5V/3.3V</text>
+
+  <!-- Start Box -->
+  <rect x="390" y="75" width="180" height="36" rx="6" fill="#2457d6"/>
+  <text x="480" y="98" font-size="13" font-weight="bold" fill="white" text-anchor="middle">Початок діагностики</text>
+
+  <!-- Down line to D1 -->
+  <line x1="480" y1="111" x2="480" y2="140" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Decision 1 -->
+  <rect x="325" y="140" width="310" height="65" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="165" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Помилка: Failed to connect?</text>
+  <text x="480" y="187" font-size="12" fill="#6b7280" text-anchor="middle">Відсутня відповідь на рукостискання UART</text>
+
+  <!-- D1 Arrow Right to Action 1 -->
+  <line x1="635" y1="172.5" x2="670" y2="172.5" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <rect x="636" y="154" width="30" height="18" rx="3" fill="#fdecea"/>
+  <text x="651" y="167" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ТАК</text>
+
+  <!-- Action 1 Box -->
+  <rect x="670" y="140" width="265" height="65" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="682" y="160" font-size="12" font-weight="bold" fill="#c0392b">Перевірити режим та лінії:</text>
+  <text x="682" y="177" font-size="12" fill="#1a1a1a">• GPIO0 = GND під час старту</text>
+  <text x="682" y="193" font-size="12" fill="#1a1a1a">• CH_PD = 3.3V, RXD↔TXD перехресно</text>
+
+  <!-- D1 Down to D2 -->
+  <line x1="480" y1="205" x2="480" y2="240" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="488" y="213" width="28" height="18" rx="3" fill="#e9f7ef"/>
+  <text x="502" y="226" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">НІ</text>
+
+  <!-- Decision 2 -->
+  <rect x="325" y="240" width="310" height="65" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="265" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Скинуто / rst cause:1 чи WDT?</text>
+  <text x="480" y="287" font-size="12" fill="#6b7280" text-anchor="middle">Циклічне перезавантаження чи просідання</text>
+
+  <!-- D2 Arrow Right to Action 2 -->
+  <line x1="635" y1="272.5" x2="670" y2="272.5" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <rect x="636" y="254" width="30" height="18" rx="3" fill="#fdecea"/>
+  <text x="651" y="267" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ТАК</text>
+
+  <!-- Action 2 Box -->
+  <rect x="670" y="240" width="265" height="65" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="682" y="260" font-size="12" font-weight="bold" fill="#c0392b">Стабілізувати живлення 3.3V:</text>
+  <text x="682" y="277" font-size="12" fill="#1a1a1a">• Зовнішній LDO струмом &gt;300 мА</text>
+  <text x="682" y="293" font-size="12" fill="#1a1a1a">• Конденсатори 0.1 мкФ + 47 мкФ</text>
+
+  <!-- D2 Down to D3 -->
+  <line x1="480" y1="305" x2="480" y2="340" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="488" y="313" width="28" height="18" rx="3" fill="#e9f7ef"/>
+  <text x="502" y="326" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">НІ</text>
+
+  <!-- Decision 3 -->
+  <rect x="325" y="340" width="310" height="65" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="365" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Помилка CRC / Write error?</text>
+  <text x="480" y="387" font-size="12" fill="#6b7280" text-anchor="middle">Збій під час запису секторів Flash</text>
+
+  <!-- D3 Arrow Right to Action 3 -->
+  <line x1="635" y1="372.5" x2="670" y2="372.5" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <rect x="636" y="354" width="30" height="18" rx="3" fill="#fdecea"/>
+  <text x="651" y="367" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ТАК</text>
+
+  <!-- Action 3 Box -->
+  <rect x="670" y="340" width="265" height="65" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="682" y="360" font-size="12" font-weight="bold" fill="#c0392b">Налаштувати параметри SPI:</text>
+  <text x="682" y="377" font-size="12" fill="#1a1a1a">• Знизити швидкість до 115200 бод</text>
+  <text x="682" y="393" font-size="12" fill="#1a1a1a">• Встановити режим DOUT або DIO</text>
+
+  <!-- D3 Down to Success -->
+  <line x1="480" y1="405" x2="480" y2="440" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="488" y="413" width="28" height="18" rx="3" fill="#e9f7ef"/>
+  <text x="502" y="426" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">НІ</text>
+
+  <!-- Success Box -->
+  <rect x="325" y="440" width="310" height="65" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="465" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Успішне прошивання та запуск</text>
+  <text x="480" y="487" font-size="12" fill="#1a1a1a" text-anchor="middle">Виконано erase_flash і записано сумісний образ</text>
+</svg>

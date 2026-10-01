@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка полотна -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Цокольовка 24-пінового FPC-сокета камери OV3640</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Розподіл сигнальних ліній DVP, шини SCCB та трьох ліній живлення (AVDD, DVDD, DOVDD)</text>
+
+  <!-- Ліва панель: Виводи ESP32 -->
+  <rect x="40" y="75" width="270" height="440" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="55" y="87" width="240" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="175" y="107" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Виводи ESP32 &amp; Живлення</text>
+
+  <!-- Центральна панель: FPC Connector -->
+  <rect x="330" y="75" width="300" height="440" fill="#ffffff" stroke="#2457d6" stroke-width="2" rx="8"/>
+  <rect x="345" y="87" width="270" height="30" fill="#2457d6" rx="4"/>
+  <text x="480" y="107" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">FPC Сокет (24 Піни)</text>
+
+  <!-- Права панель: Домени OV3640 -->
+  <rect x="650" y="75" width="270" height="440" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="665" y="87" width="240" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="785" y="107" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Домени сенсора OV3640</text>
+
+  <!-- Блок 1: ДВР Шина даних (Синій) -->
+  <rect x="55" y="130" width="240" height="85" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="65" y="148" font-size="12" font-weight="bold" fill="#2457d6">Шина даних DVP &amp; Тактування</text>
+  <text x="65" y="166" font-size="12" fill="#1a1a1a">GPIO34-39, 35, 34, 4, 5, 18, 19 (D0-D7)</text>
+  <text x="65" y="184" font-size="12" fill="#1a1a1a">GPIO22 (PCLK), GPIO25 (VSYNC)</text>
+  <text x="65" y="202" font-size="12" fill="#1a1a1a">GPIO23 (HREF), GPIO0 (XCLK 24 МГц)</text>
+
+  <rect x="345" y="130" width="270" height="85" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="355" y="148" font-size="12" font-weight="bold" fill="#2457d6">Піни 2–9: D0–D7 (Паралельні дані)</text>
+  <text x="355" y="166" font-size="12" fill="#1a1a1a">Пін 10: VSYNC | Пін 11: HREF</text>
+  <text x="355" y="184" font-size="12" fill="#1a1a1a">Пін 12: PCLK (Піксельне тактування)</text>
+  <text x="355" y="202" font-size="12" fill="#1a1a1a">Пін 14: XCLK (Вхідний майстер-клок)</text>
+
+  <rect x="665" y="130" width="240" height="85" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="675" y="148" font-size="12" font-weight="bold" fill="#2457d6">Блок DVP контролера</text>
+  <text x="675" y="166" font-size="12" fill="#1a1a1a">Матриця виходу кадру 3 МП</text>
+  <text x="675" y="184" font-size="12" fill="#1a1a1a">Генератор частоти кадрів</text>
+  <text x="675" y="202" font-size="12" fill="#1a1a1a">Формування YUV/RAW/JPEG</text>
+
+  <path d="M 295,172 L 345,172" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 615,172 L 665,172" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 2: SCCB & Управління (Зелений) -->
+  <rect x="55" y="230" width="240" height="85" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="65" y="248" font-size="12" font-weight="bold" fill="#27ae60">Інтерфейс SCCB / Керування</text>
+  <text x="65" y="266" font-size="12" fill="#1a1a1a">GPIO27 (SIO_C / SCL)</text>
+  <text x="65" y="284" font-size="12" fill="#1a1a1a">GPIO26 (SIO_D / SDA)</text>
+  <text x="65" y="302" font-size="12" fill="#1a1a1a">GPIO15 (RESET), GPIO32 (PWDN)</text>
+
+  <rect x="345" y="230" width="270" height="85" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="355" y="248" font-size="12" font-weight="bold" fill="#27ae60">Піни 16, 17: SIO_C, SIO_D (I2C)</text>
+  <text x="355" y="266" font-size="12" fill="#1a1a1a">Пін 15: RESET (Апаратне скидання)</text>
+  <text x="355" y="284" font-size="12" fill="#1a1a1a">Пін 18: PWDN (Режим сну/Power Down)</text>
+  <text x="355" y="302" font-size="12" fill="#1a1a1a">Керування регістрами AEC/AGC</text>
+
+  <rect x="665" y="230" width="240" height="85" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="675" y="248" font-size="12" font-weight="bold" fill="#27ae60">Регістри &amp; Управління</text>
+  <text x="675" y="266" font-size="12" fill="#1a1a1a">Конфігурація DSP та DSP2</text>
+  <text x="675" y="284" font-size="12" fill="#1a1a1a">Налаштування геометрії вікна</text>
+  <text x="675" y="302" font-size="12" fill="#1a1a1a">Контроль енергозбереження</text>
+
+  <path d="M 295,272 L 345,272" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M 615,272 L 665,272" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Блок 3: Шини живлення AVDD / DVDD / DOVDD (Червоний) -->
+  <rect x="55" y="330" width="240" height="85" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="65" y="348" font-size="12" font-weight="bold" fill="#c0392b">Стабілізатори живлення LDO</text>
+  <text x="65" y="366" font-size="12" fill="#1a1a1a">LDO 2.8V (AVDD — Аналогове ядро)</text>
+  <text x="65" y="384" font-size="12" fill="#1a1a1a">LDO 1.2V (DVDD — Цифрове ядро)</text>
+  <text x="65" y="402" font-size="12" fill="#1a1a1a">LDO 1.8V/2.8V (DOVDD — Буфери I/O)</text>
+
+  <rect x="345" y="330" width="270" height="85" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="355" y="348" font-size="12" font-weight="bold" fill="#c0392b">Пін 13: AVDD (2.8 В Аналогове)</text>
+  <text x="355" y="366" font-size="12" fill="#1a1a1a">Пін 19: DOVDD (1.8 В / 2.8 В I/O)</text>
+  <text x="355" y="384" font-size="12" fill="#1a1a1a">Пін 20: DVDD (1.2 В Цифрове)</text>
+  <text x="355" y="402" font-size="12" fill="#c0392b">Окремі лінії захисту від завад</text>
+
+  <rect x="665" y="330" width="240" height="85" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="675" y="348" font-size="12" font-weight="bold" fill="#c0392b">Домени живлення матриці</text>
+  <text x="675" y="366" font-size="12" fill="#1a1a1a">Аналогова матриця пікселів</text>
+  <text x="675" y="384" font-size="12" fill="#1a1a1a">Цифровий процесор згортки</text>
+  <text x="675" y="402" font-size="12" fill="#1a1a1a">Вихідні буфери драйверів</text>
+
+  <path d="M 295,372 L 345,372" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <path d="M 615,372 L 665,372" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Блок 4: Шини Землі GND (Сірий) -->
+  <rect x="55" y="430" width="240" height="70" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="65" y="450" font-size="12" font-weight="bold" fill="#6b7280">Загальна шина Землі (GND)</text>
+  <text x="65" y="468" font-size="12" fill="#1a1a1a">Розділення аналогової й цифрової</text>
+  <text x="65" y="486" font-size="12" fill="#1a1a1a">землі для придушення завад</text>
+
+  <rect x="345" y="430" width="270" height="70" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="355" y="450" font-size="12" font-weight="bold" fill="#6b7280">Піни 1, 24: GND (Головна земля)</text>
+  <text x="355" y="468" font-size="12" fill="#1a1a1a">Пін 21: AGND | Пін 22: DGND</text>
+  <text x="355" y="486" font-size="12" fill="#1a1a1a">Пін 23: NC (Flash підсвічування / вільний)</text>
+
+  <rect x="665" y="430" width="240" height="70" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="675" y="450" font-size="12" font-weight="bold" fill="#6b7280">Апаратна підкладка</text>
+  <text x="675" y="468" font-size="12" fill="#1a1a1a">Екранування шуму сенсора</text>
+  <text x="675" y="486" font-size="12" fill="#1a1a1a">Стабілізація опорного рівня</text>
+
+  <path d="M 295,465 L 345,465" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <path d="M 615,465 L 665,465" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+</svg>

@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 490" width="960" height="490" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="490" fill="white"/>
+
+  <defs>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Принципова схема дільника RXD та кола живлення LDO</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">Узгодження рівнів 5.0V → 3.3V та стабілізація живлення з фільтрацією струмових імпульсів ESP-01</text>
+
+  <!-- Panel 1: Power Circuit -->
+  <rect x="40" y="80" width="420" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="80" width="420" height="36" rx="8" fill="#eaf0fd"/>
+  <text x="250" y="103" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">1. Коло живлення LDO 3.3V та фільтрації</text>
+
+  <path d="M 80,200 L 160,200" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <path d="M 250,200 L 415,200" stroke="#1a1a1a" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+
+  <circle cx="80" cy="200" r="4" fill="#c0392b"/>
+  <text x="80" y="165" font-size="13" font-weight="bold" text-anchor="middle" fill="#c0392b">V_IN = 5.0V</text>
+  <text x="80" y="182" font-size="12" text-anchor="middle" fill="#6b7280">(USB 5V)</text>
+
+  <circle cx="420" cy="200" r="4" fill="#27ae60"/>
+  <text x="420" y="165" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">V_CC = 3.3V</text>
+  <text x="420" y="182" font-size="12" text-anchor="middle" fill="#27ae60">(до ESP-01)</text>
+
+  <rect x="160" y="170" width="90" height="60" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="205" y="195" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">LDO</text>
+  <text x="205" y="215" font-size="12" text-anchor="middle" fill="#6b7280">AMS1117-3.3</text>
+  <path d="M 205,230 L 205,320" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="3,3" fill="none"/>
+
+  <path d="M 120,200 L 120,245" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+  <line x1="110" y1="245" x2="130" y2="245" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="110" y1="255" x2="130" y2="255" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 120,255 L 120,320" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+  <text x="100" y="254" font-size="12" text-anchor="end" fill="#1a1a1a">C1 = 10 µF</text>
+
+  <path d="M 290,200 L 290,245" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+  <line x1="280" y1="245" x2="300" y2="245" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="280" y1="255" x2="300" y2="255" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 290,255 L 290,320" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+  <text x="270" y="248" font-size="12" text-anchor="end" fill="#1a1a1a">C2 = 10 µF</text>
+  <text x="270" y="264" font-size="12" text-anchor="end" fill="#6b7280">(Low ESR)</text>
+
+  <path d="M 370,200 L 370,245" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+  <line x1="360" y1="245" x2="380" y2="245" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="360" y1="255" x2="380" y2="255" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 370,255 L 370,320" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+  <text x="390" y="254" font-size="12" text-anchor="start" fill="#1a1a1a">C3 = 100 nF</text>
+
+  <line x1="80" y1="320" x2="420" y2="320" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="240" y1="320" x2="240" y2="330" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="225" y1="330" x2="255" y2="330" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="230" y1="334" x2="250" y2="334" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="236" y1="338" x2="244" y2="338" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="240" y="355" font-size="12" text-anchor="middle" fill="#6b7280">GND</text>
+
+  <rect x="60" y="360" width="380" height="95" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="75" y="382" font-size="12" fill="#1a1a1a">• Струм у піку (Wi-Fi TX): I_peak = 300...500 mA</text>
+  <text x="75" y="407" font-size="12" fill="#1a1a1a">• Розсіювана потужність: P_d = (V_IN - V_CC) × I_avg</text>
+  <text x="75" y="432" font-size="12" fill="#27ae60" font-weight="bold">• C2 гасить просідання, C3 фільтрує ВЧ-завади</text>
+
+  <!-- Panel 2: RXD Voltage Divider -->
+  <rect x="500" y="80" width="420" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="500" y="80" width="420" height="36" rx="8" fill="#e9f7ef"/>
+  <text x="710" y="103" font-size="14" font-weight="bold" text-anchor="middle" fill="#27ae60">2. Резистивний дільник напруги лінії RXD</text>
+
+  <path d="M 540,200 L 600,200" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <circle cx="540" cy="200" r="4" fill="#c0392b"/>
+  <text x="540" y="165" font-size="13" font-weight="bold" text-anchor="middle" fill="#c0392b">V_TX = 5.0V</text>
+  <text x="540" y="182" font-size="12" text-anchor="middle" fill="#6b7280">(від USB-UART)</text>
+
+  <rect x="600" y="190" width="60" height="20" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="630" y="175" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">R1 = 1 kΩ</text>
+
+  <path d="M 660,200 L 720,200" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <circle cx="720" cy="200" r="4" fill="#2457d6"/>
+
+  <path d="M 720,200 L 875,200" stroke="#1a1a1a" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <circle cx="880" cy="200" r="4" fill="#27ae60"/>
+  <text x="880" y="165" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">V_RX = 3.33V</text>
+  <text x="880" y="182" font-size="12" text-anchor="middle" fill="#27ae60">(до RXD ESP-01)</text>
+
+  <path d="M 720,200 L 720,230" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+  <rect x="710" y="230" width="20" height="40" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="740" y="254" font-size="12" font-weight="bold" text-anchor="start" fill="#1a1a1a">R2 = 2 kΩ</text>
+  <path d="M 720,270 L 720,320" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+
+  <line x1="720" y1="320" x2="720" y2="330" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="705" y1="330" x2="735" y2="330" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="710" y1="334" x2="730" y2="334" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="716" y1="338" x2="724" y2="338" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="720" y="355" font-size="12" text-anchor="middle" fill="#6b7280">GND</text>
+
+  <rect x="520" y="360" width="380" height="95" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="535" y="380" font-size="12" font-weight="bold" fill="#1a1a1a">Розрахунок вихідної напруги дільника:</text>
+  <text x="535" y="402" font-size="13" font-weight="bold" fill="#2457d6">V_RX = V_TX × [ R2 / (R1 + R2) ]</text>
+  <text x="535" y="424" font-size="12" fill="#1a1a1a">= 5.0V × [ 2.0 / (1.0 + 2.0) ] = 3.33V</text>
+  <text x="535" y="444" font-size="12" font-weight="bold" fill="#27ae60">3.33V ≤ 3.6V (безпечно для GPIO0/RXD)</text>
+</svg>

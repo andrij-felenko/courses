@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Цокольовка 8-пінового роз'єму модуля ESP-01</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Призначення виводів, електричні рівні 3.3 В та вимоги до режимів завантаження</text>
+
+  <!-- Картки виводів лівої сторони (GND, GPIO2, GPIO0, RXD) -->
+  <g>
+    <!-- Card 1: GND -->
+    <rect x="30" y="135" width="340" height="50" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="30" y="135" width="6" height="50" rx="3" fill="#1a1a1a"/>
+    <text x="48" y="156" font-size="13" font-weight="bold" fill="#1a1a1a">GND (Земля)</text>
+    <text x="48" y="173" font-size="12" fill="#6b7280">Спільна мінус-шина живлення (0 В)</text>
+    <line x1="370" y1="160" x2="426" y2="160" stroke="#6b7280" stroke-width="2"/>
+
+    <!-- Card 2: GPIO2 -->
+    <rect x="30" y="195" width="340" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="30" y="195" width="6" height="50" rx="3" fill="#2457d6"/>
+    <text x="48" y="216" font-size="13" font-weight="bold" fill="#2457d6">GPIO2 (Вивід 2)</text>
+    <text x="48" y="233" font-size="12" fill="#6b7280">Підтяжка 10 кОм до 3.3 В під час старту</text>
+    <line x1="370" y1="220" x2="426" y2="220" stroke="#2457d6" stroke-width="2"/>
+
+    <!-- Card 3: GPIO0 -->
+    <rect x="30" y="255" width="340" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="30" y="255" width="6" height="50" rx="3" fill="#2457d6"/>
+    <text x="48" y="276" font-size="13" font-weight="bold" fill="#2457d6">GPIO0 (Вивід 0)</text>
+    <text x="48" y="293" font-size="12" fill="#6b7280">HIGH = Робота | LOW = Прошивання</text>
+    <line x1="370" y1="280" x2="426" y2="280" stroke="#2457d6" stroke-width="2"/>
+
+    <!-- Card 4: RXD -->
+    <rect x="30" y="315" width="340" height="50" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <rect x="30" y="315" width="6" height="50" rx="3" fill="#27ae60"/>
+    <text x="48" y="336" font-size="13" font-weight="bold" fill="#27ae60">RXD / GPIO3</text>
+    <text x="48" y="353" font-size="12" fill="#6b7280">Прийом UART (3.3 В, 5V подільник)</text>
+    <line x1="370" y1="340" x2="426" y2="340" stroke="#27ae60" stroke-width="2"/>
+  </g>
+
+  <!-- Центральна плата ESP-01 -->
+  <g>
+    <!-- Контур друкованої плати -->
+    <rect x="390" y="100" width="180" height="270" rx="8" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+
+    <!-- Шовкографія плати -->
+    <rect x="405" y="112" width="150" height="18" rx="3" fill="#334155"/>
+    <text x="480" y="125" text-anchor="middle" font-size="11" font-weight="bold" fill="#94a3b8">ESP-01 MODULE</text>
+
+    <!-- Корпус роз'єму 2x4 -->
+    <rect x="415" y="142" width="130" height="216" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1.5"/>
+
+    <!-- Піни лівого стовпчика (1, 2, 3, 4) -->
+    <!-- Pin 1: GND -->
+    <circle cx="440" cy="160" r="14" fill="#1a1a1a" stroke="#64748b" stroke-width="2"/>
+    <text x="440" y="164" text-anchor="middle" font-size="10" font-weight="bold" fill="white">GND</text>
+
+    <!-- Pin 2: GPIO2 -->
+    <circle cx="440" cy="220" r="14" fill="#2457d6" stroke="#60a5fa" stroke-width="2"/>
+    <text x="440" y="224" text-anchor="middle" font-size="10" font-weight="bold" fill="white">IO2</text>
+
+    <!-- Pin 3: GPIO0 -->
+    <circle cx="440" cy="280" r="14" fill="#2457d6" stroke="#60a5fa" stroke-width="2"/>
+    <text x="440" y="284" text-anchor="middle" font-size="10" font-weight="bold" fill="white">IO0</text>
+
+    <!-- Pin 4: RXD -->
+    <circle cx="440" cy="340" r="14" fill="#27ae60" stroke="#34d399" stroke-width="2"/>
+    <text x="440" y="344" text-anchor="middle" font-size="10" font-weight="bold" fill="white">RX</text>
+
+    <!-- Піни правого стовпчика (5, 6, 7, 8) -->
+    <!-- Pin 5: TXD -->
+    <circle cx="520" cy="160" r="14" fill="#27ae60" stroke="#34d399" stroke-width="2"/>
+    <text x="520" y="164" text-anchor="middle" font-size="10" font-weight="bold" fill="white">TX</text>
+
+    <!-- Pin 6: CH_PD -->
+    <circle cx="520" cy="220" r="14" fill="#d97706" stroke="#fbbf24" stroke-width="2"/>
+    <text x="520" y="224" text-anchor="middle" font-size="10" font-weight="bold" fill="white">EN</text>
+
+    <!-- Pin 7: RST -->
+    <circle cx="520" cy="280" r="14" fill="#d97706" stroke="#fbbf24" stroke-width="2"/>
+    <text x="520" y="284" text-anchor="middle" font-size="10" font-weight="bold" fill="white">RST</text>
+
+    <!-- Pin 8: VCC -->
+    <circle cx="520" cy="340" r="14" fill="#c0392b" stroke="#f87171" stroke-width="2"/>
+    <text x="520" y="344" text-anchor="middle" font-size="10" font-weight="bold" fill="white">VCC</text>
+  </g>
+
+  <!-- Картки виводів правої сторони (TXD, CH_PD, RST, VCC) -->
+  <g>
+    <!-- Card 5: TXD -->
+    <rect x="590" y="135" width="340" height="50" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <rect x="590" y="135" width="6" height="50" rx="3" fill="#27ae60"/>
+    <text x="608" y="156" font-size="13" font-weight="bold" fill="#27ae60">TXD / GPIO1</text>
+    <text x="608" y="173" font-size="12" fill="#6b7280">Передача UART (Вихід 3.3 В)</text>
+    <line x1="534" y1="160" x2="590" y2="160" stroke="#27ae60" stroke-width="2"/>
+
+    <!-- Card 6: CH_PD -->
+    <rect x="590" y="195" width="340" height="50" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+    <rect x="590" y="195" width="6" height="50" rx="3" fill="#d97706"/>
+    <text x="608" y="216" font-size="13" font-weight="bold" fill="#d97706">CH_PD / EN (Chip Enable)</text>
+    <text x="608" y="233" font-size="12" fill="#6b7280">Увімкнення чипа (HIGH = 3.3 В)</text>
+    <line x1="534" y1="220" x2="590" y2="220" stroke="#d97706" stroke-width="2"/>
+
+    <!-- Card 7: RST -->
+    <rect x="590" y="255" width="340" height="50" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+    <rect x="590" y="255" width="6" height="50" rx="3" fill="#d97706"/>
+    <text x="608" y="276" font-size="13" font-weight="bold" fill="#d97706">RST (Reset)</text>
+    <text x="608" y="293" font-size="12" fill="#6b7280">Скидання МК (Active Low, 3.3 В)</text>
+    <line x1="534" y1="280" x2="590" y2="280" stroke="#d97706" stroke-width="2"/>
+
+    <!-- Card 8: VCC -->
+    <rect x="590" y="315" width="340" height="50" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <rect x="590" y="315" width="6" height="50" rx="3" fill="#c0392b"/>
+    <text x="608" y="336" font-size="13" font-weight="bold" fill="#c0392b">VCC (+3.3 В)</text>
+    <text x="608" y="353" font-size="12" fill="#6b7280">Живлення 3.3 В (до 300 мА у піку)</text>
+    <line x1="534" y1="340" x2="590" y2="340" stroke="#c0392b" stroke-width="2"/>
+  </g>
+
+  <!-- Нижня інформаційна панель -->
+  <g>
+    <rect x="30" y="385" width="900" height="55" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="480" y="407" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Ключові вимоги до електричної обв'язки модуля:</text>
+    <text x="480" y="426" text-anchor="middle" font-size="12" fill="#6b7280">Живлення строго 3.3 В • Підтяжка 10 кОм на CH_PD, RST, GPIO0, GPIO2 до VCC • Конденсатор 100 мкФ на VCC/GND</text>
+  </g>
+</svg>

@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-left" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-left" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма живлення POR, сигналів CH_PD, RST та вікна защепкування ESP8266</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">ROM-завантажувач зчитує стан GPIO0, GPIO2, GPIO15 під час наростаючого фронту RST після стабілізації VDD</text>
+
+  <!-- Main Container Panel -->
+  <rect x="30" y="75" width="900" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- ROM Latch Window Highlight Block -->
+  <rect x="560" y="90" width="90" height="185" fill="#2457d6" fill-opacity="0.08" stroke="#2457d6" stroke-dasharray="4,4" stroke-width="1.5" rx="4"/>
+  <text x="605" y="86" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вікно защепкування ROM</text>
+
+  <!-- Vertical Guidelines -->
+  <line x1="340" y1="95" x2="340" y2="275" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="560" y1="95" x2="560" y2="275" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1.5"/>
+
+  <!-- Signal Track Labels -->
+  <text x="185" y="125" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">VDD (3.3V)</text>
+  <text x="185" y="165" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">CH_PD (EN)</text>
+  <text x="185" y="210" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">RST#</text>
+  <text x="185" y="295" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">Strapping Pins</text>
+  <text x="185" y="309" font-size="11" fill="#6b7280" text-anchor="end">(GPIO0, 2, 15)</text>
+
+  <!-- VDD Waveform -->
+  <path d="M 200 135 L 220 135 L 340 115 L 880 115" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+  <!-- t_por Annotation -->
+  <text x="280" y="106" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">t_por &gt; 50 мкс</text>
+  <line x1="220" y1="110" x2="340" y2="110" stroke="#2457d6" stroke-width="1" marker-start="url(#arr-blue-left)" marker-end="url(#arr-blue)"/>
+
+  <!-- CH_PD Waveform -->
+  <path d="M 200 175 L 315 175 L 340 152 L 880 152" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+
+  <!-- RST# Waveform (Exponential RC charging curve) -->
+  <path d="M 200 220 L 340 220 C 430 220 500 202 560 192 L 880 192" stroke="#c0392b" stroke-width="2.5" fill="none"/>
+  <!-- t_rst Annotation -->
+  <line x1="340" y1="235" x2="560" y2="235" stroke="#c0392b" stroke-width="1" marker-start="url(#arr-red-left)" marker-end="url(#arr-red)"/>
+  <text x="450" y="252" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">t_rst = R × C &gt; 10 мс</text>
+
+  <!-- Strapping Pins Bus Blocks -->
+  <rect x="200" y="278" width="435" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="417" y="301" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Фіксований рівень Strapping Pins (підтяжки)</text>
+
+  <rect x="650" y="278" width="230" height="36" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="765" y="301" font-size="12" fill="#6b7280" text-anchor="middle">Режим користувацького I/O</text>
+
+  <!-- Bottom Cards Section -->
+  <!-- Card 1: Timing Specs -->
+  <rect x="50" y="335" width="415" height="150" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="70" y="360" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">Часові вимоги та параметр RC-ланцюга POR:</text>
+  <text x="70" y="385" font-size="12" fill="#1a1a1a" text-anchor="start">• t_por: мінімум 50 мкс для стабілізації напруги VDD</text>
+  <text x="70" y="407" font-size="12" fill="#1a1a1a" text-anchor="start">• t_rst: утримання RST# Low принаймні 10 мс (R × C)</text>
+  <text x="70" y="429" font-size="12" fill="#1a1a1a" text-anchor="start">• Компоненти: R = 10 кОм (pull-up), C = 100 нФ до GND</text>
+  <text x="70" y="455" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Критично: RST# має відпускатися ПІСЛЯ стабілізації VDD</text>
+
+  <!-- Card 2: ROM Sampling Rules -->
+  <rect x="495" y="335" width="415" height="150" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="515" y="360" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">Вікно зчитування та стабільність режимів:</text>
+  <text x="515" y="385" font-size="12" fill="#1a1a1a" text-anchor="start">• ROM зчитує стан GPIO0, GPIO2, GPIO15 за 1–2 мс</text>
+  <text x="515" y="407" font-size="12" fill="#1a1a1a" text-anchor="start">• Логічні рівні мають бути повністю стабільними у вікні</text>
+  <text x="515" y="429" font-size="12" fill="#1a1a1a" text-anchor="start">• Перехідні процеси чи дрібізг спричиняють збій старту</text>
+  <text x="515" y="455" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Висновок: RC-ланцюг 10 мс гарантує правильний запуск</text>
+</svg>

@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Режими завантаження ESP8266 та конфігурація виводів Strapping Pins</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Комбінація логічних рівнів на GPIO15, GPIO0 та GPIO2 під час скидання визначає джерело завантаження коду</text>
+
+  <!-- Main Background Panel -->
+  <rect x="25" y="75" width="910" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- ==================== TABLE HEADER ROW ==================== -->
+  <rect x="40" y="90" width="880" height="40" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="140" y="114" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Режим завантаження</text>
+
+  <text x="310" y="108" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">GPIO15</text>
+  <text x="310" y="124" text-anchor="middle" font-size="12" fill="#6b7280">(Pull-Down)</text>
+
+  <text x="430" y="108" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">GPIO0</text>
+  <text x="430" y="124" text-anchor="middle" font-size="12" fill="#6b7280">(Pull-Up)</text>
+
+  <text x="550" y="108" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">GPIO2</text>
+  <text x="550" y="124" text-anchor="middle" font-size="12" fill="#6b7280">(Pull-Up)</text>
+
+  <text x="765" y="114" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Призначення та стан модуля</text>
+
+
+  <!-- ==================== ROW 1: FLASH BOOT ==================== -->
+  <rect x="40" y="142" width="880" height="70" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Mode Badge -->
+  <rect x="55" y="152" width="170" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="140" y="172" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">SPI Flash Boot</text>
+  <text x="140" y="190" text-anchor="middle" font-size="12" fill="#6b7280">(Штатний режим)</text>
+
+  <!-- GPIO Badges -->
+  <rect x="280" y="159" width="60" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="310" y="181" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">L (0)</text>
+
+  <rect x="400" y="159" width="60" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="430" y="181" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">H (1)</text>
+
+  <rect x="520" y="159" width="60" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="550" y="181" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">H (1)</text>
+
+  <!-- Description -->
+  <text x="625" y="170" text-anchor="start" font-size="12" fill="#1a1a1a">Виконання прошивки з зовнішньої SPI Flash пам'яті.</text>
+  <text x="625" y="190" text-anchor="start" font-size="12" fill="#6b7280">Основний робочий режим модуля після ввімкнення живлення.</text>
+
+
+  <!-- ==================== ROW 2: UART DOWNLOAD ==================== -->
+  <rect x="40" y="224" width="880" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Mode Badge -->
+  <rect x="55" y="234" width="170" height="50" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="140" y="254" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">UART Download</text>
+  <text x="140" y="272" text-anchor="middle" font-size="12" fill="#27ae60">(Режим прошивання)</text>
+
+  <!-- GPIO Badges -->
+  <rect x="280" y="241" width="60" height="36" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="310" y="263" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">L (0)</text>
+
+  <rect x="400" y="241" width="60" height="36" rx="4" fill="#ffffff" stroke="#27ae60"/>
+  <text x="430" y="263" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">L (0)</text>
+
+  <rect x="520" y="241" width="60" height="36" rx="4" fill="#ffffff" stroke="#27ae60"/>
+  <text x="550" y="263" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">H (1)</text>
+
+  <!-- Description -->
+  <text x="625" y="252" text-anchor="start" font-size="12" fill="#1a1a1a">Очікування команд esptool та запис у Flash.</text>
+  <text x="625" y="272" text-anchor="start" font-size="12" fill="#27ae60">GPIO0 з'єднують із GND для входу в Bootloader.</text>
+
+
+  <!-- ==================== ROW 3: SDIO BOOT ==================== -->
+  <rect x="40" y="306" width="880" height="60" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Mode Badge -->
+  <rect x="55" y="313" width="170" height="46" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="140" y="333" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">SDIO Boot</text>
+  <text x="140" y="349" text-anchor="middle" font-size="12" fill="#6b7280">(Завантаження з SD)</text>
+
+  <!-- GPIO Badges -->
+  <rect x="280" y="318" width="60" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="310" y="340" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">H (1)</text>
+
+  <rect x="400" y="318" width="60" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="430" y="340" text-anchor="middle" font-size="13" font-weight="bold" fill="#6b7280">X</text>
+
+  <rect x="520" y="318" width="60" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="550" y="340" text-anchor="middle" font-size="13" font-weight="bold" fill="#6b7280">X</text>
+
+  <!-- Description -->
+  <text x="625" y="334" text-anchor="start" font-size="12" fill="#1a1a1a">Завантаження коду через шину SDIO.</text>
+  <text x="625" y="352" text-anchor="start" font-size="12" fill="#6b7280">Не підтримується ESP-01 (GPIO15 = GND).</text>
+
+
+  <!-- ==================== ROW 4: INVALID / RESERVED ==================== -->
+  <rect x="40" y="378" width="880" height="60" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Mode Badge -->
+  <rect x="55" y="385" width="170" height="46" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="140" y="405" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Invalid / Reserved</text>
+  <text x="140" y="421" text-anchor="middle" font-size="12" fill="#c0392b">(Заборонений режим)</text>
+
+  <!-- GPIO Badges -->
+  <rect x="280" y="390" width="60" height="36" rx="4" fill="#ffffff" stroke="#c0392b"/>
+  <text x="310" y="412" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">L (0)</text>
+
+  <rect x="400" y="390" width="60" height="36" rx="4" fill="#ffffff" stroke="#c0392b"/>
+  <text x="430" y="412" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">X</text>
+
+  <rect x="520" y="390" width="60" height="36" rx="4" fill="#ffffff" stroke="#c0392b"/>
+  <text x="550" y="412" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">L (0)</text>
+
+  <!-- Description -->
+  <text x="625" y="406" text-anchor="start" font-size="12" fill="#c0392b">Неприпустима конфігурація: блокування старту.</text>
+  <text x="625" y="424" text-anchor="start" font-size="12" fill="#6b7280">При GPIO2 = 0 мікроконтролер зависає.</text>
+</svg>

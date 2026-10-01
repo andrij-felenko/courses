@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Завантаження Stub Bootloader в IRAM та прискорення UART</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Перехід від масочного ROM Bootloader (115200 бод) до кастомного Стаба в IRAM (921600 бод)</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Етапи завантаження (Flowchart) -->
+  <rect x="24" y="75" width="444" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="246" y="101" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Послідовність завантаження Stub Bootloader</text>
+  <text x="246" y="119" font-size="12" fill="#6b7280" text-anchor="middle">Протокол взаємодії esptool з ROM Bootloader</text>
+
+  <!-- Крок 1 -->
+  <rect x="44" y="135" width="404" height="54" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="58" y="156" font-size="13" font-weight="bold" fill="#1a1a1a">1. Сопряження ROM Bootloader (115200 бод)</text>
+  <text x="58" y="175" font-size="12" fill="#6b7280">Host надсилає SYNC (0xC0...0xC0), ROM відповідає ACK</text>
+
+  <!-- Стрілка 1->2 -->
+  <path d="M 246 189 L 246 201" stroke="#2457d6" stroke-width="1.8" fill="none" marker-end="url(#arr-accent)"/>
+
+  <!-- Крок 2 -->
+  <rect x="44" y="203" width="404" height="54" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="58" y="224" font-size="13" font-weight="bold" fill="#1a1a1a">2. Ініціалізація пам’яті (ESP_MEM_BEGIN)</text>
+  <text x="58" y="243" font-size="12" fill="#2457d6">Передача адреси IRAM (0x4000e000) та розміру коду Стаба</text>
+
+  <!-- Стрілка 2->3 -->
+  <path d="M 246 257 L 246 269" stroke="#2457d6" stroke-width="1.8" fill="none" marker-end="url(#arr-accent)"/>
+
+  <!-- Крок 3 -->
+  <rect x="44" y="271" width="404" height="54" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="58" y="292" font-size="13" font-weight="bold" fill="#1a1a1a">3. Запис бінарника Стаба (ESP_MEM_DATA)</text>
+  <text x="58" y="311" font-size="12" fill="#2457d6">Завантаження сегментів Stub Bootloader поблочно у IRAM</text>
+
+  <!-- Стрілка 3->4 -->
+  <path d="M 246 325 L 246 337" stroke="#27ae60" stroke-width="1.8" fill="none" marker-end="url(#arr-green)"/>
+
+  <!-- Крок 4 -->
+  <rect x="44" y="339" width="404" height="54" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="58" y="360" font-size="13" font-weight="bold" fill="#1a1a1a">4. Передача керування (ESP_MEM_END)</text>
+  <text x="58" y="379" font-size="12" fill="#27ae60">Запуск Entry Point у IRAM; Стаб приймає управління MPU</text>
+
+  <!-- Стрілка 4->5 -->
+  <path d="M 246 393 L 246 405" stroke="#27ae60" stroke-width="1.8" fill="none" marker-end="url(#arr-green)"/>
+
+  <!-- Крок 5 -->
+  <rect x="44" y="407" width="404" height="54" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="58" y="428" font-size="13" font-weight="bold" fill="#1a1a1a">5. Перемикання UART та запис (921600 бод)</text>
+  <text x="58" y="447" font-size="12" fill="#27ae60">Зміна дільника частоти UART; високошвидкісне прошивання</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Архітектура виконання -->
+  <rect x="492" y="75" width="444" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="714" y="101" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл пам’яті та апаратний стан</text>
+  <text x="714" y="119" font-size="12" fill="#6b7280" text-anchor="middle">Взаємодія ROM, IRAM та контролера UART</text>
+
+  <!-- Блок ROM -->
+  <rect x="512" y="135" width="404" height="105" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="526" y="157" font-size="13" font-weight="bold" fill="#1a1a1a">ROM Bootloader (ПЗУ чипа)</text>
+  <text x="526" y="177" font-size="12" fill="#6b7280">• Апаратний кодувальник прошитий на заводі</text>
+  <text x="526" y="195" font-size="12" fill="#6b7280">• Обмежена швидкість послідовного порту: 115200 бод</text>
+  <text x="526" y="213" font-size="12" fill="#6b7280">• Задача: прийняти мінімальний Stub і запустити його</text>
+
+  <!-- Блок IRAM -->
+  <rect x="512" y="252" width="404" height="125" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="526" y="274" font-size="13" font-weight="bold" fill="#1a1a1a">Stub Bootloader у пам’яті IRAM</text>
+  <text x="526" y="294" font-size="12" fill="#27ae60">• Швидка статична оперативна пам’ять (IRAM / SRAM)</text>
+  <text x="526" y="312" font-size="12" fill="#27ae60">• Пряме керування регістрами UART: підйом до 921600 бод</text>
+  <text x="526" y="330" font-size="12" fill="#27ae60">• Підтримка стиснення zlib та оптимізованого стрімінгу</text>
+  <text x="526" y="348" font-size="12" fill="#27ae60">• Прискорення прошивання Flash-пам’яті у 8 разів</text>
+
+  <!-- Порівняльна картка -->
+  <rect x="512" y="389" width="404" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="526" y="411" font-size="13" font-weight="bold" fill="#1a1a1a">Порівняння режимів запису:</text>
+
+  <rect x="526" y="423" width="376" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="536" y="441" font-size="12" font-weight="bold" fill="#c0392b">Режим ROM:</text>
+  <text x="536" y="457" font-size="12" fill="#1a1a1a">115200 бод | Базовий протокол | ~12 КБ/с</text>
+
+  <rect x="526" y="473" width="376" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="536" y="491" font-size="12" font-weight="bold" fill="#27ae60">Режим Stub:</text>
+  <text x="536" y="507" font-size="12" fill="#1a1a1a">921600 бод | Оптимізований запис | ~90 КБ/с</text>
+</svg>

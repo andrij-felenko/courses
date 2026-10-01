@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Карта розділів Flash-пам'яті ESP8266 для FOTA (1 МБ та 4 МБ)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Розподіл системних секторів, таблиць розділів та подвійних слотів user1.bin / user2.bin</text>
+
+  <!-- Панель 1: 1 МБ Flash -->
+  <rect x="35" y="75" width="430" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="250" y="102" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Карта 1 МБ (8 Мбіт) — ESP-01 / ESP-07</text>
+  <text x="250" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Схема з 512 КБ + 512 КБ Dual Bank</text>
+
+  <!-- Адреси 1 МБ -->
+  <text x="135" y="148" font-size="12" fill="#6b7280" text-anchor="end">0x00000</text>
+  <text x="135" y="204" font-size="12" fill="#6b7280" text-anchor="end">0x01000</text>
+  <text x="135" y="336" font-size="12" fill="#6b7280" text-anchor="end">0x81000</text>
+  <text x="135" y="468" font-size="12" fill="#6b7280" text-anchor="end">0xFC000</text>
+  <text x="135" y="518" font-size="12" fill="#6b7280" text-anchor="end">0xFFFFF</text>
+
+  <!-- Блок 1: Bootloader (1 МБ) -->
+  <rect x="145" y="138" width="295" height="42" rx="5" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5"/>
+  <text x="292" y="163" font-size="13" font-weight="bold" fill="#8a5a00" text-anchor="middle">Bootloader (boot.bin)</text>
+
+  <!-- Блок 2: user1.bin (1 МБ) -->
+  <rect x="145" y="192" width="295" height="120" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="292" y="242" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">user1.bin (Слот 1)</text>
+  <text x="292" y="264" font-size="12" fill="#2457d6" text-anchor="middle">Поточна прошивка (~480 КБ)</text>
+
+  <!-- Блок 3: user2.bin (1 МБ) -->
+  <rect x="145" y="324" width="295" height="120" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="292" y="374" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">user2.bin (Слот 2)</text>
+  <text x="292" y="396" font-size="12" fill="#27ae60" text-anchor="middle">Резерв / FOTA оновлення (~480 КБ)</text>
+
+  <!-- Блок 4: Системні параметри (1 МБ) -->
+  <rect x="145" y="456" width="295" height="62" rx="5" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1.5"/>
+  <text x="292" y="480" font-size="13" font-weight="bold" fill="#5b2c6f" text-anchor="middle">Системні параметри</text>
+  <text x="292" y="500" font-size="12" fill="#6b7280" text-anchor="middle">RF Cal / WiFi Params (12 КБ)</text>
+
+
+  <!-- Панель 2: 4 МБ Flash -->
+  <rect x="495" y="75" width="430" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="710" y="102" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Карта 4 МБ (32 Мбіт) — NodeMCU / ESP-12E</text>
+  <text x="710" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Схема з 1024 КБ + 1024 КБ Dual Bank</text>
+
+  <!-- Адреси 4 МБ -->
+  <text x="595" y="148" font-size="12" fill="#6b7280" text-anchor="end">0x000000</text>
+  <text x="595" y="197" font-size="12" fill="#6b7280" text-anchor="end">0x001000</text>
+  <text x="595" y="299" font-size="12" fill="#6b7280" text-anchor="end">0x101000</text>
+  <text x="595" y="401" font-size="12" fill="#6b7280" text-anchor="end">0x200000</text>
+  <text x="595" y="496" font-size="12" fill="#6b7280" text-anchor="end">0x3FC000</text>
+  <text x="595" y="518" font-size="12" fill="#6b7280" text-anchor="end">0x3FFFFF</text>
+
+  <!-- Блок 1: Bootloader (4 МБ) -->
+  <rect x="605" y="138" width="295" height="35" rx="5" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5"/>
+  <text x="752" y="160" font-size="13" font-weight="bold" fill="#8a5a00" text-anchor="middle">Bootloader (boot.bin)</text>
+
+  <!-- Блок 2: user1.bin (4 МБ) -->
+  <rect x="605" y="185" width="295" height="90" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="752" y="222" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">user1.bin (Слот 1)</text>
+  <text x="752" y="244" font-size="12" fill="#2457d6" text-anchor="middle">Поточна прошивка (1024 КБ)</text>
+
+  <!-- Блок 3: user2.bin (4 МБ) -->
+  <rect x="605" y="287" width="295" height="90" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="752" y="324" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">user2.bin (Слот 2)</text>
+  <text x="752" y="346" font-size="12" fill="#27ae60" text-anchor="middle">Резерв / FOTA оновлення (1024 КБ)</text>
+
+  <!-- Блок 4: SPIFFS / LittleFS (4 МБ) -->
+  <rect x="605" y="389" width="295" height="85" rx="5" fill="#fcf3cf" stroke="#d4ac0d" stroke-width="1.5"/>
+  <text x="752" y="424" font-size="13" font-weight="bold" fill="#7d6608" text-anchor="middle">SPIFFS / LittleFS</text>
+  <text x="752" y="446" font-size="12" fill="#6b7280" text-anchor="middle">Файлова система (~1.9 МБ)</text>
+
+  <!-- Блок 5: Системні сектори (4 МБ) -->
+  <rect x="605" y="486" width="295" height="32" rx="5" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1.5"/>
+  <text x="752" y="506" font-size="12" font-weight="bold" fill="#5b2c6f" text-anchor="middle">Системні сектори (16 КБ)</text>
+</svg>

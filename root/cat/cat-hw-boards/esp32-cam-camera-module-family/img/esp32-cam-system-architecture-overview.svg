@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Апаратна архітектура та периферійні зв'язки модуля ESP32-CAM</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Взаємодія SoC ESP32 з PSRAM, сокетом камери FPC, картою microSD та системою живлення LDO</text>
+
+  <!-- Power Routing Line from Power Panel to Camera Panel -->
+  <path d="M 250,265 L 265,265 L 265,65 L 745,65 L 745,80" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <text x="505" y="60" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Лінії потрійного живлення сенсора: AVDD (2.8V) / DOVDD (3.3V) / DVDD (1.2V)</text>
+
+  <!-- BLOCK 1: POWER SYSTEM (Left Panel) -->
+  <rect x="30" y="80" width="220" height="450" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="80" width="220" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="140" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Система живлення LDO</text>
+
+  <!-- Input Power -->
+  <rect x="45" y="128" width="190" height="45" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="140" y="146" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Вхідне живлення 5V / 3.3V</text>
+  <text x="140" y="162" text-anchor="middle" font-size="11" fill="#6b7280">зовнішній піновий роз'єм</text>
+
+  <!-- LDO Regulators -->
+  <rect x="45" y="188" width="190" height="115" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="140" y="206" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Стабілізатори LDO</text>
+  <text x="140" y="226" text-anchor="middle" font-size="11" fill="#1a1a1a">3.3V LDO (AMS1117) → SoC VDD</text>
+  <text x="140" y="244" text-anchor="middle" font-size="11" fill="#2457d6">DOVDD LDO (3.3V) → Cam I/O</text>
+  <text x="140" y="262" text-anchor="middle" font-size="11" fill="#2457d6">AVDD LDO (2.8V) → Cam Analog</text>
+  <text x="140" y="280" text-anchor="middle" font-size="11" fill="#2457d6">DVDD LDO (1.2V) → Cam Core</text>
+
+  <!-- Brownout Warning & Solution -->
+  <rect x="45" y="318" width="190" height="196" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="140" y="338" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Захист від Brownout Reset</text>
+  <text x="140" y="356" text-anchor="middle" font-size="11" fill="#1a1a1a">• Піки струму Wi-Fi / LED</text>
+  <text x="140" y="372" text-anchor="middle" font-size="11" fill="#1a1a1a">спричиняють просідання VDD</text>
+
+  <rect x="53" y="386" width="174" height="116" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="140" y="404" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Схемотехнічне рішення:</text>
+  <text x="140" y="422" text-anchor="middle" font-size="11" fill="#1a1a1a">Конденсатори 100nF + 10μF</text>
+  <text x="140" y="440" text-anchor="middle" font-size="11" fill="#6b7280">ультранизький ESR біля LDO</text>
+  <text x="140" y="458" text-anchor="middle" font-size="11" fill="#6b7280">подавлюють спади напруги</text>
+  <text x="140" y="476" text-anchor="middle" font-size="11" fill="#6b7280">під час імпульсів Wi-Fi</text>
+
+  <!-- BLOCK 2: ESP32 SoC (Center Panel) -->
+  <rect x="280" y="80" width="240" height="450" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="280" y="80" width="240" height="34" rx="6" fill="#2457d6"/>
+  <text x="400" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">Мікроконтролер ESP32</text>
+
+  <!-- Core & Memory -->
+  <rect x="295" y="128" width="210" height="55" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="400" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Xtensa Dual-Core LX6</text>
+  <text x="400" y="166" text-anchor="middle" font-size="11" fill="#6b7280">240 MHz | Internal SRAM 520 KB</text>
+
+  <!-- DVP Interface -->
+  <rect x="295" y="195" width="210" height="65" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="400" y="215" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Паралельний DVP Інтерфейс</text>
+  <text x="400" y="233" text-anchor="middle" font-size="11" fill="#6b7280">8-bit Data (Y2–Y9) + PCLK</text>
+  <text x="400" y="249" text-anchor="middle" font-size="11" fill="#6b7280">VSYNC, HREF, XCLK (Clock)</text>
+
+  <!-- SCCB Interface -->
+  <rect x="295" y="272" width="210" height="50" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="400" y="292" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Шина SCCB (I2C Master)</text>
+  <text x="400" y="309" text-anchor="middle" font-size="11" fill="#6b7280">SIOC (SCL), SIOD (SDA)</text>
+
+  <!-- SPI / QSPI Controller -->
+  <rect x="295" y="334" width="210" height="52" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="400" y="354" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Контролер SPI / QSPI</text>
+  <text x="400" y="371" text-anchor="middle" font-size="11" fill="#6b7280">Зовнішній адресний простір</text>
+
+  <!-- SDMMC & GPIO -->
+  <rect x="295" y="398" width="210" height="52" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="400" y="418" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">SDMMC 1-bit / GPIO</text>
+  <text x="400" y="435" text-anchor="middle" font-size="11" fill="#6b7280">microSD шина + Flash LED</text>
+
+  <!-- Wi-Fi & BT Status -->
+  <rect x="295" y="462" width="210" height="54" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="400" y="482" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Wi-Fi 802.11 b/g/n + BT</text>
+  <text x="400" y="500" text-anchor="middle" font-size="11" fill="#6b7280">Радіотракт (піки до 300 мА)</text>
+
+  <!-- BLOCK 3: CAMERA SUBSYSTEM (Top Right Panel) -->
+  <rect x="560" y="80" width="370" height="230" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="560" y="80" width="370" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="745" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Сенсор камери OV2640 / FPC Socket (24-pin)</text>
+
+  <!-- Camera DVP Data -->
+  <rect x="575" y="126" width="340" height="50" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="745" y="144" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Шина даних DVP 8-bit (Y2–Y9)</text>
+  <text x="745" y="162" text-anchor="middle" font-size="11" fill="#6b7280">GPIO4, 5, 18, 19, 21, 34, 35, 36, 39</text>
+
+  <!-- Camera Sync -->
+  <rect x="575" y="186" width="165" height="50" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="657" y="204" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Синхронізація</text>
+  <text x="657" y="222" text-anchor="middle" font-size="11" fill="#6b7280">PCLK, VSYNC, HREF</text>
+
+  <!-- Camera Control -->
+  <rect x="750" y="186" width="165" height="50" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="832" y="204" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">SCCB &amp; XCLK</text>
+  <text x="832" y="222" text-anchor="middle" font-size="11" fill="#6b7280">SIOC, SIOD, XCLK</text>
+
+  <!-- Camera Power Inputs -->
+  <rect x="575" y="246" width="340" height="50" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="745" y="264" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Потрійне живлення сенсора</text>
+  <text x="745" y="281" text-anchor="middle" font-size="11" fill="#2457d6">AVDD (2.8V), DOVDD (3.3V), DVDD (1.2V)</text>
+
+  <!-- BLOCK 4: PSRAM & FLASH MEMORY (Bottom Middle-Right Panel) -->
+  <rect x="560" y="325" width="180" height="205" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="560" y="325" width="180" height="34" rx="6" fill="#27ae60"/>
+  <text x="650" y="347" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">Зовнішня пам'ять</text>
+
+  <!-- PSRAM Block -->
+  <rect x="572" y="367" width="156" height="85" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="650" y="386" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">PSRAM 4 MB / 8 MB</text>
+  <text x="650" y="404" text-anchor="middle" font-size="11" fill="#1a1a1a">Кадровий буфер (UXGA)</text>
+  <text x="650" y="420" text-anchor="middle" font-size="11" fill="#6b7280">Шина Quad-SPI</text>
+  <text x="650" y="436" text-anchor="middle" font-size="11" fill="#6b7280">GPIO16 (CE), GPIO17 (CLK)</text>
+
+  <!-- SPI Flash Block -->
+  <rect x="572" y="460" width="156" height="58" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="650" y="478" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">SPI Flash 4 MB</text>
+  <text x="650" y="496" text-anchor="middle" font-size="11" fill="#6b7280">Прошивка &amp; NVS</text>
+
+  <!-- BLOCK 5: MICROSD & FLASH LED (Bottom Far-Right Panel) -->
+  <rect x="755" y="325" width="175" height="205" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="755" y="325" width="175" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="842" y="347" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Накопичувач &amp; LED</text>
+
+  <!-- microSD Slot -->
+  <rect x="767" y="367" width="151" height="85" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="842" y="386" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Слот microSD</text>
+  <text x="842" y="404" text-anchor="middle" font-size="11" fill="#6b7280">SDMMC 1-bit режим</text>
+  <text x="842" y="420" text-anchor="middle" font-size="11" fill="#6b7280">DAT0 (GPIO2), CLK (14)</text>
+  <text x="842" y="436" text-anchor="middle" font-size="11" fill="#6b7280">CMD (GPIO15)</text>
+
+  <!-- Flash LED -->
+  <rect x="767" y="460" width="151" height="58" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="842" y="478" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Яскравий спалах LED</text>
+  <text x="842" y="496" text-anchor="middle" font-size="11" fill="#6b7280">Керування: GPIO4</text>
+
+  <!-- CONNECTING ARROWS -->
+  <!-- 3.3V Power Arrow to SoC -->
+  <line x1="235" y1="235" x2="278" y2="235" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="257" y="227" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">3.3V VDD</text>
+
+  <!-- DVP Bus Arrow (ESP32 -> Camera) -->
+  <line x1="505" y1="227" x2="558" y2="227" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="532" y="218" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">DVP Bus</text>
+
+  <!-- SCCB Bus Arrow (ESP32 -> Camera) -->
+  <line x1="505" y1="297" x2="558" y2="297" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="532" y="290" text-anchor="middle" font-size="11" fill="#6b7280">SCCB</text>
+
+  <!-- Quad-SPI Arrow (ESP32 -> PSRAM) -->
+  <line x1="505" y1="360" x2="558" y2="360" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="532" y="352" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">QSPI</text>
+
+  <!-- SDMMC Bus Path (ESP32 -> microSD) -->
+  <path d="M 505,424 L 540,424 L 540,545 L 842,545 L 842,532" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="690" y="540" text-anchor="middle" font-size="11" fill="#2457d6">Шина SDMMC (GPIO2, 14, 15) та Flash LED (GPIO4)</text>
+
+</svg>

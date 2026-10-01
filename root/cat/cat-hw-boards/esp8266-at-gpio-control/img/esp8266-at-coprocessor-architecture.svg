@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Архітектура ESP8266 як AT-сопроцесора керування GPIO</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Хост-контролер надсилає текстові AT-команди через UART, а прошивка ESP-AT керує периферією</text>
+
+  <!-- Panel 1: Host MCU -->
+  <rect x="30" y="90" width="230" height="330" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="145" y="118" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Хост-мікроконтролер</text>
+  <text x="145" y="136" text-anchor="middle" font-size="12" fill="#6b7280">(STM32, AVR, PC / Host)</text>
+
+  <!-- Sub-block 1: App Logic -->
+  <rect x="45" y="155" width="180" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="135" y="180" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Логіка програми</text>
+  <text x="135" y="199" text-anchor="middle" font-size="12" fill="#6b7280">Формування команд</text>
+  <text x="135" y="217" text-anchor="middle" font-size="12" fill="#6b7280">Парсинг відповідей</text>
+
+  <!-- Sub-block 2: UART Driver -->
+  <rect x="45" y="250" width="180" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="135" y="275" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">UART Драйвер</text>
+  <text x="135" y="295" text-anchor="middle" font-size="12" fill="#6b7280">TX / RX буфери</text>
+  <text x="135" y="313" text-anchor="middle" font-size="11" fill="#6b7280">Швидкість 115200</text>
+
+  <!-- Pins inside Host MCU -->
+  <circle cx="260" cy="275" r="5" fill="#2457d6"/>
+  <text x="252" y="279" text-anchor="end" font-size="11" font-weight="bold" fill="#1a1a1a">TX</text>
+
+  <circle cx="260" cy="325" r="5" fill="#27ae60"/>
+  <text x="252" y="329" text-anchor="end" font-size="11" font-weight="bold" fill="#1a1a1a">RX</text>
+
+
+  <!-- Middle Bus Section -->
+  <rect x="325" y="155" width="180" height="75" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="415" y="178" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Шина UART (AT-протокол)</text>
+  <text x="415" y="197" text-anchor="middle" font-size="12" fill="#6b7280">Асинхронний дуплекс</text>
+  <text x="415" y="214" text-anchor="middle" font-size="11" fill="#6b7280">Текстовий ASCII формат</text>
+
+  <!-- Command Arrow (Host TX -> ESP RX) -->
+  <text x="415" y="262" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">AT-команди: AT+GPIOWRITE=12,1</text>
+  <line x1="265" y1="275" x2="563" y2="275" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Response Arrow (ESP TX -> Host RX) -->
+  <line x1="565" y1="325" x2="267" y2="325" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="415" y="345" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Відповіді: OK / +GPIOREAD:14,0</text>
+
+
+  <!-- Panel 2: ESP8266 Module -->
+  <rect x="570" y="90" width="230" height="330" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="685" y="118" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Модуль ESP8266</text>
+  <text x="685" y="136" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Прошивка ESP-AT</text>
+
+  <!-- Pins inside ESP8266 -->
+  <circle cx="570" cy="275" r="5" fill="#2457d6"/>
+  <text x="576" y="279" text-anchor="start" font-size="11" font-weight="bold" fill="#1a1a1a">RX</text>
+
+  <circle cx="570" cy="325" r="5" fill="#27ae60"/>
+  <text x="576" y="329" text-anchor="start" font-size="11" font-weight="bold" fill="#1a1a1a">TX</text>
+
+  <!-- Sub-block 1: ESP-AT Interpreter -->
+  <rect x="600" y="155" width="185" height="65" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="692.5" y="178" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Інтерпретатор ESP-AT</text>
+  <text x="692.5" y="198" text-anchor="middle" font-size="12" fill="#6b7280">Парсинг &amp; валідація</text>
+
+  <!-- Arrow inside ESP8266 -->
+  <line x1="692.5" y1="220" x2="692.5" y2="241" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Sub-block 2: GPIO & IOMUX Controller -->
+  <rect x="600" y="245" width="185" height="160" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="692.5" y="266" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Контролер GPIO / IOMUX</text>
+
+  <!-- Inner item 1: GPIO12 Output -->
+  <rect x="608" y="276" width="169" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="692.5" y="298" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">GPIO12: Вихід (Output)</text>
+
+  <!-- Inner item 2: GPIO14 Input -->
+  <rect x="608" y="318" width="169" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="692.5" y="340" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">GPIO14: Вхід (з підтяжкою)</text>
+
+  <!-- Note text -->
+  <text x="692.5" y="375" text-anchor="middle" font-size="11" fill="#6b7280">Без перепрошивання модуля!</text>
+
+  <!-- GPIO Pins on ESP8266 Right Edge -->
+  <circle cx="800" cy="294" r="5" fill="#27ae60"/>
+  <circle cx="800" cy="336" r="5" fill="#2457d6"/>
+
+
+  <!-- External Devices (Far Right) -->
+  <!-- Actuator -->
+  <line x1="805" y1="294" x2="831" y2="294" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="835" y="273" width="105" height="42" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="887.5" y="290" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Виконавчий</text>
+  <text x="887.5" y="306" text-anchor="middle" font-size="11" fill="#6b7280">пристрій (Реле)</text>
+
+  <!-- Sensor -->
+  <line x1="835" y1="336" x2="809" y2="336" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="835" y="323" width="105" height="42" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="887.5" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Цифровий</text>
+  <text x="887.5" y="356" text-anchor="middle" font-size="11" fill="#6b7280">давач / кнопка</text>
+</svg>

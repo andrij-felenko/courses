@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура USB-контролера ESP32-S3: USB Serial CDC vs HW CDC/JTAG</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Маршрутизація даних прошивки, відлагодження OpenOCD та конфігурація ROM Bootloader</text>
+
+  <!-- Panel 1: Physical Interface -->
+  <rect x="30" y="80" width="160" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="110" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фізичний роз'єм USB</text>
+
+  <!-- Box 1A: Type-C Port -->
+  <rect x="42" y="120" width="136" height="110" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="110" y="142" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB Type-C</text>
+  <text x="110" y="168" font-size="12" fill="#1a1a1a" text-anchor="middle">GPIO19 (D-)</text>
+  <text x="110" y="192" font-size="12" fill="#1a1a1a" text-anchor="middle">GPIO20 (D+)</text>
+  <text x="110" y="214" font-size="12" fill="#6b7280" text-anchor="middle">VBUS (5V) / GND</text>
+
+  <!-- Box 1B: Hardware Buttons -->
+  <rect x="42" y="250" width="136" height="225" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="110" y="272" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кнопки керування</text>
+
+  <rect x="52" y="288" width="116" height="70" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="110" y="308" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">BOOT (GPIO0)</text>
+  <text x="110" y="328" font-size="12" fill="#1a1a1a" text-anchor="middle">LOW = Bootloader</text>
+  <text x="110" y="346" font-size="12" fill="#6b7280" text-anchor="middle">HIGH = Flash Exec</text>
+
+  <rect x="52" y="370" width="116" height="95" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="110" y="390" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RST (CHIP_PU)</text>
+  <text x="110" y="412" font-size="12" fill="#6b7280" text-anchor="middle">Скинути систему</text>
+  <text x="110" y="434" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">BOOT+RST = ROM</text>
+
+  <!-- Panel 2: ROM Bootloader & eFuse -->
+  <rect x="210" y="80" width="170" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="295" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ROM Bootloader &amp; eFuse</text>
+
+  <!-- Box 2A: eFuse Config -->
+  <rect x="222" y="120" width="146" height="110" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="295" y="142" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">eFuse конфігурація</text>
+  <text x="295" y="168" font-size="12" fill="#1a1a1a" text-anchor="middle">DIS_USB_JTAG</text>
+  <text x="295" y="192" font-size="12" fill="#1a1a1a" text-anchor="middle">DIS_USB_SERIAL</text>
+  <text x="295" y="214" font-size="12" fill="#6b7280" text-anchor="middle">STRAP Pins State</text>
+
+  <!-- Box 2B: ROM Bootloader -->
+  <rect x="222" y="250" width="146" height="110" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="295" y="272" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ROM Завантажник</text>
+  <text x="295" y="295" font-size="12" fill="#1a1a1a" text-anchor="middle">Аналіз стану GPIO0</text>
+  <text x="295" y="318" font-size="12" fill="#2457d6" text-anchor="middle">Вибір USB режиму</text>
+  <text x="295" y="341" font-size="12" fill="#6b7280" text-anchor="middle">Запуск Flashing ROM</text>
+
+  <!-- Box 2C: Mux Selector -->
+  <rect x="222" y="375" width="146" height="100" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="295" y="397" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Перемикач (Mux)</text>
+  <text x="295" y="422" font-size="12" fill="#1a1a1a" text-anchor="middle">Маршрутизація USB</text>
+  <text x="295" y="445" font-size="12" fill="#1a1a1a" text-anchor="middle">CDC vs HW JTAG</text>
+
+  <!-- Panel 3: Built-in USB Controller -->
+  <rect x="400" y="80" width="340" height="415" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-dasharray="5 5"/>
+  <text x="570" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вбудований USB-контролер ESP32-S3</text>
+
+  <!-- Sub-panel 3A: Mode 1 - USB Serial CDC -->
+  <rect x="415" y="120" width="310" height="165" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="570" y="142" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Режим USB Serial CDC (UART)</text>
+
+  <rect x="427" y="155" width="135" height="55" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="494" y="177" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB CDC Endpoint</text>
+  <text x="494" y="197" font-size="12" fill="#6b7280" text-anchor="middle">Емуляція COM-порту</text>
+
+  <rect x="578" y="155" width="135" height="55" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="645" y="177" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP-IDF UART FIFO</text>
+  <text x="645" y="197" font-size="12" fill="#6b7280" text-anchor="middle">Драйвер / Console</text>
+
+  <rect x="427" y="220" width="286" height="55" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="570" y="237" font-size="12" fill="#1a1a1a" text-anchor="middle">Прошивка через esptool (UART)</text>
+  <text x="570" y="253" font-size="12" fill="#6b7280" text-anchor="middle">Моніторинг (Serial.print)</text>
+  <text x="570" y="269" font-size="12" fill="#6b7280" text-anchor="middle">Потребує драйвери ESP-IDF</text>
+
+  <!-- Sub-panel 3B: Mode 2 - HW CDC / JTAG -->
+  <rect x="415" y="300" width="310" height="180" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="570" y="322" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Режим HW CDC / JTAG (Апаратний)</text>
+
+  <rect x="427" y="335" width="135" height="55" rx="4" fill="#ffffff" stroke="#27ae60"/>
+  <text x="494" y="357" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">HW JTAG Controller</text>
+  <text x="494" y="377" font-size="12" fill="#6b7280" text-anchor="middle">Вбудований TAP</text>
+
+  <rect x="578" y="335" width="135" height="55" rx="4" fill="#ffffff" stroke="#27ae60"/>
+  <text x="645" y="357" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">HW USB Console</text>
+  <text x="645" y="377" font-size="12" fill="#6b7280" text-anchor="middle">Прямий друк логів</text>
+
+  <rect x="427" y="400" width="286" height="70" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="570" y="418" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Відлагодження OpenOCD + GDB</text>
+  <text x="570" y="436" font-size="12" fill="#1a1a1a" text-anchor="middle">Друк логів без драйверів UART</text>
+  <text x="570" y="454" font-size="12" fill="#6b7280" text-anchor="middle">Без зовнішнього програматора</text>
+
+  <!-- Panel 4: Core & Memory -->
+  <rect x="760" y="80" width="170" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="845" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ядро та Пам'ять</text>
+
+  <!-- Box 4A: Xtensa CPU -->
+  <rect x="772" y="120" width="146" height="105" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="845" y="142" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Xtensa LX7</text>
+  <text x="845" y="165" font-size="12" fill="#1a1a1a" text-anchor="middle">Dual-Core 240 MHz</text>
+  <text x="845" y="188" font-size="12" fill="#1a1a1a" text-anchor="middle">Обробка переривань</text>
+  <text x="845" y="210" font-size="12" fill="#6b7280" text-anchor="middle">GDB Breakpoints</text>
+
+  <!-- Box 4B: Flash & SRAM -->
+  <rect x="772" y="240" width="146" height="115" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="845" y="262" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пам'ять системи</text>
+  <text x="845" y="285" font-size="12" fill="#1a1a1a" text-anchor="middle">512 КБ SRAM</text>
+  <text x="845" y="308" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">4 МБ SPI Flash</text>
+  <text x="845" y="330" font-size="12" fill="#6b7280" text-anchor="middle">Таблиця розмітки</text>
+  <text x="845" y="347" font-size="12" fill="#6b7280" text-anchor="middle">(Partition Table)</text>
+
+  <!-- Box 4C: RGB LED -->
+  <rect x="772" y="370" width="146" height="105" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="845" y="392" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Індикація стану</text>
+  <text x="845" y="414" font-size="12" fill="#1a1a1a" text-anchor="middle">Драйвер RMT</text>
+  <text x="845" y="436" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">RGB LED (WS2812B)</text>
+  <text x="845" y="458" font-size="12" fill="#6b7280" text-anchor="middle">GPIO21</text>
+
+  <!-- Arrows -->
+  <!-- Type-C to eFuse -->
+  <path d="M178,175 L222,175" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- BOOT pin to ROM Bootloader -->
+  <path d="M168,323 L222,305" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Mux to Mode 1 (CDC Endpoint) -->
+  <path d="M368,410 H388 V182 H415" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4 2" marker-end="url(#arr-blue)"/>
+
+  <!-- Mux to Mode 2 (JTAG Controller) -->
+  <path d="M368,435 H388 V362 H415" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="4 2" marker-end="url(#arr-green)"/>
+
+  <!-- Sub-panel 3A internal flow -->
+  <path d="M562,182 L578,182" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Sub-panel 3B internal flow -->
+  <path d="M562,362 L578,362" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Mode 1 to Flash Memory -->
+  <path d="M725,182 H742 V297 H772" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Mode 2 to Xtensa CPU -->
+  <path d="M725,362 H748 V172 H772" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Flash to RGB LED -->
+  <path d="M845,355 V370" stroke="#d0d7de" stroke-width="2" marker-end="url(#arr)"/>
+</svg>

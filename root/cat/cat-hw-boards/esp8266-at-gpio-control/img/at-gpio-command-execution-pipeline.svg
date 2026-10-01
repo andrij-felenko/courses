@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-left" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Конвеєр виконання AT-команди керування GPIO у прошивці ESP8266</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Видно часові фази від передачі рядка UART до апаратного перемикання регістра GPIO та відповіді OK.</text>
+
+  <!-- Pipeline Sequence Bar -->
+  <rect x="30" y="72" width="900" height="40" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="45" y="96" font-size="12" font-weight="bold" fill="#2457d6">Фаза 1: UART RX (115200 бод)</text>
+  <text x="240" y="96" font-size="12" fill="#6b7280">→</text>
+  <text x="260" y="96" font-size="12" font-weight="bold" fill="#1a1a1a">Фаза 2: Синтаксичний розбір AT</text>
+  <text x="500" y="96" font-size="12" fill="#6b7280">→</text>
+  <text x="520" y="96" font-size="12" font-weight="bold" fill="#c0392b">Фаза 3: Перемикання GPIO</text>
+  <text x="745" y="96" font-size="12" fill="#6b7280">→</text>
+  <text x="765" y="96" font-size="12" font-weight="bold" fill="#27ae60">Фаза 4: UART TX OK</text>
+
+  <!-- Vertical Phase Boundary Lines -->
+  <line x1="430" y1="125" x2="430" y2="425" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="590" y1="125" x2="590" y2="425" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="880" y1="125" x2="880" y2="425" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Channel 1: UART RX -->
+  <text x="30" y="175" font-size="13" font-weight="bold" fill="#2457d6">1. UART0 RX (Хост → ESP)</text>
+  <rect x="200" y="155" width="230" height="42" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="315" y="174" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">AT+SYSGPIOWRITE=12,1\r\n</text>
+  <text x="315" y="190" text-anchor="middle" font-size="12" fill="#6b7280">t_rx ≈ 1.82 мс (21 байт @ 115200)</text>
+
+  <!-- Channel 2: AT Parser -->
+  <text x="30" y="245" font-size="13" font-weight="bold" fill="#1a1a1a">2. AT Parser &amp; SDK Core</text>
+  <rect x="430" y="225" width="160" height="42" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5" rx="4"/>
+  <text x="510" y="244" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Синтаксичний розбір</text>
+  <text x="510" y="260" text-anchor="middle" font-size="12" fill="#6b7280">t_parse ≈ 150 мкс</text>
+
+  <!-- Channel 3: GPIO Physical Output -->
+  <text x="30" y="315" font-size="13" font-weight="bold" fill="#c0392b">3. Вивід GPIO12 (Регістр)</text>
+  <line x1="200" y1="325" x2="590" y2="325" stroke="#c0392b" stroke-width="2.5"/>
+  <path d="M 590 325 L 600 295" stroke="#c0392b" stroke-width="2.5" fill="none"/>
+  <line x1="600" y1="295" x2="930" y2="295" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="615" y="315" font-size="12" font-weight="bold" fill="#c0392b">Фізична зміна напруги (0 В → 3.3 В)</text>
+
+  <!-- Channel 4: UART TX Response -->
+  <text x="30" y="385" font-size="13" font-weight="bold" fill="#27ae60">4. UART0 TX (ESP → Хост)</text>
+  <rect x="590" y="365" width="290" height="42" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="735" y="384" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">\r\nOK\r\n</text>
+  <text x="735" y="400" text-anchor="middle" font-size="12" fill="#6b7280">t_tx ≈ 0.52 мс (6 байт @ 115200)</text>
+
+  <!-- Bottom Timeline & Annotations -->
+  <rect x="30" y="435" width="370" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="215" y="455" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Загальний час конвеєра: t_total ≈ 2.49 мс</text>
+
+  <!-- Delta t Arrow between t1 and t2 -->
+  <line x1="435" y1="450" x2="585" y2="450" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-left)" marker-end="url(#arr)"/>
+  <text x="510" y="442" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Затримка SDK Δt ≈ 150 мкс</text>
+</svg>

@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сторінкова адресація MMU та затримки конвеєра при L1 DCache Miss</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Трансляція віртуальних адрес у фізичні 64 KB сторінки та штрафні затримки шини Octal SPI</text>
+
+  <!-- Left Panel: MMU Page Mapping -->
+  <rect x="30" y="75" width="435" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сторінкове відображення MMU (64 KB Pages)</text>
+
+  <!-- Virtual Address Space Box -->
+  <rect x="50" y="115" width="395" height="55" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="247" y="135" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Віртуальний простір (0x3C000000 - 0x3DFFFFFF)</text>
+  <text x="247" y="155" font-size="12" fill="#1a1a1a" text-anchor="middle">Virtual Page 0 (64 KB)  |  Virtual Page 1 (64 KB)  |  Page N...</text>
+
+  <!-- Arrow from Virtual to MMU -->
+  <line x1="247" y1="170" x2="247" y2="188" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- MMU Translation Table Box -->
+  <rect x="145" y="188" width="205" height="42" rx="6" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="247" y="214" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Таблиця трансляції MMU</text>
+
+  <!-- Arrow from MMU to Physical PSRAM -->
+  <line x1="247" y1="230" x2="247" y2="255" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Physical Octal PSRAM Box -->
+  <rect x="50" y="255" width="395" height="175" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247" y="275" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фізична пам'ять Octal PSRAM (2 МБ)</text>
+
+  <!-- Physical Pages -->
+  <rect x="65" y="288" width="110" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="120" y="308" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Physical Page 0</text>
+  <text x="120" y="325" font-size="10" fill="#6b7280" text-anchor="middle">0x00000 - 0x0FFFF</text>
+
+  <rect x="190" y="288" width="110" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="245" y="308" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Physical Page 1</text>
+  <text x="245" y="325" font-size="10" fill="#6b7280" text-anchor="middle">0x10000 - 0x1FFFF</text>
+
+  <rect x="315" y="288" width="115" height="50" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="372" y="308" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Physical Page N</text>
+  <text x="372" y="325" font-size="10" fill="#6b7280" text-anchor="middle">0x20000 - 0x1FFFFF</text>
+
+  <!-- Note box -->
+  <rect x="65" y="352" width="365" height="63" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="374" font-size="12" fill="#1a1a1a" text-anchor="middle">MMU прозоро мапує віртуальні 64 КБ сторінки у фізичні кадри</text>
+  <text x="247" y="394" font-size="11" fill="#6b7280" text-anchor="middle">з підтримкою апаратної перевірки прав доступу ядер CPU</text>
+
+  <!-- Right Panel: DCache Miss Stall Sequence -->
+  <rect x="495" y="75" width="435" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Послідовність затримок (DCache Miss Pipeline Stall)</text>
+
+  <!-- Step 1 -->
+  <rect x="515" y="115" width="395" height="55" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="712" y="135" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Процесор (Xtensa LX7) запитує дані з L1 DCache</text>
+  <text x="712" y="153" font-size="11" fill="#1a1a1a" text-anchor="middle">Влучання (Hit): 1 такт  |  Промах (Miss): ініціалізація затримки</text>
+
+  <line x1="712" y1="170" x2="712" y2="183" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 2 -->
+  <rect x="515" y="183" width="395" height="65" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="712" y="202" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">2. L1 DCache Miss -> Зупинка конвеєра (Pipeline Stall)</text>
+  <text x="712" y="220" font-size="11" fill="#1a1a1a" text-anchor="middle">Конвеєр ядра спиняється; видається запит на зчитування кеш-лінії</text>
+  <text x="712" y="236" font-size="11" fill="#6b7280" text-anchor="middle">(32 або 64 байти) через шину Octal SPI PSRAM</text>
+
+  <line x1="712" y1="248" x2="712" y2="260" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Step 3 -->
+  <rect x="515" y="260" width="395" height="65" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712" y="279" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Пакетне зчитування з Octal SPI PSRAM</text>
+  <text x="712" y="297" font-size="11" fill="#1a1a1a" text-anchor="middle">Затримка входу + передача даних кеш-лінії по Octal шині</text>
+  <text x="712" y="313" font-size="11" fill="#6b7280" text-anchor="middle">Загальна затримка: ~12-25 тактів CPU залежно від частоти шини</text>
+
+  <line x1="712" y1="325" x2="712" y2="337" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Step 4 -->
+  <rect x="515" y="337" width="395" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712" y="356" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">4. Поповнення кеш-лінії та відновлення виконання</text>
+  <text x="712" y="374" font-size="11" fill="#1a1a1a" text-anchor="middle">Рядок кешу заповнено, дані передаються в регістр процесора</text>
+  <text x="712" y="390" font-size="11" fill="#6b7280" text-anchor="middle">Конвеєр повертається до нормального виконання інструкцій</text>
+
+  <!-- Footer Note -->
+  <text x="480" y="462" font-size="11" fill="#6b7280" text-anchor="middle">Штраф промаху кешу L1 (DCache Miss Penalty) компенсується високою частотою Octal SPI та правильним вирівняним виділенням буферів.</text>
+</svg>

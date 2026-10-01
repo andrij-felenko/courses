@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема розведення живлення та розв'язка на платі ESP32-CAM</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">LDO-стабілізатори 3.3В, 2.8В, 1.2В, фільтруючі конденсатори й розділення шин DGND і AGND</text>
+
+  <!-- Panel 1: Power Input -->
+  <rect x="30" y="85" width="170" height="345" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6" ry="6"/>
+  <text x="115" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхід 5V / USB</text>
+  <text x="115" y="128" font-size="12" fill="#6b7280" text-anchor="middle">Джерело живлення</text>
+
+  <rect x="45" y="148" width="140" height="120" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4" ry="4"/>
+  <text x="115" y="172" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхідна розв'язка</text>
+  <text x="115" y="195" font-size="12" fill="#1a1a1a" text-anchor="middle">C_in: 100–470 мкФ</text>
+  <text x="115" y="218" font-size="12" fill="#6b7280" text-anchor="middle">Електроліт / Тантал</text>
+  <text x="115" y="245" font-size="12" fill="#27ae60" text-anchor="middle">Гасить піки Wi-Fi</text>
+
+  <rect x="45" y="280" width="140" height="130" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4" ry="4"/>
+  <text x="115" y="305" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Пікові струми</text>
+  <text x="115" y="330" font-size="12" fill="#1a1a1a" text-anchor="middle">Wi-Fi TX: ~500 мА</text>
+  <text x="115" y="355" font-size="12" fill="#1a1a1a" text-anchor="middle">Flash LED: ~150 мА</text>
+  <text x="115" y="385" font-size="12" fill="#c0392b" text-anchor="middle">Ризик Brownout!</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="200" y1="208" x2="232" y2="208" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Panel 2: Main 3.3V LDO -->
+  <rect x="240" y="85" width="220" height="345" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6" ry="6"/>
+  <text x="350" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LDO 3.3V (AMS1117)</text>
+  <text x="350" y="128" font-size="12" fill="#6b7280" text-anchor="middle">Головний стабілізатор</text>
+
+  <rect x="255" y="148" width="190" height="120" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="4" ry="4"/>
+  <text x="350" y="172" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Фільтрація 3.3V</text>
+  <text x="350" y="195" font-size="12" fill="#1a1a1a" text-anchor="middle">C1: 10 мкФ (НЧ шум)</text>
+  <text x="350" y="220" font-size="12" fill="#1a1a1a" text-anchor="middle">C2: 0.1 мкФ (ВЧ шум)</text>
+  <text x="350" y="245" font-size="12" fill="#27ae60" text-anchor="middle">Поруч із ніжками ESP32</text>
+
+  <rect x="255" y="280" width="190" height="130" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4" ry="4"/>
+  <text x="350" y="305" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Споживачі 3.3V</text>
+  <text x="350" y="330" font-size="12" fill="#6b7280" text-anchor="middle">Ядро ESP32 &amp; Wi-Fi</text>
+  <text x="350" y="355" font-size="12" fill="#6b7280" text-anchor="middle">PSRAM (4 МБ)</text>
+  <text x="350" y="385" font-size="12" fill="#6b7280" text-anchor="middle">MicroSD картка</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="460" y1="208" x2="492" y2="208" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Panel 3: Low-Noise Camera LDOs -->
+  <rect x="500" y="85" width="220" height="345" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6" ry="6"/>
+  <text x="610" y="110" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Живлення OV3640</text>
+  <text x="610" y="128" font-size="12" fill="#6b7280" text-anchor="middle">Малошумні LDO камери</text>
+
+  <rect x="515" y="148" width="190" height="120" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4" ry="4"/>
+  <text x="610" y="172" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Шини камери</text>
+  <text x="610" y="195" font-size="12" fill="#1a1a1a" text-anchor="middle">AVDD (2.8V): Аналог</text>
+  <text x="610" y="220" font-size="12" fill="#1a1a1a" text-anchor="middle">DVDD (1.2V): Ядро</text>
+  <text x="610" y="245" font-size="12" fill="#1a1a1a" text-anchor="middle">DOVDD (3.3V): DVP IO</text>
+
+  <rect x="515" y="280" width="190" height="130" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4" ry="4"/>
+  <text x="610" y="305" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Локальні фільтри</text>
+  <text x="610" y="330" font-size="12" fill="#6b7280" text-anchor="middle">C3: 10 мкФ Кераміка</text>
+  <text x="610" y="355" font-size="12" fill="#6b7280" text-anchor="middle">C4: 0.1 мкФ біля AVDD</text>
+  <text x="610" y="385" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Усунення завад кадру</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <line x1="720" y1="340" x2="752" y2="340" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Panel 4: Ground Separation -->
+  <rect x="760" y="85" width="170" height="345" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6" ry="6"/>
+  <text x="845" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топологія Землі</text>
+  <text x="845" y="128" font-size="12" fill="#6b7280" text-anchor="middle">DGND та AGND</text>
+
+  <rect x="775" y="148" width="140" height="120" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4" ry="4"/>
+  <text x="845" y="172" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цифрова DGND</text>
+  <text x="845" y="195" font-size="12" fill="#6b7280" text-anchor="middle">ESP32 &amp; Wi-Fi</text>
+  <text x="845" y="220" font-size="12" fill="#6b7280" text-anchor="middle">Flash LED</text>
+  <text x="845" y="245" font-size="12" fill="#6b7280" text-anchor="middle">MicroSD картка</text>
+
+  <rect x="775" y="280" width="140" height="130" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4" ry="4"/>
+  <text x="845" y="305" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Аналогова AGND</text>
+  <text x="845" y="330" font-size="12" fill="#1a1a1a" text-anchor="middle">Матриця OV3640</text>
+  <text x="845" y="355" font-size="12" fill="#1a1a1a" text-anchor="middle">З'єднання в 1 точці</text>
+  <text x="845" y="385" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Без шуму на відео</text>
+</svg>

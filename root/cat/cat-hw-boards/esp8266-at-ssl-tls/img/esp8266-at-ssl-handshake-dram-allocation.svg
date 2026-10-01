@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Динаміка пам'яті DRAM під час TLS-рукостискання (ESP8266)</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">Найбільше вичерпання кучі відбувається при верифікації сертифікатів та генерації ключів</text>
+
+  <!-- Left Container: Sequence -->
+  <rect x="30" y="75" width="430" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="245" y="98" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Послідовність TLS Handshake</text>
+
+  <!-- Actors -->
+  <rect x="70" y="115" width="100" height="28" rx="4" fill="#2457d6"/>
+  <text x="120" y="133" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">ESP8266 Client</text>
+
+  <rect x="320" y="115" width="100" height="28" rx="4" fill="#1a1a1a"/>
+  <text x="370" y="133" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">TLS Server</text>
+
+  <line x1="120" y1="143" x2="120" y2="440" stroke="#6b7280" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="370" y1="143" x2="370" y2="440" stroke="#6b7280" stroke-dasharray="4,4" stroke-width="1"/>
+
+  <!-- Handshake step 1 -->
+  <text x="245" y="167" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">1. Client Hello</text>
+  <line x1="120" y1="175" x2="360" y2="175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Handshake step 2 -->
+  <text x="250" y="227" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">2. Server Hello, Cert, Key Exchange</text>
+  <line x1="370" y1="235" x2="130" y2="235" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+
+  <!-- Handshake step 3 -->
+  <text x="245" y="297" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">3. Client Key Exch, Finished</text>
+  <line x1="120" y1="305" x2="360" y2="305" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Handshake step 4 -->
+  <text x="250" y="357" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">4. Change Cipher Spec, Finished</text>
+  <line x1="370" y1="365" x2="130" y2="365" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+
+  <!-- Handshake step 5 -->
+  <rect x="60" y="400" width="370" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="245" y="423" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Захищена сесія (TLS Record Layer)</text>
+
+
+  <!-- Right Container: Heap Graph -->
+  <rect x="480" y="75" width="450" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="705" y="98" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Рівень вільної DRAM (Heap)</text>
+
+  <!-- Y-axis grid -->
+  <line x1="540" y1="125" x2="540" y2="430" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <text x="532" y="144" font-size="11" text-anchor="end" fill="#6b7280">36 КБ</text>
+  <line x1="540" y1="140" x2="910" y2="140" stroke="#e5e7eb" stroke-width="1"/>
+
+  <text x="532" y="204" font-size="11" text-anchor="end" fill="#6b7280">28 КБ</text>
+  <line x1="540" y1="200" x2="910" y2="200" stroke="#e5e7eb" stroke-width="1"/>
+
+  <text x="532" y="264" font-size="11" text-anchor="end" fill="#6b7280">20 КБ</text>
+  <line x1="540" y1="260" x2="910" y2="260" stroke="#e5e7eb" stroke-width="1"/>
+
+  <text x="532" y="324" font-size="11" text-anchor="end" fill="#c0392b">12 КБ</text>
+  <line x1="540" y1="320" x2="910" y2="320" stroke="#fdecea" stroke-width="1.5"/>
+
+  <text x="532" y="384" font-size="11" text-anchor="end" fill="#6b7280">4 КБ</text>
+  <line x1="540" y1="380" x2="910" y2="380" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Graph Area & Line -->
+  <polygon points="560,140 620,177 710,320 800,275 890,260 890,430 560,430" fill="#eaf0fd" opacity="0.6"/>
+  <polyline points="560,140 620,177 710,320 800,275 890,260" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Points -->
+  <circle cx="560" cy="140" r="4" fill="#2457d6"/>
+  <text x="560" y="125" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">36 КБ</text>
+
+  <circle cx="620" cy="177" r="4" fill="#2457d6"/>
+  <text x="620" y="162" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">31 КБ</text>
+
+  <circle cx="710" cy="320" r="6" fill="#c0392b"/>
+  <text x="710" y="305" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">12 КБ (Пік)</text>
+
+  <circle cx="800" cy="275" r="4" fill="#2457d6"/>
+  <text x="800" y="260" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">18 КБ</text>
+
+  <circle cx="890" cy="260" r="4" fill="#27ae60"/>
+  <text x="890" y="245" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">20 КБ</text>
+
+  <!-- Callout badge -->
+  <rect x="645" y="340" width="220" height="46" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="755" y="358" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Критичний мінімум DRAM</text>
+  <text x="755" y="375" font-size="11" text-anchor="middle" fill="#6b7280">Вичерпання пам'яті загрожує OOM</text>
+
+  <!-- X axis labels -->
+  <text x="560" y="445" font-size="11" text-anchor="middle" fill="#6b7280">Старт</text>
+  <text x="620" y="445" font-size="11" text-anchor="middle" fill="#6b7280">Крок 1</text>
+  <text x="710" y="445" font-size="11" text-anchor="middle" fill="#6b7280">Крок 2</text>
+  <text x="800" y="445" font-size="11" text-anchor="middle" fill="#6b7280">Крок 3</text>
+  <text x="890" y="445" font-size="11" text-anchor="middle" fill="#6b7280">Сесія</text>
+
+
+  <!-- Bottom Summary -->
+  <rect x="30" y="475" width="900" height="35" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="497" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Висновок: Перед викликом AT+CIPSTART для SSL потрібен запас кучі Heap не менше 24–28 КБ</text>
+</svg>

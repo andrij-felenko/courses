@@ -1,0 +1,70 @@
+<svg viewBox="0 0 960 560" width="960" height="560" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Послідовність завантаження ESP8266: від ROM до rboot та IRAM</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Передача керування від масочного ПЗП (0x40000000) до вторинного завантажувача у Flash і мапування векторів IRAM</text>
+
+  <rect x="30" y="75" width="420" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="100" font-size="14" font-weight="bold" fill="#2457d6">1. Послідовність передачі керування</text>
+
+  <rect x="50" y="115" width="380" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="65" y="138" font-size="13" font-weight="bold" fill="#1a1a1a">Скидання живлення (POR) та Strapping Pins</text>
+  <text x="65" y="160" font-size="12" fill="#6b7280">Зчитування рівня виводів: GPIO15=0, GPIO2=1, GPIO0=1</text>
+
+  <line x1="240" y1="180" x2="240" y2="198" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="50" y="200" width="380" height="65" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="65" y="223" font-size="13" font-weight="bold" fill="#2457d6">Масочний ROM (0x40000000)</text>
+  <text x="65" y="245" font-size="12" fill="#1a1a1a">Ініціалізація SPI Flash, читання магічного байта 0xE9</text>
+
+  <line x1="240" y1="265" x2="240" y2="283" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="50" y="285" width="380" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="65" y="308" font-size="13" font-weight="bold" fill="#27ae60">Вторинний завантажувач (rboot)</text>
+  <text x="65" y="330" font-size="12" fill="#1a1a1a">Завантаження rboot в IRAM (0x40100000) та перевірка CRC32</text>
+
+  <line x1="240" y1="350" x2="240" y2="368" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <rect x="50" y="370" width="380" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="65" y="393" font-size="13" font-weight="bold" fill="#1a1a1a">Передача керування програмі (App Kernel)</text>
+  <text x="65" y="415" font-size="12" fill="#6b7280">Виклики call_user_start(), мапування iCache та DRAM</text>
+
+  <rect x="480" y="75" width="450" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="500" y="100" font-size="14" font-weight="bold" fill="#2457d6">2. Організація системного адресного простору</text>
+
+  <rect x="500" y="115" width="410" height="60" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="515" y="136" font-size="13" font-weight="bold" fill="#1a1a1a">Mask ROM (0x40000000 – 0x4000FFFF)</text>
+  <text x="515" y="157" font-size="12" fill="#6b7280">64 КБ: Первинний ROM-код Espressif та утиліти UART</text>
+
+  <rect x="500" y="190" width="410" height="65" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="515" y="211" font-size="13" font-weight="bold" fill="#2457d6">IRAM (0x40100000 – 0x40107FFF)</text>
+  <text x="515" y="232" font-size="12" fill="#1a1a1a">32 КБ: Таблиця векторів VTABLE, rboot та швидкі опрацювання</text>
+
+  <rect x="500" y="270" width="410" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="515" y="291" font-size="13" font-weight="bold" fill="#27ae60">iCache Flash (0x40200000 – 0x402C0000)</text>
+  <text x="515" y="312" font-size="12" fill="#1a1a1a">Відображення секції .irom0.text активного слота (user1/user2)</text>
+
+  <rect x="500" y="350" width="410" height="60" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="515" y="371" font-size="13" font-weight="bold" fill="#1a1a1a">DRAM (0x3FFE8000 – 0x3FFFFFFF)</text>
+  <text x="515" y="392" font-size="12" fill="#6b7280">80 КБ: Змінні .data, .bss та системний стек виконання</text>
+
+  <rect x="500" y="425" width="410" height="90" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="515" y="446" font-size="13" font-weight="bold" fill="#1a1a1a">Зовнішня Flash-пам'ять (SPI Flash Layout)</text>
+  <text x="515" y="468" font-size="12" fill="#2457d6">0x00000: bootloader | 0x02000: rboot config</text>
+  <text x="515" y="490" font-size="12" fill="#27ae60">0x03000: user1.bin  | 0x82000: user2.bin</text>
+
+  <line x1="430" y1="232" x2="498" y2="145" stroke="#2457d6" stroke-dasharray="4" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+  <line x1="430" y1="317" x2="498" y2="222" stroke="#27ae60" stroke-dasharray="4" stroke-width="1.2" marker-end="url(#arr-green)"/>
+  <line x1="430" y1="402" x2="498" y2="302" stroke="#2457d6" stroke-dasharray="4" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+</svg>

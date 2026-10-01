@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Автомат станів процедури FOTA Rollback в ESP8266</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Перехід між слотами прошивки при успішній верифікації, виявленні збоїв або аварійному відкоті</text>
+
+  <!-- Transitions & Connecting Lines -->
+
+  <!-- Transition 1 -> 2: Start Download -->
+  <line x1="270" y1="152" x2="365" y2="152" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-accent)"/>
+  <text x="317.5" y="142" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Запуск FOTA</text>
+
+  <!-- Transition 2 -> 3: Check Passed -->
+  <line x1="595" y1="152" x2="690" y2="152" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="642.5" y="142" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Перезапуск у B</text>
+
+  <!-- Transition 2 -> Fail: Verification Failed -->
+  <path d="M 400,210 L 400,250 L 155,250 L 155,290" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="277.5" y="242" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Збій CRC/SHA → Відмова</text>
+
+  <!-- Transition Fail -> 1: Stay on Slot A -->
+  <line x1="155" y1="290" x2="155" y2="210" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-main)"/>
+  <text x="145" y="254" font-size="12" fill="#6b7280" text-anchor="end">Слот A активний</text>
+
+  <!-- Transition 3 -> 5: Self-Test Passed -->
+  <path d="M 720,210 L 720,250 L 480,250 L 480,290" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="600" y="242" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Тест OK: mark_app_valid()</text>
+
+  <!-- Transition 3 -> 4: Crash / WDT -->
+  <line x1="805" y1="210" x2="805" y2="290" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="815" y="254" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Крах / WDT / Crash</text>
+
+  <!-- Transition 4 -> 1: Rollback Execution -->
+  <path d="M 805,405 L 805,438 L 200,438 L 200,210" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6,3" marker-end="url(#arr-red)"/>
+  <text x="502.5" y="430" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Автоматичний відкіт завантажувачем: Слот B → INVALID, активний Слот A</text>
+
+  <!-- State 1: Slot A Valid -->
+  <rect x="40" y="95" width="230" height="115" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="52" y="107" width="206" height="24" rx="4" fill="#2457d6"/>
+  <text x="155" y="123" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">1. Слот A: Активна прошивка</text>
+  <text x="52" y="146" font-size="12" fill="#1a1a1a">• Стан: ESP_OTA_IMG_VALID</text>
+  <text x="52" y="166" font-size="12" fill="#1a1a1a">• Версія ПЗ: v1.0 (Робоча)</text>
+  <text x="52" y="186" font-size="12" fill="#6b7280">• Очікування оновлення FOTA</text>
+
+  <!-- State 2: Download & Verification -->
+  <rect x="365" y="95" width="230" height="115" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="377" y="107" width="206" height="24" rx="4" fill="#6b7280"/>
+  <text x="480" y="123" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">2. Завантаження у Слот B</text>
+  <text x="377" y="146" font-size="12" fill="#1a1a1a">• Прийом прошивки v2.0 по Wi-Fi</text>
+  <text x="377" y="166" font-size="12" fill="#1a1a1a">• Запис блоків у Flash-пам'ять</text>
+  <text x="377" y="186" font-size="12" fill="#1a1a1a">• Обчислення CRC32 / SHA-256</text>
+
+  <!-- State 3: First Boot (Pending Verify) -->
+  <rect x="690" y="95" width="230" height="115" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="702" y="107" width="206" height="24" rx="4" fill="#c0392b"/>
+  <text x="805" y="123" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">3. Слот B: PENDING_VERIFY</text>
+  <text x="702" y="146" font-size="12" fill="#c0392b">• Перший запуск образу v2.0</text>
+  <text x="702" y="166" font-size="12" fill="#1a1a1a">• Активний таймер WDT / Крах</text>
+  <text x="702" y="186" font-size="12" fill="#1a1a1a">• Лічильник перезапусків +1</text>
+
+  <!-- State Fail: Cancel / Reject -->
+  <rect x="40" y="290" width="230" height="115" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="52" y="302" width="206" height="24" rx="4" fill="#6b7280"/>
+  <text x="155" y="318" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Оновлення скасовано</text>
+  <text x="52" y="341" font-size="12" fill="#c0392b">• Невірна хеш-сума CRC/SHA</text>
+  <text x="52" y="361" font-size="12" fill="#1a1a1a">• Слот B не стартує</text>
+  <text x="52" y="381" font-size="12" fill="#1a1a1a">• Системний стан збережено</text>
+
+  <!-- State 5: Success Confirmed -->
+  <rect x="365" y="290" width="230" height="115" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="377" y="302" width="206" height="24" rx="4" fill="#27ae60"/>
+  <text x="480" y="318" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">5. Слот B: Успіх (VALID)</text>
+  <text x="377" y="341" font-size="12" fill="#27ae60">• Виклик mark_app_valid()</text>
+  <text x="377" y="361" font-size="12" fill="#1a1a1a">• Прошивка v2.0 підтверджена</text>
+  <text x="377" y="381" font-size="12" fill="#1a1a1a">• Слот B стає основним</text>
+
+  <!-- State 4: Emergency Rollback -->
+  <rect x="690" y="290" width="230" height="115" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <rect x="702" y="302" width="206" height="24" rx="4" fill="#c0392b"/>
+  <text x="805" y="318" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">4. Аварійний Rollback</text>
+  <text x="702" y="341" font-size="12" font-weight="bold" fill="#c0392b">• Слот B заблоковано (ABORT)</text>
+  <text x="702" y="361" font-size="12" fill="#1a1a1a">• Позначення: IMG_INVALID</text>
+  <text x="702" y="381" font-size="12" fill="#1a1a1a">• Завантажник обирає Слот A</text>
+
+</svg>

@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура передачі даних сенсора OV3640 через DVP та DMA у PSRAM</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Тактування XCLK (20 МГц), синхронізація PCLK/VSYNC/HREF та апаратна буферизація кадру</text>
+
+  <!-- Column 1: OV3640 Camera Sensor -->
+  <rect x="30" y="85" width="220" height="425" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="140" y="110" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Сенсор OV3640</text>
+
+  <!-- Box 1.1 -->
+  <rect x="40" y="130" width="200" height="75" rx="5" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="50" y="152" font-size="12" font-weight="bold" fill="#2457d6">Вхідний тактир XCLK</text>
+  <text x="50" y="172" font-size="11" fill="#6b7280">• Частота 10–20 МГц з ESP32</text>
+  <text x="50" y="190" font-size="11" fill="#6b7280">• Синхронізація PLL сенсора</text>
+
+  <!-- Box 1.2 -->
+  <rect x="40" y="220" width="200" height="85" rx="5" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="242" font-size="12" font-weight="bold" fill="#1a1a1a">Матриця 2 МП (UXGA)</text>
+  <text x="50" y="262" font-size="11" fill="#6b7280">• Роздільність 1600x1200</text>
+  <text x="50" y="280" font-size="11" fill="#6b7280">• Апаратне кодування JPEG</text>
+  <text x="50" y="296" font-size="11" fill="#6b7280">• Керування SCCB (I2C)</text>
+
+  <!-- Box 1.3 -->
+  <rect x="40" y="320" width="200" height="175" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="50" y="342" font-size="12" font-weight="bold" fill="#2457d6">Генератор DVP сигналів</text>
+  <text x="50" y="364" font-size="11" fill="#1a1a1a">• PCLK: Піксельний такт</text>
+  <text x="50" y="384" font-size="11" fill="#1a1a1a">• VSYNC: Початок кадру</text>
+  <text x="50" y="404" font-size="11" fill="#1a1a1a">• HREF: Строб рядка</text>
+  <text x="50" y="424" font-size="11" fill="#1a1a1a">• D[7:0]: 8-біт шина даних</text>
+  <text x="50" y="444" font-size="11" fill="#6b7280">• Швидкість до 20 МБ/с</text>
+  <text x="50" y="464" font-size="11" fill="#6b7280">• Формати YUV422 / JPEG</text>
+  <text x="50" y="482" font-size="11" font-weight="bold" fill="#27ae60">• Висока стабільність</text>
+
+
+  <!-- Column 2: DVP Bus Panel -->
+  <rect x="265" y="85" width="220" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="375" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Шина DVP (8-bit)</text>
+
+  <!-- XCLK Line (ESP32 -> Sensor) -->
+  <line x1="490" y1="155" x2="260" y2="155" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="375" y="147" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">XCLK (20 МГц)</text>
+
+  <!-- DVP Data Bus Line -->
+  <line x1="260" y1="265" x2="490" y2="265" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="375" y="257" font-size="10" font-weight="bold" fill="#1a1a1a" text-anchor="middle">D[7:0] Data Bus (8-bit)</text>
+
+  <!-- Sync Signals Line -->
+  <line x1="260" y1="365" x2="490" y2="365" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="375" y="357" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">PCLK / VSYNC / HREF</text>
+
+  <!-- DVP Specs Card -->
+  <rect x="275" y="390" width="200" height="105" rx="5" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="285" y="410" font-size="11" font-weight="bold" fill="#1a1a1a">Параметри шини DVP:</text>
+  <text x="285" y="430" font-size="11" fill="#6b7280">• 8 паралельних ліній D0..D7</text>
+  <text x="285" y="450" font-size="11" fill="#6b7280">• Синхронна передача по PCLK</text>
+  <text x="285" y="470" font-size="11" font-weight="bold" fill="#27ae60">• Прямий доступ до I2S DMA</text>
+
+
+  <!-- Column 3: ESP32 I2S DMA Peripheral -->
+  <rect x="500" y="85" width="225" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="612" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. ESP32 I2S DMA Engine</text>
+
+  <!-- Box 3.1 -->
+  <rect x="512" y="130" width="200" height="75" rx="5" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="522" y="152" font-size="12" font-weight="bold" fill="#1a1a1a">I2S Cam Peripheral</text>
+  <text x="522" y="172" font-size="11" fill="#6b7280">• Захоплення 8 байт за PCLK</text>
+  <text x="522" y="190" font-size="11" fill="#6b7280">• Фільтрація по VSYNC/HREF</text>
+
+  <!-- Box 3.2 -->
+  <rect x="512" y="220" width="200" height="145" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="522" y="242" font-size="12" font-weight="bold" fill="#2457d6">DMA Контролер (I2S)</text>
+  <text x="522" y="264" font-size="11" fill="#1a1a1a">• Ланцюжок lldesc_t буферів</text>
+  <text x="522" y="284" font-size="11" fill="#6b7280">• Автоматичне заповнення RAM</text>
+  <text x="522" y="304" font-size="11" fill="#6b7280">• Фоновий трансфер без CPU</text>
+  <text x="522" y="324" font-size="11" fill="#6b7280">• Організація кільцевих блоків</text>
+  <text x="522" y="344" font-size="11" font-weight="bold" fill="#27ae60">• Висока пропускна здатність</text>
+
+  <!-- Box 3.3 -->
+  <rect x="512" y="380" width="200" height="115" rx="5" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="522" y="402" font-size="12" font-weight="bold" fill="#1a1a1a">Ping-Pong Буфери SRAM</text>
+  <text x="522" y="422" font-size="11" fill="#6b7280">• Проміжне кешування рядків</text>
+  <text x="522" y="442" font-size="11" fill="#6b7280">• Передача в PSRAM блоками</text>
+  <text x="522" y="462" font-size="11" fill="#6b7280">• Захист від втрати байтів</text>
+  <text x="522" y="480" font-size="11" fill="#1a1a1a">• DMA interrupt trigger</text>
+
+
+  <!-- Column 4: PSRAM & API Layer -->
+  <rect x="740" y="85" width="190" height="425" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="835" y="110" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">4. Буфери у PSRAM</text>
+
+  <!-- Box 4.1 -->
+  <rect x="750" y="130" width="170" height="105" rx="5" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="760" y="152" font-size="12" font-weight="bold" fill="#27ae60">Frame Buffer 0</text>
+  <text x="760" y="174" font-size="11" fill="#1a1a1a">• Пам'ять: PSRAM</text>
+  <text x="760" y="194" font-size="11" fill="#6b7280">• Розмір: 800 КБ</text>
+  <text x="760" y="214" font-size="11" fill="#6b7280">• Формат: JPEG</text>
+
+  <!-- Arrow 4.1 -> 4.2 -->
+  <line x1="835" y1="235" x2="835" y2="248" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Box 4.2 -->
+  <rect x="750" y="252" width="170" height="105" rx="5" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="760" y="274" font-size="12" font-weight="bold" fill="#27ae60">Frame Buffer 1</text>
+  <text x="760" y="296" font-size="11" fill="#1a1a1a">• Подвійна буферизація</text>
+  <text x="760" y="316" font-size="11" fill="#6b7280">• fb_count = 2</text>
+  <text x="760" y="336" font-size="11" fill="#6b7280">• Потоковий режим</text>
+
+  <!-- Arrow 4.2 -> 4.3 -->
+  <line x1="835" y1="357" x2="835" y2="370" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Box 4.3 -->
+  <rect x="750" y="374" width="170" height="120" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="760" y="396" font-size="12" font-weight="bold" fill="#27ae60">esp32-camera API</text>
+  <text x="760" y="418" font-size="11" fill="#1a1a1a">• esp_camera_fb_get()</text>
+  <text x="760" y="438" font-size="11" fill="#6b7280">• esp_camera_fb_return()</text>
+  <text x="760" y="458" font-size="11" fill="#6b7280">• camera_fb_t structure</text>
+  <text x="760" y="478" font-size="11" font-weight="bold" fill="#27ae60">• Нуль витоків пам'яті</text>
+</svg>

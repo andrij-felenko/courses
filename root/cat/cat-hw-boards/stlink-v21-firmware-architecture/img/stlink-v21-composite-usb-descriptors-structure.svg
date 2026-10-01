@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-neutral" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-vcp" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-msc" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ієрархія USB-дескрипторів та кінцевих точок пристрою ST-Link V2.1</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Складена структура USB Composite Device розмежовує канали SWD/JTAG, VCP CDC та MSC Drag-and-Drop</text>
+
+  <!-- Level 1: Device Descriptor -->
+  <rect x="290" y="75" width="380" height="54" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="96" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB Device Descriptor (ST-Link V2.1)</text>
+  <text x="480" y="116" font-size="12" fill="#2457d6" text-anchor="middle">VID: 0x0483  |  PID: 0x374B  |  Class: 0xEF (Composite)</text>
+
+  <!-- Connection Line 1 to 2 -->
+  <line x1="480" y1="129" x2="480" y2="155" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-neutral)"/>
+
+  <!-- Level 2: Configuration Descriptor -->
+  <rect x="260" y="155" width="440" height="48" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="174" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Configuration Descriptor (bNumInterfaces = 4)</text>
+  <text x="480" y="192" font-size="12" fill="#6b7280" text-anchor="middle">Дескриптори зв'язування IAD та розподіл енергоспоживання</text>
+
+  <!-- Connection Lines Level 2 to Level 3 -->
+  <line x1="360" y1="203" x2="180" y2="235" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <line x1="480" y1="203" x2="480" y2="235" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-vcp)"/>
+  <line x1="600" y1="203" x2="810" y2="235" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-msc)"/>
+
+  <!-- Column 1: Vendor Debug Interface -->
+  <rect x="45" y="235" width="270" height="255" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="180" y="258" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Vendor Debug Interface</text>
+  <text x="180" y="276" font-size="12" fill="#6b7280" text-anchor="middle">bInterfaceClass: 0xFF (Vendor)</text>
+
+  <rect x="60" y="290" width="240" height="50" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="180" y="310" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">EP1 OUT (Bulk, 64 B)</text>
+  <text x="180" y="328" font-size="12" fill="#2457d6" text-anchor="middle">Прямі команди SWD/JTAG від ПК</text>
+
+  <rect x="60" y="350" width="240" height="50" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="180" y="370" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">EP1 IN (Bulk, 64 B)</text>
+  <text x="180" y="388" font-size="12" fill="#2457d6" text-anchor="middle">Відповіді та статус цільового МК</text>
+
+  <rect x="60" y="410" width="240" height="66" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="180" y="428" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">EP2 IN (Bulk / Interrupt)</text>
+  <text x="180" y="446" font-size="12" fill="#2457d6" text-anchor="middle">Потокове трасування SWO</text>
+  <text x="180" y="462" font-size="12" fill="#6b7280" text-anchor="middle">(Діагностика без зупинки ядра)</text>
+
+  <!-- Column 2: Virtual COM Port (VCP CDC) -->
+  <rect x="345" y="235" width="270" height="255" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="258" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Virtual COM Port (VCP CDC)</text>
+  <text x="480" y="276" font-size="12" fill="#6b7280" text-anchor="middle">IAD (CDC Control + CDC Data)</text>
+
+  <rect x="360" y="290" width="240" height="50" rx="4" ry="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="310" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">EP3 IN (Interrupt, 8 B)</text>
+  <text x="480" y="328" font-size="12" fill="#27ae60" text-anchor="middle">Контроль стану лінії UART</text>
+
+  <rect x="360" y="350" width="240" height="50" rx="4" ry="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="370" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">EP4 OUT (Bulk, 64 B)</text>
+  <text x="480" y="388" font-size="12" fill="#27ae60" text-anchor="middle">Передача даних UART TX на МК</text>
+
+  <rect x="360" y="410" width="240" height="66" rx="4" ry="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="428" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">EP4 IN (Bulk, 64 B)</text>
+  <text x="480" y="446" font-size="12" fill="#27ae60" text-anchor="middle">Прийом даних UART RX від МК</text>
+  <text x="480" y="462" font-size="12" fill="#6b7280" text-anchor="middle">(Консольний моніторинг логів)</text>
+
+  <!-- Column 3: Mass Storage Class (MSC) -->
+  <rect x="645" y="235" width="270" height="255" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="810" y="258" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Mass Storage Class (MSC)</text>
+  <text x="810" y="276" font-size="12" fill="#6b7280" text-anchor="middle">bInterfaceClass: 0x08 (BOT)</text>
+
+  <rect x="660" y="290" width="240" height="54" rx="4" ry="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="810" y="309" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">EP5 OUT (Bulk, 64 B)</text>
+  <text x="810" y="327" font-size="12" fill="#1a1a1a" text-anchor="middle">Запис файлів прошивки (.bin/.hex)</text>
+
+  <rect x="660" y="352" width="240" height="50" rx="4" ry="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="810" y="371" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">EP5 IN (Bulk, 64 B)</text>
+  <text x="810" y="389" font-size="12" fill="#1a1a1a" text-anchor="middle">Читання статусу накопичувача</text>
+
+  <rect x="660" y="410" width="240" height="66" rx="4" ry="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="810" y="428" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Парсер FAT12/FAT16 у RAM</text>
+  <text x="810" y="446" font-size="12" fill="#c0392b" text-anchor="middle">Автозапис у Flash через SWD</text>
+  <text x="810" y="462" font-size="12" fill="#c0392b" text-anchor="middle">(Односторонній Drag-and-Drop)</text>
+</svg>

@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схемотехнічна топологія двоканального входу безпеки F-DI</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Гальванічне розв'язання через оптопари та незалежна обробка сигналів двома мікроконтролерами (1o2 / 2o2)</text>
+
+  <!-- Panel 1: Field Level Wiring -->
+  <rect x="30" y="75" width="230" height="455" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="145" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Польовий рівень (24 В)</text>
+  <text x="145" y="118" font-size="12" fill="#6b7280" text-anchor="middle">Двоканальні датчики / E-stop</text>
+
+  <rect x="45" y="135" width="200" height="160" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="145" y="160" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Клема DI1+ (Канал 1)</text>
+  <text x="60" y="185" font-size="12" fill="#1a1a1a">Сигнал: +24 В DC</text>
+  <text x="60" y="207" font-size="12" fill="#1a1a1a">Захист від наводок</text>
+  <text x="60" y="229" font-size="12" fill="#1a1a1a">Тестові імпульси T1</text>
+  <text x="60" y="251" font-size="12" fill="#6b7280">Керівний контакт S1</text>
+  <text x="60" y="275" font-size="12" font-weight="bold" fill="#2457d6">Вхідний струм 4–7 мА</text>
+
+  <rect x="45" y="310" width="200" height="160" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="145" y="335" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Клема DI2+ (Канал 2)</text>
+  <text x="60" y="360" font-size="12" fill="#1a1a1a">Сигнал: +24 В DC</text>
+  <text x="60" y="382" font-size="12" fill="#1a1a1a">Захист від наводок</text>
+  <text x="60" y="404" font-size="12" fill="#1a1a1a">Тестові імпульси T2</text>
+  <text x="60" y="426" font-size="12" fill="#6b7280">Керівний контакт S2</text>
+  <text x="60" y="450" font-size="12" font-weight="bold" fill="#27ae60">Вхідний струм 4–7 мА</text>
+
+  <text x="145" y="498" font-size="12" fill="#6b7280" text-anchor="middle">Гальванічно ізольована полева сторона</text>
+
+  <!-- Panel 2: Protection & Optocouplers -->
+  <rect x="290" y="75" width="340" height="455" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="460" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Каскад захисту та оптичної розв'язки</text>
+  <text x="460" y="118" font-size="12" fill="#6b7280" text-anchor="middle">Формування сигналів та оптопари</text>
+
+  <!-- Channel 1 Stage -->
+  <rect x="305" y="135" width="310" height="160" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="460" y="157" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Канал 1: Дільник напруги + Оптопара OK1</text>
+
+  <rect x="320" y="175" width="130" height="95" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="385" y="197" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дільник R1_1/R1_2</text>
+  <text x="385" y="217" font-size="12" fill="#6b7280" text-anchor="middle">Обмеження струму</text>
+  <text x="385" y="237" font-size="12" fill="#6b7280" text-anchor="middle">Фільтр C1 (ФНЧ)</text>
+  <text x="385" y="257" font-size="12" fill="#2457d6" text-anchor="middle">Стабілітрон ZD1</text>
+
+  <rect x="470" y="175" width="130" height="95" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="535" y="197" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Оптопара OK1</text>
+  <text x="535" y="217" font-size="12" fill="#1a1a1a" text-anchor="middle">LED -> Фототранз.</text>
+  <text x="535" y="237" font-size="12" fill="#6b7280" text-anchor="middle">Ізоляція 2.5 kV</text>
+  <text x="535" y="257" font-size="12" stroke-width="0.5" fill="#2457d6" text-anchor="middle">Сигнал SIG1 (3.3V)</text>
+
+  <!-- Channel 2 Stage -->
+  <rect x="305" y="310" width="310" height="160" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="460" y="332" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Канал 2: Дільник напруги + Оптопара OK2</text>
+
+  <rect x="320" y="350" width="130" height="95" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="385" y="372" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дільник R2_1/R2_2</text>
+  <text x="385" y="392" font-size="12" fill="#6b7280" text-anchor="middle">Обмеження струму</text>
+  <text x="385" y="412" font-size="12" fill="#6b7280" text-anchor="middle">Фільтр C2 (ФНЧ)</text>
+  <text x="385" y="432" font-size="12" fill="#27ae60" text-anchor="middle">Стабілітрон ZD2</text>
+
+  <rect x="470" y="350" width="130" height="95" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="535" y="372" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Оптопара OK2</text>
+  <text x="535" y="392" font-size="12" fill="#1a1a1a" text-anchor="middle">LED -> Фототранз.</text>
+  <text x="535" y="412" font-size="12" fill="#6b7280" text-anchor="middle">Ізоляція 2.5 kV</text>
+  <text x="535" y="432" font-size="12" stroke-width="0.5" fill="#27ae60" text-anchor="middle">Сигнал SIG2 (3.3V)</text>
+
+  <text x="460" y="498" font-size="12" fill="#6b7280" text-anchor="middle">Оптичний бар'єр між високовольтною та логічною частинами</text>
+
+  <!-- Panel 3: Safety Processing Logic -->
+  <rect x="660" y="75" width="270" height="455" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="795" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Рівень обробки Safety (1o2)</text>
+  <text x="795" y="118" font-size="12" fill="#6b7280" text-anchor="middle">Дубльовані мікроконтролери</text>
+
+  <!-- MCU A Box -->
+  <rect x="675" y="135" width="240" height="160" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="795" y="157" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Спеціалізований MCU A</text>
+  <text x="690" y="180" font-size="12" fill="#1a1a1a">Обробка сигналу SIG1</text>
+  <text x="690" y="200" font-size="12" fill="#1a1a1a">Перевірка таймінгу каналів</text>
+  <text x="690" y="220" font-size="12" fill="#6b7280">Крос-контроль стану MCU B</text>
+  <text x="690" y="242" font-size="12" fill="#6b7280">Аналіз розбіжності (Discrepancy)</text>
+  <text x="690" y="266" font-size="12" font-weight="bold" fill="#2457d6">Вихід у логіку SIL 3 / 1o2</text>
+
+  <!-- MCU B Box -->
+  <rect x="675" y="310" width="240" height="160" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="795" y="332" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Спеціалізований MCU B</text>
+  <text x="690" y="355" font-size="12" fill="#1a1a1a">Обробка сигналу SIG2</text>
+  <text x="690" y="375" font-size="12" fill="#1a1a1a">Перевірка таймінгу каналів</text>
+  <text x="690" y="395" font-size="12" fill="#6b7280">Крос-контроль стану MCU A</text>
+  <text x="690" y="417" font-size="12" fill="#6b7280">Аналіз тестових імпульсів</text>
+  <text x="690" y="441" font-size="12" font-weight="bold" fill="#27ae60">Вихід у логіку SIL 3 / 1o2</text>
+
+  <!-- Inter-MCU Bus Line -->
+  <line x1="795" y1="295" x2="795" y2="310" stroke="#1a1a1a" stroke-width="2" stroke-dasharray="3,3"/>
+  <text x="805" y="306" font-size="11" fill="#1a1a1a" text-anchor="start">Шина крос-діагностики</text>
+
+  <text x="795" y="498" font-size="12" fill="#6b7280" text-anchor="middle">Двоканальна система з самодіагностикою</text>
+
+  <!-- Connectors / Flow Lines -->
+  <!-- 1. Terminal DI1+ -> Divider 1 -->
+  <path d="M245,215 L317,215" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- 2. Divider 1 -> Optocoupler 1 LED -->
+  <path d="M450,215 L467,215" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- 3. Optocoupler 1 -> MCU A -->
+  <path d="M600,215 L672,215" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- 4. Terminal DI2+ -> Divider 2 -->
+  <path d="M245,390 L317,390" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+
+  <!-- 5. Divider 2 -> Optocoupler 2 LED -->
+  <path d="M450,390 L467,390" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+
+  <!-- 6. Optocoupler 2 -> MCU B -->
+  <path d="M600,390 L672,390" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+</svg>

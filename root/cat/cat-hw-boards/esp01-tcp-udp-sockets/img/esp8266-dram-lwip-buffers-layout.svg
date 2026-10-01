@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arrow-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл оперативної пам'яті DRAM чипа ESP8266 та стека LwIP</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Виділення ресурсів динамічної купи під дескриптори PCB та пакетні буфери pbuf при сокетному обміні</text>
+
+  <!-- Panel Left: Map of DRAM (80 KB) -->
+  <rect x="30" y="80" width="280" height="410" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="170" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Карта DRAM ESP8266 (80 КБ)</text>
+  <text x="170" y="123" font-size="12" fill="#6b7280" text-anchor="middle">Адресний простір 0x3FFE8000</text>
+
+  <!-- Memory Blocks in Left Panel -->
+  <!-- Block 1: System Static Data -->
+  <rect x="45" y="135" width="250" height="90" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="170" y="162" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Системні дані та BSS</text>
+  <text x="170" y="182" font-size="12" fill="#6b7280" text-anchor="middle">Прошивка, Wi-Fi SDK, стеки OS</text>
+  <text x="170" y="202" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">~36 КБ (фіксовано)</text>
+
+  <!-- Block 2: LwIP Heap Allocation -->
+  <rect x="45" y="235" width="250" height="140" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="170" y="260" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Пам'ять стека LwIP у купі</text>
+  <text x="170" y="282" font-size="12" fill="#1a1a1a" text-anchor="middle">Дескриптори PCB (до 5 шт.)</text>
+  <text x="170" y="302" font-size="12" fill="#1a1a1a" text-anchor="middle">Буфери pbuf (RX/TX кадри)</text>
+  <text x="170" y="327" font-size="12" fill="#6b7280" text-anchor="middle">Динамічне виділення pbuf</text>
+  <text x="170" y="352" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">~20–24 КБ під навантаженням</text>
+
+  <!-- Block 3: Free Heap -->
+  <rect x="45" y="385" width="250" height="90" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="170" y="415" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Вільна динамічна купа (Heap)</text>
+  <text x="170" y="437" font-size="12" fill="#1a1a1a" text-anchor="middle">Резерв під системні задачі</text>
+  <text x="170" y="457" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">~20 КБ (необхідний запас)</text>
+
+  <!-- Arrow connecting Left Panel LwIP block to Right Panel -->
+  <line x1="295" y1="305" x2="335" y2="305" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Panel Right: Detail of LwIP Heap Structures -->
+  <rect x="340" y="80" width="590" height="410" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="635" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Деталізація структури LwIP у динамічній купі (Heap)</text>
+
+  <!-- Sub-Panel 1: PCB Sockets -->
+  <rect x="355" y="125" width="560" height="105" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="370" y="147" font-size="13" font-weight="bold" fill="#1a1a1a">Дескриптори сокетів PCB (struct tcp_pcb)</text>
+  <text x="730" y="147" font-size="12" fill="#6b7280">Режим AT+CIPMUX=1 (до 5 сокетів)</text>
+
+  <!-- Sockets representation -->
+  <rect x="370" y="160" width="95" height="55" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="417" y="182" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сокет ID 0</text>
+  <text x="417" y="200" font-size="11" fill="#6b7280" text-anchor="middle">~250 байтів</text>
+
+  <rect x="475" y="160" width="95" height="55" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="522" y="182" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сокет ID 1</text>
+  <text x="522" y="200" font-size="11" fill="#6b7280" text-anchor="middle">~250 байтів</text>
+
+  <rect x="580" y="160" width="95" height="55" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="627" y="182" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сокет ID 2</text>
+  <text x="627" y="200" font-size="11" fill="#6b7280" text-anchor="middle">~250 байтів</text>
+
+  <rect x="685" y="160" width="95" height="55" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="732" y="182" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Сокет ID 3</text>
+  <text x="732" y="200" font-size="11" fill="#c0392b" text-anchor="middle">Завислий</text>
+
+  <rect x="790" y="160" width="110" height="55" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="845" y="182" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Сокет ID 4</text>
+  <text x="845" y="200" font-size="11" fill="#c0392b" text-anchor="middle">Завислий</text>
+
+  <!-- Sub-Panel 2: pbuf Buffers -->
+  <rect x="355" y="240" width="560" height="120" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="370" y="262" font-size="13" font-weight="bold" fill="#1a1a1a">Буферизація пакетів pbuf (PBUF_RAM / PBUF_POOL)</text>
+
+  <!-- pbuf items -->
+  <rect x="370" y="275" width="165" height="70" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="452" y="297" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">pbuf (Прийом RX)</text>
+  <text x="452" y="315" font-size="11" fill="#1a1a1a" text-anchor="middle">Заголовок + Payload</text>
+  <text x="452" y="332" font-size="11" fill="#6b7280" text-anchor="middle">Розмір: до 1460 байтів</text>
+
+  <rect x="548" y="275" width="165" height="70" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="630" y="297" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">pbuf (Передача TX)</text>
+  <text x="630" y="315" font-size="11" fill="#1a1a1a" text-anchor="middle">Черга відправки TCP</text>
+  <text x="630" y="332" font-size="11" fill="#6b7280" text-anchor="middle">Черга вбудованих буферів</text>
+
+  <rect x="726" y="275" width="174" height="70" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="813" y="297" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Неочищені pbuf</text>
+  <text x="813" y="315" font-size="11" fill="#c0392b" text-anchor="middle">На накопичувачі RX</text>
+  <text x="813" y="332" font-size="11" fill="#c0392b" text-anchor="middle">Викликають брак Heap</text>
+
+  <!-- Sub-Panel 3: Management & Solutions -->
+  <rect x="355" y="370" width="270" height="105" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="490" y="392" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Проблема: Брак пам'яті</text>
+  <text x="490" y="412" font-size="11" fill="#1a1a1a" text-anchor="middle">• Завислі сокети утримують PCB</text>
+  <text x="490" y="430" font-size="11" fill="#1a1a1a" text-anchor="middle">• Переповнення pbuf вичерпує Heap</text>
+  <text x="490" y="448" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Наслідок: Software WDT Reset</text>
+
+  <rect x="645" y="370" width="270" height="105" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="780" y="392" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Розв'язок: Оптимізація AT</text>
+  <text x="780" y="412" font-size="11" fill="#1a1a1a" text-anchor="middle">• AT+CIPSTO=10..60 (таймаут сесій)</text>
+  <text x="780" y="430" font-size="11" fill="#1a1a1a" text-anchor="middle">• AT+CIPBUF (ліміт буферів)</text>
+  <text x="780" y="448" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Результат: Стабільна купа</text>
+
+</svg>

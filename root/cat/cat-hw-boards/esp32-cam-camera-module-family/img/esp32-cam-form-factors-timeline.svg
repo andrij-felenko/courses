@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Еволюція формфакторів та обв'язки платформ ESP32-CAM</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Від еталонного інженерного прототипу до масових комерційних модулів з інтегрованою периферією</text>
+
+  <!-- Main Timeline Bar -->
+  <line x1="60" y1="210" x2="900" y2="210" stroke="#d0d7de" stroke-width="4"/>
+  <line x1="60" y1="210" x2="890" y2="210" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+
+  <!-- NODE 1: Espressif Prototype (2017-2018) -->
+  <circle cx="133" cy="210" r="7" fill="#2457d6"/>
+  <line x1="133" y1="210" x2="133" y2="235" stroke="#2457d6" stroke-width="2"/>
+  
+  <rect x="30" y="235" width="205" height="190" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="245" width="185" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="133" y="265" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">2017–2018: Espressif</text>
+  
+  <text x="133" y="293" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Еталонний прототип</text>
+  <text x="42" y="318" font-size="11" fill="#1a1a1a">• Плата ESP-WROVER-KIT</text>
+  <text x="42" y="336" font-size="11" fill="#1a1a1a">• Демо-модуль камери DVP</text>
+  <text x="42" y="354" font-size="11" fill="#1a1a1a">• Зовнішній програматор</text>
+  <text x="42" y="380" font-size="11" font-weight="bold" fill="#2457d6">Демонстрація PSRAM</text>
+
+  <!-- NODE 2: AI-Thinker ESP32-CAM (2019) -->
+  <circle cx="364" cy="210" r="7" fill="#27ae60"/>
+  <line x1="364" y1="195" x2="364" y2="210" stroke="#27ae60" stroke-width="2"/>
+  
+  <rect x="261" y="82" width="205" height="113" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="271" y="90" width="185" height="26" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="364" y="107" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">2019: AI-Thinker</text>
+  
+  <text x="271" y="131" font-size="11" font-weight="bold" fill="#1a1a1a">ESP32-CAM (DIP-24)</text>
+  <text x="271" y="149" font-size="11" fill="#1a1a1a">• 4 МБ PSRAM + OV2640</text>
+  <text x="271" y="167" font-size="11" fill="#1a1a1a">• Слот microSD + LED-спалах</text>
+  <text x="271" y="186" font-size="11" font-weight="bold" fill="#27ae60">Масовий DIY-стандарт ($3)</text>
+
+  <!-- NODE 3: TTGO T-Journal (2019) -->
+  <circle cx="595" cy="210" r="7" fill="#2457d6"/>
+  <line x1="595" y1="210" x2="595" y2="235" stroke="#2457d6" stroke-width="2"/>
+  
+  <rect x="492" y="235" width="205" height="190" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="502" y="245" width="185" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="595" y="265" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">2019: LilyGO / TTGO</text>
+  
+  <text x="595" y="293" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">TTGO T-Journal</text>
+  <text x="504" y="318" font-size="11" fill="#1a1a1a">• 0.96" OLED-дисплей</text>
+  <text x="504" y="336" font-size="11" fill="#1a1a1a">• Інтегрований USB-C</text>
+  <text x="504" y="354" font-size="11" fill="#1a1a1a">• SMA-антена + CP2104</text>
+  <text x="504" y="380" font-size="11" font-weight="bold" fill="#2457d6">Мультимедійний модуль</text>
+
+  <!-- NODE 4: M5Stack Camera (2020+) -->
+  <circle cx="826" cy="210" r="7" fill="#27ae60"/>
+  <line x1="826" y1="195" x2="826" y2="210" stroke="#27ae60" stroke-width="2"/>
+  
+  <rect x="723" y="82" width="205" height="113" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="733" y="90" width="185" height="26" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="826" y="107" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">2020+: M5Stack</text>
+  
+  <text x="733" y="131" font-size="11" font-weight="bold" fill="#1a1a1a">Camera / TimerCam</text>
+  <text x="733" y="149" font-size="11" fill="#1a1a1a">• Корпус + LiPo акумулятор</text>
+  <text x="733" y="167" font-size="11" fill="#1a1a1a">• PMU AXP192 + RTC таймер</text>
+  <text x="733" y="186" font-size="11" font-weight="bold" fill="#27ae60">Автономні IoT-пристрої</text>
+</svg>

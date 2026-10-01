@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Вибір режиму завантаження ESP за станом Strapping Pins</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Апаратне защепкування вхідних рівнів при знятті RST та передача керування ROM Bootloader</text>
+
+  <!-- Panel 1: Strapping Pins -->
+  <rect x="25" y="75" width="250" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="150" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Конфігураційні виводи</text>
+  <text x="150" y="115" text-anchor="middle" font-size="11" fill="#6b7280">(Strapping Pins)</text>
+
+  <!-- Pin 1: GPIO0 -->
+  <rect x="40" y="135" width="220" height="85" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="50" y="155" font-size="13" font-weight="bold" fill="#2457d6">GPIO0 (Ключовий пин)</text>
+  <text x="50" y="173" font-size="12" fill="#27ae60">1 (3.3V) → SPI Flash Boot</text>
+  <text x="50" y="190" font-size="12" fill="#c0392b">0 (GND) → UART Download</text>
+  <text x="50" y="207" font-size="11" fill="#6b7280">Кнопка Flash / DTR автоскиду</text>
+
+  <!-- Pin 2: GPIO2 -->
+  <rect x="40" y="235" width="220" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="255" font-size="13" font-weight="bold" fill="#1a1a1a">GPIO2 (Pull-Up)</text>
+  <text x="50" y="273" font-size="12" fill="#27ae60">Завжди 1 при старті</text>
+  <text x="50" y="291" font-size="11" fill="#6b7280">10 кОм до 3.3V (Boot OK)</text>
+
+  <!-- Pin 3: GPIO15 / GPIO5 -->
+  <rect x="40" y="330" width="220" height="100" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="350" font-size="13" font-weight="bold" fill="#1a1a1a">GPIO15 (Pull-Down)</text>
+  <text x="50" y="368" font-size="12" fill="#c0392b">Завжди 0 при старті</text>
+  <text x="50" y="386" font-size="11" fill="#6b7280">10 кОм до GND</text>
+  <text x="50" y="403" font-size="11" fill="#6b7280">(Захист від SDIO Boot)</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="275" y1="262" x2="310" y2="262" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="292" y="252" text-anchor="middle" font-size="11" fill="#2457d6">Рівні</text>
+
+  <!-- Panel 2: ROM Bootloader Logic -->
+  <rect x="320" y="75" width="320" height="375" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Апаратний ROM Bootloader</text>
+  <text x="480" y="115" text-anchor="middle" font-size="11" fill="#6b7280">Зашитий у ПЗУ чипа при виробництві</text>
+
+  <!-- Latch Window Box -->
+  <rect x="340" y="135" width="280" height="60" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="157" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Вікно защепкування (Latch-in Window)</text>
+  <text x="480" y="176" text-anchor="middle" font-size="11" fill="#6b7280">Фіксація станів пинів при підйомі RST (0 → 1)</text>
+
+  <!-- Decision Fork -->
+  <line x1="480" y1="195" x2="480" y2="225" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Decision Sub-Block 1: Flash Mode -->
+  <rect x="340" y="230" width="280" height="85" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="250" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Якщо GPIO0 = 1 (HIGH)</text>
+  <text x="350" y="270" font-size="12" fill="#1a1a1a">Перехід до SPI Flash Boot</text>
+  <text x="350" y="287" font-size="11" fill="#6b7280">• Налаштування шини SPI (DIO/QIO)</text>
+  <text x="350" y="303" font-size="11" fill="#6b7280">• Передача керування на 0x00000</text>
+
+  <!-- Decision Sub-Block 2: UART Mode -->
+  <rect x="340" y="330" width="280" height="100" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="350" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Якщо GPIO0 = 0 (LOW)</text>
+  <text x="350" y="370" font-size="12" fill="#1a1a1a">Перехід до UART Download Mode</text>
+  <text x="350" y="387" font-size="11" fill="#6b7280">• Очікування SLIP-пакетів по UART0</text>
+  <text x="350" y="403" font-size="11" fill="#6b7280">• Завантаження Stub Loader в SRAM</text>
+  <text x="350" y="419" font-size="11" fill="#6b7280">• Запис Flash через esptool.py</text>
+
+  <!-- Arrows 2 -> 3 -->
+  <line x1="620" y1="272" x2="685" y2="272" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="652" y="262" text-anchor="middle" font-size="11" fill="#27ae60">Старт</text>
+
+  <line x1="620" y1="380" x2="685" y2="380" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-black)"/>
+  <text x="652" y="370" text-anchor="middle" font-size="11" fill="#c0392b">Прошивка</text>
+
+  <!-- Panel 3: Execution Destinations -->
+  <rect x="695" y="75" width="240" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="815" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Джерело виконання коду</text>
+
+  <!-- Target 1: SPI Flash -->
+  <rect x="710" y="135" width="210" height="180" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="815" y="158" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Мікросхема SPI Flash</text>
+  <text x="720" y="180" font-size="12" fill="#1a1a1a">Нормальна робота пристрою:</text>
+  <text x="720" y="200" font-size="11" fill="#6b7280">• Зчитування заголовку 0xE9</text>
+  <text x="720" y="217" font-size="11" fill="#6b7280">• Завантаження секції IRAM</text>
+  <text x="720" y="234" font-size="11" fill="#6b7280">• Мапування коду в Flash</text>
+  <text x="720" y="251" font-size="11" fill="#6b7280">• Перехід до точки входу</text>
+  <text x="720" y="268" font-size="11" font-weight="bold" fill="#27ae60">Виконання прошивки користувача</text>
+
+  <!-- Target 2: Host PC esptool -->
+  <rect x="710" y="330" width="210" height="100" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="815" y="350" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Хост ПК (esptool / GUI)</text>
+  <text x="720" y="370" font-size="11" fill="#1a1a1a">• Команди write_flash / flash_id</text>
+  <text x="720" y="387" font-size="11" fill="#1a1a1a">• Оновлення / стирання Flash</text>
+  <text x="720" y="404" font-size="11" fill="#2457d6">Запис прошивки через UART</text>
+</svg>

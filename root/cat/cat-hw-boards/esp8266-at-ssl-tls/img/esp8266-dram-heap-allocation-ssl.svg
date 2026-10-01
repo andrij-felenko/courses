@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл DRAM та межа паралельних SSL/TLS сесій в ESP8266</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Вичерпання вільної кучі (OOM) при досягненні 2 паралельних шифрованих з'єднань mbedTLS</text>
+
+  <!-- Top Memory Bar: DRAM Structure (80 KB) -->
+  <rect x="40" y="85" width="880" height="75" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="105" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Загальний фізичний обсяг DRAM: 80 КБ</text>
+
+  <!-- Section 1: Reserved by System & Wi-Fi -->
+  <rect x="50" y="115" width="470" height="35" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="285" y="137" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Зарезервовано системою та Wi-Fi стеком (~44 КБ)</text>
+
+  <!-- Section 2: Available Heap -->
+  <rect x="530" y="115" width="380" height="35" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="720" y="137" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вільна купа (Heap) для користувача (~36 КБ)</text>
+
+  <!-- Scenario Card 1: Session 1 Success -->
+  <rect x="40" y="180" width="275" height="335" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="177" y="205" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">1-ша TLS сесія</text>
+  <text x="177" y="225" font-size="12" fill="#27ae60" text-anchor="middle">Статус: Успішно відкрита</text>
+
+  <rect x="55" y="242" width="245" height="75" rx="5" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="65" y="264" font-size="12" font-weight="bold" fill="#1a1a1a">Витрата пам'яті: ~18 КБ</text>
+  <text x="65" y="284" font-size="11" fill="#6b7280">• mbedTLS context: ~3 КБ</text>
+  <text x="65" y="302" font-size="11" fill="#6b7280">• RX/TX буфери: ~15 КБ</text>
+
+  <rect x="55" y="327" width="245" height="75" rx="5" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="349" font-size="12" font-weight="bold" fill="#27ae60">Залишок кучі: ~18 КБ</text>
+  <text x="65" y="369" font-size="11" fill="#1a1a1a">Достатньо простору для</text>
+  <text x="65" y="387" font-size="11" fill="#1a1a1a">подальших виділень</text>
+
+  <rect x="55" y="412" width="245" height="85" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="177" y="435" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ З'єднання активне</text>
+  <text x="177" y="457" font-size="11" fill="#1a1a1a" text-anchor="middle">Одиничний HTTPS сокет</text>
+  <text x="177" y="477" font-size="11" fill="#6b7280" text-anchor="middle">без ризику OOM</text>
+
+  <!-- Scenario Card 2: Session 2 Limit -->
+  <rect x="342" y="180" width="275" height="335" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="479" y="205" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2-га TLS сесія</text>
+  <text x="479" y="225" font-size="12" fill="#2457d6" text-anchor="middle">Статус: Граничне навантаження</text>
+
+  <rect x="357" y="242" width="245" height="75" rx="5" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="367" y="264" font-size="12" font-weight="bold" fill="#1a1a1a">Витрата пам'яті: ~17 КБ</text>
+  <text x="367" y="284" font-size="11" fill="#6b7280">• Сумарно вжито: ~35 КБ</text>
+  <text x="367" y="302" font-size="11" fill="#6b7280">• 2 паралельні сокети</text>
+
+  <rect x="357" y="327" width="245" height="75" rx="5" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="367" y="349" font-size="12" font-weight="bold" fill="#c0392b">Залишок кучі: ~1 КБ</text>
+  <text x="367" y="369" font-size="11" fill="#1a1a1a">Критичний рівень,</text>
+  <text x="367" y="387" font-size="11" fill="#1a1a1a">ризик фрагментації</text>
+
+  <rect x="357" y="412" width="245" height="85" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="479" y="435" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">⚠ Максимальна межа</text>
+  <text x="479" y="457" font-size="11" fill="#1a1a1a" text-anchor="middle">Граничний ліміт ESP8266</text>
+  <text x="479" y="477" font-size="11" fill="#6b7280" text-anchor="middle">(максимум 2 сесії)</text>
+
+  <!-- Scenario Card 3: Session 3 Crash -->
+  <rect x="645" y="180" width="275" height="335" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="782" y="205" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">3-тя TLS сесія</text>
+  <text x="782" y="225" font-size="12" fill="#c0392b" text-anchor="middle">Статус: Аварійна відмова</text>
+
+  <rect x="660" y="242" width="245" height="75" rx="5" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="670" y="264" font-size="12" font-weight="bold" fill="#1a1a1a">Потрібно пам'яті: ~18 КБ</text>
+  <text x="670" y="284" font-size="11" fill="#c0392b">• Доступно в купі: ~1 КБ</text>
+  <text x="670" y="302" font-size="11" fill="#c0392b">• Дефіцит: -17 КБ</text>
+
+  <rect x="660" y="327" width="245" height="75" rx="5" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="670" y="349" font-size="12" font-weight="bold" fill="#c0392b">Залишок кучі: 0 КБ</text>
+  <text x="670" y="369" font-size="11" fill="#1a1a1a">Помилка malloc()</text>
+  <text x="670" y="387" font-size="11" fill="#1a1a1a">Відмова системного виклику</text>
+
+  <rect x="660" y="412" width="245" height="85" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="782" y="435" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">✖ Out of Memory (OOM)</text>
+  <text x="782" y="457" font-size="11" fill="#c0392b" text-anchor="middle">Fatal exception / Reboot</text>
+  <text x="782" y="477" font-size="11" fill="#1a1a1a" text-anchor="middle">Аварійне перезавантаження</text>
+</svg>

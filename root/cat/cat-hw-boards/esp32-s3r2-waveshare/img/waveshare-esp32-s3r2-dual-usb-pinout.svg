@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схемотехніка подвійного USB-порту Waveshare ESP32-S3R2</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Розділення ліній USB-Native (GPIO19/20) та мосту USB-UART (CH340K) із захистом живлення</text>
+
+  <!-- Wire Routes (Behind Panels) -->
+  <!-- Native D- Wire (Blue) -->
+  <path d="M220,215 L250,215 L250,70 L545,70 L545,222 L580,222" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="400" y="64" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Native D- (GPIO19)</text>
+
+  <!-- Native D+ Wire (Blue) -->
+  <path d="M220,245 L260,245 L260,90 L538,90 L538,248 L580,248" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="400" y="84" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Native D+ (GPIO20)</text>
+
+  <!-- VBUS 1 Power Wire (Green) -->
+  <path d="M220,185 L270,185" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="245" y="177" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">5V</text>
+
+  <!-- VBUS 2 Power Wire (Green) -->
+  <path d="M220,395 L245,395 L245,230 L270,230" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="235" y="386" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">5V</text>
+
+  <!-- LDO 3.3V Output Power Wire (Green Dashed) -->
+  <path d="M490,230 L520,230 L520,142 L560,142" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+  <text x="526" y="180" font-size="11" font-weight="bold" fill="#27ae60">+3.3V</text>
+
+  <!-- USB 2 D- / D+ Wires to CH340K (Gray) -->
+  <path d="M220,425 L270,425" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <text x="245" y="417" text-anchor="middle" font-size="11" fill="#6b7280">D-</text>
+
+  <path d="M220,455 L270,455" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <text x="245" y="447" text-anchor="middle" font-size="11" fill="#6b7280">D+</text>
+
+  <!-- CH340K TXD -> MCU RXD0 Wire (Gray) -->
+  <path d="M490,390 L520,390 L520,322 L580,322" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <text x="526" y="315" font-size="11" font-weight="bold" fill="#1a1a1a">TXD → RXD0</text>
+
+  <!-- MCU TXD0 -> CH340K RXD Wire (Gray) -->
+  <path d="M580,348 L530,348 L530,410 L490,410" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <text x="524" y="362" text-anchor="end" font-size="11" font-weight="bold" fill="#1a1a1a">RXD ← TXD0</text>
+
+  <!-- Auto-Reset (DTR/RTS) Wires to EN and GPIO0 (Red) -->
+  <path d="M490,450 L512,450 L512,400 L580,400" fill="none" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+  <path d="M512,422 L580,422" fill="none" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+  <text x="506" y="388" text-anchor="end" font-size="11" font-weight="bold" fill="#c0392b">RST / BOOT</text>
+
+  <!-- Panel 1: USB-Native Connector (Top Left) -->
+  <rect x="40" y="115" width="180" height="170" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="138" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">USB-Native (USB 1)</text>
+  <text x="130" y="156" text-anchor="middle" font-size="12" fill="#6b7280">Пряме підключення</text>
+  <text x="55" y="185" font-size="12" font-weight="bold" fill="#1a1a1a">VBUS (5V)</text>
+  <text x="55" y="215" font-size="12" fill="#1a1a1a">D- (Data-)</text>
+  <text x="55" y="245" font-size="12" fill="#1a1a1a">D+ (Data+)</text>
+  <text x="55" y="275" font-size="12" fill="#6b7280">GND (Земля)</text>
+
+  <!-- Panel 2: USB-UART Connector (Bottom Left) -->
+  <rect x="40" y="325" width="180" height="170" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="130" y="348" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">USB-UART (USB 2)</text>
+  <text x="130" y="366" text-anchor="middle" font-size="12" fill="#6b7280">Через міст CH340K</text>
+  <text x="55" y="395" font-size="12" font-weight="bold" fill="#1a1a1a">VBUS (5V)</text>
+  <text x="55" y="425" font-size="12" fill="#1a1a1a">USB_D-</text>
+  <text x="55" y="455" font-size="12" fill="#1a1a1a">USB_D+</text>
+  <text x="55" y="485" font-size="12" fill="#6b7280">GND (Земля)</text>
+
+  <!-- Panel 3: Power Protection & LDO (Middle Top) -->
+  <rect x="270" y="115" width="220" height="170" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="380" y="138" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Захист живлення &amp; LDO</text>
+  <text x="380" y="160" text-anchor="middle" font-size="12" fill="#1a1a1a">Діоди Шотткі (D1, D2)</text>
+  <text x="380" y="178" text-anchor="middle" font-size="12" fill="#6b7280">Захист від зворотного струму</text>
+  <text x="380" y="210" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">LDO 3.3V (ME6211)</text>
+  <text x="380" y="230" text-anchor="middle" font-size="12" fill="#1a1a1a">Вихід: +3.3V VDD</text>
+  <text x="380" y="250" text-anchor="middle" font-size="12" fill="#6b7280">Струм до 500 мА</text>
+
+  <!-- Panel 4: CH340K USB-to-UART Bridge (Middle Bottom) -->
+  <rect x="270" y="325" width="220" height="170" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="380" y="348" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Міст CH340K &amp; Auto-Reset</text>
+  <text x="380" y="370" text-anchor="middle" font-size="12" fill="#6b7280">Перетворення USB ↔ UART</text>
+  <text x="380" y="405" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">TXD → RXD0 | RXD ← TXD0</text>
+  <text x="380" y="435" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Автозавантаження (DTR/RTS)</text>
+  <text x="380" y="455" text-anchor="middle" font-size="12" fill="#6b7280">Керування EN та GPIO0</text>
+
+  <!-- Panel 5: ESP32-S3R2 Microcontroller Chip (Right) -->
+  <rect x="560" y="115" width="360" height="380" rx="10" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <text x="740" y="142" text-anchor="middle" font-size="16" font-weight="bold" fill="#2457d6">ESP32-S3R2 (SoC)</text>
+  <text x="740" y="162" text-anchor="middle" font-size="12" fill="#6b7280">Dual-Core LX7 + 2 MB PSRAM (Quad SPI)</text>
+
+  <!-- Sub-panel A: USB Controller inside MCU -->
+  <rect x="580" y="180" width="320" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="595" y="200" font-size="13" font-weight="bold" fill="#2457d6">USB Serial / JTAG Controller</text>
+  <text x="595" y="222" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO19 (D-)</text>
+  <text x="715" y="222" font-size="12" fill="#6b7280">CDC / Hardware JTAG</text>
+  <text x="595" y="248" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO20 (D+)</text>
+  <text x="715" y="248" font-size="12" fill="#6b7280">USB OTG / Direct Flashing</text>
+
+  <!-- Sub-panel B: UART0 Controller inside MCU -->
+  <rect x="580" y="280" width="320" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="595" y="300" font-size="13" font-weight="bold" fill="#1a1a1a">UART0 Peripheral (Консоль &amp; Flashing)</text>
+  <text x="595" y="322" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO44 (RXD0)</text>
+  <text x="715" y="322" font-size="12" fill="#6b7280">Вхід від CH340K TXD</text>
+  <text x="595" y="348" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO43 (TXD0)</text>
+  <text x="715" y="348" font-size="12" fill="#6b7280">Вихід у CH340K RXD</text>
+
+  <!-- Sub-panel C: Control & Memory inside MCU -->
+  <rect x="580" y="380" width="320" height="100" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="595" y="400" font-size="12" font-weight="bold" fill="#1a1a1a">EN (CHIP_PU)</text>
+  <text x="715" y="400" font-size="12" fill="#6b7280">Апаратне скидання (Reset)</text>
+  <text x="595" y="422" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO0 (BOOT)</text>
+  <text x="715" y="422" font-size="12" fill="#6b7280">Режим завантажувача</text>
+  <text x="595" y="450" font-size="12" font-weight="bold" fill="#27ae60">Вбудована пам'ять: 2 МБ Quad PSRAM + 16 МБ Flash</text>
+  <text x="595" y="470" font-size="12" fill="#6b7280">Внутрішня шина QSPI (GPIO33..37 зарезервовані)</text>
+</svg>

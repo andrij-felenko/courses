@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Порівняльна схемотехнічна карта модифікацій сімейства плат ESP32-CAM</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Відмінності між Ai-Thinker, M5Stack, Waveshare та ESP32-S3-CAM за PSRAM, USB та схемотехнікою</text>
+
+  <!-- CARD 1: Ai-Thinker ESP32-CAM -->
+  <rect x="30" y="78" width="210" height="382" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="78" width="210" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="135" y="100" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Ai-Thinker ESP32-CAM</text>
+
+  <!-- Content Boxes for Card 1 -->
+  <rect x="42" y="122" width="186" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="135" y="138" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">SoC: ESP32-D0WDQ6</text>
+  <text x="135" y="154" text-anchor="middle" font-size="11" fill="#6b7280">2x Xtensa LX6 @ 240 MHz</text>
+
+  <rect x="42" y="172" width="186" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="135" y="188" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">PSRAM: 4 MB (Quad-SPI)</text>
+  <text x="135" y="204" text-anchor="middle" font-size="11" fill="#6b7280">буфер кадрів до UXGA</text>
+
+  <rect x="42" y="222" width="186" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="135" y="238" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">USB: ❌ Немає USB-UART</text>
+  <text x="135" y="254" text-anchor="middle" font-size="11" fill="#6b7280">потрібен зовнішній FTDI</text>
+
+  <rect x="42" y="272" width="186" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="135" y="288" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Спалах: GPIO4 (спільний)</text>
+  <text x="135" y="304" text-anchor="middle" font-size="11" fill="#6b7280">блокує SDMMC DAT0</text>
+
+  <rect x="42" y="322" width="186" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="135" y="338" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Живлення: AMS1117-3.3V</text>
+  <text x="135" y="354" text-anchor="middle" font-size="11" fill="#c0392b">ризик Brownout при Wi-Fi</text>
+
+  <rect x="42" y="376" width="186" height="72" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="135" y="396" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Сфера застосування:</text>
+  <text x="135" y="414" text-anchor="middle" font-size="11" fill="#6b7280">Бюджетні DIY-проєкти</text>
+  <text x="135" y="432" text-anchor="middle" font-size="11" fill="#6b7280">просте відеоспостереження</text>
+
+
+  <!-- CARD 2: M5Stack Timer / Unit CAM -->
+  <rect x="260" y="78" width="210" height="382" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="260" y="78" width="210" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="365" y="100" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">M5Stack Timer / Unit CAM</text>
+
+  <!-- Content Boxes for Card 2 -->
+  <rect x="272" y="122" width="186" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="365" y="138" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">SoC: ESP32 / PICO-D4</text>
+  <text x="365" y="154" text-anchor="middle" font-size="11" fill="#6b7280">2x Xtensa LX6 @ 240 MHz</text>
+
+  <rect x="272" y="172" width="186" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="365" y="188" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">PSRAM: 4 MB / 8 MB QSPI</text>
+  <text x="365" y="204" text-anchor="middle" font-size="11" fill="#6b7280">розширена буферизація</text>
+
+  <rect x="272" y="222" width="186" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="365" y="238" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">USB: ✅ Вбудований USB-C</text>
+  <text x="365" y="254" text-anchor="middle" font-size="11" fill="#6b7280">чип CP2104 / CH9102</text>
+
+  <rect x="272" y="272" width="186" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="365" y="288" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Акумулятор LiPo + RTC</text>
+  <text x="365" y="304" text-anchor="middle" font-size="11" fill="#6b7280">BM8563 глибокий сон</text>
+
+  <rect x="272" y="322" width="186" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="365" y="338" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Живлення: SY8089 DCDC</text>
+  <text x="365" y="354" text-anchor="middle" font-size="11" fill="#27ae60">високий КПД, без спадів</text>
+
+  <rect x="272" y="376" width="186" height="72" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="365" y="396" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Сфера застосування:</text>
+  <text x="365" y="414" text-anchor="middle" font-size="11" fill="#6b7280">Автономний моніторинг</text>
+  <text x="365" y="432" text-anchor="middle" font-size="11" fill="#6b7280">сенсори з ультранизьким споживанням</text>
+
+
+  <!-- CARD 3: Waveshare ESP32-CAM-MB -->
+  <rect x="490" y="78" width="210" height="382" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="490" y="78" width="210" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="595" y="100" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Waveshare ESP32-CAM-MB</text>
+
+  <!-- Content Boxes for Card 3 -->
+  <rect x="502" y="122" width="186" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="595" y="138" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">SoC: ESP32-S / D0WDQ6</text>
+  <text x="595" y="154" text-anchor="middle" font-size="11" fill="#6b7280">2x Xtensa LX6 @ 240 MHz</text>
+
+  <rect x="502" y="172" width="186" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="595" y="188" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">PSRAM: 4 MB (Quad-SPI)</text>
+  <text x="595" y="204" text-anchor="middle" font-size="11" fill="#6b7280">стандартний кадровий буфер</text>
+
+  <rect x="502" y="222" width="186" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="595" y="238" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">USB: ✅ Знімний док CH340</text>
+  <text x="595" y="254" text-anchor="middle" font-size="11" fill="#6b7280">дочірня плата розширення MB</text>
+
+  <rect x="502" y="272" width="186" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="595" y="288" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">IPEX конектор антени</text>
+  <text x="595" y="304" text-anchor="middle" font-size="11" fill="#6b7280">винесена Wi-Fi антена</text>
+
+  <rect x="502" y="322" width="186" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="595" y="338" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Живлення: Dual LDO</text>
+  <text x="595" y="354" text-anchor="middle" font-size="11" fill="#27ae60">розділені стабілізатори камери</text>
+
+  <rect x="502" y="376" width="186" height="72" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="595" y="396" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Сфера застосування:</text>
+  <text x="595" y="414" text-anchor="middle" font-size="11" fill="#6b7280">Промислові розробки</text>
+  <text x="595" y="432" text-anchor="middle" font-size="11" fill="#6b7280">налагодження та лабораторні стенди</text>
+
+
+  <!-- CARD 4: ESP32-S3-CAM (New Generation) -->
+  <rect x="720" y="78" width="210" height="382" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="720" y="78" width="210" height="34" rx="6" fill="#27ae60"/>
+  <text x="825" y="100" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">ESP32-S3-CAM (New Gen)</text>
+
+  <!-- Content Boxes for Card 4 -->
+  <rect x="732" y="122" width="186" height="42" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="825" y="138" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">SoC: ESP32-S3 Dual-Core</text>
+  <text x="825" y="154" text-anchor="middle" font-size="11" fill="#1a1a1a">2x Xtensa LX7 + Vector AI</text>
+
+  <rect x="732" y="172" width="186" height="42" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="825" y="188" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">PSRAM: 8 MB Octal-SPI</text>
+  <text x="825" y="204" text-anchor="middle" font-size="11" fill="#6b7280">2x пропускна здатність (OPI)</text>
+
+  <rect x="732" y="222" width="186" height="42" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="825" y="238" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">USB: ✅ Нативний USB OTG</text>
+  <text x="825" y="254" text-anchor="middle" font-size="11" fill="#6b7280">JTAG / CDC без мосту</text>
+
+  <rect x="732" y="272" width="186" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="825" y="288" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">DVP 14-pin не блокує GPIO</text>
+  <text x="825" y="304" text-anchor="middle" font-size="11" fill="#6b7280">вільні вхідні лінії</text>
+
+  <rect x="732" y="322" width="186" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="825" y="338" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Живлення: High-Current</text>
+  <text x="825" y="354" text-anchor="middle" font-size="11" fill="#27ae60">оптимізовано під AI навантаження</text>
+
+  <rect x="732" y="376" width="186" height="72" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="825" y="396" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Сфера застосування:</text>
+  <text x="825" y="414" text-anchor="middle" font-size="11" fill="#1a1a1a">TensorFlow Lite / AI Vision</text>
+  <text x="825" y="432" text-anchor="middle" font-size="11" fill="#27ae60">швидкісна обробка 30 FPS</text>
+
+
+  <!-- BOTTOM SUMMARY TABLE / FOOTER PANEL -->
+  <rect x="30" y="475" width="900" height="72" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="493" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Порівняльний підсумок ключових інтерфейсних відмінностей:</text>
+
+  <text x="250" y="514" text-anchor="middle" font-size="11" fill="#6b7280">• Ai-Thinker: 4MB QSPI Flash, без USB (потрібен FTDI), базовий LDO</text>
+  <text x="710" y="514" text-anchor="middle" font-size="11" fill="#6b7280">• M5Stack: 4-8MB QSPI, вбудований USB-C, DCDC стабілізатор</text>
+
+  <text x="250" y="532" text-anchor="middle" font-size="11" fill="#6b7280">• Waveshare: 4MB QSPI, знімний USB-док MB, Dual LDO</text>
+  <text x="710" y="532" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">• ESP32-S3-CAM: 8MB OPI (2x швидкість), нативний USB OTG, прискорювач Vector AI</text>
+
+</svg>

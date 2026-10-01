@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схемотехніка автоматичного скидання ESP32 / ESP8266 від CH340</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Двотранзисторна NPN-схема конвертує сигнали DTR та RTS у керування лініями EN (Reset) та GPIO0</text>
+
+  <!-- ==================== LEFT PANEL: SCHEMATIC DIAGRAM ==================== -->
+  <rect x="30" y="75" width="520" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  
+  <rect x="45" y="90" width="490" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="290" y="111" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Принципова схема автоскидання (Q1, Q2 NPN)</text>
+
+  <!-- CH340 IC Box -->
+  <rect x="45" y="145" width="90" height="140" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="90" y="170" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">CH340</text>
+  
+  <text x="125" y="190" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">DTR</text>
+  <line x1="135" y1="195" x2="160" y2="195" stroke="#2457d6" stroke-width="2"/>
+  
+  <text x="125" y="250" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">RTS</text>
+  <line x1="135" y1="255" x2="160" y2="255" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- ESP32 IC Box -->
+  <rect x="435" y="145" width="90" height="140" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="480" y="170" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP32</text>
+  
+  <text x="445" y="190" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">EN</text>
+  <line x1="285" y1="195" x2="435" y2="195" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <text x="445" y="250" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">IO0</text>
+  <line x1="285" y1="255" x2="435" y2="255" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- DTR Cross Wire to Q2 Base & Q1 Emitter -->
+  <circle cx="160" cy="195" r="3.5" fill="#2457d6"/>
+  <line x1="160" y1="195" x2="160" y2="215" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="160" y1="215" x2="285" y2="215" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="160" y1="195" x2="160" y2="255" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="160" y1="255" x2="195" y2="255" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- RTS Cross Wire to Q1 Base & Q2 Emitter -->
+  <circle cx="160" cy="255" r="3.5" fill="#2457d6"/>
+  <line x1="160" y1="255" x2="160" y2="275" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="160" y1="275" x2="285" y2="275" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="160" y1="195" x2="195" y2="195" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Resistor R1 (Q1 Base) -->
+  <rect x="195" y="188" width="40" height="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="235" y1="195" x2="270" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="215" y="180" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">R1 10k</text>
+
+  <!-- Q1 Transistor Symbol (NPN for EN) -->
+  <line x1="270" y1="185" x2="270" y2="205" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="270" y1="188" x2="285" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="285" y1="175" x2="285" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="270" y1="202" x2="285" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="285,215 277,211 281,206" fill="#1a1a1a"/>
+  <text x="310" y="175" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Q1 (NPN)</text>
+
+  <!-- Resistor R2 (Q2 Base) -->
+  <rect x="195" y="248" width="40" height="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="235" y1="255" x2="270" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="215" y="240" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">R2 10k</text>
+
+  <!-- Q2 Transistor Symbol (NPN for IO0) -->
+  <line x1="270" y1="245" x2="270" y2="265" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="270" y1="248" x2="285" y2="235" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="285" y1="235" x2="285" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="270" y1="262" x2="285" y2="275" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="285,275 277,271 281,266" fill="#1a1a1a"/>
+  <text x="310" y="275" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Q2 (NPN)</text>
+
+  <!-- Pull-up Resistors R_EN & R_IO0 -->
+  <text x="380" y="135" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+3.3V</text>
+  <line x1="340" y1="145" x2="420" y2="145" stroke="#2457d6" stroke-width="2"/>
+  
+  <circle cx="380" cy="195" r="3" fill="#1a1a1a"/>
+  <line x1="380" y1="195" x2="380" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="373" y="155" width="14" height="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="380" y1="155" x2="380" y2="145" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="395" y="168" font-size="12" fill="#6b7280" text-anchor="start">10k</text>
+
+  <circle cx="380" cy="255" r="3" fill="#1a1a1a"/>
+  <line x1="380" y1="255" x2="380" y2="235" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="373" y="215" width="14" height="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="380" y1="215" x2="380" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="395" y="228" font-size="12" fill="#6b7280" text-anchor="start">10k</text>
+
+  <!-- Left Bottom Callout Box -->
+  <rect x="45" y="325" width="490" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="290" y="346" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Як працює захисний механізм автоскидання:</text>
+  <text x="60" y="370" font-size="12" fill="#1a1a1a" text-anchor="start">• DTR=0, RTS=1 ➔ Q1 увімкнено ➔ EN=0 (Скидання MCU)</text>
+  <text x="60" y="392" font-size="12" fill="#1a1a1a" text-anchor="start">• DTR=1, RTS=0 ➔ Q2 увімкнено ➔ IO0=0 (Режим прошивки Bootloader)</text>
+  <text x="60" y="414" font-size="12" fill="#1a1a1a" text-anchor="start">• DTR=0, RTS=0 ➔ Обидва транзистори ВИМКНЕНІ (Захист від скидання)</text>
+  <text x="60" y="440" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">✔ Запобігає збоям при відкритті серійного монітора в IDE</text>
+
+  <!-- ==================== RIGHT PANEL: TRUTH TABLE & MODES ==================== -->
+  <rect x="570" y="75" width="360" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  
+  <rect x="585" y="90" width="330" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="750" y="111" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Таблиця істинності режимів</text>
+
+  <!-- Table Box -->
+  <rect x="585" y="135" width="330" height="175" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Table Header -->
+  <line x1="585" y1="165" x2="915" y2="165" stroke="#d0d7de" stroke-width="1"/>
+  <text x="610" y="153" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DTR</text>
+  <text x="665" y="153" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">RTS</text>
+  <text x="720" y="153" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">EN</text>
+  <text x="775" y="153" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">IO0</text>
+  <text x="850" y="153" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Режим роботи</text>
+
+  <!-- Row 1: Idle -->
+  <line x1="585" y1="200" x2="915" y2="200" stroke="#f4f6f8" stroke-width="1"/>
+  <text x="610" y="188" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+  <text x="665" y="188" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+  <text x="720" y="188" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="775" y="188" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="850" y="188" font-size="12" fill="#6b7280" text-anchor="middle">Робочий стан</text>
+
+  <!-- Row 2: Reset -->
+  <line x1="585" y1="235" x2="915" y2="235" stroke="#f4f6f8" stroke-width="1"/>
+  <text x="610" y="223" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">0</text>
+  <text x="665" y="223" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+  <text x="720" y="223" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">0</text>
+  <text x="775" y="223" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="850" y="223" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Апаратне скидання</text>
+
+  <!-- Row 3: Bootloader Flash -->
+  <line x1="585" y1="270" x2="915" y2="270" stroke="#f4f6f8" stroke-width="1"/>
+  <text x="610" y="258" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+  <text x="665" y="258" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">0</text>
+  <text x="720" y="258" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="775" y="258" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">0</text>
+  <text x="850" y="258" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Режим прошивки</text>
+
+  <!-- Row 4: Both Low Protection -->
+  <text x="610" y="293" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">0</text>
+  <text x="665" y="293" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">0</text>
+  <text x="720" y="293" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="775" y="293" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="850" y="293" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Блокування збоїв</text>
+
+  <!-- Right Bottom Callout Box -->
+  <rect x="585" y="325" width="330" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="750" y="346" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Переваги схемотехніки NPN:</text>
+  <text x="600" y="370" font-size="12" fill="#1a1a1a" text-anchor="start">• Повна автоматизація прошивки в esptool / IDE</text>
+  <text x="600" y="392" font-size="12" fill="#1a1a1a" text-anchor="start">• Усуває потребу натискання кнопок EN/BOOT</text>
+  <text x="600" y="414" font-size="12" fill="#1a1a1a" text-anchor="start">• Захищає від хибних скидань при відкритті порту</text>
+  <text x="600" y="440" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">✔ Світовий стандарт плат NodeMCU / ESP32</text>
+</svg>

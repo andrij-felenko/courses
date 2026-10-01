@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" width="1000" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="1000" height="500" fill="white"/>
+
+  <!-- Header & Subheader -->
+  <text x="500" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл пакетних буферів pbuf у пам'яті lwIP на ESP-01</text>
+  <text x="500" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Пул pbuf_pool забезпечує швидкий прийом кадрів, а купа pbuf_ram — гнучку вибірку даних</text>
+
+  <!-- Left Panel: Types of pbuf -->
+  <rect x="25" y="75" width="450" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="102" font-size="15" font-weight="bold" fill="#1a1a1a">Організація буферної пам'яті (PBUF Types)</text>
+
+  <!-- Box 1: PBUF_POOL -->
+  <rect x="40" y="115" width="420" height="160" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="55" y="138" font-size="14" font-weight="bold" fill="#2457d6">1. Фіксований пул буферів (PBUF_POOL)</text>
+  <text x="55" y="158" font-size="12" fill="#1a1a1a">Попередньо виділені блоки в DRAM (напр. 8–16 шт. по 512 B)</text>
+
+  <!-- Blocks inside PBUF_POOL -->
+  <rect x="55" y="172" width="82" height="45" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="96" y="192" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Block 0</text>
+  <text x="96" y="208" font-size="12" fill="#27ae60" text-anchor="middle">Вжито (RX)</text>
+
+  <rect x="145" y="172" width="82" height="45" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="186" y="192" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Block 1</text>
+  <text x="186" y="208" font-size="12" fill="#27ae60" text-anchor="middle">Вжито (RX)</text>
+
+  <rect x="235" y="172" width="82" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="276" y="192" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Block 2</text>
+  <text x="276" y="208" font-size="12" fill="#6b7280" text-anchor="middle">Вільний</text>
+
+  <rect x="325" y="172" width="82" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="366" y="192" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Block 3</text>
+  <text x="366" y="208" font-size="12" fill="#6b7280" text-anchor="middle">Вільний</text>
+
+  <text x="55" y="240" font-size="12" fill="#6b7280">Призначення: швидке захоплення мережевих пакетів з Wi-Fi MAC</text>
+  <text x="55" y="258" font-size="12" fill="#6b7280">без затримок та фрагментації динамічної купи.</text>
+
+  <!-- Box 2: PBUF_RAM / PBUF_REF -->
+  <rect x="40" y="290" width="420" height="165" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="55" y="313" font-size="14" font-weight="bold" fill="#27ae60">2. Динамічна купа (PBUF_RAM / PBUF_REF)</text>
+  <text x="55" y="333" font-size="12" fill="#1a1a1a">Виділяється з DRAM (mem_malloc) під довільний розмір</text>
+
+  <rect x="55" y="347" width="185" height="45" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="147" y="366" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">PBUF_RAM</text>
+  <text x="147" y="382" font-size="12" fill="#1a1a1a" text-anchor="middle">Header + Data в купі DRAM</text>
+
+  <rect x="255" y="347" width="185" height="45" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="347" y="366" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">PBUF_REF / ROM</text>
+  <text x="347" y="382" font-size="12" fill="#1a1a1a" text-anchor="middle">Вказівник на Flash / ROM</text>
+
+  <text x="55" y="415" font-size="12" fill="#6b7280">Призначення: вихідний TCP-потік, формування власних пакетів</text>
+  <text x="55" y="433" font-size="12" fill="#6b7280">та передача статичних даних без копіювання в RAM.</text>
+
+  <!-- Right Panel: Pbuf Chain Structure -->
+  <rect x="500" y="75" width="475" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="520" y="102" font-size="15" font-weight="bold" fill="#1a1a1a">Структура зв'язаного списку буферів (pbuf chain)</text>
+
+  <!-- Pbuf 1 Box -->
+  <rect x="520" y="120" width="195" height="235" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="520" y="120" width="195" height="30" rx="6" fill="#2457d6"/>
+  <text x="617" y="140" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">pbuf #1 (Перший вузол)</text>
+
+  <text x="530" y="168" font-size="12" font-weight="bold" fill="#1a1a1a">next:</text>
+  <rect x="570" y="155" width="90" height="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="615" y="169" font-size="12" fill="#2457d6" text-anchor="middle">&amp;pbuf_2</text>
+
+  <text x="530" y="193" font-size="12" font-weight="bold" fill="#1a1a1a">payload:</text>
+  <text x="590" y="193" font-size="12" fill="#6b7280">0x3FFE... (Data)</text>
+
+  <text x="530" y="215" font-size="12" font-weight="bold" fill="#1a1a1a">tot_len:</text>
+  <text x="582" y="215" font-size="12" fill="#1a1a1a">1460 Б</text>
+  <text x="630" y="215" font-size="12" font-weight="bold" fill="#1a1a1a">len:</text>
+  <text x="660" y="215" font-size="12" fill="#1a1a1a">512 Б</text>
+
+  <text x="530" y="235" font-size="12" font-weight="bold" fill="#1a1a1a">type:</text>
+  <text x="570" y="235" font-size="12" fill="#2457d6">PBUF_POOL</text>
+
+  <!-- Memory Payload inside pbuf #1 -->
+  <rect x="530" y="250" width="175" height="95" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="535" y="255" width="165" height="28" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="617" y="273" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Заголовки (IP+TCP: 40B)</text>
+
+  <rect x="535" y="288" width="165" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="617" y="308" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Дані сегмента 1</text>
+  <text x="617" y="326" font-size="12" fill="#6b7280" text-anchor="middle">(472 байти)</text>
+
+  <!-- Arrow connecting pbuf 1 to pbuf 2 -->
+  <line x1="660" y1="164" x2="745" y2="164" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="702" y="156" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">вказівник</text>
+
+  <!-- Pbuf 2 Box -->
+  <rect x="750" y="120" width="195" height="235" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="750" y="120" width="195" height="30" rx="6" fill="#27ae60"/>
+  <text x="847" y="140" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">pbuf #2 (Наступний вузол)</text>
+
+  <text x="760" y="168" font-size="12" font-weight="bold" fill="#1a1a1a">next:</text>
+  <rect x="800" y="155" width="90" height="18" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="845" y="169" font-size="12" fill="#6b7280" text-anchor="middle">NULL</text>
+
+  <text x="760" y="193" font-size="12" font-weight="bold" fill="#1a1a1a">payload:</text>
+  <text x="820" y="193" font-size="12" fill="#6b7280">0x3FFE... (Data)</text>
+
+  <text x="760" y="215" font-size="12" font-weight="bold" fill="#1a1a1a">tot_len:</text>
+  <text x="812" y="215" font-size="12" fill="#1a1a1a">948 Б</text>
+  <text x="860" y="215" font-size="12" font-weight="bold" fill="#1a1a1a">len:</text>
+  <text x="890" y="215" font-size="12" fill="#1a1a1a">948 Б</text>
+
+  <text x="760" y="235" font-size="12" font-weight="bold" fill="#1a1a1a">type:</text>
+  <text x="800" y="235" font-size="12" fill="#27ae60">PBUF_POOL</text>
+
+  <!-- Memory Payload inside pbuf #2 -->
+  <rect x="760" y="250" width="175" height="95" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="765" y="255" width="165" height="83" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="847" y="292" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Дані сегмента 2</text>
+  <text x="847" y="310" font-size="12" fill="#6b7280" text-anchor="middle">(948 байтів)</text>
+
+  <!-- Summary Box inside Right Panel -->
+  <rect x="520" y="370" width="435" height="85" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="535" y="392" font-size="13" font-weight="bold" fill="#1a1a1a">Перевага ланцюжка (Chain Mechanism):</text>
+  <text x="535" y="412" font-size="12" fill="#6b7280">Прийомопередавач опрацьовує кадр (1460 Б) фрагментами в PBUF_POOL,</text>
+  <text x="535" y="432" font-size="12" fill="#6b7280">уникаючи виділення суцільного 1.5 КБ блоку в дефіцитній DRAM.</text>
+</svg>

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма режимів завантаження ESP-01 (Bootstrapping Timing)</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Фіксація станів ліній VCC, CH_PD, GPIO0, GPIO2 та RST для переходу в режим UART Bootloader</text>
+
+  <!-- Panel Background for Waveforms -->
+  <rect x="35" y="80" width="890" height="390" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+
+  <!-- Phase Section Markers & Labels -->
+  <line x1="340" y1="80" x2="340" y2="425" stroke="#d0d7de" stroke-dasharray="3 3" stroke-width="1"/>
+  <text x="270" y="100" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">1. Подача VCC / CH_PD</text>
+
+  <line x1="480" y1="80" x2="480" y2="425" stroke="#d0d7de" stroke-dasharray="3 3" stroke-width="1"/>
+  <text x="410" y="100" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">2. Підготовка GPIO0=0</text>
+
+  <line x1="610" y1="80" x2="610" y2="425" stroke="#c0392b" stroke-dasharray="4 4" stroke-width="1.5"/>
+  <text x="545" y="100" font-size="12" font-weight="bold" fill="#d35400" text-anchor="middle">3. Скидання RST#</text>
+
+  <text x="750" y="100" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">4. Режим завантажника (UART Download)</text>
+
+  <!-- Signal 1: VCC (3.3V) -->
+  <text x="180" y="128" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">VCC (3.3V)</text>
+  <polyline points="200,140 240,140 260,115 900,115" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="880" y="110" font-size="12" fill="#2457d6" text-anchor="end">HIGH (3.3V)</text>
+
+  <!-- Signal 2: CH_PD (EN) -->
+  <text x="180" y="188" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="end">CH_PD (EN)</text>
+  <polyline points="200,200 260,200 280,175 900,175" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="880" y="170" font-size="12" fill="#27ae60" text-anchor="end">HIGH (Enable)</text>
+
+  <!-- Signal 3: GPIO2 (Bit 1) -->
+  <text x="180" y="248" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="end">GPIO2 (Bit 1)</text>
+  <polyline points="200,260 280,260 300,235 900,235" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="880" y="230" font-size="12" fill="#27ae60" text-anchor="end">HIGH (Pull-up)</text>
+
+  <!-- Signal 4: GPIO0 (Bit 0) -->
+  <text x="180" y="308" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="end">GPIO0 (Bit 0)</text>
+  <polyline points="200,320 280,320 300,295 450,295 470,320 740,320 760,295 900,295" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="545" y="338" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">LOW (0) під час скидання</text>
+
+  <!-- Signal 5: RST# (Reset Input) -->
+  <text x="180" y="368" font-size="13" font-weight="bold" fill="#d35400" text-anchor="end">RST# (Reset)</text>
+  <polyline points="200,380 590,380 610,355 900,355" fill="none" stroke="#d35400" stroke-width="2.5"/>
+  <text x="575" y="398" font-size="12" fill="#d35400" text-anchor="end">Reset Active (LOW)</text>
+  <text x="635" y="350" font-size="12" fill="#27ae60">Released (HIGH)</text>
+
+  <!-- Latch Indicator & Annotation -->
+  <rect x="420" y="434" width="380" height="26" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="610" y="451" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Момент фіксації (Latch Edge): GPIO0=0, GPIO2=1 -> Вхід у UART Bootloader</text>
+</svg>

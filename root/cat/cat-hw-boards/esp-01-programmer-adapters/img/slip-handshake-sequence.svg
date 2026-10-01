@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Послідовність SLIP-рукостискання та скидання ESP8266 в esptool</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Автоматичний вхід у bootloader через RTS/DTR та синхронізація кадрів 0xC0 ... 0xC0</text>
+
+  <!-- Participant Lifeline Headers -->
+  <rect x="140" y="80" width="200" height="46" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="240" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">esptool (Утиліта Хоста)</text>
+  <text x="240" y="116" font-size="12" fill="#6b7280" text-anchor="middle">USB-UART (RTS/DTR, TX/RX)</text>
+
+  <rect x="620" y="80" width="200" height="46" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="720" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Boot ROM (ESP8266)</text>
+  <text x="720" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Апаратний завантажувач</text>
+
+  <!-- Vertical Lifelines -->
+  <line x1="240" y1="126" x2="240" y2="476" stroke="#d0d7de" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="720" y1="126" x2="720" y2="476" stroke="#d0d7de" stroke-width="2" stroke-dasharray="4,4"/>
+
+  <!-- Step 1: Hardware Reset -->
+  <rect x="50" y="140" width="860" height="75" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <rect x="55" y="146" width="168" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="139" y="161" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Апаратний скид (Reset)</text>
+
+  <text x="480" y="167" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Сигнали RTS/DTR: DTR=0 (GPIO0=0), RTS імпульс 0→1 (RST)</text>
+  <line x1="250" y1="180" x2="710" y2="180" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="480" y="204" font-size="12" fill="#6b7280" text-anchor="middle">Вхід у bootloader: Boot Mode (3,7) [GPIO15=0, GPIO0=0, GPIO2=1]</text>
+
+  <!-- Step 2: SLIP SYNC Request -->
+  <rect x="50" y="227" width="860" height="75" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <rect x="55" y="233" width="168" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="139" y="248" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Синхронізація SLIP</text>
+
+  <text x="480" y="254" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">SLIP Кадр SYNC Request [0xC0 | Cmd: 0x08 | 36B | 0xC0]</text>
+  <line x1="250" y1="267" x2="710" y2="267" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="480" y="291" font-size="12" fill="#6b7280" text-anchor="middle">Багаторазова відправка 0x55 для автовизначення Baudrate (115200)</text>
+
+  <!-- Step 3: SLIP SYNC Response -->
+  <rect x="50" y="314" width="860" height="75" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <rect x="55" y="320" width="168" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="139" y="335" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Підтвердження SYNC</text>
+
+  <text x="480" y="341" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">SLIP Кадр SYNC Response [0xC0 | Resp: 0x01 | Status: 0x00 | 0xC0]</text>
+  <line x1="710" y1="354" x2="250" y2="354" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="480" y="378" font-size="12" fill="#6b7280" text-anchor="middle">Рукостискання успішне: завантажувач активний і готовий до команд</text>
+
+  <!-- Step 4: Baudrate Change & Operations -->
+  <rect x="50" y="401" width="860" height="75" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <rect x="55" y="407" width="168" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="139" y="422" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">4. Зміна Baudrate &amp; Ops</text>
+
+  <text x="480" y="428" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Команда CHANGE_BAUD [Cmd: 0x0F] → Перехід на 921600 бод</text>
+  <line x1="250" y1="441" x2="710" y2="441" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arr-blue)"/>
+  <text x="480" y="465" font-size="12" fill="#6b7280" text-anchor="middle">Виконанння розвантаження Flash, Read MAC, Read Chip ID, Write Flash</text>
+
+  <!-- Summary Footer -->
+  <rect x="180" y="488" width="600" height="28" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="506" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Результат: Сесію синхронізовано — готово до прошивання або читання Flash</text>
+</svg>

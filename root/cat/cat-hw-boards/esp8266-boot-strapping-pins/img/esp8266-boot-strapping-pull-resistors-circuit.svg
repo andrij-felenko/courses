@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема підтягувальних резисторів та фільтрів для завадостійкого старту ESP8266 з SPI Flash</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Фіксація GPIO0=1 (High), GPIO2=1 (High) та GPIO15=0 (Low) гарантує стабільний запуск з Flash-пам'яті</text>
+
+  <!-- Main Container Panel -->
+  <rect x="30" y="70" width="900" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- LEFT BOX: SCHEMATIC CIRCUIT DIAGRAM -->
+  <rect x="45" y="85" width="420" height="415" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="255" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принципова схема підтяжки Strapping Pins</text>
+
+  <!-- Power Rail VDD 3.3V -->
+  <line x1="75" y1="135" x2="435" y2="135" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="255" y="127" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Шина живлення VDD = 3.3V</text>
+
+  <!-- Ground Rail GND -->
+  <line x1="75" y1="345" x2="435" y2="345" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="255" y="362" font-size="12" fill="#6b7280" text-anchor="middle">Загальна земля GND (0V)</text>
+
+  <!-- ESP8266EX IC Symbol -->
+  <rect x="330" y="155" width="115" height="180" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="387.5" y="175" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ESP8266EX</text>
+  <text x="387.5" y="190" font-size="12" fill="#6b7280" text-anchor="middle">мікроконтролер</text>
+
+  <text x="338" y="214" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">GPIO0</text>
+  <text x="338" y="249" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">GPIO2</text>
+  <text x="338" y="284" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">GPIO15</text>
+  <text x="338" y="319" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">RST#</text>
+
+  <!-- GPIO0 Pull-Up Network (X=100) -->
+  <line x1="100" y1="135" x2="100" y2="150" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="90" y="150" width="20" height="35" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.8" rx="2"/>
+  <text x="85" y="172" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">R1 10k</text>
+  <line x1="100" y1="185" x2="100" y2="210" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="100" cy="210" r="3.5" fill="#27ae60"/>
+  <text x="105" y="205" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">High (1)</text>
+  <line x1="100" y1="210" x2="330" y2="210" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- GPIO2 Pull-Up Network (X=160) -->
+  <line x1="160" y1="135" x2="160" y2="150" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="150" y="150" width="20" height="35" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.8" rx="2"/>
+  <text x="145" y="172" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">R2 10k</text>
+  <line x1="160" y1="185" x2="160" y2="245" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="160" cy="245" r="3.5" fill="#27ae60"/>
+  <text x="166" y="240" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">High (1)</text>
+  <line x1="160" y1="245" x2="330" y2="245" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- GPIO15 Pull-Down Network (X=220) -->
+  <line x1="220" y1="280" x2="330" y2="280" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="220" cy="280" r="3.5" fill="#2457d6"/>
+  <text x="228" y="275" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Low (0)</text>
+  <line x1="220" y1="280" x2="220" y2="295" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="210" y="295" width="20" height="35" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8" rx="2"/>
+  <text x="235" y="317" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">R3 10k</text>
+  <line x1="220" y1="330" x2="220" y2="345" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- RST Pull-Up & Filter Network (X=280) -->
+  <line x1="280" y1="135" x2="280" y2="150" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="270" y="150" width="20" height="35" fill="#fdecea" stroke="#c0392b" stroke-width="1.8" rx="2"/>
+  <text x="265" y="172" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">R4 10k</text>
+  <line x1="280" y1="185" x2="280" y2="315" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="280" cy="315" r="3.5" fill="#c0392b"/>
+  <line x1="280" y1="315" x2="330" y2="315" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- C1 Decoupling Capacitor at X=305 -->
+  <line x1="280" y1="315" x2="305" y2="315" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="305" cy="315" r="3" fill="#27ae60"/>
+  <text x="305" y="308" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">C1 100nF</text>
+  <line x1="305" y1="315" x2="305" y2="323" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="296" y1="323" x2="314" y2="323" stroke="#27ae60" stroke-width="2"/>
+  <line x1="296" y1="329" x2="314" y2="329" stroke="#27ae60" stroke-width="2"/>
+  <line x1="305" y1="329" x2="305" y2="345" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Left Explanatory Card -->
+  <rect x="65" y="390" width="380" height="90" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="255" y="410" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Електрична завадостійкість схеми:</text>
+  <text x="255" y="432" font-size="12" fill="#1a1a1a" text-anchor="middle">• Резистори 10 кОм захищають входи від наводок та витоків</text>
+  <text x="255" y="454" font-size="12" fill="#27ae60" text-anchor="middle">• Конденсатор C1 (100 нФ) блокує високочастотні завади на RST</text>
+
+
+  <!-- RIGHT BOX: BOOT MODE TRUTH TABLE & RULES -->
+  <rect x="495" y="85" width="420" height="415" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="705" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Таблиця режимів завантаження ESP8266</text>
+
+  <!-- Table Header -->
+  <rect x="510" y="135" width="390" height="35" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="550" y="157" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO15</text>
+  <text x="630" y="157" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO0</text>
+  <text x="710" y="157" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO2</text>
+  <text x="825" y="157" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Режим старту</text>
+
+  <!-- Row 1: SPI Flash Boot (Target) -->
+  <rect x="510" y="175" width="390" height="45" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="550" y="202" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Low (0)</text>
+  <text x="630" y="202" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">High (1)</text>
+  <text x="710" y="202" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">High (1)</text>
+  <text x="825" y="194" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">SPI Flash Boot</text>
+  <text x="825" y="210" font-size="12" fill="#27ae60" text-anchor="middle">(Автономна робота)</text>
+
+  <!-- Row 2: UART Download -->
+  <rect x="510" y="225" width="390" height="45" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="550" y="252" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Low (0)</text>
+  <text x="630" y="252" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Low (0)</text>
+  <text x="710" y="252" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">High (1)</text>
+  <text x="825" y="244" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">UART Download</text>
+  <text x="825" y="260" font-size="12" fill="#6b7280" text-anchor="middle">(Прошивання коду)</text>
+
+  <!-- Row 3: SDIO / Invalid Boot -->
+  <rect x="510" y="275" width="390" height="45" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="550" y="302" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">High (1)</text>
+  <text x="630" y="302" font-size="12" fill="#6b7280" text-anchor="middle">Будь-який</text>
+  <text x="710" y="302" font-size="12" fill="#6b7280" text-anchor="middle">Будь-який</text>
+  <text x="825" y="294" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">SDIO Boot / Збій</text>
+  <text x="825" y="310" font-size="12" fill="#c0392b" text-anchor="middle">(Заборонений старт)</text>
+
+  <!-- Right Rules Card -->
+  <rect x="510" y="390" width="390" height="90" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="705" y="410" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Золоті правила вибору підтягувальних елементів:</text>
+  <text x="705" y="432" font-size="12" fill="#1a1a1a" text-anchor="middle">• GPIO15 ЗАВЖДИ має підтягуватися до GND резистором 10 кОм</text>
+  <text x="705" y="454" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">• GPIO0 та GPIO2 мають бути у High при звичайному включенні</text>
+</svg>

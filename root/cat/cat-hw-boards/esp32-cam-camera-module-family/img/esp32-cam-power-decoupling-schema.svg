@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Схемотехніка розв'язки живлення та аналогової фільтрації ESP32-CAM</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Захист шини 3.3V від просідань Wi-Fi (C_BULK) та фільтрація аналогового живлення сенсора (AVDD LC-фільтром)</text>
+
+  <!-- Input 5V Block -->
+  <rect x="35" y="85" width="145" height="105" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="107" y="108" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Вхід 5V (VBUS/EXT)</text>
+  <text x="107" y="130" font-size="12" text-anchor="middle" fill="#6b7280">Живлення USB 5V</text>
+  <text x="107" y="150" font-size="12" text-anchor="middle" fill="#c0392b">Піки Wi-Fi: 500 мА</text>
+  <text x="107" y="172" font-size="12" text-anchor="middle" fill="#2457d6">C_IN: 10µF + 100nF</text>
+
+  <!-- Wire 5V -> LDO -->
+  <path d="M 180,135 L 220,135" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="200" y="123" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">5V</text>
+
+  <!-- LDO 3.3V Block -->
+  <rect x="225" y="85" width="155" height="105" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="302" y="108" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">LDO 3.3V</text>
+  <text x="302" y="130" font-size="12" text-anchor="middle" fill="#1a1a1a">AMS1117 / ME6211</text>
+  <text x="302" y="150" font-size="12" text-anchor="middle" fill="#6b7280">I_MAX = 800 мА</text>
+  <text x="302" y="172" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Вихід: VDD 3.3V</text>
+
+  <!-- Main 3.3V Rail Wire -->
+  <path d="M 380,135 L 725,135" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <text x="420" y="120" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Шина VDD 3.3V</text>
+  <path d="M 725,135 L 730,135" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Decoupling Cap 1 (10 uF) -->
+  <path d="M 450,135 L 450,150" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="410" y="150" width="80" height="55" rx="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="450" y="168" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">10 µF</text>
+  <text x="450" y="188" font-size="12" text-anchor="middle" fill="#6b7280">C1 (Кераміка)</text>
+  <path d="M 450,205 L 450,240" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Decoupling Cap 2 (100 nF) -->
+  <path d="M 540,135 L 540,150" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="495" y="150" width="90" height="55" rx="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="540" y="168" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">100 nF</text>
+  <text x="540" y="188" font-size="12" text-anchor="middle" fill="#6b7280">C2 (ВЧ завади)</text>
+  <path d="M 540,205 L 540,240" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Buffer Cap (470 uF C_BULK) -->
+  <path d="M 645,135 L 645,150" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <rect x="595" y="150" width="105" height="65" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="647" y="168" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">470 µF (C_BULK)</text>
+  <text x="647" y="187" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Low-ESR Буфер</text>
+  <text x="647" y="205" font-size="12" text-anchor="middle" fill="#27ae60">Піки Wi-Fi</text>
+  <path d="M 645,215 L 645,240" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- GND Rail -->
+  <path d="M 410,240 L 670,240" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 450,240 L 450,252" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 440,252 L 460,252" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 444,256 L 456,256" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 447,260 L 453,260" fill="none" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="465" y="256" font-size="12" text-anchor="start" fill="#6b7280">GND</text>
+
+  <!-- ESP32-S Load Block -->
+  <rect x="735" y="85" width="190" height="135" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="830" y="108" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">ESP32-S / PSRAM</text>
+  <text x="830" y="130" font-size="12" text-anchor="middle" fill="#6b7280">Цифрове ядро (DVDD)</text>
+  <text x="830" y="152" font-size="12" text-anchor="middle" fill="#c0392b">Піки TX: 300–500 мА</text>
+  <text x="830" y="174" font-size="12" text-anchor="middle" fill="#2457d6">Flash / PSRAM 3.3V</text>
+  <text x="830" y="198" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Стабільний VDD</text>
+
+  <!-- Analog Filter Branch -->
+  <path d="M 280,190 L 280,310" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <rect x="225" y="310" width="115" height="35" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="282" y="332" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">L1: Ferrite Bead</text>
+
+  <!-- AVDD Rail Wire -->
+  <path d="M 340,327.5 L 725,327.5" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="480" y="315" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Шина AVDD (Аналогове живлення)</text>
+  <path d="M 725,327.5 L 730,327.5" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Analog Cap 1 (10 uF) -->
+  <path d="M 440,327.5 L 440,345" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="390" y="345" width="100" height="50" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="440" y="363" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">10 µF</text>
+  <text x="440" y="382" font-size="12" text-anchor="middle" fill="#6b7280">C_A1 (НЧ завади)</text>
+  <path d="M 440,395 L 440,410" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Analog Cap 2 (100 nF) -->
+  <path d="M 540,327.5 L 540,345" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="490" y="345" width="100" height="50" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="540" y="363" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">100 nF</text>
+  <text x="540" y="382" font-size="12" text-anchor="middle" fill="#6b7280">C_A2 (ВЧ завади)</text>
+  <path d="M 540,395 L 540,410" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- AGND Rail -->
+  <path d="M 410,410 L 570,410" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 490,410 L 490,420" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 480,420 L 500,420" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 484,424 L 496,424" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 487,428 L 493,428" fill="none" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="505" y="423" font-size="12" text-anchor="start" fill="#6b7280">AGND</text>
+
+  <!-- Camera Sensor Block -->
+  <rect x="735" y="275" width="190" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="830" y="298" font-size="14" font-weight="bold" text-anchor="middle" fill="#27ae60">Сенсор OV2640 / OV3640</text>
+  <text x="830" y="321" font-size="12" text-anchor="middle" fill="#1a1a1a">• AVDD (2.8V) — Аналог</text>
+  <text x="830" y="343" font-size="12" text-anchor="middle" fill="#1a1a1a">• DOVDD (3.3V) — DVP I/O</text>
+  <text x="830" y="365" font-size="12" text-anchor="middle" fill="#1a1a1a">• DVDD (1.2V) — Ядро</text>
+  <text x="830" y="390" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Чисте аналогове живлення</text>
+
+  <!-- Summary Panels -->
+  <!-- Problem Panel -->
+  <rect x="35" y="445" width="435" height="95" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="50" y="465" font-size="13" font-weight="bold" fill="#c0392b">Проблема: просідання живлення та шуми зображення</text>
+  <text x="50" y="485" font-size="12" fill="#1a1a1a">1. Wi-Fi передача створює пікові струми 300–500 мА.</text>
+  <text x="50" y="505" font-size="12" fill="#1a1a1a">2. Без C_BULK VDD просідає &lt; 2.8V -&gt; Brownout Reset.</text>
+  <text x="50" y="525" font-size="12" fill="#1a1a1a">3. Завади VDD в AVDD утворюють смуги та матричні шуми.</text>
+
+  <!-- Solution Panel -->
+  <rect x="490" y="445" width="435" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="505" y="465" font-size="13" font-weight="bold" fill="#27ae60">Апаратне рішення: буферизація та фільтрація</text>
+  <text x="505" y="485" font-size="12" fill="#1a1a1a">1. C_BULK (220–470 µF Low-ESR) компенсація піків Wi-Fi.</text>
+  <text x="505" y="505" font-size="12" fill="#1a1a1a">2. L1 (Ferrite Bead) + C_A (10µF+100nF) фільтрація AVDD.</text>
+  <text x="505" y="525" font-size="12" fill="#1a1a1a">3. Гарантія стабільного відеопотоку без перезавантажень.</text>
+</svg>

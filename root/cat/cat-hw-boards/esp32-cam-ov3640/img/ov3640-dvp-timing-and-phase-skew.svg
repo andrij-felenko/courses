@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-start" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма сигналів DVP та фазовий зсув PCLK</text>
+  <text x="480" y="53" font-size="13" fill="#6b7280" text-anchor="middle">Зсув фази PCLK відносно даних призводить до помилок зчитування кадрів</text>
+
+  <!-- Блок 1: Загальна макро-часова послідовність сигналів DVP -->
+  <rect x="40" y="75" width="880" height="195" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">1. Часова послідовність сигналів DVP (Кадри та Рядки)</text>
+
+  <!-- Назви сигналів -->
+  <text x="60" y="130" font-size="13" font-weight="bold" fill="#1a1a1a">VSYNC</text>
+  <text x="60" y="168" font-size="13" font-weight="bold" fill="#1a1a1a">HREF</text>
+  <text x="60" y="206" font-size="13" font-weight="bold" fill="#1a1a1a">PCLK</text>
+  <text x="60" y="244" font-size="13" font-weight="bold" fill="#2457d6">D0–D7</text>
+
+  <!-- Сигнал VSYNC -->
+  <path d="M 140,138 L 200,138 L 200,120 L 830,120 L 830,138 L 890,138" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="515" y="115" font-size="12" fill="#6b7280" text-anchor="middle">Кадр активний (Active Frame)</text>
+
+  <!-- Сигнал HREF -->
+  <path d="M 140,176 L 220,176 L 220,158 L 430,158 L 430,176 L 470,176 L 470,158 L 680,158 L 680,176 L 720,176 L 720,158 L 820,158 L 820,176 L 890,176" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="325" y="152" font-size="12" fill="#6b7280" text-anchor="middle">Рядок 1</text>
+  <text x="575" y="152" font-size="12" fill="#6b7280" text-anchor="middle">Рядок 2</text>
+
+  <!-- Сигнал PCLK (меандр) -->
+  <path d="M 140,214 L 152,214 L 152,196 L 165,196 L 165,214 L 177,214 L 177,196 L 190,196 L 190,214 L 202,214 L 202,196 L 215,196 L 215,214 L 227,214 L 227,196 L 240,196 L 240,214 L 252,214 L 252,196 L 265,196 L 265,214 L 277,214 L 277,196 L 290,196 L 290,214 L 302,214 L 302,196 L 315,196 L 315,214 L 327,214 L 327,196 L 340,196 L 340,214 L 352,214 L 352,196 L 365,196 L 365,214 L 377,214 L 377,196 L 390,196 L 390,214 L 402,214 L 402,196 L 415,196 L 415,214 L 427,214 L 427,196 L 440,196 L 440,214 L 452,214 L 452,196 L 465,196 L 465,214 L 477,214 L 477,196 L 490,196 L 490,214 L 502,214 L 502,196 L 515,196 L 515,214 L 527,214 L 527,196 L 540,196 L 540,214 L 552,214 L 552,196 L 565,196 L 565,214 L 577,214 L 577,196 L 590,196 L 590,214 L 602,214 L 602,196 L 615,196 L 615,214 L 627,214 L 627,196 L 640,196 L 640,214 L 652,214 L 652,196 L 665,196 L 665,214 L 677,214 L 677,196 L 690,196 L 690,214 L 702,214 L 702,196 L 715,196 L 715,214 L 727,214 L 727,196 L 740,196 L 740,214 L 752,214 L 752,196 L 765,196 L 765,214 L 777,214 L 777,196 L 790,196 L 790,214 L 802,214 L 802,196 L 815,196 L 815,214 L 827,214 L 827,196 L 840,196 L 840,214 L 852,214 L 852,196 L 865,196 L 865,214 L 877,214 L 877,196 L 890,196" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Шина D0–D7 -->
+  <line x1="140" y1="238" x2="220" y2="238" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Байти для Рядка 1 -->
+  <polygon points="225,238 230,226 265,226 270,238 265,250 230,250" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="247" y="242" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Байт 0</text>
+
+  <polygon points="275,238 280,226 315,226 320,238 315,250 280,250" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="297" y="242" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Байт 1</text>
+
+  <polygon points="325,238 330,226 365,226 370,238 365,250 330,250" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="347" y="242" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Байт 2</text>
+
+  <polygon points="375,238 380,226 415,226 420,238 415,250 380,250" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="397" y="242" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Байт 3</text>
+
+  <line x1="420" y1="238" x2="470" y2="238" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Байти для Рядка 2 -->
+  <polygon points="475,238 480,226 515,226 520,238 515,250 480,250" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="497" y="242" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Байт 0</text>
+
+  <polygon points="525,238 530,226 565,226 570,238 565,250 530,250" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="547" y="242" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Байт 1</text>
+
+  <polygon points="575,238 580,226 615,226 620,238 615,250 580,250" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="597" y="242" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Байт 2</text>
+
+  <polygon points="625,238 630,226 665,226 670,238 665,250 630,250" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="647" y="242" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Байт 3</text>
+
+  <line x1="670" y1="238" x2="720" y2="238" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Байти для Рядка 3 -->
+  <polygon points="725,238 730,226 765,226 770,238 765,250 730,250" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="747" y="242" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Байт 0</text>
+
+  <polygon points="775,238 780,226 815,226 820,238 815,250 780,250" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="797" y="242" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Байт 1</text>
+
+  <line x1="820" y1="238" x2="890" y2="238" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+
+  <!-- Блок 2: Деталізація фазового зсуву PCLK (Phase Skew) -->
+  <rect x="40" y="285" width="880" height="235" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="308" font-size="14" font-weight="bold" fill="#1a1a1a">2. Деталізація фазового зсуву PCLK (Phase Skew Δt) та моменту вибірки</text>
+
+  <!-- Ліва колонка: Нормальний режим -->
+  <rect x="55" y="325" width="415" height="180" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="75" y="348" font-size="13" font-weight="bold" fill="#27ae60">Нормальний режим: Фронт PCLK у центрі даного</text>
+
+  <!-- Шина даних D0-D7 в нормальному режимі -->
+  <text x="75" y="384" font-size="12" font-weight="bold" fill="#1a1a1a">D0–D7</text>
+
+  <polygon points="130,380 140,365 260,365 270,380 260,395 140,395" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="200" y="384" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Байт D[N]</text>
+
+  <polygon points="290,380 300,365 420,365 430,380 420,395 300,395" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="360" y="384" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Байт D[N+1]</text>
+
+  <!-- PCLK сигнал в нормальному режимі -->
+  <text x="75" y="430" font-size="12" font-weight="bold" fill="#1a1a1a">PCLK</text>
+  <path d="M 130,435 L 195,435 L 200,415 L 260,415 L 265,435 L 355,435 L 360,415 L 420,415 L 425,435" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Вертикальна лінія вибірки -->
+  <line x1="200" y1="415" x2="200" y2="397" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+  <text x="200" y="452" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Точка вибірки (Засувка)</text>
+
+  <!-- Підсумок внизу лівої колонки -->
+  <rect x="70" y="470" width="385" height="24" rx="4" fill="#ffffff"/>
+  <text x="262" y="486" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Запас t_setup та t_hold дотримано — Дані коректні</text>
+
+
+  <!-- Права колонка: Проблема зсуву фази -->
+  <rect x="490" y="325" width="415" height="180" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="510" y="348" font-size="13" font-weight="bold" fill="#c0392b">Проблема: Зсув фази PCLK на Δt</text>
+
+  <!-- Шина даних D0-D7 у разі зсуву -->
+  <text x="510" y="384" font-size="12" font-weight="bold" fill="#1a1a1a">D0–D7</text>
+
+  <polygon points="565,380 575,365 695,365 705,380 695,395 575,395" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="635" y="384" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Байт D[N]</text>
+
+  <!-- Зона непевности (перехід бітів) -->
+  <rect x="700" y="365" width="20" height="30" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="710" y="384" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">?</text>
+
+  <polygon points="725,380 735,365 855,365 865,380 855,395 735,395" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="795" y="384" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Байт D[N+1]</text>
+
+  <!-- Зсунутий PCLK сигнал -->
+  <text x="510" y="430" font-size="12" font-weight="bold" fill="#1a1a1a">PCLK</text>
+  <path d="M 565,435 L 705,435 L 710,415 L 770,415 L 775,435 L 865,435" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Стрілка фазового зсуву delta t -->
+  <line x1="635" y1="410" x2="710" y2="410" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-start)" marker-end="url(#arr-red)"/>
+  <text x="672" y="405" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зсув Δt</text>
+
+  <!-- Лінія зчитування в зоні помилки -->
+  <line x1="710" y1="415" x2="710" y2="397" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+  <text x="710" y="452" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Вибірка на фронті (Збій!)</text>
+
+  <!-- Підсумок внизу правої колонки -->
+  <rect x="505" y="470" width="385" height="24" rx="4" fill="#ffffff"/>
+  <text x="697" y="486" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Порушення t_setup / t_hold — Спотворення кольорів</text>
+</svg>

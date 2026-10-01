@@ -1,0 +1,173 @@
+<svg width="960" height="560" viewBox="0 0 960 560" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Схема автозавантаження ESP8266 (USB-UART DTR/RTS)</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">Двотранзисторний вузол узгодження сигналів DTR та RTS для керування GPIO0 та RST</text>
+
+  <!-- Block 1: USB-UART Transceiver -->
+  <rect x="24" y="75" width="156" height="260" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="102" y="102" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">USB-UART чип</text>
+  <text x="102" y="120" font-size="12" text-anchor="middle" fill="#6b7280">(CP2102 / CH340)</text>
+
+  <rect x="90" y="150" width="75" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="127" y="170" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">DTR</text>
+
+  <rect x="90" y="240" width="75" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="127" y="260" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">RTS</text>
+
+  <!-- Block 2: Transistor Circuit Panel -->
+  <rect x="200" y="75" width="540" height="260" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="470" y="98" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Двотранзисторний вузол автоскидання (esptool logic)</text>
+
+  <!-- Power Rail +3.3V VCC -->
+  <line x1="600" y1="120" x2="710" y2="120" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="655" y="113" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">+3.3V (VCC)</text>
+
+  <!-- Resistor R3 (RST Pull-Up) -->
+  <line x1="620" y1="120" x2="620" y2="132" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="612" y="132" width="16" height="24" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="604" y="148" font-size="12" text-anchor="end" fill="#1a1a1a">R3 = 10kΩ</text>
+  <line x1="620" y1="156" x2="620" y2="165" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Resistor R4 (GPIO0 Pull-Up) -->
+  <line x1="690" y1="120" x2="690" y2="202" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="682" y="202" width="16" height="24" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="674" y="218" font-size="12" text-anchor="end" fill="#1a1a1a">R4 = 10kΩ</text>
+  <line x1="690" y1="226" x2="690" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- DTR Signal Routing -->
+  <line x1="165" y1="165" x2="240" y2="165" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="240" cy="165" r="3" fill="#2457d6"/>
+  <line x1="240" y1="165" x2="310" y2="165" stroke="#2457d6" stroke-width="2"/>
+  <line x1="240" y1="165" x2="240" y2="277" stroke="#2457d6" stroke-width="2"/>
+  <polyline points="240,277 505,277 505,270" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- RTS Signal Routing -->
+  <line x1="165" y1="255" x2="220" y2="255" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="220" cy="255" r="3" fill="#2457d6"/>
+  <line x1="220" y1="255" x2="220" y2="187" stroke="#2457d6" stroke-width="2"/>
+  <polyline points="220,187 405,187 405,180" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <line x1="220" y1="255" x2="310" y2="255" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Base Resistor R1 (Q1) -->
+  <rect x="310" y="153" width="35" height="24" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="327" y="145" font-size="12" text-anchor="middle" fill="#1a1a1a">R1 = 10kΩ</text>
+  <line x1="345" y1="165" x2="383" y2="165" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Transistor Q1 (NPN) -->
+  <circle cx="405" cy="165" r="22" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="397" y1="153" x2="397" y2="177" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="383" y1="165" x2="397" y2="165" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="397" y1="157" x2="415" y2="145" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="397" y1="173" x2="415" y2="185" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="409,178 417,186 407,186" fill="#1a1a1a"/>
+  <text x="405" y="134" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Q1 (NPN)</text>
+
+  <!-- Base Resistor R2 (Q2) -->
+  <rect x="310" y="243" width="35" height="24" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="327" y="235" font-size="12" text-anchor="middle" fill="#1a1a1a">R2 = 10kΩ</text>
+  <line x1="345" y1="255" x2="483" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Transistor Q2 (NPN) -->
+  <circle cx="505" cy="255" r="22" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="497" y1="243" x2="497" y2="267" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="483" y1="255" x2="497" y2="255" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="497" y1="247" x2="515" y2="235" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="497" y1="263" x2="515" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="509,268 517,276 507,276" fill="#1a1a1a"/>
+  <text x="505" y="292" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Q2 (NPN)</text>
+
+  <!-- Collector Q1 Output Line to RST -->
+  <polyline points="415,145 435,145 435,165 775,165" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <circle cx="620" cy="165" r="3.5" fill="#27ae60"/>
+
+  <!-- Collector Q2 Output Line to GPIO0 -->
+  <polyline points="515,235 535,235 535,255 775,255" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <circle cx="690" cy="255" r="3.5" fill="#c0392b"/>
+
+  <!-- Block 3: ESP8266 Module -->
+  <rect x="760" y="75" width="176" height="260" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="848" y="102" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">ESP8266 SoC</text>
+  <text x="848" y="120" font-size="12" text-anchor="middle" fill="#6b7280">(ESP-01 / ESP-12F)</text>
+
+  <rect x="775" y="150" width="75" height="30" rx="4" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="812" y="170" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">RST</text>
+  <text x="895" y="170" font-size="12" text-anchor="middle" fill="#27ae60">Скидання</text>
+
+  <rect x="775" y="240" width="75" height="30" rx="4" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="812" y="260" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">GPIO0</text>
+  <text x="895" y="260" font-size="12" text-anchor="middle" fill="#c0392b">Strapping</text>
+
+  <text x="848" y="315" font-size="12" font-style="italic" text-anchor="middle" fill="#6b7280">Вікно Latch-in</text>
+
+  <!-- Bottom Panel: State Table -->
+  <rect x="24" y="355" width="912" height="180" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="375" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Логіка перемикання станів (esptool / NodeMCU auto-reset table)</text>
+
+  <!-- Table Header Row -->
+  <rect x="36" y="388" width="888" height="24" fill="#d0d7de" rx="3"/>
+  <text x="85" y="404" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">DTR</text>
+  <text x="175" y="404" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">RTS</text>
+  <text x="275" y="404" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Стан Q1</text>
+  <text x="375" y="404" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Стан Q2</text>
+  <text x="475" y="404" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Вихід RST</text>
+  <text x="575" y="404" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Вихід GPIO0</text>
+  <text x="760" y="404" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Режим завантаження / Стан</text>
+
+  <!-- Row 1 -->
+  <rect x="36" y="414" width="888" height="24" fill="white"/>
+  <text x="85" y="430" font-size="12" text-anchor="middle">HIGH (1)</text>
+  <text x="175" y="430" font-size="12" text-anchor="middle">HIGH (1)</text>
+  <text x="275" y="430" font-size="12" text-anchor="middle" fill="#6b7280">OFF</text>
+  <text x="375" y="430" font-size="12" text-anchor="middle" fill="#6b7280">OFF</text>
+  <text x="475" y="430" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">HIGH (3.3V)</text>
+  <text x="575" y="430" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">HIGH (3.3V)</text>
+  <text x="760" y="430" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Звичайний старт (Flash Boot)</text>
+
+  <!-- Row 2 -->
+  <rect x="36" y="441" width="888" height="24" fill="#eaf0fd"/>
+  <text x="85" y="457" font-size="12" text-anchor="middle">LOW (0)</text>
+  <text x="175" y="457" font-size="12" text-anchor="middle">HIGH (1)</text>
+  <text x="275" y="457" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">ON (Увімкнуто)</text>
+  <text x="375" y="457" font-size="12" text-anchor="middle" fill="#6b7280">OFF</text>
+  <text x="475" y="457" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">LOW (0V)</text>
+  <text x="575" y="457" font-size="12" text-anchor="middle" fill="#27ae60">HIGH (3.3V)</text>
+  <text x="760" y="457" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Імпульс скидання (Reset Pulse)</text>
+
+  <!-- Row 3 -->
+  <rect x="36" y="468" width="888" height="24" fill="white"/>
+  <text x="85" y="484" font-size="12" text-anchor="middle">HIGH (1)</text>
+  <text x="175" y="484" font-size="12" text-anchor="middle">LOW (0)</text>
+  <text x="275" y="484" font-size="12" text-anchor="middle" fill="#6b7280">OFF</text>
+  <text x="375" y="484" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">ON (Увімкнуто)</text>
+  <text x="475" y="484" font-size="12" text-anchor="middle" fill="#27ae60">HIGH (3.3V)</text>
+  <text x="575" y="484" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">LOW (0V)</text>
+  <text x="760" y="484" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Режим прошивання (UART Bootloader)</text>
+
+  <!-- Row 4 -->
+  <rect x="36" y="495" width="888" height="24" fill="#e9f7ef"/>
+  <text x="85" y="511" font-size="12" text-anchor="middle">LOW (0)</text>
+  <text x="175" y="511" font-size="12" text-anchor="middle">LOW (0)</text>
+  <text x="275" y="511" font-size="12" text-anchor="middle" fill="#6b7280">OFF</text>
+  <text x="375" y="511" font-size="12" text-anchor="middle" fill="#6b7280">OFF</text>
+  <text x="475" y="511" font-size="12" text-anchor="middle" fill="#27ae60">HIGH (3.3V)</text>
+  <text x="575" y="511" font-size="12" text-anchor="middle" fill="#27ae60">HIGH (3.3V)</text>
+  <text x="760" y="511" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Захист від спадкового скидання порту</text>
+</svg>

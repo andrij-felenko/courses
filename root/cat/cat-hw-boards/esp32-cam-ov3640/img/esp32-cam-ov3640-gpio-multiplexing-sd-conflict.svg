@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Спільні виводи GPIO плати ESP32-CAM та апаратні конфлікти</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Конфлікти мультиплексування GPIO між шиною DVP (камера), слотом MicroSD та спалахом LED</text>
+
+  <!-- Connection Lines Behind Panels -->
+  <!-- Red dashed line for SDMMC conflict split around the badge rect -->
+  <path d="M 275 180 L 295 180 L 295 68 L 490 68" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <path d="M 670 68 L 785 68 L 785 80" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+  <!-- Conflict badge positioned cleanly between the split path -->
+  <rect x="490" y="56" width="180" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="580" y="72" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Конфлікт 4-bit SDMMC шини</text>
+
+  <!-- Red dashed line for Flash LED conflict -->
+  <path d="M 275 136 L 305 136 L 305 292 L 640 292 L 640 300" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+  <!-- Blue arrow MCU to Camera -->
+  <path d="M 275 140 L 315 140" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Panel 1: ESP32 MCU -->
+  <rect x="30" y="80" width="245" height="450" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="152" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP32-S (Мікроконтролер)</text>
+
+  <!-- GPIO Pills -->
+  <rect x="42" y="120" width="221" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="50" y="140" font-size="11" font-weight="bold" fill="#c0392b">GPIO4  | DVP Y4 / SD_DATA1 / FLASH</text>
+
+  <rect x="42" y="160" width="221" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="50" y="180" font-size="11" fill="#c0392b">GPIO12 | DVP Y6 / SD_DATA2</text>
+
+  <rect x="42" y="200" width="221" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="50" y="220" font-size="11" fill="#c0392b">GPIO13 | DVP Y7 / SD_DATA3</text>
+
+  <rect x="42" y="240" width="221" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="50" y="260" font-size="11" fill="#c0392b">GPIO2  | DVP Y2 / SD_DATA0 / Boot</text>
+
+  <rect x="42" y="280" width="221" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="50" y="300" font-size="11" fill="#c0392b">GPIO14 | DVP Y3 / SD_CLK</text>
+
+  <rect x="42" y="320" width="221" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="50" y="340" font-size="11" fill="#c0392b">GPIO15 | DVP Y5 / SD_CMD / RESET</text>
+
+  <rect x="42" y="360" width="221" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="50" y="380" font-size="11" fill="#2457d6">GPIO0  | DVP XCLK / Boot Mode</text>
+
+  <rect x="42" y="400" width="221" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="50" y="420" font-size="11" fill="#2457d6">GPIO26, 27 | SCCB (SIOD / SIOC)</text>
+
+  <rect x="42" y="440" width="221" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="50" y="460" font-size="11" fill="#2457d6">GPIO22, 23, 25 | PCLK/HREF/VSYNC</text>
+
+  <rect x="42" y="480" width="221" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="500" font-size="11" fill="#6b7280">GPIO32 (PWDN), GPIO33 (LED)</text>
+
+  <!-- Panel 2: Camera Module -->
+  <rect x="315" y="80" width="290" height="200" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="460" y="105" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Модуль камери OV3640 / OV2640</text>
+  <text x="460" y="123" font-size="12" fill="#6b7280" text-anchor="middle">Паралельний інтерфейс DVP</text>
+
+  <text x="330" y="150" font-size="12" fill="#1a1a1a">• Лінії даних: Y2–Y9 (8 біт DVP)</text>
+  <text x="330" y="170" font-size="12" fill="#1a1a1a">• Тактування: XCLK (GPIO0), PCLK (GPIO22)</text>
+  <text x="330" y="190" font-size="12" fill="#1a1a1a">• Синхронізація: VSYNC (25), HREF (23)</text>
+  <text x="330" y="210" font-size="12" fill="#1a1a1a">• Інтерфейс SCCB: SIOD (26), SIOC (27)</text>
+  <text x="330" y="230" font-size="12" fill="#1a1a1a">• Живлення &amp; Скидання: PWDN (32), RESET (15)</text>
+
+  <rect x="330" y="246" width="260" height="24" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="460" y="262" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Задіює 15 виводів GPIO мікроконтролера</text>
+
+  <!-- Panel 3: MicroSD Slot -->
+  <rect x="640" y="80" width="290" height="200" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="785" y="105" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Слот пам'яті MicroSD (SDMMC)</text>
+  <text x="785" y="123" font-size="12" fill="#6b7280" text-anchor="middle">4-бітний режим SDMMC (SD_HOST)</text>
+
+  <text x="655" y="150" font-size="12" fill="#1a1a1a">• DAT0 (GPIO2), DAT1 (GPIO4)</text>
+  <text x="655" y="170" font-size="12" fill="#1a1a1a">• DAT2 (GPIO12), DAT3 (GPIO13)</text>
+  <text x="655" y="190" font-size="12" fill="#1a1a1a">• CLK (GPIO14), CMD (GPIO15)</text>
+
+  <rect x="655" y="205" width="260" height="65" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="785" y="222" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠️ Повний апаратний конфлікт!</text>
+  <text x="785" y="240" font-size="11" fill="#6b7280" text-anchor="middle">Шина 4-bit SDMMC перетинається з DVP Y2-Y7</text>
+  <text x="785" y="256" font-size="11" fill="#6b7280" text-anchor="middle">та спалахом Flash LED на GPIO4</text>
+
+  <!-- Panel 4: Flash LED -->
+  <rect x="640" y="300" width="290" height="230" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="785" y="325" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Бортовий спалах (Flash LED)</text>
+  <text x="655" y="350" font-size="12" fill="#1a1a1a">• Керування: GPIO4 (NPN транзистор)</text>
+  <text x="655" y="372" font-size="12" fill="#c0392b">• При записі на SD або роботі DVP Y4</text>
+  <text x="655" y="392" font-size="11" fill="#c0392b">  виникають спалахи або збій відеопотоку!</text>
+
+  <!-- Panel 5: Solution -->
+  <rect x="315" y="300" width="290" height="230" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="460" y="325" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Апаратне рішення: 1-bit SDMMC</text>
+
+  <text x="330" y="350" font-size="12" font-weight="bold" fill="#1a1a1a">1. Використання 1-бітного режиму SD:</text>
+  <text x="340" y="370" font-size="11" fill="#27ae60">sdmmc_host_t host = SDMMC_HOST_DEFAULT();</text>
+  <text x="340" y="388" font-size="11" fill="#27ae60">host.flags = SDMMC_HOST_FLAG_1BIT;</text>
+
+  <text x="330" y="414" font-size="12" font-weight="bold" fill="#1a1a1a">2. Результат звільнення виводів:</text>
+  <text x="340" y="434" font-size="11" fill="#27ae60">• GPIO4 звільнено (Flash LED не спалахує)</text>
+  <text x="340" y="452" font-size="11" fill="#27ae60">• GPIO12, GPIO13 звільнено для DVP</text>
+
+  <text x="330" y="478" font-size="12" font-weight="bold" fill="#1a1a1a">3. Фіксація підтяжок завантаження:</text>
+  <text x="340" y="498" font-size="11" fill="#6b7280">• GPIO12 підтяжка до VCC для Boot</text>
+  <text x="340" y="516" font-size="11" fill="#6b7280">• GPIO2 вільно для SD_DATA0</text>
+</svg>

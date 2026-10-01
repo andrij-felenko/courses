@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <!-- Header Titles -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Шинна організація QSPI та відображення MMU в ESP32-S3R2</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Мапування 16 МБ Flash та 2 МБ Quad PSRAM через L1/L2 Cache і сторінки MMU</text>
+
+  <!-- Panel 1: CPU & Cache Subsystem -->
+  <rect x="25" y="75" width="210" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 25,83 A 8,8 0 0 1 33,75 L 227,75 A 8,8 0 0 1 235,83 L 235,112 L 25,112 Z" fill="#2457d6"/>
+  <text x="130" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">Процесор та Кеш</text>
+
+  <!-- CPU Cores Block -->
+  <rect x="40" y="125" width="180" height="115" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="147" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Xtensa LX7 Cores</text>
+  <text x="130" y="168" text-anchor="middle" font-size="12" fill="#1a1a1a">I-Bus: 0x42000000</text>
+  <text x="130" y="186" text-anchor="middle" font-size="12" fill="#6b7280">(Код Flash)</text>
+  <text x="130" y="206" text-anchor="middle" font-size="12" fill="#1a1a1a">D-Bus: 0x3D000000</text>
+  <text x="130" y="224" text-anchor="middle" font-size="12" fill="#6b7280">(Дані PSRAM)</text>
+
+  <!-- Cache Controller Block -->
+  <rect x="40" y="255" width="180" height="105" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="277" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Контролер Кешу</text>
+  <text x="130" y="299" text-anchor="middle" font-size="12" fill="#1a1a1a">L1 Cache (32 КБ)</text>
+  <text x="130" y="319" text-anchor="middle" font-size="12" fill="#1a1a1a">L2 Cache / Bus Matrix</text>
+  <text x="130" y="342" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">[Перевірка Hit / Miss]</text>
+
+  <!-- Request Info Block -->
+  <rect x="40" y="375" width="180" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="130" y="397" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Параметри запиту</text>
+  <text x="130" y="418" text-anchor="middle" font-size="12" fill="#6b7280">Розмір лінії: 32 байти</text>
+  <text x="130" y="438" text-anchor="middle" font-size="12" fill="#6b7280">Когерентність кешу</text>
+  <text x="130" y="458" text-anchor="middle" font-size="12" fill="#6b7280">Вирівнювання адрес</text>
+
+
+  <!-- Panel 2: MMU Engine -->
+  <rect x="255" y="75" width="225" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 255,83 A 8,8 0 0 1 263,75 L 472,75 A 8,8 0 0 1 480,83 L 480,112 L 255,112 Z" fill="#eaf0fd"/>
+  <line x1="255" y1="112" x2="480" y2="112" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="367.5" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Блок MMU (Сторінки 64 КБ)</text>
+
+  <!-- Flash MMU Table -->
+  <rect x="270" y="125" width="195" height="150" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="367.5" y="147" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Таблиця MMU: Flash</text>
+  <text x="367.5" y="169" text-anchor="middle" font-size="12" fill="#1a1a1a">Віртуальний: 0x42000000</text>
+  <text x="367.5" y="191" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">↓ Трансляція сторінок</text>
+  <text x="367.5" y="213" text-anchor="middle" font-size="12" fill="#1a1a1a">Фізичний: Flash 0x000000</text>
+  <text x="367.5" y="235" text-anchor="middle" font-size="12" fill="#6b7280">Обсяг: до 16 МБ NOR</text>
+  <text x="367.5" y="255" text-anchor="middle" font-size="12" fill="#6b7280">Режим: IRAM / DROM</text>
+
+  <!-- PSRAM MMU Table -->
+  <rect x="270" y="295" width="195" height="190" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="367.5" y="317" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Таблиця MMU: PSRAM</text>
+  <text x="367.5" y="339" text-anchor="middle" font-size="12" fill="#1a1a1a">Віртуальний: 0x3D000000</text>
+  <text x="367.5" y="361" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">↓ Трансляція сторінок</text>
+  <text x="367.5" y="383" text-anchor="middle" font-size="12" fill="#1a1a1a">Фізичний: PSRAM 0x000000</text>
+  <text x="367.5" y="405" text-anchor="middle" font-size="12" fill="#6b7280">Обсяг: 2 МБ Quad PSRAM</text>
+  <text x="367.5" y="427" text-anchor="middle" font-size="12" fill="#6b7280">Прапор: MALLOC_CAP_SPIRAM</text>
+  <text x="367.5" y="449" text-anchor="middle" font-size="12" fill="#6b7280">Зшивка з кучею heap_caps</text>
+  <text x="367.5" y="469" text-anchor="middle" font-size="12" fill="#6b7280">Сторінки MMU: 64 КБ</text>
+
+
+  <!-- Panel 3: QSPI Controller & Bus Arbiter -->
+  <rect x="500" y="75" width="200" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 500,83 A 8,8 0 0 1 508,75 L 692,75 A 8,8 0 0 1 700,83 L 700,112 L 500,112 Z" fill="#eaf0fd"/>
+  <line x1="500" y1="112" x2="700" y2="112" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="600" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Контролер QSPI (SPI0/1)</text>
+
+  <!-- Arbiter Block -->
+  <rect x="512.5" y="125" width="175" height="145" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="600" y="147" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Арбітр шини SPI</text>
+  <text x="600" y="169" text-anchor="middle" font-size="12" fill="#2457d6">Мультиплексор ліній</text>
+  <text x="600" y="191" text-anchor="middle" font-size="12" fill="#6b7280">Частота: 80 / 120 МГц</text>
+  <text x="600" y="213" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">SPI_FLASH_GUARD</text>
+  <text x="600" y="233" text-anchor="middle" font-size="12" fill="#6b7280">Захист від колізій</text>
+  <text x="600" y="251" text-anchor="middle" font-size="12" fill="#6b7280">блокування кешу</text>
+
+  <!-- Bus Lines Block -->
+  <rect x="512.5" y="295" width="175" height="190" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="600" y="317" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Фізичні лінії QSPI</text>
+  <text x="600" y="339" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">SCLK (Тактування)</text>
+  <text x="600" y="359" text-anchor="middle" font-size="12" fill="#1a1a1a">CS0 (Flash Select)</text>
+  <text x="600" y="379" text-anchor="middle" font-size="12" fill="#1a1a1a">CS1 (PSRAM Select)</text>
+  <text x="600" y="399" text-anchor="middle" font-size="12" fill="#1a1a1a">IO0 / SDO (Data 0)</text>
+  <text x="600" y="419" text-anchor="middle" font-size="12" fill="#1a1a1a">IO1 / SDI (Data 1)</text>
+  <text x="600" y="439" text-anchor="middle" font-size="12" fill="#1a1a1a">IO2 / WP (Data 2)</text>
+  <text x="600" y="459" text-anchor="middle" font-size="12" fill="#1a1a1a">IO3 / HOLD (Data 3)</text>
+
+
+  <!-- Panel 4: Physical Chips (SiP) -->
+  <rect x="720" y="75" width="215" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 720,83 A 8,8 0 0 1 728,75 L 927,75 A 8,8 0 0 1 935,83 L 935,112 L 720,112 Z" fill="#eaf0fd"/>
+  <line x1="720" y1="112" x2="935" y2="112" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="827.5" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Чипи пам'яті SiP</text>
+
+  <!-- NOR Flash Chip -->
+  <rect x="735" y="125" width="185" height="150" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="827.5" y="147" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">NOR Flash</text>
+  <text x="827.5" y="169" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">16 МБ (128 Мбіт)</text>
+  <text x="827.5" y="191" text-anchor="middle" font-size="12" fill="#6b7280">Шина: Quad SPI</text>
+  <text x="827.5" y="213" text-anchor="middle" font-size="12" fill="#6b7280">Вибір: CS0</text>
+  <text x="827.5" y="235" text-anchor="middle" font-size="12" fill="#6b7280">ПЗУ / Прошивка</text>
+  <text x="827.5" y="255" text-anchor="middle" font-size="12" fill="#6b7280">NVS / Файли</text>
+
+  <!-- Quad PSRAM Chip -->
+  <rect x="735" y="295" width="185" height="190" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="827.5" y="317" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Quad PSRAM</text>
+  <text x="827.5" y="339" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">2 МБ (16 Мбіт)</text>
+  <text x="827.5" y="361" text-anchor="middle" font-size="12" fill="#6b7280">Чип SiP: S3R2</text>
+  <text x="827.5" y="383" text-anchor="middle" font-size="12" fill="#6b7280">Шина: Quad SPI</text>
+  <text x="827.5" y="405" text-anchor="middle" font-size="12" fill="#6b7280">Вибір: CS1</text>
+  <text x="827.5" y="427" text-anchor="middle" font-size="12" fill="#6b7280">Кадрові буфери</text>
+  <text x="827.5" y="449" text-anchor="middle" font-size="12" fill="#6b7280">Динамічна куча</text>
+
+
+  <!-- Connecting Arrows -->
+  <!-- 1. CPU Cache -> MMU Flash -->
+  <path d="M 220 200 L 270 200" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- 2. CPU Cache -> MMU PSRAM -->
+  <path d="M 220 390 L 270 390" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+
+  <!-- 3. MMU Flash -> QSPI Arbiter -->
+  <path d="M 465 200 L 512.5 200" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- 4. MMU PSRAM -> QSPI Arbiter -->
+  <path d="M 465 390 L 512.5 390" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+
+  <!-- 5. QSPI Arbiter -> Flash Chip -->
+  <path d="M 687.5 200 L 735 200" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- 6. QSPI Arbiter -> PSRAM Chip -->
+  <path d="M 687.5 390 L 735 390" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+</svg>

@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Послідовність переведення WeAct ESP32-C6-Mini в режим завантажувача</text>
+  <text x="480" y="63" font-size="13" fill="#6b7280" text-anchor="middle">Натискання BOOT (GPIO9) під час скидання RESET (EN) активує ROM Bootloader</text>
+
+  <!-- Main Background Panel -->
+  <rect x="30" y="85" width="900" height="375" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+
+  <!-- Vertical Timing Grid Lines -->
+  <line x1="370" y1="122" x2="370" y2="310" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="510" y1="217" x2="510" y2="310" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="600" y1="217" x2="600" y2="310" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="690" y1="122" x2="690" y2="310" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Step 1 Box -->
+  <rect x="305" y="98" width="130" height="24" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="370" y="114" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Затиснути BOOT</text>
+
+  <!-- Step 3 Box -->
+  <rect x="625" y="98" width="130" height="24" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="690" y="114" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Відпустити BOOT</text>
+
+  <!-- Signal 1: BOOT Labels -->
+  <text x="40" y="153" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Сигнал BOOT (GPIO9)</text>
+  <text x="40" y="170" font-size="12" fill="#6b7280" text-anchor="start">Кнопка BOOT / IO9</text>
+  <text x="235" y="144" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">HIGH (1)</text>
+  <text x="235" y="184" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">LOW (0)</text>
+
+  <!-- Signal 1: BOOT Guideline & Waveform -->
+  <line x1="250" y1="140" x2="890" y2="140" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="250" y1="180" x2="890" y2="180" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="2,2"/>
+  <path d="M 250,140 L 370,140 L 370,180 L 690,180 L 690,140 L 890,140" fill="none" stroke="#2457d6" stroke-width="3" stroke-linejoin="round"/>
+
+  <!-- Step 2 Box -->
+  <rect x="475" y="193" width="160" height="24" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="555" y="209" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">2. Імпульс RESET (клик)</text>
+
+  <!-- Signal 2: RESET Labels -->
+  <text x="40" y="243" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Сигнал RESET (EN)</text>
+  <text x="40" y="260" font-size="12" fill="#6b7280" text-anchor="start">Кнопка RESET / EN</text>
+  <text x="235" y="234" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">HIGH (1)</text>
+  <text x="235" y="274" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">LOW (0)</text>
+
+  <!-- Signal 2: RESET Guideline & Waveform -->
+  <line x1="250" y1="230" x2="890" y2="230" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="250" y1="270" x2="890" y2="270" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="2,2"/>
+  <path d="M 250,230 L 510,230 L 510,270 L 600,270 L 600,230 L 890,230" fill="none" stroke="#c0392b" stroke-width="3" stroke-linejoin="round"/>
+
+  <!-- Signal 3: State Labels -->
+  <text x="40" y="328" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Режим роботи МК</text>
+  <text x="40" y="345" font-size="12" fill="#6b7280" text-anchor="start">Стан контролера</text>
+
+  <!-- Signal 3: State Blocks -->
+  <rect x="250" y="310" width="260" height="40" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="380" y="334" font-size="12" fill="#1a1a1a" text-anchor="middle">Користувацька програма (User App)</text>
+
+  <rect x="510" y="310" width="90" height="40" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="555" y="334" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Скидання</text>
+
+  <rect x="600" y="310" width="290" height="40" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="745" y="334" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ROM Bootloader (Очікування прошивки)</text>
+
+  <!-- Timeline Time Points -->
+  <text x="250" y="372" font-size="12" fill="#6b7280" text-anchor="middle">t0: Старт</text>
+  <text x="370" y="372" font-size="12" fill="#6b7280" text-anchor="middle">t1: BOOT=0</text>
+  <text x="510" y="372" font-size="12" fill="#6b7280" text-anchor="middle">t2: RST=0</text>
+  <text x="600" y="372" font-size="12" fill="#6b7280" text-anchor="middle">t3: RST=1</text>
+  <text x="690" y="372" font-size="12" fill="#6b7280" text-anchor="middle">t4: BOOT=1</text>
+
+  <!-- Bottom Summary Banner -->
+  <rect x="140" y="395" width="680" height="50" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="480" y="414" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ключова умова: BOOT (GPIO9) має бути LOW (0) у момент відпускання RESET (0 → 1)</text>
+  <text x="480" y="434" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Результат: контролер WeAct ESP32-C6-Mini входить у режим прошивки ROM Bootloader</text>
+</svg>

@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Блок-схема виконання ROM Bootloader мікроконтролера ESP8266</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Послідовність перевірки конфігураційних ліній та вибору режиму старту після зняття сигналу скидання</text>
+
+  <!-- Step 1: Reset -->
+  <rect x="360" y="75" width="240" height="45" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="94" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Скидання чипа (POR / RST)</text>
+  <text x="480" y="110" text-anchor="middle" font-size="12" fill="#6b7280">Вектор скидання 0x40000080</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M480,120 L480,143" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-main)"/>
+
+  <!-- Step 2: Init & Latch -->
+  <rect x="340" y="145" width="280" height="50" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="165" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Ініціалізація UART &amp; Опитування виводів</text>
+  <text x="480" y="182" text-anchor="middle" font-size="12" fill="#6b7280">Защепкування рівнів GPIO0, GPIO2, GPIO15</text>
+
+  <!-- Arrow 2 -> Decision -->
+  <path d="M480,195 L480,218" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-main)"/>
+
+  <!-- Decision Box -->
+  <rect x="310" y="220" width="340" height="55" rx="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="242" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Аналіз стану Strapping Pins</text>
+  <text x="480" y="260" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Опитування вхідних логічних рівнів</text>
+
+  <!-- Branch lines -->
+  <path d="M370,275 L370,302 L180,302 L180,328" stroke="#c0392b" stroke-width="2" fill="none" marker-end="url(#arr-red)"/>
+  <path d="M480,275 L480,328" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+  <path d="M590,275 L590,302 L780,302 L780,328" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-main)"/>
+
+  <!-- Branch labels -->
+  <text x="275" y="296" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">GPIO15=0, GPIO0=0, GPIO2=1</text>
+  <text x="490" y="302" text-anchor="start" font-size="11" font-weight="bold" fill="#27ae60">GPIO15=0, GPIO0=1, GPIO2=1</text>
+  <text x="685" y="296" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">GPIO15=1 (SDIO mode)</text>
+
+  <!-- Box 3A: UART Download -->
+  <rect x="50" y="330" width="260" height="85" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="180" y="352" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">UART Download Mode</text>
+  <text x="180" y="370" text-anchor="middle" font-size="12" fill="#1a1a1a">• Очікування пакета прошивки</text>
+  <text x="180" y="387" text-anchor="middle" font-size="12" fill="#1a1a1a">• Запис секцій у Flash / RAM</text>
+  <text x="180" y="404" text-anchor="middle" font-size="11" fill="#6b7280">Режим програмування</text>
+
+  <!-- Box 3B: SPI Flash Boot -->
+  <rect x="350" y="330" width="260" height="85" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="480" y="352" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">SPI Flash Boot (Основний режим)</text>
+  <text x="480" y="370" text-anchor="middle" font-size="12" fill="#1a1a1a">• Зчитати заголовок 0xE9 з Flash</text>
+  <text x="480" y="387" text-anchor="middle" font-size="12" fill="#1a1a1a">• Завантажити сегменти IRAM/DRAM</text>
+  <text x="480" y="404" text-anchor="middle" font-size="11" fill="#6b7280">Робочий запуск програми</text>
+
+  <!-- Box 3C: SDIO Boot -->
+  <rect x="650" y="330" width="260" height="85" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="780" y="352" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">SDIO Boot Mode</text>
+  <text x="780" y="370" text-anchor="middle" font-size="12" fill="#1a1a1a">• Ініціалізація шини SDIO</text>
+  <text x="780" y="387" text-anchor="middle" font-size="12" fill="#1a1a1a">• Завантаження коду з SD-карти</text>
+  <text x="780" y="404" text-anchor="middle" font-size="11" fill="#6b7280">Спеціалізований режим</text>
+
+  <!-- Arrow 3B -> 4 -->
+  <path d="M480,415 L480,458" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+
+  <!-- Box 4: App Execution -->
+  <rect x="340" y="460" width="280" height="55" rx="8" fill="#2457d6" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="480" y="482" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">Виконання коду користувача</text>
+  <text x="480" y="500" text-anchor="middle" font-size="12" fill="#eaf0fd">Перехід за адресою 0x40100000</text>
+</svg>

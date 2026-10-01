@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Поведінка вихідного каскаду при пробої силового ключа</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Звичайний ПЛК подає напругу при пробої, а Safety PLC вимикає резервний вихідний ключ</text>
+
+  <!-- Left Side Container: Standard PLC (Danger / Single Channel) -->
+  <rect x="30" y="75" width="435" height="420" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="247.5" y="102" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">Звичайний ПЛК (Одноканальний вихід DO)</text>
+
+  <!-- Power Line +24V to Transistor -->
+  <line x1="255" y1="115" x2="255" y2="135" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="255" y="112" font-size="11" fill="#c0392b" text-anchor="middle">+24V DC</text>
+
+  <!-- PLC CPU Box (Left) -->
+  <rect x="50" y="135" width="100" height="65" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="100" y="162" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ЦП ПЛК</text>
+  <text x="100" y="182" font-size="11" fill="#c0392b" text-anchor="middle">Команда: "0"</text>
+
+  <!-- Control Line CPU -> Transistor -->
+  <line x1="150" y1="167.5" x2="200" y2="167.5" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="175" y="155" font-size="11" fill="#6b7280" text-anchor="middle">Сигнал 0V</text>
+
+  <!-- Single Transistor Switch Box (Left) -->
+  <rect x="200" y="135" width="110" height="65" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="255" y="155" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Ключ DO</text>
+  <text x="255" y="172" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">ПРОБІЙ (КЗ)</text>
+  <text x="255" y="188" font-size="10" fill="#c0392b" text-anchor="middle">(Постійно ON)</text>
+
+  <!-- Output Line Transistor -> Actuator -->
+  <line x1="310" y1="167.5" x2="355" y2="167.5" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="332.5" y="155" font-size="11" fill="#c0392b" text-anchor="middle">+24V</text>
+
+  <!-- Actuator / Load Box (Left) -->
+  <rect x="355" y="135" width="95" height="65" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="402.5" y="162" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Клапан</text>
+  <text x="402.5" y="182" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">ВВІМКНЕНО!</text>
+
+  <!-- Left Outcome Banner -->
+  <rect x="45" y="225" width="405" height="255" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="45" y="225" width="405" height="34" rx="6" fill="#c0392b"/>
+  <text x="247.5" y="247" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">КРИТИЧНА АВАРІЙНА СИТУАЦІЯ</text>
+  <text x="247.5" y="278" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Прихована небезпечна відмова (Dangerous Undetected)</text>
+  <text x="247.5" y="304" font-size="12" fill="#1a1a1a" text-anchor="middle">• ЦП вважає, що вихід вимкнено (команда = 0)</text>
+  <text x="247.5" y="328" font-size="12" fill="#1a1a1a" text-anchor="middle">• Пробитий ключ продовжує подавати +24V DC</text>
+  <text x="247.5" y="352" font-size="12" fill="#c0392b" text-anchor="middle">• Відсутній другий серійний вимикач для обриву кола</text>
+  <text x="247.5" y="376" font-size="12" fill="#c0392b" text-anchor="middle">• Відсутня діагностика зворотного зчитування напруги</text>
+  <text x="247.5" y="400" font-size="12" fill="#c0392b" text-anchor="middle">• Неконтрольований рух механізму / Травмування</text>
+  <text x="247.5" y="435" font-size="12" fill="#6b7280" text-anchor="middle">Повнота безпеки: SIL 0 / PL a (Заборонено для Safety)</text>
+
+  <!-- Right Side Container: Safety PLC (Safe / Redundant Dual Channel) -->
+  <rect x="495" y="75" width="435" height="420" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712.5" y="102" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">Сертифікований Safety PLC (Двоканальний F-DO)</text>
+
+  <!-- Readback Diagnostic Line -->
+  <path d="M 725,155 L 725,120 L 557.5,120 L 557.5,135" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-blue)"/>
+  <text x="641" y="112" font-size="9" fill="#2457d6" text-anchor="middle">Зворотна діагностика напруги (Readback)</text>
+
+  <!-- Power Line +24V to Switch 1 -->
+  <line x1="675" y1="115" x2="675" y2="135" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="675" y="112" font-size="10" fill="#c0392b" text-anchor="middle">+24V</text>
+
+  <!-- Safety CPU System (Right) -->
+  <rect x="510" y="135" width="95" height="65" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="557.5" y="155" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">CPU1 + CPU2</text>
+  <text x="557.5" y="171" font-size="10" fill="#2457d6" text-anchor="middle">1o2D / Lockstep</text>
+  <text x="557.5" y="187" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">Діагностика OK</text>
+
+  <!-- Control Line CPU -> Switch 1 -->
+  <line x1="605" y1="155" x2="635" y2="155" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <!-- Control Line CPU -> Switch 2 -->
+  <line x1="605" y1="180" x2="735" y2="180" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Switch 1 Box (Faulty) -->
+  <rect x="635" y="135" width="80" height="40" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="675" y="150" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Ключ 1</text>
+  <text x="675" y="164" font-size="9" font-weight="bold" fill="#c0392b" text-anchor="middle">(ПРОБІЙ)</text>
+
+  <!-- Series Line Switch 1 -> Switch 2 -->
+  <line x1="715" y1="155" x2="735" y2="155" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Switch 2 Box (Safety Cutoff) -->
+  <rect x="735" y="135" width="80" height="65" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="775" y="155" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Ключ 2</text>
+  <text x="775" y="171" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">ВІДКРИТО</text>
+  <text x="775" y="187" font-size="9" fill="#27ae60" text-anchor="middle">(Аварійне OFF)</text>
+
+  <!-- Output Line Switch 2 -> Actuator -->
+  <line x1="815" y1="167.5" x2="850" y2="167.5" stroke="#1a1a1a" stroke-width="2" stroke-dasharray="3 3" marker-end="url(#arr-dark)"/>
+  <text x="832.5" y="155" font-size="10" fill="#27ae60" text-anchor="middle">0V (Скид)</text>
+
+  <!-- Actuator / Load Box (Right) -->
+  <rect x="850" y="135" width="70" height="65" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="885" y="162" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Клапан</text>
+  <text x="885" y="182" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">ВИМКНЕНО</text>
+
+  <!-- Right Outcome Banner -->
+  <rect x="510" y="225" width="405" height="255" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="510" y="225" width="405" height="34" rx="6" fill="#27ae60"/>
+  <text x="712.5" y="247" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">БЕЗПЕЧНИЙ СТАН (Fail-Safe State)</text>
+  <text x="712.5" y="278" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Виявлена безпечна відмова (Safe Detected Fault)</text>
+  <text x="712.5" y="304" font-size="12" fill="#1a1a1a" text-anchor="middle">• Зворотне зчитування виявляє напругу при Ключі 1 = OFF</text>
+  <text x="712.5" y="328" font-size="12" fill="#1a1a1a" text-anchor="middle">• CPU2 миттєво розмикає послідовний Ключ 2 (1o2D)</text>
+  <text x="712.5" y="352" font-size="12" fill="#27ae60" text-anchor="middle">• Коло живлення навантаження гарантовано розривається</text>
+  <text x="712.5" y="376" font-size="12" fill="#27ae60" text-anchor="middle">• Аварійне знеструмлення виходу (De-energize to Trip)</text>
+  <text x="712.5" y="400" font-size="12" fill="#27ae60" text-anchor="middle">• Повна пасивація каналу до усунення пробою</text>
+  <text x="712.5" y="435" font-size="12" fill="#6b7280" text-anchor="middle">Повнота безпеки: SIL 3 / PL e (Повна відповідність)</text>
+</svg>

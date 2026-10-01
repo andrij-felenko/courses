@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Паразитне заживлення ESP8266 через ESD-діоди вхідного каскаду</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Шлях зворотного струму з лінії TXD конвертера на шину VCC та блокування вузла скидання POR</text>
+
+  <!-- Left Panel: USB-UART Converter -->
+  <rect x="30" y="75" width="230" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="145" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB-UART Конвертер</text>
+  <text x="145" y="118" font-size="12" fill="#6b7280" text-anchor="middle">(Підключений до USB-порту)</text>
+
+  <!-- Power status card USB -->
+  <rect x="45" y="135" width="200" height="52" rx="5" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="145" y="156" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">USB Живлення: +5V / 3.3V</text>
+  <text x="145" y="174" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">АКТИВНЕ</text>
+
+  <!-- TXD Output Pin Box -->
+  <rect x="45" y="215" width="200" height="75" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="145" y="236" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вихід TXD (UART)</text>
+  <rect x="58" y="246" width="174" height="30" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="145" y="266" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">3.3V (Active HIGH)</text>
+
+  <!-- Ground Line USB -->
+  <line x1="45" y1="360" x2="245" y2="360" stroke="#6b7280" stroke-width="2"/>
+  <text x="145" y="385" font-size="12" fill="#6b7280" text-anchor="middle">Спільна земля (GND)</text>
+
+  <!-- Center Panel: ESP8266 SoC Internal Structure -->
+  <rect x="280" y="75" width="410" height="375" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="485" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня структура ESP8266 (VCC вимкнено!)</text>
+
+  <!-- Main VCC Rail (Internal VCC Bus) -->
+  <line x1="310" y1="140" x2="665" y2="140" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <rect x="330" y="108" width="310" height="24" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="485" y="124" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Шина VCC (Паразитний потенціал ≈ 2.7V)</text>
+  <line x1="485" y1="132" x2="485" y2="140" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Internal GND Rail -->
+  <line x1="310" y1="360" x2="665" y2="360" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="485" y="385" font-size="12" fill="#6b7280" text-anchor="middle">Внутрішня шина землі (GND)</text>
+
+  <!-- Connection line from USB GND to ESP8266 GND -->
+  <line x1="245" y1="360" x2="310" y2="360" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <!-- Connection Wire from TXD to GPIO Pad -->
+  <line x1="245" y1="255" x2="295" y2="255" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+  <text x="270" y="247" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">3.3V</text>
+
+  <!-- GPIO Input Pad -->
+  <rect x="295" y="235" width="60" height="40" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="325" y="251" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідний</text>
+  <text x="325" y="266" font-size="12" fill="#6b7280" text-anchor="middle">Pin/RXD</text>
+
+  <!-- ESD Diodes Branch -->
+  <!-- Wire from Pad to Diode junction -->
+  <line x1="355" y1="255" x2="395" y2="255" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="395" cy="255" r="3.5" fill="#c0392b"/>
+
+  <!-- Upper ESD Diode (D_ESD_top) -->
+  <line x1="395" y1="255" x2="395" y2="202" stroke="#c0392b" stroke-width="2.5"/>
+  <polygon points="395,180 384,202 406,202" fill="#c0392b" stroke="#c0392b" stroke-width="1"/>
+  <line x1="384" y1="180" x2="406" y2="180" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="395" y1="180" x2="395" y2="140" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="415" y="184" font-size="12" font-weight="bold" fill="#c0392b">D_ESD (Верхній)</text>
+  <text x="415" y="200" font-size="12" fill="#c0392b">(V_D ≈ 0.4V)</text>
+
+  <!-- Lower ESD Diode (D_ESD_bot) -->
+  <line x1="395" y1="255" x2="395" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="384" y1="285" x2="406" y2="285" stroke="#6b7280" stroke-width="2.5"/>
+  <polygon points="395,307 384,285 406,285" fill="#6b7280" stroke="#6b7280" stroke-width="1"/>
+  <line x1="395" y1="307" x2="395" y2="360" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="415" y="300" font-size="12" fill="#6b7280">D_ESD (Нижній)</text>
+
+  <!-- Decoupling Cap on VCC -->
+  <line x1="525" y1="140" x2="525" y2="235" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="513" y1="235" x2="537" y2="235" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="513" y1="243" x2="537" y2="243" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="525" y1="243" x2="525" y2="360" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="542" y="234" font-size="12" fill="#6b7280">C_dec</text>
+  <text x="542" y="248" font-size="12" fill="#6b7280">(100 нФ)</text>
+
+  <!-- POR (Power-On Reset) Block -->
+  <rect x="605" y="170" width="75" height="95" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="642.5" y="192" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Вузол POR</text>
+  <text x="642.5" y="210" font-size="12" fill="#c0392b" text-anchor="middle">(Reset)</text>
+  <rect x="611" y="222" width="63" height="26" rx="4" fill="#c0392b"/>
+  <text x="642.5" y="239" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">БЛОКОВАНО</text>
+
+  <line x1="642.5" y1="140" x2="642.5" y2="170" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Right Panel: Problem & Solution Summary -->
+  <rect x="705" y="75" width="225" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Problem Card -->
+  <rect x="715" y="90" width="205" height="170" rx="6" fill="#fdecea" stroke="#c0392b"/>
+  <text x="725" y="112" font-size="13" font-weight="bold" fill="#c0392b">Наслідки паразитного</text>
+  <text x="725" y="128" font-size="13" font-weight="bold" fill="#c0392b">живлення:</text>
+
+  <text x="725" y="150" font-size="12" fill="#1a1a1a">• Струм з TXD заряджає</text>
+  <text x="737" y="166" font-size="12" fill="#1a1a1a">шину VCC до ~2.7V</text>
+
+  <text x="725" y="188" font-size="12" fill="#1a1a1a">• Напруга VCC не падає</text>
+  <text x="737" y="204" font-size="12" fill="#1a1a1a">до 0V при перезапуску</text>
+
+  <text x="725" y="226" font-size="12" font-weight="bold" fill="#c0392b">• Детектор POR не бачить</text>
+  <text x="737" y="242" font-size="12" font-weight="bold" fill="#c0392b">скидання → зависання</text>
+
+  <!-- Solution Card -->
+  <rect x="715" y="270" width="205" height="165" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="725" y="292" font-size="13" font-weight="bold" fill="#27ae60">Схемотехнічний захист:</text>
+
+  <text x="725" y="315" font-size="12" fill="#1a1a1a">1. Резистор 1–4.7 кОм</text>
+  <text x="739" y="331" font-size="12" fill="#6b7280">послідовно в лінію TXD</text>
+
+  <text x="725" y="353" font-size="12" fill="#1a1a1a">2. Діод Шотткі / MOSFET</text>
+  <text x="739" y="369" font-size="12" fill="#6b7280">для відсікання струму</text>
+
+  <text x="725" y="391" font-size="12" fill="#1a1a1a">3. Подача VCC раніше</text>
+  <text x="739" y="407" font-size="12" fill="#6b7280">за підключення USB</text>
+
+</svg>

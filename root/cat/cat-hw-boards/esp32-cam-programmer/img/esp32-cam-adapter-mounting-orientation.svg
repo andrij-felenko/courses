@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Орієнтація та монтування модуля ESP32-CAM в адаптер CH340</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Антена розташовується над Type-C, камера орієнтована назовні, виводи 5V і GND збігаються</text>
+
+  <!-- PANEL 1: Correct Mounting -->
+  <rect x="30" y="80" width="435" height="300" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="42" y="92" width="130" height="24" rx="4" fill="#27ae60"/>
+  <text x="107" y="108" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">✓ ПРАВИЛЬНО</text>
+  <text x="184" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">Правильна орієнтація модуля</text>
+
+  <!-- Base Adapter Board (Panel 1) -->
+  <rect x="164" y="120" width="168" height="245" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Type-C Connector -->
+  <rect x="213" y="126" width="70" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="248" y="142" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Type-C</text>
+
+  <!-- Female Sockets -->
+  <rect x="170" y="160" width="12" height="178" rx="2" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="314" y="160" width="12" height="178" rx="2" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- ESP32-CAM Body (Mounted Correctly) -->
+  <rect x="182" y="156" width="132" height="186" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  
+  <!-- Antenna -->
+  <rect x="188" y="162" width="120" height="26" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="248" y="179" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">PCB-антена</text>
+
+  <!-- Metal Shield -->
+  <rect x="193" y="194" width="110" height="40" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="248" y="218" font-size="12" fill="#6b7280" text-anchor="middle">ESP-32S</text>
+
+  <!-- Camera Module -->
+  <rect x="213" y="240" width="70" height="45" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="248" cy="262.5" r="13" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="248" cy="262.5" r="5" fill="#2457d6"/>
+  <!-- Flash LED -->
+  <rect x="193" y="252" width="14" height="14" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+
+  <!-- Buttons -->
+  <rect x="190" y="314" width="42" height="20" rx="3" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="211" y="328" font-size="12" fill="#1a1a1a" text-anchor="middle">RST</text>
+  <rect x="266" y="314" width="42" height="20" rx="3" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="287" y="328" font-size="12" fill="#1a1a1a" text-anchor="middle">IO0</text>
+
+  <!-- Pin Indicators -->
+  <circle cx="176" cy="168" r="4" fill="#27ae60"/>
+  <circle cx="320" cy="168" r="4" fill="#27ae60"/>
+
+  <!-- Left Callouts (Panel 1) -->
+  <text x="38" y="142" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">1. Антена до Type-C</text>
+  <line x1="160" y1="156" x2="184" y2="168" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <text x="38" y="196" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">2. Вивід 5V (вгорі)</text>
+  <line x1="158" y1="182" x2="172" y2="170" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <text x="38" y="250" font-size="12" fill="#1a1a1a" text-anchor="start">3. Об'єктив камери</text>
+  <line x1="158" y1="262.5" x2="210" y2="262.5" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Right Callouts (Panel 1) -->
+  <text x="342" y="162" font-size="12" fill="#6b7280" text-anchor="start">Вивід 3V3</text>
+  <line x1="338" y1="168" x2="324" y2="168" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <text x="342" y="210" font-size="12" fill="#1a1a1a" text-anchor="start">
+    <tspan x="342" dy="0" font-weight="bold">Автоматичний</tspan>
+    <tspan x="342" dy="15">скид (RST/IO0)</tspan>
+  </text>
+
+  <text x="342" y="325" font-size="12" fill="#6b7280" text-anchor="start">
+    <tspan x="342" dy="0">Кнопки скидання</tspan>
+    <tspan x="342" dy="15">та прошивки</tspan>
+  </text>
+  <line x1="338" y1="334" x2="310" y2="334" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- PANEL 2: Incorrect Mounting -->
+  <rect x="495" y="80" width="435" height="300" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="507" y="92" width="140" height="24" rx="4" fill="#c0392b"/>
+  <text x="577" y="108" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">⛔ НЕПРАВИЛЬНО</text>
+  <text x="657" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">Розвертання на 180°</text>
+
+  <!-- Base Adapter Board (Panel 2) -->
+  <rect x="629" y="120" width="168" height="245" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Type-C Connector -->
+  <rect x="678" y="126" width="70" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="713" y="142" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Type-C</text>
+
+  <!-- Female Sockets -->
+  <rect x="635" y="160" width="12" height="178" rx="2" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="779" y="160" width="12" height="178" rx="2" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- ESP32-CAM Body (Mounted Inverted 180°) -->
+  <rect x="647" y="156" width="132" height="186" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,3"/>
+  
+  <!-- Inverted Camera (Top) -->
+  <rect x="678" y="162" width="70" height="45" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="713" cy="184.5" r="13" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="713" cy="184.5" r="5" fill="#c0392b"/>
+
+  <!-- Metal Shield -->
+  <rect x="658" y="215" width="110" height="40" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="713" y="239" font-size="12" fill="#6b7280" text-anchor="middle">ESP-32S</text>
+
+  <!-- Inverted Antenna (Bottom) -->
+  <rect x="653" y="263" width="120" height="26" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="713" y="280" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">PCB-антена</text>
+
+  <!-- Misaligned Pin Error Marker -->
+  <circle cx="641" cy="168" r="7" fill="#c0392b"/>
+  <text x="641" y="172" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">✕</text>
+
+  <!-- Left Callouts (Panel 2) -->
+  <text x="507" y="150" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">
+    <tspan x="507" dy="0">1. Переполюсовка</tspan>
+    <tspan x="507" dy="15">живлення (5V/GND)</tspan>
+  </text>
+  <line x1="620" y1="168" x2="632" y2="168" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <text x="507" y="215" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">
+    <tspan x="507" dy="0">2. Ризик згоряння</tspan>
+    <tspan x="507" dy="15">чипа CH340</tspan>
+  </text>
+
+  <text x="507" y="275" font-size="12" fill="#c0392b" text-anchor="start">
+    <tspan x="507" dy="0">3. Антена знизу</tspan>
+    <tspan x="507" dy="15">(помилка 180°)</tspan>
+  </text>
+  <line x1="612" y1="276" x2="646" y2="276" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Right Callouts (Panel 2) -->
+  <text x="803" y="160" font-size="12" fill="#c0392b" text-anchor="start">
+    <tspan x="803" dy="0">Камера біля</tspan>
+    <tspan x="803" dy="15">Type-C</tspan>
+  </text>
+  <line x1="797" y1="178" x2="752" y2="178" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <text x="803" y="250" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">
+    <tspan x="803" dy="0">Схема не працює,</tspan>
+    <tspan x="803" dy="15">можливий пробій</tspan>
+  </text>
+
+  <!-- BOTTOM SUMMARY BANNER -->
+  <rect x="30" y="395" width="900" height="45" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="45" y="422" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">Правило монтування:</text>
+  <text x="190" y="422" font-size="13" fill="#1a1a1a" text-anchor="start">Суміщайте 5V на ESP32-CAM з 5V на сокеті адаптера (PCB-антена повинна опинитися прямо над Type-C)</text>
+</svg>

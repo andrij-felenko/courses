@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема станів мультиплексора сокетів AT+CIPMUX та режимів ESP-01</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Вибір між одиночним (CIPMUX=0) та множинним (CIPMUX=1) режимом визначає можливість запуску TCP-сервера й арбітраж каналів 0–4</text>
+
+  <!-- Initial Idle State Box -->
+  <rect x="340" y="75" width="280" height="65" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="480" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Початковий стан (Очікування)</text>
+  <text x="480" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Усі сокети закриті; зміна CIPMUX можлива</text>
+
+  <!-- Branching Lines -->
+  <path d="M 370 140 L 245 170" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="300" y="148" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">AT+CIPMUX=0</text>
+
+  <path d="M 590 140 L 715 170" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="660" y="148" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">AT+CIPMUX=1</text>
+
+  <!-- Container Left: CIPMUX=0 -->
+  <rect x="30" y="175" width="430" height="335" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="245" y="198" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">ОДИНОЧНИЙ РЕЖИМ (AT+CIPMUX=0)</text>
+
+  <!-- Single Client Sub-block -->
+  <rect x="55" y="215" width="380" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="245" y="238" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Активний сокет (link_id відсутній)</text>
+  <text x="245" y="258" font-size="12" fill="#2457d6" text-anchor="middle">AT+CIPSTART="TCP"/"UDP",&lt;ip&gt;,&lt;port&gt;</text>
+  <text x="245" y="278" font-size="12" fill="#1a1a1a" text-anchor="middle">Передача: AT+CIPSEND=&lt;len&gt;  |  Прийом: +IPD,&lt;len&gt;:...</text>
+  <text x="245" y="298" font-size="12" fill="#6b7280" text-anchor="middle">Закриття з'єднання: AT+CIPCLOSE</text>
+
+  <!-- Transition Arrow to Passthrough -->
+  <path d="M 245 330 L 245 345" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Passthrough Sub-block -->
+  <rect x="55" y="350" width="380" height="115" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="245" y="373" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Прозорий режим (Passthrough Mode)</text>
+  <text x="245" y="393" font-size="12" fill="#1a1a1a" text-anchor="middle">Активація: AT+CIPMODE=1 + AT+CIPSEND</text>
+  <text x="245" y="413" font-size="12" fill="#1a1a1a" text-anchor="middle">Пряма трансляція UART ⇄ Wi-Fi (без префіксів +IPD)</text>
+  <text x="245" y="433" font-size="12" fill="#6b7280" text-anchor="middle">Вихід з режиму: пауза 1 с + відправка +++</text>
+
+  <!-- Left Warning Note -->
+  <text x="245" y="490" font-size="12" fill="#c0392b" text-anchor="middle">⚠️ TCP-сервер (AT+CIPSERVER) у режимі CIPMUX=0 недоступний</text>
+
+  <!-- Container Right: CIPMUX=1 -->
+  <rect x="500" y="175" width="430" height="335" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="715" y="198" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">МНОЖИННИЙ РЕЖИМ (AT+CIPMUX=1)</text>
+
+  <!-- Multi Client Sub-block -->
+  <rect x="525" y="215" width="380" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="715" y="238" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Багатоканальні сокети (link_id = 0...4)</text>
+  <text x="715" y="258" font-size="12" fill="#2457d6" text-anchor="middle">AT+CIPSTART=&lt;id&gt;,"TCP"/"UDP",&lt;ip&gt;,&lt;port&gt;</text>
+  <text x="715" y="278" font-size="12" fill="#1a1a1a" text-anchor="middle">Передача: AT+CIPSEND=&lt;id&gt;,&lt;len&gt; | +IPD,&lt;id&gt;,&lt;len&gt;:...</text>
+  <text x="715" y="298" font-size="12" fill="#6b7280" text-anchor="middle">Закриття каналу: AT+CIPCLOSE=&lt;id&gt;</text>
+
+  <!-- Parallel Server Sub-block -->
+  <rect x="525" y="350" width="380" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="715" y="373" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Локальний TCP-Сервер (AT+CIPSERVER=1,&lt;port&gt;)</text>
+  <text x="715" y="393" font-size="12" fill="#1a1a1a" text-anchor="middle">Прийом підключень: сповіщення &lt;id&gt;,CONNECT</text>
+  <text x="715" y="413" font-size="12" fill="#1a1a1a" text-anchor="middle">Обслуговування до 4 паралельних клієнтів</text>
+  <text x="715" y="433" font-size="12" fill="#6b7280" text-anchor="middle">Зупинка сервера: AT+CIPSERVER=0</text>
+
+  <!-- Right Info Note -->
+  <text x="715" y="490" font-size="12" fill="#6b7280" text-anchor="middle">ℹ️ Режим прозорої передачі (passthrough) при CIPMUX=1 недоступний</text>
+</svg>

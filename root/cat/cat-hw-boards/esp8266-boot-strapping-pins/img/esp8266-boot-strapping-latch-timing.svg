@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова діаграма защеплення логічних рівнів strapping-виводів ESP8266</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Фіксація трибіта (GPIO15, GPIO0, GPIO2) ROM-завантажувачем по передньому фронту RST</text>
+
+  <!-- Головна панель діаграми -->
+  <rect x="40" y="85" width="880" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Часовий порядок сигналів скидання та зчитування трибіта завантаження</text>
+
+  <!-- Підсвічене вікно защеплення (Latch Window) -->
+  <rect x="360" y="140" width="120" height="265" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="420" y="157" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Вікно t_latch</text>
+
+  <!-- Вертикальна лінія тригера RST ↑ -->
+  <line x1="360" y1="140" x2="360" y2="405" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3"/>
+  <text x="360" y="134" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Точка t=0 (RST ↑)</text>
+
+  <!-- Назви сигнальних ліній зліва -->
+  <text x="55" y="170" font-size="12" font-weight="bold" fill="#1a1a1a">VDD (3.3V)</text>
+  <text x="55" y="220" font-size="12" font-weight="bold" fill="#2457d6">CH_PD (EN)</text>
+  <text x="55" y="270" font-size="12" font-weight="bold" fill="#c0392b">RST</text>
+  <text x="55" y="318" font-size="12" font-weight="bold" fill="#27ae60">Strapping</text>
+  <text x="55" y="333" font-size="12" fill="#6b7280">(15, 0, 2)</text>
+  <text x="55" y="380" font-size="12" font-weight="bold" fill="#2457d6">ROM Latch</text>
+
+  <!-- Сигнал 1: VDD (3.3V) -->
+  <path d="M160,180 L200,180 L210,160 L870,160" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Сигнал 2: CH_PD (EN) -->
+  <path d="M160,230 L230,230 L240,210 L870,210" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Сигнал 3: RST -->
+  <path d="M160,280 L360,280 L360,255 L870,255" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="260" y="295" text-anchor="middle" font-size="12" fill="#c0392b">Reset (LOW)</text>
+  <text x="520" y="248" font-size="12" fill="#27ae60">Run (HIGH)</text>
+
+  <!-- Сигнал 4: Strapping Pins Bus (GPIO15, GPIO0, GPIO2) -->
+  <path d="M160,310 L300,310 L310,305 L870,305" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <path d="M160,330 L300,330 L310,335 L870,335" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="210" y="325" font-size="12" font-weight="bold" fill="#27ae60">Стабільні підтяжки</text>
+
+  <!-- Сигнал 5: ROM Latch State -->
+  <path d="M160,390 L400,390 L400,370 L870,370" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="520" y="365" font-size="12" font-weight="bold" fill="#27ae60">Фіксація: [0, 1, 1] =&gt; SPI Flash Boot Mode</text>
+
+  <!-- Нижній блок правил защеплення -->
+  <rect x="40" y="440" width="880" height="95" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="60" y="463" font-size="13" font-weight="bold" fill="#2457d6">Ключові фізичні умови надійного защеплення (Latching Requirements):</text>
+  <text x="60" y="488" font-size="12" fill="#1a1a1a">1. Стабільність рівнів: GPIO15=LOW (0V), GPIO0=HIGH (3.3V), GPIO2=HIGH (3.3V) повинні встановитися ДО фронту RST.</text>
+  <text x="60" y="512" font-size="12" fill="#1a1a1a">2. Час утримання t_hold &gt;= 2 мс після фронту RST (↑) запобігає викривленню двійкового трибіта через RC-затримки.</text>
+</svg>

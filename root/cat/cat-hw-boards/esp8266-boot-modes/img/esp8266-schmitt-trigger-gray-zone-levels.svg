@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="4" refY="1.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-top" markerWidth="9" markerHeight="9" refX="4" refY="1.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,8 L4,0 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Логічні пороги тригера Шмітта та зона невизначеності ESP8266</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Напруга від V_IL (0.825 В) до V_IH (2.475 В) спричиняє невизначений стан та збої защеплення режимів</text>
+
+  <!-- Vertical Axis line -->
+  <line x1="240" y1="95" x2="240" y2="395" stroke="#1a1a1a" stroke-width="2" marker-start="url(#arr-top)"/>
+
+  <!-- Voltage Level Axis Labels -->
+  <text x="228" y="104" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">V_DD = 3.30 В</text>
+  <line x1="234" y1="100" x2="260" y2="100" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="228" y="176" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">V_IH = 2.475 В</text>
+  <line x1="234" y1="172.5" x2="260" y2="172.5" stroke="#27ae60" stroke-width="1.5"/>
+
+  <text x="228" y="321" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">V_IL = 0.825 В</text>
+  <line x1="234" y1="317.5" x2="260" y2="317.5" stroke="#2457d6" stroke-width="1.5"/>
+
+  <text x="228" y="394" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">GND = 0.00 В</text>
+  <line x1="234" y1="390" x2="260" y2="390" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Region 1: Logic High Band -->
+  <rect x="260" y="100" width="440" height="72.5" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="480" y="130" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Гарантований логічний рівень 1 (HIGH)</text>
+  <text x="480" y="152" font-size="12" fill="#1a1a1a" text-anchor="middle">V_in ≥ V_IH (2.475 В ... 3.30 В)</text>
+
+  <!-- Region 2: Gray / Undefined Danger Zone -->
+  <rect x="260" y="172.5" width="440" height="145" fill="#fdecea" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,4"/>
+
+  <!-- Warning Inner Box -->
+  <rect x="320" y="210" width="320" height="70" rx="6" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="232" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">НЕБЕЗПЕЧНА ЗОНА НЕВИЗНАЧЕНОСТІ</text>
+  <text x="480" y="250" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">0.825 В &lt; V_in &lt; 2.475 В</text>
+  <text x="480" y="267" font-size="11" fill="#6b7280" text-anchor="middle">Спричиняє збої защеплення старт-режимів</text>
+
+  <!-- Region 3: Logic Low Band -->
+  <rect x="260" y="317.5" width="440" height="72.5" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="348" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Гарантований логічний рівень 0 (LOW)</text>
+  <text x="480" y="368" font-size="12" fill="#1a1a1a" text-anchor="middle">0 В ≤ V_in ≤ V_IL (0.00 В ... 0.825 В)</text>
+
+  <!-- Right Side Box: Schmitt Trigger Hysteresis Details -->
+  <rect x="720" y="100" width="180" height="290" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <text x="810" y="125" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Гістерезис Шмітта</text>
+
+  <text x="810" y="160" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ΔV = V_IH - V_IL</text>
+  <text x="810" y="180" font-size="12" fill="#1a1a1a" text-anchor="middle">= 2.475 - 0.825</text>
+  <text x="810" y="202" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">= 1.65 В</text>
+
+  <line x1="735" y1="220" x2="885" y2="220" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="810" y="245" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Захист від завад:</text>
+  <text x="810" y="265" font-size="11" fill="#6b7280" text-anchor="middle">Гістерезис 1.65 В</text>
+  <text x="810" y="282" font-size="11" fill="#6b7280" text-anchor="middle">запобігає брязкоту</text>
+  <text x="810" y="299" font-size="11" fill="#6b7280" text-anchor="middle">на межі перемикання</text>
+
+  <!-- Footer Banner -->
+  <rect x="60" y="425" width="840" height="30" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="445" font-size="12" fill="#6b7280" text-anchor="middle">Висновок: Розрахунок підтяжок R_pull гарантує утримання напруги поза небезпечною зоною (V_in &gt; 2.475 В або V_in &lt; 0.825 В)</text>
+</svg>

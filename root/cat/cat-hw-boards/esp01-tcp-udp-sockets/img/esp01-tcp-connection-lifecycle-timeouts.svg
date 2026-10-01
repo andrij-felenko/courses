@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Marker Definitions -->
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Автомат станів життєвого циклу TCP-з'єднання з обробкою тайм-аутів</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Переходи між станами LISTEN, ESTABLISHED, TIMEOUT_CHECK та FORCED_CLOSE запобігають витокам RAM</text>
+
+  <!-- Transitions (Drawn behind state boxes for clean rendering) -->
+
+  <!-- Transition 5: TIMEOUT_CHECK -> ESTABLISHED (Reset timer on Rx/Tx activity) -->
+  <path d="M 870,135 V 72 H 612.5 V 127" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+  <text x="741" y="64" text-anchor="middle" font-size="12" fill="#27ae60">Активність Rx / Tx (t_idle = 0)</text>
+
+  <!-- Transition 4: ESTABLISHED -> CLOSED (Normal Disconnect Client FIN) -->
+  <path d="M 612.5,135 V 102 H 92.5 V 127" fill="none" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-black)"/>
+  <text x="352.5" y="94" text-anchor="middle" font-size="12" fill="#6b7280">Нормальне закриття (Client FIN)</text>
+
+  <!-- Transition 1: CLOSED -> LISTEN -->
+  <path d="M 160,175 H 272" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="216" y="163" text-anchor="middle" font-size="12" fill="#2457d6">espconn_accept()</text>
+
+  <!-- Transition 2: LISTEN -> ESTABLISHED -->
+  <path d="M 420,175 H 532" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="476" y="163" text-anchor="middle" font-size="12" fill="#27ae60">SYN / Connect</text>
+
+  <!-- Transition 3: ESTABLISHED -> TIMEOUT_CHECK -->
+  <path d="M 685,175 H 797" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="741" y="163" text-anchor="middle" font-size="11.5" fill="#c0392b">t_idle > t_timeout</text>
+
+  <!-- Transition 6: TIMEOUT_CHECK -> FORCED_CLOSE -->
+  <path d="M 870,215 V 335 H 693" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="782" y="327" text-anchor="middle" font-size="11.5" fill="#c0392b">Зависання (тайм-аут вичерпано)</text>
+
+  <!-- Transition 7: FORCED_CLOSE -> CLOSED -->
+  <path d="M 540,335 H 92.5 V 223" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#arr-red)"/>
+  <text x="316" y="327" text-anchor="middle" font-size="12" fill="#c0392b">Примусове вивільнення RAM та закриття сокета</text>
+
+  <!-- State Boxes (Top Row, y=135..215) -->
+
+  <!-- CLOSED State -->
+  <rect x="25" y="135" width="135" height="80" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="92.5" y="158" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">CLOSED</text>
+  <text x="92.5" y="178" text-anchor="middle" font-size="12" fill="#6b7280">Вільний сокет</text>
+  <text x="92.5" y="196" text-anchor="middle" font-size="12" fill="#6b7280">RAM вивільнено</text>
+
+  <!-- LISTEN State -->
+  <rect x="280" y="135" width="140" height="80" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="350" y="158" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">LISTEN</text>
+  <text x="350" y="178" text-anchor="middle" font-size="12" fill="#1a1a1a">Прослуховування</text>
+  <text x="350" y="196" text-anchor="middle" font-size="12" fill="#6b7280">Очікування SYN</text>
+
+  <!-- ESTABLISHED State -->
+  <rect x="540" y="135" width="145" height="80" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="612.5" y="158" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">ESTABLISHED</text>
+  <text x="612.5" y="178" text-anchor="middle" font-size="12" fill="#1a1a1a">Активний обмін</text>
+  <text x="612.5" y="196" text-anchor="middle" font-size="12" fill="#6b7280">t_idle = 0</text>
+
+  <!-- TIMEOUT CHECK State -->
+  <rect x="805" y="135" width="130" height="80" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="870" y="155" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">TIMEOUT CHECK</text>
+  <text x="870" y="175" text-anchor="middle" font-size="12" fill="#1a1a1a">Контроль паузи</text>
+  <text x="870" y="193" text-anchor="middle" font-size="11.5" fill="#c0392b">t_idle > t_timeout</text>
+
+  <!-- State Boxes (Bottom Row, y=295..375) -->
+
+  <!-- FORCED CLOSE State -->
+  <rect x="540" y="295" width="145" height="80" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="612.5" y="320" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">FORCED CLOSE</text>
+  <text x="612.5" y="340" text-anchor="middle" font-size="12" fill="#1a1a1a">Примусовий розрив</text>
+  <text x="612.5" y="358" text-anchor="middle" font-size="12" fill="#6b7280">espconn_disconnect()</text>
+
+  <!-- Legend Panel (Bottom Panel, y=398..463) -->
+  <rect x="25" y="398" width="910" height="65" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="418" font-size="12" font-weight="bold" fill="#1a1a1a">Правила захисту пам'яті ESP-01:</text>
+  <text x="40" y="436" font-size="11.5" fill="#6b7280">• t_timeout: програмний таймер виявлення неактивності</text>
+  <text x="40" y="452" font-size="11.5" fill="#6b7280">• espconn_disconnect(): апаратне скидання завислого сокета</text>
+  <text x="460" y="436" font-size="11.5" fill="#6b7280">• Своєчасне закриття сокетів вивільняє системні буфери Heap RAM</text>
+  <text x="460" y="452" font-size="11.5" fill="#6b7280">• Нормальне закриття виконується за прапорцем FIN від клієнта</text>
+</svg>

@@ -1,0 +1,188 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <!-- Arrow marker red (right) -->
+    <marker id="arr-red-right" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <!-- Arrow marker orange (right) -->
+    <marker id="arr-orange-right" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d97706"/>
+    </marker>
+    <!-- Arrow marker blue (right) -->
+    <marker id="arr-blue-right" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <!-- Arrow marker blue (left) -->
+    <marker id="arr-blue-left" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <!-- Arrow marker green (right) -->
+    <marker id="arr-green-right" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <!-- Arrow marker green (left) -->
+    <marker id="arr-green-left" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+    <!-- Arrow marker grey (right) -->
+    <marker id="arr-grey-right" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <!-- Arrow marker grey (left) -->
+    <marker id="arr-grey-left" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема розпіновки та підключення WeAct Mini Debugger</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">З'єднання ліній SWD, USB-to-UART та живлення з цільовою платою</text>
+
+  <!-- Left Container: WeAct Mini Debugger -->
+  <rect x="40" y="90" width="280" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="50" y="100" width="260" height="45" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="180" y="119" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">WeAct Mini Debugger</text>
+  <text x="180" y="136" font-size="12" fill="#6b7280" text-anchor="middle">DAPLink / ST-Link V2.1</text>
+
+  <!-- Debugger Pin Boxes & Labels -->
+  <!-- Row 1: 3.3V -->
+  <rect x="55" y="152" width="220" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="65" y="173" font-size="12" font-weight="bold" fill="#c0392b">3.3V</text>
+  <text x="115" y="173" font-size="12" fill="#1a1a1a">Вихід 3.3 В (живлення)</text>
+  <circle cx="290" cy="168" r="6" fill="#c0392b"/>
+
+  <!-- Row 2: 5V -->
+  <rect x="55" y="196" width="220" height="32" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <text x="65" y="217" font-size="12" font-weight="bold" fill="#d97706">5V</text>
+  <text x="115" y="217" font-size="12" fill="#1a1a1a">Вихід 5 В від USB</text>
+  <circle cx="290" cy="212" r="6" fill="#d97706"/>
+
+  <!-- Row 3: SWDIO -->
+  <rect x="55" y="240" width="220" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="65" y="261" font-size="12" font-weight="bold" fill="#2457d6">SWDIO</text>
+  <text x="115" y="261" font-size="12" fill="#1a1a1a">Дані SWD (двонаправлені)</text>
+  <circle cx="290" cy="256" r="6" fill="#2457d6"/>
+
+  <!-- Row 4: SWCLK -->
+  <rect x="55" y="284" width="220" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="65" y="305" font-size="12" font-weight="bold" fill="#2457d6">SWCLK</text>
+  <text x="115" y="305" font-size="12" fill="#1a1a1a">Тактовий сигнал SWD</text>
+  <circle cx="290" cy="300" r="6" fill="#2457d6"/>
+
+  <!-- Row 5: NRST -->
+  <rect x="55" y="328" width="220" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="65" y="349" font-size="12" font-weight="bold" fill="#2457d6">NRST</text>
+  <text x="115" y="349" font-size="12" fill="#1a1a1a">Апаратне скидання МК</text>
+  <circle cx="290" cy="344" r="6" fill="#2457d6"/>
+
+  <!-- Row 6: TX -->
+  <rect x="55" y="372" width="220" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="65" y="393" font-size="12" font-weight="bold" fill="#27ae60">TX</text>
+  <text x="115" y="393" font-size="12" fill="#1a1a1a">UART TX (передача)</text>
+  <circle cx="290" cy="388" r="6" fill="#27ae60"/>
+
+  <!-- Row 7: RX -->
+  <rect x="55" y="416" width="220" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="65" y="437" font-size="12" font-weight="bold" fill="#27ae60">RX</text>
+  <text x="115" y="437" font-size="12" fill="#1a1a1a">UART RX (прийом)</text>
+  <circle cx="290" cy="432" r="6" fill="#27ae60"/>
+
+  <!-- Row 8: GND -->
+  <rect x="55" y="460" width="220" height="32" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="65" y="481" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+  <text x="115" y="481" font-size="12" fill="#6b7280">Спільна земля (0 В)</text>
+  <circle cx="290" cy="476" r="6" fill="#6b7280"/>
+
+
+  <!-- Right Container: Target MCU Board -->
+  <rect x="640" y="90" width="280" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="650" y="100" width="260" height="45" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="780" y="119" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Цільова плата (Target MCU)</text>
+  <text x="780" y="136" font-size="12" fill="#6b7280" text-anchor="middle">STM32 / NRF52 / RP2040</text>
+
+  <!-- Target Pin Boxes & Labels -->
+  <!-- Row 1: 3.3V -->
+  <circle cx="670" cy="168" r="6" fill="#c0392b"/>
+  <rect x="685" y="152" width="220" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="695" y="173" font-size="12" font-weight="bold" fill="#c0392b">3.3V</text>
+  <text x="740" y="173" font-size="12" fill="#1a1a1a">Вхід VDD / 3.3В плати</text>
+
+  <!-- Row 2: 5V -->
+  <circle cx="670" cy="212" r="6" fill="#d97706"/>
+  <rect x="685" y="196" width="220" height="32" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <text x="695" y="217" font-size="12" font-weight="bold" fill="#d97706">5V</text>
+  <text x="740" y="217" font-size="12" fill="#1a1a1a">Вхід 5В (VBUS / VIN)</text>
+
+  <!-- Row 3: SWDIO -->
+  <circle cx="670" cy="256" r="6" fill="#2457d6"/>
+  <rect x="685" y="240" width="220" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="695" y="261" font-size="12" font-weight="bold" fill="#2457d6">SWDIO</text>
+  <text x="740" y="261" font-size="12" fill="#1a1a1a">Пін SWDIO контролера</text>
+
+  <!-- Row 4: SWCLK -->
+  <circle cx="670" cy="300" r="6" fill="#2457d6"/>
+  <rect x="685" y="284" width="220" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="695" y="305" font-size="12" font-weight="bold" fill="#2457d6">SWCLK</text>
+  <text x="740" y="305" font-size="12" fill="#1a1a1a">Пін SWCLK контролера</text>
+
+  <!-- Row 5: NRST -->
+  <circle cx="670" cy="344" r="6" fill="#2457d6"/>
+  <rect x="685" y="328" width="220" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="695" y="349" font-size="12" font-weight="bold" fill="#2457d6">NRST</text>
+  <text x="740" y="349" font-size="12" fill="#1a1a1a">Пін NRST / RESET цілі</text>
+
+  <!-- Row 6: RX (Connected to Debugger TX) -->
+  <circle cx="670" cy="388" r="6" fill="#27ae60"/>
+  <rect x="685" y="372" width="220" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="695" y="393" font-size="12" font-weight="bold" fill="#27ae60">RX</text>
+  <text x="740" y="393" font-size="12" fill="#1a1a1a">Пін RXD контролера</text>
+
+  <!-- Row 7: TX (Connected to Debugger RX) -->
+  <circle cx="670" cy="432" r="6" fill="#27ae60"/>
+  <rect x="685" y="416" width="220" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="695" y="437" font-size="12" font-weight="bold" fill="#27ae60">TX</text>
+  <text x="740" y="437" font-size="12" fill="#1a1a1a">Пін TXD контролера</text>
+
+  <!-- Row 8: GND -->
+  <circle cx="670" cy="476" r="6" fill="#6b7280"/>
+  <rect x="685" y="460" width="220" height="32" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="695" y="481" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+  <text x="740" y="481" font-size="12" fill="#6b7280">Спільна земля (GND)</text>
+
+
+  <!-- Connecting Wires & Signal Labels (Middle Section) -->
+  <!-- Wire 1: 3.3V Power -->
+  <line x1="296" y1="168" x2="664" y2="168" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red-right)"/>
+  <text x="480" y="161" font-size="12" fill="#c0392b" text-anchor="middle">3.3V Живлення цілі (до 300 mA)</text>
+
+  <!-- Wire 2: 5V Power (Optional) -->
+  <line x1="296" y1="212" x2="664" y2="212" stroke="#d97706" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arr-orange-right)"/>
+  <text x="480" y="205" font-size="12" fill="#d97706" text-anchor="middle">5V Живлення (USB / 500 mA, опція)</text>
+
+  <!-- Wire 3: SWDIO -->
+  <line x1="296" y1="256" x2="664" y2="256" stroke="#2457d6" stroke-width="2" marker-start="url(#arr-blue-left)" marker-end="url(#arr-blue-right)"/>
+  <text x="480" y="249" font-size="12" fill="#2457d6" text-anchor="middle">SWDIO — Двонаправлена лінія SWD</text>
+
+  <!-- Wire 4: SWCLK -->
+  <line x1="296" y1="300" x2="664" y2="300" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue-right)"/>
+  <text x="480" y="293" font-size="12" fill="#2457d6" text-anchor="middle">SWCLK — Тактовий сигнал зневаджувача</text>
+
+  <!-- Wire 5: NRST -->
+  <line x1="296" y1="344" x2="664" y2="344" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue-right)"/>
+  <text x="480" y="337" font-size="12" fill="#2457d6" text-anchor="middle">NRST — Лінія скидання мікроконтролера</text>
+
+  <!-- Wire 6: UART TX -> RX -->
+  <line x1="296" y1="388" x2="664" y2="388" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green-right)"/>
+  <text x="480" y="381" font-size="12" fill="#27ae60" text-anchor="middle">TX → RX (Передача Debugger → Target)</text>
+
+  <!-- Wire 7: UART RX <- TX -->
+  <line x1="296" y1="432" x2="664" y2="432" stroke="#27ae60" stroke-width="2" marker-start="url(#arr-green-left)"/>
+  <text x="480" y="425" font-size="12" fill="#27ae60" text-anchor="middle">RX ← TX (Прийом Debugger ← Target)</text>
+
+  <!-- Wire 8: GND -->
+  <line x1="296" y1="476" x2="664" y2="476" stroke="#6b7280" stroke-width="2" marker-start="url(#arr-grey-left)" marker-end="url(#arr-grey-right)"/>
+  <text x="480" y="469" font-size="12" fill="#6b7280" text-anchor="middle">GND — Спільна земля (обов'язково)</text>
+
+</svg>

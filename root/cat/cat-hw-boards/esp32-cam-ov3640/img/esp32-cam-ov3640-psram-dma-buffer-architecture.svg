@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема розподілу кадрових буферів у PSRAM та DMA-дескрипторів</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Прийом даних із шини DVP через кільцеву чергу DMA у зовнішню пам'ять PSRAM</text>
+
+  <!-- Panel 1: DVP Sensor -->
+  <rect x="25" y="85" width="210" height="345" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="130" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Сенсор зображення</text>
+  <text x="130" y="128" text-anchor="middle" font-size="12" fill="#6b7280">Шина DVP та синхронізація</text>
+
+  <rect x="35" y="145" width="190" height="65" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="130" y="170" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Сенсор OV3640</text>
+  <text x="130" y="190" text-anchor="middle" font-size="12" fill="#6b7280">JPEG / YUV потік</text>
+
+  <rect x="35" y="225" width="190" height="95" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="130" y="247" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Сигнали шини DVP</text>
+  <text x="45" y="267" text-anchor="start" font-size="12" fill="#1a1a1a">· Дані: D[0..7]</text>
+  <text x="45" y="285" text-anchor="start" font-size="12" fill="#1a1a1a">· Тактування: PCLK</text>
+  <text x="45" y="303" text-anchor="start" font-size="12" fill="#1a1a1a">· Синхро: HREF, VSYNC</text>
+
+  <rect x="35" y="332" width="190" height="85" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="130" y="354" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Обмеження IRAM</text>
+  <text x="130" y="374" text-anchor="middle" font-size="12" fill="#1a1a1a">Внутрішня SRAM &lt; 50 КБ</text>
+  <text x="130" y="392" text-anchor="middle" font-size="12" fill="#6b7280">(Потрібна PSRAM)</text>
+
+  <!-- Arrow 1: Panel 1 to Panel 2 -->
+  <line x1="235" y1="272" x2="270" y2="272" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="252" y="260" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">DVP 8-біт</text>
+
+  <!-- Panel 2: Internal SRAM / DMA -->
+  <rect x="275" y="85" width="235" height="345" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="392" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Внутрішня SRAM (IRAM)</text>
+  <text x="392" y="128" text-anchor="middle" font-size="12" fill="#6b7280">Контролер та дескриптори DMA</text>
+
+  <rect x="287" y="145" width="211" height="65" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="392" y="170" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Контролер DMA</text>
+  <text x="392" y="190" text-anchor="middle" font-size="12" fill="#1a1a1a">Транзитні буфери (512 Б)</text>
+
+  <rect x="287" y="225" width="211" height="192" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="392" y="247" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Кільцевий список DMA</text>
+  
+  <rect x="297" y="260" width="191" height="40" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="392" y="284" text-anchor="middle" font-size="12" fill="#1a1a1a">Desc 0 -&gt; Buf 0 (EOF)</text>
+
+  <rect x="297" y="308" width="191" height="40" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="392" y="332" text-anchor="middle" font-size="12" fill="#1a1a1a">Desc 1 -&gt; Buf 1</text>
+
+  <rect x="297" y="356" width="191" height="48" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="392" y="376" text-anchor="middle" font-size="12" fill="#1a1a1a">Desc N -&gt; Buf N</text>
+  <text x="392" y="394" text-anchor="middle" font-size="12" fill="#6b7280">(Автоматичне кільце)</text>
+
+  <!-- Arrow 2: Panel 2 to Panel 3 -->
+  <line x1="510" y1="272" x2="545" y2="272" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="527" y="260" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Запис PSRAM</text>
+
+  <!-- Panel 3: External PSRAM -->
+  <rect x="550" y="85" width="385" height="345" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="742" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Зовнішня пам'ять PSRAM (4 МБ)</text>
+  <text x="742" y="128" text-anchor="middle" font-size="12" fill="#6b7280">Кадрові буфери та черга драйвера</text>
+
+  <rect x="565" y="145" width="355" height="75" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="742" y="168" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Кадровий буфер 0 (FB0 - Активний)</text>
+  <text x="742" y="188" text-anchor="middle" font-size="12" fill="#1a1a1a">Готовий JPEG-кадр N (50–150 КБ)</text>
+  <text x="742" y="206" text-anchor="middle" font-size="12" fill="#6b7280">Передано у прикладну чергу</text>
+
+  <rect x="565" y="230" width="355" height="75" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="742" y="253" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Кадровий буфер 1 (FB1 - Прийом)</text>
+  <text x="742" y="273" text-anchor="middle" font-size="12" fill="#1a1a1a">Запис кадру N+1 від контролера DMA</text>
+  <text x="742" y="291" text-anchor="middle" font-size="12" fill="#6b7280">Фоновий обмін (Quad SPI)</text>
+
+  <rect x="565" y="315" width="355" height="100" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="742" y="337" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Черга драйвера esp32-camera</text>
+  <text x="580" y="358" text-anchor="start" font-size="12" fill="#1a1a1a">· Вказівники кадрів: camera_fb_t</text>
+  <text x="580" y="376" text-anchor="start" font-size="12" fill="#1a1a1a">· Отримання кадру: esp_camera_fb_get()</text>
+  <text x="580" y="394" text-anchor="start" font-size="12" fill="#6b7280">· Передача по Wi-Fi / HTTP / SD-картку</text>
+</svg>

@@ -1,0 +1,192 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема транзисторної обв'язки автоскидання ESP8266</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Автоматичне керування лініями RST та GPIO0 через лінії DTR/RTS USB-UART конвертера</text>
+
+  <!-- Панель принципової схеми (Ліва частина) -->
+  <rect x="25" y="70" width="480" height="375" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="40" y="93" font-size="14" font-weight="bold" fill="#1a1a1a">Принципова електрична схема</text>
+
+  <!-- Блок USB-UART Конвертера -->
+  <rect x="40" y="115" width="105" height="310" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="92" y="140" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">USB-UART</text>
+  <text x="92" y="156" text-anchor="middle" font-size="12" fill="#6b7280">CH340/CP2102</text>
+
+  <text x="125" y="195" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">DTR</text>
+  <circle cx="145" cy="190" r="3" fill="#2457d6"/>
+
+  <text x="125" y="335" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">RTS</text>
+  <circle cx="145" cy="330" r="3" fill="#2457d6"/>
+
+  <!-- Блок ESP8266 -->
+  <rect x="385" y="115" width="105" height="310" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="437" y="140" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">ESP8266</text>
+  <text x="437" y="156" text-anchor="middle" font-size="12" fill="#6b7280">SoC / Модуль</text>
+
+  <text x="395" y="195" font-size="12" font-weight="bold" fill="#1a1a1a">RST</text>
+  <circle cx="385" cy="190" r="3" fill="#27ae60"/>
+
+  <text x="395" y="335" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO0</text>
+  <circle cx="385" cy="330" r="3" fill="#27ae60"/>
+
+  <!-- Шини живлення VDD (3.3V) для Pull-Up -->
+  <line x1="340" y1="110" x2="340" y2="140" stroke="#c0392b" stroke-width="2"/>
+  <text x="340" y="105" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">VDD (3.3V)</text>
+
+  <!-- Резистори підтяжки Pull-Up (R3 і R4 10k) -->
+  <!-- R3 Pull-Up for RST -->
+  <rect x="330" y="140" width="20" height="30" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="325" y="158" text-anchor="end" font-size="12" fill="#6b7280">10k</text>
+  <line x1="340" y1="170" x2="340" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="340" cy="190" r="3" fill="#1a1a1a"/>
+
+  <!-- R4 Pull-Up for GPIO0 -->
+  <line x1="340" y1="190" x2="340" y2="270" stroke="#1a1a1a" stroke-dasharray="2 2" stroke-width="1"/>
+  <rect x="330" y="270" width="20" height="30" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="325" y="288" text-anchor="end" font-size="12" fill="#6b7280">10k</text>
+  <line x1="340" y1="300" x2="340" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="340" cy="330" r="3" fill="#1a1a1a"/>
+
+  <!-- Транзистори Q1 та Q2 (NPN) -->
+
+  <!-- Q1 (Верхній - Керування RST) -->
+  <!-- Резистор R1 від RTS до бази Q1 -->
+  <line x1="145" y1="330" x2="160" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="145" cy="330" r="3" fill="#1a1a1a"/>
+  <line x1="160" y1="330" x2="160" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="160" y1="230" x2="180" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="180" y="220" width="30" height="20" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="195" y="212" text-anchor="middle" font-size="12" fill="#6b7280">R1 10k</text>
+  <line x1="210" y1="230" x2="257" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Корпус Q1 NPN -->
+  <circle cx="270" cy="190" r="18" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="270" y="166" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Q1 (NPN)</text>
+  <!-- Лінії елементів Q1 -->
+  <line x1="257" y1="180" x2="257" y2="200" stroke="#1a1a1a" stroke-width="2.5"/> <!-- База -->
+  <line x1="257" y1="230" x2="257" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="257" y1="185" x2="275" y2="175" stroke="#1a1a1a" stroke-width="1.5"/> <!-- Колектор -->
+  <line x1="257" y1="195" x2="275" y2="205" stroke="#1a1a1a" stroke-width="1.5"/> <!-- Емітер -->
+
+  <!-- З'єднання Q1: Колектор -> RST, Емітер -> DTR -->
+  <line x1="275" y1="175" x2="385" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="385" y1="175" x2="385" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <line x1="145" y1="190" x2="230" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="230" y1="190" x2="230" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="230" y1="205" x2="275" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Q2 (Нижній - Керування GPIO0) -->
+  <!-- Резистор R2 від DTR до бази Q2 -->
+  <line x1="145" y1="190" x2="165" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="145" cy="190" r="3" fill="#1a1a1a"/>
+  <line x1="165" y1="190" x2="165" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="165" y1="370" x2="180" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="180" y="360" width="30" height="20" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="195" y="352" text-anchor="middle" font-size="12" fill="#6b7280">R2 10k</text>
+  <line x1="210" y1="370" x2="257" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Корпус Q2 NPN -->
+  <circle cx="270" cy="330" r="18" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="270" y="306" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Q2 (NPN)</text>
+  <!-- Лінії елементів Q2 -->
+  <line x1="257" y1="320" x2="257" y2="340" stroke="#1a1a1a" stroke-width="2.5"/> <!-- База -->
+  <line x1="257" y1="370" x2="257" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="257" y1="325" x2="275" y2="315" stroke="#1a1a1a" stroke-width="1.5"/> <!-- Колектор -->
+  <line x1="257" y1="335" x2="275" y2="345" stroke="#1a1a1a" stroke-width="1.5"/> <!-- Емітер -->
+
+  <!-- З'єднання Q2: Колектор -> GPIO0, Емітер -> RTS -->
+  <line x1="275" y1="315" x2="385" y2="315" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="385" y1="315" x2="385" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <line x1="145" y1="330" x2="235" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="235" y1="330" x2="235" y2="345" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="235" y1="345" x2="275" y2="345" stroke="#1a1a1a" stroke-width="1.5"/>
+
+
+  <!-- Права панель: Таблиця станів та послідовність прошивання -->
+  <rect x="520" y="70" width="415" height="375" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="535" y="93" font-size="14" font-weight="bold" fill="#1a1a1a">Послідовність сигналів для входу в bootloader</text>
+
+  <!-- Таблиця істинності керування -->
+  <!-- Шапка таблиці -->
+  <rect x="535" y="110" width="385" height="28" fill="#d0d7de" rx="4"/>
+  <text x="550" y="128" font-size="12" font-weight="bold" fill="#1a1a1a">DTR</text>
+  <text x="590" y="128" font-size="12" font-weight="bold" fill="#1a1a1a">RTS</text>
+  <text x="635" y="128" font-size="12" font-weight="bold" fill="#1a1a1a">RST</text>
+  <text x="685" y="128" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO0</text>
+  <text x="750" y="128" font-size="12" font-weight="bold" fill="#1a1a1a">Стан пристрою / Режим</text>
+
+  <!-- Рядок 1: Idle -->
+  <rect x="535" y="142" width="385" height="32" fill="white" stroke="#d0d7de" rx="2"/>
+  <text x="555" y="162" font-size="12" fill="#1a1a1a">1</text>
+  <text x="595" y="162" font-size="12" fill="#1a1a1a">1</text>
+  <text x="640" y="162" font-size="12" font-weight="bold" fill="#27ae60">1</text>
+  <text x="695" y="162" font-size="12" font-weight="bold" fill="#27ae60">1</text>
+  <text x="750" y="162" font-size="12" fill="#6b7280">Штатний запуск (Flash Boot)</text>
+
+  <!-- Рядок 2: Крок 1 (Притискання GPIO0) -->
+  <rect x="535" y="178" width="385" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="2"/>
+  <text x="555" y="198" font-size="12" font-weight="bold" fill="#2457d6">1</text>
+  <text x="595" y="198" font-size="12" font-weight="bold" fill="#2457d6">0</text>
+  <text x="640" y="198" font-size="12" fill="#1a1a1a">1</text>
+  <text x="695" y="198" font-size="12" font-weight="bold" fill="#c0392b">0</text>
+  <text x="750" y="198" font-size="12" font-weight="bold" fill="#2457d6">Крок 1: GPIO0 = LOW (Q2 ON)</text>
+
+  <!-- Рядок 3: Крок 2 (Скидання RST) -->
+  <rect x="535" y="214" width="385" height="32" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="2"/>
+  <text x="555" y="234" font-size="12" font-weight="bold" fill="#c0392b">0</text>
+  <text x="595" y="234" font-size="12" font-weight="bold" fill="#c0392b">1</text>
+  <text x="640" y="234" font-size="12" font-weight="bold" fill="#c0392b">0</text>
+  <text x="695" y="234" font-size="12" fill="#1a1a1a">1*</text>
+  <text x="750" y="234" font-size="12" font-weight="bold" fill="#c0392b">Крок 2: RESET імпульс (Q1 ON)</text>
+
+  <!-- Рядок 4: Крок 3 (Відпускання RESET) -->
+  <rect x="535" y="250" width="385" height="32" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="2"/>
+  <text x="555" y="270" font-size="12" fill="#1a1a1a">0</text>
+  <text x="595" y="270" font-size="12" fill="#1a1a1a">0</text>
+  <text x="640" y="270" font-size="12" font-weight="bold" fill="#27ae60">1</text>
+  <text x="695" y="270" font-size="12" fill="#1a1a1a">1</text>
+  <text x="750" y="270" font-size="12" font-weight="bold" fill="#27ae60">Крок 3: Вхід в UART Download</text>
+
+  <!-- Опис етапів прошивача esptool.py -->
+  <text x="535" y="305" font-size="13" font-weight="bold" fill="#1a1a1a">Алгоритм роботи прошивача (наприклад esptool):</text>
+
+  <circle cx="545" cy="325" r="8" fill="#2457d6"/>
+  <text x="545" y="329" text-anchor="middle" font-size="12" font-weight="bold" fill="white">1</text>
+  <text x="560" y="329" font-size="12" fill="#1a1a1a">Встановлює DTR=1, RTS=0 — притискає GPIO0 до землі.</text>
+
+  <circle cx="545" cy="355" r="8" fill="#c0392b"/>
+  <text x="545" y="359" text-anchor="middle" font-size="12" font-weight="bold" fill="white">2</text>
+  <text x="560" y="359" font-size="12" fill="#1a1a1a">Подає DTR=0, RTS=1 — коротким імпульсом скидає RST.</text>
+
+  <circle cx="545" cy="385" r="8" fill="#27ae60"/>
+  <text x="545" y="389" text-anchor="middle" font-size="12" font-weight="bold" fill="white">3</text>
+  <text x="560" y="389" font-size="12" fill="#1a1a1a">Відпускає обидві лінії — ROM Bootloader фіксує GPIO0=0.</text>
+
+  <text x="535" y="415" font-size="12" font-style="italic" fill="#6b7280">
+    <tspan x="535" dy="0">* Примітка: Взаємна розв'язка запобігає</tspan>
+    <tspan x="535" dy="15">одночасному відкриттю обох транзисторів.</tspan>
+  </text>
+
+  <!-- Нижня картка з висновками -->
+  <rect x="25" y="465" width="910" height="75" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="45" y="490" font-size="13" font-weight="bold" fill="#2457d6">Перевага схемотехнічного рішення автоскидання NodeMCU / ESP-WROOM-02:</text>
+  <text x="45" y="510" font-size="12" fill="#1a1a1a">Схема усуває потребу вручну утримувати кнопку Flash під час скидання та унеможливлює зависання в режимі SDIO Boot.</text>
+  <text x="45" y="528" font-size="12" fill="#6b7280">Виключено короткі замикання між лініями DTR та RTS за рахунок схеми перехресного заживлення база-емітер.</text>
+</svg>

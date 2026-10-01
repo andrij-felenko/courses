@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 525" width="960" height="525" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="525" fill="white"/>
+
+  <!-- Definitions for arrow markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема автоматичного скидання ESP32-CAM (CH340 DTR/RTS)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Автоматичне переведення в режим бутлоадера через транзисторну логіку без ручних кнопок</text>
+
+  <!-- Panel 1: CH340 USB-UART Controller -->
+  <rect x="40" y="85" width="210" height="330" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="145" y="107" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CH340 (USB-UART)</text>
+  <text x="145" y="125" font-size="12" fill="#6b7280" text-anchor="middle">Контролер послідовного порту</text>
+
+  <!-- DTR Signal Box -->
+  <rect x="55" y="155" width="180" height="50" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="176" font-size="12" font-weight="bold" fill="#1a1a1a">Сигнал DTR</text>
+  <text x="65" y="194" font-size="12" fill="#6b7280">Data Terminal Ready</text>
+
+  <!-- Data Lines Box -->
+  <rect x="55" y="235" width="180" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="145" y="256" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">TXD / RXD лінії</text>
+  <text x="145" y="274" font-size="12" fill="#6b7280" text-anchor="middle">Послідовний зв'язок</text>
+
+  <!-- RTS Signal Box -->
+  <rect x="55" y="325" width="180" height="50" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="346" font-size="12" font-weight="bold" fill="#1a1a1a">Сигнал RTS</text>
+  <text x="65" y="364" font-size="12" fill="#6b7280">Request To Send</text>
+
+  <!-- Panel 1 to Panel 2 Signal Lines & Arrows -->
+  <line x1="235" y1="180" x2="290" y2="180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="262" y="171" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DTR</text>
+
+  <line x1="235" y1="350" x2="290" y2="350" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="262" y="341" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">RTS</text>
+
+  <!-- Panel 2: Auto-Reset Transistor Circuit -->
+  <rect x="290" y="85" width="380" height="330" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="107" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Схема автоскидання (Auto-Reset)</text>
+  <text x="480" y="125" font-size="12" fill="#6b7280" text-anchor="middle">Двотранзисторний ключ (Q1, Q2)</text>
+
+  <!-- DTR Line inside Panel 2 -->
+  <line x1="290" y1="180" x2="445" y2="180" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="315" cy="180" r="3.5" fill="#2457d6"/>
+
+  <!-- DTR Vertical Branch Down to R2 (Q2 Base) -->
+  <line x1="315" y1="180" x2="315" y2="275" stroke="#2457d6" stroke-width="2"/>
+  <line x1="315" y1="275" x2="360" y2="275" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- RTS Line inside Panel 2 -->
+  <line x1="290" y1="350" x2="445" y2="350" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="335" cy="350" r="3.5" fill="#2457d6"/>
+
+  <!-- RTS Vertical Branch Up to R1 (Q1 Base) -->
+  <line x1="335" y1="350" x2="335" y2="215" stroke="#2457d6" stroke-width="2"/>
+  <line x1="335" y1="215" x2="360" y2="215" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Resistor R1 (Q1 Base) -->
+  <rect x="360" y="206" width="45" height="18" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="382.5" y="238" font-size="12" fill="#1a1a1a" text-anchor="middle">R1 10k</text>
+  <line x1="405" y1="215" x2="445" y2="215" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Q1 Transistor Symbol -->
+  <line x1="445" y1="170" x2="445" y2="225" stroke="#2457d6" stroke-width="3"/>
+  <line x1="445" y1="180" x2="470" y2="180" stroke="#2457d6" stroke-width="2"/>
+  <line x1="445" y1="200" x2="470" y2="168" stroke="#2457d6" stroke-width="2"/>
+  <text x="500" y="215" font-size="13" font-weight="bold" fill="#1a1a1a">Q1 (NPN)</text>
+
+  <!-- Q1 Collector Line to EN Output -->
+  <line x1="470" y1="168" x2="670" y2="168" stroke="#2457d6" stroke-width="2"/>
+  <text x="570" y="159" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Колектор Q1 → EN</text>
+
+  <!-- Resistor R2 (Q2 Base) -->
+  <rect x="360" y="266" width="45" height="18" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="382.5" y="258" font-size="12" fill="#1a1a1a" text-anchor="middle">R2 10k</text>
+  <line x1="405" y1="275" x2="445" y2="275" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Q2 Transistor Symbol -->
+  <line x1="445" y1="265" x2="445" y2="360" stroke="#2457d6" stroke-width="3"/>
+  <line x1="445" y1="350" x2="470" y2="350" stroke="#2457d6" stroke-width="2"/>
+  <line x1="445" y1="290" x2="470" y2="310" stroke="#2457d6" stroke-width="2"/>
+  <text x="500" y="340" font-size="13" font-weight="bold" fill="#1a1a1a">Q2 (NPN)</text>
+
+  <!-- Q2 Collector Line to GPIO0 Output -->
+  <line x1="470" y1="310" x2="670" y2="310" stroke="#2457d6" stroke-width="2"/>
+  <text x="570" y="301" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Колектор Q2 → GPIO0</text>
+
+  <!-- Panel 2 to Panel 3 Signal Lines & Arrows -->
+  <line x1="670" y1="168" x2="725" y2="168" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="697.5" y="159" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">EN</text>
+
+  <line x1="670" y1="310" x2="725" y2="310" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="697.5" y="301" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">GPIO0</text>
+
+  <!-- Panel 3: ESP32-CAM Module -->
+  <rect x="710" y="85" width="210" height="330" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="815" y="107" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP32-CAM</text>
+  <text x="815" y="125" font-size="12" fill="#6b7280" text-anchor="middle">Модуль мікроконтролера</text>
+
+  <!-- EN Input Pin Box -->
+  <rect x="725" y="145" width="180" height="48" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="735" y="164" font-size="12" font-weight="bold" fill="#1a1a1a">Вивід EN (Reset)</text>
+  <text x="735" y="182" font-size="12" fill="#6b7280">R_PU = 10 kΩ до +3.3V</text>
+
+  <!-- Microcontroller Core Chip Box -->
+  <rect x="745" y="213" width="140" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="815" y="233" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ESP-WROOM-32</text>
+  <text x="815" y="251" font-size="12" fill="#6b7280" text-anchor="middle">Ядро &amp; Бутлоадер</text>
+
+  <!-- GPIO0 Input Pin Box -->
+  <rect x="725" y="285" width="180" height="48" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="735" y="304" font-size="12" font-weight="bold" fill="#1a1a1a">Вивід GPIO0 (Boot)</text>
+  <text x="735" y="322" font-size="12" fill="#6b7280">R_PU = 10 kΩ до +3.3V</text>
+
+  <!-- Boot Mode Status Box -->
+  <rect x="725" y="353" width="180" height="48" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="815" y="372" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Режим Bootloader</text>
+  <text x="815" y="390" font-size="12" fill="#1a1a1a" text-anchor="middle">GPIO0=0 під час скидання</text>
+
+  <!-- Bottom Panel: Logic & Truth Table -->
+  <rect x="40" y="430" width="880" height="75" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="55" y="450" font-size="13" font-weight="bold" fill="#27ae60">Логіка спрацьовування сигналів DTR / RTS при автоматичному прошиванні:</text>
+  <text x="55" y="470" font-size="12" fill="#1a1a1a">• DTR=1, RTS=1 (неактивні): Q1 та Q2 закриті → EN=1, GPIO0=1 (Нормальна робота програми)</text>
+  <text x="55" y="490" font-size="12" fill="#1a1a1a">• DTR=1, RTS=0: Q2 відкритий (GPIO0=0); DTR=0, RTS=1: Q1 відкритий (EN=0 → Скидання в Бутлоадер)</text>
+</svg>

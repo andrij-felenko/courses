@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-left" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-left" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Архітектура та стек програмного забезпечення DAPLink</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Взаємодія pyOCD/OpenOCD з апаратним програматором CMSIS-DAP та ядром ARM Cortex-M</text>
+
+  <rect x="30" y="80" width="280" height="415" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="170" y="106" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">1. ПК розробника (Host System)</text>
+  <text x="170" y="126" text-anchor="middle" font-size="12" fill="#6b7280">Програмний стек відлагодження</text>
+
+  <rect x="45" y="142" width="250" height="142" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="170" y="165" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">pyOCD / OpenOCD</text>
+  <text x="170" y="184" text-anchor="middle" font-size="12" fill="#6b7280">GDB Server (port 3333 / 4444)</text>
+  <line x1="60" y1="194" x2="280" y2="194" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="214" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Формування CMSIS-DAP команд</text>
+  <text x="170" y="234" text-anchor="middle" font-size="12" fill="#1a1a1a">Трансляція GDB → DAP-пакети</text>
+  <text x="170" y="254" text-anchor="middle" font-size="12" fill="#6b7280">Управління ресетом та Flash</text>
+  <text x="170" y="272" text-anchor="middle" font-size="12" fill="#6b7280">Сервер віддаленого відладу</text>
+
+  <line x1="170" y1="284" x2="170" y2="304" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="45" y="304" width="250" height="166" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="170" y="327" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Драйвери USB ПК</text>
+  <text x="170" y="346" text-anchor="middle" font-size="12" fill="#6b7280">WinUSB / libusb / HIDAPI</text>
+  <line x1="60" y1="356" x2="280" y2="356" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="376" text-anchor="middle" font-size="12" fill="#1a1a1a">USB Bulk / Interrupt Endpoints</text>
+  <text x="170" y="396" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Низьколатентна передача</text>
+  <text x="170" y="416" text-anchor="middle" font-size="12" fill="#1a1a1a">Пакетний обмін USB HID/Bulk</text>
+  <text x="170" y="436" text-anchor="middle" font-size="12" fill="#6b7280">64-байтні / 512-байтні буфери</text>
+  <text x="170" y="456" text-anchor="middle" font-size="12" fill="#6b7280">Апаратна розв'язка USB шини</text>
+
+  <rect x="340" y="80" width="280" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="106" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">2. Програматор DAPLink</text>
+  <text x="480" y="126" text-anchor="middle" font-size="12" fill="#6b7280">USB Composite Device</text>
+
+  <rect x="355" y="142" width="250" height="142" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="165" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Інтерфейси USB Composite</text>
+  <text x="480" y="184" text-anchor="middle" font-size="12" fill="#6b7280">Складений USB-пристрій</text>
+  <line x1="370" y1="194" x2="590" y2="194" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="214" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1. CMSIS-DAP (Зневадження)</text>
+  <text x="480" y="234" text-anchor="middle" font-size="12" fill="#1a1a1a">2. CDC Virtual COM (UART)</text>
+  <text x="480" y="254" text-anchor="middle" font-size="12" fill="#1a1a1a">3. MSD Drag-n-Drop (Флешка)</text>
+  <text x="480" y="272" text-anchor="middle" font-size="12" fill="#6b7280">Автономне прошивання binary</text>
+
+  <line x1="480" y1="284" x2="480" y2="304" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+
+  <rect x="355" y="304" width="250" height="166" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="327" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Контролер DAPLink</text>
+  <text x="480" y="346" text-anchor="middle" font-size="12" fill="#6b7280">STM32F103 / LPC11U35 micro</text>
+  <line x1="370" y1="356" x2="590" y2="356" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="376" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Мікропрограма CMSIS-DAP</text>
+  <text x="480" y="396" text-anchor="middle" font-size="12" fill="#1a1a1a">Декодування USB команд</text>
+  <text x="480" y="416" text-anchor="middle" font-size="12" fill="#1a1a1a">Генерація сигналів SWD/JTAG</text>
+  <text x="480" y="436" text-anchor="middle" font-size="12" fill="#6b7280">SWCLK, SWDIO, nRESET, SWO</text>
+  <text x="480" y="456" text-anchor="middle" font-size="12" fill="#6b7280">Узгодження логічних рівнів</text>
+
+  <rect x="650" y="80" width="280" height="415" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="790" y="106" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">3. Цільовий МК (ARM Cortex-M)</text>
+  <text x="790" y="126" text-anchor="middle" font-size="12" fill="#6b7280">Цільова апаратна платформа</text>
+
+  <rect x="665" y="142" width="250" height="142" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="790" y="165" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Debug Access Port (DAP)</text>
+  <text x="790" y="184" text-anchor="middle" font-size="12" fill="#6b7280">Апаратний модуль зневадження</text>
+  <line x1="680" y1="194" x2="900" y2="194" stroke="#d0d7de" stroke-width="1"/>
+  <text x="790" y="214" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">SW-DP / JTAG-DP (Порт)</text>
+  <text x="790" y="234" text-anchor="middle" font-size="12" fill="#1a1a1a">MEM-AP / AHB-AP (Доступ)</text>
+  <text x="790" y="254" text-anchor="middle" font-size="12" fill="#6b7280">Читання/запис без зупинки</text>
+  <text x="790" y="272" text-anchor="middle" font-size="12" fill="#6b7280">Прямий доступ до RAM/Flash</text>
+
+  <line x1="790" y1="284" x2="790" y2="304" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <rect x="665" y="304" width="250" height="166" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="790" y="327" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Ядро та периферія зневаги</text>
+  <text x="790" y="346" text-anchor="middle" font-size="12" fill="#6b7280">ARM Cortex-M Core</text>
+  <line x1="680" y1="356" x2="900" y2="356" stroke="#d0d7de" stroke-width="1"/>
+  <text x="790" y="376" text-anchor="middle" font-size="12" fill="#1a1a1a">CoreDebug (Регістри ЦП)</text>
+  <text x="790" y="396" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">FPB (Точки зупинки Breakpoints)</text>
+  <text x="790" y="416" text-anchor="middle" font-size="12" fill="#1a1a1a">DWT (Точки спостереження)</text>
+  <text x="790" y="436" text-anchor="middle" font-size="12" fill="#6b7280">ITM / TPIU (Трасування SWO)</text>
+  <text x="790" y="456" text-anchor="middle" font-size="12" fill="#6b7280">Апаратні лічильники подій</text>
+
+  <line x1="295" y1="385" x2="355" y2="385" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)" marker-start="url(#arr-blue-left)"/>
+  <text x="325" y="365" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">USB кабель</text>
+  <text x="325" y="405" text-anchor="middle" font-size="12" fill="#6b7280">DAP пакети</text>
+
+  <line x1="605" y1="385" x2="665" y2="385" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)" marker-start="url(#arr-green-left)"/>
+  <text x="635" y="365" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">SWD / JTAG</text>
+  <text x="635" y="405" text-anchor="middle" font-size="12" fill="#6b7280">SWCLK, SWDIO</text>
+</svg>

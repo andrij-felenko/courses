@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структурна архітектура відеосервера на платі Waveshare ESP32-S3R2</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Взаємодія DVP-сенсора, двох ядер Xtensa LX7, 2 МБ Octal PSRAM та дуального виходу Wi-Fi/USB</text>
+
+  <!-- Column 1: DVP Camera Hardware (Left) -->
+  <rect x="30" y="90" width="190" height="430" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="125" y="118" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Відеосенсор DVP</text>
+
+  <rect x="45" y="140" width="160" height="110" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="125" y="165" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сенсор OV2640</text>
+  <text x="55" y="190" font-size="12" fill="#1a1a1a">Роздільність: UXGA/VGA</text>
+  <text x="55" y="214" font-size="12" fill="#1a1a1a">Формат: JPEG / YUV</text>
+  <text x="55" y="238" font-size="12" fill="#6b7280">Тактування PCLK/XCLK</text>
+
+  <rect x="45" y="270" width="160" height="100" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="125" y="295" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Паралельна шина DVP</text>
+  <text x="55" y="320" font-size="12" fill="#1a1a1a">Дані: Y2..Y9 (8 біт)</text>
+  <text x="55" y="344" font-size="12" fill="#1a1a1a">Строби: VSYNC / HREF</text>
+
+  <rect x="45" y="390" width="160" height="110" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="125" y="415" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шина SCCB (I2C)</text>
+  <text x="55" y="440" font-size="12" fill="#1a1a1a">Конфігурування регістрів</text>
+  <text x="55" y="464" font-size="12" fill="#6b7280">Налаштування експозиції</text>
+
+  <!-- Column 2: ESP32-S3 Dual-Core SoC & FreeRTOS -->
+  <rect x="245" y="90" width="220" height="430" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="355" y="118" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">SoC ESP32-S3 (Dual-Core)</text>
+
+  <rect x="260" y="140" width="190" height="130" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="355" y="165" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Ядро Core 0 (PRO_CPU)</text>
+  <text x="270" y="190" font-size="12" fill="#1a1a1a">Драйвер камери esp_camera</text>
+  <text x="270" y="214" font-size="12" fill="#2457d6">DVP DMA Контролер</text>
+  <text x="270" y="238" font-size="12" fill="#6b7280">Переривання ISR по VSYNC</text>
+
+  <rect x="260" y="290" width="190" height="70" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="355" y="315" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Черга FreeRTOS Queue</text>
+  <text x="270" y="340" font-size="12" fill="#1a1a1a">Передача вказівників FB</text>
+
+  <rect x="260" y="380" width="190" height="120" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="355" y="405" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Ядро Core 1 (APP_CPU)</text>
+  <text x="270" y="430" font-size="12" fill="#1a1a1a">HTTP MJPEG Сервер</text>
+  <text x="270" y="454" font-size="12" fill="#1a1a1a">UVC USB Потік Task</text>
+  <text x="270" y="478" font-size="12" fill="#6b7280">Захист від Watchdog</text>
+
+  <!-- Column 3: Memory System (SiP Octal PSRAM & SRAM) -->
+  <rect x="490" y="90" width="210" height="430" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <text x="595" y="118" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Пам'ять SiP (Octal PSRAM)</text>
+
+  <rect x="505" y="140" width="180" height="175" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="595" y="165" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">2 МБ Octal PSRAM</text>
+  <text x="515" y="190" font-size="12" font-weight="bold" fill="#2457d6">Буфер FB0 (1.8V OPI)</text>
+  <text x="515" y="214" font-size="12" fill="#1a1a1a">Кадр камери №0 (JPEG)</text>
+  <text x="515" y="244" font-size="12" font-weight="bold" fill="#27ae60">Буфер FB1 (1.8V OPI)</text>
+  <text x="515" y="268" font-size="12" fill="#1a1a1a">Кадр камери №1 (JPEG)</text>
+  <text x="515" y="292" font-size="12" fill="#6b7280">heap_caps_malloc()</text>
+
+  <rect x="505" y="330" width="180" height="170" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="595" y="355" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня SRAM</text>
+  <text x="515" y="380" font-size="12" fill="#1a1a1a">Стек задач FreeRTOS</text>
+  <text x="515" y="404" font-size="12" fill="#1a1a1a">Текстовий буфер HTTP</text>
+  <text x="515" y="428" font-size="12" fill="#1a1a1a">Дескриптори DMA</text>
+  <text x="515" y="452" font-size="12" fill="#6b7280">Високошвидкісний L1 кеш</text>
+
+  <!-- Column 4: Output Streaming Interfaces -->
+  <rect x="725" y="90" width="205" height="430" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="827" y="118" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вихідні інтерфейси</text>
+
+  <rect x="740" y="140" width="175" height="160" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="827" y="165" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Wi-Fi 802.11 b/g/n</text>
+  <text x="750" y="190" font-size="12" fill="#1a1a1a">HTTP MJPEG Server</text>
+  <text x="750" y="214" font-size="12" fill="#1a1a1a">Порт 80 / /stream</text>
+  <text x="750" y="238" font-size="12" fill="#2457d6">Потік 30 FPS VGA</text>
+  <text x="750" y="262" font-size="12" fill="#6b7280">Бездротовий перегляд</text>
+
+  <rect x="740" y="320" width="175" height="180" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="827" y="345" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Нативний USB OTG</text>
+  <text x="750" y="370" font-size="12" fill="#1a1a1a">Режим UVC (Webcam)</text>
+  <text x="750" y="394" font-size="12" fill="#1a1a1a">Full-Speed 12 Мбіт/с</text>
+  <text x="750" y="418" font-size="12" fill="#27ae60">Пряме підключення до ПК</text>
+  <text x="750" y="442" font-size="12" fill="#6b7280">Без додаткових драйверів</text>
+
+  <!-- Connecting Inter-module Arrows -->
+  <!-- DVP Bus -> Core 0 DMA -->
+  <line x1="205" y1="320" x2="260" y2="214" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Core 0 DMA -> PSRAM Buffers -->
+  <line x1="450" y1="214" x2="505" y2="214" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- PSRAM Buffers -> Core 1 HTTP/USB Task -->
+  <path d="M 505 268 L 475 268 L 475 430 L 450 430" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Core 1 -> Wi-Fi Stream -->
+  <path d="M 450 430 L 715 430 L 715 214 L 740 214" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Core 1 -> USB Stream -->
+  <path d="M 450 454 L 740 394" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+</svg>

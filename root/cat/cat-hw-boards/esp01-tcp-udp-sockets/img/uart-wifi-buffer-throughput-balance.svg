@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Співвідношення темпу UART, буферизації DRAM та передачі Wi-Fi</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Дисбаланс між потоком UART, накопиченням у pbuf та накладними витратами заголовків</text>
+
+  <!-- Panel 1: UART Input Stream -->
+  <rect x="40" y="80" width="260" height="330" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="52" y="92" width="236" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="170" y="113" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Вхідний потік UART</text>
+
+  <rect x="52" y="136" width="236" height="110" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="64" y="156" font-size="12" font-weight="bold" fill="#1a1a1a">Параметри UART:</text>
+  <text x="64" y="176" font-size="12" fill="#1a1a1a">Бодрейт B = 115200 бод</text>
+  <text x="64" y="196" font-size="12" fill="#1a1a1a">Швидкість R_UART ≈ 11.52 КБ/с</text>
+  <text x="64" y="216" font-size="12" fill="#6b7280">Апаратний FIFO: 128 байтів</text>
+
+  <rect x="52" y="258" width="236" height="138" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="64" y="278" font-size="12" font-weight="bold" fill="#c0392b">Службовий оверхед AT:</text>
+  <text x="64" y="298" font-size="12" fill="#1a1a1a">Парсинг префіксів / преамбул:</text>
+  <text x="64" y="318" font-size="12" fill="#6b7280">· AT+CIPSEND / +IPD,&lt;len&gt;</text>
+  <text x="64" y="338" font-size="12" fill="#1a1a1a">Затримка парсера host MCU</text>
+  <text x="64" y="358" font-size="12" fill="#c0392b">t_parser ≈ 2–5 мс / пакет</text>
+  <text x="64" y="378" font-size="12" fill="#6b7280">Ризик втрати при неперервній Rx</text>
+
+  <!-- Arrow 1: Panel 1 -> Panel 2 -->
+  <path d="M300,230 L342,230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="325" y="218" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Потік байтів</text>
+  <text x="325" y="248" font-size="12" fill="#6b7280" text-anchor="middle">R_UART</text>
+
+  <!-- Panel 2: DRAM & LwIP Buffering -->
+  <rect x="350" y="80" width="260" height="330" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="362" y="92" width="236" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="113" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Буферизація в DRAM (LwIP)</text>
+
+  <rect x="362" y="136" width="236" height="125" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="374" y="156" font-size="12" font-weight="bold" fill="#1a1a1a">Структури LwIP пам'яті:</text>
+  <text x="374" y="176" font-size="12" fill="#1a1a1a">Пул кадрових буферів pbuf</text>
+  <text x="374" y="196" font-size="12" fill="#1a1a1a">Накопичення до MSS = 1460 B</text>
+  <text x="374" y="216" font-size="12" fill="#6b7280">Таймаут відправки T_accum</text>
+  <text x="374" y="236" font-size="12" fill="#6b7280">Обсяг буфера кучі V_buf</text>
+
+  <rect x="362" y="271" width="236" height="125" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="374" y="291" font-size="12" font-weight="bold" fill="#c0392b">Критичне вузьке місце:</text>
+  <text x="374" y="311" font-size="12" fill="#1a1a1a">Якщо R_UART &gt; R_eff:</text>
+  <text x="374" y="331" font-size="12" fill="#c0392b">· Переповнення буфера V_buf</text>
+  <text x="374" y="351" font-size="12" fill="#c0392b">· Вичерпання кучі (OOM)</text>
+  <text x="374" y="371" font-size="12" fill="#6b7280">· Дроп пакетів / скидання сокета</text>
+
+  <!-- Arrow 2: Panel 2 -> Panel 3 -->
+  <path d="M610,230 L652,230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="635" y="218" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Пакет pbuf</text>
+  <text x="635" y="248" font-size="12" fill="#6b7280" text-anchor="middle">S_payload</text>
+
+  <!-- Panel 3: Wi-Fi Transmission & Overhead -->
+  <rect x="660" y="80" width="260" height="330" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="672" y="92" width="236" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="790" y="113" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Передача в Wi-Fi ефір</text>
+
+  <rect x="672" y="136" width="236" height="110" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="684" y="156" font-size="12" font-weight="bold" fill="#1a1a1a">Параметри кадрування:</text>
+  <text x="684" y="176" font-size="12" fill="#1a1a1a">Фізична швидкість R_air</text>
+  <text x="684" y="196" font-size="12" fill="#1a1a1a">Заголовки H_net ≈ 68 байтів</text>
+  <text x="684" y="216" font-size="12" fill="#6b7280">(802.11 MAC + IP + TCP/UDP)</text>
+
+  <rect x="672" y="258" width="236" height="138" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="684" y="278" font-size="12" font-weight="bold" fill="#c0392b">Затримки мережевого стека:</text>
+  <text x="684" y="298" font-size="12" fill="#1a1a1a">Очікування підтвердження ACK</text>
+  <text x="684" y="318" font-size="12" fill="#6b7280">Round-Trip Time (RTT latency)</text>
+  <text x="684" y="338" font-size="12" fill="#1a1a1a">Падіння реальної швидкості:</text>
+  <text x="684" y="358" font-size="12" font-weight="bold" fill="#c0392b">R_eff = R_air × S / (S + H_net)</text>
+  <text x="684" y="378" font-size="12" fill="#6b7280">Малі кадри S знижують R_eff</text>
+
+  <!-- Bottom Balance Formula Bar -->
+  <rect x="40" y="425" width="880" height="75" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="446" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Математична умова балансу та захисту від втрати байтів</text>
+  <text x="480" y="468" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мінімальний буфер: V_buf ≥ (R_UART - R_eff) × T_burst   │   R_eff = [ S_payload / (S_payload + H_net) ] × R_air</text>
+  <text x="480" y="488" font-size="12" fill="#6b7280" text-anchor="middle">Для запобігання OOM та втрат: розмір кадру S_payload має прагнути до MSS, а V_buf компенсувати затримки TCP ACK</text>
+</svg>

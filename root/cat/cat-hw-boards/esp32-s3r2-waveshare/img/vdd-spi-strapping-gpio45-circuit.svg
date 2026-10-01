@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схемотехніка strapping-виводу GPIO45 для конфігурування напруги VDD_SPI</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Вибір режиму живлення пам'яті (3.3 В або 1.8 В) при старті та розрахунок підтягувального резистора</text>
+
+  <!-- Left Panel: Schematic -->
+  <rect x="30" y="75" width="420" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="240" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Схема підключення GPIO45 на платі</text>
+
+  <!-- ESP32-S3 IC Box -->
+  <rect x="50" y="125" width="180" height="250" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="140" y="150" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">ESP32-S3 (SiP)</text>
+
+  <!-- GPIO45 Pin -->
+  <circle cx="210" cy="220" r="5" fill="#2457d6"/>
+  <text x="135" y="215" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO45</text>
+  <text x="135" y="232" text-anchor="end" font-size="12" fill="#6b7280">(Strapping Pin)</text>
+
+  <!-- Internal LDO Controller -->
+  <rect x="65" y="260" width="150" height="55" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="140" y="282" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">VDD_SPI LDO</text>
+  <text x="140" y="300" text-anchor="middle" font-size="12" fill="#1a1a1a">Вихід: 3.3 В / 1.8 В</text>
+
+  <!-- Internal Connections -->
+  <path d="M 210,220 L 140,220 L 140,260" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+
+  <!-- VDD_SPI Output Pin -->
+  <circle cx="210" cy="340" r="5" fill="#27ae60"/>
+  <text x="135" y="345" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">VDD_SPI</text>
+  <path d="M 140,315 L 140,340 L 210,340" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- External Pull-down Line & Junction -->
+  <line x1="210" y1="220" x2="280" y2="220" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="280" cy="220" r="4" fill="#1a1a1a"/>
+
+  <!-- Recommended Pull-down Resistor (Green) -->
+  <line x1="280" y1="220" x2="280" y2="255" stroke="#27ae60" stroke-width="2"/>
+  <rect x="260" y="255" width="40" height="45" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="280" y="282" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">R_pd</text>
+  <text x="310" y="282" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">10 кОм</text>
+
+  <!-- GND -->
+  <line x1="280" y1="300" x2="280" y2="335" stroke="#27ae60" stroke-width="2"/>
+  <line x1="265" y1="335" x2="295" y2="335" stroke="#27ae60" stroke-width="2"/>
+  <line x1="270" y1="340" x2="290" y2="340" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="275" y1="345" x2="285" y2="345" stroke="#27ae60" stroke-width="1"/>
+  <text x="280" y="362" text-anchor="middle" font-size="12" fill="#27ae60">GND (0 В)</text>
+
+  <!-- Alternative Pull-up Resistor (Red Dotted) -->
+  <line x1="280" y1="220" x2="280" y2="185" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <rect x="260" y="140" width="40" height="45" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="280" y="167" text-anchor="middle" font-size="12" fill="#c0392b">R_pu</text>
+  <text x="310" y="167" text-anchor="start" font-size="12" fill="#c0392b">10 кОм (1.8В)</text>
+
+  <!-- VDD33 Top Power -->
+  <line x1="280" y1="140" x2="280" y2="115" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="280" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">VDD33 (3.3 В)</text>
+
+  <!-- Left Panel Reset Timing note -->
+  <rect x="45" y="388" width="390" height="34" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="240" y="410" text-anchor="middle" font-size="12" fill="#1a1a1a">Зчитування стану GPIO45 відбувається в момент підйому CHIP_PU</text>
+
+  <!-- Right Panel: Modes & Equations -->
+  <rect x="470" y="75" width="460" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="700" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Режими живлення та електричний розрахунок</text>
+
+  <!-- Mode 1 Card (Green) -->
+  <rect x="490" y="120" width="420" height="85" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="505" y="142" font-size="13" font-weight="bold" fill="#27ae60">Штатна конфігурація ESP32-S3R2 (3.3 В PSRAM):</text>
+  <text x="505" y="165" font-size="12" fill="#1a1a1a">· Стан виводу: GPIO45 = LOW (0 В / підтяжка до GND)</text>
+  <text x="505" y="185" font-size="12" fill="#1a1a1a">· Вихід LDO VDD_SPI = 3.3 В  →  Нормальна робота PSRAM/Flash</text>
+
+  <!-- Mode 2 Card (Red Warning) -->
+  <rect x="490" y="215" width="420" height="85" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="505" y="237" font-size="13" font-weight="bold" fill="#c0392b">Альтернативна конфігурація (1.8 В PSRAM / Flash):</text>
+  <text x="505" y="260" font-size="12" fill="#1a1a1a">· Стан виводу: GPIO45 = HIGH (3.3 В / підтяжка до VDD33)</text>
+  <text x="505" y="280" font-size="12" fill="#1a1a1a">· Вихід LDO VDD_SPI = 1.8 В  →  Збій ініціалізації 3.3V PSRAM!</text>
+
+  <!-- Calculation Card (Blue Accent) -->
+  <rect x="490" y="310" width="420" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="505" y="332" font-size="13" font-weight="bold" fill="#2457d6">Розрахунок порогу логічного нуля V_IL (0 В):</text>
+  <text x="505" y="355" font-size="12" fill="#1a1a1a">· Порогове значення V_IL_MAX = 0.25 × VDD33 = 0.825 В</text>
+  <text x="505" y="375" font-size="12" fill="#1a1a1a">· При R_pd = 10 кОм: V_GPIO45 = 0 В  ≤  0.825 В  (Умова дотримане)</text>
+  <text x="505" y="398" font-size="12" font-weight="bold" fill="#27ae60">Висновок: External R_pd = 10 кОм ґарантує старт VDD_SPI = 3.3 В</text>
+</svg>

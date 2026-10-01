@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еволюція форм-факторів та родина модулів ESP32-S3</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Хронологічне розгалуження від DevKitC-1 до SiP-модулів WROOM-1, WROOM-2 та MINI-1</text>
+
+  <!-- Top Node: ESP32-S3 SoC / DevKitC-1 -->
+  <rect x="330" y="75" width="300" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP32-S3 SoC (2021) &amp; DevKitC-1</text>
+  <text x="480" y="118" font-size="12" fill="#6b7280" text-anchor="middle">Двоядерний Xtensa LX7 (240 МГц) | Векторний прискорювач</text>
+
+  <!-- Branching Lines from Top Node -->
+  <path d="M 480 135 L 480 150 M 175 150 L 785 150" stroke="#6b7280" stroke-width="1.5" fill="none"/>
+  <line x1="175" y1="150" x2="175" y2="163" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="480" y1="150" x2="480" y2="163" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="785" y1="150" x2="785" y2="163" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Layer 1: Three Main Branches -->
+  <!-- Branch 1: QSPI WROOM-1 -->
+  <rect x="40" y="165" width="270" height="45" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="175" y="184" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Серія WROOM-1 (QSPI)</text>
+  <text x="175" y="200" font-size="11" fill="#6b7280" text-anchor="middle">4-бітна шина Quad SPI | N4, N8, N16 / N8R2</text>
+
+  <!-- Branch 2: Octal SPI WROOM-2 -->
+  <rect x="345" y="165" width="270" height="45" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="184" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Серія WROOM-2 (Octal SPI)</text>
+  <text x="480" y="200" font-size="11" fill="#6b7280" text-anchor="middle">8-бітна шина OPI DDR | N16R8, N32R8</text>
+
+  <!-- Branch 3: MINI-1 & Micro -->
+  <rect x="650" y="165" width="270" height="45" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="785" y="184" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Серія MINI-1 &amp; Micro</text>
+  <text x="785" y="200" font-size="11" fill="#6b7280" text-anchor="middle">Компактний SiP-формфактор | N8R2, N4R2</text>
+
+  <!-- Connectors to Layer 2 -->
+  <line x1="175" y1="210" x2="175" y2="233" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="480" y1="210" x2="480" y2="233" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="785" y1="210" x2="785" y2="233" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Layer 2 Boxes: Specific Variants -->
+  <!-- Column 1, Box 1 -->
+  <rect x="40" y="235" width="270" height="100" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="256" font-size="13" font-weight="bold" fill="#2457d6">ESP32-S3-WROOM-1-N8R2</text>
+  <text x="52" y="276" font-size="11" fill="#1a1a1a">• Flash: 8 МБ (Quad SPI)</text>
+  <text x="52" y="294" font-size="11" fill="#1a1a1a">• PSRAM: 2 МБ (Quad SPI SiP)</text>
+  <text x="52" y="312" font-size="11" fill="#6b7280">• Доступно ~36 вільних GPIO (без OPI)</text>
+
+  <!-- Connector Column 1 -->
+  <line x1="175" y1="335" x2="175" y2="353" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Column 1, Box 2 -->
+  <rect x="40" y="355" width="270" height="100" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="376" font-size="13" font-weight="bold" fill="#2457d6">ESP32-S3-WROOM-1-N16</text>
+  <text x="52" y="396" font-size="11" fill="#1a1a1a">• Flash: 16 МБ (Quad SPI)</text>
+  <text x="52" y="414" font-size="11" fill="#1a1a1a">• PSRAM: Відсутня (тільки DRAM)</text>
+  <text x="52" y="432" font-size="11" fill="#6b7280">• Максимум штирів для периферії</text>
+
+  <!-- Column 2, Box 1 -->
+  <rect x="345" y="235" width="270" height="100" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="357" y="256" font-size="13" font-weight="bold" fill="#27ae60">ESP32-S3-WROOM-2-N16R8</text>
+  <text x="357" y="276" font-size="11" fill="#1a1a1a">• Flash: 16 МБ (Quad/Octal SPI)</text>
+  <text x="357" y="294" font-size="11" fill="#1a1a1a">• PSRAM: 8 МБ (Octal SPI DDR)</text>
+  <text x="357" y="312" font-size="11" fill="#c0392b">• Зайняті GPIO33–GPIO37 під OPI</text>
+
+  <!-- Connector Column 2 -->
+  <line x1="480" y1="335" x2="480" y2="353" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Column 2, Box 2 -->
+  <rect x="345" y="355" width="270" height="100" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="357" y="376" font-size="13" font-weight="bold" fill="#27ae60">ESP32-S3-WROOM-2-N32R8V</text>
+  <text x="357" y="396" font-size="11" fill="#1a1a1a">• Flash: 32 МБ (Octal SPI)</text>
+  <text x="357" y="414" font-size="11" fill="#1a1a1a">• PSRAM: 8 МБ (High-Speed OPI)</text>
+  <text x="357" y="432" font-size="11" fill="#6b7280">• Для TinyML, ШІ та медіапотоків</text>
+
+  <!-- Column 3, Box 1 -->
+  <rect x="650" y="235" width="270" height="100" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="662" y="256" font-size="13" font-weight="bold" fill="#1a1a1a">ESP32-S3-MINI-1-N8R2</text>
+  <text x="662" y="276" font-size="11" fill="#1a1a1a">• Габарити 13.2 × 16.6 мм (SiP)</text>
+  <text x="662" y="294" font-size="11" fill="#1a1a1a">• Flash: 8 МБ | PSRAM: 2 МБ</text>
+  <text x="662" y="312" font-size="11" fill="#6b7280">• Вбудована PCB/IPEX антена</text>
+
+  <!-- Connector Column 3 -->
+  <line x1="785" y1="335" x2="785" y2="353" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Column 3, Box 2 -->
+  <rect x="650" y="355" width="270" height="100" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="662" y="376" font-size="13" font-weight="bold" fill="#1a1a1a">Сторонні плати (Zero/SuperMini)</text>
+  <text x="662" y="396" font-size="11" fill="#1a1a1a">• ESP32-S3-Zero / Waveshare Pico</text>
+  <text x="662" y="414" font-size="11" fill="#1a1a1a">• Нативний USB CDC/JTAG Type-C</text>
+  <text x="662" y="432" font-size="11" fill="#6b7280">• Компактний відлагоджувальний стенд</text>
+
+  <!-- Legend Banner -->
+  <rect x="40" y="470" width="880" height="36" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="492" font-size="12" fill="#1a1a1a" text-anchor="middle">Примітка: Індекси N4/N8/N16 — обсяг Flash (МБ); R2/R8 — обсяг PSRAM (МБ). Модулі Octal SPI зайнято GPIO33–GPIO37.</text>
+</svg>

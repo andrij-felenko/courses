@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Потік відеоданих та пропускна здатність шин модуля ESP32-CAM</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Шлях від матриці камери через DVP і DMA до кадрових буферів у SRAM та PSRAM із позначенням вузьких місць</text>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Flow Stage 1: Video Sensor -->
+  <rect x="40" y="130" width="150" height="160" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="115" y="156" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Відеосенсор</text>
+  <text x="115" y="174" text-anchor="middle" font-size="12" fill="#6b7280">(OV2640 / OV3640)</text>
+  <text x="52" y="200" font-size="11" fill="#1a1a1a">• 10–20 МГц (XCLK)</text>
+  <text x="52" y="220" font-size="11" fill="#1a1a1a">• Кодек JPEG (DSP)</text>
+  <text x="52" y="240" font-size="11" fill="#1a1a1a">• RGB565 / JPEG</text>
+  <text x="52" y="260" font-size="11" fill="#6b7280">• Кадр: 40–120 КБ</text>
+
+  <!-- Arrow 1: Sensor -> DVP -->
+  <text x="210" y="192" text-anchor="middle" font-size="11" fill="#2457d6">PCLK</text>
+  <line x1="190" y1="205" x2="221" y2="205" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Flow Stage 2: DVP Bus -->
+  <rect x="230" y="130" width="150" height="160" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="305" y="156" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Шина DVP</text>
+  <text x="305" y="174" text-anchor="middle" font-size="12" fill="#6b7280">(8-bit Parallel)</text>
+  <text x="242" y="200" font-size="11" fill="#1a1a1a">• D0–D7, VSYNC</text>
+  <text x="242" y="220" font-size="11" fill="#1a1a1a">• PCLK ≤ 20 МГц</text>
+  <text x="242" y="244" font-size="11" font-weight="bold" fill="#c0392b">• Вузьке місце:</text>
+  <text x="242" y="262" font-size="11" fill="#c0392b">  Phase Skew</text>
+
+  <!-- Arrow 2: DVP -> DMA -->
+  <text x="400" y="192" text-anchor="middle" font-size="11" fill="#2457d6">D0-D7</text>
+  <line x1="380" y1="205" x2="411" y2="205" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Flow Stage 3: DMA Controller -->
+  <rect x="420" y="130" width="160" height="160" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="500" y="156" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Контролер DMA</text>
+  <text x="500" y="174" text-anchor="middle" font-size="12" fill="#6b7280">(I2S / FIFO)</text>
+  <text x="432" y="200" font-size="11" fill="#1a1a1a">• Кільцевий FIFO</text>
+  <text x="432" y="220" font-size="11" fill="#1a1a1a">• DMA-дескриптори</text>
+  <text x="432" y="244" font-size="11" font-weight="bold" fill="#c0392b">• Ризик overrun:</text>
+  <text x="432" y="262" font-size="11" fill="#c0392b">  Затримки шини</text>
+
+  <!-- Arrow 3a: DMA -> SRAM (Restricted) -->
+  <text x="645" y="142" text-anchor="middle" font-size="11" fill="#c0392b">Лише JPEG</text>
+  <line x1="580" y1="165" x2="701" y2="155" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arr-red)"/>
+
+  <!-- Flow Stage 4a: Internal SRAM -->
+  <rect x="710" y="125" width="210" height="75" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="815" y="147" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Внутрішня SRAM (520КБ)</text>
+  <text x="815" y="165" text-anchor="middle" font-size="11" fill="#6b7280">Доступно ~300КБ пам'яті</text>
+  <text x="815" y="181" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">(мало для UXGA 3.84 МБ)</text>
+
+  <!-- Arrow 3b: DMA -> PSRAM (Full Flow) -->
+  <text x="645" y="268" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Буфери PSRAM</text>
+  <line x1="580" y1="235" x2="701" y2="245" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Flow Stage 4b: External PSRAM -->
+  <rect x="710" y="215" width="210" height="75" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="815" y="237" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Зовнішня PSRAM (4МБ)</text>
+  <text x="815" y="255" text-anchor="middle" font-size="11" fill="#1a1a1a">Подвійна буферизація</text>
+  <text x="815" y="271" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">fb_count = 2 (300КБ буфер)</text>
+
+  <!-- Bottom Panel: Bandwidth Math & System Constraints -->
+  <rect x="40" y="315" width="880" height="145" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="338" font-size="14" font-weight="bold" fill="#1a1a1a">Розрахунок пропускної здатності та системні обмеження ESP32-CAM:</text>
+
+  <!-- Column 1 -->
+  <text x="60" y="362" font-size="12" font-weight="bold" fill="#2457d6">1. Обсяг кадрового буфера:</text>
+  <text x="60" y="382" font-size="11" fill="#1a1a1a">• UXGA Raw (RGB565):</text>
+  <text x="60" y="398" font-size="11" font-weight="bold" fill="#c0392b">  1600 × 1200 × 2 B = 3.84 МБ</text>
+  <text x="60" y="420" font-size="11" fill="#1a1a1a">• UXGA JPEG (Q=10-12):</text>
+  <text x="60" y="438" font-size="11" font-weight="bold" fill="#27ae60">  40…120 КБ (стиснення 30–90×)</text>
+
+  <!-- Column 2 -->
+  <text x="360" y="362" font-size="12" font-weight="bold" fill="#2457d6">2. Пропускна здатність DVP:</text>
+  <text x="360" y="382" font-size="11" fill="#1a1a1a">• BW_dvp = W × H × N × FPS</text>
+  <text x="360" y="402" font-size="11" fill="#1a1a1a">• При PCLK = 20 МГц:</text>
+  <text x="360" y="420" font-size="11" fill="#1a1a1a">  потік даних до 20 МБ/с</text>
+  <text x="360" y="438" font-size="11" font-weight="bold" fill="#27ae60">• Рекомендовано PCLK 10–16 МГц</text>
+
+  <!-- Column 3 -->
+  <text x="660" y="362" font-size="12" font-weight="bold" fill="#c0392b">3. Ризики переповнення (Overrun):</text>
+  <text x="660" y="382" font-size="11" fill="#1a1a1a">• При затримці DMA виникає</text>
+  <text x="660" y="398" font-size="11" font-weight="bold" fill="#c0392b">  FIFO overrun (втрата кадру)</text>
+  <text x="660" y="420" font-size="12" font-weight="bold" fill="#27ae60">• Рішення: fb_count = 2 у PSRAM</text>
+  <text x="660" y="438" font-size="11" fill="#27ae60">  гарантує плавну трансляцію</text>
+</svg>

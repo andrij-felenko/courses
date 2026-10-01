@@ -1,0 +1,181 @@
+<svg width="960" height="560" viewBox="0 0 960 560" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Diagram Title Header -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Підключення підтягувальних резисторів до strapping-виводів ESP8266</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Нормальний старт з SPI Flash та небезпека струмового конфлікту при зміні режиму GPIO</text>
+
+  <!-- ================= LEFT PANEL: BOOT LATCH MODE ================= -->
+  <rect x="24" y="70" width="444" height="470" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  
+  <!-- Left Panel Header Box -->
+  <rect x="36" y="82" width="420" height="32" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="246" y="103" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">РЕЖИМ BOOT LATCH (Вхід Hi-Z під час RST)</text>
+
+  <!-- ESP8266 Chip Box -->
+  <rect x="40" y="130" width="130" height="240" fill="#ffffff" stroke="#1a1a1a" stroke-width="2" rx="6"/>
+  <text x="105" y="156" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">ESP8266EX</text>
+  <text x="105" y="176" text-anchor="middle" font-size="12" fill="#6b7280">Boot Control</text>
+
+  <!-- Pins on Chip Right Edge -->
+  <!-- GPIO0 -->
+  <line x1="170" y1="205" x2="195" y2="205" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="162" y="209" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO0</text>
+  
+  <!-- GPIO2 -->
+  <line x1="170" y1="265" x2="195" y2="265" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="162" y="269" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO2</text>
+
+  <!-- GPIO15 -->
+  <line x1="170" y1="325" x2="195" y2="325" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="162" y="329" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO15</text>
+
+  <!-- Power Rails on Left Panel -->
+  <!-- VCC Rail (+3.3V) -->
+  <line x1="210" y1="140" x2="450" y2="140" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="330" y="132" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">+3.3V (VCC)</text>
+
+  <!-- GND Rail (0V) -->
+  <line x1="210" y1="360" x2="450" y2="360" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="330" y="376" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">GND (0V)</text>
+
+  <!-- Circuit Connections & Resistors -->
+  <!-- GPIO0 Pull-Up -->
+  <polyline points="195,205 255,205 255,140" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="255" cy="205" r="3" fill="#2457d6"/>
+  <rect x="247" y="158" width="16" height="24" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="240" y="174" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">R_PU1 = 10kΩ</text>
+  <rect x="330" y="193" width="120" height="24" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="390" y="209" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">HIGH (Flash Boot)</text>
+
+  <!-- GPIO2 Pull-Up -->
+  <polyline points="195,265 305,265 305,140" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="305" cy="265" r="3" fill="#2457d6"/>
+  <rect x="297" y="218" width="16" height="24" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="290" y="234" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">R_PU2 = 10kΩ</text>
+  <rect x="330" y="253" width="120" height="24" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="390" y="269" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">HIGH (Обов'язково)</text>
+
+  <!-- GPIO15 Pull-Down -->
+  <polyline points="195,325 245,325 245,360" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="245" cy="325" r="3" fill="#1a1a1a"/>
+  <rect x="237" y="332" width="16" height="22" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="258" y="347" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">R_PD = 10kΩ</text>
+  <rect x="330" y="313" width="120" height="24" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="390" y="329" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">LOW (Обов'язково)</text>
+
+  <!-- Left Bottom Info Box -->
+  <rect x="36" y="395" width="420" height="130" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="48" y="415" font-size="12" font-weight="bold" fill="#1a1a1a">Параметри старту (Latch-in Window):</text>
+  <text x="48" y="435" font-size="12" fill="#6b7280">• Опитування станів — по наростаючому фронту RST/EN.</text>
+  <text x="48" y="455" font-size="12" fill="#6b7280">• Вхідний імпеданс Hi-Z: струм витоку I_leak &lt; 10 мкА.</text>
+  <text x="48" y="475" font-size="12" fill="#6b7280">• Рівні напруги: V_IL ≤ 0.82V, V_IH ≥ 2.47V (0.75VCC).</text>
+  <text x="48" y="500" font-size="12" font-weight="bold" fill="#27ae60">✓ Результат: Завантаження прошивки з зовнішньої SPI Flash.</text>
+
+  <!-- ================= RIGHT PANEL: OUTPUT CONFLICT & PROTECTION ================= -->
+  <rect x="492" y="70" width="444" height="470" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  
+  <!-- Right Panel Header Box -->
+  <rect x="504" y="82" width="420" height="32" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="714" y="103" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">РЕЖИМ OUTPUT: СТРУМОВИЙ КОНФЛІКТ ТА РИЗИКИ</text>
+
+  <!-- Scenario 1: Output Conflict Box -->
+  <rect x="504" y="125" width="420" height="185" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="516" y="145" font-size="12" font-weight="bold" fill="#c0392b">Конфлікт: GPIO15 переключено на OUTPUT HIGH (3.3В)</text>
+
+  <!-- Output Stage Box -->
+  <rect x="516" y="158" width="180" height="140" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="606" y="176" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Вихідний каскад</text>
+  
+  <line x1="530" y1="192" x2="640" y2="192" stroke="#2457d6" stroke-width="2"/>
+  <text x="530" y="188" font-size="12" font-weight="bold" fill="#2457d6">VDD 3.3V</text>
+  
+  <rect x="555" y="202" width="80" height="22" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" rx="3"/>
+  <text x="595" y="217" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">P-FET ON</text>
+  
+  <!-- Internal Output Line -->
+  <line x1="595" y1="192" x2="595" y2="202" stroke="#c0392b" stroke-width="2"/>
+  <line x1="595" y1="224" x2="595" y2="250" stroke="#c0392b" stroke-width="2"/>
+  <line x1="595" y1="250" x2="645" y2="250" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="645" cy="250" r="4" fill="#c0392b"/>
+  <text x="640" y="242" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">GPIO15</text>
+
+  <!-- External Connections from GPIO15 -->
+  <line x1="645" y1="250" x2="685" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polyline points="685,250 685,258" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="677" y="258" width="16" height="22" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="685" y1="280" x2="685" y2="292" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="675" y1="292" x2="695" y2="292" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="685" y="304" text-anchor="middle" font-size="12" fill="#1a1a1a">R_PD = 10kΩ</text>
+
+  <!-- Dangerous Current Path Arrow -->
+  <path d="M 595,192 L 595,250 L 685,250 L 685,255" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+  <!-- Warning Info Box -->
+  <rect x="715" y="138" width="200" height="162" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="723" y="156" font-size="12" font-weight="bold" fill="#c0392b">⚠️ АПАРАТНИЙ РИЗИК:</text>
+  <text x="723" y="174" font-size="12" fill="#1a1a1a">1. Витік через R_PD:</text>
+  <text x="723" y="192" font-size="12" font-weight="bold" fill="#c0392b">   I = 3.3V / 10k = 0.33 mA</text>
+  <text x="723" y="210" font-size="12" fill="#1a1a1a">2. КЗ при кнопці на GND:</text>
+  <text x="723" y="228" font-size="12" font-weight="bold" fill="#c0392b">   I_КЗ &gt; 40 mA! (Перегрів)</text>
+  <text x="723" y="246" font-size="12" fill="#1a1a1a">3. Витання стану у Hi-Z:</text>
+  <text x="723" y="264" font-size="12" font-weight="bold" fill="#c0392b">   якщо R_pull &gt; 50 kΩ</text>
+
+  <!-- Scenario 2: Protected Circuit Box -->
+  <rect x="504" y="320" width="420" height="205" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="516" y="340" font-size="12" font-weight="bold" fill="#27ae60">Рекомендоване розв'язання: Схемотехнічний захист</text>
+
+  <!-- Pin terminal -->
+  <circle cx="522" cy="415" r="4" fill="#27ae60"/>
+  <text x="515" y="388" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO0/15</text>
+  
+  <!-- Series Resistor R_s -->
+  <line x1="522" y1="415" x2="550" y2="415" stroke="#27ae60" stroke-width="2"/>
+  <rect x="550" y="407" width="36" height="16" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="568" y="438" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">R_s = 470Ω</text>
+  <line x1="586" y1="415" x2="600" y2="415" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="600" cy="415" r="3" fill="#1a1a1a"/>
+
+  <!-- Pull Resistor branch -->
+  <line x1="600" y1="415" x2="600" y2="430" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="592" y="430" width="16" height="22" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="600" y1="452" x2="600" y2="465" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="590" y1="465" x2="610" y2="465" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="600" y="482" text-anchor="middle" font-size="12" fill="#1a1a1a">R_pull = 10kΩ</text>
+
+  <!-- External Button branch -->
+  <line x1="600" y1="415" x2="635" y2="415" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="635" cy="415" r="2.5" fill="#1a1a1a"/>
+  <line x1="635" y1="409" x2="660" y2="401" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="660" cy="415" r="2.5" fill="#1a1a1a"/>
+  <line x1="660" y1="415" x2="675" y2="415" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="675" y1="405" x2="675" y2="425" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="647" y="430" text-anchor="middle" font-size="12" fill="#1a1a1a">Кнопка</text>
+
+  <!-- Protected Solution Callout Box -->
+  <rect x="705" y="332" width="210" height="183" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="713" y="350" font-size="12" font-weight="bold" fill="#27ae60">✓ ПЕРЕВАГИ СХЕМІ:</text>
+  <text x="713" y="368" font-size="12" fill="#1a1a1a">• R_s обмежує струм КЗ:</text>
+  <text x="713" y="386" font-size="12" font-weight="bold" fill="#27ae60">  I_max = 3.3V / 470Ω = 7 mA</text>
+  <text x="713" y="404" font-size="12" fill="#1a1a1a">• Надійна підтяжка старту:</text>
+  <text x="713" y="422" font-size="12" fill="#1a1a1a">  V_boot = VCC × 10k/(10k+470)</text>
+  <text x="713" y="440" font-size="12" font-weight="bold" fill="#27ae60">  V_boot = 3.15 В (&gt; 2.47 В ✓)</text>
+  <text x="713" y="458" font-size="12" fill="#1a1a1a">• Фільтрація ВЧ завад (RC)</text>
+  <text x="713" y="480" font-size="12" font-weight="bold" fill="#27ae60">Повна безпека ESP8266!</text>
+</svg>

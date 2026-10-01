@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратний контроль потоку RTS/CTS та таймінги запобігання скиданням WDT</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Сигналізація паузи передачі даних через лінію RTS при заповненні вхідного буфера RX</text>
+
+  <!-- Top Connection Container -->
+  <rect x="40" y="80" width="880" height="145" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+
+  <!-- Host Box -->
+  <rect x="60" y="105" width="230" height="100" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="5"/>
+  <text x="175" y="127" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Хост-мікроконтролер</text>
+  <text x="75" y="152" font-size="12" fill="#1a1a1a">TXD (Вихід даних)</text>
+  <text x="75" y="177" font-size="12" fill="#1a1a1a">CTS (Вхід дозволу)</text>
+
+  <!-- ESP8266 Box -->
+  <rect x="670" y="105" width="230" height="100" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="5"/>
+  <text x="785" y="127" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Модуль ESP8266 (ESP-01)</text>
+  <text x="685" y="152" font-size="12" fill="#1a1a1a">RXD (Вхід даних)</text>
+  <text x="685" y="177" font-size="12" fill="#1a1a1a">RTS (Вихід готовності)</text>
+
+  <!-- Interconnects -->
+  <line x1="290" y1="148" x2="660" y2="148" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="475" y="142" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Кадри даних UART (TXD → RXD)</text>
+
+  <line x1="670" y1="173" x2="300" y2="173" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="475" y="193" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Сигнал зупинки RTS = HIGH (RTS → CTS)</text>
+
+  <!-- Bottom Timing Container -->
+  <rect x="40" y="235" width="880" height="205" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="60" y="257" font-size="14" font-weight="bold" fill="#1a1a1a">Часова діаграма спрацьовування RTS та запобігання скиданню WDT</text>
+
+  <!-- Threshold Markers -->
+  <line x1="450" y1="270" x2="450" y2="395" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="450" y="267" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Поріг 80%</text>
+
+  <line x1="680" y1="270" x2="680" y2="395" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="680" y="267" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Очищення ≤40%</text>
+
+  <!-- Row 1: Buffer Level -->
+  <text x="60" y="292" font-size="12" font-weight="bold" fill="#1a1a1a">Рівень RX-буфера:</text>
+  <rect x="200" y="280" width="250" height="16" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="325" y="292" font-size="12" fill="#27ae60" text-anchor="middle">Накопичення (0%..79%)</text>
+
+  <rect x="450" y="280" width="230" height="16" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="565" y="292" font-size="12" fill="#c0392b" text-anchor="middle">Заповнення (≥80%)</text>
+
+  <rect x="680" y="280" width="210" height="16" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="785" y="292" font-size="12" fill="#27ae60" text-anchor="middle">Нормальний стан</text>
+
+  <!-- Row 2: RTS Line Waveform -->
+  <text x="60" y="330" font-size="12" font-weight="bold" fill="#1a1a1a">Лінія RTS (ESP8266):</text>
+  <path d="M 200,338 L 450,338 L 450,318 L 680,318 L 680,338 L 890,338" stroke="#c0392b" stroke-width="2.5" fill="none"/>
+  <text x="565" y="313" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">RTS = HIGH (Пауза)</text>
+
+  <!-- Row 3: Host TX State -->
+  <text x="60" y="365" font-size="12" font-weight="bold" fill="#1a1a1a">Передача Host TX:</text>
+  <rect x="200" y="352" width="250" height="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="3"/>
+  <text x="325" y="365" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Передача даних</text>
+
+  <rect x="450" y="352" width="230" height="18" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="3"/>
+  <text x="565" y="365" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ПАУЗА (CTS = HIGH)</text>
+
+  <rect x="680" y="352" width="210" height="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="3"/>
+  <text x="785" y="365" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Відновлення</text>
+
+  <!-- Row 4: WDT Status -->
+  <text x="60" y="412" font-size="12" font-weight="bold" fill="#1a1a1a">Захист від WDT:</text>
+  <rect x="200" y="395" width="690" height="28" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="545" y="414" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Запобігання вичерпанню DRAM та апаратним перезавантаженням WDT</text>
+</svg>

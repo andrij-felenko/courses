@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схемотехніка живлення та сигнальних кіл адаптера ESP-01</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Стабілізація 3.3 В LDO-регулятором, згладжування піків струму конденсаторами та зв'язок UART</text>
+
+  <rect x="30" y="80" width="160" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="110" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">USB Джерело</text>
+  <text x="110" y="118" text-anchor="middle" font-size="12" fill="#6b7280">5V VBUS від ПК</text>
+
+  <rect x="45" y="135" width="130" height="355" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="110" y="155" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">USB Type-A</text>
+
+  <text x="55" y="200" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">Pin 1: VBUS (+5V)</text>
+  <text x="55" y="238" text-anchor="start" font-size="12" fill="#6b7280">Pin 2: D-</text>
+  <text x="55" y="258" text-anchor="start" font-size="12" fill="#6b7280">Pin 3: D+</text>
+  <text x="55" y="460" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Pin 4: GND (0V)</text>
+
+  <rect x="210" y="80" width="460" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="440" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Схема Адаптера (USB-UART &amp; LDO)</text>
+  <text x="440" y="118" text-anchor="middle" font-size="12" fill="#6b7280">CH340G / CP2102 + LDO AMS1117-3.3</text>
+
+  <rect x="230" y="145" width="170" height="130" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="315" y="165" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">CH340G</text>
+  <text x="315" y="180" text-anchor="middle" font-size="12" fill="#6b7280">USB-to-UART</text>
+
+  <text x="238" y="202" text-anchor="start" font-size="12" fill="#c0392b">VCC</text>
+  <text x="238" y="250" text-anchor="start" font-size="12" fill="#6b7280">D- / D+</text>
+  <text x="392" y="177" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">TXD</text>
+  <text x="392" y="227" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">RXD</text>
+  <text x="315" y="268" text-anchor="middle" font-size="12" fill="#1a1a1a">GND</text>
+
+  <rect x="230" y="315" width="170" height="120" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="315" y="335" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">AMS1117-3.3</text>
+  <text x="315" y="350" text-anchor="middle" font-size="12" fill="#6b7280">LDO Регулятор</text>
+
+  <text x="238" y="380" text-anchor="start" font-size="12" fill="#c0392b">VIN</text>
+  <text x="392" y="380" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">VOUT</text>
+  <text x="315" y="428" text-anchor="middle" font-size="12" fill="#1a1a1a">GND</text>
+
+  <rect x="435" y="315" width="215" height="120" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="542" y="335" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Згладжування піків струму</text>
+
+  <text x="485" y="353" text-anchor="middle" font-size="12" fill="#1a1a1a">C1: 47 мкФ</text>
+  <text x="485" y="367" text-anchor="middle" font-size="12" fill="#6b7280">(буфер)</text>
+
+  <text x="595" y="353" text-anchor="middle" font-size="12" fill="#1a1a1a">C2: 0.1 мкФ</text>
+  <text x="595" y="367" text-anchor="middle" font-size="12" fill="#6b7280">(ВЧ фільтр)</text>
+
+  <rect x="690" y="80" width="240" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="810" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Модуль ESP-01 / ESP-01S</text>
+  <text x="810" y="118" text-anchor="middle" font-size="12" fill="#6b7280">Wi-Fi Мікроконтролер</text>
+
+  <rect x="710" y="145" width="200" height="345" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="810" y="165" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">ESP8266 SoC</text>
+
+  <text x="720" y="196" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">RXD</text>
+  <text x="755" y="196" text-anchor="start" font-size="12" fill="#6b7280">(вхід дані)</text>
+
+  <text x="720" y="246" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">TXD</text>
+  <text x="755" y="246" text-anchor="start" font-size="12" fill="#6b7280">(вихід дані)</text>
+
+  <text x="720" y="285" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO0</text>
+  <text x="720" y="299" text-anchor="start" font-size="12" fill="#6b7280">(LOW=Prog, HIGH=Run)</text>
+
+  <text x="720" y="328" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">RST</text>
+  <text x="720" y="342" text-anchor="start" font-size="12" fill="#6b7280">(Скидання: LOW)</text>
+
+  <text x="720" y="371" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">CH_PD</text>
+  <text x="770" y="371" text-anchor="start" font-size="12" fill="#6b7280">(Enable 3.3V)</text>
+
+  <text x="720" y="416" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">VCC</text>
+  <text x="755" y="416" text-anchor="start" font-size="12" fill="#27ae60">(3.3V Живлення)</text>
+
+  <text x="720" y="455" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+
+  <line x1="175" y1="205" x2="200" y2="205" stroke="#c0392b" stroke-width="2"/>
+  <line x1="200" y1="205" x2="230" y2="205" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="200" y1="205" x2="200" y2="385" stroke="#c0392b" stroke-width="2"/>
+  <line x1="200" y1="385" x2="230" y2="385" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <text x="200" y="192" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">+5V VBUS</text>
+
+  <line x1="175" y1="242" x2="230" y2="242" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <line x1="400" y1="180" x2="710" y2="180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="555" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">TXD (CH340G) ➔ RXD (ESP-01)</text>
+
+  <line x1="710" y1="230" x2="400" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="555" y="254" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">RXD (CH340G)  TXD (ESP-01)</text>
+
+  <line x1="400" y1="385" x2="710" y2="385" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="542" y="295" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Шина 3.3V VCC (стабілізовано LDO)</text>
+
+  <line x1="485" y1="385" x2="485" y2="395" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="473" y1="395" x2="497" y2="395" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="473" y1="403" x2="497" y2="403" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="485" y1="403" x2="485" y2="472" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <line x1="595" y1="385" x2="595" y2="395" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="583" y1="395" x2="607" y2="395" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="583" y1="403" x2="607" y2="403" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="595" y1="403" x2="595" y2="472" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <line x1="175" y1="472" x2="710" y2="472" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="315" y1="275" x2="315" y2="315" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <line x1="315" y1="435" x2="315" y2="472" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="710" y1="460" x2="710" y2="472" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="440" y="497" text-anchor="middle" font-size="12" fill="#1a1a1a">Спільна шина заземлення (GND 0V)</text>
+</svg>

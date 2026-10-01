@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Обсяг доступної SRAM та розміри кадрових буферів ESP32-CAM</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Без зовнішньої PSRAM звичайного обсягу SRAM (~300 КБ вільної DRAM) бракує для високих роздільностей</text>
+
+  <!-- Main Content Panel -->
+  <rect x="30" y="68" width="900" height="392" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Reference Vertical Line for Available DRAM Limit -->
+  <line x1="395" y1="98" x2="395" y2="382" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="395" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Межа вільної DRAM (~300 КБ)</text>
+
+  <!-- Row 1: Free DRAM Reference -->
+  <text x="245" y="124" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">Вільна DRAM (SRAM)</text>
+  <rect x="260" y="108" width="135" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="405" y="124" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">300 КБ (Максимум)</text>
+
+  <!-- Row 2: VGA JPEG -->
+  <text x="245" y="164" text-anchor="end" font-size="13" fill="#1a1a1a">VGA (640×480) JPEG</text>
+  <rect x="260" y="148" width="45" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="312" y="164" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">~100 КБ</text>
+  <text x="405" y="164" text-anchor="start" font-size="12" fill="#27ae60">✓ Вміщається у SRAM</text>
+
+  <!-- Row 3: QVGA RGB565 -->
+  <text x="245" y="204" text-anchor="end" font-size="13" fill="#1a1a1a">QVGA (320×240) RGB565</text>
+  <rect x="260" y="188" width="69" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="336" y="204" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">154 КБ</text>
+  <text x="405" y="204" text-anchor="start" font-size="12" fill="#27ae60">✓ Вміщається у SRAM</text>
+
+  <!-- Row 4: VGA RGB565 -->
+  <text x="245" y="244" text-anchor="end" font-size="13" fill="#1a1a1a">VGA (640×480) RGB565</text>
+  <rect x="260" y="228" width="276" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="543" y="244" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">614 КБ</text>
+  <text x="590" y="244" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">✕ Переповнення SRAM (204%)</text>
+
+  <!-- Row 5: SVGA RGB565 -->
+  <text x="245" y="284" text-anchor="end" font-size="13" fill="#1a1a1a">SVGA (800×600) RGB565</text>
+  <rect x="260" y="268" width="432" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="699" y="284" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">960 КБ</text>
+  <text x="746" y="284" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">✕ Крах пам'яті (320%)</text>
+
+  <!-- Row 6: UXGA RAW RGB565 -->
+  <text x="245" y="324" text-anchor="end" font-size="13" fill="#1a1a1a">UXGA (1600×1200) RAW</text>
+  <rect x="260" y="308" width="450" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="700" y1="305" x2="710" y2="335" stroke="#c0392b" stroke-width="2"/>
+  <line x1="705" y1="305" x2="715" y2="335" stroke="#c0392b" stroke-width="2"/>
+  <text x="722" y="324" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">3840 КБ</text>
+  <text x="772" y="324" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">✕ Переповнення x12.8</text>
+
+  <!-- Row 7: External PSRAM Solution -->
+  <text x="245" y="364" text-anchor="end" font-size="13" font-weight="bold" fill="#2457d6">Зовнішня PSRAM (ESP32-CAM)</text>
+  <rect x="260" y="348" width="490" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="270" y="364" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">8192 КБ (8 МБ)</text>
+  <text x="758" y="364" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">✓ Зберігає будь-які кадри</text>
+
+  <!-- Footer Summary Box -->
+  <rect x="45" y="392" width="870" height="56" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="414" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold" fill="#c0392b">Без PSRAM:</tspan> Внутрішньої SRAM (вільні ~300 КБ) вистачає лише для малого кадру QVGA RGB або стиснутого кадру VGA JPEG.</text>
+  <text x="60" y="434" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold" fill="#27ae60">З PSRAM (8 МБ):</tspan> Можливе виділення кадрових буферів високої роздільної здатності (SVGA/UXGA) та створення багатьох буферів для відеопотоку.</text>
+</svg>

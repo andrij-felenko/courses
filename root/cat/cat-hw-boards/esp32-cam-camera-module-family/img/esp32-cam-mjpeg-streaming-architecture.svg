@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура асинхронної MJPEG-трансляції на ESP32-CAM</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Кадри від сенсора через DVP/DMA прямують у PSRAM та передаються HTTP-сервером через Wi-Fi</text>
+
+  <!-- Column 1: Hardware Capture -->
+  <rect x="30" y="80" width="180" height="410" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="120" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Апаратний сенсор</text>
+  <text x="120" y="126" font-size="12" fill="#6b7280" text-anchor="middle">Модуль OV2640</text>
+
+  <!-- Component 1A: OV2640 -->
+  <rect x="42" y="150" width="156" height="120" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="120" y="174" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сенсор OV2640</text>
+  <text x="120" y="194" font-size="12" fill="#6b7280" text-anchor="middle">Апаратне стиснення JPEG</text>
+  <text x="120" y="214" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Шина DVP (8-bit)</text>
+  <text x="120" y="234" font-size="12" fill="#6b7280" text-anchor="middle">PCLK, VSYNC, HREF</text>
+
+  <!-- Component 1B: Frame Settings -->
+  <rect x="42" y="330" width="156" height="140" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="120" y="354" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Параметри кадрів</text>
+  <text x="120" y="376" font-size="12" fill="#1a1a1a" text-anchor="middle">• Формат: MJPEG</text>
+  <text x="120" y="398" font-size="12" fill="#1a1a1a" text-anchor="middle">• Роздільність: SVGA/VGA</text>
+  <text x="120" y="420" font-size="12" fill="#1a1a1a" text-anchor="middle">• Частота: 15–30 FPS</text>
+  <text x="120" y="442" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Без навантаження CPU</text>
+
+  <!-- DVP Bus Arrow (Col 1 to Col 2) -->
+  <line x1="198" y1="210" x2="240" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="219" y="198" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DVP</text>
+
+  <!-- Column 2: Memory & DMA -->
+  <rect x="240" y="80" width="206" height="410" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="343" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Буферизація DMA</text>
+  <text x="343" y="126" font-size="12" fill="#6b7280" text-anchor="middle">Контролер I2S / DMA</text>
+
+  <!-- Component 2A: I2S DMA Controller -->
+  <rect x="252" y="150" width="182" height="70" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="343" y="174" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Контролер I2S DMA</text>
+  <text x="343" y="194" font-size="12" fill="#6b7280" text-anchor="middle">Прямий доступ без CPU</text>
+  <text x="343" y="210" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Запис кадрів по чанках</text>
+
+  <!-- Arrow from DMA down to PSRAM -->
+  <line x1="343" y1="220" x2="343" y2="260" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="360" y="245" font-size="12" fill="#2457d6">DMA Запис</text>
+
+  <!-- Component 2B: External PSRAM Double Buffer -->
+  <rect x="252" y="260" width="182" height="210" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="343" y="284" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Зовнішня PSRAM (4 МБ)</text>
+
+  <!-- Sub-box: Frame Buffer 0 -->
+  <rect x="262" y="298" width="162" height="65" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="343" y="318" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Кадровий буфер 0 (fb_0)</text>
+  <text x="343" y="336" font-size="12" fill="#1a1a1a" text-anchor="middle">Прийом нового кадру (DMA)</text>
+  <text x="343" y="352" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">[Статус: Запис]</text>
+
+  <!-- Sub-box: Frame Buffer 1 -->
+  <rect x="262" y="375" width="162" height="65" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="343" y="395" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Кадровий буфер 1 (fb_1)</text>
+  <text x="343" y="413" font-size="12" fill="#1a1a1a" text-anchor="middle">Передача в HTTP-сервер</text>
+  <text x="343" y="429" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">[Статус: Читання]</text>
+
+  <text x="343" y="458" font-size="12" fill="#6b7280" text-anchor="middle">Подвійна буферизація</text>
+
+  <!-- Arrow PSRAM to HTTP Server (Col 2 to Col 3) -->
+  <line x1="424" y1="407" x2="494" y2="407" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="459" y="395" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">fb_get()</text>
+
+  <!-- Column 3: Processing & Network -->
+  <rect x="494" y="80" width="220" height="410" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="604" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. HTTP та Wi-Fi</text>
+  <text x="604" y="126" font-size="12" fill="#6b7280" text-anchor="middle">Ядро ESP32 / FreeRTOS</text>
+
+  <!-- Component 3A: HTTP Stream Server Task -->
+  <rect x="506" y="150" width="196" height="150" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="604" y="174" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">HTTP-сервер (FreeRTOS)</text>
+  <text x="604" y="194" font-size="12" fill="#6b7280" text-anchor="middle">Потоковий обробник</text>
+  <text x="604" y="214" font-size="12" fill="#1a1a1a" text-anchor="middle">multipart/x-mixed-replace</text>
+  <text x="604" y="234" font-size="12" fill="#6b7280" text-anchor="middle">Формування заголовків</text>
+  <text x="604" y="254" font-size="12" fill="#1a1a1a" text-anchor="middle">Boundary + JPEG Chunk</text>
+  <text x="604" y="274" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">esp_camera_fb_return()</text>
+
+  <!-- Arrow inside Col 3 (HTTP to Wi-Fi) -->
+  <line x1="604" y1="300" x2="604" y2="330" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="622" y="318" font-size="12" fill="#2457d6">TCP</text>
+
+  <!-- Component 3B: Wi-Fi Stack & TCP/IP -->
+  <rect x="506" y="330" width="196" height="140" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="604" y="354" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Модуль Wi-Fi &amp; LwIP</text>
+  <text x="604" y="374" font-size="12" fill="#1a1a1a" text-anchor="middle">Стек TCP/IP (Socket)</text>
+  <text x="604" y="394" font-size="12" fill="#6b7280" text-anchor="middle">Асинхронне відправлення</text>
+  <text x="604" y="414" font-size="12" fill="#1a1a1a" text-anchor="middle">Бездротовий канал 2.4 ГГц</text>
+  <text x="604" y="434" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Швидкість &gt;10 Мбіт/с</text>
+
+  <!-- Arrow Wi-Fi to Client (Col 3 to Col 4) -->
+  <line x1="702" y1="400" x2="754" y2="400" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="728" y="388" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Wi-Fi</text>
+
+  <!-- Column 4: Client Display -->
+  <rect x="754" y="80" width="180" height="410" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="844" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4. Клієнт відео</text>
+  <text x="844" y="126" font-size="12" fill="#6b7280" text-anchor="middle">Веб-браузер / Додаток</text>
+
+  <!-- Component 4A: Browser -->
+  <rect x="766" y="150" width="156" height="170" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="844" y="174" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Веб-браузер</text>
+  <text x="844" y="194" font-size="12" fill="#6b7280" text-anchor="middle">HTTP GET /stream</text>
+  <text x="844" y="214" font-size="12" fill="#1a1a1a" text-anchor="middle">Безперервний потік</text>
+
+  <!-- Screen Simulation -->
+  <rect x="776" y="230" width="136" height="70" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="844" y="254" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">LIVE MJPEG</text>
+  <text x="844" y="274" font-size="12" fill="#1a1a1a" text-anchor="middle">Відео потік</text>
+
+  <!-- Component 4B: MJPEG Advantages -->
+  <rect x="766" y="340" width="156" height="130" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="844" y="364" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Переваги MJPEG</text>
+  <text x="844" y="386" font-size="12" fill="#1a1a1a" text-anchor="middle">• Низька затримка</text>
+  <text x="844" y="408" font-size="12" fill="#1a1a1a" text-anchor="middle">• Сумісність HTML5</text>
+  <text x="844" y="430" font-size="12" fill="#1a1a1a" text-anchor="middle">• Без декодера JS</text>
+</svg>

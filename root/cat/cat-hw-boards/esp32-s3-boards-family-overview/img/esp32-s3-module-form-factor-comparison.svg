@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняльна схема компонування модулів ESP32-S3</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Фізичні габарити, розведення шин Flash/PSRAM та еволюція від SMD-панелей до чипів SiP</text>
+
+  <!-- COLUMN 1: WROOM-1 -->
+  <rect x="48" y="75" width="210" height="415" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="153" y="100" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">WROOM-1</text>
+  <text x="153" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Класичний SMD модуль</text>
+
+  <!-- Card 1 Visual Diagram -->
+  <g transform="translate(0,0)">
+    <!-- PCB Base -->
+    <rect x="73" y="135" width="160" height="200" fill="#1e293b" rx="4"/>
+    <!-- Antenna -->
+    <path d="M 83 143 L 83 165 L 98 165 L 98 148 L 113 148 L 113 165 L 128 165 L 128 148 L 143 148 L 143 165 L 223 165" fill="none" stroke="#d97706" stroke-width="2.5"/>
+    <text x="153" y="158" font-size="11" fill="#f59e0b" text-anchor="middle">PCB Antenna</text>
+    <!-- Metal Shield -->
+    <rect x="83" y="173" width="140" height="152" fill="#94a3b8" stroke="#475569" stroke-width="1.5" rx="3"/>
+    <text x="153" y="210" font-size="13" font-weight="bold" fill="#0f172a" text-anchor="middle">ESP32-S3</text>
+    <rect x="98" y="225" width="110" height="32" fill="#ffffff" stroke="#cbd5e1" rx="4"/>
+    <text x="153" y="245" font-size="12" fill="#1e293b" text-anchor="middle">Flash (QSPI)</text>
+    <rect x="98" y="265" width="110" height="32" fill="#ffffff" stroke="#cbd5e1" rx="4"/>
+    <text x="153" y="285" font-size="12" fill="#1e293b" text-anchor="middle">PSRAM (QSPI)</text>
+  </g>
+
+  <!-- Card 1 Details -->
+  <rect x="60" y="348" width="186" height="130" fill="#ffffff" stroke="#e2e8f0" rx="6"/>
+  <text x="70" y="370" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Шина:</tspan> Quad SPI (4-bit)</text>
+  <text x="70" y="392" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Габарити:</tspan> 18 × 25.5 мм</text>
+  <text x="70" y="414" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Монтаж:</tspan> Дискретні чипи</text>
+  <text x="70" y="436" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Плата:</tspan> SMD 1.27 мм</text>
+  <text x="70" y="458" font-size="12" fill="#2457d6"><tspan font-weight="bold">Швидкість:</tspan> до 40–80 МБ/с</text>
+
+  <!-- COLUMN 2: WROOM-2 -->
+  <rect x="274" y="75" width="210" height="415" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="379" y="100" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">WROOM-2</text>
+  <text x="379" y="120" font-size="12" fill="#6b7280" text-anchor="middle">High-Speed Octal SPI</text>
+
+  <!-- Card 2 Visual Diagram -->
+  <g transform="translate(0,0)">
+    <!-- PCB Base -->
+    <rect x="299" y="135" width="160" height="200" fill="#1e293b" rx="4"/>
+    <!-- Antenna -->
+    <path d="M 309 143 L 309 165 L 324 165 L 324 148 L 339 148 L 339 165 L 354 165 L 354 148 L 369 148 L 369 165 L 449 165" fill="none" stroke="#d97706" stroke-width="2.5"/>
+    <text x="379" y="158" font-size="11" fill="#f59e0b" text-anchor="middle">PCB Antenna</text>
+    <!-- Metal Shield -->
+    <rect x="309" y="173" width="140" height="152" fill="#94a3b8" stroke="#475569" stroke-width="1.5" rx="3"/>
+    <text x="379" y="202" font-size="13" font-weight="bold" fill="#0f172a" text-anchor="middle">ESP32-S3</text>
+    <rect x="324" y="215" width="110" height="48" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+    <text x="379" y="235" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">OPI PSRAM</text>
+    <text x="379" y="252" font-size="11" fill="#1e293b" text-anchor="middle">8-bit DDR (160 МБ/с)</text>
+    <rect x="324" y="271" width="110" height="44" fill="#ffffff" stroke="#cbd5e1" rx="4"/>
+    <text x="379" y="289" font-size="11" fill="#1e293b" text-anchor="middle">GPIO33–GPIO37</text>
+    <text x="379" y="305" font-size="11" fill="#c0392b" font-weight="bold" text-anchor="middle">Зайняті шиною OPI</text>
+  </g>
+
+  <!-- Card 2 Details -->
+  <rect x="286" y="348" width="186" height="130" fill="#ffffff" stroke="#e2e8f0" rx="6"/>
+  <text x="296" y="370" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Шина:</tspan> Octal SPI (8-bit)</text>
+  <text x="296" y="392" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Габарити:</tspan> 18 × 25.5 мм</text>
+  <text x="296" y="414" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Виводи:</tspan> 8 ліній (D0–D7)</text>
+  <text x="296" y="436" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Режим:</tspan> DDR High-Speed</text>
+  <text x="296" y="458" font-size="12" fill="#27ae60"><tspan font-weight="bold">Швидкість:</tspan> до 160 МБ/с</text>
+
+  <!-- COLUMN 3: MINI-1 -->
+  <rect x="500" y="75" width="210" height="415" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="605" y="100" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MINI-1</text>
+  <text x="605" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Компактний модуль</text>
+
+  <!-- Card 3 Visual Diagram -->
+  <g transform="translate(0,0)">
+    <!-- PCB Base -->
+    <rect x="535" y="150" width="140" height="170" fill="#1e293b" rx="4"/>
+    <!-- Antenna -->
+    <path d="M 545 158 L 545 175 L 557 175 L 557 163 L 569 163 L 569 175 L 581 175 L 581 163 L 593 163 L 593 175 L 665 175" fill="none" stroke="#d97706" stroke-width="2"/>
+    <text x="605" y="170" font-size="10" fill="#f59e0b" text-anchor="middle">Antenna</text>
+    <!-- Metal Shield -->
+    <rect x="545" y="182" width="120" height="128" fill="#94a3b8" stroke="#475569" stroke-width="1.5" rx="3"/>
+    <text x="605" y="215" font-size="13" font-weight="bold" fill="#0f172a" text-anchor="middle">ESP32-S3-FN8</text>
+    <rect x="555" y="232" width="100" height="32" fill="#ffffff" stroke="#cbd5e1" rx="4"/>
+    <text x="605" y="252" font-size="11" fill="#1e293b" text-anchor="middle">Вбудована Flash</text>
+    <rect x="555" y="270" width="100" height="30" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+    <text x="605" y="290" font-size="11" fill="#27ae60" font-weight="bold" text-anchor="middle">Мікро-габарити</text>
+  </g>
+
+  <!-- Card 3 Details -->
+  <rect x="512" y="348" width="186" height="130" fill="#ffffff" stroke="#e2e8f0" rx="6"/>
+  <text x="522" y="370" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Шина:</tspan> Quad / Octal SPI</text>
+  <text x="522" y="392" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Габарити:</tspan> 13.2 × 16.6 мм</text>
+  <text x="522" y="414" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Площа:</tspan> на 55% менша</text>
+  <text x="522" y="436" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Крок виводів:</tspan> 1.27 мм</text>
+  <text x="522" y="458" font-size="12" fill="#2457d6"><tspan font-weight="bold">Ціль:</tspan> Портативні вузли</text>
+
+  <!-- COLUMN 4: SiP Chip -->
+  <rect x="726" y="75" width="210" height="415" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="831" y="100" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">чип SiP</text>
+  <text x="831" y="120" font-size="12" fill="#6b7280" text-anchor="middle">System-in-Package</text>
+
+  <!-- Card 4 Visual Diagram -->
+  <g transform="translate(0,0)">
+    <!-- Package Base -->
+    <rect x="751" y="155" width="160" height="160" fill="#0f172a" rx="6"/>
+    <text x="831" y="174" font-size="11" fill="#94a3b8" text-anchor="middle">Корпус QFN-56 (7×7 мм)</text>
+    
+    <!-- MCU Die -->
+    <rect x="765" y="188" width="62" height="75" fill="#2457d6" stroke="#ffffff" stroke-width="1.5" rx="3"/>
+    <text x="796" y="218" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Xtensa</text>
+    <text x="796" y="234" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">LX7 MCU</text>
+    <text x="796" y="252" font-size="10" fill="#93c5fd" text-anchor="middle">240 МГц</text>
+
+    <!-- PSRAM / Flash Die -->
+    <rect x="837" y="188" width="62" height="75" fill="#27ae60" stroke="#ffffff" stroke-width="1.5" rx="3"/>
+    <text x="868" y="218" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">PSRAM /</text>
+    <text x="868" y="234" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Flash Die</text>
+    <text x="868" y="252" font-size="10" fill="#a7f3d0" text-anchor="middle">R2 / R8</text>
+
+    <!-- Bond Wires -->
+    <path d="M 827 205 Q 832 198 837 205" fill="none" stroke="#f59e0b" stroke-width="2"/>
+    <path d="M 827 225 Q 832 218 837 225" fill="none" stroke="#f59e0b" stroke-width="2"/>
+    <path d="M 827 245 Q 832 238 837 245" fill="none" stroke="#f59e0b" stroke-width="2"/>
+    <text x="831" y="285" font-size="11" fill="#f59e0b" text-anchor="middle">Вертикальний стекінґ</text>
+    <text x="831" y="302" font-size="10" fill="#cbd5e1" text-anchor="middle">(Stacked Die Bond Wires)</text>
+  </g>
+
+  <!-- Card 4 Details -->
+  <rect x="738" y="348" width="186" height="130" fill="#ffffff" stroke="#e2e8f0" rx="6"/>
+  <text x="748" y="370" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Шина:</tspan> Внутрішня SiP</text>
+  <text x="748" y="392" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Габарити:</tspan> 7 × 7 мм (QFN)</text>
+  <text x="748" y="414" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">GPIO:</tspan> Не займає зовнішніх</text>
+  <text x="748" y="436" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Плати:</tspan> SuperMini / Zero</text>
+  <text x="748" y="458" font-size="12" fill="#27ae60"><tspan font-weight="bold">Перевага:</tspan> Без індуктивності</text>
+
+  <!-- Bottom Summary Box -->
+  <rect x="48" y="500" width="864" height="42" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="480" y="526" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ключовий висновок: SiP кристали звільняють зовнішній простір плати, а Octal SPI (WROOM-2) дає 160 МБ/с для відео та TinyML</text>
+</svg>

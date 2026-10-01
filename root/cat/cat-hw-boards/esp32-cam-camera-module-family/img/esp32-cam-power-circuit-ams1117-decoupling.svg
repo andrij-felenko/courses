@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Marker Definitions -->
+  <defs>
+    <marker id="arr-orange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d35400"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема живлення ESP32-CAM та фільтрація пікових струмів</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Стабілізатор AMS1117-3.3 та буферні конденсатори запобігають перезавантаженню (Brownout Reset) при піках Wi-Fi</text>
+
+  <!-- PANEL 1: 5V Power Input (Left Panel) -->
+  <rect x="25" y="75" width="200" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="35" y="85" width="180" height="30" rx="4" fill="#eaf0fd"/>
+  <text x="125" y="105" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхід живлення (5V)</text>
+
+  <!-- Terminal 5V -->
+  <rect x="45" y="135" width="160" height="50" rx="6" fill="#ffffff" stroke="#d35400" stroke-width="1.5"/>
+  <text x="125" y="156" font-size="12" font-weight="bold" fill="#d35400" text-anchor="middle">Клема 5V / VCC</text>
+  <text x="125" y="174" font-size="12" fill="#6b7280" text-anchor="middle">(4.75 В – 5.25 В)</text>
+
+  <!-- Power Source Warning Box -->
+  <rect x="45" y="200" width="160" height="125" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="125" y="222" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠️ Вимоги до 5V:</text>
+  <text x="125" y="242" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Піковий струм:</text>
+  <text x="125" y="262" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">I_peak ≥ 2.0 А</text>
+  <text x="125" y="284" font-size="12" fill="#6b7280" text-anchor="middle">Тонкі дроти викликають</text>
+  <text x="125" y="304" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">падіння напруги!</text>
+
+  <!-- Ground Connection Panel 1 -->
+  <line x1="125" y1="360" x2="125" y2="395" stroke="#2c3e50" stroke-width="2"/>
+  <line x1="110" y1="395" x2="140" y2="395" stroke="#2c3e50" stroke-width="2"/>
+  <line x1="116" y1="400" x2="134" y2="400" stroke="#2c3e50" stroke-width="1.5"/>
+  <line x1="122" y1="405" x2="128" y2="405" stroke="#2c3e50" stroke-width="1"/>
+  <text x="125" y="425" font-size="12" font-weight="bold" fill="#2c3e50" text-anchor="middle">GND</text>
+
+  <!-- PANEL 2: Regulation & Filtering Circuit (Middle Panel) -->
+  <rect x="245" y="75" width="440" height="410" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="255" y="85" width="420" height="30" rx="4" fill="#f4f6f8"/>
+  <text x="465" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема стабілізації та фільтрації</text>
+
+  <!-- Wires and Rails -->
+  <!-- 5V Wire (Panel 1 -> LDO) -->
+  <line x1="205" y1="160" x2="360" y2="160" stroke="#d35400" stroke-width="2.5"/>
+  <text x="230" y="150" font-size="12" font-weight="bold" fill="#d35400">5V</text>
+
+  <!-- 3.3V Power Bus (LDO -> Panel 3) -->
+  <line x1="450" y1="160" x2="725" y2="160" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="695" y="150" font-size="12" font-weight="bold" fill="#27ae60">3.3V</text>
+
+  <!-- Common GND Rail (y=340) -->
+  <line x1="205" y1="340" x2="725" y2="340" stroke="#2c3e50" stroke-width="2"/>
+  <text x="465" y="358" font-size="12" font-weight="bold" fill="#2c3e50" text-anchor="middle">Спільна лінія заземлення GND</text>
+
+  <!-- C_in Capacitor (x=285) -->
+  <circle cx="285" cy="160" r="3.5" fill="#d35400"/>
+  <line x1="285" y1="160" x2="285" y2="200" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="275" y1="200" x2="295" y2="200" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="275" y1="208" x2="295" y2="208" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="285" y1="208" x2="285" y2="340" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="285" cy="340" r="3.5" fill="#2c3e50"/>
+
+  <text x="302" y="196" font-size="12" font-weight="bold" fill="#2457d6">C_in</text>
+  <text x="302" y="212" font-size="12" font-weight="bold" fill="#1a1a1a">10 мкФ</text>
+  <text x="302" y="228" font-size="12" fill="#6b7280">+ 0.1 мкФ</text>
+  <text x="302" y="244" font-size="12" fill="#6b7280">Фільтр 5V</text>
+
+  <!-- AMS1117-3.3 LDO Regulator IC Box (x=360..450, y=135..225) -->
+  <rect x="360" y="135" width="90" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <line x1="405" y1="225" x2="405" y2="340" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="405" cy="340" r="3.5" fill="#2c3e50"/>
+
+  <text x="368" y="155" font-size="12" font-weight="bold" fill="#2457d6">IN (3)</text>
+  <text x="442" y="155" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">OUT (2)</text>
+  <text x="405" y="215" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">GND (1)</text>
+
+  <text x="405" y="178" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">AMS1117</text>
+  <text x="405" y="196" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">-3.3V LDO</text>
+
+  <!-- C_out Output Buffer Capacitor (x=525) -->
+  <circle cx="525" cy="160" r="3.5" fill="#27ae60"/>
+  <line x1="525" y1="160" x2="525" y2="200" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="515" y1="200" x2="535" y2="200" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="515" y1="208" x2="535" y2="208" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="525" y1="208" x2="525" y2="340" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="525" cy="340" r="3.5" fill="#2c3e50"/>
+
+  <text x="542" y="194" font-size="12" font-weight="bold" fill="#27ae60">C_out</text>
+  <text x="542" y="210" font-size="12" font-weight="bold" fill="#27ae60">100–470 мкФ</text>
+  <text x="542" y="226" font-size="12" fill="#27ae60">+ 0.1 мкФ ВЧ</text>
+  <text x="542" y="244" font-size="12" font-weight="bold" fill="#c0392b">Захист від BOR</text>
+
+  <!-- Solution Banner Box in Panel 2 (Below GND Rail at y=375..465) -->
+  <rect x="255" y="375" width="420" height="90" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="465" y="398" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Накопичувальна буферна ємність C_out (100–470 мкФ)</text>
+  <text x="465" y="418" font-size="12" fill="#1a1a1a" text-anchor="middle">компенсує пікові сплески струму до 500 мА під час роботи Wi-Fi,</text>
+  <text x="465" y="438" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">запобігаючи просіданню напруги 3.3 В нижче порогу 2.8 В (Brownout)</text>
+
+  <!-- PANEL 3: ESP32-CAM Loads (Right Panel) -->
+  <rect x="705" y="75" width="230" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="715" y="85" width="210" height="30" rx="4" fill="#ffffff"/>
+  <text x="820" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Модуль ESP32-CAM</text>
+  <text x="820" y="125" font-size="12" fill="#6b7280" text-anchor="middle">Споживання по лінії 3.3 В</text>
+
+  <!-- MCU Block -->
+  <rect x="715" y="140" width="210" height="62" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="820" y="160" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP32-S + PSRAM</text>
+  <text x="820" y="178" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Wi-Fi Tx: імпульси 300–500 мА</text>
+  <text x="820" y="194" font-size="12" fill="#6b7280" text-anchor="middle">Базовий струм: ~80–160 мА</text>
+
+  <!-- Camera Sensor Block -->
+  <rect x="715" y="210" width="210" height="52" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="820" y="230" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Камера OV2640 / OV3640</text>
+  <text x="820" y="248" font-size="12" fill="#6b7280" text-anchor="middle">Струм зйомки: ~50–90 мА</text>
+
+  <!-- Flash LED Block -->
+  <rect x="715" y="270" width="210" height="62" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="820" y="290" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Спалах LED (GPIO4)</text>
+  <text x="820" y="308" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Короткі піки: до 300–500 мА</text>
+  <text x="820" y="324" font-size="12" fill="#6b7280" text-anchor="middle">Керування транзистором</text>
+
+  <!-- Brownout Reset Warning Box -->
+  <rect x="715" y="345" width="210" height="120" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="820" y="367" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠️ Проблема: Brownout Reset</text>
+  <text x="820" y="387" font-size="12" fill="#1a1a1a" text-anchor="middle">Без буферного C_out</text>
+  <text x="820" y="407" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">напруга 3.3V просідає &lt; 2.8V</text>
+  <text x="820" y="427" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">МК циклічно перезавантажується!</text>
+  <text x="820" y="447" font-size="12" fill="#6b7280" text-anchor="middle">(Brownout detector triggered)</text>
+</svg>

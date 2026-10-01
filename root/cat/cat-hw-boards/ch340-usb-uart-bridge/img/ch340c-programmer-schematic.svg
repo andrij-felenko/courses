@@ -1,0 +1,218 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- TITLE AND SUBTITLE -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принципова схема USB-UART адаптера на CH340C</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Схема зв'язку USB, живлення 3.3V/5V, ESD-захисту, TX/RX індикації та автоскиду DTR/RTS</text>
+
+  <!-- PANEL 1: USB AND ESD PROTECTION -->
+  <rect x="25" y="75" width="210" height="210" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="35" y="95" font-size="13" font-weight="bold" fill="#1a1a1a">1. USB та ESD-захист</text>
+
+  <!-- USB Connector Box -->
+  <rect x="35" y="110" width="75" height="155" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="72" y="128" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB Type-C</text>
+  <!-- USB Pins -->
+  <circle cx="100" cy="148" r="3" fill="#c0392b"/>
+  <text x="90" y="152" font-size="12" fill="#c0392b" text-anchor="end">VBUS</text>
+
+  <circle cx="100" cy="185" r="3" fill="#2457d6"/>
+  <text x="90" y="189" font-size="12" fill="#2457d6" text-anchor="end">D+</text>
+
+  <circle cx="100" cy="210" r="3" fill="#2457d6"/>
+  <text x="90" y="214" font-size="12" fill="#2457d6" text-anchor="end">D-</text>
+
+  <circle cx="100" cy="235" r="3" fill="#1a1a1a"/>
+  <text x="90" y="239" font-size="12" fill="#1a1a1a" text-anchor="end">GND</text>
+
+  <!-- Fuse -->
+  <rect x="122" y="142" width="36" height="12" rx="2" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="140" y="135" font-size="12" fill="#c0392b" text-anchor="middle">F1 500mA</text>
+
+  <!-- ESD Protection Box -->
+  <rect x="125" y="165" width="95" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="172" y="183" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">TVS USBLC6</text>
+  <text x="172" y="199" font-size="12" fill="#6b7280" text-anchor="middle">ESD захист</text>
+  <text x="172" y="215" font-size="12" fill="#6b7280" text-anchor="middle">D+/D-/GND</text>
+
+  <!-- Lines inside Panel 1 -->
+  <path d="M 100 148 H 122 M 158 148 H 235" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <path d="M 100 185 H 235" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 100 210 H 235" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 100 235 H 235" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+
+  <!-- PANEL 2: CH340C CHIP -->
+  <rect x="250" y="75" width="250" height="210" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="260" y="95" font-size="13" font-weight="bold" fill="#1a1a1a">2. Міст CH340C (USB-UART)</text>
+
+  <!-- Chip Body -->
+  <rect x="270" y="110" width="210" height="155" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="375" y="128" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">CH340C (SOIC-16)</text>
+  <text x="375" y="142" font-size="12" fill="#6b7280" text-anchor="middle">без зовнішнього кварцу</text>
+
+  <!-- Left Pins -->
+  <circle cx="270" cy="160" r="4" fill="#c0392b"/>
+  <text x="280" y="164" font-size="12" fill="#1a1a1a">VCC (16)</text>
+
+  <circle cx="270" cy="185" r="4" fill="#2457d6"/>
+  <text x="280" y="189" font-size="12" fill="#1a1a1a">UD+ (5)</text>
+
+  <circle cx="270" cy="210" r="4" fill="#2457d6"/>
+  <text x="280" y="214" font-size="12" fill="#1a1a1a">UD- (6)</text>
+
+  <circle cx="270" cy="235" r="4" fill="#1a1a1a"/>
+  <text x="280" y="239" font-size="12" fill="#1a1a1a">GND(1)/V3(4)</text>
+
+  <!-- Right Pins -->
+  <circle cx="480" cy="160" r="4" fill="#2457d6"/>
+  <text x="470" y="164" font-size="12" fill="#1a1a1a" text-anchor="end">TXD (2)</text>
+
+  <circle cx="480" cy="185" r="4" fill="#27ae60"/>
+  <text x="470" y="189" font-size="12" fill="#1a1a1a" text-anchor="end">RXD (3)</text>
+
+  <circle cx="480" cy="210" r="4" fill="#2457d6"/>
+  <text x="470" y="214" font-size="12" fill="#1a1a1a" text-anchor="end">DTR# (13)</text>
+
+  <circle cx="480" cy="235" r="4" fill="#2457d6"/>
+  <text x="470" y="239" font-size="12" fill="#1a1a1a" text-anchor="end">RTS# (14)</text>
+
+
+  <!-- PANEL 3: POWER SUPPLY AND SELECTOR -->
+  <rect x="515" y="75" width="420" height="210" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="525" y="95" font-size="13" font-weight="bold" fill="#1a1a1a">3. Джерело живлення 3.3V / 5V</text>
+
+  <!-- LDO Box -->
+  <rect x="530" y="115" width="130" height="75" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="595" y="133" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">AMS1117-3.3</text>
+  <text x="535" y="155" font-size="12" fill="#6b7280">IN (+5V)</text>
+  <text x="655" y="155" font-size="12" fill="#27ae60" text-anchor="end">OUT (+3.3V)</text>
+  <text x="595" y="180" font-size="12" fill="#6b7280" text-anchor="middle">GND</text>
+
+  <!-- Filter Capacitors Note -->
+  <text x="595" y="210" font-size="12" fill="#6b7280" text-anchor="middle">C1, C2 (10µF, 0.1µF)</text>
+
+  <!-- Jumper / Voltage Selector Box -->
+  <rect x="690" y="115" width="230" height="75" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="805" y="133" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Перемикач напруги VCC</text>
+
+  <circle cx="720" cy="160" r="4" fill="#c0392b"/>
+  <text x="720" y="180" font-size="12" fill="#c0392b" text-anchor="middle">5V</text>
+
+  <circle cx="805" cy="160" r="4" fill="#2457d6"/>
+  <text x="805" y="180" font-size="12" fill="#2457d6" text-anchor="middle">VCC</text>
+
+  <circle cx="890" cy="160" r="4" fill="#27ae60"/>
+  <text x="890" y="180" font-size="12" fill="#27ae60" text-anchor="middle">3.3V</text>
+
+  <!-- Jumper Active Position -->
+  <rect x="795" y="153" width="105" height="14" rx="3" fill="#27ae60" opacity="0.3" stroke="#27ae60" stroke-width="1"/>
+  <text x="805" y="210" font-size="12" fill="#27ae60" text-anchor="middle">Джампер: режим 3.3V</text>
+
+  <!-- Power Status LED -->
+  <circle cx="545" cy="245" r="5" fill="#27ae60"/>
+  <text x="560" y="249" font-size="12" fill="#1a1a1a">PWR LED (Живлення +3.3V OK)</text>
+
+  <!-- Interconnect VBUS Line to LDO and VCC pin -->
+  <path d="M 235 148 H 270" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 270 148 V 160" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 270 148 H 530" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <path d="M 660 155 H 890" stroke="#27ae60" stroke-width="1.5"/>
+
+
+  <!-- PANEL 4: TX / RX LED INDICATORS -->
+  <rect x="25" y="300" width="210" height="235" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="35" y="320" font-size="13" font-weight="bold" fill="#1a1a1a">4. Індикація TX / RX</text>
+
+  <!-- TX LED Box -->
+  <rect x="35" y="335" width="190" height="75" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="352" font-size="12" font-weight="bold" fill="#2457d6">TX LED (Передача)</text>
+  <circle cx="195" cy="350" r="5" fill="#2457d6"/>
+  <text x="45" y="372" font-size="12" fill="#6b7280">До TXD через R=1k</text>
+  <text x="45" y="392" font-size="12" fill="#6b7280">Блимає при передачі</text>
+
+  <!-- RX LED Box -->
+  <rect x="35" y="425" width="190" height="75" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="442" font-size="12" font-weight="bold" fill="#27ae60">RX LED (Прийом)</text>
+  <circle cx="195" cy="440" r="5" fill="#27ae60"/>
+  <text x="45" y="462" font-size="12" fill="#6b7280">До RXD через R=1k</text>
+  <text x="45" y="482" font-size="12" fill="#6b7280">Блимає при прийомі</text>
+
+
+  <!-- PANEL 5: AUTO-RESET CIRCUIT -->
+  <rect x="250" y="300" width="440" height="235" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="260" y="320" font-size="13" font-weight="bold" fill="#2457d6">5. Вузол автоскиду (Auto-Reset) DTR/RTS</text>
+
+  <!-- Transistors Box -->
+  <rect x="265" y="335" width="225" height="185" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="275" y="352" font-size="12" font-weight="bold" fill="#1a1a1a">Ключі Q1, Q2 (S8050 NPN)</text>
+  <text x="275" y="377" font-size="12" fill="#1a1a1a">Q1 Base ← RTS# (R=10k)</text>
+  <text x="275" y="397" font-size="12" fill="#27ae60">Q1 Coll → EN / RST</text>
+  <text x="275" y="432" font-size="12" fill="#1a1a1a">Q2 Base ← DTR# (R=10k)</text>
+  <text x="275" y="452" font-size="12" fill="#27ae60">Q2 Coll → IO0 / BOOT</text>
+  <text x="275" y="492" font-size="12" fill="#6b7280">Виключає EN=0 + IO0=0</text>
+
+  <!-- Logic Table Box -->
+  <rect x="500" y="335" width="180" height="185" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="590" y="352" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Таблиця режимів</text>
+  <text x="510" y="375" font-size="12" font-weight="bold" fill="#1a1a1a">DTR RTS | EN IO0</text>
+  <text x="510" y="397" font-size="12" fill="#c0392b"> 0   1  |  0   0 (BOOT)</text>
+  <text x="510" y="420" font-size="12" fill="#2457d6"> 1   0  |  0   1 (RESET)</text>
+  <text x="510" y="443" font-size="12" fill="#27ae60"> 1   1  |  1   1 (RUN)</text>
+  <text x="510" y="466" font-size="12" fill="#6b7280"> 0   0  |  1   1 (IDLE)</text>
+  <text x="590" y="500" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Автоскид у Flash</text>
+
+  <!-- Signal Routing from CH340 to Transistors -->
+  <path d="M 480 210 H 495 V 432 H 275" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+  <path d="M 480 235 H 490 V 377 H 275" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+
+
+  <!-- PANEL 6: TARGET HEADER -->
+  <rect x="705" y="300" width="230" height="235" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="715" y="320" font-size="13" font-weight="bold" fill="#27ae60">6. Вихідний роз'єм (Target)</text>
+
+  <rect x="715" y="335" width="210" height="185" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="820" y="352" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">6-Pin Program Header</text>
+
+  <circle cx="735" cy="375" r="5" fill="#c0392b"/>
+  <text x="748" y="379" font-size="12" font-weight="bold" fill="#c0392b">Pin 1: VCC (3.3V/5V)</text>
+
+  <circle cx="735" cy="400" r="5" fill="#2457d6"/>
+  <text x="748" y="404" font-size="12" font-weight="bold" fill="#2457d6">Pin 2: TXD (вихід)</text>
+
+  <circle cx="735" cy="425" r="5" fill="#27ae60"/>
+  <text x="748" y="429" font-size="12" font-weight="bold" fill="#27ae60">Pin 3: RXD (вхід)</text>
+
+  <circle cx="735" cy="450" r="5" fill="#1a1a1a"/>
+  <text x="748" y="454" font-size="12" font-weight="bold" fill="#1a1a1a">Pin 4: EN / RST</text>
+
+  <circle cx="735" cy="475" r="5" fill="#1a1a1a"/>
+  <text x="748" y="479" font-size="12" font-weight="bold" fill="#1a1a1a">Pin 5: IO0 / BOOT</text>
+
+  <circle cx="735" cy="500" r="5" fill="#1a1a1a"/>
+  <text x="748" y="504" font-size="12" font-weight="bold" fill="#1a1a1a">Pin 6: GND (Земля)</text>
+
+  <!-- Output Lines from CH340 / Transistors to Header -->
+  <path d="M 480 160 H 735" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 735 425 H 480" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M 490 397 H 715" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M 490 452 H 715" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+</svg>

@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова діаграма контрольного тактування (Test Pulsing) модулів F-DI</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Виявлення міжканального короткого замикання CH1-CH2 за допомогою часового зсуву імпульсів P1 та P2</text>
+
+  <!-- Background Panels -->
+  <rect x="200" y="65" width="340" height="380" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <rect x="550" y="65" width="390" height="380" fill="#fdecea" stroke="#c0392b" stroke-dasharray="4,4" rx="6"/>
+
+  <text x="370" y="87" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Штатна робота (без замикання)</text>
+  <text x="745" y="87" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Міжканальне замикання CH1-CH2</text>
+
+  <!-- Left Column Labels -->
+  <rect x="20" y="110" width="165" height="40" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="28" y="127" font-size="13" font-weight="bold" fill="#1a1a1a">Вихід P1 (Тест 1)</text>
+  <text x="28" y="142" font-size="12" fill="#6b7280">Тактування Ch 1</text>
+
+  <rect x="20" y="175" width="165" height="40" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="28" y="192" font-size="13" font-weight="bold" fill="#1a1a1a">Вхід IN1 (Канал 1)</text>
+  <text x="28" y="207" font-size="12" fill="#6b7280">Сигнал від датчика 1</text>
+
+  <rect x="20" y="240" width="165" height="40" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="28" y="257" font-size="13" font-weight="bold" fill="#1a1a1a">Вихід P2 (Тест 2)</text>
+  <text x="28" y="272" font-size="12" fill="#6b7280">Тактування Ch 2</text>
+
+  <rect x="20" y="305" width="165" height="40" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="28" y="322" font-size="13" font-weight="bold" fill="#1a1a1a">Вхід IN2 (Канал 2)</text>
+  <text x="28" y="337" font-size="12" fill="#6b7280">Сигнал від датчика 2</text>
+
+  <rect x="20" y="385" width="165" height="40" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="28" y="402" font-size="13" font-weight="bold" fill="#1a1a1a">Статус діагностики</text>
+  <text x="28" y="417" font-size="12" fill="#6b7280">Логіка модуля F-DI</text>
+
+  <!-- Voltage Baselines (Dashed) -->
+  <line x1="210" y1="130" x2="925" y2="130" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="210" y1="150" x2="925" y2="150" stroke="#d0d7de" stroke-dasharray="2,2"/>
+
+  <line x1="210" y1="195" x2="925" y2="195" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="210" y1="215" x2="925" y2="215" stroke="#d0d7de" stroke-dasharray="2,2"/>
+
+  <line x1="210" y1="260" x2="925" y2="260" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="210" y1="280" x2="925" y2="280" stroke="#d0d7de" stroke-dasharray="2,2"/>
+
+  <line x1="210" y1="325" x2="650" y2="325" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="210" y1="345" x2="650" y2="345" stroke="#d0d7de" stroke-dasharray="2,2"/>
+
+  <!-- Waveform P1 -->
+  <path d="M 210,130 L 260,130 L 260,150 L 285,150 L 285,130 L 620,130 L 620,150 L 645,150 L 645,130 L 925,130" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Waveform IN1 -->
+  <path d="M 210,195 L 260,195 L 260,215 L 285,215 L 285,195 L 620,195 L 620,215 L 645,215 L 645,195 L 925,195" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Waveform P2 -->
+  <path d="M 210,260 L 420,260 L 420,280 L 445,280 L 445,260 L 780,260 L 780,280 L 805,280 L 805,260 L 925,260" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Waveform IN2 (with fault pulse at X=620..645) -->
+  <path d="M 210,325 L 420,325 L 420,345 L 445,345 L 445,325 L 620,325 L 620,345 L 645,345 L 645,325 L 780,325 L 780,345 L 805,345 L 805,325 L 925,325" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Highlight box on unexpected IN2 dip -->
+  <rect x="612" y="313" width="40" height="42" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <path d="M 620,325 L 620,345 L 645,345 L 645,325" fill="none" stroke="#c0392b" stroke-width="3"/>
+
+  <!-- Fault Callout Card -->
+  <rect x="660" y="310" width="265" height="48" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="668" y="328" font-size="12" font-weight="bold" fill="#c0392b">Крос-помилка: IN2=0V при P2=24V!</text>
+  <text x="668" y="345" font-size="12" fill="#1a1a1a">Виявлено витік імпульсу P1 у канал IN2</text>
+
+  <!-- Pulse annotations -->
+  <text x="272" y="113" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t_pulse</text>
+  <line x1="260" y1="118" x2="285" y2="118" stroke="#2457d6" stroke-width="1.5"/>
+
+  <text x="432" y="243" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t_pulse</text>
+  <line x1="420" y1="248" x2="445" y2="248" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Phase shift annotation -->
+  <text x="352" y="168" text-anchor="middle" font-size="12" fill="#6b7280">Часовий зсув Δt між імпульсами P1 та P2</text>
+  <line x1="285" y1="174" x2="420" y2="174" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Cross-fault marker vertical line -->
+  <line x1="550" y1="65" x2="550" y2="445" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,5"/>
+  <rect x="560" y="165" width="95" height="24" fill="#c0392b" rx="4"/>
+  <text x="607" y="181" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">КЗ CH1-CH2</text>
+
+  <!-- Row 5 Diagnostic Status Blocks -->
+  <rect x="210" y="390" width="325" height="30" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="372" y="409" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Канали OK (Cross-Fault відсутній)</text>
+
+  <rect x="560" y="390" width="365" height="30" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="742" y="409" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ПОМИЛКА: Крос-залипання! Пасивація CH1/CH2</text>
+
+  <!-- Indicator Arrow from fault pulse to fault status -->
+  <line x1="632" y1="355" x2="632" y2="385" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+</svg>

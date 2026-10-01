@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White canvas background -->
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура векторного розширення PIE в ESP32-S3 (Xtensa LX7)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Паралельне виконання 128-бітних SIMD-інструкцій векторним співпроцесором поруч із скалярним ALU</text>
+
+  <defs>
+    <marker id="arr-dark-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Main Background Panel (Core 0) -->
+  <rect x="40" y="70" width="880" height="350" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Core 0 Label -->
+  <rect x="50" y="78" width="160" height="24" rx="4" ry="4" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="130" y="94" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Процесорне ядро Core 0</text>
+
+  <!-- Instruction Fetch & Decoder -->
+  <rect x="230" y="112" width="220" height="40" rx="6" ry="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="340" y="129" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Декодер інструкцій</text>
+  <text x="340" y="145" font-size="11" fill="#6b7280" text-anchor="middle">Розділення на скалярні та PIE SIMD</text>
+
+  <!-- Scalar Core Container -->
+  <rect x="60" y="170" width="240" height="235" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="180" y="190" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Скалярне ядро (32-біт RISC)</text>
+
+  <!-- Scalar Register File -->
+  <rect x="75" y="202" width="210" height="55" rx="4" ry="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="180" y="222" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Регістри AR0–AR15 (32 біти)</text>
+  <text x="180" y="240" font-size="11" fill="#6b7280" text-anchor="middle">Скалярні дані та адреси пам'яті</text>
+
+  <!-- Scalar ALU -->
+  <rect x="75" y="272" width="210" height="55" rx="4" ry="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="180" y="292" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Скалярне АЛП (32-bit ALU)</text>
+  <text x="180" y="310" font-size="11" fill="#6b7280" text-anchor="middle">Базова цілочисельна арифметика</text>
+
+  <!-- Scalar Memory Interface -->
+  <rect x="75" y="342" width="210" height="45" rx="4" ry="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="180" y="362" font-size="12" fill="#1a1a1a" text-anchor="middle">Інтерфейс пам'яті SRAM</text>
+  <text x="180" y="378" font-size="11" fill="#6b7280" text-anchor="middle">32-бітна шина даних</text>
+
+  <!-- Instruction Flow Arrows -->
+  <path d="M 230,132 L 180,132 L 180,170" stroke="#1a1a1a" stroke-width="1.5" fill="none" marker-end="url(#arr-dark-end)"/>
+  <path d="M 450,132 L 620,132 L 620,170" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue-end)"/>
+
+  <!-- PIE Vector Co-Processor Container -->
+  <rect x="340" y="170" width="560" height="235" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="620" y="190" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Векторний співпроцесор PIE (128-бітний SIMD)</text>
+
+  <!-- PIE Vector Registers -->
+  <rect x="360" y="202" width="520" height="55" rx="4" ry="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="620" y="222" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Векторний регістровий файл Q0–Q7 (128 бітів / 16 байт на регістр)</text>
+  <text x="620" y="240" font-size="11" fill="#6b7280" text-anchor="middle">Підтримка пакованих векторів: 16×8-bit, 8×16-bit, 4×32-bit</text>
+
+  <!-- PIE SIMD Execution Units -->
+  <rect x="360" y="272" width="520" height="60" rx="4" ry="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="620" y="292" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Векторне АЛП та 128-бітний блок помножувачів (MAC)</text>
+  <text x="620" y="310" font-size="11" fill="#1a1a1a" text-anchor="middle">Паралельні операції: 8 помножень 16×16-bit або 4×32-bit MAC за 1 такт</text>
+  <text x="620" y="325" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Прискорення Нейромереж (Edge AI / ESP-DSP / FFT)</text>
+
+  <!-- PIE Load/Store Unit -->
+  <rect x="360" y="347" width="520" height="45" rx="4" ry="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="620" y="365" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">128-бітний блок завантаження/збереження та вирівнювання даних</text>
+  <text x="620" y="381" font-size="11" fill="#6b7280" text-anchor="middle">Прямий доступ до SRAM та кешу L1 без затримки скалярного ядра</text>
+
+  <!-- Internal Connections in PIE -->
+  <line x1="620" y1="257" x2="620" y2="272" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green-end)"/>
+  <line x1="620" y1="332" x2="620" y2="347" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue-end)"/>
+
+  <!-- Bottom Informational Cards -->
+  <rect x="40" y="435" width="275" height="65" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="177" y="457" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Скалярний конвеєр</text>
+  <text x="177" y="478" font-size="12" fill="#6b7280" text-anchor="middle">32-бітні RISC-інструкції та керування</text>
+
+  <rect x="342" y="435" width="275" height="65" rx="6" ry="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="457" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">128-бітний PIE SIMD</text>
+  <text x="480" y="478" font-size="12" fill="#1a1a1a" text-anchor="middle">Векторні операції Edge AI / DSP</text>
+
+  <rect x="645" y="435" width="275" height="65" rx="6" ry="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="782" y="457" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Паралельне виконання</text>
+  <text x="782" y="478" font-size="12" fill="#1a1a1a" text-anchor="middle">128-bit Vector + 32-bit Scalar за 1 такт</text>
+</svg>

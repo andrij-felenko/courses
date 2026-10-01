@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма осцилограми автоскидання ESP8266 (DTR/RTS)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Сигнали DTR#, RTS# USB-UART моста та формування імпульсів GPIO0 і RST для esptool</text>
+
+  <!-- Main Timing Panel Container -->
+  <rect x="30" y="70" width="900" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel Label -->
+  <text x="45" y="95" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Осцилограма</text>
+
+  <!-- Y-Axis Signal Names -->
+  <text x="145" y="145" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">CH1: DTR#</text>
+  <text x="145" y="205" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">CH2: RTS#</text>
+  <text x="145" y="275" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">CH3: GPIO0</text>
+  <text x="145" y="345" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">CH4: RST</text>
+
+  <!-- Vertical Phase Reference Lines & Labels -->
+  <text x="200" y="95" font-size="12" fill="#6b7280" text-anchor="middle">t_0 (Idle)</text>
+  <line x1="200" y1="102" x2="200" y2="375" stroke="#d0d7de" stroke-dasharray="2 2"/>
+
+  <text x="340" y="95" font-size="12" fill="#6b7280" text-anchor="middle">t_1 (GPIO0=0)</text>
+  <line x1="340" y1="102" x2="340" y2="375" stroke="#d0d7de" stroke-dasharray="2 2"/>
+
+  <text x="480" y="95" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t_2 (RST Pulse)</text>
+  <line x1="480" y1="102" x2="480" y2="375" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <text x="630" y="95" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t_3 (Latch)</text>
+  <line x1="630" y1="102" x2="630" y2="375" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <text x="770" y="95" font-size="12" fill="#6b7280" text-anchor="middle">t_4 (Ready)</text>
+  <line x1="770" y1="102" x2="770" y2="375" stroke="#d0d7de" stroke-dasharray="2 2"/>
+
+  <!-- Waveform 1: DTR# -->
+  <path d="M 150,135 L 340,135 L 340,155 L 480,155 L 480,135 L 630,135 L 630,155 L 770,155 L 770,135 L 890,135" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Waveform 2: RTS# -->
+  <path d="M 150,195 L 480,195 L 480,215 L 630,215 L 630,195 L 890,195" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Waveform 3: GPIO0 -->
+  <path d="M 150,260 L 340,260 L 340,280 L 770,280 L 770,260 L 890,260" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Waveform 4: RST (with RC exponential rise after t_3) -->
+  <path d="M 150,330 L 480,330 L 480,350 L 630,350 C 650,350 670,336 710,330 L 890,330" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Latch Banner & Marker on RST Curve -->
+  <circle cx="650" cy="340" r="5" fill="#27ae60" stroke="#ffffff" stroke-width="2"/>
+  <rect x="665" y="308" width="160" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="745" y="323" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Защеплення UART Boot!</text>
+
+  <!-- Phase Banners along bottom of panel -->
+  <rect x="165" y="385" width="125" height="25" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="227.5" y="402" font-size="12" fill="#6b7280" text-anchor="middle">1. Очікування</text>
+
+  <rect x="300" y="385" width="165" height="25" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="382.5" y="402" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">2. GPIO0 → GND</text>
+
+  <rect x="475" y="385" width="145" height="25" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="547.5" y="402" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">3. RST → GND</text>
+
+  <rect x="630" y="385" width="130" height="25" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="695" y="402" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">4. Latch &amp; Boot</text>
+
+  <rect x="770" y="385" width="115" height="25" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="827.5" y="402" font-size="12" fill="#6b7280" text-anchor="middle">5. Прошивання</text>
+
+  <!-- Time Axis -->
+  <line x1="150" y1="422" x2="890" y2="422" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="900" y="426" font-size="12" font-weight="bold" fill="#1a1a1a">t (час)</text>
+
+  <!-- Bottom Cards -->
+  <!-- Card 1: Transistor Logic -->
+  <rect x="30" y="445" width="435" height="95" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="465" font-size="12" font-weight="bold" fill="#2457d6">Логіка транзисторного вузла (Q1 / Q2 NPN):</text>
+  <text x="45" y="485" font-size="12" fill="#1a1a1a">• Q1 (RST): відкривається при <tspan font-weight="bold" fill="#2457d6">RTS# = LOW</tspan> та <tspan font-weight="bold" fill="#2457d6">DTR# = HIGH</tspan></text>
+  <text x="45" y="505" font-size="12" fill="#1a1a1a">• Q2 (GPIO0): відкривається при <tspan font-weight="bold" fill="#2457d6">DTR# = LOW</tspan> та <tspan font-weight="bold" fill="#2457d6">RTS# = HIGH</tspan></text>
+  <text x="45" y="525" font-size="12" fill="#27ae60">• Блокування: якщо DTR#=LOW та RTS#=LOW — обидва виводи вільні</text>
+
+  <!-- Card 2: Esptool Rules -->
+  <rect x="485" y="445" width="445" height="95" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="500" y="465" font-size="12" font-weight="bold" fill="#27ae60">Параметри утиліти esptool та апаратна синхронізація:</text>
+  <text x="500" y="485" font-size="12" fill="#1a1a1a">• Затримка скидання: імпульс RST триває <tspan font-weight="bold" fill="#27ae60">100 ms</tspan> (опція --reset-delay)</text>
+  <text x="500" y="505" font-size="12" fill="#1a1a1a">• Утримання GPIO0: рівень LOW утримується до моменту <tspan font-weight="bold" fill="#27ae60">V_RST &gt; V_IH</tspan></text>
+  <text x="500" y="525" font-size="12" fill="#6b7280">• Гарантує надійний вхід у режим завантаження без натискання кнопок</text>
+</svg>

@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння звичайного режиму команд та прозорого тунелювання</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Прозоре тунелювання (CIPMODE=1) усуває накладні витрати на префікси +IPD, CIPSEND та очікування символу '&gt;'</text>
+
+  <!-- Panel 1: Command Mode (CIPMODE=0) -->
+  <rect x="30" y="75" width="900" height="215" fill="#f4f6f8" rx="8" ry="8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="98" font-size="14" font-weight="bold" fill="#c0392b">Звичайний режим (CIPMODE=0) — висока латентність</text>
+
+  <!-- Labels above boxes -->
+  <text x="115" y="113" font-size="12" fill="#6b7280" text-anchor="middle">Запит</text>
+  <text x="212" y="113" font-size="12" fill="#6b7280" text-anchor="middle">Промпт</text>
+  <text x="297" y="113" font-size="12" fill="#2457d6" text-anchor="middle">Дані</text>
+  <text x="407" y="113" font-size="12" fill="#27ae60" text-anchor="middle">АКК</text>
+  <text x="577" y="113" font-size="12" fill="#c0392b" text-anchor="middle">Вхідний кадр +IPD</text>
+  <text x="705" y="113" font-size="12" fill="#27ae60" text-anchor="middle">Статус</text>
+
+  <!-- Timeline Boxes -->
+  <rect x="50" y="120" width="130" height="45" rx="5" ry="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="115" y="147" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">AT+CIPSEND=0,10</text>
+
+  <line x1="180" y1="142" x2="195" y2="142" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <rect x="195" y="120" width="35" height="45" rx="5" ry="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="212" y="147" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">&gt;</text>
+
+  <line x1="230" y1="142" x2="245" y2="142" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <rect x="245" y="120" width="105" height="45" rx="5" ry="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="297" y="147" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Дані (10 B)</text>
+
+  <line x1="350" y1="142" x2="365" y2="142" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <rect x="365" y="120" width="85" height="45" rx="5" ry="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="407" y="147" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">SEND OK</text>
+
+  <line x1="470" y1="115" x2="470" y2="170" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <rect x="490" y="120" width="175" height="45" rx="5" ry="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="577" y="147" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+IPD,0,10:&lt;Payload&gt;</text>
+
+  <line x1="665" y1="142" x2="680" y2="142" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <rect x="680" y="120" width="50" height="45" rx="5" ry="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="705" y="147" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">OK</text>
+
+  <!-- Panel 1 Explanations -->
+  <text x="50" y="195" font-size="12" font-weight="bold" fill="#c0392b">Накладні витрати: +15–20 байтів службових символів на кожен пакет та тривалий парсинг рядків</text>
+  <text x="50" y="215" font-size="12" fill="#6b7280">Загальна затримка транзакції (при 115200 baud): t_total ≈ 15–30 мс</text>
+  <text x="50" y="235" font-size="12" fill="#6b7280">Очікування промпту '&gt;' та підтверджень блокує послідовний порт між пакетами</text>
+
+
+  <!-- Panel 2: Passthrough Mode (CIPMODE=1) -->
+  <rect x="30" y="305" width="900" height="225" fill="#f4f6f8" rx="8" ry="8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="328" font-size="14" font-weight="bold" fill="#27ae60">Режим прозорого тунелювання (CIPMODE=1) — мінімальна латентність</text>
+
+  <!-- Streams -->
+  <rect x="50" y="350" width="360" height="55" rx="6" ry="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="230" y="372" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Прямий передавальний потік UART (Raw Data)</text>
+  <text x="230" y="392" font-size="12" fill="#1a1a1a" text-anchor="middle">Байти надсилаються негайно без CIPSEND та без промпту '&gt;'</text>
+
+  <line x1="420" y1="377" x2="470" y2="377" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="445" y="365" font-size="12" fill="#27ae60" text-anchor="middle">Потік 100%</text>
+
+  <rect x="480" y="350" width="400" height="55" rx="6" ry="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="680" y="372" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Прямий приймальний потік UART (Без +IPD)</text>
+  <text x="680" y="392" font-size="12" fill="#1a1a1a" text-anchor="middle">Дані сокета відразу видаються в UART без службових полів</text>
+
+  <!-- Bottom Box inside Panel 2 -->
+  <rect x="50" y="425" width="830" height="85" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="70" y="445" font-size="12" font-weight="bold" fill="#1a1a1a">Особливості режиму та послідовність виходу:</text>
+  <text x="70" y="465" font-size="12" fill="#6b7280">• Прозоре тунелювання підтримується лише в одиночному режимі (AT+CIPMUX=0)</text>
+  <text x="70" y="483" font-size="12" fill="#2457d6">• Вихід у командний режим: [пауза 1 с] -&gt; надсилання '+++' -&gt; [пауза 1 с] (без \r\n)</text>
+  <text x="70" y="500" font-size="12" fill="#27ae60">• Ефективність: 100% корисної пропускної здатності UART, затримку зменшено у 5–10 разів</text>
+</svg>

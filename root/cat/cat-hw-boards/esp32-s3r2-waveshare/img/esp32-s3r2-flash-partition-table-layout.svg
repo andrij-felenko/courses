@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 490" width="960" height="490" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="4.5" refY="7.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M1,1 L4.5,7.5 L8,1 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="4.5" refY="7.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M1,1 L4.5,7.5 L8,1 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="4.5" refY="7.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M1,1 L4.5,7.5 L8,1 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="490" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл 16 МБ Flash-пам'яті Waveshare ESP32-S3R2</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Таблиця розділів для двослотової OTA-прошивки (2×4 МБ) та файлової системи LittleFS (~8 МБ)</text>
+
+  <!-- Flash Memory Map Ticks (Top) -->
+  <text x="65" y="86" font-size="11" fill="#6b7280" text-anchor="start">0x000000</text>
+  <text x="185" y="86" font-size="11" fill="#6b7280" text-anchor="middle">0x010000</text>
+  <text x="430" y="86" font-size="11" fill="#6b7280" text-anchor="middle">0x410000 (4 МБ)</text>
+  <text x="665" y="86" font-size="11" fill="#6b7280" text-anchor="middle">0x810000 (8 МБ)</text>
+  <text x="895" y="86" font-size="11" fill="#6b7280" text-anchor="end">0x1000000 (16 МБ)</text>
+
+  <!-- Flash Memory Map Summary Bar -->
+  <rect x="65" y="98" width="120" height="50" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="125" y="118" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Система і NVS</text>
+  <text x="125" y="136" font-size="11" fill="#6b7280" text-anchor="middle">64 КБ</text>
+
+  <rect x="195" y="98" width="225" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="307" y="118" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">OTA_0 (app0)</text>
+  <text x="307" y="136" font-size="11" fill="#2457d6" text-anchor="middle">4096 КБ (4 МБ)</text>
+
+  <rect x="430" y="98" width="225" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="542" y="118" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">OTA_1 (app1)</text>
+  <text x="542" y="136" font-size="11" fill="#2457d6" text-anchor="middle">4096 КБ (4 МБ)</text>
+
+  <rect x="665" y="98" width="230" height="50" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="780" y="118" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">LittleFS (storage)</text>
+  <text x="780" y="136" font-size="11" fill="#27ae60" text-anchor="middle">8128 КБ (~7.93 МБ)</text>
+
+  <!-- Connective Arrows -->
+  <line x1="125" y1="148" x2="125" y2="187" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="542" y1="148" x2="542" y2="187" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="780" y1="148" x2="780" y2="187" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Card 1: System Block Breakdown -->
+  <rect x="40" y="195" width="210" height="270" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="145" y="217" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Системний блок (64 КБ)</text>
+
+  <rect x="50" y="230" width="190" height="38" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="145" y="245" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Bootloader</text>
+  <text x="145" y="260" font-size="11" fill="#6b7280" text-anchor="middle">0x001000 • 28 КБ</text>
+
+  <rect x="50" y="275" width="190" height="38" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="145" y="290" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Partition Table</text>
+  <text x="145" y="305" font-size="11" fill="#6b7280" text-anchor="middle">0x008000 • 4 КБ</text>
+
+  <rect x="50" y="320" width="190" height="38" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="145" y="335" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">NVS Partition</text>
+  <text x="145" y="350" font-size="11" fill="#6b7280" text-anchor="middle">0x009000 • 16 КБ</text>
+
+  <rect x="50" y="365" width="190" height="38" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="145" y="380" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">otadata + PHY init</text>
+  <text x="145" y="395" font-size="11" fill="#6b7280" text-anchor="middle">0x00D000 • 12 КБ</text>
+
+  <rect x="50" y="412" width="190" height="43" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="145" y="428" font-size="11" fill="#1a1a1a" text-anchor="middle">Службові конфігурації</text>
+  <text x="145" y="444" font-size="11" fill="#6b7280" text-anchor="middle">і таблиця адрес ESP-IDF</text>
+
+  <!-- Card 2: OTA Firmware Slots -->
+  <rect x="265" y="195" width="410" height="270" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="470" y="217" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Слоти прошивок OTA (2 × 4 МБ)</text>
+
+  <!-- Column 1: app0 -->
+  <rect x="275" y="230" width="185" height="140" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="367" y="249" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Слот app0 (OTA_0)</text>
+  <text x="367" y="266" font-size="11" fill="#6b7280" text-anchor="middle">Адреса: 0x010000</text>
+  <text x="367" y="282" font-size="11" fill="#1a1a1a" text-anchor="middle">Розмір: 4096 КБ (4 МБ)</text>
+  <text x="367" y="306" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">● Активна прошивка</text>
+  <text x="367" y="324" font-size="11" fill="#6b7280" text-anchor="middle">Виконується процесором</text>
+  <text x="367" y="340" font-size="11" fill="#6b7280" text-anchor="middle">через ICACHE/MMU</text>
+
+  <!-- Column 2: app1 -->
+  <rect x="480" y="230" width="185" height="140" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="572" y="249" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Слот app1 (OTA_1)</text>
+  <text x="572" y="266" font-size="11" fill="#6b7280" text-anchor="middle">Адреса: 0x410000</text>
+  <text x="572" y="282" font-size="11" fill="#1a1a1a" text-anchor="middle">Розмір: 4096 КБ (4 МБ)</text>
+  <text x="572" y="306" font-size="11" fill="#6b7280" text-anchor="middle">○ Резервний слот</text>
+  <text x="572" y="324" font-size="11" fill="#6b7280" text-anchor="middle">Приймає нову версію</text>
+  <text x="572" y="340" font-size="11" fill="#6b7280" text-anchor="middle">по Wi-Fi під час роботи</text>
+
+  <!-- OTA Switcher Logic -->
+  <rect x="275" y="380" width="390" height="75" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="470" y="398" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Безпечне оновлення через розділ otadata</text>
+  <text x="470" y="415" font-size="11" fill="#6b7280" text-anchor="middle">1. Запис нової версії в неактивний слот (app1).</text>
+  <text x="470" y="431" font-size="11" fill="#6b7280" text-anchor="middle">2. Валідація та перемикання прапорця завантаження у otadata.</text>
+  <text x="470" y="446" font-size="11" fill="#6b7280" text-anchor="middle">3. При помилці старт-апу — відкат на app0.</text>
+
+  <!-- Card 3: LittleFS & PSRAM -->
+  <rect x="690" y="195" width="230" height="270" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="805" y="217" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Файлова система (7.93 МБ)</text>
+
+  <rect x="700" y="230" width="210" height="140" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="805" y="249" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">LittleFS (storage)</text>
+  <text x="805" y="266" font-size="11" fill="#6b7280" text-anchor="middle">Адреса: 0x810000</text>
+  <text x="805" y="282" font-size="11" fill="#1a1a1a" text-anchor="middle">Розмір: 8128 КБ (~7.93 МБ)</text>
+  <text x="805" y="306" font-size="11" fill="#1a1a1a" text-anchor="middle">● Веб-сторінки (HTML/JS)</text>
+  <text x="805" y="324" font-size="11" fill="#1a1a1a" text-anchor="middle">● Графіка та шрифти UI</text>
+  <text x="805" y="340" font-size="11" fill="#1a1a1a" text-anchor="middle">● Зносостійкість Flash</text>
+
+  <rect x="700" y="380" width="210" height="75" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="805" y="398" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Взаємодія з PSRAM (2 МБ)</text>
+  <text x="805" y="415" font-size="11" fill="#6b7280" text-anchor="middle">Файли з LittleFS мапляться</text>
+  <text x="805" y="431" font-size="11" fill="#6b7280" text-anchor="middle">або кешуються в PSRAM через</text>
+  <text x="805" y="446" font-size="11" fill="#6b7280" text-anchor="middle">heap_caps_malloc(..., SPIRAM)</text>
+</svg>

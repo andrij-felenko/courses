@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Послідовність ініціалізації сесії зневадження CMSIS-DAP</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Покроковий обмін пакетами між хостом, програматором DAPLink та цільовим мікроконтролером</text>
+
+  <!-- Participant Boxes -->
+  <g>
+    <!-- Host -->
+    <rect x="90" y="70" width="180" height="44" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="180" y="88" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Хост-застосунок</text>
+    <text x="180" y="104" font-size="12" fill="#2457d6" text-anchor="middle">(OpenOCD / pyOCD)</text>
+
+    <!-- DAPLink Bridge -->
+    <rect x="390" y="70" width="180" height="44" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="480" y="88" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Програматор DAPLink</text>
+    <text x="480" y="104" font-size="12" fill="#2457d6" text-anchor="middle">(CMSIS-DAP v1/v2)</text>
+
+    <!-- Target MCU -->
+    <rect x="690" y="70" width="180" height="44" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="780" y="88" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цільовий мікроконтролер</text>
+    <text x="780" y="104" font-size="12" fill="#27ae60" text-anchor="middle">(Cortex-M / SWD)</text>
+  </g>
+
+  <!-- Lifelines -->
+  <line x1="180" y1="114" x2="180" y2="430" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="480" y1="114" x2="480" y2="430" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="780" y1="114" x2="780" y2="430" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- Step Labels on Left Margin -->
+  <text x="48" y="158" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Крок 1</text>
+  <text x="48" y="228" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Крок 2</text>
+  <text x="48" y="298" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Крок 3</text>
+  <text x="48" y="378" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Крок 4</text>
+
+  <!-- STEP 1: DAP_Info -->
+  <g>
+    <text x="330" y="137" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1. DAP_Info (0x00, ID: Capabilities)</text>
+    <line x1="180" y1="145" x2="472" y2="145" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+    <text x="330" y="167" font-size="12" fill="#1a1a1a" text-anchor="middle">Response: SWD/JTAG Supported, Packet Size=64B</text>
+    <line x1="480" y1="175" x2="188" y2="175" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arr-blue)"/>
+  </g>
+
+  <!-- STEP 2: DAP_Connect -->
+  <g>
+    <text x="330" y="207" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2. DAP_Connect (0x02, Port: 1=SWD)</text>
+    <line x1="180" y1="215" x2="472" y2="215" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+    <text x="330" y="237" font-size="12" fill="#1a1a1a" text-anchor="middle">Response: Port Init OK (0x01)</text>
+    <line x1="480" y1="245" x2="188" y2="245" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arr-blue)"/>
+  </g>
+
+  <!-- STEP 3: DAP_SWJ_Clock -->
+  <g>
+    <text x="330" y="277" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">3. DAP_SWJ_Clock (0x11, Clock: 1 000 000 Hz)</text>
+    <line x1="180" y1="285" x2="472" y2="285" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+    <text x="330" y="307" font-size="12" fill="#1a1a1a" text-anchor="middle">Response: Status 0x00 (Success)</text>
+    <line x1="480" y1="315" x2="188" y2="315" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arr-blue)"/>
+  </g>
+
+  <!-- STEP 4: DAP_Transfer & Target SWD -->
+  <g>
+    <text x="330" y="347" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">4. DAP_Transfer (0x05, Read IDCODE)</text>
+    <line x1="180" y1="355" x2="472" y2="355" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+    <!-- SWD Hardware exchange -->
+    <text x="630" y="360" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">SWD Reset (50+ Ticks) + Read DP IDCODE</text>
+    <line x1="480" y1="368" x2="772" y2="368" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+    <text x="630" y="382" font-size="12" fill="#1a1a1a" text-anchor="middle">ACK OK + IDCODE (0x2BA01477)</text>
+    <line x1="780" y1="390" x2="488" y2="390" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arr-green)"/>
+
+    <!-- Final Response to Host -->
+    <text x="330" y="407" font-size="12" fill="#1a1a1a" text-anchor="middle">Response: Count=1, ACK OK, Data=0x2BA01477</text>
+    <line x1="480" y1="415" x2="188" y2="415" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arr-blue)"/>
+  </g>
+
+  <!-- Summary Footer Bar -->
+  <rect x="60" y="440" width="840" height="30" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="480" y="460" font-size="12" fill="#1a1a1a" text-anchor="middle">Успішне виконання послідовності ініціалізації переводить сесію у готовий стан для зневадження ядра Cortex-M</text>
+</svg>

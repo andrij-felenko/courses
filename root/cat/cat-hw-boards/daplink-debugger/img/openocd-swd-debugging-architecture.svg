@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-accent-start" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-ok" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура апаратного зневадження STM32 через OpenOCD та SWD</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Потік команд від IDE VS Code через GDB та CMSIS-DAP до регістрів мікроконтролера</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: ХОСТ-ПК ==================== -->
+  <rect x="20" y="75" width="290" height="400" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+  <text x="165" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Персональний комп'ютер (Host PC)</text>
+
+  <!-- Блок 1a: VS Code -->
+  <rect x="32" y="112" width="266" height="60" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="165" y="134" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">VS Code (Cortex-Debug)</text>
+  <text x="165" y="154" font-size="12" fill="#6b7280" text-anchor="middle">IDE / Графічний інтерфейс</text>
+
+  <!-- Стрілка VS Code -> GDB -->
+  <line x1="165" y1="172" x2="165" y2="194" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="177" y="186" font-size="12" fill="#6b7280" text-anchor="start">MI Protocol</text>
+
+  <!-- Блок 1b: GDB -->
+  <rect x="32" y="194" width="266" height="60" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="165" y="216" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GDB (arm-none-eabi-gdb)</text>
+  <text x="165" y="236" font-size="12" fill="#6b7280" text-anchor="middle">Клієнт зневадження ARM</text>
+
+  <!-- Стрілка GDB -> OpenOCD -->
+  <line x1="165" y1="254" x2="165" y2="276" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="177" y="268" font-size="12" fill="#6b7280" text-anchor="start">TCP port 3333</text>
+
+  <!-- Блок 1c: OpenOCD Server -->
+  <rect x="32" y="276" width="266" height="185" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="165" y="297" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">OpenOCD Server</text>
+  <text x="165" y="315" font-size="12" fill="#1a1a1a" text-anchor="middle">Фоновий сервер відлагодження</text>
+
+  <!-- Підблок 1c1: Config -->
+  <rect x="44" y="325" width="242" height="48" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="165" y="343" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конфігурація: openocd.cfg</text>
+  <text x="165" y="359" font-size="12" fill="#6b7280" text-anchor="middle">stm32f4x.cfg &amp; cmsis-dap.cfg</text>
+
+  <!-- Підблок 1c2: Driver -->
+  <rect x="44" y="381" width="242" height="68" fill="#ffffff" stroke="#2457d6" rx="4"/>
+  <text x="165" y="401" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Драйвер CMSIS-DAP</text>
+  <text x="165" y="420" font-size="12" fill="#1a1a1a" text-anchor="middle">Формування USB HID пакетів</text>
+  <text x="165" y="437" font-size="12" fill="#6b7280" text-anchor="middle">Трансляція команд у JTAG/SWD</text>
+
+  <!-- ==================== ІНТЕРФЕЙС USB ==================== -->
+  <line x1="310" y1="344" x2="390" y2="344" stroke="#2457d6" stroke-width="2" marker-start="url(#arr-accent-start)" marker-end="url(#arr-accent)"/>
+  <text x="350" y="332" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">USB Кабель</text>
+  <text x="350" y="360" font-size="12" fill="#6b7280" text-anchor="middle">CMSIS-DAP</text>
+
+  <!-- ==================== ПАНЕЛЬ 2: WEACT DEBUGGER ==================== -->
+  <rect x="390" y="265" width="200" height="210" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+  <text x="490" y="288" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">WeAct Mini Debugger</text>
+  <text x="490" y="306" font-size="12" fill="#6b7280" text-anchor="middle">(CMSIS-DAP / ST-Link)</text>
+
+  <!-- Блок 2a: USB Controller -->
+  <rect x="400" y="318" width="180" height="52" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="490" y="338" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB Контролер</text>
+  <text x="490" y="356" font-size="12" fill="#6b7280" text-anchor="middle">Прийом CMSIS-DAP пакетів</text>
+
+  <!-- Стрілка всередині зневаджувача -->
+  <line x1="490" y1="370" x2="490" y2="385" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Блок 2b: SWD Engine -->
+  <rect x="400" y="385" width="180" height="76" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="490" y="405" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">SWD Конвертер</text>
+  <text x="490" y="424" font-size="12" fill="#1a1a1a" text-anchor="middle">Формування сигналів SWD</text>
+  <text x="490" y="442" font-size="12" fill="#6b7280" text-anchor="middle">SWCLK / SWDIO / GND</text>
+
+  <!-- ==================== ЛІНІЇ ІНТЕРФЕЙСУ SWD ==================== -->
+  <!-- Лінія 1: SWCLK -->
+  <line x1="580" y1="398" x2="660" y2="398" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="620" y="392" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SWCLK</text>
+
+  <!-- Лінія 2: SWDIO -->
+  <line x1="580" y1="428" x2="660" y2="428" stroke="#2457d6" stroke-width="2" marker-start="url(#arr-accent-start)" marker-end="url(#arr-accent)"/>
+  <text x="620" y="422" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SWDIO ↔</text>
+
+  <!-- Лінія 3: GND -->
+  <line x1="580" y1="452" x2="660" y2="452" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="620" y="466" font-size="12" fill="#6b7280" text-anchor="middle">GND</text>
+
+  <!-- ==================== ПАНЕЛЬ 3: ЦІЛЬОВА ПЛАТА STM32 ==================== -->
+  <rect x="660" y="75" width="280" height="400" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+  <text x="800" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цільова плата STM32</text>
+  <text x="800" y="116" font-size="12" fill="#6b7280" text-anchor="middle">(Мікроконтролер ARM Cortex-M)</text>
+
+  <!-- Блок 3c: SWD Debug Port -->
+  <rect x="672" y="380" width="256" height="80" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="800" y="401" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">SWD Debug Port (SW-DP / AP)</text>
+  <text x="800" y="420" font-size="12" fill="#1a1a1a" text-anchor="middle">Access Port (AHB-AP) шина</text>
+  <text x="800" y="438" font-size="12" fill="#6b7280" text-anchor="middle">Прямий доступ до пам'яті та ядер</text>
+
+  <!-- Стрілка SW-DP -> Core Debug -->
+  <line x1="800" y1="380" x2="800" y2="355" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <text x="810" y="371" font-size="12" fill="#6b7280" text-anchor="start">AHB Bus</text>
+
+  <!-- Блок 3b: Core Debug -->
+  <rect x="672" y="245" width="256" height="110" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="800" y="267" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Блоки апаратного зневадження</text>
+  <text x="800" y="287" font-size="12" fill="#27ae60" text-anchor="middle">FPB: Flash Patch &amp; Breakpoints</text>
+  <text x="800" y="305" font-size="12" fill="#1a1a1a" text-anchor="middle">DWT: Watchpoints (спостереження)</text>
+  <text x="800" y="323" font-size="12" fill="#c0392b" text-anchor="middle">Діагностика винятків (HardFault)</text>
+  <text x="800" y="340" font-size="12" fill="#6b7280" text-anchor="middle">ARM CoreSight Debug Architecture</text>
+
+  <!-- Стрілка Core Debug -> CPU Core -->
+  <line x1="800" y1="245" x2="800" y2="220" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-ok)"/>
+
+  <!-- Блок 3a: CPU Core & Registers -->
+  <rect x="672" y="130" width="256" height="90" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="800" y="152" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Ядро ARM Cortex-M та Пам'ять</text>
+  <text x="800" y="172" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Регістри: R0-R15, MSP, PSP, PC, LR</text>
+  <text x="800" y="190" font-size="12" fill="#1a1a1a" text-anchor="middle">Оперативна пам'ять (SRAM) &amp; Flash</text>
+  <text x="800" y="207" font-size="12" fill="#6b7280" text-anchor="middle">Периферійні регістри (APB/AHB)</text>
+</svg>

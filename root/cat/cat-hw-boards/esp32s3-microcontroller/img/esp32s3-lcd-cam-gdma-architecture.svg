@@ -1,0 +1,114 @@
+<svg viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Header -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конвеєр передачі кадрових даних DVP → LCD_CAM → GDMA → PSRAM</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Паралельне захоплення байтів кадру та наскрізний прямий доступ GDMA до зовнішньої пам'яті</text>
+
+  <!-- Stage 1: DVP Camera Sensor -->
+  <rect x="30" y="110" width="160" height="280" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="110" y="132" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Камера (DVP)</text>
+  
+  <rect x="45" y="150" width="130" height="45" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="110" y="177" font-size="12" fill="#1a1a1a" text-anchor="middle">Матриця сенсора</text>
+
+  <rect x="45" y="210" width="130" height="40" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="110" y="234" font-size="12" fill="#1a1a1a" text-anchor="middle">Формувач D[0..7]</text>
+
+  <rect x="45" y="265" width="130" height="40" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="110" y="289" font-size="12" fill="#1a1a1a" text-anchor="middle">Генератор PCLK</text>
+
+  <rect x="45" y="320" width="130" height="40" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="110" y="344" font-size="12" fill="#1a1a1a" text-anchor="middle">Сигнали VSYNC/HREF</text>
+
+  <!-- Connections Stage 1 -> Stage 2 -->
+  <line x1="175" y1="230" x2="240" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="207" y="222" font-size="11" fill="#2457d6" text-anchor="middle">D[0..7]</text>
+
+  <line x1="175" y1="285" x2="240" y2="285" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="207" y="277" font-size="11" fill="#2457d6" text-anchor="middle">PCLK</text>
+
+  <line x1="175" y1="340" x2="240" y2="340" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <text x="207" y="332" font-size="11" fill="#6b7280" text-anchor="middle">Sync</text>
+
+  <!-- Stage 2: LCD_CAM Module -->
+  <rect x="240" y="110" width="170" height="280" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="325" y="132" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Модуль LCD_CAM</text>
+
+  <rect x="255" y="150" width="140" height="45" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="325" y="177" font-size="12" fill="#1a1a1a" text-anchor="middle">Контролер таймінгу</text>
+
+  <rect x="255" y="215" width="140" height="45" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="325" y="242" font-size="12" fill="#1a1a1a" text-anchor="middle">Пакування RGB/YUV</text>
+
+  <rect x="255" y="280" width="140" height="45" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="325" y="307" font-size="12" fill="#1a1a1a" text-anchor="middle">Буфер RX FIFO (64 Б)</text>
+
+  <!-- Connections Stage 2 -> Stage 3 -->
+  <line x1="395" y1="302" x2="465" y2="302" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="430" y="292" font-size="11" fill="#2457d6" text-anchor="middle">FIFO Request</text>
+
+  <!-- Stage 3: GDMA Controller -->
+  <rect x="465" y="110" width="170" height="280" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="550" y="132" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Контролер GDMA</text>
+
+  <rect x="480" y="150" width="140" height="55" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="550" y="173" font-size="12" fill="#1a1a1a" text-anchor="middle">Менеджер дескрипторів</text>
+  <text x="550" y="191" font-size="11" fill="#6b7280" text-anchor="middle">Списочна структура</text>
+
+  <rect x="480" y="225" width="140" height="55" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="550" y="248" font-size="12" fill="#1a1a1a" text-anchor="middle">Блок пакетизації</text>
+  <text x="550" y="266" font-size="11" fill="#6b7280" text-anchor="middle">32-бітний DMA Burst</text>
+
+  <rect x="480" y="300" width="140" height="45" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="550" y="327" font-size="12" fill="#1a1a1a" text-anchor="middle">Генератор переривань</text>
+
+  <!-- Connections Stage 3 -> Stage 4 -->
+  <line x1="620" y1="252" x2="685" y2="252" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="652" y="242" font-size="11" fill="#2457d6" text-anchor="middle">32-bit DMA</text>
+
+  <!-- Stage 4: Bus Matrix & MMU -->
+  <rect x="685" y="110" width="105" height="280" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="737" y="132" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шина / MMU</text>
+
+  <rect x="695" y="170" width="85" height="70" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="737" y="202" font-size="12" fill="#1a1a1a" text-anchor="middle">Матриця</text>
+  <text x="737" y="220" font-size="12" fill="#1a1a1a" text-anchor="middle">шин</text>
+
+  <rect x="695" y="260" width="85" height="70" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="737" y="292" font-size="12" fill="#1a1a1a" text-anchor="middle">L1 Cache /</text>
+  <text x="737" y="310" font-size="12" fill="#1a1a1a" text-anchor="middle">MMU</text>
+
+  <!-- Connections Stage 4 -> Stage 5 -->
+  <line x1="780" y1="205" x2="830" y2="205" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+  <text x="805" y="195" font-size="11" fill="#27ae60" text-anchor="middle">Octal DDR</text>
+
+  <!-- Stage 5: External Octal SPI PSRAM -->
+  <rect x="830" y="110" width="105" height="280" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="882" y="132" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">PSRAM (OPI)</text>
+
+  <rect x="840" y="165" width="85" height="95" rx="4" fill="#ffffff" stroke="#27ae60"/>
+  <text x="882" y="195" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">Буфер A</text>
+  <text x="882" y="213" font-size="11" fill="#6b7280" text-anchor="middle">(запис кадру)</text>
+  <text x="882" y="240" font-size="11" fill="#1a1a1a" text-anchor="middle">160 МБ/с DDR</text>
+
+  <rect x="840" y="275" width="85" height="75" rx="4" fill="#ffffff" stroke="#27ae60"/>
+  <text x="882" y="305" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">Буфер B</text>
+  <text x="882" y="323" font-size="11" fill="#6b7280" text-anchor="middle">(обробка CPU)</text>
+
+  <!-- Summary Footer -->
+  <rect x="30" y="405" width="905" height="40" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="482" y="429" font-size="12" fill="#1a1a1a" text-anchor="middle">GDMA записує байтовий потік кадру в PSRAM у фоновому режимі без залучення процесорних ядер Xtensa LX7</text>
+</svg>

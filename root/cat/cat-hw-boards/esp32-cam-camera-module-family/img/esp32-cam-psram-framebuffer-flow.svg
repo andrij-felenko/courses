@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Потік захоплення кадру та буферизації у модулі ESP32-CAM</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Контролер DMA копіює дані з шини DVP у PSRAM без залучення процесора</text>
+  <text x="480" y="68" font-size="13" fill="#6b7280" text-anchor="middle">Ядра CPU зчитують готовий кадр з PSRAM для передачі по Wi-Fi або збереження на MicroSD</text>
+
+  <rect x="25" y="90" width="150" height="340" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="100" y="115" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сенсор зображення</text>
+  <text x="100" y="133" font-size="12" fill="#6b7280" text-anchor="middle">(OV2640 / OV3640)</text>
+
+  <rect x="38" y="148" width="124" height="60" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="100" y="173" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">КМОН-матриця</text>
+  <text x="100" y="193" font-size="12" fill="#6b7280" text-anchor="middle">Захоплення пікселів</text>
+
+  <rect x="38" y="220" width="124" height="60" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="100" y="245" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратний JPEG</text>
+  <text x="100" y="265" font-size="12" fill="#6b7280" text-anchor="middle">Стиснення / FIFO</text>
+
+  <rect x="38" y="292" width="124" height="123" fill="#eaf0fd" stroke="#2457d6" rx="6"/>
+  <text x="100" y="316" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Інтерфейс DVP</text>
+  <text x="46" y="340" font-size="12" fill="#1a1a1a">• Дані: D0–D7</text>
+  <text x="46" y="362" font-size="12" fill="#1a1a1a">• Строб: PCLK</text>
+  <text x="46" y="384" font-size="12" fill="#1a1a1a">• HREF, VSYNC</text>
+
+  <path d="M 162,354 L 205,354 L 205,175 L 240,175" fill="none" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="205" y="338" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Шина DVP</text>
+  <text x="205" y="372" font-size="11" fill="#6b7280" text-anchor="middle">8-біт потік</text>
+
+  <rect x="240" y="90" width="340" height="340" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="410" y="115" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Мікроконтролер ESP32 SoC</text>
+
+  <rect x="255" y="135" width="310" height="80" fill="#eaf0fd" stroke="#2457d6" rx="6"/>
+  <text x="410" y="158" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Контролер DMA (Приймач DVP)</text>
+  <text x="410" y="178" font-size="12" fill="#1a1a1a" text-anchor="middle">Апаратне потокове копіювання в PSRAM</text>
+  <text x="410" y="196" font-size="11" fill="#6b7280" text-anchor="middle">Кільцеві дескриптори списку у SRAM (без CPU)</text>
+
+  <rect x="255" y="227" width="310" height="80" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="410" y="250" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ядра Xtensa LX6 (FreeRTOS)</text>
+  <text x="410" y="270" font-size="12" fill="#1a1a1a" text-anchor="middle">Атомарна заміна покажчиків у паузі VSYNC</text>
+  <text x="410" y="288" font-size="11" fill="#6b7280" text-anchor="middle">Передача готового каду у мережевий стек / SD</text>
+
+  <rect x="255" y="319" width="310" height="96" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="410" y="339" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня статична пам'ять SRAM (320 КБ)</text>
+  <text x="270" y="360" font-size="11" fill="#6b7280">• Дескриптори DMA та покажчик camera_fb_t</text>
+  <text x="270" y="378" font-size="11" fill="#6b7280">• Черга повідомлень завдання FreeRTOS</text>
+  <text x="270" y="396" font-size="11" fill="#6b7280">• Буфери Wi-Fi сокетів і стека TCP/IP</text>
+
+  <path d="M 565,175 L 660,175" fill="none" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="612" y="160" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Шина QSPI</text>
+  <text x="612" y="194" font-size="11" fill="#6b7280" text-anchor="middle">Запис DMA</text>
+
+  <rect x="660" y="90" width="275" height="160" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="797" y="113" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Зовнішня пам'ять PSRAM (4 МБ)</text>
+  <text x="797" y="129" font-size="11" fill="#6b7280" text-anchor="middle">Подвійна буферизація (Double Buffering)</text>
+
+  <rect x="672" y="140" width="251" height="44" fill="#2457d6" rx="4"/>
+  <text x="797" y="159" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Буфер fb_0 (Кадр N) — Запис DMA</text>
+  <text x="797" y="175" font-size="11" fill="#eaf0fd" text-anchor="middle">Прийом нових байтів з камери</text>
+
+  <rect x="672" y="194" width="251" height="44" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="797" y="213" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Буфер fb_1 (Кадр N-1) — Готовий</text>
+  <text x="797" y="229" font-size="11" fill="#1a1a1a" text-anchor="middle">Зчитування процесором / Wi-Fi</text>
+
+  <path d="M 797,238 L 797,272" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="830" y="260" font-size="11" font-weight="bold" fill="#27ae60">Кадр</text>
+
+  <rect x="660" y="272" width="275" height="158" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="797" y="293" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Споживачі відеопотоку</text>
+
+  <rect x="672" y="308" width="118" height="107" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="731" y="330" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Модуль Wi-Fi</text>
+  <text x="731" y="350" font-size="12" fill="#1a1a1a" text-anchor="middle">HTTP MJPEG</text>
+  <text x="731" y="370" font-size="12" fill="#1a1a1a" text-anchor="middle">Стрімінг</text>
+  <text x="731" y="390" font-size="11" fill="#6b7280" text-anchor="middle">15+ FPS</text>
+
+  <rect x="805" y="308" width="118" height="107" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="864" y="330" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Карта MicroSD</text>
+  <text x="864" y="350" font-size="12" fill="#1a1a1a" text-anchor="middle">Файли JPEG</text>
+  <text x="864" y="370" font-size="12" fill="#1a1a1a" text-anchor="middle">Збереження</text>
+  <text x="864" y="390" font-size="11" fill="#6b7280" text-anchor="middle">SDMMC / SPI</text>
+</svg>

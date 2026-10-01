@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл оперативної пам'яті DRAM у мікроконтролері ESP8266</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Збільшення кількості відкритих сокетів звужує вільну купу й загрожує вичерпанням пам'яті</text>
+
+  <!-- Ліва панель: Карта пам'яті DRAM -->
+  <rect x="30" y="80" width="430" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="245" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Карта розподілу пам'яті DRAM (~80 КБ)</text>
+
+  <!-- Блок 1: SDK та Wi-Fi -->
+  <rect x="60" y="120" width="370" height="75" rx="5" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="245" y="145" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Системна пам'ять SDK та Wi-Fi стек</text>
+  <text x="245" y="165" font-size="12" fill="#6b7280" text-anchor="middle">Статичні змінні SDK, Wi-Fi MAC драйвер (~35-45 КБ)</text>
+
+  <!-- Блок 2: lwIP PCB -->
+  <rect x="60" y="205" width="370" height="75" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="245" y="230" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Блоки керування сокетами (tcp_pcb / udp_pcb)</text>
+  <text x="245" y="250" font-size="12" fill="#1a1a1a" text-anchor="middle">Фіксований розмір: ~150 байт на сокет (до 5 з'єднань)</text>
+
+  <!-- Блок 3: pbuf буфери -->
+  <rect x="60" y="290" width="370" height="85" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="245" y="315" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Буфери мережевих пакетів (pbuf_pool / pbuf_ram)</text>
+  <text x="245" y="335" font-size="12" fill="#1a1a1a" text-anchor="middle">Динамічний розмір: від 512 Б до 2 КБ на пакет</text>
+  <text x="245" y="355" font-size="12" fill="#6b7280" text-anchor="middle">Вивільняються викликом pbuf_free() після обробки</text>
+
+  <!-- Блок 4А: Вільна купа -->
+  <rect x="60" y="385" width="370" height="55" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="245" y="408" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Вільна купа DRAM (Достатній запас)</text>
+  <text x="245" y="426" font-size="12" fill="#1a1a1a" text-anchor="middle">Доступно для користувацького коду: &gt; 15-25 КБ</text>
+
+  <!-- Блок 4Б: Критична зона -->
+  <rect x="60" y="445" width="370" height="55" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="245" y="468" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Критична зона пам'яті (&lt; 4 КБ)</text>
+  <text x="245" y="486" font-size="12" fill="#1a1a1a" text-anchor="middle">Викликає помилки ERR_MEM та скидання з'єднань</text>
+
+  <!-- Права панель: Аналіз вичерпання ресурсів -->
+  <rect x="485" y="80" width="445" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="707" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Аналіз вичерпання ресурсів пам'яті</text>
+
+  <!-- Картка 1: Елементи сокета -->
+  <rect x="505" y="120" width="405" height="105" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="520" y="142" font-size="13" font-weight="bold" fill="#2457d6">Структури пам'яті одного TCP-сокета:</text>
+  <text x="525" y="165" font-size="12" fill="#1a1a1a">• tcp_pcb: стан з'єднання, IP, порти, кольбеки (~150 Б)</text>
+  <text x="525" y="185" font-size="12" fill="#1a1a1a">• Буфер прийому (pbuf): вхідні TCP-сегменти (~1.5-3 КБ)</text>
+  <text x="525" y="205" font-size="12" fill="#1a1a1a">• Буфер відправки (tcp_write): вихідний черговий потік</text>
+
+  <!-- Картка 2: Порівняння режимів -->
+  <rect x="505" y="240" width="405" height="140" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="520" y="262" font-size="13" font-weight="bold" fill="#1a1a1a">Режими з'єднання (AT+CIPMUX):</text>
+
+  <!-- Подкартка 1 сокет -->
+  <rect x="515" y="273" width="385" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="525" y="291" font-size="12" font-weight="bold" fill="#27ae60">1x TCP сокет:</text>
+  <text x="615" y="291" font-size="12" fill="#1a1a1a">Споживання ~2 КБ | Вільна купа ~28 КБ</text>
+  <text x="525" y="307" font-size="12" fill="#6b7280">Висока стабільність, низький ризик витоків пам'яті</text>
+
+  <!-- Подкартка 5 сокетів -->
+  <rect x="515" y="323" width="385" height="47" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="525" y="341" font-size="12" font-weight="bold" fill="#c0392b">5x TCP сокетів:</text>
+  <text x="625" y="341" font-size="12" fill="#1a1a1a">Споживання ~12-15 КБ | Купа &lt; 8 КБ</text>
+  <text x="525" y="359" font-size="12" fill="#6b7280">Небезпека відмови pbuf_alloc і залишку витоку pbuf</text>
+
+  <!-- Картка 3: Правила збереження пам'яті -->
+  <rect x="505" y="395" width="405" height="105" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="520" y="417" font-size="13" font-weight="bold" fill="#2457d6">Правила збереження оперативної пам'яті:</text>
+  <text x="525" y="438" font-size="12" fill="#1a1a1a">1. Виклики pbuf_free() у кожному кольбеку recv/sent</text>
+  <text x="525" y="458" font-size="12" fill="#1a1a1a">2. Вчасне закриття сокетів через tcp_close() / AT+CIPCLOSE</text>
+  <text x="525" y="478" font-size="12" fill="#1a1a1a">3. Налаштування короткого таймауту неактивності AT+CIPSTO</text>
+</svg>

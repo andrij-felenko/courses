@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Обробка помилок WAIT та FAULT у хостових утилітах OpenOCD / pyOCD</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">При відповіді WAIT утиліта виконує повторні спроби (Retry), а при FAULT скидає помилки через DP ABORT</text>
+
+  <!-- Column 1: Request -->
+  <rect x="30" y="75" width="200" height="450" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="40" y="87" width="180" height="30" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="130" y="107" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">1. Запит хоста</text>
+
+  <rect x="42" y="130" width="176" height="80" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="130" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">DAP_Transfer()</text>
+  <text x="130" y="168" text-anchor="middle" font-size="12" fill="#1a1a1a">Передача пакета</text>
+  <text x="130" y="186" text-anchor="middle" font-size="12" fill="#6b7280">зчитування/запису</text>
+
+  <line x1="130" y1="210" x2="130" y2="235" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="42" y="240" width="176" height="80" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="130" y="258" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">DAPLink HW</text>
+  <text x="130" y="278" text-anchor="middle" font-size="12" fill="#1a1a1a">Виконання SWD</text>
+  <text x="130" y="296" text-anchor="middle" font-size="12" fill="#6b7280">Отримання ACK</text>
+
+  <line x1="218" y1="280" x2="250" y2="280" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+
+  <!-- Column 2: Response Check -->
+  <rect x="260" y="75" width="200" height="450" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="270" y="87" width="180" height="30" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="360" y="107" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">2. Перевірка ACK</text>
+
+  <!-- ACK OK -->
+  <rect x="272" y="130" width="176" height="95" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="360" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ACK_OK (0x01)</text>
+  <text x="360" y="168" text-anchor="middle" font-size="12" fill="#1a1a1a">Транзакцію успішно</text>
+  <text x="360" y="186" text-anchor="middle" font-size="12" fill="#1a1a1a">підтверджено</text>
+  <text x="360" y="204" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">→ Продовжити</text>
+
+  <!-- ACK WAIT -->
+  <rect x="272" y="240" width="176" height="95" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="360" y="258" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ACK_WAIT (0x02)</text>
+  <text x="360" y="278" text-anchor="middle" font-size="12" fill="#1a1a1a">Цільова шина/ядро</text>
+  <text x="360" y="296" text-anchor="middle" font-size="12" fill="#1a1a1a">тимчасово зайняті</text>
+  <text x="360" y="314" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">→ Повторна спроба</text>
+
+  <!-- ACK FAULT -->
+  <rect x="272" y="350" width="176" height="95" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="360" y="368" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ACK_FAULT (0x04)</text>
+  <text x="360" y="388" text-anchor="middle" font-size="12" fill="#1a1a1a">Критичний збій або</text>
+  <text x="360" y="406" text-anchor="middle" font-size="12" fill="#1a1a1a">помилка паритету</text>
+  <text x="360" y="424" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">→ Скидання ABORT</text>
+
+  <!-- Column 3: Recovery Procedure -->
+  <rect x="490" y="75" width="200" height="450" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="500" y="87" width="180" height="30" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="590" y="107" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">3. Відновлення</text>
+
+  <!-- WAIT Handler -->
+  <rect x="502" y="240" width="176" height="95" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="590" y="258" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Цикл Retry (OpenOCD)</text>
+  <text x="590" y="278" text-anchor="middle" font-size="12" fill="#1a1a1a">retry_cnt++</text>
+  <text x="590" y="296" text-anchor="middle" font-size="12" fill="#1a1a1a">Пауза (backoff delay)</text>
+  <text x="590" y="314" text-anchor="middle" font-size="12" fill="#2457d6">якщо cnt &lt; N_MAX</text>
+
+  <!-- FAULT Handler -->
+  <rect x="502" y="350" width="176" height="95" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="6"/>
+  <text x="590" y="368" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">DP ABORT Очищення</text>
+  <text x="590" y="388" text-anchor="middle" font-size="12" fill="#1a1a1a">Запис STKERRCLR у</text>
+  <text x="590" y="406" text-anchor="middle" font-size="12" fill="#1a1a1a">регістр DP ABORT</text>
+  <text x="590" y="424" text-anchor="middle" font-size="12" fill="#c0392b">Скидання Sticky Error</text>
+
+  <!-- Connecting Arrows Col 2 -> Col 3 / Col 4 -->
+  <line x1="448" y1="177" x2="720" y2="177" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="448" y1="287" x2="490" y2="287" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="448" y1="397" x2="490" y2="397" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Column 4: Outcome -->
+  <rect x="720" y="75" width="200" height="450" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="730" y="87" width="180" height="30" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="820" y="107" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">4. Результат</text>
+
+  <!-- Outcome 1: OK -->
+  <rect x="732" y="130" width="176" height="95" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="820" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Успішна транзакція</text>
+  <text x="820" y="168" text-anchor="middle" font-size="12" fill="#1a1a1a">Дані прочитано /</text>
+  <text x="820" y="186" text-anchor="middle" font-size="12" fill="#1a1a1a">записано в пам'ять</text>
+  <text x="820" y="204" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">✔ Наступна команда</text>
+
+  <!-- Outcome 2: Retry OK -->
+  <rect x="732" y="240" width="176" height="95" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="820" y="258" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Успішний Retry</text>
+  <text x="820" y="278" text-anchor="middle" font-size="12" fill="#1a1a1a">Зв'язок відновлено</text>
+  <text x="820" y="296" text-anchor="middle" font-size="12" fill="#1a1a1a">після N повторів</text>
+  <text x="820" y="314" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">✔ Сесія продовжена</text>
+
+  <!-- Outcome 3: Fatal Error -->
+  <rect x="732" y="350" width="176" height="95" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="820" y="368" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Помилка SWD Fault</text>
+  <text x="820" y="388" text-anchor="middle" font-size="12" fill="#1a1a1a">Перевищено таймаут</text>
+  <text x="820" y="406" text-anchor="middle" font-size="12" fill="#1a1a1a">чи фатальний збій</text>
+  <text x="820" y="424" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">✖ Зупинка сесії</text>
+
+  <!-- Connecting Arrows Col 3 -> Col 4 -->
+  <line x1="678" y1="287" x2="720" y2="287" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="678" y1="397" x2="720" y2="397" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Bottom Panel Banner -->
+  <rect x="45" y="465" width="870" height="45" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="480" y="484" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Головний принцип обробки помилок CMSIS-DAP:</text>
+  <text x="480" y="501" text-anchor="middle" font-size="12" fill="#6b7280">Тимчасові затримки (WAIT) вирішуються повторними спробами, а апаратні пробої (FAULT) — скиданням DP ABORT</text>
+</svg>

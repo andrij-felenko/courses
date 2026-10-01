@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Вимоги до станів виводів завантаження (Boot Strapping Pins) ESP8266</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Для стабільного запуску з SPI Flash під час скидання (RST) необхідне поєднання GPIO15=LOW, GPIO0=HIGH та GPIO2=HIGH</text>
+
+  <!-- TOP PANEL: Hardware Pin Requirements -->
+  <rect x="30" y="70" width="900" height="215" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="90" font-size="13" font-weight="bold" fill="#1a1a1a">Схема апаратних підтяжок для завантаження з Flash (SPI Flash Boot)</text>
+
+  <!-- Card 1: GPIO15 -->
+  <rect x="45" y="105" width="270" height="165" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="180" y="127" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">GPIO15 (MTDO)</text>
+  <rect x="60" y="138" width="240" height="26" rx="4" fill="white" stroke="#27ae60"/>
+  <text x="180" y="155" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Вимога: LOW (0V / GND)</text>
+  <rect x="60" y="170" width="240" height="32" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="180" y="190" text-anchor="middle" font-size="12" fill="#1a1a1a">Підтяжка: Pull-Down 10 кОм → GND</text>
+  <text x="180" y="222" text-anchor="middle" font-size="11" fill="#6b7280">HIGH (3.3V) переведе чип у SDIO boot</text>
+  <text x="180" y="240" text-anchor="middle" font-size="11" fill="#c0392b">небезпечно: зовнішнє навантаження на GND</text>
+
+  <!-- Card 2: GPIO0 -->
+  <rect x="345" y="105" width="270" height="165" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="127" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">GPIO0 (BOOT)</text>
+  <rect x="360" y="138" width="240" height="26" rx="4" fill="white" stroke="#27ae60"/>
+  <text x="480" y="155" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Вимога: HIGH (3.3V / VCC)</text>
+  <rect x="360" y="170" width="240" height="32" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="480" y="190" text-anchor="middle" font-size="12" fill="#1a1a1a">Підтяжка: Pull-Up 10 кОм → VCC</text>
+  <text x="480" y="222" text-anchor="middle" font-size="11" fill="#6b7280">LOW (0V) активує UART Flash Mode</text>
+  <text x="480" y="240" text-anchor="middle" font-size="11" fill="#2457d6">використовується для прошивання</text>
+
+  <!-- Card 3: GPIO2 -->
+  <rect x="645" y="105" width="270" height="165" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="780" y="127" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">GPIO2 (TXD1)</text>
+  <rect x="660" y="138" width="240" height="26" rx="4" fill="white" stroke="#27ae60"/>
+  <text x="780" y="155" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Вимога: HIGH (3.3V / VCC)</text>
+  <rect x="660" y="170" width="240" height="32" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="780" y="190" text-anchor="middle" font-size="12" fill="#1a1a1a">Підтяжка: Pull-Up 10 кОм → VCC</text>
+  <text x="780" y="222" text-anchor="middle" font-size="11" fill="#6b7280">LOW (0V) блокує завантажувач ROM</text>
+  <text x="780" y="240" text-anchor="middle" font-size="11" fill="#c0392b">не підключати світлодіод на GND</text>
+
+  <!-- BOTTOM PANEL: Boot Mode Matrix -->
+  <rect x="30" y="300" width="900" height="190" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="320" font-size="13" font-weight="bold" fill="#1a1a1a">Матриця режимів завантаження чипа (Boot Strapping Modes)</text>
+
+  <!-- Table Header -->
+  <rect x="45" y="332" width="870" height="28" rx="3" fill="#d0d7de"/>
+  <text x="140" y="351" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Режим завантаження</text>
+  <text x="340" y="351" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO15</text>
+  <text x="480" y="351" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO0</text>
+  <text x="620" y="351" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO2</text>
+  <text x="780" y="351" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Призначення та стан</text>
+
+  <!-- Table Row 1: Flash Boot (Normal) -->
+  <rect x="45" y="366" width="870" height="32" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="140" y="386" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Flash Boot (Нормальний)</text>
+  <text x="340" y="386" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">LOW (0)</text>
+  <text x="480" y="386" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">HIGH (1)</text>
+  <text x="620" y="386" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">HIGH (1)</text>
+  <text x="780" y="386" text-anchor="middle" font-size="12" fill="#1a1a1a">Виконання робочої прошивки ESP-AT з Flash</text>
+
+  <!-- Table Row 2: UART Download Mode -->
+  <rect x="45" y="404" width="870" height="32" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="140" y="424" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">UART Flash (Прошивання)</text>
+  <text x="340" y="424" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">LOW (0)</text>
+  <text x="480" y="424" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">LOW (0)</text>
+  <text x="620" y="424" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">HIGH (1)</text>
+  <text x="780" y="424" text-anchor="middle" font-size="12" fill="#1a1a1a">Запис нової прошивки через UART0 (esptool)</text>
+
+  <!-- Table Row 3: SDIO Boot (Invalid) -->
+  <rect x="45" y="442" width="870" height="32" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="140" y="462" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">SDIO Boot / Аварійний</text>
+  <text x="340" y="462" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">HIGH (1)</text>
+  <text x="480" y="462" text-anchor="middle" font-size="12" fill="#6b7280">Довільний</text>
+  <text x="620" y="462" text-anchor="middle" font-size="12" fill="#6b7280">Довільний</text>
+  <text x="780" y="462" text-anchor="middle" font-size="12" fill="#c0392b">Блокування запуску, зациклення ROM Bootloader</text>
+</svg>

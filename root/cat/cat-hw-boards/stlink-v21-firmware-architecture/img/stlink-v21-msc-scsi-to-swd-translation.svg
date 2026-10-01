@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Ланцюжок трансляції даних: від FAT-диска до SWD-програмування Flash</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Запис binary-файлу на віртуальний USB-диск транслується прошивкою ST-Link з SCSI-секторів у пакети SWD</text>
+
+  <!-- STAGE 1: Host PC -->
+  <rect x="40" y="90" width="175" height="325" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="48" y="102" width="159" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="127.5" y="121" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. ПК / Драйвер</text>
+
+  <rect x="50" y="145" width="155" height="65" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="127.5" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Запис .bin</text>
+  <text x="127.5" y="188" text-anchor="middle" font-size="12" fill="#6b7280">(Drag-and-Drop)</text>
+
+  <rect x="50" y="225" width="155" height="65" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="127.5" y="250" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Файлова система</text>
+  <text x="127.5" y="268" text-anchor="middle" font-size="12" fill="#6b7280">(Сектори FAT)</text>
+
+  <rect x="50" y="305" width="155" height="90" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="127.5" y="330" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">SCSI WRITE(10)</text>
+  <text x="127.5" y="350" text-anchor="middle" font-size="12" fill="#6b7280">[LBA Sector]</text>
+  <text x="127.5" y="368" text-anchor="middle" font-size="12" fill="#6b7280">(512-byte Bulk)</text>
+
+
+  <!-- ARROW 1 -> 2 -->
+  <line x1="215" y1="250" x2="265" y2="250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="240" y="235" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">USB BOT</text>
+
+
+  <!-- STAGE 2: ST-Link MSC Layer -->
+  <rect x="265" y="90" width="175" height="325" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="273" y="102" width="159" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="352.5" y="121" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. ST-Link (MSC)</text>
+
+  <rect x="275" y="145" width="155" height="65" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="352.5" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">USB Bulk Point</text>
+  <text x="352.5" y="188" text-anchor="middle" font-size="12" fill="#2457d6">(Прийом BOT)</text>
+
+  <rect x="275" y="225" width="155" height="65" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="352.5" y="250" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Парсер секторів</text>
+  <text x="352.5" y="268" text-anchor="middle" font-size="12" fill="#6b7280">(Виділення бінів)</text>
+
+  <rect x="275" y="305" width="155" height="90" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="352.5" y="330" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">RAM Буфер</text>
+  <text x="352.5" y="350" text-anchor="middle" font-size="12" fill="#6b7280">(Накопичення)</text>
+  <text x="352.5" y="368" text-anchor="middle" font-size="12" fill="#6b7280">[Блок 1-2 KB]</text>
+
+
+  <!-- ARROW 2 -> 3 -->
+  <line x1="440" y1="250" x2="490" y2="250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="465" y="235" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">SCSI→SWD</text>
+
+
+  <!-- STAGE 3: Translator Engine -->
+  <rect x="490" y="90" width="175" height="325" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="498" y="102" width="159" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="577.5" y="121" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">3. Транслятор</text>
+
+  <rect x="500" y="145" width="155" height="65" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="577.5" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Unlocking Flash</text>
+  <text x="577.5" y="188" text-anchor="middle" font-size="12" fill="#27ae60">[FLASH_KEYR]</text>
+
+  <rect x="500" y="225" width="155" height="65" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="577.5" y="250" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Erase Page</text>
+  <text x="577.5" y="268" text-anchor="middle" font-size="12" fill="#6b7280">[FLASH_CR]</text>
+
+  <rect x="500" y="305" width="155" height="90" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="577.5" y="330" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">SWD Generator</text>
+  <text x="577.5" y="350" text-anchor="middle" font-size="12" fill="#27ae60">SWD_WRITE(DR)</text>
+  <text x="577.5" y="368" text-anchor="middle" font-size="12" fill="#6b7280">(Auto-inc TAR)</text>
+
+
+  <!-- ARROW 3 -> 4 -->
+  <line x1="665" y1="250" x2="715" y2="250" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="690" y="235" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">SWD Пакет</text>
+
+
+  <!-- STAGE 4: Target STM32 -->
+  <rect x="715" y="90" width="175" height="325" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="723" y="102" width="159" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="802.5" y="121" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">4. Ціль STM32</text>
+
+  <rect x="725" y="145" width="155" height="65" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="802.5" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">SWD Інтерфейс</text>
+  <text x="802.5" y="188" text-anchor="middle" font-size="12" fill="#27ae60">[SWCLK / SWDIO]</text>
+
+  <rect x="725" y="225" width="155" height="65" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="802.5" y="250" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">AHB-AP Магістраль</text>
+  <text x="802.5" y="268" text-anchor="middle" font-size="12" fill="#6b7280">(Прямий доступ)</text>
+
+  <rect x="725" y="305" width="155" height="90" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="802.5" y="330" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Target Flash</text>
+  <text x="802.5" y="350" text-anchor="middle" font-size="12" fill="#27ae60">[0x08000000]</text>
+  <text x="802.5" y="368" text-anchor="middle" font-size="12" fill="#27ae60">(Успішно!)</text>
+
+
+  <!-- SUMMARY BANNER -->
+  <rect x="40" y="430" width="850" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="465" y="453" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">✓ Трансляція перетворює файлові сектори у послідовність SWD-команд без встановлення спеціальних драйверів</text>
+</svg>

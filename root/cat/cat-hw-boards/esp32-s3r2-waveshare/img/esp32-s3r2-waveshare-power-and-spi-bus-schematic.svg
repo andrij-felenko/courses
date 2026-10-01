@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схемотехніка VDD_SPI, GPIO45 та шини Quad SPI в ESP32-S3R2</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Конфігурація VDD_SPI = 3.3 В через GPIO45 та спільне підключення Flash 16 МБ і PSRAM 2 МБ</text>
+
+  <!-- ESP32-S3 Main Panel (Left) -->
+  <rect x="30" y="80" width="280" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="170" y="105" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP32-S3 (SiP Мікроконтролер)</text>
+
+  <!-- Internal LDO Regulator Block -->
+  <rect x="45" y="125" width="250" height="110" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="170" y="147" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Внутрішній LDO VDD_SPI</text>
+  <text x="170" y="167" font-size="12" fill="#6b7280" text-anchor="middle">Джерело живлення Flash та PSRAM</text>
+
+  <!-- LDO Output Badge -->
+  <rect x="65" y="182" width="210" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="170" y="204" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вихідна напруга: 3.3 В</text>
+
+  <!-- Strapping GPIO45 Logic Block -->
+  <rect x="45" y="250" width="250" height="240" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="170" y="272" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конфігурація Strapping (GPIO45)</text>
+  <text x="170" y="292" font-size="12" fill="#6b7280" text-anchor="middle">Замір рівня при скиданні (Reset Sampling)</text>
+
+  <!-- Resistor Pull-down schematic details -->
+  <rect x="60" y="308" width="220" height="65" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="170" y="328" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">GPIO45 = LOW (0 V)</text>
+  <text x="170" y="346" font-size="12" fill="#1a1a1a" text-anchor="middle">Підтяжка 10 кОм до GND (0 B)</text>
+  <text x="170" y="362" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">→ Встановлює VDD_SPI = 3.3 В</text>
+
+  <!-- High Risk Warning Badge -->
+  <rect x="60" y="385" width="220" height="90" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="170" y="405" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Критичний випадок: GPIO45 = HIGH</text>
+  <text x="170" y="425" font-size="12" fill="#c0392b" text-anchor="middle">Перемикає LDO у режим 1.8 В!</text>
+  <text x="170" y="445" font-size="12" fill="#1a1a1a" text-anchor="middle">Незчитування 3.3V PSRAM / Flash</text>
+  <text x="170" y="463" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Збій завантаження (Bootloop)</text>
+
+  <!-- Bus Interconnections (Center Area) -->
+
+  <!-- Power Line (VDD_SPI Rail) -->
+  <path d="M 295,195 L 610,195" fill="none" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+  <rect x="350" y="172" width="200" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="450" y="186" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Шина живлення VDD_SPI (3.3 В)</text>
+  <path d="M 520,195 L 520,350 L 610,350" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Quad SPI Data & Control Bus Container -->
+  <rect x="330" y="225" width="240" height="275" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="450" y="247" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Спільна шина Quad SPI</text>
+
+  <!-- SPICLK -->
+  <line x1="295" y1="275" x2="610" y2="275" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="450" y="268" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SPICLK (Тактування 80 МГц)</text>
+  <path d="M 490,275 L 490,380 L 610,380" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- SPI D0-D3 -->
+  <line x1="295" y1="330" x2="610" y2="330" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#arr-dark)"/>
+  <text x="450" y="322" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SPI D0..D3 (4-бітні дані Quad SPI)</text>
+  <path d="M 460,330 L 460,410 L 610,410" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+
+  <!-- SPICS0 (Flash CS) -->
+  <line x1="295" y1="395" x2="610" y2="395" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="450" y="388" font-size="12" fill="#1a1a1a" text-anchor="middle">SPICS0 (Вибір миші Flash #)</text>
+
+  <!-- SPICS1 (PSRAM CS) -->
+  <path d="M 295,460 L 470,460 L 470,440 L 610,440" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="450" y="478" font-size="12" fill="#1a1a1a" text-anchor="middle">SPICS1 (Вибір миші PSRAM #)</text>
+
+  <!-- Right Memory Devices Panel -->
+
+  <!-- 16 MB NOR Flash Panel -->
+  <rect x="620" y="125" width="310" height="175" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="775" y="150" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зовнішня Flash-пам'ять 16 МБ</text>
+  <text x="775" y="168" font-size="12" fill="#6b7280" text-anchor="middle">Чип NOR Flash (W25Q128 / Quad SPI)</text>
+
+  <rect x="635" y="180" width="280" height="105" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="650" y="202" font-size="12" fill="#27ae60" font-weight="bold">VDD_SPI Pin:</text>
+  <text x="740" y="202" font-size="12" fill="#1a1a1a">3.3 В від внутрішнього LDO</text>
+
+  <text x="650" y="224" font-size="12" fill="#2457d6" font-weight="bold">Інтерфейс:</text>
+  <text x="740" y="224" font-size="12" fill="#1a1a1a">Quad SPI (CLK, CS0#, D0-D3)</text>
+
+  <text x="650" y="246" font-size="12" fill="#1a1a1a" font-weight="bold">Призначення:</text>
+  <text x="740" y="246" font-size="12" fill="#6b7280">Прошивка, NVS, SPIFFS/FAT</text>
+
+  <text x="650" y="268" font-size="12" fill="#1a1a1a" font-weight="bold">Режим коду:</text>
+  <text x="740" y="268" font-size="12" fill="#1a1a1a">Exec-in-Place (XIP Flash Cache)</text>
+
+
+  <!-- 2 MB PSRAM Panel (SiP) -->
+  <rect x="620" y="315" width="310" height="195" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="775" y="340" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Вбудована PSRAM 2 МБ (SiP)</text>
+  <text x="775" y="358" font-size="12" fill="#6b7280" text-anchor="middle">Псевдостатична RAM (Quad SPI 3.3 В)</text>
+
+  <rect x="635" y="370" width="280" height="125" rx="6" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="650" y="392" font-size="12" fill="#27ae60" font-weight="bold">Живлення:</text>
+  <text x="735" y="392" font-size="12" fill="#1a1a1a">3.3 В (залежить від GPIO45 = 0)</text>
+
+  <text x="650" y="414" font-size="12" fill="#2457d6" font-weight="bold">Шина даних:</text>
+  <text x="735" y="414" font-size="12" fill="#1a1a1a">Quad SPI (CS1#, CLK, D0-D3)</text>
+
+  <text x="650" y="436" font-size="12" fill="#1a1a1a" font-weight="bold">Кешування:</text>
+  <text x="735" y="436" font-size="12" fill="#1a1a1a">L1 Cache / MMU вирівнювання 32B</text>
+
+  <text x="650" y="458" font-size="12" fill="#1a1a1a" font-weight="bold">Виділення:</text>
+  <text x="735" y="458" font-size="12" fill="#2457d6" font-weight="bold">heap_caps_malloc(MALLOC_CAP_SPIRAM)</text>
+
+  <text x="650" y="480" font-size="12" fill="#1a1a1a" font-weight="bold">Використання:</text>
+  <text x="735" y="480" font-size="12" fill="#6b7280">Кадрові буфери, буфери дисплея</text>
+</svg>

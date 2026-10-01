@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Карта розподілу купи heap_caps між SRAM та PSRAM в ESP32-S3</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Сумісність прапорців MALLOC_CAP_DMA, MALLOC_CAP_INTERNAL та MALLOC_CAP_SPIRAM для периферії</text>
+
+  <!-- Panel 1: Internal SRAM Domain (Left Column) -->
+  <rect x="30" y="90" width="430" height="430" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="245" y="118" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Внутрішня купа SRAM (512 кБ)</text>
+
+  <!-- MALLOC_CAP_DMA Sub-box -->
+  <rect x="45" y="140" width="400" height="170" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="245" y="165" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Прямий доступ DMA дозволено (MALLOC_CAP_DMA)</text>
+  <text x="60" y="190" font-size="12" fill="#1a1a1a">Адресний простір: 0x3FC80000 – 0x3FCE0000</text>
+  <text x="60" y="214" font-size="12" fill="#27ae60">✔ Дескриптори та буфери камери DVP DMA</text>
+  <text x="60" y="238" font-size="12" fill="#27ae60">✔ Транзакції SPI / I2S / LCD DMA (32-бітний доступ)</text>
+  <text x="60" y="262" font-size="12" fill="#2457d6">heap_caps_malloc(size, MALLOC_CAP_DMA)</text>
+  <text x="60" y="286" font-size="12" fill="#6b7280">Максимальна швидкість доступу без затримок bus-stall</text>
+
+  <!-- MALLOC_CAP_INTERNAL Sub-box -->
+  <rect x="45" y="330" width="400" height="170" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="245" y="355" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Внутрішні дані та стеки (MALLOC_CAP_INTERNAL)</text>
+  <text x="60" y="380" font-size="12" fill="#1a1a1a">Стек задач FreeRTOS, керуючі структури OS</text>
+  <text x="60" y="404" font-size="12" fill="#1a1a1a">Внутрішні таблиці Wi-Fi / Bluetooth стеків</text>
+  <text x="60" y="428" font-size="12" fill="#2457d6">heap_caps_malloc(size, MALLOC_CAP_INTERNAL)</text>
+  <text x="60" y="452" font-size="12" fill="#6b7280">Високопріоритетні буфери низької затримки</text>
+
+  <!-- Panel 2: External Octal PSRAM Domain (Right Column) -->
+  <rect x="500" y="90" width="430" height="430" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <text x="715" y="118" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Зовнішня купа PSRAM (2-16 МБ)</text>
+
+  <!-- MALLOC_CAP_SPIRAM Sub-box -->
+  <rect x="515" y="140" width="400" height="210" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="715" y="165" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Зовнішня пам'ять (MALLOC_CAP_SPIRAM)</text>
+  <text x="530" y="190" font-size="12" fill="#1a1a1a">Адресний простір: 0x3D000000 – 0x3E000000</text>
+  <text x="530" y="214" font-size="12" fill="#27ae60">✔ Великі кадрові буфери камери (FB0, FB1)</text>
+  <text x="530" y="238" font-size="12" fill="#27ae60">✔ Масиви вагових коефіцієнтів TinyML / ESP-NN</text>
+  <text x="530" y="262" font-size="12" fill="#27ae60">✔ Високороздільні масиви аудіо/відео даних</text>
+  <text x="530" y="286" font-size="12" fill="#2457d6">heap_caps_malloc(size, MALLOC_CAP_SPIRAM)</text>
+  <text x="530" y="310" font-size="12" fill="#6b7280">Доступ через L1 Кеш (8-біт OPI / 120 МГц DDR)</text>
+
+  <!-- DMA Restriction Warning Sub-box -->
+  <rect x="515" y="365" width="400" height="135" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="715" y="390" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ОБМЕЖЕННЯ ПРЯМОГО ДОСТУПУ (DMA RESTRICTION)</text>
+  <text x="530" y="415" font-size="12" font-weight="bold" fill="#c0392b">⛔ MALLOC_CAP_DMA НЕ ПОЄДНУЄТЬСЯ З SPIRAM!</text>
+  <text x="530" y="438" font-size="12" fill="#c0392b">Периферійне DMA (DVP/SPI/I2S) НЕ Може прямувати</text>
+  <text x="530" y="460" font-size="12" fill="#c0392b">в PSRAM без контролера EDMA / Bounce Buffer!</text>
+  <text x="530" y="482" font-size="12" fill="#6b7280">Спроба виділення повертає NULL або викликає Crash</text>
+
+  <!-- Prohibition arrow line connecting DMA to SPIRAM restriction -->
+  <path d="M 445 225 L 475 225 L 475 435 L 515 435" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#arr-red)"/>
+</svg>

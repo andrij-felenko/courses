@@ -1,0 +1,233 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Порівняння розпіновок та корпусів мікросхем серії CH340</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Корпуси відрізняються кількістю сигналів модемного керування та наявністю виводів для зовнішнього кварцу 12 МГц</text>
+
+  <!-- COLUMN 1: CH340G (SOP-16) -->
+  <text x="137" y="90" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">CH340G</text>
+  <text x="137" y="108" text-anchor="middle" font-size="12" fill="#6b7280">SOP-16 (Кварц 12 МГц)</text>
+
+  <!-- IC Body -->
+  <rect x="100" y="125" width="75" height="240" rx="4" fill="#2c3e50" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="115" cy="137" r="3" fill="#ffffff"/>
+
+  <!-- Left Pins (1..8) -->
+  <line x1="82" y1="140" x2="100" y2="140" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="76" y="144" text-anchor="end" font-size="12" fill="#1a1a1a">1: GND</text>
+
+  <line x1="82" y1="168" x2="100" y2="168" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="76" y="172" text-anchor="end" font-size="12" fill="#1a1a1a">2: TXD</text>
+
+  <line x1="82" y1="196" x2="100" y2="196" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="76" y="200" text-anchor="end" font-size="12" fill="#1a1a1a">3: RXD</text>
+
+  <line x1="82" y1="224" x2="100" y2="224" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="76" y="228" text-anchor="end" font-size="12" fill="#1a1a1a">4: V3</text>
+
+  <line x1="82" y1="252" x2="100" y2="252" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="76" y="256" text-anchor="end" font-size="12" fill="#1a1a1a">5: UD+</text>
+
+  <line x1="82" y1="280" x2="100" y2="280" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="76" y="284" text-anchor="end" font-size="12" fill="#1a1a1a">6: UD-</text>
+
+  <line x1="82" y1="308" x2="100" y2="308" stroke="#2457d6" stroke-width="3"/>
+  <text x="76" y="312" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">7: XI</text>
+
+  <line x1="82" y1="336" x2="100" y2="336" stroke="#2457d6" stroke-width="3"/>
+  <text x="76" y="340" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">8: XO</text>
+
+  <!-- Right Pins (9..16) -->
+  <line x1="175" y1="140" x2="193" y2="140" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="199" y="144" text-anchor="start" font-size="12" fill="#1a1a1a">16: VCC</text>
+
+  <line x1="175" y1="168" x2="193" y2="168" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="199" y="172" text-anchor="start" font-size="12" fill="#1a1a1a">15: R232</text>
+
+  <line x1="175" y1="196" x2="193" y2="196" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="199" y="200" text-anchor="start" font-size="12" fill="#1a1a1a">14: RTS</text>
+
+  <line x1="175" y1="224" x2="193" y2="224" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="199" y="228" text-anchor="start" font-size="12" fill="#1a1a1a">13: DTR</text>
+
+  <line x1="175" y1="252" x2="193" y2="252" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="199" y="256" text-anchor="start" font-size="12" fill="#1a1a1a">12: DCD</text>
+
+  <line x1="175" y1="280" x2="193" y2="280" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="199" y="284" text-anchor="start" font-size="12" fill="#1a1a1a">11: RI</text>
+
+  <line x1="175" y1="308" x2="193" y2="308" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="199" y="312" text-anchor="start" font-size="12" fill="#1a1a1a">10: DSR</text>
+
+  <line x1="175" y1="336" x2="193" y2="336" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="199" y="340" text-anchor="start" font-size="12" fill="#1a1a1a">9: CTS</text>
+
+  <!-- Summary Card 1 -->
+  <rect x="30" y="390" width="215" height="145" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="137" y="412" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">CH340G (Класичний)</text>
+  <text x="42" y="435" font-size="12" fill="#1a1a1a">• Зовнішній кварц 12 МГц</text>
+  <text x="42" y="455" font-size="12" fill="#1a1a1a">• Повний набір DTR, RTS, CTS</text>
+  <text x="42" y="475" font-size="12" fill="#1a1a1a">• Корпус SOP-16 (1.27 мм)</text>
+  <text x="42" y="497" font-size="12" font-weight="bold" fill="#2457d6">Застосування: класичні плати</text>
+
+
+  <!-- COLUMN 2: CH340C (SOP-16) -->
+  <text x="367" y="90" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">CH340C</text>
+  <text x="367" y="108" text-anchor="middle" font-size="12" fill="#6b7280">SOP-16 (Вбуд. генератор)</text>
+
+  <!-- IC Body -->
+  <rect x="330" y="125" width="75" height="240" rx="4" fill="#2c3e50" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="345" cy="137" r="3" fill="#ffffff"/>
+
+  <!-- Left Pins (1..8) -->
+  <line x1="312" y1="140" x2="330" y2="140" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="306" y="144" text-anchor="end" font-size="12" fill="#1a1a1a">1: GND</text>
+
+  <line x1="312" y1="168" x2="330" y2="168" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="306" y="172" text-anchor="end" font-size="12" fill="#1a1a1a">2: TXD</text>
+
+  <line x1="312" y1="196" x2="330" y2="196" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="306" y="200" text-anchor="end" font-size="12" fill="#1a1a1a">3: RXD</text>
+
+  <line x1="312" y1="224" x2="330" y2="224" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="306" y="228" text-anchor="end" font-size="12" fill="#1a1a1a">4: V3</text>
+
+  <line x1="312" y1="252" x2="330" y2="252" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="306" y="256" text-anchor="end" font-size="12" fill="#1a1a1a">5: UD+</text>
+
+  <line x1="312" y1="280" x2="330" y2="280" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="306" y="284" text-anchor="end" font-size="12" fill="#1a1a1a">6: UD-</text>
+
+  <line x1="312" y1="308" x2="330" y2="308" stroke="#27ae60" stroke-width="3"/>
+  <text x="306" y="312" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">7: NC</text>
+
+  <line x1="312" y1="336" x2="330" y2="336" stroke="#27ae60" stroke-width="3"/>
+  <text x="306" y="340" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">8: NC</text>
+
+  <!-- Right Pins (9..16) -->
+  <line x1="405" y1="140" x2="423" y2="140" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="429" y="144" text-anchor="start" font-size="12" fill="#1a1a1a">16: VCC</text>
+
+  <line x1="405" y1="168" x2="423" y2="168" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="429" y="172" text-anchor="start" font-size="12" fill="#1a1a1a">15: R232</text>
+
+  <line x1="405" y1="196" x2="423" y2="196" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="429" y="200" text-anchor="start" font-size="12" fill="#1a1a1a">14: RTS</text>
+
+  <line x1="405" y1="224" x2="423" y2="224" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="429" y="228" text-anchor="start" font-size="12" fill="#1a1a1a">13: DTR</text>
+
+  <line x1="405" y1="252" x2="423" y2="252" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="429" y="256" text-anchor="start" font-size="12" fill="#1a1a1a">12: DCD</text>
+
+  <line x1="405" y1="280" x2="423" y2="280" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="429" y="284" text-anchor="start" font-size="12" fill="#1a1a1a">11: RI</text>
+
+  <line x1="405" y1="308" x2="423" y2="308" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="429" y="312" text-anchor="start" font-size="12" fill="#1a1a1a">10: DSR</text>
+
+  <line x1="405" y1="336" x2="423" y2="336" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="429" y="340" text-anchor="start" font-size="12" fill="#1a1a1a">9: CTS</text>
+
+  <!-- Summary Card 2 -->
+  <rect x="260" y="390" width="215" height="145" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="367" y="412" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">CH340C (Без кварцу)</text>
+  <text x="272" y="435" font-size="12" fill="#1a1a1a">• Вбудований генератор 12 МГц</text>
+  <text x="272" y="455" font-size="12" fill="#1a1a1a">• Виводи 7 та 8 вільні (NC)</text>
+  <text x="272" y="475" font-size="12" fill="#1a1a1a">• Повна сумісність із CH340G</text>
+  <text x="272" y="497" font-size="12" font-weight="bold" fill="#27ae60">Застосування: бюджетні плати</text>
+
+
+  <!-- COLUMN 3: CH340E (MSOP-10) -->
+  <text x="597" y="90" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">CH340E</text>
+  <text x="597" y="108" text-anchor="middle" font-size="12" fill="#6b7280">MSOP-10 (Компактний)</text>
+
+  <!-- IC Body -->
+  <rect x="560" y="165" width="75" height="160" rx="4" fill="#2c3e50" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="575" cy="177" r="3" fill="#ffffff"/>
+
+  <!-- Left Pins (1..5) -->
+  <line x1="542" y1="185" x2="560" y2="185" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="536" y="189" text-anchor="end" font-size="12" fill="#1a1a1a">1: UD+</text>
+
+  <line x1="542" y1="215" x2="560" y2="215" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="536" y="219" text-anchor="end" font-size="12" fill="#1a1a1a">2: UD-</text>
+
+  <line x1="542" y1="245" x2="560" y2="245" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="536" y="249" text-anchor="end" font-size="12" fill="#1a1a1a">3: GND</text>
+
+  <line x1="542" y1="275" x2="560" y2="275" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="536" y="279" text-anchor="end" font-size="12" fill="#1a1a1a">4: RTS</text>
+
+  <line x1="542" y1="305" x2="560" y2="305" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="536" y="309" text-anchor="end" font-size="12" fill="#1a1a1a">5: V3</text>
+
+  <!-- Right Pins (6..10) -->
+  <line x1="635" y1="185" x2="653" y2="185" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="659" y="189" text-anchor="start" font-size="12" fill="#1a1a1a">10: DTR</text>
+
+  <line x1="635" y1="215" x2="653" y2="215" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="659" y="219" text-anchor="start" font-size="12" fill="#1a1a1a">9: TNOW</text>
+
+  <line x1="635" y1="245" x2="653" y2="245" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="659" y="249" text-anchor="start" font-size="12" fill="#1a1a1a">8: VCC</text>
+
+  <line x1="635" y1="275" x2="653" y2="275" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="659" y="279" text-anchor="start" font-size="12" fill="#1a1a1a">7: RXD</text>
+
+  <line x1="635" y1="305" x2="653" y2="305" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="659" y="309" text-anchor="start" font-size="12" fill="#1a1a1a">6: TXD</text>
+
+  <!-- Summary Card 3 -->
+  <rect x="490" y="390" width="215" height="145" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="597" y="412" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">CH340E (Мікро-корпус)</text>
+  <text x="502" y="435" font-size="12" fill="#1a1a1a">• Компактний корпус MSOP-10</text>
+  <text x="502" y="455" font-size="12" fill="#1a1a1a">• Вбудований генератор 12 МГц</text>
+  <text x="502" y="475" font-size="12" fill="#1a1a1a">• Сигнали DTR, RTS та TNOW</text>
+  <text x="502" y="497" font-size="12" font-weight="bold" fill="#2457d6">Застосування: компактні модулі</text>
+
+
+  <!-- COLUMN 4: CH340N (SOP-8) -->
+  <text x="827" y="90" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">CH340N</text>
+  <text x="827" y="108" text-anchor="middle" font-size="12" fill="#6b7280">SOP-8 (Мінімальний)</text>
+
+  <!-- IC Body -->
+  <rect x="790" y="180" width="75" height="130" rx="4" fill="#2c3e50" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="805" cy="192" r="3" fill="#ffffff"/>
+
+  <!-- Left Pins (1..4) -->
+  <line x1="772" y1="198" x2="790" y2="198" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="766" y="202" text-anchor="end" font-size="12" fill="#1a1a1a">1: UD+</text>
+
+  <line x1="772" y1="228" x2="790" y2="228" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="766" y="232" text-anchor="end" font-size="12" fill="#1a1a1a">2: UD-</text>
+
+  <line x1="772" y1="258" x2="790" y2="258" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="766" y="262" text-anchor="end" font-size="12" fill="#1a1a1a">3: GND</text>
+
+  <line x1="772" y1="288" x2="790" y2="288" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="766" y="292" text-anchor="end" font-size="12" fill="#1a1a1a">4: RTS</text>
+
+  <!-- Right Pins (5..8) -->
+  <line x1="865" y1="198" x2="883" y2="198" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="889" y="202" text-anchor="start" font-size="12" fill="#1a1a1a">8: VCC</text>
+
+  <line x1="865" y1="228" x2="883" y2="228" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="889" y="232" text-anchor="start" font-size="12" fill="#1a1a1a">7: RXD</text>
+
+  <line x1="865" y1="258" x2="883" y2="258" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="889" y="262" text-anchor="start" font-size="12" fill="#1a1a1a">6: TXD</text>
+
+  <line x1="865" y1="288" x2="883" y2="288" stroke="#7f8c8d" stroke-width="3"/>
+  <text x="889" y="292" text-anchor="start" font-size="12" fill="#1a1a1a">5: V3</text>
+
+  <!-- Summary Card 4 -->
+  <rect x="720" y="390" width="215" height="145" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="827" y="412" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">CH340N (Мінімальний)</text>
+  <text x="732" y="435" font-size="12" fill="#1a1a1a">• Найменший корпус SOP-8</text>
+  <text x="732" y="455" font-size="12" fill="#1a1a1a">• Лише лінії RXD, TXD та RTS</text>
+  <text x="732" y="475" font-size="12" fill="#c0392b">• Без DTR (без автоскидання)</text>
+  <text x="732" y="497" font-size="12" font-weight="bold" fill="#c0392b">Застосування: тільки UART RX/TX</text>
+</svg>

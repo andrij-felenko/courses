@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#475569"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="#ffffff"/>
+
+  <!-- Main Title and Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура ядра Xtensa LX7 з прискорювачем PIE</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Векторний співпроцесор PIE та 128-бітний SIMD-файл регістрів для апаратного прискорення TinyML</text>
+
+  <!-- Outer CPU Core Container -->
+  <rect x="40" y="80" width="880" height="395" rx="10" fill="#fafbfc" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="55" y="103" font-size="14" font-weight="bold" fill="#334155">Процесорне ядро Xtensa LX7 (32-бітний RISC-процесор)</text>
+
+  <!-- Left Block: Standard 32-bit Core Pipeline -->
+  <rect x="60" y="115" width="365" height="345" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <text x="75" y="137" font-size="13" font-weight="bold" fill="#475569">Стандартний обчислювальний тракт (32-біт)</text>
+
+  <!-- Left Unit 1: Instruction Fetch & Decode -->
+  <rect x="75" y="148" width="335" height="60" rx="6" fill="#f8fafc" stroke="#94a3b8"/>
+  <text x="242" y="171" font-size="13" font-weight="bold" fill="#1e293b" text-anchor="middle">Декодер інструкцій (Instruction Fetch &amp; Decode)</text>
+  <text x="242" y="191" font-size="12" fill="#64748b" text-anchor="middle">32-бітний декодер та розширення FLIX</text>
+
+  <!-- Left Unit 2: Scalar ALU -->
+  <rect x="75" y="223" width="335" height="60" rx="6" fill="#f8fafc" stroke="#94a3b8"/>
+  <text x="242" y="246" font-size="13" font-weight="bold" fill="#1e293b" text-anchor="middle">Скалярний АЛП (Scalar ALU / Load-Store)</text>
+  <text x="242" y="266" font-size="12" fill="#64748b" text-anchor="middle">32-бітна скалярна арифметика та адресація</text>
+
+  <!-- Left Unit 3: Scalar Register File -->
+  <rect x="75" y="298" width="335" height="60" rx="6" fill="#f8fafc" stroke="#94a3b8"/>
+  <text x="242" y="321" font-size="13" font-weight="bold" fill="#1e293b" text-anchor="middle">Скалярний файл регістрів (AR0–AR63)</text>
+  <text x="242" y="341" font-size="12" fill="#64748b" text-anchor="middle">64 × 32-бітні регістри загального призначення</text>
+
+  <!-- Left Unit 4: System Bus & Cache Interface -->
+  <rect x="75" y="373" width="335" height="72" rx="6" fill="#f8fafc" stroke="#94a3b8"/>
+  <text x="242" y="396" font-size="13" font-weight="bold" fill="#1e293b" text-anchor="middle">Інтерфейс пам'яті та кешу (L1 Cache Interface)</text>
+  <text x="242" y="416" font-size="12" fill="#64748b" text-anchor="middle">Зв'язок із L1-кешем та внутрішньою SRAM</text>
+  <text x="242" y="433" font-size="11" fill="#94a3b8" text-anchor="middle">Широкосмугова шина даних та інструкцій</text>
+
+  <!-- Right Block: PIE Vector Coprocessor Container -->
+  <rect x="450" y="115" width="450" height="345" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="465" y="137" font-size="14" font-weight="bold" fill="#1e40af">Векторний співпроцесор PIE (SIMD Accelerator)</text>
+
+  <!-- Right Unit 1: 128-bit Vector Register File -->
+  <rect x="465" y="148" width="420" height="92" rx="6" fill="#ffffff" stroke="#2457d6"/>
+  <text x="675" y="168" font-size="13" font-weight="bold" fill="#1e3a8a" text-anchor="middle">128-бітний SIMD-файл регістрів (Q0–Q7)</text>
+
+  <!-- Sub-boxes Q0 to Q7 -->
+  <rect x="475" y="186" width="44" height="42" rx="4" fill="#eaf0fd" stroke="#3b82f6"/>
+  <text x="497" y="211" font-size="12" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Q0</text>
+
+  <rect x="526" y="186" width="44" height="42" rx="4" fill="#eaf0fd" stroke="#3b82f6"/>
+  <text x="548" y="211" font-size="12" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Q1</text>
+
+  <rect x="577" y="186" width="44" height="42" rx="4" fill="#eaf0fd" stroke="#3b82f6"/>
+  <text x="599" y="211" font-size="12" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Q2</text>
+
+  <rect x="628" y="186" width="44" height="42" rx="4" fill="#eaf0fd" stroke="#3b82f6"/>
+  <text x="650" y="211" font-size="12" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Q3</text>
+
+  <rect x="679" y="186" width="44" height="42" rx="4" fill="#eaf0fd" stroke="#3b82f6"/>
+  <text x="701" y="211" font-size="12" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Q4</text>
+
+  <rect x="730" y="186" width="44" height="42" rx="4" fill="#eaf0fd" stroke="#3b82f6"/>
+  <text x="752" y="211" font-size="12" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Q5</text>
+
+  <rect x="781" y="186" width="44" height="42" rx="4" fill="#eaf0fd" stroke="#3b82f6"/>
+  <text x="803" y="211" font-size="12" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Q6</text>
+
+  <rect x="832" y="186" width="44" height="42" rx="4" fill="#eaf0fd" stroke="#3b82f6"/>
+  <text x="854" y="211" font-size="12" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Q7</text>
+
+  <!-- Right Unit 2: Vector ALUs / MAC -->
+  <rect x="465" y="253" width="420" height="105" rx="6" fill="#ffffff" stroke="#2457d6"/>
+  <text x="675" y="273" font-size="13" font-weight="bold" fill="#1e3a8a" text-anchor="middle">Векторні обчислювальні пристрої (SIMD ALU / MAC)</text>
+
+  <rect x="475" y="284" width="195" height="60" rx="5" fill="#eaf0fd" stroke="#2563eb"/>
+  <text x="572" y="306" font-size="12" font-weight="bold" fill="#1e40af" text-anchor="middle">2 × 64-біт / 4 × 32-біт</text>
+  <text x="572" y="327" font-size="12" fill="#2563eb" text-anchor="middle">Векторний MAC / Множник</text>
+
+  <rect x="680" y="284" width="195" height="60" rx="5" fill="#eaf0fd" stroke="#2563eb"/>
+  <text x="777" y="306" font-size="12" font-weight="bold" fill="#1e40af" text-anchor="middle">8 × 16-біт / 16 × 8-біт</text>
+  <text x="777" y="327" font-size="12" fill="#2563eb" text-anchor="middle">Паралельний SIMD АЛП</text>
+
+  <!-- Right Unit 3: Vector Load/Store Unit -->
+  <rect x="465" y="373" width="420" height="72" rx="6" fill="#ffffff" stroke="#2457d6"/>
+  <text x="675" y="396" font-size="13" font-weight="bold" fill="#1e3a8a" text-anchor="middle">128-бітний блок завантаження/збереження (Load/Store)</text>
+  <text x="675" y="416" font-size="12" fill="#2563eb" text-anchor="middle">Прямий 128-бітний доступ до пам'яті для векторів</text>
+  <text x="675" y="433" font-size="11" fill="#64748b" text-anchor="middle">Підкачування даних для тензорів та кадрових масивів</text>
+
+  <!-- Connecting Inter-Block Flow Arrows -->
+  <!-- Decode to PIE Registers -->
+  <path d="M 410 178 L 465 178" stroke="#2563eb" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Registers to Vector ALUs -->
+  <path d="M 572 240 L 572 253" stroke="#2563eb" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 777 240 L 777 253" stroke="#2563eb" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Vector Load/Store <-> Memory Bus Interface -->
+  <path d="M 410 409 L 465 409" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Vector Load/Store -> Registers -->
+  <path d="M 870 373 L 870 240" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-blue)"/>
+</svg>

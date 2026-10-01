@@ -1,0 +1,184 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Marker Definitions -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема узгодження рівнів напруги DAPLink (Level Shifter)</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Двонапрямлений транслятор вирівнює рівні між 3.3 В MCU DAPLink та 1.8–5.0 В цільової плати VCC_TARGET</text>
+
+  <!-- PANEL 1: DAPLink Programmer Domain (3.3V) -->
+  <rect x="25" y="68" width="220" height="424" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="135" y="92" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DAPLink (3.3 В)</text>
+
+  <rect x="40" y="108" width="190" height="368" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="135" y="130" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">MCU DAPLink</text>
+  <text x="135" y="148" font-size="12" fill="#6b7280" text-anchor="middle">(VCC_MCU = 3.3 В)</text>
+
+  <!-- DAPLink MCU Pins & Labels -->
+  <circle cx="230" cy="195" r="4" fill="#2457d6"/>
+  <text x="220" y="185" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">3.3V</text>
+
+  <circle cx="230" cy="265" r="4" fill="#2457d6"/>
+  <text x="220" y="255" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">SWCLK</text>
+
+  <circle cx="230" cy="345" r="4" fill="#2457d6"/>
+  <text x="220" y="335" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">SWDIO</text>
+
+  <circle cx="230" cy="425" r="4" fill="#2457d6"/>
+  <text x="220" y="415" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">nRESET</text>
+
+  <!-- PANEL 2: Level Shifter IC -->
+  <rect x="280" y="68" width="400" height="424" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="92" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шинний транслятор рівнів</text>
+
+  <rect x="300" y="108" width="360" height="368" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="480" y="130" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">TXB0104 / NTS0104</text>
+  <text x="480" y="148" font-size="12" fill="#6b7280" text-anchor="middle">(Двонапрямлений транслятор з OE)</text>
+
+  <!-- IC Pins Left (A-Side) -->
+  <circle cx="300" cy="195" r="4" fill="#2457d6"/>
+  <text x="312" y="183" font-size="12" font-weight="bold" fill="#2457d6">VCCA</text>
+
+  <circle cx="300" cy="265" r="4" fill="#2457d6"/>
+  <text x="312" y="253" font-size="12" font-weight="bold" fill="#1a1a1a">A1</text>
+
+  <circle cx="300" cy="345" r="4" fill="#2457d6"/>
+  <text x="312" y="333" font-size="12" font-weight="bold" fill="#1a1a1a">A2</text>
+
+  <circle cx="300" cy="425" r="4" fill="#2457d6"/>
+  <text x="312" y="413" font-size="12" font-weight="bold" fill="#1a1a1a">A3</text>
+
+  <!-- IC Pins Right (B-Side) -->
+  <circle cx="660" cy="195" r="4" fill="#27ae60"/>
+  <text x="648" y="183" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">VCCB</text>
+
+  <circle cx="660" cy="265" r="4" fill="#27ae60"/>
+  <text x="648" y="253" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">B1</text>
+
+  <circle cx="660" cy="345" r="4" fill="#27ae60"/>
+  <text x="648" y="333" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">B2</text>
+
+  <circle cx="660" cy="425" r="4" fill="#c0392b"/>
+  <text x="648" y="413" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">B3</text>
+
+  <!-- IC Power Reference Explanation -->
+  <text x="480" y="183" font-size="12" fill="#6b7280" text-anchor="middle">Опорні напруги шин A і B</text>
+  <line x1="345" y1="195" x2="400" y2="195" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="560" y1="195" x2="615" y2="195" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Buffer 1 (SWCLK) -->
+  <rect x="390" y="245" width="180" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="260" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Буфер SWCLK (A → B)</text>
+  <text x="480" y="276" font-size="12" fill="#6b7280" text-anchor="middle">Однонапрямний вихід</text>
+  <line x1="300" y1="265" x2="390" y2="265" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="570" y1="265" x2="660" y2="265" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Buffer 2 (SWDIO) -->
+  <rect x="390" y="325" width="180" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="340" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Транслятор (A ↔ B)</text>
+  <text x="480" y="356" font-size="12" fill="#6b7280" text-anchor="middle">Двонапрямний SWDIO</text>
+  <line x1="300" y1="345" x2="390" y2="345" stroke="#2457d6" stroke-width="2" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <line x1="570" y1="345" x2="660" y2="345" stroke="#27ae60" stroke-width="2" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+
+  <!-- Buffer 3 (nRESET) -->
+  <rect x="390" y="405" width="180" height="40" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="420" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Буфер nRESET (OD)</text>
+  <text x="480" y="436" font-size="12" fill="#6b7280" text-anchor="middle">Відкритий колектор / Z</text>
+  <line x1="300" y1="425" x2="390" y2="425" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="570" y1="425" x2="660" y2="425" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- PANEL 3: Target Board Domain (1.8V..5.0V) -->
+  <rect x="715" y="68" width="220" height="424" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="825" y="92" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цільова плата (Target)</text>
+
+  <rect x="760" y="108" width="160" height="368" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="840" y="130" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Цільовий MCU</text>
+  <text x="840" y="148" font-size="12" fill="#6b7280" text-anchor="middle">(1.8 В – 5.0 В)</text>
+
+  <!-- Target MCU Pins & Labels -->
+  <circle cx="760" cy="195" r="4" fill="#27ae60"/>
+  <text x="772" y="185" font-size="12" font-weight="bold" fill="#27ae60">VCC_TARGET</text>
+
+  <circle cx="760" cy="265" r="4" fill="#27ae60"/>
+  <text x="772" y="255" font-size="12" font-weight="bold" fill="#1a1a1a">SWCLK_IN</text>
+
+  <circle cx="760" cy="345" r="4" fill="#27ae60"/>
+  <text x="772" y="335" font-size="12" font-weight="bold" fill="#1a1a1a">SWDIO</text>
+
+  <circle cx="760" cy="425" r="4" fill="#c0392b"/>
+  <text x="772" y="415" font-size="12" font-weight="bold" fill="#1a1a1a">nRESET</text>
+
+  <!-- Connections between DAPLink and IC -->
+  <line x1="230" y1="195" x2="300" y2="195" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="262" y="185" font-size="12" fill="#2457d6" text-anchor="middle">3.3V</text>
+
+  <line x1="230" y1="265" x2="300" y2="265" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="262" y="255" font-size="12" fill="#2457d6" text-anchor="middle">SWCLK</text>
+
+  <line x1="230" y1="345" x2="300" y2="345" stroke="#2457d6" stroke-width="2" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="262" y="335" font-size="12" fill="#2457d6" text-anchor="middle">SWDIO</text>
+
+  <line x1="230" y1="425" x2="300" y2="425" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="262" y="415" font-size="12" fill="#2457d6" text-anchor="middle">nRESET</text>
+
+  <!-- Connections between IC and Target -->
+  <line x1="760" y1="195" x2="660" y2="195" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="710" y="185" font-size="12" fill="#27ae60" text-anchor="middle">VCC_TARGET</text>
+
+  <line x1="660" y1="265" x2="760" y2="265" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="710" y="255" font-size="12" fill="#27ae60" text-anchor="middle">SWCLK</text>
+
+  <line x1="660" y1="345" x2="760" y2="345" stroke="#27ae60" stroke-width="2" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <text x="725" y="335" font-size="12" fill="#27ae60" text-anchor="middle">SWDIO</text>
+
+  <line x1="660" y1="425" x2="760" y2="425" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="725" y="415" font-size="12" fill="#c0392b" text-anchor="middle">nRESET</text>
+
+  <!-- Target Side Components (Pull-ups & Filter) -->
+  <!-- SWDIO Pull-up -->
+  <circle cx="690" cy="345" r="3" fill="#27ae60"/>
+  <line x1="690" y1="345" x2="690" y2="315" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="684" y="295" width="12" height="20" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="690" y1="295" x2="690" y2="282" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="690" y="278" font-size="12" fill="#6b7280" text-anchor="middle">VCC_TARGET</text>
+  <text x="702" y="310" font-size="12" fill="#27ae60">R_PU 10k</text>
+
+  <!-- nRESET Pull-up & Capacitor -->
+  <circle cx="690" cy="425" r="3" fill="#c0392b"/>
+  <!-- Pull-up -->
+  <line x1="690" y1="425" x2="690" y2="395" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="684" y="375" width="12" height="20" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="690" y1="375" x2="690" y2="362" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="690" y="358" font-size="12" fill="#6b7280" text-anchor="middle">VCC_TARGET</text>
+  <text x="702" y="390" font-size="12" fill="#c0392b">R_RST 10k</text>
+  <!-- Capacitor to GND -->
+  <line x1="690" y1="425" x2="690" y2="450" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="682" y1="450" x2="698" y2="450" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="682" y1="454" x2="698" y2="454" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="690" y1="454" x2="690" y2="463" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- GND Symbol -->
+  <line x1="682" y1="463" x2="698" y2="463" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="685" y1="466" x2="695" y2="466" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="688" y1="469" x2="692" y2="469" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="704" y="457" font-size="12" fill="#6b7280">C_RST 100nF</text>
+
+  <!-- Bottom Key Rule Callout Panel -->
+  <rect x="25" y="504" width="910" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="526" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Висновок: VCC_TARGET задає напругу шини B; підтяжки R_PU забезпечують HIGH стан при вимкненому буфері (OE=1)</text>
+</svg>

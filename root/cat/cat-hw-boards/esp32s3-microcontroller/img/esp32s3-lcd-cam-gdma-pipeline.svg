@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратний конвеєр передачі кадрів LCD_CAM та GDMA в ESP32-S3</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Пряма передача даних із паралельної камери DVP через GDMA у зовнішній буфер PSRAM без участі CPU</text>
+
+  <!-- Left Block: DVP Camera Sensor -->
+  <rect x="30" y="90" width="170" height="330" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="115" y="118" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DVP Фотоматриця</text>
+  <text x="115" y="136" font-size="12" fill="#6b7280" text-anchor="middle">(OV3640 / OV2640)</text>
+
+  <rect x="45" y="160" width="140" height="36" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="115" y="182" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Шина даних D0–D7</text>
+
+  <rect x="45" y="220" width="140" height="36" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="115" y="242" font-size="12" fill="#1a1a1a" text-anchor="middle">Тактування PCLK</text>
+
+  <rect x="45" y="280" width="140" height="36" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="115" y="302" font-size="12" fill="#1a1a1a" text-anchor="middle">Синхронізація VSYNC</text>
+
+  <rect x="45" y="340" width="140" height="36" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="115" y="362" font-size="12" fill="#1a1a1a" text-anchor="middle">Рядкова HREF</text>
+
+  <!-- Middle Container: ESP32-S3 Subsystem -->
+  <rect x="230" y="90" width="470" height="330" fill="#f8fafc" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="245" y="115" font-size="14" font-weight="bold" fill="#2457d6">Периферійний модуль ESP32-S3</text>
+
+  <!-- Sub-block 1: CAM Interface -->
+  <rect x="250" y="135" width="200" height="135" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="350" y="160" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Блок LCD_CAM (CAM)</text>
+  <text x="350" y="182" font-size="12" fill="#1a1a1a" text-anchor="middle">Паралельний DVP вхід</text>
+  <text x="350" y="202" font-size="12" fill="#6b7280" text-anchor="middle">8-бітне захоплення</text>
+  <rect x="270" y="215" width="160" height="40" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="350" y="240" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхідний FIFO буфер</text>
+
+  <!-- FIFO Connection Arrow -->
+  <path d="M 450 202 L 472 202" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="461" y="195" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">FIFO</text>
+
+  <!-- Sub-block 2: GDMA Controller -->
+  <rect x="480" y="135" width="200" height="135" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="580" y="160" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контролер GDMA</text>
+  <text x="580" y="182" font-size="12" fill="#1a1a1a" text-anchor="middle">Апаратний DMA-канал</text>
+  <text x="580" y="202" font-size="12" fill="#6b7280" text-anchor="middle">Автономна передача</text>
+  <rect x="500" y="215" width="160" height="40" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="580" y="240" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Дескриптори (4 КБ)</text>
+
+  <!-- Arrow GDMA to Bus Matrix -->
+  <path d="M 580 270 L 580 282" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Sub-block 3: Bus Matrix & OSPI Controller -->
+  <rect x="250" y="290" width="430" height="115" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="465" y="315" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шинна матриця AXI / AHB Crossbar</text>
+  <text x="465" y="337" font-size="12" fill="#6b7280" text-anchor="middle">Арбітраж кешу MMU / DCache та контролер Octal SPI</text>
+  <rect x="270" y="350" width="390" height="42" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="465" y="376" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контролер шини Octal SPI (OSPI) з DQS стробом</text>
+
+  <!-- Right Block: External PSRAM -->
+  <rect x="730" y="90" width="200" height="330" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <text x="830" y="118" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Зовнішня PSRAM</text>
+  <text x="830" y="136" font-size="12" fill="#6b7280" text-anchor="middle">Домен Octal SPI (8 біт)</text>
+
+  <!-- PSRAM Buffers -->
+  <rect x="745" y="160" width="170" height="70" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="830" y="185" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Кадровий буфер 0</text>
+  <text x="830" y="205" font-size="12" fill="#1a1a1a" text-anchor="middle">384 КБ (UXGA JPEG)</text>
+  <text x="830" y="221" font-size="12" fill="#6b7280" text-anchor="middle">16-байтове вирівнювання</text>
+
+  <rect x="745" y="250" width="170" height="70" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="830" y="275" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Кадровий буфер 1</text>
+  <text x="830" y="295" font-size="12" fill="#1a1a1a" text-anchor="middle">384 КБ (Мультибуфер)</text>
+  <text x="830" y="311" font-size="12" fill="#6b7280" text-anchor="middle">Подвійна буферизація</text>
+
+  <!-- PSRAM Note -->
+  <rect x="745" y="340" width="170" height="65" fill="#e9f7ef" stroke="#27ae60" stroke-dasharray="3,3" stroke-width="1" rx="4"/>
+  <text x="830" y="363" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Нуль навантаження CPU</text>
+  <text x="830" y="383" font-size="12" fill="#1a1a1a" text-anchor="middle">Прямий запис DMA</text>
+
+  <!-- Connections -->
+  <path d="M 200 202 L 242 202" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <path d="M 660 371 L 722 371" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="691" y="363" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">OSPI</text>
+</svg>

@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Вплив розв'язувальних конденсаторів на імпульсні піки струму RF-передавача</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Схема фільтрації та осцилограма згладжування просідань напруги V_DD під час Wi-Fi TX спалаху</text>
+
+  <!-- LEFT PANEL: Circuit Diagram -->
+  <rect x="30" y="85" width="420" height="430" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="240" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Схема підсистеми живлення ESP8266</text>
+
+  <!-- LDO Regulator -->
+  <rect x="50" y="145" width="90" height="70" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="95" y="175" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">LDO</text>
+  <text x="95" y="195" text-anchor="middle" font-size="12" fill="#1a1a1a">3.3 V</text>
+
+  <!-- Power Rail & Trace Parasitics -->
+  <line x1="140" y1="180" x2="370" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="210" y="170" text-anchor="middle" font-size="12" fill="#6b7280">R_trace + L_trace</text>
+
+  <!-- Decoupling Branch 1: C_bulk (10 uF) -->
+  <line x1="250" y1="180" x2="250" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="235" y1="230" x2="265" y2="230" stroke="#27ae60" stroke-width="2"/>
+  <line x1="235" y1="236" x2="265" y2="236" stroke="#27ae60" stroke-width="2"/>
+  <line x1="250" y1="236" x2="250" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="225" y="255" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">C_bulk</text>
+  <text x="225" y="273" text-anchor="end" font-size="12" fill="#6b7280">10 µF</text>
+
+  <!-- Decoupling Branch 2: C_rf (100 nF) -->
+  <line x1="320" y1="180" x2="320" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="305" y1="230" x2="335" y2="230" stroke="#27ae60" stroke-width="2"/>
+  <line x1="305" y1="236" x2="335" y2="236" stroke="#27ae60" stroke-width="2"/>
+  <line x1="320" y1="236" x2="320" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="295" y="255" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">C_rf</text>
+  <text x="295" y="273" text-anchor="end" font-size="12" fill="#6b7280">100 nF</text>
+
+  <!-- Ground Rail -->
+  <line x1="95" y1="330" x2="390" y2="330" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="95" y1="215" x2="95" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- ESP8266 Load Block -->
+  <rect x="370" y="145" width="70" height="200" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="405" y="215" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">ESP8266</text>
+  <text x="405" y="235" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">VDD_RF</text>
+  <text x="405" y="260" text-anchor="middle" font-size="12" fill="#c0392b">I_peak</text>
+
+  <!-- Left Callout Panel -->
+  <rect x="45" y="360" width="390" height="140" rx="6" ry="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="385" font-size="12" fill="#1a1a1a">• C_rf (100 nF): Гасить ВЧ-завади на джерелі (низький ESL).</text>
+  <text x="55" y="410" font-size="12" fill="#1a1a1a">• C_bulk (10 µF): Поповнює заряд під час імпульсів I_peak.</text>
+  <text x="55" y="435" font-size="12" fill="#1a1a1a">• Без розв'язки: L_trace створює просідання V_DD = L·(di/dt).</text>
+  <text x="55" y="460" font-size="12" fill="#c0392b">• Просідання нижче 2.8 В викликає апаратний Brownout Reset.</text>
+
+
+  <!-- RIGHT PANEL: Oscillogram Waveforms -->
+  <rect x="480" y="85" width="450" height="430" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="705" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Осцилограма струму I_RF та напруги V_DD</text>
+
+  <!-- GRAPH 1: Current Pulse I_RF(t) -->
+  <rect x="530" y="140" width="370" height="100" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="140" text-anchor="end" font-size="12" fill="#6b7280">I_RF (mA)</text>
+  <text x="525" y="224" text-anchor="end" font-size="12" fill="#6b7280">70 mA</text>
+  <text x="525" y="164" text-anchor="end" font-size="12" fill="#2457d6">350 mA</text>
+
+  <!-- Current Waveform Area -->
+  <path d="M 530 220 H 620 L 625 160 H 770 L 775 220 H 900 V 240 H 530 Z" fill="#eaf0fd" stroke="none"/>
+  <path d="M 530 220 H 620 L 625 160 H 770 L 775 220 H 900" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="695" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Wi-Fi TX Спалах (I_peak = 350 mA)</text>
+
+  <!-- GRAPH 2: Voltage Response V_DD(t) -->
+  <rect x="530" y="270" width="370" height="210" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="270" text-anchor="end" font-size="12" fill="#6b7280">V_DD (V)</text>
+
+  <text x="525" y="294" text-anchor="end" font-size="12" fill="#1a1a1a">3.3V</text>
+  <text x="525" y="324" text-anchor="end" font-size="12" fill="#27ae60">3.2V</text>
+  <text x="525" y="404" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">2.8V</text>
+  <text x="525" y="454" text-anchor="end" font-size="12" fill="#c0392b">2.6V</text>
+
+  <!-- Brownout Reference Line -->
+  <line x1="530" y1="400" x2="900" y2="400" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="890" y="378" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">Поріг Brownout<tspan x="890" dy="14">Reset (2.8 V)</tspan></text>
+
+  <!-- Waveform 1: With Decoupling Capacitors -->
+  <path d="M 530 290 H 620 C 630 290 635 315 645 315 H 765 C 775 315 780 290 790 290 H 900" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="695" y="310" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">З розв'язкою: ΔV ≤ 80 mV (Стабільно)</text>
+
+  <!-- Waveform 2: Without Decoupling Capacitors -->
+  <path d="M 530 290 H 620 L 635 450 H 770 L 785 290 H 900" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="695" y="466" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Без розв'язки: V_DD = 2.6 V &lt; 2.8 V (Bootloop!)</text>
+
+  <!-- X-Axis Time Label -->
+  <text x="715" y="500" text-anchor="middle" font-size="12" fill="#6b7280">Час t (ms)</text>
+</svg>

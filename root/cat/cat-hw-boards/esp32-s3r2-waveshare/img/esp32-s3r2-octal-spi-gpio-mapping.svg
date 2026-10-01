@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розподіл виводів GPIO у платі Waveshare ESP32-S3R2</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Внутрішні лінії GPIO33–GPIO37 заблоковані Octal SPI PSRAM, вільні GPIO доступні для периферії</text>
+  
+  <!-- Ліва панель: Заблоковані лінії Octal SPI -->
+  <rect x="40" y="75" width="420" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="250" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">ЗАБЛОКОВАНІ ЛІНІЇ OCTAL SPI PSRAM</text>
+  <text x="250" y="122" text-anchor="middle" font-size="12" fill="#6b7280">Внутрішній монтаж SiP (System-in-Package)</text>
+  
+  <!-- Контейнер для заблокованих виводів -->
+  <rect x="60" y="138" width="380" height="205" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  
+  <!-- Перелік заблокованих виводів -->
+  <text x="80" y="165" font-size="13" font-weight="bold" fill="#c0392b">GPIO33</text>
+  <text x="165" y="165" font-size="12" fill="#1a1a1a">SPI_DATA4 (Шина даних D4 Octal SPI)</text>
+  
+  <text x="80" y="200" font-size="13" font-weight="bold" fill="#c0392b">GPIO34</text>
+  <text x="165" y="200" font-size="12" fill="#1a1a1a">SPI_DATA5 (Шина даних D5 Octal SPI)</text>
+  
+  <text x="80" y="235" font-size="13" font-weight="bold" fill="#c0392b">GPIO35</text>
+  <text x="165" y="235" font-size="12" fill="#1a1a1a">SPI_DATA6 (Шина даних D6 Octal SPI)</text>
+  
+  <text x="80" y="270" font-size="13" font-weight="bold" fill="#c0392b">GPIO36</text>
+  <text x="165" y="270" font-size="12" fill="#1a1a1a">SPI_DATA7 (Шина даних D7 Octal SPI)</text>
+  
+  <text x="80" y="305" font-size="13" font-weight="bold" fill="#c0392b">GPIO37</text>
+  <text x="165" y="305" font-size="12" fill="#1a1a1a">SPI_DQS (Строб даних DQS Octal SPI)</text>
+  
+  <!-- Блок попередження про конфлікт -->
+  <rect x="60" y="355" width="380" height="78" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="250" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ПОПЕРЕДЖЕННЯ ПРО АПАРАТНИЙ КОНФЛІКТ</text>
+  <text x="250" y="396" text-anchor="middle" font-size="12" fill="#1a1a1a">Спроба задіяти GPIO33–GPIO37 викликає</text>
+  <text x="250" y="415" text-anchor="middle" font-size="12" fill="#1a1a1a">Cache Fault та краш ядра при вибірці з PSRAM</text>
+  
+  <!-- Права панель: Вільні та системні виводи -->
+  <rect x="500" y="75" width="420" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="710" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">ВІЛЬНІ ТА СИСТЕМНІ ВИВОДИ ПЛАТИ</text>
+  <text x="710" y="122" text-anchor="middle" font-size="12" fill="#6b7280">Доступні виводи для користувацької периферії</text>
+  
+  <!-- Контейнер для вільних виводів -->
+  <rect x="520" y="138" width="380" height="205" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  
+  <!-- Перелік вільних та системних виводів -->
+  <text x="540" y="165" font-size="13" font-weight="bold" fill="#27ae60">GPIO1–18, 21</text>
+  <text x="665" y="165" font-size="12" fill="#1a1a1a">Вільні GPIO (I2C, SPI, ADC, DVP)</text>
+  
+  <text x="540" y="200" font-size="13" font-weight="bold" fill="#27ae60">GPIO19, 20</text>
+  <text x="665" y="200" font-size="12" fill="#1a1a1a">Нативний USB D-/D+ (OTG/CDC/JTAG)</text>
+  
+  <text x="540" y="235" font-size="13" font-weight="bold" fill="#27ae60">GPIO38–42, 47–48</text>
+  <text x="665" y="235" font-size="12" fill="#1a1a1a">Вільні високошвидкісні виводи</text>
+  
+  <text x="540" y="270" font-size="13" font-weight="bold" fill="#27ae60">GPIO43, 44</text>
+  <text x="665" y="270" font-size="12" fill="#1a1a1a">Консольний інтерфейс UART0 (TX/RX)</text>
+  
+  <text x="540" y="305" font-size="13" font-weight="bold" fill="#2457d6">GPIO0, 45, 46</text>
+  <text x="665" y="305" font-size="12" fill="#1a1a1a">Конфігураційні strapping pins</text>
+  
+  <!-- Блок рекомендацій -->
+  <rect x="520" y="355" width="380" height="78" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="710" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">РЕКОМЕНДАЦІЇ З РОЗПОДІЛУ ВИВОДІВ</text>
+  <text x="710" y="396" text-anchor="middle" font-size="12" fill="#1a1a1a">Використовуйте GPIO19/20 для прошивання та JTAG,</text>
+  <text x="710" y="415" text-anchor="middle" font-size="12" fill="#1a1a1a">а GPIO0, 45, 46 утримуйте в штатному стані при старті</text>
+</svg>

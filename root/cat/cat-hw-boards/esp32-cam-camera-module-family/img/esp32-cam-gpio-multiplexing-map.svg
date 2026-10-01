@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Карта мультиплексування виводів GPIO на платі ESP32-CAM</text>
+  <text x="480" y="55" text-anchor="middle" font-size="13" fill="#6b7280">Розподіл ліній між камерою DVP, карткою MicroSD, PSRAM, UART та підсвічуванням</text>
+
+  <!-- Left Panel 1: Camera OV2640 DVP -->
+  <rect x="25" y="80" width="270" height="270" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="160" y="104" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Камера OV2640 (DVP &amp; SCCB)</text>
+  <text x="160" y="122" text-anchor="middle" font-size="12" fill="#6b7280">15 виводів GPIO (Виділена шина)</text>
+
+  <text x="38" y="148" font-size="12" font-weight="bold" fill="#1a1a1a">Дані D0–D7:</text>
+  <text x="115" y="148" font-size="12" fill="#2457d6">GPIO 5, 18, 19, 21, 34–36, 39</text>
+
+  <text x="38" y="173" font-size="12" font-weight="bold" fill="#1a1a1a">Тактування:</text>
+  <text x="115" y="173" font-size="12" font-weight="bold" fill="#c0392b">GPIO 0 XCLK (Boot Strapping)</text>
+
+  <text x="38" y="198" font-size="12" font-weight="bold" fill="#1a1a1a">Синхронізація:</text>
+  <text x="132" y="198" font-size="12" fill="#2457d6">PCLK:22, VSYNC:25, HREF:23</text>
+
+  <text x="38" y="223" font-size="12" font-weight="bold" fill="#1a1a1a">Шина SCCB:</text>
+  <text x="115" y="223" font-size="12" fill="#2457d6">SIOD: 26 (SDA), SIOC: 27 (SCL)</text>
+
+  <text x="38" y="248" font-size="12" font-weight="bold" fill="#1a1a1a">Живлення:</text>
+  <text x="115" y="248" font-size="12" fill="#2457d6">GPIO 32 (PWDN Power Down)</text>
+
+  <!-- Camera Warning Box -->
+  <rect x="35" y="268" width="250" height="67" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="45" y="288" font-size="12" font-weight="bold" fill="#c0392b">⚠️ Апаратне застереження:</text>
+  <text x="45" y="306" font-size="12" fill="#1a1a1a">GPIO 0 використовується для XCLK.</text>
+  <text x="45" y="324" font-size="12" fill="#1a1a1a">При прошивці підтягується до GND!</text>
+
+  <!-- Left Panel 2: PSRAM -->
+  <rect x="25" y="370" width="270" height="140" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="160" y="393" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Зовнішня PSRAM (4 / 8 МБ)</text>
+  <text x="160" y="411" text-anchor="middle" font-size="12" fill="#6b7280">Буферизація кадрів високої роздільності</text>
+
+  <text x="38" y="436" font-size="12" font-weight="bold" fill="#1a1a1a">Вибір чіпа CS:</text>
+  <text x="135" y="436" font-size="12" font-weight="bold" fill="#c0392b">GPIO 16 (Зарезервовано)</text>
+
+  <text x="38" y="461" font-size="12" font-weight="bold" fill="#1a1a1a">Шина PSRAM:</text>
+  <text x="125" y="461" font-size="12" fill="#6b7280">GPIO 6–11 (SPI Flash/PSRAM)</text>
+
+  <text x="38" y="486" font-size="12" font-weight="bold" fill="#1a1a1a">Призначення:</text>
+  <text x="125" y="486" font-size="12" fill="#27ae60">Кадрові буфери UXGA/JPEG</text>
+
+  <!-- Center Panel: ESP32 SoC -->
+  <rect x="325" y="80" width="310" height="430" rx="10" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="480" y="104" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a1a">ESP32-D0WD / ESP32-CAM</text>
+  <text x="480" y="122" text-anchor="middle" font-size="12" fill="#6b7280">Центральний контролер та комутація</text>
+
+  <!-- Center Sub-box 1: I2S Controller -->
+  <rect x="340" y="140" width="280" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="160" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Контролер I2S (Camera Mode)</text>
+  <text x="480" y="180" text-anchor="middle" font-size="12" fill="#1a1a1a">Апаратне захоплення кадру</text>
+  <text x="480" y="198" text-anchor="middle" font-size="12" fill="#1a1a1a">Пряма передача DMA в SRAM / PSRAM</text>
+
+  <!-- Center Sub-box 2: GPIO Matrix -->
+  <rect x="340" y="230" width="280" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="250" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Матриця розподілу GPIO</text>
+  <text x="352" y="272" font-size="12" fill="#2457d6">• Камера DVP: 15 виводів (виділена)</text>
+  <text x="352" y="292" font-size="12" fill="#c0392b">• Слот MicroSD: 6 виводів (конфлікт)</text>
+  <text x="352" y="312" font-size="12" fill="#27ae60">• Серійний порт UART0: 2 виводи</text>
+
+  <!-- Center Sub-box 3: Header Pin Status -->
+  <rect x="340" y="340" width="280" height="155" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="360" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Статус виводів зовнішього розніму</text>
+  <text x="352" y="382" font-size="12" fill="#1a1a1a">• GPIO 1, 3: UART0 (Прошивка / Логи)</text>
+  <text x="352" y="404" font-size="12" fill="#1a1a1a">• GPIO 12, 13: Вільні лише при 1-bit SD</text>
+  <text x="352" y="426" font-size="12" fill="#c0392b">• GPIO 4: Підсвічування / SD DATA1</text>
+  <text x="352" y="448" font-size="12" fill="#1a1a1a">• GPIO 2, 14, 15: Використано SDMMC</text>
+  <text x="352" y="470" font-size="12" fill="#6b7280">• GPIO 16: Зайнято CS PSRAM</text>
+
+  <!-- Right Panel 1: MicroSD -->
+  <rect x="665" y="80" width="270" height="200" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="800" y="104" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Слот MicroSD (Шина SDMMC)</text>
+  <text x="800" y="122" text-anchor="middle" font-size="12" fill="#6b7280">Режими 4-bit та 1-bit SDMMC</text>
+
+  <text x="678" y="146" font-size="12" font-weight="bold" fill="#1a1a1a">Команда CMD:</text>
+  <text x="765" y="146" font-size="12" fill="#1a1a1a">GPIO 15 (Pull-up)</text>
+
+  <text x="678" y="168" font-size="12" font-weight="bold" fill="#1a1a1a">Тактування CLK:</text>
+  <text x="780" y="168" font-size="12" fill="#1a1a1a">GPIO 14</text>
+
+  <text x="678" y="190" font-size="12" font-weight="bold" fill="#1a1a1a">Лінії DATA0,2,3:</text>
+  <text x="785" y="190" font-size="12" fill="#1a1a1a">GPIO 2, 12, 13</text>
+
+  <text x="678" y="212" font-size="12" font-weight="bold" fill="#c0392b">Лінія DATA1:</text>
+  <text x="770" y="212" font-size="12" font-weight="bold" fill="#c0392b">GPIO 4 (Спільний з LED!)</text>
+
+  <!-- MicroSD Conflict Box -->
+  <rect x="675" y="226" width="250" height="46" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="683" y="243" font-size="12" font-weight="bold" fill="#c0392b">⚠️ Проблема GPIO 4 (Flash LED):</text>
+  <text x="683" y="260" font-size="12" fill="#1a1a1a">Читання SD 4-bit викликає спалахи LED!</text>
+
+  <!-- Right Panel 2: Peripherals & Indicators -->
+  <rect x="665" y="295" width="270" height="215" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="800" y="319" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Периферія та Індикація</text>
+  <text x="800" y="337" text-anchor="middle" font-size="12" fill="#6b7280">Світлодіоди та UART прошивки</text>
+
+  <!-- Peripherals Sub-box 1: Flash LED -->
+  <rect x="675" y="348" width="250" height="47" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="683" y="366" font-size="12" font-weight="bold" fill="#c0392b">Спалах підсвічування: GPIO 4</text>
+  <text x="683" y="384" font-size="12" fill="#1a1a1a">При 1-bit SD вивод 4 можна звільнити</text>
+
+  <!-- Peripherals Sub-box 2: UART Serial -->
+  <rect x="675" y="403" width="250" height="47" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="683" y="421" font-size="12" font-weight="bold" fill="#27ae60">Порт UART0 (TX/RX): GPIO 1, 3</text>
+  <text x="683" y="439" font-size="12" fill="#1a1a1a">Використовується для прошивки/логів</text>
+
+  <!-- Peripherals Sub-box 3: Onboard LED -->
+  <rect x="675" y="458" width="250" height="44" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="683" y="475" font-size="12" font-weight="bold" fill="#1a1a1a">Червоний індикатор: GPIO 33</text>
+  <text x="683" y="492" font-size="12" fill="#6b7280">Інверсна логіка (LOW = Увімкнено)</text>
+
+  <!-- Inter-panel Connection Lines with Arrowheads -->
+  <!-- Camera -> ESP32 -->
+  <line x1="295" y1="215" x2="325" y2="215" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- PSRAM -> ESP32 -->
+  <line x1="295" y1="440" x2="325" y2="440" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <!-- ESP32 -> MicroSD -->
+  <line x1="635" y1="180" x2="665" y2="180" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- ESP32 -> Peripherals -->
+  <line x1="635" y1="400" x2="665" y2="400" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+</svg>

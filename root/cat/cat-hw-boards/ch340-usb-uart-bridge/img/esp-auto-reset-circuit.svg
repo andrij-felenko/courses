@@ -1,0 +1,228 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Визначення маркерів стрілок -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема автоматичного скидання (Auto-Reset) для ESP8266 / ESP32</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Перехресне керування транзисторами Q1 та Q2 за сигналами DTR# і RTS# для формування EN і GPIO0</text>
+
+  <!-- ПАНЕЛЬ 1: CH340C (Ліворуч) -->
+  <g id="ch340c-chip">
+    <rect x="40" y="75" width="150" height="270" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+    <rect x="40" y="75" width="150" height="36" rx="8" ry="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="2"/>
+    <text x="115" y="99" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">CH340C</text>
+    <text x="115" y="124" font-size="12" fill="#6b7280" text-anchor="middle">USB-UART мікросхема</text>
+
+    <!-- Вивід DTR# -->
+    <text x="82" y="190" font-size="12" fill="#6b7280" text-anchor="middle">pin 13</text>
+    <rect x="130" y="170" width="60" height="30" rx="4" ry="4" fill="#2457d6"/>
+    <text x="160" y="190" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">DTR#</text>
+
+    <!-- Вивід RTS# -->
+    <text x="82" y="310" font-size="12" fill="#6b7280" text-anchor="middle">pin 14</text>
+    <rect x="130" y="290" width="60" height="30" rx="4" ry="4" fill="#2457d6"/>
+    <text x="160" y="310" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">RTS#</text>
+  </g>
+
+  <!-- ПАНЕЛЬ 2: ESP8266 / ESP32 (Праворуч) -->
+  <g id="esp-chip">
+    <rect x="770" y="75" width="150" height="270" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+    <rect x="770" y="75" width="150" height="36" rx="8" ry="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="2"/>
+    <text x="845" y="99" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">ESP8266 / ESP32</text>
+    <text x="845" y="124" font-size="12" fill="#6b7280" text-anchor="middle">Мікроконтролер</text>
+
+    <!-- Вхід EN -->
+    <rect x="770" y="155" width="70" height="30" rx="4" ry="4" fill="#27ae60"/>
+    <text x="805" y="175" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">EN (RST)</text>
+    <text x="848" y="175" font-size="12" fill="#6b7280" text-anchor="start">Скидання</text>
+
+    <!-- Вхід GPIO0 -->
+    <rect x="770" y="275" width="70" height="30" rx="4" ry="4" fill="#27ae60"/>
+    <text x="805" y="295" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">GPIO0</text>
+    <text x="848" y="295" font-size="12" fill="#6b7280" text-anchor="start">Режим Boot</text>
+  </g>
+
+  <!-- ЦЕНТРАЛЬНА СХЕМА АВТОСКИДАННЯ -->
+  <g id="auto-reset-circuit">
+    <!-- Рамка центральної схеми -->
+    <rect x="210" y="75" width="540" height="270" rx="8" ry="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="6,4"/>
+    <text x="360" y="98" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вузол автоскидання (Auto-Reset Circuit)</text>
+
+    <!-- Позитивна шина живлення +3.3V -->
+    <text x="640" y="98" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">+3.3V (VCC)</text>
+    <!-- Символ живлення VCC (трикутник) -->
+    <polygon points="640,103 634,111 646,111" fill="#27ae60"/>
+    <line x1="530" y1="111" x2="650" y2="111" stroke="#27ae60" stroke-width="2"/>
+
+    <!-- Підтягувальний резистор R3 (для лінії EN) -->
+    <line x1="530" y1="111" x2="530" y2="120" stroke="#1a1a1a" stroke-width="1.5"/>
+    <rect x="522" y="120" width="16" height="28" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="514" y="138" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">R3 10 kΩ</text>
+    <line x1="530" y1="148" x2="530" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+
+    <!-- Підтягувальний резистор R4 (для лінії GPIO0) -->
+    <line x1="650" y1="111" x2="650" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+    <rect x="642" y="195" width="16" height="28" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="634" y="213" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">R4 10 kΩ</text>
+    <line x1="650" y1="223" x2="650" y2="290" stroke="#1a1a1a" stroke-width="1.5"/>
+
+    <!-- Фільтруючий конденсатор C1 на лінії EN -->
+    <line x1="710" y1="170" x2="710" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="700" y1="195" x2="720" y2="195" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="700" y1="203" x2="720" y2="203" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="710" y1="203" x2="710" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+    <!-- Земля GND для C1 -->
+    <line x1="702" y1="225" x2="718" y2="225" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="706" y1="229" x2="714" y2="229" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="708" y1="233" x2="712" y2="233" stroke="#1a1a1a" stroke-width="1"/>
+    <text x="710" y="250" font-size="12" fill="#6b7280" text-anchor="middle">C1 100 nF</text>
+
+    <!-- ТРАНЗИСТОР Q1 (NPN) -->
+    <g id="transistor-q1">
+      <circle cx="440" cy="170" r="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+      <!-- База -->
+      <line x1="430" y1="158" x2="430" y2="182" stroke="#1a1a1a" stroke-width="2.5"/>
+      <line x1="385" y1="170" x2="430" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+      <!-- Колектор -->
+      <line x1="430" y1="163" x2="448" y2="148" stroke="#1a1a1a" stroke-width="1.5"/>
+      <line x1="448" y1="148" x2="530" y2="148" stroke="#1a1a1a" stroke-width="1.5"/>
+      <line x1="530" y1="148" x2="530" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+      <!-- Емітер з стрілкою NPN -->
+      <line x1="430" y1="177" x2="448" y2="192" stroke="#1a1a1a" stroke-width="1.5"/>
+      <polygon points="448,192 440,188 444,182" fill="#1a1a1a"/>
+      <line x1="448" y1="192" x2="448" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+      <line x1="448" y1="210" x2="255" y2="210" stroke="#2457d6" stroke-width="1.5"/>
+      <!-- Написи Q1 -->
+      <text x="440" y="138" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Q1 (NPN)</text>
+      <!-- Резистор бази R2 -->
+      <rect x="345" y="162" width="40" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+      <text x="365" y="154" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R2 10 kΩ</text>
+    </g>
+
+    <!-- ТРАНЗИСТОР Q2 (NPN) -->
+    <g id="transistor-q2">
+      <circle cx="440" cy="290" r="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+      <!-- База -->
+      <line x1="430" y1="278" x2="430" y2="302" stroke="#1a1a1a" stroke-width="2.5"/>
+      <line x1="385" y1="290" x2="430" y2="290" stroke="#1a1a1a" stroke-width="1.5"/>
+      <!-- Колектор -->
+      <line x1="430" y1="283" x2="448" y2="268" stroke="#1a1a1a" stroke-width="1.5"/>
+      <line x1="448" y1="268" x2="650" y2="268" stroke="#1a1a1a" stroke-width="1.5"/>
+      <line x1="650" y1="268" x2="650" y2="290" stroke="#1a1a1a" stroke-width="1.5"/>
+      <!-- Емітер з стрілкою NPN -->
+      <line x1="430" y1="297" x2="448" y2="312" stroke="#1a1a1a" stroke-width="1.5"/>
+      <polygon points="448,312 440,308 444,302" fill="#1a1a1a"/>
+      <line x1="448" y1="312" x2="448" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+      <line x1="448" y1="330" x2="255" y2="330" stroke="#2457d6" stroke-width="1.5"/>
+      <!-- Написи Q2 -->
+      <text x="440" y="258" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Q2 (NPN)</text>
+      <!-- Резистор бази R1 -->
+      <rect x="345" y="282" width="40" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+      <text x="365" y="314" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R1 10 kΩ</text>
+    </g>
+
+    <!-- ЛІНІЇ СИГНАЛІВ З CH340C ТА ЇХ РОЗГАЛУЖЕННЯ -->
+    <!-- DTR# лінія з CH340C (pin 13) -->
+    <line x1="190" y1="185" x2="255" y2="185" stroke="#2457d6" stroke-width="2"/>
+    <circle cx="255" cy="185" r="3.5" fill="#2457d6"/>
+    <text x="222" y="177" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DTR#</text>
+    <!-- Гілка DTR до емітера Q1 -->
+    <line x1="255" y1="185" x2="255" y2="210" stroke="#2457d6" stroke-width="1.5"/>
+    <!-- Гілка DTR до бази Q2 через R1 -->
+    <line x1="255" y1="185" x2="290" y2="185" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="290" y1="185" x2="290" y2="290" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="290" y1="290" x2="345" y2="290" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+    <!-- RTS# лінія з CH340C (pin 14) -->
+    <line x1="190" y1="305" x2="255" y2="305" stroke="#2457d6" stroke-width="2"/>
+    <circle cx="255" cy="305" r="3.5" fill="#2457d6"/>
+    <text x="222" y="297" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">RTS#</text>
+    <!-- Гілка RTS до емітера Q2 -->
+    <line x1="255" y1="305" x2="255" y2="330" stroke="#2457d6" stroke-width="1.5"/>
+    <!-- Гілка RTS до бази Q1 через R2 -->
+    <line x1="255" y1="305" x2="315" y2="305" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="315" y1="305" x2="315" y2="170" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="315" y1="170" x2="345" y2="170" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+    <!-- ВИХІДНІ ЛІНІЇ СИГНАЛІВ КЕРУВАННЯ В ESP -->
+    <!-- Лінія EN -->
+    <circle cx="530" cy="170" r="3.5" fill="#27ae60"/>
+    <circle cx="710" cy="170" r="3.5" fill="#27ae60"/>
+    <line x1="530" y1="170" x2="770" y2="170" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+    <text x="590" y="162" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Сигнал EN</text>
+
+    <!-- Лінія GPIO0 -->
+    <circle cx="650" cy="290" r="3.5" fill="#27ae60"/>
+    <line x1="650" y1="290" x2="770" y2="290" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+    <text x="710" y="282" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Сигнал GPIO0</text>
+  </g>
+
+  <!-- ПАНЕЛЬ 3: ТАБЛИЦЯ ІСТИННОСТІ ТА ЛОГІКА РЕЖИМІВ -->
+  <g id="truth-table">
+    <rect x="40" y="360" width="880" height="155" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="480" y="380" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Логіка роботи вузла автоскидання (Таблиця істинності)</text>
+
+    <!-- Шапка таблиці -->
+    <rect x="55" y="392" width="850" height="24" rx="4" ry="4" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+    <text x="100" y="408" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DTR#</text>
+    <text x="160" y="408" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RTS#</text>
+    <text x="240" y="408" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Транзистор Q1</text>
+    <text x="340" y="408" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Транзистор Q2</text>
+    <text x="430" y="408" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вихід EN</text>
+    <text x="520" y="408" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вихід GPIO0</text>
+    <text x="730" y="408" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Режим роботи ESP</text>
+
+    <!-- Рядок 1: Нормальний режим -->
+    <rect x="55" y="418" width="850" height="22" fill="#ffffff" stroke="#e1e4e8" stroke-width="1"/>
+    <text x="100" y="434" font-size="12" fill="#1a1a1a" text-anchor="middle">1 (High)</text>
+    <text x="160" y="434" font-size="12" fill="#1a1a1a" text-anchor="middle">1 (High)</text>
+    <text x="240" y="434" font-size="12" fill="#6b7280" text-anchor="middle">Вимкнений</text>
+    <text x="340" y="434" font-size="12" fill="#6b7280" text-anchor="middle">Вимкнений</text>
+    <text x="430" y="434" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3.3 В (High)</text>
+    <text x="520" y="434" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3.3 В (High)</text>
+    <text x="730" y="434" font-size="12" fill="#1a1a1a" text-anchor="middle">Нормальна робота (виконання коду)</text>
+
+    <!-- Рядок 2: Скидання -->
+    <rect x="55" y="440" width="850" height="22" fill="#ffffff" stroke="#e1e4e8" stroke-width="1"/>
+    <text x="100" y="456" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">0 (Low)</text>
+    <text x="160" y="456" font-size="12" fill="#1a1a1a" text-anchor="middle">1 (High)</text>
+    <text x="240" y="456" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">УВІМКНЕНИЙ</text>
+    <text x="340" y="456" font-size="12" fill="#6b7280" text-anchor="middle">Вимкнений</text>
+    <text x="430" y="456" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">0 В (Low)</text>
+    <text x="520" y="456" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3.3 В (High)</text>
+    <text x="730" y="456" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Скидання мікроконтролера (Reset)</text>
+
+    <!-- Рядок 3: Прошивка -->
+    <rect x="55" y="462" width="850" height="22" fill="#ffffff" stroke="#e1e4e8" stroke-width="1"/>
+    <text x="100" y="478" font-size="12" fill="#1a1a1a" text-anchor="middle">1 (High)</text>
+    <text x="160" y="478" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">0 (Low)</text>
+    <text x="240" y="478" font-size="12" fill="#6b7280" text-anchor="middle">Вимкнений</text>
+    <text x="340" y="478" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">УВІМКНЕНИЙ</text>
+    <text x="430" y="478" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3.3 В (High)</text>
+    <text x="520" y="478" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">0 В (Low)</text>
+    <text x="730" y="478" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Режим прошивки (UART Bootloader)</text>
+
+    <!-- Рядок 4: Обидва Low (Захист) -->
+    <rect x="55" y="484" width="850" height="22" fill="#ffffff" stroke="#e1e4e8" stroke-width="1"/>
+    <text x="100" y="500" font-size="12" fill="#6b7280" text-anchor="middle">0 (Low)</text>
+    <text x="160" y="500" font-size="12" fill="#6b7280" text-anchor="middle">0 (Low)</text>
+    <text x="240" y="500" font-size="12" fill="#6b7280" text-anchor="middle">Вимкнений</text>
+    <text x="340" y="500" font-size="12" fill="#6b7280" text-anchor="middle">Вимкнений</text>
+    <text x="430" y="500" font-size="12" fill="#27ae60" text-anchor="middle">3.3 В (High)</text>
+    <text x="520" y="500" font-size="12" fill="#27ae60" text-anchor="middle">3.3 В (High)</text>
+    <text x="730" y="500" font-size="12" fill="#6b7280" text-anchor="middle">Захист: обидва транзистори вимкнені</text>
+  </g>
+</svg>

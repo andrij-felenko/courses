@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Топологія друкованої плати програматора DAPLink</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Суцільний шар землі (GND), ближнє розміщення конденсаторів 100 нФ та демпфуючі резистори SWD</text>
+
+  <!-- Left Panel: PCB Layout View -->
+  <rect x="30" y="75" width="560" height="450" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="45" y="87" width="530" height="30" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="310" y="107" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Розводка компонентів та сигнальних ліній на 2-шаровій платі</text>
+
+  <!-- PCB Substrate (Green Ground Plane Region) -->
+  <rect x="50" y="130" width="520" height="375" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="6"/>
+  <text x="310" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Суцільний полігон землі (GND Plane Layer)</text>
+
+  <!-- GND Stitching Vias (scattered across GND polygon) -->
+  <circle cx="100" cy="180" r="4" fill="#27ae60" stroke="#1a1a1a"/>
+  <circle cx="170" cy="170" r="4" fill="#27ae60" stroke="#1a1a1a"/>
+  <circle cx="350" cy="170" r="4" fill="#27ae60" stroke="#1a1a1a"/>
+  <circle cx="460" cy="170" r="4" fill="#27ae60" stroke="#1a1a1a"/>
+  <circle cx="100" cy="420" r="4" fill="#27ae60" stroke="#1a1a1a"/>
+  <circle cx="180" cy="450" r="4" fill="#27ae60" stroke="#1a1a1a"/>
+  <circle cx="340" cy="450" r="4" fill="#27ae60" stroke="#1a1a1a"/>
+  <circle cx="450" cy="450" r="4" fill="#27ae60" stroke="#1a1a1a"/>
+
+  <!-- USB Connector (Left) -->
+  <rect x="65" y="240" width="55" height="90" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="4"/>
+  <text x="92.5" y="280" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">USB</text>
+  <text x="92.5" y="298" text-anchor="middle" font-size="12" fill="#6b7280">Type-C</text>
+
+  <!-- Traces from USB to MCU -->
+  <line x1="120" y1="270" x2="210" y2="270" stroke="#2457d6" stroke-width="2"/>
+  <line x1="120" y1="300" x2="210" y2="300" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- DAPLink MCU IC (Center) -->
+  <rect x="210" y="220" width="130" height="130" fill="#1a1a1a" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <text x="275" y="278" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">DAPLink MCU</text>
+  <text x="275" y="296" text-anchor="middle" font-size="12" fill="#2457d6">(STM32 / LPC)</text>
+
+  <!-- Decoupling Capacitors C1, C2 -->
+  <!-- Top Cap C1 -->
+  <rect x="230" y="175" width="40" height="30" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+  <text x="250" y="194" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">C1</text>
+  <text x="250" y="168" text-anchor="middle" font-size="12" fill="#2457d6">100nF VDD</text>
+  <line x1="250" y1="205" x2="250" y2="220" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="280" cy="190" r="4" fill="#27ae60" stroke="#1a1a1a"/>
+
+  <!-- Bottom Cap C2 -->
+  <rect x="230" y="365" width="40" height="30" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+  <text x="250" y="384" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">C2</text>
+  <text x="250" y="412" text-anchor="middle" font-size="12" fill="#2457d6">100nF VDDA</text>
+  <line x1="250" y1="350" x2="250" y2="365" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="280" cy="380" r="4" fill="#27ae60" stroke="#1a1a1a"/>
+
+  <!-- Signal Traces & Series Damping Resistors -->
+  <!-- SWCLK Trace + R1 -->
+  <line x1="340" y1="250" x2="380" y2="250" stroke="#2457d6" stroke-width="2.5"/>
+  <rect x="380" y="238" width="45" height="24" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+  <text x="402.5" y="254" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">R1</text>
+  <text x="402.5" y="232" text-anchor="middle" font-size="12" fill="#2457d6">33Ω SWCLK</text>
+  <line x1="425" y1="250" x2="485" y2="250" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- SWDIO Trace + R2 -->
+  <line x1="340" y1="300" x2="380" y2="300" stroke="#2457d6" stroke-width="2.5"/>
+  <rect x="380" y="288" width="45" height="24" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+  <text x="402.5" y="304" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">R2</text>
+  <text x="402.5" y="326" text-anchor="middle" font-size="12" fill="#2457d6">33Ω SWDIO</text>
+  <line x1="425" y1="300" x2="485" y2="300" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- nRESET Trace + R3 -->
+  <line x1="340" y1="340" x2="380" y2="340" stroke="#c0392b" stroke-width="2"/>
+  <rect x="380" y="328" width="45" height="24" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" rx="3"/>
+  <text x="402.5" y="344" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">R3</text>
+  <text x="402.5" y="376" text-anchor="middle" font-size="12" fill="#c0392b">100Ω nRESET</text>
+  <line x1="425" y1="340" x2="485" y2="340" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Cortex Debug Connector (Right Side of PCB) -->
+  <rect x="485" y="220" width="65" height="140" fill="#ffffff" stroke="#1a1a1a" stroke-width="2" rx="4"/>
+  <text x="517.5" y="242" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">SWD</text>
+  <text x="517.5" y="260" text-anchor="middle" font-size="12" fill="#6b7280">10-pin</text>
+  <text x="517.5" y="278" text-anchor="middle" font-size="12" fill="#6b7280">Header</text>
+
+  <!-- Via Legend Label on PCB -->
+  <text x="160" y="475" text-anchor="middle" font-size="12" fill="#27ae60">GND Vias (Прошивка землі)</text>
+
+  <!-- Right Panel: Routing & Signal Integrity Rules -->
+  <rect x="610" y="75" width="320" height="450" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="625" y="87" width="290" height="30" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="770" y="107" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Ключові вимоги до трасування</text>
+
+  <!-- Card 1: Ground Plane -->
+  <rect x="625" y="130" width="290" height="105" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="635" y="148" text-anchor="start" font-size="13" font-weight="bold" fill="#27ae60">1. Екранування землі (GND)</text>
+  <text x="635" y="168" font-size="12" fill="#1a1a1a">• Суцільний шар під сигнальними</text>
+  <text x="635" y="186" font-size="12" fill="#1a1a1a">  трасами зменшує індуктивність</text>
+  <text x="635" y="204" font-size="12" fill="#1a1a1a">• Захищає SWCLK від завад</text>
+  <text x="635" y="224" font-size="12" font-weight="bold" fill="#27ae60">✔ Малий імпеданс контуру</text>
+
+  <!-- Card 2: Decoupling Caps -->
+  <rect x="625" y="245" width="290" height="115" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="635" y="263" text-anchor="start" font-size="13" font-weight="bold" fill="#2457d6">2. Фільтрація VDD (100 нФ)</text>
+  <text x="635" y="283" font-size="12" fill="#1a1a1a">• Розміщення упритул до VDD/GND</text>
+  <text x="635" y="301" font-size="12" fill="#1a1a1a">• Мінімальна довжина провідників</text>
+  <text x="635" y="319" font-size="12" fill="#1a1a1a">• Прямий вихід на GND via</text>
+  <text x="635" y="339" font-size="12" font-weight="bold" fill="#2457d6">✔ Ліквідує просідання живлення</text>
+
+  <!-- Card 3: Series Resistors -->
+  <rect x="625" y="370" width="290" height="145" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="635" y="388" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">3. Узгодження SWD (22–33 Ом)</text>
+  <text x="635" y="408" font-size="12" fill="#1a1a1a">• Послідовні резистори на</text>
+  <text x="635" y="426" font-size="12" fill="#1a1a1a">  лініях SWCLK та SWDIO</text>
+  <text x="635" y="444" font-size="12" fill="#1a1a1a">• Поглинають відбиття сигналів</text>
+  <text x="635" y="462" font-size="12" fill="#1a1a1a">  та усувають дзвін фронтів</text>
+  <text x="635" y="482" font-size="12" font-weight="bold" fill="#2457d6">✔ Зв'язок активний на 10+ МГц</text>
+</svg>

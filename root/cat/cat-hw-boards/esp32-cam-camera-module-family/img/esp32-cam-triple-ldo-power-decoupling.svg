@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Принципова схема триканального живлення сенсора камери ESP32-CAM</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Формування напруг AVDD, DVDD, DOVDD з RC/LC-фільтрацією та ємнісним пригніченням просідань VDD</text>
+
+  <!-- LEFT PANEL: Primary Power & 3.3V Rail -->
+  <rect x="30" y="80" width="230" height="340" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="80" width="230" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="145" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Первинна шина 5V / 3.3V</text>
+
+  <!-- Input Terminal -->
+  <rect x="45" y="130" width="200" height="46" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="145" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Джерело V_IN (5.0 V)</text>
+  <text x="145" y="164" text-anchor="middle" font-size="11" fill="#6b7280">зовнішнє живлення / USB</text>
+
+  <!-- AMS1117-3.3 Main LDO -->
+  <rect x="45" y="192" width="200" height="58" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="145" y="212" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Стабілізатор AMS1117-3.3</text>
+  <text x="145" y="230" text-anchor="middle" font-size="11" fill="#6b7280">Вихід: V_3.3V (до 800 мА)</text>
+
+  <!-- Primary Decoupling Block -->
+  <rect x="45" y="266" width="200" height="138" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="145" y="286" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Вхідний фільтр VDD</text>
+  <text x="145" y="306" text-anchor="middle" font-size="11" fill="#1a1a1a">• C_bulk = 10–100 μF (Тантал)</text>
+  <text x="145" y="322" text-anchor="middle" font-size="11" fill="#6b7280">ESR &lt; 0.1 Ом (буфер струму)</text>
+  <text x="145" y="342" text-anchor="middle" font-size="11" fill="#1a1a1a">• C_hf = 100 nF (Кераміка X7R)</text>
+  <text x="145" y="358" text-anchor="middle" font-size="11" fill="#6b7280">ESR &lt; 0.01 Ом (ВЧ завади)</text>
+  <text x="145" y="378" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">• Відстань до VDD &lt; 3 мм</text>
+
+  <!-- MIDDLE PANEL: Triple LDO Regulators & LC Filters -->
+  <rect x="280" y="80" width="410" height="340" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="280" y="80" width="410" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="485" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Триканальна схема живлення камери</text>
+
+  <!-- Sub-channel 1: DOVDD 3.3V -->
+  <rect x="295" y="128" width="380" height="80" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="485" y="146" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Канал 1: Цифрове живлення I/O (DOVDD = 3.3 V)</text>
+  <text x="485" y="164" text-anchor="middle" font-size="11" fill="#6b7280">Пряме підключення до шини V_3.3V через феритовий фільтр FB1</text>
+  <text x="485" y="182" text-anchor="middle" font-size="11" fill="#2457d6">FB1 (100 Ω @ 100MHz) + C_dovdd (100 nF + 4.7 μF)</text>
+  <text x="485" y="198" text-anchor="middle" font-size="11" fill="#6b7280">Живить цифровий буфер DVP &amp; SCCB (GPIO26, GPIO27)</text>
+
+  <!-- Sub-channel 2: AVDD 2.8V -->
+  <rect x="295" y="218" width="380" height="92" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="485" y="236" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Канал 2: Аналогове живлення матриці (AVDD = 2.8 V)</text>
+  <text x="485" y="254" text-anchor="middle" font-size="11" fill="#1a1a1a">Ультрамалошумний LDO (ME6211C28 / RT9013) з PSRR &gt; 70 dB</text>
+  <text x="485" y="272" text-anchor="middle" font-size="11" fill="#27ae60">LC-фільтр: FB2 + C_ana (100 nF кераміка + 10 μF low-ESR)</text>
+  <text x="485" y="290" text-anchor="middle" font-size="11" fill="#6b7280">Забезпечує пульсації &lt; 5 мВ для усунення шумів та смуг на фото</text>
+
+  <!-- Sub-channel 3: DVDD 1.2V -->
+  <rect x="295" y="320" width="380" height="88" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="485" y="338" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Канал 3: Цифрове ядро сенсора (DVDD = 1.2 V / 1.5 V)</text>
+  <text x="485" y="356" text-anchor="middle" font-size="11" fill="#6b7280">Окремий лінійний стабілізатор LDO (ME6211 1.2V) від шини 3.3V</text>
+  <text x="485" y="374" text-anchor="middle" font-size="11" fill="#2457d6">Фільтрація: C_dvdd (100 nF + 2.2 μF кераміка)</text>
+  <text x="485" y="392" text-anchor="middle" font-size="11" fill="#6b7280">Живить внутрішній DSP контролер обробки кадру OV2640</text>
+
+  <!-- RIGHT PANEL: Camera FPC Socket & Load -->
+  <rect x="710" y="80" width="220" height="340" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="710" y="80" width="220" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="820" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Сокет камери FPC (24-pin)</text>
+
+  <!-- Pin DOVDD -->
+  <rect x="725" y="128" width="190" height="52" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="820" y="146" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Пін DOVDD (3.3 V)</text>
+  <text x="820" y="164" text-anchor="middle" font-size="11" fill="#6b7280">I/O буфери сенсора</text>
+
+  <!-- Pin AVDD -->
+  <rect x="725" y="190" width="190" height="60" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="820" y="210" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Пін AVDD (2.8 V)</text>
+  <text x="820" y="228" text-anchor="middle" font-size="11" fill="#1a1a1a">Піксельна матриця CMOS</text>
+  <text x="820" y="242" text-anchor="middle" font-size="11" fill="#6b7280">чутлива до перешкод</text>
+
+  <!-- Pin DVDD -->
+  <rect x="725" y="260" width="190" height="52" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="820" y="278" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Пін DVDD (1.2 V)</text>
+  <text x="820" y="296" text-anchor="middle" font-size="11" fill="#6b7280">Логічне ядро DSP</text>
+
+  <!-- Ground Plane -->
+  <rect x="725" y="322" width="190" height="86" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="820" y="342" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Спільна шина GND</text>
+  <text x="820" y="360" text-anchor="middle" font-size="11" fill="#6b7280">Суцільний шар Ground Plane</text>
+  <text x="820" y="376" text-anchor="middle" font-size="11" fill="#6b7280">мінімізує індуктивність L_gnd</text>
+  <text x="820" y="392" text-anchor="middle" font-size="11" fill="#27ae60">найкоротші зворотні шляхи</text>
+
+  <!-- BOTTOM PANEL: Brownout Protection Mechanics -->
+  <rect x="30" y="435" width="900" height="105" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="455" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Фізичний механізм запобігання Brownout Reset (спад VDD &lt; 2.7 V при роботі Wi-Fi та спалаху)</text>
+
+  <text x="45" y="476" text-anchor="start" font-size="11" fill="#1a1a1a">• Спалах Wi-Fi (dI/dt ≈ 300 мА / 10 нс) створює індуктивний кидок ΔV = L · (dI/dt)</text>
+  <text x="45" y="494" text-anchor="start" font-size="11" fill="#1a1a1a">• При індуктивності L = 10 нГн індуктивний спад ΔV_ind = 0.3 A × (10 нГн / 10 нс) = 0.3 V</text>
+  <text x="45" y="512" text-anchor="start" font-size="11" font-weight="bold" fill="#c0392b">• Сумарне просідання напруги додається до ΔV_R і викликає Brownout Reset при VDD &lt; 2.7 V</text>
+
+  <rect x="540" y="464" width="375" height="64" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="727" y="480" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Схемотехнічні правила компенсації:</text>
+  <text x="727" y="498" text-anchor="middle" font-size="11" fill="#1a1a1a">100 nF кераміка (ESR &lt; 0.01 Ом) + 10–100 μF тантал (ESR &lt; 0.1 Ом)</text>
+  <text x="727" y="514" text-anchor="middle" font-size="11" fill="#6b7280">Розміщення конденсаторів ≤ 3 мм від VDD ніжок LDO та широкі VDD доріжки</text>
+
+  <!-- CONNECTORS -->
+  <!-- Left -> Middle 3.3V links -->
+  <line x1="260" y1="165" x2="293" y2="165" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="260" y1="264" x2="293" y2="264" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="260" y1="364" x2="293" y2="364" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Middle -> Right Power Output links -->
+  <line x1="677" y1="165" x2="723" y2="154" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="677" y1="264" x2="723" y2="220" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="677" y1="364" x2="723" y2="286" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+</svg>

@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ієрархія USB-дескрипторів та конечних точок складеного пристрою DAPLink</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Структура дескрипторів Device, Configuration, IAD та ендпоінтів для HID/WinUSB, CDC та MSC</text>
+
+  <!-- Level 1: Device Descriptor -->
+  <rect x="260" y="75" width="440" height="50" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="96" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Device Descriptor (VID: 0x0D28, PID: 0x0204)</text>
+  <text x="480" y="115" font-size="12" fill="#6b7280" text-anchor="middle">bDeviceClass = 0xEF (Miscellaneous / Composite IAD)</text>
+
+  <!-- Arrow L1 -> L2 -->
+  <line x1="480" y1="125" x2="480" y2="145" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+
+  <!-- Level 2: Configuration Descriptor -->
+  <rect x="260" y="145" width="440" height="50" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="166" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Configuration Descriptor (bNumInterfaces = 4)</text>
+  <text x="480" y="185" font-size="12" fill="#1a1a1a" text-anchor="middle">wTotalLength = 143B | Bus Powered (100mA)</text>
+
+  <!-- Branching Bus to Columns -->
+  <line x1="480" y1="195" x2="480" y2="210" stroke="#2457d6" stroke-width="2"/>
+  <line x1="140" y1="210" x2="820" y2="210" stroke="#2457d6" stroke-width="2"/>
+  <line x1="140" y1="210" x2="140" y2="225" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="370" y1="210" x2="370" y2="225" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="590" y1="210" x2="590" y2="225" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="820" y1="210" x2="820" y2="225" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Column 1: CMSIS-DAP Debug -->
+  <rect x="30" y="225" width="220" height="295" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="140" y="248" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">CMSIS-DAP Debug</text>
+  <text x="140" y="268" font-size="12" fill="#1a1a1a" text-anchor="middle">Interface 0 (IAD)</text>
+  <line x1="40" y1="278" x2="240" y2="278" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="45" y="296" font-size="12" font-weight="bold" fill="#1a1a1a">bInterfaceClass:</text>
+  <text x="45" y="314" font-size="12" fill="#6b7280">0x03 (HID) / 0xFF (Vendor)</text>
+  <text x="45" y="338" font-size="12" font-weight="bold" fill="#1a1a1a">Режими транспорту:</text>
+  <text x="45" y="356" font-size="12" fill="#1a1a1a">• v1: HID Interrupt (64B)</text>
+  <text x="45" y="374" font-size="12" fill="#1a1a1a">• v2: WinUSB Bulk (512B)</text>
+
+  <rect x="42" y="390" width="196" height="115" rx="6" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="140" y="410" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Конечні точки (EP):</text>
+  <text x="50" y="432" font-size="12" fill="#1a1a1a">• EP1 IN (0x81):</text>
+  <text x="62" y="450" font-size="12" fill="#6b7280">  Вхідні вибірки SWD</text>
+  <text x="50" y="472" font-size="12" fill="#1a1a1a">• EP1 OUT (0x01):</text>
+  <text x="62" y="490" font-size="12" fill="#6b7280">  Команди зневадження</text>
+
+  <!-- Column 2: CDC Control -->
+  <rect x="270" y="225" width="200" height="295" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="370" y="248" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CDC Control</text>
+  <text x="370" y="268" font-size="12" fill="#1a1a1a" text-anchor="middle">Interface 1 (CDC IAD)</text>
+  <line x1="280" y1="278" x2="460" y2="278" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="285" y="296" font-size="12" font-weight="bold" fill="#1a1a1a">bInterfaceClass:</text>
+  <text x="285" y="314" font-size="12" fill="#6b7280">0x02 (Communication)</text>
+  <text x="285" y="338" font-size="12" font-weight="bold" fill="#1a1a1a">bInterfaceSubClass:</text>
+  <text x="285" y="356" font-size="12" fill="#6b7280">0x02 (ACM Model)</text>
+  <text x="285" y="376" font-size="12" fill="#1a1a1a">Керування COM-портом</text>
+
+  <rect x="282" y="390" width="176" height="115" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="370" y="410" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конечна точка (EP):</text>
+  <text x="290" y="437" font-size="12" fill="#1a1a1a">• EP2 IN (0x82):</text>
+  <text x="302" y="457" font-size="12" fill="#6b7280">  Interrupt EP (8B)</text>
+  <text x="302" y="477" font-size="12" fill="#6b7280">  Події модема</text>
+
+  <!-- Column 3: CDC Data (VCP) -->
+  <rect x="490" y="225" width="200" height="295" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="590" y="248" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">CDC Data (VCP)</text>
+  <text x="590" y="268" font-size="12" fill="#1a1a1a" text-anchor="middle">Interface 2 (CDC IAD)</text>
+  <line x1="500" y1="278" x2="680" y2="278" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="505" y="296" font-size="12" font-weight="bold" fill="#1a1a1a">bInterfaceClass:</text>
+  <text x="505" y="314" font-size="12" fill="#6b7280">0x0A (CDC Data)</text>
+  <text x="505" y="338" font-size="12" font-weight="bold" fill="#1a1a1a">Протокол обміну:</text>
+  <text x="505" y="356" font-size="12" fill="#1a1a1a">• Віртуальний UART</text>
+  <text x="505" y="374" font-size="12" fill="#1a1a1a">• Потік даних TX/RX</text>
+
+  <rect x="502" y="390" width="176" height="115" rx="6" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="590" y="410" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Конечні точки (EP):</text>
+  <text x="510" y="432" font-size="12" fill="#1a1a1a">• EP3 IN (0x83): Bulk</text>
+  <text x="522" y="450" font-size="12" fill="#6b7280">  Прийом UART → ПК</text>
+  <text x="510" y="472" font-size="12" fill="#1a1a1a">• EP3 OUT (0x03): Bulk</text>
+  <text x="522" y="490" font-size="12" fill="#6b7280">  Передача ПК → UART</text>
+
+  <!-- Column 4: MSC Drag-and-Drop -->
+  <rect x="710" y="225" width="220" height="295" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="820" y="248" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MSC Drag-and-Drop</text>
+  <text x="820" y="268" font-size="12" fill="#1a1a1a" text-anchor="middle">Interface 3</text>
+  <line x1="720" y1="278" x2="920" y2="278" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="725" y="296" font-size="12" font-weight="bold" fill="#1a1a1a">bInterfaceClass:</text>
+  <text x="725" y="314" font-size="12" fill="#6b7280">0x08 (Mass Storage)</text>
+  <text x="725" y="338" font-size="12" font-weight="bold" fill="#1a1a1a">bInterfaceProtocol:</text>
+  <text x="725" y="356" font-size="12" fill="#6b7280">0x50 (Bulk-Only Transport)</text>
+  <text x="725" y="376" font-size="12" fill="#1a1a1a">Віртуальна FAT система</text>
+
+  <rect x="722" y="390" width="196" height="115" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="820" y="410" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конечні точки (EP):</text>
+  <text x="730" y="432" font-size="12" fill="#1a1a1a">• EP4 IN (0x84): Bulk</text>
+  <text x="742" y="450" font-size="12" fill="#6b7280">  Читання FAT секторів</text>
+  <text x="730" y="472" font-size="12" fill="#1a1a1a">• EP4 OUT (0x04): Bulk</text>
+  <text x="742" y="490" font-size="12" fill="#6b7280">  Запис файлу прошивки</text>
+</svg>

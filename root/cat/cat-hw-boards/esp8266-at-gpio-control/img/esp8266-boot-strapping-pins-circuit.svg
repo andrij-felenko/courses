@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема апаратної підтяжки strapping-виводів ESP8266</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Фіксація рівнів GPIO15 (LOW), GPIO0 (HIGH) та GPIO2 (HIGH) гарантує надійний запуск із SPI Flash</text>
+
+  <!-- Summary Table Panel -->
+  <rect x="40" y="66" width="880" height="78" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <line x1="40" y1="96" x2="920" y2="96" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Table Headers -->
+  <text x="60" y="87" font-size="13" font-weight="bold" fill="#2457d6">Режим запуску</text>
+  <text x="270" y="87" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO15 (MTDO)</text>
+  <text x="370" y="87" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO0</text>
+  <text x="470" y="87" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO2</text>
+  <text x="550" y="87" font-size="13" font-weight="bold" fill="#1a1a1a">Призначення режиму</text>
+
+  <!-- Table Row -->
+  <text x="60" y="122" font-size="13" font-weight="bold" fill="#27ae60">SPI Flash Boot (Нормальний)</text>
+  
+  <rect x="240" y="106" width="60" height="22" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="270" y="121" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">0 (GND)</text>
+
+  <rect x="340" y="106" width="60" height="22" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="370" y="121" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1 (VCC)</text>
+
+  <rect x="440" y="106" width="60" height="22" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="470" y="121" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1 (VCC)</text>
+
+  <text x="550" y="121" font-size="12" fill="#1a1a1a">Запуск виконуваного коду прошивки з SPI Flash</text>
+
+  <!-- ESP8266 Microcontroller Box -->
+  <rect x="40" y="156" width="200" height="324" fill="#f4f6f8" stroke="#2457d6" stroke-width="2" rx="8"/>
+  <rect x="40" y="156" width="200" height="40" fill="#eaf0fd" rx="8"/>
+  <rect x="40" y="186" width="200" height="10" fill="#eaf0fd"/>
+  <text x="140" y="181" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">ESP8266EX</text>
+  <text x="140" y="212" font-size="12" fill="#6b7280" text-anchor="middle">Контролер запуску</text>
+
+  <text x="140" y="265" font-size="12" fill="#6b7280" text-anchor="middle">Фіксація станів</text>
+  <text x="140" y="280" font-size="12" fill="#6b7280" text-anchor="middle">при скиданні</text>
+  <text x="140" y="295" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">(Power-On / RST)</text>
+
+  <!-- ESP8266 Pin Terminals -->
+  <text x="225" y="214" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">GPIO15</text>
+  <circle cx="240" cy="210" r="3.5" fill="#2457d6"/>
+
+  <text x="225" y="324" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">GPIO0</text>
+  <circle cx="240" cy="320" r="3.5" fill="#2457d6"/>
+
+  <text x="225" y="434" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">GPIO2</text>
+  <circle cx="240" cy="430" r="3.5" fill="#2457d6"/>
+
+  <!-- Card 1: GPIO15 Circuit -->
+  <rect x="260" y="156" width="660" height="102" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <line x1="240" y1="210" x2="365" y2="210" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="330" cy="210" r="3" fill="#1a1a1a"/>
+  
+  <!-- Resistor to GND -->
+  <line x1="330" y1="210" x2="330" y2="218" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="321" y="218" width="18" height="22" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="312" y="233" font-size="10" font-weight="bold" fill="#1a1a1a" text-anchor="end">10 kΩ</text>
+  <line x1="330" y1="240" x2="330" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <!-- GND Symbol -->
+  <line x1="322" y1="245" x2="338" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="325" y1="248" x2="335" y2="248" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="328" y1="251" x2="332" y2="251" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="343" y="249" font-size="11" font-weight="bold" fill="#6b7280">GND</text>
+
+  <!-- Level Badge & Info -->
+  <rect x="375" y="166" width="70" height="22" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="410" y="181" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">LOW (0)</text>
+  <text x="455" y="181" font-size="13" font-weight="bold" fill="#1a1a1a">GPIO15 (MTDO) — Апаратна підтяжка до GND</text>
+  
+  <text x="375" y="204" font-size="12" fill="#1a1a1a">• Обов'язкова зовнішня підтяжка R_pd = 10 kΩ до землі (GND).</text>
+  <text x="375" y="222" font-size="12" fill="#1a1a1a">• Навантаження має вмикатися логічною одиницею (NPN / MOSFET).</text>
+  <text x="375" y="240" font-size="12" fill="#c0392b">• ⛔ Заборонено підтягувати вивід до VCC під час скидання чипа!</text>
+
+  <!-- Card 2: GPIO0 Circuit -->
+  <rect x="260" y="267" width="660" height="102" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <line x1="240" y1="320" x2="365" y2="320" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="330" cy="320" r="3" fill="#1a1a1a"/>
+
+  <!-- Resistor to VCC -->
+  <line x1="330" y1="320" x2="330" y2="312" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="321" y="290" width="18" height="22" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="312" y="305" font-size="10" font-weight="bold" fill="#1a1a1a" text-anchor="end">10 kΩ</text>
+  <line x1="330" y1="290" x2="330" y2="282" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <!-- VCC Symbol -->
+  <line x1="322" y1="282" x2="338" y2="282" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="343" y="284" font-size="11" font-weight="bold" fill="#2457d6">+3.3V</text>
+
+  <!-- Level Badge & Info -->
+  <rect x="375" y="277" width="70" height="22" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="410" y="292" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">HIGH (1)</text>
+  <text x="455" y="292" font-size="13" font-weight="bold" fill="#1a1a1a">GPIO0 — Апаратна підтяжка до VCC (+3.3V)</text>
+
+  <text x="375" y="315" font-size="12" fill="#1a1a1a">• Підтяжка R_pu = 10 kΩ до VCC для запуску з SPI Flash пам'яті.</text>
+  <text x="375" y="333" font-size="12" fill="#1a1a1a">• Кнопка Flash замикає вивід на GND тільки для прошивання через UART.</text>
+  <text x="375" y="351" font-size="12" fill="#c0392b">• ⛔ Низький рівень при старті переводить ESP8266 у режим прошивання!</text>
+
+  <!-- Card 3: GPIO2 Circuit -->
+  <rect x="260" y="378" width="660" height="102" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <line x1="240" y1="430" x2="365" y2="430" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="330" cy="430" r="3" fill="#1a1a1a"/>
+
+  <!-- Resistor to VCC -->
+  <line x1="330" y1="430" x2="330" y2="422" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="321" y="400" width="18" height="22" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="312" y="415" font-size="10" font-weight="bold" fill="#1a1a1a" text-anchor="end">10 kΩ</text>
+  <line x1="330" y1="400" x2="330" y2="392" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- VCC Symbol -->
+  <line x1="322" y1="392" x2="338" y2="392" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="343" y="394" font-size="11" font-weight="bold" fill="#2457d6">+3.3V</text>
+
+  <!-- Level Badge & Info -->
+  <rect x="375" y="388" width="70" height="22" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="410" y="403" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">HIGH (1)</text>
+  <text x="455" y="403" font-size="13" font-weight="bold" fill="#1a1a1a">GPIO2 (TXD1) — Апаратна підтяжка до VCC (+3.3V)</text>
+
+  <text x="375" y="426" font-size="12" fill="#1a1a1a">• Підтяжка R_pu = 10 kΩ до VCC; використовується як відлагоджувальний TXD1.</text>
+  <text x="375" y="444" font-size="12" fill="#1a1a1a">• Зовнішня периферія повинна бути інверсною (активний рівень LOW).</text>
+  <text x="375" y="462" font-size="12" fill="#c0392b">• ⛔ Заземлення GPIO2 під час скидання блокує старт системи!</text>
+
+  <!-- Bottom Warning Box -->
+  <rect x="40" y="492" width="880" height="52" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="60" y="512" font-size="12" font-weight="bold" fill="#c0392b">КРИТИЧНЕ ПРАВИЛО СХЕМОТЕХНІКИ ESP8266:</text>
+  <text x="60" y="530" font-size="12" fill="#1a1a1a">Зміна рівнів на GPIO0, GPIO2 чи GPIO15 під час скидання (RST) змінює режим завантаження чипа та блокує нормальний запуск.</text>
+</svg>

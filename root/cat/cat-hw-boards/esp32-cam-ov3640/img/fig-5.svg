@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл виводів GPIO та сумісність периферії плати ESP32-CAM</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Паралельне використання шини DVP камери OV3640, SDMMC карти microSD та спалаху</text>
+
+  <!-- Ліва панель: Розподіл ліній GPIO -->
+  <rect x="30" y="80" width="430" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="245" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл ліній GPIO SoC ESP32</text>
+
+  <!-- Блок 1: Шина DVP камери -->
+  <rect x="50" y="120" width="390" height="130" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="65" y="142" font-size="13" font-weight="bold" fill="#2457d6">Шина DVP камери OV3640:</text>
+  <text x="70" y="165" font-size="12" fill="#1a1a1a">• D0-D7 (Дані): GPIO 5, 18, 19, 21, 36, 39, 34, 35</text>
+  <text x="70" y="185" font-size="12" fill="#1a1a1a">• PCLK (22), XCLK (0): Синхронізація та тактування</text>
+  <text x="70" y="205" font-size="12" fill="#1a1a1a">• VSYNC (25), HREF (23): Кадрові та рядкові імпульси</text>
+  <text x="70" y="225" font-size="12" fill="#1a1a1a">• SCCB (SIOC 27, SIOD 26): I2C шина налаштування</text>
+
+  <!-- Блок 2: Шина SDMMC -->
+  <rect x="50" y="260" width="390" height="120" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="65" y="282" font-size="13" font-weight="bold" fill="#27ae60">Шина SDMMC (Карта microSD):</text>
+  <text x="70" y="305" font-size="12" fill="#1a1a1a">• CLK (GPIO 14), CMD (GPIO 15): Тактування та команди</text>
+  <text x="70" y="325" font-size="12" fill="#1a1a1a">• DATA0 (GPIO 2): Основна лінія в 1-бітному режимі</text>
+  <text x="70" y="345" font-size="12" fill="#1a1a1a">• DATA1 (GPIO 4), DATA2 (12), DATA3 (13): 4-бітний режим</text>
+  <text x="70" y="365" font-size="12" fill="#6b7280">1-бітний режим звільняє GPIO 12, 13 для іншої периферії</text>
+
+  <!-- Блок 3: LED-спалах -->
+  <rect x="50" y="390" width="390" height="110" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="65" y="412" font-size="13" font-weight="bold" fill="#c0392b">Світлодіод спалаху (LED Flash):</text>
+  <text x="70" y="435" font-size="12" fill="#1a1a1a">• Силовий ключ підключено до GPIO 4</text>
+  <text x="70" y="455" font-size="12" fill="#c0392b">! УВАГА: Спільне використання GPIO 4 із SDMMC DATA1</text>
+  <text x="70" y="475" font-size="12" fill="#6b7280">Виклики запису microSD викликають спалахи LED</text>
+
+  <!-- Права панель: Критичні апаратні конфлікти -->
+  <rect x="485" y="80" width="445" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="707" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Критичні апаратні конфлікти та їх розв'язання</text>
+
+  <!-- Картка 1: Конфлікт GPIO 4 -->
+  <rect x="505" y="120" width="405" height="105" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="520" y="142" font-size="13" font-weight="bold" fill="#c0392b">Конфлікт GPIO 4 (LED-спалах vs SDMMC):</text>
+  <text x="525" y="165" font-size="12" fill="#1a1a1a">• При зверненні до microSD імпульси спалаху заважують шині</text>
+  <text x="525" y="185" font-size="12" fill="#1a1a1a">• Розв'язок: 1-бітний режим SDMMC (SD_MMC.begin(..., true))</text>
+  <text x="525" y="205" font-size="12" fill="#27ae60">• Або відключення LED у коді: rtc_gpio_hold_en(GPIO_NUM_4)</text>
+
+  <!-- Картка 2: Особливості GPIO 0 -->
+  <rect x="505" y="240" width="405" height="125" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="520" y="262" font-size="13" font-weight="bold" fill="#2457d6">Особливості GPIO 0 (XCLK vs Boot Mode):</text>
+  <text x="525" y="285" font-size="12" fill="#1a1a1a">• GPIO 0 є стропувальним виводом входу в режим прошивки</text>
+  <text x="525" y="305" font-size="12" fill="#1a1a1a">• На старті визначає режим Boot; під час роботи — XCLK 24 МГц</text>
+  <text x="525" y="325" font-size="12" fill="#1a1a1a">• Необхідно мати резистор Pull-up 10 кОм на лінії GPIO 0</text>
+  <text x="525" y="345" font-size="12" fill="#6b7280">• Підтяжка до GND потрібна ЛИШЕ на час завантаження прошивки</text>
+
+  <!-- Картка 3: Живлення та PSRAM -->
+  <rect x="505" y="380" width="405" height="120" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="520" y="402" font-size="13" font-weight="bold" fill="#2457d6">Оптимізація живлення та буферизація PSRAM:</text>
+  <text x="525" y="425" font-size="12" fill="#1a1a1a">• Окремий LDO 2.8V для аналогового живлення AVDD камери</text>
+  <text x="525" y="445" font-size="12" fill="#1a1a1a">• Конденсатори 10 мкФ + 0.1 мкФ усувають завади Wi-Fi</text>
+  <text x="525" y="465" font-size="12" fill="#1a1a1a">• Зовнішня PSRAM 4 МБ забезпечує подвійну буферизацію UXGA</text>
+  <text x="525" y="485" font-size="12" fill="#2457d6">• DMA передає кадри напряму в PSRAM без навантаження ядра</text>
+</svg>

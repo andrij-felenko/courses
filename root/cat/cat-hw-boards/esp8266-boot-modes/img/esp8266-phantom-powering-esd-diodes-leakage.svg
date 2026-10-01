@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема паразитного живлення ESP8266 через ESD-діоди GPIO</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Високий рівень на GPIO при вимкненому VCC живить внутрішню шину через верхній ESD-діод</text>
+
+  <!-- Panel 1: External Host (USB-UART) -->
+  <rect x="30" y="90" width="230" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="145" y="116" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Активний хост (USB-UART)</text>
+  <text x="145" y="136" text-anchor="middle" font-size="11" fill="#6b7280">Основне живлення 3.3 В</text>
+
+  <!-- Host Power Rail -->
+  <line x1="50" y1="165" x2="240" y2="165" stroke="#27ae60" stroke-width="2"/>
+  <text x="145" y="158" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">V_DD_host = 3.3 В (Увімкнено)</text>
+
+  <!-- Driver Transistor Branch & Label to the right -->
+  <line x1="85" y1="165" x2="85" y2="260" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="85" cy="195" r="4" fill="#2457d6"/>
+  <text x="95" y="222" text-anchor="start" font-size="11" font-weight="bold" fill="#2457d6">Високий рівень</text>
+  <text x="95" y="238" text-anchor="start" font-size="11" font-weight="bold" fill="#2457d6">TXD = 3.3 В</text>
+
+  <!-- Host Output Line -->
+  <line x1="85" y1="260" x2="280" y2="260" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="95" y="253" text-anchor="start" font-size="11" fill="#1a1a1a">Вихід TXD</text>
+
+  <!-- Panel 2: ESP8266 Chip (Unpowered VCC) -->
+  <rect x="280" y="90" width="400" height="340" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="116" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">ESP8266 (Головне живлення 0 В)</text>
+
+  <!-- Disconnected Main VCC Regulator -->
+  <text x="345" y="136" font-size="11" fill="#6b7280">VCC = 0 В (Вимкнено)</text>
+  <line x1="300" y1="155" x2="325" y2="155" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="325" cy="155" r="3" fill="#6b7280"/>
+  <line x1="325" y1="155" x2="340" y2="145" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="345" cy="155" r="3" fill="#c0392b"/>
+
+  <!-- Internal Parasitic VCC Rail -->
+  <line x1="345" y1="155" x2="655" y2="155" stroke="#c0392b" stroke-width="2" stroke-dasharray="5 3"/>
+  <text x="500" y="148" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Паразитна напруга VCC ≈ 2.7 В</text>
+
+  <!-- Input Pad -->
+  <rect x="380" y="245" width="30" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="395" y="264" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">GPIO</text>
+
+  <!-- Parasitic Current Label on Input Wire -->
+  <text x="330" y="238" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Паразитний струм</text>
+  <text x="330" y="254" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">I_leak</text>
+
+  <!-- Wire from Pad to Diode Junction -->
+  <line x1="410" y1="260" x2="470" y2="260" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="470" cy="260" r="4" fill="#c0392b"/>
+
+  <!-- Upper ESD Diode Branch (Anode at y=225, Cathode at y=195) -->
+  <line x1="470" y1="260" x2="470" y2="225" stroke="#c0392b" stroke-width="2.5"/>
+  <polygon points="460,225 480,225 470,195" fill="#c0392b"/>
+  <line x1="460" y1="195" x2="480" y2="195" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="470" y1="195" x2="470" y2="155" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Upper Diode Labels (To the right of Diode) -->
+  <text x="490" y="205" font-size="11" font-weight="bold" fill="#c0392b">D_ESD (верхній)</text>
+  <text x="490" y="222" font-size="11" fill="#6b7280">Пряме ввімкнення</text>
+  <text x="490" y="237" font-size="11" fill="#6b7280">(V_f ≈ 0.6 В)</text>
+
+  <!-- Lower ESD Diode Branch (Cathode at y=300, Anode at y=330) -->
+  <line x1="470" y1="260" x2="470" y2="300" stroke="#6b7280" stroke-width="1.5"/>
+  <polygon points="460,330 480,330 470,300" fill="#6b7280"/>
+  <line x1="460" y1="300" x2="480" y2="300" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="470" y1="330" x2="470" y2="365" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Lower Diode Labels (To the right of Lower Diode) -->
+  <text x="490" y="312" font-size="11" fill="#6b7280">D_ESD (нижній)</text>
+  <text x="490" y="329" font-size="11" fill="#6b7280">Зворотний напрямок</text>
+
+  <!-- Ground Connection -->
+  <line x1="455" y1="365" x2="485" y2="365" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="462" y1="370" x2="478" y2="370" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="467" y1="375" x2="473" y2="375" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="470" y="390" text-anchor="middle" font-size="11" fill="#1a1a1a">GND</text>
+
+  <!-- Internal Core Load Box -->
+  <rect x="600" y="190" width="70" height="130" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <text x="635" y="215" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Ядро</text>
+  <text x="635" y="232" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Xtensa</text>
+  <text x="635" y="265" text-anchor="middle" font-size="11" fill="#c0392b">Хаотичний</text>
+  <text x="635" y="282" text-anchor="middle" font-size="11" fill="#c0392b">старт</text>
+  <text x="635" y="299" text-anchor="middle" font-size="11" fill="#c0392b">і збої</text>
+
+  <!-- Wire from Parasitic VCC Rail to Core -->
+  <line x1="635" y1="155" x2="635" y2="188" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Flow Arrows along Parasitic Current Path -->
+  <line x1="280" y1="260" x2="320" y2="260" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="470" y1="255" x2="470" y2="238" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="480" y1="155" x2="550" y2="155" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Panel 3 Top: Consequences -->
+  <rect x="700" y="90" width="230" height="160" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="815" y="116" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Наслідки живлення</text>
+  <text x="712" y="142" font-size="11" fill="#1a1a1a">• Неконтрольований старт ядра</text>
+  <text x="712" y="165" font-size="11" fill="#1a1a1a">• Помилки режимів старту</text>
+  <text x="712" y="188" font-size="11" fill="#1a1a1a">• Ризик засуву (Latch-up)</text>
+  <text x="712" y="211" font-size="11" fill="#1a1a1a">• Швидкий розряд батареї</text>
+
+  <!-- Panel 3 Bottom: Solutions -->
+  <rect x="700" y="265" width="230" height="165" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="815" y="289" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Методи запобігання</text>
+  <text x="712" y="313" font-size="11" fill="#1a1a1a">• Резистори 1–10 кОм на лінії</text>
+  <text x="712" y="336" font-size="11" fill="#1a1a1a">• Буфери з функцією I_off</text>
+  <text x="712" y="359" font-size="11" fill="#1a1a1a">• Одночасне вимкнення TX/RX</text>
+  <text x="712" y="382" font-size="11" fill="#1a1a1a">• Схема шинного ключа</text>
+</svg>

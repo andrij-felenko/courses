@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 515" width="960" height="515" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="515" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Послідовність обміну AT-командами керування GPIO та асинхронних URC</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Атомарний запис (AT+SYSGPIOWRITE), зчитування (AT+SYSGPIOREAD) та подія переривання (+GPIO_INT)</text>
+
+  <!-- Lifeline Headers -->
+  <rect x="80" y="75" width="160" height="30" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="160" y="95" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Host MCU / Terminal</text>
+
+  <rect x="400" y="75" width="160" height="30" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="95" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">UART (TX/RX Bus)</text>
+
+  <rect x="720" y="75" width="160" height="30" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="800" y="95" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">ESP8266 Controller</text>
+
+  <!-- Lifeline Dashed Vertical Lines -->
+  <line x1="160" y1="105" x2="160" y2="420" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="480" y1="105" x2="480" y2="420" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="800" y1="105" x2="800" y2="420" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Step 1: Write command -->
+  <text x="480" y="130" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1. AT+SYSGPIOWRITE=12,1 (Встановлення HIGH на GPIO12)</text>
+  <line x1="160" y1="140" x2="792" y2="140" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <text x="480" y="155" font-size="12" fill="#27ae60" text-anchor="middle">2. Відповідь: +SYSGPIOWRITE:12,1  OK</text>
+  <line x1="800" y1="165" x2="168" y2="165" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Step 2: Read command -->
+  <text x="480" y="200" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">3. AT+SYSGPIOREAD=4 (Зчитування стану вхідного GPIO4)</text>
+  <line x1="160" y1="210" x2="792" y2="210" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <text x="480" y="225" font-size="12" fill="#27ae60" text-anchor="middle">4. Відповідь: +SYSGPIOREAD:4,0  OK (Логічний 0 на вході)</text>
+  <line x1="800" y1="235" x2="168" y2="235" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Step 3: Hardware Interrupt Event at ESP8266 & URC -->
+  <rect x="735" y="270" width="130" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="800" y="287" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зміна сигналу на GPIO4</text>
+
+  <text x="480" y="310" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">5. Асинхронне сповіщення URC: +GPIO_INT:4,1 (Перехід в HIGH)</text>
+  <line x1="800" y1="320" x2="168" y2="320" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+  <!-- Step 4: Status Confirmation -->
+  <text x="480" y="355" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">6. AT+SYSGPIOGET=4 (Підтвердження поточного стану)</text>
+  <line x1="160" y1="365" x2="792" y2="365" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <text x="480" y="380" font-size="12" fill="#27ae60" text-anchor="middle">7. Відповідь: +SYSGPIOGET:4,1  OK</text>
+  <line x1="800" y1="390" x2="168" y2="390" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Bottom Panel -->
+  <rect x="40" y="430" width="880" height="65" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <rect x="52" y="438" width="413" height="48" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="64" y="454" font-size="12" font-weight="bold" fill="#1a1a1a">Синхронний режим (Polling)</text>
+  <text x="64" y="472" font-size="12" fill="#6b7280">Запити AT+SYSGPIOREAD опитують шину IOMUX за запитом хоста</text>
+
+  <rect x="495" y="438" width="425" height="48" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="507" y="454" font-size="12" font-weight="bold" fill="#c0392b">Асинхронний режим (URC Interrupts)</text>
+  <text x="507" y="472" font-size="12" fill="#1a1a1a">Повідомлення +GPIO_INT висилаються негайно при перериванні</text>
+</svg>

@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фантомне живлення та витоки струму через захисні ESD-діоди ESP8266</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Вхідна напруга на GPIO при вимкненому V_DD живить внутрішню шину кристала та спотворює strapping-рівні</text>
+
+  <!-- Left Panel: External Host -->
+  <rect x="40" y="85" width="230" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="155" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зовнішній хост-контролер</text>
+  <text x="155" y="132" font-size="12" fill="#6b7280" text-anchor="middle">(Живлення 3.3В / 5.0В)</text>
+
+  <rect x="55" y="165" width="200" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="155" y="198" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Активний вихід TX</text>
+  <text x="155" y="220" font-size="12" fill="#2457d6" text-anchor="middle">Логічна 1 (V_HIGH = 3.3В...5В)</text>
+
+  <!-- Shared Ground Line in Left Panel -->
+  <line x1="55" y1="390" x2="255" y2="390" stroke="#1a1a1a" stroke-width="3"/>
+  <text x="155" y="375" font-size="12" fill="#6b7280" text-anchor="middle">Спільний провідний GND</text>
+
+  <!-- Ground Connection Between Panels -->
+  <line x1="255" y1="390" x2="440" y2="390" stroke="#1a1a1a" stroke-width="2" stroke-dasharray="4,4"/>
+
+  <!-- Parasitic Current Path (From TX to ESP8266 Panel edge) -->
+  <path d="M 255,205 L 435,205 L 435,270 L 460,270" fill="none" stroke="#c0392b" stroke-width="3" stroke-dasharray="6,4"/>
+
+  <!-- Label Box for Parasitic Current -->
+  <rect x="270" y="168" width="150" height="24" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="345" y="184" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Струм витоку I_phantom</text>
+
+  <!-- Right Panel: ESP8266 SoC Internal Structure -->
+  <rect x="440" y="85" width="480" height="340" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="680" y="112" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Мікроконтролер ESP8266 (V_DD_основне = 0 В)</text>
+
+  <!-- Internal V_DD Rail -->
+  <line x1="460" y1="150" x2="900" y2="150" stroke="#c0392b" stroke-width="3" stroke-dasharray="6,4"/>
+  <text x="680" y="138" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Внутрішня шина V_DD (піднята фантомним струмом до ~2.5 В)</text>
+
+  <!-- Internal GND Rail -->
+  <line x1="460" y1="390" x2="900" y2="390" stroke="#1a1a1a" stroke-width="3"/>
+  <text x="680" y="410" font-size="12" fill="#1a1a1a" text-anchor="middle">Внутрішня земля GND (0 В)</text>
+
+  <!-- GPIO Input Pad -->
+  <rect x="460" y="245" width="70" height="50" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="495" y="274" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO</text>
+
+  <!-- Wire from GPIO Pad to ESD Junction Node -->
+  <line x1="530" y1="270" x2="580" y2="270" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="580" cy="270" r="4" fill="#c0392b"/>
+
+  <!-- Parasitic Current Path (From GPIO Pad through Upper ESD Diode to V_DD) -->
+  <path d="M 530,270 L 580,270 L 580,150 L 820,150" fill="none" stroke="#c0392b" stroke-width="3" stroke-dasharray="6,4"/>
+
+  <!-- Upper ESD Diode Branch (Connected to V_DD) -->
+  <line x1="580" y1="270" x2="580" y2="225" stroke="#c0392b" stroke-width="2"/>
+  <polygon points="570,225 590,225 580,205" fill="#c0392b"/>
+  <line x1="570" y1="205" x2="590" y2="205" stroke="#c0392b" stroke-width="2"/>
+  <line x1="580" y1="205" x2="580" y2="150" stroke="#c0392b" stroke-width="2"/>
+  <!-- Non-overlapping Labels for Upper ESD Diode -->
+  <text x="595" y="208" font-size="11" font-weight="bold" fill="#c0392b">Верхній ESD-діод</text>
+  <text x="595" y="224" font-size="11" fill="#c0392b">ВІДКРИТИЙ: V_PIN &gt; V_DD</text>
+
+  <!-- Lower ESD Diode Branch (Connected to GND) -->
+  <line x1="580" y1="270" x2="580" y2="330" stroke="#6b7280" stroke-width="2"/>
+  <polygon points="570,350 590,350 580,330" fill="#6b7280"/>
+  <line x1="570" y1="330" x2="590" y2="330" stroke="#6b7280" stroke-width="2"/>
+  <line x1="580" y1="350" x2="580" y2="390" stroke="#6b7280" stroke-width="2"/>
+  <text x="595" y="340" font-size="11" fill="#6b7280">Нижній ESD-діод</text>
+  <text x="595" y="356" font-size="11" fill="#6b7280">(закритий стан)</text>
+
+  <!-- Affected Internal Blocks (Shifted right to x=745 for clean spacing) -->
+  <!-- Block 1: Strapping Latch -->
+  <line x1="820" y1="150" x2="820" y2="180" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <rect x="745" y="180" width="155" height="70" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="822" y="202" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Засувки завантаження</text>
+  <text x="822" y="220" font-size="12" fill="#c0392b" text-anchor="middle">(Strapping Pins Latch)</text>
+  <text x="822" y="238" font-size="12" fill="#c0392b" text-anchor="middle">Хибний вибір режиму!</text>
+
+  <!-- Block 2: Core & DRAM -->
+  <line x1="822" y1="250" x2="822" y2="280" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <rect x="745" y="280" width="155" height="70" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="822" y="302" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Ядро та пам'ять DRAM</text>
+  <text x="822" y="320" font-size="12" fill="#c0392b" text-anchor="middle">Невпорядкований старт</text>
+  <text x="822" y="338" font-size="12" fill="#c0392b" text-anchor="middle">Сміття в UART (74880)</text>
+
+  <!-- Bottom Solution Banner -->
+  <rect x="40" y="438" width="880" height="32" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="459" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Безпечна схемотехніка: Дільник R1/R2 або обмежувальний резистор (R1 ≥ 2.2 кОм) знижує I_ESD &lt; 2 мА та блокує фантомне живлення</text>
+</svg>

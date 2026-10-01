@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розподіл оперативної пам'яті DRAM при відкритті TCP/UDP сокетів в ESP8266</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Покомпонентний оклад витрат системної купи між LwIP PCB, буферами PBUF, буфером UART та ризиком OOM</text>
+
+  <!-- Left Main Panel: DRAM Heap Components -->
+  <rect x="30" y="65" width="580" height="370" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="90" font-size="14" font-weight="bold" fill="#1a1a1a">Виділення блоків у купі DRAM (Вільна купа після LwIP ~36 КБ)</text>
+
+  <!-- Card 1: PCB -->
+  <rect x="45" y="105" width="265" height="85" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="55" y="125" font-size="13" font-weight="bold" fill="#2457d6">1. Контрольний блок PCB</text>
+  <text x="55" y="145" font-size="12" fill="#1a1a1a">tcp_pcb: 196 B | udp_pcb: 68 B</text>
+  <text x="55" y="165" font-size="12" fill="#6b7280">IP/порти, стани, TCP-вікно</text>
+
+  <!-- Card 2: PBUF -->
+  <rect x="325" y="105" width="270" height="85" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="335" y="125" font-size="13" font-weight="bold" fill="#2457d6">2. Черга буферів PBUF</text>
+  <text x="335" y="145" font-size="12" fill="#1a1a1a">PBUF_RAM / POOL: ~1576 B</text>
+  <text x="335" y="165" font-size="12" fill="#6b7280">Пакети LwIP + MSS (1460 B)</text>
+
+  <!-- Card 3: TCP Windows -->
+  <rect x="45" y="200" width="265" height="85" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="55" y="220" font-size="13" font-weight="bold" fill="#2457d6">3. Вікна та сегменти TCP</text>
+  <text x="55" y="240" font-size="12" fill="#1a1a1a">TCP_SND_BUF + TCP_WND</text>
+  <text x="55" y="260" font-size="12" fill="#6b7280">Буферизація та ретрансляція</text>
+
+  <!-- Card 4: UART RingBuf -->
+  <rect x="325" y="200" width="270" height="85" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="335" y="220" font-size="13" font-weight="bold" fill="#2457d6">4. Буфер UART RingBuf</text>
+  <text x="335" y="240" font-size="12" fill="#1a1a1a">Обсяг: 1024 B – 4096 B</text>
+  <text x="335" y="260" font-size="12" fill="#6b7280">Накопичення кадрів +IPD</text>
+
+  <!-- Card 5: OOM Danger Zone -->
+  <rect x="45" y="295" width="550" height="125" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="55" y="318" font-size="13" font-weight="bold" fill="#c0392b">Зона критичного дефіциту пам'яті (Помилка OOM / Out Of Memory)</text>
+  <text x="55" y="340" font-size="12" fill="#1a1a1a">Витрати на 1 TCP сокет: ~9.6 КБ DRAM (PCB + PBUF + TCP Windows + UART)</text>
+  <text x="55" y="360" font-size="12" fill="#1a1a1a">При відкритті 4-х сокетів: 4 × 9.6 КБ = 38.4 КБ > 36 КБ вільної купи!</text>
+  <text x="55" y="382" font-size="12" font-weight="bold" fill="#c0392b">Результат: pbuf_alloc() повертає NULL -> збій з'єднання та вихід з ладу</text>
+
+  <!-- Right Panel: Memory Expense Breakdown -->
+  <rect x="625" y="65" width="305" height="370" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="640" y="90" font-size="14" font-weight="bold" fill="#1a1a1a">Оклад витрат пам'яті DRAM</text>
+
+  <!-- Row 1 -->
+  <rect x="640" y="105" width="275" height="36" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="650" y="127" font-size="12" fill="#1a1a1a">tcp_pcb / udp_pcb:</text>
+  <text x="905" y="127" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">0.2 КБ – 0.4 КБ</text>
+
+  <!-- Row 2 -->
+  <rect x="640" y="148" width="275" height="36" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="650" y="170" font-size="12" fill="#1a1a1a">Буфери PBUF (2x MSS):</text>
+  <text x="905" y="170" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">~3.1 КБ</text>
+
+  <!-- Row 3 -->
+  <rect x="640" y="191" width="275" height="36" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="650" y="213" font-size="12" fill="#1a1a1a">Вікна TCP (SND/WND):</text>
+  <text x="905" y="213" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">~4.3 КБ</text>
+
+  <!-- Row 4 -->
+  <rect x="640" y="234" width="275" height="36" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="650" y="256" font-size="12" fill="#1a1a1a">Кільцевий буфер UART:</text>
+  <text x="905" y="256" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">~2.0 КБ</text>
+
+  <!-- Row 5: Total -->
+  <rect x="640" y="277" width="275" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="650" y="303" font-size="12" font-weight="bold" fill="#1a1a1a">Разом на 1 TCP сокет:</text>
+  <text x="905" y="303" text-anchor="end" font-size="13" font-weight="bold" fill="#2457d6">~9.6 КБ</text>
+
+  <!-- Row 6: Recommendations -->
+  <rect x="640" y="327" width="275" height="93" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="650" y="347" font-size="12" font-weight="bold" fill="#27ae60">Рекомендації з оптимізації:</text>
+  <text x="650" y="368" font-size="12" fill="#1a1a1a">• Ліміт паралельних сокетів: ≤ 3</text>
+  <text x="650" y="388" font-size="12" fill="#1a1a1a">• Зменшити TCP_MSS до 536 B</text>
+  <text x="650" y="408" font-size="12" fill="#1a1a1a">• Запас вільної купи: > 8 КБ</text>
+</svg>

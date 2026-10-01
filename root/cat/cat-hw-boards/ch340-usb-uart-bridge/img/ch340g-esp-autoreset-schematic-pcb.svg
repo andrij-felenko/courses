@@ -1,0 +1,244 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Definitions -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вузол автоматичного скидання ESP32/ESP8266 на транзисторах Q1/Q2</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Схемотехніка транзисторного ключа, таблиця станів та часові діаграми сигналів DTR/RTS</text>
+
+  <!-- LEFT PANEL: Schematic Diagram -->
+  <rect x="20" y="65" width="450" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="245" y="88" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принципова схема вузла автоскидання</text>
+
+  <!-- CH340G Chip Block -->
+  <rect x="35" y="110" width="90" height="235" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="80" y="132" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">CH340G</text>
+  <text x="80" y="148" font-size="12" fill="#6b7280" text-anchor="middle">(USB Bridge)</text>
+  <line x1="35" y1="160" x2="125" y2="160" stroke="#eaf0fd" stroke-width="1"/>
+  <text x="120" y="176" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">DTR#</text>
+  <text x="120" y="276" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">RTS#</text>
+
+  <!-- Signal Wires from CH340G -->
+  <!-- DTR Main Wire & Branch -->
+  <line x1="125" y1="180" x2="160" y2="180" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="155" cy="180" r="3" fill="#2457d6"/>
+  <path d="M 155,180 L 155,325 L 250,325 L 250,298" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <text x="128" y="172" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="start">DTR</text>
+
+  <!-- RTS Main Wire & Branch -->
+  <line x1="125" y1="280" x2="160" y2="280" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="145" cy="280" r="3" fill="#2457d6"/>
+  <path d="M 145,280 L 145,210 L 250,210 L 250,198" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <text x="126" y="272" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="start">RTS</text>
+
+  <!-- Resistors R2 and R1 -->
+  <!-- R2 (10k on DTR to Q2 Base) -->
+  <rect x="160" y="173" width="50" height="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="210" y1="180" x2="232" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="185" y="165" font-size="12" fill="#1a1a1a" text-anchor="middle">R2 10k</text>
+
+  <!-- R1 (10k on RTS to Q1 Base) -->
+  <rect x="160" y="273" width="50" height="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="210" y1="280" x2="232" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="185" y="265" font-size="12" fill="#1a1a1a" text-anchor="middle">R1 10k</text>
+
+  <!-- Transistor Q2 (Reset / EN control) -->
+  <circle cx="250" cy="180" r="18" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="232" y1="180" x2="242" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="242" y1="170" x2="242" y2="190" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="242" y1="174" x2="250" y2="166" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="242" y1="186" x2="250" y2="194" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Q2 Emitter Arrow -->
+  <polygon points="248,191 252,197 245,196" fill="#1a1a1a"/>
+  <text x="250" y="184" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Q2</text>
+  <text x="250" y="148" font-size="12" fill="#6b7280" text-anchor="middle">NPN</text>
+  <!-- Q2 Collector Line to EN -->
+  <path d="M 250,162 L 250,160 L 360,160" stroke="#c0392b" stroke-width="2" fill="none"/>
+
+  <!-- Transistor Q1 (Boot / IO0 control) -->
+  <circle cx="250" cy="280" r="18" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="232" y1="280" x2="242" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="242" y1="270" x2="242" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="242" y1="274" x2="250" y2="266" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="242" y1="286" x2="250" y2="294" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Q1 Emitter Arrow -->
+  <polygon points="248,291 252,297 245,296" fill="#1a1a1a"/>
+  <text x="250" y="284" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Q1</text>
+  <text x="250" y="348" font-size="12" fill="#6b7280" text-anchor="middle">NPN</text>
+  <!-- Q1 Collector Line to IO0 (Routed around Q1 circle to avoid text intersection) -->
+  <path d="M 250,262 L 250,250 L 285,250 L 285,300 L 360,300" stroke="#27ae60" stroke-width="2" fill="none"/>
+
+  <!-- Pull-up & Filtering Components on EN & IO0 -->
+  <!-- EN Pull-Up R3 (10k) to 3.3V & Filter Cap C1 (100nF) to GND -->
+  <circle cx="310" cy="160" r="3" fill="#c0392b"/>
+  <!-- 3.3V rail top -->
+  <line x1="310" y1="118" x2="310" y2="124" stroke="#c0392b" stroke-width="2"/>
+  <text x="310" y="112" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">3.3V</text>
+  <!-- R3 Box -->
+  <rect x="303" y="124" width="14" height="24" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="310" y1="148" x2="310" y2="160" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="323" y="140" font-size="12" fill="#1a1a1a" text-anchor="start">R3 10k</text>
+  <!-- C1 Cap -->
+  <line x1="310" y1="160" x2="310" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="300" y1="175" x2="320" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="300" y1="181" x2="320" y2="181" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="310" y1="181" x2="310" y2="195" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- GND Symbol -->
+  <line x1="298" y1="195" x2="322" y2="195" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="303" y1="200" x2="317" y2="200" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="307" y1="205" x2="313" y2="205" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="310" y="220" font-size="12" fill="#1a1a1a" text-anchor="middle">C1 100nF</text>
+
+  <!-- IO0 Pull-Up R4 (10k) to 3.3V -->
+  <circle cx="310" cy="300" r="3" fill="#27ae60"/>
+  <!-- 3.3V mid rail -->
+  <line x1="310" y1="244" x2="310" y2="250" stroke="#c0392b" stroke-width="2"/>
+  <text x="310" y="238" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">3.3V</text>
+  <!-- R4 Box -->
+  <rect x="303" y="250" width="14" height="24" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="310" y1="274" x2="310" y2="300" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="323" y="266" font-size="12" fill="#1a1a1a" text-anchor="start">R4 10k</text>
+
+  <!-- ESP32 Chip Block -->
+  <rect x="360" y="110" width="95" height="235" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="407" y="132" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">ESP32</text>
+  <text x="407" y="148" font-size="12" fill="#6b7280" text-anchor="middle">(Target MCU)</text>
+  <line x1="360" y1="160" x2="455" y2="160" stroke="#e9f7ef" stroke-width="1"/>
+  <text x="365" y="154" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">EN</text>
+  <text x="365" y="294" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">IO0</text>
+
+  <!-- Bottom Circuit Notes Box inside Left Panel -->
+  <rect x="35" y="365" width="420" height="110" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="386" font-size="12" font-weight="bold" fill="#1a1a1a">Логіка спрацьовування транзисторних ключів:</text>
+  <text x="45" y="406" font-size="12" fill="#1a1a1a">• DTR=0 (LOW), RTS=1 (HIGH) ⇒ Q1 ON ⇒ IO0=0 (Вибір Boot)</text>
+  <text x="45" y="426" font-size="12" fill="#1a1a1a">• DTR=1 (HIGH), RTS=0 (LOW) ⇒ Q2 ON ⇒ EN=0 (Імпульс Reset)</text>
+  <text x="45" y="446" font-size="12" fill="#2457d6">• При DTR=RTS (0,0 або 1,1) ⇒ Q1, Q2 OFF ⇒ EN=1, IO0=1 (Pull-up)</text>
+  <text x="45" y="466" font-size="12" fill="#6b7280">Захищає від прямого замикання DTR/RTS між собою.</text>
+
+  <!-- RIGHT PANEL: Truth Table & Timing Diagram -->
+  <rect x="490" y="65" width="450" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Sub-panel A: Truth Table -->
+  <text x="715" y="88" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Таблиця логічних станів (Truth Table)</text>
+
+  <rect x="505" y="98" width="420" height="130" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Header Row -->
+  <rect x="505" y="98" width="420" height="26" fill="#eaf0fd" rx="4"/>
+  <line x1="505" y1="124" x2="925" y2="124" stroke="#d0d7de" stroke-width="1"/>
+  <text x="527" y="116" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DTR</text>
+  <text x="572" y="116" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">RTS</text>
+  <text x="620" y="116" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Q1</text>
+  <text x="670" y="116" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Q2</text>
+  <text x="717" y="116" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">EN</text>
+  <text x="762" y="116" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">IO0</text>
+  <text x="855" y="116" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Режим роботи</text>
+
+  <!-- Row Dividers & Vertical Column Lines -->
+  <line x1="550" y1="98" x2="550" y2="228" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="595" y1="98" x2="595" y2="228" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="645" y1="98" x2="645" y2="228" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="695" y1="98" x2="695" y2="228" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="740" y1="98" x2="740" y2="228" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="785" y1="98" x2="785" y2="228" stroke="#d0d7de" stroke-width="1"/>
+
+  <line x1="505" y1="150" x2="925" y2="150" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="505" y1="176" x2="925" y2="176" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="505" y1="202" x2="925" y2="202" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Row 1: Standby -->
+  <text x="527" y="141" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="572" y="141" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="620" y="141" font-size="12" fill="#6b7280" text-anchor="middle">OFF</text>
+  <text x="670" y="141" font-size="12" fill="#6b7280" text-anchor="middle">OFF</text>
+  <text x="717" y="141" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="762" y="141" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="855" y="141" font-size="12" fill="#27ae60" text-anchor="middle">Робочий (Normal Run)</text>
+
+  <!-- Row 2: Boot Select Phase -->
+  <rect x="506" y="151" width="418" height="24" fill="#eaf0fd" opacity="0.5"/>
+  <text x="527" y="167" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">0</text>
+  <text x="572" y="167" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="620" y="167" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ON</text>
+  <text x="670" y="167" font-size="12" fill="#6b7280" text-anchor="middle">OFF</text>
+  <text x="717" y="167" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="762" y="167" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">0</text>
+  <text x="855" y="167" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вибір Boot (IO0=0)</text>
+
+  <!-- Row 3: Reset Pulse Phase -->
+  <rect x="506" y="177" width="418" height="24" fill="#fdecea" opacity="0.5"/>
+  <text x="527" y="193" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="572" y="193" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">0</text>
+  <text x="620" y="193" font-size="12" fill="#6b7280" text-anchor="middle">OFF</text>
+  <text x="670" y="193" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ON</text>
+  <text x="717" y="193" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">0</text>
+  <text x="762" y="193" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="855" y="193" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Імпульс Reset (EN=0)</text>
+
+  <!-- Row 4: Idle / Neutral -->
+  <text x="527" y="219" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="572" y="219" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="620" y="219" font-size="12" fill="#6b7280" text-anchor="middle">OFF</text>
+  <text x="670" y="219" font-size="12" fill="#6b7280" text-anchor="middle">OFF</text>
+  <text x="717" y="219" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="762" y="219" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="855" y="219" font-size="12" fill="#6b7280" text-anchor="middle">Пасивний (Idle)</text>
+
+  <!-- Sub-panel B: Timing Waveform Diagram -->
+  <text x="715" y="255" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма сигналів автопрошивки</text>
+
+  <rect x="505" y="268" width="420" height="215" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Vertical Phase Lines & Grid -->
+  <line x1="565" y1="290" x2="565" y2="455" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="645" y1="290" x2="645" y2="455" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="735" y1="290" x2="735" y2="455" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="825" y1="290" x2="825" y2="455" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Phase Header Labels -->
+  <text x="565" y="283" font-size="12" fill="#6b7280" text-anchor="middle">T0</text>
+  <text x="605" y="283" font-size="12" fill="#2457d6" text-anchor="middle">1. Boot Sel</text>
+  <text x="690" y="283" font-size="12" fill="#c0392b" text-anchor="middle">2. Reset Pulse</text>
+  <text x="780" y="283" font-size="12" fill="#27ae60" text-anchor="middle">3. Sample IO0</text>
+  <text x="870" y="283" font-size="12" fill="#1a1a1a" text-anchor="middle">4. Flash</text>
+
+  <!-- Channel 1: DTR# Signal -->
+  <text x="512" y="312" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">DTR#</text>
+  <path d="M 565,302 L 645,302 L 645,322 L 735,322 L 735,302 L 910,302" stroke="#2457d6" stroke-width="2" fill="none"/>
+
+  <!-- Channel 2: RTS# Signal -->
+  <text x="512" y="357" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">RTS#</text>
+  <path d="M 565,347 L 735,347 L 735,367 L 825,367 L 825,347 L 910,347" stroke="#2457d6" stroke-width="2" fill="none"/>
+
+  <!-- Channel 3: IO0 Signal -->
+  <text x="512" y="402" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">IO0</text>
+  <path d="M 565,392 L 645,392 L 645,412 L 825,412 L 825,392 L 910,392" stroke="#27ae60" stroke-width="2" fill="none"/>
+
+  <!-- Channel 4: EN Signal -->
+  <text x="512" y="447" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">EN</text>
+  <path d="M 565,437 L 735,437 L 735,457 L 825,457 Q 840,437 855,437 L 910,437" stroke="#c0392b" stroke-width="2" fill="none"/>
+
+  <!-- Bootloader Sampling Marker at T3 (x=825) -->
+  <circle cx="825" cy="412" r="4" fill="#27ae60"/>
+  <circle cx="825" cy="445" r="4" fill="#27ae60"/>
+  <line x1="825" y1="439" x2="825" y2="418" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="780" y="474" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Зчитування IO0=0 при EN ↑</text>
+
+  <!-- BOTTOM SUMMARY PANEL -->
+  <rect x="20" y="500" width="920" height="45" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="519" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Алгоритм прошивки: 1) DTR=0, RTS=1 ⇒ IO0=0 (Boot); 2) DTR=1, RTS=0 ⇒ EN=0 (Reset pulse);</text>
+  <text x="480" y="535" font-size="12" fill="#1a1a1a" text-anchor="middle">3) EN зростає до 1 ⇒ МК зчитує IO0=0 і переходить у режим завантажувача (ROM Bootloader).</text>
+</svg>

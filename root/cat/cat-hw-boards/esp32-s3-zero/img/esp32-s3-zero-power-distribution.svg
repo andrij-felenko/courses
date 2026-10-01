@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема розподілу живлення ESP32-S3-Zero</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Потік живлення 5V через LDO (ME6211) на шину 3.3V з позначенням зон нагріву</text>
+
+  <!-- COLUMN 1: 5V POWER SOURCES -->
+  <!-- USB Type-C Input Box -->
+  <rect x="40" y="85" width="180" height="110" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="130" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Роз'єм USB Type-C</text>
+  <text x="130" y="132" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхід 5V VBUS</text>
+  <text x="130" y="154" font-size="12" fill="#6b7280" text-anchor="middle">Живлення від ПК / USB</text>
+  <text x="130" y="174" font-size="12" fill="#6b7280" text-anchor="middle">Струм до 500 мА</text>
+
+  <!-- 5V External Pin Box -->
+  <rect x="40" y="225" width="180" height="110" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="130" y="250" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контакт 5V (Pad)</text>
+  <text x="130" y="272" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Зовнішній вхід/вихід</text>
+  <text x="130" y="294" font-size="12" fill="#6b7280" text-anchor="middle">Пряме підключення</text>
+  <text x="130" y="314" font-size="12" fill="#6b7280" text-anchor="middle">або вихід на периферію</text>
+
+  <!-- 5V POWER BUS -->
+  <text x="277" y="77" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Шина 5V</text>
+  <rect x="265" y="85" width="25" height="250" rx="4" fill="#2457d6"/>
+
+  <!-- Lines from 5V Sources to 5V Bus -->
+  <line x1="220" y1="140" x2="260" y2="140" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="240" y="133" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">5V</text>
+
+  <line x1="220" y1="280" x2="260" y2="280" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="240" y="273" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">5V</text>
+
+  <!-- COLUMN 2: LDO CONVERSION & FILTERS -->
+  <!-- Line from 5V Bus to LDO -->
+  <line x1="290" y1="140" x2="335" y2="140" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="312" y="133" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхід 5V</text>
+
+  <!-- LDO Box with Heat Highlight -->
+  <rect x="340" y="85" width="240" height="165" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="460" y="110" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">LDO-регулятор ME6211</text>
+  <text x="460" y="130" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пониження напруги: 5.0V → 3.3V</text>
+  <text x="460" y="148" font-size="12" fill="#1a1a1a" text-anchor="middle">Максимальний струм: 500 мА</text>
+
+  <!-- Heat Zone Container inside LDO -->
+  <rect x="352" y="158" width="216" height="82" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="460" y="177" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">🔥 Зона високого нагріву</text>
+  <text x="460" y="196" font-size="12" fill="#c0392b" text-anchor="middle">Падіння напруги ΔU = 1.7V</text>
+  <text x="460" y="215" font-size="12" fill="#6b7280" text-anchor="middle">P_тепло = 1.7V × I_споживання</text>
+  <text x="460" y="232" font-size="12" fill="#6b7280" text-anchor="middle">(Втрата енергії у вигляді тепла)</text>
+
+  <!-- Filtering Capacitors Box -->
+  <rect x="340" y="265" width="240" height="70" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="460" y="288" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конденсатори фільтрації</text>
+  <text x="460" y="308" font-size="12" fill="#6b7280" text-anchor="middle">C_in: 10 мкФ | C_out: 10 мкФ</text>
+  <text x="460" y="324" font-size="12" fill="#6b7280" text-anchor="middle">Згладжування пульсацій</text>
+
+  <line x1="460" y1="250" x2="460" y2="265" stroke="#27ae60" stroke-width="2" stroke-dasharray="3,3"/>
+
+  <!-- Line from LDO to 3.3V Bus -->
+  <line x1="580" y1="140" x2="625" y2="140" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="605" y="133" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3.3V</text>
+
+  <!-- 3.3V POWER BUS -->
+  <text x="640" y="77" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Шина 3.3V</text>
+  <rect x="630" y="85" width="20" height="250" rx="4" fill="#27ae60"/>
+
+  <!-- COLUMN 3: 3.3V POWER CONSUMERS -->
+  <!-- ESP32-S3 Microcontroller Box -->
+  <rect x="690" y="85" width="230" height="105" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="805" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер ESP32-S3</text>
+  <text x="805" y="128" font-size="12" fill="#6b7280" text-anchor="middle">Двоядерний Xtensa LX7 (240 МГц)</text>
+  <text x="805" y="148" font-size="12" fill="#6b7280" text-anchor="middle">Wi-Fi 802.11 b/g/n + Bluetooth LE</text>
+  <text x="805" y="168" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">🔥 Струм у піку Wi-Fi: 240–350 мА</text>
+
+  <line x1="650" y1="137" x2="685" y2="137" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="668" y="130" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3.3V</text>
+
+  <!-- 4MB Flash Memory Box -->
+  <rect x="690" y="202" width="230" height="68" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="805" y="224" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Flash-пам'ять 4 МБ</text>
+  <text x="805" y="244" font-size="12" fill="#6b7280" text-anchor="middle">Quad SPI інтерфейс</text>
+  <text x="805" y="260" font-size="12" fill="#6b7280" text-anchor="middle">Споживання: 15–30 мА</text>
+
+  <line x1="650" y1="236" x2="685" y2="236" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="668" y="229" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3.3V</text>
+
+  <!-- RGB LED & 3.3V External Pin Box -->
+  <rect x="690" y="282" width="230" height="70" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="805" y="304" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RGB LED &amp; Вивід 3.3V</text>
+  <text x="805" y="324" font-size="12" fill="#6b7280" text-anchor="middle">Вбудований WS2812B (GPIO21)</text>
+  <text x="805" y="340" font-size="12" fill="#6b7280" text-anchor="middle">Зовнішня периферія 3.3V</text>
+
+  <line x1="650" y1="317" x2="685" y2="317" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="668" y="310" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3.3V</text>
+
+  <!-- BOTTOM LEGEND PANEL -->
+  <rect x="40" y="365" width="880" height="75" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="385" font-size="13" font-weight="bold" fill="#1a1a1a">Легенда та особливості схеми живлення:</text>
+
+  <!-- Legend 1 -->
+  <circle cx="65" cy="412" r="6" fill="#2457d6"/>
+  <text x="78" y="416" font-size="12" fill="#1a1a1a">Лінія 5V (USB / Вхідний контакт 5V)</text>
+
+  <!-- Legend 2 -->
+  <circle cx="335" cy="412" r="6" fill="#27ae60"/>
+  <text x="348" y="416" font-size="12" fill="#1a1a1a">Лінія 3.3V (Стабілізований вихід LDO)</text>
+
+  <!-- Legend 3 -->
+  <circle cx="615" cy="412" r="6" fill="#c0392b"/>
+  <text x="628" y="416" font-size="12" fill="#c0392b">Зони нагріву (LDO при падінні 1.7V, МК при RF TX)</text>
+</svg>

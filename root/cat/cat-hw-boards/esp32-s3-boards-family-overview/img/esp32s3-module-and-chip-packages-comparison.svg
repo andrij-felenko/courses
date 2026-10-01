@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Порівняння конструктивних виконань ESP32-S3: SiP, WROOM-1 та MINI-1</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Геометричні габарити, розташування виводів та тип інтегрованої Flash/PSRAM пам'яті</text>
+
+  <!-- Panel 1: SiP QFN56 -->
+  <rect x="25" y="75" width="286" height="360" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="168" y="102" font-size="15" font-weight="700" fill="#1a1a1a" text-anchor="middle">Чип / SiP (QFN56)</text>
+  <text x="168" y="122" font-size="12" fill="#6b7280" text-anchor="middle">7 × 7 мм (безпосередній монтаж)</text>
+
+  <!-- Drawing of SiP Die (inside Panel 1) -->
+  <rect x="108" y="142" width="120" height="120" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="4"/>
+  <rect x="118" y="157" width="45" height="40" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1" rx="2"/>
+  <text x="140" y="181" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">MCU</text>
+  <rect x="168" y="157" width="50" height="40" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="2"/>
+  <text x="193" y="181" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">PSRAM</text>
+  <text x="168" y="222" font-size="12" fill="#2457d6" text-anchor="middle">Підкладка QFN56</text>
+
+  <!-- Panel 1 Info Box -->
+  <rect x="35" y="275" width="266" height="145" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="45" y="297" font-size="12" fill="#1a1a1a">• Корпус: QFN56 (7 × 7 мм)</text>
+  <text x="45" y="322" font-size="12" fill="#1a1a1a">• Пам'ять: Вбудована PSRAM</text>
+  <text x="45" y="347" font-size="12" fill="#1a1a1a">• Виводи: QFN контактні майданчики</text>
+  <text x="45" y="372" font-size="12" fill="#1a1a1a">• Застосування: Власні компактні PCB</text>
+  <text x="45" y="397" font-size="12" fill="#1a1a1a">• Монтаж: Складне SMT паяння</text>
+
+  <!-- Panel 2: WROOM-1 Module -->
+  <rect x="337" y="75" width="286" height="360" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="480" y="102" font-size="15" font-weight="700" fill="#1a1a1a" text-anchor="middle">Модуль ESP32-S3-WROOM-1</text>
+  <text x="480" y="122" font-size="12" fill="#6b7280" text-anchor="middle">18 × 25.5 мм (стандартний модуль)</text>
+
+  <!-- Drawing of WROOM-1 Module (inside Panel 2) -->
+  <rect x="400" y="142" width="160" height="120" fill="#ffffff" stroke="#1a1a1a" stroke-width="2" rx="4"/>
+  <rect x="410" y="146" width="140" height="20" fill="#d0d7de" rx="2"/>
+  <text x="480" y="160" font-size="12" fill="#1a1a1a" text-anchor="middle">PCB Антена 2.4 GHz</text>
+  <rect x="410" y="172" width="140" height="82" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="2"/>
+  <text x="480" y="218" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Металевий екран</text>
+
+  <!-- Panel 2 Info Box -->
+  <rect x="347" y="275" width="266" height="145" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="357" y="297" font-size="12" fill="#1a1a1a">• Габарити: 18 × 25.5 мм</text>
+  <text x="357" y="322" font-size="12" fill="#1a1a1a">• Пам'ять: 16 MB Flash + 8 MB PSRAM</text>
+  <text x="357" y="347" font-size="12" fill="#1a1a1a">• Виводи: 41 зубчастий контакт</text>
+  <text x="357" y="372" font-size="12" fill="#1a1a1a">• Шина пам'яті: Quad / Octal SPI</text>
+  <text x="357" y="397" font-size="12" fill="#1a1a1a">• Перевага: Сертифікований RF модуль</text>
+
+  <!-- Panel 3: MINI-1 Module -->
+  <rect x="649" y="75" width="286" height="360" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="792" y="102" font-size="15" font-weight="700" fill="#1a1a1a" text-anchor="middle">Модуль ESP32-S3-MINI-1</text>
+  <text x="792" y="122" font-size="12" fill="#6b7280" text-anchor="middle">13.2 × 16.6 мм (ультракомпактний)</text>
+
+  <!-- Drawing of MINI-1 Module (inside Panel 3) -->
+  <rect x="722" y="142" width="140" height="120" fill="#ffffff" stroke="#1a1a1a" stroke-width="2" rx="4"/>
+  <rect x="730" y="146" width="124" height="20" fill="#d0d7de" rx="2"/>
+  <text x="792" y="160" font-size="12" fill="#1a1a1a" text-anchor="middle">Компактна антена</text>
+  <rect x="730" y="172" width="124" height="82" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="2"/>
+  <text x="792" y="218" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Металевий екран</text>
+
+  <!-- Panel 3 Info Box -->
+  <rect x="659" y="275" width="266" height="145" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="669" y="297" font-size="12" fill="#1a1a1a">• Габарити: 13.2 × 16.6 мм</text>
+  <text x="669" y="322" font-size="12" fill="#1a1a1a">• Пам'ять: 8 MB Flash + 2 MB PSRAM</text>
+  <text x="669" y="347" font-size="12" fill="#1a1a1a">• Виводи: 53 LGA / зубчасті контакти</text>
+  <text x="669" y="372" font-size="12" fill="#1a1a1a">• Економія площі: -55% від WROOM</text>
+  <text x="669" y="397" font-size="12" fill="#1a1a1a">• Призначення: Портативні IoT пристрої</text>
+</svg>

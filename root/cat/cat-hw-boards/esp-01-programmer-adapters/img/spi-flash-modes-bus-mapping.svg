@@ -1,0 +1,203 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Схема з'єднання шини SPI ESP8266 та Flash-пам'яті</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">Використання ліній шини в режимах QIO (4 біти), DIO (2 біти) та DOUT (Dual Output)</text>
+
+  <!-- PANEL 1: QIO MODE -->
+  <g id="panel-qio">
+    <!-- Outer Panel Container -->
+    <rect x="30" y="75" width="280" height="440" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+
+    <!-- Header Badge -->
+    <rect x="45" y="90" width="250" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+    <text x="170" y="111" font-size="15" font-weight="bold" text-anchor="middle" fill="#2457d6">Режим QIO (Quad I/O)</text>
+    <text x="170" y="136" font-size="12" text-anchor="middle" fill="#1a1a1a">4 лінії даних для адреси та даних</text>
+
+    <!-- Microcontroller Chip (ESP8266) -->
+    <rect x="45" y="155" width="75" height="250" fill="white" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+    <text x="82" y="175" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">ESP8266</text>
+
+    <!-- ESP8266 Pins -->
+    <text x="115" y="199" font-size="12" text-anchor="end" fill="#6b7280">SD_CMD</text>
+    <text x="115" y="237" font-size="12" text-anchor="end" fill="#6b7280">SD_CLK</text>
+    <text x="115" y="275" font-size="12" text-anchor="end" fill="#27ae60">SD_D0</text>
+    <text x="115" y="313" font-size="12" text-anchor="end" fill="#27ae60">SD_D1</text>
+    <text x="115" y="351" font-size="12" text-anchor="end" fill="#27ae60">SD_D2</text>
+    <text x="115" y="389" font-size="12" text-anchor="end" fill="#27ae60">SD_D3</text>
+
+    <!-- Flash IC Chip -->
+    <rect x="220" y="155" width="75" height="250" fill="white" stroke="#1a1a1a" stroke-width="1.5" rx="4"/>
+    <text x="257" y="175" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Flash IC</text>
+
+    <!-- Flash IC Pins -->
+    <text x="225" y="199" font-size="12" text-anchor="start" fill="#6b7280">/CS</text>
+    <text x="225" y="237" font-size="12" text-anchor="start" fill="#6b7280">CLK</text>
+    <text x="225" y="275" font-size="12" text-anchor="start" fill="#27ae60">IO0</text>
+    <text x="225" y="313" font-size="12" text-anchor="start" fill="#27ae60">IO1</text>
+    <text x="225" y="351" font-size="12" text-anchor="start" fill="#27ae60">IO2</text>
+    <text x="225" y="389" font-size="12" text-anchor="start" fill="#27ae60">IO3</text>
+
+    <!-- Connection Lines and Signal Labels -->
+    <line x1="120" y1="195" x2="220" y2="195" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <text x="170" y="190" font-size="12" text-anchor="middle" fill="#2457d6">CS</text>
+
+    <line x1="120" y1="233" x2="220" y2="233" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <text x="170" y="228" font-size="12" text-anchor="middle" fill="#2457d6">CLK</text>
+
+    <line x1="120" y1="271" x2="220" y2="271" stroke="#27ae60" stroke-width="2.5" marker-start="url(#arr-green-start)" marker-end="url(#arr-green)"/>
+    <text x="170" y="266" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">IO0 (MOSI)</text>
+
+    <line x1="120" y1="309" x2="220" y2="309" stroke="#27ae60" stroke-width="2.5" marker-start="url(#arr-green-start)" marker-end="url(#arr-green)"/>
+    <text x="170" y="304" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">IO1 (MISO)</text>
+
+    <line x1="120" y1="347" x2="220" y2="347" stroke="#27ae60" stroke-width="2.5" marker-start="url(#arr-green-start)" marker-end="url(#arr-green)"/>
+    <text x="170" y="342" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">IO2 (WP)</text>
+
+    <line x1="120" y1="385" x2="220" y2="385" stroke="#27ae60" stroke-width="2.5" marker-start="url(#arr-green-start)" marker-end="url(#arr-green)"/>
+    <text x="170" y="380" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">IO3 (HOLD)</text>
+
+    <!-- Bottom Summary Box -->
+    <rect x="45" y="420" width="250" height="80" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+    <text x="170" y="442" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">4 активні лінії даних</text>
+    <text x="170" y="462" font-size="12" text-anchor="middle" fill="#1a1a1a">Адреса: 4 біти / такт</text>
+    <text x="170" y="482" font-size="12" text-anchor="middle" fill="#1a1a1a">Дані: 4 біти / такт (найшвидший)</text>
+  </g>
+
+  <!-- PANEL 2: DIO MODE -->
+  <g id="panel-dio">
+    <!-- Outer Panel Container -->
+    <rect x="340" y="75" width="280" height="440" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+
+    <!-- Header Badge -->
+    <rect x="355" y="90" width="250" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+    <text x="480" y="111" font-size="15" font-weight="bold" text-anchor="middle" fill="#2457d6">Режим DIO (Dual I/O)</text>
+    <text x="480" y="136" font-size="12" text-anchor="middle" fill="#1a1a1a">2 лінії даних для адреси та даних</text>
+
+    <!-- Microcontroller Chip (ESP8266) -->
+    <rect x="355" y="155" width="75" height="250" fill="white" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+    <text x="392" y="175" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">ESP8266</text>
+
+    <!-- ESP8266 Pins -->
+    <text x="425" y="199" font-size="12" text-anchor="end" fill="#6b7280">SD_CMD</text>
+    <text x="425" y="237" font-size="12" text-anchor="end" fill="#6b7280">SD_CLK</text>
+    <text x="425" y="275" font-size="12" text-anchor="end" fill="#27ae60">SD_D0</text>
+    <text x="425" y="313" font-size="12" text-anchor="end" fill="#27ae60">SD_D1</text>
+    <text x="425" y="351" font-size="12" text-anchor="end" fill="#94a3b8">SD_D2</text>
+    <text x="425" y="389" font-size="12" text-anchor="end" fill="#94a3b8">SD_D3</text>
+
+    <!-- Flash IC Chip -->
+    <rect x="530" y="155" width="75" height="250" fill="white" stroke="#1a1a1a" stroke-width="1.5" rx="4"/>
+    <text x="567" y="175" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Flash IC</text>
+
+    <!-- Flash IC Pins -->
+    <text x="535" y="199" font-size="12" text-anchor="start" fill="#6b7280">/CS</text>
+    <text x="535" y="237" font-size="12" text-anchor="start" fill="#6b7280">CLK</text>
+    <text x="535" y="275" font-size="12" text-anchor="start" fill="#27ae60">IO0</text>
+    <text x="535" y="313" font-size="12" text-anchor="start" fill="#27ae60">IO1</text>
+    <text x="535" y="351" font-size="12" text-anchor="start" fill="#94a3b8">IO2</text>
+    <text x="535" y="389" font-size="12" text-anchor="start" fill="#94a3b8">IO3</text>
+
+    <!-- Connection Lines and Signal Labels -->
+    <line x1="430" y1="195" x2="530" y2="195" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <text x="480" y="190" font-size="12" text-anchor="middle" fill="#2457d6">CS</text>
+
+    <line x1="430" y1="233" x2="530" y2="233" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <text x="480" y="228" font-size="12" text-anchor="middle" fill="#2457d6">CLK</text>
+
+    <line x1="430" y1="271" x2="530" y2="271" stroke="#27ae60" stroke-width="2.5" marker-start="url(#arr-green-start)" marker-end="url(#arr-green)"/>
+    <text x="480" y="266" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">IO0 (MOSI)</text>
+
+    <line x1="430" y1="309" x2="530" y2="309" stroke="#27ae60" stroke-width="2.5" marker-start="url(#arr-green-start)" marker-end="url(#arr-green)"/>
+    <text x="480" y="304" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">IO1 (MISO)</text>
+
+    <line x1="430" y1="347" x2="530" y2="347" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="480" y="342" font-size="12" text-anchor="middle" fill="#6b7280">IO2 (WP# = VCC)</text>
+
+    <line x1="430" y1="385" x2="530" y2="385" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="480" y="380" font-size="12" text-anchor="middle" fill="#6b7280">IO3 (HD# = VCC)</text>
+
+    <!-- Bottom Summary Box -->
+    <rect x="355" y="420" width="250" height="80" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+    <text x="480" y="442" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">2 активні лінії даних</text>
+    <text x="480" y="462" font-size="12" text-anchor="middle" fill="#1a1a1a">Адреса: 2 біти / такт</text>
+    <text x="480" y="482" font-size="12" text-anchor="middle" fill="#1a1a1a">Дані: 2 біти / такт (стандартний)</text>
+  </g>
+
+  <!-- PANEL 3: DOUT MODE -->
+  <g id="panel-dout">
+    <!-- Outer Panel Container -->
+    <rect x="650" y="75" width="280" height="440" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+
+    <!-- Header Badge -->
+    <rect x="665" y="90" width="250" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+    <text x="790" y="111" font-size="15" font-weight="bold" text-anchor="middle" fill="#2457d6">Режим DOUT (Dual Output)</text>
+    <text x="790" y="136" font-size="12" text-anchor="middle" fill="#1a1a1a">1 лінія адреси / 2 лінії даних</text>
+
+    <!-- Microcontroller Chip (ESP8266) -->
+    <rect x="665" y="155" width="75" height="250" fill="white" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+    <text x="702" y="175" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">ESP8266</text>
+
+    <!-- ESP8266 Pins -->
+    <text x="735" y="199" font-size="12" text-anchor="end" fill="#6b7280">SD_CMD</text>
+    <text x="735" y="237" font-size="12" text-anchor="end" fill="#6b7280">SD_CLK</text>
+    <text x="735" y="275" font-size="12" text-anchor="end" fill="#27ae60">SD_D0</text>
+    <text x="735" y="313" font-size="12" text-anchor="end" fill="#27ae60">SD_D1</text>
+    <text x="735" y="351" font-size="12" text-anchor="end" fill="#94a3b8">SD_D2</text>
+    <text x="735" y="389" font-size="12" text-anchor="end" fill="#94a3b8">SD_D3</text>
+
+    <!-- Flash IC Chip -->
+    <rect x="840" y="155" width="75" height="250" fill="white" stroke="#1a1a1a" stroke-width="1.5" rx="4"/>
+    <text x="877" y="175" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Flash IC</text>
+
+    <!-- Flash IC Pins -->
+    <text x="845" y="199" font-size="12" text-anchor="start" fill="#6b7280">/CS</text>
+    <text x="845" y="237" font-size="12" text-anchor="start" fill="#6b7280">CLK</text>
+    <text x="845" y="275" font-size="12" text-anchor="start" fill="#27ae60">IO0</text>
+    <text x="845" y="313" font-size="12" text-anchor="start" fill="#27ae60">IO1</text>
+    <text x="845" y="351" font-size="12" text-anchor="start" fill="#94a3b8">IO2</text>
+    <text x="845" y="389" font-size="12" text-anchor="start" fill="#94a3b8">IO3</text>
+
+    <!-- Connection Lines and Signal Labels -->
+    <line x1="740" y1="195" x2="840" y2="195" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <text x="790" y="190" font-size="12" text-anchor="middle" fill="#2457d6">CS</text>
+
+    <line x1="740" y1="233" x2="840" y2="233" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <text x="790" y="228" font-size="12" text-anchor="middle" fill="#2457d6">CLK</text>
+
+    <line x1="740" y1="271" x2="840" y2="271" stroke="#27ae60" stroke-width="2.5" marker-start="url(#arr-green-start)" marker-end="url(#arr-green)"/>
+    <text x="790" y="266" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">IO0 (MOSI — Cmd)</text>
+
+    <line x1="740" y1="309" x2="840" y2="309" stroke="#27ae60" stroke-width="2.5" marker-start="url(#arr-green-start)" marker-end="url(#arr-green)"/>
+    <text x="790" y="304" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">IO1 (MISO/Data)</text>
+
+    <line x1="740" y1="347" x2="840" y2="347" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="790" y="342" font-size="12" text-anchor="middle" fill="#6b7280">IO2 (WP# = VCC)</text>
+
+    <line x1="740" y1="385" x2="840" y2="385" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="790" y="380" font-size="12" text-anchor="middle" fill="#6b7280">IO3 (HD# = VCC)</text>
+
+    <!-- Bottom Summary Box -->
+    <rect x="665" y="420" width="250" height="80" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+    <text x="790" y="442" font-size="13" font-weight="bold" text-anchor="middle" fill="#c0392b">Сумісний / повільний режим</text>
+    <text x="790" y="462" font-size="12" text-anchor="middle" fill="#1a1a1a">Адреса: 1 біт / такт (стандарт SPI)</text>
+    <text x="790" y="482" font-size="12" text-anchor="middle" fill="#1a1a1a">Дані: 2 біти / такт (Dual Output)</text>
+  </g>
+</svg>

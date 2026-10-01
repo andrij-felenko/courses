@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- White background for canvas -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Main Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Традиційна схема підключення ARM-мікроконтролера до ПК</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Розрізні блоки (програматор, USB-UART, БЖ) створюють громіздкість і потенційні точки відмови</text>
+
+  <!-- Left Column: PC / Workstation -->
+  <rect x="25" y="85" width="190" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="120" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ПК / Робоча станція</text>
+  <text x="120" y="128" font-size="12" fill="#6b7280" text-anchor="middle">(Використовує 3 USB-порти)</text>
+
+  <!-- PC USB Port 1 -->
+  <rect x="35" y="140" width="170" height="90" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="120" y="163" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB-порт 1</text>
+  <text x="120" y="183" font-size="12" fill="#6b7280" text-anchor="middle">ПО: OpenOCD / pyOCD</text>
+  <text x="120" y="203" font-size="12" fill="#2457d6" text-anchor="middle">Канал зневадження</text>
+
+  <!-- PC USB Port 2 -->
+  <rect x="35" y="242" width="170" height="90" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="120" y="265" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB-порт 2</text>
+  <text x="120" y="285" font-size="12" fill="#6b7280" text-anchor="middle">ПО: COM-термінал</text>
+  <text x="120" y="305" font-size="12" fill="#2457d6" text-anchor="middle">Серійний консольний порт</text>
+
+  <!-- PC USB Port 3 -->
+  <rect x="35" y="344" width="170" height="90" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="120" y="367" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB-порт 3 / 5V</text>
+  <text x="120" y="387" font-size="12" fill="#6b7280" text-anchor="middle">Джерело 5V живлення</text>
+  <text x="120" y="407" font-size="12" fill="#2457d6" text-anchor="middle">Шина живлення плати</text>
+
+  <!-- Lines from PC to Middle Hardware Modules -->
+  <line x1="205" y1="185" x2="245" y2="185" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="205" y1="287" x2="245" y2="287" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="205" y1="389" x2="245" y2="389" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Middle Column: Separate Hardware Modules -->
+  <rect x="235" y="85" width="220" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="345" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розрізні модулі</text>
+  <text x="345" y="128" font-size="12" fill="#6b7280" text-anchor="middle">(Окремі пристрої)</text>
+
+  <!-- Hardware Module 1: Programmer -->
+  <rect x="245" y="140" width="200" height="90" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="345" y="163" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зовнішній програматор</text>
+  <text x="345" y="183" font-size="12" fill="#6b7280" text-anchor="middle">ST-Link / J-Link / USB-SWD</text>
+  <text x="345" y="203" font-size="12" fill="#2457d6" text-anchor="middle">Конвертер протоколу SWD</text>
+
+  <!-- Hardware Module 2: USB-UART -->
+  <rect x="245" y="242" width="200" height="90" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="345" y="265" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB-UART конвертер</text>
+  <text x="345" y="285" font-size="12" fill="#6b7280" text-anchor="middle">FT232 / CP2102 / CH340</text>
+  <text x="345" y="305" font-size="12" fill="#2457d6" text-anchor="middle">Мост USB в UART TTL</text>
+
+  <!-- Hardware Module 3: Power Supply -->
+  <rect x="245" y="344" width="200" height="90" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="345" y="367" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зовнішній БЖ / LDO</text>
+  <text x="345" y="387" font-size="12" fill="#6b7280" text-anchor="middle">Лабораторний БЖ 3.3V</text>
+  <text x="345" y="407" font-size="12" fill="#2457d6" text-anchor="middle">Стабілізатор живлення</text>
+
+  <!-- Middle Interconnection Lines to Target MCU -->
+  <line x1="445" y1="180" x2="745" y2="180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="470" y="173" font-size="12" font-weight="bold" fill="#2457d6">SWD (SWDIO, SWCLK, nRESET)</text>
+
+  <line x1="445" y1="287" x2="745" y2="287" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="470" y="280" font-size="12" font-weight="bold" fill="#2457d6">UART (TXD, RXD, GND)</text>
+
+  <line x1="445" y1="394" x2="745" y2="394" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="470" y="387" font-size="12" font-weight="bold" fill="#2457d6">Живлення (VDD 3.3V, GND)</text>
+
+  <!-- Failure Point Callout Boxes (Red Accent) -->
+  <!-- Problem Callout 1 -->
+  <rect x="470" y="85" width="255" height="68" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="597" y="103" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠️ Точка відмови 1: Павутиння дротів</text>
+  <text x="597" y="123" font-size="12" fill="#1a1a1a" text-anchor="middle">Безліч окремих jumper-кабелів;</text>
+  <text x="597" y="141" font-size="12" fill="#1a1a1a" text-anchor="middle">ризик переплутати RX/TX чи GND</text>
+
+  <!-- Problem Callout 2 -->
+  <rect x="470" y="192" width="255" height="68" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="597" y="210" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠️ Точка відмови 2: Фантомне живлення</text>
+  <text x="597" y="230" font-size="12" fill="#1a1a1a" text-anchor="middle">Струм через SWD/UART підживлює МК</text>
+  <text x="597" y="248" font-size="12" fill="#1a1a1a" text-anchor="middle">при вимкненому БЖ (помилки Reset)</text>
+
+  <!-- Problem Callout 3 -->
+  <rect x="470" y="299" width="255" height="68" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="597" y="317" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠️ Точка відмови 3: Конфлікт рівнів</text>
+  <text x="597" y="337" font-size="12" fill="#1a1a1a" text-anchor="middle">Небезпека подачі 5V з UART на 3.3V</text>
+  <text x="597" y="355" font-size="12" fill="#1a1a1a" text-anchor="middle">виводи мікроконтролера ARM</text>
+
+  <!-- Right Column: Target MCU Panel -->
+  <rect x="745" y="85" width="190" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="840" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цільова плата</text>
+  <text x="840" y="128" font-size="12" fill="#6b7280" text-anchor="middle">(Target MCU)</text>
+
+  <rect x="755" y="140" width="170" height="294" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="840" y="165" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">ARM Cortex-M</text>
+  <text x="840" y="183" font-size="12" fill="#6b7280" text-anchor="middle">Debug Access Port (DAP)</text>
+
+  <text x="765" y="215" font-size="12" font-weight="bold" fill="#1a1a1a">SWD Порт:</text>
+  <text x="765" y="233" font-size="12" fill="#2457d6">• SWDIO, SWCLK</text>
+  <text x="765" y="251" font-size="12" fill="#2457d6">• nRESET, GND</text>
+
+  <text x="765" y="288" font-size="12" font-weight="bold" fill="#1a1a1a">UART Порт:</text>
+  <text x="765" y="306" font-size="12" fill="#2457d6">• RXD, TXD, GND</text>
+
+  <text x="765" y="343" font-size="12" font-weight="bold" fill="#1a1a1a">Живлення плати:</text>
+  <text x="765" y="361" font-size="12" fill="#2457d6">• VDD (3.3V)</text>
+  <text x="765" y="379" font-size="12" fill="#2457d6">• GND (Спільна земля)</text>
+
+  <!-- Bottom Solution Banner (Green Accent) -->
+  <rect x="25" y="475" width="910" height="65" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="500" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">💡 Розв'язок — DAPLink: об'єднує CMSIS-DAP, CDC UART та MSD прошивач у єдиний USB Composite пристрій</text>
+  <text x="480" y="522" font-size="12" fill="#1a1a1a" text-anchor="middle">Усуває розрізні модулі, гарантує спільну землю GND, узгодження 3.3V і потребує лише 1 USB-кабель</text>
+</svg>

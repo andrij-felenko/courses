@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Архітектура взаємодії NodeMCU PyFlasher з консольним рушієм esptool</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Графічна оболонка трансформує вибір користувача у виклик esptool.py через дочірній процес Python</text>
+
+  <!-- Stage 1: NodeMCU PyFlasher GUI -->
+  <rect x="40" y="100" width="200" height="240" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="140" y="123" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">1. NodeMCU PyFlasher</text>
+  <text x="140" y="143" text-anchor="middle" font-size="12" fill="#6b7280">Графічний інтерфейс (wxPython)</text>
+  
+  <rect x="52" y="158" width="176" height="165" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="62" y="178" font-size="12" fill="#1a1a1a">• Порт: COM3 / ttyUSB0</text>
+  <text x="62" y="200" font-size="12" fill="#1a1a1a">• Файл: firmware.bin</text>
+  <text x="62" y="222" font-size="12" fill="#1a1a1a">• Швидкість: 921600</text>
+  <text x="62" y="244" font-size="12" fill="#1a1a1a">• Режим SPI: DIO / QIO</text>
+  <text x="140" y="270" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">[ Кнопка: Flash ]</text>
+  <text x="140" y="295" text-anchor="middle" font-size="11" fill="#6b7280">(Подія: OnFlashButton)</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M 240 220 L 262 220" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="255" y="208" text-anchor="middle" font-size="11" fill="#2457d6">Параметри</text>
+
+  <!-- Stage 2: Python Subprocess Wrapper -->
+  <rect x="270" y="100" width="200" height="240" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="370" y="123" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">2. Python Subprocess</text>
+  <text x="370" y="143" text-anchor="middle" font-size="12" fill="#6b7280">Формування виклику CLI</text>
+  
+  <rect x="282" y="158" width="176" height="165" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="290" y="178" font-size="12" fill="#1a1a1a">Формування аргументів:</text>
+  <text x="290" y="198" font-size="11" fill="#2457d6">esptool.py --port COM3</text>
+  <text x="290" y="216" font-size="11" fill="#2457d6">--baud 921600 write_flash</text>
+  <text x="290" y="234" font-size="11" fill="#2457d6">-fm dio 0x0 firmware.bin</text>
+  <text x="290" y="265" font-size="12" fill="#6b7280">Запуск: Popen(stdout=PIPE)</text>
+  <text x="290" y="287" font-size="12" fill="#6b7280">Передача логу в GUI</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M 470 220 L 492 220" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="485" y="208" text-anchor="middle" font-size="11" fill="#2457d6">CLI args</text>
+
+  <!-- Stage 3: Console Engine (esptool.py) -->
+  <rect x="500" y="100" width="200" height="240" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="600" y="123" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">3. Консольний рушій</text>
+  <text x="600" y="143" text-anchor="middle" font-size="12" fill="#2457d6">esptool.py + PySerial</text>
+  
+  <rect x="512" y="158" width="176" height="165" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="522" y="178" font-size="12" fill="#1a1a1a">• Послідовність DTR/RTS</text>
+  <text x="522" y="200" font-size="12" fill="#1a1a1a">• Вхід у ROM Bootloader</text>
+  <text x="522" y="222" font-size="12" fill="#1a1a1a">• Завантаження Stub Loader</text>
+  <text x="522" y="244" font-size="12" fill="#1a1a1a">• SLIP-пакети даних</text>
+  <text x="522" y="268" font-size="12" font-weight="bold" fill="#27ae60">• Запис Flash пам'яті</text>
+  <text x="522" y="290" font-size="12" fill="#6b7280">• Зчитування логу (stdout)</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <path d="M 700 220 L 722 220" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="715" y="208" text-anchor="middle" font-size="11" fill="#27ae60">UART SLIP</text>
+
+  <!-- Stage 4: Target Board -->
+  <rect x="730" y="100" width="190" height="240" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="825" y="123" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">4. Цільова плата</text>
+  <text x="825" y="143" text-anchor="middle" font-size="12" fill="#6b7280">ESP8266 / ESP32</text>
+  
+  <rect x="742" y="158" width="166" height="165" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="750" y="178" font-size="12" fill="#1a1a1a">• USB-UART (CH340/CP2102)</text>
+  <text x="750" y="200" font-size="12" fill="#1a1a1a">• Схема Auto-Reset</text>
+  <text x="750" y="222" font-size="12" fill="#1a1a1a">• GPIO0 / CHIP_PU</text>
+  <text x="750" y="244" font-size="12" fill="#1a1a1a">• SRAM Stub execution</text>
+  <text x="750" y="268" font-size="12" font-weight="bold" fill="#27ae60">• NVS &amp; SPI Flash</text>
+
+  <!-- Return Loop Line: stdout log streaming -->
+  <path d="M 600 340 L 600 375 L 140 375 L 140 348" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="370" y="365" text-anchor="middle" font-size="12" fill="#27ae60">Передавання stdout логу прогресу (Subprocess PIPE → GUI Console)</text>
+
+  <!-- Bottom Info Panel -->
+  <rect x="40" y="400" width="880" height="65" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="60" y="422" font-size="13" font-weight="bold" fill="#1a1a1a">Ключова архітектурна особливість NodeMCU PyFlasher:</text>
+  <text x="60" y="444" font-size="12" fill="#6b7280">• Утиліта є графічною обгорткою (GUI-wrapper), яка не містить власного драйвера прошивання, а транслює вибір у виклик esptool.py.</text>
+</svg>

@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 550" width="960" height="550" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Canvas Background -->
+  <rect x="0" y="0" width="960" height="550" fill="#ffffff"/>
+
+  <!-- Definitions for Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема автоматичного скидання ESP-01 (Auto-Reset Circuit)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Формування сигналів RST та GPIO0 транзисторними ключами від ліній DTR і RTS</text>
+
+  <!-- ==================== LEFT PANEL: SCHEMATIC DIAGRAM ==================== -->
+  <rect x="20" y="75" width="530" height="450" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="35" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">Електрична схема вузла автоскидання</text>
+
+  <!-- +3.3V Power Rail -->
+  <line x1="330" y1="130" x2="430" y2="130" stroke="#27ae60" stroke-width="2"/>
+  <polygon points="380,118 374,128 386,128" fill="#27ae60"/>
+  <text x="380" y="112" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">+3.3V</text>
+
+  <!-- Pull-up Resistor R_PU1 (for GPIO0) -->
+  <circle cx="350" cy="130" r="3" fill="#27ae60"/>
+  <line x1="350" y1="130" x2="350" y2="145" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="343" y="145" width="14" height="35" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="333" y="158" font-size="11" fill="#6b7280" text-anchor="end">R_PU1</text>
+  <text x="333" y="172" font-size="11" fill="#6b7280" text-anchor="end">10 kΩ</text>
+  <line x1="350" y1="180" x2="350" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="350" cy="210" r="3.5" fill="#c0392b"/>
+
+  <!-- Pull-up Resistor R_PU2 (for RST) -->
+  <circle cx="410" cy="130" r="3" fill="#27ae60"/>
+  <line x1="410" y1="130" x2="410" y2="145" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="403" y="145" width="14" height="35" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="425" y="158" font-size="11" fill="#6b7280" text-anchor="start">R_PU2</text>
+  <text x="425" y="172" font-size="11" fill="#6b7280" text-anchor="start">10 kΩ</text>
+  <!-- Wire from R_PU2 to RST net, hopping over GPIO0 net at y=210 -->
+  <path d="M 410,180 L 410,205 A 5,5 0 0 1 410,215 L 410,330" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="410" cy="330" r="3.5" fill="#c0392b"/>
+
+  <!-- USB-UART Block -->
+  <rect x="40" y="160" width="100" height="280" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="90" y="188" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">USB-UART</text>
+  <text x="90" y="205" font-size="11" fill="#6b7280" text-anchor="middle">місток</text>
+  <text x="125" y="214" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">DTR</text>
+  <circle cx="140" cy="210" r="3.5" fill="#2457d6"/>
+  <text x="125" y="414" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">RTS</text>
+  <circle cx="140" cy="410" r="3.5" fill="#2457d6"/>
+
+  <!-- ESP-01 Module Block -->
+  <rect x="455" y="160" width="80" height="280" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="495" y="188" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">ESP-01</text>
+  <text x="495" y="205" font-size="11" fill="#6b7280" text-anchor="middle">модуль</text>
+  <circle cx="455" cy="210" r="3.5" fill="#c0392b"/>
+  <text x="470" y="214" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">GPIO0</text>
+  <circle cx="455" cy="330" r="3.5" fill="#c0392b"/>
+  <text x="470" y="334" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">RST</text>
+
+  <!-- DTR Signal Net (Blue) -->
+  <text x="195" y="202" font-size="11" font-weight="bold" fill="#2457d6">DTR</text>
+  <path d="M 140,210 L 160,210" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="160" cy="210" r="3" fill="#2457d6"/>
+  <!-- Branch A: DTR to R2 (for Q2 Base) -->
+  <path d="M 160,210 L 160,360 L 165,360 A 5,5 0 0 1 175,360 L 185,360" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <!-- Branch B: DTR to Q1 Emitter -->
+  <path d="M 160,210 L 160,290 L 265,290 L 265,270" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- RTS Signal Net (Blue) -->
+  <text x="195" y="426" font-size="11" font-weight="bold" fill="#2457d6">RTS</text>
+  <path d="M 140,410 L 170,410" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="170" cy="410" r="3" fill="#2457d6"/>
+  <!-- Branch A: RTS to R1 (for Q1 Base) -->
+  <path d="M 170,410 L 170,240 L 185,240" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <!-- Branch B: RTS to Q2 Emitter -->
+  <path d="M 170,410 L 265,410 L 265,390" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Resistor R1 (RTS to Q1 Base) -->
+  <rect x="185" y="233" width="35" height="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="202" y="226" font-size="11" fill="#6b7280" text-anchor="middle">R1 10k</text>
+  <line x1="220" y1="240" x2="245" y2="240" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Transistor Q1 (NPN, controls GPIO0) -->
+  <line x1="245" y1="228" x2="245" y2="252" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="245" y1="234" x2="265" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="245" y1="246" x2="265" y2="270" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="265,270 256,263 261,257" fill="#1a1a1a"/>
+  <text x="285" y="250" font-size="12" font-weight="bold" fill="#1a1a1a">Q1</text>
+  <text x="285" y="264" font-size="11" fill="#6b7280">S8050</text>
+
+  <!-- Resistor R2 (DTR to Q2 Base) -->
+  <rect x="185" y="353" width="35" height="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="202" y="346" font-size="11" fill="#6b7280" text-anchor="middle">R2 10k</text>
+  <line x1="220" y1="360" x2="245" y2="360" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Transistor Q2 (NPN, controls RST) -->
+  <line x1="245" y1="348" x2="245" y2="372" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="245" y1="354" x2="265" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="245" y1="366" x2="265" y2="390" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="265,390 256,383 261,377" fill="#1a1a1a"/>
+  <text x="285" y="370" font-size="12" font-weight="bold" fill="#1a1a1a">Q2</text>
+  <text x="285" y="384" font-size="11" fill="#6b7280">S8050</text>
+
+  <!-- GPIO0 Net (Red) -->
+  <path d="M 265,210 L 455,210" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="305" y="202" font-size="11" font-weight="bold" fill="#c0392b">GPIO0</text>
+
+  <!-- RST Net (Red) -->
+  <path d="M 265,330 L 455,330" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="305" y="322" font-size="11" font-weight="bold" fill="#c0392b">RST</text>
+
+  <!-- ==================== RIGHT PANEL: TIMING DIAGRAMS & LOGIC ==================== -->
+  <rect x="565" y="75" width="375" height="450" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="580" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">Часові діаграми та логіка сигналів</text>
+
+  <!-- Phase Column Headers -->
+  <text x="670" y="120" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">Стендбай</text>
+  <text x="730" y="120" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">GPIO0=0</text>
+  <text x="795" y="120" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Скидання</text>
+  <text x="875" y="120" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Прошивка</text>
+
+  <!-- Phase Vertical Grid Lines -->
+  <line x1="700" y1="125" x2="700" y2="365" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="760" y1="125" x2="760" y2="365" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="830" y1="125" x2="830" y2="365" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Channel 1: DTR Waveform -->
+  <text x="580" y="153" font-size="12" font-weight="bold" fill="#2457d6">DTR</text>
+  <line x1="640" y1="160" x2="920" y2="160" stroke="#d0d7de" stroke-width="0.75"/>
+  <path d="M 640,140 L 700,140 L 700,160 L 760,160 L 760,140 L 920,140" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Channel 2: RTS Waveform -->
+  <text x="580" y="213" font-size="12" font-weight="bold" fill="#2457d6">RTS</text>
+  <line x1="640" y1="220" x2="920" y2="220" stroke="#d0d7de" stroke-width="0.75"/>
+  <path d="M 640,200 L 760,200 L 760,220 L 830,220 L 830,200 L 920,200" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Channel 3: GPIO0 Waveform -->
+  <text x="580" y="273" font-size="12" font-weight="bold" fill="#c0392b">GPIO0</text>
+  <line x1="640" y1="290" x2="920" y2="290" stroke="#d0d7de" stroke-width="0.75"/>
+  <path d="M 640,270 L 700,270 L 700,290 L 845,290 L 845,270 L 920,270" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Channel 4: RST Waveform -->
+  <text x="580" y="333" font-size="12" font-weight="bold" fill="#c0392b">RST</text>
+  <line x1="640" y1="350" x2="920" y2="350" stroke="#d0d7de" stroke-width="0.75"/>
+  <path d="M 640,330 L 760,330 L 760,350 L 830,350 L 830,330 L 920,330" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Critical Event Annotation at x=830 -->
+  <text x="830" y="375" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Захоплення GPIO0=0</text>
+
+  <!-- Logic Summary Box -->
+  <rect x="580" y="388" width="345" height="122" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="595" y="408" font-size="12" font-weight="bold" fill="#27ae60">Логіка перемикання режимів:</text>
+  <text x="595" y="427" font-size="11" fill="#1a1a1a">• DTR=0, RTS=1 ➔ Q1 ВВІМК (GPIO0 = 0, режим Boot)</text>
+  <text x="595" y="446" font-size="11" fill="#1a1a1a">• DTR=1, RTS=0 ➔ Q2 ВВІМК (RST = 0, імпульс скидання)</text>
+  <text x="595" y="465" font-size="11" fill="#1a1a1a">• DTR=1, RTS=1 ➔ Q1, Q2 ВИМК (Підтяжка до 3.3V)</text>
+  <text x="595" y="492" font-size="11" font-weight="bold" fill="#27ae60">★ RST піднімається при GPIO0=0 ➔ Вхід у бутлоадер</text>
+</svg>

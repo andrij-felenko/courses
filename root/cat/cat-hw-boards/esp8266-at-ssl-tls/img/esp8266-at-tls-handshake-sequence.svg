@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Послідовність TLS Handshake в AT-прошивці ESP8266</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Етапи обміну повідомленнями TLS 1.2, валідація X.509 сертифіката та споживання пам'яті DRAM</text>
+
+  <!-- Lifeline Headers -->
+  <rect x="160" y="80" width="220" height="48" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="270" y="98" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">ESP8266 AT Клієнт</text>
+  <text x="270" y="116" font-size="12" text-anchor="middle" fill="#6b7280">(mbedTLS + LwIP Stack)</text>
+
+  <rect x="580" y="80" width="220" height="48" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="690" y="98" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">HTTPS Сервер</text>
+  <text x="690" y="116" font-size="12" text-anchor="middle" fill="#6b7280">(TLS 1.2 Endpoint, Port 443)</text>
+
+  <!-- Lifeline Vertical Lines -->
+  <line x1="270" y1="128" x2="270" y2="505" stroke="#2457d6" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <line x1="690" y1="128" x2="690" y2="505" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1.5"/>
+
+  <!-- Step 1: ClientHello -->
+  <line x1="270" y1="165" x2="682" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="155" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">1. ClientHello (SNI, CipherSuites, Max Fragment Length = 2048)</text>
+
+  <!-- Step 2: ServerHello + Certificate -->
+  <line x1="690" y1="210" x2="278" y2="210" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+  <text x="480" y="200" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">2. ServerHello + Certificate (X.509) + ServerHelloDone</text>
+
+  <!-- ESP8266 Internal Certificate Validation Box -->
+  <rect x="130" y="240" width="280" height="92" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="270" y="259" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Валідація сертифіката (mbedTLS)</text>
+  <text x="270" y="277" font-size="11" text-anchor="middle" fill="#1a1a1a">• Перевірка Root CA з Flash пам'яті</text>
+  <text x="270" y="293" font-size="11" text-anchor="middle" fill="#1a1a1a">• Перевірка терміну дії та ланцюжка довіри</text>
+  <text x="270" y="309" font-size="11" text-anchor="middle" fill="#1a1a1a">• Виділення SSL буфера в DRAM (~16-32 KB)</text>
+
+  <!-- DRAM OOM Risk Info Box on right side -->
+  <rect x="730" y="240" width="200" height="92" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="830" y="259" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Ризик OOM в DRAM</text>
+  <text x="830" y="277" font-size="11" text-anchor="middle" fill="#1a1a1a">Без MFL потрібен буфер</text>
+  <text x="830" y="293" font-size="11" text-anchor="middle" fill="#1a1a1a">16 KB in + 16 KB out</text>
+  <text x="830" y="309" font-size="11" text-anchor="middle" fill="#c0392b" font-weight="bold">MFL 2048 зменшує буфер</text>
+
+  <!-- Step 3: ClientKeyExchange -->
+  <line x1="270" y1="365" x2="682" y2="365" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="355" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">3. ClientKeyExchange + ChangeCipherSpec + Finished</text>
+
+  <!-- Step 4: Server ChangeCipherSpec -->
+  <line x1="690" y1="410" x2="278" y2="410" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+  <text x="480" y="400" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">4. ChangeCipherSpec + Finished (Зашифровано)</text>
+
+  <!-- Established TLS Session -->
+  <rect x="220" y="440" width="520" height="50" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="460" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">TLS-сесію встановлено (Encrypted HTTPS Data)</text>
+  <text x="480" y="478" font-size="12" text-anchor="middle" fill="#1a1a1a">Захищена передача даних за допомогою AT+CIPSEND (AES-GCM / SHA-256)</text>
+
+  <!-- Lifeline Bottom Boxes -->
+  <rect x="160" y="505" width="220" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="270" y="526" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">ESP8266 (OK)</text>
+
+  <rect x="580" y="505" width="220" height="32" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="690" y="526" font-size="12" font-weight="bold" text-anchor="middle" fill="#6b7280">HTTPS Server</text>
+</svg>

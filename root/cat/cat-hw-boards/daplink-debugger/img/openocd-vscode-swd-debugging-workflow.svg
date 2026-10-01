@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Header & Subheader -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Послідовність зневадження та зупинки на Breakpoint</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Передача команд від IDE через OpenOCD і SWD до регістрів MCU та вивід через UART</text>
+
+  <!-- Participant 1: VS Code -->
+  <rect x="40" y="80" width="170" height="45" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="125" y="98" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">VS Code</text>
+  <text x="125" y="114" font-size="12" fill="#6b7280" text-anchor="middle">(GDB / Terminal)</text>
+
+  <!-- Participant 2: OpenOCD -->
+  <rect x="276" y="80" width="170" height="45" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="361" y="98" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">OpenOCD</text>
+  <text x="361" y="114" font-size="12" fill="#6b7280" text-anchor="middle">(GDB Server)</text>
+
+  <!-- Participant 3: WeAct Mini Debugger -->
+  <rect x="514" y="80" width="170" height="45" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="599" y="98" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">WeAct Mini Debugger</text>
+  <text x="599" y="114" font-size="12" fill="#2457d6" text-anchor="middle">(DAPLink / VCP)</text>
+
+  <!-- Participant 4: Target MCU -->
+  <rect x="750" y="80" width="170" height="45" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="835" y="98" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цільовий MCU</text>
+  <text x="835" y="114" font-size="12" fill="#6b7280" text-anchor="middle">(Cortex-M Core)</text>
+
+  <!-- Vertical Lifelines -->
+  <line x1="125" y1="125" x2="125" y2="535" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="361" y1="125" x2="361" y2="535" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="599" y1="125" x2="599" y2="535" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="835" y1="125" x2="835" y2="535" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- Step 1: VS Code -> OpenOCD -->
+  <text x="243" y="150" font-size="12" fill="#2457d6" text-anchor="middle">1. Команда Breakpoint (vCont / Z1)</text>
+  <line x1="125" y1="160" x2="353" y2="160" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 2: OpenOCD -> WeAct Debugger -->
+  <text x="480" y="195" font-size="12" fill="#2457d6" text-anchor="middle">2. USB HID пакет (DAP_Transfer)</text>
+  <line x1="361" y1="205" x2="591" y2="205" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 3: WeAct Debugger -> Target MCU -->
+  <text x="717" y="240" font-size="12" fill="#2457d6" text-anchor="middle">3. SWD: Запис FPB_COMPn та C_DEBUGEN</text>
+  <line x1="599" y1="250" x2="827" y2="250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 4: MCU Execution & Breakpoint Hit -->
+  <rect x="825" y="275" width="20" height="45" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="852" y="293" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">4. Збіг у FPB</text>
+  <text x="852" y="309" font-size="12" fill="#c0392b" text-anchor="start">Зупинка ядра</text>
+
+  <!-- Step 5: Target MCU -> WeAct Debugger -->
+  <text x="717" y="340" font-size="12" fill="#1a1a1a" text-anchor="middle">5. SWD Read: Статус C_HALTED = 1</text>
+  <line x1="835" y1="350" x2="607" y2="350" stroke="#1a1a1a" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arr-dark)"/>
+
+  <!-- Step 6: WeAct Debugger -> OpenOCD -->
+  <text x="480" y="385" font-size="12" fill="#1a1a1a" text-anchor="middle">6. DAP_TransferResponse (Core Halted)</text>
+  <line x1="599" y1="395" x2="369" y2="395" stroke="#1a1a1a" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arr-dark)"/>
+
+  <!-- Step 7: OpenOCD -> VS Code -->
+  <text x="243" y="430" font-size="12" fill="#1a1a1a" text-anchor="middle">7. RSP Signal: $T05thread:1... (SIGTRAP)</text>
+  <line x1="361" y1="440" x2="133" y2="440" stroke="#1a1a1a" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arr-dark)"/>
+
+  <!-- Step 8: Target MCU -> WeAct Debugger (UART) -->
+  <text x="717" y="475" font-size="12" fill="#27ae60" text-anchor="middle">8. UART TX: Передача логів printf()</text>
+  <line x1="835" y1="485" x2="607" y2="485" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Step 9: WeAct Debugger -> VS Code (USB CDC VCP) -->
+  <text x="361" y="515" font-size="12" fill="#27ae60" text-anchor="middle">9. USB CDC (VCP): Вивід у термінал VS Code</text>
+  <line x1="599" y1="525" x2="133" y2="525" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+</svg>

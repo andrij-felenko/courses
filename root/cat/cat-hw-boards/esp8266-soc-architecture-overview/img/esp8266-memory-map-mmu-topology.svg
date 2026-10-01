@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топологія пам'яті ESP8266 та відображення SPI Flash через MMU</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Відображення сторінок зовнішньої Flash у 32-бітний адресний простір ядра Xtensa L106</text>
+
+  <!-- Panel 1: External SPI Flash -->
+  <rect x="30" y="75" width="230" height="455" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="145" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зовнішня SPI Flash</text>
+  <text x="145" y="118" font-size="12" fill="#6b7280" text-anchor="middle">(Фізична пам'ять 1–16 MB)</text>
+
+  <rect x="45" y="135" width="200" height="55" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="145" y="157" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Код .irom0.text</text>
+  <text x="145" y="175" font-size="12" fill="#1a1a1a" text-anchor="middle">Сторінки по 32 KB</text>
+
+  <rect x="45" y="200" width="200" height="55" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="145" y="222" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Дані .rodata</text>
+  <text x="145" y="240" font-size="12" fill="#1a1a1a" text-anchor="middle">Константивні таблиці</text>
+
+  <rect x="45" y="265" width="200" height="55" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="145" y="287" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Образ .iram0.text</text>
+  <text x="145" y="305" font-size="12" fill="#6b7280" text-anchor="middle">Завантажується в IRAM</text>
+
+  <rect x="45" y="330" width="200" height="55" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="145" y="352" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Секції .data / .bss</text>
+  <text x="145" y="370" font-size="12" fill="#6b7280" text-anchor="middle">Завантажуються в DRAM</text>
+
+  <rect x="45" y="395" width="200" height="55" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="145" y="417" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Параметри системні RF/SDK</text>
+  <text x="145" y="435" font-size="12" fill="#6b7280" text-anchor="middle">Останній сектор Flash</text>
+
+  <text x="145" y="495" font-size="12" fill="#6b7280" text-anchor="middle">Шина SPI (Quad/Dual Output)</text>
+
+  <!-- Panel 2: MMU & Cache System -->
+  <rect x="290" y="75" width="300" height="455" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="440" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Підсистема MMU та ICache</text>
+  <text x="440" y="118" font-size="12" fill="#6b7280" text-anchor="middle">Трансляція та кешування</text>
+
+  <!-- Sub-block MMU -->
+  <rect x="305" y="135" width="270" height="160" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="440" y="157" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Регістри трансляції MMU</text>
+  <text x="320" y="180" font-size="12" fill="#1a1a1a">Вікно 1MB (0x40200000)</text>
+  <text x="320" y="200" font-size="12" fill="#1a1a1a">Поділено на 16 банков по 64KB</text>
+  <text x="320" y="220" font-size="12" fill="#1a1a1a">Або 32 банки по 32KB</text>
+  <text x="320" y="242" font-size="12" fill="#6b7280">Керується реєстрами SPI MMU</text>
+  <text x="320" y="262" font-size="12" font-weight="bold" fill="#2457d6">Прозорий довільний доступ</text>
+
+  <!-- Sub-block ICache -->
+  <rect x="305" y="310" width="270" height="140" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="440" y="332" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Апаратний 32 KB ICache</text>
+  <text x="320" y="355" font-size="12" fill="#1a1a1a">Автоматична вибірка інструкцій</text>
+  <text x="320" y="375" font-size="12" fill="#1a1a1a">Зменшує затримки читання з Flash</text>
+  <text x="320" y="395" font-size="12" fill="#1a1a1a">Тактування ядра: 80 / 160 МГц</text>
+  <text x="320" y="420" font-size="12" font-weight="bold" fill="#27ae60">Кешує виключно виконання коду</text>
+
+  <text x="440" y="495" font-size="12" fill="#6b7280" text-anchor="middle">Забезпечує пряме виконання з Flash</text>
+
+  <!-- Panel 3: CPU Address Space -->
+  <rect x="620" y="75" width="310" height="455" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="775" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Адресний простір CPU</text>
+  <text x="775" y="118" font-size="12" fill="#6b7280" text-anchor="middle">32-бітна шина пам'яті (4 GB)</text>
+
+  <rect x="635" y="135" width="280" height="55" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="645" y="157" font-size="12" font-weight="bold" fill="#1a1a1a">0x40000000 - Internal ROM0</text>
+  <text x="645" y="175" font-size="12" fill="#6b7280">64 KB (Bootloader &amp; SDK ROM)</text>
+
+  <rect x="635" y="200" width="280" height="55" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="645" y="222" font-size="12" font-weight="bold" fill="#1a1a1a">0x40100000 - IRAM0</text>
+  <text x="645" y="240" font-size="12" fill="#6b7280">32 KB (Швидкий код у RAM)</text>
+
+  <rect x="635" y="265" width="280" height="65" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="645" y="287" font-size="12" font-weight="bold" fill="#2457d6">0x40200000 - Mapped Flash (.irom0)</text>
+  <text x="645" y="305" font-size="12" fill="#1a1a1a">1 MB Вікно відображення Flash</text>
+  <text x="645" y="321" font-size="12" fill="#2457d6">Виконання коду через MMU/Cache</text>
+
+  <rect x="635" y="340" width="280" height="65" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="645" y="362" font-size="12" font-weight="bold" fill="#27ae60">0x3FFE8000 - DRAM0</text>
+  <text x="645" y="380" font-size="12" fill="#1a1a1a">~80 KB (Купа, .data, .bss, стеки)</text>
+  <text x="645" y="396" font-size="12" fill="#27ae60">Оперативні дані та мережеві буфери</text>
+
+  <rect x="635" y="415" width="280" height="55" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="645" y="437" font-size="12" font-weight="bold" fill="#1a1a1a">0x60000000 - APB Периферія</text>
+  <text x="645" y="455" font-size="12" fill="#6b7280">Регістри IOMUX, GPIO, RTC, UART</text>
+
+  <text x="775" y="495" font-size="12" fill="#6b7280" text-anchor="middle">Розподіл пам'яті ядра Xtensa L106</text>
+
+  <!-- Connectors -->
+  <!-- 1. Flash .irom0.text -> MMU -->
+  <path d="M245,162 L297,162" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="271" y="154" font-size="11" fill="#2457d6" text-anchor="middle">SPI</text>
+
+  <!-- 2. MMU -> Mapped Flash -->
+  <path d="M575,200 L600,200 L600,297 L627,297" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- 3. .rodata -> DRAM0 -->
+  <path d="M245,227 L275,227 L275,485 L605,485 L605,372 L627,372" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,4" fill="none" marker-end="url(#arr-green)"/>
+  <text x="440" y="478" font-size="11" fill="#27ae60" text-anchor="middle">Пряме завантаження в DRAM при старті</text>
+
+  <!-- 4. .iram0.text -> IRAM0 -->
+  <path d="M245,292 L275,292 L275,70 L605,70 L605,227 L627,227" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3" fill="none" marker-end="url(#arr-gray)"/>
+  <text x="440" y="66" font-size="11" fill="#6b7280" text-anchor="middle">Копіювання завантажувачем в IRAM</text>
+</svg>

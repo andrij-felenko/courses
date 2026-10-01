@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Архітектура прошивки DAPLink та потік даних</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Багаторівнева абстракція (HIC, Board, Target, RTX RTOS) від USB-інтерфейсів до SWD/JTAG</text>
+
+  <!-- Panel 1: Host PC -->
+  <rect x="25" y="75" width="225" height="420" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="137" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Хост ПК (Host PC)</text>
+
+  <rect x="38" y="115" width="199" height="100" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="137" y="138" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">USB HID (CMSIS-DAP)</text>
+  <text x="137" y="162" text-anchor="middle" font-size="12" fill="#1a1a1a">Команди зневадження</text>
+  <text x="137" y="186" text-anchor="middle" font-size="12" fill="#6b7280">OpenOCD / pyOCD / IDE</text>
+
+  <rect x="38" y="235" width="199" height="100" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="137" y="258" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">USB MSC (Mass Storage)</text>
+  <text x="137" y="282" text-anchor="middle" font-size="12" fill="#1a1a1a">Drag-and-Drop прошивка</text>
+  <text x="137" y="306" text-anchor="middle" font-size="12" fill="#6b7280">Віртуальний диск (.bin/.hex)</text>
+
+  <rect x="38" y="355" width="199" height="100" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="137" y="378" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">USB CDC (Virtual COM)</text>
+  <text x="137" y="402" text-anchor="middle" font-size="12" fill="#1a1a1a">Послідовний мост UART</text>
+  <text x="137" y="426" text-anchor="middle" font-size="12" fill="#6b7280">Термінал та відлагодження</text>
+
+  <!-- Panel 2: DAPLink Firmware -->
+  <rect x="300" y="75" width="360" height="420" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="480" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Прошивка DAPLink (MCU Програматора)</text>
+
+  <rect x="315" y="115" width="330" height="80" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="480" y="138" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Обробка USB та CMSIS-DAP команд</text>
+  <text x="480" y="160" text-anchor="middle" font-size="12" fill="#1a1a1a">Декодування пакетів USB та розбір файлів</text>
+  <text x="480" y="180" text-anchor="middle" font-size="12" fill="#6b7280">Буферизація VCP та зневадження</text>
+
+  <rect x="315" y="210" width="330" height="65" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="480" y="233" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Ядро ОС реального часу (RTX RTOS)</text>
+  <text x="480" y="256" text-anchor="middle" font-size="12" fill="#6b7280">Планувальник: main_task, dap_task, cdc_task</text>
+
+  <rect x="315" y="290" width="330" height="80" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="480" y="313" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">HIC &amp; Board Layer (Абстракція плати)</text>
+  <text x="480" y="335" text-anchor="middle" font-size="12" fill="#1a1a1a">Драйвери USB, GPIO, UART, Timers для MCU</text>
+  <text x="480" y="355" text-anchor="middle" font-size="12" fill="#6b7280">Керування живленням, RESET та LED</text>
+
+  <rect x="315" y="385" width="330" height="95" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="480" y="408" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Target Layer &amp; FlashAlgo</text>
+  <text x="480" y="430" text-anchor="middle" font-size="12" fill="#1a1a1a">Низькорівневий драйвер протоколу SWD / JTAG</text>
+  <text x="480" y="452" text-anchor="middle" font-size="12" fill="#6b7280">Алгоритми запису FlashAlgo та відлагодження</text>
+
+  <!-- Panel 3: Target MCU -->
+  <rect x="710" y="75" width="225" height="420" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="822" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Цільовий МК (Target MCU)</text>
+
+  <rect x="723" y="115" width="199" height="225" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="822" y="140" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Порт зневадження SWD / JTAG</text>
+  <text x="822" y="165" text-anchor="middle" font-size="12" fill="#1a1a1a">SWCLK (TCLK)</text>
+  <text x="822" y="188" text-anchor="middle" font-size="12" fill="#1a1a1a">SWDIO (TMS / TDI / TDO)</text>
+  <text x="822" y="211" text-anchor="middle" font-size="12" fill="#1a1a1a">nRESET (Апаратне скидання)</text>
+  <text x="822" y="245" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Ядро та Flash цілі</text>
+  <text x="822" y="268" text-anchor="middle" font-size="12" fill="#6b7280">Cortex-M CoreDebug &amp; NVIC</text>
+  <text x="822" y="290" text-anchor="middle" font-size="12" fill="#6b7280">Flash Memory Controller</text>
+
+  <rect x="723" y="355" width="199" height="125" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="822" y="380" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Периферія UART</text>
+  <text x="822" y="405" text-anchor="middle" font-size="12" fill="#1a1a1a">TXD (Вихід даних цілі)</text>
+  <text x="822" y="428" text-anchor="middle" font-size="12" fill="#1a1a1a">RXD (Вхід даних цілі)</text>
+  <text x="822" y="455" text-anchor="middle" font-size="12" fill="#6b7280">Логування відладки</text>
+
+  <!-- Connectors and Flow Paths -->
+  <!-- Arrow 1: CMSIS-DAP -->
+  <path d="M 237,155 L 315,155" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="276" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">CMSIS-DAP</text>
+
+  <!-- Arrow 2: MSC Stream -->
+  <path d="M 237,285 L 260,285 L 260,175 L 315,175" stroke="#6b7280" stroke-width="1.5" fill="none" marker-end="url(#arr-gray)"/>
+  <text x="287" y="165" text-anchor="middle" font-size="12" fill="#6b7280">MSC Stream</text>
+
+  <!-- Arrow 3a: Host VCP to DAPLink -->
+  <path d="M 237,405 L 315,405" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <!-- Arrow 3b: DAPLink to Target UART -->
+  <path d="M 660,425 L 723,425" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="684" y="415" text-anchor="middle" font-size="12" fill="#6b7280">VCP UART</text>
+
+  <!-- Vertical Internal Arrows in Panel 2 -->
+  <path d="M 480,195 L 480,210" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 480,275 L 480,290" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <path d="M 480,370 L 480,385" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Arrow 4: SWD / JTAG Bus -->
+  <path d="M 660,440 L 684,440 L 684,175 L 723,175" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="695" y="163" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">SWD / JTAG Bus</text>
+</svg>

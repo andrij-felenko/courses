@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схемотехніка конфігурації strapping-виводів ESP8266 при завантаженні</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Фіксація станів GPIO0, GPIO2 та GPIO15 для режиму нормального старту (Flash Boot)</text>
+
+  <!-- Left Panel: ESP8266 Boot Controller -->
+  <rect x="30" y="80" width="270" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="165" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP8266 Boot Controller</text>
+
+  <!-- ROM Bootloader Block -->
+  <rect x="50" y="125" width="230" height="65" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="165" y="148" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">ROM Bootloader</text>
+  <text x="165" y="170" font-size="12" fill="#6b7280" text-anchor="middle">Опит станів при RST = HIGH</text>
+
+  <!-- Arrow ROM -> Decision Logic -->
+  <line x1="165" y1="190" x2="165" y2="213" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Target Boot Mode Box -->
+  <rect x="50" y="215" width="230" height="135" rx="5" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="165" y="238" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Режим: Flash Boot (SPI)</text>
+  <text x="165" y="265" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO15 = 0 (LOW / GND)</text>
+  <text x="165" y="287" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO0  = 1 (HIGH / 3.3V)</text>
+  <text x="165" y="309" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO2  = 1 (HIGH / 3.3V)</text>
+
+  <!-- Arrow Decision Logic -> Status -->
+  <line x1="165" y1="350" x2="165" y2="373" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Status Box -->
+  <rect x="50" y="375" width="230" height="95" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="165" y="400" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Надійне виконання</text>
+  <text x="165" y="423" font-size="12" fill="#27ae60" text-anchor="middle">Запуск користувацького коду</text>
+  <text x="165" y="443" font-size="12" fill="#27ae60" text-anchor="middle">із зовнішньої SPI Flash-пам'яті</text>
+
+  <!-- Right Panel 1: GPIO0 Wiring -->
+  <rect x="320" y="80" width="610" height="125" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="340" y="105" font-size="13" font-weight="bold" fill="#1a1a1a">Вивід GPIO0 (Вибір між Flash Boot та UART Download)</text>
+  <text x="340" y="130" font-size="12" font-weight="bold" fill="#2457d6">Зовнішній Pull-Up 10 кОм до VCC (+3.3 В)</text>
+  <text x="340" y="150" font-size="12" fill="#6b7280">Під час старту утримує рівень 3.3 В; замикання на GND переводить у прошивку</text>
+  
+  <rect x="340" y="165" width="230" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="455" y="182" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">HIGH (3.3 V) → Normal Flash Boot</text>
+
+  <!-- Schematic Drawing GPIO0 -->
+  <text x="730" y="105" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+3.3V (VCC)</text>
+  <line x1="730" y1="112" x2="730" y2="125" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="718" y="125" width="24" height="35" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="752" y="146" font-size="12" fill="#1a1a1a">10 kΩ</text>
+  <line x1="730" y1="160" x2="730" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="730" cy="180" r="3" fill="#2457d6"/>
+  <line x1="730" y1="180" x2="840" y2="180" stroke="#2457d6" stroke-width="2"/>
+  <text x="850" y="184" font-size="12" font-weight="bold" fill="#2457d6">GPIO0</text>
+
+  <!-- Right Panel 2: GPIO2 Wiring -->
+  <rect x="320" y="215" width="610" height="125" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="340" y="240" font-size="13" font-weight="bold" fill="#1a1a1a">Вивід GPIO2 (Фіксація старту / TXD1 логування)</text>
+  <text x="340" y="265" font-size="12" font-weight="bold" fill="#2457d6">Зовнішній Pull-Up 10 кОм до VCC (+3.3 В)</text>
+  <text x="340" y="285" font-size="12" fill="#c0392b">⚠ Не підключати низькоомні навантаження на GND під час завантаження</text>
+
+  <rect x="340" y="300" width="230" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="455" y="317" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">HIGH (3.3 V) → Обов'язковий рівень</text>
+
+  <!-- Schematic Drawing GPIO2 -->
+  <text x="730" y="235" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+3.3V (VCC)</text>
+  <line x1="730" y1="242" x2="730" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="718" y="255" width="24" height="35" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="752" y="276" font-size="12" fill="#1a1a1a">10 kΩ</text>
+  <line x1="730" y1="290" x2="730" y2="310" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="730" cy="310" r="3" fill="#2457d6"/>
+  <line x1="730" y1="310" x2="840" y2="310" stroke="#2457d6" stroke-width="2"/>
+  <text x="850" y="314" font-size="12" font-weight="bold" fill="#2457d6">GPIO2</text>
+
+  <!-- Right Panel 3: GPIO15 Wiring -->
+  <rect x="320" y="350" width="610" height="140" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="340" y="375" font-size="13" font-weight="bold" fill="#1a1a1a">Вивід GPIO15 (Заборона SDIO mode / Запуск з Flash)</text>
+  <text x="340" y="400" font-size="12" font-weight="bold" fill="#2457d6">Зовнішній Pull-Down 10 кОм до GND (0 В)</text>
+  <text x="340" y="420" font-size="12" fill="#c0392b">⚠ Високий рівень (HIGH) при старті блокує запуск і вмикає SDIO mode</text>
+
+  <rect x="340" y="435" width="230" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="455" y="452" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">LOW (0 V) → Обов'язковий рівень</text>
+
+  <!-- Schematic Drawing GPIO15 -->
+  <line x1="730" y1="375" x2="840" y2="375" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="730" cy="375" r="3" fill="#2457d6"/>
+  <text x="850" y="379" font-size="12" font-weight="bold" fill="#2457d6">GPIO15</text>
+  <line x1="730" y1="375" x2="730" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="718" y="395" width="24" height="35" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="752" y="416" font-size="12" fill="#1a1a1a">10 kΩ</text>
+  <line x1="730" y1="430" x2="730" y2="445" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- GND symbol -->
+  <line x1="715" y1="445" x2="745" y2="445" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="720" y1="450" x2="740" y2="450" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="725" y1="455" x2="735" y2="455" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="730" y="472" font-size="12" fill="#6b7280" text-anchor="middle">GND (0V)</text>
+
+  <!-- Inter-panel connecting lines -->
+  <path d="M 280 287 L 300 287 L 300 180 L 318 180" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M 280 309 L 310 309 L 310 310 L 318 310" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M 280 265 L 300 265 L 300 445 L 318 445" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+</svg>

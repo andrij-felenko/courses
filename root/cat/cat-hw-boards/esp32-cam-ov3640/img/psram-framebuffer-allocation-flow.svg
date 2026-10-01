@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Виділення кадрових буферів та потік даних DVP у PSRAM</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Передача кадру з OV3640 через DMA в подвійний буфер PSRAM і віддача у Wi-Fi сокет</text>
+
+  <!-- Panel 1: OV3640 Sensor -->
+  <rect x="30" y="85" width="170" height="345" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6" ry="6"/>
+  <text x="115" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сенсор OV3640</text>
+  <text x="115" y="128" font-size="12" fill="#6b7280" text-anchor="middle">2 МП DVP Інтерфейс</text>
+
+  <rect x="45" y="150" width="140" height="70" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4" ry="4"/>
+  <text x="115" y="175" font-size="12" fill="#1a1a1a" text-anchor="middle">Роздільна здатність</text>
+  <text x="115" y="195" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">до 1600×1200 JPEG</text>
+
+  <rect x="45" y="240" width="140" height="160" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4" ry="4"/>
+  <text x="115" y="265" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Шина даних: D0–D7</text>
+  <text x="115" y="295" font-size="12" fill="#1a1a1a" text-anchor="middle">PCLK (Тактування)</text>
+  <text x="115" y="325" font-size="12" fill="#1a1a1a" text-anchor="middle">VSYNC (Кадр)</text>
+  <text x="115" y="355" font-size="12" fill="#1a1a1a" text-anchor="middle">HREF (Рядок)</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="200" y1="260" x2="232" y2="260" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="220" y="248" font-size="12" fill="#2457d6" text-anchor="middle">DVP 8-bit</text>
+
+  <!-- Panel 2: Internal SRAM (ESP32 DMA Controller) -->
+  <rect x="240" y="85" width="220" height="345" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6" ry="6"/>
+  <text x="350" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня SRAM</text>
+  <text x="350" y="128" font-size="12" fill="#6b7280" text-anchor="middle">I2S/DMA та дескриптори</text>
+
+  <rect x="255" y="150" width="190" height="80" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4" ry="4"/>
+  <text x="350" y="175" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I2S / CAM DMA Engine</text>
+  <text x="350" y="195" font-size="12" fill="#1a1a1a" text-anchor="middle">Автоматичний прийом</text>
+  <text x="350" y="213" font-size="12" fill="#6b7280" text-anchor="middle">без участі CPU</text>
+
+  <rect x="255" y="250" width="190" height="150" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4" ry="4"/>
+  <text x="350" y="275" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пін-понг буфери SRAM</text>
+  <text x="350" y="300" font-size="12" fill="#6b7280" text-anchor="middle">Буфер 0: 4 КБ</text>
+  <text x="350" y="320" font-size="12" fill="#6b7280" text-anchor="middle">Буфер 1: 4 КБ</text>
+  <text x="350" y="350" font-size="12" fill="#2457d6" text-anchor="middle">Пряме перекачування</text>
+  <text x="350" y="370" font-size="12" fill="#2457d6" text-anchor="middle">у зовнішню PSRAM</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="460" y1="260" x2="492" y2="260" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="248" font-size="12" fill="#2457d6" text-anchor="middle">SPI DMA</text>
+
+  <!-- Panel 3: External PSRAM -->
+  <rect x="500" y="85" width="220" height="345" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6" ry="6"/>
+  <text x="610" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зовнішня PSRAM (4 МБ)</text>
+  <text x="610" y="128" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Подвійна буферизація</text>
+
+  <rect x="515" y="150" width="190" height="110" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4" ry="4"/>
+  <text x="610" y="175" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">camera_fb_t [0]</text>
+  <text x="610" y="198" font-size="12" fill="#1a1a1a" text-anchor="middle">Запис нового кадру</text>
+  <text x="610" y="218" font-size="12" fill="#6b7280" text-anchor="middle">Обсяг: ~150-300 КБ</text>
+  <text x="610" y="238" font-size="12" fill="#6b7280" text-anchor="middle">Виділення: ps_malloc()</text>
+
+  <rect x="515" y="280" width="190" height="120" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="4" ry="4"/>
+  <text x="610" y="305" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">camera_fb_t [1]</text>
+  <text x="610" y="328" font-size="12" fill="#1a1a1a" text-anchor="middle">Готовий для Wi-Fi</text>
+  <text x="610" y="348" font-size="12" fill="#2457d6" text-anchor="middle">esp_camera_fb_get()</text>
+  <text x="610" y="370" font-size="12" fill="#6b7280" text-anchor="middle">Звільнення: fb_return()</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <line x1="720" y1="340" x2="752" y2="340" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="740" y="325" font-size="12" fill="#27ae60" text-anchor="middle">TCP Buffer</text>
+
+  <!-- Panel 4: Wi-Fi Socket Stream -->
+  <rect x="760" y="85" width="170" height="345" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6" ry="6"/>
+  <text x="845" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Wi-Fi / Мережа</text>
+  <text x="845" y="128" font-size="12" fill="#6b7280" text-anchor="middle">Потокова віддача</text>
+
+  <rect x="775" y="150" width="140" height="100" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4" ry="4"/>
+  <text x="845" y="175" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">HTTP / RTSP Task</text>
+  <text x="845" y="200" font-size="12" fill="#1a1a1a" text-anchor="middle">MJPEG потік</text>
+  <text x="845" y="225" font-size="12" fill="#6b7280" text-anchor="middle">multipart/x-mixed</text>
+
+  <rect x="775" y="270" width="140" height="130" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4" ry="4"/>
+  <text x="845" y="295" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">TCP TX Socket</text>
+  <text x="845" y="320" font-size="12" fill="#1a1a1a" text-anchor="middle">Передача клієнту</text>
+  <text x="845" y="345" font-size="12" fill="#6b7280" text-anchor="middle">Без блокування</text>
+  <text x="845" y="365" font-size="12" fill="#6b7280" text-anchor="middle">захвату кадру</text>
+</svg>

@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схемотехнічна архітектура плати ESP32-S3-DevKitC-1</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Розведення двох портів USB, підсистеми живлення 3.3 В та ланцюгів конфігураційних виводів (strapping pins)</text>
+
+  <!-- Group Containers -->
+  <rect x="30" y="75" width="235" height="460" fill="#f4f6f8" rx="8" ry="8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="147.5" y="96" font-size="13" font-weight="bold" fill="#6b7280" text-anchor="middle">ІНТЕРФЕЙСИ USB ТА ЖИВЛЕННЯ</text>
+
+  <rect x="350" y="75" width="260" height="460" fill="#f4f6f8" rx="8" ry="8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="96" font-size="13" font-weight="bold" fill="#6b7280" text-anchor="middle">МОДУЛЬ ESP32-S3 ТА STRAPPING</text>
+
+  <rect x="695" y="75" width="235" height="460" fill="#f4f6f8" rx="8" ry="8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="812.5" y="96" font-size="13" font-weight="bold" fill="#6b7280" text-anchor="middle">ПЕРЕФЕРІЯ ТА НАЛАГОДЖЕННЯ</text>
+
+  <!-- Node 1: USB-UART Bridge -->
+  <rect x="45" y="115" width="205" height="70" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="147.5" y="138" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">USB-UART ПОРТ (CP2102)</text>
+  <text x="147.5" y="158" font-size="12" fill="#1a1a1a" text-anchor="middle">Роз'єм Type-C (UART)</text>
+  <text x="147.5" y="174" font-size="12" fill="#6b7280" text-anchor="middle">TXD0/RXD0 + Автозавантаження</text>
+
+  <!-- Node 2: Native USB CDC/JTAG -->
+  <rect x="45" y="220" width="205" height="70" rx="6" ry="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="147.5" y="243" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">NATIVE USB ПОРТ</text>
+  <text x="147.5" y="263" font-size="12" fill="#1a1a1a" text-anchor="middle">Роз'єм Type-C (USB OTG)</text>
+  <text x="147.5" y="279" font-size="12" fill="#6b7280" text-anchor="middle">Пряме підключення D+/D-</text>
+
+  <!-- Node 3: Power Subsystem -->
+  <rect x="45" y="325" width="205" height="185" rx="6" ry="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="147.5" y="348" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">ПІДСИСТЕМА ЖИВЛЕННЯ</text>
+  <text x="147.5" y="372" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LDO Стабілізатор 3.3V</text>
+  <text x="147.5" y="390" font-size="12" fill="#1a1a1a" text-anchor="middle">Вхід: VBUS (5V) / Pin 5V</text>
+  <text x="147.5" y="412" font-size="12" fill="#2457d6" text-anchor="middle">Піковий струм: ≥ 500 mA</text>
+  <text x="147.5" y="434" font-size="12" fill="#1a1a1a" text-anchor="middle">Конденсатори: 10 µF + 0.1 µF</text>
+  <text x="147.5" y="456" font-size="12" fill="#1a1a1a" text-anchor="middle">Кнопка EN (RESET) + RC-кола</text>
+  <text x="147.5" y="485" font-size="12" fill="#6b7280" text-anchor="middle">Захисний діод Шотткі</text>
+
+  <!-- Node 4: ESP32-S3-WROOM-1 Module -->
+  <rect x="365" y="115" width="230" height="175" rx="6" ry="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="480" y="140" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP32-S3-WROOM-1</text>
+  <text x="480" y="162" font-size="12" fill="#1a1a1a" text-anchor="middle">Dual-core Xtensa LX7 (240 MHz)</text>
+  <text x="480" y="180" font-size="12" fill="#1a1a1a" text-anchor="middle">512 KB SRAM + Vector Ext.</text>
+  <text x="480" y="202" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Octal/Quad SPI Flash &amp; PSRAM</text>
+  <text x="480" y="224" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">USB Serial/JTAG Controller</text>
+  <text x="480" y="246" font-size="12" fill="#1a1a1a" text-anchor="middle">45 × Доступних GPIO</text>
+  <text x="480" y="270" font-size="12" fill="#6b7280" text-anchor="middle">Площадка EPAD (GND)</text>
+
+  <!-- Node 5: Strapping Pins Config -->
+  <rect x="365" y="325" width="230" height="185" rx="6" ry="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="348" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">STRAPPING PINS (ВХОДИ)</text>
+  <text x="480" y="372" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">IO0: Boot Mode (SPI / UART)</text>
+  <text x="480" y="410" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">IO45: VDD_SPI (Low: 3.3V)</text>
+  <text x="480" y="448" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">IO46: ROM Logs / JTAG Source</text>
+  <text x="480" y="485" font-size="12" fill="#1a1a1a" text-anchor="middle">Підтяжки: 10 kΩ до VDD / GND</text>
+
+  <!-- Node 6: Hardware Debugger (Target Debug) -->
+  <rect x="710" y="115" width="205" height="115" rx="6" ry="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="812.5" y="138" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">АПАРАТНИЙ JTAG / CDC</text>
+  <text x="812.5" y="160" font-size="12" fill="#1a1a1a" text-anchor="middle">OpenOCD + GDB Налагодження</text>
+  <text x="812.5" y="180" font-size="12" fill="#1a1a1a" text-anchor="middle">Покрокове виконання й watchpoints</text>
+  <text x="812.5" y="200" font-size="12" fill="#27ae60" text-anchor="middle">Системний лог: ESP_LOG (CDC)</text>
+
+  <!-- Node 7: Extension Pin Headers -->
+  <rect x="710" y="260" width="205" height="250" rx="6" ry="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="812.5" y="283" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">ГРЕБІНКИ GPIO (HEADERS)</text>
+  <text x="812.5" y="308" font-size="12" fill="#1a1a1a" text-anchor="middle">2 × 22-pin Гребінки (2.54 mm)</text>
+  <text x="812.5" y="330" font-size="12" fill="#1a1a1a" text-anchor="middle">Виводи 3.3V, 5V, GND, EN</text>
+  <text x="812.5" y="355" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Octal SPI Flash/PSRAM:</text>
+  <text x="812.5" y="373" font-size="12" fill="#c0392b" text-anchor="middle">IO33..IO37 (Зайнято)</text>
+  <text x="812.5" y="400" font-size="12" fill="#1a1a1a" text-anchor="middle">Нативний USB: IO19(D-), IO20(D+)</text>
+  <text x="812.5" y="425" font-size="12" fill="#1a1a1a" text-anchor="middle">UART0: IO43(TX0), IO44(RX0)</text>
+  <text x="812.5" y="455" font-size="12" fill="#6b7280" text-anchor="middle">RGB LED (WS2812B): IO38</text>
+  <text x="812.5" y="485" font-size="12" fill="#6b7280" text-anchor="middle">Кнопка BOOT (IO0)</text>
+
+  <!-- Connections & Labels -->
+
+  <!-- 1. USB-UART -> ESP32-S3 UART0 -->
+  <line x1="250" y1="150" x2="365" y2="150" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="307.5" y="138" font-size="12" fill="#2457d6" text-anchor="middle">TX0 / RX0</text>
+
+  <!-- 2. Native USB -> ESP32-S3 USB D+/D- -->
+  <line x1="250" y1="255" x2="365" y2="255" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="307.5" y="230" font-size="12" fill="#27ae60" text-anchor="middle">
+    <tspan x="307.5" dy="0">D+ / D-</tspan>
+    <tspan x="307.5" dy="14">(IO20/19)</tspan>
+  </text>
+
+  <!-- 3. Power Supply 3.3V -> ESP32-S3 VDD -->
+  <path d="M 250 375 L 280 375 L 280 202 L 365 202" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="288" y="310" font-size="12" fill="#2457d6" text-anchor="start">3.3V VDD</text>
+
+  <!-- 4. Strapping Pins -> ESP32-S3 Boot Control -->
+  <line x1="480" y1="325" x2="480" y2="290" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="488" y="312" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="start">IO0/45/46</text>
+
+  <!-- 5. ESP32-S3 JTAG/CDC -> Hardware Debugger -->
+  <line x1="595" y1="172.5" x2="710" y2="172.5" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="652.5" y="160" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">JTAG / LOG</text>
+
+  <!-- 6. ESP32-S3 GPIO -> Pin Headers -->
+  <path d="M 595 246 L 683 246 L 683 385 L 710 385" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="618" y="310" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="start">GPIO Шина</text>
+</svg>

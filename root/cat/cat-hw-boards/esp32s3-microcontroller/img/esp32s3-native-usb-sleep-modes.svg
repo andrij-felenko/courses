@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Нативний USB-контролер та керування доменами живлення в Deep Sleep</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Під час Deep Sleep відключається CPU і High-Speed PHY, а домен RTC зберігає стан та викликає Wakeup</text>
+
+  <!-- TOP SECTION: HARDWARE DOMAINS BLOCK DIAGRAM -->
+  <!-- Main Core Domain Panel -->
+  <rect x="30" y="85" width="270" height="195" rx="8" ry="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="165" y="110" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Головний домен (Core Domain)</text>
+  <text x="165" y="128" font-size="12" fill="#6b7280" text-anchor="middle">[Вимкнено у Deep Sleep]</text>
+
+  <text x="165" y="158" font-size="12" fill="#1a1a1a" text-anchor="middle">• 2× Xtensa LX7 CPU (240 МГц)</text>
+  <text x="165" y="180" font-size="12" fill="#1a1a1a" text-anchor="middle">• Внутрішня SRAM 512 КБ</text>
+  <text x="165" y="202" font-size="12" fill="#1a1a1a" text-anchor="middle">• Шинні матриці &amp; High-Speed PHY</text>
+  <text x="165" y="255" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Струм у Deep Sleep: 0 мкА</text>
+
+  <!-- Native USB Interface Panel -->
+  <rect x="325" y="85" width="310" height="195" rx="8" ry="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="110" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Нативний USB Serial / JTAG</text>
+  <text x="480" y="128" font-size="12" fill="#2457d6" text-anchor="middle">Виводи GPIO19 (D-) та GPIO20 (D+)</text>
+
+  <text x="480" y="158" font-size="12" fill="#1a1a1a" text-anchor="middle">• CDC Консоль / ROM завантажувач</text>
+  <text x="480" y="180" font-size="12" fill="#1a1a1a" text-anchor="middle">• Апаратний мост JTAG налагодження</text>
+  <text x="480" y="202" font-size="12" fill="#1a1a1a" text-anchor="middle">• Утримання підтяжок ліній D+/D-</text>
+  <text x="480" y="255" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Збереження USB-з'єднання</text>
+
+  <!-- RTC Power Domain Panel -->
+  <rect x="660" y="85" width="270" height="195" rx="8" ry="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="795" y="110" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">RTC домен (Always-On)</text>
+  <text x="795" y="128" font-size="12" fill="#27ae60" text-anchor="middle">[Активний у Deep Sleep]</text>
+
+  <text x="795" y="158" font-size="12" fill="#1a1a1a" text-anchor="middle">• RTC Пам'ять (8 КБ SRAM)</text>
+  <text x="795" y="180" font-size="12" fill="#1a1a1a" text-anchor="middle">• Таймер &amp; Детектор пробудження</text>
+  <text x="795" y="202" font-size="12" fill="#1a1a1a" text-anchor="middle">• Сопроцесор ULP (RISC-V/FSM)</text>
+  <text x="795" y="255" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Струм споживання ~ 7 мкА</text>
+
+  <!-- Inter-panel Bus Arrows -->
+  <line x1="300" y1="182.5" x2="325" y2="182.5" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="635" y1="182.5" x2="660" y2="182.5" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- BOTTOM SECTION: TIMING DIAGRAM -->
+  <rect x="30" y="300" width="900" height="210" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="322" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма переходів між робочим режимом, Deep Sleep та пробудженням</text>
+
+  <!-- Phase Dividers & Headers -->
+  <line x1="400" y1="335" x2="400" y2="480" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="700" y1="335" x2="700" y2="480" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <text x="310" y="345" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Робочий режим (Active)</text>
+  <text x="550" y="345" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Глибокий сон (Deep Sleep)</text>
+  <text x="790" y="345" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Пробудження (RTC Wakeup)</text>
+
+  <!-- Row 1: CPU / Core Power Signal -->
+  <text x="205" y="375" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Живлення CPU</text>
+  <!-- Active High -->
+  <line x1="220" y1="365" x2="400" y2="365" stroke="#2457d6" stroke-width="2"/>
+  <!-- Transition Down -->
+  <line x1="400" y1="365" x2="400" y2="385" stroke="#c0392b" stroke-width="2"/>
+  <!-- Sleep Low -->
+  <line x1="400" y1="385" x2="700" y2="385" stroke="#c0392b" stroke-width="2"/>
+  <!-- Transition Up -->
+  <line x1="700" y1="385" x2="700" y2="365" stroke="#27ae60" stroke-width="2"/>
+  <!-- Wakeup High -->
+  <line x1="700" y1="365" x2="880" y2="365" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Row 2: RTC Domain Signal -->
+  <text x="205" y="415" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">RTC Domain (Always-On)</text>
+  <!-- Always High Line -->
+  <line x1="220" y1="405" x2="880" y2="405" stroke="#27ae60" stroke-width="2"/>
+  <text x="550" y="398" font-size="12" fill="#27ae60" text-anchor="middle">RTC Timer / Wakeup GPIO active</text>
+
+  <!-- Row 3: USB D+/D- Pin State -->
+  <text x="205" y="460" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Стан USB D+/D-</text>
+  <!-- Active Bus -->
+  <line x1="220" y1="450" x2="400" y2="450" stroke="#2457d6" stroke-width="2"/>
+  <!-- Sleep Held Line -->
+  <line x1="400" y1="455" x2="700" y2="455" stroke="#2457d6" stroke-width="2" stroke-dasharray="3,3"/>
+  <!-- Wakeup Bus -->
+  <line x1="700" y1="450" x2="880" y2="450" stroke="#2457d6" stroke-width="2"/>
+  <text x="550" y="470" font-size="12" fill="#2457d6" text-anchor="middle">Утримання підтяжок (Без відключення)</text>
+
+  <!-- Time Axis -->
+  <line x1="220" y1="490" x2="880" y2="490" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="550" y="505" font-size="12" fill="#6b7280" text-anchor="middle">Часова вісь (t)</text>
+
+</svg>

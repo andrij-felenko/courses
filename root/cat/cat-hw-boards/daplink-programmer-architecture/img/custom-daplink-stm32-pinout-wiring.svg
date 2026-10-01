@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема підключення програматора DAPLink на STM32F103C8T6</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Призначення виводів (SWD, nRESET, UART), підтягувальні резистори та зв'язок з цільовим MCU</text>
+
+  <!-- Panel 1: USB & Power -->
+  <rect x="30" y="75" width="220" height="440" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="98" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">1. USB та Живлення</text>
+
+  <!-- USB Connector Box -->
+  <rect x="45" y="115" width="190" height="105" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="140" y="133" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">USB Micro-B / Type-C</text>
+  <text x="60" y="152" font-size="12" fill="#1a1a1a" text-anchor="start">VBUS (+5V USB)</text>
+  <text x="60" y="170" font-size="12" fill="#1a1a1a" text-anchor="start">D- (PA11)</text>
+  <text x="60" y="188" font-size="12" fill="#1a1a1a" text-anchor="start">D+ (PA12)</text>
+  <text x="60" y="206" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">R1: 1.5 kΩ до 3.3V</text>
+
+  <!-- LDO Power Regulator Box -->
+  <rect x="45" y="235" width="190" height="90" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="140" y="253" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стабілізатор 3.3V (LDO)</text>
+  <text x="60" y="272" font-size="12" fill="#6b7280" text-anchor="start">AMS1117-3.3 (5V → 3.3V)</text>
+  <text x="60" y="291" font-size="12" fill="#6b7280" text-anchor="start">Конденсатори: 10µF + 100nF</text>
+  <text x="60" y="310" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Опорна напруга VCC = 3.3V</text>
+
+  <!-- LEDs & Hardware Pins Box -->
+  <rect x="45" y="340" width="190" height="160" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="140" y="358" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Світлодіоди індикації</text>
+  <text x="60" y="378" font-size="12" fill="#27ae60" text-anchor="start">LED1 (PA1): Connected</text>
+  <text x="60" y="398" font-size="12" fill="#2457d6" text-anchor="start">LED2 (PB1): Running / CDC</text>
+  <text x="60" y="418" font-size="12" fill="#c0392b" text-anchor="start">LED3 (PA0): RESET State</text>
+  <text x="60" y="445" font-size="12" fill="#6b7280" text-anchor="start">Резистори обмеження: 510 Ω</text>
+  <text x="60" y="465" font-size="12" fill="#6b7280" text-anchor="start">BOOT0 = GND (Run Flash)</text>
+  <text x="60" y="485" font-size="12" fill="#6b7280" text-anchor="start">BOOT1 = GND (Standard)</text>
+
+  <!-- Panel 2: DAPLink Programmer MCU -->
+  <rect x="280" y="75" width="350" height="440" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="295" y="98" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">2. Програматор DAPLink (STM32F103C8T6)</text>
+
+  <!-- MCU Chip Frame -->
+  <rect x="295" y="115" width="320" height="385" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <rect x="310" y="125" width="290" height="35" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="455" y="147" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">STM32F103C8T6 (DAPLink Firmware)</text>
+
+  <!-- MCU Left Pins (USB & Status) -->
+  <text x="310" y="180" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">PA11: USB_DM (D-)</text>
+  <text x="310" y="240" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">PA12: USB_DP (D+)</text>
+  <text x="310" y="300" font-size="12" fill="#27ae60" text-anchor="start">PA1: LED Status</text>
+  <text x="310" y="360" font-size="12" fill="#2457d6" text-anchor="start">PB1: LED Activity</text>
+  <text x="310" y="410" font-size="12" fill="#c0392b" text-anchor="start">PA0: LED Reset</text>
+  <text x="310" y="465" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">3.3V &amp; GND (Power)</text>
+
+  <!-- MCU Right Pins (SWD & Serial Outputs) -->
+  <text x="600" y="180" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">PA5 (SWCLK Clock)</text>
+  <text x="600" y="240" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">PA6 (SWDIO Data)</text>
+  <text x="600" y="300" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">PB0 (nRESET Control)</text>
+  <text x="600" y="360" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">PA2 (UART TXD / CDC)</text>
+  <text x="600" y="410" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">PA3 (UART RXD / CDC)</text>
+  <text x="600" y="465" font-size="12" fill="#6b7280" text-anchor="end">GND (Common Ground)</text>
+
+  <!-- Connection Lines (MCU Right -> Target Left) -->
+  <!-- SWCLK -->
+  <line x1="615" y1="180" x2="675" y2="180" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="645" y="173" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">SWCLK</text>
+
+  <!-- SWDIO -->
+  <line x1="615" y1="240" x2="675" y2="240" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="645" y="233" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">SWDIO</text>
+
+  <!-- nRESET -->
+  <line x1="615" y1="300" x2="675" y2="300" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="645" y="293" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">nRESET</text>
+
+  <!-- UART TX -> RX -->
+  <line x1="615" y1="360" x2="675" y2="360" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="645" y="353" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">TX → RX</text>
+
+  <!-- UART RX <- TX -->
+  <line x1="675" y1="410" x2="615" y2="410" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="645" y="403" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">RX ← TX</text>
+
+  <!-- GND Ground Wire -->
+  <line x1="615" y1="465" x2="675" y2="465" stroke="#6b7280" stroke-width="1.8" stroke-dasharray="4,3"/>
+  <text x="645" y="458" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">GND</text>
+
+  <!-- Panel 3: Target MCU -->
+  <rect x="660" y="75" width="270" height="440" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="675" y="98" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">3. Цільовий MCU (Target)</text>
+
+  <!-- Target Chip Frame -->
+  <rect x="675" y="115" width="240" height="385" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <rect x="690" y="125" width="210" height="35" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="795" y="147" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ARM Cortex-M Target</text>
+
+  <!-- Target Pins & External Passive Components -->
+  <!-- SWCLK Pin -->
+  <text x="690" y="174" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">SWCLK Pin</text>
+  <text x="690" y="191" font-size="12" fill="#6b7280" text-anchor="start">R2: 10 kΩ pull-down</text>
+
+  <!-- SWDIO Pin -->
+  <text x="690" y="234" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">SWDIO Pin</text>
+  <text x="690" y="251" font-size="12" fill="#27ae60" text-anchor="start">R3: 10 kΩ pull-up 3.3V</text>
+
+  <!-- nRESET Pin -->
+  <text x="690" y="294" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">nRESET Pin</text>
+  <text x="690" y="311" font-size="12" fill="#c0392b" text-anchor="start">R4: 10kΩ pull-up + C1: 100nF</text>
+
+  <!-- RXD Pin -->
+  <text x="690" y="354" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">RXD Pin (UART RX)</text>
+  <text x="690" y="371" font-size="12" fill="#1a1a1a" text-anchor="start">Прийом даних від CDC</text>
+
+  <!-- TXD Pin -->
+  <text x="690" y="404" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">TXD Pin (UART TX)</text>
+  <text x="690" y="421" font-size="12" fill="#1a1a1a" text-anchor="start">Передача даних у CDC</text>
+
+  <!-- GND & VCC Pin -->
+  <text x="690" y="458" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">GND &amp; VREF (3.3V)</text>
+  <text x="690" y="475" font-size="12" fill="#6b7280" text-anchor="start">Спільна земля та опорне VCC</text>
+</svg>

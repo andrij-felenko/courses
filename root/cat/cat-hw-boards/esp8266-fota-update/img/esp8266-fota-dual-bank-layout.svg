@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розподіл Flash-пам'яті ESP8266 у схемі Dual Bank (FOTA)</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Два рівноцінні слоти дозволяють безпечно завантажувати нову прошивку без ризику збоїв</text>
+
+  <!-- Main Memory Map Container -->
+  <rect x="40" y="85" width="880" height="175" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="110" font-size="13" font-weight="bold" fill="#1a1a1a">Адресний простір Flash-пам'яті (1 МБ / 8 Мбіт)</text>
+
+  <!-- Sector 1: Bootloader -->
+  <rect x="60" y="125" width="75" height="95" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="97" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Bootloader</text>
+  <text x="97" y="172" text-anchor="middle" font-size="11" fill="#6b7280">4 КБ</text>
+  <text x="97" y="195" text-anchor="middle" font-size="10" fill="#6b7280">0x00000</text>
+
+  <!-- Sector 2: Slot 0 -->
+  <rect x="143" y="125" width="310" height="95" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="298" y="150" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Slot 0 (Активна прошивка)</text>
+  <text x="298" y="170" text-anchor="middle" font-size="11" fill="#1a1a1a">Робочий образ програми v1.0 (~488 КБ)</text>
+  <text x="298" y="190" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">[АКТИВНИЙ ДЛЯ ЗАПУСКУ]</text>
+  <text x="298" y="207" text-anchor="middle" font-size="10" fill="#6b7280">0x01000 - 0x7B000</text>
+
+  <!-- Sector 3: Slot 1 -->
+  <rect x="461" y="125" width="310" height="95" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="616" y="150" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Slot 1 (FOTA-оновлення)</text>
+  <text x="616" y="170" text-anchor="middle" font-size="11" fill="#1a1a1a">Запис нового образу по Wi-Fi v1.1 (~488 КБ)</text>
+  <text x="616" y="190" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">[ПРИЙМАЄ ДАНІ ПО МЕРЕЖІ]</text>
+  <text x="616" y="207" text-anchor="middle" font-size="10" fill="#6b7280">0x81000 - 0xFB000</text>
+
+  <!-- Sector 4: FS / System -->
+  <rect x="779" y="125" width="121" height="95" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="839" y="148" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">FS / System</text>
+  <text x="839" y="166" text-anchor="middle" font-size="10" fill="#6b7280">LittleFS / SDK</text>
+  <text x="839" y="184" text-anchor="middle" font-size="10" fill="#6b7280">16 КБ парам.</text>
+  <text x="839" y="204" text-anchor="middle" font-size="10" fill="#6b7280">0xFC000</text>
+
+  <!-- Memory Bar Bottom Scale Labels -->
+  <text x="60" y="243" font-size="11" fill="#6b7280">0x00000</text>
+  <text x="143" y="243" font-size="11" fill="#6b7280">0x01000</text>
+  <text x="461" y="243" font-size="11" fill="#6b7280">0x81000</text>
+  <text x="779" y="243" font-size="11" fill="#6b7280">0xFB000</text>
+  <text x="900" y="243" text-anchor="end" font-size="11" fill="#6b7280">1024 КБ (1 МБ)</text>
+
+  <!-- Workflow Bottom Panels -->
+  <!-- Panel 1: Normal Operation -->
+  <rect x="40" y="280" width="270" height="140" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="55" y="303" font-size="13" font-weight="bold" fill="#1a1a1a">1. Нормальна робота</text>
+  <text x="55" y="328" font-size="12" fill="#1a1a1a">• Завантажувач виконує Slot 0</text>
+  <text x="55" y="348" font-size="12" fill="#1a1a1a">• Пристрій виконує основну логіку</text>
+  <text x="55" y="368" font-size="12" fill="#1a1a1a">• Файлова система LittleFS доступна</text>
+  <text x="55" y="388" font-size="12" fill="#6b7280">• Slot 1 перебуває в резерві</text>
+
+  <!-- Arrow 1 to 2 -->
+  <line x1="315" y1="350" x2="338" y2="350" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Panel 2: FOTA Ingestion -->
+  <rect x="345" y="280" width="270" height="140" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="360" y="303" font-size="13" font-weight="bold" fill="#2457d6">2. Отримання FOTA</text>
+  <text x="360" y="328" font-size="12" fill="#1a1a1a">• Приймання файлу по HTTP/HTTPS</text>
+  <text x="360" y="348" font-size="12" fill="#1a1a1a">• Потіковий запис бінарника в Slot 1</text>
+  <text x="360" y="368" font-size="12" fill="#1a1a1a">• Обчислення MD5-хешу на льоту</text>
+  <text x="360" y="388" font-size="12" fill="#2457d6">• Slot 0 продовжує працювати</text>
+
+  <!-- Arrow 2 to 3 -->
+  <line x1="620" y1="350" x2="643" y2="350" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Panel 3: Verification & Boot -->
+  <rect x="650" y="280" width="270" height="140" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="665" y="303" font-size="13" font-weight="bold" fill="#27ae60">3. Перевірка та старт</text>
+  <text x="665" y="328" font-size="12" fill="#1a1a1a">• Збіг MD5: хеш підтверджено</text>
+  <text x="665" y="348" font-size="12" fill="#1a1a1a">• Прапорець активного слота -> Slot 1</text>
+  <text x="665" y="368" font-size="12" fill="#1a1a1a">• Програмний перезапуск ESP.reset()</text>
+  <text x="665" y="388" font-size="12" font-weight="bold" fill="#27ae60">• Запуск нової версії v1.1</text>
+</svg>

@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-start" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура сенсора OV3640 та його підключення до ESP32</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Апаратне стиснення в JPEG усередині сенсора знижує навантаження на DVP і PSRAM</text>
+
+  <!-- Ліва панель: Сенсор OV3640 -->
+  <rect x="40" y="75" width="370" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="100" font-size="15" font-weight="bold" fill="#1a1a1a">Сенсор зображення OV3640 (2 МП)</text>
+
+  <!-- Блок 1: Матриця та ISP -->
+  <rect x="55" y="115" width="340" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="70" y="135" font-size="13" font-weight="bold" fill="#1a1a1a">Матриця пікселів (UXGA 1600×1200) та ISP</text>
+  <text x="70" y="154" font-size="12" fill="#6b7280">Сприйняття світла, первинна гама-корекція</text>
+  <text x="70" y="172" font-size="12" fill="#6b7280">Формування внутрішнього потоку RAW/YUV</text>
+
+  <!-- Стрілка 1->2 -->
+  <line x1="225" y1="190" x2="225" y2="208" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Блок 2: DSP та JPEG кодек -->
+  <rect x="55" y="210" width="340" height="85" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="70" y="230" font-size="13" font-weight="bold" fill="#27ae60">DSP-ядро та апаратний JPEG-кодек</text>
+  <text x="70" y="249" font-size="12" fill="#1a1a1a">Масштабування кадрів та баєр-процесинг</text>
+  <text x="70" y="268" font-size="12" font-weight="bold" fill="#27ae60">Стиснення JPEG: скорочує обсяг у ~10 разів</text>
+
+  <!-- Стрілка 2->3 -->
+  <line x1="225" y1="295" x2="225" y2="313" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Блок 3: Вихідний порт DVP -->
+  <rect x="55" y="315" width="340" height="85" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="70" y="335" font-size="13" font-weight="bold" fill="#2457d6">Вихідний паралельний порт DVP</text>
+  <text x="70" y="354" font-size="12" fill="#1a1a1a">Шина даних D0–D7 (потік байтів JPEG)</text>
+  <text x="70" y="373" font-size="12" fill="#6b7280">Генерація PCLK, VSYNC та HREF сигналів</text>
+
+  <!-- Блок 4: Регістри та SCCB Slave -->
+  <rect x="55" y="425" width="340" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="70" y="445" font-size="13" font-weight="bold" fill="#1a1a1a">Блок регістрів &amp; SCCB Slave</text>
+  <text x="70" y="464" font-size="12" fill="#6b7280">Прийом команд конфігурації (SIOC / SIOD)</text>
+  <text x="70" y="483" font-size="12" fill="#6b7280">Керування роздільністю, FPS та гамою</text>
+  <text x="70" y="502" font-size="12" fill="#6b7280">Вхід опорної частоти XCLK (10–24 МГц)</text>
+
+  <!-- Права панель: ESP32 -->
+  <rect x="550" y="75" width="370" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="570" y="100" font-size="15" font-weight="bold" fill="#1a1a1a">Мікроконтролер ESP32 (ESP32-CAM)</text>
+
+  <!-- Блок 1: CPU & Wi-Fi -->
+  <rect x="565" y="115" width="340" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="580" y="135" font-size="13" font-weight="bold" fill="#1a1a1a">Ядра CPU &amp; Wi-Fi стек ESP32</text>
+  <text x="580" y="154" font-size="12" fill="#6b7280">Обробка відеопотоку у драйвері esp_camera</text>
+  <text x="580" y="172" font-size="12" fill="#6b7280">Передача кадрів у мережу (HTTP/RTSP)</text>
+
+  <!-- Стрілка 2->1 в ESP32 -->
+  <line x1="735" y1="210" x2="735" y2="192" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Блок 2: PSRAM -->
+  <rect x="565" y="210" width="340" height="85" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="580" y="230" font-size="13" font-weight="bold" fill="#27ae60">Зовнішня пам'ять PSRAM (Frame Buffers)</text>
+  <text x="580" y="249" font-size="12" fill="#1a1a1a">Буферизація UXGA JPEG-кадрів (двобуферний режим)</text>
+  <text x="580" y="268" font-size="12" font-weight="bold" fill="#27ae60">Запобігає втраті кадрів та просіданню FPS</text>
+
+  <!-- Стрілка 3->2 в ESP32 -->
+  <line x1="735" y1="315" x2="735" y2="297" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 3: I2S / DVP & DMA -->
+  <rect x="565" y="315" width="340" height="85" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="580" y="335" font-size="13" font-weight="bold" fill="#2457d6">I2S / DVP Периферія &amp; DMA-контролер</text>
+  <text x="580" y="354" font-size="12" fill="#1a1a1a">Паралельний прийом D0–D7 за тактами PCLK</text>
+  <text x="580" y="373" font-size="12" fill="#6b7280">Апаратне формування буферів DMA у PSRAM</text>
+
+  <!-- Блок 4: LEDC & SCCB Host -->
+  <rect x="565" y="425" width="340" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="580" y="445" font-size="13" font-weight="bold" fill="#1a1a1a">Генератор XCLK (LEDC) &amp; SCCB Host</text>
+  <text x="580" y="464" font-size="12" fill="#6b7280">Формування меандру XCLK (LEDC перифером)</text>
+  <text x="580" y="483" font-size="12" fill="#6b7280">Ініціалізація реєстрів через SIOC та SIOD</text>
+  <text x="580" y="502" font-size="12" fill="#6b7280">Встановлення формату JPEG та роздільності</text>
+
+  <!-- Зв'язки між сенсором та ESP32 (Центральна зона) -->
+
+  <!-- Лінія 1: Шина D0–D7 -->
+  <line x1="395" y1="335" x2="565" y2="335" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="480" y="322" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D0–D7 (8 біт)</text>
+
+  <!-- Лінія 2: Синхросигнали DVP -->
+  <line x1="395" y1="375" x2="565" y2="375" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-blue)"/>
+  <text x="480" y="362" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">PCLK, VSYNC, HREF</text>
+
+  <!-- Лінія 3: XCLK -->
+  <line x1="565" y1="450" x2="395" y2="450" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="480" y="437" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">XCLK (10–24 МГц)</text>
+
+  <!-- Лінія 4: SCCB шина -->
+  <line x1="565" y1="495" x2="395" y2="495" stroke="#27ae60" stroke-width="2" marker-start="url(#arr-green-start)" marker-end="url(#arr-green)"/>
+  <text x="480" y="482" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">SCCB (SIOC, SIOD)</text>
+</svg>

@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура шин пам'яті Quad SPI та Octal SPI у ESP32-S3</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Порівняння 4-бітної та 8-бітної шин підключення Flash/PSRAM через L1-кеш та MMU</text>
+
+  <!-- Panel 1: ESP32-S3 System Core -->
+  <rect x="30" y="80" width="250" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="155" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP32-S3 System Core</text>
+
+  <!-- Sub-block 1: CPU -->
+  <rect x="50" y="125" width="210" height="50" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="155" y="155" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Dual-Core Xtensa LX7 (240 MHz)</text>
+
+  <!-- Arrow CPU -> L1 -->
+  <line x1="155" y1="175" x2="155" y2="208" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Sub-block 2: L1 Cache -->
+  <rect x="50" y="210" width="210" height="65" rx="5" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="155" y="233" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">L1 Cache (32 KiB / 64 KiB)</text>
+  <text x="155" y="253" font-size="12" fill="#6b7280" text-anchor="middle">Низькі затримки вибірки</text>
+
+  <!-- Arrow L1 -> MMU -->
+  <line x1="155" y1="275" x2="155" y2="308" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Sub-block 3: MMU -->
+  <rect x="50" y="310" width="210" height="65" rx="5" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="155" y="333" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MMU (Адресний простір)</text>
+  <text x="155" y="353" font-size="12" fill="#6b7280" text-anchor="middle">Трансляція 64 КіБ сторінок</text>
+
+  <!-- Arrow MMU -> SPI Controller -->
+  <line x1="155" y1="375" x2="155" y2="408" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Sub-block 4: SPI Controller -->
+  <rect x="50" y="410" width="210" height="60" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="155" y="433" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SPI0 / SPI1 Controller</text>
+  <text x="155" y="453" font-size="12" fill="#6b7280" text-anchor="middle">Арбітраж шин Flash &amp; PSRAM</text>
+
+  <!-- Bus connections from SPI Controller to Mode panels -->
+  <path d="M 260 430 L 295 430 L 295 175 L 348 175" fill="none" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <path d="M 260 450 L 310 450 L 310 385 L 348 385" fill="none" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+
+  <!-- Panel 2: Quad SPI Mode -->
+  <rect x="330" y="80" width="600" height="190" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="350" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">Режим Quad SPI (QSPI — 4 лінії даних)</text>
+
+  <!-- Signals line QSPI -->
+  <line x1="350" y1="135" x2="728" y2="135" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="540" y="127" font-size="12" fill="#1a1a1a" text-anchor="middle">CLK, CS# (Тактування й вибір)</text>
+
+  <!-- Data bus line QSPI -->
+  <line x1="350" y1="175" x2="728" y2="175" stroke="#2457d6" stroke-width="4" marker-end="url(#arr-blue)"/>
+  <text x="540" y="167" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">4x Data Lines (SD0..SD3)</text>
+
+  <!-- QSPI Note Box -->
+  <rect x="350" y="195" width="360" height="55" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="530" y="217" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Економія виводів GPIO:</text>
+  <text x="530" y="235" font-size="12" fill="#27ae60" text-anchor="middle">GPIO33..GPIO37 вільні для периферії</text>
+
+  <!-- QSPI Memory Chip -->
+  <rect x="730" y="120" width="180" height="130" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="820" y="145" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">QSPI Memory Chip</text>
+  <text x="820" y="170" font-size="12" fill="#1a1a1a" text-anchor="middle">Flash (4/8/16 MB)</text>
+  <text x="820" y="190" font-size="12" fill="#1a1a1a" text-anchor="middle">PSRAM (2 MB)</text>
+  <text x="820" y="215" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Макс. 80 МГц (40 МБ/с)</text>
+
+  <!-- Panel 3: Octal SPI Mode -->
+  <rect x="330" y="290" width="600" height="200" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="350" y="315" font-size="14" font-weight="bold" fill="#1a1a1a">Режим Octal SPI (OPI — 8 ліній даних)</text>
+
+  <!-- Signals line OPI -->
+  <line x1="350" y1="345" x2="728" y2="345" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="540" y="337" font-size="12" fill="#1a1a1a" text-anchor="middle">CLK, CS#, DQS (Тактування й строб DQS)</text>
+
+  <!-- Data bus line OPI -->
+  <line x1="350" y1="385" x2="728" y2="385" stroke="#c0392b" stroke-width="5" marker-end="url(#arr-red)"/>
+  <text x="540" y="377" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">8x Data Lines (SD0..SD7) — Подвоєна швидкість</text>
+
+  <!-- OPI Caution Box -->
+  <rect x="350" y="405" width="360" height="65" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="530" y="427" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠ Зайняті виводи GPIO33..GPIO37 у регістрах IO MUX</text>
+  <text x="530" y="447" font-size="12" fill="#c0392b" text-anchor="middle">Жорстка фіксація в обхід матриці GPIO Matrix</text>
+
+  <!-- OPI Memory Chip -->
+  <rect x="730" y="330" width="180" height="140" rx="6" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="820" y="355" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">OPI Memory Chip</text>
+  <text x="820" y="380" font-size="12" fill="#1a1a1a" text-anchor="middle">OPI PSRAM (8 MB)</text>
+  <text x="820" y="400" font-size="12" fill="#1a1a1a" text-anchor="middle">High-Speed Burst Mode</text>
+  <text x="820" y="425" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Макс. 80 МГц (80 МБ/с)</text>
+</svg>

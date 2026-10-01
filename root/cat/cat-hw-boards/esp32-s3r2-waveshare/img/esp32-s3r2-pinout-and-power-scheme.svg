@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топологічна схема розпіновки та живлення плати Waveshare ESP32-S3R2</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Розподіл гребінок GPIO, порт USB Type-C (GPIO19/20), кола живлення 3.3V та strapping-вивід GPIO45 (VDD_SPI)</text>
+
+  <!-- ЛІВА ПАНЕЛЬ 1: Живлення та USB -->
+  <rect x="35" y="75" width="265" height="210" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="35" y="75" width="265" height="30" fill="#eaf0fd" rx="6"/>
+  <text x="167" y="95" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Кола живлення та USB</text>
+
+  <rect x="45" y="115" width="80" height="26" fill="#2457d6" rx="4"/>
+  <text x="85" y="132" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">5V (VBUS)</text>
+  <text x="135" y="132" font-size="12" fill="#1a1a1a" text-anchor="start">Вхід від USB Type-C</text>
+
+  <rect x="45" y="150" width="80" height="26" fill="#27ae60" rx="4"/>
+  <text x="85" y="167" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">3.3V (VCC)</text>
+  <text x="135" y="167" font-size="12" fill="#1a1a1a" text-anchor="start">Вихід LDO стабілізатора</text>
+
+  <rect x="45" y="185" width="80" height="26" fill="#1a1a1a" rx="4"/>
+  <text x="85" y="202" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">GND</text>
+  <text x="135" y="202" font-size="12" fill="#1a1a1a" text-anchor="start">Спільна земля плати</text>
+
+  <rect x="45" y="222" width="245" height="52" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="167" y="242" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">GPIO19: USB D- / GPIO20: USB D+</text>
+  <text x="167" y="260" font-size="12" fill="#6b7280" text-anchor="middle">Нативний USB CDC / JTAG зневадження</text>
+
+  <!-- ЛІВА ПАНЕЛЬ 2: Гребінки GPIO -->
+  <rect x="35" y="300" width="265" height="235" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="35" y="300" width="265" height="30" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="167" y="320" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Гребінки GPIO периферії</text>
+
+  <rect x="45" y="340" width="245" height="42" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="55" y="357" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">GPIO1–GPIO10: АЦП (ADC1)</text>
+  <text x="55" y="373" font-size="12" fill="#6b7280" text-anchor="start">Підтримка Touch &amp; сенсорів</text>
+
+  <rect x="45" y="392" width="245" height="42" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="55" y="409" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">GPIO11–GPIO14: SPI / I2C / UART</text>
+  <text x="55" y="425" font-size="12" fill="#6b7280" text-anchor="start">Швидкісні шини зв'язку периферії</text>
+
+  <rect x="45" y="444" width="245" height="78" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="55" y="463" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">GPIO0: Strapping Boot Pin</text>
+  <text x="55" y="480" font-size="12" fill="#6b7280" text-anchor="start">Low = Download / High = SPI Boot</text>
+  <text x="55" y="497" font-size="12" fill="#1a1a1a" text-anchor="start">Підключено до кнопки BOOT</text>
+
+
+  <!-- ЦЕНТРАЛЬНИЙ БЛОК: ПЛАТА WAVESHARE ESP32-S3R2 -->
+  <rect x="330" y="75" width="300" height="460" fill="#f4f6f8" stroke="#2457d6" stroke-width="2" rx="10"/>
+
+  <!-- Заголовок плати -->
+  <rect x="345" y="90" width="270" height="35" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="480" y="112" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Waveshare ESP32-S3R2</text>
+
+  <!-- Роз'єм USB Type-C -->
+  <rect x="400" y="135" width="160" height="42" fill="#ffffff" stroke="#2457d6" stroke-width="2" rx="5"/>
+  <text x="480" y="153" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">USB Type-C</text>
+  <text x="480" y="169" font-size="12" fill="#6b7280" text-anchor="middle">GPIO19/20 (D-/D+)</text>
+
+  <!-- Чип ESP32-S3R2 SiP -->
+  <rect x="390" y="235" width="180" height="140" fill="#ffffff" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <text x="480" y="258" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP32-S3R2 (SiP)</text>
+  <text x="480" y="278" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">2 МБ PSRAM (SiP)</text>
+  <text x="480" y="298" font-size="12" fill="#6b7280" text-anchor="middle">16 МБ Flash (External)</text>
+  <text x="480" y="318" font-size="12" fill="#6b7280" text-anchor="middle">Dual-Core Xtensa 240MHz</text>
+  <text x="480" y="338" font-size="12" fill="#2457d6" text-anchor="middle">USB Serial / JTAG</text>
+
+  <!-- Кнопки RESET та BOOT -->
+  <rect x="350" y="405" width="80" height="30" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" rx="4"/>
+  <text x="390" y="424" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RESET</text>
+
+  <rect x="530" y="405" width="80" height="30" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="570" y="424" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">BOOT</text>
+
+  <!-- LDO Стабілізатор -->
+  <rect x="410" y="455" width="140" height="48" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="480" y="473" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">LDO 3.3V (800mA)</text>
+  <text x="480" y="490" font-size="12" fill="#6b7280" text-anchor="middle">5V -&gt; VCC_3V3</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ 1: Strapping-вивід GPIO45 (VDD_SPI) -->
+  <rect x="660" y="75" width="265" height="255" fill="#fdecea" stroke="#c0392b" stroke-width="2" rx="8"/>
+  <rect x="660" y="75" width="265" height="32" fill="#fdecea" rx="6"/>
+  <text x="792" y="96" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Увага: GPIO45 (VDD_SPI)</text>
+
+  <rect x="675" y="115" width="235" height="45" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="792" y="133" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Контроль напруги Flash/PSRAM</text>
+  <text x="792" y="149" font-size="12" fill="#6b7280" text-anchor="middle">Напруга живлення шини VDD_SPI</text>
+
+  <rect x="675" y="168" width="235" height="45" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="685" y="186" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">GPIO45 = 1 (Pull-Up / High)</text>
+  <text x="685" y="202" font-size="12" fill="#c0392b" text-anchor="start">VDD_SPI = 3.3V (Аварія 1.8V SiP!)</text>
+
+  <rect x="675" y="221" width="235" height="45" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="685" y="239" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">GPIO45 = 0 (Pull-Down / Low)</text>
+  <text x="685" y="255" font-size="12" fill="#27ae60" text-anchor="start">VDD_SPI = 1.8V (Норма ESP32-S3R2)</text>
+
+  <text x="792" y="295" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Не підтягувати GPIO45 до 3.3V!</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ 2: Конфігурація SiP PSRAM -->
+  <rect x="660" y="345" width="265" height="190" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <rect x="660" y="345" width="265" height="30" fill="#e9f7ef" rx="6"/>
+  <text x="792" y="365" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Конфігурація SiP PSRAM</text>
+
+  <rect x="675" y="385" width="235" height="40" fill="#ffffff" stroke="#27ae60" rx="4"/>
+  <text x="685" y="402" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">2 МБ Quad SPI PSRAM</text>
+  <text x="685" y="417" font-size="12" fill="#6b7280" text-anchor="start">Вбудовано в SiP-корпус ESP32-S3R2</text>
+
+  <rect x="675" y="433" width="235" height="40" fill="#ffffff" stroke="#27ae60" rx="4"/>
+  <text x="685" y="450" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Частота шини: 80 МГц QSPI</text>
+  <text x="685" y="465" font-size="12" fill="#6b7280" text-anchor="start">Напруга живлення VDD_SPI = 1.8V</text>
+
+  <rect x="675" y="481" width="235" height="42" fill="#ffffff" stroke="#27ae60" rx="4"/>
+  <text x="685" y="498" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">16 МБ External QSPI Flash</text>
+  <text x="685" y="513" font-size="12" fill="#6b7280" text-anchor="start">Прошивка, файли SPIFFS/LittleFS</text>
+
+
+  <!-- З'ЄДНАЛЬНІ ЛІНІЇ І СТРІЛКИ -->
+  <line x1="570" y1="260" x2="660" y2="190" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="570" y1="278" x2="660" y2="405" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="400" y1="156" x2="290" y2="245" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+</svg>

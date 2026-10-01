@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння послідовностей обміну даними TCP та UDP</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">TCP вимагає 3-етапне рукостискання і підтвердження ACK, тоді як UDP надсилає датаграми миттєво без встановлення сесії</text>
+
+  <!-- Left Panel: TCP -->
+  <rect x="30" y="80" width="435" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="30" y="80" width="435" height="40" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="30" y="110" width="435" height="10" fill="#eaf0fd"/>
+  <text x="247" y="105" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Протокол TCP (з'єднання з гарантією доставки)</text>
+
+  <!-- TCP Timelines -->
+  <!-- Client Timeline -->
+  <text x="120" y="142" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Клієнт (ESP-01)</text>
+  <line x1="120" y1="152" x2="120" y2="475" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,4"/>
+
+  <!-- Server Timeline -->
+  <text x="375" y="142" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сервер (Host)</text>
+  <line x1="375" y1="152" x2="375" y2="475" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,4"/>
+
+  <!-- Handshake Phase -->
+  <!-- SYN -->
+  <line x1="120" y1="165" x2="366" y2="185" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="210" y="160" width="75" height="18" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247" y="173" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1. SYN</text>
+
+  <!-- SYN-ACK -->
+  <line x1="375" y1="195" x2="129" y2="215" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="200" y="190" width="95" height="18" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247" y="203" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2. SYN-ACK</text>
+
+  <!-- ACK -->
+  <line x1="120" y1="225" x2="366" y2="245" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="210" y="220" width="75" height="18" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247" y="233" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">3. ACK</text>
+
+  <!-- Status: ESTABLISHED -->
+  <rect x="130" y="254" width="235" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="247" y="269" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Сесія встановлена (ESTABLISHED)</text>
+
+  <!-- Data Phase -->
+  <!-- Data PSH, ACK -->
+  <line x1="120" y1="290" x2="366" y2="310" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="180" y="285" width="135" height="18" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="247" y="298" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Дані [PSH, ACK]</text>
+
+  <!-- ACK for Data -->
+  <line x1="375" y1="320" x2="129" y2="340" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="195" y="315" width="105" height="18" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="247" y="328" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Підтвердження ACK</text>
+
+  <!-- Termination Phase -->
+  <!-- FIN-ACK -->
+  <line x1="120" y1="365" x2="366" y2="385" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <rect x="200" y="360" width="95" height="18" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="247" y="373" font-size="12" fill="#1a1a1a" text-anchor="middle">FIN-ACK</text>
+
+  <!-- ACK / FIN -->
+  <line x1="375" y1="395" x2="129" y2="415" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <rect x="200" y="390" width="95" height="18" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="247" y="403" font-size="12" fill="#1a1a1a" text-anchor="middle">ACK / FIN</text>
+
+  <!-- Summary Box TCP -->
+  <rect x="45" y="430" width="405" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247" y="449" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Гарантія порядку та цілісності даних</text>
+  <text x="247" y="467" font-size="12" fill="#1a1a1a" text-anchor="middle">Оверхед: буферизація pbuf у SRAM чипа ESP8266</text>
+
+  <!-- Right Panel: UDP -->
+  <rect x="495" y="80" width="435" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="495" y="80" width="435" height="40" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="495" y="110" width="435" height="10" fill="#eaf0fd"/>
+  <text x="712" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Протокол UDP (без з'єднання та підтверджень)</text>
+
+  <!-- UDP Timelines -->
+  <!-- Client Timeline -->
+  <text x="585" y="142" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Клієнт (ESP-01)</text>
+  <line x1="585" y1="152" x2="585" y2="475" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,4"/>
+
+  <!-- Server Timeline -->
+  <text x="840" y="142" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сервер (Host)</text>
+  <line x1="840" y1="152" x2="840" y2="475" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,4"/>
+
+  <!-- Status: NO CONNECTION -->
+  <rect x="595" y="165" width="235" height="22" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712" y="180" font-size="12" fill="#6b7280" text-anchor="middle">Без встановлення сесії (No Handshake)</text>
+
+  <!-- UDP Datagram 1 -->
+  <line x1="585" y1="205" x2="831" y2="225" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="645" y="200" width="135" height="18" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="712" y="213" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Датаграма 1 (Data)</text>
+
+  <!-- UDP Datagram 2 -->
+  <line x1="585" y1="245" x2="831" y2="265" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="645" y="240" width="135" height="18" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="712" y="253" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Датаграма 2 (Data)</text>
+
+  <!-- UDP Response -->
+  <line x1="840" y1="285" x2="594" y2="305" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="645" y="280" width="135" height="18" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="293" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Відповідь (Datagram)</text>
+
+  <!-- UDP Datagram 3 -->
+  <line x1="585" y1="325" x2="831" y2="345" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="645" y="320" width="135" height="18" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="712" y="333" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Датаграма 3 (Data)</text>
+
+  <!-- Datagram Loss Indicator -->
+  <line x1="585" y1="365" x2="750" y2="378" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3"/>
+  <text x="760" y="382" font-size="12" font-weight="bold" fill="#c0392b">✗ Втрата пакета</text>
+
+  <!-- Summary Box UDP -->
+  <rect x="510" y="430" width="405" height="50" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="449" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Мінімальна затримка та споживання ОЗП</text>
+  <text x="712" y="467" font-size="12" fill="#1a1a1a" text-anchor="middle">Відсутні повторні відправки (ACK) та гарантія порядку</text>
+</svg>

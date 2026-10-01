@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розподіл Flash-пам'яті STM32F103C8T6 у програматорі DAPLink</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Bootloader розташований з 0x08000000, а прошивка DAPLink — з 0x08004000 (зсув VTOR)</text>
+
+  <!-- Left Panel: Memory Map -->
+  <rect x="25" y="85" width="315" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="182" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Карта Flash-пам'яті (64 КБ)</text>
+
+  <!-- Memory Block A: Bootloader -->
+  <text x="105" y="142" text-anchor="end" font-size="12" fill="#2457d6">0x0800 0000</text>
+  <rect x="112" y="130" width="205" height="90" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="214" y="155" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">DAPLink Bootloader</text>
+  <text x="214" y="175" text-anchor="middle" font-size="12" fill="#2457d6">16 КБ (0x08000000–0x08003FFF)</text>
+  <text x="214" y="195" text-anchor="middle" font-size="12" fill="#6b7280">Вектори VTOR = 0x0000</text>
+
+  <!-- Boundary Label -->
+  <text x="105" y="252" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">0x0800 4000</text>
+
+  <!-- Memory Block B: Application Firmware -->
+  <rect x="112" y="240" width="205" height="180" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="214" y="265" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Основна прошивка</text>
+  <text x="214" y="285" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">DAPLink Interface</text>
+  <text x="214" y="310" text-anchor="middle" font-size="12" fill="#1a1a1a">48 КБ (0x08004000–0x0800FFFF)</text>
+  <text x="214" y="335" text-anchor="middle" font-size="12" fill="#27ae60">• Вектори зсунуті (+0x4000)</text>
+  <text x="214" y="360" text-anchor="middle" font-size="12" fill="#6b7280">• CMSIS-DAP v2 (WinUSB)</text>
+  <text x="214" y="385" text-anchor="middle" font-size="12" fill="#6b7280">• CDC UART (COM-порт)</text>
+
+  <!-- Memory End Label & Block -->
+  <text x="105" y="457" text-anchor="end" font-size="12" fill="#6b7280">0x0800 FFFF</text>
+  <rect x="112" y="435" width="205" height="35" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="214" y="457" text-anchor="middle" font-size="12" fill="#6b7280">Кінець флеш-пам'яті</text>
+
+  <!-- Connection Arrows from Memory Map to Right Panels -->
+  <path d="M 317 175 L 368 175" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-blue)"/>
+  <path d="M 317 330 L 368 330" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-green)"/>
+
+  <!-- Top Right Panel: VTOR Redirection Mechanism -->
+  <rect x="365" y="85" width="565" height="190" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="647" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Механізм адресації векторів переривань (VTOR)</text>
+
+  <!-- Box 1: Bootloader Vector Table -->
+  <rect x="385" y="125" width="230" height="135" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="385" y="125" width="230" height="28" rx="6" fill="#eaf0fd"/>
+  <text x="500" y="144" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вектори Bootloader (0x0000)</text>
+  <text x="395" y="170" font-size="12" fill="#1a1a1a">0x08000000: MSP (Bootloader)</text>
+  <text x="395" y="195" font-size="12" fill="#1a1a1a">0x08000004: Reset_Handler()</text>
+  <text x="395" y="220" font-size="12" fill="#6b7280">0x08000008: ISRs (NMI, Fault)</text>
+  <text x="395" y="245" font-size="12" fill="#2457d6">VTOR = 0x08000000</text>
+
+  <!-- Transition Arrow between Vector Tables -->
+  <path d="M 618 192 L 672 192" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="647" y="176" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Перехід</text>
+  <text x="647" y="212" text-anchor="middle" font-size="12" fill="#6b7280">зсув VTOR</text>
+
+  <!-- Box 2: Application Vector Table -->
+  <rect x="680" y="125" width="230" height="135" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="680" y="125" width="230" height="28" rx="6" fill="#e9f7ef"/>
+  <text x="795" y="144" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Вектори Прошивки (+0x4000)</text>
+  <text x="690" y="170" font-size="12" fill="#1a1a1a">0x08004000: MSP (DAPLink)</text>
+  <text x="690" y="195" font-size="12" fill="#1a1a1a">0x08004004: Reset_Handler()</text>
+  <text x="690" y="220" font-size="12" fill="#6b7280">0x08004008: USB &amp; UART ISR</text>
+  <text x="690" y="245" font-size="12" font-weight="bold" fill="#27ae60">SCB-&gt;VTOR = 0x08004000;</text>
+
+  <!-- Bottom Right Panel: Hardware Interfaces & Protection -->
+  <rect x="365" y="290" width="565" height="200" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="647" y="315" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Периферійні інтерфейси та підключення до цільового MCU</text>
+
+  <!-- Card 1: CMSIS-DAP v2 SWD -->
+  <rect x="385" y="330" width="255" height="145" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="385" y="330" width="255" height="28" rx="6" fill="#eaf0fd"/>
+  <text x="512" y="349" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">CMSIS-DAP v2 (Зневадження SWD)</text>
+  <text x="395" y="375" font-size="12" fill="#1a1a1a">• USB Bulk (без затримок HID)</text>
+  <text x="395" y="400" font-size="12" fill="#1a1a1a">• SWD: SWCLK, SWDIO, nRESET</text>
+  <text x="395" y="425" font-size="12" fill="#6b7280">• Підтримка Cortex-M</text>
+  <text x="395" y="450" font-size="12" fill="#2457d6">• Сумісність з OpenOCD / Keil</text>
+
+  <!-- Card 2: CDC UART & Phantom Power Protection -->
+  <rect x="655" y="330" width="255" height="145" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="655" y="330" width="255" height="28" rx="6" fill="#e9f7ef"/>
+  <text x="782" y="349" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">CDC UART &amp; Апаратний захист</text>
+  <text x="665" y="375" font-size="12" fill="#1a1a1a">• Віртуальний COM-порт (VCP)</text>
+  <text x="665" y="400" font-size="12" fill="#1a1a1a">• Лінії: TXD (PA9), RXD (PA10)</text>
+  <text x="665" y="425" font-size="12" fill="#27ae60">• Захист від фантомного живлення</text>
+  <text x="665" y="450" font-size="12" fill="#6b7280">• Буферизація сигнальних ліній</text>
+</svg>

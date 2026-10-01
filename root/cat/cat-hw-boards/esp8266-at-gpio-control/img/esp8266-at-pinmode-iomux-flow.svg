@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Послідовність конфігурування GPIO через AT+PINMODE та мультиплексор IOMUX</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Обробка AT-команди інтерпретатором, вибірка регістрів IOMUX та налаштування напрямку й підтяжки Pull-up / Pull-down</text>
+
+  <!-- STEP 1: AT Command Prompt -->
+  <rect x="30" y="85" width="200" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="98" width="180" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="117" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1. Запит AT+PINMODE</text>
+
+  <rect x="40" y="145" width="180" height="75" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">AT+PINMODE=12,1,1</text>
+  <text x="130" y="187" text-anchor="middle" font-size="11" fill="#6b7280">pin = 12 (GPIO12)</text>
+  <text x="130" y="204" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">mode = 1 | pull = 1</text>
+
+  <rect x="40" y="235" width="180" height="185" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="258" font-size="11" font-weight="bold" fill="#1a1a1a">Параметри команды:</text>
+  <text x="50" y="280" font-size="11" fill="#1a1a1a">• pin: номер GPIO (0–15)</text>
+  <text x="50" y="300" font-size="11" fill="#1a1a1a">• mode: 0=Input, 1=Output</text>
+  <text x="50" y="320" font-size="11" fill="#1a1a1a">• pull: 0=Disable, 1=PullUp</text>
+  <text x="50" y="340" font-size="11" fill="#1a1a1a">  2=PullDown (GPIO16)</text>
+  <text x="50" y="380" font-size="11" font-weight="bold" fill="#2457d6">➔ Передача по UART</text>
+
+  <!-- Flow Arrow 1 -> 2 -->
+  <line x1="230" y1="182" x2="265" y2="182" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- STEP 2: Parser & Validation -->
+  <rect x="265" y="85" width="200" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="275" y="98" width="180" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="365" y="117" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">2. AT-Інтерпретатор</text>
+
+  <rect x="275" y="145" width="180" height="75" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="365" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Парсинг &amp; Валідація</text>
+  <text x="365" y="187" text-anchor="middle" font-size="11" fill="#6b7280">Перевірка маски завад</text>
+  <text x="365" y="204" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">GPIO12 — Дозволено</text>
+
+  <rect x="275" y="235" width="180" height="185" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="285" y="258" font-size="11" font-weight="bold" fill="#1a1a1a">Захисне блокування:</text>
+  <text x="285" y="280" font-size="11" fill="#c0392b">• GPIO6–11: SPI Flash</text>
+  <text x="285" y="300" font-size="11" fill="#c0392b">• GPIO1/3: UART TX/RX</text>
+  <text x="285" y="330" font-size="11" fill="#6b7280">При спробі змінити</text>
+  <text x="285" y="348" font-size="11" fill="#6b7280">зарезервовану ніжку:</text>
+  <text x="285" y="380" font-size="11" font-weight="bold" fill="#c0392b">➔ Помилка: ERROR</text>
+
+  <!-- Flow Arrow 2 -> 3 -->
+  <line x1="465" y1="182" x2="500" y2="182" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- STEP 3: IOMUX Register Config -->
+  <rect x="500" y="85" width="200" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="510" y="98" width="180" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="600" y="117" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">3. Мультиплексор IOMUX</text>
+
+  <rect x="510" y="145" width="180" height="75" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="600" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">PERIPHS_IO_MUX</text>
+  <text x="600" y="187" text-anchor="middle" font-size="11" fill="#6b7280">FUNC_GPIO12 (Func 3)</text>
+  <text x="600" y="204" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">PIN_PULLUP_EN = 1</text>
+
+  <rect x="510" y="235" width="180" height="185" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="520" y="258" font-size="11" font-weight="bold" fill="#1a1a1a">Керування підтяжкою:</text>
+  <text x="520" y="280" font-size="11" fill="#1a1a1a">• Pull-up (~30–50 кОм)</text>
+  <text x="520" y="298" font-size="11" fill="#1a1a1a">• Підтяжка до VDD3P3</text>
+  <text x="520" y="328" font-size="11" fill="#6b7280">Перемикання функцій:</text>
+  <text x="520" y="346" font-size="11" fill="#6b7280">Відключення HSPI / MTDI</text>
+  <text x="520" y="380" font-size="11" font-weight="bold" fill="#27ae60">➔ Налаштовано IOMUX</text>
+
+  <!-- Flow Arrow 3 -> 4 -->
+  <line x1="700" y1="182" x2="735" y2="182" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- STEP 4: Physical GPIO Hardware Cascade -->
+  <rect x="735" y="85" width="195" height="350" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="2"/>
+  <rect x="745" y="98" width="175" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="832" y="117" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">4. Фізичний GPIO12</text>
+
+  <rect x="745" y="145" width="175" height="75" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="832" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO_ENABLE_W1TS</text>
+  <text x="832" y="187" text-anchor="middle" font-size="11" fill="#6b7280">Драйвер: Вихід (Output)</text>
+  <text x="832" y="204" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Стан готовий: OK</text>
+
+  <rect x="745" y="235" width="175" height="185" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="755" y="258" font-size="11" font-weight="bold" fill="#1a1a1a">Результат виконання:</text>
+  <text x="755" y="280" font-size="11" fill="#1a1a1a">• Ніжка конфігурована</text>
+  <text x="755" y="300" font-size="11" fill="#1a1a1a">• Відповідь по UART:</text>
+  <text x="755" y="325" font-size="12" font-weight="bold" fill="#27ae60">  OK</text>
+  <text x="755" y="355" font-size="11" fill="#6b7280">Готовий до команд</text>
+  <text x="755" y="373" font-size="11" fill="#6b7280">AT+SYSGPIOWRITE</text>
+  <text x="755" y="395" font-size="11" font-weight="bold" fill="#2457d6">➔ Цифровий контакт</text>
+</svg>

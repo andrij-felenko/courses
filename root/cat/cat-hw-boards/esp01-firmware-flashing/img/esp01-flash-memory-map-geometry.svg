@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрична карта розподілу пам'яті SPI Flash ESP8266/ESP-01</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Розташування системних секторів (RF Cal, System Params) та зсувів для 512 КБ, 1 МБ та 4 МБ</text>
+
+  <!-- COLUMN 1: 512 KB (4 Mbit) -->
+  <rect x="30" y="70" width="280" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="70" width="280" height="32" rx="8" fill="#eaf0fd"/>
+  <text x="170" y="91" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">512 КБ (4 Мбіт) — ESP-01</text>
+
+  <!-- Block 1: Bootloader -->
+  <rect x="45" y="115" width="250" height="35" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="170" y="137" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Bootloader / Вектори (4 KB)</text>
+
+  <!-- Block 2: User App -->
+  <rect x="45" y="158" width="250" height="190" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="170" y="240" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Основна прошивка (User App)</text>
+  <text x="170" y="260" font-size="12" fill="#6b7280" text-anchor="middle">Доступний обсяг: ~492 KB</text>
+  <text x="52" y="175" font-size="12" fill="#27ae60" text-anchor="start">0x01000</text>
+  <text x="52" y="340" font-size="12" fill="#27ae60" text-anchor="start">0x7BFFF</text>
+
+  <!-- Block 3: System Sectors -->
+  <rect x="45" y="356" width="250" height="115" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="170" y="373" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Системні сектори (16 KB)</text>
+
+  <rect x="52" y="380" width="236" height="22" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="170" y="395" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">0x7C000: RF Cal Data (4 KB)</text>
+
+  <rect x="52" y="407" width="236" height="22" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="170" y="422" font-size="12" fill="#c0392b" text-anchor="middle">0x7E000: System Params 1 (4 KB)</text>
+
+  <rect x="52" y="434" width="236" height="22" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="170" y="449" font-size="12" fill="#c0392b" text-anchor="middle">0x7F000: System Params 2 (4 KB)</text>
+
+  <!-- COLUMN 2: 1 MB (8 Mbit) -->
+  <rect x="340" y="70" width="280" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="340" y="70" width="280" height="32" rx="8" fill="#eaf0fd"/>
+  <text x="480" y="91" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1 МБ (8 Мбіт) — ESP-01S</text>
+
+  <!-- Block 1: Bootloader -->
+  <rect x="355" y="115" width="250" height="35" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="137" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Bootloader / Вектори (4 KB)</text>
+
+  <!-- Block 2: User App -->
+  <rect x="355" y="158" width="250" height="190" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="240" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Прошивка / Файлова система</text>
+  <text x="480" y="260" font-size="12" fill="#6b7280" text-anchor="middle">Обсяг: ~1004 KB (підтримка OTA)</text>
+  <text x="362" y="175" font-size="12" fill="#27ae60" text-anchor="start">0x01000</text>
+  <text x="362" y="340" font-size="12" fill="#27ae60" text-anchor="start">0xFBFFF</text>
+
+  <!-- Block 3: System Sectors -->
+  <rect x="355" y="356" width="250" height="115" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="480" y="373" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Системні сектори (16 KB)</text>
+
+  <rect x="362" y="380" width="236" height="22" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="395" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">0xFC000: RF Cal Data (4 KB)</text>
+
+  <rect x="362" y="407" width="236" height="22" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="422" font-size="12" fill="#c0392b" text-anchor="middle">0xFE000: System Params 1 (4 KB)</text>
+
+  <rect x="362" y="434" width="236" height="22" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="449" font-size="12" fill="#c0392b" text-anchor="middle">0xFF000: System Params 2 (4 KB)</text>
+
+  <!-- COLUMN 3: 4 MB (32 Mbit) -->
+  <rect x="650" y="70" width="280" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="650" y="70" width="280" height="32" rx="8" fill="#eaf0fd"/>
+  <text x="790" y="91" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">4 МБ (32 Мбіт) — ESP-12 / NodeMCU</text>
+
+  <!-- Block 1: Bootloader -->
+  <rect x="665" y="115" width="250" height="35" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="790" y="137" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Bootloader / Вектори (4 KB)</text>
+
+  <!-- Block 2: User App -->
+  <rect x="665" y="158" width="250" height="190" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="790" y="240" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Прошивки (OTA1/OTA2) + LittleFS</text>
+  <text x="790" y="260" font-size="12" fill="#6b7280" text-anchor="middle">Доступний обсяг: ~4080 KB</text>
+  <text x="672" y="175" font-size="12" fill="#27ae60" text-anchor="start">0x01000</text>
+  <text x="672" y="340" font-size="12" fill="#27ae60" text-anchor="start">0x3FBFFF</text>
+
+  <!-- Block 3: System Sectors -->
+  <rect x="665" y="356" width="250" height="115" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="790" y="373" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Системні сектори (16 KB)</text>
+
+  <rect x="672" y="380" width="236" height="22" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="790" y="395" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">0x3FC000: RF Cal Data (4 KB)</text>
+
+  <rect x="672" y="407" width="236" height="22" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="790" y="422" font-size="12" fill="#c0392b" text-anchor="middle">0x3FE000: System Params 1 (4 KB)</text>
+
+  <rect x="672" y="434" width="236" height="22" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="790" y="449" font-size="12" fill="#c0392b" text-anchor="middle">0x3FF000: System Params 2 (4 KB)</text>
+
+  <!-- BOTTOM SUMMARY PANEL -->
+  <rect x="20" y="500" width="920" height="45" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="519" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Ключове правило: системні сектори RF Cal (4 KB) та System Params розміщуються наприкінці пам'яті.</text>
+  <text x="480" y="535" font-size="12" fill="#1a1a1a" text-anchor="middle">Зсув системних секторів обчислюється як (Total_Flash_Size - 16 KB) = 0x7C000 (512КБ), 0xFC000 (1МБ), 0x3FC000 (4МБ).</text>
+</svg>

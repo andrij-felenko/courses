@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма скидання ESP8266 та фіксації strapping-виводів</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Експоненційне наростання V_RST(t) RC-кола та момент защеплення рівнів при V_RST = V_IH</text>
+
+  <!-- Main Timing Panel Container -->
+  <rect x="30" y="70" width="900" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Y-Axis Labels (Left) -->
+  <text x="150" y="112" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">V_DD (3.3V)</text>
+
+  <text x="150" y="210" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">V_RST (t)</text>
+  <text x="150" y="226" font-size="12" fill="#6b7280" text-anchor="end">RC-коло</text>
+
+  <text x="150" y="308" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Strapping Pins</text>
+  <text x="150" y="324" font-size="12" fill="#6b7280" text-anchor="end">GPIO0, 2, 15</text>
+
+  <text x="150" y="382" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Стан ROM</text>
+
+  <!-- Vertical Reference Lines -->
+  <text x="160" y="86" font-size="12" fill="#6b7280" text-anchor="middle">t = 0</text>
+  <line x1="160" y1="90" x2="160" y2="405" stroke="#d0d7de" stroke-dasharray="2 2"/>
+
+  <text x="240" y="86" font-size="12" fill="#6b7280" text-anchor="middle">t_1 (V_DD=3.3V)</text>
+  <line x1="240" y1="90" x2="240" y2="405" stroke="#d0d7de" stroke-dasharray="2 2"/>
+
+  <text x="520" y="82" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t_latch (Фіксація станів)</text>
+  <line x1="520" y1="88" x2="520" y2="405" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <text x="680" y="86" font-size="12" fill="#6b7280" text-anchor="middle">t_boot (Flash Boot)</text>
+  <line x1="680" y1="90" x2="680" y2="405" stroke="#d0d7de" stroke-dasharray="2 2"/>
+
+  <!-- Waveform 1: V_DD (Power Supply Ramp) -->
+  <line x1="150" y1="140" x2="160" y2="140" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 160,140 L 240,102 L 880,102" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="290" y="96" font-size="12" font-weight="bold" fill="#2457d6">V_DD = 3.3V</text>
+
+  <!-- Waveform 2: V_RST(t) (Exponential RC Curve) -->
+  <line x1="160" y1="195" x2="880" y2="195" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="165" y="191" font-size="12" font-weight="bold" fill="#c0392b">V_IH = 2.48V (Порог тригера Шмітта)</text>
+  <text x="875" y="191" font-size="12" fill="#6b7280" text-anchor="end">0.75 × V_DD</text>
+
+  <path d="M 160,260 L 240,260 C 340,260 430,215 520,195 C 610,175 720,170 880,170" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Intersection Marker for t_latch -->
+  <circle cx="520" cy="195" r="5" fill="#27ae60" stroke="#ffffff" stroke-width="2"/>
+
+  <rect x="530" y="175" width="160" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="610" y="191" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V_RST = V_IH → Latch!</text>
+
+  <!-- Waveform 3: Strapping Setup & Sampling Window -->
+  <rect x="360" y="288" width="160" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="440" y="306" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вікно стабільності t_setup</text>
+  <text x="440" y="323" font-size="12" fill="#6b7280" text-anchor="middle">Рівні GPIO0, 2, 15 незмінні</text>
+
+  <polygon points="515,284 525,284 520,292" fill="#27ae60"/>
+  <text x="525" y="348" font-size="12" font-weight="bold" fill="#27ae60">Строб фіксації</text>
+
+  <!-- Waveform 4: Internal ROM State Blocks -->
+  <rect x="160" y="360" width="360" height="35" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="340" y="382" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Скидання активне (RST LOW / Заряд RC)</text>
+
+  <rect x="520" y="360" width="160" height="35" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="600" y="382" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ROM Boot Init</text>
+
+  <rect x="680" y="360" width="200" height="35" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="780" y="382" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Виконання коду (Flash Boot)</text>
+
+  <!-- Time Axis -->
+  <line x1="150" y1="415" x2="900" y2="415" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="910" y="419" font-size="12" font-weight="bold" fill="#1a1a1a">t (час)</text>
+
+  <!-- Bottom Info Cards -->
+  <!-- Card 1: Math Formulas -->
+  <rect x="30" y="445" width="430" height="95" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="465" font-size="12" font-weight="bold" fill="#2457d6">Розрахунок часової константи RC-кола:</text>
+  <text x="45" y="485" font-size="12" fill="#1a1a1a">• Часова константа: <tspan font-weight="bold" fill="#2457d6">τ = R_RST × C_RST</tspan> = 10 kΩ × 100 nF = 1.0 ms</text>
+  <text x="45" y="505" font-size="12" fill="#1a1a1a">• Час до защеплення: <tspan font-weight="bold" fill="#2457d6">t_latch = τ × ln(V_DD / (V_DD - V_IH))</tspan></text>
+  <text x="45" y="525" font-size="12" fill="#6b7280">Для V_IH = 0.75 × V_DD: t_latch = τ × ln(4) ≈ 1.39 ms</text>
+
+  <!-- Card 2: Hardware Rules -->
+  <rect x="480" y="445" width="450" height="95" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="495" y="465" font-size="12" font-weight="bold" fill="#27ae60">Вимоги до стабільності запускного імпульсу:</text>
+  <text x="495" y="485" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold" fill="#27ae60">C_RST ≥ 100 nF</tspan> пригнічує завади живлення при старті</text>
+  <text x="495" y="505" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold" fill="#27ae60">R_RST = 10 kΩ</tspan> забезпечує надійну підтяжку до 3.3V</text>
+  <text x="495" y="525" font-size="12" fill="#c0392b">• Дребезг на GPIO0/15 до t_latch призводить до фатальних збоїв boot mode</text>
+</svg>

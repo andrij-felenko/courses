@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Архітектура модуля LCD_CAM та контролера GDMA в ESP32-S3</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Пряма передача даних відеокадру в PSRAM через GDMA без залучення процесорних ядер CPU</text>
+
+  <!-- Block 1: DVP Camera Sensor -->
+  <rect x="30" y="90" width="160" height="290" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="110" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Камера DVP</text>
+  <text x="110" y="133" text-anchor="middle" font-size="12" fill="#6b7280">OV2640 / OV3640</text>
+  <rect x="42" y="150" width="136" height="40" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="110" y="174" text-anchor="middle" font-size="12" fill="#1a1a1a">Дані DVP [Y2–Y9]</text>
+  <rect x="42" y="200" width="136" height="40" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="110" y="224" text-anchor="middle" font-size="12" fill="#1a1a1a">PCLK (Такти)</text>
+  <rect x="42" y="250" width="136" height="40" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="110" y="274" text-anchor="middle" font-size="12" fill="#1a1a1a">VSYNC / HREF</text>
+  <rect x="42" y="300" width="136" height="40" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="110" y="324" text-anchor="middle" font-size="12" fill="#1a1a1a">XCLK (Вхідна частота)</text>
+
+  <!-- Block 2: GPIO Matrix & IO MUX -->
+  <rect x="220" y="90" width="150" height="290" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="295" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">GPIO Matrix / IO MUX</text>
+  <text x="295" y="133" text-anchor="middle" font-size="12" fill="#6b7280">Маршрутизація ніжок</text>
+  <rect x="232" y="150" width="126" height="90" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="295" y="185" text-anchor="middle" font-size="12" fill="#1a1a1a">Гнучка матриця</text>
+  <text x="295" y="205" text-anchor="middle" font-size="12" fill="#2457d6">GPIO Matrix</text>
+  <rect x="232" y="250" width="126" height="90" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="295" y="285" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Обхід IO MUX</text>
+  <text x="295" y="305" text-anchor="middle" font-size="12" fill="#1a1a1a">(Високошвидкісний)</text>
+
+  <!-- Block 3: LCD_CAM Module -->
+  <rect x="400" y="90" width="220" height="290" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="510" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Модуль LCD_CAM</text>
+  <text x="510" y="133" text-anchor="middle" font-size="12" fill="#6b7280">Апаратний інтерфейс</text>
+  <rect x="412" y="150" width="196" height="100" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="510" y="173" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Інтерфейс CAM (Вхід)</text>
+  <rect x="424" y="185" width="172" height="50" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="510" y="206" text-anchor="middle" font-size="12" fill="#1a1a1a">CAM RX Async FIFO</text>
+  <text x="510" y="224" text-anchor="middle" font-size="12" fill="#6b7280">(64 × 32 біти)</text>
+  <rect x="412" y="260" width="196" height="100" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="510" y="283" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Інтерфейс LCD (Вихід)</text>
+  <rect x="424" y="295" width="172" height="50" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="510" y="316" text-anchor="middle" font-size="12" fill="#1a1a1a">LCD TX Async FIFO</text>
+  <text x="510" y="334" text-anchor="middle" font-size="12" fill="#6b7280">(64 × 32 біти)</text>
+
+  <!-- Block 4: GDMA Controller -->
+  <rect x="650" y="90" width="140" height="290" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="720" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Контролер GDMA</text>
+  <text x="720" y="133" text-anchor="middle" font-size="12" fill="#6b7280">Двоканальний DMA</text>
+  <rect x="662" y="150" width="116" height="100" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="720" y="180" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Канал RX 0</text>
+  <text x="720" y="202" text-anchor="middle" font-size="12" fill="#1a1a1a">Захоплення</text>
+  <text x="720" y="222" text-anchor="middle" font-size="12" fill="#1a1a1a">кадру в DMA</text>
+  <rect x="662" y="260" width="116" height="100" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="720" y="290" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Канал TX 1</text>
+  <text x="720" y="312" text-anchor="middle" font-size="12" fill="#6b7280">Виведення</text>
+  <text x="720" y="332" text-anchor="middle" font-size="12" fill="#6b7280">на дисплей</text>
+
+  <!-- Block 5: Memory System -->
+  <rect x="815" y="90" width="115" height="290" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="872" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Пам'ять</text>
+  <text x="872" y="133" text-anchor="middle" font-size="12" fill="#6b7280">PSRAM / SRAM</text>
+  <rect x="825" y="150" width="95" height="210" rx="4" fill="#ffffff" stroke="#27ae60"/>
+  <text x="872" y="190" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Кадровий</text>
+  <text x="872" y="210" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">буфер</text>
+  <text x="872" y="235" text-anchor="middle" font-size="12" fill="#1a1a1a">Ring Buffer</text>
+  <text x="872" y="260" text-anchor="middle" font-size="12" fill="#6b7280">в зовнішній</text>
+  <text x="872" y="280" text-anchor="middle" font-size="12" fill="#6b7280">Octal PSRAM</text>
+
+  <!-- Arrows -->
+  <path d="M190,210 L220,210" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <path d="M370,210 L400,210" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <path d="M596,210 L662,210" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <path d="M778,210 L815,210" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- CPU Status Panel -->
+  <rect x="220" y="410" width="570" height="75" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="505" y="435" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Ядра CPU Xtensa LX7 повністю вільні (0% CPU Load для DMA)</text>
+  <text x="505" y="460" text-anchor="middle" font-size="12" fill="#1a1a1a">Потік даних від камери передається прямо в PSRAM через GDMA без переривань ядра CPU</text>
+</svg>

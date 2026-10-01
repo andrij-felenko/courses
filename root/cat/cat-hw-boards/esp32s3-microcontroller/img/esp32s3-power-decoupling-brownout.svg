@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <!-- Marker Defs -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Вплив імпульсів струму Wi-Fi на напругу VDD та спрацьовування Brownout Detector</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Низький ESR та достатня ємність шунтувальних конденсаторів утримують падіння VDD вище порога 2.43V</text>
+
+  <!-- ================= PANEL 1: WAVEFORMS & BROWNOUT ================= -->
+  <rect x="30" y="65" width="445" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="252.5" y="86" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Імпульси струму I_TX та напруга V_DD(t)</text>
+  <text x="252.5" y="104" text-anchor="middle" font-size="12" fill="#6b7280">Часова діаграма при Wi-Fi трансляції</text>
+
+  <!-- TOP GRAPH: CURRENT I_VDD -->
+  <rect x="55" y="120" width="405" height="115" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="60" y="138" font-size="11" font-weight="bold" fill="#6b7280">I (mA)</text>
+  
+  <!-- Dashed grid lines -->
+  <line x1="90" y1="145" x2="445" y2="145" stroke="#e0e0e0" stroke-dasharray="3,3"/>
+  <line x1="90" y1="210" x2="445" y2="210" stroke="#e0e0e0" stroke-dasharray="3,3"/>
+  <text x="60" y="148" font-size="10" fill="#c0392b">500 mA</text>
+  <text x="60" y="208" font-size="10" fill="#6b7280">50 mA</text>
+
+  <!-- Current Waveform -->
+  <path d="M 90 210 L 170 210 L 175 145 L 300 145 L 305 210 L 440 210" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="237.5" y="136" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Спалах струму Wi-Fi TX (500 mA)</text>
+  <text x="95" y="227" font-size="10" fill="#6b7280">Базовий струм (50 mA)</text>
+
+
+  <!-- BOTTOM GRAPH: VOLTAGE V_DD -->
+  <rect x="55" y="250" width="405" height="195" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="60" y="268" font-size="11" font-weight="bold" fill="#6b7280">V (V)</text>
+
+  <!-- Voltage Grid Thresholds -->
+  <!-- 3.3V Line -->
+  <line x1="90" y1="275" x2="445" y2="275" stroke="#27ae60" stroke-dasharray="4,3" stroke-width="1.5"/>
+  <text x="60" y="278" font-size="10" font-weight="bold" fill="#27ae60">3.3V</text>
+  <text x="350" y="266" font-size="11" font-weight="bold" fill="#27ae60">Номінал VDD (3.3V)</text>
+
+  <!-- 2.43V Brownout Threshold -->
+  <line x1="90" y1="360" x2="445" y2="360" stroke="#c0392b" stroke-dasharray="4,3" stroke-width="1.5"/>
+  <text x="60" y="363" font-size="10" font-weight="bold" fill="#c0392b">2.43V</text>
+  <text x="290" y="348" font-size="11" font-weight="bold" fill="#c0392b">Поріг Brownout Detector (2.43V)</text>
+
+  <!-- GOOD Waveform (With 10uF + 0.1uF) -->
+  <path d="M 90 275 L 170 275 Q 180 298 237.5 298 Q 295 298 305 275 L 440 275" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="237.5" y="290" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">З шунтуванням (3.1V > 2.43V)</text>
+
+  <!-- BAD Waveform (High ESR / No Bulk Cap) -->
+  <path d="M 90 275 L 170 275 Q 180 395 237.5 395 Q 295 395 305 275 L 440 275" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="237.5" y="410" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">Без шунтів / високий ESR (2.1V)</text>
+
+  <!-- Fault Alert Badge -->
+  <rect x="165" y="418" width="145" height="20" rx="4" fill="#c0392b"/>
+  <text x="237.5" y="432" text-anchor="middle" font-size="10" font-weight="bold" fill="#ffffff">⚠️ Апаратне скидання (Reset)</text>
+
+
+  <!-- ================= PANEL 2: DECOUPLING SCHEMATIC & ANALYSIS ================= -->
+  <rect x="485" y="65" width="445" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="707.5" y="86" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Схема розв'язки та придушення ESR</text>
+  <text x="707.5" y="104" text-anchor="middle" font-size="12" fill="#6b7280">Еквівалентна кола живлення VDD</text>
+
+  <!-- Circuit Box -->
+  <rect x="500" y="120" width="415" height="175" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Power Source LDO -->
+  <rect x="515" y="145" width="75" height="50" rx="3" fill="#343a40"/>
+  <text x="552.5" y="168" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">LDO 3.3V</text>
+  <text x="552.5" y="184" text-anchor="middle" font-size="10" fill="#adb5bd">Джерело</text>
+
+  <!-- PCB Trace Impedance -->
+  <rect x="610" y="150" width="50" height="24" fill="#f4f6f8" stroke="#1a1a1a"/>
+  <text x="635" y="166" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a1a1a">R_trace</text>
+
+  <!-- Main Power Rails -->
+  <line x1="590" y1="162" x2="610" y2="162" stroke="#27ae60" stroke-width="2"/>
+  <line x1="660" y1="162" x2="840" y2="162" stroke="#27ae60" stroke-width="2"/>
+  <text x="670" y="150" font-size="10" font-weight="bold" fill="#27ae60">+3.3V VDD</text>
+
+  <!-- Capacitor C1 (Bulk 10uF) -->
+  <circle cx="710" cy="162" r="3" fill="#2457d6"/>
+  <line x1="710" y1="162" x2="710" y2="182" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="698" y1="182" x2="722" y2="182" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="698" y1="187" x2="722" y2="187" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="698" y="193" width="24" height="20" fill="#f4f6f8" stroke="#6b7280"/>
+  <text x="710" y="207" text-anchor="middle" font-size="10" fill="#1a1a1a">ESR1</text>
+  <line x1="710" y1="213" x2="710" y2="235" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="710" y="252" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">C_bulk (10µF)</text>
+
+  <!-- Capacitor C2 (RF Decoupling 0.1uF) -->
+  <circle cx="785" cy="162" r="3" fill="#2457d6"/>
+  <line x1="785" y1="162" x2="785" y2="182" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="773" y1="182" x2="797" y2="182" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="773" y1="187" x2="797" y2="187" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="773" y="193" width="24" height="20" fill="#f4f6f8" stroke="#6b7280"/>
+  <text x="785" y="207" text-anchor="middle" font-size="10" fill="#1a1a1a">ESR2</text>
+  <line x1="785" y1="213" x2="785" y2="235" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="785" y="252" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">C_rf (0.1µF)</text>
+
+  <!-- GND Rail -->
+  <line x1="680" y1="235" x2="840" y2="235" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="685" y="247" font-size="10" font-weight="bold" fill="#1a1a1a">GND</text>
+
+  <!-- Load: ESP32-S3 SoC -->
+  <rect x="840" y="145" width="65" height="100" rx="3" fill="#1d3557"/>
+  <text x="872.5" y="188" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">ESP32-S3</text>
+  <text x="872.5" y="204" text-anchor="middle" font-size="10" fill="#a8dadc">Навантаження</text>
+
+  <!-- EQUATION & SCENARIOS -->
+  <rect x="500" y="305" width="415" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="707.5" y="327" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">ΔV = I_peak × (R_ESR + R_trace) + (I_peak × Δt) / C</text>
+
+  <!-- Bad Scenario -->
+  <rect x="500" y="350" width="415" height="42" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="510" y="367" font-size="11" font-weight="bold" fill="#c0392b">❌ Високий ESR (> 0.5 Ω) або відсутність C_bulk:</text>
+  <text x="510" y="384" font-size="10" fill="#c0392b">   ΔV > 0.87V → VDD падає до 2.1V → Brownout Reset</text>
+
+  <!-- Good Scenario -->
+  <rect x="500" y="398" width="415" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="510" y="415" font-size="11" font-weight="bold" fill="#27ae60">✅ Керамічні конденсатори 10µF + 0.1µF біля VDD (ESR < 0.05 Ω):</text>
+  <text x="510" y="432" font-size="10" fill="#27ae60">   ΔV < 0.20V → VDD утримується 3.1V → стабільна робота</text>
+
+
+  <!-- ================= BOTTOM SUMMARY BAR ================= -->
+  <rect x="30" y="475" width="900" height="30" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="495" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Ключовий висновок: Шунтування 10µF + 0.1µF з низьким ESR придушує кидки 500 мА та утримує VDD вище 2.43V</text>
+</svg>

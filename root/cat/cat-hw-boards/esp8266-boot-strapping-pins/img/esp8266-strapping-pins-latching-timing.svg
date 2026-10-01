@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+  
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часові інтервали защепкування логічних рівнів (Strapping Timing)</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Фронт відпускання RST стробує стани GPIO0, GPIO2 та GPIO15 із дотриманням інтервалів t_setup та t_hold</text>
+  
+  <!-- Left Panel: Timing Diagram -->
+  <rect x="30" y="85" width="580" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="112" font-size="15" font-weight="bold" fill="#1a1a1a">Діаграма сигналів VCC, RST/EN та Strapping Pins</text>
+
+  <!-- Setup & Hold Highlighted Bands -->
+  <rect x="235" y="145" width="77" height="230" fill="#2457d6" fill-opacity="0.08" stroke="#2457d6" stroke-dasharray="2,2"/>
+  <rect x="312" y="145" width="65" height="230" fill="#27ae60" fill-opacity="0.08" stroke="#27ae60" stroke-dasharray="2,2"/>
+
+  <!-- Timing Strobe Header Labels -->
+  <text x="312" y="132" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Строб Latch (RST ↑)</text>
+  <text x="273" y="142" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">t_setup</text>
+  <text x="344" y="142" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">t_hold</text>
+
+  <!-- Signal 1: VCC (3.3V) -->
+  <text x="45" y="165" font-size="12" font-weight="bold" fill="#2457d6">VCC</text>
+  <line x1="140" y1="180" x2="570" y2="180" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="140" y1="155" x2="570" y2="155" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <path d="M 140,180 L 190,155 L 570,155" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Signal 2: RST / CH_PD -->
+  <text x="45" y="225" font-size="12" font-weight="bold" fill="#1a1a1a">RST / EN</text>
+  <line x1="140" y1="240" x2="570" y2="240" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="140" y1="205" x2="570" y2="205" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <path d="M 140,240 L 310,240 L 315,205 L 570,205" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Signal 3: GPIO0 / GPIO2 (Logic 1) -->
+  <text x="45" y="285" font-size="12" font-weight="bold" fill="#27ae60">GPIO0/2</text>
+  <line x1="140" y1="300" x2="570" y2="300" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="140" y1="265" x2="570" y2="265" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <path d="M 140,300 L 220,265 L 570,265" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Signal 4: GPIO15 (Logic 0) -->
+  <text x="45" y="345" font-size="12" font-weight="bold" fill="#c0392b">GPIO15</text>
+  <line x1="140" y1="360" x2="570" y2="360" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <path d="M 140,360 L 570,360" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Vertical Strobe Line -->
+  <line x1="312" y1="145" x2="312" y2="375" stroke="#2457d6" stroke-dasharray="4,3" stroke-width="2"/>
+
+  <!-- Left Bottom Summary Box -->
+  <rect x="45" y="388" width="550" height="87" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="60" y="408" font-size="12" font-weight="bold" fill="#1a1a1a">Вимоги до системної синхронізації:</text>
+  <text x="60" y="428" font-size="12" fill="#1a1a1a">• t_setup ≥ 3.2 мкс: рівні на виводах мають стабілізуватися ДО наростання RST</text>
+  <text x="60" y="446" font-size="12" fill="#1a1a1a">• t_hold ≥ 2.0 мкс:  рівні повинні утримуватися після наростання фронту RST</text>
+  <text x="60" y="464" font-size="11" fill="#6b7280">• Недотримання таймингів (метастабільність) викликає хаотичні збої старту</text>
+
+  <!-- Right Panel: Parameters & Risks Analysis -->
+  <rect x="630" y="85" width="300" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="645" y="112" font-size="15" font-weight="bold" fill="#1a1a1a">Параметри та ризики</text>
+
+  <!-- Right Card 1: t_setup -->
+  <rect x="645" y="130" width="270" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="657" y="150" font-size="12" font-weight="bold" fill="#2457d6">Час підготовки t_setup</text>
+  <text x="657" y="170" font-size="12" fill="#1a1a1a">Час від встановлення VCC</text>
+  <text x="657" y="186" font-size="12" fill="#1a1a1a">до фіксації фронту RST.</text>
+
+  <!-- Right Card 2: t_hold -->
+  <rect x="645" y="215" width="270" height="75" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="657" y="235" font-size="12" font-weight="bold" fill="#27ae60">Час утримання t_hold</text>
+  <text x="657" y="255" font-size="12" fill="#1a1a1a">Час зберігання логіки</text>
+  <text x="657" y="271" font-size="12" fill="#1a1a1a">після відпускання лінії RST.</text>
+
+  <!-- Right Card 3: Metastability Risk -->
+  <rect x="645" y="300" width="270" height="175" rx="6" fill="#fdecea" stroke="#c0392b"/>
+  <text x="657" y="322" font-size="13" font-weight="bold" fill="#c0392b">Причина помилок старту</text>
+  <text x="657" y="344" font-size="12" fill="#1a1a1a">Якщо ємність лінії розряджає</text>
+  <text x="657" y="362" font-size="12" fill="#1a1a1a">GPIO0/GPIO15 надто повільно,</text>
+  <text x="657" y="380" font-size="12" fill="#1a1a1a">напруга у момент t_latch попадає</text>
+  <text x="657" y="398" font-size="12" fill="#1a1a1a">в неозначену зону між V_IL і V_IH.</text>
+  <text x="657" y="422" font-size="12" font-weight="bold" fill="#c0392b">Результат: випадковий вхід</text>
+  <text x="657" y="440" font-size="12" font-weight="bold" fill="#c0392b">у режим SDIO чи UART.</text>
+</svg>

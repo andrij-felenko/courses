@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова діаграма сигналів скидання та лог завантаження ESP32-CAM</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Взаємодія сигналів GPIO0 / EN (RESET) та послідовна ініціалізація ROM Bootloader, PSRAM та OV2640</text>
+
+  <!-- LEFT PANEL: Timing Diagram -->
+  <rect x="30" y="85" width="435" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="98" width="405" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="247" y="119" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. Часова діаграма скидання (DTR/RTS чи кнопка)</text>
+
+  <!-- EN (RESET) Waveform -->
+  <text x="45" y="160" font-size="12" font-weight="bold" fill="#1a1a1a">EN (RESET)</text>
+  <path d="M 130 155 L 220 155 L 220 185 L 310 185 L 310 155 L 420 155" stroke="#c0392b" stroke-width="2.5" fill="none"/>
+  <text x="425" y="160" font-size="11" fill="#6b7280">3.3 В</text>
+  <text x="425" y="188" font-size="11" fill="#6b7280">0 В</text>
+
+  <!-- GPIO0 Waveform -->
+  <text x="45" y="230" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO0</text>
+  <path d="M 130 245 L 370 245 L 370 215 L 420 215" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+  <text x="425" y="220" font-size="11" fill="#6b7280">3.3 В</text>
+  <text x="425" y="248" font-size="11" fill="#6b7280">0 В</text>
+
+  <!-- Dotted Guideline at Sample Point -->
+  <line x1="310" y1="145" x2="310" y2="265" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="310" cy="245" r="5" fill="#2457d6"/>
+  <text x="310" y="282" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Вибірка GPIO0 = LOW</text>
+
+  <!-- Left Panel State Summary -->
+  <rect x="45" y="305" width="405" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="58" y="327" font-size="12" font-weight="bold" fill="#27ae60">Умова входу в bootloader:</text>
+  <text x="58" y="349" font-size="12" fill="#1a1a1a">• EN наростає з 0 до 3.3 В при утриманні GPIO0 = 0 В</text>
+  <text x="58" y="371" font-size="12" fill="#1a1a1a">• ROM-фірмвар фіксує режим завантаження (Download)</text>
+  <text x="58" y="396" font-size="12" font-weight="bold" fill="#2457d6">➔ Модуль готовий до прийому прошивки по UART</text>
+
+  <!-- RIGHT PANEL: UART Boot Log -->
+  <rect x="495" y="85" width="435" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="510" y="98" width="405" height="32" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712" y="119" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">2. Лог завантаження UART (115200 baud)</text>
+
+  <!-- Console Terminal Screen -->
+  <rect x="510" y="142" width="405" height="273" rx="6" fill="#1a1a1a" stroke="#6b7280" stroke-width="1.5"/>
+  
+  <text x="525" y="167" font-size="11" fill="#abb2bf">ets Jun 8 2016 00:22:57</text>
+  <text x="525" y="187" font-size="11" font-weight="bold" fill="#98c379">rst:0x1 (POWERON),boot:0x13 (SPI_FAST_BOOT)</text>
+  
+  <text x="525" y="212" font-size="11" fill="#abb2bf">SPI speed: 40MHz, mode: DIO, size: 4MB</text>
+  <text x="525" y="232" font-size="11" font-weight="bold" fill="#61afef">esp_psram: found 4MB PSRAM (Octal/Quad)</text>
+  <text x="525" y="252" font-size="11" font-weight="bold" fill="#98c379">esp_psram: initialized 4096 KB PSRAM</text>
+  
+  <text x="525" y="277" font-size="11" font-weight="bold" fill="#e5c07b">camera: Detected OV2640 sensor (PID 0x2640)</text>
+  <text x="525" y="297" font-size="11" fill="#98c379">camera: Allocating 2 frame buffers in PSRAM</text>
+  
+  <text x="525" y="322" font-size="11" fill="#abb2bf">wifi: connected to SSID 'IoT-Lab', IP: 192.168.1.105</text>
+  <text x="525" y="342" font-size="11" font-weight="bold" fill="#98c379">stream: MJPEG Server started at port 80</text>
+
+  <rect x="525" y="365" width="375" height="34" rx="4" fill="#27ae60"/>
+  <text x="712" y="386" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">✓ УСПІШНИЙ СТАРТ: PSRAM І КАМЕРА ГОТОВІ</text>
+</svg>

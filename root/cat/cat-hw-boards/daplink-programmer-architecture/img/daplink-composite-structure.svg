@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Definitions -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура USB Composite Device у прошивці DAPLink</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Розділення трьох незалежних класів USB (CMSIS-DAP HID/Bulk, MSC Drag-and-Drop, CDC UART) в одному контролері</text>
+
+  <!-- TOP LAYER: USB HOST & OS DRIVERS -->
+  <!-- Box 1: Debugger Host -->
+  <rect x="35" y="68" width="280" height="72" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="175" y="90" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">ПК: IDE / PyOCD / OpenOCD</text>
+  <text x="175" y="108" font-size="12" fill="#1a1a1a" text-anchor="middle">Драйвер CMSIS-DAP (WinUSB / HID)</text>
+  <text x="175" y="125" font-size="12" fill="#6b7280" text-anchor="middle">Апаратне зневадження SWD/JTAG</text>
+
+  <!-- Box 2: OS File System -->
+  <rect x="340" y="68" width="280" height="72" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="90" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">ОС: Файловий менеджер</text>
+  <text x="480" y="108" font-size="12" fill="#1a1a1a" text-anchor="middle">Віртуальний диск (Mass Storage)</text>
+  <text x="480" y="125" font-size="12" fill="#6b7280" text-anchor="middle">Прошивка перетягуванням (Drag-and-Drop)</text>
+
+  <!-- Box 3: Serial Terminal -->
+  <rect x="645" y="68" width="280" height="72" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="785" y="90" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">ПК: Послідовний термінал</text>
+  <text x="785" y="108" font-size="12" fill="#1a1a1a" text-anchor="middle">Драйвер CDC ACM (Virtual COM Port)</text>
+  <text x="785" y="125" font-size="12" fill="#6b7280" text-anchor="middle">Консольний вивід UART та логування</text>
+
+  <!-- TOP TO MIDDLE ARROWS -->
+  <line x1="175" y1="140" x2="175" y2="182" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="185" y="166" font-size="12" fill="#2457d6" text-anchor="start">WinUSB / HID</text>
+
+  <line x1="480" y1="140" x2="480" y2="182" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="490" y="166" font-size="12" fill="#27ae60" text-anchor="start">SCSI / BOT</text>
+
+  <line x1="785" y1="140" x2="785" y2="182" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="795" y="166" font-size="12" fill="#c0392b" text-anchor="start">CDC Packets</text>
+
+  <!-- MIDDLE LAYER: USB DEVICE FRAMEWORK -->
+  <rect x="20" y="185" width="920" height="155" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="205" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DAPLink USB Device Framework (Single USB PHY / IAD)</text>
+
+  <!-- Card 1: Interface 0 (CMSIS-DAP) -->
+  <rect x="35" y="215" width="280" height="115" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="175" y="235" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Interface 0: CMSIS-DAP</text>
+  <text x="45" y="255" font-size="12" fill="#1a1a1a">• Клас: USB HID (v1) / WinUSB Bulk (v2)</text>
+  <text x="45" y="275" font-size="12" fill="#1a1a1a">• Endpoints: EP1 IN / OUT (64B / 512B)</text>
+  <text x="45" y="295" font-size="12" fill="#1a1a1a">• Призначення: Команди SWD / JTAG</text>
+  <text x="45" y="315" font-size="12" fill="#6b7280">• Підтримка WebUSB специфікації</text>
+
+  <!-- Card 2: Interface 1 (Mass Storage) -->
+  <rect x="340" y="215" width="280" height="115" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="235" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Interface 1: Mass Storage (MSC)</text>
+  <text x="350" y="255" font-size="12" fill="#1a1a1a">• Клас: USB MSC (Mass Storage BOT)</text>
+  <text x="350" y="275" font-size="12" fill="#1a1a1a">• Endpoints: EP2 Bulk IN / OUT</text>
+  <text x="350" y="295" font-size="12" fill="#1a1a1a">• Призначення: Емуляція FAT16 тому</text>
+  <text x="350" y="315" font-size="12" fill="#6b7280">• Перехоплення файлів .bin / .hex</text>
+
+  <!-- Card 3: Interface 2+3 (Virtual COM) -->
+  <rect x="645" y="215" width="280" height="115" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="785" y="235" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Interface 2+3: CDC Virtual COM</text>
+  <text x="655" y="255" font-size="12" fill="#1a1a1a">• Клас: USB CDC-ACM (Control + Data)</text>
+  <text x="655" y="275" font-size="12" fill="#1a1a1a">• Endpoints: EP3 Interrupt + EP4 Bulk</text>
+  <text x="655" y="295" font-size="12" fill="#1a1a1a">• Призначення: Двосторонній UART bridge</text>
+  <text x="655" y="315" font-size="12" fill="#6b7280">• Керування Baudrate (line coding)</text>
+
+  <!-- MIDDLE TO BOTTOM ARROWS -->
+  <line x1="175" y1="330" x2="175" y2="367" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="185" y="351" font-size="12" fill="#2457d6" text-anchor="start">DAP Packets</text>
+
+  <line x1="480" y1="330" x2="480" y2="367" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="490" y="351" font-size="12" fill="#27ae60" text-anchor="start">Sector Writes</text>
+
+  <line x1="785" y1="330" x2="785" y2="367" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="795" y="351" font-size="12" fill="#c0392b" text-anchor="start">Serial Stream</text>
+
+  <!-- BOTTOM LAYER: HARDWARE DRIVERS & ENGINES -->
+  <!-- Engine 1: CMSIS-DAP Core -->
+  <rect x="35" y="370" width="280" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="175" y="390" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">CMSIS-DAP Protocol Engine</text>
+  <text x="45" y="410" font-size="12" fill="#1a1a1a">• Декодування команд DAP_Transfer</text>
+  <text x="45" y="430" font-size="12" fill="#1a1a1a">• Апаратне генератування SWD такти</text>
+  <text x="45" y="450" font-size="12" fill="#1a1a1a">• Фізичні виводи: SWCLK, SWDIO, RESET</text>
+  <text x="45" y="470" font-size="12" font-weight="bold" fill="#2457d6">➔ Зв'язок із CoreSight DP/AP цілі</text>
+
+  <!-- Engine 2: Drag-and-Drop Flash Manager -->
+  <rect x="340" y="370" width="280" height="115" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="390" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Drag-and-Drop Flash Manager</text>
+  <text x="350" y="410" font-size="12" fill="#1a1a1a">• Парсинг файлових секторів FAT</text>
+  <text x="350" y="430" font-size="12" fill="#1a1a1a">• Вилучення прошивки (.bin / .hex)</text>
+  <text x="350" y="450" font-size="12" fill="#1a1a1a">• Виклик Flash Algo під цільовий МК</text>
+  <text x="350" y="470" font-size="12" font-weight="bold" fill="#27ae60">➔ Автоматичне стирання та запис</text>
+
+  <!-- Engine 3: UART Bridge & FIFO -->
+  <rect x="645" y="370" width="280" height="115" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="785" y="390" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">UART Bridge &amp; FIFO Buffer</text>
+  <text x="655" y="410" font-size="12" fill="#1a1a1a">• Кільцевий буфер (Ring Buffer TX/RX)</text>
+  <text x="655" y="430" font-size="12" fill="#1a1a1a">• Апаратний USART/UART контролер</text>
+  <text x="655" y="450" font-size="12" fill="#1a1a1a">• Фізичні виводи: TARGET_TX, RX</text>
+  <text x="655" y="470" font-size="12" font-weight="bold" fill="#c0392b">➔ Прозорий обмін даними консолі</text>
+
+  <!-- BOTTOM SUMMARY PANEL -->
+  <rect x="20" y="500" width="920" height="48" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="520" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Ключова архітектурна перевага DAPLink: USB Composite Device дозволяє виконувати</text>
+  <text x="480" y="538" font-size="12" fill="#1a1a1a" text-anchor="middle">зневадження SWD, прошивання через Drag-and-Drop та консольний вивід UART одночасно в єдиному чипі.</text>
+</svg>

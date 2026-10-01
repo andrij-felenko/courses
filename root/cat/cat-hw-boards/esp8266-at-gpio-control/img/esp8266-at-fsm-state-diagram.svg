@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Граф станів асинхронного скінченного автомата (FSM) керування AT-командами</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Асинхронний хост-контролер переходить між станами обробки відповідей OK, ERROR та таймаутів без блокування потоку</text>
+
+  <!-- Node 1: IDLE -->
+  <rect x="40" y="120" width="170" height="60" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <text x="125" y="143" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">IDLE (Спокій)</text>
+  <text x="125" y="163" text-anchor="middle" font-size="12" fill="#1a1a1a">Очікування завдання</text>
+
+  <!-- Arrow 1: IDLE -> SEND_CMD -->
+  <line x1="210" y1="150" x2="352" y2="150" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="285" y="138" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Команда в черзі</text>
+
+  <!-- Node 2: SEND_CMD -->
+  <rect x="360" y="120" width="200" height="60" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="460" y="143" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">SEND_CMD (Надсилання)</text>
+  <text x="460" y="163" text-anchor="middle" font-size="12" fill="#1a1a1a">Запис AT-команди в UART</text>
+
+  <!-- Arrow 2: SEND_CMD -> WAIT_RESP -->
+  <line x1="560" y1="150" x2="702" y2="150" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="635" y="138" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">TX завершено</text>
+
+  <!-- Node 3: WAIT_RESP -->
+  <rect x="710" y="120" width="200" height="60" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <text x="810" y="143" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">WAIT_RESP (Очікування)</text>
+  <text x="810" y="163" text-anchor="middle" font-size="12" fill="#1a1a1a">Буферизація відповіді</text>
+
+  <!-- Arrow 3: WAIT_RESP -> SUCCESS -->
+  <path d="M 780 180 L 688 282" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="750" y="225" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">Рядок "OK"</text>
+
+  <!-- Arrow 4: WAIT_RESP -> ERROR -->
+  <path d="M 730 180 L 371 282" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="525" y="215" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">Рядок "ERROR" або t &gt; T_out</text>
+
+  <!-- Node 4: SUCCESS -->
+  <rect x="570" y="290" width="230" height="65" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="685" y="311" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">SUCCESS (Успіх OK)</text>
+  <text x="685" y="328" text-anchor="middle" font-size="12" fill="#1a1a1a">Отримано термінатор "OK"</text>
+  <text x="685" y="344" text-anchor="middle" font-size="12" fill="#6b7280">Оновлення стану периферії</text>
+
+  <!-- Node 5: ERROR -->
+  <rect x="160" y="290" width="230" height="65" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="275" y="311" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">ERROR (Помилка / Збій)</text>
+  <text x="275" y="328" text-anchor="middle" font-size="12" fill="#1a1a1a">Отримано "ERROR" або таймаут</text>
+  <text x="275" y="344" text-anchor="middle" font-size="12" fill="#6b7280">Повтор або ескалація збою</text>
+
+  <!-- Arrow 5: ERROR -> SEND_CMD (Retry) -->
+  <path d="M 275 290 L 431 188" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arr-red)"/>
+  <text x="325" y="235" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">Повтор (N &lt; 3)</text>
+
+  <!-- Arrow 6: SUCCESS -> IDLE (Return to start) -->
+  <path d="M 685 355 L 685 385 L 125 385 L 125 188" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arr-main)"/>
+  <text x="480" y="375" text-anchor="middle" font-size="12" fill="#6b7280">Скидання транзакції → Стан IDLE</text>
+
+  <!-- Summary Footer Card -->
+  <rect x="45" y="405" width="870" height="32" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="426" text-anchor="middle" font-size="12" fill="#1a1a1a">Висновок: Асинхронна реалізація FSM дозволяє обробляти AT-відповіді без блокування основного циклу МК.</text>
+</svg>

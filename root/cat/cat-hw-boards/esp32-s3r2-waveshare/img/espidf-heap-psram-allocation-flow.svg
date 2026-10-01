@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл пам'яті в ESP-IDF: SRAM проти SiP PSRAM (Waveshare ESP32-S3R2)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Виклики з прапорцем MALLOC_CAP_SPIRAM розміщують великі буфери у 2 МБ PSRAM через MMU</text>
+
+  <!-- Participant Headers -->
+  <rect x="50" y="78" width="180" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="140" y="103" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Код застосунку</text>
+
+  <rect x="270" y="78" width="200" height="40" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="370" y="103" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Heap Allocator (ESP-IDF)</text>
+
+  <rect x="510" y="78" width="200" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="610" y="103" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MMU та Cache Controller</text>
+
+  <rect x="730" y="78" width="210" height="40" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="835" y="103" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Фізична пам'ять (SRAM / PSRAM)</text>
+
+  <!-- Vertical Lifelines -->
+  <line x1="140" y1="118" x2="140" y2="500" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="370" y1="118" x2="370" y2="500" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="610" y1="118" x2="610" y2="500" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="835" y1="118" x2="835" y2="500" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1"/>
+
+  <!-- Scenario A Container (Internal SRAM) -->
+  <rect x="30" y="132" width="900" height="162" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="45" y="152" font-size="12" font-weight="bold" fill="#c0392b">Сценарій А: Запит пам'яті у SRAM (malloc або MALLOC_CAP_INTERNAL)</text>
+
+  <!-- Step A1 -->
+  <text x="255" y="174" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1. malloc(614 KB) / MALLOC_CAP_INTERNAL</text>
+  <line x1="140" y1="182" x2="370" y2="182" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Action Box A -->
+  <rect x="280" y="200" width="180" height="30" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="370" y="219" font-size="12" fill="#c0392b" text-anchor="middle">Пошук блоку в SRAM (&lt; 512 КБ)</text>
+
+  <!-- Step A2 (Return NULL) -->
+  <text x="255" y="252" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">2. Повернення NULL (Out of Memory - SRAM вичерпано)</text>
+  <line x1="370" y1="260" x2="140" y2="260" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr-red)"/>
+
+  <!-- Scenario A Warning Badge -->
+  <rect x="670" y="172" width="245" height="98" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="792" y="193" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Проблема дефіциту SRAM</text>
+  <text x="792" y="213" font-size="12" fill="#1a1a1a" text-anchor="middle">Обмежений обсяг SRAM (~512 КБ)</text>
+  <text x="792" y="233" font-size="12" fill="#1a1a1a" text-anchor="middle">Кадровий буфер 640×480 не вміщується</text>
+  <text x="792" y="253" font-size="12" fill="#6b7280" text-anchor="middle">Викликає відмову системного кучі</text>
+
+  <!-- Scenario B Container (External PSRAM) -->
+  <rect x="30" y="305" width="900" height="195" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="45" y="325" font-size="12" font-weight="bold" fill="#27ae60">Сценарій Б: Явне виділення у PSRAM (heap_caps_malloc з MALLOC_CAP_SPIRAM)</text>
+
+  <!-- Step B1 -->
+  <text x="255" y="345" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1. heap_caps_malloc(size, MALLOC_CAP_SPIRAM)</text>
+  <line x1="140" y1="353" x2="370" y2="353" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Step B2 -->
+  <text x="490" y="376" font-size="12" fill="#2457d6" text-anchor="middle">2. Запит вільного блоку й мапування MMU</text>
+  <line x1="370" y1="384" x2="610" y2="384" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Step B3 -->
+  <text x="722" y="407" font-size="12" fill="#2457d6" text-anchor="middle">3. Виділення у SiP PSRAM (2 МБ QSPI)</text>
+  <line x1="610" y1="415" x2="835" y2="415" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Action Box B -->
+  <rect x="755" y="424" width="160" height="26" rx="4" fill="#27ae60" stroke="#1e8449" stroke-width="1"/>
+  <text x="835" y="441" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Блок у PSRAM виділено</text>
+
+  <!-- Step B4 -->
+  <text x="487" y="470" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">4. Повернення вказівника у простір PSRAM (адреса 0x3D800000...)</text>
+  <line x1="835" y1="478" x2="140" y2="478" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr-green)"/>
+</svg>

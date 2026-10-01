@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Структура пакета DAP_Transfer та алгоритм повторних спроб (Retry Loop)</text>
+  <text x="480" y="62" text-anchor="middle" font-size="13" fill="#6b7280">Бітовий формат команд DP/AP та обробка апаратних затримок WAIT і помилок FAULT target-процесора</text>
+
+  <!-- LEFT PANEL: Packet Structure -->
+  <rect x="30" y="85" width="450" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="255" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Формат пакетів DAP_Transfer (Cmd ID: 0x05)</text>
+
+  <!-- Request Packet -->
+  <text x="45" y="133" text-anchor="start" font-size="13" font-weight="bold" fill="#2457d6">Запит (Request Packet):</text>
+
+  <rect x="45" y="143" width="55" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="72.5" y="164" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">0x05</text>
+  <text x="72.5" y="193" text-anchor="middle" font-size="12" fill="#6b7280">Cmd ID</text>
+
+  <rect x="112" y="143" width="68" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="146" y="164" text-anchor="middle" font-size="12" fill="#1a1a1a">Index</text>
+  <text x="146" y="193" text-anchor="middle" font-size="12" fill="#6b7280">Індекс DAP</text>
+
+  <rect x="192" y="143" width="72" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="228" y="164" text-anchor="middle" font-size="12" fill="#1a1a1a">Count (N)</text>
+  <text x="228" y="193" text-anchor="middle" font-size="12" fill="#6b7280">Кількість</text>
+
+  <rect x="276" y="143" width="110" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="331" y="164" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Req Byte [0..N]</text>
+  <text x="331" y="193" text-anchor="middle" font-size="12" fill="#6b7280">Дескриптор</text>
+
+  <rect x="398" y="143" width="77" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="436.5" y="164" text-anchor="middle" font-size="12" fill="#1a1a1a">Data [4B]</text>
+  <text x="436.5" y="193" text-anchor="middle" font-size="12" fill="#6b7280">Дані (Write)</text>
+
+  <!-- Request Descriptor Bit Breakdown -->
+  <rect x="45" y="208" width="430" height="158" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="55" y="226" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">Бітова структура байта дескриптора (Transfer Request):</text>
+
+  <!-- Bit cards -->
+  <rect x="53" y="236" width="48" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="77" y="255" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Bit 0</text>
+  <text x="77" y="280" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">APnDP</text>
+  <text x="77" y="296" text-anchor="middle" font-size="12" fill="#6b7280">0:DP/1:AP</text>
+
+  <rect x="113" y="236" width="48" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="137" y="255" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Bit 1</text>
+  <text x="137" y="280" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">RnW</text>
+  <text x="137" y="296" text-anchor="middle" font-size="12" fill="#6b7280">0:W/1:R</text>
+
+  <rect x="173" y="236" width="58" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="202" y="255" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Bit 2..3</text>
+  <text x="202" y="280" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">A[3:2]</text>
+  <text x="202" y="296" text-anchor="middle" font-size="12" fill="#6b7280">Адреса</text>
+
+  <rect x="243" y="236" width="50" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="268" y="255" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Bit 4</text>
+  <text x="268" y="280" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Match</text>
+  <text x="268" y="296" text-anchor="middle" font-size="12" fill="#6b7280">Збіг</text>
+
+  <rect x="305" y="236" width="48" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="329" y="255" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Bit 5</text>
+  <text x="329" y="280" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Mask</text>
+  <text x="329" y="296" text-anchor="middle" font-size="12" fill="#6b7280">Маска</text>
+
+  <rect x="365" y="236" width="40" height="28" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="385" y="255" text-anchor="middle" font-size="12" fill="#6b7280">Bit 6</text>
+  <text x="385" y="280" text-anchor="middle" font-size="12" fill="#6b7280">Res</text>
+  <text x="385" y="296" text-anchor="middle" font-size="12" fill="#6b7280">—</text>
+
+  <rect x="417" y="236" width="52" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="443" y="255" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Bit 7</text>
+  <text x="443" y="280" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">TimeStamp</text>
+  <text x="443" y="296" text-anchor="middle" font-size="12" fill="#6b7280">Мітка</text>
+
+  <!-- Summary inside breakdown box -->
+  <text x="55" y="320" text-anchor="start" font-size="12" fill="#6b7280">• APnDP: 0 = DP (Debug Port), 1 = AP (Access Port)</text>
+  <text x="55" y="336" text-anchor="start" font-size="12" fill="#6b7280">• RnW: 0 = Write (Запис), 1 = Read (Читання)</text>
+  <text x="55" y="352" text-anchor="start" font-size="12" fill="#6b7280">• A[3:2]: Адреса регістру DP/AP (0x00, 0x04, 0x08, 0x0C)</text>
+
+  <!-- Response Packet -->
+  <text x="45" y="388" text-anchor="start" font-size="13" font-weight="bold" fill="#27ae60">Відповідь (Response Packet):</text>
+
+  <rect x="45" y="398" width="55" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="72.5" y="419" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">0x05</text>
+  <text x="72.5" y="445" text-anchor="middle" font-size="12" fill="#6b7280">Cmd ID</text>
+
+  <rect x="112" y="398" width="100" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="162" y="419" text-anchor="middle" font-size="12" fill="#1a1a1a">Transfer Count</text>
+  <text x="162" y="445" text-anchor="middle" font-size="12" fill="#6b7280">Успішні спроби</text>
+
+  <rect x="224" y="398" width="130" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="289" y="419" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ACK Response</text>
+  <text x="289" y="445" text-anchor="middle" font-size="12" fill="#6b7280">Код статусу ACK</text>
+
+  <rect x="366" y="398" width="109" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="420.5" y="419" text-anchor="middle" font-size="12" fill="#1a1a1a">Read Data [4B]</text>
+  <text x="420.5" y="445" text-anchor="middle" font-size="12" fill="#6b7280">Дані (Read)</text>
+
+  <!-- Left Panel Summary Box -->
+  <rect x="45" y="462" width="430" height="65" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="479" text-anchor="start" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">0x01 OK:</tspan> Передачу виконано успішно (ACK_OK).</text>
+  <text x="55" y="495" text-anchor="start" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">0x02 WAIT:</tspan> Target зайнятий — вимагається затримка та Retry.</text>
+  <text x="55" y="511" text-anchor="start" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#c0392b">0x04 FAULT:</tspan> Апаратний збій (Sticky Error / Bus Fault).</text>
+
+  <!-- RIGHT PANEL: Retry Loop Flowchart -->
+  <rect x="510" y="85" width="420" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="720" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Алгоритм обробки WAIT та FAULT (Retry Loop)</text>
+
+  <!-- Flowchart Step 1: Host Send -->
+  <rect x="605" y="125" width="230" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="720" y="146" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Host надсилає DAP_Transfer</text>
+
+  <line x1="720" y1="159" x2="720" y2="181" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Flowchart Step 2: Get ACK -->
+  <rect x="615" y="183" width="210" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="720" y="203" text-anchor="middle" font-size="12" fill="#1a1a1a">Отримання статусу ACK (Byte 2)</text>
+
+  <line x1="720" y1="215" x2="720" y2="236" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Flowchart Decision: ACK Status -->
+  <rect x="640" y="238" width="160" height="36" rx="18" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="720" y="261" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Який статус ACK?</text>
+
+  <!-- Branch 1: OK -->
+  <path d="M 640 256 L 580 256 L 580 310" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="580" y="246" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ACK = OK (0x01)</text>
+
+  <rect x="530" y="312" width="100" height="48" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="580" y="332" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Успіх (OK)</text>
+  <text x="580" y="348" text-anchor="middle" font-size="12" fill="#1a1a1a">Дані зчитано</text>
+
+  <!-- Branch 2: WAIT -->
+  <line x1="720" y1="274" x2="720" y2="310" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="728" y="296" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">ACK = WAIT (0x02)</text>
+
+  <rect x="650" y="312" width="140" height="48" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="720" y="332" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Спроб &lt; Max?</text>
+  <text x="720" y="348" text-anchor="middle" font-size="12" fill="#6b7280">(Retry Counter)</text>
+
+  <!-- WAIT Sub-branch 1: Retry Loop Back -->
+  <path d="M 650 336 L 638 336 L 638 380 L 518 380 L 518 142 L 603 142" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arr-blue)"/>
+  <text x="525" y="205" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">Так (Retry)</text>
+
+  <!-- WAIT Sub-branch 2: Timeout -->
+  <line x1="720" y1="360" x2="720" y2="410" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="728" y="390" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">Ні (Timeout)</text>
+
+  <rect x="650" y="412" width="140" height="48" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="720" y="432" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Помилка WAIT</text>
+  <text x="720" y="448" text-anchor="middle" font-size="12" fill="#1a1a1a">Таймаут затримки</text>
+
+  <!-- Branch 3: FAULT -->
+  <path d="M 800 256 L 865 256 L 865 310" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="862" y="246" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ACK = FAULT (0x04)</text>
+
+  <rect x="815" y="312" width="100" height="48" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="865" y="332" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Обробка FAULT</text>
+  <text x="865" y="348" text-anchor="middle" font-size="12" fill="#1a1a1a">Аналіз помилки</text>
+
+  <line x1="865" y1="360" x2="865" y2="410" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <rect x="815" y="412" width="100" height="48" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="865" y="432" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Запис DP ABORT</text>
+  <text x="865" y="448" text-anchor="middle" font-size="12" fill="#6b7280">Clear STICKYERR</text>
+
+  <!-- Right Panel Summary Box -->
+  <rect x="525" y="472" width="390" height="53" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="535" y="490" text-anchor="start" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">Механізм затримки:</tspan> При WAIT тагет повідомляє про зайнятість.</text>
+  <text x="535" y="508" text-anchor="start" font-size="12" fill="#1a1a1a">Host робить затримку й повторює запит до max_retries.</text>
+</svg>

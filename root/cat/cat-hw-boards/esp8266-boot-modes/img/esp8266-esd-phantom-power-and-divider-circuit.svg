@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header & Subheader -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Паразитне живлення через ESD-діоди та його усунення дільником напруги</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">Порівняння небезпечного прямого підключення UART 5V та захищеного зв'язку через омічний дільник рівнів</text>
+
+  <!-- PANEL 1: PROBLEM (LEFT) -->
+  <rect x="30" y="75" width="435" height="360" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="247.5" y="102" font-size="14" font-weight="bold" text-anchor="middle" fill="#c0392b">Проблема: Безпосереднє підключення (5V TX → RX)</text>
+
+  <!-- USB-UART Box (Left) -->
+  <rect x="50" y="130" width="100" height="160" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="100" y="160" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">USB-UART</text>
+  <text x="100" y="182" font-size="12" text-anchor="middle" fill="#6b7280">VCC = 5.0V</text>
+  <circle cx="150" cy="210" r="4" fill="#c0392b"/>
+  <text x="135" y="205" font-size="12" text-anchor="end" fill="#1a1a1a">TX</text>
+
+  <!-- Direct Wire (Red) -->
+  <line x1="150" y1="210" x2="270" y2="210" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="210" y="200" font-size="12" text-anchor="middle" fill="#c0392b">TX = 5.0V</text>
+
+  <!-- Current Flow Path Arrow (Left) -->
+  <path d="M 170 210 C 210 210, 275 210, 275 160" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-red)"/>
+  <text x="210" y="165" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">I_phantom</text>
+
+  <!-- ESP8266 Box (Left) -->
+  <rect x="270" y="130" width="175" height="240" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="357.5" y="155" font-size="13" font-weight="bold" text-anchor="middle" fill="#c0392b">ESP8266 (Вимкнено)</text>
+  <text x="357.5" y="175" font-size="12" text-anchor="middle" fill="#6b7280">Шина VDD = 0V (Off)</text>
+
+  <!-- Internal ESD Diode Schematic -->
+  <line x1="290" y1="145" x2="290" y2="185" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="282" y1="185" x2="298" y2="185" stroke="#c0392b" stroke-width="2"/>
+  <polygon points="290,185 282,198 298,198" fill="#c0392b" stroke="#c0392b" stroke-width="1"/>
+  <line x1="290" y1="198" x2="290" y2="210" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="290" cy="210" r="3" fill="#c0392b"/>
+  <text x="305" y="195" font-size="12" fill="#c0392b">ESD Diode</text>
+  <text x="305" y="214" font-size="12" fill="#1a1a1a">RX Pin</text>
+
+  <!-- Notes Inside ESP8266 (Left) -->
+  <rect x="282" y="235" width="151" height="120" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="357.5" y="255" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Паразитний струм!</text>
+  <text x="357.5" y="277" font-size="12" text-anchor="middle" fill="#1a1a1a">I_phantom ≈ 20...30 mA</text>
+  <text x="357.5" y="299" font-size="12" text-anchor="middle" fill="#1a1a1a">V_phantom ≈ 4.3V</text>
+  <text x="357.5" y="321" font-size="12" text-anchor="middle" fill="#c0392b">Діод відкрито (ON)</text>
+
+  <!-- Bottom Result Box (Left) -->
+  <rect x="45" y="385" width="405" height="38" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="247.5" y="409" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Неможливо виконати скидання (Reset Lockup) та збої ROM</text>
+
+
+  <!-- PANEL 2: SOLUTION (RIGHT) -->
+  <rect x="495" y="75" width="435" height="360" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712.5" y="102" font-size="14" font-weight="bold" text-anchor="middle" fill="#27ae60">Розв'язок: Омічний дільник напруги (5V → 3.23V)</text>
+
+  <!-- USB-UART Box (Right) -->
+  <rect x="515" y="130" width="100" height="160" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="565" y="160" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">USB-UART</text>
+  <text x="565" y="182" font-size="12" text-anchor="middle" fill="#6b7280">TX = 5.0V</text>
+  <circle cx="615" cy="210" r="4" fill="#27ae60"/>
+
+  <!-- Series Resistor R1 -->
+  <line x1="615" y1="210" x2="625" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="625" y="200" width="40" height="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="645" y="214" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">R1</text>
+  <text x="645" y="234" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">1.8 kΩ</text>
+  <line x1="665" y1="210" x2="730" y2="210" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Divider Node & Parallel Resistor R2 to GND -->
+  <circle cx="685" cy="210" r="3" fill="#1a1a1a"/>
+  <line x1="685" y1="210" x2="685" y2="235" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="675" y="235" width="20" height="45" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="685" y="262" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">R2</text>
+  <text x="665" y="262" font-size="12" text-anchor="end" fill="#2457d6">3.3 kΩ</text>
+  <line x1="685" y1="280" x2="685" y2="298" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Ground Symbol -->
+  <line x1="673" y1="298" x2="697" y2="298" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="677" y1="302" x2="693" y2="302" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="681" y1="306" x2="689" y2="306" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="685" y="320" font-size="12" text-anchor="middle" fill="#6b7280">GND</text>
+
+  <!-- Voltage Label at Divider Node -->
+  <text x="685" y="192" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">V_RX = 3.23V</text>
+
+  <!-- ESP8266 Box (Right) -->
+  <rect x="730" y="130" width="180" height="240" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="820" y="155" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">ESP8266 (Захищено)</text>
+  <text x="820" y="175" font-size="12" text-anchor="middle" fill="#6b7280">VDD = 3.3V (Норма)</text>
+  <circle cx="730" cy="210" r="3" fill="#27ae60"/>
+
+  <!-- Notes Inside ESP8266 (Right) -->
+  <rect x="742" y="195" width="156" height="160" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="820" y="215" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Узгоджено рівні</text>
+  <text x="820" y="237" font-size="12" text-anchor="middle" fill="#1a1a1a">V_out = 5.0V × 3.3 / 5.1</text>
+  <text x="820" y="259" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">V_out = 3.23V ≤ 3.3V</text>
+  <text x="820" y="281" font-size="12" text-anchor="middle" fill="#1a1a1a">ESD-діод закритий</text>
+  <text x="820" y="303" font-size="12" text-anchor="middle" fill="#1a1a1a">I_phantom &lt; 0.9 mA</text>
+  <text x="820" y="325" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Безпечний режим</text>
+
+  <!-- Bottom Result Box (Right) -->
+  <rect x="510" y="385" width="405" height="38" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712.5" y="409" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Гарантований старт, стабільне скидання та безпечний UART</text>
+</svg>

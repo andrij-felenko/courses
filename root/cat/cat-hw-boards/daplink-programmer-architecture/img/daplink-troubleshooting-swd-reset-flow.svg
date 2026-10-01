@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Алгоритм відновлення зв'язку в режимі Connect Under Reset</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">При блокуванні шини SWD DAPLink захоплює ядро ARM Cortex під час утримання лінії nRESET</text>
+
+  <!-- Flowchart Cards -->
+
+  <!-- Card 1: Problem -->
+  <rect x="30" y="75" width="205" height="215" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <rect x="40" y="85" width="185" height="30" fill="#ffffff" stroke="#c0392b" rx="4"/>
+  <text x="132.5" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">1. Блокування SWD</text>
+  <text x="42" y="130" text-anchor="start" font-size="12" fill="#1a1a1a">• MCU перепризначив</text>
+  <text x="42" y="148" text-anchor="start" font-size="12" fill="#1a1a1a">  SWDIO/SWCLK як GPIO</text>
+  <text x="42" y="166" text-anchor="start" font-size="12" fill="#1a1a1a">• Увійшов у Sleep режим</text>
+  <text x="42" y="184" text-anchor="start" font-size="12" fill="#1a1a1a">• Ззвичайне зневадження</text>
+  <text x="42" y="202" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">  повертає SWD Fault</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="235" y1="180" x2="255" y2="180" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Card 2: Hold Reset -->
+  <rect x="260" y="75" width="205" height="215" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <rect x="270" y="85" width="185" height="30" fill="#ffffff" stroke="#2457d6" rx="4"/>
+  <text x="362.5" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. Притискання nRESET</text>
+  <text x="272" y="130" text-anchor="start" font-size="12" fill="#1a1a1a">• DAPLink тягне лінію</text>
+  <text x="272" y="148" text-anchor="start" font-size="12" fill="#1a1a1a">  nRESET у логічний 0</text>
+  <text x="272" y="166" text-anchor="start" font-size="12" fill="#1a1a1a">• Ядро зупиняється,</text>
+  <text x="272" y="184" text-anchor="start" font-size="12" fill="#1a1a1a">  периферія скидається</text>
+  <text x="272" y="202" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">• SWD виводи відновлено</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="465" y1="180" x2="485" y2="180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Card 3: SWD Init & Trap -->
+  <rect x="490" y="75" width="205" height="215" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <rect x="500" y="85" width="185" height="30" fill="#ffffff" stroke="#2457d6" rx="4"/>
+  <text x="592.5" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">3. Захоплення ядра</text>
+  <text x="502" y="130" text-anchor="start" font-size="12" fill="#1a1a1a">• DAPLink ініціалізує</text>
+  <text x="502" y="148" text-anchor="start" font-size="12" fill="#1a1a1a">  SWD шину (DP init)</text>
+  <text x="502" y="166" text-anchor="start" font-size="12" fill="#1a1a1a">• Прапорці в DEMCR:</text>
+  <text x="502" y="184" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">  C_DEBUGEN = 1</text>
+  <text x="502" y="202" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">  VC_CORERESET = 1</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <line x1="695" y1="180" x2="715" y2="180" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Card 4: Release Reset & Halt -->
+  <rect x="720" y="75" width="205" height="215" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <rect x="730" y="85" width="185" height="30" fill="#ffffff" stroke="#27ae60" rx="4"/>
+  <text x="822.5" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">4. Розблокування MCU</text>
+  <text x="732" y="130" text-anchor="start" font-size="12" fill="#1a1a1a">• nRESET піднімається у 1</text>
+  <text x="732" y="148" text-anchor="start" font-size="12" fill="#1a1a1a">• Ядро у режимі Halt</text>
+  <text x="732" y="166" text-anchor="start" font-size="12" fill="#1a1a1a">  до першої інструкції</text>
+  <text x="732" y="184" text-anchor="start" font-size="12" fill="#1a1a1a">• Проводиться стирання</text>
+  <text x="732" y="202" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">  Flash чи прошивка</text>
+
+  <!-- Signal & State Diagram Panel -->
+  <rect x="30" y="305" width="895" height="225" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="477.5" y="325" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Часова діаграма сигналів та стан ядра при Connect Under Reset</text>
+
+  <!-- Vertical Phase Grid Lines -->
+  <line x1="350" y1="335" x2="350" y2="495" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="530" y1="335" x2="530" y2="495" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="710" y1="335" x2="710" y2="495" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Row Labels -->
+  <text x="45" y="368" font-size="12" font-weight="bold" fill="#1a1a1a">nRESET (Скидання)</text>
+  <text x="45" y="418" font-size="12" font-weight="bold" fill="#1a1a1a">SWDIO / SWCLK</text>
+  <text x="45" y="468" font-size="12" font-weight="bold" fill="#1a1a1a">Стан ядра Cortex</text>
+
+  <!-- nRESET Line -->
+  <line x1="180" y1="355" x2="350" y2="355" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="350" y1="355" x2="350" y2="380" stroke="#c0392b" stroke-width="2"/>
+  <line x1="350" y1="380" x2="710" y2="380" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="710" y1="380" x2="710" y2="355" stroke="#27ae60" stroke-width="2"/>
+  <line x1="710" y1="355" x2="900" y2="355" stroke="#27ae60" stroke-width="2"/>
+  <text x="530" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">nRESET = 0 (Утримання скидання)</text>
+
+  <!-- SWD Signal Line -->
+  <line x1="180" y1="415" x2="350" y2="415" stroke="#c0392b" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="265" y="407" text-anchor="middle" font-size="12" fill="#c0392b">SWD Fault / Zz...</text>
+
+  <line x1="350" y1="415" x2="530" y2="415" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="440" y="407" text-anchor="middle" font-size="12" fill="#6b7280">Скидання лінії</text>
+
+  <polyline points="530,415 545,405 560,425 575,405 590,425 605,405 620,425 635,415 710,415" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="620" y="400" text-anchor="middle" font-size="12" fill="#2457d6">DP Init + DEMCR Write</text>
+
+  <polyline points="710,415 725,405 740,425 755,405 770,425 785,405 800,425 815,415 900,415" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="805" y="400" text-anchor="middle" font-size="12" fill="#27ae60">SWD Зв'язок активний</text>
+
+  <!-- Core State Boxes -->
+  <rect x="185" y="452" width="155" height="32" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="262.5" y="472" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Заблоковано (Run)</text>
+
+  <rect x="360" y="452" width="160" height="32" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="440" y="472" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Hardware Reset</text>
+
+  <rect x="540" y="452" width="160" height="32" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="620" y="472" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Reset Vector Trap</text>
+
+  <rect x="720" y="452" width="175" height="32" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="807.5" y="472" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">HALTED (Готовий)</text>
+
+  <!-- Bottom Panel Banner -->
+  <text x="477.5" y="515" text-anchor="middle" font-size="12" fill="#6b7280">Утримання nRESET зупиняє виконання коду Flash до завантаження першої інструкції ядра</text>
+</svg>

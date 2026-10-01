@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратні обмеження першого покоління плат ESP32-CAM (AI-Thinker)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Просідання напруги LDO при Wi-Fi передачі та пропускна здатність шини QSPI PSRAM</text>
+
+  <!-- Left Panel: Voltage Dip & LDO Issues -->
+  <rect x="30" y="85" width="435" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247" y="110" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Джерело живлення та LDO (AMS1117)</text>
+
+  <!-- Waveform Graph Box -->
+  <rect x="45" y="130" width="405" height="225" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Y-Axis Label -->
+  <text x="60" y="150" font-size="11" font-weight="bold" fill="#1a1a1a">V_out (V)</text>
+  
+  <!-- Nominal 3.3V Line -->
+  <line x1="90" y1="175" x2="430" y2="175" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="60" y="179" font-size="11" fill="#2457d6">3.3V</text>
+
+  <!-- Brownout Threshold Line 2.8V -->
+  <line x1="90" y1="235" x2="430" y2="235" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="60" y="239" font-size="11" font-weight="bold" fill="#c0392b">2.8V</text>
+
+  <!-- Voltage Curve Path -->
+  <path d="M 90 175 L 180 175 C 200 175, 220 260, 250 260 C 270 260, 290 175, 330 175 L 430 175" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Annotations on Graph -->
+  <text x="250" y="155" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Сплеск струму Wi-Fi (350 мА)</text>
+  <line x1="250" y1="162" x2="250" y2="250" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+  <text x="250" y="285" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Просідання &lt; 2.8V → RESET!</text>
+
+  <!-- Status Card Left -->
+  <rect x="45" y="370" width="405" height="125" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="55" y="390" font-size="12" font-weight="bold" fill="#c0392b">Причини та наслідки термопросідання:</text>
+  <text x="55" y="410" font-size="11" fill="#1a1a1a">• Сплеск струму передавача Wi-Fi: 350–500 мА</text>
+  <text x="55" y="430" font-size="11" fill="#1a1a1a">• Падіння напруги на LDO через перегрів і опір</text>
+  <text x="55" y="450" font-size="11" font-weight="bold" fill="#c0392b">• Перезавантаження: Brownout detector reset</text>
+  <text x="55" y="470" font-size="11" fill="#6b7280">• Рішення: заміна LDO на високоімпульсний / 470µF</text>
+
+
+  <!-- Right Panel: QSPI PSRAM Bottleneck -->
+  <rect x="495" y="85" width="435" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712" y="110" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Вузьке місце шини QSPI PSRAM</text>
+
+  <!-- Architecture Diagram Box -->
+  <rect x="510" y="130" width="405" height="225" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Block 1: Camera Sensor -->
+  <rect x="520" y="155" width="95" height="60" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="567" y="177" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">OV2640 Sensor</text>
+  <text x="567" y="195" font-size="11" fill="#6b7280" text-anchor="middle">DVP 8-bit</text>
+
+  <!-- Arrow Sensor -> ESP32 -->
+  <line x1="615" y1="185" x2="638" y2="185" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Block 2: ESP32 SoC -->
+  <rect x="645" y="155" width="90" height="150" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="690" y="177" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP32 SoC</text>
+  <text x="690" y="195" font-size="11" fill="#6b7280" text-anchor="middle">I2S DMA</text>
+  <text x="690" y="235" font-size="11" fill="#1a1a1a" text-anchor="middle">Dual Core</text>
+  <text x="690" y="255" font-size="11" fill="#6b7280" text-anchor="middle">Xtensa LX6</text>
+
+  <!-- Label above Arrow ESP32 -> PSRAM (outside lines) -->
+  <text x="772" y="170" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">QSPI 4-bit</text>
+
+  <!-- Arrow ESP32 -> PSRAM -->
+  <line x1="735" y1="185" x2="803" y2="185" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Block 3: QSPI PSRAM -->
+  <rect x="810" y="155" width="95" height="60" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="857" y="177" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">4MB PSRAM</text>
+  <text x="857" y="195" font-size="11" fill="#6b7280" text-anchor="middle">40 MHz QSPI</text>
+
+  <!-- Bottleneck Box Below -->
+  <rect x="520" y="240" width="115" height="65" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="577" y="258" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Обмеження QSPI:</text>
+  <text x="577" y="276" font-size="11" fill="#1a1a1a" text-anchor="middle">Макс ~16–20 МБ/с</text>
+  <text x="577" y="292" font-size="11" fill="#6b7280" text-anchor="middle">Конфлікт CPU+DMA</text>
+
+  <!-- Status Card Right -->
+  <rect x="510" y="370" width="405" height="125" rx="5" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="390" font-size="12" font-weight="bold" fill="#2457d6">Наслідки обмеження шини QSPI:</text>
+  <text x="520" y="410" font-size="11" fill="#1a1a1a">• 4-бітна шина QSPI ділить смугу між Flash та PSRAM</text>
+  <text x="520" y="430" font-size="11" fill="#1a1a1a">• Падіння частоти кадрів (FPS) на UXGA (1600x1200)</text>
+  <text x="520" y="450" font-size="11" font-weight="bold" fill="#c0392b">• Пропуски кадрів (Frame Drops) при поточному відео</text>
+  <text x="520" y="470" font-size="11" fill="#27ae60">• Рішення у 2-му поколінні: Octal SPI (OSPI) у ESP32-S3</text>
+</svg>

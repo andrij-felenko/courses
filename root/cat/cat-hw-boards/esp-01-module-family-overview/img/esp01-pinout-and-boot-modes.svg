@@ -1,0 +1,251 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Призначення виводів та режими завантаження ESP-01 / ESP-01S</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Логічні рівні GPIO0, GPIO2 та CH_PD/RST визначають режим запуску ESP8266</text>
+
+  <!-- Left Panel: ESP-01 Pinout & Comparison -->
+  <rect x="30" y="85" width="420" height="450" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="240" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розпіновка модуля ESP-01 (2x4 Header)</text>
+  <text x="240" y="130" font-size="12" fill="#6b7280" text-anchor="middle">Вид зверху (антена вгорі, роз'єм внизу)</text>
+
+  <!-- ESP-01 PCB Board -->
+  <rect x="170" y="148" width="140" height="235" rx="6" fill="#1e3a5f" stroke="#0d1b2a" stroke-width="2"/>
+
+  <!-- Antenna -->
+  <rect x="180" y="156" width="120" height="35" rx="2" fill="#d4af37" opacity="0.35" stroke="#d4af37" stroke-width="1.5"/>
+  <text x="240" y="178" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Wi-Fi Антена</text>
+
+  <!-- ESP8266 SoC -->
+  <rect x="200" y="202" width="80" height="55" rx="4" fill="#2b2b2b" stroke="#444444" stroke-width="1"/>
+  <text x="240" y="226" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">ESP8266EX</text>
+  <text x="240" y="244" font-size="11" fill="#aaaaaa" text-anchor="middle">SoC</text>
+
+  <!-- Flash IC -->
+  <rect x="207" y="268" width="66" height="32" rx="3" fill="#2b2b2b" stroke="#444444" stroke-width="1"/>
+  <text x="240" y="288" font-size="11" fill="#dddddd" text-anchor="middle">Flash 1MB</text>
+
+  <!-- 2x4 Header Block -->
+  <rect x="195" y="315" width="90" height="52" rx="3" fill="#111111" stroke="#333333" stroke-width="1"/>
+
+  <!-- Pins -->
+  <circle cx="210" cy="328" r="4" fill="#ffd700" stroke="#b8860b" stroke-width="1"/>
+  <circle cx="230" cy="328" r="4" fill="#ffd700" stroke="#b8860b" stroke-width="1"/>
+  <circle cx="250" cy="328" r="4" fill="#ffd700" stroke="#b8860b" stroke-width="1"/>
+  <circle cx="270" cy="328" r="4" fill="#ffd700" stroke="#b8860b" stroke-width="1"/>
+
+  <circle cx="210" cy="354" r="4" fill="#ffd700" stroke="#b8860b" stroke-width="1"/>
+  <circle cx="230" cy="354" r="4" fill="#ffd700" stroke="#b8860b" stroke-width="1"/>
+  <circle cx="250" cy="354" r="4" fill="#ffd700" stroke="#b8860b" stroke-width="1"/>
+  <circle cx="270" cy="354" r="4" fill="#ffd700" stroke="#b8860b" stroke-width="1"/>
+
+  <!-- Left Side Pin Callouts -->
+  <!-- GND -->
+  <path d="M 210 328 L 148 328 L 148 175 L 144 175" fill="none" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="140" y="170" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">GND</text>
+  <text x="140" y="184" font-size="11" fill="#6b7280" text-anchor="end">Земля (0 В)</text>
+
+  <!-- TXD -->
+  <path d="M 210 354 L 153 354 L 153 230 L 144 230" fill="none" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="140" y="225" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">TXD (GPIO1)</text>
+  <text x="140" y="239" font-size="11" fill="#6b7280" text-anchor="end">Передача UART</text>
+
+  <!-- GPIO2 -->
+  <path d="M 230 328 L 158 328 L 158 285 L 144 285" fill="none" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="140" y="280" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">GPIO2</text>
+  <text x="140" y="294" font-size="11" fill="#27ae60" text-anchor="end">HIGH при старті</text>
+
+  <!-- CH_PD -->
+  <path d="M 230 354 L 163 354 L 163 340 L 144 340" fill="none" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="140" y="335" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">CH_PD (EN)</text>
+  <text x="140" y="349" font-size="11" fill="#2457d6" text-anchor="end">HIGH для роботи</text>
+
+  <!-- Right Side Pin Callouts -->
+  <!-- VCC -->
+  <path d="M 270 354 L 332 354 L 332 175 L 336 175" fill="none" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="340" y="170" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">VCC</text>
+  <text x="340" y="184" font-size="11" fill="#6b7280" text-anchor="start">+3.3 В (до 300 мА)</text>
+
+  <!-- RXD -->
+  <path d="M 270 328 L 327 328 L 327 230 L 336 230" fill="none" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="340" y="225" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">RXD (GPIO3)</text>
+  <text x="340" y="239" font-size="11" fill="#6b7280" text-anchor="start">Прийом UART</text>
+
+  <!-- RST -->
+  <path d="M 250 354 L 322 354 L 322 285 L 336 285" fill="none" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="340" y="280" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">RST</text>
+  <text x="340" y="294" font-size="11" fill="#6b7280" text-anchor="start">Скид (Active LOW)</text>
+
+  <!-- GPIO0 -->
+  <path d="M 250 328 L 317 328 L 317 340 L 336 340" fill="none" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="340" y="335" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">GPIO0</text>
+  <text x="340" y="349" font-size="11" fill="#2457d6" text-anchor="start">LOW=Flash, HIGH=Run</text>
+
+  <!-- Hardware Differences Sub-box -->
+  <rect x="45" y="390" width="390" height="130" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="240" y="410" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратні відмінності ESP-01 vs ESP-01S</text>
+  <text x="55" y="432" font-size="11" fill="#1a1a1a">● ESP-01: Потребує підтяжок 10 кОм на CH_PD, RST, GPIO0, GPIO2</text>
+  <text x="55" y="452" font-size="11" fill="#27ae60">● ESP-01S: Вже має вбудовані резистори підтяжки 12 кОм</text>
+  <text x="55" y="472" font-size="11" fill="#6b7280">● LED індикатор: ESP-01 (TX/Power), ESP-01S (GPIO2, Active LOW)</text>
+  <text x="55" y="492" font-size="11" fill="#c0392b">● Живлення: 3.0 В – 3.6 В (перенапруга 5 В пошкоджує чип)</text>
+
+  <!-- Right Panel: Boot Modes Table & Circuit Diagram -->
+  <rect x="480" y="85" width="450" height="450" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Boot Modes Section Header -->
+  <text x="705" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Режими завантаження ESP8266 (Boot Modes)</text>
+
+  <!-- Table Container -->
+  <rect x="495" y="128" width="420" height="168" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Table Header BG -->
+  <path d="M 495 134 Q 495 128 501 128 L 909 128 Q 915 128 915 134 L 915 160 L 495 160 Z" fill="#eaf0fd"/>
+
+  <!-- Row Highlights -->
+  <rect x="716" y="161" width="68" height="32" fill="#fdecea"/>
+  <rect x="716" y="195" width="68" height="32" fill="#e9f7ef"/>
+
+  <!-- Grid Lines -->
+  <line x1="495" y1="160" x2="915" y2="160" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="495" y1="194" x2="915" y2="194" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="495" y1="228" x2="915" y2="228" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="495" y1="262" x2="915" y2="262" stroke="#d0d7de" stroke-width="1"/>
+
+  <line x1="645" y1="128" x2="645" y2="296" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="715" y1="128" x2="715" y2="296" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="785" y1="128" x2="785" y2="296" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="855" y1="128" x2="855" y2="296" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Table Header Texts -->
+  <text x="570" y="147" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Режим роботи</text>
+  <text x="680" y="147" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO15</text>
+  <text x="750" y="147" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO0</text>
+  <text x="820" y="147" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO2</text>
+  <text x="885" y="147" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CH_PD</text>
+
+  <!-- Row 1: UART Download -->
+  <text x="570" y="181" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">UART Download</text>
+  <text x="680" y="181" font-size="11" fill="#6b7280" text-anchor="middle">LOW (GND)</text>
+  <text x="750" y="181" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">LOW</text>
+  <text x="820" y="181" font-size="11" fill="#27ae60" text-anchor="middle">HIGH</text>
+  <text x="885" y="181" font-size="11" fill="#27ae60" text-anchor="middle">HIGH</text>
+
+  <!-- Row 2: Flash Boot -->
+  <text x="570" y="215" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Flash Boot (Run)</text>
+  <text x="680" y="215" font-size="11" fill="#6b7280" text-anchor="middle">LOW (GND)</text>
+  <text x="750" y="215" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">HIGH</text>
+  <text x="820" y="215" font-size="11" fill="#27ae60" text-anchor="middle">HIGH</text>
+  <text x="885" y="215" font-size="11" fill="#27ae60" text-anchor="middle">HIGH</text>
+
+  <!-- Row 3: SDIO Boot -->
+  <text x="570" y="249" font-size="11" fill="#6b7280" text-anchor="middle">SDIO / Reserved</text>
+  <text x="680" y="249" font-size="11" fill="#6b7280" text-anchor="middle">HIGH</text>
+  <text x="750" y="249" font-size="11" fill="#6b7280" text-anchor="middle">HIGH</text>
+  <text x="820" y="249" font-size="11" fill="#c0392b" text-anchor="middle">LOW</text>
+  <text x="885" y="249" font-size="11" fill="#27ae60" text-anchor="middle">HIGH</text>
+
+  <!-- Row 4: Reset / Disabled -->
+  <text x="570" y="281" font-size="11" fill="#6b7280" text-anchor="middle">Скид / Вимкнено</text>
+  <text x="750" y="281" font-size="11" fill="#6b7280" text-anchor="middle">— Будь-які —</text>
+  <text x="885" y="281" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">LOW</text>
+
+  <!-- Wiring Schematic Section -->
+  <rect x="495" y="312" width="420" height="208" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="705" y="332" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема зовнішньої обв'язки ( ESP-01 / ESP-01S )</text>
+
+  <!-- Power Rails -->
+  <line x1="520" y1="360" x2="890" y2="360" stroke="#c0392b" stroke-width="2"/>
+  <text x="535" y="355" font-size="11" font-weight="bold" fill="#c0392b">3.3V</text>
+
+  <line x1="520" y1="495" x2="890" y2="495" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="535" y="490" font-size="11" font-weight="bold" fill="#1a1a1a">GND</text>
+
+  <!-- ESP-01 Module Schematic Box -->
+  <rect x="670" y="380" width="95" height="95" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="717" y="396" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">ESP-01 Module</text>
+
+  <!-- Module Pins Text -->
+  <text x="676" y="416" font-size="10" fill="#1a1a1a">CH_PD</text>
+  <text x="676" y="436" font-size="10" fill="#1a1a1a">RST</text>
+  <text x="676" y="456" font-size="10" fill="#1a1a1a">GPIO0</text>
+
+  <text x="759" y="416" font-size="10" fill="#c0392b" text-anchor="end">VCC</text>
+  <text x="759" y="436" font-size="10" fill="#1a1a1a" text-anchor="end">GPIO2</text>
+  <text x="759" y="456" font-size="10" fill="#1a1a1a" text-anchor="end">GND</text>
+
+  <!-- VCC Wiring -->
+  <path d="M 765 412 L 790 412 L 790 360" fill="none" stroke="#c0392b" stroke-width="1.2"/>
+  <circle cx="790" cy="360" r="3" fill="#c0392b"/>
+
+  <!-- GND Wiring -->
+  <path d="M 765 452 L 790 452 L 790 495" fill="none" stroke="#1a1a1a" stroke-width="1.2"/>
+  <circle cx="790" cy="495" r="3" fill="#1a1a1a"/>
+
+  <!-- Decoupling Capacitors -->
+  <line x1="825" y1="360" x2="825" y2="420" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="825" y1="426" x2="825" y2="495" stroke="#1a1a1a" stroke-width="1.2"/>
+  <circle cx="825" cy="360" r="3" fill="#c0392b"/>
+  <circle cx="825" cy="495" r="3" fill="#1a1a1a"/>
+  <line x1="817" y1="420" x2="833" y2="420" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="817" y1="426" x2="833" y2="426" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="837" y="418" font-size="10" fill="#1a1a1a">10 µF</text>
+  <text x="837" y="432" font-size="10" fill="#6b7280">+ 0.1 µF</text>
+
+  <!-- GPIO2 Pull-up Resistor R4 -->
+  <path d="M 765 432 L 875 432 L 875 409" fill="none" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="875" y1="385" x2="875" y2="360" stroke="#1a1a1a" stroke-width="1.2"/>
+  <circle cx="875" cy="360" r="3" fill="#c0392b"/>
+  <rect x="869" y="385" width="12" height="24" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="887" y="397" font-size="10" fill="#6b7280">10k</text>
+
+  <!-- CH_PD Pull-up Resistor R1 -->
+  <path d="M 670 412 L 625 412 L 625 399" fill="none" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="625" y1="375" x2="625" y2="360" stroke="#1a1a1a" stroke-width="1.2"/>
+  <circle cx="625" cy="360" r="3" fill="#c0392b"/>
+  <rect x="619" y="375" width="12" height="24" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="612" y="390" font-size="10" fill="#6b7280" text-anchor="end">10k</text>
+
+  <!-- RST Circuit -->
+  <path d="M 670 432 L 575 432" fill="none" stroke="#1a1a1a" stroke-width="1.2"/>
+  <circle cx="575" cy="432" r="2.5" fill="#1a1a1a"/>
+  <line x1="575" y1="432" x2="575" y2="399" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="575" y1="375" x2="575" y2="360" stroke="#1a1a1a" stroke-width="1.2"/>
+  <circle cx="575" cy="360" r="3" fill="#c0392b"/>
+  <rect x="569" y="375" width="12" height="24" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="562" y="390" font-size="10" fill="#6b7280" text-anchor="end">10k</text>
+  <line x1="575" y1="432" x2="575" y2="452" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="575" y1="472" x2="575" y2="495" stroke="#1a1a1a" stroke-width="1.2"/>
+  <circle cx="575" cy="495" r="3" fill="#1a1a1a"/>
+  <rect x="565" y="452" width="20" height="20" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="569" y1="462" x2="581" y2="462" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="589" y="466" font-size="10" font-weight="bold" fill="#1a1a1a">RST</text>
+
+  <!-- GPIO0 Circuit -->
+  <path d="M 670 452 L 530 452" fill="none" stroke="#2457d6" stroke-width="1.2"/>
+  <circle cx="530" cy="452" r="2.5" fill="#2457d6"/>
+  <line x1="530" y1="452" x2="530" y2="399" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="530" y1="375" x2="530" y2="360" stroke="#1a1a1a" stroke-width="1.2"/>
+  <circle cx="530" cy="360" r="3" fill="#c0392b"/>
+  <rect x="524" y="375" width="12" height="24" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="517" y="390" font-size="10" fill="#6b7280" text-anchor="end">10k</text>
+  <line x1="530" y1="452" x2="530" y2="452" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="530" y1="472" x2="530" y2="495" stroke="#1a1a1a" stroke-width="1.2"/>
+  <circle cx="530" cy="495" r="3" fill="#1a1a1a"/>
+  <rect x="520" y="452" width="20" height="20" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="524" y1="462" x2="536" y2="462" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="544" y="466" font-size="10" font-weight="bold" fill="#2457d6">FLASH</text>
+
+  <!-- Schematic Footnote -->
+  <text x="705" y="508" font-size="10" fill="#6b7280" text-anchor="middle">* Для ESP-01S підтяжки 10k вже вбудовані на платі (зовнішні не потрібні)</text>
+</svg>

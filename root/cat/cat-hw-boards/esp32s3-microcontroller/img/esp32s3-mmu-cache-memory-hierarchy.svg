@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ієрархія пам'яті ESP32-S3 та трансляція адрес через MMU</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Віртуальний простір CPU → Таблиці MMU → L1-кеш (64 Б) → Шина Octal SPI → Фізична PSRAM</text>
+
+  <!-- Panel 1: CPU Virtual Address Space -->
+  <rect x="30" y="75" width="200" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="42" y="87" width="176" height="30" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="130" y="107" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ядра CPU Xtensa LX7</text>
+
+  <rect x="42" y="130" width="176" height="80" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="130" y="150" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Віртуальна адреса (VAddr)</text>
+  <text x="130" y="170" font-size="12" fill="#2457d6" text-anchor="middle">0x3D00_0000 - 0x3E7F_FFFF</text>
+  <text x="130" y="190" font-size="12" fill="#6b7280" text-anchor="middle">Вікно зовнішньої RAM</text>
+
+  <rect x="42" y="225" width="176" height="95" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="130" y="245" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Типи шин доступу</text>
+  <text x="130" y="267" font-size="12" fill="#1a1a1a" text-anchor="middle">IBus: Зчитування команд</text>
+  <text x="130" y="289" font-size="12" fill="#1a1a1a" text-anchor="middle">DBus: Дані та кадри DMA</text>
+  <text x="130" y="307" font-size="12" fill="#6b7280" text-anchor="middle">Спільний арбітраж</text>
+
+  <rect x="42" y="335" width="176" height="140" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="130" y="355" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вирівнювання буфера</text>
+  <text x="130" y="377" font-size="12" fill="#27ae60" text-anchor="middle">aligned(64): Без затримок</text>
+  <text x="130" y="400" font-size="12" fill="#c0392b" text-anchor="middle">Невирівняний буфер:</text>
+  <text x="130" y="422" font-size="12" fill="#c0392b" text-anchor="middle">+2 промахи лінії кешу</text>
+  <text x="130" y="444" font-size="12" fill="#c0392b" text-anchor="middle">+1 перетин межі MMU</text>
+  <text x="130" y="464" font-size="12" fill="#6b7280" text-anchor="middle">Додатковий простій CPU</text>
+
+  <!-- Connection 1 -> 2 -->
+  <text x="236" y="158" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">VAddr</text>
+  <line x1="218" y1="170" x2="255" y2="170" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Panel 2: MMU Translation -->
+  <rect x="255" y="75" width="200" height="415" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="267" y="87" width="176" height="30" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="355" y="107" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Блок адресації MMU</text>
+
+  <rect x="267" y="130" width="176" height="95" rx="6" fill="#ffffff" stroke="#2457d6"/>
+  <text x="355" y="150" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Трансляція сторінок</text>
+  <text x="355" y="172" font-size="12" fill="#2457d6" text-anchor="middle">Розмір сторінки: 64 КБ</text>
+  <text x="355" y="194" font-size="12" fill="#1a1a1a" text-anchor="middle">VPage [15:0] → PPage</text>
+  <text x="355" y="214" font-size="12" fill="#6b7280" text-anchor="middle">Таблиці записів MMU</text>
+
+  <rect x="267" y="240" width="176" height="100" rx="6" fill="#fdecea" stroke="#c0392b"/>
+  <text x="355" y="260" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Затримка перетину межі</text>
+  <text x="355" y="283" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">T_mmu = 12 тактів CPU</text>
+  <text x="355" y="305" font-size="12" fill="#1a1a1a" text-anchor="middle">Оновлення арбітра</text>
+  <text x="355" y="325" font-size="12" fill="#1a1a1a" text-anchor="middle">сторінкових таблиць</text>
+
+  <rect x="267" y="355" width="176" height="120" rx="6" fill="#ffffff" stroke="#2457d6"/>
+  <text x="355" y="375" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фізична адреса (PAddr)</text>
+  <text x="355" y="398" font-size="12" fill="#2457d6" text-anchor="middle">Мапований простір</text>
+  <text x="355" y="420" font-size="12" fill="#1a1a1a" text-anchor="middle">Передача до шини</text>
+  <text x="355" y="442" font-size="12" fill="#6b7280" text-anchor="middle">контролера L1-кешу</text>
+  <text x="355" y="462" font-size="12" fill="#6b7280" text-anchor="middle">без блокування CPU</text>
+
+  <!-- Connection 2 -> 3 -->
+  <text x="461" y="158" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">PAddr</text>
+  <line x1="443" y1="170" x2="480" y2="170" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Panel 3: L1 Cache Subsystem -->
+  <rect x="480" y="75" width="200" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="492" y="87" width="176" height="30" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="580" y="107" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двоканальний L1-кеш</text>
+
+  <rect x="492" y="130" width="176" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="580" y="150" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Влучання (Cache Hit)</text>
+  <text x="580" y="172" font-size="12" fill="#27ae60" text-anchor="middle">Затримка: 2-3 такти CPU</text>
+  <text x="580" y="194" font-size="12" fill="#1a1a1a" text-anchor="middle">Прямий доступ SRAM</text>
+  <text x="580" y="214" font-size="12" fill="#6b7280" text-anchor="middle">Без накладних витрат</text>
+
+  <rect x="492" y="240" width="176" height="70" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="580" y="260" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Параметри лінії кешу</text>
+  <text x="580" y="282" font-size="12" fill="#2457d6" text-anchor="middle">Розмір лінії L_line = 64 B</text>
+  <text x="580" y="300" font-size="12" fill="#6b7280" text-anchor="middle">2-Way Set Associative</text>
+
+  <rect x="492" y="325" width="176" height="150" rx="6" fill="#fdecea" stroke="#c0392b"/>
+  <text x="580" y="345" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Промах (Cache Miss)</text>
+  <text x="580" y="367" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">T_cache = 288 тактів</text>
+  <text x="580" y="390" font-size="12" fill="#1a1a1a" text-anchor="middle">1. Writeback брудної лінії</text>
+  <text x="580" y="412" font-size="12" fill="#1a1a1a" text-anchor="middle">2. Fetch нової лінії 64 Б</text>
+  <text x="580" y="435" font-size="12" fill="#c0392b" text-anchor="middle">Запит через SPI шину</text>
+  <text x="580" y="457" font-size="12" fill="#6b7280" text-anchor="middle">Простій конвеєра CPU</text>
+
+  <!-- Connection 3 -> 4 -->
+  <text x="686" y="388" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Miss</text>
+  <line x1="668" y1="400" x2="705" y2="400" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Panel 4: Octal SPI Controller & External PSRAM -->
+  <rect x="705" y="75" width="225" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="717" y="87" width="201" height="30" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="817" y="107" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шина Octal SPI &amp; PSRAM</text>
+
+  <rect x="717" y="130" width="201" height="85" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="817" y="150" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контролер Octal SPI DDR</text>
+  <text x="817" y="172" font-size="12" fill="#2457d6" text-anchor="middle">Частота f_clk: 80 / 120 МГц</text>
+  <text x="817" y="194" font-size="12" fill="#1a1a1a" text-anchor="middle">Ширина шини W_bus = 8 біт</text>
+
+  <rect x="717" y="225" width="201" height="145" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="817" y="245" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Накладні витрати (Overhead)</text>
+  <text x="817" y="267" font-size="12" fill="#1a1a1a" text-anchor="middle">Команда N_cmd = 2 байти</text>
+  <text x="817" y="289" font-size="12" fill="#1a1a1a" text-anchor="middle">Адреса N_addr = 4 байти</text>
+  <text x="817" y="311" font-size="12" fill="#c0392b" text-anchor="middle">N_dummy: 10 (80M) / 14 (120M)</text>
+  <text x="817" y="333" font-size="12" fill="#2457d6" text-anchor="middle">Швидкість B_real (МБ/с):</text>
+  <text x="817" y="355" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">106.7 @ 80M | 147.7 @ 120M</text>
+
+  <rect x="717" y="380" width="201" height="95" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="817" y="400" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фізичні чіпи PSRAM</text>
+  <text x="817" y="422" font-size="12" fill="#1a1a1a" text-anchor="middle">Окремий кристал / SiP</text>
+  <text x="817" y="444" font-size="12" fill="#27ae60" text-anchor="middle">Обсяг: 2 МБ - 32 МБ</text>
+  <text x="817" y="462" font-size="12" fill="#6b7280" text-anchor="middle">Режим 1.8V / 3.3V DDR</text>
+</svg>

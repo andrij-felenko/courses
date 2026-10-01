@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-gray-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова діаграма UART-транзакції AT-команди керування GPIO</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Фази передачі команди, внутрішньої обробки, зміни стану виводу та парсингу відповіді</text>
+
+  <!-- Main Diagram Panel -->
+  <rect x="30" y="78" width="900" height="360" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Vertical Time Gridlines (Dashed) -->
+  <line x1="230" y1="92" x2="230" y2="425" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="450" y1="92" x2="450" y2="425" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="530" y1="92" x2="530" y2="425" stroke="#27ae60" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <line x1="630" y1="92" x2="630" y2="425" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="730" y1="92" x2="730" y2="425" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="810" y1="92" x2="810" y2="425" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1"/>
+
+  <!-- Time Labels at Top of Grid -->
+  <text x="230" y="88" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">t₀</text>
+  <text x="450" y="88" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">t₁</text>
+  <text x="530" y="88" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">t₂</text>
+  <text x="630" y="88" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">t₃</text>
+  <text x="730" y="88" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">t₄</text>
+  <text x="810" y="88" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">t₅</text>
+
+  <!-- Left Channel Titles -->
+  <text x="45" y="124" font-size="13" font-weight="bold" fill="#1a1a1a">TXD (Host → ESP)</text>
+  <text x="45" y="140" font-size="12" fill="#6b7280">Передача AT-команди</text>
+
+  <text x="45" y="194" font-size="13" font-weight="bold" fill="#1a1a1a">ESP8266 CPU</text>
+  <text x="45" y="210" font-size="12" fill="#6b7280">Декодування та обробка</text>
+
+  <text x="45" y="250" font-size="13" font-weight="bold" fill="#2457d6">GPIO4 Output</text>
+  <text x="45" y="266" font-size="12" fill="#6b7280">Фізичний стан виводу</text>
+
+  <text x="45" y="316" font-size="13" font-weight="bold" fill="#1a1a1a">RXD (ESP → Host)</text>
+  <text x="45" y="332" font-size="12" fill="#6b7280">Передача "OK\r\n"</text>
+
+  <text x="45" y="380" font-size="13" font-weight="bold" fill="#1a1a1a">Host Parser</text>
+  <text x="45" y="396" font-size="12" fill="#6b7280">Парсинг відповіді</text>
+
+  <!-- Channel 1: TXD Waveform & Annotations -->
+  <text x="340" y="94" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t_tx (Передача AT-команди)</text>
+  <line x1="230" y1="100" x2="450" y2="100" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+
+  <text x="490" y="94" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">t_exec</text>
+  <line x1="450" y1="100" x2="530" y2="100" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-start)" marker-end="url(#arr-red)"/>
+
+  <!-- TXD Pulses (Y=120 High, Y=136 Low) -->
+  <path d="M200,120 L230,120 L230,136 L245,136 L245,120 L260,120 L260,136 L285,136 L285,120 L300,120 L300,136 L320,136 L320,120 L345,120 L345,136 L370,136 L370,120 L390,120 L390,136 L415,136 L415,120 L430,120 L430,136 L450,136 L450,120 L880,120" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="340" y="152" text-anchor="middle" font-size="12" fill="#1a1a1a">AT+SYSGPIOWRITE=4,1\r\n</text>
+
+  <!-- Latency Interval Annotation -->
+  <text x="540" y="160" text-anchor="middle" font-size="12" fill="#6b7280">t_latency (Обробка ESP8266)</text>
+  <line x1="450" y1="166" x2="630" y2="166" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-gray-start)" marker-end="url(#arr-gray)"/>
+
+  <!-- Channel 2: ESP8266 CPU Processing State Blocks (Y=184 to Y=212) -->
+  <rect x="230" y="184" width="220" height="28" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="340" y="202" text-anchor="middle" font-size="12" fill="#2457d6">Прийом байтів UART</text>
+
+  <rect x="450" y="184" width="80" height="28" rx="4" ry="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="490" y="202" text-anchor="middle" font-size="12" fill="#c0392b">Парсинг AT</text>
+
+  <rect x="530" y="184" width="100" height="28" rx="4" ry="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="580" y="202" text-anchor="middle" font-size="12" fill="#27ae60">Запис IOMUX</text>
+
+  <!-- Channel 3: Physical GPIO4 Output Signal (LOW=265, HIGH=240) -->
+  <text x="535" y="232" font-size="12" font-weight="bold" fill="#27ae60">GPIO4 = 1 (HIGH)</text>
+  <path d="M200,265 L530,265 L530,240 L880,240" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Channel 4: RXD Response Signal & Annotations -->
+  <text x="680" y="289" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t_resp ("OK\r\n")</text>
+  <line x1="630" y1="295" x2="730" y2="295" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+
+  <!-- RXD Pulses (Y=310 High, Y=326 Low) -->
+  <path d="M200,310 L630,310 L630,326 L645,326 L645,310 L665,310 L665,326 L685,326 L685,310 L705,310 L705,326 L730,326 L730,310 L880,310" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="680" y="342" text-anchor="middle" font-size="12" fill="#1a1a1a">OK\r\n</text>
+
+  <!-- Channel 5: Host Parser State Blocks & Annotations (Y=372 to Y=400) -->
+  <text x="770" y="354" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">t_parse</text>
+  <line x1="730" y1="360" x2="810" y2="360" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green-start)" marker-end="url(#arr-green)"/>
+
+  <rect x="200" y="372" width="430" height="28" rx="4" ry="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="415" y="390" text-anchor="middle" font-size="12" fill="#6b7280">Очікування відповіді</text>
+
+  <rect x="630" y="372" width="100" height="28" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="680" y="390" text-anchor="middle" font-size="12" fill="#2457d6">Прийом "OK"</text>
+
+  <rect x="730" y="372" width="80" height="28" rx="4" ry="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="770" y="390" text-anchor="middle" font-size="12" fill="#27ae60">Парсинг</text>
+
+  <rect x="810" y="372" width="70" height="28" rx="4" ry="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="845" y="390" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">READY</text>
+
+  <!-- Bottom Legend Panel -->
+  <rect x="30" y="450" width="900" height="52" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <text x="50" y="470" font-size="12" font-weight="bold" fill="#1a1a1a">Команда UART:</text>
+  <text x="50" y="488" font-size="12" fill="#6b7280">AT+SYSGPIOWRITE=4,1\r\n (115200 Baud)</text>
+
+  <text x="350" y="470" font-size="12" font-weight="bold" fill="#1a1a1a">Часові параметри:</text>
+  <text x="350" y="488" font-size="12" fill="#6b7280">t_exec ≈ 1.2–3.5 мс | t_latency ≈ 4–8 мс</text>
+
+  <text x="660" y="470" font-size="12" font-weight="bold" fill="#1a1a1a">Результат виконання:</text>
+  <text x="660" y="488" font-size="12" font-weight="bold" fill="#27ae60">GPIO4 = HIGH | Статус: OK</text>
+</svg>

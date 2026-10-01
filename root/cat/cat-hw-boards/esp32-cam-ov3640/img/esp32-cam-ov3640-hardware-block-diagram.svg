@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Електричні з'єднання ESP32-CAM та сенсора OV3640</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Передача даних по 8-бітній шині DVP, керування по SCCB та триканальне живлення AVDD/DVDD/DOVDD</text>
+
+  <!-- Left Outer Panel: ESP32 -->
+  <rect x="30" y="70" width="260" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="160" y="95" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Мікроконтролер ESP32</text>
+  <text x="160" y="112" text-anchor="middle" font-size="12" fill="#6b7280">DVP/DMA Контролер &amp; GPIO</text>
+
+  <!-- Center Outer Panel: FPC Connector & Bus -->
+  <rect x="320" y="70" width="320" height="465" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <text x="480" y="95" text-anchor="middle" font-size="15" font-weight="bold" fill="#2457d6">24-pin FPC Роз'єм &amp; Сигнальні траси</text>
+  <text x="480" y="112" text-anchor="middle" font-size="12" fill="#6b7280">Узгодження рівнів, строби та лінійні LDO</text>
+
+  <!-- Right Outer Panel: OV3640 Sensor -->
+  <rect x="670" y="70" width="260" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="800" y="95" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Відеосенсор OV3640 (2 МП)</text>
+  <text x="800" y="112" text-anchor="middle" font-size="12" fill="#6b7280">Матриця QXGA &amp; Апаратний JPEG</text>
+
+  <!-- Section A: Data Bus DVP -->
+  <rect x="45" y="130" width="230" height="85" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="55" y="150" font-size="12" font-weight="bold" fill="#1a1a1a">Входи DVP (GPIO34–35, 32–33,</text>
+  <text x="55" y="166" font-size="12" fill="#1a1a1a">GPIO25, 14, 13, 5)</text>
+  <text x="55" y="186" font-size="11" fill="#6b7280">Паралельний прийом по DMA</text>
+
+  <rect x="335" y="130" width="290" height="85" rx="6" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="150" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Шина даних DVP: D0–D7 (8 біт)</text>
+  <text x="480" y="168" text-anchor="middle" font-size="12" fill="#1a1a1a">Потокові байтові дані (RGB565 / JPEG)</text>
+  <text x="480" y="186" text-anchor="middle" font-size="11" fill="#6b7280">Частота вибірки до 24 МГц (PCLK)</text>
+
+  <rect x="685" y="130" width="230" height="85" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="695" y="150" font-size="12" font-weight="bold" fill="#1a1a1a">Виходи Y0–Y7 (D0–D7)</text>
+  <text x="695" y="166" font-size="12" fill="#1a1a1a">Формування піксельного потоку</text>
+  <text x="695" y="186" font-size="11" fill="#27ae60">Апаратний енкодер JPEG</text>
+
+  <path d="M 685 172 L 634 172" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 335 172 L 284 172" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Section B: Sync Strobes & Clock -->
+  <rect x="45" y="230" width="230" height="90" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="55" y="248" font-size="12" font-weight="bold" fill="#1a1a1a">PCLK (GPIO22) · VSYNC (GPIO25)</text>
+  <text x="55" y="264" font-size="12" font-weight="bold" fill="#1a1a1a">HREF (GPIO23) · XVCLK (GPIO0)</text>
+  <text x="55" y="284" font-size="11" fill="#2457d6">Генерація XCLK (10–24 МГц)</text>
+  <text x="55" y="300" font-size="11" fill="#6b7280">Вхід стробів арбітра DMA</text>
+
+  <rect x="335" y="230" width="290" height="90" rx="6" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="248" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Строби DVP &amp; Майстер-тактування</text>
+  <text x="480" y="266" text-anchor="middle" font-size="11" fill="#1a1a1a">PCLK (Пікселі) / VSYNC (Кадри) / HREF (Рядки)</text>
+  <text x="480" y="284" text-anchor="middle" font-size="11" fill="#1a1a1a">XVCLK: Джерело тактування від ESP32</text>
+  <text x="480" y="302" text-anchor="middle" font-size="11" fill="#6b7280">Фазова синхронізація фронтів DVP</text>
+
+  <rect x="685" y="230" width="230" height="90" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="695" y="248" font-size="12" font-weight="bold" fill="#1a1a1a">Вхід XVCLK (Майстер-тактування)</text>
+  <text x="695" y="264" font-size="12" font-weight="bold" fill="#1a1a1a">Виходи PCLK, VSYNC, HREF</text>
+  <text x="695" y="284" font-size="11" fill="#6b7280">Внутрішній PLL генератор</text>
+  <text x="695" y="300" font-size="11" fill="#6b7280">Формування кадрів QXGA</text>
+
+  <path d="M 685 260 L 634 260" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 335 260 L 284 260" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 275 290 L 326 290" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M 625 290 L 676 290" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Section C: SCCB Control & Reset -->
+  <rect x="45" y="335" width="230" height="85" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="55" y="353" font-size="12" font-weight="bold" fill="#1a1a1a">SIOC (GPIO27) · SIOD (GPIO26)</text>
+  <text x="55" y="369" font-size="12" fill="#1a1a1a">RESET (GPIO15) · PWDN (GPIO32)</text>
+  <text x="55" y="389" font-size="11" fill="#6b7280">I2C-подібний протокол (100 кГц)</text>
+
+  <rect x="335" y="335" width="290" height="85" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="353" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Шина SCCB &amp; Сигнали скидання</text>
+  <text x="480" y="371" text-anchor="middle" font-size="11" fill="#1a1a1a">Конфігурація регістрів (Адреса 0x78 / 0x60)</text>
+  <text x="480" y="389" text-anchor="middle" font-size="11" fill="#27ae60">Підтяжка SIOC/SIOD: R_pullup = 4.7 кОм</text>
+
+  <rect x="685" y="335" width="230" height="85" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="695" y="353" font-size="12" font-weight="bold" fill="#1a1a1a">Входи SIOC, SIOD (SCCB)</text>
+  <text x="695" y="369" font-size="12" fill="#1a1a1a">Входи RESETB та PWDN</text>
+  <text x="695" y="389" font-size="11" fill="#6b7280">Блок внутрішніх регістрів</text>
+
+  <path d="M 275 377 L 326 377" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <path d="M 625 377 L 676 377" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Section D: Power Supply Domains -->
+  <rect x="45" y="430" width="230" height="85" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="55" y="448" font-size="12" font-weight="bold" fill="#1a1a1a">Живлення плати (3.3V / 5V)</text>
+  <text x="55" y="464" font-size="12" fill="#1a1a1a">Виділені лінійні регулятори LDO</text>
+  <text x="55" y="484" font-size="11" fill="#c0392b">Захист від пульсацій DC-DC</text>
+
+  <rect x="335" y="430" width="290" height="85" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="448" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Триканальне живлення сенсора</text>
+  <text x="480" y="466" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">AVDD: 2.8V (Аналог) · DVDD: 1.5V (Ядро)</text>
+  <text x="480" y="484" text-anchor="middle" font-size="11" fill="#27ae60">DOVDD: 2.8V (I/O) · Фільтр: 10uF + 0.1uF</text>
+
+  <rect x="685" y="430" width="230" height="85" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="695" y="448" font-size="12" font-weight="bold" fill="#1a1a1a">Входи AVDD, DVDD, DOVDD</text>
+  <text x="695" y="464" font-size="12" fill="#1a1a1a">Роздільне аналогове й цифрове GND</text>
+  <text x="695" y="484" font-size="11" fill="#27ae60">Фільтрація шуму матриці</text>
+
+  <path d="M 275 472 L 326 472" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 625 472 L 676 472" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+</svg>

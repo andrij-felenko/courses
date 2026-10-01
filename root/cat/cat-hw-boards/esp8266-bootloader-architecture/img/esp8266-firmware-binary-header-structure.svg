@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структура бінарного заголовка прошивки ESP8266</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Розміщення полів 8-байтового заголовка image_header та сегментів пам'яті</text>
+
+  <!-- Top Panel: Header -->
+  <rect x="40" y="85" width="880" height="195" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="110" font-size="14" font-weight="bold" fill="#1a1a1a">Заголовок образу (8 байтів / Image Header)</text>
+
+  <!-- Block 1: Magic Byte -->
+  <rect x="55" y="125" width="150" height="135" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="65" y="145" font-size="12" font-weight="bold" fill="#2457d6">Offset 0x00 (1B)</text>
+  <text x="130" y="175" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">0xE9</text>
+  <text x="130" y="200" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Магічний байт</text>
+  <text x="130" y="222" font-size="12" fill="#6b7280" text-anchor="middle">Фіксований маркер</text>
+  <text x="130" y="240" font-size="12" fill="#6b7280" text-anchor="middle">валідності образу</text>
+
+  <!-- Block 2: Segment Count -->
+  <rect x="220" y="125" width="150" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="230" y="145" font-size="12" font-weight="bold" fill="#1a1a1a">Offset 0x01 (1B)</text>
+  <text x="295" y="175" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Count (N)</text>
+  <text x="295" y="200" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кількість сегментів</text>
+  <text x="295" y="222" font-size="12" fill="#6b7280" text-anchor="middle">Число сегментів</text>
+  <text x="295" y="240" font-size="12" fill="#6b7280" text-anchor="middle">для завантаження</text>
+
+  <!-- Block 3: SPI Mode -->
+  <rect x="385" y="125" width="160" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="395" y="145" font-size="12" font-weight="bold" fill="#1a1a1a">Offset 0x02 (1B)</text>
+  <text x="465" y="175" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SPI Mode</text>
+  <text x="465" y="200" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Режим SPI Flash</text>
+  <text x="465" y="222" font-size="12" fill="#6b7280" text-anchor="middle">0:QIO, 1:QOUT</text>
+  <text x="465" y="240" font-size="12" fill="#6b7280" text-anchor="middle">2:DIO, 3:DOUT</text>
+
+  <!-- Block 4: SPI Speed & Size -->
+  <rect x="560" y="125" width="165" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="570" y="145" font-size="12" font-weight="bold" fill="#1a1a1a">Offset 0x03 (1B)</text>
+  <text x="642" y="175" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Speed / Size</text>
+  <text x="642" y="200" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Частота й розмір</text>
+  <text x="642" y="222" font-size="12" fill="#6b7280" text-anchor="middle">Low 4b: розмір Flash</text>
+  <text x="642" y="240" font-size="12" fill="#6b7280" text-anchor="middle">High 4b: частота</text>
+
+  <!-- Block 5: Entry Point -->
+  <rect x="740" y="125" width="165" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="750" y="145" font-size="12" font-weight="bold" fill="#27ae60">Offset 0x04..0x07 (4B)</text>
+  <text x="822" y="175" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">0x40100000</text>
+  <text x="822" y="200" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Точка входу</text>
+  <text x="822" y="222" font-size="12" fill="#6b7280" text-anchor="middle">Адреса першої</text>
+  <text x="822" y="240" font-size="12" fill="#6b7280" text-anchor="middle">інструкції в IRAM</text>
+
+  <!-- Middle Connector -->
+  <line x1="480" y1="280" x2="480" y2="308" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="495" y="298" font-size="12" fill="#6b7280">Далі в файлі розміщуються послідовні сегменти прошивки</text>
+
+  <!-- Bottom Panel: Segments -->
+  <rect x="40" y="315" width="880" height="215" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="340" font-size="14" font-weight="bold" fill="#1a1a1a">Структура сегментів бінарного образу (Segments &amp; Checksum)</text>
+
+  <!-- Segment 1 -->
+  <rect x="55" y="355" width="385" height="155" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="70" y="375" font-size="13" font-weight="bold" fill="#2457d6">Сегмент 1 (наприклад, IRAM код)</text>
+
+  <rect x="70" y="388" width="355" height="52" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="80" y="406" font-size="12" font-weight="bold" fill="#2457d6">Заголовок сегмента 1 (8 байтів)</text>
+  <text x="80" y="426" font-size="12" fill="#1a1a1a">Target RAM Addr (4B) | Segment Length (4B)</text>
+
+  <rect x="70" y="448" width="355" height="50" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="80" y="466" font-size="12" font-weight="bold" fill="#1a1a1a">Дані сегмента 1 (машинний код / константи)</text>
+  <text x="80" y="486" font-size="12" fill="#6b7280">Довжина: Length байтів -&gt; завантаження в IRAM</text>
+
+  <!-- Segment N -->
+  <rect x="455" y="355" width="325" height="155" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="470" y="375" font-size="13" font-weight="bold" fill="#1a1a1a">Сегмент N (наприклад, DRAM дані)</text>
+
+  <rect x="470" y="388" width="295" height="52" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="406" font-size="12" font-weight="bold" fill="#1a1a1a">Заголовок сегмента N (8 байтів)</text>
+  <text x="480" y="426" font-size="12" fill="#1a1a1a">Target RAM Addr (4B) | Length (4B)</text>
+
+  <rect x="470" y="448" width="295" height="50" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="466" font-size="12" font-weight="bold" fill="#1a1a1a">Дані сегмента N (змінні / константи)</text>
+  <text x="480" y="486" font-size="12" fill="#6b7280">Довжина: Length байтів -&gt; DRAM</text>
+
+  <!-- Checksum -->
+  <rect x="795" y="355" width="110" height="155" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="850" y="380" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Кінець образу</text>
+  <text x="850" y="410" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">XOR Checksum</text>
+  <text x="850" y="432" font-size="12" fill="#c0392b" text-anchor="middle">1 байт</text>
+  <text x="850" y="462" font-size="12" fill="#6b7280" text-anchor="middle">Контрольна</text>
+  <text x="850" y="482" font-size="12" fill="#6b7280" text-anchor="middle">сума даних</text>
+</svg>

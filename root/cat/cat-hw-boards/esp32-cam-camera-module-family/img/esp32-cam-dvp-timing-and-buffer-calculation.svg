@@ -1,0 +1,112 @@
+<svg viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Часові інтервали шини DVP та формування кадрового буфера</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Синхронізація сигналів VSYNC, HSYNC, PCLK та запис байтів кадру через DMA в SRAM / PSRAM</text>
+
+  <!-- TOP SECTION: DVP Timing Signals Diagram -->
+  <rect x="35" y="85" width="890" height="245" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="105" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Схема часових діаграм DVP (Digital Video Port)</text>
+
+  <!-- Track Labels (Left Side) -->
+  <text x="155" y="145" font-size="12" font-weight="bold" text-anchor="end" fill="#2457d6">VSYNC (Кадр)</text>
+  <text x="155" y="200" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">HSYNC (Рядок)</text>
+  <text x="155" y="255" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">PCLK (Такти)</text>
+  <text x="155" y="305" font-size="12" font-weight="bold" text-anchor="end" fill="#27ae60">D[7:0] (Дані)</text>
+
+  <!-- Waveform 1: VSYNC -->
+  <path d="M 170,135 L 200,135 L 200,155 L 260,155 L 260,135 L 860,135 L 860,155 L 890,155" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="560" y="128" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Кадровий інтервал (Active Frame)</text>
+
+  <!-- Waveform 2: HSYNC -->
+  <path d="M 170,210 L 280,210 L 280,190 L 440,190 L 440,210 L 480,210 L 480,190 L 640,190 L 640,210 L 680,210 L 680,190 L 840,190 L 840,210 L 890,210" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="360" y="183" font-size="12" text-anchor="middle" fill="#1a1a1a">Рядок 1</text>
+  <text x="560" y="183" font-size="12" text-anchor="middle" fill="#1a1a1a">Рядок 2</text>
+  <text x="760" y="183" font-size="12" text-anchor="middle" fill="#1a1a1a">Рядок 3</text>
+
+  <!-- Waveform 3: PCLK Pulses -->
+  <!-- Line 1 Clocks -->
+  <path d="M 280,265 L 290,265 L 290,245 L 300,245 L 300,265 L 310,265 L 310,245 L 320,245 L 320,265 L 330,265 L 330,245 L 340,245 L 340,265 L 350,265 L 350,245 L 360,245 L 360,265 L 370,265 L 370,245 L 380,245 L 380,265 L 390,265 L 390,245 L 400,245 L 400,265 L 410,265 L 410,245 L 420,245 L 420,265 L 430,265 L 430,245 L 440,245 L 440,265" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Line 2 Clocks -->
+  <path d="M 480,265 L 490,265 L 490,245 L 500,245 L 500,265 L 510,265 L 510,245 L 520,245 L 520,265 L 530,265 L 530,245 L 540,245 L 540,265 L 550,265 L 550,245 L 560,245 L 560,265 L 570,265 L 570,245 L 580,245 L 580,265 L 590,265 L 590,245 L 600,245 L 600,265 L 610,265 L 610,245 L 620,245 L 620,265 L 630,265 L 630,245 L 640,245 L 640,265" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Line 3 Clocks -->
+  <path d="M 680,265 L 690,265 L 690,245 L 700,245 L 700,265 L 710,265 L 710,245 L 720,245 L 720,265 L 730,265 L 730,245 L 740,245 L 740,265 L 750,265 L 750,245 L 760,245 L 760,265 L 770,265 L 770,245 L 780,245 L 780,265 L 790,265 L 790,245 L 800,245 L 800,265 L 810,265 L 810,245 L 820,245 L 820,265 L 830,265 L 830,245 L 840,245 L 840,265" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Waveform 4: D[7:0] Data Byte Blocks -->
+  <!-- Line 1 Bytes -->
+  <rect x="280" y="293" width="36" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="298" y="308" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Y0</text>
+
+  <rect x="320" y="293" width="36" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="338" y="308" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">U0</text>
+
+  <rect x="360" y="293" width="36" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="378" y="308" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Y1</text>
+
+  <rect x="400" y="293" width="36" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="418" y="308" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">V0</text>
+
+  <!-- Line 2 Bytes -->
+  <rect x="480" y="293" width="36" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="498" y="308" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Y2</text>
+
+  <rect x="520" y="293" width="36" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="538" y="308" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">U2</text>
+
+  <rect x="560" y="293" width="36" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="578" y="308" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Y3</text>
+
+  <rect x="600" y="293" width="36" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="618" y="308" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">V2</text>
+
+  <text x="560" y="325" font-size="12" fill="#27ae60" text-anchor="middle">2 байти на піксель (RGB565 / YUV422)</text>
+
+  <!-- BOTTOM SECTION: Framebuffer Calculation & RAM Allocation Cards -->
+
+  <!-- Card 1: Frame Buffer Size -->
+  <rect x="35" y="345" width="280" height="185" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="45" y="355" width="260" height="28" rx="4" fill="#2457d6"/>
+  <text x="175" y="374" font-size="12" font-weight="bold" text-anchor="middle" fill="white">1. Обсяг кадрового буфера</text>
+  <text x="45" y="398" font-size="12" font-weight="bold" fill="#1a1a1a">Формула обсягу буфера S_frame:</text>
+  <text x="45" y="418" font-size="12" font-weight="bold" fill="#2457d6">S_frame = W × H × BytesPerPixel</text>
+  <text x="45" y="443" font-size="12" fill="#1a1a1a">• QVGA (320×240 RGB565): 153.6 КБ</text>
+  <text x="45" y="463" font-size="12" fill="#1a1a1a">• VGA (640×480 RGB565): 614.4 КБ</text>
+  <text x="45" y="483" font-size="12" fill="#c0392b">• VGA в SRAM: Помилка Heap!</text>
+  <text x="45" y="505" font-size="12" fill="#27ae60">• JPEG VGA: ~30-60 КБ (Стиснено)</text>
+
+  <!-- Card 2: DVP Bus Bandwidth -->
+  <rect x="330" y="345" width="295" height="185" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="340" y="355" width="275" height="28" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="477.5" y="374" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">2. Пропускна здатність шини DVP</text>
+  <text x="340" y="398" font-size="12" font-weight="bold" fill="#1a1a1a">Потік даних шини DVP:</text>
+  <text x="340" y="418" font-size="12" font-weight="bold" fill="#2457d6">Bandwidth = PCLK × W_bus (8 біт)</text>
+  <text x="340" y="443" font-size="12" fill="#1a1a1a">• При PCLK = 20 МГц:</text>
+  <text x="350" y="463" font-size="12" fill="#6b7280">Потік = 20 МБ/с (160 Мбіт/с)</text>
+  <text x="340" y="485" font-size="12" fill="#1a1a1a">• Граничний FPS для VGA:</text>
+  <text x="350" y="505" font-size="12" fill="#27ae60">FPS_max = Bandwidth / S_frame ≈ 32.5</text>
+
+  <!-- Card 3: DMA & RAM Memory Allocation -->
+  <rect x="640" y="345" width="285" height="185" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="650" y="355" width="265" height="28" rx="4" fill="#27ae60"/>
+  <text x="782.5" y="374" font-size="12" font-weight="bold" text-anchor="middle" fill="white">3. DMA та розподіл у пам'яті</text>
+  <text x="650" y="398" font-size="12" font-weight="bold" fill="#1a1a1a">Передача через DMA (I2S/LCD):</text>
+  <text x="650" y="420" font-size="12" fill="#1a1a1a">• Внутрішній SRAM (512 КБ):</text>
+  <text x="660" y="440" font-size="12" fill="#6b7280">Швидкі буфери DMA (fb_count=1)</text>
+  <text x="650" y="465" font-size="12" fill="#1a1a1a">• Зовнішній PSRAM (4/8 МБ):</text>
+  <text x="660" y="485" font-size="12" fill="#27ae60">Подвійна буферизація (fb_count=2)</text>
+  <text x="660" y="505" font-size="12" fill="#27ae60">Висока роздільність (VGA / UXGA)</text>
+</svg>

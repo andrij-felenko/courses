@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+  
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Комбінації виводів завантаження ESP8266 (Strapping Pins)</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Логічні рівні на GPIO15, GPIO0 та GPIO2 у момент відпускання скидання визначають режим старту</text>
+  
+  <!-- Left Panel: Boot Mode Table -->
+  <rect x="30" y="85" width="540" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="112" font-size="15" font-weight="bold" fill="#1a1a1a">Таблиця комбінацій напруг на виводах</text>
+  
+  <!-- Table Header -->
+  <text x="100" y="138" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Режим</text>
+  <text x="207" y="138" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO15</text>
+  <text x="282" y="138" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO0</text>
+  <text x="357" y="138" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO2</text>
+  <text x="477" y="138" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Призначення</text>
+  
+  <!-- Row 1: Flash Boot (Default) -->
+  <rect x="45" y="152" width="110" height="54" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="100" y="174" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Flash Boot</text>
+  <text x="100" y="192" font-size="11" fill="#27ae60" text-anchor="middle">(Штатний)</text>
+
+  <rect x="175" y="152" width="65" height="54" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="207" y="184" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0 (GND)</text>
+
+  <rect x="250" y="152" width="65" height="54" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="282" y="184" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">1 (VCC)</text>
+
+  <rect x="325" y="152" width="65" height="54" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="357" y="184" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1 (VCC)</text>
+
+  <rect x="400" y="152" width="155" height="54" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="408" y="174" font-size="12" fill="#1a1a1a">Виконання коду</text>
+  <text x="408" y="192" font-size="12" fill="#6b7280">з SPI Flash-пам'яті</text>
+
+  <!-- Row 2: UART Download -->
+  <rect x="45" y="222" width="110" height="54" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="100" y="244" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">UART Mode</text>
+  <text x="100" y="262" font-size="11" fill="#2457d6" text-anchor="middle">(Прошивка)</text>
+
+  <rect x="175" y="222" width="65" height="54" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="207" y="254" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0 (GND)</text>
+
+  <rect x="250" y="222" width="65" height="54" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="282" y="254" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">0 (GND)</text>
+
+  <rect x="325" y="222" width="65" height="54" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="357" y="254" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1 (VCC)</text>
+
+  <rect x="400" y="222" width="155" height="54" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="408" y="244" font-size="12" fill="#1a1a1a">Завантаження коду</text>
+  <text x="408" y="262" font-size="12" fill="#6b7280">через UART0 (Rx/Tx)</text>
+
+  <!-- Row 3: SDIO Boot (Invalid) -->
+  <rect x="45" y="292" width="110" height="54" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="100" y="314" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">SDIO Boot</text>
+  <text x="100" y="332" font-size="11" fill="#c0392b" text-anchor="middle">(Помилковий)</text>
+
+  <rect x="175" y="292" width="65" height="54" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="207" y="324" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">1 (VCC)</text>
+
+  <rect x="250" y="292" width="65" height="54" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="282" y="324" font-size="11" fill="#6b7280" text-anchor="middle">будь-який</text>
+
+  <rect x="325" y="292" width="65" height="54" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="357" y="324" font-size="11" fill="#6b7280" text-anchor="middle">будь-який</text>
+
+  <rect x="400" y="292" width="155" height="54" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="408" y="314" font-size="12" fill="#c0392b">Спроба SD-завантаження</text>
+  <text x="408" y="332" font-size="11" fill="#6b7280">(зависання ядра)</text>
+
+  <!-- Left Bottom Note Box -->
+  <rect x="45" y="390" width="510" height="80" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="60" y="412" font-size="12" font-weight="bold" fill="#1a1a1a">Вимоги до обв'язки при скиданні (RST / Power-On):</text>
+  <text x="60" y="434" font-size="12" fill="#1a1a1a">• GPIO15: критично мати 0 V (Pull-Down 10 кОм на GND)</text>
+  <text x="60" y="454" font-size="12" fill="#1a1a1a">• GPIO2:  критично мати 3.3 V (Pull-Up 10 кОм на VCC)</text>
+
+  <!-- Right Panel: Hardware Configurations -->
+  <rect x="590" y="85" width="340" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="605" y="112" font-size="15" font-weight="bold" fill="#1a1a1a">Схемотехнічні підтяжки виводів</text>
+
+  <!-- GPIO15 Card -->
+  <rect x="605" y="130" width="310" height="75" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="615" y="142" width="70" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="650" y="158" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO15</text>
+  <rect x="695" y="142" width="210" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="800" y="158" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">10 кОм Pull-Down → GND</text>
+  <text x="615" y="182" font-size="12" fill="#6b7280">Забезпечує логічний 0 під час скидання.</text>
+  <text x="615" y="196" font-size="11" fill="#6b7280">Запобігає зависанню в режимі SDIO.</text>
+
+  <!-- GPIO0 Card -->
+  <rect x="605" y="215" width="310" height="75" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="615" y="227" width="70" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="650" y="243" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO0</text>
+  <rect x="695" y="227" width="210" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="800" y="243" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">10 кОм Pull-Up → 3.3V</text>
+  <text x="615" y="267" font-size="12" fill="#6b7280">За замовчуванням: 3.3V (Flash Boot).</text>
+  <text x="615" y="281" font-size="11" fill="#6b7280">Притискання до GND вмикає UART Mode.</text>
+
+  <!-- GPIO2 Card -->
+  <rect x="605" y="300" width="310" height="75" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="615" y="312" width="70" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="650" y="328" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO2</text>
+  <rect x="695" y="312" width="210" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="800" y="328" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">10 кОм Pull-Up → 3.3V</text>
+  <text x="615" y="352" font-size="12" fill="#6b7280">Забезпечує високий рівень 3.3V при старті.</text>
+  <text x="615" y="366" font-size="11" fill="#6b7280">Вихід TXD1 під час налагодження UART.</text>
+
+  <!-- Right Bottom Mode Switching Banner -->
+  <rect x="605" y="385" width="310" height="85" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="615" y="405" font-size="12" font-weight="bold" fill="#1a1a1a">Перемикання режимів завантаження:</text>
+  <text x="615" y="427" font-size="12" fill="#27ae60">• Flash Boot: Кнопка Flash ВІДПУЩЕНА (3.3V)</text>
+  <text x="615" y="449" font-size="12" fill="#2457d6">• UART Mode: Кнопка Flash ЗАТИСНУТА (GND)</text>
+</svg>

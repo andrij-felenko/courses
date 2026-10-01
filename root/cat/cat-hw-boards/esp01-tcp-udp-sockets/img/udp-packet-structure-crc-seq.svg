@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Структура UDP-пакета телеметрії на рівні застосунку</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Заголовок протоколу застосунку розпізнає втрачені пакети та гарантує цілісність даних у мережі UDP</text>
+
+  <!-- Outer Panel: UDP Data Payload -->
+  <rect x="60" y="85" width="840" height="295" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="80" y="112" font-size="12" font-weight="bold" fill="#6b7280">КОРИСНЕ НАВАНТАЖЕННЯ UDP (UDP DATA PAYLOAD)</text>
+
+  <!-- Box 1: Sequence ID -->
+  <rect x="80" y="128" width="180" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="170" y="152" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Sequence ID</text>
+  <text x="170" y="175" text-anchor="middle" font-size="12" fill="#1a1a1a">4 байти (uint32)</text>
+  <text x="170" y="200" text-anchor="middle" font-size="12" fill="#2457d6">Поле: 0x00000001</text>
+  <text x="170" y="222" text-anchor="middle" font-size="12" fill="#6b7280">(номер пакета)</text>
+
+  <!-- Box 2: Payload Length -->
+  <rect x="272" y="128" width="150" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="347" y="152" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Length</text>
+  <text x="347" y="175" text-anchor="middle" font-size="12" fill="#1a1a1a">2 байти (uint16)</text>
+  <text x="347" y="200" text-anchor="middle" font-size="12" fill="#2457d6">Поле: 0x001C</text>
+  <text x="347" y="222" text-anchor="middle" font-size="12" fill="#6b7280">(довжина даних)</text>
+
+  <!-- Box 3: CRC16 Checksum -->
+  <rect x="434" y="128" width="160" height="115" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="514" y="152" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">CRC16</text>
+  <text x="514" y="175" text-anchor="middle" font-size="12" fill="#1a1a1a">2 байти (uint16)</text>
+  <text x="514" y="200" text-anchor="middle" font-size="12" fill="#27ae60">Поле: 0x7F2A</text>
+  <text x="514" y="222" text-anchor="middle" font-size="12" fill="#6b7280">(контрольна сума)</text>
+
+  <!-- Box 4: Telemetry Payload -->
+  <rect x="606" y="128" width="274" height="115" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <text x="743" y="152" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Telemetry Data</text>
+  <text x="743" y="175" text-anchor="middle" font-size="12" fill="#6b7280">N байтів (Payload)</text>
+  <text x="743" y="200" text-anchor="middle" font-size="12" fill="#1a1a1a">Масив даних телеметрії</text>
+  <text x="743" y="222" text-anchor="middle" font-size="12" fill="#6b7280">(Temp, Hum, ADC, Status)</text>
+
+  <!-- Arrows connecting top fields to detail panels -->
+  <line x1="170" y1="243" x2="170" y2="255" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="514" y1="243" x2="500" y2="255" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="743" y1="243" x2="743" y2="255" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Lower Detail Box 1: Sequence ID Function -->
+  <rect x="80" y="260" width="250" height="110" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="95" y="282" font-size="13" font-weight="bold" fill="#2457d6">Вторинний аналіз (Seq ID)</text>
+  <text x="95" y="305" font-size="12" fill="#1a1a1a">• Захист від втрати пакетів</text>
+  <text x="95" y="327" font-size="12" fill="#1a1a1a">• Виявлення дублікатів</text>
+  <text x="95" y="349" font-size="12" fill="#1a1a1a">• Відновлення порядку</text>
+
+  <!-- Lower Detail Box 2: CRC16 Function -->
+  <rect x="344" y="260" width="250" height="110" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="359" y="282" font-size="13" font-weight="bold" fill="#27ae60">Перевірка цілісності (CRC16)</text>
+  <text x="359" y="305" font-size="12" fill="#1a1a1a">• Поліном CRC-16/CCITT</text>
+  <text x="359" y="327" font-size="12" fill="#1a1a1a">• Контроль завад Wi-Fi</text>
+  <text x="359" y="349" font-size="12" fill="#1a1a1a">• Відкидання пошкоджень</text>
+
+  <!-- Lower Detail Box 3: Payload Function -->
+  <rect x="608" y="260" width="272" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="623" y="282" font-size="13" font-weight="bold" fill="#1a1a1a">Корисне навантаження</text>
+  <text x="623" y="305" font-size="12" fill="#1a1a1a">• Двійковий або Текстовий формат</text>
+  <text x="623" y="327" font-size="12" fill="#1a1a1a">• Оптимізація для ESP-01 RAM</text>
+  <text x="623" y="349" font-size="12" fill="#1a1a1a">• Компактна структура кадру</text>
+
+  <!-- Bottom Summary Banner -->
+  <rect x="80" y="390" width="800" height="40" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="415" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Заголовок застосунку: 8 байтів (4B Sequence ID + 2B Length + 2B CRC16) + N байтів корисних даних</text>
+</svg>

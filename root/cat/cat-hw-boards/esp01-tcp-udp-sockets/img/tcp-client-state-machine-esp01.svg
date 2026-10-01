@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Header & Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Діаграма станів TCP-клієнта WiFiClient на ESP-01</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Переходи сокета lwIP від виклику connect() до звільнення пам'яті у stop()</text>
+
+  <!-- Node 1: DISCONNECTED -->
+  <rect x="40" y="140" width="220" height="110" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="150" y="168" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. DISCONNECTED</text>
+  <text x="150" y="190" font-size="12" fill="#6b7280" text-anchor="middle">Початковий стан</text>
+  <text x="150" y="212" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">connected() == false</text>
+  <text x="150" y="232" font-size="12" fill="#6b7280" text-anchor="middle">Буфери DRAM не виділені</text>
+
+  <!-- Node 2: CONNECTING -->
+  <rect x="370" y="140" width="220" height="110" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="168" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. CONNECTING</text>
+  <text x="480" y="190" font-size="12" fill="#6b7280" text-anchor="middle">3-way Handshake</text>
+  <text x="480" y="212" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">connect(host, port)</text>
+  <text x="480" y="232" font-size="12" fill="#2457d6" text-anchor="middle">Створення lwIP tcp_pcb</text>
+
+  <!-- Node 3: ESTABLISHED -->
+  <rect x="700" y="140" width="220" height="110" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="810" y="168" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">3. ESTABLISHED</text>
+  <text x="810" y="190" font-size="12" fill="#6b7280" text-anchor="middle">Канал відкритий</text>
+  <text x="810" y="212" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">connected() == true</text>
+  <text x="810" y="232" font-size="12" fill="#27ae60" text-anchor="middle">write() / read() / available()</text>
+
+  <!-- Self-loop on Node 3 for active data exchange -->
+  <path d="M 760,140 C 760,95 860,95 860,140" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+  <text x="810" y="85" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Обмін даними TCP</text>
+
+  <!-- Node 4: CLOSING -->
+  <rect x="370" y="310" width="220" height="110" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="480" y="338" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">4. CLOSING</text>
+  <text x="480" y="360" font-size="12" fill="#6b7280" text-anchor="middle">Закриття сокета</text>
+  <text x="480" y="382" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">client.stop()</text>
+  <text x="480" y="402" font-size="12" fill="#c0392b" text-anchor="middle">Звільнення tcp_pcb у lwIP</text>
+
+  <!-- Transitions -->
+  <!-- 1 -> 2: connect() -->
+  <line x1="260" y1="170" x2="362" y2="170" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="311" y="155" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">connect()</text>
+
+  <!-- 2 -> 1: Fail / Timeout -->
+  <line x1="370" y1="220" x2="268" y2="220" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="319" y="238" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Помилка / Таймаут 5 с</text>
+
+  <!-- 2 -> 3: Handshake Success -->
+  <line x1="590" y1="195" x2="692" y2="195" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="641" y="180" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">SYN-ACK (Успіх)</text>
+
+  <!-- 3 -> 4: client.stop() or Server FIN/RST -->
+  <path d="M 810,250 L 810,365 L 598,365" stroke="#c0392b" stroke-width="2" fill="none" marker-end="url(#arr-red)"/>
+  <text x="704" y="350" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">client.stop() / FIN від сервера</text>
+
+  <!-- 4 -> 1: Memory cleanup -->
+  <path d="M 370,365 L 150,365 L 150,258" stroke="#6b7280" stroke-width="2" stroke-dasharray="5,4" fill="none" marker-end="url(#arr-dark)"/>
+  <text x="260" y="350" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">tcp_close() / pcb_free</text>
+
+  <!-- Bottom Info Panel -->
+  <rect x="40" y="432" width="880" height="36" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="454" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Правило пам'яті ESP-01: Обов'язково викликайте client.stop(), інакше незвільнені tcp_pcb спричинять витік DRAM!</text>
+</svg>

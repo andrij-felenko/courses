@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Компоновка плати-адаптера та встановлення модуля ESP32-CAM</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Антена розташовується над краєм плати; кнопки IO0/RST та Type-C роз'єм забезпечують прошивку</text>
+
+  <!-- Left Main Panel: Structural Scheme -->
+  <rect x="30" y="72" width="530" height="428" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="94" font-size="14" font-weight="bold" fill="#1a1a1a">Схема розташування елементів та напрямок встановлення</text>
+
+  <!-- ESP32-CAM Module (top position) -->
+  <rect x="240" y="110" width="220" height="115" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Wi-Fi Antenna Strip -->
+  <rect x="245" y="115" width="210" height="28" rx="4" fill="#27ae60" fill-opacity="0.2" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="350" y="133" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Wi-Fi Антена (PCB Antenna)</text>
+
+  <!-- Antenna Callout Pointer -->
+  <text x="135" y="127" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Антенний блок</text>
+  <text x="135" y="143" text-anchor="middle" font-size="12" fill="#27ae60">(назовні плати!)</text>
+  <path d="M 192 130 L 240 130" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- ESP32-S Shield -->
+  <rect x="252" y="152" width="55" height="55" rx="3" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+  <text x="279.5" y="184" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">ESP32-S</text>
+
+  <!-- Camera Module OV2640 -->
+  <rect x="325" y="152" width="50" height="42" rx="3" fill="#1a1a1a"/>
+  <circle cx="350" cy="173" r="14" fill="#34495e" stroke="#ffffff" stroke-width="1"/>
+  <circle cx="350" cy="173" r="7" fill="#2457d6"/>
+  <circle cx="348" cy="171" r="2.5" fill="#ffffff"/>
+  <text x="350" y="212" text-anchor="middle" font-size="11" fill="#1a1a1a">Камера OV2640</text>
+
+  <!-- Flash LED -->
+  <rect x="400" y="154" width="18" height="18" rx="2" fill="#f1c40f" stroke="#d35400" stroke-width="1"/>
+  <text x="409" y="188" text-anchor="middle" font-size="11" fill="#6b7280">Спалах</text>
+
+  <!-- Male Header Pins on ESP32-CAM protruding downwards -->
+  <rect x="255" y="225" width="10" height="15" fill="#f39c12" stroke="#d35400" stroke-width="0.5"/>
+  <rect x="435" y="225" width="10" height="15" fill="#f39c12" stroke="#d35400" stroke-width="0.5"/>
+
+  <!-- Insertion Direction Arrows & Label -->
+  <path d="M 260 242 L 260 262" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M 440 242 L 440 262" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="350" y="255" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Встановлення в сокет ↓</text>
+
+  <!-- Base Adapter Board (Motherboard PCB) -->
+  <rect x="50" y="265" width="490" height="225" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="295" y="474" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Плата-адаптер ESP32-CAM (CH340 / Type-C)</text>
+
+  <!-- USB Type-C Port -->
+  <text x="95" y="306" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">USB Type-C</text>
+  <text x="95" y="320" text-anchor="middle" font-size="12" fill="#6b7280">Живлення/UART</text>
+  <rect x="65" y="328" width="60" height="55" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="68" y="345" width="14" height="20" rx="3" fill="#2457d6"/>
+
+  <!-- USB-UART Converter CH340 -->
+  <text x="182.5" y="280" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">USB-UART</text>
+  <rect x="150" y="285" width="65" height="42" rx="3" fill="#1a1a1a"/>
+  <text x="182.5" y="311" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">CH340C</text>
+
+  <!-- Auto-Reset Circuit Block -->
+  <rect x="135" y="396" width="95" height="48" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="182.5" y="416" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Авто-скидання</text>
+  <text x="182.5" y="432" text-anchor="middle" font-size="12" fill="#6b7280">DTR / RTS коло</text>
+
+  <!-- Socket Female Headers (2x8 pin) -->
+  <!-- Left Header -->
+  <rect x="248" y="272" width="24" height="145" rx="3" fill="#2c3e50" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="260" cy="281" r="3" fill="#f4f6f8"/>
+  <circle cx="260" cy="298" r="3" fill="#f4f6f8"/>
+  <circle cx="260" cy="315" r="3" fill="#f4f6f8"/>
+  <circle cx="260" cy="332" r="3" fill="#f4f6f8"/>
+  <circle cx="260" cy="349" r="3" fill="#f4f6f8"/>
+  <circle cx="260" cy="366" r="3" fill="#f4f6f8"/>
+  <circle cx="260" cy="383" r="3" fill="#f4f6f8"/>
+  <circle cx="260" cy="400" r="3" fill="#f4f6f8"/>
+
+  <!-- Right Header -->
+  <rect x="428" y="272" width="24" height="145" rx="3" fill="#2c3e50" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="440" cy="281" r="3" fill="#f4f6f8"/>
+  <circle cx="440" cy="298" r="3" fill="#f4f6f8"/>
+  <circle cx="440" cy="315" r="3" fill="#f4f6f8"/>
+  <circle cx="440" cy="332" r="3" fill="#f4f6f8"/>
+  <circle cx="440" cy="349" r="3" fill="#f4f6f8"/>
+  <circle cx="440" cy="366" r="3" fill="#f4f6f8"/>
+  <circle cx="440" cy="383" r="3" fill="#f4f6f8"/>
+  <circle cx="440" cy="400" r="3" fill="#f4f6f8"/>
+
+  <!-- Sockets Middle Label -->
+  <text x="350" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Сокет 2×8 pin</text>
+  <text x="350" y="356" text-anchor="middle" font-size="12" fill="#6b7280">(Female Headers)</text>
+
+  <!-- RST Button -->
+  <rect x="466" y="275" width="60" height="60" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="496" cy="295" r="8" fill="#c0392b"/>
+  <text x="496" y="316" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">RST</text>
+  <text x="496" y="329" text-anchor="middle" font-size="12" fill="#6b7280">Скид</text>
+
+  <!-- IO0 Button -->
+  <rect x="466" y="355" width="60" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="496" cy="375" r="8" fill="#2457d6"/>
+  <text x="496" y="396" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">IO0</text>
+  <text x="496" y="409" text-anchor="middle" font-size="12" fill="#6b7280">Boot</text>
+
+  <!-- Internal Connections / Flow Lines on Board -->
+  <path d="M 125 355 L 150 315" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <path d="M 182.5 327 L 182.5 396" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Right Panel: Rules & Information Cards -->
+  <rect x="580" y="72" width="350" height="428" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="600" y="94" font-size="14" font-weight="bold" fill="#1a1a1a">Правила монтажу та функціональні вузли</text>
+
+  <!-- Card 1: Wi-Fi Antenna Orientation (Green / Correct) -->
+  <rect x="595" y="112" width="320" height="112" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="610" y="135" font-size="13" font-weight="bold" fill="#27ae60">✔ Орієнтація Wi-Fi антени</text>
+  <text x="610" y="157" font-size="12" fill="#1a1a1a">• Антена має стирчати ЗА МЕЖІ адаптера.</text>
+  <text x="610" y="177" font-size="12" fill="#1a1a1a">• Металеві деталі під антеною погіршують</text>
+  <text x="622" y="196" font-size="12" font-weight="bold" fill="#c0392b">або повністю блокують Wi-Fi сигнал!</text>
+
+  <!-- Card 2: Auto-Flashing & Controls (Blue / Accent) -->
+  <rect x="595" y="238" width="320" height="116" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="610" y="261" font-size="13" font-weight="bold" fill="#2457d6">⚡ Авто-прошивка та кнопки керування</text>
+  <text x="610" y="283" font-size="12" fill="#1a1a1a">• Схема DTR/RTS автоматично підтягує IO0</text>
+  <text x="622" y="301" font-size="12" fill="#1a1a1a">до GND і подає RST при завантаженні.</text>
+  <text x="610" y="323" font-size="12" fill="#6b7280">• Кнопки IO0/RST — для ручного скиду.</text>
+
+  <!-- Card 3: Power & USB Interface (White / Neutral) -->
+  <rect x="595" y="368" width="320" height="116" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="610" y="391" font-size="13" font-weight="bold" fill="#1a1a1a">🔌 Живлення та роз'єм Type-C</text>
+  <text x="610" y="413" font-size="12" fill="#1a1a1a">• Перетворювач CH340C формує 5V та 3.3V.</text>
+  <text x="610" y="433" font-size="12" fill="#1a1a1a">• Забезпечує стабільний струм для спалаху</text>
+  <text x="622" y="451" font-size="12" fill="#1a1a1a">та пікового споживання Wi-Fi (до 500mA).</text>
+</svg>

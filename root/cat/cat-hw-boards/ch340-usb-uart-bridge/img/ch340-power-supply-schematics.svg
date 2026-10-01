@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема живлення CH340: режими 5 В та 3,3 В</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">При 5 В вивід V3 потребує лише конденсатор, при 3,3 В — виводи VCC і V3 з'єднуються разом</text>
+
+  <!-- LEFT PANEL: 5V MODE -->
+  <g id="panel-5v">
+    <rect x="25" y="75" width="440" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    
+    <!-- Header Badge -->
+    <rect x="40" y="90" width="410" height="34" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="245" y="112" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">Режим живлення 5 В (VCC = 5V)</text>
+
+    <!-- IC Chip CH340 -->
+    <rect x="45" y="145" width="140" height="210" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+    <path d="M 105 145 A 10 10 0 0 0 125 145" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="115" y="180" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CH340G / C</text>
+    <text x="115" y="200" font-size="12" fill="#6b7280" text-anchor="middle">(Корпус SOIC-16)</text>
+
+    <!-- Pin Labels inside Chip -->
+    <text x="175" y="234" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">VCC (16)</text>
+    <text x="175" y="294" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">V3 (4)</text>
+    <text x="175" y="334" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">GND (3)</text>
+
+    <!-- Pin Stubs -->
+    <line x1="185" y1="230" x2="205" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="185" y1="290" x2="205" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="185" y1="330" x2="205" y2="330" stroke="#1a1a1a" stroke-width="2"/>
+
+    <!-- External Wiring for 5V -->
+    <!-- Power Line +5V Input -->
+    <line x1="245" y1="148" x2="245" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <text x="245" y="138" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+5V (USB VBUS)</text>
+    
+    <!-- Wire to VCC Pin & C1 -->
+    <line x1="205" y1="230" x2="415" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="245" cy="230" r="3.5" fill="#1a1a1a"/>
+
+    <!-- C1 Capacitor -->
+    <circle cx="415" cy="230" r="3.5" fill="#1a1a1a"/>
+    <line x1="415" y1="230" x2="415" y2="255" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="395" y1="255" x2="435" y2="255" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="395" y1="265" x2="435" y2="265" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="415" y1="265" x2="415" y2="340" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="415" y="218" font-size="12" fill="#6b7280" text-anchor="middle">C1 (100 nF)</text>
+
+    <!-- Wire from V3 Pin to C2 -->
+    <line x1="205" y1="290" x2="305" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="305" y1="290" x2="305" y2="310" stroke="#1a1a1a" stroke-width="2"/>
+    
+    <!-- C2 Capacitor -->
+    <line x1="295" y1="310" x2="315" y2="310" stroke="#2457d6" stroke-width="2"/>
+    <line x1="295" y1="320" x2="315" y2="320" stroke="#2457d6" stroke-width="2"/>
+    <line x1="305" y1="320" x2="305" y2="340" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="322" y="311" font-size="12" font-weight="bold" fill="#2457d6">
+      <tspan x="322" dy="0">C2 (4.7 µF /</tspan>
+      <tspan x="322" dy="15">100 nF)</tspan>
+    </text>
+
+    <!-- Ground Line -->
+    <line x1="205" y1="330" x2="205" y2="340" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="205" y1="340" x2="415" y2="340" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="305" cy="340" r="3.5" fill="#1a1a1a"/>
+    <circle cx="415" cy="340" r="3.5" fill="#1a1a1a"/>
+
+    <!-- Ground Symbol -->
+    <line x1="415" y1="340" x2="415" y2="348" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="405" y1="348" x2="425" y2="348" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="408" y1="352" x2="422" y2="352" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="411" y1="356" x2="419" y2="356" stroke="#1a1a1a" stroke-width="1"/>
+    <text x="430" y="352" font-size="12" fill="#6b7280" text-anchor="start">GND</text>
+
+    <!-- Note Box -->
+    <rect x="40" y="372" width="410" height="54" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="50" y="392" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">✔ V3 — вихід внутрішнього LDO (3,3 В)</text>
+    <text x="50" y="412" font-size="12" fill="#1a1a1a" text-anchor="start">   Потребує згладжувальний C2 на GND. Не з'єднувати з VCC!</text>
+  </g>
+
+  <!-- RIGHT PANEL: 3.3V MODE -->
+  <g id="panel-3v3">
+    <rect x="495" y="75" width="440" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    
+    <!-- Header Badge -->
+    <rect x="510" y="90" width="410" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="715" y="112" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Режим живлення 3,3 В (VCC = 3.3V)</text>
+
+    <!-- IC Chip CH340 -->
+    <rect x="515" y="145" width="140" height="210" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+    <path d="M 575 145 A 10 10 0 0 0 595 145" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="585" y="180" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CH340G / C</text>
+    <text x="585" y="200" font-size="12" fill="#6b7280" text-anchor="middle">(Корпус SOIC-16)</text>
+
+    <!-- Pin Labels inside Chip -->
+    <text x="645" y="234" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">VCC (16)</text>
+    <text x="645" y="294" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">V3 (4)</text>
+    <text x="645" y="334" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">GND (3)</text>
+
+    <!-- Pin Stubs -->
+    <line x1="655" y1="230" x2="675" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="655" y1="290" x2="675" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="655" y1="330" x2="675" y2="330" stroke="#1a1a1a" stroke-width="2"/>
+
+    <!-- External Wiring for 3.3V -->
+    <!-- Power Line +3.3V Input -->
+    <line x1="735" y1="148" x2="735" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <text x="735" y="138" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+3.3V (Джерело)</text>
+
+    <!-- Wire to VCC Pin -->
+    <line x1="675" y1="230" x2="735" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+
+    <!-- Wire to V3 Pin -->
+    <line x1="675" y1="290" x2="735" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+
+    <!-- VCC to V3 DIRECT JUMPER BRIDGE -->
+    <line x1="735" y1="230" x2="735" y2="290" stroke="#2457d6" stroke-width="3"/>
+    <circle cx="735" cy="230" r="4" fill="#2457d6"/>
+    <circle cx="735" cy="290" r="4" fill="#2457d6"/>
+
+    <!-- Jumper Callout Badge -->
+    <rect x="748" y="248" width="124" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="810" y="264" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">З'єднано напряму!</text>
+
+    <!-- Wire from V3 node to C1 -->
+    <line x1="735" y1="290" x2="850" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="850" y1="290" x2="850" y2="310" stroke="#1a1a1a" stroke-width="2"/>
+
+    <!-- C1 Capacitor -->
+    <line x1="840" y1="310" x2="860" y2="310" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="840" y1="320" x2="860" y2="320" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="850" y1="320" x2="850" y2="340" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="868" y="319" font-size="12" fill="#6b7280" text-anchor="start">C1 (100 nF)</text>
+
+    <!-- Ground Line -->
+    <line x1="675" y1="330" x2="675" y2="340" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="675" y1="340" x2="850" y2="340" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="850" cy="340" r="3.5" fill="#1a1a1a"/>
+
+    <!-- Ground Symbol -->
+    <line x1="850" y1="340" x2="850" y2="348" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="840" y1="348" x2="860" y2="348" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="843" y1="352" x2="857" y2="352" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="846" y1="356" x2="854" y2="356" stroke="#1a1a1a" stroke-width="1"/>
+    <text x="868" y="352" font-size="12" fill="#6b7280" text-anchor="start">GND</text>
+
+    <!-- Note Box -->
+    <rect x="510" y="372" width="410" height="54" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="520" y="392" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">ℹ VCC та V3 об'єднуються на живильну шину 3,3 В</text>
+    <text x="520" y="412" font-size="12" fill="#1a1a1a" text-anchor="start">   Внутрішній LDO не використовується, на V3 подається +3,3 В</text>
+  </g>
+</svg>

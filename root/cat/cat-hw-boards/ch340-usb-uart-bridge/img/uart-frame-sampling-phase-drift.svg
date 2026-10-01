@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Накопичення фазового зсуву стробування в 10-бітному кадрі UART</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Похибка швидкості накопичується до 9.5T; похибка &gt; ±2.5% викликає кадрові помилки (Framing Error)</text>
+
+  <!-- Main Panel Box -->
+  <rect x="35" y="75" width="890" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Bit Header Grid (10 Bits) -->
+  <rect x="140" y="90" width="75" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="177.5" y="108" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Start</text>
+
+  <rect x="215" y="90" width="75" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="252.5" y="108" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D0</text>
+
+  <rect x="290" y="90" width="75" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="327.5" y="108" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D1</text>
+
+  <rect x="365" y="90" width="75" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="402.5" y="108" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D2</text>
+
+  <rect x="440" y="90" width="75" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="477.5" y="108" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D3</text>
+
+  <rect x="515" y="90" width="75" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="552.5" y="108" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D4</text>
+
+  <rect x="590" y="90" width="75" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="627.5" y="108" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D5</text>
+
+  <rect x="665" y="90" width="75" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="702.5" y="108" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D6</text>
+
+  <rect x="740" y="90" width="75" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="777.5" y="108" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D7</text>
+
+  <rect x="815" y="90" width="75" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="852.5" y="108" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Stop</text>
+
+  <!-- Row 1: Ideal Signal & Nominal Sampling (0% error) -->
+  <text x="45" y="160" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Норма (0%)</text>
+  <text x="852.5" y="130" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">9.5T (Ідеал)</text>
+
+  <!-- Ideal Data Waveform -->
+  <path d="M 140,140 L 140,170 L 215,170 L 215,140 L 290,140 L 290,170 L 365,170 L 365,140 L 515,140 L 515,170 L 590,170 L 590,140 L 665,140 L 665,170 L 740,170 L 740,140 L 890,140" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Nominal Sampling Center Lines & Green Dots -->
+  <line x1="177.5" y1="135" x2="177.5" y2="180" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="177.5" cy="155" r="4" fill="#27ae60"/>
+
+  <line x1="252.5" y1="135" x2="252.5" y2="180" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="252.5" cy="155" r="4" fill="#27ae60"/>
+
+  <line x1="327.5" y1="135" x2="327.5" y2="180" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="327.5" cy="155" r="4" fill="#27ae60"/>
+
+  <line x1="402.5" y1="135" x2="402.5" y2="180" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="402.5" cy="155" r="4" fill="#27ae60"/>
+
+  <line x1="477.5" y1="135" x2="477.5" y2="180" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="477.5" cy="155" r="4" fill="#27ae60"/>
+
+  <line x1="552.5" y1="135" x2="552.5" y2="180" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="552.5" cy="155" r="4" fill="#27ae60"/>
+
+  <line x1="627.5" y1="135" x2="627.5" y2="180" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="627.5" cy="155" r="4" fill="#27ae60"/>
+
+  <line x1="702.5" y1="135" x2="702.5" y2="180" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="702.5" cy="155" r="4" fill="#27ae60"/>
+
+  <line x1="777.5" y1="135" x2="777.5" y2="180" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="777.5" cy="155" r="4" fill="#27ae60"/>
+
+  <line x1="852.5" y1="135" x2="852.5" y2="180" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="852.5" cy="155" r="4" fill="#27ae60"/>
+
+
+  <!-- Row 2: Shifted Sampling with Baud Rate Error (+2.5%) -->
+  <text x="45" y="240" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Зсув (+2.5%)</text>
+
+  <!-- Shifted Sampling Points (Red Dots & Lines) -->
+  <line x1="177.5" y1="215" x2="177.5" y2="260" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="177.5" cy="235" r="4" fill="#c0392b"/>
+
+  <line x1="254.5" y1="215" x2="254.5" y2="260" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="254.5" cy="235" r="4" fill="#c0392b"/>
+
+  <line x1="331.5" y1="215" x2="331.5" y2="260" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="331.5" cy="235" r="4" fill="#c0392b"/>
+
+  <line x1="408.5" y1="215" x2="408.5" y2="260" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="408.5" cy="235" r="4" fill="#c0392b"/>
+
+  <line x1="485.5" y1="215" x2="485.5" y2="260" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="485.5" cy="235" r="4" fill="#c0392b"/>
+
+  <line x1="562.5" y1="215" x2="562.5" y2="260" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="562.5" cy="235" r="4" fill="#c0392b"/>
+
+  <line x1="639.5" y1="215" x2="639.5" y2="260" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="639.5" cy="235" r="4" fill="#c0392b"/>
+
+  <line x1="716.5" y1="215" x2="716.5" y2="260" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="716.5" cy="235" r="4" fill="#c0392b"/>
+
+  <line x1="793.5" y1="215" x2="793.5" y2="260" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="793.5" cy="235" r="4" fill="#c0392b"/>
+
+  <line x1="871.5" y1="215" x2="871.5" y2="260" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="871.5" cy="235" r="4" fill="#c0392b"/>
+
+  <!-- Accumulated Drift Arrow at Stop Bit -->
+  <line x1="852.5" y1="235" x2="871.5" y2="235" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="862" y="222" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зсув Δt</text>
+
+  <!-- Critical Boundary Region at Frame End -->
+  <rect x="871.5" y="240" width="18.5" height="35" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="888" y="282" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Межа кадру (10.0T)</text>
+
+
+  <!-- Row 3: Mathematical Formula Box -->
+  <rect x="50" y="295" width="860" height="60" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="316" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Формула накопиченої похибки:  Δt_accum = (N + 0.5) × ΔT_bit = 9.5 × ΔT_bit</text>
+  <text x="480" y="338" font-size="12" fill="#1a1a1a" text-anchor="middle">Умова успішної вибірки:  |Δf / f| &lt; 0.5 / 9.5 ≈ ±5.26%  →  з урахуванням джитера та фази: допуск ±2.5%</text>
+
+  <!-- Row 4: Bottom Explanatory Box -->
+  <rect x="50" y="365" width="860" height="50" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="385" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">• При похибці baud rate &gt; ±2.5% накопичений фазовий зсув на 9.5T спричиняє Framing Error.</text>
+  <text x="480" y="403" font-size="12" fill="#1a1a1a" text-anchor="middle">• Апаратний дільник CH340 на базі 12 МГц розраховується так, щоб не перевищувати межу ±2.5%.</text>
+</svg>

@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма скидання RST та вікно защеплення завантажувача ESP8266</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Стани GPIO0, GPIO2 та GPIO15 зафіксовуються в момент перетину порогу V_IH під час підйому RST</text>
+
+  <!-- Latch Window Vertical Highlight Band -->
+  <rect x="440" y="95" width="80" height="300" fill="#eaf0fd" fill-opacity="0.5" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <rect x="415" y="70" width="130" height="22" rx="4" fill="#2457d6"/>
+  <text x="480" y="85" font-size="11" font-weight="bold" fill="white" text-anchor="middle">Вікно защеплення</text>
+
+  <!-- Signal Grid Baseline Lines -->
+  <line x1="220" y1="145" x2="880" y2="145" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="220" y1="245" x2="880" y2="245" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="220" y1="345" x2="880" y2="345" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Signal 1: V_DD Power -->
+  <text x="200" y="125" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">V_DD (3.3 В)</text>
+  <path d="M 220,145 L 250,145 L 280,110 L 880,110" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Signal 2: RST Line -->
+  <text x="200" y="225" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">RST (Скидання)</text>
+
+  <!-- V_IH Threshold Line -->
+  <line x1="220" y1="185" x2="880" y2="185" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="230" y="178" font-size="12" fill="#c0392b">V_IH = 2.475 В (0.75 · V_DD)</text>
+
+  <!-- Exponential Rise Curve -->
+  <path d="M 220,245 L 340,245 C 400,245 440,220 480,185 C 520,150 560,135 640,135 L 880,135" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Intersection Point Marker -->
+  <circle cx="480" cy="185" r="5" fill="#c0392b"/>
+  <circle cx="480" cy="185" r="8" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Rise Time Annotation -->
+  <line x1="340" y1="265" x2="472" y2="265" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+  <text x="410" y="260" font-size="12" fill="#2457d6" text-anchor="middle">t_rise ≈ 1.39 мс</text>
+
+  <!-- Signal 3: Strapping Pins GPIO0/2/15 -->
+  <text x="200" y="325" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="end">GPIO0 / GPIO2 / GPIO15</text>
+
+  <!-- Undefined State Line -->
+  <line x1="220" y1="330" x2="320" y2="330" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="270" y="322" font-size="11" fill="#6b7280" text-anchor="middle">Невизначений стан</text>
+
+  <!-- Stable Strapping Bus Box -->
+  <rect x="320" y="312" width="340" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="490" y="334" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">GPIO15=0, GPIO0=1, GPIO2=1 (Flash Boot)</text>
+
+  <!-- Signal 4: Bootloader Action Blocks -->
+  <text x="200" y="425" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">Режим завантажувача</text>
+
+  <rect x="230" y="405" width="200" height="36" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="330" y="427" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Скидання (POR)</text>
+
+  <rect x="442" y="405" width="76" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="427" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Опит GPIO</text>
+
+  <rect x="530" y="405" width="330" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="695" y="427" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Виконання коду з SPI Flash (0x40100000)</text>
+
+  <!-- Footer Banner -->
+  <rect x="60" y="475" width="840" height="28" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="494" font-size="12" fill="#6b7280" text-anchor="middle">Примітка: Правильне RC-коло підтяжки RST (10 кОм / 100 нФ) гарантує надійний підйом напруги до V_IH після стабілізації живлення V_DD</text>
+</svg>

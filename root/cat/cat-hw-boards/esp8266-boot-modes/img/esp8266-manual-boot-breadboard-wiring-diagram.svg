@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема макетного підключення ESP-01 для ручного прошивання</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">З'єднання модуля ESP-01, програматора USB-UART, підтягувальних резисторів та кнопок Reset/Flash</text>
+
+  <!-- ПАНЕЛЬ 1: USB-UART Програматор -->
+  <rect x="40" y="85" width="220" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="150" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">USB-UART Програматор</text>
+  <text x="150" y="135" text-anchor="middle" font-size="12" fill="#6b7280">Живлення строго 3.3 В</text>
+
+  <!-- Виводи програматора -->
+  <rect x="170" y="170" width="80" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="210" y="193" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">VCC 3.3V</text>
+
+  <rect x="170" y="240" width="80" height="36" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="210" y="263" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+
+  <rect x="170" y="310" width="80" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="210" y="333" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">TXD</text>
+
+  <rect x="170" y="380" width="80" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="210" y="403" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">RXD</text>
+
+  <!-- Попередження про напругу -->
+  <rect x="55" y="445" width="190" height="60" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="150" y="468" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">УВАГА: 5V живлення</text>
+  <text x="150" y="490" text-anchor="middle" font-size="12" fill="#c0392b">спалить ESP-01!</text>
+
+  <!-- ПАНЕЛЬ 2: Макетна плата і модуль ESP-01 -->
+  <rect x="280" y="85" width="390" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="475" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Модуль ESP-01 та розводка</text>
+  <text x="475" y="135" text-anchor="middle" font-size="12" fill="#6b7280">Апаратні підтяжки 10 кОм та кнопки</text>
+
+  <!-- Блок модуля ESP-01 -->
+  <rect x="380" y="165" width="190" height="175" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="475" y="192" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">ESP-01 (ESP8266EX)</text>
+
+  <!-- Контакти ESP-01 -->
+  <text x="395" y="222" font-size="12" font-weight="bold" fill="#1a1a1a">3V3</text>
+  <text x="555" y="222" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">TXD</text>
+
+  <text x="395" y="252" font-size="12" font-weight="bold" fill="#1a1a1a">EN</text>
+  <text x="555" y="252" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">RXD</text>
+
+  <text x="395" y="282" font-size="12" font-weight="bold" fill="#c0392b">RST</text>
+  <text x="555" y="282" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">GPIO0</text>
+
+  <text x="395" y="312" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+  <text x="555" y="312" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO2</text>
+
+  <!-- Кнопки керування -->
+  <rect x="300" y="360" width="140" height="50" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="370" y="382" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Кнопка RESET</text>
+  <text x="370" y="400" text-anchor="middle" font-size="12" fill="#6b7280">RST -&gt; GND</text>
+
+  <rect x="510" y="360" width="140" height="50" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="580" y="382" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Кнопка FLASH</text>
+  <text x="580" y="400" text-anchor="middle" font-size="12" fill="#6b7280">GPIO0 -&gt; GND</text>
+
+  <!-- Блок резисторів підтяжки -->
+  <rect x="300" y="425" width="350" height="85" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="315" y="446" font-size="12" font-weight="bold" fill="#27ae60">Підтягувальні резистори (Pull-Up):</text>
+  <text x="315" y="468" font-size="12" fill="#1a1a1a">• 10 кОм: EN (CH_PD) -&gt; 3.3V, RST -&gt; 3.3V</text>
+  <text x="315" y="490" font-size="12" fill="#1a1a1a">• 10 кОм: GPIO0 -&gt; 3.3V, GPIO2 -&gt; 3.3V</text>
+
+  <!-- ПАНЕЛЬ 3: Порядок дій (Manual Boot Sequence) -->
+  <rect x="690" y="85" width="230" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="805" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Порядок дій</text>
+  <text x="805" y="135" text-anchor="middle" font-size="12" fill="#6b7280">Вхід у UART Download</text>
+
+  <!-- Крок 1 -->
+  <rect x="705" y="165" width="200" height="60" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="720" y="188" font-size="12" font-weight="bold" fill="#2457d6">1. Натиснути FLASH</text>
+  <text x="720" y="210" font-size="12" fill="#6b7280">Утримувати GPIO0 = GND</text>
+
+  <!-- Крок 2 -->
+  <rect x="705" y="240" width="200" height="60" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="720" y="263" font-size="12" font-weight="bold" fill="#c0392b">2. Імпульс RESET</text>
+  <text x="720" y="285" font-size="12" fill="#6b7280">Натиснути і відпустити</text>
+
+  <!-- Крок 3 -->
+  <rect x="705" y="315" width="200" height="60" rx="5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="720" y="338" font-size="12" font-weight="bold" fill="#1a1a1a">3. Відпустити FLASH</text>
+  <text x="720" y="360" font-size="12" fill="#6b7280">Бутлоадер защепив 0</text>
+
+  <!-- Крок 4 -->
+  <rect x="705" y="390" width="200" height="115" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="720" y="415" font-size="12" font-weight="bold" fill="#27ae60">4. Запуск esptool</text>
+  <text x="720" y="440" font-size="12" fill="#1a1a1a">Чип чекає прошивку</text>
+  <text x="720" y="465" font-size="12" font-weight="bold" fill="#27ae60">Режим UART Boot</text>
+  <text x="720" y="490" font-size="12" fill="#6b7280">Готовий до запису</text>
+
+  <!-- З'єднувальні лінії між блоками (Провідники) -->
+  <path d="M250,188 L380,218" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M250,258 L380,308" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M250,328 L570,248" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M250,398 L570,218" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+</svg>

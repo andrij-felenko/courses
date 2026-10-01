@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема підключення кнопки E-Stop та OSSD-датчика до модуля F-DI</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Різниця між внутрішнім тестованим живленням (T1/T2) та зовнішнім 24 V DC для PNP-виходів OSSD</text>
+
+  <!-- LEFT PANEL: FIELD DEVICES -->
+
+  <!-- DEVICE A: E-Stop Button (Mechanical Dry Contacts) -->
+  <rect x="40" y="100" width="200" height="195" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="140" y="123" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Кнопка E-Stop</text>
+  <text x="140" y="140" text-anchor="middle" font-size="12" fill="#6b7280">(Сухі NC контакти)</text>
+
+  <!-- Contact NC1 -->
+  <rect x="55" y="152" width="105" height="50" rx="4" ry="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="107" y="172" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Контакт NC1</text>
+  <text x="107" y="190" text-anchor="middle" font-size="12" fill="#6b7280">Канал 1</text>
+
+  <!-- Contact NC2 -->
+  <rect x="55" y="228" width="105" height="50" rx="4" ry="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="107" y="248" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Контакт NC2</text>
+  <text x="107" y="266" text-anchor="middle" font-size="12" fill="#6b7280">Канал 2</text>
+
+
+  <!-- DEVICE B: OSSD Light Curtain (Electronic PNP outputs) -->
+  <rect x="40" y="310" width="200" height="195" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="140" y="333" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Світлова завіса</text>
+  <text x="140" y="350" text-anchor="middle" font-size="12" fill="#6b7280">(OSSD PNP виходи)</text>
+
+  <!-- OSSD Output 1 -->
+  <rect x="55" y="362" width="105" height="45" rx="4" ry="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="107" y="380" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Вихід OSSD1</text>
+  <text x="107" y="396" text-anchor="middle" font-size="12" fill="#6b7280">PNP Канал 1</text>
+
+  <!-- OSSD Output 2 -->
+  <rect x="55" y="420" width="105" height="45" rx="4" ry="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="107" y="438" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Вихід OSSD2</text>
+  <text x="107" y="454" text-anchor="middle" font-size="12" fill="#6b7280">PNP Канал 2</text>
+
+  <!-- External Power Supply Label -->
+  <text x="140" y="492" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">+24 V DC (Зовнішнє живлення)</text>
+
+
+  <!-- MIDDLE PANEL: F-DI Terminal Strip -->
+  <rect x="290" y="100" width="170" height="405" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="375" y="125" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Клемник F-DI</text>
+
+  <!-- Terminal T1 -->
+  <rect x="305" y="145" width="140" height="32" rx="4" ry="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="375" y="166" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">T1 (Тест 1 Out)</text>
+
+  <!-- Terminal F-DI1 -->
+  <rect x="305" y="183" width="140" height="32" rx="4" ry="4" fill="white" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="375" y="204" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">F-DI1 (Вхід 1)</text>
+
+  <!-- Terminal T2 -->
+  <rect x="305" y="221" width="140" height="32" rx="4" ry="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="375" y="242" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">T2 (Тест 2 Out)</text>
+
+  <!-- Terminal F-DI2 -->
+  <rect x="305" y="259" width="140" height="32" rx="4" ry="4" fill="white" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="375" y="280" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">F-DI2 (Вхід 2)</text>
+
+  <!-- Terminal F-DI3 (OSSD 1) -->
+  <rect x="305" y="347" width="140" height="32" rx="4" ry="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="375" y="368" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">F-DI3 (OSSD 1)</text>
+
+  <!-- Terminal F-DI4 (OSSD 2) -->
+  <rect x="305" y="385" width="140" height="32" rx="4" ry="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="375" y="406" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">F-DI4 (OSSD 2)</text>
+
+  <!-- Terminal M (0V) -->
+  <rect x="305" y="423" width="140" height="32" rx="4" ry="4" fill="white" stroke="#6b7280" stroke-width="1"/>
+  <text x="375" y="444" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">M (0 V DC)</text>
+
+
+  <!-- RIGHT PANEL: F-DI Internal Configuration & Safety Logic -->
+  <rect x="490" y="100" width="430" height="405" rx="8" ry="8" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="505" y="125" text-anchor="start" font-size="13" font-weight="bold" fill="#2457d6">Внутрішня логіка та налаштування модуля F-DI</text>
+
+  <!-- Top Internal Box: Test Pulse Generator -->
+  <rect x="510" y="145" width="195" height="150" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="607" y="168" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Генератор Test Pulses</text>
+  <text x="607" y="190" text-anchor="middle" font-size="12" fill="#2457d6">• Імпульси T1 / T2 УВІМКНЕНО</text>
+  <text x="607" y="212" text-anchor="middle" font-size="12" fill="#1a1a1a">• Контроль перехресних ZK</text>
+  <text x="607" y="234" text-anchor="middle" font-size="12" fill="#6b7280">• Період тестових провалів 100 ms</text>
+  <text x="607" y="256" text-anchor="middle" font-size="12" fill="#6b7280">• Тривалість t_pulse = 2 ms</text>
+
+  <!-- Bottom Internal Box: OSSD Mode Config -->
+  <rect x="510" y="335" width="195" height="150" rx="6" ry="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="607" y="358" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Конфігурація OSSD</text>
+  <text x="607" y="380" text-anchor="middle" font-size="12" fill="#27ae60">• Тестові імпульси ВИМКНЕНО</text>
+  <text x="607" y="402" text-anchor="middle" font-size="12" fill="#1a1a1a">• Очищення вхідного каналу</text>
+  <text x="607" y="424" text-anchor="middle" font-size="12" fill="#6b7280">• Фільтрація коротких спалахів</text>
+  <text x="607" y="446" text-anchor="middle" font-size="12" fill="#6b7280">• t_filter ≥ 500 µs</text>
+
+
+  <!-- Safety Logic & Processor Box -->
+  <rect x="730" y="175" width="175" height="280" rx="8" ry="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="817" y="205" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Процесор безпеки</text>
+  <text x="817" y="235" text-anchor="middle" font-size="12" fill="#1a1a1a">Оцінка 1oo2 каналів</text>
+  <text x="817" y="260" text-anchor="middle" font-size="12" fill="#1a1a1a">Перевірка ZK 0V/24V</text>
+  <text x="817" y="285" text-anchor="middle" font-size="12" fill="#1a1a1a">Контроль Discrepancy</text>
+  <text x="817" y="325" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Безпековий вихід</text>
+  <text x="817" y="348" text-anchor="middle" font-size="12" fill="#6b7280">SIL3 / PL e підтверджено</text>
+
+
+  <!-- WIRING LINES & ARROWS -->
+
+  <!-- Channel 1: T1 Out -> E-Stop NC1 -> F-DI1 In -->
+  <line x1="305" y1="161" x2="160" y2="161" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <line x1="160" y1="199" x2="305" y2="199" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <!-- Channel 2: T2 Out -> E-Stop NC2 -> F-DI2 In -->
+  <line x1="305" y1="237" x2="160" y2="237" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <line x1="160" y1="275" x2="305" y2="275" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <!-- OSSD Channel 1: OSSD1 -> F-DI3 In -->
+  <line x1="160" y1="363" x2="305" y2="363" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- OSSD Channel 2: OSSD2 -> F-DI4 In -->
+  <line x1="160" y1="401" x2="305" y2="401" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Internal Connections from Terminals to Logic -->
+  <line x1="445" y1="199" x2="510" y2="199" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="445" y1="275" x2="510" y2="275" stroke="#2457d6" stroke-width="1.5"/>
+
+  <line x1="445" y1="363" x2="510" y2="363" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="445" y1="401" x2="510" y2="401" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Connections to Processor Box -->
+  <line x1="705" y1="220" x2="730" y2="220" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <line x1="705" y1="410" x2="730" y2="410" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+</svg>

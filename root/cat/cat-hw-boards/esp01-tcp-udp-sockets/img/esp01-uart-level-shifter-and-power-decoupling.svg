@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Marker Definitions -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема узгодження рівнів 3.3V / 5V та фільтрації живлення ESP-01</text>
+  <text x="480" y="55" text-anchor="middle" font-size="13" fill="#6b7280">Захист виводу RX резистивним дільником 1k/2k та шунтування VCC конденсаторами 100 мкФ і 0.1 мкФ</text>
+
+  <!-- PANEL 1: Host / Adapter (5V Domain) -->
+  <rect x="25" y="75" width="210" height="425" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="35" y="85" width="190" height="30" rx="4" fill="#eaf0fd"/>
+  <text x="130" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Хост / Конвертер (5V)</text>
+
+  <rect x="45" y="135" width="170" height="34" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="130" y="157" text-anchor="middle" font-size="13" fill="#1a1a1a">VCC (+5V Power)</text>
+
+  <rect x="45" y="245" width="170" height="34" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="130" y="267" text-anchor="middle" font-size="13" fill="#1a1a1a">TXD (Вихід 5V)</text>
+
+  <rect x="45" y="355" width="170" height="34" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="130" y="377" text-anchor="middle" font-size="13" fill="#1a1a1a">RXD (Вхід TTL)</text>
+
+  <rect x="45" y="435" width="170" height="34" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="130" y="457" text-anchor="middle" font-size="13" fill="#1a1a1a">GND (Спільна земля)</text>
+
+  <!-- PANEL 2: Shifter & Filter Section -->
+  <rect x="260" y="75" width="420" height="425" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="270" y="85" width="400" height="30" rx="4" fill="#f4f6f8"/>
+  <text x="470" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Кола узгодження та фільтрації</text>
+
+  <!-- LDO Voltage Regulator AMS1117-3.3 -->
+  <rect x="280" y="132" width="90" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="325" y="149" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">AMS1117</text>
+  <text x="325" y="165" text-anchor="middle" font-size="12" fill="#2457d6">3.3V LDO</text>
+
+  <!-- Capacitors C1 & C2 Symbols (Plates) -->
+  <!-- C1 Electrolytic (100 µF) -->
+  <line x1="440" y1="170" x2="460" y2="170" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="440" y1="178" x2="460" y2="178" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="468" y="176" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">C1 100 мкФ</text>
+  <text x="468" y="192" text-anchor="start" font-size="12" fill="#6b7280">(Низькочастотний)</text>
+
+  <!-- C2 Ceramic (0.1 µF) -->
+  <line x1="550" y1="170" x2="570" y2="170" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="550" y1="176" x2="570" y2="176" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="578" y="176" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">C2 0.1 мкФ</text>
+  <text x="578" y="192" text-anchor="start" font-size="12" fill="#6b7280">(ВЧ завади)</text>
+
+  <!-- Voltage Divider Resistors R1 & R2 -->
+  <!-- R1 (1 kΩ) -->
+  <rect x="300" y="247" width="70" height="30" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="335" y="266" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">R1 1 kΩ</text>
+
+  <!-- R2 (2 kΩ) -->
+  <rect x="375" y="285" width="30" height="50" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="390" y="314" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">R2 2kΩ</text>
+
+  <!-- Voltage Divider Calculation Box -->
+  <rect x="445" y="285" width="220" height="60" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="555" y="303" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Обчислення дільника RX:</text>
+  <text x="555" y="320" text-anchor="middle" font-size="12" fill="#1a1a1a">V_out = 5V × 2k / (1k + 2k)</text>
+  <text x="555" y="337" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">= 3.33 V (Безпечно для ESP-01)</text>
+
+  <!-- TX Damping Resistor R3 & Note Box -->
+  <rect x="320" y="357" width="90" height="30" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="365" y="376" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">R3 470 Ω</text>
+
+  <rect x="445" y="357" width="220" height="38" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="555" y="372" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Прямий TX (3.3V TTL)</text>
+  <text x="555" y="388" text-anchor="middle" font-size="12" fill="#6b7280">High ≥ 2.4V розпізнається 5V МК</text>
+
+  <!-- PANEL 3: ESP-01 Module (3.3V Domain) -->
+  <rect x="705" y="75" width="230" height="425" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="715" y="85" width="210" height="30" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="820" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Модуль ESP-01 (3.3V)</text>
+
+  <rect x="725" y="135" width="190" height="34" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="820" y="157" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">VCC (3.3V Живлення)</text>
+
+  <rect x="725" y="185" width="190" height="30" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="820" y="203" text-anchor="middle" font-size="12" fill="#1a1a1a">CH_PD (10k -> 3.3V)</text>
+
+  <rect x="725" y="220" width="190" height="30" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="820" y="238" text-anchor="middle" font-size="12" fill="#1a1a1a">RST (10k -> 3.3V)</text>
+
+  <rect x="725" y="260" width="190" height="34" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="820" y="282" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">RXD (Вхід 3.3V max)</text>
+
+  <rect x="725" y="355" width="190" height="34" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="820" y="377" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">TXD (Вихід 3.3V)</text>
+
+  <rect x="725" y="395" width="190" height="30" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="820" y="413" text-anchor="middle" font-size="12" fill="#1a1a1a">GPIO0/2 (Pull-up -> 3.3V)</text>
+
+  <rect x="725" y="435" width="190" height="34" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="820" y="457" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">GND (Спільний)</text>
+
+  <!-- WIRING CONNECTIONS -->
+
+  <!-- 1. 5V Power Wire (Host VCC -> LDO Input) -->
+  <path d="M 215,152 H 280" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- 2. 3.3V Power Bus (LDO Output -> ESP-01 VCC & Capacitor Taps) -->
+  <path d="M 370,152 H 725" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M 450,152 V 170" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <path d="M 560,152 V 170" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="450" cy="152" r="3.5" fill="#27ae60"/>
+  <circle cx="560" cy="152" r="3.5" fill="#27ae60"/>
+
+  <!-- 3. RX Signal Path (Host TXD 5V -> R1 -> Node A -> ESP-01 RXD 3.3V) -->
+  <path d="M 215,262 H 300" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 370,262 H 390" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="390" cy="262" r="3.5" fill="#2457d6"/>
+  <path d="M 390,262 H 670 V 277 H 725" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <!-- Wire down to R2 -->
+  <path d="M 390,262 V 285" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- 4. TX Signal Path (ESP-01 TXD 3.3V -> R3 -> Host RXD 5V) -->
+  <path d="M 725,372 H 410" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 320,372 H 215" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- 5. Common GND Bus Line (Host GND -> R2, C1, C2 -> ESP-01 GND) -->
+  <path d="M 215,452 V 475 H 725 V 452" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 390,335 V 475" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 450,178 V 475" fill="none" stroke="#334155" stroke-width="1.5"/>
+  <path d="M 560,176 V 475" fill="none" stroke="#334155" stroke-width="1.5"/>
+  <circle cx="215" cy="475" r="3.5" fill="#1a1a1a"/>
+  <circle cx="390" cy="475" r="3.5" fill="#1a1a1a"/>
+  <circle cx="450" cy="475" r="3.5" fill="#1a1a1a"/>
+  <circle cx="560" cy="475" r="3.5" fill="#1a1a1a"/>
+  <circle cx="725" cy="475" r="3.5" fill="#1a1a1a"/>
+</svg>

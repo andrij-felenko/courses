@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Матриця конфігураційних виводів завантаження ESP8266</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Комбінації логічних рівнів GPIO15, GPIO0 та GPIO2 при виборі режимів завантаження чипа</text>
+
+  <!-- Загальна панель таблиці -->
+  <rect x="50" y="85" width="860" height="300" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовки колонок таблиці -->
+  <text x="155" y="118" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Режим завантаження</text>
+  <text x="325" y="118" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">GPIO15 (MTDO)</text>
+  <text x="465" y="118" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">GPIO0</text>
+  <text x="605" y="118" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">GPIO2</text>
+  <text x="790" y="118" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Призначення режиму</text>
+
+  <line x1="50" y1="132" x2="910" y2="132" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Рядок 1: SPI Flash Boot -->
+  <rect x="58" y="142" width="844" height="48" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="70" y="171" font-size="13" font-weight="bold" fill="#27ae60">SPI Flash Boot</text>
+  <text x="325" y="171" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">0 (LOW)</text>
+  <text x="465" y="171" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">1 (HIGH)</text>
+  <text x="605" y="171" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">1 (HIGH)</text>
+  <text x="690" y="171" font-size="12" fill="#1a1a1a">Автономний запуск коду з SPI Flash</text>
+
+  <!-- Рядок 2: UART Download -->
+  <rect x="58" y="200" width="844" height="48" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="70" y="229" font-size="13" font-weight="bold" fill="#2457d6">UART Download</text>
+  <text x="325" y="229" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">0 (LOW)</text>
+  <text x="465" y="229" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">0 (LOW)</text>
+  <text x="605" y="229" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">1 (HIGH)</text>
+  <text x="690" y="229" font-size="12" fill="#1a1a1a">Запис прошивки через ROM-бутлоадер</text>
+
+  <!-- Рядок 3: SDIO Boot -->
+  <rect x="58" y="258" width="844" height="48" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="70" y="287" font-size="13" font-weight="bold" fill="#6b7280">SDIO Boot</text>
+  <text x="325" y="287" text-anchor="middle" font-size="13" font-weight="bold" fill="#6b7280">1 (HIGH)</text>
+  <text x="465" y="287" text-anchor="middle" font-size="13" font-weight="bold" fill="#6b7280">x (будь-який)</text>
+  <text x="605" y="287" text-anchor="middle" font-size="13" font-weight="bold" fill="#6b7280">x (будь-який)</text>
+  <text x="690" y="287" font-size="12" fill="#6b7280">Спадковий режим Wi-Fi адаптера SDIO</text>
+
+  <!-- Рядок 4: Invalid Mode -->
+  <rect x="58" y="316" width="844" height="48" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="70" y="345" font-size="13" font-weight="bold" fill="#c0392b">Invalid / Flash Error</text>
+  <text x="325" y="345" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">0 (LOW)</text>
+  <text x="465" y="345" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">1 (HIGH)</text>
+  <text x="605" y="345" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">0 (LOW)</text>
+  <text x="690" y="345" font-size="12" fill="#c0392b">Помилка: підтяжка GPIO2=0 блокує старт</text>
+
+  <!-- Нижня ліва панель: Апаратні підтяжки -->
+  <rect x="50" y="395" width="415" height="145" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="65" y="420" font-size="13" font-weight="bold" fill="#1a1a1a">Правила схемотехнічного підключення</text>
+  <text x="65" y="445" font-size="12" fill="#1a1a1a">• GPIO15: Pull-down 10 кОм на GND (обов'язково 0)</text>
+  <text x="65" y="470" font-size="12" fill="#1a1a1a">• GPIO0: Pull-up 10 кОм на VCC + кнопка Flash</text>
+  <text x="65" y="495" font-size="12" fill="#1a1a1a">• GPIO2: Pull-up 10 кОм на VCC (не затягувати в 0)</text>
+  <text x="65" y="520" font-size="12" fill="#6b7280">• CH_PD (EN) та RST: підтяжка 10 кОм до VCC</text>
+
+  <!-- Нижня права панель: Auto-Reset NodeMCU -->
+  <rect x="495" y="395" width="415" height="145" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="510" y="420" font-size="13" font-weight="bold" fill="#2457d6">Схема Auto-Reset DTR/RTS (NodeMCU)</text>
+  <text x="510" y="445" font-size="12" fill="#1a1a1a">• DTR = 1, RTS = 0  =&gt;  RST = 0, GPIO0 = 1 (Reset)</text>
+  <text x="510" y="470" font-size="12" fill="#1a1a1a">• DTR = 0, RTS = 1  =&gt;  RST = 0, GPIO0 = 0 (Prog)</text>
+  <text x="510" y="495" font-size="12" fill="#1a1a1a">• DTR = 0, RTS = 0  =&gt;  RST = 1, GPIO0 = 1 (Run)</text>
+  <text x="510" y="520" font-size="12" fill="#2457d6">• Парні NPN-транзистори виключають стан DTR=1, RTS=1</text>
+</svg>

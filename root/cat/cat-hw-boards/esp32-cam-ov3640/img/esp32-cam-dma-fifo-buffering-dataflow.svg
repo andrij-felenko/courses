@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Потік даних DVP FIFO, DMA-дескрипторів та затримки запису у PSRAM / SPI</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">Аналіз точок накопичення черги (FIFO Bottleneck) та запобігання втратам кадрів</text>
+
+  <!-- Panel 1: DVP & Sensor FIFO -->
+  <rect x="30" y="80" width="200" height="445" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+  <text x="130" y="105" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">1. DVP &amp; FIFO Сенсора</text>
+
+  <rect x="42" y="125" width="176" height="80" fill="#eaf0fd" stroke="#2457d6" rx="6"/>
+  <text x="50" y="147" font-size="13" font-weight="bold" fill="#2457d6">Сенсор OV3640</text>
+  <text x="50" y="167" font-size="12" fill="#1a1a1a">PCLK = 10..24 МГц</text>
+  <text x="50" y="187" font-size="12" fill="#6b7280">Шина: 8 біт D0..D7</text>
+
+  <rect x="42" y="225" width="176" height="110" fill="#fdecea" stroke="#c0392b" rx="6"/>
+  <text x="50" y="247" font-size="13" font-weight="bold" fill="#c0392b">Апаратний DVP FIFO</text>
+  <text x="50" y="267" font-size="12" fill="#1a1a1a">Ємність: 64..128 байт</text>
+  <text x="50" y="287" font-size="12" font-weight="bold" fill="#c0392b">Точка переповнення!</text>
+  <text x="50" y="307" font-size="12" fill="#c0392b">якщо DMA затримується</text>
+
+  <rect x="42" y="355" width="176" height="140" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="50" y="377" font-size="13" font-weight="bold" fill="#1a1a1a">Швидкість входу</text>
+  <text x="50" y="399" font-size="12" fill="#1a1a1a">UXGA (1600x1200)</text>
+  <text x="50" y="419" font-size="12" fill="#1a1a1a">JPEG: ~15-20 МБ/с</text>
+  <text x="50" y="439" font-size="12" fill="#6b7280">R_in = PCLK / 2</text>
+  <text x="50" y="479" font-size="12" fill="#6b7280">Безперервний потік</text>
+
+  <!-- Panel 2: SRAM DMA Ring Queue -->
+  <rect x="260" y="80" width="200" height="445" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+  <text x="360" y="105" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">2. SRAM DMA-Черга</text>
+
+  <rect x="272" y="125" width="176" height="80" fill="#eaf0fd" stroke="#2457d6" rx="6"/>
+  <text x="280" y="147" font-size="13" font-weight="bold" fill="#2457d6">Контролер I2S DMA</text>
+  <text x="280" y="167" font-size="12" fill="#1a1a1a">Перевичитування FIFO</text>
+  <text x="280" y="187" font-size="12" fill="#6b7280">Авто-переключення</text>
+
+  <rect x="272" y="225" width="176" height="140" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="280" y="247" font-size="13" font-weight="bold" fill="#1a1a1a">Кільцевий список DMA</text>
+  <text x="280" y="269" font-size="12" fill="#1a1a1a">Desc #0 -&gt; Desc #1</text>
+  <text x="280" y="289" font-size="12" fill="#1a1a1a">Desc #1 -&gt; Desc #2</text>
+  <text x="280" y="309" font-size="12" fill="#1a1a1a">Desc #N -&gt; Desc #0</text>
+  <text x="280" y="329" font-size="12" fill="#6b7280">Буфер desc: 4092 B</text>
+  <text x="280" y="349" font-size="12" fill="#6b7280">Розміщення: SRAM</text>
+
+  <rect x="272" y="385" width="176" height="110" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="280" y="407" font-size="13" font-weight="bold" fill="#1a1a1a">Запис у PSRAM</text>
+  <text x="280" y="429" font-size="12" fill="#1a1a1a">Пакетна передача</text>
+  <text x="280" y="449" font-size="12" fill="#6b7280">SPI/QSPI арбітраж</text>
+  <text x="280" y="471" font-size="12" fill="#6b7280">t_dma_burst = 32 B</text>
+
+  <!-- Panel 3: PSRAM Double Buffer -->
+  <rect x="490" y="80" width="210" height="445" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+  <text x="595" y="105" font-size="14" font-weight="bold" text-anchor="middle" fill="#27ae60">3. PSRAM (Double Buffer)</text>
+
+  <rect x="502" y="125" width="186" height="110" fill="#ffffff" stroke="#27ae60" rx="6"/>
+  <text x="512" y="147" font-size="13" font-weight="bold" fill="#27ae60">Кадровий буфер FB #0</text>
+  <text x="512" y="169" font-size="12" fill="#1a1a1a">Стан: Запис DMA</text>
+  <text x="512" y="189" font-size="12" fill="#1a1a1a">Розмір: ~150-300 КБ</text>
+  <text x="512" y="209" font-size="12" fill="#6b7280">Накопичення JPEG кадру</text>
+
+  <rect x="502" y="250" width="186" height="110" fill="#ffffff" stroke="#27ae60" rx="6"/>
+  <text x="512" y="272" font-size="13" font-weight="bold" fill="#27ae60">Кадровий буфер FB #1</text>
+  <text x="512" y="294" font-size="12" fill="#1a1a1a">Стан: Зчитування (Read)</text>
+  <text x="512" y="314" font-size="12" fill="#1a1a1a">Передача по SPI/Wi-Fi</text>
+  <text x="512" y="334" font-size="12" fill="#6b7280">Захист від розриву</text>
+
+  <rect x="502" y="375" width="186" height="120" fill="#e9f7ef" stroke="#27ae60" rx="6"/>
+  <text x="512" y="397" font-size="13" font-weight="bold" fill="#27ae60">Арбітраж PSRAM шини</text>
+  <text x="512" y="419" font-size="12" fill="#1a1a1a">Пропускна здатність</text>
+  <text x="512" y="439" font-size="12" fill="#1a1a1a">B_psram = 40..80 МБ/с</text>
+  <text x="512" y="459" font-size="12" fill="#27ae60">fb_count = 2 запобігає</text>
+  <text x="512" y="479" font-size="12" fill="#27ae60">втратам кадрів (drop)</text>
+
+  <!-- Panel 4: Output Consumers -->
+  <rect x="730" y="80" width="200" height="445" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+  <text x="830" y="105" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">4. Споживач даних</text>
+
+  <rect x="742" y="125" width="176" height="110" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="750" y="147" font-size="13" font-weight="bold" fill="#1a1a1a">SPI / MicroSD картка</text>
+  <text x="750" y="169" font-size="12" fill="#1a1a1a">Швидкість запису:</text>
+  <text x="750" y="189" font-size="12" fill="#6b7280">V_sd ~ 2..10 МБ/с</text>
+  <text x="750" y="209" font-size="12" fill="#c0392b">Затримка -&gt; затор!</text>
+
+  <rect x="742" y="250" width="176" height="110" fill="#eaf0fd" stroke="#2457d6" rx="6"/>
+  <text x="750" y="272" font-size="13" font-weight="bold" fill="#2457d6">Wi-Fi / MJPEG Stream</text>
+  <text x="750" y="294" font-size="12" fill="#1a1a1a">HTTP / RTSP потік</text>
+  <text x="750" y="314" font-size="12" fill="#1a1a1a">V_net ~ 5..15 Мбіт/с</text>
+  <text x="750" y="334" font-size="12" fill="#6b7280">Асинхронна відправка</text>
+
+  <rect x="742" y="375" width="176" height="120" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="750" y="397" font-size="13" font-weight="bold" fill="#1a1a1a">Задача FreeRTOS</text>
+  <text x="750" y="419" font-size="12" fill="#1a1a1a">esp_camera_fb_get()</text>
+  <text x="750" y="439" font-size="12" fill="#1a1a1a">Обробка / мережа</text>
+  <text x="750" y="459" font-size="12" fill="#1a1a1a">fb_return(): звільнення</text>
+  <text x="750" y="479" font-size="12" fill="#6b7280">повторне коло FB</text>
+
+  <!-- Inter-stage Arrows -->
+  <path d="M218,165 L272,165" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="245" y="157" font-size="12" text-anchor="middle" fill="#2457d6">DVP</text>
+
+  <path d="M218,280 L272,280" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+  <text x="245" y="272" font-size="12" text-anchor="middle" fill="#c0392b">Затор</text>
+
+  <path d="M448,280 L502,280" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="475" y="272" font-size="12" text-anchor="middle" fill="#2457d6">Пакет</text>
+
+  <path d="M448,405 L502,405" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="475" y="397" font-size="12" text-anchor="middle" fill="#27ae60">DMA</text>
+
+  <path d="M688,180 L742,180" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="715" y="172" font-size="12" text-anchor="middle" fill="#1a1a1a">SD</text>
+
+  <path d="M688,305 L742,305" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="715" y="297" font-size="12" text-anchor="middle" fill="#2457d6">Stream</text>
+</svg>

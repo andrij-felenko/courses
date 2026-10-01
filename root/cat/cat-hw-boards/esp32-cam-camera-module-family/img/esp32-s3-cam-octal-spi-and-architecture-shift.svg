@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння системних шин Quad SPI (ESP32) та Octal SPI (ESP32-S3)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Перехід на 8-бітну шину Octal SPI в ESP32-S3 усуває вузьке місце PSRAM при роботі з сенсорами OV5640</text>
+
+  <!-- Left Panel: ESP32 Quad SPI -->
+  <rect x="40" y="80" width="420" height="320" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="52" y="92" width="396" height="32" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="250" y="113" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">ESP32: Шина Quad SPI (4-бітна PSRAM)</text>
+
+  <rect x="52" y="136" width="396" height="75" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="64" y="156" font-size="12" font-weight="bold" fill="#1a1a1a">Мікроконтролер та сенсор:</text>
+  <text x="64" y="176" font-size="12" fill="#1a1a1a">SoC: ESP32-D0WD (Xtensa LX6) + DVP 8-bit</text>
+  <text x="64" y="196" font-size="12" fill="#6b7280">Сенсори: OV2640 (2MP) / обмежено OV3640</text>
+
+  <rect x="52" y="219" width="396" height="85" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="64" y="239" font-size="12" font-weight="bold" fill="#1a1a1a">Параметри шини пам'яті Quad SPI:</text>
+  <text x="64" y="259" font-size="12" fill="#1a1a1a">· Лінії даних: 4 біти (IO0..IO3, SCLK, CS)</text>
+  <text x="64" y="279" font-size="12" fill="#1a1a1a">· Режим: 80 МГц SDR (Single Data Rate)</text>
+  <text x="64" y="297" font-size="12" fill="#c0392b">· Пропускна здатність: B_QSPI ≈ 40 МБ/с (пік)</text>
+
+  <rect x="52" y="312" width="396" height="78" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="64" y="332" font-size="12" font-weight="bold" fill="#c0392b">Вузьке місце системи (Bottleneck):</text>
+  <text x="64" y="352" font-size="12" fill="#1a1a1a">· Насичення шини при захопленні &gt; 2MP</text>
+  <text x="64" y="372" font-size="12" fill="#c0392b">· Втрата кадрів DMA, фреймрейт &lt; 10 FPS (UXGA)</text>
+
+  <!-- Middle VS Indicator -->
+  <circle cx="480" cy="240" r="22" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="245" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">VS</text>
+
+  <!-- Right Panel: ESP32-S3 Octal SPI -->
+  <rect x="500" y="80" width="420" height="320" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="512" y="92" width="396" height="32" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="710" y="113" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">ESP32-S3: Шина Octal SPI (8-бітна OPI PSRAM)</text>
+
+  <rect x="512" y="136" width="396" height="75" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="524" y="156" font-size="12" font-weight="bold" fill="#1a1a1a">Мікроконтролер та сенсор нового покоління:</text>
+  <text x="524" y="176" font-size="12" fill="#1a1a1a">SoC: ESP32-S3 (Xtensa LX7 + Vector AI Instructions)</text>
+  <text x="524" y="196" font-size="12" fill="#27ae60">Сенсори: OV5640 (5MP) / нативний USB OTG</text>
+
+  <rect x="512" y="219" width="396" height="85" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="524" y="239" font-size="12" font-weight="bold" fill="#1a1a1a">Параметри шини пам'яті Octal SPI:</text>
+  <text x="524" y="259" font-size="12" fill="#1a1a1a">· Лінії даних: 8 бітів (IO0..IO7, SCLK, DQS, CS)</text>
+  <text x="524" y="279" font-size="12" fill="#1a1a1a">· Режим: 80/120 МГц DDR (Double Data Rate)</text>
+  <text x="524" y="297" font-size="12" fill="#27ae60">· Пропускна здатність: B_OSPI ≈ 160 МБ/с (пік)</text>
+
+  <rect x="512" y="312" width="396" height="78" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="524" y="332" font-size="12" font-weight="bold" fill="#27ae60">Архітектурні переваги (Shift):</text>
+  <text x="524" y="352" font-size="12" fill="#1a1a1a">· Впевнена робота з 5MP (OV5640) без дропів</text>
+  <text x="524" y="372" font-size="12" fill="#27ae60">· 30+ FPS @ HD/FHD, векторна обробка AI у PSRAM</text>
+
+  <!-- Bottom Comparison Summary Bar -->
+  <rect x="40" y="428" width="880" height="75" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="449" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Висновок: Архітектурний стрибок продуктивності PSRAM</text>
+  <text x="480" y="470" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пропускна здатність: Quad SPI SDR (40 МБ/с)   ──►   Octal SPI DDR (160 МБ/с)  [Прискорення в 4× рази]</text>
+  <text x="480" y="490" font-size="12" fill="#6b7280" text-anchor="middle">Octal SPI повністю усуває затримки кучі PSRAM, забезпечуючи повнокадрове розпізнавання об'єктів та HD-відеопотік.</text>
+</svg>

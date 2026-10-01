@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Концепція Black Channel та структура контейнера PROFIsafe</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Мережа передає телеграм як Black Channel; PROFIsafe гарантує цілісність через CRC2 та лічильник F-Counter</text>
+
+  <!-- TOP SECTION: Black Channel Architecture -->
+  <!-- F-Host -->
+  <rect x="40" y="85" width="170" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="125" y="125" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">F-Host (Safety PLC)</text>
+  <text x="125" y="145" text-anchor="middle" font-size="12" fill="#1a1a1a">Генерація CRC2</text>
+  <text x="125" y="163" text-anchor="middle" font-size="12" fill="#1a1a1a">та F-Counter</text>
+
+  <!-- Connection line Host -> Black Channel -->
+  <line x1="210" y1="140" x2="240" y2="140" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Black Channel Box -->
+  <rect x="240" y="85" width="480" height="110" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="125" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Мережа "Black Channel"</text>
+  <text x="480" y="148" text-anchor="middle" font-size="12" fill="#6b7280">стандартні комутатори, кабелі, Wi-Fi / PROFINET IO</text>
+  <text x="480" y="168" text-anchor="middle" font-size="12" fill="#2457d6">(будь-які помилки середовища обробляються PROFIsafe)</text>
+
+  <!-- Connection line Black Channel -> Device -->
+  <line x1="720" y1="140" x2="750" y2="140" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- F-Device -->
+  <rect x="750" y="85" width="170" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="835" y="125" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">F-Device (I/O)</text>
+  <text x="835" y="145" text-anchor="middle" font-size="12" fill="#1a1a1a">Перевірка CRC2</text>
+  <text x="835" y="163" text-anchor="middle" font-size="12" fill="#1a1a1a">та тайм-ауту</text>
+
+
+  <!-- BOTTOM SECTION: Telegram & PROFIsafe Container Structure -->
+  <rect x="40" y="215" width="880" height="230" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  
+  <!-- Outer Title Bar -->
+  <rect x="40" y="215" width="880" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="236" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Кадр PROFINET IO (Стандартний Ethernet Telegram)</text>
+
+  <!-- Ethernet Header -->
+  <rect x="55" y="260" width="120" height="125" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="115" y="315" text-anchor="middle" font-size="13" font-weight="bold" fill="#6b7280">Ethernet Header</text>
+  <text x="115" y="338" text-anchor="middle" font-size="12" fill="#6b7280">[MAC / EtherType]</text>
+
+  <!-- PROFIsafe Container (HIGHLIGHTED) -->
+  <rect x="187" y="252" width="600" height="145" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="487" y="273" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Контейнер PROFIsafe (F-Payload / PDU)</text>
+
+  <!-- F-Data -->
+  <rect x="200" y="286" width="195" height="98" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="297.5" y="325" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">F-Data</text>
+  <text x="297.5" y="348" text-anchor="middle" font-size="12" fill="#27ae60">(Дані входів/виходів)</text>
+
+  <!-- Status / Control Byte -->
+  <rect x="407" y="286" width="110" height="98" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="462" y="325" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Status / Control</text>
+  <text x="462" y="348" text-anchor="middle" font-size="12" fill="#6b7280">(1 Байт режиму)</text>
+
+  <!-- F-Counter -->
+  <rect x="529" y="286" width="115" height="98" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="586.5" y="325" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">F-Counter</text>
+  <text x="586.5" y="348" text-anchor="middle" font-size="12" fill="#2457d6">(Лічильник кадра)</text>
+
+  <!-- CRC2 Checksum -->
+  <rect x="656" y="286" width="118" height="98" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="715" y="325" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">CRC2</text>
+  <text x="715" y="348" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">(32-bit Сигнатура)</text>
+
+  <!-- Ethernet FCS -->
+  <rect x="799" y="260" width="105" height="125" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="851.5" y="315" text-anchor="middle" font-size="13" font-weight="bold" fill="#6b7280">Ethernet FCS</text>
+  <text x="851.5" y="338" text-anchor="middle" font-size="12" fill="#6b7280">[Standard CRC]</text>
+
+
+  <!-- SUMMARY BANNER -->
+  <rect x="40" y="462" width="880" height="38" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="486" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">✓ Захист від втрат, затримок, зациклень та спотворень кадру гарантується рівнем PROFIsafe незалежно від мережі</text>
+</svg>

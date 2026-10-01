@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Діаграма станів керування GPIO ESP8266 через AT-команди</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Послідовність виклику AT+SYSGPIODIR, AT+SYSGPIOWRITE та AT+SYSGPIOREAD для перемикання режимів і зчитування рівнів</text>
+
+  <!-- Initial Boot State Block -->
+  <rect x="330" y="78" width="300" height="52" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Початковий стан GPIO (Скидання / Boot)</text>
+  <text x="480" y="117" text-anchor="middle" font-size="12" fill="#6b7280">Вивід у стані високого імпедансу / Pull-up</text>
+
+  <!-- Line down from Boot to Command Box -->
+  <line x1="480" y1="130" x2="480" y2="142" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Command Box: AT+SYSGPIODIR -->
+  <rect x="350" y="142" width="260" height="26" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="159" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">AT+SYSGPIODIR=&lt;pin&gt;,&lt;dir&gt;</text>
+
+  <!-- Line down from Command Box to Branch Split -->
+  <line x1="480" y1="168" x2="480" y2="205" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Branch Label Boxes (Above horizontal line Y=205) -->
+  <!-- Left Branch Label -->
+  <rect x="305" y="178" width="110" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="360" y="193" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">dir = 1 (Вихід)</text>
+
+  <!-- Right Branch Label -->
+  <rect x="545" y="178" width="110" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="600" y="193" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">dir = 0 (Вхід)</text>
+
+  <!-- Branch Paths -->
+  <!-- Left Branch: Output Mode -->
+  <path d="M 480 205 L 260 205 L 260 236" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Right Branch: Input Mode -->
+  <path d="M 480 205 L 700 205 L 700 236" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Left Container Panel: Output Mode -->
+  <rect x="50" y="240" width="420" height="235" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="260" y="264" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">РЕЖИМ ВИХОДУ (OUTPUT)</text>
+
+  <!-- Output Sub-block 1: LOW State -->
+  <rect x="70" y="280" width="175" height="76" rx="8" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="157" y="300" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Логічний 0 (0 В)</text>
+  <text x="157" y="320" text-anchor="middle" font-size="11" fill="#6b7280">AT+SYSGPIOWRITE=&lt;p&gt;,0</text>
+  <text x="157" y="340" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Відповідь: OK</text>
+
+  <!-- Output Sub-block 2: HIGH State -->
+  <rect x="275" y="280" width="175" height="76" rx="8" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="362" y="300" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Логічна 1 (3.3 В)</text>
+  <text x="362" y="320" text-anchor="middle" fill="#6b7280" font-size="11">AT+SYSGPIOWRITE=&lt;p&gt;,1</text>
+  <text x="362" y="340" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Відповідь: OK</text>
+
+  <!-- Toggle Arrows between LOW and HIGH -->
+  <path d="M 245 308 L 273 308" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 275 328 L 247 328" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Output Status / Result Box -->
+  <rect x="70" y="372" width="380" height="84" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="260" y="394" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Фіксація стану у вихідному регістрі</text>
+  <text x="260" y="414" text-anchor="middle" font-size="11" fill="#6b7280">Логічний рівень утримується до наступного запису</text>
+  <text x="260" y="434" text-anchor="middle" font-size="11" fill="#27ae60">При некоректному номері виводу повертається ERROR</text>
+
+  <!-- Right Container Panel: Input Mode -->
+  <rect x="490" y="240" width="420" height="235" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="700" y="264" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">РЕЖИМ ВХОДУ (INPUT)</text>
+
+  <!-- Input Sub-block 1: Read Command Request -->
+  <rect x="510" y="280" width="380" height="70" rx="8" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="700" y="300" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Запит зчитування цифрового рівня</text>
+  <text x="700" y="320" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">AT+SYSGPIOREAD=&lt;pin&gt;</text>
+  <text x="700" y="338" text-anchor="middle" font-size="11" fill="#6b7280">Пряме опитування внутрішнього регістру GPIO_IN</text>
+
+  <!-- Arrow down in Input pipeline -->
+  <line x1="700" y1="350" x2="700" y2="370" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Input Sub-block 2: Response Parsing -->
+  <rect x="510" y="372" width="380" height="84" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="700" y="394" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Формат відповіді прошивки ESP-AT:</text>
+  <text x="700" y="414" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">+SYSGPIOREAD:&lt;pin&gt;,&lt;val&gt;</text>
+  <text x="700" y="434" text-anchor="middle" font-size="11" fill="#27ae60">&lt;val&gt; = 0 (LOW, 0 В) або 1 (HIGH, 3.3 В) та статус OK</text>
+
+  <!-- Bottom Legend / Note Panel -->
+  <rect x="50" y="485" width="860" height="28" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="503" text-anchor="middle" font-size="11" fill="#6b7280">Синтаксис: AT+SYSGPIODIR=&lt;pin&gt;,&lt;dir&gt; | AT+SYSGPIOWRITE=&lt;pin&gt;,&lt;val&gt; | AT+SYSGPIOREAD=&lt;pin&gt;. Завершення всіх команд: OK або ERROR.</text>
+</svg>

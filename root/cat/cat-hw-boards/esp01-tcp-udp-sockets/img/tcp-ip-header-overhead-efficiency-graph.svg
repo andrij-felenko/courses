@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Top Title Block -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ефективність передачі корисного навантаження TCP та UDP</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Малі пакети в IoT створюють до 80% службового оверхеду; ефективність зростає з наближенням до MSS/MTU</text>
+
+  <!-- Main Chart Card -->
+  <rect x="50" y="75" width="630" height="365" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+
+  <!-- Y-Axis Title -->
+  <text x="65" y="98" font-size="13" font-weight="bold" fill="#1a1a1a">Відносна ефективність (%)</text>
+
+  <!-- Gridlines & Y-Axis Scale -->
+  <!-- 100% at y=115 -->
+  <line x1="120" y1="115" x2="650" y2="115" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="112" y="119" font-size="12" fill="#6b7280" text-anchor="end">100%</text>
+
+  <!-- 80% at y=170 -->
+  <line x1="120" y1="170" x2="650" y2="170" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="112" y="174" font-size="12" fill="#6b7280" text-anchor="end">80%</text>
+
+  <!-- 60% at y=225 -->
+  <line x1="120" y1="225" x2="650" y2="225" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="112" y="229" font-size="12" fill="#6b7280" text-anchor="end">60%</text>
+
+  <!-- 40% at y=280 -->
+  <line x1="120" y1="280" x2="650" y2="280" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="112" y="284" font-size="12" fill="#6b7280" text-anchor="end">40%</text>
+
+  <!-- 20% at y=335 -->
+  <line x1="120" y1="335" x2="650" y2="335" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="112" y="339" font-size="12" fill="#6b7280" text-anchor="end">20%</text>
+
+  <!-- 0% at y=390 (Baseline) -->
+  <line x1="120" y1="390" x2="650" y2="390" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="112" y="394" font-size="12" fill="#6b7280" text-anchor="end">0%</text>
+
+  <!-- Vertical Reference Lines for Key Payloads -->
+  <!-- 10 B at x=150 -->
+  <line x1="150" y1="115" x2="150" y2="390" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="150" y="410" font-size="12" fill="#1a1a1a" text-anchor="middle">10 B</text>
+
+  <!-- 64 B at x=230 -->
+  <line x1="230" y1="115" x2="230" y2="390" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="230" y="410" font-size="12" fill="#1a1a1a" text-anchor="middle">64 B</text>
+
+  <!-- 256 B at x=350 -->
+  <line x1="350" y1="115" x2="350" y2="390" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="350" y="410" font-size="12" fill="#1a1a1a" text-anchor="middle">256 B</text>
+
+  <!-- 512 B at x=470 -->
+  <line x1="470" y1="115" x2="470" y2="390" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="470" y="410" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">512 B (MSS)</text>
+
+  <!-- 1460 B at x=630 -->
+  <line x1="630" y1="115" x2="630" y2="390" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="630" y="410" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="middle">1460 B (MTU)</text>
+
+  <!-- X-Axis Title -->
+  <text x="385" y="430" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розмір корисного навантаження (байти)</text>
+
+  <!-- Curves -->
+  <!-- UDP Curve (Green) -->
+  <path d="M 150 318 C 190 240, 210 205, 230 199 C 280 170, 310 148, 350 142 C 400 134, 430 131, 470 129 C 530 125, 580 122, 630 120" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- TCP Curve (Blue) -->
+  <path d="M 150 335 C 190 260, 210 228, 230 221 C 280 180, 310 158, 350 152 C 400 142, 430 138, 470 135 C 530 128, 580 124, 630 122" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Data Point Circles -->
+  <!-- 10 B Points -->
+  <circle cx="150" cy="318" r="5" fill="#27ae60"/>
+  <circle cx="150" cy="335" r="5" fill="#2457d6"/>
+
+  <!-- 10 B Callout Badge (Positioned at x=156..240, outside x=150 line) -->
+  <rect x="156" y="295" width="84" height="42" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="162" y="311" font-size="12" font-weight="bold" fill="#27ae60">UDP: 26.3%</text>
+  <text x="162" y="329" font-size="12" font-weight="bold" fill="#2457d6">TCP: 20.0%</text>
+
+  <!-- 512 B Points -->
+  <circle cx="470" cy="129" r="4" fill="#27ae60"/>
+  <circle cx="470" cy="135" r="4" fill="#2457d6"/>
+  <!-- 512 B Callout Badge (Top area above 100% line) -->
+  <rect x="420" y="88" width="100" height="24" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="470" y="104" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">~93–95%</text>
+
+  <!-- 1460 B Points -->
+  <circle cx="630" cy="120" r="4" fill="#27ae60"/>
+  <circle cx="630" cy="122" r="4" fill="#2457d6"/>
+  <!-- 1460 B Callout Badge -->
+  <rect x="580" y="88" width="90" height="24" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="625" y="104" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">~97–98%</text>
+
+  <!-- Chart Legend Inside Panel -->
+  <rect x="450" y="310" width="210" height="65" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <line x1="462" y1="330" x2="492" y2="330" stroke="#27ae60" stroke-width="3"/>
+  <circle cx="477" cy="330" r="4" fill="#27ae60"/>
+  <text x="500" y="334" font-size="12" fill="#1a1a1a">UDP (28 B оверхед)</text>
+
+  <line x1="462" y1="355" x2="492" y2="355" stroke="#2457d6" stroke-width="3"/>
+  <circle cx="477" cy="355" r="4" fill="#2457d6"/>
+  <text x="500" y="359" font-size="12" fill="#1a1a1a">TCP (40 B оверхед)</text>
+
+  <!-- Right Side Card 1: Header Overhead Breakdown -->
+  <rect x="700" y="75" width="210" height="175" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="715" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Оверхед заголовків</text>
+
+  <text x="715" y="123" font-size="12" fill="#6b7280">IPv4 заголовок: 20 B</text>
+  <text x="715" y="146" font-size="12" fill="#27ae60" font-weight="bold">UDP заголовок: 8 B (28 B)</text>
+  <text x="715" y="169" font-size="12" fill="#2457d6" font-weight="bold">TCP заголовок: 20 B (40 B)</text>
+  <text x="715" y="192" font-size="12" fill="#6b7280">Ethernet L2 кадр: 18 B</text>
+
+  <line x1="715" y1="205" x2="895" y2="205" stroke="#d0d7de" stroke-width="1"/>
+  <text x="715" y="226" font-size="12" font-weight="bold" fill="#1a1a1a">MTU = 1500 B (Max)</text>
+
+  <!-- Right Side Card 2: Impact on ESP-01 -->
+  <rect x="700" y="265" width="210" height="175" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="715" y="288" font-size="14" font-weight="bold" fill="#2457d6">Вплив на ESP-01 (RAM)</text>
+
+  <text x="715" y="312" font-size="12" fill="#1a1a1a">• Малі пакети (10 B)</text>
+  <text x="727" y="330" font-size="12" fill="#c0392b" font-weight="bold">створюють 80% оверхеду</text>
+
+  <text x="715" y="354" font-size="12" fill="#1a1a1a">• 100 дрібних пакетів/с</text>
+  <text x="727" y="372" font-size="12" fill="#1a1a1a">швидко виснажують RAM</text>
+
+  <text x="715" y="396" font-size="12" fill="#27ae60" font-weight="bold">• Оптимум: буфер 512 B</text>
+  <text x="727" y="414" font-size="12" fill="#27ae60">(ефективність &gt; 93%)</text>
+
+  <!-- Bottom Caution Banner -->
+  <rect x="50" y="455" width="860" height="45" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="6"/>
+  <text x="65" y="482" font-size="12" font-weight="bold" fill="#c0392b">Критичне застереження для ESP8266:</text>
+  <text x="300" y="482" font-size="12" fill="#1a1a1a">Перевищення MTU (1500 B) призводить до фрагментації IP-пакетів і різкого падіння швидкості.</text>
+</svg>

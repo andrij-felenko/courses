@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Потокова передача образу FOTA по HTTPS у мікроконтролері ESP8266</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Прийом TLS-пакетів блоками по 4 КБ, дешифрування в DRAM, перевірка хешу та запис у Flash</text>
+
+  <!-- Panel 1: HTTPS Server -->
+  <rect x="40" y="90" width="230" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="55" y="110" width="200" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="155" y="127" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">HTTPS-сервер</text>
+  <text x="155" y="143" font-size="12" fill="#6b7280" text-anchor="middle">Файл user2.bin</text>
+
+  <rect x="55" y="165" width="200" height="75" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="185" font-size="13" font-weight="bold" fill="#1a1a1a">Потік TLS 1.2 / HTTPS</text>
+  <text x="65" y="205" font-size="12" fill="#6b7280">Chunked Transfer</text>
+  <text x="65" y="225" font-size="12" fill="#6b7280">Накладний HTTPS-обсяг</text>
+
+  <rect x="55" y="250" width="200" height="95" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="270" font-size="13" font-weight="bold" fill="#1a1a1a">Порція даних (4096 Б)</text>
+  <text x="65" y="290" font-size="12" fill="#6b7280">Заголовок HTTP + Payload</text>
+  <text x="65" y="310" font-size="12" fill="#6b7280">Код відповіді 200 OK</text>
+  <text x="65" y="330" font-size="12" fill="#6b7280">Заголовок x-MD5 / SHA</text>
+
+  <rect x="55" y="355" width="200" height="125" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="65" y="378" font-size="13" font-weight="bold" fill="#27ae60">Метадані цілісності</text>
+  <text x="65" y="398" font-size="12" fill="#1a1a1a">Розмір образу у байтах</text>
+  <text x="65" y="418" font-size="12" fill="#1a1a1a">Очікуваний MD5/SHA256</text>
+  <text x="65" y="438" font-size="12" fill="#1a1a1a">Перевірка перед старт</text>
+  <text x="65" y="458" font-size="12" fill="#6b7280">Захист від пошкодження</text>
+
+  <!-- Flow Arrow 1: Server to SoC -->
+  <line x1="255" y1="210" x2="310" y2="210" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-blue)"/>
+  <text x="282" y="200" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Пакети</text>
+
+  <!-- Panel 2: SoC ESP8266 (RAM) -->
+  <rect x="310" y="90" width="340" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="325" y="110" width="310" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="127" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">SoC ESP8266 (ОЗП / DRAM)</text>
+  <text x="480" y="143" font-size="12" fill="#6b7280" text-anchor="middle">Буферизація та апаратно-програмний стеки</text>
+
+  <rect x="325" y="165" width="310" height="145" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="338" y="187" font-size="13" font-weight="bold" fill="#2457d6">Буфер сектора DRAM (4096 байтів)</text>
+  <text x="338" y="207" font-size="12" fill="#1a1a1a">1. Дешифрування TLS (BearSSL / mbedTLS)</text>
+  <text x="338" y="227" font-size="12" fill="#1a1a1a">2. Накопичення порції 4 КБ у пам'яті</text>
+  <text x="338" y="247" font-size="12" fill="#1a1a1a">3. Покрокове підсумовування MD5 / XOR</text>
+  <text x="338" y="267" font-size="12" fill="#1a1a1a">4. Валідація першого заголовка (0xE9)</text>
+  <text x="338" y="292" font-size="12" font-weight="bold" fill="#c0392b">Контроль пам'яті: Вільний Heap > 15 КБ</text>
+
+  <rect x="325" y="320" width="310" height="160" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="338" y="342" font-size="13" font-weight="bold" fill="#27ae60">Стек FOTA (esp_ota_ops / system_upgrade)</text>
+  <text x="338" y="362" font-size="12" fill="#1a1a1a">Етап 1: Ініціалізація цільового слота</text>
+  <text x="338" y="382" font-size="12" fill="#1a1a1a">Етап 2: Стирання сектора Flash (4 КБ)</text>
+  <text x="338" y="402" font-size="12" fill="#1a1a1a">Етап 3: Побайтовий запис з ОЗП у Flash</text>
+  <text x="338" y="422" font-size="12" fill="#1a1a1a">Етап 4: Перевірка хешу підсумкового образу</text>
+  <text x="338" y="442" font-size="12" fill="#1a1a1a">Етап 5: Запис прапорця завантаження rboot</text>
+  <text x="338" y="462" font-size="12" font-weight="bold" fill="#27ae60">Етап 6: Перезавантаження (system_restart)</text>
+
+  <!-- Flow Arrow 2: SoC to SPI Flash -->
+  <line x1="635" y1="330" x2="690" y2="330" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="662" y="320" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Запис 4 КБ</text>
+
+  <!-- Panel 3: SPI Flash -->
+  <rect x="690" y="90" width="230" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="705" y="110" width="200" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="805" y="127" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Зовнішня SPI Flash</text>
+  <text x="805" y="143" font-size="12" fill="#6b7280" text-anchor="middle">Карта розділів 4 КБ</text>
+
+  <rect x="705" y="165" width="200" height="80" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="715" y="187" font-size="13" font-weight="bold" fill="#27ae60">Слот 1: user1.bin</text>
+  <text x="715" y="207" font-size="12" fill="#1a1a1a">Активна виконувана прошивка</text>
+  <text x="715" y="227" font-size="12" fill="#6b7280">Зміщення 0x01000 (Read-Only)</text>
+
+  <rect x="705" y="255" width="200" height="125" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="715" y="277" font-size="13" font-weight="bold" fill="#2457d6">Слот 2: user2.bin</text>
+  <text x="715" y="297" font-size="12" fill="#1a1a1a">Цільовий слот запису</text>
+  <text x="715" y="317" font-size="12" fill="#1a1a1a">1. spi_flash_erase_sector()</text>
+  <text x="715" y="337" font-size="12" fill="#1a1a1a">2. spi_flash_write()</text>
+  <text x="715" y="357" font-size="12" fill="#2457d6">Зміщення 0x81000 (Write)</text>
+
+  <rect x="705" y="390" width="200" height="95" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="715" y="412" font-size="13" font-weight="bold" fill="#c0392b">Захищені сектори</text>
+  <text x="715" y="432" font-size="12" fill="#1a1a1a">RF Cal / Wi-Fi Config</text>
+  <text x="715" y="452" font-size="12" fill="#1a1a1a">Адреси 0xFC000 - 0xFF000</text>
+  <text x="715" y="472" font-size="12" fill="#c0392b">Захищено від перезапису</text>
+</svg>

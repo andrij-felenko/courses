@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Двоканальна архітектура 1oo2 модуля входів безпеки F-DI</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Незалежні гальванічно розв'язані шляхи сигналів із перехресним діагностичним самоконтролем</text>
+
+  <!-- LEFT PANEL: Sensor Unit -->
+  <rect x="40" y="90" width="130" height="420" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="105" y="118" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Датчик безпеки</text>
+  <text x="105" y="136" text-anchor="middle" font-size="12" fill="#6b7280">(E-Stop / Грибок)</text>
+
+  <!-- Sensor Contacts NC1 & NC2 -->
+  <rect x="55" y="165" width="100" height="55" rx="4" ry="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="105" y="188" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Контакт NC1</text>
+  <text x="105" y="206" text-anchor="middle" font-size="12" fill="#6b7280">Канал 1</text>
+
+  <rect x="55" y="345" width="100" height="55" rx="4" ry="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="105" y="368" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Контакт NC2</text>
+  <text x="105" y="386" text-anchor="middle" font-size="12" fill="#6b7280">Канал 2</text>
+
+
+  <!-- MAIN CONTAINER: F-DI Module -->
+  <rect x="190" y="90" width="740" height="420" rx="8" ry="8" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="205" y="115" text-anchor="start" font-size="13" font-weight="bold" fill="#2457d6">Модуль дискретних входів F-DI (Архітектура 1oo2)</text>
+
+  <!-- CHANNEL 1 (Top Signal Path) -->
+  <rect x="205" y="170" width="65" height="45" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="237" y="188" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">T1 / DI1</text>
+  <text x="237" y="204" text-anchor="middle" font-size="12" fill="#6b7280">Вхід 1</text>
+
+  <rect x="290" y="170" width="70" height="45" rx="4" ry="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="325" y="188" text-anchor="middle" font-size="12" fill="#1a1a1a">RC-фільтр</text>
+  <text x="325" y="204" text-anchor="middle" font-size="12" fill="#6b7280">Канал 1</text>
+
+  <rect x="380" y="170" width="70" height="45" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="415" y="188" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Оптопара</text>
+  <text x="415" y="204" text-anchor="middle" font-size="12" fill="#6b7280">Канал 1</text>
+
+  <rect x="480" y="150" width="150" height="85" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="555" y="175" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">MCU 1 (Канал A)</text>
+  <text x="555" y="195" text-anchor="middle" font-size="12" fill="#2457d6">Обробка Ch1</text>
+  <text x="555" y="215" text-anchor="middle" font-size="12" fill="#6b7280">Генерація T1</text>
+
+
+  <!-- CHANNEL 2 (Bottom Signal Path) -->
+  <rect x="205" y="350" width="65" height="45" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="237" y="368" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">T2 / DI2</text>
+  <text x="237" y="384" text-anchor="middle" font-size="12" fill="#6b7280">Вхід 2</text>
+
+  <rect x="290" y="350" width="70" height="45" rx="4" ry="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="325" y="368" text-anchor="middle" font-size="12" fill="#1a1a1a">RC-фільтр</text>
+  <text x="325" y="384" text-anchor="middle" font-size="12" fill="#6b7280">Канал 2</text>
+
+  <rect x="380" y="350" width="70" height="45" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="415" y="368" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Оптопара</text>
+  <text x="415" y="384" text-anchor="middle" font-size="12" fill="#6b7280">Канал 2</text>
+
+  <rect x="480" y="330" width="150" height="85" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="555" y="355" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">MCU 2 (Канал B)</text>
+  <text x="555" y="375" text-anchor="middle" font-size="12" fill="#2457d6">Обробка Ch2</text>
+  <text x="555" y="395" text-anchor="middle" font-size="12" fill="#6b7280">Генерація T2</text>
+
+
+  <!-- CROSS DIAGNOSTIC COMMUNICATION -->
+  <line x1="555" y1="235" x2="555" y2="330" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,4"/>
+  <text x="570" y="278" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">Перехресна синхронізація</text>
+  <text x="570" y="296" text-anchor="start" font-size="12" fill="#6b7280">та Discrepancy Time</text>
+
+
+  <!-- OUTPUT EVALUATION BOX (1oo2 Logic) -->
+  <rect x="680" y="210" width="230" height="160" rx="8" ry="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="795" y="235" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Логіка оцінки 1oo2</text>
+  <text x="795" y="258" text-anchor="middle" font-size="12" fill="#1a1a1a">Спрацювання 1 з 2 каналів</text>
+  <text x="795" y="278" text-anchor="middle" font-size="12" fill="#1a1a1a">викликає розмикання кола</text>
+  <text x="795" y="308" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Безпечний стан (Fail-Safe)</text>
+  <text x="795" y="330" text-anchor="middle" font-size="12" fill="#6b7280">SIL3 / PL e збережено</text>
+
+
+  <!-- SIGNAL FLOW LINES & ARROWS -->
+  <!-- Channel 1 Flow -->
+  <line x1="155" y1="192" x2="205" y2="192" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <line x1="270" y1="192" x2="290" y2="192" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <line x1="360" y1="192" x2="380" y2="192" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <line x1="450" y1="192" x2="480" y2="192" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <path d="M 630 192 H 655 V 260 H 680" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Channel 2 Flow -->
+  <line x1="155" y1="372" x2="205" y2="372" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <line x1="270" y1="372" x2="290" y2="372" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <line x1="360" y1="372" x2="380" y2="372" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <line x1="450" y1="372" x2="480" y2="372" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <path d="M 630 372 H 655 V 320 H 680" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+</svg>

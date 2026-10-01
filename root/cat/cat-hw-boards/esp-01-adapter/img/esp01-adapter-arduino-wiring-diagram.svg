@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема підключення модуля ESP-01 через адаптер до Arduino Uno</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Стабілізація живлення 3.3 В та узгодження рівнів RX/TX без додаткових резисторів</text>
+
+  <!-- Wire Connection Labels (Placed ABOVE lines) -->
+  <text x="310" y="146" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">5V Живлення</text>
+  <text x="310" y="206" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Спільний GND</text>
+  <text x="310" y="266" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">RX ← TX (3.3V)</text>
+  <text x="310" y="326" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">TX → RX (5V)</text>
+
+  <!-- Wires between Arduino and Adapter -->
+  <path d="M 255 160 L 365 160" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <path d="M 255 220 L 365 220" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#arr-dark)"/>
+  <path d="M 365 280 L 255 280" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <path d="M 255 340 L 365 340" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Insertion lines between Adapter Socket and ESP-01 -->
+  <path d="M 635 180 L 725 180" stroke="#64748b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-dark)"/>
+  <path d="M 635 220 L 725 220" stroke="#64748b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-dark)"/>
+  <path d="M 635 260 L 725 260" stroke="#64748b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-dark)"/>
+  <path d="M 635 300 L 725 300" stroke="#64748b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-dark)"/>
+
+  <text x="680" y="210" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Встановлення</text>
+  <text x="680" y="244" text-anchor="middle" font-size="12" fill="#6b7280">в сокет</text>
+
+  <!-- Block 1: Arduino Uno -->
+  <rect x="40" y="75" width="215" height="315" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="41" y="76" width="213" height="36" rx="7" fill="#eaf0fd"/>
+  <text x="147.5" y="100" text-anchor="middle" font-size="15" font-weight="bold" fill="#2457d6">Arduino Uno</text>
+  <text x="147.5" y="128" text-anchor="middle" font-size="12" fill="#6b7280">Плата управління</text>
+
+  <!-- Arduino Pins -->
+  <rect x="190" y="146" width="65" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="222.5" y="164" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">5V</text>
+
+  <rect x="190" y="206" width="65" height="28" rx="4" fill="#e5e7eb" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="222.5" y="224" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+
+  <rect x="190" y="266" width="65" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="222.5" y="284" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D2 (RX)</text>
+
+  <rect x="190" y="326" width="65" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="222.5" y="344" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">D3 (TX)</text>
+
+  <text x="115" y="375" text-anchor="middle" font-size="12" fill="#6b7280">Логіка 5 В</text>
+
+  <!-- Block 2: ESP-01 Adapter -->
+  <rect x="365" y="75" width="270" height="315" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <rect x="366" y="76" width="268" height="36" rx="7" fill="#eaf0fd"/>
+  <text x="500" y="100" text-anchor="middle" font-size="15" font-weight="bold" fill="#2457d6">Плата-адаптер ESP-01</text>
+  <text x="500" y="128" text-anchor="middle" font-size="12" fill="#6b7280">Модуль живлення та узгодження</text>
+
+  <!-- Adapter Input Pins -->
+  <rect x="365" y="146" width="55" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="392.5" y="164" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">VCC</text>
+
+  <rect x="365" y="206" width="55" height="28" rx="4" fill="#e5e7eb" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="392.5" y="224" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+
+  <rect x="365" y="266" width="55" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="392.5" y="284" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">TX</text>
+
+  <rect x="365" y="326" width="55" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="392.5" y="344" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">RX</text>
+
+  <!-- Internal Component: Voltage Regulator -->
+  <rect x="432" y="145" width="145" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="504.5" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Стабілізатор 3.3 В</text>
+  <text x="504.5" y="188" text-anchor="middle" font-size="12" fill="#6b7280">чип AMS1117-3.3</text>
+  <text x="504.5" y="212" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Вихід: 3.3В / 1А</text>
+  <text x="504.5" y="232" text-anchor="middle" font-size="12" fill="#6b7280">живлення ESP8266</text>
+
+  <!-- Internal Component: Level Shifter -->
+  <rect x="432" y="258" width="145" height="115" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="504.5" y="280" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Узгоджувач рівнів</text>
+  <text x="504.5" y="300" text-anchor="middle" font-size="12" fill="#6b7280">ліній UART</text>
+  <text x="504.5" y="326" text-anchor="middle" font-size="12" fill="#2457d6">RX: 5 В → 3.3 В</text>
+  <text x="504.5" y="348" text-anchor="middle" font-size="12" fill="#27ae60">TX: 3.3 В → 5 В</text>
+
+  <!-- Adapter Socket -->
+  <rect x="590" y="145" width="45" height="228" rx="4" fill="#1e293b" stroke="#0f172a" stroke-width="1.5"/>
+  <text x="612.5" y="250" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Сокет</text>
+  <text x="612.5" y="268" text-anchor="middle" font-size="12" fill="#94a3b8">2×4</text>
+
+  <!-- Block 3: ESP-01 Module -->
+  <rect x="725" y="75" width="195" height="315" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="726" y="76" width="193" height="36" rx="7" fill="#eaf0fd"/>
+  <text x="822.5" y="100" text-anchor="middle" font-size="15" font-weight="bold" fill="#2457d6">Модуль ESP-01</text>
+  <text x="822.5" y="128" text-anchor="middle" font-size="12" fill="#6b7280">Wi-Fi мікроконтролер</text>
+
+  <!-- Antenna -->
+  <rect x="745" y="145" width="155" height="50" rx="4" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1"/>
+  <path d="M 755 170 L 765 170 L 765 182 L 775 182 L 775 170 L 785 170" fill="none" stroke="#64748b" stroke-width="2"/>
+  <text x="835" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#475569">Wi-Fi антена</text>
+
+  <!-- ESP8266 Chip -->
+  <rect x="755" y="208" width="135" height="70" rx="4" fill="#1e293b"/>
+  <text x="822.5" y="236" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">ESP8266EX</text>
+  <text x="822.5" y="258" text-anchor="middle" font-size="12" fill="#94a3b8">3.3 В логіка</text>
+
+  <!-- Pinout info -->
+  <rect x="745" y="292" width="155" height="83" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="822.5" y="312" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Розпіновка 8-pin:</text>
+  <text x="822.5" y="332" text-anchor="middle" font-size="12" fill="#6b7280">VCC, GND, TX, RX,</text>
+  <text x="822.5" y="352" text-anchor="middle" font-size="12" fill="#6b7280">CH_PD, RST, IO0, IO2</text>
+
+  <!-- Bottom Summary Banner -->
+  <rect x="40" y="402" width="880" height="34" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="423" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">✓ Безпечна схема: адаптер автоматично понижує живлення до 3.3 В та узгоджує рівні UART для RX/TX</text>
+</svg>

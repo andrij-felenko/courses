@@ -1,0 +1,94 @@
+<svg width="960" height="520" viewBox="0 0 960 520" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title Header -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Перемикання слотів FOTA завантажувачем та алгоритм відкочування (Rollback)</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Послідовність верифікації MD5, перемикання прапорця Boot Sector та захист від осквернення</text>
+
+  <!-- ================= TOP FLOW (NORMAL / SUCCESS PATH) ================= -->
+  
+  <!-- Step 1: Reset / Boot Request -->
+  <rect x="40" y="95" width="160" height="105" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="120" y="125" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">1. Старт завантаження</text>
+  <text x="120" y="148" text-anchor="middle" font-size="11" fill="#6b7280">Подача живлення / RST</text>
+  <text x="120" y="166" text-anchor="middle" font-size="11" fill="#6b7280">Зчитування boot_slot</text>
+  <text x="120" y="184" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Запит оновлення</text>
+
+  <!-- Arrow Step 1 -> Step 2 -->
+  <line x1="200" y1="147" x2="240" y2="147" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 2: Image Integrity Check -->
+  <rect x="240" y="95" width="180" height="105" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="330" y="125" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. Перевірка образу</text>
+  <text x="330" y="148" text-anchor="middle" font-size="11" fill="#1a1a1a">Обчислення MD5 hash</text>
+  <text x="330" y="166" text-anchor="middle" font-size="11" fill="#1a1a1a">пасивного слота FOTA</text>
+  <text x="330" y="184" text-anchor="middle" font-size="11" fill="#6b7280">Перевірка заголовка</text>
+
+  <!-- Arrow Step 2 -> Step 3 -->
+  <line x1="420" y1="147" x2="460" y2="147" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 3: Decision Node -->
+  <rect x="460" y="95" width="180" height="105" fill="#ffffff" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <text x="550" y="125" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">3. Валідація MD5</text>
+  <text x="550" y="148" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">MD5_calc == MD5_hdr?</text>
+  <text x="550" y="166" text-anchor="middle" font-size="11" fill="#6b7280">Та розмір файлу OK</text>
+  <text x="550" y="184" text-anchor="middle" font-size="11" fill="#6b7280">boot_count &lt; 3</text>
+
+  <!-- Arrow Step 3 -> Step 4 (Success Path) -->
+  <line x1="640" y1="147" x2="700" y2="147" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="670" y="138" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">УСПІХ (ТАК)</text>
+
+  <!-- Step 4: Success Slot Switch -->
+  <rect x="700" y="95" width="220" height="105" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="6"/>
+  <text x="810" y="125" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">4. Перемикання слота</text>
+  <text x="810" y="148" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">boot_slot = new_slot</text>
+  <text x="810" y="166" text-anchor="middle" font-size="11" fill="#6b7280">Атомарний запис у Sector</text>
+  <text x="810" y="184" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">✓ Запуск нової прошивки</text>
+
+  <!-- ================= BOTTOM FLOW (FAILURE / ROLLBACK PATH) ================= -->
+
+  <!-- Arrow Step 3 -> Step 5 (Failure Path Down) -->
+  <line x1="550" y1="200" x2="550" y2="250" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="562" y="228" text-anchor="start" font-size="11" font-weight="bold" fill="#c0392b">ПОМИЛКА (НІ) / КРАШ</text>
+
+  <!-- Step 5: Rollback Trigger -->
+  <rect x="460" y="250" width="180" height="105" fill="#fdecea" stroke="#c0392b" stroke-width="2" rx="6"/>
+  <text x="550" y="278" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">⚠️ Аварійне відкочування</text>
+  <text x="550" y="300" text-anchor="middle" font-size="11" fill="#1a1a1a">Відновлення boot_slot</text>
+  <text x="550" y="318" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">boot_slot = old_slot</text>
+  <text x="550" y="336" text-anchor="middle" font-size="11" fill="#6b7280">Позначити bad_image</text>
+
+  <!-- Arrow Step 5 -> Step 6 (Rollback Left) -->
+  <line x1="460" y1="302" x2="380" y2="302" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- Step 6: Boot Stable Image -->
+  <rect x="160" y="250" width="220" height="105" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="270" y="278" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Запуск стабільного образу</text>
+  <text x="270" y="300" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Виконання зі старого слота</text>
+  <text x="270" y="318" text-anchor="middle" font-size="11" fill="#6b7280">Збереження працездатності</text>
+  <text x="270" y="336" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Передача звіту на сервер FOTA</text>
+
+  <!-- ================= BOTTOM SUMMARY PANEL ================= -->
+  <rect x="40" y="385" width="880" height="110" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="56" y="408" font-size="12" font-weight="bold" fill="#1a1a1a">Механізми функціональної безпеки FOTA завантажувача ESP8266:</text>
+  <text x="56" y="428" font-size="11" fill="#6b7280">• Атомарність оновлення: Запис нового boot_slot виконується в один системний сектор Flash.</text>
+  <text x="56" y="446" font-size="11" fill="#6b7280">• Сторожовий таймер WDT: Спроба запуску ушкодженого образу переривається відкочуванням (Rollback).</text>
+  <text x="56" y="464" font-size="11" fill="#6b7280">• Захист від осквернення ("цеглування"): Негарантовані бінарні файли відсікаються ще до перезапису.</text>
+  <text x="56" y="482" font-size="11" font-weight="bold" fill="#27ae60">✓ Результат: Повна автономність та гарантоване збереження працездатності пристрою IoT.</text>
+</svg>

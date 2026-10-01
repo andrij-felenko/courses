@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Матриця режимів завантаження ESP8266 (Strapping Pins)</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Залежність режимів завантаження чипа від логічних рівнів GPIO0, GPIO2 та GPIO15 при знятті RST</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Опис конфігураційних виводів -->
+  <rect x="25" y="70" width="300" height="405" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="40" y="93" font-size="14" font-weight="bold" fill="#1a1a1a">Конфігураційні виводи старту</text>
+
+  <!-- Картка 1: GPIO15 -->
+  <rect x="38" y="108" width="274" height="110" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <rect x="48" y="117" width="70" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="3"/>
+  <text x="83" y="132" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">GPIO15</text>
+  <text x="126" y="132" font-size="12" font-weight="bold" fill="#1a1a1a">Вимога: Pull-Down (0)</text>
+  <text x="48" y="157" font-size="12" fill="#6b7280">
+    <tspan x="48" dy="0">• Зовнішній Pull-Down (10 кОм на GND).</tspan>
+    <tspan x="48" dy="17">• 1 = SDIO Boot, 0 = Flash/UART Boot.</tspan>
+    <tspan x="48" dy="17">• Високоомний вхід чутливий до завад.</tspan>
+  </text>
+
+  <!-- Картка 2: GPIO0 -->
+  <rect x="38" y="228" width="274" height="110" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <rect x="48" y="237" width="70" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="3"/>
+  <text x="83" y="252" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">GPIO0</text>
+  <text x="126" y="252" font-size="12" font-weight="bold" fill="#1a1a1a">Вибір: Boot / Download</text>
+  <text x="48" y="277" font-size="12" fill="#6b7280">
+    <tspan x="48" dy="0">• Pull-Up (10 кОм на 3.3V) за замовч.</tspan>
+    <tspan x="48" dy="17">• 1 = SPI Flash Boot (нормальний старт).</tspan>
+    <tspan x="48" dy="17">• 0 = UART Download (режим прошивки).</tspan>
+  </text>
+
+  <!-- Картка 3: GPIO2 -->
+  <rect x="38" y="348" width="274" height="115" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <rect x="48" y="357" width="70" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="3"/>
+  <text x="83" y="372" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">GPIO2</text>
+  <text x="126" y="372" font-size="12" font-weight="bold" fill="#1a1a1a">Вимога: Pull-Up (1)</text>
+  <text x="48" y="397" font-size="12" fill="#6b7280">
+    <tspan x="48" dy="0">• Обов'язковий Pull-Up (10 кОм на 3.3V).</tspan>
+    <tspan x="48" dy="17">• 0 = Блокування старту (Boot loop).</tspan>
+    <tspan x="48" dy="17">• Вивід отладки UART1 (74880 baud).</tspan>
+  </text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Матриця станів завантаження -->
+  <rect x="340" y="70" width="595" height="405" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="355" y="93" font-size="14" font-weight="bold" fill="#1a1a1a">Матриця комбінацій сигналів та режимів завантаження</text>
+
+  <!-- Шапка таблиці -->
+  <rect x="355" y="108" width="565" height="30" fill="#d0d7de" rx="4"/>
+  <text x="390" y="128" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO15</text>
+  <text x="460" y="128" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO0</text>
+  <text x="530" y="128" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO2</text>
+  <text x="575" y="128" font-size="12" font-weight="bold" fill="#1a1a1a">Режим (Boot Mode)</text>
+  <text x="730" y="128" font-size="12" font-weight="bold" fill="#1a1a1a">Стан та опис призначення</text>
+
+  <!-- Рядок 1: SPI Flash Boot (Основний режим) -->
+  <rect x="355" y="146" width="565" height="72" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <rect x="373" y="162" width="34" height="24" fill="#27ae60" rx="3"/>
+  <text x="390" y="178" text-anchor="middle" font-size="12" font-weight="bold" fill="white">0</text>
+  <rect x="443" y="162" width="34" height="24" fill="#27ae60" rx="3"/>
+  <text x="460" y="178" text-anchor="middle" font-size="12" font-weight="bold" fill="white">1</text>
+  <rect x="513" y="162" width="34" height="24" fill="#27ae60" rx="3"/>
+  <text x="530" y="178" text-anchor="middle" font-size="12" font-weight="bold" fill="white">1</text>
+  <text x="575" y="170" font-size="13" font-weight="bold" fill="#27ae60">SPI Flash Boot</text>
+  <text x="575" y="188" font-size="12" fill="#6b7280">(Flash Execution)</text>
+  <text x="575" y="204" font-size="12" font-weight="bold" fill="#27ae60">✓ ОСНОВНИЙ РЕЖИМ</text>
+  <text x="730" y="167" font-size="12" fill="#1a1a1a">
+    <tspan x="730" dy="0">Штатний запуск пристрою.</tspan>
+    <tspan x="730" dy="17">ROM-завантажувач передає</tspan>
+    <tspan x="730" dy="17">управління коду з SPI Flash.</tspan>
+  </text>
+
+  <!-- Рядок 2: UART Download (Прошивання) -->
+  <rect x="355" y="226" width="565" height="72" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <rect x="373" y="242" width="34" height="24" fill="#2457d6" rx="3"/>
+  <text x="390" y="258" text-anchor="middle" font-size="12" font-weight="bold" fill="white">0</text>
+  <rect x="443" y="242" width="34" height="24" fill="#2457d6" rx="3"/>
+  <text x="460" y="258" text-anchor="middle" font-size="12" font-weight="bold" fill="white">0</text>
+  <rect x="513" y="242" width="34" height="24" fill="#2457d6" rx="3"/>
+  <text x="530" y="258" text-anchor="middle" font-size="12" font-weight="bold" fill="white">1</text>
+  <text x="575" y="250" font-size="13" font-weight="bold" fill="#2457d6">UART Download</text>
+  <text x="575" y="268" font-size="12" fill="#6b7280">(Flashing Mode)</text>
+  <text x="575" y="284" font-size="12" font-weight="bold" fill="#2457d6">⚡ ПРОШИВАННЯ</text>
+  <text x="730" y="247" font-size="12" fill="#1a1a1a">
+    <tspan x="730" dy="0">Запис прошивки через UART.</tspan>
+    <tspan x="730" dy="17">ROM чекає завантаження коду</tspan>
+    <tspan x="730" dy="17">від esptool через UART0.</tspan>
+  </text>
+
+  <!-- Рядок 3: SDIO Boot (Альтернативний режим) -->
+  <rect x="355" y="306" width="565" height="72" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <rect x="373" y="322" width="34" height="24" fill="#6b7280" rx="3"/>
+  <text x="390" y="338" text-anchor="middle" font-size="12" font-weight="bold" fill="white">1</text>
+  <rect x="443" y="322" width="34" height="24" fill="#f4f6f8" stroke="#d0d7de" rx="3"/>
+  <text x="460" y="338" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">X</text>
+  <rect x="513" y="322" width="34" height="24" fill="#f4f6f8" stroke="#d0d7de" rx="3"/>
+  <text x="530" y="338" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">X</text>
+  <text x="575" y="330" font-size="13" font-weight="bold" fill="#1a1a1a">SDIO Boot</text>
+  <text x="575" y="348" font-size="12" fill="#6b7280">(Slave / SD Mode)</text>
+  <text x="575" y="364" font-size="12" fill="#6b7280">⚙ СПЕЦІАЛЬНИЙ</text>
+  <text x="730" y="327" font-size="12" fill="#1a1a1a">
+    <tspan x="730" dy="0">Завантаження з SDIO.</tspan>
+    <tspan x="730" dy="17">Використовується при роботі</tspan>
+    <tspan x="730" dy="17">ESP8266 як SDIO-копроцесор.</tspan>
+  </text>
+
+  <!-- Рядок 4: Некоректний стан (Boot Loop / Помилка) -->
+  <rect x="355" y="386" width="565" height="72" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <rect x="373" y="402" width="34" height="24" fill="#c0392b" rx="3"/>
+  <text x="390" y="418" text-anchor="middle" font-size="12" font-weight="bold" fill="white">0</text>
+  <rect x="443" y="402" width="34" height="24" fill="#fdecea" stroke="#c0392b" rx="3"/>
+  <text x="460" y="418" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">X</text>
+  <rect x="513" y="402" width="34" height="24" fill="#c0392b" rx="3"/>
+  <text x="530" y="418" text-anchor="middle" font-size="12" font-weight="bold" fill="white">0</text>
+  <text x="575" y="410" font-size="13" font-weight="bold" fill="#c0392b">Некоректний стан</text>
+  <text x="575" y="428" font-size="12" fill="#6b7280">(Invalid / Boot Loop)</text>
+  <text x="575" y="444" font-size="12" font-weight="bold" fill="#c0392b">⛔ ПОМИЛКА СТАРТУ</text>
+  <text x="730" y="407" font-size="12" fill="#1a1a1a">
+    <tspan x="730" dy="0">GPIO2 притягнуто до GND.</tspan>
+    <tspan x="730" dy="17">Спричиняє хаотичний Boot Loop</tspan>
+    <tspan x="730" dy="17">або зависання ROM-коду.</tspan>
+  </text>
+
+  <!-- НИЖНЯ ПАНЕЛЬ: Електричні застереження та рекомендації -->
+  <rect x="25" y="488" width="910" height="50" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <rect x="38" y="497" width="190" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="133" y="517" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Електричні особливості</text>
+  <text x="245" y="508" font-size="12" fill="#1a1a1a">
+    <tspan x="245" dy="0">• Вбудовані підтяжки є слабкими (30–100 кОм), тому потрібні зовнішні резистори 10 кОм для стійкості до завад.</tspan>
+    <tspan x="245" dy="17">• Паразитне живлення через ESD-діоди знеструмленої VDD може порушувати логічні рівні при холодному старті.</tspan>
+  </text>
+</svg>

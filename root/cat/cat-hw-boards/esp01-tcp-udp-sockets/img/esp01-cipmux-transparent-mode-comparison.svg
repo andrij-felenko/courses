@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння режимів CIPMUX=1 та CIPMODE=1 у прошивці ESP-AT</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Багатоз'єднувальний режим з обгортками +IPD проти прямого прозорого тунелювання UART-пакетів</text>
+
+  <!-- Left Panel: CIPMUX=1 -->
+  <rect x="40" y="80" width="430" height="350" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="60" y="108" font-size="14" font-weight="bold" fill="#2457d6">Мультисокетний режим (CIPMUX=1)</text>
+  <text x="60" y="126" font-size="12" fill="#6b7280">Обгортка текстових даних у кадри +IPD,&lt;link_id&gt;,&lt;len&gt;:</text>
+
+  <!-- Step 1 Left -->
+  <rect x="60" y="145" width="390" height="55" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="75" y="167" font-size="13" font-weight="bold" fill="#2457d6">Хост UART:</text>
+  <text x="75" y="187" font-size="12" fill="#1a1a1a">Запит AT+CIPSEND=0,5 → Чекає "&gt;" → "hello"</text>
+
+  <line x1="255" y1="200" x2="255" y2="214" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 2 Left -->
+  <rect x="60" y="220" width="390" height="55" fill="white" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="75" y="242" font-size="13" font-weight="bold" fill="#1a1a1a">Парсер AT-команд ESP8266:</text>
+  <text x="75" y="262" font-size="12" fill="#6b7280">Декодування лінійки id, розміру та перевірка OK</text>
+
+  <line x1="255" y1="275" x2="255" y2="289" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 3 Left -->
+  <rect x="60" y="295" width="390" height="65" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="75" y="317" font-size="13" font-weight="bold" fill="#c0392b">Формат прийому даних (+IPD):</text>
+  <text x="75" y="337" font-size="12" fill="#1a1a1a">Кадр: +IPD,0,5:hello + відповідь SEND OK</text>
+  <text x="75" y="353" font-size="12" fill="#c0392b">Високий оверхед: ~40% байт — це текстові заголовки</text>
+
+  <!-- Badge Left -->
+  <rect x="60" y="375" width="390" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="255" y="400" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Підходить для 2–5 паралельних сокетів із низьким трафіком</text>
+
+  <!-- Right Panel: CIPMODE=1 -->
+  <rect x="490" y="80" width="430" height="350" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="510" y="108" font-size="14" font-weight="bold" fill="#27ae60">Прозорий тунель (CIPMODE=1)</text>
+  <text x="510" y="126" font-size="12" fill="#6b7280">Прямий безвтратний потік байтів без текстових префіксів</text>
+
+  <!-- Step 1 Right -->
+  <rect x="510" y="145" width="390" height="55" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="525" y="167" font-size="13" font-weight="bold" fill="#27ae60">Безперервний потік UART:</text>
+  <text x="525" y="187" font-size="12" fill="#1a1a1a">Сирі байти: [0x48, 0x65, 0x6C, 0x6C, 0x6F, ...]</text>
+
+  <line x1="705" y1="200" x2="705" y2="214" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Step 2 Right -->
+  <rect x="510" y="220" width="390" height="55" fill="white" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="525" y="242" font-size="13" font-weight="bold" fill="#1a1a1a">Пряма трансляція в LwIP pbuf:</text>
+  <text x="525" y="262" font-size="12" fill="#6b7280">Обхід парсера AT + апаратний контроль RTS/CTS</text>
+
+  <line x1="705" y1="275" x2="705" y2="289" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Step 3 Right -->
+  <rect x="510" y="295" width="390" height="65" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="525" y="317" font-size="13" font-weight="bold" fill="#27ae60">Прямий сокетний потік:</text>
+  <text x="525" y="337" font-size="12" fill="#1a1a1a">100% пропускної здатності шини без оверхеду</text>
+  <text x="525" y="353" font-size="12" fill="#27ae60">Вихід із режиму: спецпослідовність "+++" з паузою</text>
+
+  <!-- Badge Right -->
+  <rect x="510" y="375" width="390" height="40" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="705" y="400" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Ідеально для одного високошвидкісного потокового сокета</text>
+</svg>

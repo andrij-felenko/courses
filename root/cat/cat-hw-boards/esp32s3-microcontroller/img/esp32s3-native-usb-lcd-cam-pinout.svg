@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схемотехнічна розпіновка Native USB та периферії LCD_CAM в ESP32-S3</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Призначення виводів GPIO19/GPIO20 під USB CDC/JTAG та ліній паралельної шини LCD_CAM</text>
+
+  <!-- Panel 1: Native USB Interface (Left Area) -->
+  <rect x="30" y="90" width="280" height="430" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="170" y="118" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Нативний USB CDC/JTAG</text>
+
+  <rect x="45" y="140" width="250" height="150" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="170" y="165" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Роз'єм USB Type-C / PHY</text>
+  <text x="55" y="190" font-size="12" fill="#2457d6">GPIO19: USB D- / JTAG TDO</text>
+  <text x="55" y="214" font-size="12" fill="#2457d6">GPIO20: USB D+ / JTAG TDI</text>
+  <text x="55" y="238" font-size="12" fill="#1a1a1a">VBUS (5.0 В) -> LDO 3.3V</text>
+  <text x="55" y="262" font-size="12" fill="#6b7280">Підтяжка CC1/CC2 (5.1 кОм до GND)</text>
+
+  <rect x="45" y="310" width="250" height="190" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="170" y="335" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Функціональні можливості</text>
+  <text x="55" y="360" font-size="12" fill="#1a1a1a">Вбудований USB PHY (без CP2102)</text>
+  <text x="55" y="384" font-size="12" fill="#27ae60">Апаратне JTAG-відлагодження</text>
+  <text x="55" y="408" font-size="12" fill="#1a1a1a">Швидкість: Full-Speed 12 Мбіт/с</text>
+  <text x="55" y="432" font-size="12" fill="#2457d6">Віртуальний послідовний порт CDC</text>
+  <text x="55" y="456" font-size="12" fill="#6b7280">Автоматичне DFU-прошивання</text>
+
+  <!-- Panel 2: ESP32-S3 SoC (Center Area) -->
+  <rect x="340" y="90" width="280" height="430" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="480" y="118" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP32-S3 SoC (QFN56) / IO MUX</text>
+
+  <!-- USB Pins Box -->
+  <rect x="355" y="140" width="250" height="90" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="480" y="163" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Входи/виходи USB PHY</text>
+  <text x="365" y="186" font-size="12" fill="#2457d6">GPIO19 -> D- (Пін 23 QFN56)</text>
+  <text x="365" y="210" font-size="12" fill="#2457d6">GPIO20 -> D+ (Пін 24 QFN56)</text>
+
+  <!-- LCD_CAM Pins Box -->
+  <rect x="355" y="245" width="250" height="150" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="480" y="268" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Шина LCD_CAM контролера</text>
+  <text x="365" y="291" font-size="12" fill="#1a1a1a">GPIO4..11: Дані Y2..Y9 / DB0..7</text>
+  <text x="365" y="315" font-size="12" fill="#1a1a1a">GPIO12: PCLK (Піксельне тактування)</text>
+  <text x="365" y="339" font-size="12" fill="#1a1a1a">GPIO13: VSYNC / GPIO14: HREF/DE</text>
+  <text x="365" y="363" font-size="12" fill="#27ae60">GPIO15: XCLK / LCD WR (Генератор)</text>
+
+  <!-- Conflict Warning Box: Octal SPI -->
+  <rect x="355" y="410" width="250" height="95" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="480" y="433" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">КОНФЛІКТ BUS (OCTAL SPI):</text>
+  <text x="365" y="456" font-size="12" fill="#c0392b">GPIO33..37 вилучені при Octal!</text>
+  <text x="365" y="480" font-size="12" fill="#6b7280">Використовуються для PSRAM/Flash</text>
+
+  <!-- Panel 3: LCD_CAM Peripheral Interface (Right Area) -->
+  <rect x="650" y="90" width="280" height="430" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <text x="790" y="118" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Паралельний блок LCD_CAM</text>
+
+  <!-- Camera Mode DVP -->
+  <rect x="665" y="140" width="250" height="150" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="790" y="165" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Режим камери (DVP Input)</text>
+  <text x="675" y="190" font-size="12" fill="#1a1a1a">Вхід 8-бітного відеопотоку</text>
+  <text x="675" y="214" font-size="12" fill="#2457d6">Шина Y2..Y9 (GPIO4..GPIO11)</text>
+  <text x="675" y="238" font-size="12" fill="#1a1a1a">Строби: PCLK, VSYNC, HREF</text>
+  <text x="675" y="262" font-size="12" fill="#6b7280">Підтримка OV2640 / OV5640</text>
+
+  <!-- Display Mode 8080 LCD -->
+  <rect x="665" y="310" width="250" height="190" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="790" y="335" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Режим дисплея (8080 Output)</text>
+  <text x="675" y="360" font-size="12" fill="#1a1a1a">Вихід 8-бітної шини 8080 LCD</text>
+  <text x="675" y="384" font-size="12" fill="#2457d6">Лінії даних DB0..DB7 (GPIO4..11)</text>
+  <text x="675" y="408" font-size="12" fill="#1a1a1a">Сигнали керування: WR, RS, CS</text>
+  <text x="675" y="432" font-size="12" fill="#27ae60">Апаратний DMA прискорювач</text>
+  <text x="675" y="456" font-size="12" fill="#6b7280">Швидкість виводу до 80 FPS</text>
+
+  <!-- Connecting Arrows -->
+  <!-- USB Panel -> SoC USB Pins -->
+  <line x1="295" y1="185" x2="355" y2="185" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- SoC LCD_CAM Pins -> Camera Mode -->
+  <line x1="605" y1="280" x2="665" y2="215" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- SoC LCD_CAM Pins -> Display Mode -->
+  <line x1="605" y1="340" x2="665" y2="385" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+</svg>

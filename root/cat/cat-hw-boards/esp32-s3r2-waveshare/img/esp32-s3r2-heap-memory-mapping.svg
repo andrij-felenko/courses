@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Мапування віртуальної пам'яті MMU та розподіл кучі heap_caps в ESP32-S3R2</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Адресне відображення MMU поділяє пам'ять на внутрішню DRAM та зовнішню PSRAM для кадрових буферів</text>
+
+  <!-- Panel 1: Physical Memory Hardware -->
+  <rect x="40" y="90" width="250" height="330" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="50" y="102" width="230" height="28" fill="#eaf0fd" rx="4"/>
+  <text x="165" y="121" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. Фізичні носії пам'яті</text>
+
+  <rect x="52" y="145" width="226" height="110" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="165" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Внутрішня SRAM (DRAM)</text>
+  <text x="165" y="188" text-anchor="middle" font-size="12" fill="#1a1a1a">Обсяг: 520 КБ (On-Chip)</text>
+  <text x="165" y="208" text-anchor="middle" font-size="12" fill="#6b7280">Високошвидкісний доступ</text>
+  <text x="165" y="238" text-anchor="middle" font-size="12" fill="#6b7280">Підтримка DMA-трансферів</text>
+
+  <rect x="52" y="265" width="226" height="140" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="165" y="288" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Зовнішня SiP PSRAM</text>
+  <text x="165" y="308" text-anchor="middle" font-size="12" fill="#1a1a1a">Обсяг: 2 МБ (ESP32-S3R2)</text>
+  <text x="165" y="328" text-anchor="middle" font-size="12" fill="#6b7280">Шина Octal SPI (8 біт DDR)</text>
+  <text x="165" y="350" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Кадрові буфери camera_fb_t</text>
+  <text x="165" y="385" text-anchor="middle" font-size="12" fill="#6b7280">Збереження великих масивів</text>
+
+  <!-- Arrows 1 -> 2 -->
+  <path d="M 290,200 L 330,200" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <path d="M 290,335 L 330,335" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+
+  <!-- Panel 2: MMU Controller & L1 Cache -->
+  <rect x="330" y="90" width="270" height="330" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="340" y="102" width="250" height="28" fill="#eaf0fd" rx="4"/>
+  <text x="465" y="121" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. Контролер MMU та L1 Кеш</text>
+
+  <rect x="345" y="145" width="240" height="110" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="465" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Таблиця сторінок MMU</text>
+  <text x="465" y="188" text-anchor="middle" font-size="12" fill="#1a1a1a">Сторінки розміром 64 КБ</text>
+  <text x="465" y="208" text-anchor="middle" font-size="12" fill="#6b7280">Трансляція фізичних адрес</text>
+  <text x="465" y="238" text-anchor="middle" font-size="12" fill="#27ae60">Вікно PSRAM: 0x3D000000</text>
+
+  <path d="M 465,255 L 465,275" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+
+  <rect x="345" y="275" width="240" height="130" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="465" y="298" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Двоканальний L1 Кеш (32 КБ)</text>
+  <text x="465" y="318" text-anchor="middle" font-size="12" fill="#6b7280">Кеш-лінії по 16 / 32 байти</text>
+  <text x="465" y="338" text-anchor="middle" font-size="12" fill="#6b7280">Авто-синхронізація PSRAM</text>
+  <text x="465" y="358" text-anchor="middle" font-size="12" fill="#2457d6">Прозорий доступ для CPU</text>
+  <text x="465" y="390" text-anchor="middle" font-size="12" fill="#6b7280">Мінімізація затримок шини</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M 600,260 L 640,260" stroke="#2457d6" stroke-width="2.5" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- Panel 3: Heap Caps Allocator -->
+  <rect x="640" y="90" width="280" height="330" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <rect x="650" y="102" width="260" height="28" fill="#27ae60" rx="4"/>
+  <text x="780" y="121" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">3. Розподільник heap_caps</text>
+
+  <rect x="655" y="145" width="250" height="110" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="780" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">heap_caps_malloc(..., INTERNAL)</text>
+  <text x="780" y="188" text-anchor="middle" font-size="12" fill="#1a1a1a">Призначення: MALLOC_CAP_INTERNAL</text>
+  <text x="780" y="208" text-anchor="middle" font-size="12" fill="#6b7280">Виділення з внутрішньої DRAM</text>
+  <text x="780" y="238" text-anchor="middle" font-size="12" fill="#6b7280">Стек задач, DMA стріми</text>
+
+  <rect x="655" y="265" width="250" height="140" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="780" y="288" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">heap_caps_malloc(..., SPIRAM)</text>
+  <text x="780" y="308" text-anchor="middle" font-size="12" fill="#1a1a1a">Призначення: MALLOC_CAP_SPIRAM</text>
+  <text x="780" y="328" text-anchor="middle" font-size="12" fill="#27ae60">Виділення із зовнішньої PSRAM</text>
+  <text x="780" y="350" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Кадрові буфери (camera_fb_t)</text>
+  <text x="780" y="385" text-anchor="middle" font-size="12" fill="#6b7280">Захист DRAM від переповнення</text>
+
+  <!-- Bottom Banner -->
+  <rect x="40" y="435" width="880" height="45" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <rect x="55" y="443" width="175" height="28" fill="#2457d6" rx="4"/>
+  <text x="142" y="462" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">РЕЗУЛЬТАТ МАПУВАННЯ</text>
+  <text x="245" y="453" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">Явне виділення кадрових буферів у PSRAM через MALLOC_CAP_SPIRAM зберігає критичну</text>
+  <text x="245" y="471" text-anchor="start" font-size="12" fill="#1a1a1a">внутрішню DRAM для швидкодіючих стеків задач та запобігає збоям пам'яті в ESP32-S3R2.</text>
+</svg>

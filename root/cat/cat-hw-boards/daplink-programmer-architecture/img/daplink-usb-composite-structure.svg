@@ -1,0 +1,132 @@
+<svg viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Структура USB Composite пристрою DAPLink</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Розподіл логічних інтерфейсів та USB Endpoints між функціями зневадження, COM-порту й накопичувача</text>
+
+  <!-- Host PC Container -->
+  <rect x="30" y="85" width="150" height="365" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="105" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Хост-комп'ютер (ПК)</text>
+  <text x="105" y="126" text-anchor="middle" font-size="12" fill="#6b7280">(USB Host Driver)</text>
+
+  <!-- Host Applications -->
+  <!-- App 1: File Manager -->
+  <rect x="40" y="160" width="130" height="55" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="105" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Файловий менеджер</text>
+  <text x="105" y="199" text-anchor="middle" font-size="12" fill="#6b7280">Drag-and-Drop (.bin)</text>
+
+  <!-- App 2: Terminal -->
+  <rect x="40" y="242.5" width="130" height="55" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="105" y="264.5" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Термінал (COM-порт)</text>
+  <text x="105" y="281.5" text-anchor="middle" font-size="12" fill="#6b7280">UART Друк / Ввід</text>
+
+  <!-- App 3: Debugger -->
+  <rect x="40" y="325" width="130" height="55" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="105" y="347" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">OpenOCD / pyOCD</text>
+  <text x="105" y="364" text-anchor="middle" font-size="12" fill="#6b7280">Команди зневадження</text>
+
+  <!-- USB Cable Connection Indicators -->
+  <text x="212.5" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Шина USB</text>
+  
+  <text x="212.5" y="177" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">MSD</text>
+  <line x1="170" y1="187.5" x2="255" y2="187.5" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+
+  <text x="212.5" y="260" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">CDC</text>
+  <line x1="170" y1="270" x2="255" y2="270" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+
+  <text x="212.5" y="342" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">HID</text>
+  <line x1="170" y1="352.5" x2="255" y2="352.5" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+
+  <!-- DAPLink Outer Container -->
+  <rect x="230" y="85" width="700" height="365" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="580" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Програматор DAPLink (USB Composite Device)</text>
+
+  <!-- Column 1 inside DAPLink: USB Endpoints -->
+  <rect x="245" y="130" width="195" height="255" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="342.5" y="148" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Логічні інтерфейси USB</text>
+
+  <!-- Box 1.1: MSD Interface -->
+  <rect x="255" y="160" width="175" height="55" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="342.5" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">MSD (Mass Storage)</text>
+  <text x="342.5" y="199" text-anchor="middle" font-size="12" fill="#6b7280">EP Bulk IN / Bulk OUT</text>
+
+  <!-- Box 1.2: CDC Interface -->
+  <rect x="255" y="242.5" width="175" height="55" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="342.5" y="264.5" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">CDC (Virtual COM Port)</text>
+  <text x="342.5" y="281.5" text-anchor="middle" font-size="12" fill="#6b7280">EP Bulk IN/OUT + Comm IN</text>
+
+  <!-- Box 1.3: CMSIS-DAP HID Interface -->
+  <rect x="255" y="325" width="175" height="55" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="342.5" y="347" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">CMSIS-DAP (HID)</text>
+  <text x="342.5" y="364" text-anchor="middle" font-size="12" fill="#6b7280">EP Interrupt IN / OUT</text>
+
+  <!-- Connections Col 1 -> Col 2 -->
+  <line x1="430" y1="187.5" x2="485" y2="187.5" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+  <line x1="430" y1="270" x2="485" y2="270" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+  <line x1="430" y1="352.5" x2="485" y2="352.5" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+
+  <!-- Column 2 inside DAPLink: Internal Firmware Modules -->
+  <rect x="475" y="130" width="195" height="255" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="572.5" y="148" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Внутрішні модулі DAPLink</text>
+
+  <!-- Box 2.1: FAT VFS -->
+  <rect x="485" y="160" width="175" height="55" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="572.5" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Віртуальна ФС (FAT)</text>
+  <text x="572.5" y="199" text-anchor="middle" font-size="12" fill="#6b7280">Декодер binary-файлів</text>
+
+  <!-- Box 2.2: UART Buffer -->
+  <rect x="485" y="242.5" width="175" height="55" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="572.5" y="264.5" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Буфер CDC / UART</text>
+  <text x="572.5" y="281.5" text-anchor="middle" font-size="12" fill="#6b7280">Міст послідовних даних</text>
+
+  <!-- Box 2.3: CMSIS-DAP Engine -->
+  <rect x="485" y="325" width="175" height="55" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="572.5" y="347" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Двигун CMSIS-DAP</text>
+  <text x="572.5" y="364" text-anchor="middle" font-size="12" fill="#6b7280">Трансляція команд SWD</text>
+
+  <!-- Connections Col 2 -> Col 3 -->
+  <line x1="660" y1="187.5" x2="715" y2="187.5" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="660" y1="270" x2="715" y2="270" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green-start)" marker-end="url(#arr-green)"/>
+  <line x1="660" y1="352.5" x2="715" y2="352.5" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green-start)" marker-end="url(#arr-green)"/>
+
+  <!-- Column 3 inside DAPLink: Hardware Interfaces -->
+  <rect x="705" y="130" width="210" height="255" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="810" y="148" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Апаратні інтерфейси</text>
+
+  <!-- Box 3.1: Flash Programmer -->
+  <rect x="715" y="160" width="190" height="55" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="810" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Flash-програматор</text>
+  <text x="810" y="199" text-anchor="middle" font-size="12" fill="#6b7280">Прямий запис у Flash MC</text>
+
+  <!-- Box 3.2: UART Physical Pins -->
+  <rect x="715" y="242.5" width="190" height="55" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="810" y="264.5" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">UART (TXD / RXD)</text>
+  <text x="810" y="281.5" text-anchor="middle" font-size="12" fill="#6b7280">Апаратні лінії UART</text>
+
+  <!-- Box 3.3: SWD / JTAG Lines -->
+  <rect x="715" y="325" width="190" height="55" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="810" y="347" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">SWD / JTAG Порт</text>
+  <text x="810" y="364" text-anchor="middle" font-size="12" fill="#6b7280">SWCLK, SWDIO, nRESET</text>
+
+  <!-- Summary Footer Note inside DAPLink Container -->
+  <rect x="245" y="398" width="670" height="38" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="580" y="421" text-anchor="middle" font-size="12" fill="#6b7280">Кожен логічний інтерфейс має власні USB Endpoints і обробляється незалежно в мікроконтролері DAPLink</text>
+</svg>

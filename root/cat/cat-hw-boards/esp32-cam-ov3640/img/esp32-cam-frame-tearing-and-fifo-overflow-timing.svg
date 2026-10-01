@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова діаграма відмов: Frame Tearing та переповнення FIFO в ESP32-CAM</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Неузгодженість шинного переміщення DMA до PSRAM викликає змішування кадрів та втрату пікселів</text>
+
+  <!-- Панель 1: Сценарій Frame Tearing -->
+  <rect x="30" y="75" width="900" height="195" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="45" y="96" font-size="14" font-weight="bold" fill="#1a1a1a">1. Сценарій Frame Tearing (Однобуферна PSRAM без подвійного замикання)</text>
+
+  <!-- Часова шкала 1: DVP VSYNC -->
+  <text x="45" y="133" font-size="12" font-weight="bold" fill="#1a1a1a">DVP VSYNC / Запис камери:</text>
+  <rect x="230" y="118" width="310" height="22" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="385" y="133" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Запис кадру N (DVP DMA)</text>
+
+  <rect x="545" y="118" width="310" height="22" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="700" y="133" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Перезапис кадру N+1 у той самий буфер</text>
+
+  <!-- Часова шкала 2: Зчитування CPU -->
+  <text x="45" y="173" font-size="12" font-weight="bold" fill="#1a1a1a">Зчитування CPU / Вивід:</text>
+  <rect x="230" y="158" width="310" height="22" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="385" y="173" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Зчитування CPU (Змішування кадру N та N+1)</text>
+
+  <!-- Лінія Tearing -->
+  <line x1="545" y1="110" x2="545" y2="190" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4"/>
+  <rect x="440" y="198" width="210" height="24" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="545" y="214" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Лінія розриву (Tearing Line)</text>
+
+  <text x="45" y="250" font-size="12" fill="#6b7280">Верхня частина матриці виводиться з кадру N, а нижня — вже перевизначена новим кадром N+1.</text>
+
+  <!-- Панель 2: Сценарій FIFO Overflow -->
+  <rect x="30" y="285" width="900" height="210" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="45" y="306" font-size="14" font-weight="bold" fill="#1a1a1a">2. Сценарій FIFO Overflow (Переповнення апаратного буфера DMA)</text>
+
+  <!-- Схема блоків Panel 2 -->
+  <!-- Вхідний DVP -->
+  <rect x="50" y="325" width="210" height="65" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="155" y="347" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Паралельний DVP порт</text>
+  <text x="155" y="367" text-anchor="middle" font-size="12" fill="#2457d6">PCLK = 20 МГц (20 МБ/с)</text>
+
+  <!-- Стрілка 1 -->
+  <line x1="260" y1="357" x2="320" y2="357" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="290" y="350" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">DVP</text>
+
+  <!-- FIFO Буфер -->
+  <rect x="320" y="325" width="220" height="65" fill="#fdecea" stroke="#c0392b" stroke-width="2" rx="4"/>
+  <text x="430" y="345" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">FIFO буфер I2S/LCD_CAM</text>
+  <text x="430" y="363" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Заповнення 100% (OVERFLOW)</text>
+  <text x="430" y="379" text-anchor="middle" font-size="12" fill="#6b7280">Втрата байтів кадру</text>
+
+  <!-- Стрілка 2 (Затор) -->
+  <line x1="540" y1="357" x2="610" y2="357" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr-red)"/>
+  <rect x="550" y="344" width="50" height="18" fill="#ffffff" stroke="#c0392b" rx="2"/>
+  <text x="575" y="357" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Затор</text>
+
+  <!-- PSRAM -->
+  <rect x="610" y="325" width="280" height="65" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="750" y="347" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Конфлікт шини PSRAM</text>
+  <text x="750" y="367" text-anchor="middle" font-size="12" fill="#6b7280">CPU або Flash блокує арбітраж шини</text>
+
+  <!-- Нижня рамка з висновком -->
+  <rect x="50" y="410" width="840" height="65" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="65" y="433" font-size="12" font-weight="bold" fill="#c0392b">Причина відмови:</text>
+  <text x="180" y="433" font-size="12" fill="#1a1a1a">Затримка зливу DMA-даних у PSRAM спричиняє скидання поточного кадру та помилку VSYNC.</text>
+  <text x="65" y="458" font-size="12" font-weight="bold" fill="#27ae60">Апаратний розв'язок:</text>
+  <text x="180" y="458" font-size="12" fill="#1a1a1a">Подвійна буферизація (fb_count=2) у PSRAM + підвищення пріоритету DMA-дескрипторів.</text>
+</svg>

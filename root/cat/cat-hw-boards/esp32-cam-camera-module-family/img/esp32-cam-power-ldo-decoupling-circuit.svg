@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема роздільного триканального живлення сенсора камери (OV2640)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Фільтрація та розв'язка ліній AVDD, DVDD і DOVDD запобігає завадам та шуму кадру</text>
+
+  <!-- ПАНЕЛЬ 1: ЛІВА (Вхідне живлення 5V та шина 3.3V) -->
+  <rect x="35" y="75" width="220" height="460" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="145" y="98" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідне живлення та шина 3.3V</text>
+
+  <!-- Блок 5V -->
+  <rect x="55" y="115" width="180" height="48" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="145" y="135" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхід VEXT / 5V</text>
+  <text x="145" y="152" font-size="12" fill="#6b7280" text-anchor="middle">(USB / Зовнішнє 5V)</text>
+
+  <!-- Стрілка від 5V до AMS1117 -->
+  <line x1="145" y1="163" x2="145" y2="183" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок AMS1117-3.3V -->
+  <rect x="55" y="185" width="180" height="50" fill="#ffffff" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <text x="145" y="206" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LDO AMS1117-3.3</text>
+  <text x="145" y="224" font-size="12" fill="#6b7280" text-anchor="middle">Головний стабілізатор</text>
+
+  <!-- Стрілка від AMS1117 до шини 3.3V -->
+  <line x1="145" y1="235" x2="145" y2="255" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок шини 3.3V -->
+  <rect x="55" y="257" width="180" height="40" fill="#2457d6" rx="6"/>
+  <text x="145" y="282" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Шина 3.3V (VCC_3V3)</text>
+
+  <!-- Проблемний блок (Джерело завад Wi-Fi) -->
+  <rect x="55" y="315" width="180" height="205" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="145" y="338" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Джерело завад</text>
+  <text x="145" y="360" font-size="12" fill="#1a1a1a" text-anchor="middle">ESP32 &amp; Wi-Fi Модуль</text>
+  <text x="145" y="382" font-size="12" fill="#c0392b" text-anchor="middle">Імпульси струму до 500мА</text>
+  <text x="145" y="404" font-size="12" fill="#6b7280" text-anchor="middle">при Wi-Fi передачі</text>
+  <text x="145" y="432" font-size="12" fill="#c0392b" text-anchor="middle">Просідання напруги</text>
+  <text x="145" y="454" font-size="12" fill="#c0392b" text-anchor="middle">та HF-шуми на 3.3V</text>
+  <text x="145" y="490" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Вимога: Ізоляція!</text>
+
+
+  <!-- ПАНЕЛЬ 2: ЦЕНТРАЛЬНА (Триканальна система фільтрації) -->
+  <rect x="275" y="75" width="400" height="460" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="475" y="98" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Триканальна система фільтрації живлення</text>
+
+  <!-- Канал 1: AVDD (2.8V) - Аналогове живлення -->
+  <rect x="290" y="115" width="370" height="120" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <rect x="300" y="123" width="180" height="22" fill="#e9f7ef" rx="4"/>
+  <text x="390" y="138" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Канал AVDD (2.8V) — Аналог</text>
+
+  <rect x="300" y="153" width="95" height="68" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="347" y="180" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LDO 2.8V</text>
+  <text x="347" y="198" font-size="12" fill="#6b7280" text-anchor="middle">(XC6206)</text>
+
+  <line x1="395" y1="187" x2="415" y2="187" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <rect x="420" y="153" width="125" height="68" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="482" y="174" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LC-фільтр</text>
+  <text x="482" y="192" font-size="12" fill="#2457d6" text-anchor="middle">FB1 + C1 (10µF)</text>
+  <text x="482" y="208" font-size="12" fill="#6b7280" text-anchor="middle">+ C2 (0.1µF)</text>
+
+  <line x1="545" y1="187" x2="558" y2="187" stroke="#27ae60" stroke-width="2"/>
+
+  <rect x="560" y="172" width="90" height="30" fill="#27ae60" rx="4"/>
+  <text x="605" y="191" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">AVDD 2.8V</text>
+
+  <!-- Канал 2: DVDD (1.2V) - Цифрове ядро -->
+  <rect x="290" y="250" width="370" height="120" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <rect x="300" y="258" width="180" height="22" fill="#eaf0fd" rx="4"/>
+  <text x="390" y="273" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Канал DVDD (1.2V) — Ядро</text>
+
+  <rect x="300" y="288" width="95" height="68" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="347" y="315" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LDO 1.2V</text>
+  <text x="347" y="333" font-size="12" fill="#6b7280" text-anchor="middle">(RT9193)</text>
+
+  <line x1="395" y1="322" x2="415" y2="322" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="420" y="288" width="125" height="68" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="482" y="309" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LC-фільтр</text>
+  <text x="482" y="327" font-size="12" fill="#2457d6" text-anchor="middle">FB2 + C3 (10µF)</text>
+  <text x="482" y="343" font-size="12" fill="#6b7280" text-anchor="middle">+ C4 (0.1µF)</text>
+
+  <line x1="545" y1="322" x2="558" y2="322" stroke="#2457d6" stroke-width="2"/>
+
+  <rect x="560" y="307" width="90" height="30" fill="#2457d6" rx="4"/>
+  <text x="605" y="326" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">DVDD 1.2V</text>
+
+  <!-- Канал 3: DOVDD (2.8V/3.3V) - Логіка I/O -->
+  <rect x="290" y="385" width="370" height="120" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" rx="6"/>
+  <rect x="300" y="393" width="195" height="22" fill="#f4f6f8" rx="4"/>
+  <text x="397" y="408" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Канал DOVDD (2.8V/3.3V) — I/O</text>
+
+  <rect x="300" y="423" width="95" height="68" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="347" y="450" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LDO 2.8V/3.3V</text>
+  <text x="347" y="468" font-size="12" fill="#6b7280" text-anchor="middle">Лінія I/O</text>
+
+  <line x1="395" y1="457" x2="415" y2="457" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <rect x="420" y="423" width="125" height="68" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="482" y="448" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шунтування</text>
+  <text x="482" y="466" font-size="12" fill="#2457d6" text-anchor="middle">C5 (10µF) + C6 (0.1µF)</text>
+
+  <line x1="545" y1="457" x2="558" y2="457" stroke="#6b7280" stroke-width="2"/>
+
+  <rect x="560" y="442" width="90" height="30" fill="#6b7280" rx="4"/>
+  <text x="605" y="461" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">DOVDD 2.8V</text>
+
+
+  <!-- З'ЄДНАЛЬНІ ЛІНІЇ ВІД 3.3V ДО LDO СТАБІЛІЗАТОРІВ -->
+  <path d="M 235 277 L 260 277 L 260 187 L 295 187" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <path d="M 260 277 L 260 322 L 295 322" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <path d="M 260 322 L 260 457 L 295 457" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+
+
+  <!-- ПАНЕЛЬ 3: ПРАВА (Сенсор камери OV2640) -->
+  <rect x="695" y="75" width="230" height="460" fill="#f4f6f8" stroke="#2457d6" stroke-width="2" rx="8"/>
+  <text x="810" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сенсор камери OV2640</text>
+
+  <!-- Корпус чипа сенсора -->
+  <rect x="710" y="115" width="200" height="395" fill="#ffffff" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <rect x="710" y="115" width="200" height="35" fill="#eaf0fd" rx="4"/>
+  <text x="810" y="137" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">CMOS-матриця OV2640</text>
+
+  <!-- Вивід 1: AVDD -->
+  <rect x="720" y="172" width="65" height="30" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="752" y="191" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">AVDD</text>
+  <text x="792" y="184" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Аналогова матриця</text>
+  <text x="792" y="200" font-size="12" fill="#6b7280" text-anchor="start">і АЦП сенсора</text>
+
+  <!-- Стрілка від Каналу 1 до AVDD -->
+  <line x1="650" y1="187" x2="715" y2="187" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Вивід 2: DVDD -->
+  <rect x="720" y="307" width="65" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="752" y="326" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DVDD</text>
+  <text x="792" y="319" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Цифрове ядро ISP</text>
+  <text x="792" y="335" font-size="12" fill="#6b7280" text-anchor="start">та JPEG-кодувальник</text>
+
+  <!-- Стрілка від Каналу 2 до DVDD -->
+  <line x1="650" y1="322" x2="715" y2="322" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Вивід 3: DOVDD -->
+  <rect x="720" y="442" width="65" height="30" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5" rx="4"/>
+  <text x="752" y="461" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DOVDD</text>
+  <text x="792" y="454" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Логіка буферів</text>
+  <text x="792" y="470" font-size="12" fill="#6b7280" text-anchor="start">шин DVP та SCCB</text>
+
+  <!-- Стрілка від Каналу 3 до DOVDD -->
+  <line x1="650" y1="457" x2="715" y2="457" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+</svg>

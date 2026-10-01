@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="4.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="4.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="4.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Шинна матриця AHB/APB та фоновий доступ Wi-Fi DMA в ESP8266</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Арбітраж шини AHB між ядром Xtensa L106 та Wi-Fi DMA без зупинки виконання інструкцій</text>
+
+  <!-- Master 1: Xtensa L106 CPU -->
+  <rect x="60" y="95" width="220" height="65" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="170" y="120" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Xtensa L106 CPU</text>
+  <text x="170" y="142" text-anchor="middle" font-size="11" fill="#6b7280">AHB Master #1 (Вибірка коду)</text>
+
+  <!-- Master 2: Wi-Fi DMA Controller -->
+  <rect x="680" y="95" width="220" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="790" y="120" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Wi-Fi DMA Controller</text>
+  <text x="790" y="142" text-anchor="middle" font-size="11" fill="#6b7280">AHB Master #2 (Потік пакетів)</text>
+
+  <!-- Master Interconnect Lines -->
+  <line x1="170" y1="160" x2="170" y2="190" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="180" y="178" font-size="11" font-weight="bold" fill="#2457d6">Запит CPU</text>
+
+  <line x1="790" y1="160" x2="790" y2="190" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="780" y="178" text-anchor="end" font-size="11" font-weight="bold" fill="#27ae60">Потік DMA</text>
+
+  <!-- Central AHB Bus Matrix -->
+  <rect x="60" y="190" width="840" height="60" rx="6" fill="#2457d6" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="215" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">Матриця системних шин AHB (32-bit @ 80 MHz / 160 MHz)</text>
+  <text x="480" y="235" text-anchor="middle" font-size="11" fill="#eaf0fd">Апаратний арбітр пріоритетів та комутатор каналів DMA / CPU</text>
+
+  <!-- Slave Interconnect Lines -->
+  <line x1="180" y1="250" x2="180" y2="290" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="190" y="273" font-size="11" font-weight="bold" fill="#27ae60">Канал DMA / DRAM</text>
+
+  <line x1="480" y1="250" x2="480" y2="290" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="490" y="273" font-size="11" font-weight="bold" fill="#2457d6">Вибірність IROM</text>
+
+  <line x1="780" y1="250" x2="780" y2="290" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="790" y="273" font-size="11" font-weight="bold" fill="#1a1a1a">Шина APB</text>
+
+  <!-- Slave 1: Internal SRAM -->
+  <rect x="60" y="290" width="240" height="145" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="180" y="315" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Внутрішня SRAM (96 KB)</text>
+  <text x="180" y="340" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">DRAM: Буфери кадрів Wi-Fi</text>
+  <text x="180" y="358" text-anchor="middle" font-size="11" fill="#27ae60">Прямий доступ DMA (RX/TX)</text>
+  <text x="180" y="385" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">IRAM: Обробники переривань</text>
+  <text x="180" y="403" text-anchor="middle" font-size="11" fill="#2457d6">Швидке виконання коду CPU</text>
+
+  <!-- Slave 2: SPI Flash Controller -->
+  <rect x="360" y="290" width="240" height="145" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="315" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Контролер SPI Flash</text>
+  <text x="480" y="340" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">ICache (Кеш 32 KB)</text>
+  <text x="480" y="358" text-anchor="middle" font-size="11" fill="#2457d6">Вікно MMU 0x40200000</text>
+  <text x="480" y="385" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Зовнішня SPI Flash</text>
+  <text x="480" y="403" text-anchor="middle" font-size="11" fill="#6b7280">Вибірність коду IROM</text>
+
+  <!-- Slave 3: APB Bus Bridge -->
+  <rect x="660" y="290" width="240" height="145" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="780" y="315" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Мост шини APB</text>
+  <text x="780" y="340" text-anchor="middle" font-size="11" fill="#6b7280">GPIO &amp; Контролер PIN MUX</text>
+  <text x="780" y="358" text-anchor="middle" font-size="11" fill="#6b7280">Інтерфейси UART0 / UART1</text>
+  <text x="780" y="385" text-anchor="middle" font-size="11" fill="#6b7280">Шини HSPI / I2C / I2S</text>
+  <text x="780" y="403" text-anchor="middle" font-size="11" fill="#6b7280">Таймери, WDT &amp; ADC</text>
+</svg>

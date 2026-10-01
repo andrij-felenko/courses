@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Еволюція корпусування та топології пам'яті в модулях ESP32-S3</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Перехід від дискретних чипів Flash/PSRAM на субстраті модуля до інтегрованих чипів SiP (System-in-Package)</text>
+
+  <!-- Panel 1: WROOM-1 / WROOM-2 -->
+  <rect x="40" y="88" width="240" height="360" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <rect x="48" y="98" width="224" height="28" fill="#eaf0fd" rx="4"/>
+  <text x="160" y="117" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. WROOM-1 / WROOM-2</text>
+  <text x="160" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Класичний модуль (18×25.5 мм)</text>
+  <text x="160" y="160" text-anchor="middle" font-size="12" fill="#6b7280">Дискретні чипи під екраном</text>
+
+  <rect x="52" y="176" width="216" height="166" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="160" y="194" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Субстрат модуля (PCB)</text>
+  
+  <rect x="62" y="208" width="86" height="66" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="105" y="236" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ESP32-S3</text>
+  <text x="105" y="254" text-anchor="middle" font-size="12" fill="#6b7280">QFN56 МК</text>
+
+  <rect x="166" y="208" width="86" height="30" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="3"/>
+  <text x="209" y="227" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Flash IC</text>
+
+  <rect x="166" y="244" width="86" height="30" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="3"/>
+  <text x="209" y="263" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">PSRAM IC</text>
+
+  <path d="M 148,223 L 166,223" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 148,259 L 166,259" stroke="#2457d6" stroke-width="2"/>
+
+  <text x="160" y="298" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Octal / Quad SPI</text>
+  <text x="160" y="316" text-anchor="middle" font-size="12" fill="#6b7280">Зовнішня PCB-розводка</text>
+
+  <rect x="48" y="352" width="224" height="84" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="160" y="372" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Гнучкість вибору пам'яті</text>
+  <text x="160" y="392" text-anchor="middle" font-size="12" fill="#1a1a1a">До 32 МБ Flash / 8 МБ PSRAM</text>
+  <text x="160" y="412" text-anchor="middle" font-size="12" fill="#6b7280">Стандартні габарити плат</text>
+
+  <!-- Transition Arrow 1 -> 2 -->
+  <text x="320" y="246" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Компактний</text>
+  <text x="320" y="260" text-anchor="middle" font-size="12" fill="#6b7280">дизайн</text>
+  <path d="M 288,272 L 352,272" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- Panel 2: MINI-1 / MINI-1U -->
+  <rect x="360" y="88" width="240" height="360" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <rect x="368" y="98" width="224" height="28" fill="#eaf0fd" rx="4"/>
+  <text x="480" y="117" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. MINI-1 / MINI-1U</text>
+  <text x="480" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Мікро-модуль (13.2×16.6 мм)</text>
+  <text x="480" y="160" text-anchor="middle" font-size="12" fill="#6b7280">Висока щільність монтажу</text>
+
+  <rect x="372" y="176" width="216" height="166" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="480" y="194" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Мікро-субстрат модуля</text>
+
+  <rect x="384" y="208" width="192" height="66" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="480" y="233" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ESP32-S3FN8 / S3R8</text>
+  <text x="480" y="251" text-anchor="middle" font-size="12" fill="#1a1a1a">Вбудований кристал пам'яті</text>
+  <text x="480" y="265" text-anchor="middle" font-size="12" fill="#6b7280">всередині чипа МК</text>
+
+  <text x="480" y="298" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Ультракороткі зв'язки</text>
+  <text x="480" y="316" text-anchor="middle" font-size="12" fill="#6b7280">Зменшені шуми та EMI</text>
+
+  <rect x="368" y="352" width="224" height="84" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="480" y="372" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Економія 50% площі PCB</text>
+  <text x="480" y="392" text-anchor="middle" font-size="12" fill="#1a1a1a">Сумісність з SuperMini</text>
+  <text x="480" y="412" text-anchor="middle" font-size="12" fill="#27ae60">Висока завадозахищеність</text>
+
+  <!-- Transition Arrow 2 -> 3 -->
+  <text x="640" y="246" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Чиповий</text>
+  <text x="640" y="260" text-anchor="middle" font-size="12" fill="#6b7280">SiP-монтаж</text>
+  <path d="M 608,272 L 672,272" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+
+  <!-- Panel 3: SiP Chips -->
+  <rect x="680" y="88" width="240" height="360" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <rect x="688" y="98" width="224" height="28" fill="#27ae60" rx="4"/>
+  <text x="800" y="117" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">3. Чипи SiP (System-in-Package)</text>
+  <text x="800" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Чип QFN56 (7×7 мм)</text>
+  <text x="800" y="160" text-anchor="middle" font-size="12" fill="#6b7280">Безпосередньо на плату проєкту</text>
+
+  <rect x="692" y="176" width="216" height="166" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="800" y="194" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Корпус QFN56 (Компаунд)</text>
+
+  <rect x="704" y="208" width="192" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+  <text x="800" y="228" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ESP32-S3 MCU Die</text>
+
+  <path d="M 730,238 L 730,248 M 800,238 L 800,248 M 870,238 L 870,248" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="2 2"/>
+
+  <rect x="704" y="248" width="192" height="30" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="3"/>
+  <text x="800" y="268" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">PSRAM / Flash Stacked Die</text>
+
+  <text x="800" y="298" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Мікропровідники SiP</text>
+  <text x="800" y="316" text-anchor="middle" font-size="12" fill="#6b7280">Нуль зовнішніх SPI-доріжок</text>
+
+  <rect x="688" y="352" width="224" height="84" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="800" y="372" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Одночипове рішення (без модуля)</text>
+  <text x="800" y="392" text-anchor="middle" font-size="12" fill="#1a1a1a">Мінімальні габарити пристрою</text>
+  <text x="800" y="412" text-anchor="middle" font-size="12" fill="#1a1a1a">Максимальна надійність</text>
+</svg>

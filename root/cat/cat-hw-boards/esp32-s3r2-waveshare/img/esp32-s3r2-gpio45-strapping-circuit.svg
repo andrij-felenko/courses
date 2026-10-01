@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Електрична схема конфігурації strapping-виводу GPIO45 та LDO VDD_SPI</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">Фіксація напруги 1.8 В для SiP PSRAM: логічний рівень при скиданні (Reset) визначає вихідний режим LDO</text>
+
+  <!-- Panel 1: Strapping Pin Config -->
+  <rect x="30" y="80" width="280" height="445" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+  <text x="170" y="105" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">1. Strapping-вивід GPIO45</text>
+
+  <!-- Block 1.1 -->
+  <rect x="42" y="125" width="256" height="135" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="52" y="147" font-size="13" font-weight="bold" fill="#27ae60">Режим 1.8 В (Рекомендовано)</text>
+  <text x="52" y="169" font-size="12" fill="#1a1a1a">Підтяжка до GND: R_pd = 10 кОм</text>
+  <text x="52" y="189" font-size="12" fill="#1a1a1a">Рівень при скиданні: GPIO45 = 0</text>
+  <text x="52" y="209" font-size="12" fill="#27ae60">Встановлює LDO VDD_SPI = 1.8 В</text>
+  <text x="52" y="229" font-size="12" fill="#6b7280">Безпечне живлення SiP PSRAM</text>
+  <text x="52" y="245" font-size="12" fill="#6b7280">Фіксація при подачі CHIP_PU</text>
+
+  <!-- Block 1.2 -->
+  <rect x="42" y="275" width="256" height="135" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="52" y="297" font-size="13" font-weight="bold" fill="#c0392b">Режим 3.3 В (ЗАБОРОНЕНО!)</text>
+  <text x="52" y="319" font-size="12" fill="#1a1a1a">Підтяжка до 3.3V: R_pu = 10 кОм</text>
+  <text x="52" y="339" font-size="12" fill="#c0392b">Рівень при скиданні: GPIO45 = 1</text>
+  <text x="52" y="359" font-size="12" fill="#c0392b">Встановлює LDO VDD_SPI = 3.3 В</text>
+  <text x="52" y="379" font-size="12" fill="#c0392b">РИЗИК: Незворотне згорання</text>
+  <text x="52" y="395" font-size="12" fill="#c0392b">кристала 1.8V PSRAM!</text>
+
+  <!-- Block 1.3 -->
+  <rect x="42" y="425" width="256" height="80" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="52" y="447" font-size="13" font-weight="bold" fill="#1a1a1a">Момент зчитування (Boot)</text>
+  <text x="52" y="467" font-size="12" fill="#1a1a1a">Зчитується апаратно при CHIP_PU</text>
+  <text x="52" y="487" font-size="12" fill="#6b7280">Після старту GPIO45 вільний</text>
+
+  <!-- Panel 2: Internal LDO Controller -->
+  <rect x="340" y="80" width="280" height="445" fill="#eaf0fd" stroke="#2457d6" rx="8"/>
+  <text x="480" y="105" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">2. Внутрішній LDO VDD_SPI</text>
+
+  <!-- Block 2.1 -->
+  <rect x="352" y="125" width="256" height="90" fill="#ffffff" stroke="#2457d6" rx="6"/>
+  <text x="362" y="147" font-size="13" font-weight="bold" fill="#2457d6">Модуль управління живленням</text>
+  <text x="362" y="169" font-size="12" fill="#1a1a1a">Апаратна клямка (Reset Latch)</text>
+  <text x="362" y="189" font-size="12" fill="#1a1a1a">eFuse біт розвантаження</text>
+  <text x="362" y="205" font-size="12" fill="#6b7280">Приорітет: eFuse &gt; GPIO45</text>
+
+  <!-- Block 2.2 -->
+  <rect x="352" y="230" width="256" height="140" fill="#ffffff" stroke="#2457d6" rx="6"/>
+  <text x="362" y="252" font-size="13" font-weight="bold" fill="#1a1a1a">Внутрішній LDO Регулятор</text>
+  <text x="362" y="274" font-size="12" fill="#1a1a1a">Вхід: VDD33 = 3.3 В (USB/Bat)</text>
+  <text x="362" y="294" font-size="12" fill="#27ae60">Вихід: VDD_SPI = 1.8 В (GPIO45=0)</text>
+  <text x="362" y="314" font-size="12" fill="#c0392b">Вихід: VDD_SPI = 3.3 В (GPIO45=1)</text>
+  <text x="362" y="334" font-size="12" fill="#1a1a1a">Максимальний струм: 500 мА</text>
+  <text x="362" y="354" font-size="12" fill="#6b7280">Низький шум та просідання</text>
+
+  <!-- Block 2.3 -->
+  <rect x="352" y="385" width="256" height="120" fill="#eaf0fd" stroke="#2457d6" rx="6"/>
+  <text x="362" y="407" font-size="13" font-weight="bold" fill="#2457d6">Конфігурація sdkconfig</text>
+  <text x="362" y="429" font-size="12" fill="#1a1a1a">CONFIG_ESP32S3_VDD_SPI_LDO</text>
+  <text x="362" y="449" font-size="12" fill="#27ae60">Set VDD_SPI to 1.8V</text>
+  <text x="362" y="469" font-size="12" fill="#1a1a1a">Програмне блокування змін</text>
+  <text x="362" y="489" font-size="12" fill="#6b7280">Захист від перезапису LDO</text>
+
+  <!-- Panel 3: PSRAM Power Input -->
+  <rect x="660" y="80" width="270" height="445" fill="#e9f7ef" stroke="#27ae60" rx="8"/>
+  <text x="795" y="105" font-size="14" font-weight="bold" text-anchor="middle" fill="#27ae60">3. Живлення SiP PSRAM</text>
+
+  <!-- Block 3.1 -->
+  <rect x="670" y="125" width="250" height="110" fill="#ffffff" stroke="#27ae60" rx="6"/>
+  <text x="680" y="147" font-size="13" font-weight="bold" fill="#27ae60">Кристал 2 МБ Octal PSRAM</text>
+  <text x="680" y="169" font-size="12" fill="#1a1a1a">Вхід живлення: VDD_SPI</text>
+  <text x="680" y="189" font-size="12" fill="#27ae60">Номінальна напруга: 1.8 В</text>
+  <text x="680" y="209" font-size="12" fill="#1a1a1a">Допустимий діапазон: 1.7..1.95 В</text>
+  <text x="680" y="225" font-size="12" fill="#6b7280">Тактова частота: 80/120 МГц</text>
+
+  <!-- Block 3.2 -->
+  <rect x="670" y="250" width="250" height="120" fill="#ffffff" stroke="#27ae60" rx="6"/>
+  <text x="680" y="272" font-size="13" font-weight="bold" fill="#1a1a1a">Фільтрація та кераміка</text>
+  <text x="680" y="294" font-size="12" fill="#1a1a1a">Шунтувальні конденсатори:</text>
+  <text x="680" y="314" font-size="12" fill="#1a1a1a">C1 = 100 нФ (кераміка X7R)</text>
+  <text x="680" y="334" font-size="12" fill="#1a1a1a">C2 = 1 мкФ / 10 мкФ (тантал)</text>
+  <text x="680" y="354" font-size="12" fill="#6b7280">Придушення імпульсних завад</text>
+
+  <!-- Block 3.3 -->
+  <rect x="670" y="385" width="250" height="120" fill="#e9f7ef" stroke="#27ae60" rx="6"/>
+  <text x="680" y="407" font-size="13" font-weight="bold" fill="#27ae60">Статус апаратної безпеки</text>
+  <text x="680" y="429" font-size="12" fill="#27ae60">Стабільний режим: 1.8V OK</text>
+  <text x="680" y="449" font-size="12" fill="#1a1a1a">Температурний режим: &lt; 65 °C</text>
+  <text x="680" y="469" font-size="12" fill="#1a1a1a">Пропускна здатність: 80 МБ/с</text>
+  <text x="680" y="489" font-size="12" fill="#6b7280">Безвивідне SiP-підключення</text>
+
+  <!-- Inter-panel Signals -->
+  <path d="M298,190 L352,170" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="325" y="168" font-size="12" text-anchor="middle" fill="#27ae60">GPIO45=0</text>
+
+  <path d="M298,345 L352,320" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+  <text x="325" y="322" font-size="12" text-anchor="middle" fill="#c0392b">GPIO45=1</text>
+
+  <path d="M608,300 L652,300 L652,180 L670,180" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="624" y="240" font-size="12" text-anchor="start" fill="#27ae60">1.8V</text>
+</svg>

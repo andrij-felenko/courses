@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка полотна -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Порівняння розпіновки 24-пінових FPC-шлейфів OV2640 та OV3640</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Розбіжності у лініях AVDD, XCLK та PWDN унеможливлюють пряму заміну сенсора без адаптера</text>
+
+  <!-- Ліва панель: OV2640 -->
+  <rect x="40" y="75" width="425" height="345" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="55" y="87" width="395" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="252" y="107" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">OV2640 (Стандартний сокет ESP32-CAM)</text>
+
+  <!-- Права панель: OV3640 -->
+  <rect x="495" y="75" width="425" height="345" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="510" y="87" width="395" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="707" y="107" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">OV3640 (Модуль високої роздільної здатності)</text>
+
+  <!-- Рядок 1: Шина даних DVP (Сумісні) -->
+  <rect x="55" y="128" width="395" height="42" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="70" y="145" font-size="12" font-weight="bold" fill="#27ae60">Піни 2–9, 10, 11, 12: DVP Дані (D0–D7), VSYNC, HREF, PCLK</text>
+  <text x="70" y="161" font-size="12" fill="#1a1a1a">Повна сумісність сигнальних ліній паралельного відеопорту</text>
+
+  <rect x="510" y="128" width="395" height="42" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="525" y="145" font-size="12" font-weight="bold" fill="#27ae60">Піни 2–9, 10, 11, 12: DVP Дані (D0–D7), VSYNC, HREF, PCLK</text>
+  <text x="525" y="161" font-size="12" fill="#1a1a1a">Збіг призначення ліній даних та кадрова синхронізація</text>
+
+  <!-- Рядок 2: Пін 13 (Конфлікт XCLK / AVDD) -->
+  <rect x="55" y="178" width="395" height="42" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="70" y="195" font-size="12" font-weight="bold" fill="#c0392b">Пін 13: XCLK (Вхід тактування 24 МГц)</text>
+  <text x="70" y="211" font-size="12" fill="#1a1a1a">Вихід генератора частоти з ESP32 (сигнал 3.3V)</text>
+
+  <rect x="510" y="178" width="395" height="42" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="525" y="195" font-size="12" font-weight="bold" fill="#c0392b">Пін 13: AVDD (Аналогове живлення 2.8 В) ⚠️</text>
+  <text x="525" y="211" font-size="12" fill="#c0392b">Конфлікт: Подача 2.8V на вихід XCLK ESP32!</text>
+
+  <!-- Рядок 3: Пін 14 (Конфлікт RESET / XCLK) -->
+  <rect x="55" y="228" width="395" height="42" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="70" y="245" font-size="12" font-weight="bold" fill="#c0392b">Пін 14: RESET (Вхід скидання сенсора)</text>
+  <text x="70" y="261" font-size="12" fill="#1a1a1a">Керування скиданням стану (Active LOW)</text>
+
+  <rect x="510" y="228" width="395" height="42" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="525" y="245" font-size="12" font-weight="bold" fill="#c0392b">Пін 14: XCLK (Вхід тактування 24 МГц) ⚠️</text>
+  <text x="525" y="261" font-size="12" fill="#c0392b">Зсув тактування: Сенсор не отримує XCLK!</text>
+
+  <!-- Рядок 4: Піни 15 та 18 (Зсув PWDN / RESET / DVDD) -->
+  <rect x="55" y="278" width="395" height="42" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="70" y="295" font-size="12" font-weight="bold" fill="#c0392b">Пін 15: PWDN | Пін 18: DVDD (1.2 В)</text>
+  <text x="70" y="311" font-size="12" fill="#1a1a1a">Режим сну PWDN та живлення цифрового ядра 1.2V</text>
+
+  <rect x="510" y="278" width="395" height="42" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="525" y="295" font-size="12" font-weight="bold" fill="#c0392b">Пін 15: RESET | Пін 18: PWDN ⚠️</text>
+  <text x="525" y="311" font-size="12" fill="#c0392b">Помилка керування: Сенсор постійно заблокований</text>
+
+  <!-- Рядок 5: Пін 20 (Перенапруга AVDD / DVDD) -->
+  <rect x="55" y="328" width="395" height="42" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="70" y="345" font-size="12" font-weight="bold" fill="#c0392b">Пін 20: AVDD (Аналогове живлення 2.8 В)</text>
+  <text x="70" y="361" font-size="12" fill="#1a1a1a">Окреме малошумливе живлення аналогової матриці</text>
+
+  <rect x="510" y="328" width="395" height="42" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="525" y="345" font-size="12" font-weight="bold" fill="#c0392b">Пін 20: DVDD (Цифрове живлення 1.2 В) ⚠️</text>
+  <text x="525" y="361" font-size="12" fill="#c0392b">Перенапруга: Подача 2.8V замість 1.2V випалює ядро!</text>
+
+  <!-- Рядок 6: I2C та Земля (Сумісні) -->
+  <rect x="55" y="378" width="395" height="32" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="70" y="398" font-size="12" font-weight="bold" fill="#27ae60">Піни 16, 17: SIOC, SIOD (I2C) | Піни 1, 21, 22, 24: GND</text>
+
+  <rect x="510" y="378" width="395" height="32" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="525" y="398" font-size="12" font-weight="bold" fill="#27ae60">Піни 16, 17: SIOC, SIOD (I2C) | Піни 1, 21, 22, 24: GND</text>
+
+  <!-- Нижня панель застереження -->
+  <rect x="40" y="435" width="880" height="65" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <rect x="55" y="445" width="45" height="45" fill="#c0392b" rx="4"/>
+  <text x="77" y="477" text-anchor="middle" font-size="26" font-weight="bold" fill="white">!</text>
+  <text x="115" y="458" font-size="13" font-weight="bold" fill="#c0392b">ТЕХНІЧНИЙ ВИСНОВОК: Пряме встановлення OV3640 у сокет ESP32-CAM неможливе!</text>
+  <text x="115" y="476" font-size="12" fill="#1a1a1a">Подача 2.8V (Пін 20 ESP32-CAM) на DVDD OV3640 та подача AVDD на XCLK призводять до апаратного пошкодження сенсора.</text>
+  <text x="115" y="492" font-size="12" fill="#6b7280">Для підключення OV3640 потрібна друкована плата-адаптер або розводка з індивідуальним LDO на 1.2V та 2.8V.</text>
+</svg>

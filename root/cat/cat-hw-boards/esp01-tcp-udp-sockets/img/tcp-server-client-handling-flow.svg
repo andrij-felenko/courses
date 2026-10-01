@@ -1,0 +1,151 @@
+<svg viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Потік обробки TCP-підключень у WiFiServer на ESP-01</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Від ініціалізації розслуховування порту та рукостискання lwIP до створення сокета WiFiClient</text>
+
+  <!-- COLUMN 1: Server Initialization -->
+  <rect x="35" y="75" width="205" height="450" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="85" width="185" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="137.5" y="105" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">1. Старт сервера</text>
+
+  <!-- 1.1 Sketch call -->
+  <rect x="45" y="130" width="185" height="65" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="137.5" y="150" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">WiFiServer server(80);</text>
+  <text x="137.5" y="170" font-size="12" fill="#1a1a1a" text-anchor="middle">server.begin();</text>
+
+  <line x1="137.5" y1="195" x2="137.5" y2="215" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- 1.2 lwIP Binding -->
+  <rect x="45" y="215" width="185" height="110" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="137.5" y="235" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Виклик lwIP API</text>
+  <text x="55" y="260" font-size="12" fill="#1a1a1a">• tcp_new()</text>
+  <text x="55" y="280" font-size="12" fill="#1a1a1a">• tcp_bind(port 80)</text>
+  <text x="55" y="300" font-size="12" fill="#1a1a1a">• tcp_listen()</text>
+
+  <line x1="137.5" y1="325" x2="137.5" y2="345" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- 1.3 State LISTEN -->
+  <rect x="45" y="345" width="185" height="165" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="137.5" y="367" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Стан: LISTEN</text>
+  <text x="55" y="392" font-size="12" fill="#1a1a1a">Сокет прослуховує</text>
+  <text x="55" y="412" font-size="12" fill="#1a1a1a">вхідні запити на</text>
+  <text x="55" y="432" font-size="12" fill="#1a1a1a">порту 80 у фоні</text>
+  <text x="55" y="457" font-size="12" fill="#6b7280">Реєстрація callback</text>
+  <text x="55" y="477" font-size="12" fill="#6b7280">tcp_accept у lwIP</text>
+
+  <!-- COLUMN 2: Handshake -->
+  <rect x="260" y="75" width="205" height="450" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="270" y="85" width="185" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="362.5" y="105" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">2. TCP Handshake</text>
+
+  <!-- 2.1 SYN Packet -->
+  <rect x="270" y="130" width="185" height="75" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="362.5" y="150" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Вхідний SYN пакет</text>
+  <text x="362.5" y="170" font-size="12" fill="#1a1a1a" text-anchor="middle">Від віддаленого клієнта</text>
+  <text x="362.5" y="190" font-size="12" fill="#6b7280" text-anchor="middle">IP_client:Port_client</text>
+
+  <line x1="362.5" y1="205" x2="362.5" y2="225" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- 2.2 3-way Handshake -->
+  <rect x="270" y="225" width="185" height="110" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="362.5" y="245" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">3-way Handshake</text>
+  <text x="280" y="270" font-size="12" fill="#1a1a1a">1. SYN → ESP-01</text>
+  <text x="280" y="290" font-size="12" fill="#1a1a1a">2. SYN-ACK → Клієнт</text>
+  <text x="280" y="310" font-size="12" fill="#1a1a1a">3. ACK → ESP-01</text>
+
+  <line x1="362.5" y1="335" x2="362.5" y2="355" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- 2.3 ESTABLISHED Queue -->
+  <rect x="270" y="355" width="185" height="155" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="362.5" y="377" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Черга ESTABLISHED</text>
+  <text x="280" y="402" font-size="12" fill="#1a1a1a">lwIP створює</text>
+  <text x="280" y="422" font-size="12" fill="#1a1a1a">новий pcb-структури</text>
+  <text x="280" y="442" font-size="12" fill="#1a1a1a">і поміщає у чергу</text>
+  <text x="280" y="467" font-size="12" fill="#6b7280">Очікує виклику</text>
+  <text x="280" y="487" font-size="12" fill="#6b7280">accept() з sketch</text>
+
+  <!-- COLUMN 3: Accept Client -->
+  <rect x="485" y="75" width="205" height="450" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="495" y="85" width="185" height="30" rx="4" fill="#2457d6"/>
+  <text x="587.5" y="105" font-size="13" font-weight="bold" text-anchor="middle" fill="white">3. Прийняття сокета</text>
+
+  <!-- 3.1 Loop Call -->
+  <rect x="495" y="130" width="185" height="75" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="587.5" y="150" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Виклик в loop():</text>
+  <text x="587.5" y="170" font-size="12" fill="#1a1a1a" text-anchor="middle">WiFiClient client =</text>
+  <text x="587.5" y="190" font-size="12" fill="#1a1a1a" text-anchor="middle">server.accept();</text>
+
+  <line x1="587.5" y1="205" x2="587.5" y2="225" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- 3.2 Check Queue -->
+  <rect x="495" y="225" width="185" height="110" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="587.5" y="245" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Перевірка черги lwIP</text>
+  <text x="505" y="270" font-size="12" fill="#1a1a1a">Якщо черга порожня:</text>
+  <text x="515" y="290" font-size="12" fill="#6b7280">Повертає false / null</text>
+  <text x="505" y="310" font-size="12" fill="#27ae60">Якщо є підключення:</text>
+
+  <line x1="587.5" y1="335" x2="587.5" y2="355" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- 3.3 Create WiFiClient -->
+  <rect x="495" y="355" width="185" height="155" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="587.5" y="377" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Об'єкт WiFiClient</text>
+  <text x="505" y="402" font-size="12" fill="#1a1a1a">Вилучення pcb з</text>
+  <text x="505" y="422" font-size="12" fill="#1a1a1a">черги і створення</text>
+  <text x="505" y="442" font-size="12" fill="#1a1a1a">екземпляра client</text>
+  <text x="505" y="467" font-size="12" fill="#27ae60">client.connected()</text>
+  <text x="505" y="487" font-size="12" fill="#27ae60">повертає true</text>
+
+  <!-- COLUMN 4: Session & Close -->
+  <rect x="710" y="75" width="215" height="450" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="720" y="85" width="195" height="30" rx="4" fill="#27ae60"/>
+  <text x="817.5" y="105" font-size="13" font-weight="bold" text-anchor="middle" fill="white">4. Сесія та закриття</text>
+
+  <!-- 4.1 Data Transfer -->
+  <rect x="720" y="130" width="195" height="100" rx="4" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="817.5" y="150" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Двосторонній обмін</text>
+  <text x="730" y="173" font-size="12" fill="#1a1a1a">• client.available()</text>
+  <text x="730" y="193" font-size="12" fill="#1a1a1a">• client.read()</text>
+  <text x="730" y="213" font-size="12" fill="#1a1a1a">• client.print / write()</text>
+
+  <line x1="817.5" y1="230" x2="817.5" y2="250" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- 4.2 Disconnect -->
+  <rect x="720" y="250" width="195" height="110" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="817.5" y="270" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Завершення сесії</text>
+  <text x="730" y="295" font-size="12" fill="#1a1a1a">Клієнт припиняє передачу</text>
+  <text x="730" y="315" font-size="12" fill="#1a1a1a">або спрацьовує таймаут</text>
+  <text x="730" y="338" font-size="12" fill="#2457d6">Виклик client.stop()</text>
+
+  <line x1="817.5" y1="360" x2="817.5" y2="380" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- 4.3 Cleanup -->
+  <rect x="720" y="380" width="195" height="130" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="817.5" y="402" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Звільнення ресурсів</text>
+  <text x="730" y="427" font-size="12" fill="#1a1a1a">1. Передача FIN / ACK</text>
+  <text x="730" y="447" font-size="12" fill="#1a1a1a">2. Звільнення pcb та</text>
+  <text x="730" y="467" font-size="12" fill="#1a1a1a">буферів RAM у lwIP</text>
+  <text x="730" y="492" font-size="12" fill="#c0392b">Запобігання витокам RAM</text>
+
+  <!-- Interconnect Paths Between Columns -->
+  <path d="M 230,427 L 245,427 L 245,165 L 260,165" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <path d="M 455,432 L 470,432 L 470,165 L 485,165" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <path d="M 680,432 L 695,432 L 695,180 L 710,180" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+</svg>

@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Зв'язок конфігураційної структури camera_config_t з апаратурою ESP32</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Поля дескриптора драйвера esp_camera маршрутизують піни DVP, XCLK, кодек JPEG та кадрові буфери в PSRAM</text>
+
+  <!-- Left Block: camera_config_t Structure -->
+  <rect x="40" y="80" width="280" height="450" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="8"/>
+  <text x="180" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Структура camera_config_t</text>
+
+  <!-- Field 1: DVP Pins -->
+  <rect x="60" y="145" width="240" height="55" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="180" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Прив'язка DVP шини</text>
+  <text x="180" y="185" text-anchor="middle" font-size="11" fill="#6b7280">pin_d0..d7, vsync, href, pclk</text>
+
+  <!-- Field 2: XCLK Clock Generator -->
+  <rect x="60" y="220" width="240" height="55" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="180" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Генератор тактування</text>
+  <text x="180" y="260" text-anchor="middle" font-size="11" fill="#6b7280">pin_xclk, xclk_freq_hz (20MHz)</text>
+
+  <!-- Field 3: Format & Resolution -->
+  <rect x="60" y="295" width="240" height="55" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="180" y="315" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Формат та роздільність</text>
+  <text x="180" y="335" text-anchor="middle" font-size="11" fill="#6b7280">PIXFORMAT_JPEG, FRAMESIZE_VGA</text>
+
+  <!-- Field 4: Frame Buffers -->
+  <rect x="60" y="370" width="240" height="55" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="180" y="390" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Кадрові буфери</text>
+  <text x="180" y="410" text-anchor="middle" font-size="11" fill="#6b7280">fb_count = 2, GRAB_LATEST</text>
+
+  <!-- Field 5: Quality & Memory Location -->
+  <rect x="60" y="445" width="240" height="65" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="180" y="465" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Якість та розташування</text>
+  <text x="180" y="488" text-anchor="middle" font-size="11" fill="#6b7280">jpeg_quality=12, FB_IN_PSRAM</text>
+
+  <!-- Right Hardware Component 1: DVP Pins -->
+  <rect x="400" y="80" width="520" height="80" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="8"/>
+  <text x="660" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Фізичний DVP-інтерфейс (GPIO -> I2S / Cam Peripheral)</text>
+  <text x="660" y="130" text-anchor="middle" font-size="12" fill="#6b7280">Паралельна 8-бітна шина даних D0–D7, сигнали тактування PCLK, HREF та VSYNC</text>
+
+  <!-- Right Hardware Component 2: XCLK -->
+  <rect x="400" y="180" width="520" height="75" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="8"/>
+  <text x="660" y="205" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Генератор тактування XCLK (LEDC PWM)</text>
+  <text x="660" y="230" text-anchor="middle" font-size="12" fill="#6b7280">Виведення тактового сигналу 20 МГц з генератора LEDC на пін GPIO0</text>
+
+  <!-- Right Hardware Component 3: JPEG Codec -->
+  <rect x="400" y="275" width="520" height="75" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="8"/>
+  <text x="660" y="300" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Апаратний кодек JPEG &amp; Форматування пікселів</text>
+  <text x="660" y="325" text-anchor="middle" font-size="12" fill="#6b7280">Апаратне стискання в JPEG / конвертація форматів YUV422 / RGB565 у реальному часі</text>
+
+  <!-- Right Hardware Component 4: PSRAM Frame Buffers -->
+  <rect x="400" y="370" width="520" height="160" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="8"/>
+  <text x="660" y="395" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Двоелементний пул кадрових буферів у PSRAM</text>
+
+  <!-- Frame Buffer 0 & 1 Boxes -->
+  <rect x="420" y="415" width="220" height="65" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="530" y="438" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">FB 0: Захоплення кадру</text>
+  <text x="530" y="458" text-anchor="middle" font-size="11" fill="#27ae60">esp_camera_fb_get()</text>
+
+  <rect x="680" y="415" width="220" height="65" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="790" y="438" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">FB 1: Обробка / Друк</text>
+  <text x="790" y="458" text-anchor="middle" font-size="11" fill="#27ae60">esp_camera_fb_return()</text>
+
+  <text x="660" y="510" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Запобігання витокам пам'яті: циклічний обмін буферами в PSRAM</text>
+
+  <!-- Connecting Lines with Arrows -->
+  <line x1="320" y1="172" x2="390" y2="120" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="320" y1="247" x2="390" y2="217" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="320" y1="322" x2="390" y2="312" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="320" y1="445" x2="390" y2="450" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+</svg>

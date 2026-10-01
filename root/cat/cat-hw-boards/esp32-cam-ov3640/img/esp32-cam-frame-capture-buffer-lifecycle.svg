@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Життєвий цикл кадрового буфера camera_fb_t в esp32-camera</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Передача буфера через DMA та його обов'язкове повернення в чергу запобігають витоку PSRAM</text>
+
+  <!-- Stage 1 Panel -->
+  <rect x="35" y="88" width="195" height="222" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <rect x="43" y="100" width="179" height="28" fill="#eaf0fd" rx="4"/>
+  <text x="132" y="119" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. Ініціалізація</text>
+  <text x="132" y="146" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">esp_camera_init()</text>
+  <text x="132" y="168" text-anchor="middle" font-size="12" fill="#6b7280">Виділення fb_count</text>
+  <text x="132" y="186" text-anchor="middle" font-size="12" fill="#6b7280">буферів у PSRAM</text>
+  <rect x="48" y="206" width="169" height="92" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="132" y="228" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Ring Buffer</text>
+  <text x="132" y="250" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Стан: ВІЛЬНИЙ</text>
+  <text x="132" y="276" text-anchor="middle" font-size="12" fill="#6b7280">Очікує кадри OV3640</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M 230,196 L 260,196" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="245" y="186" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Захват</text>
+
+  <!-- Stage 2 Panel -->
+  <rect x="265" y="88" width="195" height="222" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <rect x="273" y="100" width="179" height="28" fill="#eaf0fd" rx="4"/>
+  <text x="362" y="119" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. Заповнення DMA</text>
+  <text x="362" y="146" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Кадр з OV3640</text>
+  <text x="362" y="168" text-anchor="middle" font-size="12" fill="#6b7280">Запис через I2S/Cam</text>
+  <text x="362" y="186" text-anchor="middle" font-size="12" fill="#6b7280">DMA без участі CPU</text>
+  <rect x="278" y="206" width="169" height="92" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="362" y="228" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">camera_fb_t</text>
+  <text x="362" y="250" text-anchor="middle" font-size="12" fill="#1a1a1a">buf, len, format</text>
+  <text x="362" y="276" text-anchor="middle" font-size="12" fill="#6b7280">width, height, ts</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M 460,196 L 490,196" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="475" y="186" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Черга</text>
+
+  <!-- Stage 3 Panel -->
+  <rect x="495" y="88" width="195" height="222" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <rect x="503" y="100" width="179" height="28" fill="#eaf0fd" rx="4"/>
+  <text x="592" y="119" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">3. Захоплення кадру</text>
+  <text x="592" y="146" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">esp_camera_fb_get()</text>
+  <text x="592" y="168" text-anchor="middle" font-size="12" fill="#6b7280">Отримання вказівника</text>
+  <text x="592" y="186" text-anchor="middle" font-size="12" fill="#6b7280">на буфер у додаток</text>
+  <rect x="508" y="206" width="169" height="92" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="592" y="228" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Буфер заблоковано</text>
+  <text x="592" y="250" text-anchor="middle" font-size="12" fill="#1a1a1a">Обробка: HTTP / JPEG</text>
+  <text x="592" y="276" text-anchor="middle" font-size="12" fill="#6b7280">DMA не перезаписує</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <path d="M 690,196 L 720,196" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="705" y="186" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Готово</text>
+
+  <!-- Stage 4 Panel -->
+  <rect x="725" y="88" width="195" height="222" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <rect x="733" y="100" width="179" height="28" fill="#27ae60" rx="4"/>
+  <text x="822" y="119" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">4. Вивільнення</text>
+  <text x="822" y="146" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">esp_camera_fb_return()</text>
+  <text x="822" y="168" text-anchor="middle" font-size="12" fill="#6b7280">Повернення ресурсу</text>
+  <text x="822" y="186" text-anchor="middle" font-size="12" fill="#6b7280">у кільцевий буфер</text>
+  <rect x="738" y="206" width="169" height="92" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="822" y="228" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Очищення fb = NULL</text>
+  <text x="822" y="250" text-anchor="middle" font-size="12" fill="#1a1a1a">Буфер готовий знову</text>
+  <text x="822" y="276" text-anchor="middle" font-size="12" fill="#27ae60">Немає витоку PSRAM</text>
+
+  <!-- Return Loop -->
+  <rect x="287" y="328" width="380" height="24" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="477" y="344" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Повернення буфера в Ring Buffer для наступного кадру</text>
+  <path d="M 822,310 L 822,365 L 132,365 L 132,315" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+
+  <!-- Warning Panel -->
+  <rect x="35" y="395" width="890" height="65" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <rect x="50" y="412" width="150" height="31" fill="#c0392b" rx="4"/>
+  <text x="125" y="432" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">ПОМИЛКА РОЗРОБКИ</text>
+  <text x="215" y="423" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">Якщо НЕ викликати esp_camera_fb_return(fb): буфери не повертаються в Ring Buffer,</text>
+  <text x="215" y="443" text-anchor="start" font-size="12" fill="#1a1a1a">DMA вичерпує вільні блоки, захоплення зупиняється та виникає незворотний витік PSRAM.</text>
+</svg>

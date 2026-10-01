@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конфігурація шини пам'яті ESP32-S3 в menuconfig</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Параметри sdkconfig визначають розрядність шини Flash/PSRAM та пропускну здатність</text>
+
+  <!-- Flow Arrows (drawn behind cards to avoid overlap) -->
+  <line x1="295" y1="230" x2="350" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="585" y1="230" x2="640" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <line x1="295" y1="400" x2="350" y2="400" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="585" y1="400" x2="640" y2="400" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Panel 1: menuconfig UI -->
+  <rect x="30" y="80" width="280" height="410" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="170" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Меню idf.py menuconfig</text>
+  <text x="45" y="133" font-size="12" fill="#6b7280">Component config ---&gt;</text>
+  <text x="55" y="153" font-size="12" fill="#6b7280">ESP32S3-Specific / SPI RAM config</text>
+
+  <!-- Quad SPI Option Box -->
+  <rect x="45" y="170" width="250" height="135" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="55" y="190" font-size="13" font-weight="bold" fill="#2457d6">[ ] Quad SPI Mode (QIO / QSPI)</text>
+  <text x="65" y="213" font-size="12" fill="#1a1a1a">(*) Flash/PSRAM Speed: 80 MHz</text>
+  <text x="65" y="236" font-size="12" fill="#1a1a1a">[*] Enable External RAM (PSRAM)</text>
+  <text x="65" y="261" font-size="12" fill="#6b7280">4 лінії даних (D0..D3)</text>
+  <text x="65" y="284" font-size="12" fill="#6b7280">Шина: 6 пінів (CS, CLK, D0-D3)</text>
+
+  <!-- Octal SPI Option Box -->
+  <rect x="45" y="325" width="250" height="145" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="55" y="345" font-size="13" font-weight="bold" fill="#27ae60">[*] Octal SPI Mode (OPI / OSPI)</text>
+  <text x="65" y="368" font-size="12" fill="#1a1a1a">(*) OPI Speed: 120 MHz (DDR)</text>
+  <text x="65" y="391" font-size="12" fill="#1a1a1a">[*] Enable High Speed Octal DDR</text>
+  <text x="65" y="416" font-size="12" fill="#27ae60">8 ліній даних (D0..D7 + DQS)</text>
+  <text x="65" y="439" font-size="12" fill="#27ae60">Шина: 11 пінів (+DQS, D4-D7)</text>
+
+  <!-- Panel 2: sdkconfig Macros -->
+  <rect x="340" y="80" width="260" height="410" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="470" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Файл sdkconfig</text>
+  <text x="470" y="128" font-size="12" fill="#6b7280" text-anchor="middle">Генерується автоматично</text>
+
+  <!-- Quad SPI Macros Box -->
+  <rect x="355" y="170" width="230" height="135" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="365" y="190" font-size="12" font-weight="bold" fill="#2457d6">Макроси Quad SPI (QIO):</text>
+  <text x="365" y="211" font-size="12" font-family="Consolas, monospace" fill="#1a1a1a">CONFIG_FLASHMODE_QIO=y</text>
+  <text x="365" y="231" font-size="12" font-family="Consolas, monospace" fill="#1a1a1a">CONFIG_SPIRAM_MODE_QUAD=y</text>
+  <text x="365" y="251" font-size="12" font-family="Consolas, monospace" fill="#1a1a1a">CONFIG_SPIRAM_SPEED_80M=y</text>
+  <text x="365" y="271" font-size="12" font-family="Consolas, monospace" fill="#1a1a1a">CONFIG_SPIRAM_TYPE_AUTO=y</text>
+  <text x="365" y="293" font-size="12" fill="#6b7280">Режим шини: 80 МГц SDR</text>
+
+  <!-- Octal SPI Macros Box -->
+  <rect x="355" y="325" width="230" height="145" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="365" y="345" font-size="12" font-weight="bold" fill="#27ae60">Макроси Octal SPI (OPI):</text>
+  <text x="365" y="366" font-size="12" font-family="Consolas, monospace" fill="#1a1a1a">CONFIG_FLASHMODE_OCT=y</text>
+  <text x="365" y="386" font-size="12" font-family="Consolas, monospace" fill="#1a1a1a">CONFIG_SPIRAM_MODE_OCT=y</text>
+  <text x="365" y="406" font-size="12" font-family="Consolas, monospace" fill="#1a1a1a">CONFIG_SPIRAM_SPEED_120M=y</text>
+  <text x="365" y="426" font-size="12" font-family="Consolas, monospace" fill="#1a1a1a">CONFIG_SPIRAM_FETCH_DDR=y</text>
+  <text x="365" y="449" font-size="12" fill="#27ae60">Режим шини: 120 МГц DDR</text>
+
+  <!-- Panel 3: Hardware Result -->
+  <rect x="630" y="80" width="300" height="410" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="780" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Апаратний результат</text>
+  <text x="780" y="128" font-size="12" fill="#6b7280" text-anchor="middle">Контролер Flash / PSRAM SoC</text>
+
+  <!-- Quad SPI Hardware Box -->
+  <rect x="645" y="170" width="270" height="135" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="655" y="190" font-size="13" font-weight="bold" fill="#2457d6">Режим Quad SPI (SDR 80MHz)</text>
+  <text x="655" y="213" font-size="12" fill="#1a1a1a">• Шина даних: 4 біти (D0, D1, D2, D3)</text>
+  <text x="655" y="234" font-size="12" fill="#1a1a1a">• Тактування: Single Data Rate (SDR)</text>
+  <text x="655" y="255" font-size="12" fill="#1a1a1a">• Пропускна здатність: ~40 MB/s</text>
+  <text x="655" y="280" font-size="12" font-weight="bold" fill="#c0392b">Обмеження для важких TinyML моделей</text>
+
+  <!-- Octal SPI Hardware Box -->
+  <rect x="645" y="325" width="270" height="145" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="655" y="345" font-size="13" font-weight="bold" fill="#27ae60">Режим Octal SPI (DDR 120MHz)</text>
+  <text x="655" y="367" font-size="12" fill="#1a1a1a">• Шина даних: 8 біт (D0-D7 + DQS)</text>
+  <text x="655" y="388" font-size="12" fill="#1a1a1a">• Тактування: Double Data Rate (DDR)</text>
+  <text x="655" y="409" font-size="12" fill="#1a1a1a">• Пропускна здатність: ~240 MB/s (6x!)</text>
+  <text x="655" y="434" font-size="12" font-weight="bold" fill="#27ae60">Оптимально для PSRAM N8R8 / N16R8</text>
+</svg>

@@ -1,0 +1,170 @@
+<svg viewBox="0 0 960 560" width="960" height="560" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-purple" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#8e44ad"/>
+    </marker>
+    <marker id="arr-orange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#d35400"/>
+    </marker>
+    <marker id="arr-orange2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#e67e22"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Монтажна схема програматора ESP-01</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Підключення LDO-стабілізатора 3.3V, автоматичного скидання (DTR/RTS) та кнопки Flash</text>
+
+  <!-- Panel 1: USB-UART Adapter -->
+  <rect x="40" y="80" width="160" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="40" y="80" width="160" height="40" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="120" y="105" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">USB-UART Модуль</text>
+  <text x="120" y="135" font-size="12" text-anchor="middle" fill="#6b7280">(CH340 / CP2102)</text>
+
+  <!-- USB-UART Pins -->
+  <rect x="170" y="155" width="30" height="20" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="185" y="170" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">5V</text>
+
+  <rect x="170" y="215" width="30" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="185" y="230" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">TXD</text>
+
+  <rect x="170" y="275" width="30" height="20" rx="3" fill="#eaf0fd" stroke="#8e44ad"/>
+  <text x="185" y="290" font-size="12" font-weight="bold" text-anchor="middle" fill="#8e44ad">RXD</text>
+
+  <rect x="170" y="345" width="30" height="20" rx="3" fill="#fef5e7" stroke="#d35400"/>
+  <text x="185" y="360" font-size="12" font-weight="bold" text-anchor="middle" fill="#d35400">DTR</text>
+
+  <rect x="170" y="405" width="30" height="20" rx="3" fill="#fef5e7" stroke="#d35400"/>
+  <text x="185" y="420" font-size="12" font-weight="bold" text-anchor="middle" fill="#d35400">RTS</text>
+
+  <rect x="170" y="465" width="30" height="20" rx="3" fill="#eef2f7" stroke="#1a1a1a"/>
+  <text x="185" y="480" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">GND</text>
+
+  <!-- Panel 2: LDO 3.3V Power Regulator -->
+  <rect x="260" y="80" width="380" height="110" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="450" y="105" font-size="14" font-weight="bold" text-anchor="middle" fill="#27ae60">LDO Стабілізатор 3.3V (AMS1117-3.3)</text>
+  <text x="450" y="125" font-size="12" text-anchor="middle" fill="#1a1a1a">Забезпечує піковий струм до 500 мА для Wi-Fi спалахів ESP8266</text>
+
+  <!-- LDO Pin Labels -->
+  <rect x="270" y="155" width="40" height="20" rx="3" fill="#ffffff" stroke="#27ae60"/>
+  <text x="290" y="170" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">VIN</text>
+
+  <rect x="430" y="165" width="40" height="20" rx="3" fill="#ffffff" stroke="#1a1a1a"/>
+  <text x="450" y="180" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">GND</text>
+
+  <rect x="580" y="155" width="50" height="20" rx="3" fill="#ffffff" stroke="#27ae60"/>
+  <text x="605" y="170" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">VOUT</text>
+
+  <!-- Panel 3: Auto-Reset & Flash Control Node -->
+  <rect x="260" y="210" width="380" height="290" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="450" y="235" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Вузол автоматичного скидання та режимів</text>
+
+  <!-- Sub-box Q1 -->
+  <rect x="280" y="255" width="160" height="95" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="360" y="275" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Ключ Q1 (NPN S8050)</text>
+  <text x="360" y="295" font-size="12" text-anchor="middle" fill="#6b7280">Вхід: RTS (база), DTR</text>
+  <text x="360" y="315" font-size="12" font-weight="bold" text-anchor="middle" fill="#e67e22">Вихід → RST</text>
+
+  <!-- Sub-box Q2 -->
+  <rect x="280" y="365" width="160" height="95" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="360" y="385" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Ключ Q2 (NPN S8050)</text>
+  <text x="360" y="405" font-size="12" text-anchor="middle" fill="#6b7280">Вхід: DTR (база), RTS</text>
+  <text x="360" y="425" font-size="12" font-weight="bold" text-anchor="middle" fill="#e67e22">Вихід → GPIO0</text>
+
+  <!-- Sub-box Flash Button & Pull-ups -->
+  <rect x="460" y="255" width="160" height="205" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="540" y="275" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Кнопка Flash (BOOT)</text>
+  <text x="540" y="295" font-size="12" text-anchor="middle" fill="#6b7280">Ручне замикання</text>
+  <text x="540" y="315" font-size="12" text-anchor="middle" fill="#6b7280">GPIO0 на GND</text>
+  <line x1="470" y1="330" x2="610" y2="330" stroke="#eef2f7" stroke-width="1"/>
+  <text x="540" y="350" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Резистори 10 кОм</text>
+  <text x="540" y="370" font-size="12" text-anchor="middle" fill="#6b7280">RST → 3.3V (Pull-up)</text>
+  <text x="540" y="390" font-size="12" text-anchor="middle" fill="#6b7280">GPIO0 → 3.3V (Pull-up)</text>
+  <text x="540" y="410" font-size="12" text-anchor="middle" fill="#6b7280">EN (CH_PD) → 3.3V</text>
+  <text x="540" y="430" font-size="12" text-anchor="middle" fill="#6b7280">GPIO2 → 3.3V</text>
+
+  <text x="450" y="485" font-size="12" text-anchor="middle" fill="#27ae60">Авто-перехід в bootloader під час прошивки esptool</text>
+
+  <!-- Panel 4: ESP-01 Module -->
+  <rect x="700" y="80" width="220" height="420" rx="8" fill="#2c3e50" stroke="#1a252f" stroke-width="2"/>
+  <rect x="700" y="80" width="220" height="40" rx="8" fill="#34495e"/>
+  <text x="810" y="105" font-size="14" font-weight="bold" text-anchor="middle" fill="#ffffff">Модуль ESP-01</text>
+
+  <!-- ESP-01 Pins -->
+  <rect x="705" y="155" width="32" height="20" rx="3" fill="#27ae60"/>
+  <text x="721" y="170" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">3V3</text>
+  <text x="745" y="170" font-size="12" fill="#ecf0f1" text-anchor="start">Живлення 3.3V</text>
+
+  <rect x="705" y="200" width="32" height="20" rx="3" fill="#27ae60"/>
+  <text x="721" y="215" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">EN</text>
+  <text x="745" y="215" font-size="12" fill="#ecf0f1" text-anchor="start">CH_PD (High)</text>
+
+  <rect x="705" y="245" width="32" height="20" rx="3" fill="#2457d6"/>
+  <text x="721" y="260" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">RX</text>
+  <text x="745" y="260" font-size="12" fill="#ecf0f1" text-anchor="start">UART RXD</text>
+
+  <rect x="705" y="290" width="32" height="20" rx="3" fill="#8e44ad"/>
+  <text x="721" y="305" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">TX</text>
+  <text x="745" y="305" font-size="12" fill="#ecf0f1" text-anchor="start">UART TXD</text>
+
+  <rect x="705" y="335" width="32" height="20" rx="3" fill="#e67e22"/>
+  <text x="721" y="350" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">RST</text>
+  <text x="745" y="350" font-size="12" fill="#ecf0f1" text-anchor="start">Reset (Low=Reset)</text>
+
+  <rect x="705" y="380" width="32" height="20" rx="3" fill="#e67e22"/>
+  <text x="721" y="395" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">IO0</text>
+  <text x="745" y="395" font-size="12" fill="#ecf0f1" text-anchor="start">GPIO0 (Low=Boot)</text>
+
+  <rect x="705" y="425" width="32" height="20" rx="3" fill="#7f8c8d"/>
+  <text x="721" y="440" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">IO2</text>
+  <text x="745" y="440" font-size="12" fill="#ecf0f1" text-anchor="start">GPIO2 (High)</text>
+
+  <rect x="705" y="470" width="32" height="20" rx="3" fill="#95a5a6"/>
+  <text x="721" y="485" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">GND</text>
+  <text x="745" y="485" font-size="12" fill="#ecf0f1" text-anchor="start">Земля 0V</text>
+
+  <!-- WIRING LINES -->
+
+  <!-- 1. 5V Power (Red) -->
+  <path d="M 200 165 L 270 165" stroke="#c0392b" stroke-width="2.5" fill="none"/>
+  <text x="235" y="155" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">5V</text>
+
+  <!-- 2. 3.3V Power (Green) -->
+  <path d="M 630 165 L 705 165" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+  <text x="668" y="155" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">+3.3V</text>
+
+  <!-- 3. TXD -> RX (Blue) -->
+  <path d="M 200 225 L 220 225 L 220 200 L 670 200 L 670 255 L 705 255" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="450" y="192" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">TXD → RX (Дані прошивки)</text>
+
+  <!-- 4. RXD <- TX (Purple) -->
+  <path d="M 705 300 L 660 300 L 660 285 L 200 285" stroke="#8e44ad" stroke-width="2" fill="none" marker-end="url(#arr-purple)"/>
+  <text x="240" y="277" font-size="12" font-weight="bold" text-anchor="start" fill="#8e44ad">RXD ← TX (Відповідь ESP)</text>
+
+  <!-- 5. DTR Signal (Orange) -->
+  <path d="M 200 355 L 260 355" stroke="#d35400" stroke-width="2" fill="none" marker-end="url(#arr-orange)"/>
+  <text x="230" y="347" font-size="12" font-weight="bold" text-anchor="middle" fill="#d35400">DTR</text>
+
+  <!-- 6. RTS Signal (Orange) -->
+  <path d="M 200 415 L 260 415" stroke="#d35400" stroke-width="2" fill="none" marker-end="url(#arr-orange)"/>
+  <text x="230" y="407" font-size="12" font-weight="bold" text-anchor="middle" fill="#d35400">RTS</text>
+
+  <!-- 7. RST Output to ESP RST (Orange2) -->
+  <path d="M 440 315 L 650 315 L 650 345 L 705 345" stroke="#e67e22" stroke-width="2" fill="none" marker-end="url(#arr-orange2)"/>
+  <text x="640" y="307" font-size="12" font-weight="bold" text-anchor="end" fill="#e67e22">RST</text>
+
+  <!-- 8. GPIO0 Output to ESP IO0 (Orange2) -->
+  <path d="M 440 425 L 660 425 L 660 390 L 705 390" stroke="#e67e22" stroke-width="2" fill="none" marker-end="url(#arr-orange2)"/>
+  <text x="640" y="417" font-size="12" font-weight="bold" text-anchor="end" fill="#e67e22">GPIO0</text>
+
+  <!-- 9. Ground (GND) Bus -->
+  <path d="M 200 475 L 200 520 L 810 520 L 810 480 L 737 480" stroke="#1a1a1a" stroke-width="2.5" fill="none"/>
+  <path d="M 450 185 L 450 210" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <text x="505" y="542" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Спільна шина заземлення (GND)</text>
+</svg>

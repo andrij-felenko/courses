@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-sram" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-psram" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл адресної сітки SRAM та Octal PSRAM у Waveshare ESP32-S3R2</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Маршрутизація виділення пам'яті через маски MALLOC_CAP алокатора heap_caps_malloc()</text>
+
+  <!-- Zone 1: Internal SRAM Panel -->
+  <rect x="40" y="80" width="420" height="280" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="250" y="105" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня SRAM (до 512 КБ)</text>
+  <text x="250" y="124" font-size="12" fill="#6b7280" text-anchor="middle">Швидкий доступ · Апаратна підтримка DMA</text>
+
+  <!-- SRAM Memory Region Block -->
+  <rect x="60" y="140" width="380" height="92" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="75" y="163" font-size="12" font-weight="bold" fill="#27ae60">Адресний простір: 0x3FC80000 – 0x3FCE0000</text>
+  <text x="75" y="185" font-size="12" fill="#1a1a1a">DRAM (Дані) + IRAM (Інструкції)</text>
+  <text x="75" y="210" font-size="12" font-weight="bold" fill="#27ae60">MALLOC_CAP_INTERNAL | MALLOC_CAP_DMA</text>
+
+  <!-- SRAM Properties Block -->
+  <rect x="60" y="247" width="380" height="98" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="75" y="268" font-size="12" font-weight="bold" fill="#1a1a1a">Особливості використання SRAM:</text>
+  <text x="75" y="289" font-size="12" fill="#1a1a1a">• Вирівнювання адреси: 4-байтова сітка (32-bit)</text>
+  <text x="75" y="310" font-size="12" fill="#1a1a1a">• Прямий доступ периферії: SPI, I2S, LCD, CAM</text>
+  <text x="75" y="331" font-size="12" fill="#27ae60">✓ Нульова затримка, максимальна швидкість</text>
+
+  <!-- Zone 2: Octal PSRAM Panel -->
+  <rect x="500" y="80" width="420" height="280" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="710" y="105" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зовнішня Octal PSRAM (2 МБ)</text>
+  <text x="710" y="124" font-size="12" fill="#6b7280" text-anchor="middle">CONFIG_SPIRAM_MODE_OCT · 80 MHz DDR</text>
+
+  <!-- PSRAM Memory Region Block -->
+  <rect x="520" y="140" width="380" height="92" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="535" y="163" font-size="12" font-weight="bold" fill="#2457d6">Адресний простір: 0x3D000000 – 0x3D200000</text>
+  <text x="535" y="185" font-size="12" fill="#1a1a1a">Опитування через MMU / Cache (8-bit bus)</text>
+  <text x="535" y="210" font-size="12" font-weight="bold" fill="#2457d6">MALLOC_CAP_SPIRAM</text>
+
+  <!-- PSRAM Properties Block -->
+  <rect x="520" y="247" width="380" height="98" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="535" y="268" font-size="12" font-weight="bold" fill="#1a1a1a">Особливості використання PSRAM:</text>
+  <text x="535" y="289" font-size="12" fill="#1a1a1a">• Призначення: Framebuffer, великі масиви</text>
+  <text x="535" y="310" font-size="12" fill="#c0392b">• Обмеження: Прямий DMA недоступний</text>
+  <text x="535" y="331" font-size="12" fill="#6b7280">• Вирівнювання виділення: 16 / 32 байти</text>
+
+  <!-- Connection Line Arrows (Clean Gap Routing) -->
+  <line x1="150" y1="422" x2="150" y2="365" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr-sram)"/>
+  <line x1="810" y1="422" x2="810" y2="365" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr-psram)"/>
+
+  <!-- Zone 3: Allocator API Routing Panel -->
+  <rect x="40" y="385" width="880" height="135" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="480" y="408" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Інтерфейс виклику: heap_caps_malloc(size_t size, uint32_t caps)</text>
+
+  <!-- SRAM Allocation Call Box -->
+  <rect x="60" y="422" width="400" height="82" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="75" y="445" font-size="12" font-weight="bold" fill="#1a1a1a">heap_caps_malloc(1024, MALLOC_CAP_DMA);</text>
+  <text x="75" y="467" font-size="12" fill="#27ae60">➔ Виділяє в SRAM (0x3FC...) з вирівнюванням під DMA</text>
+  <text x="75" y="489" font-size="12" fill="#6b7280">Використовується для високої швидкості та периферії</text>
+
+  <!-- PSRAM Allocation Call Box -->
+  <rect x="500" y="422" width="400" height="82" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="515" y="445" font-size="12" font-weight="bold" fill="#1a1a1a">heap_caps_malloc(320*240*2, MALLOC_CAP_SPIRAM);</text>
+  <text x="515" y="467" font-size="12" fill="#2457d6">➔ Виділяє 153.6 КБ у Octal PSRAM (0x3D...)</text>
+  <text x="515" y="489" font-size="12" fill="#6b7280">Використовується для буферів екрану та масивів</text>
+</svg>

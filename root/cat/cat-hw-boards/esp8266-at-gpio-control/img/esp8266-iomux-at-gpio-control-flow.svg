@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-solution" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Мультиплексування виводів ESP8266 через IOMUX при виконанні AT-команд</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Команда AT+SYSIOMUX перемикає вивід між апаратною периферією та режимом GPIO</text>
+
+
+  <!-- Left Column: Host & AT Command Flow -->
+  <rect x="40" y="75" width="230" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="155" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Контролер &amp; Команди</text>
+
+  <!-- External Host Block -->
+  <rect x="55" y="112" width="200" height="80" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="155" y="134" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Зовнішній Хост (UART)</text>
+  <text x="155" y="154" text-anchor="middle" font-size="12" fill="#6b7280">Надсилання AT-команди</text>
+  <text x="155" y="174" text-anchor="middle" font-size="12" fill="#2457d6">AT+SYSIOMUX=...</text>
+
+  <!-- AT Parser & SDK Driver Block -->
+  <rect x="55" y="222" width="200" height="110" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="155" y="245" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Парсер AT-команд ESP8266</text>
+  <text x="155" y="267" text-anchor="middle" font-size="12" fill="#1a1a1a">Декодування параметрів:</text>
+  <text x="155" y="287" text-anchor="middle" font-size="12" fill="#6b7280">pin_id, func_num, pullup</text>
+  <text x="155" y="310" text-anchor="middle" font-size="12" fill="#2457d6">Виклики SDK pin_mux_config()</text>
+
+  <!-- IOMUX Register Control Block -->
+  <rect x="55" y="362" width="200" height="135" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="155" y="385" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Регістри IOMUX (PERIPHS)</text>
+  <text x="155" y="408" text-anchor="middle" font-size="12" fill="#2457d6">FUNC_SEL [2:0]</text>
+  <text x="155" y="430" text-anchor="middle" font-size="12" fill="#6b7280">PULLUP_EN / SLEEP_PULLUP</text>
+  <text x="155" y="452" text-anchor="middle" font-size="12" fill="#27ae60">Запис конфігурації виводу</text>
+  <text x="155" y="475" text-anchor="middle" font-size="12" fill="#6b7280">(Апаратне перемикання)</text>
+
+  <!-- Left Column Arrows -->
+  <line x1="155" y1="192" x2="155" y2="222" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <line x1="155" y1="332" x2="155" y2="362" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+
+  <!-- Middle Column: Hardware IOMUX Multiplexer -->
+  <rect x="300" y="75" width="310" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="455" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Апаратний Мультиплексор IOMUX</text>
+
+  <!-- Func 0 Input -->
+  <rect x="320" y="115" width="270" height="65" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="455" y="137" text-anchor="middle" font-size="13" font-weight="bold" fill="#6b7280">Функція 0 / Периферія</text>
+  <text x="455" y="160" text-anchor="middle" font-size="12" fill="#6b7280">SPI / HSPI / I2S / UART0 / PWM</text>
+
+  <!-- Func 3 Input (Discrete GPIO - Selected) -->
+  <rect x="320" y="200" width="270" height="110" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="455" y="225" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Функція 3: Дискретний GPIO</text>
+  <text x="455" y="247" text-anchor="middle" font-size="12" fill="#27ae60">Керування через AT+SYSGPIOWRITE</text>
+  <text x="455" y="267" text-anchor="middle" font-size="12" fill="#27ae60">зчитування через AT+SYSGPIOREAD</text>
+  <text x="455" y="290" text-anchor="middle" font-size="12" fill="#6b7280">Регістри GPIO_OUT / GPIO_IN</text>
+
+  <!-- Func 1/2 Input -->
+  <rect x="320" y="330" width="270" height="65" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="455" y="352" text-anchor="middle" font-size="13" font-weight="bold" fill="#6b7280">Функція 1 / 2: Вторинна периферія</text>
+  <text x="455" y="375" text-anchor="middle" font-size="12" fill="#6b7280">SDIO / CLK / JTAG / UART1</text>
+
+  <!-- Active Selector Indicator -->
+  <rect x="320" y="415" width="270" height="85" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="455" y="440" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Селектор каналу MUX = FUNC_SEL</text>
+  <text x="455" y="462" text-anchor="middle" font-size="12" fill="#1a1a1a">Перемикання лінії на потрібну функцію</text>
+  <text x="455" y="482" text-anchor="middle" font-size="12" fill="#27ae60">Активно: Режим GPIO (Func 3)</text>
+
+
+  <!-- Right Column: Physical Pin & External Device -->
+  <rect x="645" y="75" width="275" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="782" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Фізичний Вивід (Pad / Pin)</text>
+
+  <!-- Physical Pin Box -->
+  <rect x="665" y="115" width="235" height="110" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="782" y="140" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Зовнішній контакт ESP8266</text>
+  <text x="782" y="162" text-anchor="middle" font-size="12" fill="#2457d6">(наприклад, GPIO12 / MTDI)</text>
+  <text x="782" y="182" text-anchor="middle" font-size="12" fill="#6b7280">Вхідний / Вихідний буфер</text>
+  <text x="782" y="202" text-anchor="middle" font-size="12" fill="#6b7280">Макс. струм: 12 мА</text>
+
+  <!-- Pull-Up Box -->
+  <rect x="665" y="245" width="235" height="105" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="782" y="268" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Внутрішня Підтяжка Pull-Up</text>
+  <text x="782" y="290" text-anchor="middle" font-size="12" fill="#2457d6">Резистор 30–50 кОм</text>
+  <text x="782" y="310" text-anchor="middle" font-size="12" fill="#6b7280">Керується в AT-команді</text>
+  <text x="782" y="330" text-anchor="middle" font-size="12" fill="#c0392b">(Окрім виводу GPIO16 / RTC)</text>
+
+  <!-- External Device Connection Box -->
+  <rect x="665" y="370" width="235" height="130" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="782" y="395" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Зовнішня Периферія</text>
+  <text x="782" y="420" text-anchor="middle" font-size="12" fill="#1a1a1a">Реле, Світлодіод, Давач,</text>
+  <text x="782" y="442" text-anchor="middle" font-size="12" fill="#1a1a1a">Кнопка, ШІМ-виконавець</text>
+  <text x="782" y="475" text-anchor="middle" font-size="12" fill="#27ae60">Прямий дискретний сигнал</text>
+
+
+  <!-- Connecting Lines Between Columns -->
+  <line x1="255" y1="430" x2="320" y2="460" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <line x1="590" y1="255" x2="665" y2="170" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-solution)"/>
+  <line x1="782" y1="225" x2="782" y2="245" stroke="#2457d6" stroke-width="2"/>
+  <line x1="782" y1="350" x2="782" y2="370" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-solution)"/>
+</svg>

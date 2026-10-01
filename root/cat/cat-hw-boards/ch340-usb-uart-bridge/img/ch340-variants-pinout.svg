@@ -1,0 +1,177 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння розводки виводів CH340G та CH340C</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">CH340G вимагає зовнішній кварц 12 МГц, тоді як CH340C має вбудований генератор</text>
+
+  <!-- PANEL 1: CH340G -->
+  <g id="panel-ch340g">
+    <rect x="30" y="75" width="435" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="30" y="75" width="435" height="38" rx="8" fill="#fdecea"/>
+    <line x1="30" y1="113" x2="465" y2="113" stroke="#f5c6cb" stroke-width="1.5"/>
+    <text x="247" y="100" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">CH340G — Потребує зовнішній кварц</text>
+
+    <!-- IC Body -->
+    <rect x="235" y="145" width="130" height="195" rx="4" fill="#2d3748" stroke="#1a202c" stroke-width="2"/>
+    <circle cx="252" cy="160" r="4" fill="#cbd5e0"/>
+    <text x="300" y="235" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">CH340G</text>
+    <text x="300" y="255" font-size="12" fill="#a0aec0" text-anchor="middle">SOIC-16</text>
+
+    <!-- Left Pins (1..8) -->
+    <rect x="215" y="152" width="20" height="8" fill="#cbd5e0"/>
+    <rect x="215" y="174" width="20" height="8" fill="#cbd5e0"/>
+    <rect x="215" y="196" width="20" height="8" fill="#cbd5e0"/>
+    <rect x="215" y="218" width="20" height="8" fill="#cbd5e0"/>
+    <rect x="215" y="240" width="20" height="8" fill="#cbd5e0"/>
+    <rect x="215" y="262" width="20" height="8" fill="#cbd5e0"/>
+    <rect x="215" y="284" width="20" height="8" fill="#c0392b"/>
+    <rect x="215" y="306" width="20" height="8" fill="#c0392b"/>
+
+    <!-- Left Pin Labels -->
+    <text x="210" y="163" font-size="12" fill="#1a1a1a" text-anchor="end">1: GND</text>
+    <text x="210" y="185" font-size="12" fill="#1a1a1a" text-anchor="end">2: TXD</text>
+    <text x="210" y="207" font-size="12" fill="#1a1a1a" text-anchor="end">3: RXD</text>
+    <text x="210" y="229" font-size="12" fill="#1a1a1a" text-anchor="end">4: V3</text>
+    <text x="210" y="251" font-size="12" fill="#1a1a1a" text-anchor="end">5: UD+</text>
+    <text x="210" y="273" font-size="12" fill="#1a1a1a" text-anchor="end">6: UD-</text>
+    <text x="210" y="282" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">7: XI</text>
+    <text x="210" y="328" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">8: XO</text>
+
+    <!-- Right Pins (16..9) -->
+    <rect x="365" y="152" width="20" height="8" fill="#cbd5e0"/>
+    <rect x="365" y="174" width="20" height="8" fill="#cbd5e0"/>
+    <rect x="365" y="196" width="20" height="8" fill="#cbd5e0"/>
+    <rect x="365" y="218" width="20" height="8" fill="#cbd5e0"/>
+    <rect x="365" y="240" width="20" height="8" fill="#cbd5e0"/>
+    <rect x="365" y="262" width="20" height="8" fill="#cbd5e0"/>
+    <rect x="365" y="284" width="20" height="8" fill="#cbd5e0"/>
+    <rect x="365" y="306" width="20" height="8" fill="#cbd5e0"/>
+
+    <!-- Right Pin Labels -->
+    <text x="390" y="163" font-size="12" fill="#1a1a1a">16: VCC</text>
+    <text x="390" y="185" font-size="12" fill="#1a1a1a">15: R232</text>
+    <text x="390" y="207" font-size="12" fill="#1a1a1a">14: RTS#</text>
+    <text x="390" y="229" font-size="12" fill="#1a1a1a">13: DTR#</text>
+    <text x="390" y="251" font-size="12" fill="#1a1a1a">12: DCD#</text>
+    <text x="390" y="273" font-size="12" fill="#1a1a1a">11: RI#</text>
+    <text x="390" y="295" font-size="12" fill="#1a1a1a">10: DSR#</text>
+    <text x="390" y="317" font-size="12" fill="#1a1a1a">9: CTS#</text>
+
+    <!-- External Crystal Circuit -->
+    <!-- Wires from Pin 7 & 8 -->
+    <line x1="215" y1="288" x2="89" y2="288" stroke="#c0392b" stroke-width="2"/>
+    <line x1="215" y1="310" x2="101" y2="310" stroke="#c0392b" stroke-width="2"/>
+
+    <!-- Crystal Symbol at x=95 -->
+    <line x1="89" y1="278" x2="89" y2="320" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="101" y1="278" x2="101" y2="320" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="92" y="280" width="6" height="38" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="95" y="270" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">12 MHz</text>
+
+    <!-- Capacitor Wires to GND -->
+    <line x1="130" y1="288" x2="130" y2="348" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="122" y1="348" x2="138" y2="348" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="122" y1="354" x2="138" y2="354" stroke="#1a1a1a" stroke-width="2"/>
+
+    <line x1="160" y1="310" x2="160" y2="348" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="152" y1="348" x2="168" y2="348" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="152" y1="354" x2="168" y2="354" stroke="#1a1a1a" stroke-width="2"/>
+
+    <!-- Ground connections -->
+    <line x1="130" y1="354" x2="130" y2="360" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="160" y1="354" x2="160" y2="360" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="130" y1="360" x2="160" y2="360" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="145" y1="360" x2="145" y2="368" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="137" y1="368" x2="153" y2="368" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="140" y1="372" x2="150" y2="372" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="143" y1="376" x2="147" y2="376" stroke="#1a1a1a" stroke-width="1"/>
+
+    <!-- Capacitor Labels -->
+    <text x="105" y="356" font-size="12" fill="#6b7280" text-anchor="end">C1 22pF</text>
+    <text x="185" y="356" font-size="12" fill="#6b7280" text-anchor="start">C2 22pF</text>
+
+    <!-- Callout Box -->
+    <rect x="45" y="395" width="405" height="48" rx="6" fill="#fdecea" stroke="#f5c6cb" stroke-width="1"/>
+    <text x="247" y="415" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Потрібні зовнішні компоненти:</text>
+    <text x="247" y="433" font-size="12" fill="#c0392b" text-anchor="middle">кварцовий резонатор 12 МГц та два конденсатори по 22 пФ</text>
+  </g>
+
+  <!-- PANEL 2: CH340C -->
+  <g id="panel-ch340c">
+    <rect x="495" y="75" width="435" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="495" y="75" width="435" height="38" rx="8" fill="#e9f7ef"/>
+    <line x1="495" y1="113" x2="930" y2="113" stroke="#c3e6cb" stroke-width="1.5"/>
+    <text x="712" y="100" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">CH340C — Вбудований генератор</text>
+
+    <!-- IC Body -->
+    <rect x="700" y="145" width="130" height="195" rx="4" fill="#2d3748" stroke="#1a202c" stroke-width="2"/>
+    <circle cx="717" cy="160" r="4" fill="#cbd5e0"/>
+
+    <text x="765" y="195" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">CH340C</text>
+    <text x="765" y="215" font-size="12" fill="#a0aec0" text-anchor="middle">SOIC-16</text>
+
+    <!-- Internal Oscillator Block -->
+    <rect x="710" y="250" width="110" height="75" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="765" y="275" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вбудований</text>
+    <text x="765" y="293" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">тактовий</text>
+    <text x="765" y="311" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">генератор 12 МГц</text>
+
+    <!-- Left Pins (1..8) -->
+    <rect x="680" y="152" width="20" height="8" fill="#cbd5e0"/>
+    <rect x="680" y="174" width="20" height="8" fill="#cbd5e0"/>
+    <rect x="680" y="196" width="20" height="8" fill="#cbd5e0"/>
+    <rect x="680" y="218" width="20" height="8" fill="#cbd5e0"/>
+    <rect x="680" y="240" width="20" height="8" fill="#cbd5e0"/>
+    <rect x="680" y="262" width="20" height="8" fill="#cbd5e0"/>
+    <rect x="680" y="284" width="20" height="8" fill="#27ae60"/>
+    <rect x="680" y="306" width="20" height="8" fill="#27ae60"/>
+
+    <!-- Left Pin Labels -->
+    <text x="675" y="163" font-size="12" fill="#1a1a1a" text-anchor="end">1: GND</text>
+    <text x="675" y="185" font-size="12" fill="#1a1a1a" text-anchor="end">2: TXD</text>
+    <text x="675" y="207" font-size="12" fill="#1a1a1a" text-anchor="end">3: RXD</text>
+    <text x="675" y="229" font-size="12" fill="#1a1a1a" text-anchor="end">4: V3</text>
+    <text x="675" y="251" font-size="12" fill="#1a1a1a" text-anchor="end">5: UD+</text>
+    <text x="675" y="273" font-size="12" fill="#1a1a1a" text-anchor="end">6: UD-</text>
+    <text x="675" y="295" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">7: NC</text>
+    <text x="675" y="317" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">8: NC</text>
+
+    <!-- Badge box for NC pins -->
+    <rect x="510" y="283" width="115" height="38" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="567" y="299" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Без кварцю</text>
+    <text x="567" y="315" font-size="12" fill="#27ae60" text-anchor="middle">Виводи 7, 8 — NC</text>
+
+    <!-- Right Pins (16..9) -->
+    <rect x="830" y="152" width="20" height="8" fill="#cbd5e0"/>
+    <rect x="830" y="174" width="20" height="8" fill="#cbd5e0"/>
+    <rect x="830" y="196" width="20" height="8" fill="#cbd5e0"/>
+    <rect x="830" y="218" width="20" height="8" fill="#cbd5e0"/>
+    <rect x="830" y="240" width="20" height="8" fill="#cbd5e0"/>
+    <rect x="830" y="262" width="20" height="8" fill="#cbd5e0"/>
+    <rect x="830" y="284" width="20" height="8" fill="#cbd5e0"/>
+    <rect x="830" y="306" width="20" height="8" fill="#cbd5e0"/>
+
+    <!-- Right Pin Labels -->
+    <text x="855" y="163" font-size="12" fill="#1a1a1a">16: VCC</text>
+    <text x="855" y="185" font-size="12" fill="#1a1a1a">15: R232</text>
+    <text x="855" y="207" font-size="12" fill="#1a1a1a">14: RTS#</text>
+    <text x="855" y="229" font-size="12" fill="#1a1a1a">13: DTR#</text>
+    <text x="855" y="251" font-size="12" fill="#1a1a1a">12: DCD#</text>
+    <text x="855" y="273" font-size="12" fill="#1a1a1a">11: RI#</text>
+    <text x="855" y="295" font-size="12" fill="#1a1a1a">10: DSR#</text>
+    <text x="855" y="317" font-size="12" fill="#1a1a1a">9: CTS#</text>
+
+    <!-- Callout Box -->
+    <rect x="510" y="395" width="405" height="48" rx="6" fill="#e9f7ef" stroke="#c3e6cb" stroke-width="1"/>
+    <text x="712" y="415" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Переваги бескварцових модифікацій:</text>
+    <text x="712" y="433" font-size="12" fill="#27ae60" text-anchor="middle">менше обв'язки на платі, менші габарити та нижча вартість</text>
+  </g>
+</svg>

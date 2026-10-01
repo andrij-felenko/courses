@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Шинна матриця та підсистема DMA в ESP32-S3</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Прямий доступ USB Serial/JTAG та DVP-порту до внутрішньої SRAM і зовнішньої Flash/PSRAM</text>
+
+  <!-- Main Container -->
+  <rect x="20" y="65" width="920" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- ================= ZONE 1: PERIPHERALS & INTERFACES ================= -->
+  <!-- Native USB -->
+  <rect x="40" y="80" width="270" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="175" y="100" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Нативний USB Serial / JTAG</text>
+  <text x="175" y="120" text-anchor="middle" font-size="12" fill="#1a1a1a">USB-PHY на виводах GPIO19 / GPIO20</text>
+  <text x="175" y="138" text-anchor="middle" font-size="12" fill="#6b7280">Апаратне завантаження, CDC &amp; JTAG</text>
+
+  <!-- DVP Video Port -->
+  <rect x="345" y="80" width="270" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="100" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Відеопорт DVP (LCD / CAM)</text>
+  <text x="480" y="120" text-anchor="middle" font-size="12" fill="#1a1a1a">8/16-біт паралельне захоплення</text>
+  <text x="480" y="138" text-anchor="middle" font-size="12" fill="#6b7280">Потік відеокамери прямо в DMA</text>
+
+  <!-- Other Peripherals -->
+  <rect x="650" y="80" width="270" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="785" y="100" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Периферія (SPI / I2S / UART)</text>
+  <text x="785" y="120" text-anchor="middle" font-size="12" fill="#1a1a1a">Апаратні інтерфейси зв'язку</text>
+  <text x="785" y="138" text-anchor="middle" font-size="12" fill="#6b7280">Канали GDMA Rx / Tx</text>
+
+  <!-- Zone 1 to Zone 2 Connectors -->
+  <line x1="175" y1="155" x2="175" y2="178" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="210" y="170" text-anchor="middle" font-size="12" fill="#2457d6">DMA Rx/Tx</text>
+
+  <line x1="480" y1="155" x2="480" y2="178" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="525" y="170" text-anchor="middle" font-size="12" fill="#2457d6">DMA Video</text>
+
+  <line x1="785" y1="155" x2="785" y2="178" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+
+
+  <!-- ================= ZONE 2: GDMA & BUS MATRIX ================= -->
+  <rect x="40" y="180" width="880" height="75" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="200" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Шинна матриця &amp; Контролер прямого доступу пам'яті (GDMA Matrix Switch)</text>
+  <text x="480" y="220" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Паралельні незалежні канали GDMA + Багатомагістральна комутація шин</text>
+  <text x="480" y="240" text-anchor="middle" font-size="12" fill="#27ae60">Передача даних периферія &lt;-&gt; SRAM без навантаження на процесор (Zero-CPU Overhead)</text>
+
+  <!-- Zone 2 to Zone 3 Connectors -->
+  <line x1="175" y1="255" x2="175" y2="278" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+
+  <line x1="480" y1="255" x2="480" y2="278" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="535" y="270" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">DMA Bus</text>
+
+  <line x1="785" y1="255" x2="785" y2="278" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+
+  <!-- ================= ZONE 3: CPU & MEMORY SUBSYSTEM ================= -->
+  <!-- CPU Cores -->
+  <rect x="40" y="280" width="270" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="175" y="300" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Ядра Xtensa LX7 (Core 0 / Core 1)</text>
+  <text x="175" y="320" text-anchor="middle" font-size="12" fill="#1a1a1a">240 МГц + Векторний блок PIE</text>
+  <text x="175" y="338" text-anchor="middle" font-size="12" fill="#6b7280">Управління та обробка даних</text>
+
+  <!-- Internal SRAM -->
+  <rect x="345" y="280" width="270" height="75" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="300" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Внутрішня пам'ять SRAM</text>
+  <text x="480" y="320" text-anchor="middle" font-size="12" fill="#1a1a1a">SRAM0 / SRAM1 / SRAM2 (512 КБ)</text>
+  <text x="480" y="338" text-anchor="middle" font-size="12" fill="#27ae60">Буфери DMA для USB та DVP</text>
+
+  <!-- Cache & MMU -->
+  <rect x="650" y="280" width="270" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="785" y="300" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Кеш &amp; Блок MMU</text>
+  <text x="785" y="320" text-anchor="middle" font-size="12" fill="#1a1a1a">Адресація та прозоре відображення</text>
+  <text x="785" y="338" text-anchor="middle" font-size="12" fill="#6b7280">Шини Quad SPI / Octal SPI</text>
+
+  <!-- Horizontal Interconnections in Zone 3 -->
+  <line x1="310" y1="317" x2="343" y2="317" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="615" y1="317" x2="648" y2="317" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+
+  <!-- ================= ZONE 4: EXTERNAL MEMORY & PINS ================= -->
+  <!-- Strapping Pins & Reserved GPIOs -->
+  <rect x="40" y="380" width="420" height="48" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="250" y="400" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Конфігураційні виводи (Strapping Pins &amp; GPIO)</text>
+  <text x="250" y="418" text-anchor="middle" font-size="12" fill="#6b7280">GPIO0, 3, 45, 46 (boot) | GPIO26–37 (SiP SPI Flash/PSRAM)</text>
+
+  <!-- External Flash & PSRAM -->
+  <rect x="500" y="380" width="420" height="48" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="710" y="400" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Зовнішня SiP / Board Пам'ять (Flash &amp; PSRAM)</text>
+  <text x="710" y="418" text-anchor="middle" font-size="12" fill="#6b7280">Режими SDR / DDR | Живлення VDD_SPI (1.8V / 3.3V)</text>
+
+  <!-- Cache/MMU to External Memory Connector -->
+  <line x1="785" y1="355" x2="785" y2="378" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+</svg>

@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Main Header -->
+  <text x="480" y="26" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Діагностика SWD: земляні петлі, паразитні ємності та лінія NRST</text>
+  <text x="480" y="45" text-anchor="middle" font-size="13" fill="#6b7280">Надійне SWD-з'єднання вимагає спільної землі, коротких провідників та підтяжки лінії скидання</text>
+
+  <!-- LEFT PANEL: Problem -->
+  <rect x="25" y="65" width="445" height="395" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <rect x="35" y="75" width="425" height="28" fill="#ffffff" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="247" y="94" text-anchor="middle" font-size="14" font-weight="700" fill="#c0392b">❌ Некоректне підключення (типові помилки)</text>
+
+  <!-- Left Debugger Box -->
+  <rect x="45" y="115" width="110" height="240" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="100" y="135" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">DAPLink</text>
+  <text x="100" y="150" text-anchor="middle" font-size="12" fill="#6b7280">(WeAct Mini)</text>
+
+  <text x="145" y="185" text-anchor="end" font-size="12" fill="#1a1a1a">3V3</text>
+  <text x="145" y="218" text-anchor="end" font-size="12" fill="#1a1a1a">SWDIO</text>
+  <text x="145" y="258" text-anchor="end" font-size="12" fill="#1a1a1a">SWCLK</text>
+  <text x="145" y="298" text-anchor="end" font-size="12" fill="#1a1a1a">NRST</text>
+  <text x="145" y="343" text-anchor="end" font-size="12" fill="#1a1a1a">GND</text>
+
+  <!-- Left Target Box -->
+  <rect x="345" y="115" width="110" height="240" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="400" y="135" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Target MCU</text>
+  <text x="400" y="150" text-anchor="middle" font-size="12" fill="#6b7280">(STM32)</text>
+
+  <text x="355" y="185" text-anchor="start" font-size="12" fill="#1a1a1a">VDD</text>
+  <text x="355" y="218" text-anchor="start" font-size="12" fill="#1a1a1a">SWDIO</text>
+  <text x="355" y="258" text-anchor="start" font-size="12" fill="#1a1a1a">SWCLK</text>
+  <text x="355" y="298" text-anchor="start" font-size="12" fill="#1a1a1a">NRST</text>
+  <text x="355" y="343" text-anchor="start" font-size="12" fill="#1a1a1a">GND</text>
+
+  <!-- Left Connections -->
+  <!-- 3V3 Wire -->
+  <line x1="155" y1="181" x2="345" y2="181" stroke="#6b7280" stroke-dasharray="3 3" stroke-width="1.5"/>
+
+  <!-- SWDIO Wire -->
+  <line x1="155" y1="214" x2="345" y2="214" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- SWCLK Wire -->
+  <line x1="155" y1="254" x2="345" y2="254" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Parasitic Capacitance Cp between SWDIO and SWCLK -->
+  <line x1="240" y1="214" x2="240" y2="228" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="240" y1="240" x2="240" y2="254" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="234" y1="228" x2="246" y2="228" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="234" y1="240" x2="246" y2="240" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="252" y="238" text-anchor="start" font-size="12" font-weight="700" fill="#c0392b">C_p &gt; 50 pF</text>
+  <text x="250" y="272" text-anchor="middle" font-size="12" fill="#c0392b">Довгий кабель: завалені фронти</text>
+
+  <!-- NRST Wire (Floating) -->
+  <line x1="155" y1="294" x2="225" y2="294" stroke="#c0392b" stroke-dasharray="4 3" stroke-width="1.5"/>
+  <line x1="275" y1="294" x2="345" y2="294" stroke="#c0392b" stroke-dasharray="4 3" stroke-width="1.5"/>
+  <circle cx="250" cy="294" r="10" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M245,289 L255,299 M255,289 L245,299" stroke="#c0392b" stroke-width="2"/>
+  <text x="250" y="316" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">NRST не підключено / без R_pu</text>
+
+  <!-- GND Loop / Disconnected -->
+  <line x1="155" y1="339" x2="220" y2="339" stroke="#c0392b" stroke-dasharray="4 3" stroke-width="1.5"/>
+  <line x1="280" y1="339" x2="345" y2="339" stroke="#c0392b" stroke-dasharray="4 3" stroke-width="1.5"/>
+  <rect x="225" y="329" width="50" height="20" fill="#ffffff" stroke="#c0392b" stroke-width="1" rx="3"/>
+  <text x="250" y="343" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">V_noise</text>
+  <text x="250" y="363" text-anchor="middle" font-size="12" fill="#c0392b">Відсутня земля (земляна петля)</text>
+
+  <!-- Left Summary Box -->
+  <rect x="40" y="375" width="415" height="73" fill="#ffffff" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4 4" rx="4"/>
+  <text x="50" y="394" font-size="12" font-weight="700" fill="#c0392b">⚠️ Наслідки некоректного підключення:</text>
+  <text x="50" y="412" font-size="12" fill="#1a1a1a">• Втрата зв'язку через розсогласування логічних рівнів</text>
+  <text x="50" y="430" font-size="12" fill="#1a1a1a">• Помилки OpenOCD «Target not found» та спонтанний скид</text>
+
+  <!-- RIGHT PANEL: Solution -->
+  <rect x="490" y="65" width="445" height="395" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <rect x="500" y="75" width="425" height="28" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="712" y="94" text-anchor="middle" font-size="14" font-weight="700" fill="#27ae60">✓ Правильне схематичне рішення</text>
+
+  <!-- Right Debugger Box -->
+  <rect x="510" y="115" width="110" height="240" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="565" y="135" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">DAPLink</text>
+  <text x="565" y="150" text-anchor="middle" font-size="12" fill="#6b7280">(WeAct Mini)</text>
+
+  <text x="610" y="185" text-anchor="end" font-size="12" fill="#1a1a1a">3V3</text>
+  <text x="610" y="218" text-anchor="end" font-size="12" fill="#1a1a1a">SWDIO</text>
+  <text x="610" y="258" text-anchor="end" font-size="12" fill="#1a1a1a">SWCLK</text>
+  <text x="610" y="298" text-anchor="end" font-size="12" fill="#1a1a1a">NRST</text>
+  <text x="610" y="343" text-anchor="end" font-size="12" fill="#1a1a1a">GND</text>
+
+  <!-- Right Target Box -->
+  <rect x="810" y="115" width="110" height="240" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="865" y="135" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Target MCU</text>
+  <text x="865" y="150" text-anchor="middle" font-size="12" fill="#6b7280">(STM32)</text>
+
+  <text x="820" y="185" text-anchor="start" font-size="12" fill="#1a1a1a">VDD</text>
+  <text x="820" y="218" text-anchor="start" font-size="12" fill="#1a1a1a">SWDIO</text>
+  <text x="820" y="258" text-anchor="start" font-size="12" fill="#1a1a1a">SWCLK</text>
+  <text x="820" y="298" text-anchor="start" font-size="12" fill="#1a1a1a">NRST</text>
+  <text x="820" y="343" text-anchor="start" font-size="12" fill="#1a1a1a">GND</text>
+
+  <!-- Right Connections -->
+  <!-- 3V3 Wire -->
+  <line x1="620" y1="181" x2="810" y2="181" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- SWDIO Wire with Rs -->
+  <line x1="620" y1="214" x2="685" y2="214" stroke="#27ae60" stroke-width="2"/>
+  <rect x="685" y="208" width="22" height="12" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="2"/>
+  <line x1="707" y1="214" x2="810" y2="214" stroke="#27ae60" stroke-width="2"/>
+  <text x="696" y="202" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">R_s = 22 Ω</text>
+
+  <!-- SWCLK Wire with Rs -->
+  <line x1="620" y1="254" x2="685" y2="254" stroke="#27ae60" stroke-width="2"/>
+  <rect x="685" y="248" width="22" height="12" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="2"/>
+  <line x1="707" y1="254" x2="810" y2="254" stroke="#27ae60" stroke-width="2"/>
+  <text x="696" y="272" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">R_s = 22 Ω</text>
+
+  <!-- NRST Wire with Pull-Up Rpu and Filter Capacitance Cf -->
+  <line x1="620" y1="294" x2="810" y2="294" stroke="#27ae60" stroke-width="2"/>
+  
+  <!-- Node at x=750 on NRST -->
+  <circle cx="750" cy="294" r="3" fill="#27ae60"/>
+  <!-- Branch UP to 3V3 line (y=181) -->
+  <line x1="750" y1="294" x2="750" y2="242" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="744" y="222" width="12" height="20" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="2"/>
+  <line x1="750" y1="222" x2="750" y2="181" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="750" cy="181" r="3" fill="#27ae60"/>
+  <text x="762" y="236" text-anchor="start" font-size="12" font-weight="700" fill="#27ae60">R_pu = 10 kΩ</text>
+
+  <!-- Branch DOWN to GND line (y=339) -->
+  <line x1="750" y1="294" x2="750" y2="312" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="742" y1="312" x2="758" y2="312" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="742" y1="320" x2="758" y2="320" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="750" y1="320" x2="750" y2="339" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="750" cy="339" r="3" fill="#27ae60"/>
+  <text x="762" y="320" text-anchor="start" font-size="12" font-weight="700" fill="#27ae60">C_f = 100 nF</text>
+
+  <!-- GND Wire (Solid Ground) -->
+  <line x1="620" y1="339" x2="810" y2="339" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="680" y="363" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Надійна спільна земля (GND)</text>
+
+  <!-- Right Summary Box -->
+  <rect x="505" y="375" width="415" height="73" fill="#ffffff" stroke="#27ae60" stroke-width="1.2" rx="4"/>
+  <text x="515" y="394" font-size="12" font-weight="700" fill="#27ae60">✓ Переваги правильного схематичного рішення:</text>
+  <text x="515" y="412" font-size="12" fill="#1a1a1a">• Захист від завад, джиттеру та відбиттів у SWCLK</text>
+  <text x="515" y="430" font-size="12" fill="#1a1a1a">• Надійний апаратний скид (NRST) та стабільна прошивка</text>
+</svg>

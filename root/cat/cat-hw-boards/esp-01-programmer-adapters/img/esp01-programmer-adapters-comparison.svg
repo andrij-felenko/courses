@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння типів USB-адаптерів для програмування модулів ESP-01</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Відмінності схемотехніки між базовим UART-адаптером з ручними кнопками та платою з автоматичним автоскидом</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Ручне керування -->
+  <rect x="40" y="85" width="420" height="400" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <rect x="40" y="85" width="420" height="34" rx="8" fill="#c0392b"/>
+  <text x="250" y="107" font-size="14" font-weight="bold" fill="white" text-anchor="middle">1. Базовий адаптер (Ручне керування)</text>
+
+  <!-- Блок 1: USB-UART -->
+  <rect x="60" y="130" width="380" height="60" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="250" y="152" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB-UART міст (лише TXD, RXD, VCC, GND)</text>
+  <text x="250" y="172" font-size="12" fill="#6b7280" text-anchor="middle">Лінії DTR / RTS відсутні або не розведені</text>
+
+  <!-- Блок 2: Схемотехніка керування -->
+  <rect x="60" y="202" width="380" height="105" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="72" y="224" font-size="12" font-weight="bold" fill="#c0392b">Особливості схемотехніки:</text>
+  <text x="80" y="244" font-size="12" fill="#1a1a1a">• Кнопка / джампер ручного замикання GPIO0 на GND</text>
+  <text x="80" y="264" font-size="12" fill="#1a1a1a">• Ручне вимикання живлення або кнопка скидання RST</text>
+  <text x="80" y="284" font-size="12" fill="#1a1a1a">• Вимагає затискання PROG перед кожною прошивкою</text>
+  <text x="80" y="300" font-size="12" font-weight="bold" fill="#c0392b">• Ручна послідовність: PROG=0 → RST імпульс → Release</text>
+
+  <!-- Блок 3: Живлення та роз'єм -->
+  <rect x="60" y="319" width="380" height="145" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="250" y="340" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Роз'єм 2x4 Pin + Живлення</text>
+  <text x="250" y="362" font-size="12" fill="#6b7280" text-anchor="middle">VCC (3.3V LDO), GND, TXD, RXD, CH_PD=10k</text>
+  <text x="250" y="384" font-size="12" fill="#c0392b" text-anchor="middle">Слабкий LDO (100-150 мА) без конденсаторів</text>
+  <text x="250" y="406" font-size="12" fill="#c0392b" text-anchor="middle">Ризик просідання VCC та Brown-out під час піків Wi-Fi</text>
+  <text x="250" y="428" font-size="12" fill="#6b7280" text-anchor="middle">Вимагає зовнішнього конденсатора 10..100 мкФ</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Автоскид -->
+  <rect x="500" y="85" width="420" height="400" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <rect x="500" y="85" width="420" height="34" rx="8" fill="#27ae60"/>
+  <text x="710" y="107" font-size="14" font-weight="bold" fill="white" text-anchor="middle">2. Адаптер з автоскидом (Auto-Reset)</text>
+
+  <!-- Блок 1: USB-UART з DTR/RTS -->
+  <rect x="520" y="130" width="380" height="60" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="710" y="152" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">USB-UART міст (CH340C / CP2104 / FT232R)</text>
+  <text x="710" y="172" font-size="12" fill="#6b7280" text-anchor="middle">Повні виводи керування: TXD, RXD, DTR, RTS</text>
+
+  <!-- Блок 2: Вузол Auto-Reset -->
+  <rect x="520" y="202" width="380" height="105" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="532" y="224" font-size="12" font-weight="bold" fill="#27ae60">Автоматичний автомат прошивки (Auto-Reset):</text>
+  <text x="540" y="244" font-size="12" fill="#1a1a1a">• Двотранзисторний ключ (2x NPN S8050 / Q1, Q2)</text>
+  <text x="540" y="264" font-size="12" fill="#1a1a1a">• Автоматично притискає GPIO0=0 та формує RST імпульс</text>
+  <text x="540" y="284" font-size="12" fill="#1a1a1a">• Повна сумісність з esptool, PlatformIO та Arduino IDE</text>
+  <text x="540" y="300" font-size="12" font-weight="bold" fill="#27ae60">• Прошивка запускається в 1 клік без дій розробника</text>
+
+  <!-- Блок 3: Живлення та роз'єм -->
+  <rect x="520" y="319" width="380" height="145" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="710" y="340" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Роз'єм 2x4 Pin + Потужне живлення</text>
+  <text x="710" y="362" font-size="12" fill="#6b7280" text-anchor="middle">Потужний LDO AMS1117-3.3V (струм до 800 мА)</text>
+  <text x="710" y="384" font-size="12" fill="#27ae60" text-anchor="middle">Шунтувальні керамічні та електролітичні конденсатори</text>
+  <text x="710" y="406" font-size="12" fill="#27ae60" text-anchor="middle">Надійне живлення під час пікових сплесків передавача 300+ мА</text>
+  <text x="710" y="428" font-size="12" fill="#6b7280" text-anchor="middle">Виключає хаотичні перезавантаження за коричневим рівнем</text>
+
+  <!-- Підвальний підпис -->
+  <text x="480" y="516" font-size="12" fill="#6b7280" text-anchor="middle">Порада: Для зручного розроблення обирайте адаптери з вбудованою схемою Auto-Reset та LDO AMS1117-3.3 (800 мА)</text>
+</svg>

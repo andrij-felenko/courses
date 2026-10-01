@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура CMSIS-DAP v1 на базі USB HID</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Передача команд зневадження через вбудований драйвер ОС без встановлення стороннього ПЗ</text>
+
+  <!-- Column 1: Host PC Stack -->
+  <rect x="30" y="75" width="270" height="345" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="98" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">1. Host PC (ПЗ розробника)</text>
+
+  <rect x="45" y="115" width="240" height="70" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="165" y="137" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">IDE / Debugger Client</text>
+  <text x="165" y="155" font-size="12" fill="#1a1a1a" text-anchor="middle">(Keil, OpenOCD, pyOCD)</text>
+  <text x="165" y="173" font-size="12" fill="#6b7280" text-anchor="middle">Формування CMSIS-DAP пакетів</text>
+
+  <line x1="165" y1="185" x2="165" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="175" y="202" font-size="12" fill="#2457d6" text-anchor="start">Виклики API (hidapi)</text>
+
+  <rect x="45" y="215" width="240" height="105" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="165" y="235" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вбудований драйвер ОС (HID)</text>
+  <text x="165" y="253" font-size="12" fill="#1a1a1a" text-anchor="middle">(Windows hid.sys / Linux hidraw)</text>
+
+  <rect x="55" y="265" width="220" height="45" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="165" y="282" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Без інсталяції драйверів</text>
+  <text x="165" y="300" font-size="12" fill="#27ae60" text-anchor="middle">(Driverless Plug-and-Play)</text>
+
+  <line x1="165" y1="320" x2="165" y2="345" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="175" y="337" font-size="12" fill="#2457d6" text-anchor="start">USB I/O</text>
+
+  <rect x="45" y="350" width="240" height="55" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="165" y="372" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB Host Controller</text>
+  <text x="165" y="392" font-size="12" fill="#6b7280" text-anchor="middle">Формування USB-пакетів</text>
+
+  <!-- Connection Line Host -> USB Channel -->
+  <line x1="285" y1="377" x2="340" y2="377" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="312.5" y="370" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">USB Кабель</text>
+
+  <!-- Column 2: USB HID Channel & Protocol -->
+  <rect x="330" y="75" width="300" height="345" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="345" y="98" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">2. USB HID Канал (v1 Protocol)</text>
+
+  <rect x="345" y="115" width="270" height="290" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="136" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Структура HID Report (64 байти)</text>
+
+  <rect x="360" y="148" width="240" height="42" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="165" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Report ID (0x00)</text>
+  <text x="480" y="181" font-size="12" fill="#1a1a1a" text-anchor="middle">1 байт префікса HID</text>
+
+  <rect x="360" y="198" width="240" height="48" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="217" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">CMSIS-DAP Команда / Запит</text>
+  <text x="480" y="236" font-size="12" fill="#1a1a1a" text-anchor="middle">DAP_Transfer / DAP_Connect</text>
+
+  <rect x="360" y="254" width="240" height="50" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="273" font-size="12" fill="#6b7280" text-anchor="middle">Аргументи та дані / Заповнення</text>
+  <text x="480" y="293" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фіксований буфер: 64 байти</text>
+
+  <rect x="360" y="312" width="240" height="83" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="370" y="330" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Параметри каналу CMSIS-DAP v1:</text>
+  <text x="370" y="348" font-size="12" fill="#6b7280" text-anchor="start">• USB Full-Speed (12 Мбіт/с)</text>
+  <text x="370" y="366" font-size="12" fill="#6b7280" text-anchor="start">• EP IN / OUT (Interrupt)</text>
+  <text x="370" y="384" font-size="12" fill="#6b7280" text-anchor="start">• Інтервал опитування: 1 мс</text>
+
+  <!-- Connection Line USB Channel -> DAPLink -->
+  <line x1="615" y1="377" x2="670" y2="377" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="642.5" y="370" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">HID Пакет</text>
+
+  <!-- Column 3: DAPLink Debugger & Target MCU -->
+  <rect x="660" y="75" width="270" height="345" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="675" y="98" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">3. DAPLink та цільовий MCU</text>
+
+  <rect x="675" y="115" width="240" height="120" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="795" y="137" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DAPLink Programmer MCU</text>
+  <text x="795" y="157" font-size="12" fill="#1a1a1a" text-anchor="middle">USB HID Engine (EP Handler)</text>
+  <text x="795" y="177" font-size="12" fill="#1a1a1a" text-anchor="middle">Інтерпретатор CMSIS-DAP</text>
+  <text x="795" y="197" font-size="12" fill="#1a1a1a" text-anchor="middle">Драйвер шини SWD / GPIO</text>
+  <text x="795" y="217" font-size="12" fill="#6b7280" text-anchor="middle">Генерація тактового SWCLK</text>
+
+  <!-- SWD Bus Arrow -->
+  <line x1="795" y1="235" x2="795" y2="265" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="785" y="254" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Шина SWD (SWCLK, SWDIO, nRESET)</text>
+
+  <rect x="675" y="270" width="240" height="135" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="795" y="292" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Цільовий мікроконтролер</text>
+  <text x="795" y="312" font-size="12" fill="#1a1a1a" text-anchor="middle">ARM Cortex-M Core</text>
+  <text x="795" y="332" font-size="12" fill="#1a1a1a" text-anchor="middle">Debug Access Port (DAP)</text>
+  <text x="795" y="352" font-size="12" fill="#1a1a1a" text-anchor="middle">DP / AP регістри зневадження</text>
+  <text x="795" y="372" font-size="12" fill="#27ae60" text-anchor="middle">Керування Flash / SRAM / CPU</text>
+
+  <!-- Bottom Key Takeaways Banner -->
+  <rect x="30" y="435" width="900" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="45" y="455" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">Ключові особливості архітектури CMSIS-DAP v1 (HID):</text>
+  <text x="45" y="475" font-size="12" fill="#1a1a1a" text-anchor="start">• 100% Кросплатформенність: Працює "з коробки" на Windows, Linux та macOS завдяки системному USB HID класу</text>
+  <text x="45" y="495" font-size="12" fill="#1a1a1a" text-anchor="start">• Простота інтеграції: Прямий доступ з утиліт (OpenOCD, pyOCD) через стандартний користувацький hidapi API</text>
+</svg>

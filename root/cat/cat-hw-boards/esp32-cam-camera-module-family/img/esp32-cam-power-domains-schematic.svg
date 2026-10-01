@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Схемотехніка триканального живлення камери ESP32-CAM</text>
+  <text x="480" y="50" font-size="13" text-anchor="middle" fill="#6b7280">Розділення шин AVDD (аналог + LC), DVDD (цифрове ядро 1.2V) та DOVDD (I/O) запобігає шумам</text>
+
+  <!-- Routing Lines (drawn under panels) -->
+  <!-- 3.3V Power Distribution Lines -->
+  <path d="M 174,275 L 200,275 L 200,175 L 285,175" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M 200,275 L 200,300 L 285,300" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 200,300 L 200,425 L 285,425" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="205" y="265" font-size="11" font-weight="bold" text-anchor="start" fill="#27ae60">3.3V</text>
+
+  <!-- PWDN Control Line -->
+  <path d="M 174,365 L 250,365 L 250,195 L 285,195" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <path d="M 250,365 L 250,320 L 285,320" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="245" y="355" font-size="11" text-anchor="end" fill="#c0392b">PWDN</text>
+
+  <!-- Channel Output Connections to FPC -->
+  <path d="M 655,180 L 745,172" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="700" y="160" font-size="11" font-weight="bold" text-anchor="middle" fill="#27ae60">AVDD (2.8V)</text>
+
+  <path d="M 655,307 L 745,287" fill="none" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="700" y="275" font-size="11" font-weight="bold" text-anchor="middle" fill="#2457d6">DVDD (1.2V)</text>
+
+  <path d="M 655,434 L 745,402" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="700" y="390" font-size="11" font-weight="bold" text-anchor="middle" fill="#1a1a1a">DOVDD</text>
+
+  <!-- Column 1: Main Power Input & Controls -->
+  <rect x="25" y="80" width="160" height="415" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="105" y="102" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Джерело живлення</text>
+
+  <rect x="36" y="115" width="138" height="50" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="105" y="134" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">5V VEXT / USB</text>
+  <text x="105" y="150" font-size="12" text-anchor="middle" fill="#6b7280">Вхідне 5V DC</text>
+
+  <rect x="36" y="178" width="138" height="58" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5" rx="4"/>
+  <text x="105" y="196" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">AMS1117-3.3</text>
+  <text x="105" y="212" font-size="12" text-anchor="middle" fill="#1a1a1a">Головний LDO 3.3V</text>
+  <text x="105" y="226" font-size="11" text-anchor="middle" fill="#6b7280">Живлення ESP32/PSRAM</text>
+
+  <rect x="36" y="248" width="138" height="55" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="105" y="268" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Шина 3.3V VDD</text>
+  <text x="105" y="288" font-size="11" text-anchor="middle" fill="#27ae60">Вхід для LDO камери</text>
+
+  <rect x="36" y="315" width="138" height="165" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="105" y="334" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Керування PWDN</text>
+  <text x="105" y="352" font-size="12" text-anchor="middle" fill="#1a1a1a">GPIO32 ESP32</text>
+  <text x="105" y="370" font-size="11" text-anchor="middle" fill="#c0392b">• HIGH = Power Down</text>
+  <text x="105" y="388" font-size="11" text-anchor="middle" fill="#27ae60">• LOW = Активна камера</text>
+  <text x="105" y="406" font-size="11" text-anchor="middle" fill="#6b7280">Управління EN LDO</text>
+  <text x="105" y="424" font-size="11" text-anchor="middle" fill="#6b7280">Зниження струму сну</text>
+  <text x="105" y="442" font-size="11" text-anchor="middle" fill="#6b7280">до &lt; 10 мкА в Sleep</text>
+  <text x="105" y="460" font-size="11" text-anchor="middle" fill="#6b7280">на лініях AVDD/DVDD</text>
+
+  <!-- Column 2: LDO Regulators & LC Filters Panel -->
+  <rect x="265" y="80" width="410" height="415" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="470" y="102" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Вузол триканальної стабілізації та LC-фільтрації</text>
+
+  <!-- Channel 1: AVDD Analog 2.8V -->
+  <rect x="275" y="115" width="390" height="115" fill="#e9f7ef" stroke="#27ae60" rx="6"/>
+  <text x="470" y="133" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Канал 1: AVDD (2.8V) — Аналогова матриця та ПАП (Ultra-Low Noise)</text>
+
+  <rect x="285" y="143" width="120" height="75" fill="#ffffff" stroke="#27ae60" rx="4"/>
+  <text x="345" y="161" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">LDO 2.8V (AVDD)</text>
+  <text x="345" y="177" font-size="11" text-anchor="middle" fill="#27ae60">U2 (Low Noise)</text>
+  <text x="345" y="193" font-size="11" text-anchor="middle" fill="#6b7280">PSRR &gt; 70 dB</text>
+  <text x="345" y="207" font-size="11" text-anchor="middle" fill="#6b7280">I_max = 300 mA</text>
+
+  <path d="M 405,180 L 535,180" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="470" y="170" font-size="11" font-weight="bold" text-anchor="middle" fill="#27ae60">2.8V</text>
+
+  <rect x="535" y="143" width="120" height="75" fill="#ffffff" stroke="#27ae60" rx="4"/>
+  <text x="595" y="161" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Фільтр AVDD</text>
+  <text x="595" y="177" font-size="11" text-anchor="middle" fill="#1a1a1a">L1: 10 µH / Ferrite</text>
+  <text x="595" y="193" font-size="11" text-anchor="middle" fill="#1a1a1a">C1: 10 µF (Тантал)</text>
+  <text x="595" y="207" font-size="11" text-anchor="middle" fill="#6b7280">C2: 0.1 µF (Кераміка)</text>
+
+  <!-- Channel 2: DVDD Digital Core 1.2V -->
+  <rect x="275" y="242" width="390" height="115" fill="#eaf0fd" stroke="#2457d6" rx="6"/>
+  <text x="470" y="260" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Канал 2: DVDD (1.2V) — Цифрове ядро та DSP (High Dynamic Current)</text>
+
+  <rect x="285" y="270" width="120" height="75" fill="#ffffff" stroke="#2457d6" rx="4"/>
+  <text x="345" y="288" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">LDO 1.2V (DVDD)</text>
+  <text x="345" y="304" font-size="11" text-anchor="middle" fill="#2457d6">U3 (Digital Core)</text>
+  <text x="345" y="320" font-size="11" text-anchor="middle" fill="#6b7280">Ядро OV2640</text>
+  <text x="345" y="334" font-size="11" text-anchor="middle" fill="#6b7280">I_max = 150 mA</text>
+
+  <path d="M 405,307 L 535,307" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="470" y="297" font-size="11" font-weight="bold" text-anchor="middle" fill="#2457d6">1.2V</text>
+
+  <rect x="535" y="270" width="120" height="75" fill="#ffffff" stroke="#2457d6" rx="4"/>
+  <text x="595" y="288" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Фільтр DVDD</text>
+  <text x="595" y="304" font-size="11" text-anchor="middle" fill="#1a1a1a">C3: 10 µF (Кераміка)</text>
+  <text x="595" y="320" font-size="11" text-anchor="middle" fill="#1a1a1a">C4: 0.1 µF (HF bypass)</text>
+  <text x="595" y="334" font-size="11" text-anchor="middle" fill="#6b7280">Пригнічення піків</text>
+
+  <!-- Channel 3: DOVDD Digital I/O 2.8V/3.3V -->
+  <rect x="275" y="369" width="390" height="115" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="470" y="387" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Канал 3: DOVDD (2.8V / 3.3V) — Цифровий інтерфейс DVP (I/O Level)</text>
+
+  <rect x="285" y="397" width="120" height="75" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="345" y="415" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">DOVDD Power Rail</text>
+  <text x="345" y="431" font-size="11" text-anchor="middle" fill="#6b7280">2.8V (з AVDD LDO)</text>
+  <text x="345" y="447" font-size="11" text-anchor="middle" fill="#6b7280">або 3.3V (Пряме)</text>
+  <text x="345" y="461" font-size="11" text-anchor="middle" fill="#6b7280">Рівень логіки IO</text>
+
+  <path d="M 405,434 L 535,434" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="470" y="424" font-size="11" text-anchor="middle" fill="#1a1a1a">2.8V/3.3V</text>
+
+  <rect x="535" y="397" width="120" height="75" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="595" y="415" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Фільтр DOVDD</text>
+  <text x="595" y="431" font-size="11" text-anchor="middle" fill="#1a1a1a">C5: 4.7 µF (Кераміка)</text>
+  <text x="595" y="447" font-size="11" text-anchor="middle" fill="#1a1a1a">C6: 0.1 µF (Bypass)</text>
+  <text x="595" y="461" font-size="11" text-anchor="middle" fill="#6b7280">Захист ліній DVP</text>
+
+  <!-- Column 3: FPC Connector & Camera Sensor Pins -->
+  <rect x="735" y="80" width="200" height="415" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="835" y="102" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Роз'єм FPC (Камера OV2640)</text>
+
+  <!-- AVDD Pin Box -->
+  <rect x="745" y="122" width="180" height="95" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="835" y="142" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Піни AVDD (2.8V)</text>
+  <text x="753" y="160" font-size="11" text-anchor="start" fill="#1a1a1a">• Живлення матриці пікселів</text>
+  <text x="753" y="177" font-size="11" text-anchor="start" fill="#1a1a1a">• Аналоговий ПАП / PLL</text>
+  <text x="753" y="194" font-size="11" font-weight="bold" text-anchor="start" fill="#27ae60">• Вимога: пульсації &lt; 10 мВ</text>
+
+  <!-- DVDD Pin Box -->
+  <rect x="745" y="237" width="180" height="95" fill="#ffffff" stroke="#2457d6" rx="4"/>
+  <text x="835" y="257" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Піни DVDD (1.2V)</text>
+  <text x="753" y="275" font-size="11" text-anchor="start" fill="#1a1a1a">• Логічне ядро камери</text>
+  <text x="753" y="292" font-size="11" text-anchor="start" fill="#1a1a1a">• DSP / Стиснення JPEG</text>
+  <text x="753" y="309" font-size="11" text-anchor="start" fill="#6b7280">• Струмові піки при кадрі</text>
+
+  <!-- DOVDD Pin Box -->
+  <rect x="745" y="352" width="180" height="95" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="835" y="372" font-size="12" font-weight="bold" text-anchor="middle">Піни DOVDD (2.8V/3.3V)</text>
+  <text x="753" y="390" font-size="11" text-anchor="start" fill="#1a1a1a">• Буфери шини DVP (D0–D7)</text>
+  <text x="753" y="407" font-size="11" text-anchor="start" fill="#1a1a1a">• Сигнали PCLK, VSYNC, HREF</text>
+  <text x="753" y="424" font-size="11" text-anchor="start" fill="#6b7280">• Узгодження з ESP32 IO</text>
+
+  <!-- Ground Note Box -->
+  <rect x="745" y="455" width="180" height="32" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="835" y="475" font-size="11" text-anchor="middle" fill="#6b7280">Спільна земля GND (Star Ground)</text>
+</svg>

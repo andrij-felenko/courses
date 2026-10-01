@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Архітектура адресної пам'яті MMU та L1-кешування у ESP32-S3R2</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Трансляція адресового простору CPU до внутрішньої SRAM, зовнішньої PSRAM та Flash</text>
+
+  <!-- Column 1: CPU Cores & L1 Cache Subsystem -->
+  <rect x="50" y="85" width="220" height="345" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="160" y="108" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Ядра ЦПУ та L1-кеш</text>
+
+  <!-- CPU Cores -->
+  <rect x="65" y="125" width="190" height="65" rx="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="160" y="148" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Xtensa LX7 (240 МГц)</text>
+  <text x="160" y="170" text-anchor="middle" font-size="12" fill="#6b7280">Core 0 (PRO) + Core 1 (APP)</text>
+
+  <!-- L1 ICache -->
+  <rect x="65" y="205" width="190" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="160" y="228" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">L1 ICache (32 КБ)</text>
+  <text x="160" y="248" text-anchor="middle" font-size="11" fill="#1a1a1a">Кешування інструкцій Flash</text>
+
+  <!-- L1 DCache -->
+  <rect x="65" y="280" width="190" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="160" y="303" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">L1 DCache (32 КБ)</text>
+  <text x="160" y="323" text-anchor="middle" font-size="11" fill="#1a1a1a">Кешування даних PSRAM</text>
+
+  <!-- CPU Bus Info -->
+  <rect x="65" y="355" width="190" height="60" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="160" y="378" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Шини IBus / DBus</text>
+  <text x="160" y="398" text-anchor="middle" font-size="11" fill="#1a1a1a">32-бітний конвеєр до MMU</text>
+
+  <!-- Column 2: Memory Management Unit (MMU) & Address Map -->
+  <rect x="300" y="85" width="330" height="345" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="465" y="108" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Диспетчер MMU та Карта Адрес</text>
+
+  <!-- Internal SRAM Region -->
+  <rect x="315" y="125" width="300" height="70" rx="4" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="330" y="147" font-size="12" font-weight="bold" fill="#27ae60">Внутрішня SRAM (0x3FC00000)</text>
+  <text x="330" y="167" font-size="11" fill="#1a1a1a">Прямий доступ без затримок (Static RAM)</text>
+  <text x="330" y="184" font-size="11" fill="#6b7280">Обсяг ~512 КБ (Heap/Stack)</text>
+
+  <!-- PSRAM Region -->
+  <rect x="315" y="210" width="300" height="90" rx="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="330" y="232" font-size="12" font-weight="bold" fill="#2457d6">Зовнішня PSRAM (0x3D000000)</text>
+  <text x="330" y="252" font-size="11" fill="#1a1a1a">Мапування 2 МБ через MMU та DCache</text>
+  <text x="330" y="270" font-size="11" fill="#6b7280">Виділення пам'яті через heap_caps_malloc</text>
+  <text x="330" y="287" font-size="11" fill="#2457d6">Кадрові буфери та нейромережі AI</text>
+
+  <!-- Flash Region -->
+  <rect x="315" y="315" width="300" height="100" rx="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="330" y="337" font-size="12" font-weight="bold" fill="#2457d6">Зовнішня Flash (0x42000000)</text>
+  <text x="330" y="357" font-size="11" fill="#1a1a1a">Сторінкове мапування 16 МБ (Pages 64 КБ)</text>
+  <text x="330" y="375" font-size="11" fill="#6b7280">Трансляція інструкцій .text та .rodata</text>
+  <text x="330" y="395" font-size="11" fill="#c0392b">Штраф при промаху кешу (Cache Miss)</text>
+
+  <!-- Column 3: Physical Memory Modules -->
+  <rect x="660" y="85" width="250" height="345" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="785" y="108" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Фізичні носії пам'яті</text>
+
+  <!-- Physical Internal SRAM -->
+  <rect x="675" y="125" width="220" height="70" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="785" y="147" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">SRAM0 / SRAM1 / SRAM2</text>
+  <text x="785" y="167" text-anchor="middle" font-size="12" fill="#1a1a1a">Внутрішні 512 КБ</text>
+  <text x="785" y="184" text-anchor="middle" font-size="11" fill="#6b7280">Доступ за 1 такт CPU</text>
+
+  <!-- Physical PSRAM -->
+  <rect x="675" y="210" width="220" height="90" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="785" y="232" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Octal PSRAM (2 МБ)</text>
+  <text x="785" y="252" text-anchor="middle" font-size="11" fill="#1a1a1a">Шина Octal SPI (8 біт)</text>
+  <text x="785" y="270" text-anchor="middle" font-size="11" fill="#6b7280">Тактування 80 МГц</text>
+  <text x="785" y="288" text-anchor="middle" font-size="11" fill="#2457d6">Кристал SiP у корпусі</text>
+
+  <!-- Physical NOR Flash -->
+  <rect x="675" y="315" width="220" height="100" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="785" y="337" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">NOR Flash (16 МБ)</text>
+  <text x="785" y="357" text-anchor="middle" font-size="11" fill="#1a1a1a">Шина Quad SPI (4 біти)</text>
+  <text x="785" y="375" text-anchor="middle" font-size="11" fill="#6b7280">Енергонезалежне сховище</text>
+  <text x="785" y="395" text-anchor="middle" font-size="11" fill="#6b7280">Сектори стирання 4 КБ</text>
+
+  <!-- Connecting Bus Arrows (Col 1 -> Col 2) -->
+  <path d="M 255 160 L 315 160" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <path d="M 255 235 L 315 255" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <path d="M 255 310 L 315 365" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Connecting Bus Arrows (Col 2 -> Col 3) -->
+  <path d="M 615 160 L 675 160" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <path d="M 615 255 L 675 255" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <path d="M 615 365 L 675 365" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+</svg>

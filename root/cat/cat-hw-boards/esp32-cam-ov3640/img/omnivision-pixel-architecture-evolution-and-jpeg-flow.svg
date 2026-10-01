@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еволюція OmniPixel3-HS та апаратний потік JPEG у матриці OV3640</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Збільшення фактора заповнення та мікролінзи підвищують світлочутливість, а DSP формує JPEG для DVP</text>
+
+  <!-- Block A: Pixel Architecture Evolution -->
+  <rect x="30" y="80" width="420" height="430" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="240" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еволюція пікселів (OmniPixel3-HS)</text>
+  <text x="240" y="126" font-size="12" fill="#6b7280" text-anchor="middle">Принцип підвищення світлочутливості</text>
+
+  <!-- Card 1: Standard FSI Pixel -->
+  <rect x="45" y="150" width="390" height="155" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="240" y="172" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Стандартний піксель FSI (OmniPixel2)</text>
+
+  <!-- Graphics FSI -->
+  <rect x="65" y="190" width="110" height="20" fill="#f4f6f8" stroke="#c0392b" stroke-width="1" rx="6"/>
+  <text x="120" y="204" font-size="12" fill="#c0392b" text-anchor="middle">Мікролінза</text>
+
+  <rect x="65" y="215" width="110" height="30" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="120" y="234" font-size="12" fill="#c0392b" text-anchor="middle">Метал (втрати)</text>
+
+  <rect x="65" y="250" width="110" height="35" fill="#ffffff" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="120" y="272" font-size="12" fill="#c0392b" text-anchor="middle">Фотодіод (35%)</text>
+
+  <!-- Bullets FSI -->
+  <text x="195" y="200" font-size="12" fill="#1a1a1a">• Товсті провідники</text>
+  <text x="195" y="222" font-size="12" fill="#c0392b">• Втрата фотонів</text>
+  <text x="195" y="244" font-size="12" fill="#6b7280">• Fill Factor ~35%</text>
+  <text x="195" y="266" font-size="12" fill="#c0392b">• Оптичні шуми</text>
+
+  <!-- Card 2: Optimized OmniPixel3-HS Pixel -->
+  <rect x="45" y="320" width="390" height="170" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="240" y="342" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Оптимізований піксель (OmniPixel3-HS)</text>
+
+  <!-- Graphics 3-HS -->
+  <rect x="65" y="360" width="110" height="25" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="8"/>
+  <text x="120" y="377" font-size="12" fill="#27ae60" text-anchor="middle">Лінза 3-HS</text>
+
+  <rect x="65" y="390" width="110" height="20" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="120" y="404" font-size="12" fill="#27ae60" text-anchor="middle">Тонкий метал</text>
+
+  <rect x="65" y="415" width="110" height="45" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="120" y="434" font-size="12" fill="#27ae60" text-anchor="middle">Фотодіод</text>
+  <text x="120" y="450" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Fill Factor &gt;65%</text>
+
+  <!-- Bullets 3-HS -->
+  <text x="195" y="370" font-size="12" fill="#1a1a1a">• Форма мікролінзи</text>
+  <text x="195" y="392" font-size="12" fill="#27ae60">• Чутливість x2</text>
+  <text x="195" y="414" font-size="12" fill="#1a1a1a">• Нічний режим 0.5lx</text>
+  <text x="195" y="436" font-size="12" fill="#27ae60">• Низький шум</text>
+  <text x="195" y="458" font-size="12" fill="#6b7280">• Мінімум витоків</text>
+
+  <!-- Block B: Hardware JPEG Pipeline in OV3640 -->
+  <rect x="490" y="80" width="440" height="430" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="710" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратний конвеєр JPEG у OV3640</text>
+  <text x="710" y="126" font-size="12" fill="#6b7280" text-anchor="middle">Обробка від фотона до стиснутого потоку</text>
+
+  <!-- Stage 1: Photosensor -->
+  <rect x="510" y="150" width="400" height="60" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="710" y="174" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Фотоматриця 3.2 МП (OmniPixel3-HS)</text>
+  <text x="710" y="194" font-size="12" fill="#6b7280" text-anchor="middle">Захоплення фотонів -&gt; 10-біт АЦП (RAW Bayer)</text>
+
+  <!-- Arrow 1 to 2 -->
+  <line x1="710" y1="210" x2="710" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="730" y="223" font-size="12" fill="#2457d6">RAW</text>
+
+  <!-- Stage 2: ISP -->
+  <rect x="510" y="230" width="400" height="60" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="710" y="254" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Вбудований ISP (Image Signal Processor)</text>
+  <text x="710" y="274" font-size="12" fill="#6b7280" text-anchor="middle">Демозаїка RGB, Авто-баланс білого AWB, Гамма-корекція</text>
+
+  <!-- Arrow 2 to 3 -->
+  <line x1="710" y1="290" x2="710" y2="310" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="730" y="303" font-size="12" fill="#2457d6">YUV422</text>
+
+  <!-- Stage 3: JPEG Encoder -->
+  <rect x="510" y="310" width="400" height="60" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="710" y="334" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Апаратний JPEG Кодек (Embedded Encoder)</text>
+  <text x="710" y="354" font-size="12" fill="#27ae60" text-anchor="middle">Косинусне перетворення (DCT), Квантування, Хаффман</text>
+
+  <!-- Arrow 3 to 4 -->
+  <line x1="710" y1="370" x2="710" y2="390" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="730" y="383" font-size="12" font-weight="bold" fill="#27ae60">JPEG</text>
+
+  <!-- Stage 4: DVP Output -->
+  <rect x="510" y="390" width="400" height="100" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="710" y="414" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">4. Вихідний паралельний інтерфейс DVP</text>
+  <text x="710" y="436" font-size="12" fill="#1a1a1a" text-anchor="middle">8-бітна шина даних D0–D7 + PCLK, VSYNC, HREF</text>
+  <text x="710" y="458" font-size="12" fill="#27ae60" text-anchor="middle">Пряма передача у PSRAM ESP32 через DMA</text>
+  <text x="710" y="478" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Швидке захоплення без навантаження CPU</text>
+</svg>

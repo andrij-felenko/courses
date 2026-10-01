@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-grey" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-purple" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#8e44ad"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Скінченна діаграма станів FSM хост-контролера ESP-AT</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Узгоджена обробка командної черги, асинхронних кадрів +IPD та апаратних таймаутів</text>
+
+  <!-- Legend -->
+  <rect x="50" y="72" width="16" height="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+  <text x="74" y="85" font-size="12" fill="#1a1a1a">Основні стани FSM</text>
+
+  <rect x="240" y="72" width="16" height="16" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="3"/>
+  <text x="264" y="85" font-size="12" fill="#1a1a1a">Успішне виконання (OK)</text>
+
+  <rect x="460" y="72" width="16" height="16" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="3"/>
+  <text x="484" y="85" font-size="12" fill="#1a1a1a">Обробка помилок та таймаутів</text>
+
+  <rect x="710" y="72" width="16" height="16" fill="#f3e8fc" stroke="#8e44ad" stroke-width="1.5" rx="3"/>
+  <text x="734" y="85" font-size="12" fill="#1a1a1a">Асинхронні кадри +IPD</text>
+
+  <!-- Intercept +IPD path (WAIT_RESP to PARSE_IPD) -->
+  <path d="M 760,140 L 760,105 L 30,105 L 30,387 L 43,387" fill="none" stroke="#8e44ad" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arr-purple)"/>
+  <text x="395" y="98" font-size="12" font-weight="bold" fill="#8e44ad" text-anchor="middle">Перехоплення "+IPD" під час очікування відповіді</text>
+
+  <!-- State Card 1: IDLE -->
+  <rect x="50" y="140" width="190" height="95" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <rect x="50" y="140" width="190" height="28" fill="#eaf0fd" rx="8"/>
+  <rect x="50" y="160" width="190" height="8" fill="#eaf0fd"/>
+  <line x1="50" y1="168" x2="240" y2="168" stroke="#2457d6" stroke-width="1"/>
+  <text x="145" y="159" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">1. IDLE (Очікування)</text>
+  <text x="145" y="186" font-size="12" fill="#1a1a1a" text-anchor="middle">Черга команд порожня</text>
+  <text x="145" y="206" font-size="12" fill="#6b7280" text-anchor="middle">Слухач шини UART</text>
+
+  <!-- State Card 2: SEND_CMD -->
+  <rect x="385" y="140" width="190" height="95" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <rect x="385" y="140" width="190" height="28" fill="#eaf0fd" rx="8"/>
+  <rect x="385" y="160" width="190" height="8" fill="#eaf0fd"/>
+  <line x1="385" y1="168" x2="575" y2="168" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="159" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. SEND_CMD</text>
+  <text x="480" y="186" font-size="12" fill="#1a1a1a" text-anchor="middle">Передача AT-команди</text>
+  <text x="480" y="206" font-size="12" fill="#6b7280" text-anchor="middle">Старт таймера T_resp</text>
+
+  <!-- State Card 3: WAIT_RESP -->
+  <rect x="720" y="140" width="190" height="95" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <rect x="720" y="140" width="190" height="28" fill="#eaf0fd" rx="8"/>
+  <rect x="720" y="160" width="190" height="8" fill="#eaf0fd"/>
+  <line x1="720" y1="168" x2="910" y2="168" stroke="#2457d6" stroke-width="1"/>
+  <text x="815" y="159" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">3. WAIT_RESP</text>
+  <text x="815" y="186" font-size="12" fill="#1a1a1a" text-anchor="middle">Прийом байтів UART</text>
+  <text x="815" y="206" font-size="12" fill="#6b7280" text-anchor="middle">Аналіз OK/ERROR/+IPD</text>
+
+  <!-- State Card 4: PARSE_IPD -->
+  <rect x="50" y="340" width="190" height="95" fill="#f4f6f8" stroke="#8e44ad" stroke-width="1.5" rx="8"/>
+  <rect x="50" y="340" width="190" height="28" fill="#f3e8fc" rx="8"/>
+  <rect x="50" y="360" width="190" height="8" fill="#f3e8fc"/>
+  <line x1="50" y1="368" x2="240" y2="368" stroke="#8e44ad" stroke-width="1"/>
+  <text x="145" y="359" font-size="14" font-weight="bold" fill="#8e44ad" text-anchor="middle">4. PARSE_IPD</text>
+  <text x="145" y="386" font-size="12" fill="#1a1a1a" text-anchor="middle">Виділення ID та довжини</text>
+  <text x="145" y="406" font-size="12" fill="#6b7280" text-anchor="middle">Передача даних хосту</text>
+
+  <!-- State Card 5: PROCESS_OK -->
+  <rect x="385" y="340" width="190" height="95" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <rect x="385" y="340" width="190" height="28" fill="#e9f7ef" rx="8"/>
+  <rect x="385" y="360" width="190" height="8" fill="#e9f7ef"/>
+  <line x1="385" y1="368" x2="575" y2="368" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="359" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">5. PROCESS_OK</text>
+  <text x="480" y="386" font-size="12" fill="#1a1a1a" text-anchor="middle">Очищення черги задач</text>
+  <text x="480" y="406" font-size="12" fill="#6b7280" text-anchor="middle">Повернення прапорця OK</text>
+
+  <!-- State Card 6: HANDLE_ERROR -->
+  <rect x="720" y="340" width="190" height="95" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5" rx="8"/>
+  <rect x="720" y="340" width="190" height="28" fill="#fdecea" rx="8"/>
+  <rect x="720" y="360" width="190" height="8" fill="#fdecea"/>
+  <line x1="720" y1="368" x2="910" y2="368" stroke="#c0392b" stroke-width="1"/>
+  <text x="815" y="359" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">6. HANDLE_ERROR</text>
+  <text x="815" y="386" font-size="12" fill="#1a1a1a" text-anchor="middle">Лічильник повторів (Retry)</text>
+  <text x="815" y="406" font-size="12" fill="#6b7280" text-anchor="middle">Апаратне скидання AT+RST</text>
+
+  <!-- Transitions -->
+  <!-- 1. IDLE -> SEND_CMD -->
+  <line x1="240" y1="187" x2="378" y2="187" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="312" y="174" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Команда в черзі</text>
+
+  <!-- 2. SEND_CMD -> WAIT_RESP -->
+  <line x1="575" y1="187" x2="713" y2="187" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="645" y="174" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">TX завершено</text>
+
+  <!-- 3. WAIT_RESP -> PROCESS_OK -->
+  <path d="M 770,235 L 770,270 L 480,270 L 480,333" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="625" y="252" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Отримано "OK"</text>
+
+  <!-- 4. WAIT_RESP -> HANDLE_ERROR -->
+  <line x1="870" y1="235" x2="870" y2="333" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="855" y="285" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">ERROR / Таймаут</text>
+
+  <!-- 6. IDLE -> PARSE_IPD -->
+  <line x1="100" y1="235" x2="100" y2="333" stroke="#8e44ad" stroke-width="1.5" marker-end="url(#arr-purple)"/>
+  <text x="88" y="285" font-size="12" font-weight="bold" fill="#8e44ad" text-anchor="end">Отримано "+IPD"</text>
+
+  <!-- 7. PARSE_IPD -> IDLE -->
+  <line x1="190" y1="340" x2="190" y2="242" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-grey)"/>
+  <text x="202" y="285" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">Кадр оброблено</text>
+
+  <!-- 8. PROCESS_OK -> IDLE -->
+  <path d="M 385,387 L 290,387 L 290,187 L 247,187" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="337" y="375" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Черга порожня</text>
+
+  <!-- 9. PROCESS_OK -> SEND_CMD -->
+  <line x1="480" y1="340" x2="480" y2="242" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="495" y="290" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Є ще команди</text>
+
+  <!-- 10. HANDLE_ERROR -> SEND_CMD (Retry) -->
+  <path d="M 720,387 L 625,387 L 625,187 L 582,187" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="672" y="375" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Retry (спроба &lt; N)</text>
+
+  <!-- 11. HANDLE_ERROR -> IDLE (Reset / Fail) -->
+  <path d="M 815,435 L 815,455 L 20,455 L 20,187 L 43,187" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arr-red)"/>
+  <text x="480" y="448" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Скидання AT+RST (Повернення в IDLE)</text>
+
+  <!-- Bottom Note Box -->
+  <rect x="50" y="470" width="860" height="55" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="480" y="492" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ключовий принцип надійності FSM:</text>
+  <text x="480" y="512" font-size="12" fill="#6b7280" text-anchor="middle">Асинхронний кадр +IPD може надійти у будь-який момент (навіть під час WAIT_RESP) і обробляється без скидання стану очікування OK/ERROR</text>
+</svg>

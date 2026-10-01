@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Definitions for Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Мультиплексування кінцевих точок USB Composite у DAPLink</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Одночасна обробка сервісів (MSC, CDC, CMSIS-DAP, WebUSB) через окремі Endpoints</text>
+
+  <!-- Container 1: USB Host (PC) -->
+  <rect x="30" y="75" width="180" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="120" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">USB Host (ПК)</text>
+
+  <!-- Host Box 1: MSC -->
+  <rect x="40" y="120" width="160" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="120" y="145" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Mass Storage Driver</text>
+  <text x="120" y="168" text-anchor="middle" font-size="12" fill="#6b7280">Драйвер накопичувача</text>
+
+  <!-- Host Box 2: CDC -->
+  <rect x="40" y="210" width="160" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="120" y="235" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">USB Serial Driver</text>
+  <text x="120" y="258" text-anchor="middle" font-size="12" fill="#6b7280">Віртуальний COM-порт</text>
+
+  <!-- Host Box 3: CMSIS-DAP -->
+  <rect x="40" y="300" width="160" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="120" y="325" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">WinUSB / HID Driver</text>
+  <text x="120" y="348" text-anchor="middle" font-size="12" fill="#6b7280">OpenOCD / pyOCD / IDE</text>
+
+  <!-- Host Box 4: WebUSB -->
+  <rect x="40" y="390" width="160" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="120" y="415" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">WebUSB Driver</text>
+  <text x="120" y="438" text-anchor="middle" font-size="12" fill="#6b7280">Браузерний веб-доступ</text>
+
+  <!-- Container 2: USB Cable / Conduit -->
+  <rect x="230" y="75" width="90" height="425" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="275" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">USB Шина</text>
+  <text x="275" y="116" text-anchor="middle" font-size="12" fill="#2457d6">(D+ / D-)</text>
+
+  <!-- Container 3: DAPLink Firmware (Composite Device) -->
+  <rect x="340" y="75" width="330" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="505" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Прошивка DAPLink (Composite Device)</text>
+
+  <!-- EP1 Box: MSC -->
+  <rect x="352" y="120" width="306" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="505" y="145" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">EP1 IN/OUT: Mass Storage Class (MSC)</text>
+  <text x="505" y="168" text-anchor="middle" font-size="12" fill="#1a1a1a">Прошивання перетягуванням (.bin / .hex)</text>
+
+  <!-- EP2 Box: CDC -->
+  <rect x="352" y="210" width="306" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="505" y="235" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">EP2 IN/OUT: Serial / CDC UART</text>
+  <text x="505" y="258" text-anchor="middle" font-size="12" fill="#1a1a1a">Послідовний міст даних (TX / RX)</text>
+
+  <!-- EP3 Box: CMSIS-DAP -->
+  <rect x="352" y="300" width="306" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="505" y="325" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">EP3 IN/OUT: CMSIS-DAP (HID / Bulk)</text>
+  <text x="505" y="348" text-anchor="middle" font-size="12" fill="#1a1a1a">Команди зневадження та контролю ядра</text>
+
+  <!-- EP4 Box: WebUSB -->
+  <rect x="352" y="390" width="306" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="505" y="415" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">EP4 IN/OUT: WebUSB / Custom</text>
+  <text x="505" y="438" text-anchor="middle" font-size="12" fill="#6b7280">Телеметрія та веб-сервіси</text>
+
+  <!-- Container 4: Hardware & Target MCU -->
+  <rect x="695" y="75" width="245" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="817" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Апаратна частина та Ціль</text>
+
+  <!-- Out Box 1: FAT & Flash -->
+  <rect x="708" y="120" width="195" height="70" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="805" y="145" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Віртуальна ФС (FAT)</text>
+  <text x="805" y="168" text-anchor="middle" font-size="12" fill="#6b7280">Декодування та запис у Flash</text>
+
+  <!-- Out Box 2: USART Hardware -->
+  <rect x="708" y="210" width="195" height="70" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="805" y="235" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Апаратний USART</text>
+  <text x="805" y="258" text-anchor="middle" font-size="12" fill="#6b7280">Буферизація та рівні UART</text>
+
+  <!-- Out Box 3: SWD/JTAG Controller -->
+  <rect x="708" y="300" width="195" height="70" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="805" y="325" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Контролер SWD / JTAG</text>
+  <text x="805" y="348" text-anchor="middle" font-size="12" fill="#6b7280">SWCLK, SWDIO, nRESET</text>
+
+  <!-- Out Box 4: Target MCU -->
+  <rect x="708" y="390" width="195" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="805" y="415" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Цільовий MCU ARM Cortex</text>
+  <text x="805" y="438" text-anchor="middle" font-size="12" fill="#1a1a1a">Ядро, Flash, SWD / UART</text>
+
+  <!-- Flow Arrows: Stream 1 (MSC) -->
+  <line x1="200" y1="155" x2="230" y2="155" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="320" y1="155" x2="352" y2="155" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="658" y1="155" x2="708" y2="155" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Flow Arrows: Stream 2 (CDC UART) -->
+  <line x1="200" y1="245" x2="230" y2="245" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)" marker-start="url(#arr-blue-start)"/>
+  <line x1="320" y1="245" x2="352" y2="245" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)" marker-start="url(#arr-blue-start)"/>
+  <line x1="658" y1="245" x2="708" y2="245" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)" marker-start="url(#arr-blue-start)"/>
+
+  <!-- Flow Arrows: Stream 3 (CMSIS-DAP) -->
+  <line x1="200" y1="335" x2="230" y2="335" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)" marker-start="url(#arr-blue-start)"/>
+  <line x1="320" y1="335" x2="352" y2="335" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)" marker-start="url(#arr-blue-start)"/>
+  <line x1="658" y1="335" x2="708" y2="335" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)" marker-start="url(#arr-blue-start)"/>
+
+  <!-- Flow Arrows: Stream 4 (WebUSB) -->
+  <line x1="200" y1="425" x2="230" y2="425" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <line x1="320" y1="425" x2="352" y2="425" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <!-- Connections to Target MCU (from Hardware Modules) -->
+  <!-- 1. Flash connection from FAT Module (Box 1) to Target MCU (Box 4) along right outer corridor -->
+  <path d="M 903 155 L 930 155 L 930 435 L 903 435" fill="none" stroke="#27ae60" stroke-dasharray="4,3" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="895" y="148" text-anchor="end" font-size="12" fill="#27ae60">Flash</text>
+
+  <!-- 2. UART connection from USART (Box 2) to Target MCU (Box 4) along inner right corridor -->
+  <path d="M 903 245 L 918 245 L 918 420 L 903 420" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)" marker-start="url(#arr-blue-start)"/>
+  <text x="895" y="238" text-anchor="end" font-size="12" fill="#2457d6">UART</text>
+
+  <!-- 3. Direct SWD connection from SWD Controller (Box 3) to Target MCU (Box 4) in the gap between boxes -->
+  <line x1="805" y1="370" x2="805" y2="390" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="818" y="384" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">SWD</text>
+</svg>

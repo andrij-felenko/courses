@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Принципова електрична схема універсального адаптера на CH340C</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Захист USB запобіжником PPTC, фільтрація регулятора V3 конденсатором та перемикач рівнів 3.3V/5V</text>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- PANEL 1: USB Port & Protection -->
+  <rect x="40" y="85" width="240" height="330" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="160" y="110" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. USB Роз'єм та Захист</text>
+
+  <!-- USB Connector Box -->
+  <rect x="55" y="130" width="80" height="130" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="95" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">USB Port</text>
+  <text x="95" y="175" text-anchor="middle" font-size="12" fill="#1a1a1a">VBUS (5V)</text>
+  <text x="95" y="200" text-anchor="middle" font-size="12" fill="#1a1a1a">D-</text>
+  <text x="95" y="225" text-anchor="middle" font-size="12" fill="#1a1a1a">D+</text>
+  <text x="95" y="250" text-anchor="middle" font-size="12" fill="#1a1a1a">GND</text>
+
+  <!-- PPTC Fuse -->
+  <rect x="155" y="160" width="110" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="210" y="178" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">F1 PPTC</text>
+  <text x="210" y="194" text-anchor="middle" font-size="12" fill="#6b7280">500 мА</text>
+
+  <!-- TVS Protection Diodes -->
+  <rect x="155" y="215" width="110" height="45" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="210" y="234" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">TVS Diodes</text>
+  <text x="210" y="251" text-anchor="middle" font-size="12" fill="#6b7280">USBLC6-2</text>
+
+  <!-- Power Filter Capacitors -->
+  <rect x="55" y="275" width="210" height="125" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="160" y="297" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Фільтри живлення шини USB</text>
+  <text x="65" y="320" font-size="12" fill="#1a1a1a">• C1: 10 мкФ (Тантал / 16 В)</text>
+  <text x="65" y="342" font-size="12" fill="#1a1a1a">• C2: 100 нФ (Кераміка 0805)</text>
+  <text x="65" y="364" font-size="12" fill="#6b7280">• Пригнічення завад VBUS 5В</text>
+
+  <!-- Connection line Panel 1 to 2 -->
+  <line x1="280" y1="235" x2="300" y2="235" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+
+  <!-- PANEL 2: CH340C Core & V3 Filter -->
+  <rect x="300" y="85" width="360" height="330" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="110" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. Мікросхема CH340C (SOP-16)</text>
+
+  <!-- CH340C Chip Body -->
+  <rect x="390" y="130" width="180" height="175" rx="6" fill="#2c3e50" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="405" cy="142" r="3" fill="#ffffff"/>
+  <text x="480" y="157" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">CH340C</text>
+  <text x="480" y="174" text-anchor="middle" font-size="12" fill="#27ae60">Вбудований OSC 12 МГц</text>
+
+  <!-- Chip Pin Labels -->
+  <text x="402" y="196" font-size="12" fill="#ffffff">1: GND</text>
+  <text x="402" y="216" font-size="12" fill="#ffffff">2: TXD</text>
+  <text x="402" y="236" font-size="12" fill="#ffffff">3: RXD</text>
+  <text x="402" y="256" font-size="12" font-weight="bold" fill="#27ae60">4: V3</text>
+  <text x="402" y="276" font-size="12" fill="#ffffff">5: UD+</text>
+
+  <text x="558" y="196" text-anchor="end" font-size="12" fill="#ffffff">16: VCC</text>
+  <text x="558" y="216" text-anchor="end" font-size="12" fill="#ffffff">14: RTS</text>
+  <text x="558" y="236" text-anchor="end" font-size="12" fill="#ffffff">13: DTR</text>
+  <text x="558" y="256" text-anchor="end" font-size="12" fill="#ffffff">7,8: NC</text>
+
+  <!-- V3 Filter Box -->
+  <rect x="320" y="320" width="320" height="80" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="342" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Обов'язкова фільтрація виводу V3</text>
+  <text x="480" y="363" text-anchor="middle" font-size="12" fill="#1a1a1a">C3 = 100 нФ кераміка (вивід 4 → GND)</text>
+  <text x="480" y="383" text-anchor="middle" font-size="12" fill="#6b7280">Стабілізує внутрішній регулятор LDO 3.3 В</text>
+
+  <!-- Connection line Panel 2 to 3 -->
+  <line x1="660" y1="210" x2="680" y2="210" stroke="#27ae60" stroke-width="2" marker-end="url(#arr)"/>
+
+
+  <!-- PANEL 3: Power Selector & UART Header -->
+  <rect x="680" y="85" width="240" height="330" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="800" y="110" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">3. Живлення та Вихід</text>
+
+  <!-- LDO Regulator -->
+  <rect x="695" y="130" width="210" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="800" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">AMS1117-3.3 LDO</text>
+  <text x="800" y="165" text-anchor="middle" font-size="12" fill="#6b7280">Вхід 5В → Вихід 3.3В (800мА)</text>
+
+  <!-- Voltage Jumper -->
+  <rect x="695" y="190" width="210" height="60" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="800" y="210" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Джампер VCCIO (J1)</text>
+  <text x="800" y="228" text-anchor="middle" font-size="12" fill="#1a1a1a">[ 5V ] --●  ●-- [ 3.3V ]</text>
+  <text x="800" y="244" text-anchor="middle" font-size="12" fill="#6b7280">Вибір вихідного рівня VCC</text>
+
+  <!-- Output 6-pin Header -->
+  <rect x="695" y="265" width="210" height="135" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="800" y="285" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Роз'єм UART (6-Pin)</text>
+  <text x="710" y="306" font-size="12" fill="#1a1a1a">Pin 1: GND (Спільна земля)</text>
+  <text x="710" y="325" font-size="12" fill="#27ae60">Pin 2: VCC (3.3V / 5V Select)</text>
+  <text x="710" y="344" font-size="12" fill="#2457d6">Pin 3: TXD (Вихід даних)</text>
+  <text x="710" y="363" font-size="12" fill="#2457d6">Pin 4: RXD (Вхід даних)</text>
+  <text x="710" y="382" font-size="12" fill="#1a1a1a">Pin 5: DTR / Pin 6: RTS</text>
+
+
+  <!-- SUMMARY CARDS (Bottom) -->
+  <!-- Card 1 -->
+  <rect x="40" y="435" width="430" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="60" y="457" font-size="13" font-weight="bold" fill="#2457d6">Захист USB-порту та безкварцева топологія</text>
+  <text x="60" y="477" font-size="12" fill="#1a1a1a">Запобіжник PPTC (500 мА) захищає USB-порт від короткого замикання.</text>
+  <text x="60" y="496" font-size="12" fill="#6b7280">CH340C не вимагає кварцу завдяки вбудованому генератору 12 МГц.</text>
+
+  <!-- Card 2 -->
+  <rect x="490" y="435" width="430" height="80" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="510" y="457" font-size="13" font-weight="bold" fill="#27ae60">Гнучке живлення 3.3V / 5V та стабілізація V3</text>
+  <text x="510" y="477" font-size="12" fill="#1a1a1a">Джампер перемикає напругу VCC між 5 В та стабілізованим 3.3 В.</text>
+  <text x="510" y="496" font-size="12" fill="#6b7280">Конденсатор C3 (100 нФ) на виводі V3 усуває збої тактування PLL.</text>
+</svg>

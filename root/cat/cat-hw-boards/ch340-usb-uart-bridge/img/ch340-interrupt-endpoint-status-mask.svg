@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-purple" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#8e44ad"/>
+    </marker>
+    <marker id="arr-orange" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d35400"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Формування бітової маски стану модемних ліній CH340</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Відображення фізичних рівнів сигналів CTS, DSR, RI та DCD на розряди пакета Interrupt Endpoint</text>
+
+  <!-- Left Panel: Physical Input Pins -->
+  <rect x="35" y="90" width="220" height="360" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="145" y="116" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фізичні вхідні лінії CH340</text>
+
+  <!-- CTS Pin -->
+  <rect x="50" y="135" width="190" height="60" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="65" y="160" font-size="14" font-weight="bold" fill="#2457d6">CTS# (Pin 9)</text>
+  <text x="65" y="180" font-size="12" fill="#6b7280">Clear to Send</text>
+
+  <!-- DSR Pin -->
+  <rect x="50" y="210" width="190" height="60" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="65" y="235" font-size="14" font-weight="bold" fill="#27ae60">DSR# (Pin 10)</text>
+  <text x="65" y="255" font-size="12" fill="#6b7280">Data Set Ready</text>
+
+  <!-- RI Pin -->
+  <rect x="50" y="285" width="190" height="60" fill="#f4f6f8" stroke="#8e44ad" stroke-width="1.5" rx="6"/>
+  <text x="65" y="310" font-size="14" font-weight="bold" fill="#8e44ad">RI# (Pin 11)</text>
+  <text x="65" y="330" font-size="12" fill="#6b7280">Ring Indicator</text>
+
+  <!-- DCD Pin -->
+  <rect x="50" y="360" width="190" height="60" fill="#fef5e7" stroke="#d35400" stroke-width="1.5" rx="6"/>
+  <text x="65" y="385" font-size="14" font-weight="bold" fill="#d35400">DCD# (Pin 12)</text>
+  <text x="65" y="405" font-size="12" fill="#6b7280">Data Carrier Detect</text>
+
+  <!-- Middle Panel: Hardware Logic & Sampling -->
+  <rect x="280" y="90" width="230" height="360" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="395" y="116" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Обробка та маскування</text>
+
+  <!-- Sampler & Inverter -->
+  <rect x="295" y="135" width="200" height="65" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="395" y="158" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Буфер та інверсія</text>
+  <text x="395" y="180" font-size="12" fill="#6b7280" text-anchor="middle">Активний низький (Active-Low)</text>
+
+  <!-- Latch / State detector -->
+  <rect x="295" y="225" width="200" height="65" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="395" y="248" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Детектор змін стану</text>
+  <text x="395" y="270" font-size="12" fill="#6b7280" text-anchor="middle">Фіксація розрядів маски</text>
+
+  <!-- Interrupt EP packet generator -->
+  <rect x="295" y="315" width="200" height="115" fill="#ffffff" stroke="#2457d6" stroke-dasharray="4 3" stroke-width="1.5" rx="6"/>
+  <text x="395" y="338" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Формування пакета EP IN</text>
+  <text x="395" y="360" font-size="12" fill="#1a1a1a" text-anchor="middle">Endpoint 0x82 (Interrupt)</text>
+  <text x="395" y="382" font-size="12" fill="#6b7280" text-anchor="middle">Передача 8-байтового вектора</text>
+  <text x="395" y="402" font-size="12" fill="#6b7280" text-anchor="middle">при зміні або за запитом хоста</text>
+
+  <!-- Right Panel: Modem Status Byte -->
+  <rect x="535" y="90" width="390" height="360" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="730" y="116" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Байт стану модемних ліній (Status Byte)</text>
+
+  <text x="730" y="145" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Розряди банку регістру стану (Bits 7..0)</text>
+
+  <!-- Bit 7 -->
+  <rect x="562" y="160" width="40" height="50" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="582" y="180" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">B7</text>
+  <text x="582" y="200" font-size="12" fill="#9ca3af" text-anchor="middle">RES</text>
+
+  <!-- Bit 6 -->
+  <rect x="604" y="160" width="40" height="50" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="624" y="180" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">B6</text>
+  <text x="624" y="200" font-size="12" fill="#9ca3af" text-anchor="middle">RES</text>
+
+  <!-- Bit 5 -->
+  <rect x="646" y="160" width="40" height="50" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="666" y="180" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">B5</text>
+  <text x="666" y="200" font-size="12" fill="#9ca3af" text-anchor="middle">RES</text>
+
+  <!-- Bit 4 -->
+  <rect x="688" y="160" width="40" height="50" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="708" y="180" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">B4</text>
+  <text x="708" y="200" font-size="12" fill="#9ca3af" text-anchor="middle">STA</text>
+
+  <!-- Bit 3 (DCD) -->
+  <rect x="730" y="160" width="40" height="50" fill="#fef5e7" stroke="#d35400" stroke-width="2" rx="4"/>
+  <text x="750" y="180" font-size="12" font-weight="bold" fill="#d35400" text-anchor="middle">B3</text>
+  <text x="750" y="200" font-size="12" font-weight="bold" fill="#d35400" text-anchor="middle">DCD</text>
+
+  <!-- Bit 2 (RI) -->
+  <rect x="772" y="160" width="40" height="50" fill="#f4f6f8" stroke="#8e44ad" stroke-width="2" rx="4"/>
+  <text x="792" y="180" font-size="12" font-weight="bold" fill="#8e44ad" text-anchor="middle">B2</text>
+  <text x="792" y="200" font-size="12" font-weight="bold" fill="#8e44ad" text-anchor="middle">RI</text>
+
+  <!-- Bit 1 (DSR) -->
+  <rect x="814" y="160" width="40" height="50" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="4"/>
+  <text x="834" y="180" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">B1</text>
+  <text x="834" y="200" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">DSR</text>
+
+  <!-- Bit 0 (CTS) -->
+  <rect x="856" y="160" width="40" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="4"/>
+  <text x="876" y="180" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">B0</text>
+  <text x="876" y="200" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">CTS</text>
+
+  <!-- Bit Detail Cards -->
+  <!-- Card B0 (CTS) -->
+  <rect x="555" y="230" width="350" height="45" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="570" y="248" font-size="13" font-weight="bold" fill="#2457d6">Bit 0 (0x01) — CTS (Clear to Send)</text>
+  <text x="570" y="266" font-size="12" fill="#1a1a1a">Логічна 1 при низькому рівні на виводі CTS#</text>
+
+  <!-- Card B1 (DSR) -->
+  <rect x="555" y="282" width="350" height="45" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="570" y="300" font-size="13" font-weight="bold" fill="#27ae60">Bit 1 (0x02) — DSR (Data Set Ready)</text>
+  <text x="570" y="318" font-size="12" fill="#1a1a1a">Логічна 1 при низькому рівні на виводі DSR#</text>
+
+  <!-- Card B2 (RI) -->
+  <rect x="555" y="334" width="350" height="45" fill="#f4f6f8" stroke="#8e44ad" stroke-width="1" rx="4"/>
+  <text x="570" y="352" font-size="13" font-weight="bold" fill="#8e44ad">Bit 2 (0x04) — RI (Ring Indicator)</text>
+  <text x="570" y="370" font-size="12" fill="#1a1a1a">Логічна 1 при низькому рівні на виводі RI#</text>
+
+  <!-- Card B3 (DCD) -->
+  <rect x="555" y="386" width="350" height="45" fill="#fef5e7" stroke="#d35400" stroke-width="1" rx="4"/>
+  <text x="570" y="404" font-size="13" font-weight="bold" fill="#d35400">Bit 3 (0x08) — DCD (Data Carrier Detect)</text>
+  <text x="570" y="422" font-size="12" fill="#1a1a1a">Логічна 1 при низькому рівні на виводі DCD#</text>
+
+  <!-- Connecting Arrows -->
+  <line x1="240" y1="165" x2="295" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="240" y1="240" x2="295" y2="240" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="240" y1="315" x2="295" y2="315" stroke="#8e44ad" stroke-width="2" marker-end="url(#arr-purple)"/>
+  <line x1="240" y1="390" x2="295" y2="390" stroke="#d35400" stroke-width="2" marker-end="url(#arr-orange)"/>
+
+  <line x1="495" y1="372" x2="535" y2="372" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+</svg>

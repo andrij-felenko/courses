@@ -1,0 +1,76 @@
+<svg viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Waveshare ESP32-S3R2: Схема SiP-компонування (System-in-Package)</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Кристал ESP32-S3 з внутрішнім L1 Кеш/MMU та вбудованими кристалами 16 МБ Flash і 2 МБ Quad SPI PSRAM</text>
+
+  <!-- Корпус SiP чипа -->
+  <rect x="40" y="70" width="880" height="370" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="60" y="94" font-size="14" font-weight="bold" fill="#1a1a1a">Корпус ESP32-S3R2 SiP (QFN-56)</text>
+
+  <!-- Кристал 1: ESP32-S3 SoC -->
+  <rect x="60" y="110" width="440" height="310" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="80" y="134" font-size="14" font-weight="bold" fill="#2457d6">Кристал ESP32-S3 SoC (System-on-Chip)</text>
+
+  <!-- Подвійне ядро CPU -->
+  <rect x="80" y="150" width="190" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="175" y="178" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">2× Xtensa LX7 CPU</text>
+  <text x="175" y="198" text-anchor="middle" font-size="12" fill="#6b7280">240 МГц + Vector SIMD</text>
+
+  <!-- Внутрішня SRAM -->
+  <rect x="290" y="150" width="190" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="385" y="178" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Внутрішня SRAM</text>
+  <text x="385" y="198" text-anchor="middle" font-size="12" fill="#6b7280">512 кБ (System SRAM)</text>
+
+  <!-- L1 Cache & MMU Controller -->
+  <rect x="80" y="240" width="400" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="280" y="266" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Контролер L1 DCache &amp; MMU</text>
+  <text x="280" y="286" text-anchor="middle" font-size="12" fill="#6b7280">32 кБ L1 кеш + Таблиці сторінок віртуальної адресації</text>
+
+  <!-- SPI / QSPI Bus Controller -->
+  <rect x="80" y="335" width="400" height="65" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="280" y="360" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Контролер шини SPI / Quad SPI</text>
+  <text x="280" y="380" text-anchor="middle" font-size="12" fill="#6b7280">Шинний арбітр + Контролер шини пам'яті (3.3V)</text>
+
+  <!-- Внутрішньочипові стрілки (SoC) -->
+  <line x1="175" y1="220" x2="175" y2="234" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="385" y1="220" x2="385" y2="234" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="280" y1="315" x2="280" y2="329" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Кристал 2 & 3: Вбудована пам'ять (SiP Dies) -->
+  <rect x="620" y="110" width="280" height="310" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="635" y="134" font-size="14" font-weight="bold" fill="#27ae60">Вбудована пам'ять (SiP Memory)</text>
+
+  <!-- 16 MB NOR Flash -->
+  <rect x="635" y="150" width="250" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="760" y="176" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">16 МБ NOR Flash</text>
+  <text x="760" y="198" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Інтерфейс Quad SPI (80 МГц)</text>
+  <text x="760" y="218" text-anchor="middle" font-size="12" fill="#6b7280">Збереження прошивки та NVS</text>
+  <text x="760" y="238" text-anchor="middle" font-size="12" fill="#6b7280">Затримка вибірки ICache</text>
+
+  <!-- 2 MB Quad SPI PSRAM -->
+  <rect x="635" y="290" width="250" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="760" y="316" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">2 МБ Quad SPI PSRAM</text>
+  <text x="760" y="338" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Інтерфейс Quad SPI (3.3V)</text>
+  <text x="760" y="358" text-anchor="middle" font-size="12" fill="#6b7280">Кадрові буфери VGA (RGB565)</text>
+  <text x="760" y="378" text-anchor="middle" font-size="12" fill="#6b7280">Оперативна пам'ять AI</text>
+
+  <!-- Міжчипові лінії QSPI -->
+  <path d="M 480 355 L 525 355 L 525 205 L 629 205" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M 480 380 L 525 380 L 525 345 L 629 345" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Позначка шини QSPI -->
+  <rect x="545" y="250" width="60" height="40" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="575" y="268" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Шина</text>
+  <text x="575" y="284" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">QSPI</text>
+</svg>

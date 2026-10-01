@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура взаємодії LwIP 2.x, mbedTLS та FreeRTOS в ESP8266</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Потік обробки шифрованого кадру: від Wi-Fi pbuf-буферів до AT-відповідей UART</text>
+
+  <!-- Column 1: LwIP 2.x Network Stack -->
+  <rect x="30" y="85" width="275" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="167" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Мережевий стек LwIP 2.x</text>
+
+  <!-- Box 1.1 -->
+  <rect x="45" y="130" width="245" height="85" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="152" font-size="12" font-weight="bold" fill="#1a1a1a">Wi-Fi Driver &amp; MAC Layer</text>
+  <text x="55" y="174" font-size="11" fill="#6b7280">• Прийом радіокадрів 802.11</text>
+  <text x="55" y="194" font-size="11" fill="#6b7280">• Апаратна фільтрація MAC</text>
+
+  <!-- Arrow 1.1 -> 1.2 -->
+  <line x1="167" y1="215" x2="167" y2="238" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Box 1.2 -->
+  <rect x="45" y="242" width="245" height="105" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="55" y="264" font-size="12" font-weight="bold" fill="#2457d6">Буферна система pbuf (LwIP)</text>
+  <text x="55" y="286" font-size="11" fill="#1a1a1a">• Динамічні pbuf_ram / pbuf_ref</text>
+  <text x="55" y="306" font-size="11" fill="#6b7280">• Накопичення TCP-кадрів</text>
+  <text x="55" y="326" font-size="11" fill="#6b7280">• Збирання розрізнених пакетів</text>
+
+  <!-- Arrow 1.2 -> 1.3 -->
+  <line x1="167" y1="347" x2="167" y2="370" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Box 1.3 -->
+  <rect x="45" y="374" width="245" height="110" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="396" font-size="12" font-weight="bold" fill="#1a1a1a">FreeRTOS LwIP Task (tcpip_thread)</text>
+  <text x="55" y="418" font-size="11" fill="#6b7280">• Обробка підтверджень ACK</text>
+  <text x="55" y="438" font-size="11" fill="#6b7280">• Керування вікном TCP Window</text>
+  <text x="55" y="458" font-size="11" fill="#6b7280">• Передача сокетних подій</text>
+
+
+  <!-- Column 2: mbedTLS Crypto Stack -->
+  <rect x="342" y="85" width="275" height="425" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="479" y="110" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Криптографічний стек mbedTLS</text>
+
+  <!-- Box 2.1 -->
+  <rect x="357" y="130" width="245" height="85" rx="6" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="367" y="152" font-size="12" font-weight="bold" fill="#2457d6">TLS 1.2 Record Parser</text>
+  <text x="367" y="174" font-size="11" fill="#1a1a1a">• Парсинг заголовків SSL Record</text>
+  <text x="367" y="194" font-size="11" fill="#6b7280">• Перевірка типу (Handshake/Data)</text>
+
+  <!-- Arrow 2.1 -> 2.2 -->
+  <line x1="479" y1="215" x2="479" y2="238" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Box 2.2 -->
+  <rect x="357" y="242" width="245" height="105" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="367" y="264" font-size="12" font-weight="bold" fill="#2457d6">Дешифрування &amp; MAC (mbedTLS)</text>
+  <text x="367" y="286" font-size="11" fill="#1a1a1a">• Програмне симетричне AES-128/256</text>
+  <text x="367" y="306" font-size="11" fill="#6b7280">• Перевірка цілісності SHA-256 HMAC</text>
+  <text x="367" y="326" font-size="11" fill="#6b7280">• Вилучення симетричних ключів</text>
+
+  <!-- Arrow 2.2 -> 2.3 -->
+  <line x1="479" y1="347" x2="479" y2="370" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Box 2.3 -->
+  <rect x="357" y="374" width="245" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="367" y="396" font-size="12" font-weight="bold" fill="#27ae60">X.509 CA &amp; Session Context</text>
+  <text x="367" y="418" font-size="11" fill="#1a1a1a">• Перевірка ланцюга сертифікатів</text>
+  <text x="367" y="438" font-size="11" fill="#6b7280">• Перевірка ім'я хоста (SNI)</text>
+  <text x="367" y="458" font-size="11" fill="#6b7280">• Утримання сесії (~18 КБ heap)</text>
+
+
+  <!-- Column 3: ESP-AT & UART Process -->
+  <rect x="655" y="85" width="275" height="425" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="792" y="110" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Процес ESP-AT / FreeRTOS</text>
+
+  <!-- Box 3.1 -->
+  <rect x="670" y="130" width="245" height="85" rx="6" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="680" y="152" font-size="12" font-weight="bold" fill="#27ae60">Розшифровані дані (Plaintext)</text>
+  <text x="680" y="174" font-size="11" fill="#1a1a1a">• Очищене корисне навантаження</text>
+  <text x="680" y="194" font-size="11" fill="#6b7280">• Буферизація в черзі AT Engine</text>
+
+  <!-- Arrow 3.1 -> 3.2 -->
+  <line x1="792" y1="215" x2="792" y2="238" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Box 3.2 -->
+  <rect x="670" y="242" width="245" height="105" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="680" y="264" font-size="12" font-weight="bold" fill="#27ae60">FreeRTOS AT Task (at_task)</text>
+  <text x="680" y="286" font-size="11" fill="#1a1a1a">• Формування фреймів +IPD,&lt;len&gt;</text>
+  <text x="680" y="306" font-size="11" fill="#6b7280">• Неблокуюча обробка команд</text>
+  <text x="680" y="326" font-size="11" fill="#6b7280">• Контроль відповіді OK/ERROR</text>
+
+  <!-- Arrow 3.2 -> 3.3 -->
+  <line x1="792" y1="347" x2="792" y2="370" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Box 3.3 -->
+  <rect x="670" y="374" width="245" height="110" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="680" y="396" font-size="12" font-weight="bold" fill="#1a1a1a">UART0 Driver &amp; Hardware FIFO</text>
+  <text x="680" y="418" font-size="11" fill="#6b7280">• Відправка по TXD0 (GPIO1)</text>
+  <text x="680" y="438" font-size="11" fill="#6b7280">• Апаратний потік RTS/CTS</text>
+  <text x="680" y="458" font-size="11" fill="#6b7280">• Захист від втрати при 115200</text>
+
+
+  <!-- Inter-panel connecting paths -->
+  <!-- Path 1: Box 1.2 (pbuf) -> Box 2.1 (mbedTLS Record Parser) -->
+  <path d="M 290 294 L 320 294 L 320 172 L 350 172" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="320" y="162" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">Шифрований pbuf</text>
+
+  <!-- Path 2: Box 2.2 (Decryption Engine) -> Box 3.1 (Plaintext) -->
+  <path d="M 602 294 L 632 294 L 632 172 L 663 172" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="632" y="162" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">Розшифрований текст</text>
+</svg>

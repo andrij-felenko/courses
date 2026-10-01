@@ -1,0 +1,192 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розпіновка та схема підключення адаптера ESP-01</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">LDO 5V→3.3V, узгоджувач рівнів RX/TX та внутрішні підтяжки EN/RST до 3.3V</text>
+
+  <!-- Panel 1: External Microcontroller (Left) -->
+  <rect x="30" y="75" width="190" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="75" width="190" height="35" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="125" y="97" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Зовнішній МК (5V)</text>
+  <text x="125" y="122" text-anchor="middle" font-size="12" fill="#6b7280">Живлення та UART 5V</text>
+
+  <!-- Panel 2: ESP-01 Adapter Board (Center) -->
+  <rect x="245" y="75" width="470" height="465" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <rect x="245" y="75" width="470" height="35" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="97" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Плата-адаптер ESP-01 (Adapter Module)</text>
+
+  <text x="290" y="122" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">6-pin роз'єм</text>
+  <text x="465" y="122" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Схема адаптера</text>
+  <text x="660" y="122" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Сокет 2×4</text>
+
+  <!-- Panel 3: ESP-01 Module (Right) -->
+  <rect x="740" y="75" width="190" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="740" y="75" width="190" height="35" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="835" y="97" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Модуль ESP-01</text>
+  <text x="835" y="122" text-anchor="middle" font-size="12" fill="#6b7280">ESP8266 + Flash</text>
+
+  <!-- ROW 1: GND -->
+  <!-- Left MCU pin -->
+  <circle cx="190" cy="152" r="4" fill="#1a1a1a"/>
+  <text x="180" y="150" text-anchor="end" font-size="12" fill="#1a1a1a">GND (0V)</text>
+  <!-- Wire MCU -> Adapter Header -->
+  <line x1="194" y1="152" x2="260" y2="152" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <!-- Header Pin 1 (GND) -->
+  <rect x="265" y="140" width="50" height="24" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="290" y="156" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+  <!-- Circuit description -->
+  <line x1="315" y1="152" x2="350" y2="152" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="465" y="156" text-anchor="middle" font-size="12" fill="#1a1a1a">Спільна шина заземлення (GND)</text>
+  <line x1="580" y1="152" x2="620" y2="152" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <!-- Socket Pin (GND) -->
+  <rect x="625" y="140" width="30" height="24" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="640" y="156" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+  <!-- Wire Socket -> ESP-01 -->
+  <line x1="655" y1="152" x2="745" y2="152" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <circle cx="750" cy="152" r="4" fill="#1a1a1a"/>
+  <text x="765" y="150" text-anchor="start" font-size="12" fill="#1a1a1a">GND (Земля)</text>
+
+  <!-- ROW 2: VCC (5V -> LDO -> 3.3V) -->
+  <!-- Left MCU pin -->
+  <circle cx="190" cy="207" r="4" fill="#c0392b"/>
+  <text x="180" y="205" text-anchor="end" font-size="12" fill="#c0392b">+5V VCC</text>
+  <!-- Wire MCU 5V -> Adapter Header -->
+  <line x1="194" y1="207" x2="260" y2="207" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <!-- Header Pin 2 (VCC) -->
+  <rect x="265" y="195" width="50" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="290" y="211" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">VCC</text>
+  <!-- Wire to LDO -->
+  <line x1="315" y1="207" x2="345" y2="207" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <!-- LDO Block -->
+  <rect x="350" y="185" width="230" height="48" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="465" y="203" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">AMS1117-3.3 LDO (5V → 3.3V)</text>
+  <text x="465" y="221" text-anchor="middle" font-size="12" fill="#6b7280">Стабілізатор живлення (до 1А)</text>
+  <!-- Wire LDO (3.3V out) -> Socket VCC -->
+  <line x1="580" y1="207" x2="660" y2="207" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <!-- Socket Pin (VCC) -->
+  <rect x="665" y="195" width="35" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="682" y="211" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">VCC</text>
+  <!-- Wire Socket -> ESP-01 VCC -->
+  <line x1="700" y1="207" x2="745" y2="207" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <circle cx="750" cy="207" r="4" fill="#27ae60"/>
+  <text x="765" y="205" text-anchor="start" font-size="12" fill="#27ae60">VCC (3.3V)</text>
+
+  <!-- ROW 3: TXD (ESP-01 TX -> MCU RX) -->
+  <!-- Left MCU pin -->
+  <circle cx="190" cy="272" r="4" fill="#2457d6"/>
+  <text x="180" y="270" text-anchor="end" font-size="12" fill="#2457d6">RX (5V TTL)</text>
+  <!-- Wire Adapter -> MCU (arrow to left) -->
+  <line x1="265" y1="272" x2="199" y2="272" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <!-- Header Pin 3 (TXD) -->
+  <rect x="265" y="260" width="50" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="290" y="276" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">TXD</text>
+  <!-- Direct TX Line Block -->
+  <line x1="315" y1="272" x2="345" y2="272" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="350" y="255" width="230" height="38" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="465" y="271" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Пряма лінія TX (3.3V → 5V RX)</text>
+  <text x="465" y="286" text-anchor="middle" font-size="12" fill="#6b7280">3.3V HIGH ≥ 2.0V TTL порогу</text>
+  <line x1="580" y1="272" x2="620" y2="272" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Socket Pin (TXD) -->
+  <rect x="625" y="260" width="30" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="640" y="276" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">TXD</text>
+  <!-- Wire ESP-01 TX -> Socket TXD -->
+  <line x1="745" y1="272" x2="660" y2="272" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <circle cx="750" cy="272" r="4" fill="#2457d6"/>
+  <text x="765" y="270" text-anchor="start" font-size="12" fill="#2457d6">TXD (Вихід 3.3V)</text>
+
+  <!-- ROW 4: RXD Level Shifter (MCU TX 5V -> ESP-01 RX 3.3V) -->
+  <!-- Left MCU pin -->
+  <circle cx="190" cy="342" r="4" fill="#2457d6"/>
+  <text x="180" y="340" text-anchor="end" font-size="12" fill="#2457d6">TX (5V)</text>
+  <!-- Wire MCU TX -> Adapter Header -->
+  <line x1="194" y1="342" x2="260" y2="342" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <!-- Header Pin 4 (RXD) -->
+  <rect x="265" y="330" width="50" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="290" y="346" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">RXD</text>
+  <!-- Wire to Level Shifter -->
+  <line x1="315" y1="342" x2="345" y2="342" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <!-- Level Shifter Block -->
+  <rect x="350" y="320" width="230" height="48" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="465" y="338" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Узгоджувач рівнів RX (MOSFET)</text>
+  <text x="465" y="356" text-anchor="middle" font-size="12" fill="#6b7280">Захист: 5V з МК → 3.3V для ESP</text>
+  <!-- Wire Level Shifter (3.3V safe out) -> Socket RXD -->
+  <line x1="580" y1="342" x2="660" y2="342" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <!-- Socket Pin (RXD) -->
+  <rect x="665" y="330" width="35" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="682" y="346" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">RXD</text>
+  <!-- Wire Socket -> ESP-01 RXD -->
+  <line x1="700" y1="342" x2="745" y2="342" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <circle cx="750" cy="342" r="4" fill="#2457d6"/>
+  <text x="765" y="340" text-anchor="start" font-size="12" fill="#2457d6">RXD (Вхід 3.3V)</text>
+
+  <!-- ROW 5: EN (CH_PD Pull-up) -->
+  <!-- Left MCU pin -->
+  <circle cx="190" cy="412" r="4" fill="#27ae60"/>
+  <text x="180" y="410" text-anchor="end" font-size="12" fill="#27ae60">GPIO / EN</text>
+  <!-- Wire MCU -> Adapter Header -->
+  <line x1="194" y1="412" x2="260" y2="412" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <!-- Header Pin 5 (EN) -->
+  <rect x="265" y="400" width="50" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="290" y="416" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">EN</text>
+  <!-- Wire to Pull-Up Block -->
+  <line x1="315" y1="412" x2="345" y2="412" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- Pull-Up Block -->
+  <rect x="350" y="395" width="230" height="44" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="465" y="413" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Внутрішня підтяжка R_EN = 10kΩ</text>
+  <text x="465" y="430" text-anchor="middle" font-size="12" fill="#6b7280">Автоматичний увімкнений режим</text>
+  <line x1="580" y1="412" x2="620" y2="412" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <!-- Socket Pin (EN) -->
+  <rect x="625" y="400" width="30" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="640" y="416" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">EN</text>
+  <!-- Wire Socket -> ESP-01 EN -->
+  <line x1="655" y1="412" x2="745" y2="412" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <circle cx="750" cy="412" r="4" fill="#27ae60"/>
+  <text x="765" y="410" text-anchor="start" font-size="12" fill="#27ae60">EN (CH_PD, High)</text>
+
+  <!-- ROW 6: RST (Reset Pull-up) -->
+  <!-- Left MCU pin -->
+  <circle cx="190" cy="477" r="4" fill="#27ae60"/>
+  <text x="180" y="475" text-anchor="end" font-size="12" fill="#27ae60">GPIO / RST</text>
+  <!-- Wire MCU -> Adapter Header -->
+  <line x1="194" y1="477" x2="260" y2="477" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <!-- Header Pin 6 (RST) -->
+  <rect x="265" y="465" width="50" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="290" y="481" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">RST</text>
+  <!-- Wire to Pull-Up Block -->
+  <line x1="315" y1="477" x2="345" y2="477" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- Pull-Up Block -->
+  <rect x="350" y="460" width="230" height="44" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="465" y="478" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Внутрішня підтяжка R_RST = 10kΩ</text>
+  <text x="465" y="495" text-anchor="middle" font-size="12" fill="#6b7280">Нормальна робота (Reset Active-Low)</text>
+  <line x1="580" y1="477" x2="660" y2="477" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <!-- Socket Pin (RST) -->
+  <rect x="665" y="465" width="35" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="682" y="481" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">RST</text>
+  <!-- Wire Socket -> ESP-01 RST -->
+  <line x1="700" y1="477" x2="745" y2="477" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <circle cx="750" cy="477" r="4" fill="#27ae60"/>
+  <text x="765" y="475" text-anchor="start" font-size="12" fill="#27ae60">RST (Reset, High)</text>
+
+  <!-- GPIO0 / GPIO2 note line -->
+  <rect x="625" y="505" width="75" height="22" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="662" y="521" text-anchor="middle" font-size="12" fill="#6b7280">GPIO0 / GPIO2</text>
+  <circle cx="750" cy="521" r="4" fill="#6b7280"/>
+  <text x="765" y="521" text-anchor="start" font-size="12" fill="#6b7280">GPIO0 / GPIO2 (Вільні IO)</text>
+</svg>

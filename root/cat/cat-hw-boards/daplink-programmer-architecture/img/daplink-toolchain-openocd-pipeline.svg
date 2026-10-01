@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="460" fill="#ffffff"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конвеєр зневадження: IDE / OpenOCD → DAPLink → Цільовий MCU</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Проходження команд зневадження CMSIS-DAP від середовища розробки до шини SWD цільового чипа</text>
+
+  <!-- COLUMN 1: Host PC Software -->
+  <rect x="30" y="78" width="184" height="356" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="122" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Хост-ПК (ПО розробки)</text>
+  <text x="122" y="114" font-size="12" fill="#6b7280" text-anchor="middle">Верхній рівень ПО</text>
+
+  <!-- Block 1.1: IDE / GDB -->
+  <rect x="40" y="130" width="164" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="122" y="148" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">IDE / GDB Client</text>
+  <text x="122" y="166" font-size="12" fill="#6b7280" text-anchor="middle">VS Code / Keil / IAR</text>
+  <text x="122" y="184" font-size="12" fill="#2457d6" text-anchor="middle">Команди зневадження</text>
+  <text x="122" y="202" font-size="12" fill="#6b7280" text-anchor="middle">(GDB Remote Protocol)</text>
+
+  <!-- Arrow 1.1 -> 1.2 -->
+  <line x1="122" y1="225" x2="122" y2="245" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Block 1.2: OpenOCD -->
+  <rect x="40" y="248" width="164" height="172" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="122" y="266" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">OpenOCD / pyOCD</text>
+  <text x="122" y="284" font-size="12" fill="#1a1a1a" text-anchor="middle">Сервер зневадження</text>
+
+  <!-- Sub-box 1.2.1 -->
+  <rect x="48" y="298" width="148" height="110" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="122" y="316" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CMSIS-DAP Driver</text>
+  <text x="122" y="334" font-size="12" fill="#6b7280" text-anchor="middle">Пакування команд:</text>
+  <text x="122" y="352" font-size="12" fill="#6b7280" text-anchor="middle">DAP_Transfer / Connect</text>
+  <text x="122" y="372" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Пакет CMSIS-DAP</text>
+  <text x="122" y="390" font-size="12" fill="#6b7280" text-anchor="middle">(64 байти USB HID)</text>
+
+
+  <!-- COLUMN 2: Host USB Transport -->
+  <rect x="278" y="78" width="170" height="356" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="363" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Системний USB-драйвер</text>
+  <text x="363" y="114" font-size="12" fill="#6b7280" text-anchor="middle">OS Host USB Subsystem</text>
+
+  <!-- Block 2.1: WinUSB -->
+  <rect x="286" y="130" width="154" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="363" y="148" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">WinUSB / LibUSB</text>
+  <text x="363" y="166" font-size="12" fill="#6b7280" text-anchor="middle">Драйвер пристрою ПК</text>
+  <text x="363" y="184" font-size="12" fill="#6b7280" text-anchor="middle">Пряма передача URB</text>
+  <text x="363" y="202" font-size="12" fill="#6b7280" text-anchor="middle">(Низький jitter)</text>
+
+  <!-- Arrow 2.1 -> 2.2 -->
+  <line x1="363" y1="225" x2="363" y2="245" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Block 2.2: USB Endpoints -->
+  <rect x="286" y="248" width="154" height="172" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="363" y="266" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB Endpoints</text>
+
+  <!-- Badge 2.2.1: HID / Bulk -->
+  <rect x="292" y="278" width="142" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="363" y="294" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">HID / Bulk (Debug)</text>
+  <text x="363" y="310" font-size="12" fill="#6b7280" text-anchor="middle">CMSIS-DAP v1/v2</text>
+
+  <!-- Badge 2.2.2: CDC Serial -->
+  <rect x="292" y="326" width="142" height="40" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="363" y="342" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CDC EP (Serial)</text>
+  <text x="363" y="358" font-size="12" fill="#6b7280" text-anchor="middle">Віртуальний COM</text>
+
+  <!-- Badge 2.2.3: MSC Storage -->
+  <rect x="292" y="372" width="142" height="40" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="363" y="390" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MSC EP (Storage)</text>
+  <text x="363" y="406" font-size="12" fill="#6b7280" text-anchor="middle">Drag-and-Drop .bin</text>
+
+
+  <!-- COLUMN 3: DAPLink Hardware -->
+  <rect x="512" y="78" width="170" height="356" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="597" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Програматор DAPLink</text>
+  <text x="597" y="114" font-size="12" fill="#6b7280" text-anchor="middle">Interface MCU</text>
+
+  <!-- Block 3.1: USB Stack -->
+  <rect x="520" y="130" width="154" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="597" y="148" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB-периферія MCU</text>
+  <text x="597" y="166" font-size="12" fill="#6b7280" text-anchor="middle">Прийом пакетів HID</text>
+  <text x="597" y="184" font-size="12" fill="#6b7280" text-anchor="middle">Буферизація RX/TX</text>
+  <text x="597" y="202" font-size="12" fill="#6b7280" text-anchor="middle">(Ring Buffer / FIFO)</text>
+
+  <!-- Arrow 3.1 -> 3.2 -->
+  <line x1="597" y1="225" x2="597" y2="245" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Block 3.2: DAPLink Firmware -->
+  <rect x="520" y="248" width="154" height="172" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="597" y="266" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Прошивка DAPLink</text>
+  <text x="597" y="284" font-size="12" fill="#1a1a1a" text-anchor="middle">Трансляція в сигнали</text>
+
+  <!-- Sub-box 3.2.1 -->
+  <rect x="526" y="298" width="142" height="110" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="597" y="316" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SWD/JTAG Driver</text>
+  <text x="597" y="334" font-size="12" fill="#6b7280" text-anchor="middle">Тактування SWCLK</text>
+  <text x="597" y="352" font-size="12" fill="#6b7280" text-anchor="middle">Лінія даних SWDIO</text>
+  <text x="597" y="372" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Сигнали SWD</text>
+  <text x="597" y="390" font-size="12" fill="#6b7280" text-anchor="middle">(SWCLK, SWDIO, nRST)</text>
+
+
+  <!-- COLUMN 4: Target Microcontroller -->
+  <rect x="746" y="78" width="184" height="356" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="838" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цільовий MCU (Target)</text>
+  <text x="838" y="114" font-size="12" fill="#6b7280" text-anchor="middle">ARM Cortex-M Чип</text>
+
+  <!-- Block 4.1: Debug Port -->
+  <rect x="756" y="130" width="164" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="838" y="148" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Debug Port (SW-DP)</text>
+  <text x="838" y="166" font-size="12" fill="#6b7280" text-anchor="middle">Апаратний SWD порт</text>
+  <text x="838" y="184" font-size="12" fill="#6b7280" text-anchor="middle">SWCLK, SWDIO, nRESET</text>
+  <text x="838" y="202" font-size="12" fill="#6b7280" text-anchor="middle">(Приймач сигналів)</text>
+
+  <!-- Arrow 4.1 -> 4.2 -->
+  <line x1="838" y1="225" x2="838" y2="245" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Block 4.2: Core & Flash -->
+  <rect x="756" y="248" width="164" height="172" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="838" y="266" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">ARM Cortex-M Core</text>
+  <text x="838" y="284" font-size="12" fill="#1a1a1a" text-anchor="middle">Внутрішня шина AHB</text>
+
+  <!-- Badge 4.2.1: Flash -->
+  <rect x="762" y="298" width="152" height="52" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="838" y="316" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Flash Пам'ять</text>
+  <text x="838" y="334" font-size="12" fill="#6b7280" text-anchor="middle">Запис прошивки</text>
+
+  <!-- Badge 4.2.2: Registers / SRAM -->
+  <rect x="762" y="356" width="152" height="54" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="838" y="374" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Регістри CPU / SRAM</text>
+  <text x="838" y="392" font-size="12" fill="#6b7280" text-anchor="middle">Контроль виконання</text>
+
+
+  <!-- HORIZONTAL CONNECTIONS BETWEEN COLUMNS -->
+
+  <!-- Connector 1: OpenOCD -> USB HID EP -->
+  <text x="248" y="284" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">USB URB / HID</text>
+  <line x1="204" y1="300" x2="292" y2="300" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Connector 2: USB HID EP -> DAPLink USB Stack -->
+  <text x="477" y="284" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">USB Пакет</text>
+  <line x1="434" y1="300" x2="512" y2="300" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Connector 3: DAPLink -> Target MCU (Physical SWD Lines) -->
+  <!-- 3a: SWCLK -->
+  <text x="714" y="310" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">SWCLK</text>
+  <line x1="674" y1="320" x2="756" y2="320" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- 3b: SWDIO -->
+  <text x="714" y="340" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">SWDIO</text>
+  <line x1="674" y1="350" x2="756" y2="350" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- 3c: nRESET -->
+  <text x="714" y="370" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">nRESET</text>
+  <line x1="674" y1="380" x2="756" y2="380" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+</svg>

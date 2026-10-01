@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратна схема VDD_SPI та конфігурування GPIO45 в ESP32-S3R2</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Перемикання напруги LDO (1.8 В / 3.3 В) для Octal PSRAM та захист від перенапруги</text>
+
+  <!-- Panel 1: ESP32-S3 Core & eFuse -->
+  <rect x="30" y="90" width="270" height="430" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="165" y="118" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ядро ESP32-S3 та eFuse</text>
+
+  <!-- eFuse Sub-box -->
+  <rect x="45" y="135" width="240" height="90" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="165" y="158" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Блок регістрів eFuse</text>
+  <text x="60" y="182" font-size="12" fill="#1a1a1a">EFUSE_VDD_SPI_TIEH (0/1)</text>
+  <text x="60" y="206" font-size="12" fill="#6b7280">Пріоритетне перевизначення LDO</text>
+
+  <!-- GPIO45 Pin Box -->
+  <rect x="45" y="240" width="240" height="150" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="165" y="263" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вивід GPIO45 (Strapping Pin)</text>
+  <text x="60" y="287" font-size="12" fill="#27ae60">Вхідне защеплення при Reset</text>
+  <text x="60" y="311" font-size="12" fill="#1a1a1a">R_pullup (10 кОм) до VDD3V3</text>
+  <text x="60" y="335" font-size="12" fill="#27ae60">GPIO45 = 1 (HIGH) -> 1.8 В</text>
+  <text x="60" y="359" font-size="12" fill="#c0392b">GPIO45 = 0 (LOW) -> 3.3 В</text>
+
+  <!-- Latch Circuit Box -->
+  <rect x="45" y="405" width="240" height="95" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="165" y="428" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Тригер защеплення режиму</text>
+  <text x="60" y="452" font-size="12" fill="#1a1a1a">Фіксація стану за фронтом RST</text>
+  <text x="60" y="476" font-size="12" fill="#6b7280">Сигнал керування SEL_LDO</text>
+
+  <!-- Connection line Panel 1 -> Panel 2 -->
+  <path d="M 285 452 L 315 452 L 315 280 L 340 280" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Panel 2: Internal LDO Regulator -->
+  <rect x="340" y="90" width="280" height="430" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="480" y="118" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Внутрішній регулятор VDD_SPI</text>
+
+  <!-- LDO Internal Structure -->
+  <rect x="355" y="135" width="250" height="210" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="480" y="158" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Управляємий LDO-стабілізатор</text>
+  <text x="370" y="185" font-size="12" fill="#1a1a1a">Вхід живлення: VDD3V3 (3.3 В)</text>
+  <text x="370" y="210" font-size="12" font-weight="bold" fill="#27ae60">Режим 1.8 В (GPIO45 = 1):</text>
+  <text x="385" y="232" font-size="12" fill="#27ae60">Живлення 1.8V Octal PSRAM</text>
+  <text x="370" y="260" font-size="12" font-weight="bold" fill="#c0392b">Режим 3.3 В (GPIO45 = 0):</text>
+  <text x="385" y="282" font-size="12" fill="#c0392b">Живлення 3.3V Standard Flash</text>
+  <text x="370" y="315" font-size="12" fill="#6b7280">Максимальний струм: 400 мА</text>
+
+  <!-- Overvoltage Warning Box -->
+  <rect x="355" y="360" width="250" height="140" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="480" y="385" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">НЕБЕЗПЕКА ПЕРЕНАПРУГИ!</text>
+  <text x="370" y="410" font-size="12" fill="#c0392b">Якщо GPIO45 випадково закорочено</text>
+  <text x="370" y="432" font-size="12" fill="#c0392b">на GND (0), LDO видасть 3.3 В,</text>
+  <text x="370" y="454" font-size="12" fill="#c0392b">що знищить 1.8V Octal PSRAM</text>
+  <text x="370" y="476" font-size="12" fill="#c0392b">в ESP32-S3R2!</text>
+
+  <!-- Connection line Panel 2 -> Panel 3 -->
+  <path d="M 605 232 L 650 220" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- Panel 3: In-Package Memory (SiP) -->
+  <rect x="650" y="90" width="280" height="430" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="790" y="118" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вбудована пам'ять SiP</text>
+
+  <!-- Octal PSRAM Box -->
+  <rect x="665" y="140" width="250" height="150" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="790" y="165" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">2 МБ Octal PSRAM (1.8 В)</text>
+  <text x="680" y="190" font-size="12" fill="#1a1a1a">Шина даних: OPI (8 біт)</text>
+  <text x="680" y="214" font-size="12" fill="#27ae60">Вхід живлення: VDD_SPI = 1.8 В</text>
+  <text x="680" y="238" font-size="12" fill="#1a1a1a">Тактова частота: до 120 МГц</text>
+  <text x="680" y="262" font-size="12" fill="#6b7280">Потребує суворого дотримання 1.8 В</text>
+
+  <!-- SPI Flash Box -->
+  <rect x="665" y="310" width="250" height="190" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="790" y="335" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">16 МБ SPI Flash</text>
+  <text x="680" y="360" font-size="12" fill="#1a1a1a">Шина даних: QSPI (4 біт)</text>
+  <text x="680" y="385" font-size="12" fill="#1a1a1a">Сумісна напруга: 1.8 В / 3.3 В</text>
+  <text x="680" y="410" font-size="12" fill="#1a1a1a">Зберігання прошивки та NVS</text>
+  <text x="680" y="435" font-size="12" fill="#2457d6">Вхід VDD_SPI підключено паралельно</text>
+  <text x="680" y="460" font-size="12" fill="#6b7280">Автоматичне тактування від LDO</text>
+</svg>

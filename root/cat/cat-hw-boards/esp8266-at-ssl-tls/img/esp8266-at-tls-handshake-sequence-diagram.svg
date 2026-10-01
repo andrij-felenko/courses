@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Послідовність TLS-рукостискання в AT-прошивці ESP8266</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Взаємодія керуючого МК, модуля ESP8266 (mbedTLS) та TLS-сервера при ініціалізації захищеного з'єднання</text>
+
+  <!-- Lifeline Boxes -->
+  <rect x="70" y="68" width="160" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="150" y="93" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Керуючий МК</text>
+
+  <rect x="400" y="68" width="160" height="40" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="93" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">ESP8266 (mbedTLS)</text>
+
+  <rect x="730" y="68" width="160" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="810" y="93" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">TLS-сервер</text>
+
+  <!-- Lifelines -->
+  <line x1="150" y1="108" x2="150" y2="470" stroke="#d0d7de" stroke-width="2" stroke-dasharray="6,4"/>
+  <line x1="480" y1="108" x2="480" y2="470" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,4"/>
+  <line x1="810" y1="108" x2="810" y2="470" stroke="#d0d7de" stroke-width="2" stroke-dasharray="6,4"/>
+
+  <!-- Step 1: AT+CIPSSLCCONF -->
+  <text x="315" y="134" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1. AT+CIPSSLCCONF=1 (Конфігурація SSL/CA)</text>
+  <line x1="150" y1="140" x2="472" y2="140" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  
+  <text x="315" y="157" text-anchor="middle" font-size="12" fill="#6b7280">OK</text>
+  <line x1="480" y1="162" x2="158" y2="162" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+
+  <!-- Step 2: AT+CIPSTART -->
+  <text x="315" y="184" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">2. AT+CIPSTART="SSL","host",443</text>
+  <line x1="150" y1="190" x2="472" y2="190" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 3: TCP Handshake -->
+  <text x="645" y="212" text-anchor="middle" font-size="12" fill="#6b7280">3. TCP SYN</text>
+  <line x1="480" y1="218" x2="802" y2="218" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <text x="645" y="232" text-anchor="middle" font-size="12" fill="#6b7280">TCP SYN-ACK</text>
+  <line x1="810" y1="238" x2="488" y2="238" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+
+  <text x="645" y="252" text-anchor="middle" font-size="12" fill="#6b7280">TCP ACK</text>
+  <line x1="480" y1="258" x2="802" y2="258" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Step 4: TLS ClientHello -->
+  <text x="645" y="280" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">4. TLS ClientHello (SNI, FragLen)</text>
+  <line x1="480" y1="286" x2="802" y2="286" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 5: TLS ServerHello + Cert -->
+  <text x="645" y="308" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">5. ServerHello + Certificate + ServerHelloDone</text>
+  <line x1="810" y1="314" x2="488" y2="314" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Memory Box at ESP8266 -->
+  <rect x="360" y="328" width="240" height="38" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="343" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Верифікація X.509 та завантаження ключів</text>
+  <text x="480" y="358" text-anchor="middle" font-size="11" fill="#6b7280">Виділення DRAM в mbedTLS: ~16...32 КБ</text>
+
+  <!-- Step 6: Key Exchange & Finished -->
+  <text x="645" y="380" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">6. ClientKeyExchange + Finished</text>
+  <line x1="480" y1="386" x2="802" y2="386" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <text x="645" y="400" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">[ChangeCipherSpec] + Finished</text>
+  <line x1="810" y1="406" x2="488" y2="406" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+
+  <!-- Step 7: CONNECT OK -->
+  <text x="315" y="428" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">7. CONNECT OK (Канал TLS встановлено)</text>
+  <line x1="480" y1="434" x2="158" y2="434" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Encrypted Data Panel -->
+  <rect x="110" y="458" width="740" height="50" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="478" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Шифрований потік даних (Encrypted Application Data / HTTPS)</text>
+  <text x="480" y="496" text-anchor="middle" font-size="11" fill="#1a1a1a">AT+CIPSEND -&gt; mbedTLS (AES-GCM / SHA256) -&gt; Захищений сокет</text>
+</svg>

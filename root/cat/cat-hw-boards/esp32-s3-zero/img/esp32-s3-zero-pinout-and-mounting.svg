@@ -1,0 +1,181 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Marker Definitions -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура та монтаж плати ESP32-S3-Zero</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Розташування контактів, нативного USB (GPIO19/20), RGB-світлодіода (GPIO21) та зубчастих отворів</text>
+
+  <!-- PANEL 1: Board Layout & Pinout -->
+  <rect x="40" y="80" width="430" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="255" y="106" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топологія елементів та цокольовка</text>
+
+  <!-- ESP32-S3-Zero PCB Outline -->
+  <rect x="160" y="125" width="190" height="340" rx="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Left Side Castellated Pads -->
+  <rect x="162" y="166" width="12" height="16" rx="3" fill="#d97706" stroke="#1a1a1a"/>
+  <rect x="162" y="200" width="12" height="16" rx="3" fill="#d97706" stroke="#1a1a1a"/>
+  <rect x="162" y="234" width="12" height="16" rx="3" fill="#d97706" stroke="#1a1a1a"/>
+  <rect x="162" y="268" width="12" height="16" rx="3" fill="#d97706" stroke="#1a1a1a"/>
+  <rect x="162" y="302" width="12" height="16" rx="3" fill="#d97706" stroke="#1a1a1a"/>
+  <rect x="162" y="336" width="12" height="16" rx="3" fill="#d97706" stroke="#1a1a1a"/>
+  <rect x="162" y="370" width="12" height="16" rx="3" fill="#d97706" stroke="#1a1a1a"/>
+  <rect x="162" y="404" width="12" height="16" rx="3" fill="#d97706" stroke="#1a1a1a"/>
+  <rect x="162" y="438" width="12" height="16" rx="3" fill="#d97706" stroke="#1a1a1a"/>
+
+  <!-- Left Side Pin Labels -->
+  <text x="152" y="178" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">5V (Живлення)</text>
+  <text x="152" y="212" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">GND (Земля)</text>
+  <text x="152" y="246" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">3V3 (3.3В)</text>
+  <text x="152" y="280" font-size="12" fill="#6b7280" text-anchor="end">GPIO1 (ADC)</text>
+  <text x="152" y="314" font-size="12" fill="#6b7280" text-anchor="end">GPIO2 (ADC)</text>
+  <text x="152" y="348" font-size="12" fill="#6b7280" text-anchor="end">GPIO3 (ADC)</text>
+  <text x="152" y="382" font-size="12" fill="#6b7280" text-anchor="end">GPIO4 (ADC)</text>
+  <text x="152" y="416" font-size="12" fill="#6b7280" text-anchor="end">GPIO5 (ADC)</text>
+  <text x="152" y="450" font-size="12" fill="#6b7280" text-anchor="end">GPIO6 (PWM)</text>
+
+  <!-- Right Side Castellated Pads -->
+  <rect x="336" y="166" width="12" height="16" rx="3" fill="#d97706" stroke="#1a1a1a"/>
+  <rect x="336" y="200" width="12" height="16" rx="3" fill="#d97706" stroke="#1a1a1a"/>
+  <rect x="336" y="234" width="12" height="16" rx="3" fill="#d97706" stroke="#1a1a1a"/>
+  <rect x="336" y="268" width="12" height="16" rx="3" fill="#d97706" stroke="#1a1a1a"/>
+  <rect x="336" y="302" width="12" height="16" rx="3" fill="#d97706" stroke="#1a1a1a"/>
+  <rect x="336" y="336" width="12" height="16" rx="3" fill="#d97706" stroke="#1a1a1a"/>
+  <rect x="336" y="370" width="12" height="16" rx="3" fill="#d97706" stroke="#1a1a1a"/>
+  <rect x="336" y="404" width="12" height="16" rx="3" fill="#d97706" stroke="#1a1a1a"/>
+  <rect x="336" y="438" width="12" height="16" rx="3" fill="#d97706" stroke="#1a1a1a"/>
+
+  <!-- Right Side Pin Labels -->
+  <text x="358" y="178" font-size="12" fill="#6b7280" text-anchor="start">GPIO7 (SPI)</text>
+  <text x="358" y="212" font-size="12" fill="#6b7280" text-anchor="start">GPIO8 (SPI)</text>
+  <text x="358" y="246" font-size="12" fill="#6b7280" text-anchor="start">GPIO9 (SPI)</text>
+  <text x="358" y="280" font-size="12" fill="#6b7280" text-anchor="start">GPIO10 (SPI)</text>
+  <text x="358" y="314" font-size="12" fill="#6b7280" text-anchor="start">GPIO11 (SPI)</text>
+  <text x="358" y="348" font-size="12" fill="#6b7280" text-anchor="start">GPIO12 (I2C)</text>
+  <text x="358" y="382" font-size="12" fill="#6b7280" text-anchor="start">GPIO13 (I2C)</text>
+  <text x="358" y="416" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">TX0 (GPIO43)</text>
+  <text x="358" y="450" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">RX0 (GPIO44)</text>
+
+  <!-- Onboard Components -->
+  <!-- Type-C Connector -->
+  <rect x="215" y="128" width="80" height="24" rx="5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="255" y="144" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Type-C USB</text>
+
+  <!-- Native USB Pin Badge -->
+  <rect x="205" y="158" width="100" height="34" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="255" y="171" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">D- : GPIO19</text>
+  <text x="255" y="185" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">D+ : GPIO20</text>
+
+  <!-- Onboard RGB LED (WS2812) -->
+  <rect x="205" y="198" width="100" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="255" y="211" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">RGB WS2812</text>
+  <text x="255" y="225" font-size="11" fill="#27ae60" text-anchor="middle">GPIO21 (RMT)</text>
+
+  <!-- Buttons: BOOT & RESET -->
+  <rect x="180" y="238" width="64" height="30" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="212" y="250" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">BOOT</text>
+  <text x="212" y="262" font-size="11" fill="#6b7280" text-anchor="middle">GPIO0</text>
+
+  <rect x="266" y="238" width="64" height="30" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="298" y="250" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RESET</text>
+  <text x="298" y="262" font-size="11" fill="#6b7280" text-anchor="middle">CHIP_PU</text>
+
+  <!-- ESP32-S3 Microcontroller Chip -->
+  <rect x="190" y="276" width="130" height="104" rx="4" fill="#2d3748" stroke="#1a1a1a"/>
+  <text x="255" y="296" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">ESP32-S3</text>
+  <text x="255" y="315" font-size="11" fill="#cbd5e0" text-anchor="middle">Dual-Core LX7</text>
+  <text x="255" y="333" font-size="11" fill="#cbd5e0" text-anchor="middle">4 MB Flash</text>
+  <text x="255" y="351" font-size="11" fill="#27ae60" text-anchor="middle">Wi-Fi &amp; BLE 5</text>
+  <text x="255" y="369" font-size="11" fill="#cbd5e0" text-anchor="middle">512 KB SRAM</text>
+
+  <!-- Antenna -->
+  <rect x="210" y="388" width="90" height="24" rx="3" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="255" y="404" font-size="11" fill="#6b7280" text-anchor="middle">Антена</text>
+
+  <!-- Panel 1 Footer Note -->
+  <text x="255" y="492" font-size="12" fill="#6b7280" text-anchor="middle">Зубчасті отвори (2.54 мм) розміщено по боках плати</text>
+
+  <!-- PANEL 2: Carrier Mounting Options -->
+  <rect x="490" y="80" width="430" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="705" y="106" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Способи монтажу на плату-носій</text>
+
+  <!-- SUB-BLOCK 1: Surface SMD Mounting -->
+  <rect x="505" y="125" width="400" height="175" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="520" y="146" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">1. Поверхневий SMD-монтаж (без штирів)</text>
+
+  <!-- Callout texts -->
+  <text x="520" y="170" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Зубчастий отвір</text>
+  <line x1="624" y1="168" x2="682" y2="198" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <text x="735" y="166" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Паяльний шов (галтель)</text>
+  <text x="735" y="180" font-size="11" fill="#6b7280" text-anchor="start">З'єднує отвір і майданчик</text>
+  <line x1="730" y1="182" x2="714" y2="214" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Carrier PCB -->
+  <rect x="520" y="232" width="370" height="14" rx="2" fill="#e2e8f0" stroke="#94a3b8"/>
+  <text x="705" y="258" font-size="11" fill="#6b7280" text-anchor="middle">Материнська плата-носій (Carrier PCB)</text>
+
+  <!-- Carrier Copper Pad -->
+  <rect x="670" y="226" width="75" height="6" rx="1" fill="#d97706" stroke="#b45309"/>
+
+  <!-- ESP32-S3-Zero Profile -->
+  <rect x="530" y="198" width="165" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="612" y="216" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Плата ESP32-S3-Zero</text>
+
+  <!-- Castellated Notch Cutout & Plating -->
+  <path d="M 695,198 C 685,212 685,212 695,226 L 710,226 L 710,198 Z" fill="#ffffff" stroke="#2457d6"/>
+  <path d="M 700,198 C 690,212 690,212 700,226" fill="none" stroke="#d97706" stroke-width="3"/>
+
+  <!-- Solder Fillet -->
+  <path d="M 688,226 Q 698,223 705,212 Q 710,223 740,226 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Advantage Badge 1 -->
+  <rect x="520" y="268" width="370" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="705" y="283" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Перевага: мінімальна висота, компактний SMD-монтаж</text>
+
+  <!-- SUB-BLOCK 2: Through-hole Pin Header Mounting -->
+  <rect x="505" y="312" width="400" height="190" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="520" y="332" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">2. Наскрізний монтаж (Штирові роз'єми 2.54 мм)</text>
+
+  <!-- Callout texts -->
+  <text x="520" y="352" font-size="12" fill="#6b7280" text-anchor="start">Паяння контакту в отворі</text>
+  <line x1="680" y1="358" x2="693" y2="372" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <text x="735" y="352" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Штир 2.54 мм</text>
+  <line x1="732" y1="362" x2="713" y2="368" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- ESP32-S3-Zero Profile -->
+  <rect x="530" y="378" width="162" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="611" y="396" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Плата ESP32-S3-Zero</text>
+
+  <rect x="718" y="378" width="12" height="28" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Pin Header Pin passing vertically in open hole space x=692..718 -->
+  <rect x="700" y="350" width="10" height="78" rx="1" fill="#4a5568" stroke="#1a1a1a"/>
+
+  <!-- Solder fillets on top around pin -->
+  <polygon points="686,378 700,378 700,368" fill="#d0d7de" stroke="#1a1a1a"/>
+  <polygon points="724,378 710,378 710,368" fill="#d0d7de" stroke="#1a1a1a"/>
+
+  <!-- Breadboard Base -->
+  <rect x="520" y="430" width="370" height="22" rx="2" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="705" y="445" font-size="11" fill="#6b7280" text-anchor="middle">Макетна плата (Breadboard) / Гніздова колодка</text>
+
+  <!-- Advantage Badge 2 -->
+  <rect x="520" y="466" width="370" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="705" y="481" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Перевага: зручне прототипування та швидка заміна</text>
+</svg>

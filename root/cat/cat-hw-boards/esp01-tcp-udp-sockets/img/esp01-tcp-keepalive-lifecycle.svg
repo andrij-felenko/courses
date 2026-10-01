@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Життєвий цикл TCP-з'єднання та механізм Keep-Alive на ESP-01</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">Контроль станів сокета, розпізнавання обривів зв'язку та автовідновлення з'єднання</text>
+
+  <!-- Left Panel: State Diagram -->
+  <rect x="25" y="75" width="440" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 25 83 A 8 8 0 0 1 33 75 L 457 75 A 8 8 0 0 1 465 83 L 465 111 L 25 111 Z" fill="#eaf0fd" stroke="#d0d7de"/>
+  <text x="245" y="98" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">1. ДІАГРАМА СТАНІВ TCP-СОКЕТА</text>
+
+  <!-- Card 1: CLOSED / IDLE -->
+  <rect x="115" y="125" width="190" height="50" rx="6" fill="white" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="210" y="145" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">CLOSED / IDLE</text>
+  <text x="210" y="163" font-size="12" text-anchor="middle" fill="#6b7280">Сокет закритий / RAM вільна</text>
+
+  <!-- Arrow 1: Card 1 -> Card 2 -->
+  <line x1="210" y1="175" x2="210" y2="215" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="220" y="198" font-size="12" fill="#2457d6">SYN / SYN-ACK</text>
+
+  <!-- Card 2: ESTABLISHED -->
+  <rect x="115" y="215" width="190" height="55" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="210" y="237" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">ESTABLISHED</text>
+  <text x="210" y="255" font-size="12" text-anchor="middle" fill="#1a1a1a">Активний обмін даними</text>
+
+  <!-- Arrow 2: Card 2 -> Card 3 -->
+  <line x1="210" y1="270" x2="210" y2="310" stroke="#6b7280" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="220" y="293" font-size="12" fill="#6b7280">Пауза > keepalive_idle</text>
+
+  <!-- Card 3: KEEP-ALIVE PROBING -->
+  <rect x="115" y="310" width="190" height="55" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="210" y="332" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">KEEP-ALIVE PROBING</text>
+  <text x="210" y="350" font-size="12" text-anchor="middle" fill="#1a1a1a">Зондування каналу (ACK)</text>
+
+  <!-- Loop-back 1: Card 3 -> Card 2 (ACK OK) -->
+  <path d="M 305 337 C 345 337, 345 242, 305 242" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="352" y="282" font-size="12" font-weight="bold" fill="#27ae60">ACK ОК</text>
+  <text x="352" y="298" font-size="12" fill="#27ae60">(зв'язок є)</text>
+
+  <!-- Arrow 3: Card 3 -> Card 4 (Timeout) -->
+  <line x1="210" y1="365" x2="210" y2="410" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="220" y="391" font-size="12" fill="#c0392b">Без відповіді (N проб)</text>
+
+  <!-- Card 4: SOCKET ERROR / CLOSE -->
+  <rect x="115" y="410" width="190" height="55" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="210" y="432" font-size="13" font-weight="bold" text-anchor="middle" fill="#c0392b">SOCKET ERROR / CLOSE</text>
+  <text x="210" y="450" font-size="12" text-anchor="middle" fill="#c0392b">Вивільнення RAM буферів</text>
+
+  <!-- Loop-back 2: Card 4 -> Card 1 (Re-init) -->
+  <path d="M 115 437 C 28 437, 28 150, 115 150" fill="none" stroke="#6b7280" stroke-dasharray="4 3" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="38" y="274" width="68" height="34" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="72" y="289" font-size="12" fill="#6b7280" text-anchor="middle">Перезапуск</text>
+  <text x="72" y="303" font-size="12" fill="#6b7280" text-anchor="middle">(Re-init)</text>
+
+  <!-- Right Panel: Sequence Diagram -->
+  <rect x="495" y="75" width="440" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 495 83 A 8 8 0 0 1 503 75 L 927 75 A 8 8 0 0 1 935 83 L 935 111 L 495 111 Z" fill="#eaf0fd" stroke="#d0d7de"/>
+  <text x="715" y="98" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">2. ЧАСОВА ДІАГРАМА ЗОНДУВАННЯ (KEEP-ALIVE)</text>
+
+  <!-- Lifeline Headers -->
+  <rect x="525" y="125" width="110" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="580" y="145" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">ESP-01 (Клієнт)</text>
+
+  <rect x="795" y="125" width="110" height="32" rx="4" fill="white" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="850" y="145" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Сервер (Хост)</text>
+
+  <!-- Dashed Lifelines -->
+  <line x1="580" y1="157" x2="580" y2="495" stroke="#6b7280" stroke-dasharray="4 4" stroke-width="1.5"/>
+  <line x1="850" y1="157" x2="850" y2="495" stroke="#6b7280" stroke-dasharray="4 4" stroke-width="1.5"/>
+
+  <!-- Event 1: Data Flow -->
+  <line x1="580" y1="180" x2="842" y2="180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="715" y="173" font-size="12" fill="#2457d6" text-anchor="middle">TCP Data (Телеметрія)</text>
+
+  <line x1="850" y1="205" x2="588" y2="205" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="715" y="220" font-size="12" fill="#27ae60" text-anchor="middle">TCP ACK</text>
+
+  <!-- Event 2: Idle Period -->
+  <rect x="560" y="232" width="310" height="30" rx="4" fill="white" stroke="#d0d7de" stroke-dasharray="2 2"/>
+  <text x="715" y="251" font-size="12" fill="#6b7280" text-anchor="middle">Період тиші (keepalive_idle, наприклад 60 с)</text>
+
+  <!-- Server Offline / Failure Badge -->
+  <rect x="815" y="270" width="70" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="850" y="285" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ОБРИВ</text>
+
+  <!-- Event 3: Probe 1 -->
+  <line x1="580" y1="305" x2="840" y2="305" stroke="#c0392b" stroke-dasharray="4 2" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="715" y="298" font-size="12" fill="#c0392b" text-anchor="middle">Keep-Alive Probe 1 (seq=N-1)</text>
+  <text x="715" y="320" font-size="12" fill="#6b7280" text-anchor="middle">(Без відповіді / No ACK)</text>
+
+  <!-- Event 4: Probe 2 -->
+  <line x1="580" y1="345" x2="840" y2="345" stroke="#c0392b" stroke-dasharray="4 2" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="715" y="338" font-size="12" fill="#c0392b" text-anchor="middle">Keep-Alive Probe 2 (інтервал 5 с)</text>
+
+  <!-- Event 5: Probe 3 -->
+  <line x1="580" y1="380" x2="840" y2="380" stroke="#c0392b" stroke-dasharray="4 2" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="715" y="373" font-size="12" fill="#c0392b" text-anchor="middle">Keep-Alive Probe 3 (остання спроба)</text>
+
+  <!-- Event 6: Timeout Action Box -->
+  <rect x="515" y="405" width="400" height="80" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="715" y="427" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">СПРАЦЮВАННЯ ТАЙМ-АУТУ (KEEP-ALIVE TIMEOUT)</text>
+  <text x="715" y="447" font-size="12" fill="#1a1a1a" text-anchor="middle">Примусове закриття зіпсованого сокета (RST / CLOSE)</text>
+  <text x="715" y="467" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вивільнення буферів RAM та автореконнект</text>
+</svg>

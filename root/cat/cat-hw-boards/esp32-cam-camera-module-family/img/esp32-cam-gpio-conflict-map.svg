@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Карта суміщення та конфліктів виводів GPIO ESP32-CAM</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Апаратне мультиплексування виводів між DVP-камерою, шиною MicroSD, спалахом та strapping-пінами</text>
+
+  <!-- Panel 1: OV2640 DVP Camera Interface -->
+  <rect x="40" y="80" width="250" height="375" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="165" y="105" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Камера DVP (OV2640)</text>
+
+  <rect x="55" y="120" width="220" height="75" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="5"/>
+  <text x="165" y="140" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Паралельні дані D0–D7</text>
+  <text x="165" y="160" font-size="11" text-anchor="middle" fill="#2457d6">GPIO 5, 18, 19, 21</text>
+  <text x="165" y="178" font-size="11" text-anchor="middle" fill="#2457d6">GPIO 34, 35, 36, 39 (GPI only)</text>
+
+  <rect x="55" y="205" width="220" height="65" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="5"/>
+  <text x="165" y="225" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Сигнали синхронізації</text>
+  <text x="165" y="245" font-size="11" text-anchor="middle" fill="#6b7280">PCLK: GPIO22 | VSYNC: GPIO25</text>
+  <text x="165" y="260" font-size="11" text-anchor="middle" fill="#6b7280">HREF: GPIO23</text>
+
+  <rect x="55" y="280" width="220" height="55" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="5"/>
+  <text x="165" y="300" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Шина керування SCCB</text>
+  <text x="165" y="320" font-size="11" text-anchor="middle" fill="#6b7280">SIOC: GPIO27 | SIOD: GPIO26</text>
+
+  <rect x="55" y="345" width="220" height="95" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="5"/>
+  <text x="165" y="365" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Тактування XCLK та PWDN</text>
+  <text x="165" y="385" font-size="11" font-weight="bold" text-anchor="middle" fill="#c0392b">XCLK: GPIO0 (Спільний з BOOT!)</text>
+  <text x="165" y="405" font-size="11" text-anchor="middle" fill="#6b7280">PWDN: GPIO32 | RESET: NC/-1</text>
+  <text x="165" y="425" font-size="11" text-anchor="middle" fill="#6b7280">Частота XCLK: 10–20 МГц</text>
+
+  <!-- Panel 2: Conflict & Multiplexing Matrix -->
+  <rect x="330" y="80" width="300" height="375" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="480" y="105" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Вузли апаратних конфліктів GPIO</text>
+
+  <!-- Conflict Item 1: GPIO4 -->
+  <rect x="345" y="120" width="270" height="100" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="5"/>
+  <text x="480" y="140" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">КРИТИЧНИЙ КОНФЛІКТ: GPIO4</text>
+  <text x="480" y="160" font-size="11" font-weight="bold" text-anchor="middle" fill="#1a1a1a">SD_DATA0 (MicroSD) + Flash LED</text>
+  <text x="480" y="180" font-size="11" text-anchor="middle" fill="#c0392b">При запису на SD спалах хаотично блимає</text>
+  <text x="480" y="200" font-size="11" text-anchor="middle" fill="#6b7280">Рішення: 1-бітний SDMMC або демонтаж LED</text>
+
+  <!-- Conflict Item 2: GPIO2 -->
+  <rect x="345" y="230" width="270" height="85" fill="#fff8e6" stroke="#f39c12" stroke-width="1.5" rx="5"/>
+  <text x="480" y="250" font-size="12" font-weight="bold" text-anchor="middle" fill="#d35400">КОНФЛІКТ ЗАВАНТАЖЕННЯ: GPIO2</text>
+  <text x="480" y="270" font-size="11" font-weight="bold" text-anchor="middle" fill="#1a1a1a">SD_DATA3 + Синій LED + Strapping</text>
+  <text x="480" y="290" font-size="11" text-anchor="middle" fill="#6b7280">Неможливо завантажитись при підтяжці до GND</text>
+
+  <!-- Conflict Item 3: GPIO0 -->
+  <rect x="345" y="325" width="270" height="115" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="5"/>
+  <text x="480" y="345" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">ПОДВІЙНЕ ПРИЗНАЧЕННЯ: GPIO0</text>
+  <text x="480" y="365" font-size="11" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Генератор XCLK (LEDC) / BOOT Pin</text>
+  <text x="480" y="385" font-size="11" text-anchor="middle" fill="#2457d6">GND = Режим прошивки UART</text>
+  <text x="480" y="405" font-size="11" text-anchor="middle" fill="#6b7280">FLOAT/HIGH = Нормальний запуск камери</text>
+  <text x="480" y="425" font-size="11" text-anchor="middle" fill="#6b7280">Потребує зовнішнього UART-адаптера</text>
+
+  <!-- Panel 3: Peripherals & Strapping -->
+  <rect x="670" y="80" width="250" height="375" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="795" y="105" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Периферія та Завантаження</text>
+
+  <rect x="685" y="120" width="220" height="95" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="5"/>
+  <text x="795" y="140" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Шина MicroSD (SDMMC HS2)</text>
+  <text x="795" y="160" font-size="11" text-anchor="middle" fill="#c0392b">SD_DATA0: GPIO4 (Спалах!)</text>
+  <text x="795" y="180" font-size="11" text-anchor="middle" fill="#6b7280">SD_CLK: GPIO14 | SD_CMD: GPIO15</text>
+  <text x="795" y="198" font-size="11" text-anchor="middle" fill="#6b7280">SD_DATA1: GPIO12 | SD_DATA2: GPIO13</text>
+
+  <rect x="685" y="225" width="220" height="75" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="5"/>
+  <text x="795" y="245" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Світлодіод спалаху</text>
+  <text x="795" y="265" font-size="11" text-anchor="middle" fill="#1a1a1a">Транзисторний ключ на GPIO4</text>
+  <text x="795" y="283" font-size="11" text-anchor="middle" fill="#c0392b">Струм спалаху до 150–250 мА</text>
+
+  <rect x="685" y="310" width="220" height="130" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="5"/>
+  <text x="795" y="330" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">UART0 та Strapping-піни</text>
+  <text x="795" y="350" font-size="11" text-anchor="middle" fill="#6b7280">U0TXD: GPIO1 | U0RXD: GPIO3</text>
+  <text x="795" y="370" font-size="11" text-anchor="middle" fill="#d35400">GPIO12 (MTDI): Flash voltage</text>
+  <text x="795" y="390" font-size="11" text-anchor="middle" fill="#d35400">GPIO15 (MTDO): Log output</text>
+  <text x="795" y="410" font-size="11" text-anchor="middle" fill="#2457d6">GPIO0: BOOT / XCLK</text>
+  <text x="795" y="428" font-size="11" text-anchor="middle" fill="#6b7280">RESET: EN (кнопка Скидання)</text>
+
+  <!-- Interconnections -->
+  <!-- DVP Data -->
+  <line x1="275" y1="157.5" x2="330" y2="157.5" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- XCLK -->
+  <line x1="330" y1="392.5" x2="275" y2="392.5" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="302" y="384" font-size="11" fill="#2457d6" text-anchor="middle">XCLK</text>
+
+  <!-- GPIO4 to MicroSD -->
+  <line x1="615" y1="170" x2="685" y2="170" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="650" y="162" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">SD_DATA0</text>
+
+  <!-- GPIO4 to Flash LED -->
+  <path d="M 615,200 L 645,200 L 645,262.5 L 685,262.5" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" fill="none" marker-end="url(#arr-red)"/>
+  <text x="655" y="254" font-size="11" font-weight="bold" fill="#c0392b">Flash</text>
+
+  <!-- GPIO0 to BOOT -->
+  <path d="M 615,380 L 650,380 L 650,410 L 685,410" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="655" y="402" font-size="11" fill="#2457d6">BOOT</text>
+
+  <!-- Legend Panel -->
+  <rect x="40" y="475" width="880" height="65" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="480" y="495" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Легенда статусу виводів та апаратних конфліктів:</text>
+
+  <rect x="60" y="508" width="16" height="16" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="3"/>
+  <text x="84" y="521" font-size="11" fill="#c0392b" font-weight="bold">Критичний конфлікт (GPIO4: MicroSD + Спалах)</text>
+
+  <rect x="390" y="508" width="16" height="16" fill="#fff8e6" stroke="#f39c12" stroke-width="1.5" rx="3"/>
+  <text x="414" y="521" font-size="11" fill="#d35400" font-weight="bold">Strapping-лінії завантаження (GPIO0, GPIO2, GPIO12, GPIO15)</text>
+
+  <rect x="730" y="508" width="16" height="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+  <text x="754" y="521" font-size="11" fill="#2457d6" font-weight="bold">Шина камери DVP / XCLK</text>
+</svg>

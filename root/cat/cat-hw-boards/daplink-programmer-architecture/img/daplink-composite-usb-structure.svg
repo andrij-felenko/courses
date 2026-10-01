@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-left" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-orange" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d97706"/>
+    </marker>
+    <marker id="arr-orange-left" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура Composite USB пристрою DAPLink</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Один USB-контролер реалізує три незалежні ендпоінти для прошивання, серійного мосту та зневадження</text>
+
+  <!-- Panel 1: Host PC -->
+  <rect x="35" y="75" width="210" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="140" y="100" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ПК / Хост-система</text>
+
+  <!-- Box 1: File Manager -->
+  <rect x="50" y="125" width="180" height="95" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="140" y="150" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Файловий менеджер</text>
+  <text x="140" y="170" font-size="12" fill="#6b7280" text-anchor="middle">Перетягування бінарників</text>
+  <text x="140" y="188" font-size="12" fill="#6b7280" text-anchor="middle">.bin / .hex у флеш</text>
+
+  <!-- Box 2: Serial Terminal -->
+  <rect x="50" y="250" width="180" height="95" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="140" y="275" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">COM-термінал</text>
+  <text x="140" y="295" font-size="12" fill="#6b7280" text-anchor="middle">Серійний відлагоджувальний</text>
+  <text x="140" y="313" font-size="12" fill="#6b7280" text-anchor="middle">інтерфейс (UART)</text>
+
+  <!-- Box 3: Debugger Software -->
+  <rect x="50" y="375" width="180" height="95" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+  <text x="140" y="400" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Засоби зневадження</text>
+  <text x="140" y="420" font-size="12" fill="#6b7280" text-anchor="middle">OpenOCD / pyOCD / Keil</text>
+  <text x="140" y="438" font-size="12" fill="#6b7280" text-anchor="middle">SWD / JTAG команди</text>
+
+  <!-- Panel 2: DAPLink Composite USB Device -->
+  <rect x="275" y="75" width="410" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="480" y="100" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB Composite Device (DAPLink)</text>
+  <text x="480" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Один фізичний USB-порт, 3 незалежні інтерфейси</text>
+
+  <!-- Interface 1: MSC -->
+  <rect x="290" y="125" width="380" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="148" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB MSC (Mass Storage Class)</text>
+  <text x="480" y="168" font-size="12" fill="#2457d6" text-anchor="middle">Ендпоінти: Bulk IN / Bulk OUT</text>
+  <text x="480" y="186" font-size="12" fill="#6b7280" text-anchor="middle">Віртуальна файлова система FAT16 (DETAILS.TXT)</text>
+
+  <!-- Interface 2: CDC -->
+  <rect x="290" y="250" width="380" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="273" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB CDC (Communication Device Class)</text>
+  <text x="480" y="293" font-size="12" fill="#27ae60" text-anchor="middle">Ендпоінти: Bulk IN / OUT + Interrupt IN</text>
+  <text x="480" y="311" font-size="12" fill="#6b7280" text-anchor="middle">Віртуальний послідовний COM-порт (VCOM)</text>
+
+  <!-- Interface 3: HID / CMSIS-DAP -->
+  <rect x="290" y="375" width="380" height="95" rx="6" fill="#fef6e7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="480" y="398" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB HID / Custom Class (CMSIS-DAP)</text>
+  <text x="480" y="418" font-size="12" fill="#d97706" text-anchor="middle">Ендпоінти: Interrupt / Bulk IN &amp; OUT</text>
+  <text x="480" y="436" font-size="12" fill="#6b7280" text-anchor="middle">Прямий транзит команд зневадження CMSIS-DAP</text>
+
+  <!-- Footer Banner inside Panel 2 -->
+  <rect x="290" y="480" width="380" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="500" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фізичний канал USB: розпізнавання системою як Composite USB Device</text>
+
+  <!-- Panel 3: DAPLink Firmware & Target -->
+  <rect x="715" y="75" width="210" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="820" y="100" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Модулі DAPLink та Ціль</text>
+
+  <!-- Box 1: Flasher -->
+  <rect x="730" y="125" width="180" height="95" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="820" y="150" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Drag-and-Drop Flasher</text>
+  <text x="820" y="170" font-size="12" fill="#6b7280" text-anchor="middle">Парсер FAT16 файлів</text>
+  <text x="820" y="188" font-size="12" fill="#6b7280" text-anchor="middle">Програматор Flash пам'яті</text>
+
+  <!-- Box 2: UART Transceiver -->
+  <rect x="730" y="250" width="180" height="95" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="820" y="275" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">UART Трансивер</text>
+  <text x="820" y="295" font-size="12" fill="#6b7280" text-anchor="middle">Апаратний мост UART</text>
+  <text x="820" y="313" font-size="12" fill="#6b7280" text-anchor="middle">Сигнали RXD / TXD</text>
+
+  <!-- Box 3: CMSIS-DAP Engine -->
+  <rect x="730" y="375" width="180" height="95" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+  <text x="820" y="400" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CMSIS-DAP Драйвер</text>
+  <text x="820" y="420" font-size="12" fill="#6b7280" text-anchor="middle">Генерація SWD / JTAG</text>
+  <text x="820" y="438" font-size="12" fill="#6b7280" text-anchor="middle">SWCLK / SWDIO / nRESET</text>
+
+  <!-- Inter-panel Connectors & Arrows -->
+  <!-- Row 1: MSC Stream -->
+  <text x="260" y="158" font-size="12" fill="#2457d6" text-anchor="middle">USB Data</text>
+  <line x1="230" y1="172" x2="290" y2="172" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <text x="700" y="158" font-size="12" fill="#2457d6" text-anchor="middle">RAW Data</text>
+  <line x1="670" y1="172" x2="730" y2="172" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Row 2: CDC Stream -->
+  <text x="260" y="283" font-size="12" fill="#27ae60" text-anchor="middle">Rx / Tx</text>
+  <line x1="230" y1="297" x2="290" y2="297" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)" marker-start="url(#arr-green-left)"/>
+
+  <text x="700" y="283" font-size="12" fill="#27ae60" text-anchor="middle">UART</text>
+  <line x1="670" y1="297" x2="730" y2="297" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)" marker-start="url(#arr-green-left)"/>
+
+  <!-- Row 3: HID / SWD Stream -->
+  <text x="260" y="408" font-size="12" fill="#d97706" text-anchor="middle">Packets</text>
+  <line x1="230" y1="422" x2="290" y2="422" stroke="#d97706" stroke-width="2" marker-end="url(#arr-orange)" marker-start="url(#arr-orange-left)"/>
+
+  <text x="700" y="408" font-size="12" fill="#d97706" text-anchor="middle">SWD</text>
+  <line x1="670" y1="422" x2="730" y2="422" stroke="#d97706" stroke-width="2" marker-end="url(#arr-orange)" marker-start="url(#arr-orange-left)"/>
+</svg>

@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схеми живлення мікросхеми CH340 у режимах 5 В та 3.3 В</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Вивід V3 у режимі 5 В потребує конденсатора 100 нФ на GND, а при 3.3 В підключається напряму до VCC</text>
+
+  <!-- ==================== LEFT PANEL: 5V MODE ==================== -->
+  <rect x="20" y="85" width="450" height="345" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Left Header Badge -->
+  <rect x="35" y="100" width="420" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="245" y="121" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Режим живлення 5 В (VCC = 5V)</text>
+
+  <!-- Left IC Box -->
+  <rect x="300" y="160" width="140" height="150" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="370" y="190" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a1a">CH340</text>
+  <text x="370" y="210" text-anchor="middle" font-size="12" fill="#6b7280">(SOP-16 / ESSOP-10)</text>
+
+  <!-- IC Pins Left Panel -->
+  <line x1="280" y1="230" x2="300" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="308" y="234" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">VCC</text>
+
+  <line x1="280" y1="275" x2="300" y2="275" stroke="#2457d6" stroke-width="2"/>
+  <text x="308" y="279" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">V3</text>
+
+  <line x1="370" y1="310" x2="370" y2="345" stroke="#6b7280" stroke-width="2"/>
+  <text x="370" y="304" text-anchor="middle" font-size="12" fill="#6b7280">GND</text>
+
+  <!-- Left Power Rail +5V -->
+  <line x1="50" y1="155" x2="280" y2="155" stroke="#2457d6" stroke-width="2"/>
+  <line x1="280" y1="155" x2="280" y2="230" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="50" cy="155" r="4" fill="#2457d6"/>
+  <text x="40" y="143" text-anchor="start" font-size="13" font-weight="bold" fill="#2457d6">+5V (VBUS)</text>
+  <circle cx="140" cy="155" r="3" fill="#2457d6"/>
+  <circle cx="200" cy="155" r="3" fill="#2457d6"/>
+
+  <!-- Left Capacitor C1 (100nF on VCC) -->
+  <line x1="140" y1="155" x2="140" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="128" y1="195" x2="152" y2="195" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="128" y1="203" x2="152" y2="203" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="140" y1="203" x2="140" y2="345" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="122" y="203" text-anchor="end" font-size="12" fill="#1a1a1a">C1 100 нФ</text>
+
+  <!-- Left Capacitor C2 (10uF on VCC) -->
+  <line x1="200" y1="155" x2="200" y2="195" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="188" y1="195" x2="212" y2="195" stroke="#6b7280" stroke-width="2"/>
+  <line x1="188" y1="203" x2="212" y2="203" stroke="#6b7280" stroke-width="2"/>
+  <line x1="200" y1="203" x2="200" y2="345" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="216" y="203" text-anchor="start" font-size="12" fill="#6b7280">C2 10 мкФ</text>
+
+  <!-- Left V3 Line & Capacitor C3 (100nF for LDO) -->
+  <line x1="280" y1="275" x2="60" y2="275" stroke="#2457d6" stroke-width="2"/>
+  <line x1="60" y1="275" x2="60" y2="300" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="48" y1="300" x2="72" y2="300" stroke="#2457d6" stroke-width="2"/>
+  <line x1="48" y1="308" x2="72" y2="308" stroke="#2457d6" stroke-width="2"/>
+  <line x1="60" y1="308" x2="60" y2="345" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="78" y="300" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">C3 100 нФ</text>
+
+  <!-- Left GND Rail & Ground Symbol -->
+  <line x1="60" y1="345" x2="370" y2="345" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="60" cy="345" r="3" fill="#6b7280"/>
+  <circle cx="140" cy="345" r="3" fill="#6b7280"/>
+  <circle cx="200" cy="345" r="3" fill="#6b7280"/>
+  <circle cx="370" cy="345" r="3" fill="#6b7280"/>
+  <line x1="200" y1="345" x2="200" y2="355" stroke="#6b7280" stroke-width="2"/>
+  <line x1="188" y1="355" x2="212" y2="355" stroke="#6b7280" stroke-width="2"/>
+  <line x1="192" y1="359" x2="208" y2="359" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="196" y1="363" x2="204" y2="363" stroke="#6b7280" stroke-width="1"/>
+  <text x="200" y="377" text-anchor="middle" font-size="12" fill="#6b7280">GND</text>
+
+  <!-- Left Summary Note Box -->
+  <rect x="35" y="385" width="420" height="34" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="245" y="406" text-anchor="middle" font-size="12" fill="#1a1a1a">V3 — вихід LDO 3.3 В: вимагає конденсатора C3 на GND</text>
+
+
+  <!-- ==================== RIGHT PANEL: 3.3V MODE ==================== -->
+  <rect x="490" y="85" width="450" height="345" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Right Header Badge -->
+  <rect x="505" y="100" width="420" height="32" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="715" y="121" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Режим живлення 3.3 В (VCC = 3.3V)</text>
+
+  <!-- Right IC Box -->
+  <rect x="770" y="160" width="140" height="150" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="840" y="190" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a1a">CH340</text>
+  <text x="840" y="210" text-anchor="middle" font-size="12" fill="#6b7280">(SOP-16 / ESSOP-10)</text>
+
+  <!-- IC Pins Right Panel -->
+  <line x1="750" y1="230" x2="770" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="778" y="234" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">VCC</text>
+
+  <line x1="750" y1="275" x2="770" y2="275" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="778" y="279" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">V3</text>
+
+  <line x1="840" y1="310" x2="840" y2="345" stroke="#6b7280" stroke-width="2"/>
+  <text x="840" y="304" text-anchor="middle" font-size="12" fill="#6b7280">GND</text>
+
+  <!-- Right Power Rail +3.3V -->
+  <line x1="520" y1="155" x2="750" y2="155" stroke="#27ae60" stroke-width="2"/>
+  <line x1="750" y1="155" x2="750" y2="230" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="520" cy="155" r="4" fill="#27ae60"/>
+  <text x="510" y="143" text-anchor="start" font-size="13" font-weight="bold" fill="#27ae60">+3.3V</text>
+  <circle cx="560" cy="155" r="3" fill="#27ae60"/>
+  <circle cx="640" cy="155" r="3" fill="#27ae60"/>
+  <circle cx="750" cy="155" r="3" fill="#27ae60"/>
+
+  <!-- Right VCC to V3 Direct Bridge (Green Highlight) -->
+  <line x1="750" y1="230" x2="750" y2="275" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="750" cy="230" r="3.5" fill="#27ae60"/>
+  <circle cx="750" cy="275" r="3.5" fill="#27ae60"/>
+  <text x="742" y="248" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">V3 з'єднано<tspan x="742" y="262">з VCC</tspan></text>
+
+  <!-- Right Capacitor C2 (10uF on +3.3V) -->
+  <line x1="560" y1="155" x2="560" y2="195" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="548" y1="195" x2="572" y2="195" stroke="#6b7280" stroke-width="2"/>
+  <line x1="548" y1="203" x2="572" y2="203" stroke="#6b7280" stroke-width="2"/>
+  <line x1="560" y1="203" x2="560" y2="345" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="578" y="203" text-anchor="start" font-size="12" fill="#6b7280">C2 10 мкФ</text>
+
+  <!-- Right Capacitor C1 (100nF on +3.3V) -->
+  <line x1="640" y1="155" x2="640" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="628" y1="195" x2="652" y2="195" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="628" y1="203" x2="652" y2="203" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="640" y1="203" x2="640" y2="345" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="658" y="203" text-anchor="start" font-size="12" fill="#1a1a1a">C1 100 нФ</text>
+
+  <!-- Right GND Rail & Ground Symbol -->
+  <line x1="560" y1="345" x2="840" y2="345" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="560" cy="345" r="3" fill="#6b7280"/>
+  <circle cx="640" cy="345" r="3" fill="#6b7280"/>
+  <circle cx="840" cy="345" r="3" fill="#6b7280"/>
+  <line x1="670" y1="345" x2="670" y2="355" stroke="#6b7280" stroke-width="2"/>
+  <line x1="658" y1="355" x2="682" y2="355" stroke="#6b7280" stroke-width="2"/>
+  <line x1="662" y1="359" x2="678" y2="359" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="666" y1="363" x2="674" y2="363" stroke="#6b7280" stroke-width="1"/>
+  <text x="670" y="377" text-anchor="middle" font-size="12" fill="#6b7280">GND</text>
+
+  <!-- Right Summary Note Box -->
+  <rect x="505" y="385" width="420" height="34" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="715" y="406" text-anchor="middle" font-size="12" fill="#1a1a1a">V3 закорочують з VCC для обходу внутрішнього LDO</text>
+</svg>

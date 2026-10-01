@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Апаратна топологія ESP32-S3R2 у корпусі SiP та блок MMU</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Внутрішня шина QSPI між кристалом CPU та SiP PSRAM 2 МБ, вивільнення виводів GPIO й відображення в MMU</text>
+
+  <!-- Main Container: SiP Package -->
+  <rect x="30" y="80" width="660" height="410" rx="10" ry="10" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <text x="45" y="105" font-size="14" font-weight="bold" fill="#2457d6">Корпус SiP (ESP32-S3R2 System-in-Package)</text>
+
+  <!-- Die 1: MCU ESP32-S3 -->
+  <rect x="50" y="120" width="335" height="355" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="217" y="142" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Кристал мікроконтролера ESP32-S3</text>
+
+  <!-- Sub-block: L1 Cache & CPU -->
+  <rect x="65" y="155" width="305" height="75" rx="5" ry="5" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="217" y="177" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Процесор Xtensa LX7 (240 МГц)</text>
+  <text x="217" y="197" text-anchor="middle" font-size="11" fill="#1a1a1a">Кеш L1 (32 КБ на ядро) — доступ 2..3 такти</text>
+  <text x="217" y="215" text-anchor="middle" font-size="11" fill="#6b7280">Автоматичне кешування сторінок PSRAM</text>
+
+  <!-- Sub-block: MMU Engine -->
+  <rect x="65" y="245" width="305" height="85" rx="5" ry="5" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="217" y="267" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Блок управління пам'яттю MMU</text>
+  <text x="217" y="287" text-anchor="middle" font-size="11" fill="#1a1a1a">Адресація: 0x3D000000 – 0x3D1FFFFF (2 МБ)</text>
+  <text x="217" y="305" text-anchor="middle" font-size="11" fill="#1a1a1a">Трансляція віртуальних сторінок 64 КБ</text>
+  <text x="217" y="321" text-anchor="middle" font-size="11" fill="#6b7280">Штраф Cache Miss: +20..50 тактів CPU</text>
+
+  <!-- Sub-block: SPI Controller -->
+  <rect x="65" y="345" width="305" height="115" rx="5" ry="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="217" y="367" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Контролер SPI0 / SPI1 (QSPI Master)</text>
+  <text x="217" y="387" text-anchor="middle" font-size="11" fill="#1a1a1a">Формування QSPI-пакетів (CS, CLK, SD0-SD3)</text>
+  <text x="217" y="407" text-anchor="middle" font-size="11" fill="#1a1a1a">Апаратний розрахунок адрес і тегів</text>
+  <text x="217" y="445" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Внутрішній зв'язок у корпусі</text>
+
+  <!-- Die 2: PSRAM 2 MB -->
+  <rect x="470" y="120" width="200" height="355" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="570" y="142" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Кристал PSRAM (2 МБ)</text>
+
+  <!-- PSRAM Sub-blocks -->
+  <rect x="485" y="155" width="170" height="65" rx="5" ry="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="570" y="177" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Інтерфейс QSPI</text>
+  <text x="570" y="197" text-anchor="middle" font-size="11" fill="#6b7280">Приймач 4-біт шини</text>
+
+  <rect x="485" y="235" width="170" height="225" rx="5" ry="5" fill="#ffffff" stroke="#2457d6"/>
+  <text x="570" y="257" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Матриця пам'яті</text>
+  <text x="570" y="277" text-anchor="middle" font-size="11" fill="#1a1a1a">2 МБ Pseudo-SRAM</text>
+  <text x="570" y="305" text-anchor="middle" font-size="11" fill="#1a1a1a">Пакетне зчитування</text>
+  <text x="570" y="323" text-anchor="middle" font-size="11" fill="#1a1a1a">рядків по 64 байти</text>
+  <text x="570" y="355" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Кадрові буфери</text>
+  <text x="570" y="373" text-anchor="middle" font-size="11" fill="#1a1a1a">RGB565 / JPEG / AI</text>
+  <text x="570" y="410" text-anchor="middle" font-size="11" fill="#6b7280">Усі траси всередині SiP</text>
+  <text x="570" y="440" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Не займають GPIO!</text>
+
+  <!-- Internal SiP Interconnect Box & Path -->
+  <path d="M 385 395 L 386 395" stroke="#2457d6" stroke-width="3"/>
+  <rect x="386" y="371" width="82" height="48" rx="4" ry="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="427" y="390" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Шина QSPI</text>
+  <text x="427" y="407" text-anchor="middle" font-size="11" fill="#6b7280">6 провідників</text>
+  <path d="M 468 395 L 470 395" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+
+  <!-- External Board GPIO Panel -->
+  <rect x="710" y="80" width="220" height="410" rx="8" ry="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="820" y="108" text-anchor="middle" font-size="15" font-weight="bold" fill="#27ae60">Вільні GPIO плати</text>
+  <text x="820" y="126" text-anchor="middle" font-size="12" fill="#6b7280">Вивільнені завдяки SiP</text>
+
+  <!-- GPIO Sub-blocks -->
+  <rect x="725" y="145" width="190" height="215" rx="5" ry="5" fill="#ffffff" stroke="#27ae60"/>
+  <text x="820" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Доступні виводи</text>
+  <text x="820" y="195" text-anchor="middle" font-size="11" fill="#1a1a1a">• GPIO33 – GPIO38</text>
+  <text x="820" y="215" text-anchor="middle" font-size="11" fill="#1a1a1a">  повністю вільні</text>
+  <text x="820" y="245" text-anchor="middle" font-size="11" fill="#2457d6" font-weight="bold">Призначення:</text>
+  <text x="820" y="265" text-anchor="middle" font-size="11" fill="#1a1a1a">• Дисплеї SPI / RGB</text>
+  <text x="820" y="285" text-anchor="middle" font-size="11" fill="#1a1a1a">• Камери DVP / OV2640</text>
+  <text x="820" y="305" text-anchor="middle" font-size="11" fill="#1a1a1a">• Сенсори I2C / UART</text>
+  <text x="820" y="325" text-anchor="middle" font-size="11" fill="#1a1a1a">• Картридер SD_MMC</text>
+
+  <rect x="725" y="375" width="190" height="100" rx="5" ry="5" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="820" y="398" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Переваги SiP-дизайну</text>
+  <text x="820" y="420" text-anchor="middle" font-size="11" fill="#1a1a1a">Немає розварки на PCB</text>
+  <text x="820" y="440" text-anchor="middle" font-size="11" fill="#1a1a1a">Зменшення наводка та EMC</text>
+  <text x="820" y="458" text-anchor="middle" font-size="11" fill="#6b7280">100% виводів вільні</text>
+
+  <!-- Arrow from SiP Package to External GPIO -->
+  <path d="M 690 250 L 710 250" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+</svg>

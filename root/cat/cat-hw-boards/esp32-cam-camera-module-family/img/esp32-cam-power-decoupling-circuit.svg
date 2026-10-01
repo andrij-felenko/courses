@@ -1,0 +1,193 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Визначення маркерів стрілок -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема трьохканального живлення та розв'язки сенсора OV2640</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Розділення шин AVDD, DVDD та DOVDD з LDO-стабілізаторами та LC-фільтрами пригнічує завади</text>
+
+  <!-- Головна шина +3.3В ліворуч -->
+  <line x1="90" y1="110" x2="90" y2="440" stroke="#2457d6" stroke-width="4"/>
+  <circle cx="90" cy="110" r="5" fill="#2457d6"/>
+  <text x="90" y="92" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Шина +3.3В</text>
+
+  <!-- ==================== КАНАЛ 1: DOVDD (3.3В) ==================== -->
+  <rect x="130" y="105" width="560" height="95" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="145" y="125" font-size="13" font-weight="bold" fill="#1a1a1a">Канал DOVDD (3.3В) — Живлення цифрової периферії I/O</text>
+  
+  <!-- Вхідна лінія -->
+  <line x1="90" y1="160" x2="220" y2="160" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="90" cy="160" r="4" fill="#2457d6"/>
+
+  <!-- Індуктивність L1 -->
+  <path d="M 220,160 Q 227,145 233,160 Q 240,145 246,160 Q 253,145 259,160 Q 266,145 272,160" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="246" y="142" font-size="12" fill="#6b7280" text-anchor="middle">L1 (10 мкГн)</text>
+
+  <!-- Лінія після L1 -->
+  <line x1="272" y1="160" x2="730" y2="160" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Конденсатор C1 (10 мкФ) -->
+  <line x1="340" y1="160" x2="340" y2="170" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="328" y1="170" x2="352" y2="170" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="328" y1="175" x2="352" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="340" y1="175" x2="340" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Земля C1 -->
+  <line x1="330" y1="190" x2="350" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="334" y1="193" x2="346" y2="193" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="338" y1="196" x2="342" y2="196" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="340" cy="160" r="3" fill="#2457d6"/>
+  <text x="360" y="176" font-size="12" fill="#1a1a1a">C1 (10 мкФ)</text>
+
+  <!-- Конденсатор C2 (0.1 мкФ) -->
+  <line x1="480" y1="160" x2="480" y2="170" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="468" y1="170" x2="492" y2="170" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="468" y1="175" x2="492" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="480" y1="175" x2="480" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Земля C2 -->
+  <line x1="470" y1="190" x2="490" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="474" y1="193" x2="486" y2="193" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="478" y1="196" x2="482" y2="196" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="480" cy="160" r="3" fill="#2457d6"/>
+  <text x="500" y="176" font-size="12" fill="#1a1a1a">C2 (0.1 мкФ)</text>
+
+
+  <!-- ==================== КАНАЛ 2: AVDD (2.8В) ==================== -->
+  <rect x="130" y="215" width="560" height="120" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="145" y="235" font-size="13" font-weight="bold" fill="#27ae60">Канал AVDD (2.8В) — Малошумне аналогове живлення (LDO + LC)</text>
+
+  <!-- Вхідна лінія -->
+  <line x1="90" y1="280" x2="200" y2="280" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="90" cy="280" r="4" fill="#2457d6"/>
+
+  <!-- Блок LDO 2.8В -->
+  <rect x="200" y="255" width="95" height="50" rx="4" fill="white" stroke="#27ae60" stroke-width="2"/>
+  <text x="247" y="277" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">LDO 2.8В</text>
+  <text x="247" y="293" font-size="11" fill="#6b7280" text-anchor="middle">(ME6211)</text>
+
+  <!-- Вихід LDO -->
+  <line x1="295" y1="280" x2="400" y2="280" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Байпасний конденсатор C_BYP -->
+  <line x1="330" y1="280" x2="330" y2="290" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="318" y1="290" x2="342" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="318" y1="295" x2="342" y2="295" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="330" y1="295" x2="330" y2="310" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="320" y1="310" x2="340" y2="310" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="324" y1="313" x2="336" y2="313" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="328" y1="316" x2="332" y2="316" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="330" cy="280" r="3" fill="#27ae60"/>
+  <text x="345" y="286" font-size="12" fill="#1a1a1a">C_BYP (10 нФ)</text>
+
+  <!-- Індуктивність L2 -->
+  <path d="M 400,280 Q 407,265 413,280 Q 420,265 426,280 Q 433,265 439,280 Q 446,265 452,280" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="426" y="262" font-size="12" fill="#6b7280" text-anchor="middle">L2 (10 мкГн)</text>
+
+  <!-- Лінія після L2 -->
+  <line x1="452" y1="280" x2="730" y2="280" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Конденсатор C3 (10 мкФ) -->
+  <line x1="510" y1="280" x2="510" y2="290" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="498" y1="290" x2="522" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="498" y1="295" x2="522" y2="295" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="510" y1="295" x2="510" y2="310" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="500" y1="310" x2="520" y2="310" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="504" y1="313" x2="516" y2="313" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="508" y1="316" x2="512" y2="316" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="510" cy="280" r="3" fill="#27ae60"/>
+  <text x="525" y="296" font-size="12" fill="#1a1a1a">C3 (10 мкФ)</text>
+
+  <!-- Конденсатор C4 (0.1 мкФ) -->
+  <line x1="610" y1="280" x2="610" y2="290" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="598" y1="290" x2="622" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="598" y1="295" x2="622" y2="295" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="610" y1="295" x2="610" y2="310" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="600" y1="310" x2="620" y2="310" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="604" y1="313" x2="616" y2="313" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="608" y1="316" x2="612" y2="316" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="610" cy="280" r="3" fill="#27ae60"/>
+  <text x="625" y="296" font-size="12" fill="#1a1a1a">C4 (0.1 мкФ)</text>
+
+
+  <!-- ==================== КАНАЛ 3: DVDD (1.2В) ==================== -->
+  <rect x="130" y="350" width="560" height="110" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="145" y="370" font-size="13" font-weight="bold" fill="#1a1a1a">Канал DVDD (1.2В) — Живлення цифрової логіки ядра</text>
+
+  <!-- Вхідна лінія -->
+  <line x1="90" y1="410" x2="200" y2="410" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="90" cy="410" r="4" fill="#2457d6"/>
+
+  <!-- Блок LDO 1.2В -->
+  <rect x="200" y="385" width="95" height="50" rx="4" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="247" y="407" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LDO 1.2В</text>
+  <text x="247" y="423" font-size="11" fill="#6b7280" text-anchor="middle">(Внутрішній/LDO)</text>
+
+  <!-- Вихід LDO -->
+  <line x1="295" y1="410" x2="400" y2="410" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Індуктивність L3 -->
+  <path d="M 400,410 Q 407,395 413,410 Q 420,395 426,410 Q 433,395 439,410 Q 446,395 452,410" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="426" y="392" font-size="12" fill="#6b7280" text-anchor="middle">L3 (10 мкГн)</text>
+
+  <!-- Лінія після L3 -->
+  <line x1="452" y1="410" x2="730" y2="410" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+
+  <!-- Конденсатор C5 (4.7 мкФ) -->
+  <line x1="510" y1="410" x2="510" y2="420" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="498" y1="420" x2="522" y2="420" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="498" y1="425" x2="522" y2="425" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="510" y1="425" x2="510" y2="440" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="500" y1="440" x2="520" y2="440" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="504" y1="443" x2="516" y2="443" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="508" y1="446" x2="512" y2="446" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="510" cy="410" r="3" fill="#1a1a1a"/>
+  <text x="525" y="426" font-size="12" fill="#1a1a1a">C5 (4.7 мкФ)</text>
+
+  <!-- Конденсатор C6 (0.1 мкФ) -->
+  <line x1="610" y1="410" x2="610" y2="420" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="598" y1="420" x2="622" y2="420" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="598" y1="425" x2="622" y2="425" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="610" y1="425" x2="610" y2="440" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="600" y1="440" x2="620" y2="440" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="604" y1="443" x2="616" y2="443" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="608" y1="446" x2="612" y2="446" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="610" cy="410" r="3" fill="#1a1a1a"/>
+  <text x="625" y="426" font-size="12" fill="#1a1a1a">C6 (0.1 мкФ)</text>
+
+
+  <!-- ==================== СЕНСОР OV2640 ==================== -->
+  <rect x="730" y="105" width="190" height="355" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="825" y="135" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">Сенсор OV2640</text>
+  <text x="825" y="153" font-size="12" fill="#6b7280" text-anchor="middle">(Фотоматриця камери)</text>
+
+  <!-- Вхідні клеми -->
+  <rect x="730" y="150" width="12" height="20" fill="#2457d6"/>
+  <text x="750" y="165" font-size="12" font-weight="bold" fill="#1a1a1a">DOVDD (3.3В)</text>
+
+  <rect x="730" y="270" width="12" height="20" fill="#27ae60"/>
+  <text x="750" y="285" font-size="12" font-weight="bold" fill="#27ae60">AVDD (2.8В)</text>
+
+  <rect x="730" y="400" width="12" height="20" fill="#1a1a1a"/>
+  <text x="750" y="415" font-size="12" font-weight="bold" fill="#1a1a1a">DVDD (1.2В)</text>
+
+  <!-- Матриця всередині сенсора -->
+  <rect x="750" y="190" width="150" height="65" rx="4" fill="white" stroke="#2457d6" stroke-dasharray="3 3"/>
+  <text x="825" y="218" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Піксельна матриця</text>
+  <text x="825" y="238" font-size="11" fill="#6b7280" text-anchor="middle">UXGA / 2 МП</text>
+
+  <!-- ==================== ПАНЕЛЬ ПОЯСНЕННЯ ЗНИЗУ ==================== -->
+  <rect x="40" y="475" width="880" height="35" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="480" y="497" font-size="12" fill="#1a1a1a" text-anchor="middle">Пригнічення пульсацій: LDO стабілізують напругу, кераміка (0.1 мкФ) фільтрує ВЧ-шуми, індуктивності (L1–L3) усувають завади.</text>
+</svg>

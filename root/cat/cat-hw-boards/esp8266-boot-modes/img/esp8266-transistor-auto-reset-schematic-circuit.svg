@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схемотехніка транзисторного вузла автоматичного скидання ESP8266 (NodeMCU)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Логічна розв'язка на двох NPN-транзисторах Q1 та Q2 запобігає одночасному блокуванню ліній RST і GPIO0</text>
+
+  <!-- Main Panel -->
+  <rect x="25" y="68" width="910" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Left Block: USB-UART Bridge -->
+  <rect x="45" y="85" width="125" height="160" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="107.5" y="108" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">USB-UART Міст</text>
+  <text x="107.5" y="126" font-size="12" fill="#6b7280" text-anchor="middle">(CH340 / CP2102)</text>
+
+  <circle cx="170" cy="140" r="4" fill="#2457d6"/>
+  <text x="160" y="135" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">DTR#</text>
+
+  <circle cx="170" cy="210" r="4" fill="#2457d6"/>
+  <text x="160" y="205" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">RTS#</text>
+
+  <!-- DTR# Routing Wires -->
+  <path d="M 170,140 L 195,140" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="195" cy="140" r="3" fill="#2457d6"/>
+
+  <!-- DTR# Branch to R2 input (225, 220) -->
+  <path d="M 195,140 L 195,220 L 225,220" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- DTR# Branch to Q1 Emitter (340, 148) -->
+  <path d="M 195,140 L 195,166 L 340,166 L 340,148" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- RTS# Routing Wires -->
+  <path d="M 170,210 L 210,210" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="210" cy="210" r="3" fill="#2457d6"/>
+
+  <!-- RTS# Branch to R1 input (225, 130) -->
+  <path d="M 210,210 L 210,130 L 225,130" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- RTS# Branch to Q2 Emitter (340, 202) -->
+  <path d="M 210,210 L 340,210 L 340,202" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Resistors R1 & R2 -->
+  <!-- R1 (12k) -->
+  <rect x="225" y="118" width="55" height="24" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="252.5" y="134" font-size="12" text-anchor="middle">R1 12k</text>
+  <line x1="280" y1="130" x2="322" y2="130" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- R2 (12k) -->
+  <rect x="225" y="208" width="55" height="24" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="252.5" y="224" font-size="12" text-anchor="middle">R2 12k</text>
+  <line x1="280" y1="220" x2="322" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Transistors Q1 & Q2 Circles -->
+  <!-- Q1 (NPN) -->
+  <circle cx="340" cy="130" r="18" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="340" y="86" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Q1 (NPN)</text>
+
+  <!-- Q2 (NPN) -->
+  <circle cx="340" cy="220" r="18" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="340" y="282" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Q2 (NPN)</text>
+
+  <!-- Q1 & Q2 Collector Lines to MCU -->
+  <!-- Q1 Collector line -->
+  <path d="M 340,112 L 410,112 L 410,130 L 470,130" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Q2 Collector line -->
+  <path d="M 340,238 L 410,238 L 410,210 L 470,210" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Pull-up resistors & +3.3V rail -->
+  <text x="410" y="85" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+3.3V</text>
+  <line x1="410" y1="88" x2="410" y2="100" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- R_pu1 (RST# pull-up 10k) -->
+  <rect x="400" y="100" width="20" height="24" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="430" y="116" font-size="12" fill="#6b7280">10k</text>
+  <line x1="410" y1="124" x2="410" y2="130" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="410" cy="130" r="3" fill="#c0392b"/>
+
+  <!-- R_pu2 (GPIO0 pull-up 10k) -->
+  <!-- Parallel +3.3V line down to R_pu2 -->
+  <path d="M 410,95 L 450,95 L 450,178" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="440" y="178" width="20" height="24" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="422" y="194" font-size="12" fill="#6b7280">10k</text>
+  <path d="M 450,202 L 450,210 L 410,210" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="410" cy="210" r="3" fill="#27ae60"/>
+
+  <!-- Right Block: ESP8266 MCU -->
+  <rect x="470" y="85" width="115" height="160" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="527.5" y="108" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">ESP8266 MCU</text>
+
+  <circle cx="470" cy="130" r="4" fill="#c0392b"/>
+  <text x="480" y="126" font-size="12" font-weight="bold" fill="#c0392b">RST#</text>
+
+  <circle cx="470" cy="210" r="4" fill="#27ae60"/>
+  <text x="480" y="206" font-size="12" font-weight="bold" fill="#27ae60">GPIO0</text>
+
+  <!-- Bottom Left Card: NPN logic explanation -->
+  <rect x="45" y="295" width="510" height="130" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="315" font-size="13" font-weight="bold" fill="#1a1a1a">Принцип роботи крос-зв'язаних NPN транзисторів:</text>
+  <text x="60" y="334" font-size="12" fill="#1a1a1a">• Q1 відкривається ТІЛЬКИ коли RTS#=0 та DTR#=1 (імпульс RST)</text>
+  <text x="60" y="352" font-size="12" fill="#1a1a1a">• Q2 відкривається ТІЛЬКИ коли DTR#=0 та RTS#=1 (рівень GPIO0)</text>
+  <text x="60" y="370" font-size="12" fill="#6b7280">• Якщо DTR#=0 та RTS#=0 (або 1,1) — V_be ≤ 0V, обидва закриті</text>
+
+  <rect x="60" y="385" width="480" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="300" y="404" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Результат: Апаратна інверсія та захист від невизначеності</text>
+
+  <!-- Right Block: Truth Table & Benefits Cards -->
+  <!-- Right Card 1: Truth Table -->
+  <rect x="575" y="85" width="340" height="195" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="590" y="106" font-size="13" font-weight="bold" fill="#1a1a1a">Таблиця істинності сигналів DTR / RTS:</text>
+
+  <rect x="590" y="116" width="310" height="22" rx="3" fill="#f4f6f8"/>
+  <text x="605" y="131" font-size="12" font-weight="bold" fill="#1a1a1a">DTR#</text>
+  <text x="650" y="131" font-size="12" font-weight="bold" fill="#1a1a1a">RTS#</text>
+  <text x="695" y="131" font-size="12" font-weight="bold" fill="#1a1a1a">RST#</text>
+  <text x="740" y="131" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO0</text>
+  <text x="800" y="131" font-size="12" font-weight="bold" fill="#1a1a1a">Режим</text>
+
+  <text x="612" y="152" font-size="12" fill="#1a1a1a">1</text>
+  <text x="657" y="152" font-size="12" fill="#1a1a1a">1</text>
+  <text x="702" y="152" font-size="12" fill="#1a1a1a">1</text>
+  <text x="752" y="152" font-size="12" fill="#1a1a1a">1</text>
+  <text x="800" y="152" font-size="12" fill="#6b7280">Робочий (Idle)</text>
+
+  <rect x="590" y="160" width="310" height="20" rx="2" fill="#fdecea"/>
+  <text x="612" y="174" font-size="12" font-weight="bold" fill="#c0392b">0</text>
+  <text x="657" y="174" font-size="12" font-weight="bold" fill="#c0392b">1</text>
+  <text x="702" y="174" font-size="12" font-weight="bold" fill="#c0392b">0</text>
+  <text x="752" y="174" font-size="12" font-weight="bold" fill="#c0392b">1</text>
+  <text x="800" y="174" font-size="12" font-weight="bold" fill="#c0392b">Скидання (Reset)</text>
+
+  <rect x="590" y="182" width="310" height="20" rx="2" fill="#eaf0fd"/>
+  <text x="612" y="196" font-size="12" font-weight="bold" fill="#2457d6">1</text>
+  <text x="657" y="196" font-size="12" font-weight="bold" fill="#2457d6">0</text>
+  <text x="702" y="196" font-size="12" font-weight="bold" fill="#2457d6">1</text>
+  <text x="752" y="196" font-size="12" font-weight="bold" fill="#2457d6">0</text>
+  <text x="800" y="196" font-size="12" font-weight="bold" fill="#2457d6">Вхід у Boot (Flash)</text>
+
+  <rect x="590" y="204" width="310" height="20" rx="2" fill="#e9f7ef"/>
+  <text x="612" y="218" font-size="12" fill="#27ae60">0</text>
+  <text x="657" y="218" font-size="12" fill="#27ae60">0</text>
+  <text x="702" y="218" font-size="12" fill="#27ae60">1</text>
+  <text x="752" y="218" font-size="12" fill="#27ae60">1</text>
+  <text x="800" y="218" font-size="12" font-weight="bold" fill="#27ae60">Захист (Safe)</text>
+
+  <text x="590" y="244" font-size="12" fill="#6b7280">При (0,0) обидва Q1 і Q2 закриті — без збоїв</text>
+
+  <!-- Right Card 2: Benefits -->
+  <rect x="575" y="295" width="340" height="130" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="590" y="316" font-size="13" font-weight="bold" fill="#2457d6">Переваги вузла автозавантаження:</text>
+  <text x="590" y="336" font-size="12" fill="#1a1a1a">• Автоматичний вхід у режим прошивки esptool</text>
+  <text x="590" y="354" font-size="12" fill="#1a1a1a">• Не потребує ручного натискання кнопок</text>
+  <text x="590" y="372" font-size="12" fill="#6b7280">• Тільки 2 NPN-транзистори + 2 базні резистори</text>
+  <text x="590" y="396" font-size="12" font-weight="bold" fill="#27ae60">Висновок: Надійне скидання без хаосу в UART</text>
+</svg>

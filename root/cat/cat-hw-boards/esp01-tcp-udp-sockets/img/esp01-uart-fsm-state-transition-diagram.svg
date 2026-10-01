@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Граф станів FSM керування сокетами ESP-01 по UART</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Послідовність неблокуючих переходів автомата від ініціалізації до асинхронної обробки +IPD та помилок</text>
+
+  <!-- Node 1: RESET -->
+  <rect x="35" y="95" width="150" height="65" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <text x="110" y="122" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. RESET</text>
+  <text x="110" y="142" font-size="12" fill="#6b7280" text-anchor="middle">Ініціалізація UART</text>
+
+  <!-- Node 2: CONFIG -->
+  <rect x="235" y="95" width="150" height="65" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <text x="310" y="122" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. CONFIG</text>
+  <text x="310" y="142" font-size="12" fill="#6b7280" text-anchor="middle">AT+CIPMUX=1</text>
+
+  <!-- Node 3: IDLE -->
+  <rect x="435" y="95" width="150" height="65" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="510" y="122" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">3. IDLE / READY</text>
+  <text x="510" y="142" font-size="12" fill="#6b7280" text-anchor="middle">Готовий до сокетів</text>
+
+  <!-- Node 4: CONNECTING -->
+  <rect x="635" y="95" width="160" height="65" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <text x="715" y="122" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4. CONNECTING</text>
+  <text x="715" y="142" font-size="12" fill="#6b7280" text-anchor="middle">AT+CIPSTART</text>
+
+  <!-- Node 5: CONNECTED -->
+  <rect x="635" y="240" width="160" height="65" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="715" y="267" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">5. CONNECTED</text>
+  <text x="715" y="287" font-size="12" fill="#6b7280" text-anchor="middle">Сокет активний</text>
+
+  <!-- Node 6: SENDING -->
+  <rect x="435" y="240" width="150" height="65" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <text x="510" y="267" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">6. SENDING</text>
+  <text x="510" y="287" font-size="12" fill="#6b7280" text-anchor="middle">AT+CIPSEND</text>
+
+  <!-- Node 7: PARSING IPD -->
+  <rect x="235" y="240" width="150" height="65" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="310" y="267" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">7. PARSING +IPD</text>
+  <text x="310" y="287" font-size="12" fill="#6b7280" text-anchor="middle">Прийом даних</text>
+
+  <!-- Node 8: ERROR RECOVERY -->
+  <rect x="420" y="370" width="220" height="60" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="530" y="395" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">8. ERROR RECOVERY</text>
+  <text x="530" y="415" font-size="12" fill="#6b7280" text-anchor="middle">Обробка помилки / Скидання</text>
+
+  <!-- Transition Arrows & Labels -->
+  <!-- 1 -> 2 -->
+  <line x1="185" y1="127" x2="226" y2="127" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="205" y="118" font-size="11" fill="#2457d6" text-anchor="middle">AT -> OK</text>
+
+  <!-- 2 -> 3 -->
+  <line x1="385" y1="127" x2="426" y2="127" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="405" y="118" font-size="11" fill="#2457d6" text-anchor="middle">OK</text>
+
+  <!-- 3 -> 4 -->
+  <line x1="585" y1="127" x2="626" y2="127" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="605" y="118" font-size="11" fill="#2457d6" text-anchor="middle">Запит</text>
+
+  <!-- 4 -> 5 -->
+  <line x1="715" y1="160" x2="715" y2="231" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="725" y="198" font-size="11" fill="#27ae60" text-anchor="start">CONNECT</text>
+
+  <!-- 5 -> 6 -->
+  <line x1="635" y1="262" x2="594" y2="262" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="614" y="253" font-size="11" fill="#2457d6" text-anchor="middle">Передача</text>
+
+  <!-- 6 -> 5 -->
+  <line x1="585" y1="282" x2="626" y2="282" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="605" y="297" font-size="11" fill="#27ae60" text-anchor="middle">SEND OK</text>
+
+  <!-- 5 -> 7 -->
+  <path d="M 715 305 L 715 330 L 310 330 L 310 314" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="510" y="324" font-size="11" fill="#27ae60" text-anchor="middle">+IPD,&lt;id&gt;,&lt;len&gt;:</text>
+
+  <!-- 7 -> 5 -->
+  <path d="M 285 240 L 285 200 L 685 200 L 685 231" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="485" y="193" font-size="11" fill="#2457d6" text-anchor="middle">Пакет оброблено</text>
+
+  <!-- Error Arrows to Node 8 -->
+  <!-- 4 -> 8 -->
+  <path d="M 795 127 L 830 127 L 830 400 L 649 400" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arr-red)"/>
+  <text x="835" y="260" font-size="11" fill="#c0392b" text-anchor="start">CLOSED / ERROR</text>
+
+  <!-- 8 -> 1 -->
+  <path d="M 420 400 L 110 400 L 110 169" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arr-red)"/>
+  <text x="250" y="393" font-size="11" fill="#c0392b" text-anchor="middle">Скидання / Re-init</text>
+</svg>

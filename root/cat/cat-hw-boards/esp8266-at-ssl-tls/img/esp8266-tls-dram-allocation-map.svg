@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title Block -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Розподіл оперативної пам'яті DRAM при встановленні TLS-з'єднання на ESP8266</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">16-КБ буфери кадрів TLS та контекст рукостискання критично виснажують вільну купу (Heap)</text>
+
+  <!-- Left Panel: DRAM Memory Map -->
+  <rect x="30" y="75" width="430" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="245" y="100" font-size="15" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Карта пам'яті DRAM ESP8266 (Heap: ~50 КБ)</text>
+
+  <!-- Block 1: TLS RX Buffer -->
+  <rect x="50" y="118" width="390" height="72" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="65" y="142" font-size="13" font-weight="bold" fill="#2457d6">Вхідний буфер TLS RX (16 КБ)</text>
+  <text x="65" y="162" font-size="12" fill="#6b7280">Буферизація вхідного зашифрованого TLS-кадру (16384 B)</text>
+  <rect x="345" y="132" width="80" height="24" rx="4" fill="#2457d6"/>
+  <text x="385" y="148" font-size="11" font-weight="bold" text-anchor="middle" fill="white">16384 B</text>
+
+  <!-- Block 2: TLS TX Buffer -->
+  <rect x="50" y="198" width="390" height="72" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="65" y="222" font-size="13" font-weight="bold" fill="#2457d6">Вихідний буфер TLS TX (16 КБ)</text>
+  <text x="65" y="242" font-size="12" fill="#6b7280">Формування вихідних запитів та фрагментів кадрів</text>
+  <rect x="345" y="212" width="80" height="24" rx="4" fill="#2457d6"/>
+  <text x="385" y="228" font-size="11" font-weight="bold" text-anchor="middle" fill="white">16384 B</text>
+
+  <!-- Block 3: Crypto & Certificates Context -->
+  <rect x="50" y="278" width="390" height="68" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="65" y="300" font-size="13" font-weight="bold" fill="#27ae60">Контекст сесії та сертифікати X.509 (~10 КБ)</text>
+  <text x="65" y="320" font-size="12" fill="#6b7280">RSA/ECC ключі, стан Handshake, бандл CA</text>
+  <rect x="345" y="292" width="80" height="24" rx="4" fill="#27ae60"/>
+  <text x="385" y="308" font-size="11" font-weight="bold" text-anchor="middle" fill="white">~10240 B</text>
+
+  <!-- Block 4: Free Heap Warning -->
+  <rect x="50" y="354" width="390" height="64" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="65" y="376" font-size="13" font-weight="bold" fill="#c0392b">Вільна купа Heap (&lt; 4–6 КБ)</text>
+  <text x="65" y="396" font-size="12" fill="#c0392b">Високий ризик дефіциту пам'яті (OOM) та WDT reset!</text>
+  <rect x="345" y="368" width="80" height="24" rx="4" fill="#c0392b"/>
+  <text x="385" y="384" font-size="11" font-weight="bold" text-anchor="middle" fill="white">&lt; 6144 B</text>
+
+  <!-- Right Panel: TLS Record Breakdown & Optimization -->
+  <rect x="500" y="75" width="430" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="715" y="100" font-size="15" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Анатомія TLS-кадру та джерела накладних витрат</text>
+
+  <!-- Record Segment Box -->
+  <rect x="520" y="118" width="390" height="126" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="535" y="138" font-size="13" font-weight="bold" fill="#1a1a1a">Структура кадру TLS Record (Max 16384 B)</text>
+
+  <!-- Bar Segments -->
+  <rect x="535" y="152" width="70" height="34" rx="3" fill="#2457d6"/>
+  <text x="570" y="173" font-size="11" font-weight="bold" text-anchor="middle" fill="white">Header (5B)</text>
+
+  <rect x="610" y="152" width="195" height="34" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="707" y="173" font-size="11" font-weight="bold" text-anchor="middle" fill="#2457d6">Payload (Handshake / Data)</text>
+
+  <rect x="810" y="152" width="85" height="34" rx="3" fill="#27ae60"/>
+  <text x="852" y="173" font-size="11" font-weight="bold" text-anchor="middle" fill="white">MAC / Tag</text>
+
+  <text x="535" y="206" font-size="11" fill="#6b7280">· Header: Type (1B) + Version (2B) + Length (2B)</text>
+  <text x="535" y="222" font-size="11" fill="#6b7280">· Payload: 16 КБ виділяються монолітно під час з'єднання</text>
+
+  <!-- Optimization Box -->
+  <rect x="520" y="256" width="390" height="162" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="535" y="278" font-size="13" font-weight="bold" fill="#27ae60">Рекомендації запобігання переповненню пам'яті:</text>
+
+  <text x="535" y="302" font-size="12" font-weight="bold" fill="#1a1a1a">1. Fragment Length Negotiation (MFLN)</text>
+  <text x="552" y="318" font-size="11" fill="#6b7280">Зменшує буфер з 16 КБ до 2–4 КБ (AT+CIPSSLCCONF)</text>
+
+  <text x="535" y="340" font-size="12" font-weight="bold" fill="#1a1a1a">2. Застосування еліптичних кривих (ECDHE/ECC)</text>
+  <text x="552" y="356" font-size="11" fill="#6b7280">Зменшує розмір ключів та обчислине навантаження</text>
+
+  <text x="535" y="378" font-size="12" font-weight="bold" fill="#1a1a1a">3. Збереження CA в Flash (esp_ca)</text>
+  <text x="552" y="394" font-size="11" fill="#6b7280">Зберігає бандл сертифікатів у Flash замість оперативної RAM</text>
+</svg>

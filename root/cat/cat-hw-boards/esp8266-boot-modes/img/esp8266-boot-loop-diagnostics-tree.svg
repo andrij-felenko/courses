@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дерево діагностики апаратних збоїв старту ESP8266</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Локалізація причин перезавантажень boot loop за кодами rst cause та вектором boot mode</text>
+
+  <!-- Root Node -->
+  <rect x="330" y="70" width="300" height="55" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="92" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Первинне виведення ROM Bootloader (74880 бод)</text>
+  <text x="480" y="112" font-size="12" fill="#1a1a1a" text-anchor="middle">Аналіз полів rst cause:X та boot mode:(P1,P2,P3)</text>
+
+  <!-- Connectors from Root to Branches -->
+  <path d="M380,125 L165,155" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <path d="M480,125 L480,155" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <path d="M580,125 L795,155" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- BRANCH 1: WDT / Power Reset Failures -->
+  <rect x="25" y="155" width="280" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="165" y="180" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">1. rst cause: 4 або 2 (WDT / Reset)</text>
+
+  <rect x="40" y="200" width="250" height="95" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="165" y="220" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Спрацювання Hardware WDT (rst:4)</text>
+  <text x="165" y="240" font-size="12" fill="#1a1a1a" text-anchor="middle">Просідання VDD 3.3V &lt; 3.0V у піках Wi-Fi</text>
+  <text x="165" y="258" font-size="12" fill="#1a1a1a" text-anchor="middle">або блокування ядра в нескінченному циклі</text>
+  <text x="165" y="276" font-size="12" fill="#6b7280" text-anchor="middle">(LDO не забезпечує піковий струм 500 мА)</text>
+
+  <path d="M165,295 L165,320" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <rect x="40" y="325" width="250" height="195" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="165" y="348" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Усунення несправності</text>
+  <text x="55" y="372" font-size="12" fill="#1a1a1a">1. Замінити LDO на розрахований</text>
+  <text x="70" y="390" font-size="12" fill="#1a1a1a">на струм від 500-700 мА</text>
+  <text x="55" y="412" font-size="12" fill="#1a1a1a">2. Додати кераміку 10 мкФ + 0.1 мкФ</text>
+  <text x="70" y="430" font-size="12" fill="#1a1a1a">безпосередньо біля виводів VDD</text>
+  <text x="55" y="452" font-size="12" fill="#1a1a1a">3. Підтягнути лінію RST до 3.3V</text>
+  <text x="70" y="470" font-size="12" fill="#1a1a1a">через резистор 10 кОм</text>
+  <text x="55" y="498" font-size="12" fill="#6b7280">(Усуває циклічний bootloop rst:4)</text>
+
+  <!-- BRANCH 2: Normal Boot & UART Download -->
+  <rect x="340" y="155" width="280" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="180" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Перевірка boot mode:(P1,P2,P3)</text>
+
+  <rect x="355" y="200" width="250" height="145" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="220" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">P1 = 3 (011) -&gt; Flash Boot</text>
+  <text x="370" y="242" font-size="12" fill="#1a1a1a">GPIO15=0, GPIO0=1, GPIO2=1</text>
+  <text x="370" y="262" font-size="12" fill="#1a1a1a">• Повідомлення: Flash Boot OK</text>
+  <text x="370" y="282" font-size="12" fill="#c0392b">• Якщо bootloop після Flash Boot:</text>
+  <text x="385" y="302" font-size="12" fill="#1a1a1a">пошкоджено Flash-бінарник</text>
+  <text x="385" y="322" font-size="12" fill="#27ae60">-&gt; Перешити через esptool (DIO)</text>
+
+  <rect x="355" y="360" width="250" height="160" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="380" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">P1 = 1 (001) -&gt; UART Download</text>
+  <text x="370" y="402" font-size="12" fill="#1a1a1a">GPIO15=0, GPIO0=0, GPIO2=1</text>
+  <text x="370" y="422" font-size="12" fill="#1a1a1a">• Готовий до приймання прошивки</text>
+  <text x="370" y="442" font-size="12" fill="#c0392b">• Якщо застряг у цьому режимі:</text>
+  <text x="385" y="462" font-size="12" fill="#1a1a1a">GPIO0 примусово замкнено на GND</text>
+  <text x="385" y="482" font-size="12" fill="#27ae60">-&gt; Зняти джампер/кнопку Flash</text>
+
+  <!-- BRANCH 3: Invalid Strapping Configuration -->
+  <rect x="655" y="155" width="280" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="795" y="180" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">3. Некоректний boot mode</text>
+
+  <rect x="670" y="200" width="250" height="145" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="795" y="220" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Помилкові вектори завантаження</text>
+  <text x="685" y="242" font-size="12" fill="#1a1a1a">• boot mode:(7,x) -&gt; GPIO15 = 1</text>
+  <text x="700" y="260" font-size="12" fill="#6b7280">(Запуск SDIO Boot / блокування)</text>
+  <text x="685" y="282" font-size="12" fill="#1a1a1a">• boot mode:(0,x) -&gt; GPIO2 = 0</text>
+  <text x="700" y="300" font-size="12" fill="#6b7280">(Заборонений режим завантаження)</text>
+  <text x="685" y="322" font-size="12" fill="#c0392b">Причина: фантомне живлення I/O</text>
+
+  <rect x="670" y="360" width="250" height="160" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="795" y="380" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Апаратна корекція рівня</text>
+  <text x="685" y="402" font-size="12" fill="#1a1a1a">1. GPIO15: строгий Pull-Down</text>
+  <text x="700" y="420" font-size="12" fill="#1a1a1a">резистором 10 кОм до GND</text>
+  <text x="685" y="442" font-size="12" fill="#1a1a1a">2. GPIO2: строгий Pull-Up</text>
+  <text x="700" y="460" font-size="12" fill="#1a1a1a">резистором 10 кОм до 3.3V</text>
+  <text x="685" y="482" font-size="12" fill="#1a1a1a">3. Від'єднати RX/TX при старті</text>
+  <text x="700" y="500" font-size="12" fill="#6b7280">якщо є струм через ESD-діоди</text>
+</svg>

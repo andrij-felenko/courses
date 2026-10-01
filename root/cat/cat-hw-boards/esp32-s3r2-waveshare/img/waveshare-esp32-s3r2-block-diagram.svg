@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Апаратна структура відлагоджувальної плати Waveshare ESP32-S3R2</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Інтеграція SiP-пам'яті (16 МБ Flash + 2 МБ PSRAM), LDO-живлення, USB Type-C та шини GPIO</text>
+
+  <!-- Outer Board Frame -->
+  <rect x="50" y="70" width="860" height="460" rx="12" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="70" y="98" font-size="15" font-weight="bold" fill="#1a1a1a">Плата Waveshare ESP32-S3R2</text>
+
+  <!-- Block 1: Power & USB (Left) -->
+  <rect x="70" y="115" width="220" height="395" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="85" y="140" font-size="13" font-weight="bold" fill="#2457d6">Підсистема живлення та USB</text>
+
+  <!-- 1.1 USB Type-C -->
+  <rect x="90" y="155" width="180" height="52" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="180" y="176" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Роз'єм USB Type-C</text>
+  <text x="180" y="194" text-anchor="middle" font-size="12" fill="#6b7280">VBUS (5V) / Native USB (D+/D-)</text>
+
+  <!-- 1.2 LDO Regulator -->
+  <rect x="90" y="225" width="180" height="62" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="180" y="246" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">LDO-стабілізатор 3.3V</text>
+  <text x="180" y="264" text-anchor="middle" font-size="12" fill="#6b7280">Вхід: 5V (VBUS) → Вихід: 3.3V</text>
+  <text x="180" y="278" text-anchor="middle" font-size="12" fill="#6b7280">(Max 500 mA)</text>
+
+  <!-- 1.3 Strapping Pins & Warning -->
+  <rect x="90" y="305" width="180" height="190" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="180" y="326" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Конфігурація VDD_SPI</text>
+  <text x="180" y="344" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">GPIO45 Strapping Pin</text>
+  <text x="180" y="364" text-anchor="middle" font-size="12" fill="#1a1a1a">GPIO45 = 0 → VDD_SPI = 3.3V</text>
+  <text x="180" y="382" text-anchor="middle" font-size="12" fill="#1a1a1a">GPIO45 = 1 → VDD_SPI = 1.8V</text>
+  <text x="180" y="406" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">⚠ Захист: фіксація eFuse</text>
+  <text x="180" y="424" text-anchor="middle" font-size="12" fill="#c0392b">для запобігання пошкодженню</text>
+  <text x="180" y="440" text-anchor="middle" font-size="12" fill="#c0392b">чипів пам'яті</text>
+
+  <!-- Block 2: Central SoC & SiP (Center) -->
+  <rect x="320" y="115" width="320" height="395" rx="10" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="140" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Мікроконтролер ESP32-S3R2 (SiP Корпус QFN)</text>
+
+  <!-- 2.1 Dual Core LX7 -->
+  <rect x="340" y="155" width="280" height="68" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="176" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Двоядерний процесор Xtensa LX7</text>
+  <text x="480" y="194" text-anchor="middle" font-size="12" fill="#1a1a1a">Тактова частота до 240 МГц</text>
+  <text x="480" y="210" text-anchor="middle" font-size="12" fill="#6b7280">Векторне розширення (PIE / ESP-NN)</text>
+
+  <!-- 2.2 SRAM & L1/MMU -->
+  <rect x="340" y="235" width="280" height="78" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="256" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Внутрішня пам'ять SRAM (512 КБ)</text>
+  <text x="480" y="274" text-anchor="middle" font-size="12" fill="#6b7280">DRAM (300-400 КБ купа) + IRAM вектори</text>
+  <text x="480" y="294" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Контролер L1-кешу &amp; Блок MMU</text>
+
+  <!-- 2.3 SiP Co-packaged Memory -->
+  <rect x="340" y="325" width="280" height="170" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="346" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Інтегрована SiP-пам'ять</text>
+  <text x="480" y="364" text-anchor="middle" font-size="12" fill="#27ae60">(Внутрішньокорпусне розварювання)</text>
+
+  <rect x="355" y="378" width="120" height="102" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="415" y="402" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Quad SPI Flash</text>
+  <text x="415" y="422" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">16 МБ NOR</text>
+  <text x="415" y="442" text-anchor="middle" font-size="12" fill="#6b7280">Прошивка</text>
+  <text x="415" y="460" text-anchor="middle" font-size="12" fill="#6b7280">та дані</text>
+
+  <rect x="485" y="378" width="120" height="102" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="545" y="402" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Quad SPI PSRAM</text>
+  <text x="545" y="422" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">2 МБ RAM</text>
+  <text x="545" y="442" text-anchor="middle" font-size="12" fill="#6b7280">Кадрові</text>
+  <text x="545" y="460" text-anchor="middle" font-size="12" fill="#6b7280">буфери</text>
+
+  <!-- Block 3: External IO Headers (Right) -->
+  <rect x="670" y="115" width="220" height="395" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="685" y="140" font-size="13" font-weight="bold" fill="#1a1a1a">Виводи GPIO та периферія</text>
+
+  <!-- 3.1 USB CDC/JTAG -->
+  <rect x="685" y="155" width="190" height="58" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="780" y="176" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">USB Serial/JTAG Консоль</text>
+  <text x="780" y="196" text-anchor="middle" font-size="12" fill="#1a1a1a">GPIO19 (D-) &amp; GPIO20 (D+)</text>
+
+  <!-- 3.2 ADC1 -->
+  <rect x="685" y="225" width="190" height="68" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="780" y="246" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Канали ADC1 (GPIO1–10)</text>
+  <text x="780" y="264" text-anchor="middle" font-size="12" fill="#1a1a1a">Точні вимірювання датчиків</text>
+  <text x="780" y="280" text-anchor="middle" font-size="12" fill="#27ae60">(Без завад від Wi-Fi)</text>
+
+  <!-- 3.3 ADC2 Warning -->
+  <rect x="685" y="305" width="190" height="72" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="780" y="326" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Канали ADC2 (GPIO11–20)</text>
+  <text x="780" y="346" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">⚠ Арбітраж з Wi-Fi/BT</text>
+  <text x="780" y="362" text-anchor="middle" font-size="12" fill="#c0392b">Блокується під час передачі</text>
+
+  <!-- 3.4 LCD_CAM & SPI -->
+  <rect x="685" y="390" width="190" height="105" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="780" y="412" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Периферійні гребінки</text>
+  <text x="780" y="432" text-anchor="middle" font-size="12" fill="#6b7280">Паралельна шина LCD_CAM</text>
+  <text x="780" y="450" text-anchor="middle" font-size="12" fill="#2457d6">Вільні GPIO для периферії</text>
+  <text x="780" y="468" text-anchor="middle" font-size="12" fill="#6b7280">(завдяки SiP-пам'яті)</text>
+
+  <!-- Interconnect Lines & Arrows -->
+  <path d="M 180 207 L 180 225" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <path d="M 180 287 L 180 305" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+  <path d="M 270 256 L 320 256" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow-blue)"/>
+
+  <path d="M 640 184 L 685 184" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <path d="M 640 259 L 685 259" stroke="#27ae60" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <path d="M 640 341 L 685 341" stroke="#c0392b" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M 640 442 L 685 442" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow-blue)"/>
+</svg>

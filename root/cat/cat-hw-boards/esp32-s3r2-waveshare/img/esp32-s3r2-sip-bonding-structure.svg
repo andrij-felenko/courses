@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Схема внутрішньокорпусного розварювання (SiP Bonding) чипа ESP32-S3R2</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">Внутрішньопакетне підключення кристалів SoC ESP32-S3 та 2 МБ Octal/Quad PSRAM у корпусі QFN56</text>
+
+  <!-- Outer QFN56 Package Frame -->
+  <rect x="60" y="80" width="840" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="12"/>
+  <text x="75" y="103" font-size="13" font-weight="bold" fill="#6b7280">Напівпровідниковий корпус SiP QFN56 (7 × 7 мм)</text>
+
+  <!-- Die 1: SoC ESP32-S3 -->
+  <rect x="100" y="120" width="320" height="385" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="260" y="148" font-size="15" font-weight="bold" text-anchor="middle" fill="#2457d6">Кристал SoC ESP32-S3</text>
+
+  <!-- Die 1 Block 1.1 -->
+  <rect x="115" y="165" width="290" height="75" fill="#ffffff" stroke="#2457d6" rx="6"/>
+  <text x="125" y="187" font-size="13" font-weight="bold" fill="#2457d6">Двоядерне ядро Xtensa LX7 (240 МГц)</text>
+  <text x="125" y="207" font-size="12" fill="#1a1a1a">Векторні інструкції PIE + 32 КБ L1 Cache</text>
+  <text x="125" y="227" font-size="12" fill="#6b7280">Внутрішня SRAM 512 КБ</text>
+
+  <!-- Die 1 Block 1.2 -->
+  <rect x="115" y="250" width="290" height="80" fill="#ffffff" stroke="#2457d6" rx="6"/>
+  <text x="125" y="272" font-size="13" font-weight="bold" fill="#1a1a1a">Контролер SPI / Octal Flash &amp; PSRAM</text>
+  <text x="125" y="292" font-size="12" fill="#1a1a1a">Блок управління пам'яттю MMU</text>
+  <text x="125" y="312" font-size="12" fill="#6b7280">Генератор стробу DQS (120 МГц DDR)</text>
+
+  <!-- Die 1 Block 1.3 -->
+  <rect x="115" y="340" width="290" height="150" fill="#ffffff" stroke="#2457d6" rx="6"/>
+  <text x="125" y="362" font-size="13" font-weight="bold" fill="#1a1a1a">Контактні площадки (Bonding Pads)</text>
+  <text x="125" y="382" font-size="12" fill="#2457d6">Внутрішні виводи: Octal SPI (SD0..SD7)</text>
+  <text x="125" y="402" font-size="12" fill="#1a1a1a">Зовнішні виводи: QFN56 Leadframe</text>
+  <text x="125" y="422" font-size="12" fill="#27ae60">GPIO45: налаштування VDD_SPI (1.8V)</text>
+  <text x="125" y="442" font-size="12" fill="#6b7280">USB CDC/JTAG контролер (GPIO19/20)</text>
+  <text x="125" y="462" font-size="12" fill="#6b7280">Внутрішній регулятор LDO 3.3V -&gt; 1.8V</text>
+  <text x="125" y="478" font-size="12" fill="#27ae60">Вивільнені виводи: GPIO33..GPIO37</text>
+
+  <!-- Central Interconnect Area: Bonding Wires -->
+  <rect x="435" y="120" width="105" height="385" fill="#ffffff" stroke="#d0d7de" rx="8"/>
+  <text x="487.5" y="145" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Мікромістке</text>
+  <text x="487.5" y="163" font-size="12" text-anchor="middle" fill="#6b7280">(Wire Bonds)</text>
+
+  <path d="M420,200 L550,200" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="485" y="192" font-size="12" text-anchor="middle" fill="#2457d6">SD0..SD7</text>
+
+  <path d="M420,270 L550,270" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="485" y="262" font-size="12" text-anchor="middle" fill="#27ae60">CLK / DQS</text>
+
+  <path d="M420,340 L550,340" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="485" y="332" font-size="12" text-anchor="middle" fill="#1a1a1a">CS#</text>
+
+  <path d="M420,410 L550,410" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="485" y="402" font-size="12" text-anchor="middle" fill="#c0392b">1.8V VDD</text>
+
+  <!-- Die 2: 2 MB PSRAM -->
+  <rect x="550" y="120" width="320" height="385" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <text x="710" y="148" font-size="15" font-weight="bold" text-anchor="middle" fill="#27ae60">Кристал 2 МБ Octal PSRAM</text>
+
+  <!-- Die 2 Block 2.1 -->
+  <rect x="565" y="165" width="290" height="85" fill="#ffffff" stroke="#27ae60" rx="6"/>
+  <text x="575" y="187" font-size="13" font-weight="bold" fill="#27ae60">Масив комірок PSRAM (16 Мбіт)</text>
+  <text x="575" y="207" font-size="12" fill="#1a1a1a">Обсяг: 2 097 152 байти (2 МБ)</text>
+  <text x="575" y="227" font-size="12" fill="#6b7280">Псевдостатичне автопоновлення</text>
+  <text x="575" y="243" font-size="12" fill="#6b7280">Низьке споживання струму</text>
+
+  <!-- Die 2 Block 2.2 -->
+  <rect x="565" y="260" width="290" height="100" fill="#ffffff" stroke="#27ae60" rx="6"/>
+  <text x="575" y="282" font-size="13" font-weight="bold" fill="#1a1a1a">Інтерфейс Octal SPI / OPI</text>
+  <text x="575" y="302" font-size="12" fill="#1a1a1a">8 ліній даних (80/120 МГц DDR)</text>
+  <text x="575" y="322" font-size="12" fill="#27ae60">Прийом/передача DQS стробу</text>
+  <text x="575" y="342" font-size="12" fill="#6b7280">Пропускна здатність до 80-120 МБ/с</text>
+  <text x="575" y="355" font-size="12" fill="#6b7280">Безвивідне з'єднання SiP</text>
+
+  <!-- Die 2 Block 2.3 -->
+  <rect x="565" y="370" width="290" height="120" fill="#e9f7ef" stroke="#27ae60" rx="6"/>
+  <text x="575" y="392" font-size="13" font-weight="bold" fill="#27ae60">Кола живлення кристала</text>
+  <text x="575" y="412" font-size="12" fill="#1a1a1a">Напруга VDD_SPI = 1.8 В</text>
+  <text x="575" y="432" font-size="12" fill="#c0392b">Заборонено 3.3 В (захист!)</text>
+  <text x="575" y="452" font-size="12" fill="#27ae60">Конфігурується через GPIO45 / eFuse</text>
+  <text x="575" y="472" font-size="12" fill="#6b7280">Захист від теплового перегріву</text>
+</svg>

@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Двобанківська розмітка Flash-пам'яті ESP8266 (Dual Bank FOTA)</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Порівняння геометрії слотів user1.bin / user2.bin та системних секторів RF Cal / sys-param для 1 МБ та 4 МБ</text>
+
+  <!-- PANEL 1: 1 MB Flash -->
+  <rect x="40" y="80" width="880" height="185" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="105" font-size="14" font-weight="bold" fill="#2457d6">1 МБ Flash (1024 КБ) — ESP-01 / ESP-01S (500 КБ слоти)</text>
+
+  <!-- Panel 1 Memory Bar (y=120..165) -->
+  <!-- Bootloader -->
+  <rect x="60" y="120" width="40" height="45" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="80" y="147" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Boot</text>
+
+  <!-- Slot 1 (user1.bin) -->
+  <rect x="108" y="120" width="360" height="45" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="288" y="147" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">user1.bin — 500 КБ (слот 1)</text>
+
+  <!-- Reserved Gap -->
+  <rect x="476" y="120" width="20" height="45" rx="2" fill="#ffffff" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="486" y="147" text-anchor="middle" font-size="10" fill="#6b7280">8K</text>
+
+  <!-- Slot 2 (user2.bin) -->
+  <rect x="504" y="120" width="360" height="45" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="684" y="147" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">user2.bin — 500 КБ (слот 2)</text>
+
+  <!-- System Params & RF Cal -->
+  <rect x="872" y="120" width="28" height="45" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="886" y="147" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Sys</text>
+
+  <!-- Panel 1 Callout Labels under Bar -->
+  <text x="80" y="195" text-anchor="middle" font-size="11" fill="#6b7280">0x00000 (4 КБ)</text>
+
+  <text x="288" y="195" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Зміщення user1: 0x01000 .. 0x7EFFF</text>
+  <text x="288" y="215" text-anchor="middle" font-size="11" fill="#1a1a1a">Виконання поточної прошивки (Active Bank)</text>
+
+  <text x="684" y="195" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Зміщення user2: 0x81000 .. 0xFEFFF</text>
+  <text x="684" y="215" text-anchor="middle" font-size="11" fill="#1a1a1a">Запис FOTA по повітрю (Update Target)</text>
+
+  <text x="886" y="195" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">0xFC000 (16 КБ)</text>
+  <text x="886" y="215" text-anchor="middle" font-size="11" fill="#c0392b">RF Cal &amp; sys-param</text>
+
+  <!-- PANEL 2: 4 MB Flash -->
+  <rect x="40" y="285" width="880" height="185" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="310" font-size="14" font-weight="bold" fill="#2457d6">4 МБ Flash (4096 КБ) — ESP-12E / NodeMCU / WeMos D1 mini</text>
+
+  <!-- Panel 2 Memory Bar (y=325..370) -->
+  <!-- Bootloader -->
+  <rect x="60" y="325" width="45" height="45" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="82" y="352" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Boot</text>
+
+  <!-- Slot 1 (user1.bin) -->
+  <rect x="113" y="325" width="365" height="45" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="295" y="352" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">user1.bin — 2032 КБ (слот 1)</text>
+
+  <!-- Slot 2 (user2.bin) -->
+  <rect x="486" y="325" width="365" height="45" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="668" y="352" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">user2.bin — 2032 КБ (слот 2)</text>
+
+  <!-- System Params & RF Cal -->
+  <rect x="859" y="325" width="41" height="45" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="879" y="352" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Sys</text>
+
+  <!-- Panel 2 Callout Labels under Bar -->
+  <text x="82" y="400" text-anchor="middle" font-size="11" fill="#6b7280">0x00000 (16 КБ)</text>
+
+  <text x="295" y="400" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Зміщення user1: 0x04000 .. 0x1FFFFF</text>
+  <text x="295" y="420" text-anchor="middle" font-size="11" fill="#1a1a1a">Максимальний розмір образу: 2032 КБ</text>
+
+  <text x="668" y="400" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Зміщення user2: 0x200000 .. 0x3FBFFF</text>
+  <text x="668" y="420" text-anchor="middle" font-size="11" fill="#1a1a1a">Переключення завантажувача після валідації</text>
+
+  <text x="879" y="400" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">0x3FC000 (16 КБ)</text>
+  <text x="879" y="420" text-anchor="middle" font-size="11" fill="#c0392b">RF Cal (0x3FC000)</text>
+
+  <!-- Bottom Legend Bar -->
+  <rect x="40" y="480" width="880" height="40" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <rect x="60" y="493" width="14" height="14" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="80" y="505" font-size="12" fill="#1a1a1a">Активний банк (user1.bin)</text>
+
+  <rect x="280" y="493" width="14" height="14" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="300" y="505" font-size="12" fill="#1a1a1a">Цільовий банк (user2.bin)</text>
+
+  <rect x="500" y="493" width="14" height="14" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="520" y="505" font-size="12" fill="#1a1a1a">Калібрування та системні параметри (RF Cal)</text>
+
+  <text x="825" y="505" font-size="11" font-weight="bold" fill="#2457d6">Кратність: 4 КБ</text>
+</svg>

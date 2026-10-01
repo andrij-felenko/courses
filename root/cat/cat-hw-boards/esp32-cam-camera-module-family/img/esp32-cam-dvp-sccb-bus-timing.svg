@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-right-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-left-green" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-right-gold" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d4ac0d"/>
+    </marker>
+    <marker id="arr-left-blue" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-left-blue-thick" markerWidth="10" markerHeight="10" refX="1" refY="5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M10,0 L0,5 L10,10 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Комутація шин DVP та SCCB між ESP32 та сенсором зображення (OV2640)</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Паралельний відеоінтерфейс DVP передає дані й синхронізацію в ESP32, а двопровідна шина SCCB конфігурує регістри матриці</text>
+
+  <!-- ESP32 Panel -->
+  <rect x="40" y="90" width="250" height="430" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <rect x="40" y="90" width="250" height="40" rx="8" fill="#2457d6"/>
+  <text x="165" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="white">ESP32 (I2S / DVP Controller)</text>
+
+  <!-- ESP32 Internal Functional Blocks -->
+  <text x="60" y="190" font-size="12" font-weight="bold" fill="#1e8449">Шина SCCB</text>
+  <text x="60" y="258" font-size="12" font-weight="bold" fill="#b7950b">Тактування</text>
+  <text x="60" y="355" font-size="12" font-weight="bold" fill="#2457d6">Контролер I2S</text>
+  <text x="60" y="460" font-size="12" font-weight="bold" fill="#2457d6">DMA / SRAM</text>
+
+  <!-- ESP32 Pin Labels -->
+  <text x="275" y="175" text-anchor="end" font-size="12" fill="#1a1a1a">GPIO27 (SIOC)</text>
+  <text x="275" y="205" text-anchor="end" font-size="12" fill="#1a1a1a">GPIO26 (SIOD)</text>
+  <text x="275" y="258" text-anchor="end" font-size="12" fill="#1a1a1a">GPIO00 (XCLK)</text>
+  <text x="275" y="325" text-anchor="end" font-size="12" fill="#1a1a1a">GPIO22 (PCLK)</text>
+  <text x="275" y="355" text-anchor="end" font-size="12" fill="#1a1a1a">GPIO25 (VSYNC)</text>
+  <text x="275" y="385" text-anchor="end" font-size="12" fill="#1a1a1a">GPIO23 (HREF)</text>
+  <text x="275" y="460" text-anchor="end" font-size="12" fill="#1a1a1a">GPIO34..5 (D0..D7)</text>
+
+  <!-- OV2640 Panel -->
+  <rect x="670" y="90" width="250" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="670" y="90" width="250" height="40" rx="8" fill="#4a5568"/>
+  <text x="795" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="white">Сенсор зображення OV2640</text>
+
+  <!-- OV2640 Internal Functional Blocks -->
+  <text x="900" y="190" text-anchor="end" font-size="12" font-weight="bold" fill="#1e8449">Регістри SCCB</text>
+  <text x="900" y="258" text-anchor="end" font-size="12" font-weight="bold" fill="#b7950b">Генератор такту</text>
+  <text x="900" y="355" text-anchor="end" font-size="12" font-weight="bold" fill="#4a5568">Матриця CMOS</text>
+  <text x="900" y="460" text-anchor="end" font-size="12" font-weight="bold" fill="#4a5568">ЦАП / DSP кодек</text>
+
+  <!-- OV2640 Pin Labels -->
+  <text x="685" y="175" text-anchor="start" font-size="12" fill="#1a1a1a">SIOC (SCL)</text>
+  <text x="685" y="205" text-anchor="start" font-size="12" fill="#1a1a1a">SIOD (SDA)</text>
+  <text x="685" y="258" text-anchor="start" font-size="12" fill="#1a1a1a">XVCLK</text>
+  <text x="685" y="325" text-anchor="start" font-size="12" fill="#1a1a1a">PCLK</text>
+  <text x="685" y="355" text-anchor="start" font-size="12" fill="#1a1a1a">VSYNC</text>
+  <text x="685" y="385" text-anchor="start" font-size="12" fill="#1a1a1a">HREF</text>
+  <text x="685" y="460" text-anchor="start" font-size="12" fill="#1a1a1a">Y2..Y9 (D0..D7)</text>
+
+  <!-- Middle Bus Sections -->
+
+  <!-- 1. SCCB Section -->
+  <rect x="310" y="140" width="340" height="85" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="480" y="156" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e8449">Шина керування SCCB (Конфігурація регістрів)</text>
+  
+  <!-- SIOC Line -->
+  <line x1="290" y1="175" x2="660" y2="175" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-right-green)"/>
+  <text x="480" y="171" text-anchor="middle" font-size="12" fill="#1e8449">SIOC (Тактові імпульси SCL)</text>
+
+  <!-- SIOD Line -->
+  <line x1="300" y1="205" x2="660" y2="205" stroke="#27ae60" stroke-width="2" marker-start="url(#arr-left-green)" marker-end="url(#arr-right-green)"/>
+  <text x="480" y="201" text-anchor="middle" font-size="12" fill="#1e8449">SIOD (Дані SDA, двонапрямна + 4.7 kΩ pull-up)</text>
+
+  <!-- 2. Master Clock (XCLK) Section -->
+  <rect x="310" y="235" width="340" height="45" rx="6" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1"/>
+  <line x1="290" y1="258" x2="660" y2="258" stroke="#d4ac0d" stroke-width="2.5" marker-end="url(#arr-right-gold)"/>
+  <text x="480" y="252" text-anchor="middle" font-size="12" font-weight="bold" fill="#b7950b">XCLK / XVCLK (Опорна частота 10..24 МГц)</text>
+
+  <!-- 3. DVP Sync Signals Section -->
+  <rect x="310" y="290" width="340" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="480" y="306" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a365d">Сигнали синхронізації DVP (OV2640 → ESP32 I2S)</text>
+
+  <!-- PCLK Line -->
+  <line x1="670" y1="325" x2="300" y2="325" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-left-blue)"/>
+  <text x="480" y="321" text-anchor="middle" font-size="12" fill="#2457d6">PCLK (Піксельний тактовий імпульс)</text>
+
+  <!-- VSYNC Line -->
+  <line x1="670" y1="355" x2="300" y2="355" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-left-blue)"/>
+  <text x="480" y="351" text-anchor="middle" font-size="12" fill="#2457d6">VSYNC (Синхронізація нового кадру)</text>
+
+  <!-- HREF Line -->
+  <line x1="670" y1="385" x2="300" y2="385" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-left-blue)"/>
+  <text x="480" y="381" text-anchor="middle" font-size="12" fill="#2457d6">HREF (Активний рядок пікселів)</text>
+
+  <!-- 4. DVP Parallel Data Bus Section -->
+  <rect x="310" y="410" width="340" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="428" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a365d">Паралельна 8-бітна шина даних DVP</text>
+
+  <line x1="670" y1="458" x2="305" y2="458" stroke="#2457d6" stroke-width="6" marker-end="url(#arr-left-blue-thick)"/>
+  <text x="480" y="450" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a365d">D[7:0] / Y[9:2] (8 паралельних ліній даних)</text>
+  <text x="480" y="482" text-anchor="middle" font-size="12" fill="#6b7280">GPIO34, 35, 32, 39, 36, 19, 18, 5 → I2S DMA в SRAM/PSRAM</text>
+</svg>

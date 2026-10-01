@@ -1,0 +1,361 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Definitions -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-amber" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратна топологія та цокольовка ESP32-S3-Zero</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Розподіл функціональних виводів: живлення, I2C, SPI, UART, USB та системні кнопки</text>
+
+  <!-- Panel 1: Legend Panel -->
+  <rect x="30" y="72" width="900" height="42" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Legend Items -->
+  <rect x="45" y="86" width="14" height="14" rx="3" fill="#dc2626"/>
+  <text x="65" y="97" font-size="12" fill="#1a1a1a">Живлення / GND</text>
+
+  <rect x="180" y="86" width="14" height="14" rx="3" fill="#2457d6"/>
+  <text x="200" y="97" font-size="12" fill="#1a1a1a">Шина I2C (SDA/SCL)</text>
+
+  <rect x="345" y="86" width="14" height="14" rx="3" fill="#d97706"/>
+  <text x="365" y="97" font-size="12" fill="#1a1a1a">Шина SPI (MOSI/MISO/SCK)</text>
+
+  <rect x="550" y="86" width="14" height="14" rx="3" fill="#16a34a"/>
+  <text x="570" y="97" font-size="12" fill="#1a1a1a">UART (TX/RX)</text>
+
+  <rect x="675" y="86" width="14" height="14" rx="3" fill="#0284c7"/>
+  <text x="695" y="97" font-size="12" fill="#1a1a1a">Native USB</text>
+
+  <rect x="785" y="86" width="14" height="14" rx="3" fill="#9333ea"/>
+  <text x="805" y="97" font-size="12" fill="#1a1a1a">RGB / Strapping</text>
+
+  <!-- Panel 2: Left Pins Panel -->
+  <rect x="20" y="128" width="326" height="262" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="183" y="146" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Лівий ряд виводів (1–9)</text>
+
+  <!-- Left Pin 1: 5V -->
+  <rect x="30" y="156" width="56" height="20" rx="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1"/>
+  <text x="58" y="170" font-size="12" font-weight="bold" fill="#991b1b" text-anchor="middle">5V</text>
+  <text x="96" y="170" font-size="12" fill="#1a1a1a">Вхід живлення 5 В (USB / Ext)</text>
+  <line x1="346" y1="166" x2="370" y2="166" stroke="#dc2626" stroke-width="1.5"/>
+  <circle cx="370" cy="166" r="3" fill="#dc2626"/>
+
+  <!-- Left Pin 2: GND -->
+  <rect x="30" y="181" width="56" height="20" rx="4" fill="#f3f4f6" stroke="#4b5563" stroke-width="1"/>
+  <text x="58" y="195" font-size="12" font-weight="bold" fill="#1f2937" text-anchor="middle">GND</text>
+  <text x="96" y="195" font-size="12" fill="#1a1a1a">Спільний дріт / Земля (GND)</text>
+  <line x1="346" y1="191" x2="370" y2="191" stroke="#4b5563" stroke-width="1.5"/>
+  <circle cx="370" cy="191" r="3" fill="#4b5563"/>
+
+  <!-- Left Pin 3: 3V3 -->
+  <rect x="30" y="206" width="56" height="20" rx="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1"/>
+  <text x="58" y="220" font-size="12" font-weight="bold" fill="#991b1b" text-anchor="middle">3V3</text>
+  <text x="96" y="220" font-size="12" fill="#1a1a1a">Вихід LDO 3.3 В (макс. 800 мА)</text>
+  <line x1="346" y1="216" x2="370" y2="216" stroke="#dc2626" stroke-width="1.5"/>
+  <circle cx="370" cy="216" r="3" fill="#dc2626"/>
+
+  <!-- Left Pin 4: GPIO1 -->
+  <rect x="30" y="231" width="56" height="20" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
+  <text x="58" y="245" font-size="12" font-weight="bold" fill="#0369a1" text-anchor="middle">GPIO1</text>
+  <text x="96" y="245" font-size="12" fill="#1a1a1a">ADC1_CH0 / Touch1 / PWM</text>
+  <line x1="346" y1="241" x2="370" y2="241" stroke="#0284c7" stroke-width="1.5"/>
+  <circle cx="370" cy="241" r="3" fill="#0284c7"/>
+
+  <!-- Left Pin 5: GPIO2 -->
+  <rect x="30" y="256" width="56" height="20" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
+  <text x="58" y="270" font-size="12" font-weight="bold" fill="#0369a1" text-anchor="middle">GPIO2</text>
+  <text x="96" y="270" font-size="12" fill="#1a1a1a">ADC1_CH1 / Touch2 / PWM</text>
+  <line x1="346" y1="266" x2="370" y2="266" stroke="#0284c7" stroke-width="1.5"/>
+  <circle cx="370" cy="266" r="3" fill="#0284c7"/>
+
+  <!-- Left Pin 6: GPIO3 -->
+  <rect x="30" y="281" width="56" height="20" rx="4" fill="#f3e8ff" stroke="#9333ea" stroke-width="1"/>
+  <text x="58" y="295" font-size="12" font-weight="bold" fill="#6b21a8" text-anchor="middle">GPIO3</text>
+  <text x="96" y="295" font-size="12" fill="#1a1a1a">ADC1_CH2 / JTAG Strapping</text>
+  <line x1="346" y1="291" x2="370" y2="291" stroke="#9333ea" stroke-width="1.5"/>
+  <circle cx="370" cy="291" r="3" fill="#9333ea"/>
+
+  <!-- Left Pin 7: GPIO4 -->
+  <rect x="30" y="306" width="56" height="20" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
+  <text x="58" y="320" font-size="12" font-weight="bold" fill="#0369a1" text-anchor="middle">GPIO4</text>
+  <text x="96" y="320" font-size="12" fill="#1a1a1a">ADC1_CH3 / Touch4 / PWM</text>
+  <line x1="346" y1="316" x2="370" y2="316" stroke="#0284c7" stroke-width="1.5"/>
+  <circle cx="370" cy="316" r="3" fill="#0284c7"/>
+
+  <!-- Left Pin 8: GPIO5 -->
+  <rect x="30" y="331" width="56" height="20" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
+  <text x="58" y="345" font-size="12" font-weight="bold" fill="#0369a1" text-anchor="middle">GPIO5</text>
+  <text x="96" y="345" font-size="12" fill="#1a1a1a">ADC1_CH4 / Touch5 / PWM</text>
+  <line x1="346" y1="341" x2="370" y2="341" stroke="#0284c7" stroke-width="1.5"/>
+  <circle cx="370" cy="341" r="3" fill="#0284c7"/>
+
+  <!-- Left Pin 9: GPIO6 -->
+  <rect x="30" y="356" width="56" height="20" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
+  <text x="58" y="370" font-size="12" font-weight="bold" fill="#0369a1" text-anchor="middle">GPIO6</text>
+  <text x="96" y="370" font-size="12" fill="#1a1a1a">ADC1_CH5 / Touch6 / PWM</text>
+  <line x1="346" y1="366" x2="370" y2="366" stroke="#0284c7" stroke-width="1.5"/>
+  <circle cx="370" cy="366" r="3" fill="#0284c7"/>
+
+  <!-- Panel 3: Center PCB -->
+  <rect x="366" y="128" width="228" height="262" rx="8" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+
+  <!-- USB-C Port -->
+  <rect x="440" y="134" width="80" height="24" rx="5" fill="#e2e8f0" stroke="#64748b" stroke-width="2"/>
+  <rect x="455" y="138" width="50" height="16" rx="3" fill="#94a3b8"/>
+  <text x="480" y="150" font-size="12" font-weight="bold" fill="#1e293b" text-anchor="middle">USB-C</text>
+
+  <!-- Buttons: BOOT & RST -->
+  <rect x="394" y="166" width="46" height="22" rx="3" fill="#334155" stroke="#94a3b8" stroke-width="1"/>
+  <text x="417" y="181" font-size="12" font-weight="bold" fill="#f8fafc" text-anchor="middle">BOOT</text>
+
+  <rect x="520" y="166" width="46" height="22" rx="3" fill="#334155" stroke="#94a3b8" stroke-width="1"/>
+  <text x="543" y="181" font-size="12" font-weight="bold" fill="#f8fafc" text-anchor="middle">RST</text>
+
+  <!-- RGB LED -->
+  <rect x="465" y="166" width="30" height="22" rx="3" fill="#090d16" stroke="#ec4899" stroke-width="1.5"/>
+  <circle cx="480" cy="177" r="5" fill="#ec4899"/>
+  <text x="480" y="202" font-size="12" font-weight="bold" fill="#f472b6" text-anchor="middle">GPIO21</text>
+
+  <!-- ESP32-S3 Chip -->
+  <rect x="410" y="210" width="140" height="110" rx="4" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/>
+  <circle cx="422" cy="222" r="3" fill="#64748b"/>
+  <text x="480" y="240" font-size="13" font-weight="bold" fill="#f8fafc" text-anchor="middle">ESP32-S3</text>
+  <text x="480" y="258" font-size="12" fill="#cbd5e1" text-anchor="middle">FH4R2</text>
+  <text x="480" y="278" font-size="12" fill="#94a3b8" text-anchor="middle">2.4GHz Wi-Fi + BLE 5</text>
+  <text x="480" y="296" font-size="12" fill="#94a3b8" text-anchor="middle">4 MB Flash</text>
+
+  <!-- Sub-components: LDO & Crystal -->
+  <rect x="425" y="328" width="50" height="20" rx="2" fill="#334155"/>
+  <text x="450" y="342" font-size="12" fill="#cbd5e1" text-anchor="middle">LDO</text>
+
+  <rect x="485" y="328" width="50" height="20" rx="2" fill="#cbd5e1"/>
+  <text x="510" y="342" font-size="12" fill="#1e293b" text-anchor="middle">40MHz</text>
+
+  <!-- Left Pads on PCB (1–9) -->
+  <g>
+    <rect x="370" y="158" width="16" height="16" rx="4" fill="#fef08a" stroke="#ca8a04"/>
+    <text x="378" y="170" font-size="12" font-weight="bold" fill="#713f12" text-anchor="middle">1</text>
+
+    <rect x="370" y="183" width="16" height="16" rx="4" fill="#fef08a" stroke="#ca8a04"/>
+    <text x="378" y="195" font-size="12" font-weight="bold" fill="#713f12" text-anchor="middle">2</text>
+
+    <rect x="370" y="208" width="16" height="16" rx="4" fill="#fef08a" stroke="#ca8a04"/>
+    <text x="378" y="220" font-size="12" font-weight="bold" fill="#713f12" text-anchor="middle">3</text>
+
+    <rect x="370" y="233" width="16" height="16" rx="4" fill="#fef08a" stroke="#ca8a04"/>
+    <text x="378" y="245" font-size="12" font-weight="bold" fill="#713f12" text-anchor="middle">4</text>
+
+    <rect x="370" y="258" width="16" height="16" rx="4" fill="#fef08a" stroke="#ca8a04"/>
+    <text x="378" y="270" font-size="12" font-weight="bold" fill="#713f12" text-anchor="middle">5</text>
+
+    <rect x="370" y="283" width="16" height="16" rx="4" fill="#fef08a" stroke="#ca8a04"/>
+    <text x="378" y="295" font-size="12" font-weight="bold" fill="#713f12" text-anchor="middle">6</text>
+
+    <rect x="370" y="308" width="16" height="16" rx="4" fill="#fef08a" stroke="#ca8a04"/>
+    <text x="378" y="320" font-size="12" font-weight="bold" fill="#713f12" text-anchor="middle">7</text>
+
+    <rect x="370" y="333" width="16" height="16" rx="4" fill="#fef08a" stroke="#ca8a04"/>
+    <text x="378" y="345" font-size="12" font-weight="bold" fill="#713f12" text-anchor="middle">8</text>
+
+    <rect x="370" y="358" width="16" height="16" rx="4" fill="#fef08a" stroke="#ca8a04"/>
+    <text x="378" y="370" font-size="12" font-weight="bold" fill="#713f12" text-anchor="middle">9</text>
+  </g>
+
+  <!-- Right Pads on PCB (10–18) -->
+  <g>
+    <rect x="574" y="158" width="16" height="16" rx="4" fill="#fef08a" stroke="#ca8a04"/>
+    <text x="582" y="170" font-size="12" font-weight="bold" fill="#713f12" text-anchor="middle">10</text>
+
+    <rect x="574" y="183" width="16" height="16" rx="4" fill="#fef08a" stroke="#ca8a04"/>
+    <text x="582" y="195" font-size="12" font-weight="bold" fill="#713f12" text-anchor="middle">11</text>
+
+    <rect x="574" y="208" width="16" height="16" rx="4" fill="#fef08a" stroke="#ca8a04"/>
+    <text x="582" y="220" font-size="12" font-weight="bold" fill="#713f12" text-anchor="middle">12</text>
+
+    <rect x="574" y="233" width="16" height="16" rx="4" fill="#fef08a" stroke="#ca8a04"/>
+    <text x="582" y="245" font-size="12" font-weight="bold" fill="#713f12" text-anchor="middle">13</text>
+
+    <rect x="574" y="258" width="16" height="16" rx="4" fill="#fef08a" stroke="#ca8a04"/>
+    <text x="582" y="270" font-size="12" font-weight="bold" fill="#713f12" text-anchor="middle">14</text>
+
+    <rect x="574" y="283" width="16" height="16" rx="4" fill="#fef08a" stroke="#ca8a04"/>
+    <text x="582" y="295" font-size="12" font-weight="bold" fill="#713f12" text-anchor="middle">15</text>
+
+    <rect x="574" y="308" width="16" height="16" rx="4" fill="#fef08a" stroke="#ca8a04"/>
+    <text x="582" y="320" font-size="12" font-weight="bold" fill="#713f12" text-anchor="middle">16</text>
+
+    <rect x="574" y="333" width="16" height="16" rx="4" fill="#fef08a" stroke="#ca8a04"/>
+    <text x="582" y="345" font-size="12" font-weight="bold" fill="#713f12" text-anchor="middle">17</text>
+
+    <rect x="574" y="358" width="16" height="16" rx="4" fill="#fef08a" stroke="#ca8a04"/>
+    <text x="582" y="370" font-size="12" font-weight="bold" fill="#713f12" text-anchor="middle">18</text>
+  </g>
+
+  <!-- Bottom Pads on PCB (19–24) -->
+  <g>
+    <rect x="400" y="368" width="16" height="16" rx="4" fill="#fef08a" stroke="#ca8a04"/>
+    <text x="408" y="380" font-size="12" font-weight="bold" fill="#713f12" text-anchor="middle">19</text>
+
+    <rect x="428" y="368" width="16" height="16" rx="4" fill="#fef08a" stroke="#ca8a04"/>
+    <text x="436" y="380" font-size="12" font-weight="bold" fill="#713f12" text-anchor="middle">20</text>
+
+    <rect x="456" y="368" width="16" height="16" rx="4" fill="#fef08a" stroke="#ca8a04"/>
+    <text x="464" y="380" font-size="12" font-weight="bold" fill="#713f12" text-anchor="middle">21</text>
+
+    <rect x="484" y="368" width="16" height="16" rx="4" fill="#fef08a" stroke="#ca8a04"/>
+    <text x="492" y="380" font-size="12" font-weight="bold" fill="#713f12" text-anchor="middle">22</text>
+
+    <rect x="512" y="368" width="16" height="16" rx="4" fill="#fef08a" stroke="#ca8a04"/>
+    <text x="520" y="380" font-size="12" font-weight="bold" fill="#713f12" text-anchor="middle">23</text>
+
+    <rect x="540" y="368" width="16" height="16" rx="4" fill="#fef08a" stroke="#ca8a04"/>
+    <text x="548" y="380" font-size="12" font-weight="bold" fill="#713f12" text-anchor="middle">24</text>
+  </g>
+
+  <!-- Panel 4: Right Pins Panel -->
+  <rect x="614" y="128" width="326" height="262" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="777" y="146" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Правий ряд виводів (10–18)</text>
+
+  <!-- Right Pin 10: GPIO7 -->
+  <rect x="624" y="156" width="60" height="20" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
+  <text x="654" y="170" font-size="12" font-weight="bold" fill="#0369a1" text-anchor="middle">GPIO7</text>
+  <text x="694" y="170" font-size="12" fill="#1a1a1a">ADC1_CH6 / Touch7 / PWM</text>
+  <line x1="590" y1="166" x2="614" y2="166" stroke="#0284c7" stroke-width="1.5"/>
+  <circle cx="590" cy="166" r="3" fill="#0284c7"/>
+
+  <!-- Right Pin 11: GPIO8 -->
+  <rect x="624" y="181" width="60" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="654" y="195" font-size="12" font-weight="bold" fill="#1e40af" text-anchor="middle">GPIO8</text>
+  <text x="694" y="195" font-size="12" fill="#1a1a1a">I2C SDA (дані) / ADC1_CH7</text>
+  <line x1="590" y1="191" x2="614" y2="191" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="590" cy="191" r="3" fill="#2457d6"/>
+
+  <!-- Right Pin 12: GPIO9 -->
+  <rect x="624" y="206" width="60" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="654" y="220" font-size="12" font-weight="bold" fill="#1e40af" text-anchor="middle">GPIO9</text>
+  <text x="694" y="220" font-size="12" fill="#1a1a1a">I2C SCL (такт) / ADC1_CH8</text>
+  <line x1="590" y1="216" x2="614" y2="216" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="590" cy="216" r="3" fill="#2457d6"/>
+
+  <!-- Right Pin 13: GPIO10 -->
+  <rect x="624" y="231" width="60" height="20" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
+  <text x="654" y="245" font-size="12" font-weight="bold" fill="#0369a1" text-anchor="middle">GPIO10</text>
+  <text x="694" y="245" font-size="12" fill="#1a1a1a">ADC1_CH9 / Touch10 / PWM</text>
+  <line x1="590" y1="241" x2="614" y2="241" stroke="#0284c7" stroke-width="1.5"/>
+  <circle cx="590" cy="241" r="3" fill="#0284c7"/>
+
+  <!-- Right Pin 14: GPIO11 -->
+  <rect x="624" y="256" width="60" height="20" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <text x="654" y="270" font-size="12" font-weight="bold" fill="#92400e" text-anchor="middle">GPIO11</text>
+  <text x="694" y="270" font-size="12" fill="#1a1a1a">SPI FSPIQ / ADC2_CH0</text>
+  <line x1="590" y1="266" x2="614" y2="266" stroke="#d97706" stroke-width="1.5"/>
+  <circle cx="590" cy="266" r="3" fill="#d97706"/>
+
+  <!-- Right Pin 15: GPIO12 -->
+  <rect x="624" y="281" width="60" height="20" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <text x="654" y="295" font-size="12" font-weight="bold" fill="#92400e" text-anchor="middle">GPIO12</text>
+  <text x="694" y="295" font-size="12" fill="#1a1a1a">SPI FSPID / ADC2_CH1</text>
+  <line x1="590" y1="291" x2="614" y2="291" stroke="#d97706" stroke-width="1.5"/>
+  <circle cx="590" cy="291" r="3" fill="#d97706"/>
+
+  <!-- Right Pin 16: GPIO13 -->
+  <rect x="624" y="306" width="60" height="20" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <text x="654" y="320" font-size="12" font-weight="bold" fill="#92400e" text-anchor="middle">GPIO13</text>
+  <text x="694" y="320" font-size="12" fill="#1a1a1a">SPI FSPICLK / ADC2_CH2</text>
+  <line x1="590" y1="316" x2="614" y2="316" stroke="#d97706" stroke-width="1.5"/>
+  <circle cx="590" cy="316" r="3" fill="#d97706"/>
+
+  <!-- Right Pin 17: GPIO14 -->
+  <rect x="624" y="331" width="60" height="20" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <text x="654" y="345" font-size="12" font-weight="bold" fill="#92400e" text-anchor="middle">GPIO14</text>
+  <text x="694" y="345" font-size="12" fill="#1a1a1a">SPI FSPIHD / ADC2_CH3</text>
+  <line x1="590" y1="341" x2="614" y2="341" stroke="#d97706" stroke-width="1.5"/>
+  <circle cx="590" cy="341" r="3" fill="#d97706"/>
+
+  <!-- Right Pin 18: GPIO15 -->
+  <rect x="624" y="356" width="60" height="20" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
+  <text x="654" y="370" font-size="12" font-weight="bold" fill="#0369a1" text-anchor="middle">GPIO15</text>
+  <text x="694" y="370" font-size="12" fill="#1a1a1a">ADC2_CH4 / Touch15 / PWM</text>
+  <line x1="590" y1="366" x2="614" y2="366" stroke="#0284c7" stroke-width="1.5"/>
+  <circle cx="590" cy="366" r="3" fill="#0284c7"/>
+
+  <!-- Connecting Lines from Bottom Pads to Bottom Panel -->
+  <line x1="408" y1="384" x2="408" y2="418" stroke="#d97706" stroke-width="1.5"/>
+  <line x1="436" y1="384" x2="436" y2="418" stroke="#d97706" stroke-width="1.5"/>
+  <line x1="464" y1="384" x2="464" y2="418" stroke="#d97706" stroke-width="1.5"/>
+  <line x1="492" y1="384" x2="492" y2="418" stroke="#9333ea" stroke-width="1.5"/>
+  <line x1="520" y1="384" x2="520" y2="418" stroke="#16a34a" stroke-width="1.5"/>
+  <line x1="548" y1="384" x2="548" y2="418" stroke="#16a34a" stroke-width="1.5"/>
+
+  <!-- Panel 5: Bottom Panel -->
+  <rect x="30" y="418" width="900" height="122" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Column 1: Bottom Pins (19–24) -->
+  <text x="45" y="435" font-size="13" font-weight="bold" fill="#1a1a1a">Нижній ряд виводів (19–24)</text>
+
+  <rect x="45" y="443" width="58" height="18" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <text x="74" y="456" font-size="12" font-weight="bold" fill="#92400e" text-anchor="middle">GPIO16</text>
+  <text x="111" y="456" font-size="12" fill="#1a1a1a">SPI CS / ADC2_CH5</text>
+
+  <rect x="45" y="464" width="58" height="18" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <text x="74" y="477" font-size="12" font-weight="bold" fill="#92400e" text-anchor="middle">GPIO17</text>
+  <text x="111" y="477" font-size="12" fill="#1a1a1a">SPI SCK / ADC2_CH6</text>
+
+  <rect x="45" y="485" width="58" height="18" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <text x="74" y="498" font-size="12" font-weight="bold" fill="#92400e" text-anchor="middle">GPIO18</text>
+  <text x="111" y="498" font-size="12" fill="#1a1a1a">SPI MOSI / ADC2_CH7</text>
+
+  <rect x="45" y="506" width="58" height="18" rx="3" fill="#f3e8ff" stroke="#9333ea" stroke-width="1"/>
+  <text x="74" y="519" font-size="12" font-weight="bold" fill="#6b21a8" text-anchor="middle">GPIO21</text>
+  <text x="111" y="519" font-size="12" fill="#1a1a1a">Вбудований RGB LED</text>
+
+  <!-- Column 2: UART & Native USB -->
+  <text x="340" y="435" font-size="13" font-weight="bold" fill="#1a1a1a">UART &amp; Нативний USB</text>
+
+  <rect x="340" y="443" width="62" height="18" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
+  <text x="371" y="456" font-size="12" font-weight="bold" fill="#15803d" text-anchor="middle">GPIO43</text>
+  <text x="410" y="456" font-size="12" fill="#1a1a1a">UART0 TXD (передача)</text>
+
+  <rect x="340" y="464" width="62" height="18" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
+  <text x="371" y="477" font-size="12" font-weight="bold" fill="#15803d" text-anchor="middle">GPIO44</text>
+  <text x="410" y="477" font-size="12" fill="#1a1a1a">UART0 RXD (прийом)</text>
+
+  <rect x="340" y="485" width="62" height="18" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
+  <text x="371" y="498" font-size="12" font-weight="bold" fill="#0369a1" text-anchor="middle">GPIO19</text>
+  <text x="410" y="498" font-size="12" fill="#1a1a1a">USB D- (нативний USB)</text>
+
+  <rect x="340" y="506" width="62" height="18" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
+  <text x="371" y="519" font-size="12" font-weight="bold" fill="#0369a1" text-anchor="middle">GPIO20</text>
+  <text x="410" y="519" font-size="12" fill="#1a1a1a">USB D+ (нативний USB)</text>
+
+  <!-- Column 3: Restrictions & Features -->
+  <text x="635" y="435" font-size="13" font-weight="bold" fill="#1a1a1a">Особливості та Обмеження</text>
+
+  <rect x="635" y="443" width="76" height="18" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="673" y="456" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">GPIO0</text>
+  <text x="719" y="456" font-size="12" fill="#c0392b">Strapping (BOOT) — уникати</text>
+
+  <rect x="635" y="464" width="76" height="18" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="673" y="477" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">GPIO45/46</text>
+  <text x="719" y="477" font-size="12" fill="#c0392b">Службові (ROM Boot / VDD)</text>
+
+  <rect x="635" y="485" width="76" height="18" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="673" y="498" font-size="12" font-weight="bold" fill="#14532d" text-anchor="middle">LDO 3.3V</text>
+  <text x="719" y="498" font-size="12" fill="#27ae60">Максимальний струм: 800 мА</text>
+
+  <rect x="635" y="506" width="76" height="18" rx="3" fill="#f3f4f6" stroke="#6b7280" stroke-width="1"/>
+  <text x="673" y="519" font-size="12" font-weight="bold" fill="#374151" text-anchor="middle">SMD Pad</text>
+  <text x="719" y="519" font-size="12" fill="#1a1a1a">Castellated-отвори для SMD</text>
+</svg>

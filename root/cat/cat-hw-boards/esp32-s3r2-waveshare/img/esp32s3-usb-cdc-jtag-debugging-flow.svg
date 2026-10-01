@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Апаратний USB CDC/JTAG інтерфейс та режими завантаження ESP32-S3</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Мультиплексування єдиного USB-порту на CDC-консоль (VCP) та JTAG-зневаджувач OpenOCD з керуванням через ROM Bootloader</text>
+
+  <!-- Left Panel: Host PC -->
+  <rect x="40" y="90" width="220" height="370" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="40" y="90" width="220" height="40" rx="8" ry="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <rect x="40" y="118" width="220" height="12" fill="#eaf0fd"/>
+  <text x="150" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Хостовий ПК (Host PC)</text>
+
+  <!-- Sub-block 1: CDC Terminal -->
+  <rect x="55" y="145" width="190" height="80" rx="4" fill="white" stroke="#2457d6"/>
+  <text x="150" y="168" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Серійна консоль (CDC)</text>
+  <text x="150" y="188" text-anchor="middle" font-size="12" fill="#1a1a1a">Віртуальний COM-порт</text>
+  <text x="150" y="206" text-anchor="middle" font-size="12" fill="#6b7280">Логування UART / CLI</text>
+
+  <!-- Sub-block 2: OpenOCD / GDB -->
+  <rect x="55" y="240" width="190" height="85" rx="4" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="150" y="263" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Сервер OpenOCD + GDB</text>
+  <text x="150" y="283" text-anchor="middle" font-size="12" fill="#1a1a1a">Апаратне зневадження</text>
+  <text x="150" y="301" text-anchor="middle" font-size="12" fill="#6b7280">Точки зупинки / Регістри</text>
+
+  <!-- Sub-block 3: esptool -->
+  <rect x="55" y="340" width="190" height="105" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="150" y="363" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Утиліта esptool.py</text>
+  <text x="150" y="383" text-anchor="middle" font-size="12" fill="#1a1a1a">Прошивання флеш-пам'яті</text>
+  <text x="150" y="401" text-anchor="middle" font-size="12" fill="#6b7280">Апаратний скетч-завантажувач</text>
+  <text x="150" y="420" text-anchor="middle" font-size="12" fill="#6b7280">(Режим ROM Bootloader)</text>
+
+  <!-- Host PC Output Pins -->
+  <circle cx="260" cy="185" r="4" fill="#2457d6"/>
+  <circle cx="260" cy="280" r="4" fill="#27ae60"/>
+  <circle cx="260" cy="390" r="4" fill="#c0392b"/>
+
+  <!-- Middle Interconnect Cards & Lines -->
+  <!-- Upper CDC Channel -->
+  <line x1="264" y1="185" x2="320" y2="185" stroke="#2457d6" stroke-width="2"/>
+  <line x1="580" y1="185" x2="695" y2="185" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="320" y="160" width="260" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="450" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Канал USB CDC (ACM Serial)</text>
+  <text x="450" y="198" text-anchor="middle" font-size="12" fill="#6b7280">Двонапрямковий потік логів (Bulk Endpoint)</text>
+
+  <!-- Middle JTAG Channel -->
+  <line x1="264" y1="280" x2="320" y2="280" stroke="#27ae60" stroke-width="2"/>
+  <line x1="580" y1="280" x2="695" y2="280" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="320" y="255" width="260" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="450" y="275" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Канал USB JTAG Adapter</text>
+  <text x="450" y="293" text-anchor="middle" font-size="12" fill="#6b7280">Пряме керування відлагодженням без FT2232</text>
+
+  <!-- Lower Bootloader / Reset Channel -->
+  <line x1="264" y1="390" x2="320" y2="390" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+  <line x1="580" y1="390" x2="695" y2="390" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <rect x="320" y="350" width="260" height="80" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="450" y="370" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Лінії DTR / RTS (Auto-Reset)</text>
+  <text x="450" y="390" text-anchor="middle" font-size="12" fill="#c0392b">GPIO0 = LOW + CHIP_PU = RESET</text>
+  <text x="450" y="410" text-anchor="middle" font-size="12" fill="#6b7280">Автоматичне переведення в ROM Bootloader</text>
+
+  <!-- Right Panel: ESP32-S3 Microcontroller -->
+  <rect x="700" y="90" width="220" height="370" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="700" y="90" width="220" height="40" rx="8" ry="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <rect x="700" y="118" width="220" height="12" fill="#eaf0fd"/>
+  <text x="810" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Контролер ESP32-S3</text>
+
+  <!-- ESP32-S3 Input Pins -->
+  <circle cx="700" cy="185" r="4" fill="#2457d6"/>
+  <circle cx="700" cy="280" r="4" fill="#27ae60"/>
+  <circle cx="700" cy="390" r="4" fill="#c0392b"/>
+
+  <!-- Sub-block 1: USB PHY -->
+  <rect x="715" y="145" width="190" height="80" rx="4" fill="white" stroke="#2457d6"/>
+  <text x="810" y="168" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Вбудований USB PHY</text>
+  <text x="810" y="188" text-anchor="middle" font-size="12" fill="#1a1a1a">Виводи GPIO19 (D-), GPIO20 (D+)</text>
+  <text x="810" y="206" text-anchor="middle" font-size="12" fill="#6b7280">Апаратний USB Серіал/JTAG</text>
+
+  <!-- Sub-block 2: JTAG TAP Controller -->
+  <rect x="715" y="240" width="190" height="85" rx="4" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="810" y="263" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Контролер JTAG TAP</text>
+  <text x="810" y="283" text-anchor="middle" font-size="12" fill="#1a1a1a">Доступ до ядер Xtensa LX7</text>
+  <text x="810" y="301" text-anchor="middle" font-size="12" fill="#6b7280">Внутрішній зневаджувач</text>
+
+  <!-- Sub-block 3: ROM Bootloader State Machine -->
+  <rect x="715" y="340" width="190" height="105" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="810" y="363" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">ROM Bootloader</text>
+  <text x="810" y="383" text-anchor="middle" font-size="12" fill="#1a1a1a">Детектор GPIO0 при скиданні</text>
+  <text x="810" y="401" text-anchor="middle" font-size="12" fill="#6b7280">Download Mode (GPIO0=0)</text>
+  <text x="810" y="420" text-anchor="middle" font-size="12" fill="#6b7280">SPI Flash Boot (GPIO0=1)</text>
+
+  <!-- Bottom Legend / Banner -->
+  <rect x="40" y="480" width="880" height="30" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="55" y="499" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Перевага USB-S3:</text>
+  <text x="185" y="499" text-anchor="start" font-size="12" fill="#6b7280">Пряме підключення Type-C дає доступ до CDC-логів, прошивання esptool та JTAG-зневадження без зовнішніх конвертерів FT2232</text>
+</svg>

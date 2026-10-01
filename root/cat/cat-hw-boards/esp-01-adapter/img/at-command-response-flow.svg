@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 580" width="960" height="580" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="580" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Послідовність обміну AT-командами через UART</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Передача запиту з делімітерами \r\n та отримання відповіді від модуля ESP-01</text>
+
+  <!-- Lifeline Header 1: Terminal -->
+  <rect x="120" y="80" width="180" height="44" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="210" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ПК / Термінал</text>
+  <text x="210" y="115" font-size="12" fill="#6b7280" text-anchor="middle">Serial Port (UART)</text>
+
+  <!-- Lifeline Header 2: ESP-01 -->
+  <rect x="660" y="80" width="180" height="44" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="750" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Модуль ESP-01</text>
+  <text x="750" y="115" font-size="12" fill="#6b7280" text-anchor="middle">AT-інтерпретатор</text>
+
+  <!-- Vertical Lifelines -->
+  <line x1="210" y1="124" x2="210" y2="485" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="2"/>
+  <line x1="750" y1="124" x2="750" y2="485" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="2"/>
+
+  <!-- ==================== FLOW 1: SUCCESSFUL AT COMMAND ==================== -->
+  <!-- Arrow 1: Terminal -> ESP-01 -->
+  <line x1="210" y1="155" x2="742" y2="155" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="147" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Запит: AT-команда з делімітером</text>
+
+  <!-- Data Packet 1 Box -->
+  <rect x="320" y="165" width="320" height="42" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="335" y="190" font-size="12" font-weight="bold" fill="#1a1a1a">Байти:</text>
+  
+  <rect x="385" y="172" width="28" height="26" rx="4" fill="white" stroke="#2457d6"/>
+  <text x="399" y="189" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">A</text>
+  
+  <rect x="420" y="172" width="28" height="26" rx="4" fill="white" stroke="#2457d6"/>
+  <text x="434" y="189" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">T</text>
+  
+  <rect x="460" y="172" width="75" height="26" rx="4" fill="#2457d6" stroke="#2457d6"/>
+  <text x="497.5" y="189" font-size="12" font-weight="bold" fill="white" text-anchor="middle">\r (0x0D)</text>
+  
+  <rect x="542" y="172" width="75" height="26" rx="4" fill="#2457d6" stroke="#2457d6"/>
+  <text x="579.5" y="189" font-size="12" font-weight="bold" fill="white" text-anchor="middle">\n (0x0A)</text>
+
+  <!-- ESP-01 Activation & Note 1 -->
+  <rect x="744" y="155" width="12" height="95" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="768" y="165" width="172" height="60" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="778" y="184" font-size="12" font-weight="bold" fill="#1a1a1a">1. Прийом кадрів UART</text>
+  <text x="778" y="201" font-size="12" fill="#6b7280">2. Детекція \r\n</text>
+  <text x="778" y="217" font-size="12" fill="#6b7280">3. Виконання команди</text>
+
+  <!-- Arrow 2: ESP-01 -> Terminal -->
+  <line x1="744" y1="250" x2="218" y2="250" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="480" y="242" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Відповідь: Відлуння (Echo) + Результат OK</text>
+
+  <!-- Response Packet 1 Box -->
+  <rect x="280" y="260" width="400" height="42" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="292" y="285" font-size="12" font-weight="bold" fill="#1a1a1a">Потік:</text>
+  
+  <rect x="340" y="267" width="95" height="26" rx="4" fill="white" stroke="#27ae60"/>
+  <text x="387.5" y="284" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">AT\r\n (echo)</text>
+  
+  <rect x="442" y="267" width="55" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="469.5" y="284" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">\r\n</text>
+  
+  <rect x="504" y="267" width="95" height="26" rx="4" fill="#27ae60" stroke="#27ae60"/>
+  <text x="551.5" y="284" font-size="12" font-weight="bold" fill="white" text-anchor="middle">OK\r\n</text>
+
+  <rect x="606" y="267" width="64" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="638" y="284" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">УСПІХ</text>
+
+  <!-- ==================== FLOW 2: FAILED AT COMMAND ==================== -->
+  <!-- Arrow 3: Terminal -> ESP-01 -->
+  <line x1="210" y1="335" x2="742" y2="335" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="327" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Запит: Невідома або помилкова команда</text>
+
+  <!-- Data Packet 2 Box -->
+  <rect x="320" y="345" width="320" height="42" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="335" y="370" font-size="12" font-weight="bold" fill="#1a1a1a">Байти:</text>
+
+  <rect x="385" y="352" width="140" height="26" rx="4" fill="white" stroke="#2457d6"/>
+  <text x="455" y="369" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">AT+INVALID</text>
+
+  <rect x="532" y="352" width="95" height="26" rx="4" fill="#2457d6" stroke="#2457d6"/>
+  <text x="579.5" y="369" font-size="12" font-weight="bold" fill="white" text-anchor="middle">\r\n (0x0D0A)</text>
+
+  <!-- ESP-01 Activation & Note 2 -->
+  <rect x="744" y="335" width="12" height="95" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="768" y="345" width="172" height="60" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="778" y="364" font-size="12" font-weight="bold" fill="#c0392b">1. Синтаксичний аналіз</text>
+  <text x="778" y="381" font-size="12" fill="#6b7280">2. Команду не знайдено</text>
+  <text x="778" y="397" font-size="12" fill="#6b7280">3. Генерування ERROR</text>
+
+  <!-- Arrow 4: ESP-01 -> Terminal -->
+  <line x1="744" y1="430" x2="218" y2="430" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="480" y="422" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">4. Відповідь: Відлуння + Повідомлення про помилку ERROR</text>
+
+  <!-- Response Packet 2 Box -->
+  <rect x="260" y="440" width="440" height="42" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="272" y="465" font-size="12" font-weight="bold" fill="#1a1a1a">Потік:</text>
+
+  <rect x="320" y="447" width="135" height="26" rx="4" fill="white" stroke="#c0392b"/>
+  <text x="387.5" y="464" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">AT+INVALID\r\n</text>
+
+  <rect x="462" y="447" width="55" height="26" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="489.5" y="464" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">\r\n</text>
+
+  <rect x="524" y="447" width="105" height="26" rx="4" fill="#c0392b" stroke="#c0392b"/>
+  <text x="576.5" y="464" font-size="12" font-weight="bold" fill="white" text-anchor="middle">ERROR\r\n</text>
+
+  <rect x="636" y="447" width="56" height="26" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="664" y="464" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">ПОМИЛКА</text>
+
+  <!-- ==================== LEGEND / SUMMARY PANEL ==================== -->
+  <rect x="40" y="498" width="880" height="64" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="56" y="517" font-size="12" font-weight="bold" fill="#1a1a1a">Структура керуючих символів протоколу UART (ASCII):</text>
+
+  <!-- CR Badge & Text -->
+  <rect x="56" y="527" width="65" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="88.5" y="543" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">\r (CR)</text>
+  <text x="129" y="543" font-size="12" fill="#1a1a1a">0x0D (Carriage Return) — символ повернення каретки в кінці запиту</text>
+
+  <!-- LF Badge & Text -->
+  <rect x="580" y="527" width="65" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="612.5" y="543" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">\n (LF)</text>
+  <text x="653" y="543" font-size="12" fill="#1a1a1a">0x0A (Line Feed) — новий рядок</text>
+</svg>

@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розподіл DRAM під SSL/TLS буфери в ESP-AT при різних розмірах MFL</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Зменшення розміру фрагмента з 16 КБ до 2 КБ скорочує буферні витрати з 32 КБ до 4 КБ і запобігає вичерпанню кучі</text>
+
+  <!-- Panel 1: Unoptimized / No MFL -->
+  <rect x="40" y="90" width="420" height="375" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="56" y="108" width="388" height="32" rx="4" fill="#c0392b"/>
+  <text x="250" y="129" text-anchor="middle" fill="white" font-size="14" font-weight="bold">Без MFL (MFL = 16384 B / 16 КБ)</text>
+  <text x="56" y="162" fill="#1a1a1a" font-size="13">Повна ємність кадру TLS за замовчуванням</text>
+
+  <!-- DRAM Container Panel 1 -->
+  <rect x="56" y="180" width="388" height="190" fill="white" stroke="#d0d7de" rx="6"/>
+  <text x="70" y="202" font-size="13" font-weight="bold" fill="#1a1a1a">Зайнятість DRAM (Вільна куча ~50 КБ)</text>
+
+  <!-- Buffers Panel 1 -->
+  <rect x="70" y="215" width="360" height="45" fill="#fdecea" stroke="#c0392b" stroke-dasharray="4" rx="4"/>
+  <text x="85" y="242" font-size="13" font-weight="bold" fill="#c0392b">Вхідний буфер Rx SSL (16 КБ)</text>
+
+  <rect x="70" y="268" width="360" height="45" fill="#fdecea" stroke="#c0392b" stroke-dasharray="4" rx="4"/>
+  <text x="85" y="295" font-size="13" font-weight="bold" fill="#c0392b">Вихідний буфер Tx SSL (16 КБ)</text>
+
+  <rect x="70" y="321" width="180" height="35" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="80" y="343" font-size="12" fill="#2457d6">Ключі та контекст (8 КБ)</text>
+
+  <rect x="258" y="321" width="172" height="35" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="268" y="343" font-size="12" fill="#6b7280">Залишок (~10 КБ)</text>
+
+  <!-- Status Box Panel 1 -->
+  <rect x="56" y="382" width="388" height="68" fill="white" stroke="#c0392b" rx="6"/>
+  <text x="70" y="405" fill="#c0392b" font-size="13" font-weight="bold">Всього під SSL: ~40 КБ</text>
+  <text x="70" y="428" fill="#1a1a1a" font-size="12">Високий ризик Heap Exhaustion (Out of Memory / Crash)</text>
+  <text x="70" y="443" fill="#6b7280" font-size="11">Нестача пам'яті для паралельних сокетів чи утиліт</text>
+
+  <!-- Panel 2: Optimized / With MFL -->
+  <rect x="500" y="90" width="420" height="375" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="516" y="108" width="388" height="32" rx="4" fill="#27ae60"/>
+  <text x="710" y="129" text-anchor="middle" fill="white" font-size="14" font-weight="bold">З MFL (MFL = 2048 B / 2 КБ)</text>
+  <text x="516" y="162" fill="#1a1a1a" font-size="13">Динамічне обмеження розміру кадру SSL</text>
+
+  <!-- DRAM Container Panel 2 -->
+  <rect x="516" y="180" width="388" height="190" fill="white" stroke="#d0d7de" rx="6"/>
+  <text x="530" y="202" font-size="13" font-weight="bold" fill="#1a1a1a">Зайнятість DRAM (Вільна куча ~50 КБ)</text>
+
+  <!-- Buffers Panel 2 -->
+  <rect x="530" y="215" width="60" height="45" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="600" y="242" font-size="13" font-weight="bold" fill="#27ae60">Rx SSL (2 КБ)</text>
+
+  <rect x="530" y="268" width="60" height="45" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="600" y="295" font-size="13" font-weight="bold" fill="#27ae60">Tx SSL (2 КБ)</text>
+
+  <rect x="530" y="321" width="180" height="35" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="540" y="343" font-size="12" fill="#2457d6">Ключі та контекст (8 КБ)</text>
+
+  <!-- Free Heap Panel 2 -->
+  <rect x="718" y="215" width="172" height="141" fill="#e9f7ef" stroke="#27ae60" stroke-dasharray="3" rx="4"/>
+  <text x="804" y="275" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Вільна куча</text>
+  <text x="804" y="298" text-anchor="middle" font-size="15" font-weight="bold" fill="#27ae60">~38 КБ</text>
+
+  <!-- Status Box Panel 2 -->
+  <rect x="516" y="382" width="388" height="68" fill="white" stroke="#27ae60" rx="6"/>
+  <text x="530" y="405" fill="#27ae60" font-size="13" font-weight="bold">Всього під SSL: ~12 КБ</text>
+  <text x="530" y="428" fill="#1a1a1a" font-size="12">Стабільна робота, достатній запас пам'яті для додатка</text>
+  <text x="530" y="443" fill="#6b7280" font-size="11">Забезпечує стійкість з'єднання та підтримує кілька сесій</text>
+</svg>

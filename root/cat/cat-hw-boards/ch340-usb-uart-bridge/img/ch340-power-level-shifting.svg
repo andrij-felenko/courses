@@ -1,0 +1,197 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конфігурація живлення CH340 та узгодження рівнів UART</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">При 5 В V3 шунтується C_V3 на GND і потрібен дільник, а при 3.3 В — V3 з'єднується з VCC</text>
+
+  <!-- PANEL A: 5V Mode -->
+  <rect x="25" y="68" width="445" height="412" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="247.5" y="92" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Режим живлення 5 В (VCC = 5 В)</text>
+  <text x="247.5" y="111" font-size="12" fill="#6b7280" text-anchor="middle">Зовнішній дільник напруги для МК (3.3 В)</text>
+
+  <!-- CH340 Box (Panel A) -->
+  <rect x="45" y="130" width="135" height="260" fill="#ffffff" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <path d="M 45,136 A 6,6 0 0 1 51,130 L 174,130 A 6,6 0 0 1 180,136 L 180,158 L 45,158 Z" fill="#eaf0fd"/>
+  <text x="112.5" y="150" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">CH340G / CH340C</text>
+
+  <!-- Pin Labels Inside CH340 (Panel A) -->
+  <text x="170" y="179" font-size="12" fill="#1a1a1a" text-anchor="end">VCC</text>
+  <text x="170" y="224" font-size="12" fill="#1a1a1a" text-anchor="end">V3</text>
+  <rect x="52" y="238" width="121" height="22" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="112.5" y="253" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">V3: C_V3 на GND</text>
+  <text x="170" y="289" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="end">TXD</text>
+  <text x="170" y="349" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="end">RXD</text>
+  <text x="112.5" y="377" font-size="12" fill="#1a1a1a" text-anchor="middle">GND</text>
+
+  <!-- Pin Extension Wires (Panel A CH340) -->
+  <line x1="180" y1="175" x2="195" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="180" y1="220" x2="245" y2="220" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="180" y1="285" x2="195" y2="285" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="180" y1="345" x2="325" y2="345" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Power Rail 5V (Panel A) -->
+  <line x1="195" y1="175" x2="195" y2="168" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="195" y1="168" x2="335" y2="168" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="200" y="164" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">+5 В</text>
+
+  <!-- Capacitor C1 on 5V Rail (Panel A) -->
+  <line x1="215" y1="168" x2="215" y2="185" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="209" y1="185" x2="221" y2="185" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="209" y1="191" x2="221" y2="191" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="215" y1="191" x2="215" y2="202" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="209" y1="202" x2="221" y2="202" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="212" y1="205" x2="218" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="214" y1="208" x2="216" y2="208" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="225" y="191" font-size="12" fill="#6b7280" text-anchor="start">0.1 мкФ</text>
+
+  <!-- Capacitor C_V3 (Panel A) -->
+  <line x1="245" y1="220" x2="245" y2="235" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="239" y1="235" x2="251" y2="235" stroke="#27ae60" stroke-width="2"/>
+  <line x1="239" y1="241" x2="251" y2="241" stroke="#27ae60" stroke-width="2"/>
+  <line x1="245" y1="241" x2="245" y2="252" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="239" y1="252" x2="251" y2="252" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="242" y1="255" x2="248" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="244" y1="258" x2="246" y2="258" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="256" y="236" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="start">C_V3 (100 нФ)</text>
+  <text x="256" y="250" font-size="12" fill="#6b7280" text-anchor="start">LDO 3.3 В (вихід)</text>
+
+  <!-- Voltage Divider R1 / R2 (Panel A) -->
+  <rect x="195" y="279" width="40" height="12" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="2"/>
+  <text x="215" y="274" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R1 (1 кОм)</text>
+  <line x1="235" y1="285" x2="265" y2="285" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="265" cy="285" r="3" fill="#1a1a1a"/>
+  <line x1="265" y1="285" x2="325" y2="285" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="295" y="278" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3.33 В</text>
+
+  <!-- R2 Resistor to GND (Panel A) -->
+  <line x1="265" y1="285" x2="265" y2="298" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="259" y="298" width="12" height="32" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="2"/>
+  <text x="277" y="318" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">R2 (2 кОм)</text>
+  <line x1="265" y1="330" x2="265" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="259" y1="340" x2="271" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="262" y1="343" x2="268" y2="343" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="264" y1="346" x2="266" y2="346" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- RXD Line Annotation (Panel A) -->
+  <text x="252.5" y="362" font-size="12" fill="#2457d6" text-anchor="middle">3.3 В TX (вхід CH340 розпізнає як HIGH)</text>
+
+  <!-- CH340 GND Connection (Panel A) -->
+  <line x1="112.5" y1="390" x2="112.5" y2="398" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="104" y1="398" x2="121" y2="398" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="107" y1="401" x2="118" y2="401" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="110" y1="404" x2="115" y2="404" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- MCU Box (Panel A) -->
+  <rect x="325" y="130" width="125" height="260" fill="#ffffff" stroke="#1a1a1a" stroke-width="2" rx="6"/>
+  <path d="M 325,136 A 6,6 0 0 1 331,130 L 444,130 A 6,6 0 0 1 450,136 L 450,158 L 325,158 Z" fill="#f4f6f8"/>
+  <text x="387.5" y="150" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">МК (ESP / STM)</text>
+  <text x="335" y="179" font-size="12" fill="#1a1a1a" text-anchor="start">VCC (3.3В)</text>
+  <text x="335" y="289" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="start">RXD</text>
+  <text x="335" y="349" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="start">TXD</text>
+  <text x="387.5" y="377" font-size="12" fill="#1a1a1a" text-anchor="middle">GND</text>
+
+  <!-- MCU GND Connection (Panel A) -->
+  <line x1="387.5" y1="390" x2="387.5" y2="398" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="379" y1="398" x2="396" y2="398" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="382" y1="401" x2="393" y2="401" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="385" y1="404" x2="390" y2="404" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Panel A Summary Box -->
+  <rect x="35" y="405" width="425" height="63" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="247.5" y="422" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Особливості живлення 5 В:</text>
+  <text x="247.5" y="440" font-size="12" fill="#1a1a1a" text-anchor="middle">1. V3 видає 3.3 В від LDO — потрібен шунтувальний C_V3 (0.1 мкФ) на GND.</text>
+  <text x="247.5" y="458" font-size="12" fill="#1a1a1a" text-anchor="middle">2. Дільник R1/R2 (1 кОм / 2 кОм) знижує 5 В TXD до безпечних 3.33 В.</text>
+
+  <!-- PANEL B: 3.3V Mode -->
+  <rect x="490" y="68" width="445" height="412" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="712.5" y="92" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Режим живлення 3.3 В (VCC = 3.3 В)</text>
+  <text x="712.5" y="111" font-size="12" fill="#6b7280" text-anchor="middle">Пряме підключення ліній UART до МК (3.3 В)</text>
+
+  <!-- CH340 Box (Panel B) -->
+  <rect x="510" y="130" width="135" height="260" fill="#ffffff" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <path d="M 510,136 A 6,6 0 0 1 516,130 L 639,130 A 6,6 0 0 1 645,136 L 645,158 L 510,158 Z" fill="#eaf0fd"/>
+  <text x="577.5" y="150" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">CH340G / CH340C</text>
+
+  <!-- Pin Labels Inside CH340 (Panel B) -->
+  <text x="635" y="179" font-size="12" fill="#1a1a1a" text-anchor="end">VCC</text>
+  <text x="635" y="224" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="end">V3</text>
+  <rect x="517" y="238" width="121" height="22" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="577.5" y="253" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">V3 замкнено на VCC</text>
+  <text x="635" y="289" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="end">TXD</text>
+  <text x="635" y="349" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="end">RXD</text>
+  <text x="577.5" y="377" font-size="12" fill="#1a1a1a" text-anchor="middle">GND</text>
+
+  <!-- Pin Wires (Panel B CH340) -->
+  <line x1="645" y1="175" x2="665" y2="175" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="645" y1="220" x2="665" y2="220" stroke="#27ae60" stroke-width="2"/>
+  <line x1="665" y1="175" x2="665" y2="220" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="665" cy="175" r="3" fill="#27ae60"/>
+  <circle cx="665" cy="220" r="3" fill="#27ae60"/>
+
+  <!-- Power Rail 3.3V (Panel B) -->
+  <line x1="665" y1="175" x2="665" y2="168" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="665" y1="168" x2="790" y2="168" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="670" y="164" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">+3.3 В (загальне живлення)</text>
+
+  <!-- Capacitor C1 on 3.3V Rail (Panel B) -->
+  <line x1="695" y1="168" x2="695" y2="185" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="689" y1="185" x2="701" y2="185" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="689" y1="191" x2="701" y2="191" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="695" y1="191" x2="695" y2="202" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="689" y1="202" x2="701" y2="202" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="692" y1="205" x2="698" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="694" y1="208" x2="696" y2="208" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="705" y="191" font-size="12" fill="#6b7280" text-anchor="start">0.1 мкФ</text>
+
+  <!-- Badge near V3 short connection (Panel B) -->
+  <rect x="675" y="212" width="105" height="22" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="727.5" y="227" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V3 = VCC = 3.3 В</text>
+
+  <!-- Direct UART Wires (Panel B) -->
+  <line x1="645" y1="285" x2="790" y2="285" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="717.5" y="278" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Пряма лінія 3.3 В (TXD → RXD)</text>
+
+  <line x1="790" y1="345" x2="645" y2="345" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="717.5" y="362" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Пряма лінія 3.3 В (TXD → RXD)</text>
+
+  <!-- CH340 GND Connection (Panel B) -->
+  <line x1="577.5" y1="390" x2="577.5" y2="398" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="569" y1="398" x2="586" y2="398" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="572" y1="401" x2="583" y2="401" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="575" y1="404" x2="580" y2="404" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- MCU Box (Panel B) -->
+  <rect x="790" y="130" width="125" height="260" fill="#ffffff" stroke="#1a1a1a" stroke-width="2" rx="6"/>
+  <path d="M 790,136 A 6,6 0 0 1 796,130 L 909,130 A 6,6 0 0 1 915,136 L 915,158 L 790,158 Z" fill="#f4f6f8"/>
+  <text x="852.5" y="150" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">МК (ESP / STM)</text>
+  <text x="800" y="179" font-size="12" fill="#1a1a1a" text-anchor="start">VCC (3.3В)</text>
+  <text x="800" y="289" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="start">RXD</text>
+  <text x="800" y="349" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="start">TXD</text>
+  <text x="852.5" y="377" font-size="12" fill="#1a1a1a" text-anchor="middle">GND</text>
+
+  <!-- MCU GND Connection (Panel B) -->
+  <line x1="852.5" y1="390" x2="852.5" y2="398" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="844" y1="398" x2="861" y2="398" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="847" y1="401" x2="858" y2="401" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="850" y1="404" x2="855" y2="404" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Panel B Summary Box -->
+  <rect x="500" y="405" width="425" height="63" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="712.5" y="422" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Особливості живлення 3.3 В:</text>
+  <text x="712.5" y="440" font-size="12" fill="#1a1a1a" text-anchor="middle">1. Вивід V3 обов'язково з'єднується з зовнішньою шиною VCC (3.3 В).</text>
+  <text x="712.5" y="458" font-size="12" fill="#1a1a1a" text-anchor="middle">2. Узгодження рівнів не потрібне — сигнали вже мають рівень 3.3 В.</text>
+</svg>

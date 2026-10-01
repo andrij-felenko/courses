@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема станів і сигналів завантажувача WeAct Mini Debugger</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Перехід між робочим режимом та USB DFU за допомогою сигналів BOOT0 і NRST</text>
+
+  <!-- Card 1: Normal Firmware Mode -->
+  <rect x="50" y="90" width="250" height="160" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <path d="M50 98 a8 8 0 0 1 8 -8 h234 a8 8 0 0 1 8 8 v26 h-250 z" fill="#27ae60"/>
+  <text x="175" y="112" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">1. Робочий режим</text>
+  <text x="65" y="145" font-size="12" fill="#1a1a1a">BOOT0 = 0 (підтяжка до GND)</text>
+  <text x="65" y="167" font-size="12" fill="#1a1a1a">Пам'ять: Main Flash</text>
+  <text x="65" y="189" font-size="12" fill="#1a1a1a">USB: DAPLink / ST-Link</text>
+  <rect x="65" y="208" width="220" height="30" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="175" y="227" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Виконання прошивки</text>
+
+  <!-- Card 2: Reset & Selection State -->
+  <rect x="355" y="90" width="250" height="160" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M355 98 a8 8 0 0 1 8 -8 h234 a8 8 0 0 1 8 8 v26 h-250 z" fill="#2457d6"/>
+  <text x="480" y="112" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">2. Скидання та вибір</text>
+  <text x="370" y="145" font-size="12" fill="#1a1a1a">BOOT0 = 1 (натиснута кнопка)</text>
+  <text x="370" y="167" font-size="12" fill="#1a1a1a">NRST: 0 → 1 (фронт скидання)</text>
+  <text x="370" y="189" font-size="12" fill="#1a1a1a">Фіксація стану BOOT0</text>
+  <rect x="370" y="208" width="220" height="30" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="227" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Зчитування логіки Boot</text>
+
+  <!-- Card 3: USB DFU Mode -->
+  <rect x="660" y="90" width="250" height="160" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M660 98 a8 8 0 0 1 8 -8 h234 a8 8 0 0 1 8 8 v26 h-250 z" fill="#2457d6"/>
+  <text x="785" y="112" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">3. Режим USB DFU</text>
+  <text x="675" y="145" font-size="12" fill="#1a1a1a">BOOT0 = 1 (вхід у Bootloader)</text>
+  <text x="675" y="167" font-size="12" fill="#1a1a1a">Пам'ять: System Memory ROM</text>
+  <text x="675" y="189" font-size="12" fill="#1a1a1a">USB: STM32 Bootloader DFU</text>
+  <rect x="675" y="208" width="220" height="30" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="785" y="227" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Готовий до оновлення</text>
+
+  <!-- Transitions between cards -->
+  <!-- 1 -> 2 -->
+  <line x1="300" y1="145" x2="347" y2="145" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-main)"/>
+  <text x="323.5" y="130" text-anchor="middle" font-size="12" fill="#1a1a1a">BOOT0=1</text>
+  <text x="323.5" y="163" text-anchor="middle" font-size="12" fill="#6b7280">+ NRST</text>
+
+  <!-- 2 -> 3 -->
+  <line x1="605" y1="145" x2="652" y2="145" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="628.5" y="130" text-anchor="middle" font-size="12" fill="#2457d6">NRST ↑</text>
+  <text x="628.5" y="163" text-anchor="middle" font-size="12" fill="#6b7280">BOOT0=1</text>
+
+  <!-- Return Path: 3 -> 1 -->
+  <path d="M 785 250 v 32 H 630" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <rect x="330" y="271" width="300" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="286" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Запис прошивки + Скидання NRST (BOOT0 = 0)</text>
+  <path d="M 330 282 H 175 v -24" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Bottom Panel: Signal Timing Diagram -->
+  <rect x="50" y="305" width="860" height="215" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="70" y="328" font-size="14" font-weight="bold" fill="#1a1a1a">Послідовність апаратних сигналів під час переходу в DFU</text>
+
+  <!-- Vertical Phase Separators -->
+  <line x1="410" y1="335" x2="410" y2="505" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="650" y1="335" x2="650" y2="505" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Phase Titles -->
+  <text x="320" y="345" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Фаза 1: Нормальний старт</text>
+  <text x="530" y="345" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Фаза 2: Скидання з BOOT0=1</text>
+  <text x="760" y="345" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Фаза 3: Вхід у DFU</text>
+
+  <!-- Row 1: BOOT0 -->
+  <text x="70" y="378" font-size="12" font-weight="bold" fill="#1a1a1a">Сигнал BOOT0</text>
+  <text x="70" y="393" font-size="12" fill="#6b7280">(Апаратна кнопка)</text>
+
+  <path d="M 230 392 L 370 392 L 385 368 L 690 368 L 705 392 L 870 392" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="300" y="386" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">0 (GND)</text>
+  <text x="530" y="360" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1 (3.3V — Кнопка утримується)</text>
+  <text x="790" y="386" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">0 (Відпущено)</text>
+
+  <!-- Row 2: NRST -->
+  <text x="70" y="433" font-size="12" font-weight="bold" fill="#1a1a1a">Сигнал NRST</text>
+  <text x="70" y="448" font-size="12" fill="#6b7280">(Лінія Reset)</text>
+
+  <path d="M 230 422 L 440 422 L 450 452 L 580 452 L 595 422 L 870 422" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="515" y="444" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Імпульс скидання (0V)</text>
+
+  <!-- Sampling point indicator at Rising Edge -->
+  <line x1="595" y1="368" x2="595" y2="422" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <circle cx="595" cy="422" r="4" fill="#27ae60"/>
+  <rect x="435" y="398" width="150" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="440" y="412" font-size="12" font-weight="bold" fill="#27ae60">Замір BOOT0 (Sample)</text>
+
+  <!-- Row 3: MCU Execution State -->
+  <text x="70" y="493" font-size="12" font-weight="bold" fill="#1a1a1a">Режим МК</text>
+
+  <rect x="230" y="478" width="170" height="24" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="315" y="494" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Main Flash (Прошивка)</text>
+
+  <rect x="420" y="478" width="220" height="24" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="530" y="494" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Reset / Ініціалізація Bootloader</text>
+
+  <rect x="660" y="478" width="210" height="24" rx="3" fill="#e9f7ef" stroke="#2457d6" stroke-width="1"/>
+  <text x="765" y="494" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">System Memory (USB DFU Mode)</text>
+</svg>

@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма сигналів шини DVP (OV3640)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Синхронізація захоплення кадру: VSYNC задає кадр, HREF — рядок, PCLK — окремі піксельні байти</text>
+
+  <!-- Головна панель -->
+  <rect x="30" y="68" width="900" height="452" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Ліва колонка підписів сигналів -->
+  <rect x="42" y="80" width="130" height="342" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Сигнал 1: VSYNC -->
+  <text x="52" y="112" font-size="14" font-weight="bold" fill="#2457d6">VSYNC</text>
+  <text x="52" y="128" font-size="12" fill="#6b7280">Синхр. кадру</text>
+
+  <!-- Сигнал 2: HREF -->
+  <text x="52" y="196" font-size="14" font-weight="bold" fill="#27ae60">HREF</text>
+  <text x="52" y="212" font-size="12" fill="#6b7280">Синхр. рядка</text>
+
+  <!-- Сигнал 3: PCLK -->
+  <text x="52" y="280" font-size="14" font-weight="bold" fill="#1a1a1a">PCLK</text>
+  <text x="52" y="296" font-size="12" fill="#6b7280">Тактування</text>
+
+  <!-- Сигнал 4: D[7:0] -->
+  <text x="52" y="364" font-size="14" font-weight="bold" fill="#1a1a1a">D[7:0]</text>
+  <text x="52" y="380" font-size="12" fill="#6b7280">Шина даних</text>
+
+  <!-- Полотно часових діаграм -->
+  <rect x="180" y="80" width="738" height="342" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Вертикальні лінії синхронізації -->
+  <line x1="210" y1="85" x2="210" y2="415" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,4" opacity="0.6"/>
+  <line x1="270" y1="85" x2="270" y2="415" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,4" opacity="0.6"/>
+  <line x1="290" y1="85" x2="290" y2="415" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.7"/>
+  <line x1="560" y1="85" x2="560" y2="415" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.7"/>
+  <line x1="630" y1="85" x2="630" y2="415" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.7"/>
+
+  <!-- СИГНАЛ 1: VSYNC -->
+  <rect x="210" y="102" width="60" height="33" fill="#eaf0fd" opacity="0.7" rx="2"/>
+  <path d="M 190 135 L 210 135 L 210 102 L 270 102 L 270 135 L 905 135" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-linejoin="round"/>
+  <text x="240" y="96" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">VSYNC імпульс</text>
+
+  <!-- СИГНАЛ 2: HREF -->
+  <rect x="290" y="186" width="270" height="33" fill="#e9f7ef" opacity="0.7" rx="2"/>
+  <rect x="630" y="186" width="270" height="33" fill="#e9f7ef" opacity="0.7" rx="2"/>
+  <path d="M 190 219 L 290 219 L 290 186 L 560 186 L 560 219 L 630 219 L 630 186 L 900 186 L 900 219 L 905 219" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-linejoin="round"/>
+  <text x="425" y="180" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Рядок N (Активні пікселі)</text>
+  <text x="765" y="180" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Рядок N+1</text>
+  <text x="595" y="233" font-size="12" fill="#6b7280" text-anchor="middle">Пауза між рядками</text>
+
+  <!-- СИГНАЛ 3: PCLK -->
+  <path d="M 190 303 L 200 303 L 200 270 L 215 270 L 215 303 L 230 303 L 230 270 L 245 270 L 245 303 L 260 303 L 260 270 L 275 270 L 275 303 L 290 303 L 290 270 L 305 270 L 305 303 L 320 303 L 320 270 L 335 270 L 335 303 L 350 303 L 350 270 L 365 270 L 365 303 L 380 303 L 380 270 L 395 270 L 395 303 L 410 303 L 410 270 L 425 270 L 425 303 L 440 303 L 440 270 L 455 270 L 455 303 L 470 303 L 470 270 L 485 270 L 485 303 L 500 303 L 500 270 L 515 270 L 515 303 L 530 303 L 530 270 L 545 270 L 545 303 L 560 303 L 560 270 L 575 270 L 575 303 L 590 303 L 590 270 L 605 270 L 605 303 L 620 303 L 620 270 L 635 270 L 635 303 L 650 303 L 650 270 L 665 270 L 665 303 L 680 303 L 680 270 L 695 270 L 695 303 L 710 303 L 710 270 L 725 270 L 725 303 L 740 303 L 740 270 L 755 270 L 755 303 L 770 303 L 770 270 L 785 270 L 785 303 L 800 303 L 800 270 L 815 270 L 815 303 L 830 303 L 830 270 L 845 270 L 845 303 L 860 303 L 860 270 L 875 270 L 875 303 L 890 303 L 890 270 L 905 270" fill="none" stroke="#1a1a1a" stroke-width="1.8" stroke-linejoin="square"/>
+  <text x="425" y="264" font-size="12" fill="#6b7280" text-anchor="middle">Тактовий сигнал PCLK (безперервний)</text>
+
+  <!-- Стрілочки фіксації даних на спаді PCLK -->
+  <path d="M 320 280 L 320 293 M 317 289 L 320 293 L 323 289" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+  <path d="M 350 280 L 350 293 M 347 289 L 350 293 L 353 289" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+  <path d="M 380 280 L 380 293 M 377 289 L 380 293 L 383 289" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+  <path d="M 410 280 L 410 293 M 407 289 L 410 293 L 413 289" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+  <path d="M 440 280 L 440 293 M 437 289 L 440 293 L 443 289" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+  <path d="M 470 280 L 470 293 M 467 289 L 470 293 L 473 289" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+  <path d="M 500 280 L 500 293 M 497 289 L 500 293 L 503 289" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+  <path d="M 530 280 L 530 293 M 527 289 L 530 293 L 533 289" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+
+  <!-- СИГНАЛ 4: D[7:0] Шина даних -->
+  <line x1="190" y1="372" x2="290" y2="372" stroke="#d0d7de" stroke-width="2"/>
+  <text x="240" y="364" font-size="12" fill="#6b7280" text-anchor="middle">Пауза</text>
+
+  <line x1="560" y1="372" x2="630" y2="372" stroke="#d0d7de" stroke-width="2"/>
+  <text x="595" y="364" font-size="12" fill="#6b7280" text-anchor="middle">Пауза</text>
+
+  <!-- Блоки байтів даних рядка N -->
+  <polygon points="293,357 317,357 323,372 317,387 293,387 287,372" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="305" y="376" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Y0</text>
+
+  <polygon points="323,357 347,357 353,372 347,387 323,387 317,372" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="335" y="376" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">U0</text>
+
+  <polygon points="353,357 377,357 383,372 377,387 353,387 347,372" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="365" y="376" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Y1</text>
+
+  <polygon points="383,357 407,357 413,372 407,387 383,387 377,372" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="395" y="376" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V0</text>
+
+  <polygon points="413,357 437,357 443,372 437,387 413,387 407,372" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="425" y="376" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Y2</text>
+
+  <polygon points="443,357 467,357 473,372 467,387 443,387 437,372" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="455" y="376" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">U1</text>
+
+  <polygon points="473,357 497,357 503,372 497,387 473,387 467,372" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="485" y="376" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Y3</text>
+
+  <polygon points="503,357 527,357 533,372 527,387 503,387 497,372" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="515" y="376" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V1</text>
+
+  <polygon points="533,357 554,357 560,372 554,387 533,387 527,372" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="543" y="376" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">...</text>
+
+  <!-- Блоки байтів даних рядка N+1 -->
+  <polygon points="633,357 657,357 663,372 657,387 633,387 627,372" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="645" y="376" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Y0</text>
+
+  <polygon points="663,357 687,357 693,372 687,387 663,387 657,372" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="675" y="376" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">U0</text>
+
+  <polygon points="693,357 717,357 723,372 717,387 693,387 687,372" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="705" y="376" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Y1</text>
+
+  <polygon points="723,357 747,357 753,372 747,387 723,387 717,372" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="735" y="376" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V0</text>
+
+  <polygon points="753,357 777,357 783,372 777,387 753,387 747,372" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="765" y="376" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Y2</text>
+
+  <polygon points="783,357 807,357 813,372 807,387 783,387 777,372" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="795" y="376" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">U1</text>
+
+  <polygon points="813,357 837,357 843,372 837,387 813,387 807,372" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="825" y="376" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Y3</text>
+
+  <polygon points="843,357 867,357 873,372 867,387 843,387 837,372" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="855" y="376" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V1</text>
+
+  <polygon points="873,357 894,357 900,372 894,387 873,387 867,372" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="883" y="376" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">...</text>
+
+  <!-- Нижні описові картки -->
+  <!-- Картка 1 -->
+  <rect x="42" y="435" width="275" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="455" font-size="13" font-weight="bold" fill="#2457d6">1. Кадрова синхронізація VSYNC</text>
+  <text x="55" y="473" font-size="12" fill="#1a1a1a">Високий рівень задає початок кадру.</text>
+  <text x="55" y="490" font-size="12" fill="#6b7280">Скидання адреси буфера в PSRAM</text>
+
+  <!-- Картка 2 -->
+  <rect x="342" y="435" width="275" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="355" y="455" font-size="13" font-weight="bold" fill="#27ae60">2. Рядкова синхронізація HREF</text>
+  <text x="355" y="473" font-size="12" fill="#1a1a1a">Високий рівень — передача рядка.</text>
+  <text x="355" y="490" font-size="12" fill="#6b7280">Низький рівень — пауза між рядками</text>
+
+  <!-- Картка 3 -->
+  <rect x="642" y="435" width="275" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="655" y="455" font-size="13" font-weight="bold" fill="#1a1a1a">3. Фіксація даних PCLK / D[7:0]</text>
+  <text x="655" y="473" font-size="12" fill="#1a1a1a">Байт зчитується на спаді PCLK.</text>
+  <text x="655" y="490" font-size="12" fill="#6b7280">Формат YUV/RGB: 2 байти на піксель</text>
+</svg>

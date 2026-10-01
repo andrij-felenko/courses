@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Фізична розмітка Flash-пам'яті та її відображення через MMU-кеш в IROM</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Принцип виконання коду на місці (XIP) через 32 KB IROM кеш-контролер процесора Xtensa LX106</text>
+
+  <!-- Left Column: Physical SPI Flash -->
+  <rect x="40" y="90" width="240" height="390" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="160" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Фізична SPI Flash</text>
+  <text x="160" y="133" text-anchor="middle" font-size="12" fill="#6b7280">(Зсуви у флеш-пам'яті)</text>
+
+  <!-- Flash Block 1: Header/IRAM/DRAM -->
+  <rect x="55" y="150" width="210" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="160" y="170" text-anchor="middle" font-size="12" fill="#1a1a1a">0x00000: Boot &amp; Header</text>
+  <text x="160" y="186" text-anchor="middle" font-size="12" fill="#6b7280">(IRAM/DRAM секції)</text>
+
+  <!-- Flash Block 2: irom0.text -->
+  <rect x="55" y="205" width="210" height="145" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="160" y="230" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">0x10000: irom0.text</text>
+  <text x="160" y="252" text-anchor="middle" font-size="12" fill="#1a1a1a">Основний код прошивки</text>
+  <text x="160" y="272" text-anchor="middle" font-size="12" fill="#6b7280">(Функції та константи)</text>
+  <text x="160" y="296" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Сторінки по 64 KB</text>
+  <text x="160" y="316" text-anchor="middle" font-size="12" fill="#2457d6">Поклітинний XIP-доступ</text>
+
+  <!-- Flash Block 3: User Data / OTA -->
+  <rect x="55" y="360" width="210" height="50" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="160" y="382" text-anchor="middle" font-size="12" fill="#1a1a1a">0x90000: Дані / OTA / FS</text>
+  <text x="160" y="398" text-anchor="middle" font-size="12" fill="#6b7280">(Користувацька зона)</text>
+
+  <!-- Flash Block 4: System Params -->
+  <rect x="55" y="420" width="210" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="160" y="440" text-anchor="middle" font-size="12" fill="#1a1a1a">0xFC000: System Params</text>
+  <text x="160" y="456" text-anchor="middle" font-size="12" fill="#6b7280">(RF calibration / WiFi config)</text>
+
+  <!-- Middle Column: MMU & Cache Controller -->
+  <rect x="330" y="90" width="300" height="390" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Кеш-контролер MMU</text>
+  <text x="480" y="133" text-anchor="middle" font-size="12" fill="#6b7280">(Апаратне мапування Flash -&gt; CPU)</text>
+
+  <!-- MMU Page Tables -->
+  <rect x="350" y="150" width="260" height="75" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="172" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Таблиця сторінок MMU (1 MB)</text>
+  <text x="480" y="192" text-anchor="middle" font-size="12" fill="#1a1a1a">16 сторінок × 64 KB блоків</text>
+  <text x="480" y="210" text-anchor="middle" font-size="12" fill="#6b7280">Трансляція: Flash -&gt; Virtual</text>
+
+  <!-- 32 KB IROM Cache -->
+  <rect x="350" y="240" width="260" height="110" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="480" y="265" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Апаратний IROM-кеш (32 KB)</text>
+  <text x="480" y="287" text-anchor="middle" font-size="12" fill="#1a1a1a">Кеш-лінії по 16/32 байти</text>
+  <text x="480" y="307" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Hit: 1 такт CPU (без затримок)</text>
+  <text x="480" y="327" text-anchor="middle" font-size="12" fill="#6b7280">Miss: Авто-підтяжка з SPI Flash</text>
+
+  <!-- XIP Engine -->
+  <rect x="350" y="365" width="260" height="100" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="387" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Контролер прямого виконання XIP</text>
+  <text x="480" y="407" text-anchor="middle" font-size="12" fill="#1a1a1a">Прозора розпаковка коду в режимі</text>
+  <text x="480" y="425" text-anchor="middle" font-size="12" fill="#1a1a1a">реального часу під час викликів</text>
+  <text x="480" y="445" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ICACHE_FLASH_ATTR</text>
+
+  <!-- Right Column: Virtual CPU Address Space -->
+  <rect x="680" y="90" width="240" height="390" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="800" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Адресний простір CPU</text>
+  <text x="800" y="133" text-anchor="middle" font-size="12" fill="#6b7280">(Віртуальна пам'ять Xtensa)</text>
+
+  <!-- Virtual Block 1: ROM Code -->
+  <rect x="695" y="150" width="210" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="800" y="170" text-anchor="middle" font-size="12" fill="#1a1a1a">0x40000000: ROM Code</text>
+  <text x="800" y="186" text-anchor="middle" font-size="12" fill="#6b7280">(Масочне ПЗУ завантажувача)</text>
+
+  <!-- Virtual Block 2: IRAM -->
+  <rect x="695" y="205" width="210" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="800" y="225" text-anchor="middle" font-size="12" fill="#1a1a1a">0x40100000: IRAM (32 KB)</text>
+  <text x="800" y="241" text-anchor="middle" font-size="12" fill="#6b7280">(Швидкі ISR та гарячий код)</text>
+
+  <!-- Virtual Block 3: irom0_0_text -->
+  <rect x="695" y="260" width="210" height="155" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="800" y="285" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">0x40200000: irom0_0_text</text>
+  <text x="800" y="307" text-anchor="middle" font-size="12" fill="#1a1a1a">Віртуальне вікно IROM</text>
+  <text x="800" y="325" text-anchor="middle" font-size="12" fill="#6b7280">(Обсяг до 1 MB Flash)</text>
+  <text x="800" y="350" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Безпосереднє виконання</text>
+  <text x="800" y="370" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">коду з кешу (XIP)</text>
+  <text x="800" y="390" text-anchor="middle" font-size="12" fill="#6b7280">без завантаження в IRAM</text>
+
+  <!-- Virtual Block 4: DRAM -->
+  <rect x="695" y="425" width="210" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="800" y="445" text-anchor="middle" font-size="12" fill="#1a1a1a">0x3FFE8000: DRAM</text>
+  <text x="800" y="461" text-anchor="middle" font-size="12" fill="#6b7280">(Оперативні дані та стек)</text>
+
+  <!-- Connecting Arrows -->
+  <!-- Arrow 1: SPI Flash -> MMU Cache -->
+  <line x1="265" y1="277" x2="348" y2="277" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr-blue)"/>
+  <text x="307" y="269" text-anchor="middle" font-size="12" fill="#2457d6">SPI Read</text>
+
+  <!-- Arrow 2: MMU Cache -> CPU Space -->
+  <line x1="610" y1="295" x2="693" y2="337" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="652" y="307" text-anchor="middle" font-size="12" fill="#27ae60">XIP Map</text>
+
+  <!-- Bottom Summary Note -->
+  <rect x="40" y="495" width="880" height="30" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="515" text-anchor="middle" font-size="12" fill="#1a1a1a">Механізм XIP підтягує сторінки коду 64 KB у 32 KB IROM-кеш через MMU, звільняючи оперативну пам'ять IRAM.</text>
+</svg>

@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема розподілу напруг та LDO-регуляторів плати ESP32-CAM</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Формування 3.3 В, 2.8 В та 1.2 В для роздільного живлення чипа, PSRAM та доменів OV2640</text>
+
+  <!-- COLUMN 1: 5V Input -->
+  <rect x="30" y="85" width="160" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="42" y="98" width="136" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="110" y="118" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Джерело 5В</text>
+
+  <rect x="42" y="145" width="136" height="85" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="110" y="170" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Вхід 5V / VEXT</text>
+  <text x="110" y="190" text-anchor="middle" font-size="11" fill="#6b7280">Вхідний струм</text>
+  <text x="110" y="208" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">до 500 мА (пік)</text>
+
+  <rect x="42" y="245" width="136" height="175" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="52" y="268" font-size="11" font-weight="bold" fill="#1a1a1a">Фільтрація входу:</text>
+  <text x="52" y="290" font-size="11" fill="#6b7280">• Електроліт 100 мкФ</text>
+  <text x="52" y="308" font-size="11" fill="#6b7280">• Кераміка 0.1 мкФ</text>
+  <text x="52" y="335" font-size="11" font-weight="bold" fill="#c0392b">Захист від просідань:</text>
+  <text x="52" y="355" font-size="11" fill="#6b7280">Компенсація імпульсів</text>
+  <text x="52" y="373" font-size="11" fill="#6b7280">передачі Wi-Fi та</text>
+  <text x="52" y="391" font-size="11" fill="#6b7280">увімкнення спалаху</text>
+
+  <!-- COLUMN 2: Main 3.3V LDO & Systems -->
+  <rect x="215" y="85" width="330" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="227" y="98" width="306" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="380" y="118" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Основна шина 3.3 В</text>
+
+  <rect x="227" y="145" width="306" height="75" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="380" y="168" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Стабілізатор LDO 3.3V</text>
+  <text x="380" y="187" text-anchor="middle" font-size="11" fill="#6b7280">AMS1117 / ME6211 (max 800 мА)</text>
+  <text x="380" y="204" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Вихідна шина: 3.3 В (VCC)</text>
+
+  <rect x="227" y="235" width="306" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="380" y="257" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Цифрове ядро та пам'ять</text>
+  <text x="380" y="276" text-anchor="middle" font-size="11" fill="#1a1a1a">• ESP32 SoC + 4 МБ PSRAM</text>
+  <text x="380" y="293" text-anchor="middle" font-size="11" fill="#1a1a1a">• SPI Flash + слот MicroSD</text>
+
+  <rect x="227" y="325" width="306" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="240" y="348" font-size="12" font-weight="bold" fill="#1a1a1a">Канал живлення LDO камери:</text>
+  <text x="240" y="368" font-size="11" fill="#6b7280">Подає 3.3 В на два каскадні LDO</text>
+  <text x="240" y="385" font-size="11" fill="#6b7280">для відокремлення доменів сенсора</text>
+  <text x="240" y="405" font-size="11" font-weight="bold" fill="#27ae60">Запобігає цифровим наводкам у відео</text>
+
+  <!-- COLUMN 3: Camera Dedicated LDOs -->
+  <rect x="575" y="85" width="355" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="587" y="98" width="331" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="752" y="118" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Домени живлення камери OV2640</text>
+
+  <!-- Sub-block 2.8V -->
+  <rect x="587" y="145" width="331" height="125" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="597" y="155" width="311" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="752" y="172" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">LDO 2.8V (Аналог + Інтерфейс)</text>
+  <text x="605" y="198" font-size="11" font-weight="bold" fill="#1a1a1a">• AVDD (2.8 В): Аналогова матриця</text>
+  <text x="617" y="215" font-size="11" fill="#6b7280">Низький рівень шуму, чиста передача кольору</text>
+  <text x="605" y="235" font-size="11" font-weight="bold" fill="#1a1a1a">• DOVDD (2.8 В): Цифрові буфери DVP</text>
+  <text x="617" y="252" font-size="11" fill="#6b7280">Узгодження рівня сигналів DVP/SCCB</text>
+
+  <!-- Sub-block 1.2V -->
+  <rect x="587" y="285" width="331" height="135" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="597" y="295" width="311" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="752" y="312" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">LDO 1.2V (Цифрове ядро OV2640)</text>
+  <text x="605" y="338" font-size="11" font-weight="bold" fill="#1a1a1a">• DVDD (1.2 В): Логічне ядро сенсора</text>
+  <text x="617" y="355" font-size="11" fill="#6b7280">Живлення апаратного JPEG-процесора</text>
+  <text x="605" y="378" font-size="11" font-weight="bold" fill="#2457d6">Відокремлення від аналогової матриці</text>
+  <text x="617" y="395" font-size="11" fill="#6b7280">Запобігає цифровим перехідним завадам</text>
+
+  <!-- Connectors / Arrows -->
+  <line x1="178" y1="182" x2="227" y2="182" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="202" y="174" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">5V</text>
+
+  <line x1="533" y1="175" x2="587" y2="175" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="560" y="167" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">3.3V</text>
+
+  <path d="M 533 200 L 555 200 L 555 308 L 587 308" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="571" y="300" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">3.3V</text>
+</svg>

@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема триканального живлення та розв'язки сенсора OV3640 на ESP32-CAM</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Роздільне формування напруг AVDD (2.8V), DOVDD (2.8V), DVDD (1.5V) з LDO та LC-фільтрами пригнічення завад Wi-Fi</text>
+
+  <!-- INPUT POWER BLOCK -->
+  <rect x="40" y="140" width="100" height="160" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="90" y="162" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхід 5V / 3.3V</text>
+  <text x="90" y="190" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">VEXT (5V)</text>
+  <text x="90" y="215" font-size="11" fill="#6b7280" text-anchor="middle">Головний LDO</text>
+  <text x="90" y="240" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3.3V VDD</text>
+  <text x="90" y="265" font-size="10" fill="#c0392b" text-anchor="middle">+Завади Wi-Fi</text>
+
+  <!-- POWER BUS DISTRIBUTION LINES (FROM INPUT TO CHANNELS) -->
+  <line x1="140" y1="142" x2="190" y2="142" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="140" y1="220" x2="190" y2="220" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="140" y1="298" x2="190" y2="298" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- CHANNEL 1: AVDD 2.8V ANALOG POWER -->
+  <rect x="190" y="90" width="530" height="85" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="205" y="110" font-size="12" font-weight="bold" fill="#2457d6">Канал 1: AVDD 2.8V (Аналогова матриця та АЦП)</text>
+
+  <!-- Component 1: Low-Noise LDO -->
+  <rect x="205" y="120" width="100" height="45" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="255" y="147" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">LDO 2.8V</text>
+
+  <line x1="305" y1="142.5" x2="335" y2="142.5" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Component 2: Ferrite Bead FB1 -->
+  <rect x="335" y="130" width="50" height="25" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="360" y="146" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">FB1</text>
+
+  <line x1="385" y1="142.5" x2="465" y2="142.5" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Filter details text -->
+  <text x="475" y="135" font-size="11" fill="#1a1a1a">Фільтр: C1 (10µF) + C2 (0.1µF) + C3 (10pF)</text>
+  <text x="475" y="155" font-size="10" fill="#27ae60">Пригнічення завад пульсацій радіопередавача Wi-Fi</text>
+
+  <line x1="710" y1="142.5" x2="760" y2="142.5" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- CHANNEL 2: DOVDD 2.8V DIGITAL I/O POWER -->
+  <rect x="190" y="190" width="530" height="85" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.8"/>
+  <text x="205" y="210" font-size="12" font-weight="bold" fill="#1a1a1a">Канал 2: DOVDD 2.8V (Цифрові I/O буфери DVP та SCCB)</text>
+
+  <!-- Component 1: 2.8V I/O Rail -->
+  <rect x="205" y="220" width="100" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="255" y="247" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2.8V I/O</text>
+
+  <line x1="305" y1="242.5" x2="335" y2="242.5" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Component 2: Ferrite Bead FB2 -->
+  <rect x="335" y="230" width="50" height="25" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="360" y="246" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">FB2</text>
+
+  <line x1="385" y1="242.5" x2="465" y2="242.5" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Filter details text -->
+  <text x="475" y="235" font-size="11" fill="#1a1a1a">Розв'язка: C4 (4.7µF) + C5 (0.1µF)</text>
+  <text x="475" y="255" font-size="10" fill="#6b7280">Стабілізація перехідних струмів шини DVP</text>
+
+  <line x1="710" y1="242.5" x2="760" y2="242.5" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- CHANNEL 3: DVDD 1.5V DIGITAL CORE POWER -->
+  <rect x="190" y="290" width="530" height="85" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.8"/>
+  <text x="205" y="310" font-size="12" font-weight="bold" fill="#27ae60">Канал 3: DVDD 1.5V (Ядро сенсора та компресор JPEG)</text>
+
+  <!-- Component 1: 1.5V LDO -->
+  <rect x="205" y="320" width="100" height="45" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="255" y="347" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">LDO 1.5V</text>
+
+  <line x1="305" y1="342.5" x2="335" y2="342.5" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Component 2: Ferrite Bead FB3 -->
+  <rect x="335" y="330" width="50" height="25" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="360" y="346" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">FB3</text>
+
+  <line x1="385" y1="342.5" x2="465" y2="342.5" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Filter details text -->
+  <text x="475" y="335" font-size="11" fill="#1a1a1a">Фільтр: C6 (4.7µF) + C7 (0.1µF)</text>
+  <text x="475" y="355" font-size="10" fill="#27ae60">Живлення внутрішнього DSP та JPEG блоку</text>
+
+  <line x1="710" y1="342.5" x2="760" y2="342.5" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- CAMERA SENSOR UNIT (OV3640) -->
+  <rect x="760" y="90" width="160" height="285" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 760,98 A 8,8 0 0,1 768,90 L 912,90 A 8,8 0 0,1 920,98 L 920,120 L 760,120 Z" fill="#2457d6"/>
+  <text x="840" y="110" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Сенсор OV3640</text>
+
+  <!-- Pin 1: AVDD -->
+  <rect x="770" y="127" width="140" height="50" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="780" y="145" font-size="11" font-weight="bold" fill="#2457d6">AVDD (2.8V)</text>
+  <text x="780" y="163" font-size="10" fill="#6b7280">Аналог + матриця</text>
+
+  <!-- Pin 2: DOVDD -->
+  <rect x="770" y="207" width="140" height="50" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="780" y="225" font-size="11" font-weight="bold" fill="#1a1a1a">DOVDD (2.8V)</text>
+  <text x="780" y="243" font-size="10" fill="#6b7280">Цифрові I/O буфери</text>
+
+  <!-- Pin 3: DVDD -->
+  <rect x="770" y="287" width="140" height="50" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="780" y="305" font-size="11" font-weight="bold" fill="#27ae60">DVDD (1.5V)</text>
+  <text x="780" y="323" font-size="10" fill="#6b7280">Цифрове ядро / JPEG</text>
+
+  <!-- Pin 4: GND -->
+  <text x="840" y="360" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">GND (AGND / DGND)</text>
+
+  <!-- TECHNICAL SUMMARY PANEL -->
+  <rect x="40" y="395" width="880" height="70" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="417" font-size="12" font-weight="bold" fill="#1a1a1a">Апаратні вимоги до схеми розв'язки живлення ESP32-CAM + OV3640:</text>
+  <text x="60" y="437" font-size="11" fill="#2457d6">1. Лінійний регулятор AVDD має мати низький рівень власних шумів (Low-Noise LDO) для запобігання смугам на зображенні.</text>
+  <text x="60" y="455" font-size="11" fill="#27ae60">2. Керамічні конденсатори 0.1 мкФ встановлюють безпосередньо біля виводів живлення сенсора з мінімальною довжиною доріжок.</text>
+</svg>

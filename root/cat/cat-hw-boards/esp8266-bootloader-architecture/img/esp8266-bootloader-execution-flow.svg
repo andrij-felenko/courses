@@ -1,0 +1,112 @@
+<svg viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Послідовність виконання та потік контролю завантажувача ESP8266</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Від апаратного скидання та зчитування strapping pins до ініціалізації IRAM/DRAM і передачі керування прошивці</text>
+
+  <!-- Stage 1 Panel: Hardware Reset -->
+  <rect x="30" y="75" width="150" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="105" y="98" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Апаратний старт</text>
+
+  <rect x="40" y="115" width="130" height="60" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="105" y="140" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зняття RST</text>
+  <text x="105" y="157" font-size="11" fill="#6b7280" text-anchor="middle">(Power-On Reset)</text>
+
+  <path d="M 105 175 L 105 205" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="40" y="210" width="130" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="105" y="232" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Зчитування виводів</text>
+  <text x="105" y="249" font-size="11" fill="#1a1a1a" text-anchor="middle">GPIO15, GPIO0, GPIO2</text>
+  <text x="105" y="266" font-size="11" fill="#6b7280" text-anchor="middle">t_hold ≥ 50 мкс</text>
+  <text x="105" y="281" font-size="10" fill="#6b7280" text-anchor="middle">(Latch Window)</text>
+
+  <!-- Connection Stage 1 -> Stage 2 -->
+  <path d="M 170 252 L 200 252" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Stage 2 Panel: ROM Bootloader -->
+  <rect x="205" y="75" width="150" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="280" y="98" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. ROM Bootloader</text>
+
+  <rect x="215" y="115" width="130" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="280" y="137" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Виконання ПЗУ</text>
+  <text x="280" y="154" font-size="11" fill="#1a1a1a" text-anchor="middle">Лог UART0 TX</text>
+  <text x="280" y="171" font-size="11" fill="#6b7280" text-anchor="middle">74880 бод</text>
+
+  <path d="M 280 190 L 280 215" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="215" y="220" width="130" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="280" y="244" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Декодування</text>
+  <text x="280" y="261" font-size="11" fill="#1a1a1a" text-anchor="middle">3-біт вектор</text>
+  <text x="280" y="276" font-size="10" fill="#6b7280" text-anchor="middle">boot mode:(...,...)</text>
+
+  <!-- Connection Stage 2 -> Stage 3 -->
+  <path d="M 345 255 L 375 255" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Stage 3 Panel: Mode Selection -->
+  <rect x="380" y="75" width="170" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="465" y="98" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Вибір режиму</text>
+
+  <rect x="395" y="115" width="140" height="75" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="465" y="137" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">SPI Flash Boot</text>
+  <text x="465" y="154" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">(0, 1, 1)</text>
+  <text x="465" y="171" font-size="10" fill="#27ae60" text-anchor="middle">Штатний запуск</text>
+
+  <rect x="395" y="210" width="140" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="465" y="232" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">UART Download</text>
+  <text x="465" y="249" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">(0, 0, 1)</text>
+  <text x="465" y="266" font-size="10" fill="#6b7280" text-anchor="middle">Прошивання esptool</text>
+
+  <rect x="395" y="305" width="140" height="75" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="465" y="327" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">SDIO Boot</text>
+  <text x="465" y="344" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">(1, x, x)</text>
+  <text x="465" y="361" font-size="10" fill="#c0392b" text-anchor="middle">Завантаження з SD</text>
+
+  <!-- Connection Stage 3 (Flash Boot) -> Stage 4 -->
+  <path d="M 535 152 L 565 152" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Stage 4 Panel: Memory Setup -->
+  <rect x="570" y="75" width="170" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="655" y="98" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4. Ініціалізація ОЗП</text>
+
+  <rect x="585" y="115" width="140" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="655" y="137" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зчитати заголовок</text>
+  <text x="655" y="154" font-size="11" fill="#1a1a1a" text-anchor="middle">Offset 0x00000</text>
+  <text x="655" y="171" font-size="11" fill="#6b7280" text-anchor="middle">Перевірка CRC32/XOR</text>
+  <text x="655" y="186" font-size="10" fill="#6b7280" text-anchor="middle">Magic Byte 0xE9</text>
+
+  <path d="M 655 200 L 655 220" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="585" y="225" width="140" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="655" y="247" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Завантажити ОЗП</text>
+  <text x="655" y="264" font-size="11" fill="#1a1a1a" text-anchor="middle">Копіювання в IRAM</text>
+  <text x="655" y="281" font-size="11" fill="#1a1a1a" text-anchor="middle">Мапування MMU</text>
+  <text x="655" y="296" font-size="10" fill="#6b7280" text-anchor="middle">0x40200000 (IROM)</text>
+
+  <!-- Connection Stage 4 -> Stage 5 -->
+  <path d="M 725 267 L 755 267" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Stage 5 Panel: Firmware Execution -->
+  <rect x="760" y="75" width="160" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="840" y="98" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">5. Старт прошивки</text>
+
+  <rect x="775" y="225" width="130" height="85" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="840" y="247" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Перехід точки входу</text>
+  <text x="840" y="264" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">call user_init</text>
+  <text x="840" y="281" font-size="11" fill="#6b7280" text-anchor="middle">Запуск OS SDK</text>
+  <text x="840" y="296" font-size="10" fill="#27ae60" text-anchor="middle">Виконання коду</text>
+</svg>

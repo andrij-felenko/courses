@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма сигналів DTR та RTS для входу в Bootloader</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Послідовне перемикання ліній забезпечує утримання GPIO0 у НУЛІ під час зняття сигналу RESET</text>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Phase Grid Lines -->
+  <line x1="280" y1="75" x2="280" y2="375" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="430" y1="75" x2="430" y2="375" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="610" y1="75" x2="610" y2="375" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="760" y1="75" x2="760" y2="375" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Phase Header Labels -->
+  <text x="280" y="72" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">t1</text>
+  <text x="430" y="72" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">t2</text>
+  <text x="610" y="72" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t3 (Sample)</text>
+  <text x="760" y="72" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">t4</text>
+
+  <!-- Signal Labels (Left) -->
+  <text x="145" y="122" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">DTR# (CH340)</text>
+  <text x="145" y="192" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">RTS# (CH340)</text>
+  <text x="145" y="272" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">RESET (MCU)</text>
+  <text x="145" y="342" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">GPIO0 (MCU)</text>
+
+  <!-- Highlight Box for Reset Active Region -->
+  <rect x="430" y="245" width="180" height="48" fill="#fdecea" fill-opacity="0.5" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3" rx="4"/>
+  <text x="520" y="273" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Скидання (50–100 ms)</text>
+
+  <!-- Waveform 1: DTR# -->
+  <path d="M 160 105 L 430 105 L 430 135 L 610 135 L 610 105 L 880 105" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="295" y="100" font-size="12" fill="#6b7280" text-anchor="middle">3.3В (Неактивний)</text>
+  <text x="520" y="150" font-size="12" fill="#2457d6" text-anchor="middle">0В (DTR Active)</text>
+
+  <!-- Waveform 2: RTS# -->
+  <path d="M 160 175 L 280 175 L 280 205 L 760 205 L 760 175 L 880 175" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="220" y="170" font-size="12" fill="#6b7280" text-anchor="middle">3.3В</text>
+  <text x="520" y="220" font-size="12" fill="#2457d6" text-anchor="middle">0В (RTS Active)</text>
+
+  <!-- Waveform 3: RESET (MCU) -->
+  <path d="M 160 255 L 430 255 L 430 285 L 610 285 L 610 255 L 880 255" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="295" y="250" font-size="12" fill="#6b7280" text-anchor="middle">3.3В (EN High)</text>
+  <circle cx="610" cy="255" r="5" fill="#c0392b"/>
+
+  <!-- Waveform 4: GPIO0 (MCU) -->
+  <path d="M 160 325 L 280 325 L 280 355 L 760 355 L 760 325 L 880 325" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="220" y="320" font-size="12" fill="#6b7280" text-anchor="middle">3.3В</text>
+  <text x="520" y="370" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">0В (Bootloader Mode)</text>
+
+  <!-- Bottom Solution Panel -->
+  <rect x="40" y="390" width="880" height="75" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="412" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Ключова умова успішного входу в Bootloader:</text>
+  <text x="480" y="432" font-size="12" fill="#1a1a1a" text-anchor="middle">У момент переходу RESET 0В → 3.3В (t3) лінія GPIO0 обов'язково має перебувати у НУЛІ (0В).</text>
+  <text x="480" y="452" font-size="12" fill="#6b7280" text-anchor="middle">Двотранзисторна схема (DTR/RTS) запобігає одночасному скиданню та забезпечує потрібні часові затримки.</text>
+</svg>

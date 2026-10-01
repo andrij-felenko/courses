@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 565" width="960" height="565" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="565" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вплив опору підтяжки на фронт сигналу UART при 115200 бод</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Великий опір R_pullup збільшує сталу часу τ = R·C_p, спотворюючи імпульс і спричиняючи помилки зчитування</text>
+
+  <!-- Schematic Panel Bar -->
+  <rect x="160" y="68" width="640" height="76" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="175" y="86" font-size="12" font-weight="bold" fill="#6b7280">Еквівалентна схема RC-кола сигнальної лінії UART:</text>
+
+  <!-- V_CC Label & Rail -->
+  <text x="175" y="120" font-size="12" fill="#1a1a1a">V_CC (3.3В)</text>
+  <circle cx="248" cy="116" r="3" fill="#1a1a1a"/>
+  <line x1="248" y1="116" x2="260" y2="116" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Resistor R_pullup -->
+  <rect x="260" y="108" width="45" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="282" y="102" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_pullup</text>
+  <line x1="305" y1="116" x2="350" y2="116" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Node & Parasitic Capacitor C_p -->
+  <circle cx="350" cy="116" r="3.5" fill="#1a1a1a"/>
+  <line x1="350" y1="116" x2="350" y2="126" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="340" y1="126" x2="360" y2="126" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="340" y1="130" x2="360" y2="130" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="350" y1="130" x2="350" y2="136" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- GND symbol -->
+  <line x1="342" y1="136" x2="358" y2="136" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="345" y1="139" x2="355" y2="139" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="348" y1="142" x2="352" y2="142" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="368" y="131" font-size="12" fill="#1a1a1a">C_p (паразитна ємність)</text>
+
+  <!-- Output Trace to RX -->
+  <line x1="350" y1="116" x2="535" y2="116" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="548" y="120" font-size="12" font-weight="bold" fill="#2457d6">Вхід UART RX</text>
+
+  <!-- Left Panel: Good Case -->
+  <rect x="40" y="156" width="430" height="395" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="52" y="168" width="406" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="255" y="190" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Оптимальна підтяжка: R = 2.2 кОм</text>
+
+  <!-- Plot Screen 1 -->
+  <rect x="52" y="210" width="406" height="248" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Voltage Axis Labels Left -->
+  <text x="85" y="234" font-size="11" fill="#1a1a1a" text-anchor="end">3.3 В</text>
+  <text x="85" y="294" font-size="11" fill="#27ae60" font-weight="bold" text-anchor="end">2.31 В</text>
+  <text x="85" y="374" font-size="11" fill="#6b7280" text-anchor="end">0.99 В</text>
+  <text x="85" y="434" font-size="11" fill="#1a1a1a" text-anchor="end">0 В</text>
+
+  <!-- Voltage Threshold Lines -->
+  <line x1="90" y1="230" x2="445" y2="230" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="90" y1="290" x2="445" y2="290" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4" stroke-opacity="0.8"/>
+  <line x1="90" y1="370" x2="445" y2="370" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,4" stroke-opacity="0.6"/>
+  <line x1="90" y1="430" x2="445" y2="430" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="90" y1="225" x2="90" y2="435" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Threshold Names inside Plot -->
+  <text x="145" y="284" font-size="11" fill="#27ae60" font-weight="bold">V_IH (70%)</text>
+  <text x="145" y="364" font-size="11" fill="#6b7280">V_IL (30%)</text>
+
+  <!-- Time Grid Lines & Labels -->
+  <line x1="125" y1="225" x2="125" y2="435" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="260" y1="225" x2="260" y2="435" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="395" y1="225" x2="395" y2="435" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <text x="125" y="446" font-size="11" fill="#1a1a1a" text-anchor="middle">t = 0</text>
+  <text x="260" y="446" font-size="11" fill="#2457d6" font-weight="bold" text-anchor="middle">t_strob (4.34 мкс)</text>
+  <text x="395" y="446" font-size="11" fill="#1a1a1a" text-anchor="middle">T_bit (8.68 мкс)</text>
+
+  <!-- Fast Waveform Curve -->
+  <path d="M 70,430 L 125,430 C 132,310 140,230 155,230 L 445,230" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Rise Time Arrow -->
+  <line x1="125" y1="216" x2="155" y2="216" stroke="#27ae60" stroke-width="1" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <text x="140" y="210" font-size="11" fill="#27ae60" text-anchor="middle">t_r ≈ 0.24 мкс</text>
+
+  <!-- Sampling Point Marker -->
+  <circle cx="260" cy="230" r="6" fill="#27ae60"/>
+  <circle cx="260" cy="230" r="9" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Sampling Badge -->
+  <rect x="272" y="244" width="112" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="328" y="260" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Зчитування: '1' ✓</text>
+
+  <!-- Panel 1 Footer Summary -->
+  <rect x="52" y="468" width="406" height="72" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="66" y="488" font-size="12" fill="#1a1a1a">• Стала часу: τ = R·C_p = 2.2 кОм × 50 пФ = 110 нс</text>
+  <text x="66" y="507" font-size="12" fill="#1a1a1a">• Час наростання: t_r ≈ 2.2 τ = 0.24 мкс &lt;&lt; T_bit/2</text>
+  <text x="66" y="526" font-size="12" font-weight="bold" fill="#27ae60">• Результат: Надійний зв'язок на 115200 бод</text>
+
+  <!-- Right Panel: Bad Case -->
+  <rect x="490" y="156" width="430" height="395" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="502" y="168" width="406" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="705" y="190" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Занадто великий опір: R = 47 кОм</text>
+
+  <!-- Plot Screen 2 -->
+  <rect x="502" y="210" width="406" height="248" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Voltage Axis Labels Left -->
+  <text x="535" y="234" font-size="11" fill="#1a1a1a" text-anchor="end">3.3 В</text>
+  <text x="535" y="294" font-size="11" fill="#c0392b" font-weight="bold" text-anchor="end">2.31 В</text>
+  <text x="535" y="374" font-size="11" fill="#6b7280" text-anchor="end">0.99 В</text>
+  <text x="535" y="434" font-size="11" fill="#1a1a1a" text-anchor="end">0 В</text>
+
+  <!-- Voltage Threshold Lines -->
+  <line x1="540" y1="230" x2="895" y2="230" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="540" y1="290" x2="895" y2="290" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4" stroke-opacity="0.8"/>
+  <line x1="540" y1="370" x2="895" y2="370" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,4" stroke-opacity="0.6"/>
+  <line x1="540" y1="430" x2="895" y2="430" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="540" y1="225" x2="540" y2="435" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Threshold Names inside Plot -->
+  <text x="595" y="284" font-size="11" fill="#c0392b" font-weight="bold">V_IH (70%)</text>
+  <text x="580" y="364" font-size="11" fill="#6b7280">V_IL (30%)</text>
+
+  <!-- Uncertainty Zone Shading -->
+  <rect x="575" y="290" width="270" height="80" fill="#fdecea" opacity="0.45"/>
+  <text x="778" y="325" font-size="11" fill="#c0392b" font-style="italic" text-anchor="middle"><tspan x="778" dy="0">Зона невизначеності</tspan><tspan x="778" dy="15">(V_IL &lt; V &lt; V_IH)</tspan></text>
+
+  <!-- Time Grid Lines & Labels -->
+  <line x1="575" y1="225" x2="575" y2="435" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="710" y1="225" x2="710" y2="435" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="845" y1="225" x2="845" y2="435" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <text x="575" y="446" font-size="11" fill="#1a1a1a" text-anchor="middle">t = 0</text>
+  <text x="710" y="446" font-size="11" fill="#2457d6" font-weight="bold" text-anchor="middle">t_strob (4.34 мкс)</text>
+  <text x="845" y="446" font-size="11" fill="#1a1a1a" text-anchor="middle">T_bit (8.68 мкс)</text>
+
+  <!-- Slow Waveform Curve -->
+  <path d="M 520,430 L 575,430 C 640,380 685,325 710,310 C 750,285 800,268 895,252" fill="none" stroke="#c0392b" stroke-width="3"/>
+
+  <!-- Rise Time Arrow -->
+  <line x1="575" y1="216" x2="885" y2="216" stroke="#c0392b" stroke-width="1" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <text x="730" y="210" font-size="11" fill="#c0392b" text-anchor="middle">t_r ≈ 10.3 мкс (&gt; T_bit)</text>
+
+  <!-- Sampling Point Marker -->
+  <circle cx="710" cy="310" r="6" fill="#c0392b"/>
+  <circle cx="710" cy="310" r="9" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Sampling Badge -->
+  <rect x="722" y="244" width="120" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="782" y="260" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Помилка: V &lt; V_IH ✗</text>
+
+  <!-- Panel 2 Footer Summary -->
+  <rect x="502" y="468" width="406" height="72" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="516" y="488" font-size="12" fill="#1a1a1a">• Стала часу: τ = R·C_p = 47 кОм × 100 пФ = 4.7 мкс</text>
+  <text x="516" y="507" font-size="12" fill="#1a1a1a">• Час наростання: t_r ≈ 2.2 τ = 10.3 мкс &gt; T_bit</text>
+  <text x="516" y="526" font-size="12" font-weight="bold" fill="#c0392b">• Результат: Спотворення біта, збій кадру UART</text>
+</svg>

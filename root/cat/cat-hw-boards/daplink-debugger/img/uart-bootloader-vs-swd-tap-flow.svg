@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шлях виконання: UART-бутлоадер vs прямий SWD (DAP/TAP)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">SWD здійснює апаратний доступ до шини AHB-AP і регістрів ядра без участі ПЗ мікроконтролера</text>
+
+  <!-- Left Panel: UART Bootloader -->
+  <rect x="30" y="80" width="435" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="95" width="405" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247.5" y="116" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">UART-бутлоадер (Програмний обмін)</text>
+
+  <!-- Left Panel Steps -->
+  <!-- Step 1 -->
+  <rect x="112.5" y="142" width="270" height="42" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247.5" y="159" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ПК / ПО завантажувача</text>
+  <text x="247.5" y="174" font-size="12" fill="#6b7280" text-anchor="middle">(Команди прошивки через UART/USB)</text>
+
+  <!-- Arrow 1 -->
+  <line x1="247.5" y1="184" x2="247.5" y2="212" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="260" y="202" font-size="12" fill="#6b7280" text-anchor="start">USB / RX-TX</text>
+
+  <!-- Step 2 -->
+  <rect x="112.5" y="212" width="270" height="42" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247.5" y="229" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Периферія USART / UART</text>
+  <text x="247.5" y="244" font-size="12" fill="#6b7280" text-anchor="middle">(Прийом байтів у буфер Rx)</text>
+
+  <!-- Arrow 2 -->
+  <line x1="247.5" y1="254" x2="247.5" y2="282" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="260" y="272" font-size="12" fill="#c0392b" text-anchor="start">Переривання / Опитування</text>
+
+  <!-- Step 3 -->
+  <rect x="112.5" y="282" width="270" height="50" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="247.5" y="300" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Програма Bootloader (ROM/Flash)</text>
+  <text x="247.5" y="318" font-size="12" fill="#1a1a1a" text-anchor="middle">ЦПУ виконує код завантаження</text>
+
+  <!-- Arrow 3 -->
+  <line x1="247.5" y1="332" x2="247.5" y2="360" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="260" y="350" font-size="12" fill="#6b7280" text-anchor="start">Запис у Flash</text>
+
+  <!-- Step 4 -->
+  <rect x="112.5" y="360" width="270" height="42" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247.5" y="377" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контролер Flash / RAM</text>
+  <text x="247.5" y="392" font-size="12" fill="#6b7280" text-anchor="middle">(Модифікація пам'яті MCU)</text>
+
+  <!-- Left Note Box -->
+  <rect x="45" y="415" width="405" height="44" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="60" y="431" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Обмеження: Вимагає BOOT0=1, задействує ядро MCU</text>
+  <text x="60" y="447" font-size="12" fill="#6b7280" text-anchor="start">Неможливо: зупинка ядра, покрокове зневадження, R0-R15</text>
+
+  <!-- Right Panel: SWD DAPLink -->
+  <rect x="495" y="80" width="435" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="510" y="95" width="405" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712.5" y="116" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">SWD / DAPLink (Апаратний доступ TAP/DP)</text>
+
+  <!-- Right Panel Steps -->
+  <!-- Step 1 -->
+  <rect x="577.5" y="142" width="270" height="42" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712.5" y="159" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">IDE / Зневаджувач (OpenOCD/pyOCD)</text>
+  <text x="712.5" y="174" font-size="12" fill="#6b7280" text-anchor="middle">(Апаратний адаптер DAPLink / ST-Link)</text>
+
+  <!-- Arrow 1 -->
+  <line x1="712.5" y1="184" x2="712.5" y2="212" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="725" y="202" font-size="12" fill="#2457d6" text-anchor="start">SWDIO / SWCLK</text>
+
+  <!-- Step 2 -->
+  <rect x="577.5" y="212" width="270" height="42" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="712.5" y="229" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">SW-DP &amp; AHB-AP (CoreSight)</text>
+  <text x="712.5" y="244" font-size="12" fill="#1a1a1a" text-anchor="middle">(Апаратні порти відлагодження)</text>
+
+  <!-- Arrow 2 -->
+  <line x1="712.5" y1="254" x2="712.5" y2="282" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="725" y="272" font-size="12" fill="#27ae60" text-anchor="start">Прямий шинний доступ</text>
+
+  <!-- Step 3 -->
+  <rect x="577.5" y="282" width="270" height="50" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712.5" y="300" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Доступ до AHB-AP &amp; Регістрів</text>
+  <text x="712.5" y="318" font-size="12" fill="#1a1a1a" text-anchor="middle">Прямий доступ до R0-R15, RAM, Flash</text>
+
+  <!-- Arrow 3 -->
+  <line x1="712.5" y1="332" x2="712.5" y2="360" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="725" y="350" font-size="12" fill="#27ae60" text-anchor="start">Апаратне керування</text>
+
+  <!-- Step 4 -->
+  <rect x="577.5" y="360" width="270" height="42" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712.5" y="377" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ядро Cortex-M / Периферія</text>
+  <text x="712.5" y="392" font-size="12" fill="#6b7280" text-anchor="middle">(Зупинка, Step, Hardware Breakpoints)</text>
+
+  <!-- Right Note Box -->
+  <rect x="510" y="415" width="405" height="44" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="525" y="431" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Переваги: Повний контроль ядра незалежно від стану ПЗ</text>
+  <text x="525" y="447" font-size="12" fill="#6b7280" text-anchor="start">Працює при зависанні CPU, HardFault, будь-якому BOOT0</text>
+</svg>

@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова діаграма фіксації станів strapping-виводів ESP8266</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Фіксація рівнів GPIO0, GPIO2 та GPIO15 відбуваються ROM-завантажувачем під час наростання фронту RESET (t_latch)</text>
+
+  <!-- Панель часової діаграми -->
+  <rect x="160" y="70" width="770" height="375" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+
+  <!-- Сигнальна сітка (горизонтальні та вертикальні пунктири) -->
+  <line x1="160" y1="145" x2="930" y2="145" stroke="#d0d7de" stroke-dasharray="3 3"/>
+  <line x1="160" y1="215" x2="930" y2="215" stroke="#d0d7de" stroke-dasharray="3 3"/>
+  <line x1="160" y1="285" x2="930" y2="285" stroke="#d0d7de" stroke-dasharray="3 3"/>
+  <line x1="160" y1="355" x2="930" y2="355" stroke="#d0d7de" stroke-dasharray="3 3"/>
+
+  <!-- Назви сигналів ліворуч -->
+  <text x="30" y="112" font-size="14" font-weight="bold" fill="#1a1a1a">VDD (3.3V)</text>
+  <text x="30" y="128" font-size="12" fill="#6b7280">Живлення SoC</text>
+
+  <text x="30" y="182" font-size="14" font-weight="bold" fill="#1a1a1a">RESET (EXT_RSTB)</text>
+  <text x="30" y="198" font-size="12" fill="#6b7280">Сигнал скидання</text>
+
+  <text x="30" y="252" font-size="14" font-weight="bold" fill="#1a1a1a">GPIO15 (MTDO)</text>
+  <text x="30" y="268" font-size="12" fill="#27ae60">Pull-Down (0V)</text>
+
+  <text x="30" y="322" font-size="14" font-weight="bold" fill="#1a1a1a">GPIO0</text>
+  <text x="30" y="338" font-size="12" fill="#2457d6">Boot Mode Selector</text>
+
+  <text x="30" y="392" font-size="14" font-weight="bold" fill="#1a1a1a">GPIO2</text>
+  <text x="30" y="408" font-size="12" fill="#27ae60">Pull-Up (3.3V)</text>
+
+  <!-- Вікно фіксації (Вікно t_latch) -->
+  <rect x="420" y="75" width="120" height="365" fill="#2457d6" fill-opacity="0.08" stroke="#2457d6" stroke-dasharray="4 4" stroke-width="1.5"/>
+  <text x="480" y="92" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вікно t_latch (~1..5 ms)</text>
+
+  <!-- Лінія фіксації ROM Bootloader -->
+  <line x1="540" y1="75" x2="540" y2="440" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="3 3"/>
+  <text x="540" y="455" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">▲ Момент фіксації станів ROM-завантажувачем</text>
+
+  <!-- Хвильові форми сигналів -->
+
+  <!-- 1. VDD Waveform -->
+  <polyline points="180,135 210,135 270,95 910,95" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="915" y="100" font-size="12" font-weight="bold" fill="#1a1a1a">3.3V</text>
+  <text x="185" y="130" font-size="12" fill="#6b7280">0V</text>
+
+  <!-- 2. RESET Waveform -->
+  <polyline points="180,205 350,205 450,165 910,165" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+  <circle cx="420" cy="177" r="4" fill="#2457d6"/>
+  <line x1="420" y1="75" x2="420" y2="435" stroke="#2457d6" stroke-dasharray="2 2" stroke-width="1"/>
+  <text x="415" y="200" font-size="12" font-weight="bold" fill="#2457d6">V_IH (0.75×VDD)</text>
+
+  <!-- 3. GPIO15 Waveform (LOW) -->
+  <polyline points="180,275 910,275" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="570" y="270" font-size="12" font-weight="bold" fill="#27ae60">LOW (0V — обов'язково)</text>
+
+  <!-- 4. GPIO0 Waveform (HIGH for Flash Boot, LOW for UART Download) -->
+  <!-- HIGH State line -->
+  <polyline points="180,345 280,345 320,310 910,310" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="570" y="305" font-size="12" font-weight="bold" fill="#27ae60">HIGH (3.3V) — SPI Flash Boot</text>
+
+  <!-- LOW State line (dashed for UART mode) -->
+  <polyline points="180,345 910,345" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="6 3"/>
+  <text x="570" y="340" font-size="12" font-weight="bold" fill="#2457d6">LOW (0V) — UART Download Mode</text>
+
+  <!-- 5. GPIO2 Waveform (HIGH) -->
+  <polyline points="180,415 260,415 300,380 910,380" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="570" y="375" font-size="12" font-weight="bold" fill="#27ae60">HIGH (3.3V — обов'язково)</text>
+
+  <!-- Точки заміру у момент фіксації (X=540) -->
+  <circle cx="540" cy="95" r="4" fill="#c0392b"/>
+  <circle cx="540" cy="165" r="4" fill="#c0392b"/>
+  <circle cx="540" cy="275" r="5" fill="#c0392b"/>
+  <circle cx="540" cy="310" r="5" fill="#c0392b"/>
+  <circle cx="540" cy="345" r="5" fill="#2457d6"/>
+  <circle cx="540" cy="380" r="5" fill="#c0392b"/>
+
+  <!-- Картки режимів запуску внизу -->
+
+  <!-- Картка 1: SPI Flash Boot -->
+  <rect x="30" y="475" width="280" height="70" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="45" y="495" font-size="13" font-weight="bold" fill="#27ae60">SPI Flash Boot (Штатний запуск)</text>
+  <text x="45" y="514" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO15 = 0 | GPIO0 = 1 | GPIO2 = 1</text>
+  <text x="45" y="532" font-size="12" fill="#6b7280">Виконання прошивки із зовнішньої Flash</text>
+
+  <!-- Картка 2: UART Download Mode -->
+  <rect x="340" y="475" width="280" height="70" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="355" y="495" font-size="13" font-weight="bold" fill="#2457d6">UART Download (Режим прошивання)</text>
+  <text x="355" y="514" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO15 = 0 | GPIO0 = 0 | GPIO2 = 1</text>
+  <text x="355" y="532" font-size="12" fill="#6b7280">Завантаження коду в IRAM через UART0</text>
+
+  <!-- Картка 3: SDIO Boot / Помилка -->
+  <rect x="650" y="475" width="280" height="70" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="665" y="495" font-size="13" font-weight="bold" fill="#c0392b">SDIO Boot / Помилка підтяжки</text>
+  <text x="665" y="514" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO15 = 1 або GPIO2 = 0</text>
+  <text x="665" y="532" font-size="12" fill="#6b7280">Циклічне перезавантаження (Boot Loop)</text>
+</svg>

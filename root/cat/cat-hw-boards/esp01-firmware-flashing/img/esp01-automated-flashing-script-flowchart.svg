@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Алгоритм роботи скрипту автоматичного прошивання ESP-01</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Послідовність кроків esptool.py: від сканування порту й бекапу до стирання, запису та перевірки</text>
+
+  <!-- КОЛОНКА 1: ІНІЦІАЛІЗАЦІЯ ТА ЗВ'ЯЗОК -->
+  <!-- Крок 1: Автовиявлення COM -->
+  <rect x="40" y="90" width="200" height="60" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="140" y="115" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Сканування порту</text>
+  <text x="140" y="135" font-size="12" fill="#6b7280" text-anchor="middle">Автопошук /dev/ttyUSB*</text>
+
+  <!-- Крок 2: flash_id -->
+  <rect x="40" y="185" width="200" height="60" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="140" y="210" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Опитування модуля</text>
+  <text x="140" y="230" font-size="12" fill="#6b7280" text-anchor="middle">esptool.py flash_id</text>
+
+  <!-- Крок 3: Перевірка зв'язку (Decision) -->
+  <polygon points="140,280 240,315 140,350 40,315" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <text x="140" y="319" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Чи є відповідь ROM?</text>
+
+  <!-- Помилка таймауту -->
+  <rect x="40" y="415" width="200" height="80" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="140" y="440" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Помилка таймауту!</text>
+  <text x="140" y="460" font-size="12" fill="#1a1a1a" text-anchor="middle">Перевірте EN, GPIO0=0,</text>
+  <text x="140" y="478" font-size="12" fill="#6b7280" text-anchor="middle">двотранзисторний автоскид</text>
+
+  <!-- КОЛОНКА 2: ОСНОВНИЙ ЦИКЛ ОБРОБКИ -->
+  <!-- Крок 4: read_flash -->
+  <rect x="280" y="90" width="210" height="60" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="385" y="115" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Резервна копія</text>
+  <text x="385" y="135" font-size="12" fill="#6b7280" text-anchor="middle">read_flash 0x0 1MB backup.bin</text>
+
+  <!-- Крок 5: erase_flash -->
+  <rect x="280" y="185" width="210" height="60" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="385" y="210" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4. Стирання пам'яті</text>
+  <text x="385" y="230" font-size="12" fill="#6b7280" text-anchor="middle">esptool.py erase_flash</text>
+
+  <!-- Крок 6: write_flash -->
+  <rect x="280" y="285" width="210" height="60" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="385" y="310" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">5. Запис прошивки</text>
+  <text x="385" y="330" font-size="12" fill="#1a1a1a" text-anchor="middle">write_flash -fm dout 0x0 firmware.bin</text>
+
+  <!-- Крок 7: verify_flash -->
+  <rect x="280" y="385" width="210" height="60" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="385" y="410" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">6. Верифікація</text>
+  <text x="385" y="430" font-size="12" fill="#6b7280" text-anchor="middle">verify_flash або порівняння MD5</text>
+
+  <!-- СТРІЛКИ ТА ЗВ'ЯЗКИ -->
+  <!-- 1 -> 2 -->
+  <path d="M 140 150 L 140 185" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <!-- 2 -> 3 -->
+  <path d="M 140 245 L 140 280" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <!-- Decision -> No (Error) -->
+  <path d="M 140 350 L 140 415" stroke="#c0392b" stroke-width="2" fill="none" marker-end="url(#arr-red)"/>
+  <text x="150" y="380" font-size="12" font-weight="bold" fill="#c0392b">Ні</text>
+  <!-- Decision -> Yes (Success flow to read_flash) -->
+  <path d="M 240 315 L 260 315 L 260 120 L 280 120" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+  <text x="245" y="305" font-size="12" font-weight="bold" fill="#27ae60">Так</text>
+
+  <!-- read_flash -> erase_flash -->
+  <path d="M 385 150 L 385 185" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+  <!-- erase_flash -> write_flash -->
+  <path d="M 385 245 L 385 285" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+  <!-- write_flash -> verify_flash -->
+  <path d="M 385 345 L 385 385" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+
+  <!-- КОЛОНКА 3: ПАНЕЛІ КОНФІГУРАЦІЇ ТА РЕЗУЛЬТАТУ -->
+  <!-- Панель налаштувань SPI Flash -->
+  <rect x="520" y="90" width="400" height="155" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="520" y="90" width="400" height="32" rx="8" fill="#eaf0fd"/>
+  <text x="720" y="112" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Параметри конфігурації SPI Flash ESP-01</text>
+  
+  <text x="540" y="142" font-size="12" fill="#1a1a1a">• Flash Mode (-fm): <tspan font-weight="bold" fill="#27ae60">dout</tspan> або dio (виводи SD2/SD3 відсутні)</text>
+  <text x="540" y="165" font-size="12" fill="#1a1a1a">• Flash Size (-fs): <tspan font-weight="bold">1MB</tspan> (8Mbit) або 512KB для старого ESP-01</text>
+  <text x="540" y="188" font-size="12" fill="#1a1a1a">• Baud Rate (-b): <tspan font-weight="bold">115200</tspan> (безпечна) або <tspan font-weight="bold">460800</tspan> бод</text>
+  <text x="540" y="211" font-size="12" fill="#1a1a1a">• Address Offset: <tspan font-weight="bold">0x00000</tspan> для монолітних образів прошивок</text>
+
+  <!-- Панель підсумкового успіху -->
+  <rect x="520" y="270" width="400" height="225" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <rect x="520" y="270" width="400" height="32" rx="8" fill="#27ae60"/>
+  <text x="720" y="292" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Результати виконання та статус продуктивності</text>
+
+  <text x="540" y="325" font-size="12" font-weight="bold" fill="#27ae60">✓ Резервну копію знято у файл backup.bin</text>
+  <text x="540" y="350" font-size="12" fill="#1a1a1a">✓ Флеш-чип повністю заповнено даними 0xFF (стирання)</text>
+  <text x="540" y="375" font-size="12" fill="#1a1a1a">✓ Запис виконано в режимі DOUT без блокування QIO</text>
+  <text x="540" y="400" font-size="12" fill="#1a1a1a">✓ Хеш-суми MD5 джерельного образу та пам'яті збігаються</text>
+  <text x="540" y="425" font-size="12" fill="#1a1a1a">✓ Автоматичне скидання DTR/RTS переводить МК у бій</text>
+
+  <rect x="535" y="445" width="370" height="35" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="720" y="467" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">СТАТУС: ПРОШИВКУ Завершено УСПІШНО (SUCCESS)</text>
+
+  <!-- Стрілка від verify_flash до панелі результату -->
+  <path d="M 490 415 L 520 415" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+</svg>

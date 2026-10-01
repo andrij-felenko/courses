@@ -1,0 +1,183 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фантомне живлення через ESD-діод та захист буфером Ioff</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">При VCC = 0 V струм з лінії SWDIO протікає на шину VDD цільового MCU; буфер з Ioff блокує витік.</text>
+
+  <!-- LEFT PANEL: PROBLEM (Phantom Powering) -->
+  <g id="panel-left">
+    <!-- Panel Box -->
+    <rect x="30" y="75" width="435" height="425" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="247.5" y="100" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Шлях паразитне живлення (Без Ioff)</text>
+
+    <!-- DAPLink Box -->
+    <rect x="45" y="120" width="105" height="245" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="97.5" y="142" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DAPLink</text>
+    <text x="97.5" y="160" font-size="12" fill="#6b7280" text-anchor="middle">(VCC = 3.3 V)</text>
+
+    <!-- Driver in DAPLink -->
+    <line x1="55" y1="230" x2="75" y2="230" stroke="#2457d6" stroke-width="2"/>
+    <polygon points="75,215 75,245 105,230" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="85" y="234" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+    <text x="90" y="265" font-size="12" fill="#6b7280" text-anchor="middle">Драйвер</text>
+    <line x1="105" y1="230" x2="150" y2="230" stroke="#2457d6" stroke-width="2"/>
+
+    <!-- SWDIO Line between DAPLink and Target MCU -->
+    <line x1="150" y1="230" x2="270" y2="230" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+    <text x="210" y="208" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SWDIO = 3.3 V</text>
+    <text x="210" y="250" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">I_leak</text>
+    <text x="210" y="266" font-size="12" fill="#c0392b" text-anchor="middle">(витік)</text>
+
+    <!-- Target MCU Box -->
+    <rect x="270" y="120" width="180" height="245" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="360" y="142" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Target MCU</text>
+    <text x="360" y="160" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">VCC_TARGET = 0 V</text>
+
+    <!-- Internal VDD Rail -->
+    <line x1="290" y1="180" x2="435" y2="180" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+    <text x="362.5" y="174" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">VDD (фантомне ~2.6 V)</text>
+
+    <!-- Upper ESD Diode (D_ESD) - Forward Biased Path -->
+    <line x1="270" y1="230" x2="300" y2="230" stroke="#c0392b" stroke-width="2"/>
+    <line x1="300" y1="230" x2="300" y2="218" stroke="#c0392b" stroke-width="2"/>
+    <polygon points="293,218 307,218 300,204" fill="#c0392b" stroke="#c0392b"/>
+    <line x1="292" y1="204" x2="308" y2="204" stroke="#c0392b" stroke-width="2"/>
+    <line x1="300" y1="204" x2="300" y2="180" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+    <text x="315" y="204" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">D_ESD</text>
+    <text x="315" y="220" font-size="12" fill="#c0392b" text-anchor="start">(відкритий)</text>
+
+    <!-- Lower ESD Diode to GND -->
+    <line x1="300" y1="230" x2="300" y2="268" stroke="#6b7280" stroke-width="1.5"/>
+    <polygon points="293,282 307,282 300,268" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="292" y1="268" x2="308" y2="268" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="300" y1="282" x2="300" y2="325" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="315" y="298" font-size="12" fill="#6b7280" text-anchor="start">D_ESD2</text>
+    <text x="315" y="314" font-size="12" fill="#6b7280" text-anchor="start">(закритий)</text>
+
+    <!-- GND symbol -->
+    <line x1="292" y1="325" x2="308" y2="325" stroke="#6b7280" stroke-width="2"/>
+    <line x1="295" y1="329" x2="305" y2="329" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="298" y1="333" x2="302" y2="333" stroke="#6b7280" stroke-width="1"/>
+
+    <!-- Path from VDD rail to MCU Internal Core -->
+    <line x1="417.5" y1="180" x2="417.5" y2="238" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+    <!-- Internal Core Block -->
+    <rect x="390" y="238" width="55" height="52" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="417.5" y="252" font-size="12" fill="#c0392b" text-anchor="middle">Ядро /</text>
+    <text x="417.5" y="266" font-size="12" fill="#c0392b" text-anchor="middle">Логіка</text>
+    <text x="417.5" y="280" font-size="12" fill="#c0392b" text-anchor="middle">MCU</text>
+
+    <!-- Consequences Box -->
+    <rect x="45" y="380" width="405" height="105" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+    <text x="60" y="402" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">Наслідки фантомного живлення:</text>
+    <text x="60" y="422" font-size="12" fill="#1a1a1a" text-anchor="start">• Неповне скидання цільового MCU (хаотичний стан)</text>
+    <text x="60" y="442" font-size="12" fill="#1a1a1a" text-anchor="start">• Зависання JTAG/SWD при повторному ввімкненні</text>
+    <text x="60" y="462" font-size="12" fill="#1a1a1a" text-anchor="start">• Ризик деградації та пробою ESD-діода</text>
+  </g>
+
+  <!-- RIGHT PANEL: SOLUTION (Ioff Protection Buffer) -->
+  <g id="panel-right">
+    <!-- Panel Box -->
+    <rect x="495" y="75" width="435" height="425" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="712.5" y="100" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Захист буфером з функцією Ioff</text>
+
+    <!-- DAPLink Box -->
+    <rect x="510" y="120" width="85" height="245" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="552.5" y="142" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DAPLink</text>
+    <text x="552.5" y="160" font-size="12" fill="#6b7280" text-anchor="middle">(VCC = 3.3 V)</text>
+
+    <!-- Buffer in DAPLink -->
+    <line x1="518" y1="230" x2="532" y2="230" stroke="#2457d6" stroke-width="2"/>
+    <polygon points="532,215 532,245 562,230" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="542" y="234" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+    <line x1="562" y1="230" x2="595" y2="230" stroke="#2457d6" stroke-width="2"/>
+
+    <!-- Wire from DAPLink to Buffer -->
+    <line x1="595" y1="230" x2="615" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <text x="605" y="210" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">3.3 V</text>
+
+    <!-- Ioff Buffer Box -->
+    <rect x="615" y="170" width="90" height="135" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+    <text x="660" y="190" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Буфер I_off</text>
+    <text x="660" y="206" font-size="12" fill="#6b7280" text-anchor="middle">74LVC1T45</text>
+
+    <!-- Power pin VCCB = 0V -->
+    <line x1="660" y1="170" x2="660" y2="152" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+    <text x="660" y="146" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">VCC_B = 0 V</text>
+
+    <!-- Open switch icon inside Buffer representing Hi-Z state -->
+    <line x1="635" y1="235" x2="647" y2="235" stroke="#27ae60" stroke-width="2"/>
+    <line x1="647" y1="235" x2="661" y2="221" stroke="#27ae60" stroke-width="2"/>
+    <line x1="663" y1="235" x2="675" y2="235" stroke="#27ae60" stroke-width="2"/>
+
+    <text x="660" y="256" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Hi-Z</text>
+    <text x="660" y="274" font-size="12" fill="#27ae60" text-anchor="middle">(вимкнено)</text>
+
+    <!-- Wire from Buffer to Target MCU (Isolated / Floating) -->
+    <line x1="705" y1="230" x2="790" y2="230" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,4"/>
+    <text x="747.5" y="208" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Ізольовано</text>
+    <text x="747.5" y="255" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">I_leak = 0 A</text>
+
+    <!-- Target MCU Box -->
+    <rect x="790" y="120" width="130" height="245" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="855" y="142" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Target MCU</text>
+    <text x="855" y="160" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">VCC = 0 V</text>
+
+    <!-- Internal VDD Rail -->
+    <line x1="795" y1="180" x2="915" y2="180" stroke="#27ae60" stroke-width="2"/>
+    <text x="855" y="174" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">VDD = 0 V</text>
+
+    <!-- Upper ESD Diode (D_ESD) - Reverse / OFF -->
+    <line x1="790" y1="230" x2="805" y2="230" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <line x1="805" y1="230" x2="805" y2="218" stroke="#6b7280" stroke-width="1.5"/>
+    <polygon points="798,218 812,218 805,204" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="797" y1="204" x2="813" y2="204" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="805" y1="204" x2="805" y2="180" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="820" y="204" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">D_ESD</text>
+    <text x="820" y="220" font-size="12" fill="#27ae60" text-anchor="start">(закритий)</text>
+
+    <!-- Lower ESD Diode to GND -->
+    <line x1="805" y1="230" x2="805" y2="268" stroke="#6b7280" stroke-width="1.5"/>
+    <polygon points="798,282 812,282 805,268" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="797" y1="268" x2="813" y2="268" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="805" y1="282" x2="805" y2="325" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="820" y="298" font-size="12" fill="#6b7280" text-anchor="start">D_ESD2</text>
+    <text x="820" y="314" font-size="12" fill="#27ae60" text-anchor="start">(закритий)</text>
+
+    <!-- GND symbol -->
+    <line x1="797" y1="325" x2="813" y2="325" stroke="#6b7280" stroke-width="2"/>
+    <line x1="800" y1="329" x2="810" y2="329" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="803" y1="333" x2="807" y2="333" stroke="#6b7280" stroke-width="1"/>
+
+    <!-- Path from VDD rail to MCU Internal Core -->
+    <line x1="889" y1="180" x2="889" y2="238" stroke="#27ae60" stroke-width="2"/>
+
+    <!-- Internal Core Block -->
+    <rect x="867" y="238" width="44" height="52" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="891" y="252" font-size="12" fill="#27ae60" text-anchor="middle">Ядро /</text>
+    <text x="891" y="266" font-size="12" fill="#27ae60" text-anchor="middle">Логіка</text>
+    <text x="891" y="280" font-size="12" fill="#27ae60" text-anchor="middle">MCU</text>
+
+    <!-- Benefits Box -->
+    <rect x="510" y="380" width="405" height="105" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+    <text x="525" y="402" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">Переваги схеми з підтримкою Ioff:</text>
+    <text x="525" y="422" font-size="12" fill="#1a1a1a" text-anchor="start">• Повна електрична ізоляція шини при VCC = 0 V</text>
+    <text x="525" y="442" font-size="12" fill="#1a1a1a" text-anchor="start">• Запобігання витоку струму та фантомному заживленню</text>
+    <text x="525" y="462" font-size="12" fill="#1a1a1a" text-anchor="start">• Гарантоване чисте скидання (POR) і надійний старт MCU</text>
+  </g>
+</svg>

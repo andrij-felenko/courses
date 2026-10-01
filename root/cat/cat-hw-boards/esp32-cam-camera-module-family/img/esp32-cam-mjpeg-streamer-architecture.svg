@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Архітектура MJPEG-стрімінгу та використання пам'яті в ESP32-CAM</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Передача кадрових буферів із PSRAM у веб-браузер та вивільнення шини SDMMC (1-bit mode) для збереження знімків</text>
+
+  <!-- Stage 1: Camera Sensor OV2640 -->
+  <rect x="40" y="85" width="180" height="210" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="130" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">1. Модуль камери</text>
+  <rect x="55" y="128" width="150" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="153" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Сенсор OV2640</text>
+  <text x="55" y="195" font-size="12" fill="#1a1a1a">• DVP 8-bit Interface</text>
+  <text x="55" y="220" font-size="12" fill="#1a1a1a">• Апаратний JPEG</text>
+  <text x="55" y="245" font-size="12" fill="#6b7280">• Прямий доступ DMA</text>
+
+  <!-- Stage 2: PSRAM Frame Buffering -->
+  <rect x="250" y="85" width="210" height="210" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="355" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">2. Збереження в PSRAM</text>
+  <rect x="265" y="128" width="180" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="355" y="149" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Frame Buffer 0 (JPEG)</text>
+  <rect x="265" y="168" width="180" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="355" y="189" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Frame Buffer 1 (JPEG)</text>
+  <text x="265" y="225" font-size="12" fill="#1a1a1a">• Подвійна буферизація</text>
+  <text x="265" y="250" font-size="12" fill="#6b7280">• Зовнішня пам'ять 4 МБ</text>
+
+  <!-- Stage 3: HTTP MJPEG Streamer -->
+  <rect x="490" y="85" width="220" height="210" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="600" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">3. Стрімер HTTP</text>
+  <rect x="505" y="128" width="190" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="600" y="153" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">esp_http_server</text>
+  <text x="505" y="195" font-size="12" fill="#1a1a1a">• Content-Type: multipart</text>
+  <text x="505" y="220" font-size="12" fill="#1a1a1a">• x-mixed-replace; boundary</text>
+  <text x="505" y="245" font-size="12" fill="#6b7280">• Асинхронні сокети</text>
+
+  <!-- Stage 4: Client Web Browser -->
+  <rect x="740" y="85" width="180" height="210" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="830" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">4. Клієнт (Browser)</text>
+  <rect x="755" y="128" width="150" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="830" y="153" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Веб-браузер</text>
+  <text x="755" y="195" font-size="12" fill="#1a1a1a">• &lt;img src='/stream'&gt;</text>
+  <text x="755" y="220" font-size="12" fill="#1a1a1a">• Оновлення кадрів</text>
+  <text x="755" y="245" font-size="12" fill="#6b7280">• Неперервний потік</text>
+
+  <!-- Connecting Arrows -->
+  <text x="235" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">DMA</text>
+  <line x1="220" y1="148" x2="248" y2="148" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <text x="475" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">JPEG</text>
+  <line x1="460" y1="148" x2="488" y2="148" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <text x="725" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">HTTP</text>
+  <line x1="710" y1="148" x2="738" y2="148" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Bottom Optimization Panel: SDMMC 1-Bit Mode -->
+  <rect x="40" y="315" width="880" height="115" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="60" y="340" font-size="13" font-weight="bold" fill="#2457d6">Оптимізація сумісності: 1-Bit Режим SDMMC для картки пам'яті MicroSD</text>
+  <text x="60" y="365" font-size="12" fill="#1a1a1a">• Перемикання шини MicroSD в 1-bit режим (SDMMC_HOST_FLAG_1BIT) вивільняє лінії GPIO4, GPIO12, GPIO13.</text>
+  <text x="60" y="390" font-size="12" fill="#1a1a1a">• Вузол GPIO4 керує вбудованим світлодіодом (спалахом), а GPIO12/13 задіяні у стабільному обміні даними камери.</text>
+  <text x="60" y="415" font-size="12" font-weight="bold" fill="#27ae60">• Результат: одночасний MJPEG-стрімінг у мережу та надійне збереження окремих фотознімків на MicroSD.</text>
+</svg>

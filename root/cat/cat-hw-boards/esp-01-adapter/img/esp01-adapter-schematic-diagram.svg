@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принципова схема та вузли адаптера модуля ESP-01</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">LDO перетворює 5В→3.3В, дільник напруги захищає RXD, а підтяжки R1–R4 фіксують режим завантаження</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Вхідний інтерфейс 5В -->
+  <rect x="24" y="75" width="200" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="124" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідний інтерфейс 5В</text>
+  <text x="124" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Підключення МК / USB-UART</text>
+
+  <!-- Вхід VCC -->
+  <rect x="38" y="132" width="172" height="58" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="124" y="153" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">VCC_IN (+5В)</text>
+  <text x="124" y="171" font-size="12" fill="#6b7280" text-anchor="middle">Зовнішнє живлення 5В</text>
+
+  <!-- Вхід GND -->
+  <rect x="38" y="204" width="172" height="58" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="124" y="225" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND (0В)</text>
+  <text x="124" y="243" font-size="12" fill="#6b7280" text-anchor="middle">Спільна земля кола</text>
+
+  <!-- Вхід TX_MCU -->
+  <rect x="38" y="276" width="172" height="58" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="124" y="297" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">TX_MCU (5В)</text>
+  <text x="124" y="315" font-size="12" fill="#6b7280" text-anchor="middle">Передача від МК до ESP</text>
+
+  <!-- Вхід RX_MCU -->
+  <rect x="38" y="348" width="172" height="58" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="124" y="369" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RX_MCU (5В)</text>
+  <text x="124" y="387" font-size="12" fill="#6b7280" text-anchor="middle">Прийом від ESP до МК</text>
+
+  <!-- Інфо-картка вхідного блоку -->
+  <rect x="38" y="420" width="172" height="66" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="440" font-size="12" font-weight="bold" fill="#1a1a1a">Особливість 5В:</text>
+  <text x="48" y="458" font-size="12" fill="#6b7280">ESP-01 згорає від 5В</text>
+  <text x="48" y="474" font-size="12" fill="#6b7280">на VCC та виводі RXD</text>
+
+  <!-- ЦЕНТРАЛЬНА ПАНЕЛЬ: Схема адаптера -->
+  <rect x="244" y="75" width="472" height="425" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня схема адаптера ESP-01</text>
+  <text x="480" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Перетворення живлення, узгодження UART та фіксація режимів</text>
+
+  <!-- Блок 1: LDO Живлення -->
+  <rect x="258" y="132" width="444" height="108" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="270" y="149" font-size="13" font-weight="bold" fill="#2457d6">1. LDO-стабілізатор живлення 5В → 3.3В</text>
+
+  <!-- AMS1117 -->
+  <rect x="368" y="164" width="130" height="62" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="433" y="186" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LDO AMS1117</text>
+  <text x="433" y="202" font-size="12" fill="#2457d6" text-anchor="middle">Вихід 3.3В (до 1А)</text>
+
+  <!-- C1 + C2 -->
+  <rect x="530" y="164" width="158" height="62" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="609" y="186" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">C1 (10мкФ) + C2 (0.1мкФ)</text>
+  <text x="609" y="202" font-size="12" fill="#6b7280" text-anchor="middle">Фільтр піків Wi-Fi (400мА)</text>
+
+  <!-- Зв'язки LDO -->
+  <path d="M 210 161 L 368 161" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <path d="M 498 195 L 530 195" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 2: Узгодження UART -->
+  <rect x="258" y="250" width="444" height="108" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="270" y="267" font-size="13" font-weight="bold" fill="#1a1a1a">2. Коло узгодження рівнів UART (5В ↔ 3.3В)</text>
+
+  <!-- Дільник RX -->
+  <rect x="270" y="282" width="200" height="62" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="370" y="303" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Дільник R1 (1k) / R2 (2k)</text>
+  <text x="370" y="321" font-size="12" fill="#1a1a1a" text-anchor="middle">Знижує TX_MCU 5В → 3.3В RXD</text>
+
+  <!-- Прямий TX -->
+  <rect x="488" y="282" width="200" height="62" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="588" y="303" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Прямий зв'язок TXD</text>
+  <text x="588" y="321" font-size="12" fill="#6b7280" text-anchor="middle">3.3В розпізнається МК як HIGH</text>
+
+  <!-- Зв'язки UART -->
+  <path d="M 210 305 L 270 305" fill="none" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <path d="M 488 344 L 488 362 L 210 362 L 210 377" fill="none" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr-black)"/>
+
+  <!-- Блок 3: Підтяжки R1-R4 -->
+  <rect x="258" y="368" width="444" height="120" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="270" y="385" font-size="13" font-weight="bold" fill="#27ae60">3. Кола підтяжки виводів (R1–R4 10 кОм до +3.3В)</text>
+
+  <!-- EN -->
+  <rect x="270" y="396" width="98" height="82" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="319" y="416" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">EN (CH_PD)</text>
+  <text x="319" y="434" font-size="12" fill="#27ae60" text-anchor="middle">R1=10k → 3.3V</text>
+  <text x="319" y="452" font-size="12" fill="#6b7280" text-anchor="middle">Модуль увімк.</text>
+  <text x="319" y="468" font-size="12" fill="#6b7280" text-anchor="middle">(Enable)</text>
+
+  <!-- RST -->
+  <rect x="376" y="396" width="98" height="82" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="425" y="416" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RST</text>
+  <text x="425" y="434" font-size="12" fill="#27ae60" text-anchor="middle">R2=10k → 3.3V</text>
+  <text x="425" y="452" font-size="12" fill="#6b7280" text-anchor="middle">Робочий стан</text>
+  <text x="425" y="468" font-size="12" fill="#6b7280" text-anchor="middle">(Reset HIGH)</text>
+
+  <!-- GPIO0 -->
+  <rect x="482" y="396" width="98" height="82" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="531" y="416" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO0</text>
+  <text x="531" y="434" font-size="12" fill="#2457d6" text-anchor="middle">R3=10k → 3.3V</text>
+  <text x="531" y="452" font-size="12" fill="#2457d6" text-anchor="middle">Normal Boot</text>
+  <text x="531" y="468" font-size="12" fill="#6b7280" text-anchor="middle">(GND=Flash)</text>
+
+  <!-- GPIO2 -->
+  <rect x="588" y="396" width="98" height="82" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="637" y="416" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO2</text>
+  <text x="637" y="434" font-size="12" fill="#27ae60" text-anchor="middle">R4=10k → 3.3V</text>
+  <text x="637" y="452" font-size="12" fill="#6b7280" text-anchor="middle">Стабільний</text>
+  <text x="637" y="468" font-size="12" fill="#6b7280" text-anchor="middle">старт ESP</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Роз'єм ESP-01 -->
+  <rect x="736" y="75" width="200" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="836" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Роз'єм ESP-01 (2x4)</text>
+  <text x="836" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Сигнали 3.3В до плати</text>
+
+  <!-- Контейнер роз'єму 2x4 -->
+  <rect x="748" y="132" width="176" height="236" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="836" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розпіновка 2x4 (3.3V)</text>
+
+  <!-- Лівий стовпчик виводів -->
+  <!-- VCC -->
+  <rect x="756" y="164" width="76" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="794" y="181" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">VCC</text>
+  <text x="794" y="197" font-size="12" fill="#2457d6" text-anchor="middle">3.3В (LDO)</text>
+
+  <!-- EN -->
+  <rect x="756" y="214" width="76" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="794" y="231" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">EN</text>
+  <text x="794" y="247" font-size="12" fill="#27ae60" text-anchor="middle">HIGH 3.3В</text>
+
+  <!-- GPIO0 -->
+  <rect x="756" y="264" width="76" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="794" y="281" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">GPIO0</text>
+  <text x="794" y="297" font-size="12" fill="#2457d6" text-anchor="middle">HIGH 3.3В</text>
+
+  <!-- RXD -->
+  <rect x="756" y="314" width="76" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="794" y="331" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">RXD</text>
+  <text x="794" y="347" font-size="12" fill="#27ae60" text-anchor="middle">3.3В Log</text>
+
+  <!-- Правий стовпчик виводів -->
+  <!-- GND -->
+  <rect x="840" y="164" width="76" height="42" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="878" y="181" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND</text>
+  <text x="878" y="197" font-size="12" fill="#6b7280" text-anchor="middle">0В Земля</text>
+
+  <!-- RST -->
+  <rect x="840" y="214" width="76" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="878" y="231" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">RST</text>
+  <text x="878" y="247" font-size="12" fill="#27ae60" text-anchor="middle">HIGH 3.3В</text>
+
+  <!-- GPIO2 -->
+  <rect x="840" y="264" width="76" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="878" y="281" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">GPIO2</text>
+  <text x="878" y="297" font-size="12" fill="#27ae60" text-anchor="middle">HIGH 3.3В</text>
+
+  <!-- TXD -->
+  <rect x="840" y="314" width="76" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="878" y="331" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">TXD</text>
+  <text x="878" y="347" font-size="12" fill="#6b7280" text-anchor="middle">3.3В Log</text>
+
+  <!-- Вихідні ортогональні стрілки до роз'єму ESP-01 -->
+  <path d="M 688 195 L 720 195 L 720 185 L 756 185" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <path d="M 470 313 L 470 362 L 720 362 L 720 335 L 756 335" fill="none" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+
+  <!-- Картка підсумку в правому блоці -->
+  <rect x="748" y="376" width="176" height="112" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="836" y="395" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Підсумкові режими:</text>
+  <text x="756" y="415" font-size="12" fill="#27ae60">• Старт: GPIO0 = HIGH</text>
+  <text x="756" y="433" font-size="12" fill="#2457d6">• Прошивка: GPIO0 = LOW</text>
+  <text x="756" y="451" font-size="12" fill="#1a1a1a">• EN/RST: завжди HIGH</text>
+  <text x="756" y="469" font-size="12" fill="#6b7280">• Живлення: стабільні 3.3В</text>
+</svg>

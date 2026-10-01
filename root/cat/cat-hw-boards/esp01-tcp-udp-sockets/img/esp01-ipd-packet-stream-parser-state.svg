@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White canvas background -->
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Граф станів парсера вхідних мережевих пакетів +IPD</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Послідовне виділення префікса, ID каналу, довжини та побайтове вичитання даних</text>
+
+  <defs>
+    <!-- Markers -->
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Main Background Panel -->
+  <rect x="40" y="70" width="880" height="345" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- State Nodes -->
+
+  <!-- Node 0: S0 IDLE -->
+  <rect x="75" y="170" width="145" height="80" rx="6" ry="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="147.5" y="193" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">S0: IDLE</text>
+  <text x="147.5" y="212" font-size="12" fill="#1a1a1a" text-anchor="middle">Очікування</text>
+  <text x="147.5" y="230" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">префікса +IPD,</text>
+
+  <!-- Node 1: S1 PARSE_ID -->
+  <rect x="255" y="170" width="145" height="80" rx="6" ry="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="327.5" y="193" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">S1: PARSE_ID</text>
+  <text x="327.5" y="212" font-size="12" fill="#1a1a1a" text-anchor="middle">Зчитування</text>
+  <text x="327.5" y="230" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">link_id до ","</text>
+
+  <!-- Node 2: S2 PARSE_LEN -->
+  <rect x="435" y="170" width="145" height="80" rx="6" ry="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="507.5" y="193" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">S2: PARSE_LEN</text>
+  <text x="507.5" y="212" font-size="12" fill="#1a1a1a" text-anchor="middle">Зчитування</text>
+  <text x="507.5" y="230" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">len до ":"</text>
+
+  <!-- Node 3: S3 READ_DATA -->
+  <rect x="615" y="170" width="145" height="80" rx="6" ry="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="687.5" y="193" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">S3: READ_DATA</text>
+  <text x="687.5" y="212" font-size="12" fill="#1a1a1a" text-anchor="middle">Прийом даних</text>
+  <text x="687.5" y="230" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">cnt &lt; len</text>
+
+  <!-- Node 4: S4 DONE -->
+  <rect x="795" y="170" width="125" height="80" rx="6" ry="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="857.5" y="193" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">S4: DONE</text>
+  <text x="857.5" y="212" font-size="12" fill="#1a1a1a" text-anchor="middle">Обробка пакета</text>
+  <text x="857.5" y="230" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Виклик callback</text>
+
+  <!-- Forward Transitions -->
+
+  <!-- T01: S0 -> S1 -->
+  <line x1="220" y1="210" x2="255" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="237.5" y="195" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+IPD,</text>
+
+  <!-- T12: S1 -> S2 -->
+  <line x1="400" y1="210" x2="435" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="417.5" y="195" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">","</text>
+
+  <!-- T23: S2 -> S3 -->
+  <line x1="580" y1="210" x2="615" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="597.5" y="195" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">":"</text>
+
+  <!-- T34: S3 -> S4 -->
+  <line x1="760" y1="210" x2="795" y2="210" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="777.5" y="195" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">cnt==len</text>
+
+  <!-- Self-Loop on S3 (READ_DATA) -->
+  <path d="M 660,170 C 660,135 715,135 715,170" stroke="#6b7280" stroke-width="1.5" fill="none" marker-end="url(#arr-gray)"/>
+  <text x="687.5" y="125" font-size="12" fill="#6b7280" text-anchor="middle">Байт даних (cnt++)</text>
+
+  <!-- Return Path S4 -> S0 (Success Reset) -->
+  <path d="M 857.5,250 L 857.5,290 L 147.5,290 L 147.5,250" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,4" fill="none" marker-end="url(#arr-green)"/>
+  <text x="502.5" y="280" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Пакет завершено — авто-повернення в S0 (IDLE)</text>
+
+  <!-- Error Return Path (Syntax Error / Timeout -> S0) -->
+  <path d="M 285,250 L 285,340 L 147.5,340 L 147.5,250" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4" fill="none" marker-end="url(#arr-red)"/>
+  <text x="502.5" y="330" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Помилка синтаксису / Таймаут — скидання парсера в S0</text>
+
+  <!-- Bottom Summary Cards -->
+  <rect x="40" y="435" width="275" height="65" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="177" y="457" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Формат кадру AT+IPD</text>
+  <text x="177" y="480" font-size="12" fill="#1a1a1a" text-anchor="middle">+IPD,&lt;link_id&gt;,&lt;len&gt;:&lt;data&gt;</text>
+
+  <rect x="342" y="435" width="275" height="65" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="457" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Буферизація даних</text>
+  <text x="480" y="480" font-size="12" fill="#1a1a1a" text-anchor="middle">Прямий запис len байтів у буфер</text>
+
+  <rect x="645" y="435" width="275" height="65" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="782" y="457" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Стійкість до завад</text>
+  <text x="782" y="480" font-size="12" fill="#1a1a1a" text-anchor="middle">Скидання в IDLE при таймауті</text>
+</svg>

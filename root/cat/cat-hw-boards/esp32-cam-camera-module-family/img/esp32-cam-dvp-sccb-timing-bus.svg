@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff"/>
+
+  <!-- Definitions for Arrow Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-start" markerWidth="8" markerHeight="8" refX="0" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L0,4 L7,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-black" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інтерфейс DVP та шина SCCB модуля ESP32-CAM</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Специфікація сигнальних ліній DVP/SCCB та часові діаграми кадрової й рядкової синхронізації</text>
+
+  <!-- Left Panel: Wiring Diagram -->
+  <rect x="20" y="70" width="370" height="470" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="205" y="95" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема сигнальних ліній DVP &amp; SCCB</text>
+
+  <!-- ESP32 Module Block -->
+  <rect x="40" y="120" width="100" height="390" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="90" y="145" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">ESP32</text>
+  <text x="90" y="165" font-size="12" fill="#6b7280" text-anchor="middle">MCU / I2S</text>
+
+  <!-- OV2640 Sensor Block -->
+  <rect x="270" y="120" width="100" height="390" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="320" y="145" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">OV2640</text>
+  <text x="320" y="165" font-size="12" fill="#6b7280" text-anchor="middle">Sensor</text>
+
+  <!-- Signal Lines Left Panel -->
+  <!-- Line 1: XCLK -->
+  <text x="205" y="190" font-size="12" fill="#1a1a1a" text-anchor="middle">XCLK (20–24 МГц)</text>
+  <line x1="140" y1="200" x2="270" y2="200" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Line 2: SCCB (SIOC/SIOD) -->
+  <text x="205" y="230" font-size="12" fill="#1a1a1a" text-anchor="middle">SIOC / SIOD (SCCB)</text>
+  <line x1="140" y1="240" x2="270" y2="240" stroke="#27ae60" stroke-width="2" marker-start="url(#arr-green-start)" marker-end="url(#arr-green)"/>
+
+  <!-- Line 3: VSYNC -->
+  <text x="205" y="270" font-size="12" fill="#1a1a1a" text-anchor="middle">VSYNC (Кадр)</text>
+  <line x1="270" y1="280" x2="140" y2="280" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Line 4: HREF -->
+  <text x="205" y="310" font-size="12" fill="#1a1a1a" text-anchor="middle">HREF (Рядок)</text>
+  <line x1="270" y1="320" x2="140" y2="320" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Line 5: PCLK -->
+  <text x="205" y="350" font-size="12" fill="#1a1a1a" text-anchor="middle">PCLK (Піксель)</text>
+  <line x1="270" y1="360" x2="140" y2="360" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Line 6: D0-D7 Bus -->
+  <text x="205" y="400" font-size="12" fill="#1a1a1a" text-anchor="middle">D0–D7 (8-біт шина)</text>
+  <line x1="270" y1="410" x2="140" y2="410" stroke="#1a1a1a" stroke-width="3.5" marker-end="url(#arr-black)"/>
+
+  <!-- Line 7: RESET / PWDN -->
+  <text x="205" y="450" font-size="12" fill="#6b7280" text-anchor="middle">RESET / PWDN</text>
+  <line x1="140" y1="460" x2="270" y2="460" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Right Panel: Timing Diagram -->
+  <rect x="410" y="70" width="530" height="470" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="675" y="95" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часові діаграми кадрової синхронізації DVP</text>
+
+  <!-- Signal 1: VSYNC -->
+  <text x="495" y="145" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">VSYNC:</text>
+  <text x="550" y="125" font-size="12" fill="#c0392b" text-anchor="middle">Кадровий імпульс (VSYNC)</text>
+  <!-- VSYNC Waveform: High pulse from x=530 to x=570 -->
+  <path d="M 510 155 L 530 155 L 530 135 L 570 135 L 570 155 L 910 155" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <line x1="510" y1="165" x2="910" y2="165" stroke="#d0d7de" stroke-dasharray="3,3"/>
+
+  <!-- Signal 2: HREF -->
+  <text x="495" y="215" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">HREF:</text>
+  <text x="635" y="195" font-size="12" fill="#1a1a1a" text-anchor="middle">Рядок 1</text>
+  <text x="775" y="195" font-size="12" fill="#1a1a1a" text-anchor="middle">Рядок 2</text>
+  <!-- HREF Waveform: Low during VSYNC pulse, then two active high pulses -->
+  <path d="M 510 225 L 580 225 L 585 205 L 685 205 L 690 225 L 720 225 L 725 205 L 825 205 L 830 225 L 910 225" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <line x1="510" y1="235" x2="910" y2="235" stroke="#d0d7de" stroke-dasharray="3,3"/>
+
+  <!-- Signal 3: PCLK -->
+  <text x="495" y="295" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">PCLK:</text>
+  <text x="635" y="275" font-size="12" fill="#2457d6" text-anchor="middle">Такти засувки (PCLK)</text>
+  <!-- PCLK Waveform: Pulses active during HREF = High -->
+  <path d="M 510 305 L 585 305 L 590 285 L 598 305 L 606 285 L 614 305 L 622 285 L 630 305 L 638 285 L 646 305 L 654 285 L 662 305 L 670 285 L 678 305 L 685 305 L 725 305 L 730 285 L 738 305 L 746 285 L 754 305 L 762 285 L 770 305 L 778 285 L 786 305 L 794 285 L 802 305 L 810 285 L 818 305 L 825 305 L 910 305" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="510" y1="315" x2="910" y2="315" stroke="#d0d7de" stroke-dasharray="3,3"/>
+
+  <!-- Signal 4: D[7:0] Data Bus -->
+  <text x="495" y="375" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">D[7:0]:</text>
+  <text x="635" y="415" font-size="12" fill="#6b7280" text-anchor="middle">Формат YUV422 / RGB565 (2 байти на піксель)</text>
+
+  <!-- Bus line flat outside active regions -->
+  <line x1="510" y1="375" x2="585" y2="375" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="685" y1="375" x2="725" y2="375" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="825" y1="375" x2="910" y2="375" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Row 1 Data Packets -->
+  <!-- Packet 1: Y0 -->
+  <polygon points="585,375 590,360 615,360 620,375 615,390 590,390" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="602" y="379" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Y0</text>
+
+  <!-- Packet 2: U0 -->
+  <polygon points="620,375 625,360 650,360 655,375 650,390 625,390" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="637" y="379" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">U0</text>
+
+  <!-- Packet 3: Y1 -->
+  <polygon points="655,375 660,360 680,360 685,375 680,390 660,390" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="670" y="379" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Y1</text>
+
+  <!-- Row 2 Data Packets -->
+  <!-- Packet 1: Y0 -->
+  <polygon points="725,375 730,360 755,360 760,375 755,390 730,390" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="742" y="379" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Y0</text>
+
+  <!-- Packet 2: U0 -->
+  <polygon points="760,375 765,360 790,360 795,375 790,390 765,390" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="777" y="379" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">U0</text>
+
+  <!-- Packet 3: Y1 -->
+  <polygon points="795,375 800,360 820,360 825,375 820,390 800,390" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="810" y="379" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Y1</text>
+
+  <!-- Right Panel Summary Box -->
+  <rect x="430" y="435" width="490" height="85" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <circle cx="445" cy="451" r="4" fill="#27ae60"/>
+  <text x="457" y="455" font-size="12" fill="#1a1a1a">SCCB (SIOC/SIOD): налаштування регістрів та режимів камери</text>
+
+  <circle cx="445" cy="471" r="4" fill="#c0392b"/>
+  <text x="457" y="475" font-size="12" fill="#1a1a1a">VSYNC / HREF: розмежування кадрів та дійсних рядків зображення</text>
+
+  <circle cx="445" cy="491" r="4" fill="#2457d6"/>
+  <text x="457" y="495" font-size="12" fill="#1a1a1a">PCLK &amp; D0–D7: зчитування байтів у пам'ять через контролер I2S DMA</text>
+</svg>

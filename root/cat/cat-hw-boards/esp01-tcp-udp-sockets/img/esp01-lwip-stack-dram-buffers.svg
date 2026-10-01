@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 490" width="960" height="490" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="490" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Взаємодія UART, AT-інтерпретатора та LwIP у пам'яті DRAM ESP-01</text>
+  <text x="480" y="53" font-size="13" fill="#6b7280" text-anchor="middle">Розподіл блоків керування PCB та буферів сокетів залежно від режиму CIPMUX</text>
+
+  <!-- BLOCK 1: Host MCU & UART -->
+  <rect x="30" y="85" width="220" height="380" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="97" width="200" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="140" y="118" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Хост-мікроконтролер</text>
+
+  <!-- UART Sub-box -->
+  <rect x="42" y="140" width="196" height="70" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="140" y="157" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Послідовний порт UART</text>
+  <text x="52" y="177" font-size="12" fill="#2457d6">TXD (3.3V) ────────►</text>
+  <text x="52" y="197" font-size="12" fill="#27ae60">◄──────── RXD (3.3V)</text>
+
+  <!-- AT Commands Sub-box -->
+  <rect x="42" y="220" width="196" height="110" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="140" y="237" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Команди сокетів AT</text>
+  <text x="52" y="257" font-size="12" fill="#2457d6">• AT+CIPMUX=0 / 1</text>
+  <text x="52" y="277" font-size="12" fill="#1a1a1a">• AT+CIPSTART=...</text>
+  <text x="52" y="297" font-size="12" fill="#1a1a1a">• AT+CIPSEND=...</text>
+  <text x="52" y="317" font-size="12" fill="#1a1a1a">• AT+CIPSERVER=...</text>
+
+  <!-- Async Events Sub-box -->
+  <rect x="42" y="340" width="196" height="115" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="140" y="357" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Асинхронні події</text>
+  <text x="52" y="377" font-size="12" fill="#27ae60">• +IPD,&lt;len&gt;:&lt;data&gt;</text>
+  <text x="52" y="397" font-size="12" fill="#c0392b">• &lt;id&gt;,CLOSED</text>
+  <text x="52" y="417" font-size="12" fill="#2457d6">• &lt;id&gt;,CONNECT</text>
+  <text x="52" y="437" font-size="12" fill="#6b7280">• SEND OK / ERROR</text>
+
+
+  <!-- ARROWS BETWEEN BLOCK 1 & BLOCK 2 -->
+  <line x1="250" y1="275" x2="280" y2="275" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="265" y="267" font-size="10" fill="#2457d6" text-anchor="middle">AT cmd</text>
+
+  <line x1="280" y1="395" x2="250" y2="395" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="265" y="412" font-size="10" fill="#27ae60" text-anchor="middle">+IPD</text>
+
+
+  <!-- BLOCK 2: AT Engine & LwIP Core -->
+  <rect x="285" y="85" width="265" height="380" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="295" y="97" width="245" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="417" y="118" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Прошивка ESP-01 / LwIP</text>
+
+  <!-- UART Buffer Sub-box -->
+  <rect x="295" y="140" width="245" height="55" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="417" y="160" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">UART RX/TX FIFO Буфер</text>
+  <text x="417" y="180" font-size="11" fill="#6b7280" text-anchor="middle">Кільцевий буфер (128–256 байтів)</text>
+
+  <!-- AT Parser Sub-box -->
+  <rect x="295" y="205" width="245" height="75" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="417" y="225" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Парсер AT-команд</text>
+  <text x="305" y="247" font-size="11" fill="#1a1a1a">• Валідація синтаксису й параметрів</text>
+  <text x="305" y="267" font-size="11" fill="#2457d6">• Диспетчеризація викликів LwIP</text>
+
+  <!-- LwIP Stack Sub-box -->
+  <rect x="295" y="290" width="245" height="165" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="417" y="310" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стек протоколів LwIP (TCP/UDP)</text>
+  <text x="305" y="332" font-size="11" fill="#6b7280">• tcp_new() / tcp_bind()</text>
+  <text x="305" y="352" font-size="11" fill="#6b7280">• tcp_connect() / tcp_write()</text>
+  <text x="305" y="372" font-size="11" fill="#6b7280">• udp_new() / udp_sendto()</text>
+  <text x="305" y="392" font-size="11" fill="#2457d6">• pbuf_alloc() / pbuf_free()</text>
+  <text x="417" y="420" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Керування буферами й сокетами</text>
+  <text x="417" y="440" font-size="10" fill="#6b7280" text-anchor="middle">Трансляція в апаратний Wi-Fi MAC</text>
+
+
+  <!-- ARROWS BETWEEN BLOCK 2 & BLOCK 3 -->
+  <line x1="550" y1="205" x2="605" y2="205" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="577" y="197" font-size="10" fill="#27ae60" text-anchor="middle">CIPMUX=0</text>
+
+  <line x1="550" y1="355" x2="605" y2="355" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="577" y="347" font-size="10" fill="#2457d6" text-anchor="middle">CIPMUX=1</text>
+
+
+  <!-- BLOCK 3: DRAM Memory Pool & PCB Blocks -->
+  <rect x="610" y="85" width="320" height="380" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="620" y="97" width="300" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="770" y="118" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Оперативна пам'ять DRAM (Heap)</text>
+
+  <!-- CIPMUX=0 Panel (Single connection) -->
+  <rect x="620" y="140" width="300" height="125" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="630" y="160" font-size="12" font-weight="bold" fill="#27ae60">Режим AT+CIPMUX=0 (Одиночний сокет)</text>
+  <rect x="628" y="168" width="284" height="87" rx="3" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="636" y="188" font-size="11" fill="#1a1a1a">• 1 × tcp_pcb або udp_pcb (~2.5 KB DRAM)</text>
+  <text x="636" y="208" font-size="11" fill="#1a1a1a">• Буфери PBUF_RAM для даних (~4 KB)</text>
+  <text x="636" y="228" font-size="11" font-weight="bold" fill="#27ae60">Низька фрагментація · Можливий Passthrough</text>
+  <text x="636" y="246" font-size="10" fill="#6b7280">Висока стабільність утримання каналу</text>
+
+  <!-- CIPMUX=1 Panel (Multiple connections) -->
+  <rect x="620" y="275" width="300" height="180" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="630" y="295" font-size="12" font-weight="bold" fill="#c0392b">Режим AT+CIPMUX=1 (До 5 сокетів ID 0–4)</text>
+  <rect x="628" y="303" width="284" height="142" rx="3" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="636" y="323" font-size="11" fill="#1a1a1a">• tcp_pcb[0] .. tcp_pcb[4] (5 × ~2.5 KB)</text>
+  <text x="636" y="343" font-size="11" fill="#1a1a1a">• Окремі черги pbuf для кожного ID</text>
+  <text x="636" y="363" font-size="11" fill="#1a1a1a">• Витрата DRAM: 35–45 KB при навантаженні</text>
+  <text x="636" y="388" font-size="11" font-weight="bold" fill="#c0392b">Ризик фрагментації пам'яті DRAM</text>
+  <text x="636" y="408" font-size="10" fill="#c0392b">Помилки при дефіциті: ERROR / BUSY s...</text>
+  <text x="636" y="428" font-size="10" fill="#6b7280">Авто-закриття по таймауту: AT+CIPSTO</text>
+</svg>

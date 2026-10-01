@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-gray-start" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Топологія з'єднання OV3640, шини DVP та буферизації DMA в PSRAM</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Траєкторія кадрового масиву від сенсора через шину DVP в контролер DMA та пам'ять PSRAM</text>
+
+  <!-- Panel 1: OV3640 -->
+  <rect x="40" y="90" width="220" height="325" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <rect x="50" y="102" width="200" height="28" fill="#eaf0fd" rx="4"/>
+  <text x="150" y="121" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Сенсор OV3640 (2 МП)</text>
+  
+  <rect x="52" y="145" width="196" height="75" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="150" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Матриця 2 МП (OmniPixel3)</text>
+  <text x="150" y="188" text-anchor="middle" font-size="12" fill="#6b7280">Апаратний кодек JPEG</text>
+  <text x="150" y="207" text-anchor="middle" font-size="12" fill="#6b7280">Формати: YUV / RGB / JPEG</text>
+
+  <rect x="52" y="235" width="196" height="165" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="150" y="256" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Інтерфейси виводу</text>
+  <text x="150" y="278" text-anchor="middle" font-size="12" fill="#1a1a1a">DVP Data: Y2-Y9 (8 біт)</text>
+  <text x="150" y="298" text-anchor="middle" font-size="12" fill="#1a1a1a">Синхр: PCLK, VSYNC, HREF</text>
+  <text x="150" y="318" text-anchor="middle" font-size="12" fill="#6b7280">Тактування: XCLK (Input)</text>
+  <text x="150" y="338" text-anchor="middle" font-size="12" fill="#6b7280">Керування: SCCB</text>
+  <text x="150" y="358" text-anchor="middle" font-size="12" fill="#6b7280">(SIOC / SIOD - I2C)</text>
+  <text x="150" y="378" text-anchor="middle" font-size="12" fill="#6b7280">Напруги LDO: 1.5V, 2.8V</text>
+
+  <!-- Interconnect 1: DVP & SCCB -->
+  <path d="M 260,195 L 360,195" stroke="#2457d6" stroke-width="2.5" fill="none" marker-end="url(#arr-blue)"/>
+  <rect x="270" y="173" width="80" height="18" fill="#eaf0fd" rx="3"/>
+  <text x="310" y="187" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">DVP (Y2-Y9)</text>
+
+  <path d="M 260,260 L 360,260" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="310" y="250" text-anchor="middle" font-size="12" fill="#2457d6">PCLK, VSYNC, HREF</text>
+
+  <path d="M 360,320 L 260,320" stroke="#6b7280" stroke-width="2" fill="none" marker-end="url(#arr-gray)"/>
+  <text x="310" y="310" text-anchor="middle" font-size="12" fill="#6b7280">XCLK (Master Clock)</text>
+
+  <path d="M 360,370 L 260,370" stroke="#6b7280" stroke-width="2" stroke-dasharray="4 3" fill="none" marker-end="url(#arr-gray)" marker-start="url(#arr-gray-start)"/>
+  <text x="310" y="360" text-anchor="middle" font-size="12" fill="#6b7280">SCCB (SIOC / SIOD)</text>
+
+  <!-- Panel 2: ESP32 SoC -->
+  <rect x="360" y="90" width="300" height="325" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <rect x="370" y="102" width="280" height="28" fill="#eaf0fd" rx="4"/>
+  <text x="510" y="121" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Мікроконтролер ESP32 (SoC)</text>
+
+  <rect x="375" y="145" width="270" height="75" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="510" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Периферійний модуль I2S / Cam</text>
+  <text x="510" y="188" text-anchor="middle" font-size="12" fill="#1a1a1a">Прийом 8-біт DVP потоку кадру</text>
+  <text x="510" y="207" text-anchor="middle" font-size="12" fill="#6b7280">Синхронізація PCLK та VSYNC</text>
+
+  <path d="M 510,220 L 510,238" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+
+  <rect x="375" y="240" width="270" height="75" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="510" y="263" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Контролер DMA (Direct Memory Access)</text>
+  <text x="510" y="283" text-anchor="middle" font-size="12" fill="#1a1a1a">Пряма передача даних кадру</text>
+  <text x="510" y="302" text-anchor="middle" font-size="12" fill="#27ae60">Нульове навантаження на процесор CPU</text>
+
+  <path d="M 510,315 L 510,333" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+
+  <rect x="375" y="335" width="270" height="65" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="510" y="358" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Контролер SPI RAM (PSRAM)</text>
+  <text x="510" y="380" text-anchor="middle" font-size="12" fill="#6b7280">Апаратна адресація в зовнішню RAM</text>
+
+  <!-- Interconnect 2: QSPI Bus -->
+  <path d="M 660,367 L 720,367" stroke="#27ae60" stroke-width="3" fill="none" marker-end="url(#arr-green)"/>
+  <rect x="663" y="335" width="54" height="22" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="3"/>
+  <text x="690" y="351" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">QSPI Bus</text>
+
+  <!-- Panel 3: PSRAM Memory -->
+  <rect x="720" y="90" width="200" height="325" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <rect x="730" y="102" width="180" height="28" fill="#27ae60" rx="4"/>
+  <text x="820" y="121" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">Пам'ять PSRAM</text>
+
+  <rect x="732" y="145" width="176" height="150" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="820" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Кадрові буфери</text>
+  <text x="820" y="192" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">camera_fb_t</text>
+  <text x="820" y="214" text-anchor="middle" font-size="12" fill="#1a1a1a">Обсяг: 4 МБ / 8 МБ</text>
+  <text x="820" y="236" text-anchor="middle" font-size="12" fill="#6b7280">Збереження кадрів</text>
+  <text x="820" y="258" text-anchor="middle" font-size="12" fill="#6b7280">UXGA / SXGA / JPEG</text>
+  <text x="820" y="280" text-anchor="middle" font-size="12" fill="#27ae60">без переповнення SRAM</text>
+
+  <rect x="732" y="310" width="176" height="90" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="820" y="333" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Перевага PSRAM</text>
+  <text x="820" y="355" text-anchor="middle" font-size="12" fill="#6b7280">Внутрішня SRAM ESP32</text>
+  <text x="820" y="373" text-anchor="middle" font-size="12" fill="#6b7280">(520 КБ) замала для</text>
+  <text x="820" y="391" text-anchor="middle" font-size="12" fill="#c0392b">буферизації 2 МП кадрів</text>
+
+  <!-- Bottom Highlight Box -->
+  <rect x="40" y="435" width="880" height="60" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <rect x="55" y="450" width="170" height="30" fill="#2457d6" rx="4"/>
+  <text x="140" y="469" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">ТРАЄКТОРІЯ КАДРУ</text>
+  <text x="240" y="458" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">OV3640 → (Паралельна шина DVP) → I2S/Cam Peripheral → Контролер DMA</text>
+  <text x="240" y="479" text-anchor="start" font-size="12" fill="#1a1a1a">→ SPI RAM Controller → (Шина QSPI) → Буферизація кадру в зовнішній PSRAM</text>
+</svg>

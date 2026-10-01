@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="480" fill="#ffffff"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема живлення та страпінг-конфігурації WeAct ESP32-C6-Mini</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Формування 3.3V через LDO та фіксація режимів завантаження резисторами підтяжки</text>
+
+  <!-- Left Panel: Power Distribution -->
+  <rect x="30" y="85" width="435" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="112" font-size="15" font-weight="bold" fill="#2457d6">СИСТЕМА ЖИВЛЕННЯ (5V → 3.3V)</text>
+
+  <!-- USB-C Input -->
+  <rect x="50" y="145" width="100" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="100" y="170" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB-C / 5V</text>
+  <text x="100" y="190" font-size="12" fill="#6b7280" text-anchor="middle">VBUS (+5V)</text>
+
+  <!-- Diode D1 -->
+  <rect x="185" y="145" width="75" height="60" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="222" y="170" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діод D1</text>
+  <text x="222" y="190" font-size="11" fill="#6b7280" text-anchor="middle">Захист</text>
+
+  <!-- LDO Regulator -->
+  <rect x="290" y="145" width="115" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="347" y="170" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LDO 3.3V</text>
+  <text x="347" y="190" font-size="12" fill="#6b7280" text-anchor="middle">ME6211 C33</text>
+
+  <!-- Power Lines &amp; Wires -->
+  <line x1="150" y1="175" x2="185" y2="175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="260" y1="175" x2="290" y2="175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="405" y1="175" x2="440" y2="175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Vertical 3.3V Rail -->
+  <line x1="440" y1="140" x2="440" y2="430" stroke="#2457d6" stroke-width="4"/>
+  <text x="430" y="132" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">Шина +3.3V VDD</text>
+
+  <!-- Filter Capacitors -->
+  <line x1="275" y1="175" x2="275" y2="240" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <rect x="200" y="240" width="75" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="237" y="260" font-size="12" fill="#1a1a1a" text-anchor="middle">C1 10µF</text>
+  <text x="237" y="276" font-size="11" fill="#6b7280" text-anchor="middle">Вхідний</text>
+
+  <line x1="440" y1="262" x2="400" y2="262" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <rect x="325" y="240" width="75" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="362" y="260" font-size="12" fill="#1a1a1a" text-anchor="middle">C2 10µF</text>
+  <text x="362" y="276" font-size="11" fill="#6b7280" text-anchor="middle">Вихідний</text>
+
+  <!-- Power Note Box -->
+  <rect x="50" y="315" width="365" height="115" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="65" y="338" font-size="12" font-weight="bold" fill="#1a1a1a">Особливості живлення:</text>
+  <text x="65" y="358" font-size="12" fill="#1a1a1a">• Вхід 5V з USB-C або виводу 5V</text>
+  <text x="65" y="378" font-size="12" fill="#1a1a1a">• LDO понижує напругу до +3.3V VDD</text>
+  <text x="65" y="398" font-size="12" fill="#1a1a1a">• Струм 3.3V обмежено LDO (~500mA)</text>
+  <text x="65" y="418" font-size="12" fill="#1a1a1a">• Діод D1 захищає від зворотного струму</text>
+
+  <!-- Right Panel: Strapping Configuration -->
+  <rect x="495" y="85" width="435" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="510" y="112" font-size="15" font-weight="bold" fill="#2457d6">СТРАПІНГ-ПІНИ ТА РЕЖИМИ BOOT</text>
+
+  <!-- Power Bridge from Left Panel to Right Panel -->
+  <line x1="440" y1="140" x2="610" y2="140" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="525" y="133" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Шина +3.3V VDD</text>
+
+  <!-- Vertical 3.3V Bus for Pull-ups -->
+  <line x1="610" y1="140" x2="610" y2="310" stroke="#2457d6" stroke-width="2"/>
+  <text x="610" y="128" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+3.3V</text>
+
+  <!-- Row 1: GPIO9 (BOOT) -->
+  <rect x="515" y="145" width="85" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="557" y="168" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">GPIO9</text>
+  <text x="557" y="186" font-size="11" fill="#6b7280" text-anchor="middle">(BOOT pin)</text>
+
+  <line x1="610" y1="170" x2="630" y2="170" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="600" y1="170" x2="630" y2="170" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="630" y="150" width="80" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="670" y="174" font-size="12" fill="#1a1a1a" text-anchor="middle">10 kΩ (PU)</text>
+
+  <line x1="710" y1="170" x2="740" y2="170" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <rect x="740" y="145" width="165" height="50" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="822" y="168" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Кнопка BOOT → GND</text>
+  <text x="822" y="186" font-size="11" fill="#27ae60" text-anchor="middle">0 = UART Boot / Flashing</text>
+
+  <!-- Row 2: GPIO8 -->
+  <rect x="515" y="215" width="85" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="557" y="238" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">GPIO8</text>
+  <text x="557" y="256" font-size="11" fill="#6b7280" text-anchor="middle">(Strapping)</text>
+
+  <line x1="610" y1="240" x2="630" y2="240" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="600" y1="240" x2="630" y2="240" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="630" y="220" width="80" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="670" y="244" font-size="12" fill="#1a1a1a" text-anchor="middle">10 kΩ (PU)</text>
+
+  <line x1="710" y1="240" x2="740" y2="240" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <rect x="740" y="215" width="165" height="50" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="822" y="238" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Підтягнуто до 3.3V</text>
+  <text x="822" y="256" font-size="11" fill="#6b7280" text-anchor="middle">1 = SPI Boot Mode</text>
+
+  <!-- Row 3: GPIO15 -->
+  <rect x="515" y="285" width="85" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="557" y="308" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">GPIO15</text>
+  <text x="557" y="326" font-size="11" fill="#6b7280" text-anchor="middle">(Strapping)</text>
+
+  <line x1="610" y1="310" x2="630" y2="310" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="600" y1="310" x2="630" y2="310" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="630" y="290" width="80" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="670" y="314" font-size="12" fill="#1a1a1a" text-anchor="middle">10 kΩ (PU)</text>
+
+  <line x1="710" y1="310" x2="740" y2="310" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <rect x="740" y="285" width="165" height="50" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="822" y="308" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Підтягнуто до 3.3V</text>
+  <text x="822" y="326" font-size="11" fill="#6b7280" text-anchor="middle">1 = ROM Log Enabled</text>
+
+  <!-- Boot Mode Logic Table -->
+  <rect x="515" y="355" width="390" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="530" y="374" font-size="12" font-weight="bold" fill="#1a1a1a">Логіка режимів завантаження (Boot Modes):</text>
+  <text x="530" y="394" font-size="12" fill="#27ae60">• GPIO9 = 1, GPIO8 = 1 : SPI Flash Boot (Робочий режим)</text>
+  <text x="530" y="414" font-size="12" fill="#c0392b">• GPIO9 = 0, GPIO8 = 1 : Download Boot (Режим завантажувача)</text>
+</svg>

@@ -1,0 +1,213 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Marker Definitions -->
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-left" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-sky-left" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#0284c7"/>
+    </marker>
+    <marker id="arr-amber" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d97706"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-left" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розведення виводів програматора DAPLink та підключення до МК</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Призначення сигнальних ліній SWD, UART, nRESET та виводу живлення Target VCC</text>
+
+  <!-- LEFT PANEL: DAPLink Module -->
+  <rect x="30" y="75" width="340" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="85" width="320" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="200" y="106" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Модуль програматора DAPLink</text>
+
+  <!-- Left Subpanel 1: Bootloader Mode -->
+  <rect x="45" y="130" width="165" height="140" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="127" y="148" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Режим Bootloader</text>
+
+  <rect x="57" y="162" width="100" height="30" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="107" y="181" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">RESET / BOOT</text>
+
+  <text x="55" y="210" font-size="12" fill="#6b7280">Утримання кнопки</text>
+  <text x="55" y="228" font-size="12" fill="#6b7280">при ввімкненні:</text>
+  <text x="55" y="246" font-size="12" fill="#c0392b" font-weight="bold">-&gt; Оновлення ПЗ</text>
+
+  <!-- Left Subpanel 2: Signal Specifications -->
+  <rect x="45" y="280" width="165" height="225" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="127" y="298" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Параметри сигналів</text>
+
+  <!-- VCC Badge -->
+  <rect x="52" y="308" width="151" height="52" rx="4" fill="#fdecea" stroke="#c0392b" stroke-dasharray="2,2"/>
+  <text x="58" y="325" font-size="12" font-weight="bold" fill="#c0392b">Target VCC:</text>
+  <text x="58" y="342" font-size="12" fill="#1a1a1a">3.3V або 5.0V</text>
+
+  <!-- Level Shifter Badge -->
+  <rect x="52" y="368" width="151" height="52" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="58" y="385" font-size="12" font-weight="bold" fill="#2457d6">Узгодження рівнів:</text>
+  <text x="58" y="402" font-size="12" fill="#1a1a1a">1.8V ... 5.0V Logic</text>
+
+  <!-- Protection Badge -->
+  <rect x="52" y="428" width="151" height="68" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="58" y="445" font-size="12" font-weight="bold" fill="#27ae60">Захист ліній:</text>
+  <text x="58" y="462" font-size="12" fill="#1a1a1a">• TVS-діоди (ESD)</text>
+  <text x="58" y="479" font-size="12" fill="#1a1a1a">• Резистори 22-100 Ом</text>
+
+  <!-- Left Subpanel 3: Pin Header Sockets -->
+  <rect x="220" y="130" width="140" height="375" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="290" y="148" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Виводи (Pinout)</text>
+
+  <!-- Pin Labels DAPLink -->
+  <text x="335" y="179" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">1: Target VCC</text>
+  <text x="335" y="219" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">2: SWDIO</text>
+  <text x="335" y="259" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">3: SWCLK</text>
+  <text x="335" y="299" font-size="12" font-weight="bold" fill="#0284c7" text-anchor="end">4: SWO</text>
+  <text x="335" y="339" font-size="12" font-weight="bold" fill="#d97706" text-anchor="end">5: nRESET</text>
+  <text x="335" y="379" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">6: DAP_TX</text>
+  <text x="335" y="419" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">7: DAP_RX</text>
+  <text x="335" y="459" font-size="12" font-weight="bold" fill="#4b5563" text-anchor="end">8: GND</text>
+
+  <!-- Pin Contact Points DAPLink -->
+  <circle cx="350" cy="175" r="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="350" cy="175" r="2.5" fill="#d97706"/>
+  <circle cx="350" cy="215" r="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="350" cy="215" r="2.5" fill="#d97706"/>
+  <circle cx="350" cy="255" r="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="350" cy="255" r="2.5" fill="#d97706"/>
+  <circle cx="350" cy="295" r="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="350" cy="295" r="2.5" fill="#d97706"/>
+  <circle cx="350" cy="335" r="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="350" cy="335" r="2.5" fill="#d97706"/>
+  <circle cx="350" cy="375" r="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="350" cy="375" r="2.5" fill="#d97706"/>
+  <circle cx="350" cy="415" r="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="350" cy="415" r="2.5" fill="#d97706"/>
+  <circle cx="350" cy="455" r="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="350" cy="455" r="2.5" fill="#d97706"/>
+
+  <!-- MIDDLE CONNECTING LINES AND BADGES -->
+  <!-- Row 1: Target VCC -->
+  <line x1="356" y1="175" x2="425" y2="175" stroke="#c0392b" stroke-width="2"/>
+  <rect x="425" y="163" width="110" height="24" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="480" y="179" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Target VCC</text>
+  <line x1="535" y1="175" x2="604" y2="175" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Row 2: SWDIO -->
+  <line x1="356" y1="215" x2="425" y2="215" stroke="#2457d6" stroke-width="2" marker-start="url(#arr-blue-left)"/>
+  <rect x="425" y="203" width="110" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="480" y="219" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">&lt;-&gt; SWDIO</text>
+  <line x1="535" y1="215" x2="604" y2="215" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Row 3: SWCLK -->
+  <line x1="356" y1="255" x2="425" y2="255" stroke="#2457d6" stroke-width="2"/>
+  <rect x="425" y="243" width="110" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="480" y="259" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">---&gt; SWCLK</text>
+  <line x1="535" y1="255" x2="604" y2="255" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Row 4: SWO -->
+  <line x1="356" y1="295" x2="425" y2="295" stroke="#0284c7" stroke-width="2" marker-start="url(#arr-sky-left)"/>
+  <rect x="425" y="283" width="110" height="24" rx="4" fill="#e0f2fe" stroke="#0284c7"/>
+  <text x="480" y="299" font-size="12" font-weight="bold" fill="#0284c7" text-anchor="middle">&lt;--- SWO</text>
+  <line x1="535" y1="295" x2="604" y2="295" stroke="#0284c7" stroke-width="2"/>
+
+  <!-- Row 5: nRESET -->
+  <line x1="356" y1="335" x2="425" y2="335" stroke="#d97706" stroke-width="2"/>
+  <rect x="425" y="323" width="110" height="24" rx="4" fill="#fef3c7" stroke="#d97706"/>
+  <text x="480" y="339" font-size="12" font-weight="bold" fill="#d97706" text-anchor="middle">---&gt; nRESET</text>
+  <line x1="535" y1="335" x2="604" y2="335" stroke="#d97706" stroke-width="2" marker-end="url(#arr-amber)"/>
+
+  <!-- Row 6: DAP_TX -> MCU_RX -->
+  <line x1="356" y1="375" x2="425" y2="375" stroke="#27ae60" stroke-width="2"/>
+  <rect x="425" y="363" width="110" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="480" y="379" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">TX ---&gt; RX</text>
+  <line x1="535" y1="375" x2="604" y2="375" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Row 7: DAP_RX <- MCU_TX -->
+  <line x1="356" y1="415" x2="425" y2="415" stroke="#27ae60" stroke-width="2" marker-start="url(#arr-green-left)"/>
+  <rect x="425" y="403" width="110" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="480" y="419" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">RX &lt;--- TX</text>
+  <line x1="535" y1="415" x2="604" y2="415" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Row 8: GND -->
+  <line x1="356" y1="455" x2="425" y2="455" stroke="#4b5563" stroke-width="2" stroke-dasharray="6,3"/>
+  <rect x="425" y="443" width="110" height="24" rx="4" fill="#f3f4f6" stroke="#4b5563"/>
+  <text x="480" y="459" font-size="12" font-weight="bold" fill="#4b5563" text-anchor="middle">=== GND ===</text>
+  <line x1="535" y1="455" x2="604" y2="455" stroke="#4b5563" stroke-width="2" stroke-dasharray="6,3"/>
+
+  <!-- RIGHT PANEL: Target MCU -->
+  <rect x="590" y="75" width="340" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="600" y="85" width="320" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="760" y="106" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Цільовий мікроконтролер (Target MCU)</text>
+
+  <!-- Right Subpanel 1: MCU Pins Header -->
+  <rect x="605" y="130" width="135" height="375" rx="6" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="672" y="148" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Виводи МК</text>
+
+  <!-- Pin Contact Points MCU -->
+  <circle cx="610" cy="175" r="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="610" cy="175" r="2.5" fill="#d97706"/>
+  <circle cx="610" cy="215" r="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="610" cy="215" r="2.5" fill="#d97706"/>
+  <circle cx="610" cy="255" r="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="610" cy="255" r="2.5" fill="#d97706"/>
+  <circle cx="610" cy="295" r="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="610" cy="295" r="2.5" fill="#d97706"/>
+  <circle cx="610" cy="335" r="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="610" cy="335" r="2.5" fill="#d97706"/>
+  <circle cx="610" cy="375" r="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="610" cy="375" r="2.5" fill="#d97706"/>
+  <circle cx="610" cy="415" r="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="610" cy="415" r="2.5" fill="#d97706"/>
+  <circle cx="610" cy="455" r="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="610" cy="455" r="2.5" fill="#d97706"/>
+
+  <!-- Pin Labels MCU -->
+  <text x="622" y="179" font-size="12" font-weight="bold" fill="#c0392b">VDD / VCC</text>
+  <text x="622" y="219" font-size="12" font-weight="bold" fill="#2457d6">SWDIO</text>
+  <text x="622" y="259" font-size="12" font-weight="bold" fill="#2457d6">SWCLK</text>
+  <text x="622" y="299" font-size="12" font-weight="bold" fill="#0284c7">SWO / TRACE</text>
+  <text x="622" y="339" font-size="12" font-weight="bold" fill="#d97706">NRST / RESET</text>
+  <text x="622" y="379" font-size="12" font-weight="bold" fill="#27ae60">MCU_RX (UART)</text>
+  <text x="622" y="419" font-size="12" font-weight="bold" fill="#27ae60">MCU_TX (UART)</text>
+  <text x="622" y="459" font-size="12" font-weight="bold" fill="#4b5563">GND</text>
+
+  <!-- Right Subpanel 2: Pull-up / Circuit Requirements -->
+  <rect x="750" y="130" width="170" height="375" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="835" y="148" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вимоги підтяжки</text>
+
+  <text x="758" y="172" font-size="12" font-weight="bold" fill="#c0392b">Target VCC:</text>
+  <text x="758" y="187" font-size="12" fill="#6b7280">1.8V ... 3.3V (5.0V)</text>
+
+  <text x="758" y="212" font-size="12" font-weight="bold" fill="#2457d6">SWDIO Line:</text>
+  <text x="758" y="227" font-size="12" fill="#6b7280">10k Om Pull-up VCC</text>
+
+  <text x="758" y="252" font-size="12" font-weight="bold" fill="#2457d6">SWCLK Line:</text>
+  <text x="758" y="267" font-size="12" fill="#6b7280">10k Om Pull-down</text>
+
+  <text x="758" y="292" font-size="12" font-weight="bold" fill="#0284c7">SWO Line:</text>
+  <text x="758" y="307" font-size="12" fill="#6b7280">Трасування / ITM</text>
+
+  <text x="758" y="332" font-size="12" font-weight="bold" fill="#d97706">nRESET Line:</text>
+  <text x="758" y="347" font-size="12" fill="#6b7280">10k Om + 100nF GND</text>
+
+  <text x="758" y="372" font-size="12" font-weight="bold" fill="#27ae60">UART (Крос-зв'язок):</text>
+  <text x="758" y="387" font-size="12" fill="#6b7280">DAP_TX -&gt; MCU_RX</text>
+  <text x="758" y="404" font-size="12" fill="#6b7280">DAP_RX &lt;- MCU_TX</text>
+
+  <text x="758" y="445" font-size="12" font-weight="bold" fill="#4b5563">Земля (GND):</text>
+  <text x="758" y="460" font-size="12" fill="#6b7280">Спільний потенціал</text>
+</svg>

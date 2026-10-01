@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+  
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Конфігурація виводів ESP-01 для вибору режимів завантаження</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Рівні напруги на GPIO0, GPIO2 та CH_PD під час скидання визначають режим запуску чи програмування</text>
+
+  <!-- Card 1: Signal Rules & Pins -->
+  <rect x="30" y="80" width="280" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="108" font-size="15" font-weight="bold" fill="#1a1a1a">Службові виводи ESP-01</text>
+  
+  <!-- Pin 1 -->
+  <text x="45" y="138" font-size="13" font-weight="bold" fill="#2457d6">CH_PD (EN / Chip Enable)</text>
+  <text x="45" y="156" font-size="12" fill="#1a1a1a">• Необхідно: HIGH (3.3 В)</text>
+  <text x="45" y="173" font-size="12" fill="#6b7280">  Вмикає живлення ядра чипа</text>
+  
+  <!-- Pin 2 -->
+  <text x="45" y="208" font-size="13" font-weight="bold" fill="#2457d6">GPIO0 (Boot Select)</text>
+  <text x="45" y="226" font-size="12" fill="#1a1a1a">• LOW (0 В)  → UART Download</text>
+  <text x="45" y="243" font-size="12" fill="#1a1a1a">• HIGH (3.3 В) → Flash Boot</text>
+
+  <!-- Pin 3 -->
+  <text x="45" y="278" font-size="13" font-weight="bold" fill="#2457d6">GPIO2 (User / Boot)</text>
+  <text x="45" y="296" font-size="12" fill="#1a1a1a">• Необхідно: HIGH (3.3 В)</text>
+  <text x="45" y="313" font-size="12" fill="#6b7280">  LOW при скиданні блокує запуск</text>
+
+  <!-- Pin 4 -->
+  <text x="45" y="348" font-size="13" font-weight="bold" fill="#2457d6">RST (Hardware Reset)</text>
+  <text x="45" y="366" font-size="12" fill="#1a1a1a">• Активний рівень: LOW (0 В)</text>
+  <text x="45" y="383" font-size="12" fill="#6b7280">  Фіксує стан GPIO0 при зчитуванні</text>
+
+  <!-- Card 1 Footer Warning -->
+  <rect x="42" y="415" width="256" height="68" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="52" y="435" font-size="12" font-weight="bold" fill="#c0392b">⚠ Резистори підтяжки:</text>
+  <text x="52" y="453" font-size="12" fill="#1a1a1a">Рекомендовано 10 кОм до 3.3 В</text>
+  <text x="52" y="471" font-size="12" fill="#1a1a1a">на виводи CH_PD, GPIO0, GPIO2</text>
+
+  <!-- Card 2: UART Download Mode -->
+  <rect x="330" y="80" width="290" height="420" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <rect x="345" y="95" width="260" height="32" rx="6" fill="#2457d6"/>
+  <text x="475" y="116" text-anchor="middle" font-size="14" font-weight="bold" fill="white">UART Download Mode</text>
+  <text x="475" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">(Режим прошивання)</text>
+
+  <!-- Pin Status Table 2 -->
+  <rect x="350" y="160" width="250" height="42" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="365" y="186" font-size="13" font-weight="bold" fill="#1a1a1a">CH_PD</text>
+  <text x="585" y="186" text-anchor="end" font-size="13" font-weight="bold" fill="#27ae60">HIGH (3.3 В)</text>
+
+  <rect x="350" y="210" width="250" height="42" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="365" y="236" font-size="13" font-weight="bold" fill="#1a1a1a">GPIO0</text>
+  <text x="585" y="236" text-anchor="end" font-size="13" font-weight="bold" fill="#c0392b">LOW (0 В / GND)</text>
+
+  <rect x="350" y="260" width="250" height="42" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="365" y="286" font-size="13" font-weight="bold" fill="#1a1a1a">GPIO2</text>
+  <text x="585" y="286" text-anchor="end" font-size="13" font-weight="bold" fill="#27ae60">HIGH (3.3 В)</text>
+
+  <!-- Behavior Box 2 -->
+  <rect x="350" y="315" width="250" height="168" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="362" y="338" font-size="12" font-weight="bold" fill="#1a1a1a">Дії внутрішнього ROM:</text>
+  <text x="362" y="358" font-size="12" fill="#1a1a1a">1. Активує UART-завантажувач</text>
+  <text x="362" y="378" font-size="12" fill="#1a1a1a">2. Очікує handshake від ПК</text>
+  <text x="362" y="398" font-size="12" fill="#1a1a1a">3. Записує прошивку у Flash</text>
+  <text x="362" y="425" font-size="12" font-weight="bold" fill="#2457d6">💡 Як увійти в режим:</text>
+  <text x="362" y="445" font-size="12" fill="#1a1a1a">Замикати GPIO0 на GND під час</text>
+  <text x="362" y="463" font-size="12" fill="#1a1a1a">подачі живлення чи скидання RST</text>
+
+  <!-- Card 3: Flash Boot Mode -->
+  <rect x="640" y="80" width="290" height="420" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <rect x="655" y="95" width="260" height="32" rx="6" fill="#27ae60"/>
+  <text x="785" y="116" text-anchor="middle" font-size="14" font-weight="bold" fill="white">Flash Boot Mode</text>
+  <text x="785" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">(Ззвичайний запуск коду)</text>
+
+  <!-- Pin Status Table 3 -->
+  <rect x="660" y="160" width="250" height="42" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="675" y="186" font-size="13" font-weight="bold" fill="#1a1a1a">CH_PD</text>
+  <text x="895" y="186" text-anchor="end" font-size="13" font-weight="bold" fill="#27ae60">HIGH (3.3 В)</text>
+
+  <rect x="660" y="210" width="250" height="42" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="675" y="236" font-size="13" font-weight="bold" fill="#1a1a1a">GPIO0</text>
+  <text x="895" y="236" text-anchor="end" font-size="13" font-weight="bold" fill="#27ae60">HIGH (3.3 В)</text>
+
+  <rect x="660" y="260" width="250" height="42" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="675" y="286" font-size="13" font-weight="bold" fill="#1a1a1a">GPIO2</text>
+  <text x="895" y="286" text-anchor="end" font-size="13" font-weight="bold" fill="#27ae60">HIGH (3.3 В)</text>
+
+  <!-- Behavior Box 3 -->
+  <rect x="660" y="315" width="250" height="168" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="672" y="338" font-size="12" font-weight="bold" fill="#1a1a1a">Дії внутрішнього ROM:</text>
+  <text x="672" y="358" font-size="12" fill="#1a1a1a">1. Зчитує вектор із SPI Flash</text>
+  <text x="672" y="378" font-size="12" fill="#1a1a1a">2. Передає управління програмі</text>
+  <text x="672" y="398" font-size="12" fill="#1a1a1a">3. Запускає стек Wi-Fi та периферію</text>
+  <text x="672" y="425" font-size="12" font-weight="bold" fill="#27ae60">✔ Штатна робота:</text>
+  <text x="672" y="445" font-size="12" fill="#1a1a1a">GPIO0 залишається підтягнутим</text>
+  <text x="672" y="463" font-size="12" fill="#1a1a1a">до 3.3 В через резистор 10 кОм</text>
+</svg>

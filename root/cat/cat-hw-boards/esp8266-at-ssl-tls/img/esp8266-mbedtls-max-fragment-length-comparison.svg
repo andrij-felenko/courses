@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння розмірів буферів TLS-кадру та економії оперативної пам'яті (DRAM)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Використання MFL (RFC 6066) зменшує виділення купи під буфери з 32.8 КБ до 1.5–4.5 КБ</text>
+
+  <!-- Card 1: Default TLS (No MFL) -->
+  <rect x="40" y="80" width="880" height="135" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="8"/>
+  <text x="60" y="105" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="start">Стандартна конфігурація TLS (без MFL) — високий ризик помилки OOM</text>
+  <text x="60" y="127" font-size="12" fill="#6b7280" text-anchor="start">Дефолтний розрахунок: 2 × 16 384 B (RX/TX) + 512 B (контекст) = 33.3 КБ DRAM</text>
+  
+  <rect x="60" y="145" width="670" height="34" fill="#f5c6cb" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="75" y="166" font-size="12" font-weight="bold" fill="#721c24" text-anchor="start">Розмір буферів: 32 768 байтів (32.0 КБ)</text>
+  
+  <rect x="745" y="145" width="155" height="34" fill="#c0392b" rx="4"/>
+  <text x="822" y="166" font-size="12" font-weight="bold" fill="white" text-anchor="middle">OOM (Heap &lt; 40 КБ)</text>
+
+  <!-- Card 2: Optimized MFL -->
+  <rect x="40" y="230" width="880" height="210" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="60" y="255" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="start">Оптимізована конфігурація з розширенням MFL (RFC 6066)</text>
+
+  <!-- MFL 2048 B -->
+  <text x="60" y="294" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">MFL 2048 B:</text>
+  <rect x="155" y="276" width="410" height="28" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="167" y="294" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">2 × (2048 + 256 B) = 4 608 B (4.5 КБ DRAM)</text>
+  <text x="580" y="294" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Економія 86% RAM (1 захищений сокет)</text>
+
+  <!-- MFL 1024 B -->
+  <text x="60" y="344" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">MFL 1024 B:</text>
+  <rect x="155" y="326" width="230" height="28" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="167" y="344" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">2560 B (2.5 КБ DRAM)</text>
+  <text x="400" y="344" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Економія 92% RAM — до 4 сокетів паралельно (Оптимально)</text>
+
+  <!-- MFL 512 B -->
+  <text x="60" y="394" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">MFL 512 B:</text>
+  <rect x="155" y="376" width="145" height="28" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="167" y="394" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">1536 B (1.5 КБ)</text>
+  <text x="315" y="394" font-size="12" fill="#6b7280" text-anchor="start">Економія 95% RAM (Службовий оверхед кадрів 12.6%)</text>
+</svg>

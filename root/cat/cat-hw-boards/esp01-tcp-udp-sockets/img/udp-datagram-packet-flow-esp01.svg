@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Формування та прийом UDP-датаграм у WiFiUDP на ESP-01</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Буферизація між beginPacket/endPacket визначає межу кадру, а parsePacket/read зчитує прийняту датаграму</text>
+
+  <!-- TX Panel (Left) -->
+  <rect x="30" y="85" width="390" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="225" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">ПЕРЕДАЧА: Складка датаграми у WiFiUDP</text>
+
+  <!-- Tx Step 1 -->
+  <rect x="45" y="130" width="360" height="65" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="60" y="152" font-size="13" font-weight="bold" fill="#2457d6">1. udp.beginPacket(remoteIP, port)</text>
+  <text x="60" y="174" font-size="12" fill="#6b7280">Ініціалізація pcb у lwIP, очищення TX-буфера</text>
+
+  <!-- Arrow Tx 1 -> 2 -->
+  <line x1="225" y1="195" x2="225" y2="215" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Tx Step 2 -->
+  <rect x="45" y="215" width="360" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="60" y="237" font-size="13" font-weight="bold" fill="#1a1a1a">2. udp.write(buf, size) / print(...)</text>
+  <text x="60" y="259" font-size="12" fill="#1a1a1a">Буферизація корисного навантаження (Payload)</text>
+  <text x="60" y="281" font-size="12" fill="#6b7280">Дані збираються в ОЗП (не надсилаються в мережу!)</text>
+
+  <!-- Arrow Tx 2 -> 3 -->
+  <line x1="225" y1="295" x2="225" y2="315" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Tx Step 3 -->
+  <rect x="45" y="315" width="360" height="100" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="60" y="337" font-size="13" font-weight="bold" fill="#27ae60">3. udp.endPacket() — МЕЖА КАДРУ</text>
+  <text x="60" y="359" font-size="12" fill="#1a1a1a">Упаковка заголовока UDP (8B) + IP (20B)</text>
+  <text x="60" y="381" font-size="12" fill="#1a1a1a">Атомарний виклик lwIP udp_send() → MAC</text>
+  <text x="60" y="403" font-size="12" font-weight="bold" fill="#27ae60">Датаграма надсилається в мережу Wi-Fi</text>
+
+  <!-- Middle UDP Datagram Box (Network) -->
+  <rect x="425" y="225" width="110" height="95" rx="6" fill="#ffffff" stroke="#2457d6" stroke-dasharray="4,3" stroke-width="1.5"/>
+  <text x="480" y="247" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">UDP Datagram</text>
+  <text x="480" y="267" text-anchor="middle" font-size="12" fill="#6b7280">IP Header (20B)</text>
+  <text x="480" y="287" text-anchor="middle" font-size="12" fill="#6b7280">UDP Header (8B)</text>
+  <text x="480" y="307" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Payload (Дані)</text>
+
+  <!-- Connections Tx -> Middle -> Rx -->
+  <path d="M405,365 C440,365 480,350 480,320" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M480,225 C480,185 520,162.5 565,162.5" fill="none" stroke="#2457d6" stroke-dasharray="4,3" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- RX Panel (Right) -->
+  <rect x="550" y="85" width="390" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="745" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">ПРИЙОМ: Обробка датаграми у WiFiUDP</text>
+
+  <!-- Rx Step 1 -->
+  <rect x="565" y="130" width="360" height="65" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="580" y="152" font-size="13" font-weight="bold" fill="#2457d6">1. Прихід UDP-пакета з Wi-Fi (lwIP Rx)</text>
+  <text x="580" y="174" font-size="12" fill="#6b7280">Датаграма зберігається у буфері pbuf ОЗП</text>
+
+  <!-- Arrow Rx 1 -> 2 -->
+  <line x1="745" y1="195" x2="745" y2="215" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Rx Step 2 -->
+  <rect x="565" y="215" width="360" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="580" y="237" font-size="13" font-weight="bold" fill="#1a1a1a">2. len = udp.parsePacket()</text>
+  <text x="580" y="259" font-size="12" fill="#1a1a1a">Перевірка наявності датаграми (len > 0)</text>
+  <text x="580" y="281" font-size="12" fill="#6b7280">Фіксація remoteIP() та remotePort()</text>
+
+  <!-- Arrow Rx 2 -> 3 -->
+  <line x1="745" y1="295" x2="745" y2="315" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Rx Step 3 -->
+  <rect x="565" y="315" width="360" height="100" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="580" y="337" font-size="13" font-weight="bold" fill="#27ae60">3. udp.read(buf, len) / udp.flush()</text>
+  <text x="580" y="359" font-size="12" fill="#1a1a1a">Копіювання payload датаграми в буфер С++</text>
+  <text x="580" y="381" font-size="12" fill="#1a1a1a">Вивільнення пам'яті pbuf у стеку lwIP</text>
+  <text x="580" y="403" font-size="12" font-weight="bold" fill="#27ae60">Завершення обробки поточної датаграми</text>
+
+  <!-- Bottom Callout Tx -->
+  <rect x="30" y="475" width="390" height="35" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="225" y="497" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">★ Межа кадру: endPacket() надсилає ОДИН UDP-пакет</text>
+
+  <!-- Bottom Callout Rx -->
+  <rect x="550" y="475" width="390" height="35" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="745" y="497" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">★ Неблокуючий режим: parsePacket() == 0, якщо немає даних</text>
+</svg>

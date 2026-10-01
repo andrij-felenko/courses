@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Рівні абстракції мережевого сокетного стека модуля ESP-01</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Ієрархія від високорівневих класів C++ (WiFiClient/Server) до низькорівневих викликів lwIP та апаратного Wi-Fi</text>
+
+  <!-- Row 1: High-Level Arduino Classes -->
+  <rect x="50" y="75" width="260" height="65" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="180" y="97" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">WiFiClient (TCP Клієнт)</text>
+  <text x="180" y="120" text-anchor="middle" font-size="12" fill="#6b7280">connect(), write(), read()</text>
+
+  <rect x="350" y="75" width="260" height="65" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="97" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">WiFiServer (TCP Сервер)</text>
+  <text x="480" y="120" text-anchor="middle" font-size="12" fill="#6b7280">begin(), accept(), status()</text>
+
+  <rect x="650" y="75" width="260" height="65" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="780" y="97" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">WiFiUDP (UDP Сокет)</text>
+  <text x="780" y="120" text-anchor="middle" font-size="12" fill="#6b7280">beginPacket(), write(), parsePacket()</text>
+
+  <!-- Flow Arrows Row 1 -> Row 2 -->
+  <path d="M 180,140 L 180,158" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 480,140 L 480,158" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 780,140 L 780,158" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Row 2: Adaptation & Buffer Wrapper Layer -->
+  <rect x="50" y="165" width="410" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="255" y="187" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">ClientContext (Адаптер буферизації)</text>
+  <text x="255" y="210" text-anchor="middle" font-size="12" fill="#1a1a1a">Кільцеві буфери Rx/Tx, керування refcount</text>
+
+  <rect x="500" y="165" width="410" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="705" y="187" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Структура espconn &amp; Callbacks</text>
+  <text x="705" y="210" text-anchor="middle" font-size="12" fill="#1a1a1a">Колбеки espconn_regist_connect, sent, recv</text>
+
+  <!-- Flow Arrows Row 2 -> Row 3 -->
+  <path d="M 180,230 L 180,248" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M 480,230 L 480,248" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M 780,230 L 780,248" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Row 3: Low-Level lwIP Network Stack -->
+  <rect x="50" y="255" width="260" height="65" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="180" y="277" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">lwIP TCP Core</text>
+  <text x="180" y="300" text-anchor="middle" font-size="12" fill="#6b7280">tcp_new(), tcp_bind(), tcp_write()</text>
+
+  <rect x="350" y="255" width="260" height="65" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="277" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">lwIP UDP Core</text>
+  <text x="480" y="300" text-anchor="middle" font-size="12" fill="#6b7280">udp_new(), udp_sendto(), udp_recv()</text>
+
+  <rect x="650" y="255" width="260" height="65" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="780" y="277" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">pbuf &amp; IP Layer</text>
+  <text x="780" y="300" text-anchor="middle" font-size="12" fill="#6b7280">Буфери pbuf у Heap RAM, ARP, IP</text>
+
+  <!-- Flow Arrows Row 3 -> Row 4 -->
+  <path d="M 255,320 L 255,338" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-black)"/>
+  <path d="M 705,320 L 705,338" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-black)"/>
+
+  <!-- Row 4: Hardware Wi-Fi Driver & RF Transceiver -->
+  <rect x="50" y="345" width="410" height="65" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="255" y="367" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Апаратний Wi-Fi MAC / PHY (802.11 b/g/n)</text>
+  <text x="255" y="390" text-anchor="middle" font-size="12" fill="#6b7280">Формування кадрів, шифрування WPA2, WEP</text>
+
+  <rect x="500" y="345" width="410" height="65" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="705" y="367" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Фізичний радіотрансивер ESP-01</text>
+  <text x="705" y="390" text-anchor="middle" font-size="12" fill="#6b7280">Друкована антена 2.4 ГГц, RF фронтенд</text>
+
+  <!-- Summary Note at Bottom -->
+  <text x="480" y="436" text-anchor="middle" font-size="12" fill="#6b7280">Мережевий стек обробляє дані асинхронно через буфери ClientContext та lwIP, зберігаючи Heap RAM ESP-01.</text>
+</svg>

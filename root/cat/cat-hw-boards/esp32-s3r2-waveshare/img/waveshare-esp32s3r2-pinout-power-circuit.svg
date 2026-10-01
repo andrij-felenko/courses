@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема цокольовки виводів та кола живлення Waveshare ESP32-S3R2</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Розподіл шин живлення, USB Type-C, SiP PSRAM та апаратні обмеження зарезервованих GPIO</text>
+
+  <!-- LEFT PANEL: Power & USB -->
+  <rect x="25" y="65" width="280" height="470" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="165" y="90" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Коло живлення та USB Type-C</text>
+
+  <!-- USB Type-C Sub-block -->
+  <rect x="40" y="105" width="250" height="110" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="165" y="125" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB Type-C та ESD Захист</text>
+  <text x="50" y="147" font-size="12" fill="#1a1a1a">• VBUS (5V) → PPTC Запобіжник 500mA</text>
+  <text x="50" y="167" font-size="12" fill="#1a1a1a">• D-/D+ (GPIO19/20) → USBLC6-2SC6</text>
+  <text x="50" y="187" font-size="12" fill="#6b7280">• Диференційний імпеданс: 90 Ом</text>
+
+  <!-- LDO Sub-block -->
+  <rect x="40" y="230" width="250" height="120" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="165" y="250" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Стабілізатор LDO (RT9013-33)</text>
+  <text x="50" y="272" font-size="12" fill="#1a1a1a">• Вхід: 5V VBUS / PIN_5V</text>
+  <text x="50" y="292" font-size="12" fill="#1a1a1a">• Вихід: 3.3V (струм до 500 mA)</text>
+  <text x="50" y="312" font-size="12" fill="#1a1a1a">• Фільтри: 10 мкФ MLCC + 0.1 мкФ HF</text>
+  <text x="50" y="332" font-size="12" fill="#6b7280">• Низький рівень шуму та ESR</text>
+
+  <!-- Enable & Reset Sub-block -->
+  <rect x="40" y="365" width="250" height="155" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="165" y="385" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Скидання та Запуск (CHIP_PU)</text>
+  <text x="50" y="407" font-size="12" fill="#1a1a1a">• RC-ланцюг: 10 кОм + 1 мкФ (GND)</text>
+  <text x="50" y="427" font-size="12" fill="#1a1a1a">• Захист від дребезгу та шумів LDO</text>
+  <text x="50" y="447" font-size="12" fill="#1a1a1a">• Кнопка RESET → притягування до 0V</text>
+  <text x="50" y="467" font-size="12" fill="#1a1a1a">• Кнопка BOOT (GPIO0) → режим ROM</text>
+  <text x="50" y="497" font-size="12" fill="#6b7280">• t_rise (CHIP_PU) ≈ 1..10 мс</text>
+
+  <!-- CENTER PANEL: Board MCU / SiP -->
+  <rect x="325" y="65" width="310" height="470" fill="#ffffff" stroke="#2457d6" stroke-width="2" rx="8"/>
+  <text x="480" y="90" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Плата Waveshare ESP32-S3R2</text>
+
+  <!-- SiP Microcontroller Block -->
+  <rect x="345" y="105" width="270" height="70" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="480" y="127" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SoC ESP32-S3 (Xtensa LX7)</text>
+  <text x="480" y="147" font-size="12" fill="#6b7280" text-anchor="middle">Двоядерний 240 MHz + 512 KB SRAM</text>
+  <text x="480" y="163" font-size="12" fill="#1a1a1a" text-anchor="middle">Вбудований USB OTG / Serial JTAG</text>
+
+  <!-- SiP Integrated Memory -->
+  <rect x="345" y="185" width="270" height="65" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="480" y="205" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">SiP PSRAM (2 МБ)</text>
+  <text x="480" y="225" font-size="12" fill="#1a1a1a" text-anchor="middle">Внутрішнє розведення GPIO33..GPIO37</text>
+  <text x="480" y="241" font-size="12" fill="#6b7280" text-anchor="middle">Живлення VDD_SPI = 3.3V або 1.8V</text>
+
+  <!-- External Flash Memory -->
+  <rect x="345" y="260" width="270" height="55" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="480" y="280" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зовнішня NOR Flash (16 МБ)</text>
+  <text x="480" y="300" font-size="12" fill="#6b7280" text-anchor="middle">Шина Quad SPI (GPIO26..GPIO32)</text>
+
+  <!-- Pin Mapping Highlights Box -->
+  <rect x="345" y="325" width="270" height="195" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="480" y="345" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Карта виводів плати (Pinout)</text>
+  <text x="355" y="367" font-size="12" fill="#27ae60">• Живлення: 5V, 3.3V, GND (x3)</text>
+  <text x="355" y="387" font-size="12" fill="#2457d6">• USB: GPIO19 (D-), GPIO20 (D+)</text>
+  <text x="355" y="407" font-size="12" fill="#1a1a1a">• Strapping: GPIO0, GPIO45, GPIO46</text>
+  <text x="355" y="427" font-size="12" fill="#1a1a1a">• АЦП / Аналог: GPIO1..GPIO10</text>
+  <text x="355" y="447" font-size="12" fill="#1a1a1a">• DVP Камера / SPI: GPIO11..GPIO18</text>
+  <text x="355" y="467" font-size="12" fill="#1a1a1a">• Дисплей / RGB: GPIO38..GPIO42</text>
+  <text x="355" y="487" font-size="12" fill="#c0392b">• ⛔ GPIO33..GPIO37: Зайнято PSRAM!</text>
+
+  <!-- RIGHT PANEL: Constraints & Rules -->
+  <rect x="655" y="65" width="280" height="470" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="795" y="90" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Правила та Обмеження GPIO</text>
+
+  <!-- Available Peripherals -->
+  <rect x="670" y="105" width="250" height="110" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="795" y="125" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Вільна Периферія (Доступно)</text>
+  <text x="680" y="147" font-size="12" fill="#1a1a1a">• GPIO1..GPIO14: I2C, SPI, UART</text>
+  <text x="680" y="167" font-size="12" fill="#1a1a1a">• GPIO38..GPIO42: PWM, I2S, LCD</text>
+  <text x="680" y="187" font-size="12" fill="#6b7280">• До 36 програмованих виводів</text>
+
+  <!-- Reserved Pins Alert -->
+  <rect x="670" y="230" width="250" height="120" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="6"/>
+  <text x="795" y="250" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Зарезервовані Виводи SiP</text>
+  <text x="680" y="272" font-size="12" fill="#c0392b">• ⛔ GPIO33..GPIO37 — шина PSRAM</text>
+  <text x="680" y="292" font-size="12" fill="#1a1a1a">• Зовнішнє підключення викликає</text>
+  <text x="680" y="312" font-size="12" fill="#1a1a1a">  збій MMU та сбій читання пам'яті!</text>
+  <text x="680" y="332" font-size="12" fill="#6b7280">• Не виводити на зовнішній роз'єм</text>
+
+  <!-- Strapping Configurations -->
+  <rect x="670" y="365" width="250" height="155" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="795" y="385" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Strapping Таблиця (При старті)</text>
+  <text x="680" y="407" font-size="12" fill="#1a1a1a">• GPIO0: 1 = Boot Flash / 0 = ROM</text>
+  <text x="680" y="427" font-size="12" fill="#1a1a1a">• GPIO45: 0 = VDD_SPI 3.3V (default)</text>
+  <text x="680" y="447" font-size="12" fill="#1a1a1a">• GPIO45: 1 = VDD_SPI 1.8V</text>
+  <text x="680" y="467" font-size="12" fill="#1a1a1a">• GPIO46: 0 = Нормальний лог UART</text>
+  <text x="680" y="497" font-size="12" fill="#6b7280">• R_ext pull-down ≤ 3.6 кОм</text>
+
+  <!-- Interconnecting arrows -->
+  <line x1="290" y1="160" x2="325" y2="160" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="290" y1="290" x2="325" y2="290" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="635" y1="290" x2="670" y2="290" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr)"/>
+</svg>

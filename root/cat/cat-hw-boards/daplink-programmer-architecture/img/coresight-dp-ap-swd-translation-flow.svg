@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Трансляція команди DAP_Transfer у фізичні сигнали шини SWD</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Зв'язок між бітами USB-пакета CMSIS-DAP та тактовими імпульсами SWCLK/SWDIO</text>
+
+  <!-- PANEL 1: USB Packet Structure -->
+  <rect x="40" y="75" width="880" height="90" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="55" y="97" font-size="13" font-weight="bold" fill="#2457d6">1. USB-пакет CMSIS-DAP (Запит від хоста):</text>
+
+  <!-- Byte Boxes -->
+  <rect x="55" y="110" width="110" height="42" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="110" y="127" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Byte 0: 0x05</text>
+  <text x="110" y="143" font-size="12" text-anchor="middle" fill="#6b7280">DAP_Transfer</text>
+
+  <rect x="175" y="110" width="110" height="42" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="230" y="127" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Byte 1: 0x00</text>
+  <text x="230" y="143" font-size="12" text-anchor="middle" fill="#6b7280">DAP Index</text>
+
+  <rect x="295" y="110" width="115" height="42" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="352" y="127" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Byte 2: 0x01</text>
+  <text x="352" y="143" font-size="12" text-anchor="middle" fill="#6b7280">Transfer Count</text>
+
+  <rect x="420" y="110" width="240" height="42" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="4"/>
+  <text x="540" y="127" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Byte 3: Request (0x05 / 0x01)</text>
+  <text x="540" y="143" font-size="12" text-anchor="middle" fill="#2457d6">Байт конфігурації SWD-транзакції</text>
+
+  <rect x="670" y="110" width="235" height="42" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="787" y="127" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Bytes 4..7: WData</text>
+  <text x="787" y="143" font-size="12" text-anchor="middle" fill="#6b7280">32-бітний масив даних (при записі)</text>
+
+  <!-- PANEL 2: Request Byte Decoding -->
+  <rect x="40" y="180" width="880" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="55" y="200" font-size="13" font-weight="bold" fill="#2457d6">2. Декодування байта Request у 8-бітну послідовність SWD-кадру:</text>
+
+  <!-- 8 Bit blocks -->
+  <rect x="55" y="212" width="95" height="48" fill="#2457d6" stroke="#2457d6" rx="4"/>
+  <text x="102" y="232" font-size="12" font-weight="bold" text-anchor="middle" fill="white">Bit 0: Start</text>
+  <text x="102" y="250" font-size="12" text-anchor="middle" fill="white">Завжди = 1</text>
+
+  <rect x="157" y="212" width="100" height="48" fill="white" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="207" y="232" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Bit 1: APnDP</text>
+  <text x="207" y="250" font-size="12" text-anchor="middle" fill="#1a1a1a">0=DP, 1=AP</text>
+
+  <rect x="264" y="212" width="100" height="48" fill="white" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="314" y="232" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Bit 2: RnW</text>
+  <text x="314" y="250" font-size="12" text-anchor="middle" fill="#1a1a1a">0=Wr, 1=Rd</text>
+
+  <rect x="371" y="212" width="95" height="48" fill="white" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="418" y="232" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Bit 3: A[2]</text>
+  <text x="418" y="250" font-size="12" text-anchor="middle" fill="#1a1a1a">Адреса біт 2</text>
+
+  <rect x="473" y="212" width="95" height="48" fill="white" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="520" y="232" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Bit 4: A[3]</text>
+  <text x="520" y="250" font-size="12" text-anchor="middle" fill="#1a1a1a">Адреса біт 3</text>
+
+  <rect x="575" y="212" width="105" height="48" fill="white" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="627" y="232" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Bit 5: Parity</text>
+  <text x="627" y="250" font-size="12" text-anchor="middle" fill="#1a1a1a">Парність (Even)</text>
+
+  <rect x="687" y="212" width="105" height="48" fill="white" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="739" y="232" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Bit 6: Stop</text>
+  <text x="739" y="250" font-size="12" text-anchor="middle" fill="#1a1a1a">Завжди = 0</text>
+
+  <rect x="799" y="212" width="106" height="48" fill="white" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="852" y="232" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Bit 7: Park</text>
+  <text x="852" y="250" font-size="12" text-anchor="middle" fill="#1a1a1a">Завжди = 1</text>
+
+  <!-- PANEL 3: SWD Timing Diagram -->
+  <rect x="40" y="290" width="880" height="230" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="55" y="312" font-size="13" font-weight="bold" fill="#1a1a1a">3. Фізична часова діаграма сигналів шини SWD (SWCLK / SWDIO):</text>
+
+  <!-- SWCLK Waveform -->
+  <text x="55" y="348" font-size="13" font-weight="bold" fill="#2457d6">SWCLK</text>
+  <path d="M 130 350 L 140 350 L 140 335 L 150 335 L 150 350 L 160 350 L 160 335 L 170 335 L 170 350 L 180 350 L 180 335 L 190 335 L 190 350 L 200 350 L 200 335 L 210 335 L 210 350 L 220 350 L 220 335 L 230 335 L 230 350 L 240 350 L 240 335 L 250 335 L 250 350 L 260 350 L 260 335 L 270 335 L 270 350 L 280 350 L 280 335 L 290 335 L 290 350 L 300 350 L 300 335 L 310 335 L 310 350 L 320 350 L 320 335 L 330 335 L 330 350 L 340 350 L 340 335 L 350 335 L 350 350 L 360 350 L 360 335 L 370 335 L 370 350 L 380 350 L 380 335 L 390 335 L 390 350 L 400 350 L 400 335 L 410 335 L 410 350 L 420 350 L 420 335 L 430 335 L 430 350 L 440 350 L 440 335 L 450 335 L 450 350 L 460 350 L 460 335 L 470 335 L 470 350 L 480 350 L 480 335 L 490 335 L 490 350 L 500 350 L 500 335 L 510 335 L 510 350 L 520 350 L 520 335 L 530 335 L 530 350 L 540 350 L 540 335 L 550 335 L 550 350 L 560 350 L 560 335 L 570 335 L 570 350 L 580 350 L 580 335 L 590 335 L 590 350 L 600 350 L 600 335 L 610 335 L 610 350 L 620 350 L 620 335 L 630 335 L 630 350 L 640 350 L 640 335 L 650 335 L 650 350 L 660 350 L 660 335 L 670 335 L 670 350 L 680 350 L 680 335 L 690 335 L 690 350 L 700 350 L 700 335 L 710 335 L 710 350 L 720 350 L 720 335 L 730 335 L 730 350 L 740 350 L 740 335 L 750 335 L 750 350 L 760 350 L 760 335 L 770 335 L 770 350 L 780 350 L 780 335 L 790 335 L 790 350 L 800 350 L 800 335 L 810 335 L 810 350 L 820 350 L 820 335 L 830 335 L 830 350 L 840 350 L 840 335 L 850 335 L 850 350 L 860 350 L 860 335 L 870 335 L 870 350 L 880 350 L 880 335 L 890 335 L 890 350" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- SWDIO Waveform Blocks -->
+  <text x="55" y="410" font-size="13" font-weight="bold" fill="#1a1a1a">SWDIO</text>
+
+  <!-- Phase 1: Request Header (Host -> Target) -->
+  <rect x="130" y="380" width="290" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="275" y="402" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">SWD Request Packet (8 бітів)</text>
+  <text x="275" y="418" font-size="12" text-anchor="middle" fill="#2457d6">Start | APnDP | RnW | A2 | A3 | Parity | Stop | Park</text>
+
+  <!-- Phase 2: Trn (Turnaround) -->
+  <rect x="425" y="380" width="40" height="50" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="445" y="410" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Trn</text>
+
+  <!-- Phase 3: ACK (Target -> Host) -->
+  <rect x="470" y="380" width="135" height="50" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="537" y="402" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">ACK = OK (001)</text>
+  <text x="537" y="418" font-size="12" text-anchor="middle" fill="#27ae60">3 біти підтвердження</text>
+
+  <!-- Phase 4: Trn (Turnaround) -->
+  <rect x="610" y="380" width="40" height="50" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="630" y="410" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Trn</text>
+
+  <!-- Phase 5: Data Transfer -->
+  <rect x="655" y="380" width="235" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="772" y="402" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">32-бітний масив даних (LSB)</text>
+  <text x="772" y="418" font-size="12" text-anchor="middle" fill="#2457d6">+ 1 біт парності (Parity)</text>
+
+  <!-- Legend at bottom -->
+  <rect x="130" y="465" width="14" height="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="2"/>
+  <text x="150" y="477" font-size="12" fill="#1a1a1a">Хост → Цілик (DAPLink керує лінією SWDIO)</text>
+
+  <rect x="440" y="465" width="14" height="14" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="2"/>
+  <text x="460" y="477" font-size="12" fill="#1a1a1a">Цілик → Хост (МК відповідає ACK / Data)</text>
+
+  <rect x="720" y="465" width="14" height="14" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="2"/>
+  <text x="740" y="477" font-size="12" fill="#1a1a1a">Trn (Зміна напрямку 1 такт)</text>
+</svg>

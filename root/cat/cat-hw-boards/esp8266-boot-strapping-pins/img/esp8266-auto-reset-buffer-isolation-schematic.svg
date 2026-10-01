@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схемотехніка автоскидання та оптопарної розв'язки ESP8266</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Транзисторні ключі DTR/RTS запобігають блокуванню завантажувача, а оптопара ізолює силову периферію від GPIO0</text>
+
+  <!-- Panel 1: USB-UART Bridge -->
+  <rect x="25" y="80" width="155" height="450" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8" ry="8"/>
+  <text x="102" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB-UART мост</text>
+  <text x="102" y="128" font-size="12" fill="#6b7280" text-anchor="middle">CH340G / CP2102</text>
+
+  <!-- USB-UART Pins -->
+  <circle cx="160" cy="180" r="4" fill="#2457d6"/>
+  <text x="150" y="175" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">DTR</text>
+
+  <circle cx="160" cy="270" r="4" fill="#2457d6"/>
+  <text x="150" y="265" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">RTS</text>
+
+  <circle cx="160" cy="350" r="4" fill="#1a1a1a"/>
+  <text x="150" y="345" font-size="12" fill="#6b7280" text-anchor="end">TXD</text>
+
+  <circle cx="160" cy="410" r="4" fill="#1a1a1a"/>
+  <text x="150" y="405" font-size="12" fill="#6b7280" text-anchor="end">RXD</text>
+
+  <circle cx="160" cy="470" r="4" fill="#6b7280"/>
+  <text x="150" y="465" font-size="12" fill="#6b7280" text-anchor="end">GND</text>
+
+  <!-- Panel 2: Auto-Reset Node -->
+  <rect x="205" y="80" width="245" height="450" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="8" ry="8"/>
+  <text x="327" y="108" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Вузол автоскидання</text>
+  <text x="327" y="128" font-size="12" fill="#6b7280" text-anchor="middle">Ключі DTR/RTS на NPN-транзисторах</text>
+
+  <!-- Q1 Transistor (RST control) -->
+  <rect x="340" y="160" width="50" height="40" fill="white" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="365" y="184" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Q1 NPN</text>
+  <text x="270" y="195" font-size="12" fill="#1a1a1a">R1 10k</text>
+  <line x1="160" y1="270" x2="260" y2="270" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="260" y1="270" x2="260" y2="200" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="260" y1="200" x2="340" y2="200" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Q1 Emitter & Collector connections -->
+  <line x1="160" y1="180" x2="340" y2="180" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="390" y1="180" x2="475" y2="180" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Q2 Transistor (GPIO0 control) -->
+  <rect x="340" y="270" width="50" height="40" fill="white" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="365" y="294" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Q2 NPN</text>
+  <text x="245" y="285" font-size="12" fill="#1a1a1a">R2 10k</text>
+  <line x1="235" y1="180" x2="235" y2="290" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="235" y1="290" x2="340" y2="290" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Q2 Emitter & Collector connections -->
+  <line x1="285" y1="270" x2="340" y2="270" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="390" y1="290" x2="475" y2="290" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Truth Table Box inside Panel 2 -->
+  <rect x="220" y="345" width="215" height="170" fill="white" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="327" y="368" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Логіка перемикання режимів</text>
+  <text x="230" y="395" font-size="12" fill="#1a1a1a">DTR=0, RTS=1 → RST=0 (Reset)</text>
+  <text x="230" y="420" font-size="12" fill="#1a1a1a">DTR=1, RTS=0 → GPIO0=0 (Flash)</text>
+  <text x="230" y="445" font-size="12" fill="#27ae60">DTR=0, RTS=0 → Z (Run Mode)</text>
+  <text x="230" y="470" font-size="12" fill="#27ae60">DTR=1, RTS=1 → Z (Run Mode)</text>
+  <text x="327" y="500" font-size="12" fill="#6b7280" text-anchor="middle">Z = Високий імпеданс ключа</text>
+
+  <!-- Panel 3: ESP8266 Microcontroller -->
+  <rect x="475" y="80" width="200" height="450" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2" rx="8" ry="8"/>
+  <text x="575" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP8266 / ESP-01</text>
+  <text x="575" y="128" font-size="12" fill="#6b7280" text-anchor="middle">Страпінг-виводи завантаження</text>
+
+  <!-- RST Pin -->
+  <circle cx="475" cy="180" r="4" fill="#2457d6"/>
+  <text x="487" y="172" font-size="12" font-weight="bold" fill="#1a1a1a">RST</text>
+  <!-- RST Pull-up R_pu1 -->
+  <line x1="535" y1="180" x2="535" y2="150" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="525" y="140" width="20" height="20" fill="white" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="552" y="154" font-size="12" fill="#1a1a1a">R_pu1 10k (3.3V)</text>
+  <!-- RST Filter Cap C1 -->
+  <line x1="535" y1="180" x2="535" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="525" y1="210" x2="545" y2="210" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="525" y1="214" x2="545" y2="214" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="552" y="215" font-size="12" fill="#6b7280">C1 100nF (GND)</text>
+
+  <!-- GPIO0 Pin -->
+  <circle cx="475" cy="290" r="4" fill="#2457d6"/>
+  <text x="487" y="282" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO0</text>
+  <!-- GPIO0 Pull-up R_pu0 -->
+  <line x1="545" y1="290" x2="545" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="535" y="235" width="20" height="20" fill="white" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="562" y="248" font-size="12" fill="#27ae60">R_pu0 10k (3.3V)</text>
+  <line x1="475" y1="290" x2="700" y2="290" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- GPIO2 Pin -->
+  <circle cx="475" cy="370" r="4" fill="#27ae60"/>
+  <text x="487" y="362" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO2</text>
+  <line x1="545" y1="370" x2="545" y2="335" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="535" y="315" width="20" height="20" fill="white" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="562" y="328" font-size="12" fill="#27ae60">R_pu2 10k (3.3V)</text>
+  <text x="487" y="388" font-size="12" fill="#27ae60">GPIO2 = 1 (High)</text>
+
+  <!-- GPIO15 Pin -->
+  <circle cx="475" cy="450" r="4" fill="#27ae60"/>
+  <text x="487" y="442" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO15</text>
+  <line x1="605" y1="450" x2="605" y2="480" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="595" y="480" width="20" height="20" fill="white" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="540" y="512" font-size="12" fill="#27ae60">R_pd15 10k (GND)</text>
+  <text x="487" y="465" font-size="12" fill="#27ae60">GPIO15 = 0 (Low)</text>
+  <line x1="475" y1="450" x2="605" y2="450" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Panel 4: Optocoupler Isolation -->
+  <rect x="700" y="80" width="235" height="450" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="8" ry="8"/>
+  <text x="817" y="108" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Оптопарна розв'язка</text>
+  <text x="817" y="128" font-size="12" fill="#6b7280" text-anchor="middle">Ізоляція силового навантаження</text>
+
+  <!-- Galvanic Barrier Line -->
+  <line x1="817" y1="150" x2="817" y2="440" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="817" y="465" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Гальванічна розв'язка</text>
+  <text x="817" y="485" font-size="12" fill="#6b7280" text-anchor="middle">MCU 3.3V ↔ Load 12V/24V</text>
+
+  <!-- Optocoupler PC817 Box -->
+  <rect x="725" y="240" width="185" height="150" fill="white" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="817" y="260" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Оптопара PC817</text>
+
+  <!-- Optocoupler LED side (Left, MCU Domain) -->
+  <text x="735" y="280" font-size="12" fill="#1a1a1a">Анод (3.3V)</text>
+  <line x1="770" y1="285" x2="770" y2="300" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="760" y="300" width="20" height="20" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="735" y="335" font-size="12" fill="#27ae60">R3 330Ω</text>
+  <!-- LED symbol -->
+  <polygon points="760,340 780,340 770,355" fill="#27ae60"/>
+  <line x1="760" y1="355" x2="780" y2="355" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="735" y="375" font-size="12" fill="#1a1a1a">Катод (GPIO0)</text>
+
+  <!-- Optocoupler Phototransistor side (Right, Power Domain) -->
+  <text x="830" y="280" font-size="12" fill="#1a1a1a">Колектор</text>
+  <line x1="860" y1="285" x2="860" y2="310" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- Phototransistor symbol -->
+  <circle cx="860" cy="330" r="15" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="860" y1="345" x2="860" y2="370" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="830" y="385" font-size="12" fill="#1a1a1a">Емітер (Load)</text>
+
+  <!-- External Power & Load Connections -->
+  <line x1="860" y1="210" x2="860" y2="240" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="865" y="200" font-size="12" font-weight="bold" fill="#1a1a1a">+12V / +24V</text>
+
+  <line x1="860" y1="390" x2="860" y2="420" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <rect x="830" y="420" width="60" height="20" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="3"/>
+  <text x="860" y="434" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Реле / Мотор</text>
+</svg>

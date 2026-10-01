@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Порівняльна схема включення CH340G та безкварцевого CH340C</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Мінімізація обв'язки за рахунок внутрішнього 12 МГц RC-генератора у версії CH340C</text>
+
+  <!-- ==================== LEFT PANEL: CH340G WITH CRYSTAL ==================== -->
+  <rect x="35" y="85" width="425" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Left Header Badge -->
+  <rect x="50" y="98" width="395" height="40" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247" y="116" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Класична схема CH340G (із кварцом)</text>
+  <text x="247" y="132" text-anchor="middle" font-size="12" fill="#6b7280">Вимагає 4 зовнішні компоненти обв'язки</text>
+
+  <!-- CH340G IC Box -->
+  <rect x="60" y="160" width="150" height="230" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <text x="135" y="185" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">CH340G</text>
+  <text x="135" y="203" text-anchor="middle" font-size="12" fill="#6b7280">(Корпус SOP-16)</text>
+
+  <!-- IC Pins & Labels (XI, XO, V3) -->
+  <line x1="210" y1="235" x2="265" y2="235" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="202" y="239" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">XI (7)</text>
+
+  <line x1="210" y1="295" x2="265" y2="295" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="202" y="299" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">XO (8)</text>
+
+  <text x="135" y="382" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">V3 (4)</text>
+  <line x1="135" y1="390" x2="135" y2="410" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- External Crystal Y1 (12 MHz) -->
+  <line x1="265" y1="235" x2="265" y2="253" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="265" y1="277" x2="265" y2="295" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="250" y="253" width="30" height="24" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="258" y1="257" x2="258" y2="273" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="272" y1="257" x2="272" y2="273" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="290" y="269" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">Y1 (12 МГц)</text>
+
+  <!-- Load Capacitor C1 (22 pF) -->
+  <line x1="265" y1="235" x2="370" y2="235" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="370" y1="235" x2="370" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="358" y1="255" x2="382" y2="255" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="358" y1="263" x2="382" y2="263" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="388" y="263" text-anchor="start" font-size="12" fill="#1a1a1a">C1 (22 пФ)</text>
+
+  <!-- Load Capacitor C2 (22 pF) -->
+  <line x1="265" y1="295" x2="370" y2="295" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="370" y1="295" x2="370" y2="315" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="358" y1="315" x2="382" y2="315" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="358" y1="323" x2="382" y2="323" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="388" y="323" text-anchor="start" font-size="12" fill="#1a1a1a">C2 (22 пФ)</text>
+
+  <!-- Common GND Rail for C1/C2 -->
+  <line x1="370" y1="263" x2="370" y2="315" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="370" y1="323" x2="370" y2="345" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="358" y1="345" x2="382" y2="345" stroke="#6b7280" stroke-width="2"/>
+  <line x1="362" y1="349" x2="378" y2="349" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="366" y1="353" x2="374" y2="353" stroke="#6b7280" stroke-width="1"/>
+  <text x="370" y="367" text-anchor="middle" font-size="12" fill="#6b7280">GND</text>
+
+  <!-- V3 Decoupling Capacitor C3 (100 nF) -->
+  <line x1="135" y1="410" x2="90" y2="410" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="78" y1="410" x2="102" y2="410" stroke="#2457d6" stroke-width="2"/>
+  <line x1="78" y1="418" x2="102" y2="418" stroke="#2457d6" stroke-width="2"/>
+  <line x1="90" y1="418" x2="90" y2="428" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="82" y1="428" x2="98" y2="428" stroke="#6b7280" stroke-width="2"/>
+  <line x1="85" y1="431" x2="95" y2="431" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="75" y="418" text-anchor="end" font-size="12" fill="#2457d6">C3 (100 нФ)</text>
+
+  <!-- Left Alert Badge -->
+  <rect x="50" y="432" width="395" height="20" rx="4" fill="#fdecea"/>
+  <text x="247" y="446" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Потрібен кварц 12 МГц + 2 конденсатори 22-30 пФ</text>
+
+
+  <!-- ==================== RIGHT PANEL: CH340C CRYSTALLESS ==================== -->
+  <rect x="495" y="85" width="430" height="370" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Right Header Badge -->
+  <rect x="510" y="98" width="400" height="40" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="710" y="116" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Безкварцева схема CH340C (вбудований RC)</text>
+  <text x="710" y="132" text-anchor="middle" font-size="12" fill="#6b7280">Лише 1 конденсатор обв'язки (економія площі PCB)</text>
+
+  <!-- CH340C IC Box -->
+  <rect x="520" y="160" width="200" height="230" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="620" y="185" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">CH340C</text>
+  <text x="620" y="203" text-anchor="middle" font-size="12" fill="#6b7280">(Корпус SOP-16)</text>
+
+  <!-- Internal RC Oscillator Block -->
+  <rect x="535" y="218" width="170" height="60" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="620" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Внутрішній RC-генератор</text>
+  <text x="620" y="260" text-anchor="middle" font-size="12" fill="#1a1a1a">12 МГц (калібрований)</text>
+
+  <!-- IC Pins & Unconnected NC Pins -->
+  <line x1="720" y1="295" x2="765" y2="295" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <text x="712" y="299" text-anchor="end" font-size="12" font-weight="bold" fill="#6b7280">XI (7)</text>
+  <text x="775" y="299" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">NC (Вільний)</text>
+
+  <line x1="720" y1="335" x2="765" y2="335" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <text x="712" y="339" text-anchor="end" font-size="12" font-weight="bold" fill="#6b7280">XO (8)</text>
+  <text x="775" y="339" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">NC (Вільний)</text>
+
+  <text x="620" y="382" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">V3 (4)</text>
+  <line x1="620" y1="390" x2="620" y2="410" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- V3 Decoupling Capacitor C_V3 (100 nF) -->
+  <line x1="608" y1="410" x2="632" y2="410" stroke="#27ae60" stroke-width="2"/>
+  <line x1="608" y1="418" x2="632" y2="418" stroke="#27ae60" stroke-width="2"/>
+  <line x1="620" y1="418" x2="620" y2="428" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="612" y1="428" x2="628" y2="428" stroke="#6b7280" stroke-width="2"/>
+  <line x1="615" y1="431" x2="625" y2="431" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="640" y="418" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">C_V3 (100 нФ)</text>
+
+  <!-- Right Success Badge -->
+  <rect x="510" y="432" width="400" height="20" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="710" y="446" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Зовнішній кварц і керамічні конденсатори НЕ потрібні</text>
+</svg>

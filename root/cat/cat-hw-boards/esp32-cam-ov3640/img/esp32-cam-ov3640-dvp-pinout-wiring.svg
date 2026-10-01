@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 580" width="960" height="580" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="580" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема підключення 24-контактного FPC-сокета OV3640 до ESP32</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Розподіл сигнальних ліній 8-бітної шини DVP, тактування XCLK/PCLK та шини SCCB</text>
+
+  <!-- Left Main Panel: OV3640 FPC Socket -->
+  <rect x="40" y="75" width="300" height="480" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="190" y="100" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Сокет FPC 24-pin (OV3640)</text>
+
+  <!-- Right Main Panel: ESP32 Microcontroller -->
+  <rect x="620" y="75" width="300" height="480" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="770" y="100" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Периферія ESP32 / GPIO</text>
+
+  <!-- GROUP 1: DVP Data Bus -->
+  <!-- Left Box G1 -->
+  <rect x="55" y="115" width="270" height="135" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="190" y="133" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Шина даних DVP (8 біт)</text>
+  <text x="68" y="155" font-size="12" fill="#1a1a1a">Pin 2: Y2 → GPIO5</text>
+  <text x="68" y="175" font-size="12" fill="#1a1a1a">Pin 3: Y3 → GPIO18</text>
+  <text x="68" y="195" font-size="12" fill="#1a1a1a">Pin 4: Y4 → GPIO19</text>
+  <text x="68" y="215" font-size="12" fill="#1a1a1a">Pin 5: Y5 → GPIO21</text>
+  <text x="195" y="155" font-size="12" fill="#1a1a1a">Pin 6: Y6 → GPIO36</text>
+  <text x="195" y="175" font-size="12" fill="#1a1a1a">Pin 7: Y7 → GPIO39</text>
+  <text x="195" y="195" font-size="12" fill="#1a1a1a">Pin 8: Y8 → GPIO34</text>
+  <text x="195" y="215" font-size="12" fill="#1a1a1a">Pin 9: Y9 → GPIO35</text>
+
+  <!-- Right Box G1 -->
+  <rect x="635" y="115" width="270" height="135" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="770" y="133" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Прийом даних ESP32 DMA</text>
+  <text x="650" y="155" font-size="12" fill="#1a1a1a">• Вхідний 8-біт порт I2S / DVP</text>
+  <text x="650" y="175" font-size="12" fill="#1a1a1a">• Прямий доступ DMA до пам'яті</text>
+  <text x="650" y="195" font-size="12" fill="#1a1a1a">• Кадрові буфери в PSRAM</text>
+  <text x="650" y="215" font-size="12" fill="#1a1a1a">• Апаратний буфер FIFO</text>
+
+  <!-- Middle Bus G1 -->
+  <line x1="325" y1="185" x2="365" y2="185" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="595" y1="185" x2="635" y2="185" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <rect x="365" y="173" width="230" height="24" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="189" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">DVP Y[2..9] (8 біт даних) →</text>
+
+  <!-- GROUP 2: Clock & Sync -->
+  <!-- Left Box G2 -->
+  <rect x="55" y="262" width="270" height="98" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="190" y="280" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Тактування та синхронізація</text>
+  <text x="68" y="300" font-size="12" fill="#1a1a1a">Pin 10: PCLK (Такти PCLK) → GPIO22</text>
+  <text x="68" y="318" font-size="12" fill="#1a1a1a">Pin 11: XCLK (Вхід 20 МГц) ← GPIO0</text>
+  <text x="68" y="336" font-size="12" fill="#1a1a1a">Pin 12/13: VSYNC/HREF → GPIO25/23</text>
+
+  <!-- Right Box G2 -->
+  <rect x="635" y="262" width="270" height="98" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="770" y="280" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Генератор XCLK та стробування</text>
+  <text x="650" y="300" font-size="12" fill="#1a1a1a">• Генерація XCLK через LEDC</text>
+  <text x="650" y="318" font-size="12" fill="#1a1a1a">• Захоплення по фронту PCLK</text>
+  <text x="650" y="336" font-size="12" fill="#1a1a1a">• Строби кадрів VSYNC / HREF</text>
+
+  <!-- Middle Lines G2 -->
+  <!-- XCLK -->
+  <line x1="635" y1="290" x2="585" y2="290" stroke="#2457d6" stroke-width="2"/>
+  <line x1="375" y1="290" x2="325" y2="290" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="375" y="279" width="210" height="22" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="295" text-anchor="middle" font-size="12" fill="#2457d6">← XCLK (20 МГц, PWM)</text>
+
+  <!-- Sync -->
+  <line x1="325" y1="330" x2="375" y2="330" stroke="#2457d6" stroke-width="2"/>
+  <line x1="585" y1="330" x2="635" y2="330" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="375" y="319" width="210" height="22" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="335" text-anchor="middle" font-size="12" fill="#2457d6">PCLK, VSYNC, HREF →</text>
+
+  <!-- GROUP 3: SCCB Interface -->
+  <!-- Left Box G3 -->
+  <rect x="55" y="372" width="270" height="65" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="190" y="390" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Конфігурація (SCCB / I2C)</text>
+  <text x="68" y="408" font-size="12" fill="#1a1a1a">Pin 14: SIOC (SCCB SCL) ← GPIO27</text>
+  <text x="68" y="424" font-size="12" fill="#1a1a1a">Pin 15: SIOD (SCCB SDA) ↔ GPIO26</text>
+
+  <!-- Right Box G3 -->
+  <rect x="635" y="372" width="270" height="65" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="770" y="390" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Контролер I2C ESP32</text>
+  <text x="650" y="408" font-size="12" fill="#1a1a1a">• Налаштування роздільності</text>
+  <text x="650" y="424" font-size="12" fill="#1a1a1a">• Формат JPEG / RGB / YUV</text>
+
+  <!-- Middle Line G3 -->
+  <line x1="325" y1="405" x2="370" y2="405" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,2"/>
+  <line x1="590" y1="405" x2="635" y2="405" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,2"/>
+  <rect x="370" y="394" width="220" height="22" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="480" y="410" text-anchor="middle" font-size="12" fill="#6b7280">SIOC (SCL) / SIOD (SDA)</text>
+
+  <!-- GROUP 4: Power & Sleep Control -->
+  <!-- Left Box G4 -->
+  <rect x="55" y="449" width="270" height="94" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="190" y="467" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Живлення та режим сну</text>
+  <text x="68" y="485" font-size="12" fill="#1a1a1a">Pin 16: PWDN (Режим сну) ← GPIO32</text>
+  <text x="68" y="503" font-size="12" fill="#1a1a1a">Pin 17: RESET → Підтяжка 3.3V</text>
+  <text x="68" y="521" font-size="12" fill="#1a1a1a">Pins 18-20: DOVDD / AVDD / DVDD</text>
+
+  <!-- Right Box G4 -->
+  <rect x="635" y="449" width="270" height="94" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="770" y="467" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Керування живленням та LDO</text>
+  <text x="650" y="485" font-size="12" fill="#1a1a1a">• Апаратний спад струму (PWDN)</text>
+  <text x="650" y="503" font-size="12" fill="#1a1a1a">• Стабілізатори LDO 2.8V / 1.8V</text>
+  <text x="650" y="521" font-size="12" fill="#1a1a1a">• Декаплінг конденсаторами Low ESR</text>
+
+  <!-- Middle Line & Info Box G4 -->
+  <line x1="635" y1="475" x2="580" y2="475" stroke="#27ae60" stroke-width="2"/>
+  <line x1="380" y1="475" x2="325" y2="475" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="380" y="464" width="200" height="22" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="480" text-anchor="middle" font-size="12" fill="#27ae60">← PWDN (GPIO32)</text>
+
+  <rect x="345" y="498" width="270" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="514" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">DOVDD 3.3V | AVDD 2.8V | DVDD 1.8V</text>
+  <text x="480" y="530" text-anchor="middle" font-size="11" fill="#27ae60">LDO стабілізатори та спільна земля GND</text>
+</svg>

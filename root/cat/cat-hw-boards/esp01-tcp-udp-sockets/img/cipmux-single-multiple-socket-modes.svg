@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння сокетних режимів ESP-01: AT+CIPMUX=0 та AT+CIPMUX=1</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Одиночний режим обмежує пристрій 1 каналом, мультиплексований — надає 5 паралельних сокетів (IDs 0–4)</text>
+
+  <!-- LEFT PANEL: Single Connection (AT+CIPMUX=0) -->
+  <rect x="30" y="85" width="435" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="100" width="405" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247" y="123" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Одиночний режим (AT+CIPMUX=0)</text>
+
+  <!-- Host & Commands Box -->
+  <rect x="55" y="155" width="160" height="65" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="135" y="182" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Хост-контролер</text>
+  <text x="135" y="202" font-size="12" fill="#6b7280" text-anchor="middle">UART (TX/RX)</text>
+
+  <line x1="215" y1="187" x2="235" y2="187" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="235" y="155" width="180" height="65" rx="6" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="325" y="175" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Команди та потік даних:</text>
+  <text x="325" y="193" font-size="11" fill="#1a1a1a" text-anchor="middle">AT+CIPSTART="TCP",...</text>
+  <text x="325" y="211" font-size="11" fill="#1a1a1a" text-anchor="middle">AT+CIPSEND / +IPD,len:</text>
+
+  <!-- LwIP Memory Container -->
+  <line x1="247" y1="220" x2="247" y2="245" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2" marker-end="url(#arr-gray)"/>
+  <text x="255" y="236" font-size="10" fill="#6b7280" text-anchor="start">Обробка в LwIP</text>
+
+  <rect x="55" y="245" width="360" height="115" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="235" y="267" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стек LwIP та DRAM (1 канал PCB)</text>
+  <rect x="75" y="278" width="320" height="68" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="235" y="298" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Єдиний PCB (Protocol Control Block)</text>
+  <text x="235" y="316" font-size="11" fill="#6b7280" text-anchor="middle">Сокетні буфери TX/RX прив'язані до 1 сесії</text>
+  <text x="235" y="333" font-size="10" fill="#1a1a1a" text-anchor="middle">ID сокета НЕ використовується у командах</text>
+
+  <!-- Remote Server -->
+  <line x1="235" y1="360" x2="235" y2="385" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="245" y="376" font-size="10" fill="#6b7280" text-anchor="start">TCP/UDP сокет</text>
+
+  <rect x="115" y="385" width="240" height="52" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="235" y="407" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дистанційний сервер</text>
+  <text x="235" y="425" font-size="11" fill="#6b7280" text-anchor="middle">IP:Port (1 клієнтське з'єднання)</text>
+
+  <!-- Left Limitation Footer -->
+  <rect x="55" y="450" width="360" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="235" y="470" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Обмеження: лише 1 з'єднання одночасно</text>
+  <text x="235" y="488" font-size="11" fill="#6b7280" text-anchor="middle">Неможливо створити багатоклієнтський TCP-сервер</text>
+
+  <!-- RIGHT PANEL: Multiple Connections (AT+CIPMUX=1) -->
+  <rect x="495" y="85" width="435" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="510" y="100" width="405" height="36" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="123" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">Мультиплексований режим (AT+CIPMUX=1)</text>
+
+  <!-- Host & Commands Box -->
+  <rect x="520" y="155" width="150" height="65" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="595" y="182" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Хост-контролер</text>
+  <text x="595" y="202" font-size="12" fill="#6b7280" text-anchor="middle">UART (з ID сокета)</text>
+
+  <line x1="670" y1="187" x2="685" y2="187" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <rect x="685" y="155" width="225" height="65" rx="6" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="797" y="175" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Ідентифікація каналу (ID 0..4):</text>
+  <text x="797" y="193" font-size="11" fill="#1a1a1a" text-anchor="middle">AT+CIPSTART=id,"TCP",...</text>
+  <text x="797" y="211" font-size="11" fill="#1a1a1a" text-anchor="middle">AT+CIPSEND=id,len / +IPD,id,len:</text>
+
+  <!-- LwIP Memory Container -->
+  <line x1="712" y1="220" x2="712" y2="245" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2" marker-end="url(#arr-gray)"/>
+  <text x="720" y="236" font-size="10" fill="#6b7280" text-anchor="start">Мультиплексування LwIP</text>
+
+  <rect x="520" y="245" width="390" height="115" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="715" y="264" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стек LwIP та DRAM (Розподіл 5 PCB сокетів)</text>
+
+  <!-- 5 PCB Slots -->
+  <rect x="530" y="276" width="68" height="66" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="564" y="293" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">ID: 0</text>
+  <text x="564" y="310" font-size="10" fill="#6b7280" text-anchor="middle">PCB #0</text>
+  <text x="564" y="327" font-size="10" fill="#1a1a1a" text-anchor="middle">TCP Cli</text>
+
+  <rect x="606" y="276" width="68" height="66" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="640" y="293" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">ID: 1</text>
+  <text x="640" y="310" font-size="10" fill="#6b7280" text-anchor="middle">PCB #1</text>
+  <text x="640" y="327" font-size="10" fill="#1a1a1a" text-anchor="middle">UDP</text>
+
+  <rect x="682" y="276" width="68" height="66" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="716" y="293" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">ID: 2</text>
+  <text x="716" y="310" font-size="10" fill="#6b7280" text-anchor="middle">PCB #2</text>
+  <text x="716" y="327" font-size="10" fill="#1a1a1a" text-anchor="middle">Srv Cli</text>
+
+  <rect x="758" y="276" width="68" height="66" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="792" y="293" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">ID: 3</text>
+  <text x="792" y="310" font-size="10" fill="#6b7280" text-anchor="middle">PCB #3</text>
+  <text x="792" y="327" font-size="10" fill="#9ca3af" text-anchor="middle">Вільний</text>
+
+  <rect x="834" y="276" width="68" height="66" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="868" y="293" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">ID: 4</text>
+  <text x="868" y="310" font-size="10" fill="#6b7280" text-anchor="middle">PCB #4</text>
+  <text x="868" y="327" font-size="10" fill="#9ca3af" text-anchor="middle">Вільний</text>
+
+  <!-- Remote Endpoints -->
+  <line x1="564" y1="342" x2="577" y2="385" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="640" y1="342" x2="712" y2="385" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="716" y1="342" x2="850" y2="385" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <rect x="520" y="385" width="115" height="52" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="577" y="405" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сервер A</text>
+  <text x="577" y="423" font-size="10" fill="#6b7280" text-anchor="middle">HTTP / Port 80</text>
+
+  <rect x="655" y="385" width="115" height="52" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712" y="405" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сервер B</text>
+  <text x="712" y="423" font-size="10" fill="#6b7280" text-anchor="middle">MQTT / 1883</text>
+
+  <rect x="790" y="385" width="120" height="52" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="850" y="405" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Клієнт C</text>
+  <text x="850" y="423" font-size="10" fill="#6b7280" text-anchor="middle">TCP Server Link</text>
+
+  <!-- Right Advantage Footer -->
+  <rect x="520" y="450" width="390" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="715" y="470" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Перевага: паралельні сокети та режим TCP-сервера</text>
+  <text x="715" y="488" font-size="11" fill="#6b7280" text-anchor="middle">Потрібен контроль DRAM: ризик вичерпання пам'яті</text>
+</svg>

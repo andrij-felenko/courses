@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структура пакетів запиту та відповіді команди DAP_Transfer</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Байтова організація упакованих операцій DP/AP та статус виконання в CMSIS-DAP</text>
+
+  <!-- Panel 1: Request Buffer -->
+  <rect x="30" y="75" width="900" height="200" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="95" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">1. Структура буфера запиту (Request Buffer: Host → DAPLink)</text>
+
+  <!-- Panel 1 Row A: Request Bytes -->
+  <rect x="45" y="110" width="125" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="107.5" y="127" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Command ID</text>
+  <text x="107.5" y="145" font-size="12" fill="#1a1a1a" text-anchor="middle">0x05 (TRANSFER)</text>
+
+  <rect x="182" y="110" width="115" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="239.5" y="127" font-size="12" fill="#6b7280" text-anchor="middle">DAP Index</text>
+  <text x="239.5" y="145" font-size="12" fill="#1a1a1a" text-anchor="middle">0x00</text>
+
+  <rect x="309" y="110" width="135" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="376.5" y="127" font-size="12" fill="#6b7280" text-anchor="middle">Transfer Count</text>
+  <text x="376.5" y="145" font-size="12" fill="#1a1a1a" text-anchor="middle">N (кількість)</text>
+
+  <rect x="456" y="110" width="150" height="45" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="531" y="127" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Transfer Request [0]</text>
+  <text x="531" y="145" font-size="12" fill="#1a1a1a" text-anchor="middle">1 байт (операція)</text>
+
+  <rect x="618" y="110" width="160" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="698" y="127" font-size="12" fill="#6b7280" text-anchor="middle">Write Data [0]</text>
+  <text x="698" y="145" font-size="12" fill="#1a1a1a" text-anchor="middle">4 байти (якщо Write)</text>
+
+  <rect x="790" y="110" width="125" height="45" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="852.5" y="127" font-size="12" fill="#6b7280" text-anchor="middle">Transfer Req [1]...</text>
+  <text x="852.5" y="145" font-size="12" fill="#6b7280" text-anchor="middle">Наступні операції</text>
+
+  <!-- Panel 1 Row B: Bit Breakdown -->
+  <rect x="45" y="175" width="870" height="85" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="55" y="193" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Декодування полів байта Transfer Request:</text>
+
+  <rect x="55" y="205" width="115" height="45" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="112.5" y="222" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">bit 0: APnDP</text>
+  <text x="112.5" y="239" font-size="12" fill="#1a1a1a" text-anchor="middle">0=DP, 1=AP</text>
+
+  <rect x="182" y="205" width="115" height="45" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="239.5" y="222" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">bit 1: RnW</text>
+  <text x="239.5" y="239" font-size="12" fill="#1a1a1a" text-anchor="middle">0=Wr, 1=Rd</text>
+
+  <rect x="309" y="205" width="135" height="45" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="376.5" y="222" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">bits 2-3: A[2:3]</text>
+  <text x="376.5" y="239" font-size="12" fill="#1a1a1a" text-anchor="middle">Адреса регістру</text>
+
+  <rect x="456" y="205" width="145" height="45" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="528.5" y="222" font-size="12" fill="#6b7280" text-anchor="middle">bit 4: Value Match</text>
+  <text x="528.5" y="239" font-size="12" fill="#1a1a1a" text-anchor="middle">Збіг значення</text>
+
+  <rect x="613" y="205" width="145" height="45" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="685.5" y="222" font-size="12" fill="#6b7280" text-anchor="middle">bit 5: Match Mask</text>
+  <text x="685.5" y="239" font-size="12" fill="#1a1a1a" text-anchor="middle">Маска перевірки</text>
+
+  <rect x="770" y="205" width="135" height="45" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="837.5" y="222" font-size="12" fill="#6b7280" text-anchor="middle">bit 6: TD Mode</text>
+  <text x="837.5" y="239" font-size="12" fill="#1a1a1a" text-anchor="middle">Штамп часу</text>
+
+  <!-- Panel 2: Response Buffer -->
+  <rect x="30" y="295" width="900" height="220" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="315" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">2. Структура буфера відповіді (Response Buffer: DAPLink → Host)</text>
+
+  <!-- Panel 2 Row A: Response Bytes -->
+  <rect x="45" y="330" width="135" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="112.5" y="347" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Command ID</text>
+  <text x="112.5" y="365" font-size="12" fill="#1a1a1a" text-anchor="middle">0x05 (TRANSFER)</text>
+
+  <rect x="192" y="330" width="145" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="264.5" y="347" font-size="12" fill="#6b7280" text-anchor="middle">Transfer Count</text>
+  <text x="264.5" y="365" font-size="12" fill="#1a1a1a" text-anchor="middle">Виконано операцій</text>
+
+  <rect x="349" y="330" width="165" height="45" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="431.5" y="347" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ACK / Response Status</text>
+  <text x="431.5" y="365" font-size="12" fill="#1a1a1a" text-anchor="middle">1 байт (статус SWD)</text>
+
+  <rect x="526" y="330" width="190" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="621" y="347" font-size="12" fill="#6b7280" text-anchor="middle">Read Data [0]</text>
+  <text x="621" y="365" font-size="12" fill="#1a1a1a" text-anchor="middle">4 байти (прочитані дані)</text>
+
+  <rect x="728" y="330" width="187" height="45" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="821.5" y="347" font-size="12" fill="#6b7280" text-anchor="middle">Read Data [1]...</text>
+  <text x="821.5" y="365" font-size="12" fill="#6b7280" text-anchor="middle">Дані наступних Read</text>
+
+  <!-- Panel 2 Row B: ACK Decoding Box -->
+  <rect x="45" y="395" width="870" height="105" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="413" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Значення поля ACK (Response Status) та коди помилок:</text>
+
+  <rect x="55" y="425" width="190" height="60" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="150" y="445" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ACK = 0x01 (DAP_OK)</text>
+  <text x="150" y="465" font-size="12" fill="#1a1a1a" text-anchor="middle">Успішна передача</text>
+
+  <rect x="257" y="425" width="200" height="60" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="357" y="445" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ACK = 0x02 (DAP_WAIT)</text>
+  <text x="357" y="465" font-size="12" fill="#1a1a1a" text-anchor="middle">Ціль не готова (Retry)</text>
+
+  <rect x="469" y="425" width="210" height="60" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="574" y="445" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ACK = 0x04 (DAP_FAULT)</text>
+  <text x="574" y="465" font-size="12" fill="#1a1a1a" text-anchor="middle">Апаратна помилка шини</text>
+
+  <rect x="691" y="425" width="214" height="60" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="798" y="445" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ACK = 0x08 (NO_ACK/ERR)</text>
+  <text x="798" y="465" font-size="12" fill="#1a1a1a" text-anchor="middle">Збій зв'язку SWD/JTAG</text>
+</svg>

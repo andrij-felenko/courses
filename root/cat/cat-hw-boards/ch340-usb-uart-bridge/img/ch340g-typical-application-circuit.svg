@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Типова схема включення мікросхеми CH340G (SOP-16)</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Підключення зовнішнього кварцу 12 МГц, блокирувального конденсатора V3 та шини USB</text>
+
+  <!-- LEFT PANEL 1: USB Connector -->
+  <rect x="35" y="85" width="125" height="140" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="97" y="110" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">USB Роз'єм</text>
+
+  <text x="50" y="136" font-size="12" fill="#1a1a1a">VBUS (+5V)</text>
+  <line x1="120" y1="132" x2="160" y2="132" stroke="#c0392b" stroke-width="1.5"/>
+
+  <text x="50" y="161" font-size="12" fill="#1a1a1a">D-</text>
+  <line x1="75" y1="157" x2="355" y2="157" stroke="#2457d6" stroke-width="1.5"/>
+
+  <text x="50" y="186" font-size="12" fill="#1a1a1a">D+</text>
+  <line x1="75" y1="182" x2="355" y2="182" stroke="#2457d6" stroke-width="1.5"/>
+
+  <text x="50" y="211" font-size="12" fill="#1a1a1a">GND</text>
+
+  <!-- LEFT PANEL 2: V3 Capacitor Note Box -->
+  <rect x="35" y="240" width="285" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="48" y="262" font-size="12" font-weight="bold" fill="#27ae60">Вивід V3 (Внутрішній LDO 3.3 В):</text>
+  <text x="48" y="282" font-size="12" fill="#1a1a1a">Обов'язковий блокирувальний конденсатор</text>
+  <text x="48" y="300" font-size="12" font-weight="bold" fill="#27ae60">C3 = 100 нФ (кераміка, низький ESR)</text>
+  <text x="48" y="318" font-size="12" fill="#6b7280">Підключається між виводом 4 та GND</text>
+
+  <!-- Wire for V3 capacitor C3 -->
+  <line x1="355" y1="285" x2="320" y2="285" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- LEFT PANEL 3: Crystal Oscillator Circuit -->
+  <rect x="35" y="350" width="285" height="165" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="177" y="372" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Тактування: Кварц 12.000 МГц</text>
+
+  <!-- Crystal Symbol & Wires -->
+  <line x1="355" y1="415" x2="270" y2="415" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="355" y1="465" x2="270" y2="465" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Resonator Y1 rectangle -->
+  <rect x="230" y="405" width="40" height="70" fill="white" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="250" y="444" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Y1</text>
+  <text x="250" y="460" font-size="12" text-anchor="middle" fill="#2457d6">12 МГц</text>
+
+  <!-- Load Capacitors C1 & C2 to GND -->
+  <text x="50" y="418" font-size="12" fill="#1a1a1a">C1 = 22 пФ (на GND)</text>
+  <text x="50" y="468" font-size="12" fill="#1a1a1a">C2 = 22 пФ (на GND)</text>
+
+  <!-- CENTER: CH340G SOP-16 Chip Box -->
+  <rect x="360" y="85" width="240" height="430" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <!-- Notch -->
+  <path d="M 465 85 A 15 15 0 0 0 495 85 Z" fill="#d0d7de"/>
+
+  <text x="480" y="118" font-size="18" font-weight="bold" text-anchor="middle" fill="#2457d6">CH340G</text>
+  <text x="480" y="136" font-size="12" text-anchor="middle" fill="#6b7280">Корпус SOP-16</text>
+
+  <!-- Left Pins (1 to 8) -->
+  <rect x="360" y="152" width="75" height="24" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="2"/>
+  <text x="397" y="169" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">1: GND</text>
+
+  <rect x="360" y="192" width="75" height="24" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="2"/>
+  <text x="397" y="209" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">2: TXD</text>
+
+  <rect x="360" y="232" width="75" height="24" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="2"/>
+  <text x="397" y="249" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">3: RXD</text>
+
+  <rect x="360" y="272" width="75" height="24" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="2"/>
+  <text x="397" y="289" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">4: V3</text>
+
+  <rect x="360" y="312" width="75" height="24" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="2"/>
+  <text x="397" y="329" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">5: UD+</text>
+
+  <rect x="360" y="352" width="75" height="24" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="2"/>
+  <text x="397" y="369" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">6: UD-</text>
+
+  <rect x="360" y="402" width="75" height="24" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="2"/>
+  <text x="397" y="419" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">7: XI</text>
+
+  <rect x="360" y="452" width="75" height="24" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="2"/>
+  <text x="397" y="469" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">8: XO</text>
+
+  <!-- Right Pins (16 down to 9) -->
+  <rect x="525" y="152" width="75" height="24" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="2"/>
+  <text x="562" y="169" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">16: VCC</text>
+
+  <rect x="525" y="192" width="75" height="24" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="2"/>
+  <text x="562" y="209" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">15: R232</text>
+
+  <rect x="525" y="232" width="75" height="24" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="2"/>
+  <text x="562" y="249" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">14: RTS#</text>
+
+  <rect x="525" y="272" width="75" height="24" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="2"/>
+  <text x="562" y="289" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">13: DTR#</text>
+
+  <rect x="525" y="312" width="75" height="24" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="2"/>
+  <text x="562" y="329" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">12: DCD#</text>
+
+  <rect x="525" y="352" width="75" height="24" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="2"/>
+  <text x="562" y="369" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">11: RI#</text>
+
+  <rect x="525" y="402" width="75" height="24" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="2"/>
+  <text x="562" y="419" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">10: DSR#</text>
+
+  <rect x="525" y="452" width="75" height="24" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="2"/>
+  <text x="562" y="469" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">9: CTS#</text>
+
+  <!-- RIGHT PANEL 1: VCC Power Filtering -->
+  <rect x="640" y="85" width="285" height="110" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="655" y="110" font-size="13" font-weight="bold" fill="#c0392b">Живлення VCC (+5 В) та фільтри:</text>
+  <text x="655" y="132" font-size="12" fill="#1a1a1a">C4 = 100 нФ (кераміка, ВЧ-фільтр)</text>
+  <text x="655" y="152" font-size="12" fill="#1a1a1a">C5 = 10 мкФ (тантал/електроліт, НЧ)</text>
+  <text x="655" y="172" font-size="12" fill="#6b7280">Розміщувати поруч із ніжкою 16 VCC</text>
+
+  <!-- Wire from VCC Pin 16 to Power panel -->
+  <line x1="600" y1="165" x2="640" y2="165" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- RIGHT PANEL 2: Signal Outputs & Specs -->
+  <rect x="640" y="210" width="285" height="305" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="655" y="235" font-size="13" font-weight="bold" fill="#1a1a1a">Сигнальні виходи до МК:</text>
+  <text x="655" y="260" font-size="12" fill="#1a1a1a">• TXD (Pin 2) → RXD МК (через дільник)</text>
+  <text x="655" y="285" font-size="12" fill="#1a1a1a">• RXD (Pin 3) ← TXD МК (напряму 3.3V)</text>
+  <text x="655" y="310" font-size="12" fill="#1a1a1a">• RTS# (Pin 14) → Вузол скидання МК</text>
+  <text x="655" y="335" font-size="12" fill="#1a1a1a">• DTR# (Pin 13) → Керування BOOT0/GPIO0</text>
+  <text x="655" y="360" font-size="12" fill="#6b7280">• CTS#, DSR#, RI#, DCD# — лінії квитування</text>
+
+  <!-- Note Box in Right Panel -->
+  <rect x="652" y="385" width="261" height="115" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="665" y="408" font-size="12" font-weight="bold" fill="#2457d6">Особливості ревізії CH340G:</text>
+  <text x="665" y="428" font-size="12" fill="#1a1a1a">• Обов'язковий кварц 12.000 МГц</text>
+  <text x="665" y="448" font-size="12" fill="#1a1a1a">• Повний набір modem control ліній</text>
+  <text x="665" y="468" font-size="12" fill="#1a1a1a">• Корпус SOP-16 (зручний для пайки)</text>
+  <text x="665" y="488" font-size="12" font-weight="bold" fill="#27ae60">• Висока точність тактування UART</text>
+</svg>

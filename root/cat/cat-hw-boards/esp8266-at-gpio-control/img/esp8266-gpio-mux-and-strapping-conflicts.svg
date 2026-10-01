@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+  
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Електричні конфлікти завантажувальних виводів (Strapping Pins) ESP8266</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Вплив зовнішнього навантаження на GPIO0, GPIO2, GPIO15 під час скидання (CHIP_PU) та вибір режиму старту</text>
+
+  <!-- Column 1: GPIO15 -->
+  <rect x="30" y="75" width="290" height="305" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="30" y="75" width="290" height="36" rx="6" fill="#c0392b"/>
+  <rect x="30" y="99" width="290" height="12" fill="#c0392b"/>
+  <text x="175" y="98" font-size="14" font-weight="bold" fill="white" text-anchor="middle">GPIO15 (MTDO)</text>
+
+  <rect x="42" y="118" width="266" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="175" y="134" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вимога при старті: LOW (0 В / GND)</text>
+
+  <rect x="42" y="150" width="266" height="90" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="52" y="168" font-size="12" font-weight="bold" fill="#c0392b">Конфлікт (Помилка підключення):</text>
+  <text x="52" y="186" font-size="11" fill="#1a1a1a">• Реле Active-HIGH підключено напряму</text>
+  <text x="52" y="202" font-size="11" fill="#1a1a1a">• Навантаження підтягує вивід до 3.3 В</text>
+  <text x="52" y="226" font-size="11" font-weight="bold" fill="#c0392b">Результат: Збій старту (SDIO Boot / Hang)</text>
+
+  <rect x="42" y="250" width="266" height="115" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="52" y="268" font-size="12" font-weight="bold" fill="#27ae60">Правильне схемотехнічне рішення:</text>
+  <text x="52" y="286" font-size="11" fill="#1a1a1a">• Підтяжка R_pull-down = 10 кОм на GND</text>
+  <text x="52" y="302" font-size="11" fill="#1a1a1a">• Керування силою через NPN транзистор</text>
+  <text x="52" y="318" font-size="11" fill="#1a1a1a">• Або реле з інверсним входом Active-LOW</text>
+  <text x="52" y="348" font-size="11" font-weight="bold" fill="#27ae60">✓ Гарантовано 0 В під час CHIP_PU</text>
+
+  <!-- Column 2: GPIO0 -->
+  <rect x="335" y="75" width="290" height="305" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="335" y="75" width="290" height="36" rx="6" fill="#2457d6"/>
+  <rect x="335" y="99" width="290" height="12" fill="#2457d6"/>
+  <text x="480" y="98" font-size="14" font-weight="bold" fill="white" text-anchor="middle">GPIO0 (FLASH / BOOT)</text>
+
+  <rect x="347" y="118" width="266" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="134" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вимога при старті: HIGH (3.3 В)</text>
+
+  <rect x="347" y="150" width="266" height="90" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="357" y="168" font-size="12" font-weight="bold" fill="#c0392b">Конфлікт (Помилка підключення):</text>
+  <text x="357" y="186" font-size="11" fill="#1a1a1a">• Сенсор/кнопка шунтує вивід на GND</text>
+  <text x="357" y="202" font-size="11" fill="#1a1a1a">• Світлодіод увімкнений на GND без підтяжки</text>
+  <text x="357" y="226" font-size="11" font-weight="bold" fill="#c0392b">Результат: Перехід у режим UART Boot</text>
+
+  <rect x="347" y="250" width="266" height="115" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="357" y="268" font-size="12" font-weight="bold" fill="#27ae60">Правильне схемотехнічне рішення:</text>
+  <text x="357" y="286" font-size="11" fill="#1a1a1a">• Зовнішня підтяжка R_pull-up = 10 кОм</text>
+  <text x="357" y="302" font-size="11" fill="#1a1a1a">• Підключення кнопки через послідовні 1 кОм</text>
+  <text x="357" y="318" font-size="11" fill="#1a1a1a">• Розв'язка сенсора через оптопару/буфер</text>
+  <text x="357" y="348" font-size="11" font-weight="bold" fill="#27ae60">✓ Стабільний запуск із Flash-пам'яті</text>
+
+  <!-- Column 3: GPIO2 -->
+  <rect x="640" y="75" width="290" height="305" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="640" y="75" width="290" height="36" rx="6" fill="#2457d6"/>
+  <rect x="640" y="99" width="290" height="12" fill="#2457d6"/>
+  <text x="785" y="98" font-size="14" font-weight="bold" fill="white" text-anchor="middle">GPIO2 (TXD1 Log Output)</text>
+
+  <rect x="652" y="118" width="266" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="785" y="134" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вимога при старті: HIGH (3.3 В)</text>
+
+  <rect x="652" y="150" width="266" height="90" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="662" y="168" font-size="12" font-weight="bold" fill="#c0392b">Конфлікт (Помилка підключення):</text>
+  <text x="662" y="186" font-size="11" fill="#1a1a1a">• Зовнішня підтяжка на GND</text>
+  <text x="662" y="202" font-size="11" fill="#1a1a1a">• Навантаження перехоплює лог 74880 бод</text>
+  <text x="662" y="226" font-size="11" font-weight="bold" fill="#c0392b">Результат: Зависання завантажувача</text>
+
+  <rect x="652" y="250" width="266" height="115" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="662" y="268" font-size="12" font-weight="bold" fill="#27ae60">Правильне схемотехнічне рішення:</text>
+  <text x="662" y="286" font-size="11" fill="#1a1a1a">• Зовнішній підтягувальний резистор 10 кОм</text>
+  <text x="662" y="302" font-size="11" fill="#1a1a1a">• Враховувати відправку системного логу</text>
+  <text x="662" y="318" font-size="11" fill="#1a1a1a">• Використовувати як вихід для LED/Relay</text>
+  <text x="662" y="348" font-size="11" font-weight="bold" fill="#27ae60">✓ Забезпечено старт та вивід логів</text>
+
+  <!-- Bottom Panel: Boot Mode Summary Matrix -->
+  <rect x="30" y="395" width="900" height="110" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="414" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зведена матриця режимів завантаження ESP8266 (Опитування рівнів під час CHIP_PU)</text>
+
+  <!-- Row 0: Table Header -->
+  <rect x="50" y="423" width="860" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="110" y="438" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">GPIO15</text>
+  <text x="240" y="438" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">GPIO0</text>
+  <text x="370" y="438" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">GPIO2</text>
+  <text x="560" y="438" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Режим завантаження (Boot Mode)</text>
+  <text x="790" y="438" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Статус системи</text>
+
+  <!-- Row 1: Flash Boot (Normal) -->
+  <rect x="50" y="448" width="860" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="110" y="463" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0 (GND)</text>
+  <text x="240" y="463" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1 (3.3V)</text>
+  <text x="370" y="463" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1 (3.3V)</text>
+  <text x="560" y="463" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SPI Flash Boot (Звичайне виконання програми)</text>
+  <text x="790" y="463" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Робочий режим</text>
+
+  <!-- Row 2: UART Bootloader -->
+  <rect x="50" y="473" width="860" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="110" y="488" font-size="11" fill="#1a1a1a" text-anchor="middle">0 (GND)</text>
+  <text x="240" y="488" font-size="11" fill="#1a1a1a" text-anchor="middle">0 (GND)</text>
+  <text x="370" y="488" font-size="11" fill="#1a1a1a" text-anchor="middle">1 (3.3V)</text>
+  <text x="560" y="488" font-size="11" fill="#1a1a1a" text-anchor="middle">UART Download Mode (Режим прошивання)</text>
+  <text x="790" y="488" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">⚙ Завантаження коду</text>
+</svg>

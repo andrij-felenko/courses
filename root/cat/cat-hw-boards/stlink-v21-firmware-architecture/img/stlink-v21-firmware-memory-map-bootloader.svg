@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мапа пам'яті Flash-пам'яті STM32F103 у прошивці ST-Link V2.1</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Розподіл областей захищеного завантажувача, векторів переривань та основної прошивки ST-Link V2.1</text>
+
+  <!-- Left Panel: Memory Map Container -->
+  <rect x="30" y="90" width="420" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="240" y="114" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фізичний розподіл Flash-пам'яті (128 КБ)</text>
+
+  <!-- Left Panel Address Labels -->
+  <text x="38" y="148" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">0x0800 0000</text>
+  <text x="38" y="250" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">0x0800 4000</text>
+  <text x="38" y="308" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">0x0800 4400</text>
+  <text x="38" y="443" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">0x0801 F7FF</text>
+  <text x="38" y="483" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">0x0801 F800</text>
+
+  <!-- Left Panel Memory Block 1: Protected Bootloader -->
+  <rect x="140" y="135" width="295" height="90" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <text x="287" y="158" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Захищений завантажувач (Bootloader)</text>
+  <text x="287" y="178" font-size="12" fill="#1a1a1a" text-anchor="middle">Обсяг: 16 КБ (Сектори 0–3)</text>
+  <text x="287" y="198" font-size="12" fill="#6b7280" text-anchor="middle">Апаратний захист від читання (RDP Level 1)</text>
+
+  <!-- Left Panel Memory Block 2: Vector Table -->
+  <rect x="140" y="235" width="295" height="45" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="287" y="262" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Таблиця векторів переривань (VTOR)</text>
+
+  <!-- Left Panel Memory Block 3: Main Application Firmware -->
+  <rect x="140" y="290" width="295" height="165" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="6"/>
+  <text x="287" y="313" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Робоча прошивка ST-Link V2.1</text>
+  <text x="287" y="329" font-size="12" fill="#6b7280" text-anchor="middle">Обсяг: ~110 КБ (Основна програма)</text>
+
+  <!-- Inner Firmware Sub-blocks -->
+  <rect x="155" y="338" width="265" height="30" fill="white" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="287" y="357" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB Composite (VCP / MSC / Vendor)</text>
+
+  <rect x="155" y="378" width="265" height="67" fill="white" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="287" y="399" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Модуль обробки команд SCSI</text>
+  <text x="287" y="419" font-size="12" fill="#6b7280" text-anchor="middle">Драйвер інтерфейсу SWD / JTAG</text>
+
+  <!-- Left Panel Memory Block 4: Shared Data / Status -->
+  <rect x="140" y="465" width="295" height="50" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="287" y="483" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конфігурація та сектор статусу</text>
+  <text x="287" y="501" font-size="12" fill="#6b7280" text-anchor="middle">Обсяг: 2 КБ (Прапори оновлення)</text>
+
+  <!-- Right Panel: Execution & Update Mechanisms Container -->
+  <rect x="480" y="90" width="450" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="705" y="114" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Механізми функціонування та оновлення</text>
+
+  <!-- Right Panel Top Box: Bootloader Mode -->
+  <rect x="500" y="135" width="410" height="110" fill="white" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="515" y="156" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">1. Режим завантажувача</text>
+
+  <!-- Status Badge -->
+  <rect x="750" y="142" width="145" height="22" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="822.5" y="157" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Захист RDP Level 1</text>
+
+  <text x="515" y="180" font-size="12" fill="#1a1a1a" text-anchor="start">• Стартує при подачі живлення або скиданні (POR)</text>
+  <text x="515" y="200" font-size="12" fill="#1a1a1a" text-anchor="start">• Перевіряє цілісність та криптографічний підпис</text>
+  <text x="515" y="220" font-size="12" fill="#1a1a1a" text-anchor="start">• При оновленні розшифровує та перезаписує Flash</text>
+
+  <!-- Transition Arrow between Bootloader and Application Mode -->
+  <line x1="530" y1="245" x2="530" y2="285" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="545" y="268" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Перехід за вектором VTOR при успішній перевірці</text>
+
+  <!-- Right Panel Bottom Box: Application Mode -->
+  <rect x="500" y="295" width="410" height="220" fill="white" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="515" y="315" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">2. Режим основної прошивки (Application Mode)</text>
+
+  <!-- Channels Grid -->
+  <!-- Channel 1: VCP -->
+  <rect x="515" y="328" width="120" height="76" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="575" y="348" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB VCP</text>
+  <text x="575" y="366" font-size="12" fill="#6b7280" text-anchor="middle">Віртуальний</text>
+  <text x="575" y="384" font-size="12" fill="#6b7280" text-anchor="middle">COM-порт</text>
+
+  <!-- Channel 2: MSC -->
+  <rect x="645" y="328" width="120" height="76" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="705" y="348" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">USB MSC</text>
+  <text x="705" y="366" font-size="12" fill="#1a1a1a" text-anchor="middle">Віртуальний диск</text>
+  <text x="705" y="384" font-size="12" fill="#6b7280" text-anchor="middle">Drag-and-Drop</text>
+
+  <!-- Channel 3: Vendor Debug -->
+  <rect x="775" y="328" width="120" height="76" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="835" y="348" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">USB Vendor</text>
+  <text x="835" y="366" font-size="12" fill="#1a1a1a" text-anchor="middle">Протокол SWD</text>
+  <text x="835" y="384" font-size="12" fill="#6b7280" text-anchor="middle">JTAG зневадження</text>
+
+  <!-- Application Summary Box -->
+  <rect x="515" y="415" width="380" height="87" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="705" y="434" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Автоматичний розбір SCSI-команд та запис у Flash</text>
+  <text x="705" y="454" font-size="12" fill="#6b7280" text-anchor="middle">Пряме керування лініями SWCLK/SWDIO у сесіях OpenOCD</text>
+  <text x="705" y="474" font-size="12" fill="#2457d6" text-anchor="middle">Підтримка оновлення через утиліту ST-Link Upgrade</text>
+  <text x="705" y="492" font-size="12" fill="#6b7280" text-anchor="middle">Можливість прошивання сторонніх CMSIS-DAP прошивок</text>
+</svg>

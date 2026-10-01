@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Топологія пам'яті ESP32-S3: Дискретна розводка vs SiP-інтеграція</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Перехід до SiP-чипа ESP32-S3R2 усуває довгі PCB-траси Octal SPI та вивільняє GPIO33–GPIO37</text>
+
+  <!-- Left Panel: Discrete PCB Layout -->
+  <rect x="30" y="85" width="435" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="100" width="405" height="36" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247" y="123" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Дискретна розводка (Зовнішня PSRAM)</text>
+
+  <!-- Left: MCU Box -->
+  <rect x="55" y="160" width="130" height="150" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="120" y="185" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">ESP32-S3</text>
+  <text x="120" y="202" text-anchor="middle" font-size="12" fill="#6b7280">SoC (QFN56)</text>
+  <text x="120" y="235" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">GPIO33–37</text>
+  <text x="120" y="252" text-anchor="middle" font-size="12" fill="#c0392b">Заблоковані</text>
+  <text x="120" y="285" text-anchor="middle" font-size="12" fill="#6b7280">Octal SPI Ctrl</text>
+
+  <!-- Left: External PSRAM Box -->
+  <rect x="305" y="160" width="145" height="70" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="377" y="183" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Зовнішня PSRAM</text>
+  <text x="377" y="201" text-anchor="middle" font-size="12" fill="#1a1a1a">2/8 МБ (Octal SPI)</text>
+  <text x="377" y="218" text-anchor="middle" font-size="12" fill="#6b7280">SOP8 / USON8</text>
+
+  <!-- Left: External Flash Box -->
+  <rect x="305" y="245" width="145" height="65" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="377" y="268" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Зовнішня Flash</text>
+  <text x="377" y="286" text-anchor="middle" font-size="12" fill="#1a1a1a">16 МБ (Quad SPI)</text>
+
+  <!-- Left: Traces -->
+  <path d="M 185 195 L 305 195" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="245" y="187" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Octal SPI (~15-30 мм)</text>
+
+  <path d="M 185 277 L 305 277" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="245" y="270" text-anchor="middle" font-size="12" fill="#2457d6">QSPI Traces</text>
+
+  <!-- Left: Problem Summary Box -->
+  <rect x="45" y="335" width="405" height="180" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="358" font-size="13" font-weight="bold" fill="#c0392b">Недоліки дискретної топології:</text>
+  <text x="60" y="385" font-size="12" fill="#1a1a1a">• Паразитна індуктивність та ємність PCB-доріжок</text>
+  <text x="60" y="410" font-size="12" fill="#c0392b" font-weight="bold">• GPIO33–GPIO37 зайняті шиною пам'яті й недоступні</text>
+  <text x="60" y="435" font-size="12" fill="#1a1a1a">• Вимоги до екранування високочастотних ліній</text>
+  <text x="60" y="460" font-size="12" fill="#1a1a1a">• Більша площа плати та ризик завад на 80-120 МГц</text>
+  <text x="60" y="485" font-size="12" fill="#6b7280">• Складність розводки багатошарової друкованої плати</text>
+
+  <!-- Right Panel: SiP-Integration (ESP32-S3R2) -->
+  <rect x="495" y="85" width="435" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="510" y="100" width="405" height="36" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="123" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">SiP-інтеграція (ESP32-S3R2)</text>
+
+  <!-- Right: SiP Package Box -->
+  <rect x="515" y="155" width="235" height="155" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="632" y="176" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Мікросхема SiP ESP32-S3R2 (QFN56)</text>
+
+  <!-- Right: MCU Die -->
+  <rect x="525" y="190" width="95" height="95" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="572" y="215" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Кристал MCU</text>
+  <text x="572" y="233" text-anchor="middle" font-size="12" fill="#1a1a1a">Xtensa LX7</text>
+  <text x="572" y="255" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">GPIO33–37</text>
+  <text x="572" y="272" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ВІЛЬНІ!</text>
+
+  <!-- Right: PSRAM Die -->
+  <rect x="645" y="190" width="95" height="95" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="692" y="215" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">PSRAM Die</text>
+  <text x="692" y="233" text-anchor="middle" font-size="12" fill="#1a1a1a">2 МБ SiP</text>
+  <text x="692" y="255" text-anchor="middle" font-size="12" fill="#6b7280">Внутрішня</text>
+  <text x="692" y="272" text-anchor="middle" font-size="12" fill="#6b7280">розводка</text>
+
+  <!-- Internal Bonding Wires -->
+  <path d="M 620 220 L 645 220 M 620 235 L 645 235 M 620 250 L 645 250" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Right: External Flash Box -->
+  <rect x="770" y="200" width="145" height="65" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="842" y="223" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Зовнішня Flash</text>
+  <text x="842" y="241" text-anchor="middle" font-size="12" fill="#1a1a1a">16 МБ (Quad SPI)</text>
+
+  <!-- Right: Trace to Flash -->
+  <path d="M 750 232 L 770 232" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Right: Solution Summary Box -->
+  <rect x="510" y="335" width="405" height="180" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="525" y="358" font-size="13" font-weight="bold" fill="#27ae60">Переваги SiP-архітектури ESP32-S3R2:</text>
+  <text x="525" y="385" font-size="12" fill="#1a1a1a">• Мінімальна індуктивність і ємність внутрішніх розводівок</text>
+  <text x="525" y="410" font-size="12" fill="#27ae60" font-weight="bold">• GPIO33–GPIO37 повністю вивільнені для периферії</text>
+  <text x="525" y="435" font-size="12" fill="#1a1a1a">• Висока завадостійкість на 80/120 МГц без екранування</text>
+  <text x="525" y="460" font-size="12" fill="#1a1a1a">• Скорочення площі плати Waveshare ESP32-S3R2 на 30–40%</text>
+  <text x="525" y="485" font-size="12" fill="#6b7280">• Спрощення розведення друкованої плати та її здешевлення</text>
+</svg>

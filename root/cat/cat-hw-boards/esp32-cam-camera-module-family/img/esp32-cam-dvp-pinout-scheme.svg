@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема підключення DVP та SCCB інтерфейсів камери до ESP32 (AI-Thinker)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Прив'язка ліній тактування (XCLK, PCLK), синхронізації (VSYNC, HREF), даних (D0–D7) та шини керування (SIOC, SIOD) до GPIO</text>
+
+  <!-- Панель ліворуч: ESP32 -->
+  <rect x="50" y="90" width="320" height="390" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="8"/>
+  <text x="70" y="115" font-size="14" font-weight="bold" fill="#1a1a1a">ESP32 GPIO виводи камери</text>
+
+  <!-- Группа 1 в ESP32: Тактування -->
+  <rect x="65" y="135" width="290" height="55" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="80" y="158" font-size="12" font-weight="bold" fill="#27ae60">GPIO0  ➔  XCLK (Master Clock)</text>
+  <text x="80" y="178" font-size="12" font-weight="bold" fill="#27ae60">GPIO22 ➔  PCLK (Pixel Clock)</text>
+
+  <!-- Группа 2 в ESP32: Синхронізація -->
+  <rect x="65" y="205" width="290" height="55" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="80" y="228" font-size="12" font-weight="bold" fill="#2457d6">GPIO25 ➔  VSYNC (Vertical Sync)</text>
+  <text x="80" y="248" font-size="12" font-weight="bold" fill="#2457d6">GPIO23 ➔  HREF (Horizontal Ref)</text>
+
+  <!-- Группа 3 в ESP32: SCCB -->
+  <rect x="65" y="275" width="290" height="55" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="80" y="298" font-size="12" font-weight="bold" fill="#c0392b">GPIO27 ➔  SIOC (SCCB Clock)</text>
+  <text x="80" y="318" font-size="12" font-weight="bold" fill="#c0392b">GPIO26 ➔  SIOD (SCCB Data)</text>
+
+  <!-- Группа 4 в ESP32: Дані D0-D7 -->
+  <rect x="65" y="345" width="290" height="120" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="80" y="368" font-size="12" font-weight="bold" fill="#1a1a1a">Паралельна шина даних D0–D7:</text>
+  <text x="80" y="390" font-size="12" fill="#1a1a1a">D0:GPIO5, D1:GPIO18, D2:GPIO19, D3:GPIO21</text>
+  <text x="80" y="410" font-size="12" fill="#1a1a1a">D4:GPIO36, D5:GPIO39, D6:GPIO34, D7:GPIO35</text>
+  <text x="80" y="435" font-size="12" fill="#6b7280">RESET: GPIO15, PWDN: GPIO32</text>
+
+  <!-- З'єднувальні шини (Центр) -->
+  <!-- Шина 1: Тактування -->
+  <line x1="355" y1="162" x2="600" y2="162" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="480" y="154" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Шина тактування</text>
+
+  <!-- Шина 2: Синхронізація -->
+  <line x1="355" y1="232" x2="600" y2="232" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="480" y="224" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Синхронізація кадру</text>
+
+  <!-- Шина 3: SCCB -->
+  <line x1="355" y1="302" x2="600" y2="302" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="480" y="294" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Шина SCCB (I2C)</text>
+
+  <!-- Шина 4: Дані -->
+  <line x1="355" y1="400" x2="600" y2="400" stroke="#1a1a1a" stroke-width="3.5" marker-end="url(#arr-dark)"/>
+  <text x="480" y="392" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">8-бітне відео D0-D7</text>
+
+  <!-- Панель праворуч: Камера OV2640 -->
+  <rect x="590" y="90" width="320" height="390" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="8"/>
+  <text x="610" y="115" font-size="14" font-weight="bold" fill="#1a1a1a">Роз'єм камери (OV2640 / DVP)</text>
+
+  <!-- Группа 1 в камери: Тактування -->
+  <rect x="605" y="135" width="290" height="55" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="620" y="158" font-size="12" font-weight="bold" fill="#27ae60">XCLK (Вхід тактування 24 МГц)</text>
+  <text x="620" y="178" font-size="12" font-weight="bold" fill="#27ae60">PCLK (Вихід пиксельного такту)</text>
+
+  <!-- Группа 2 в камери: Синхронізація -->
+  <rect x="605" y="205" width="290" height="55" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="620" y="228" font-size="12" font-weight="bold" fill="#2457d6">VSYNC (Кадровий імпульс)</text>
+  <text x="620" y="248" font-size="12" font-weight="bold" fill="#2457d6">HREF (Рядковий імпульс)</text>
+
+  <!-- Группа 3 в камери: SCCB -->
+  <rect x="605" y="275" width="290" height="55" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="620" y="298" font-size="12" font-weight="bold" fill="#c0392b">SIOC (Конфігурація SCL)</text>
+  <text x="620" y="318" font-size="12" font-weight="bold" fill="#c0392b">SIOD (Конфігурація SDA)</text>
+
+  <!-- Группа 4 в камери: Дані D0-D7 -->
+  <rect x="605" y="345" width="290" height="120" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="620" y="368" font-size="12" font-weight="bold" fill="#1a1a1a">8-бітна шина пиксельних даних:</text>
+  <text x="620" y="390" font-size="12" fill="#1a1a1a">Y2, Y3, Y4, Y5 (Молодші 4 біти)</text>
+  <text x="620" y="410" font-size="12" fill="#1a1a1a">Y6, Y7, Y8, Y9 (Старші 4 біти)</text>
+  <text x="620" y="435" font-size="12" fill="#6b7280">RESET / Power Down керування</text>
+</svg>

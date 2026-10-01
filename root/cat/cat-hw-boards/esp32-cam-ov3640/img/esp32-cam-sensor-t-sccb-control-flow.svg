@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Модифікація регістрів OV3640 через об'єкт sensor_t та шину SCCB</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Виклик функцій sensor_t транслятором esp-camera перетворюється на пакети запису SCCB</text>
+
+  <!-- Column 1: User Application API -->
+  <rect x="30" y="80" width="180" height="430" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="120" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Користувацький API</text>
+  <text x="120" y="126" font-size="12" fill="#6b7280" text-anchor="middle">Об'єкт sensor_t</text>
+
+  <!-- Box 1A: AEC exposure call -->
+  <rect x="42" y="150" width="156" height="90" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="120" y="172" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Експозиція (AEC)</text>
+  <text x="120" y="194" font-size="12" fill="#1a1a1a" text-anchor="middle">s-&gt;set_aec_value()</text>
+  <text x="120" y="214" font-size="12" fill="#6b7280" text-anchor="middle">Значення: 0..1200</text>
+
+  <!-- Box 1B: AWB white balance call -->
+  <rect x="42" y="260" width="156" height="90" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="120" y="282" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Баланс білого (AWB)</text>
+  <text x="120" y="304" font-size="12" fill="#1a1a1a" text-anchor="middle">s-&gt;set_whitebal()</text>
+  <text x="120" y="324" font-size="12" fill="#6b7280" text-anchor="middle">Увімк/Вимк (0 або 1)</text>
+
+  <!-- Box 1C: GAIN control call -->
+  <rect x="42" y="370" width="156" height="120" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="120" y="394" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Підсилення (GAIN)</text>
+  <text x="120" y="416" font-size="12" fill="#1a1a1a" text-anchor="middle">s-&gt;set_gain_ctrl()</text>
+  <text x="120" y="438" font-size="12" fill="#6b7280" text-anchor="middle">Авто-посилення</text>
+  <text x="120" y="460" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Динамічний виклик</text>
+
+  <!-- Arrow Col 1 to Col 2 -->
+  <line x1="198" y1="195" x2="240" y2="195" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="219" y="183" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">API</text>
+
+  <!-- Column 2: ESP-camera Driver Translation -->
+  <rect x="240" y="80" width="210" height="430" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="345" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Драйвер esp-camera</text>
+  <text x="345" y="126" font-size="12" fill="#6b7280" text-anchor="middle">Мапування регістрів</text>
+
+  <!-- Component 2A: Register Translation Box -->
+  <rect x="252" y="150" width="186" height="160" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="345" y="172" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Диспетчер функцій</text>
+  <text x="345" y="194" font-size="12" fill="#6b7280" text-anchor="middle">Мапування у адреси:</text>
+
+  <!-- Sub-box AEC Mapping -->
+  <rect x="262" y="205" width="166" height="42" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="345" y="222" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">AEC -&gt; 0x3000 / 0x3001</text>
+  <text x="345" y="238" font-size="12" fill="#6b7280" text-anchor="middle">AEC_MSB / AEC_LSB</text>
+
+  <!-- Sub-box AWB Mapping -->
+  <rect x="262" y="255" width="166" height="42" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="345" y="272" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">AWB -&gt; 0x300E (AWB_CTRL)</text>
+  <text x="345" y="288" font-size="12" fill="#6b7280" text-anchor="middle">Прапорець авто-балансу</text>
+
+  <!-- Component 2B: SCCB Write Generator Box -->
+  <rect x="252" y="330" width="186" height="140" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="345" y="354" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Генератор SCCB-пакету</text>
+  <text x="345" y="376" font-size="12" fill="#1a1a1a" text-anchor="middle">sccb_write_reg()</text>
+  <text x="345" y="398" font-size="12" fill="#6b7280" text-anchor="middle">Адреса слейва: 0x78</text>
+  <text x="345" y="420" font-size="12" fill="#6b7280" text-anchor="middle">3-фазна транзакція</text>
+  <text x="345" y="446" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Формування байтів</text>
+
+  <!-- Arrow Col 2 to Col 3 -->
+  <line x1="438" y1="400" x2="494" y2="400" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="466" y="388" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SCCB</text>
+
+  <!-- Column 3: SCCB Hardware Bus & Packet Structure -->
+  <rect x="494" y="80" width="226" height="430" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="607" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Пакет шини SCCB</text>
+  <text x="607" y="126" font-size="12" fill="#6b7280" text-anchor="middle">Інтерфейс I2C (SIO_C / SIO_D)</text>
+
+  <!-- Component 3A: Signals Box -->
+  <rect x="506" y="150" width="202" height="70" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="607" y="172" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Сигнальні лінії SCCB</text>
+  <text x="607" y="192" font-size="12" fill="#1a1a1a" text-anchor="middle">SIO_C (Clock) &amp; SIO_D (Data)</text>
+  <text x="607" y="208" font-size="12" fill="#27ae60" text-anchor="middle">Частота тактування 100 кГц</text>
+
+  <!-- Component 3B: 3-Phase Transmission Packet Structure -->
+  <rect x="506" y="240" width="202" height="230" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="607" y="262" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Структура пакета запису</text>
+
+  <!-- Phase 1 Block -->
+  <rect x="516" y="278" width="182" height="45" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="607" y="296" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Фаза 1: ID Адреса (0x78 + W)</text>
+  <text x="607" y="312" font-size="12" fill="#6b7280" text-anchor="middle">8 біт адреси слейва + ACK</text>
+
+  <!-- Phase 2 Block -->
+  <rect x="516" y="333" width="182" height="45" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="607" y="351" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Фаза 2: Адреса регістру</text>
+  <text x="607" y="367" font-size="12" fill="#6b7280" text-anchor="middle">Sub-address (0x3000) + ACK</text>
+
+  <!-- Phase 3 Block -->
+  <rect x="516" y="388" width="182" height="45" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="607" y="406" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Фаза 3: Байтові дані</text>
+  <text x="607" y="422" font-size="12" fill="#6b7280" text-anchor="middle">Write Data (0xAF) + ACK</text>
+
+  <text x="607" y="455" font-size="12" fill="#6b7280" text-anchor="middle">Передача без перезавантаження</text>
+
+  <!-- Arrow Col 3 to Col 4 -->
+  <line x1="708" y1="350" x2="750" y2="350" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="729" y="338" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SIO</text>
+
+  <!-- Column 4: OV3640 Internal Registers -->
+  <rect x="750" y="80" width="180" height="430" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="840" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4. Матриця OV3640</text>
+  <text x="840" y="126" font-size="12" fill="#6b7280" text-anchor="middle">Регістри управління</text>
+
+  <!-- Component 4A: AEC Register Box -->
+  <rect x="762" y="150" width="156" height="85" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="840" y="172" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Регістр AEC (0x3000)</text>
+  <text x="840" y="194" font-size="12" fill="#1a1a1a" text-anchor="middle">Час експонування</text>
+  <text x="840" y="214" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Оновлення кадру</text>
+
+  <!-- Component 4B: AWB Register Box -->
+  <rect x="762" y="250" width="156" height="85" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="840" y="272" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Регістр AWB (0x300E)</text>
+  <text x="840" y="294" font-size="12" fill="#1a1a1a" text-anchor="middle">Корекція кольорів</text>
+  <text x="840" y="314" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Баланс R / G / B</text>
+
+  <!-- Component 4C: Immediate Effect Box -->
+  <rect x="762" y="350" width="156" height="120" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="840" y="374" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ефект у реальному часі</text>
+  <text x="840" y="396" font-size="12" fill="#6b7280" text-anchor="middle">Зміна якості фото</text>
+  <text x="840" y="418" font-size="12" fill="#1a1a1a" text-anchor="middle">Без зупинки DVP</text>
+  <text x="840" y="440" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Миттєвий результат</text>
+</svg>

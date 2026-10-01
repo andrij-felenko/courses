@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема мультиплексування GPIO4 та GPIO12 на платі ESP32-CAM</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Апаратні конфлікти шини SDMMC з LED спалахом та страпінг-виводом завантаження</text>
+
+  <!-- BLOCK 1: ESP32 Pins -->
+  <rect x="40" y="80" width="220" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="150" y="105" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Виводи ESP32</text>
+
+  <!-- Sub-box 1: GPIO4 -->
+  <rect x="55" y="120" width="190" height="140" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="150" y="138" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">GPIO4 (Мультиплекс)</text>
+  <text x="68" y="158" font-size="12" fill="#1a1a1a">• Лінія SDMMC DATA1</text>
+  <text x="68" y="176" font-size="12" fill="#1a1a1a">• Керування LED спалахом</text>
+  <text x="68" y="194" font-size="12" fill="#1a1a1a">• Транзистор Q2 (NPN)</text>
+  <text x="68" y="212" font-size="12" fill="#1a1a1a">• Конфлікт: мерехтіння</text>
+  <text x="68" y="230" font-size="12" fill="#1a1a1a">• Струм спалаху 150 мА</text>
+
+  <!-- Sub-box 2: GPIO12 -->
+  <rect x="55" y="280" width="190" height="150" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="150" y="298" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">GPIO12 (Страпінг)</text>
+  <text x="68" y="318" font-size="12" fill="#1a1a1a">• Лінія SDMMC DATA2</text>
+  <text x="68" y="336" font-size="12" fill="#1a1a1a">• Страпінг VDD_SDIO</text>
+  <text x="68" y="354" font-size="12" fill="#1a1a1a">• Вибір 1.8V / 3.3V Flash</text>
+  <text x="68" y="372" font-size="12" fill="#1a1a1a">• Небезпека Boot Fail</text>
+  <text x="68" y="390" font-size="12" fill="#1a1a1a">• Підтяжка при старті</text>
+  <text x="68" y="410" font-size="12" fill="#1a1a1a">• Режим 1-bit SDMMC</text>
+
+  <!-- BLOCK 2: Board Circuits -->
+  <rect x="370" y="80" width="220" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="480" y="105" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Схемотехніка плати</text>
+
+  <!-- Sub-box 1: Flash LED Q2 -->
+  <rect x="385" y="120" width="190" height="140" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="138" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Ключ LED Спалаху</text>
+  <text x="398" y="158" font-size="12" fill="#1a1a1a">• Ключ NPN (Q2 S8050)</text>
+  <text x="398" y="176" font-size="12" fill="#1a1a1a">• Потужний LED 1 Вт</text>
+  <text x="398" y="194" font-size="12" fill="#1a1a1a">• Базовий резистор 1 кОм</text>
+  <text x="398" y="212" font-size="12" fill="#1a1a1a">• Пальсінг при читанні</text>
+  <text x="398" y="230" font-size="12" fill="#1a1a1a">• Захист: 1-bit режим</text>
+
+  <!-- Sub-box 2: Boot LDO -->
+  <rect x="385" y="280" width="190" height="150" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="298" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Схема завантаження</text>
+  <text x="398" y="318" font-size="12" fill="#1a1a1a">• Внутрішній LDO Flash</text>
+  <text x="398" y="336" font-size="12" fill="#1a1a1a">• Потреба GND при Boot</text>
+  <text x="398" y="354" font-size="12" fill="#1a1a1a">• Фіксовано 3.3V Flash</text>
+  <text x="398" y="372" font-size="12" fill="#1a1a1a">• Усунення конфлікту</text>
+  <text x="398" y="390" font-size="12" fill="#1a1a1a">• Стабільний запуск</text>
+  <text x="398" y="410" font-size="12" fill="#1a1a1a">• Безпечний прошивач</text>
+
+  <!-- BLOCK 3: microSD Slot -->
+  <rect x="700" y="80" width="220" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="810" y="105" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Слот microSD Card</text>
+
+  <!-- Sub-box 1: 4-Bit Mode -->
+  <rect x="715" y="120" width="190" height="140" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="810" y="138" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Режим 4-Bit SDMMC</text>
+  <text x="728" y="158" font-size="12" fill="#1a1a1a">• Pin 1: DATA2 (GPIO12)</text>
+  <text x="728" y="176" font-size="12" fill="#1a1a1a">• Pin 2: DATA3 (GPIO13)</text>
+  <text x="728" y="194" font-size="12" fill="#1a1a1a">• Pin 3: CMD (GPIO15)</text>
+  <text x="728" y="212" font-size="12" fill="#1a1a1a">• Pin 8: DATA1 (GPIO4)</text>
+  <text x="728" y="230" font-size="12" fill="#1a1a1a">• Висока швидкість</text>
+
+  <!-- Sub-box 2: 1-Bit Mode -->
+  <rect x="715" y="280" width="190" height="150" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="810" y="298" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Режим 1-Bit SDMMC</text>
+  <text x="728" y="318" font-size="12" fill="#1a1a1a">• Pin 5: CLK (GPIO14)</text>
+  <text x="728" y="336" font-size="12" fill="#1a1a1a">• Pin 7: DATA0 (GPIO2)</text>
+  <text x="728" y="354" font-size="12" fill="#1a1a1a">• GPIO4 вільний під LED</text>
+  <text x="728" y="372" font-size="12" fill="#1a1a1a">• GPIO12 вільний під Boot</text>
+  <text x="728" y="390" font-size="12" fill="#1a1a1a">• Захист від миготіння</text>
+  <text x="728" y="410" font-size="12" fill="#1a1a1a">• Рекомендовано для SD</text>
+
+  <!-- CONNECTIONS & BADGES -->
+  <!-- Line 1: GPIO4 Conflict -->
+  <line x1="245" y1="190" x2="268" y2="190" stroke="#c0392b" stroke-width="2"/>
+  <line x1="362" y1="190" x2="385" y2="190" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <rect x="268" y="179" width="94" height="22" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="315" y="194" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">GPIO4 Conflict</text>
+
+  <!-- Line 2: 4-Bit Mode Conflict -->
+  <line x1="575" y1="190" x2="598" y2="190" stroke="#c0392b" stroke-width="2"/>
+  <line x1="692" y1="190" x2="715" y2="190" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <rect x="598" y="179" width="94" height="22" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="645" y="194" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">4-Bit SDMMC</text>
+
+  <!-- Line 3: GPIO12 Strapping -->
+  <line x1="245" y1="355" x2="268" y2="355" stroke="#c0392b" stroke-width="2"/>
+  <line x1="362" y1="355" x2="385" y2="355" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <rect x="268" y="344" width="94" height="22" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="315" y="359" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#c0392b">GPIO12 Strapping</text>
+
+  <!-- Line 4: 1-Bit Solution -->
+  <line x1="575" y1="355" x2="598" y2="355" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="692" y1="355" x2="715" y2="355" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <rect x="598" y="344" width="94" height="22" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="645" y="359" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#27ae60">1-Bit Solution →</text>
+</svg>

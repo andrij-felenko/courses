@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-down" markerWidth="9" markerHeight="9" refX="4" refY="7.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L4,8 L8,0 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Еволюція внутрішньої буферизації AT-прошивки ESP8266</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Від прозорого моста UART–Wi-Fi до мультиплексованого сокетного стека LwIP та mbedTLS</text>
+
+  <!-- PANEL 1: AT v0.20 -->
+  <rect x="24" y="68" width="284" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="34" y="78" width="264" height="36" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="166" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Етап 1: AT v0.20 (2014)</text>
+  <text x="166" y="130" text-anchor="middle" font-size="12" fill="#6b7280">Прозорий послідовний міст</text>
+
+  <rect x="44" y="145" width="244" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="166" y="163" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Послідовний потік UART</text>
+  <text x="166" y="179" text-anchor="middle" font-size="11" fill="#6b7280">115200 біт/с без перевірки кадру</text>
+
+  <line x1="166" y1="190" x2="166" y2="208" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-down)"/>
+
+  <rect x="44" y="210" width="244" height="55" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="166" y="230" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Єдиний FIFO-буфер (1 КБ)</text>
+  <text x="166" y="248" text-anchor="middle" font-size="11" fill="#6b7280">Без мультиплексування й розділення</text>
+
+  <line x1="166" y1="265" x2="166" y2="283" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-down)"/>
+
+  <rect x="44" y="285" width="244" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="166" y="303" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Один відкритий сокет TCP</text>
+  <text x="166" y="319" text-anchor="middle" font-size="11" fill="#6b7280">Відсутність TLS та валідації</text>
+
+  <rect x="44" y="348" width="244" height="82" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="54" y="367" font-size="12" font-weight="bold" fill="#c0392b">Обмеження:</text>
+  <text x="54" y="386" font-size="11" fill="#1a1a1a">• Лише 1 сокет без CIPMUX</text>
+  <text x="54" y="402" font-size="11" fill="#1a1a1a">• Переповнення при сплесках</text>
+  <text x="54" y="418" font-size="11" fill="#1a1a1a">• Передавання у відкритому тексті</text>
+
+  <!-- ARROW 1 -> 2 -->
+  <line x1="308" y1="237" x2="336" y2="237" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- PANEL 2: AT v0.9-v1.x -->
+  <rect x="338" y="68" width="284" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="348" y="78" width="264" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Етап 2: AT v0.9–v1.x (2015)</text>
+  <text x="480" y="130" text-anchor="middle" font-size="12" fill="#6b7280">Мультиплексування LwIP</text>
+
+  <rect x="358" y="145" width="244" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="163" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Парсер +IPD,&lt;link_id&gt;,&lt;len&gt;</text>
+  <text x="480" y="179" text-anchor="middle" font-size="11" fill="#6b7280">Асинхронне розділення кадрів</text>
+
+  <line x1="480" y1="190" x2="480" y2="208" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-down)"/>
+
+  <rect x="358" y="210" width="244" height="55" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="230" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Стек LwIP (AT+CIPMUX=1)</text>
+  <text x="480" y="248" text-anchor="middle" font-size="11" fill="#6b7280">Роздільні кільцеві буфери каналів</text>
+
+  <line x1="480" y1="265" x2="480" y2="283" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-down)"/>
+
+  <rect x="358" y="285" width="244" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="303" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">До 5 паралельних сокетів (0..4)</text>
+  <text x="480" y="319" text-anchor="middle" font-size="11" fill="#6b7280">Спрощений axTLS (без перевірки CA)</text>
+
+  <rect x="358" y="348" width="244" height="82" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="368" y="367" font-size="12" font-weight="bold" fill="#2457d6">Прогрес:</text>
+  <text x="368" y="386" font-size="11" fill="#1a1a1a">• Багатопотокові з'єднання</text>
+  <text x="368" y="402" font-size="11" fill="#1a1a1a">• Пакувальний асинхронний розбір</text>
+  <text x="368" y="418" font-size="11" fill="#1a1a1a">• Вразливість до атак MitM</text>
+
+  <!-- ARROW 2 -> 3 -->
+  <line x1="622" y1="237" x2="650" y2="237" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- PANEL 3: ESP-AT / ESP-IDF -->
+  <rect x="652" y="68" width="284" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="662" y="78" width="264" height="36" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="794" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Етап 3: ESP-AT / ESP-IDF</text>
+  <text x="794" y="130" text-anchor="middle" font-size="12" fill="#6b7280">Захищений сокетний стек</text>
+
+  <rect x="672" y="145" width="244" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="794" y="163" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Диспетчер подій ESP-AT</text>
+  <text x="794" y="179" text-anchor="middle" font-size="11" fill="#6b7280">Захист виводів та матриця IOMUX</text>
+
+  <line x1="794" y1="190" x2="794" y2="208" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-down)"/>
+
+  <rect x="672" y="210" width="244" height="55" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="794" y="230" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Стек mbedTLS + LwIP 2.x</text>
+  <text x="794" y="248" text-anchor="middle" font-size="11" fill="#6b7280">Оптимізація MFL (512–4096 B)</text>
+
+  <line x1="794" y1="265" x2="794" y2="283" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-down)"/>
+
+  <rect x="672" y="285" width="244" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="794" y="303" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Захищені TLS 1.2 сесії</text>
+  <text x="794" y="319" text-anchor="middle" font-size="11" fill="#6b7280">Строга валідація CA та SNI</text>
+
+  <rect x="672" y="348" width="244" height="82" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="682" y="367" font-size="12" font-weight="bold" fill="#27ae60">Переваги:</text>
+  <text x="682" y="386" font-size="11" fill="#1a1a1a">• Захист від атак MitM</text>
+  <text x="682" y="402" font-size="11" fill="#1a1a1a">• Контроль витрат DRAM</text>
+  <text x="682" y="418" font-size="11" fill="#1a1a1a">• Повна автентичність хоста</text>
+</svg>

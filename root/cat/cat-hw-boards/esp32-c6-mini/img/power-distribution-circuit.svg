@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема розподілу живлення WeAct ESP32-C6-Mini</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Захисний діод запобігає зворотному струму в USB-C, а LDO живить шину 3.3V</text>
+
+  <!-- Block 1A: USB-C Port -->
+  <rect x="40" y="95" width="150" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="115" y="117" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Роз'єм USB-C</text>
+  <text x="115" y="140" text-anchor="middle" font-size="12" fill="#1a1a1a">VBUS: +5V DC</text>
+  <text x="115" y="160" text-anchor="middle" font-size="11" fill="#6b7280">Живлення від ПК</text>
+
+  <!-- Block 1B: External 5V Header -->
+  <rect x="40" y="200" width="150" height="80" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="115" y="222" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Вивід 5V (Header)</text>
+  <text x="115" y="245" text-anchor="middle" font-size="12" fill="#1a1a1a">Зовнішній 5V DC</text>
+  <text x="115" y="265" text-anchor="middle" font-size="11" fill="#6b7280">від БЖ / модуля</text>
+
+  <!-- Arrow from USB-C to Schottky Diode -->
+  <line x1="190" y1="135" x2="267" y2="135" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="230" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">VBUS</text>
+
+  <!-- Block 2: Schottky Diode D1 -->
+  <rect x="270" y="95" width="140" height="80" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="340" y="117" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Діод Шотткі D1</text>
+  <text x="340" y="140" text-anchor="middle" font-size="12" fill="#1a1a1a">Падіння ~0.3V</text>
+  <text x="340" y="160" text-anchor="middle" font-size="11" fill="#27ae60">Захист USB від 5V</text>
+
+  <!-- Arrow from Diode to 5V Bus -->
+  <line x1="410" y1="135" x2="467" y2="135" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="440" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">+4.7V</text>
+
+  <!-- Path from External 5V to 5V Bus Node -->
+  <path d="M 190 240 L 510 240 L 510 198" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-main)"/>
+  <text x="350" y="228" text-anchor="middle" font-size="11" fill="#1a1a1a">Пряма подача 5V на шину</text>
+
+  <!-- Block 3: 5V Rail Node -->
+  <rect x="470" y="105" width="80" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="510" y="132" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Шина 5V</text>
+  <text x="510" y="154" text-anchor="middle" font-size="12" fill="#1a1a1a">VCC_5V</text>
+  <text x="510" y="174" text-anchor="middle" font-size="11" fill="#6b7280">4.7..5V</text>
+
+  <!-- Arrow from 5V Bus to LDO -->
+  <line x1="550" y1="150" x2="607" y2="150" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="578" y="137" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">VIN</text>
+
+  <!-- Block 4: LDO Regulator -->
+  <rect x="610" y="95" width="130" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="675" y="117" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">LDO Стабілізатор</text>
+  <text x="675" y="138" text-anchor="middle" font-size="12" fill="#1a1a1a">ME6211 / LP5907</text>
+  <text x="675" y="158" text-anchor="middle" font-size="11" fill="#1a1a1a">5V → 3.3V DC</text>
+  <text x="675" y="178" text-anchor="middle" font-size="11" fill="#6b7280">I_max = 500 mA</text>
+  <text x="675" y="195" text-anchor="middle" font-size="11" fill="#6b7280">C_in/out: 10µF</text>
+
+  <!-- Arrow from LDO to 3.3V Rail & MCU -->
+  <line x1="740" y1="150" x2="797" y2="150" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="769" y="137" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">VOUT 3.3V</text>
+
+  <!-- Block 5: 3.3V Rail & ESP32-C6 Consumers -->
+  <rect x="800" y="95" width="130" height="185" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="865" y="117" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Шина 3.3V (VCC)</text>
+  <text x="865" y="140" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">ESP32-C6 MCU</text>
+  <text x="865" y="160" text-anchor="middle" font-size="11" fill="#6b7280">Ядро, Wi-Fi 6, BLE</text>
+  <text x="865" y="185" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Периферія</text>
+  <text x="865" y="205" text-anchor="middle" font-size="11" fill="#6b7280">RGB LED (WS2812)</text>
+  <text x="865" y="225" text-anchor="middle" font-size="11" fill="#6b7280">SPI Flash пам'ять</text>
+  <text x="865" y="255" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Вивід 3.3V Pin</text>
+  <text x="865" y="272" text-anchor="middle" font-size="11" fill="#6b7280">Живлення датчиків</text>
+
+  <!-- Bottom Panel: Analysis of Modes & Risks -->
+  <rect x="40" y="315" width="880" height="180" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="338" font-size="14" font-weight="bold" fill="#1a1a1a">Аналіз напрямків струму та електричних режимів</text>
+
+  <!-- Card A: Safe USB + Ext 5V -->
+  <rect x="60" y="352" width="410" height="128" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="75" y="372" font-size="12" font-weight="bold" fill="#27ae60">✔ Режим USB + Зовнішні 5V (Блокування D1)</text>
+  <text x="75" y="394" font-size="11" fill="#1a1a1a">• Діод D1 блокує зворотний струм від виводу 5V до роз'єму USB-C.</text>
+  <text x="75" y="414" font-size="11" fill="#1a1a1a">• Запобігає пошкодженню USB-контролера ПК при зовнішній напрузі.</text>
+  <text x="75" y="434" font-size="11" fill="#1a1a1a">• LDO працює в штатному режимі, живлячи 3.3V шину та ESP32-C6.</text>
+  <text x="75" y="454" font-size="11" font-weight="bold" fill="#27ae60">Результат: Безпечне паралельне підключення джерел 5V</text>
+
+  <!-- Card B: Direct 3.3V Supply Risks -->
+  <rect x="490" y="352" width="410" height="128" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="505" y="372" font-size="12" font-weight="bold" fill="#c0392b">✖ Пряме живлення 3.3V (Зона ризику)</text>
+  <text x="505" y="394" font-size="11" fill="#1a1a1a">• Подача напруги безпосередньо на вивід 3.3V оминає LDO та діод.</text>
+  <text x="505" y="414" font-size="11" fill="#1a1a1a">• Ризик зворотного струму через LDO на 5V шину при вимкненому 5V.</text>
+  <text x="505" y="434" font-size="11" fill="#1a1a1a">• Перевищення 3.6V на 3.3V шині виводить з ладу МК ESP32-C6.</text>
+  <text x="505" y="454" font-size="11" font-weight="bold" fill="#c0392b">Застереження: Потрібна точна 3.3V напруга без переполюсовки</text>
+</svg>

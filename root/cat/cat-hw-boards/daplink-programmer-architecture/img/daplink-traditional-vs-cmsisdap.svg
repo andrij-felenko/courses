@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Класичне підключення проти програматора DAPLink</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">DAPLink об'єднує drag-and-drop прошивку (MSC), зневадження (CMSIS-DAP HID) та консоль (CDC)</text>
+
+  <!-- Left Panel: Traditional Approach -->
+  <rect x="30" y="75" width="435" height="450" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="8"/>
+  <rect x="45" y="87" width="405" height="30" fill="#ffffff" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="247.5" y="107" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Класична схема (декілька окремих адаптерів)</text>
+
+  <!-- PC Block Left -->
+  <rect x="50" y="130" width="395" height="75" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="247.5" y="150" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Комп'ютер розробника (ПК)</text>
+  <rect x="65" y="160" width="170" height="32" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="150" y="180" text-anchor="middle" font-size="12" fill="#1a1a1a">GDB / OpenOCD (SWD)</text>
+  <rect x="260" y="160" width="170" height="32" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="345" y="180" text-anchor="middle" font-size="12" fill="#1a1a1a">Термінал UART (COM)</text>
+
+  <!-- USB Lines Left -->
+  <line x1="150" y1="205" x2="150" y2="250" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="140" y="232" text-anchor="end" font-size="12" fill="#c0392b">USB 1 (JTAG/SWD)</text>
+  <line x1="345" y1="205" x2="345" y2="250" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="355" y="232" text-anchor="start" font-size="12" fill="#c0392b">USB 2 (UART)</text>
+
+  <!-- Adapters Left -->
+  <rect x="65" y="250" width="170" height="75" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="150" y="270" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">SWD/JTAG Програматор</text>
+  <text x="150" y="288" text-anchor="middle" font-size="12" fill="#6b7280">(ST-Link / J-Link)</text>
+  <text x="150" y="306" text-anchor="middle" font-size="12" fill="#c0392b">Тільки прошивка/GDB</text>
+
+  <rect x="260" y="250" width="170" height="75" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="345" y="270" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">USB-UART Конвертер</text>
+  <text x="345" y="288" text-anchor="middle" font-size="12" fill="#6b7280">(CH340 / FT232)</text>
+  <text x="345" y="306" text-anchor="middle" font-size="12" fill="#c0392b">Тільки консоль UART</text>
+
+  <!-- Lines from Adapters to Target Left -->
+  <line x1="150" y1="325" x2="150" y2="375" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="142" y="352" text-anchor="end" font-size="12" fill="#1a1a1a">SWD + NRST лінії</text>
+  <line x1="345" y1="325" x2="345" y2="375" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="353" y="352" text-anchor="start" font-size="12" fill="#1a1a1a">TX, RX, GND лінії</text>
+
+  <!-- Target Board Left -->
+  <rect x="50" y="375" width="395" height="75" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="247.5" y="395" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Цільовий мікроконтролер (ARM Cortex-M)</text>
+  <rect x="65" y="408" width="170" height="30" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="150" y="427" text-anchor="middle" font-size="12" fill="#6b7280">SWD порт</text>
+  <rect x="260" y="408" width="170" height="30" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="345" y="427" text-anchor="middle" font-size="12" fill="#6b7280">UART порт</text>
+
+  <!-- Summary Left -->
+  <rect x="45" y="465" width="405" height="50" fill="#ffffff" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="247.5" y="485" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Недоліки класичного підходу:</text>
+  <text x="247.5" y="503" text-anchor="middle" font-size="12" fill="#1a1a1a">Потрібно 2 USB-порти, безліч дротів, складне налаштування</text>
+
+  <!-- Right Panel: DAPLink Approach -->
+  <rect x="495" y="75" width="435" height="450" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <rect x="510" y="87" width="405" height="30" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="712.5" y="107" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Сучасне рішення (Програматор DAPLink)</text>
+
+  <!-- PC Block Right -->
+  <rect x="515" y="130" width="395" height="75" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="712.5" y="150" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Комп'ютер розробника (ПК)</text>
+  <rect x="530" y="160" width="365" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="712.5" y="180" text-anchor="middle" font-size="12" fill="#2457d6">USB Composite Device (MSC + CDC + HID + WebUSB)</text>
+
+  <!-- Central USB Line Right -->
+  <line x1="712.5" y1="205" x2="712.5" y2="245" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="725" y="230" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">1× USB Кабель (Композит)</text>
+
+  <!-- DAPLink Controller Block Right -->
+  <rect x="515" y="245" width="395" height="110" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="712.5" y="263" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Мультифункціональний програматор DAPLink</text>
+
+  <rect x="525" y="272" width="85" height="40" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="567.5" y="288" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">MSC</text>
+  <text x="567.5" y="304" text-anchor="middle" font-size="12" fill="#6b7280">Drag-Drop</text>
+
+  <rect x="620" y="272" width="85" height="40" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="662.5" y="288" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">CDC</text>
+  <text x="662.5" y="304" text-anchor="middle" font-size="12" fill="#6b7280">UART</text>
+
+  <rect x="715" y="272" width="95" height="40" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="762.5" y="288" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">CMSIS-DAP</text>
+  <text x="762.5" y="304" text-anchor="middle" font-size="12" fill="#6b7280">HID Debug</text>
+
+  <rect x="820" y="272" width="80" height="40" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="860" y="288" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">WebUSB</text>
+  <text x="860" y="304" text-anchor="middle" font-size="12" fill="#6b7280">Browser</text>
+
+  <rect x="525" y="320" width="375" height="26" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="712.5" y="337" text-anchor="middle" font-size="12" fill="#27ae60">Апаратний стек конвертації в SWD / UART / RESET</text>
+
+  <!-- Line from DAPLink to Target Right -->
+  <line x1="712.5" y1="355" x2="712.5" y2="375" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="725" y="368" text-anchor="start" font-size="12" fill="#27ae60">SWD + UART + RESET шлейф</text>
+
+  <!-- Target Board Right -->
+  <rect x="515" y="375" width="395" height="75" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="712.5" y="395" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Цільовий мікроконтролер (ARM Cortex-M)</text>
+  <rect x="530" y="408" width="365" height="30" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="712.5" y="427" text-anchor="middle" font-size="12" fill="#27ae60">Уніфікований роз'єм (SWDIO, SWCLK, nRESET, TX, RX, GND)</text>
+
+  <!-- Summary Right -->
+  <rect x="510" y="465" width="405" height="50" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="712.5" y="485" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Переваги DAPLink:</text>
+  <text x="712.5" y="503" text-anchor="middle" font-size="12" fill="#1a1a1a">1 USB-кабель, прошивка Drag-and-Drop, зневадження + консоль</text>
+</svg>

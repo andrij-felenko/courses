@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топологія виводів та призначення GPIO плати Waveshare ESP32-S3R2</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Розподіл зарезервованих внутрішніх шин пам'яті, системного USB та доступних користувацьких виводів</text>
+
+  <!-- Central Board Representation -->
+  <rect x="330" y="85" width="300" height="400" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  
+  <!-- Inner MCU Chip Representation -->
+  <rect x="370" y="140" width="220" height="150" rx="6" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="170" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">ESP32-S3R2</text>
+  <text x="480" y="192" font-size="12" fill="#1a1a1a" text-anchor="middle">Xtensa Dual-Core LX7 @ 240 МГц</text>
+  <text x="480" y="214" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">16 МБ NOR Flash (Quad SPI)</text>
+  <text x="480" y="236" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2 МБ PSRAM (SiP 3.3 В)</text>
+  <text x="480" y="260" font-size="12" fill="#6b7280" text-anchor="middle">Модуль Waveshare ESP32-S3</text>
+
+  <!-- USB Type-C Connector representation at bottom of board -->
+  <rect x="420" y="440" width="120" height="30" rx="4" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+  <text x="480" y="460" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB Type-C</text>
+
+  <!-- Board Pins Left (strictly inside main board bounds x=330..630) -->
+  <rect x="335" y="110" width="20" height="16" fill="#1a1a1a" rx="2"/>
+  <rect x="335" y="145" width="20" height="16" fill="#27ae60" rx="2"/>
+  <rect x="335" y="180" width="20" height="16" fill="#27ae60" rx="2"/>
+  <rect x="335" y="215" width="20" height="16" fill="#27ae60" rx="2"/>
+  <rect x="335" y="250" width="20" height="16" fill="#27ae60" rx="2"/>
+  <rect x="335" y="285" width="20" height="16" fill="#27ae60" rx="2"/>
+  <rect x="335" y="320" width="20" height="16" fill="#27ae60" rx="2"/>
+  <rect x="335" y="355" width="20" height="16" fill="#27ae60" rx="2"/>
+  <rect x="335" y="390" width="20" height="16" fill="#1a1a1a" rx="2"/>
+
+  <!-- Board Pins Right (strictly inside main board bounds x=330..630) -->
+  <rect x="605" y="110" width="20" height="16" fill="#1a1a1a" rx="2"/>
+  <rect x="605" y="145" width="20" height="16" fill="#2457d6" rx="2"/>
+  <rect x="605" y="180" width="20" height="16" fill="#2457d6" rx="2"/>
+  <rect x="605" y="215" width="20" height="16" fill="#c0392b" rx="2"/>
+  <rect x="605" y="250" width="20" height="16" fill="#c0392b" rx="2"/>
+  <rect x="605" y="285" width="20" height="16" fill="#c0392b" rx="2"/>
+  <rect x="605" y="320" width="20" height="16" fill="#c0392b" rx="2"/>
+  <rect x="605" y="355" width="20" height="16" fill="#27ae60" rx="2"/>
+  <rect x="605" y="390" width="20" height="16" fill="#27ae60" rx="2"/>
+
+  <!-- LEFT ANNOTATIONS PANEL -->
+
+  <!-- Power & System Box (Top Left) -->
+  <rect x="25" y="85" width="265" height="65" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="107" font-size="13" font-weight="bold" fill="#1a1a1a">Живлення та Скидання</text>
+  <text x="40" y="128" font-size="12" fill="#6b7280">5V, 3V3, GND, EN (Reset), BOOT (IO0)</text>
+  <line x1="290" y1="118" x2="335" y2="118" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- User GPIO Group 1 (ADC / Touch / I2C) -->
+  <rect x="25" y="165" width="265" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="40" y="187" font-size="13" font-weight="bold" fill="#27ae60">Вільні аналогові / Touch GPIO</text>
+  <text x="40" y="207" font-size="12" fill="#1a1a1a">GPIO1..GPIO10 (ADC1, Touch1..10)</text>
+  <text x="40" y="226" font-size="12" fill="#6b7280">Сумісні з RTC, I2C, SPI2</text>
+  <text x="40" y="246" font-size="12" fill="#27ae60" font-weight="bold">Повна свобода використання</text>
+  <line x1="290" y1="218" x2="335" y2="218" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- User GPIO Group 2 (Peripheral GPIO) -->
+  <rect x="25" y="290" width="265" height="120" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="40" y="312" font-size="13" font-weight="bold" fill="#27ae60">Вільні цифрові GPIO</text>
+  <text x="40" y="332" font-size="12" fill="#1a1a1a">GPIO11..GPIO18 (ADC2 / PWM)</text>
+  <text x="40" y="351" font-size="12" fill="#6b7280">Використовуються під SPI / UART</text>
+  <text x="40" y="371" font-size="12" fill="#1a1a1a">Без апаратних застережень</text>
+  <line x1="290" y1="350" x2="335" y2="350" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- RIGHT ANNOTATIONS PANEL -->
+
+  <!-- Power GND Box (Top Right) -->
+  <rect x="670" y="85" width="265" height="55" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="685" y="107" font-size="13" font-weight="bold" fill="#1a1a1a">Системний GND та VDD</text>
+  <text x="685" y="126" font-size="12" fill="#6b7280">Заземлення та виходи живлення</text>
+  <line x1="625" y1="118" x2="670" y2="118" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- USB Serial / JTAG Native (Blue) -->
+  <rect x="670" y="152" width="265" height="83" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="685" y="172" font-size="13" font-weight="bold" fill="#2457d6">Нативний USB Serial / JTAG</text>
+  <text x="685" y="192" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO19 (USB D-) &amp; GPIO20 (USB D+)</text>
+  <text x="685" y="211" font-size="12" fill="#6b7280">Апаратне прошивання та налагодження</text>
+  <line x1="625" y1="180" x2="670" y2="180" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Reserved SPI Flash / PSRAM (Red Warning) -->
+  <rect x="670" y="247" width="265" height="108" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="685" y="267" font-size="13" font-weight="bold" fill="#c0392b">Зарезервовано: Шина SPI Пам'яті</text>
+  <text x="685" y="287" font-size="12" font-weight="bold" fill="#c0392b">GPIO26..GPIO32 (Flash &amp; PSRAM)</text>
+  <text x="685" y="306" font-size="12" fill="#1a1a1a">GPIO45 (Strapping VDD_SPI = 3.3 В)</text>
+  <text x="685" y="326" font-size="12" fill="#c0392b" font-weight="bold">⛔ Не використовувати під периферію!</text>
+  <line x1="625" y1="285" x2="670" y2="285" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- High-speed User GPIO & Console UART (Green) -->
+  <rect x="670" y="367" width="265" height="90" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="685" y="387" font-size="13" font-weight="bold" fill="#27ae60">Вільні високошвидкісні GPIO</text>
+  <text x="685" y="407" font-size="12" fill="#1a1a1a">GPIO38..GPIO42, GPIO43/44 (UART0)</text>
+  <text x="685" y="426" font-size="12" fill="#6b7280">GPIO43/44 — стандартний TXD0/RXD0</text>
+  <line x1="625" y1="390" x2="670" y2="390" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Bottom Legend Bar -->
+  <rect x="25" y="500" width="910" height="42" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Legend Items -->
+  <rect x="40" y="514" width="14" height="14" rx="3" fill="#27ae60"/>
+  <text x="60" y="526" font-size="12" font-weight="bold" fill="#1a1a1a">Вільні користувацькі GPIO</text>
+
+  <rect x="250" y="514" width="14" height="14" rx="3" fill="#c0392b"/>
+  <text x="270" y="526" font-size="12" font-weight="bold" fill="#c0392b">Зарезервовано (SPI Flash / PSRAM / Strapping)</text>
+
+  <rect x="590" y="514" width="14" height="14" rx="3" fill="#2457d6"/>
+  <text x="610" y="526" font-size="12" font-weight="bold" fill="#2457d6">Нативний USB (Serial/JTAG)</text>
+
+  <rect x="795" y="514" width="14" height="14" rx="3" fill="#6b7280"/>
+  <text x="815" y="526" font-size="12" font-weight="bold" fill="#1a1a1a">Живлення / EN</text>
+</svg>

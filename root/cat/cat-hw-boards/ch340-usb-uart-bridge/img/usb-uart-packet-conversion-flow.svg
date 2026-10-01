@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Перетворення пакетів USB у послідовний потік UART у CH340</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">CH340 вилучає корисні дані з USB-пакетів (D+/D-) і формує асинхронні кадри UART (TX/RX)</text>
+
+  <!-- Left Box: USB Host -->
+  <rect x="30" y="80" width="200" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="130" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шина USB (Host)</text>
+  <text x="130" y="123" font-size="12" fill="#6b7280" text-anchor="middle">12 Мбіт/с (Full Speed)</text>
+
+  <text x="130" y="150" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Диференціальний сигнал</text>
+  <text x="130" y="215" font-size="12" fill="#6b7280" text-anchor="middle">(NRZI-кодування)</text>
+
+  <!-- USB Packet Panel inside Box 1 -->
+  <rect x="42" y="235" width="176" height="225" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="130" y="256" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пакет USB (Кадр)</text>
+
+  <rect x="50" y="270" width="160" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="130" y="291" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">PID: OUT / DATA0</text>
+
+  <rect x="50" y="312" width="160" height="54" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="130" y="333" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Дані: [0x55, 0xA3, ...]</text>
+  <text x="130" y="353" font-size="12" fill="#1a1a1a" text-anchor="middle">(до 64 байт/пакет)</text>
+
+  <rect x="50" y="374" width="160" height="34" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="130" y="395" font-size="12" fill="#6b7280" text-anchor="middle">CRC16 + EOP</text>
+
+  <text x="130" y="442" font-size="12" fill="#6b7280" text-anchor="middle">Синхронна передача</text>
+
+
+  <!-- Connecting USB Lines between USB Host and CH340 -->
+  <line x1="230" y1="165" x2="270" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="250" y="158" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D+</text>
+
+  <line x1="230" y1="195" x2="270" y2="195" stroke="#2457d6" stroke-width="2" stroke-dasharray="4 2" marker-end="url(#arr-blue)"/>
+  <text x="250" y="188" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D-</text>
+
+
+  <!-- Center Box: CH340 Bridge Chip -->
+  <rect x="270" y="80" width="420" height="395" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="106" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Мікросхема-міст CH340</text>
+  <text x="480" y="124" font-size="12" fill="#6b7280" text-anchor="middle">Внутрішній конвеєр перетворення пакетів</text>
+
+  <!-- Stage 1 inside CH340: USB SIE -->
+  <rect x="285" y="142" width="120" height="285" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="345" y="163" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB SIE</text>
+  <text x="345" y="180" font-size="12" fill="#6b7280" text-anchor="middle">(Приймач USB)</text>
+
+  <rect x="293" y="195" width="104" height="55" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="345" y="217" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Демільтиплекс</text>
+  <text x="345" y="237" font-size="12" fill="#6b7280" text-anchor="middle">сигналу D+/D-</text>
+
+  <rect x="293" y="260" width="104" height="55" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="345" y="282" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Перевірка CRC</text>
+  <text x="345" y="302" font-size="12" fill="#6b7280" text-anchor="middle">та ACK-відповідь</text>
+
+  <rect x="293" y="325" width="104" height="55" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="345" y="347" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вилучення</text>
+  <text x="345" y="367" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">байтів даних</text>
+
+  <text x="345" y="412" font-size="12" fill="#6b7280" text-anchor="middle">Декодер NRZI</text>
+
+  <!-- Arrow Stage 1 -> Stage 2 -->
+  <line x1="405" y1="352" x2="420" y2="352" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Stage 2 inside CH340: FIFO Buffer -->
+  <rect x="420" y="142" width="120" height="285" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="163" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">FIFO Буфер</text>
+  <text x="480" y="180" font-size="12" fill="#6b7280" text-anchor="middle">(Буферизація)</text>
+
+  <rect x="428" y="195" width="104" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="220" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Байт 1: 0x55</text>
+
+  <rect x="428" y="242" width="104" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="267" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Байт 2: 0xA3</text>
+
+  <rect x="428" y="289" width="104" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="314" font-size="12" fill="#6b7280" text-anchor="middle">Байт 3: ...</text>
+
+  <rect x="428" y="336" width="104" height="44" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="353" font-size="12" fill="#1a1a1a" text-anchor="middle">Узгодження</text>
+  <text x="480" y="370" font-size="12" fill="#1a1a1a" text-anchor="middle">швидкостей</text>
+
+  <text x="480" y="412" font-size="12" fill="#6b7280" text-anchor="middle">SRAM-буфер</text>
+
+  <!-- Arrow Stage 2 -> Stage 3 -->
+  <line x1="540" y1="220" x2="555" y2="220" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Stage 3 inside CH340: UART Engine -->
+  <rect x="555" y="142" width="120" height="285" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="615" y="163" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">UART Engine</text>
+  <text x="615" y="180" font-size="12" fill="#6b7280" text-anchor="middle">(Передавач)</text>
+
+  <rect x="563" y="195" width="104" height="55" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="615" y="217" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Генератор</text>
+  <text x="615" y="237" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Baud Rate</text>
+
+  <rect x="563" y="260" width="104" height="55" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="615" y="282" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Додавання</text>
+  <text x="615" y="302" font-size="12" fill="#6b7280" text-anchor="middle">Start / Stop</text>
+
+  <rect x="563" y="325" width="104" height="55" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="615" y="347" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Формування</text>
+  <text x="615" y="367" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">TX-сигналу</text>
+
+  <text x="615" y="412" font-size="12" fill="#6b7280" text-anchor="middle">Тактування 12МГц</text>
+
+  <!-- Note inside CH340 bottom -->
+  <text x="480" y="452" font-size="12" fill="#6b7280" text-anchor="middle">Керування лініями RTS / DTR для автоскидання MCU</text>
+
+
+  <!-- Connecting UART Lines between CH340 and MCU -->
+  <line x1="690" y1="165" x2="730" y2="165" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="710" y="158" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">TX</text>
+
+  <line x1="730" y1="195" x2="690" y2="195" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="710" y="188" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">RX</text>
+
+
+  <!-- Right Box: UART / MCU -->
+  <rect x="730" y="80" width="200" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="830" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер (MCU)</text>
+  <text x="830" y="123" font-size="12" fill="#6b7280" text-anchor="middle">UART / послідовний порт</text>
+
+  <text x="830" y="150" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Асинхронні лінії</text>
+  <text x="830" y="215" font-size="12" fill="#6b7280" text-anchor="middle">(напр. 115200 бод)</text>
+
+  <!-- UART Frame Panel inside Box 3 -->
+  <rect x="742" y="235" width="176" height="225" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="830" y="256" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кадр UART (8N1)</text>
+
+  <rect x="750" y="270" width="160" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="830" y="291" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Start Bit (0)</text>
+
+  <rect x="750" y="312" width="160" height="54" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="830" y="333" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">8 бітів даних (D0..D7)</text>
+  <text x="830" y="353" font-size="12" fill="#1a1a1a" text-anchor="middle">[0,1,0,1,0,1,0,0]</text>
+
+  <rect x="750" y="374" width="160" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="830" y="395" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Stop Bit (1)</text>
+
+  <text x="830" y="442" font-size="12" fill="#6b7280" text-anchor="middle">Асинхронна передача</text>
+
+
+  <!-- Bottom Summary Bar -->
+  <rect x="30" y="490" width="900" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="511" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Ключова різниця: USB передає пакети з підтвердженням і CRC, а UART — розпаковані байти у вигляді послідовних кадрів</text>
+</svg>

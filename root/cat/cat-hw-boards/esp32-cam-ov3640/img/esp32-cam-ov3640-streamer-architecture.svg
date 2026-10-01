@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура відеостримера ESP32-CAM з сенсором OV3640</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Потік даних від захоплення кадру через DVP до подвійної буферизації в PSRAM та трансляції MJPEG</text>
+
+  <!-- Етап 1: Сенсор OV3640 -->
+  <rect x="40" y="90" width="180" height="350" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="8"/>
+  <text x="130" y="115" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сенсор OV3640</text>
+  <text x="130" y="133" font-size="12" fill="#6b7280" text-anchor="middle">(2 МП CMOS Матриця)</text>
+
+  <rect x="55" y="155" width="150" height="110" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="130" y="178" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Апаратний ISP</text>
+  <text x="130" y="198" font-size="12" fill="#1a1a1a" text-anchor="middle">Захоплення кадрів</text>
+  <text x="130" y="218" font-size="12" fill="#6b7280" text-anchor="middle">JPEG-компресія</text>
+  <text x="130" y="238" font-size="12" fill="#6b7280" text-anchor="middle">SCCB керування</text>
+
+  <rect x="55" y="285" width="150" height="135" fill="white" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="130" y="308" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Шина DVP</text>
+  <text x="130" y="330" font-size="12" fill="#1a1a1a" text-anchor="middle">PCLK / VSYNC</text>
+  <text x="130" y="350" font-size="12" fill="#1a1a1a" text-anchor="middle">HREF / XCLK</text>
+  <text x="130" y="370" font-size="12" fill="#1a1a1a" text-anchor="middle">8 біт даних D0-D7</text>
+  <text x="130" y="395" font-size="12" fill="#6b7280" text-anchor="middle">Паралельний потік</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="205" y1="210" x2="270" y2="210" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="237" y="200" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">DVP</text>
+
+  <!-- Етап 2: Драйвер esp_camera -->
+  <rect x="260" y="90" width="180" height="350" fill="#f4f6f8" stroke="#2457d6" stroke-width="2" rx="8"/>
+  <text x="350" y="115" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Драйвер esp_camera</text>
+  <text x="350" y="133" font-size="12" fill="#6b7280" text-anchor="middle">(ESP-IDF Component)</text>
+
+  <rect x="275" y="155" width="150" height="110" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="350" y="178" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I2S DMA Engine</text>
+  <text x="350" y="198" font-size="12" fill="#1a1a1a" text-anchor="middle">Прийом байтів без CPU</text>
+  <text x="350" y="218" font-size="12" fill="#6b7280" text-anchor="middle">Кільцевий DMA буфер</text>
+  <text x="350" y="238" font-size="12" fill="#6b7280" text-anchor="middle">Збірка JPEG кадрів</text>
+
+  <rect x="275" y="285" width="150" height="135" fill="white" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="350" y="308" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Frame Controller</text>
+  <text x="350" y="330" font-size="12" fill="#1a1a1a" text-anchor="middle">esp_camera_fb_get()</text>
+  <text x="350" y="350" font-size="12" fill="#1a1a1a" text-anchor="middle">esp_camera_fb_return()</text>
+  <text x="350" y="370" font-size="12" fill="#1a1a1a" text-anchor="middle">Синхронізація кадрів</text>
+  <text x="350" y="395" font-size="12" fill="#6b7280" text-anchor="middle">Захист від розривів</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="425" y1="210" x2="490" y2="210" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="457" y="200" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DMA</text>
+
+  <!-- Етап 3: Пам'ять PSRAM -->
+  <rect x="480" y="90" width="200" height="350" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="8"/>
+  <text x="580" y="115" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Пам'ять PSRAM</text>
+  <text x="580" y="133" font-size="12" fill="#6b7280" text-anchor="middle">(Подвійна буферизація 4 МБ)</text>
+
+  <rect x="495" y="155" width="170" height="110" fill="white" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="580" y="178" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Кадровий буфер FB0</text>
+  <text x="580" y="198" font-size="12" fill="#1a1a1a" text-anchor="middle">Запис поточного кадру</text>
+  <text x="580" y="218" font-size="12" fill="#6b7280" text-anchor="middle">Зберігання JPEG даних</text>
+  <text x="580" y="238" font-size="12" fill="#27ae60" text-anchor="middle">Активний запис DMA</text>
+
+  <rect x="495" y="285" width="170" height="135" fill="white" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="580" y="308" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Кадровий буфер FB1</text>
+  <text x="580" y="330" font-size="12" fill="#1a1a1a" text-anchor="middle">Зчитування веб-сервером</text>
+  <text x="580" y="350" font-size="12" fill="#1a1a1a" text-anchor="middle">Передача по Wi-Fi</text>
+  <text x="580" y="370" font-size="12" fill="#1a1a1a" text-anchor="middle">Без блокування DMA</text>
+  <text x="580" y="395" font-size="12" fill="#27ae60" text-anchor="middle">Готовий до трансляції</text>
+
+  <!-- Стрілка 3 -> 4 -->
+  <line x1="665" y1="350" x2="730" y2="350" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="697" y="340" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">MJPEG</text>
+
+  <!-- Етап 4: HTTP Стример -->
+  <rect x="720" y="90" width="200" height="350" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="8"/>
+  <text x="820" y="115" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">HTTP Стример</text>
+  <text x="820" y="133" font-size="12" fill="#6b7280" text-anchor="middle">(Async Web Server)</text>
+
+  <rect x="735" y="155" width="170" height="110" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="820" y="178" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Асинхронний HTTP</text>
+  <text x="820" y="198" font-size="12" fill="#1a1a1a" text-anchor="middle">Формування заголовок</text>
+  <text x="820" y="218" font-size="12" fill="#6b7280" text-anchor="middle">Multipart Boundary</text>
+  <text x="820" y="238" font-size="12" fill="#6b7280" text-anchor="middle">Управління сесією</text>
+
+  <rect x="735" y="285" width="170" height="135" fill="white" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="820" y="308" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">MJPEG Відеопотік</text>
+  <text x="820" y="330" font-size="12" fill="#1a1a1a" text-anchor="middle">Потокова відправка</text>
+  <text x="820" y="350" font-size="12" fill="#1a1a1a" text-anchor="middle">image/jpeg кадри</text>
+  <text x="820" y="370" font-size="12" fill="#1a1a1a" text-anchor="middle">Wi-Fi TCP Сокет</text>
+  <text x="820" y="395" font-size="12" fill="#27ae60" text-anchor="middle">Відображення у браузері</text>
+</svg>

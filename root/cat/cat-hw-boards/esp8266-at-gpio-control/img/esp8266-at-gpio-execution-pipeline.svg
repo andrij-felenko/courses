@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шляхопровід обробки AT-команди керування GPIO в ESP8266</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Від послідовного кадру UART через переривання APB та парсер прошивки до регістра IOMUX і фізичного виводу</text>
+
+  <!-- Stage 1: Host MCU -->
+  <rect x="30" y="100" width="150" height="300" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <rect x="30" y="100" width="150" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="105" y="125" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Хост (TX)</text>
+  <text x="105" y="165" font-size="12" fill="#6b7280" text-anchor="middle">Команда UART:</text>
+  <rect x="40" y="180" width="130" height="45" fill="white" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="105" y="198" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">AT+SYSGPIO</text>
+  <text x="105" y="214" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">WRITE=12,1</text>
+  <text x="105" y="252" font-size="12" fill="#6b7280" text-anchor="middle">Швидкість: 115200</text>
+  <text x="105" y="274" font-size="12" fill="#6b7280" text-anchor="middle">Кадр: 8N1 + CR/LF</text>
+  <text x="105" y="375" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Асинхронний Tx</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M180,250 L208,250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="194" y="238" font-size="11" fill="#2457d6" text-anchor="middle">Дані</text>
+
+  <!-- Stage 2: UART Peripheral & APB -->
+  <rect x="210" y="100" width="160" height="300" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="290" y="128" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. UART &amp; APB</text>
+  <rect x="220" y="155" width="140" height="70" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="290" y="178" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">UART0 RX FIFO</text>
+  <text x="290" y="198" font-size="11" fill="#6b7280" text-anchor="middle">Апаратний буфер 128B</text>
+  <rect x="220" y="245" width="140" height="70" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="290" y="268" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шина APB &amp; ISR</text>
+  <text x="290" y="288" font-size="11" fill="#6b7280" text-anchor="middle">Переривання UART</text>
+  <text x="290" y="375" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Hardware Interrupt</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M370,250 L398,250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="384" y="238" font-size="11" fill="#2457d6" text-anchor="middle">IRQ</text>
+
+  <!-- Stage 3: Xtensa Core & Firmware -->
+  <rect x="400" y="100" width="170" height="300" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="485" y="128" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Ядро Xtensa L106</text>
+  <rect x="410" y="155" width="150" height="70" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="485" y="178" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">AT Command Parser</text>
+  <text x="485" y="198" font-size="11" fill="#6b7280" text-anchor="middle">Валідація синтаксису</text>
+  <rect x="410" y="245" width="150" height="70" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="485" y="268" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">at_cmd_sysgpio()</text>
+  <text x="485" y="288" font-size="11" fill="#2457d6" text-anchor="middle">Парсинг: Pin=12, Val=1</text>
+  <text x="485" y="375" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Firmware Level</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <path d="M570,250 L598,250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="584" y="238" font-size="11" fill="#2457d6" text-anchor="middle">SDK</text>
+
+  <!-- Stage 4: IOMUX & MMIO Registers -->
+  <rect x="600" y="100" width="180" height="300" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="690" y="128" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4. Регістри IOMUX</text>
+  <rect x="610" y="155" width="160" height="70" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="690" y="178" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">PERIPHS_IO_MUX</text>
+  <text x="690" y="198" font-size="11" fill="#6b7280" text-anchor="middle">Вибір функції GPIO12</text>
+  <rect x="610" y="245" width="160" height="70" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="690" y="268" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">GPIO_OUT_W1TS</text>
+  <text x="690" y="288" font-size="11" fill="#27ae60" text-anchor="middle">0x60000304 |= BIT12</text>
+  <text x="690" y="375" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Memory-Mapped I/O</text>
+
+  <!-- Arrow 4 -> 5 -->
+  <path d="M780,250 L808,250" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="794" y="238" font-size="11" fill="#27ae60" text-anchor="middle">Pad</text>
+
+  <!-- Stage 5: Physical GPIO Pin -->
+  <rect x="810" y="100" width="120" height="300" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <rect x="810" y="100" width="120" height="40" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="870" y="125" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">5. Вивід GPIO</text>
+  <rect x="820" y="155" width="100" height="160" fill="white" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="870" y="180" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO12</text>
+  <text x="870" y="202" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">HIGH (3.3V)</text>
+  <path d="M835,255 L855,255 L855,235 L895,235" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+  <text x="870" y="285" font-size="11" fill="#6b7280" text-anchor="middle">Логічна 1</text>
+  <text x="870" y="375" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Physical Pad</text>
+
+  <!-- Bottom Latency & Summary Bar -->
+  <rect x="30" y="420" width="900" height="70" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="45" y="443" font-size="12" font-weight="bold" fill="#1a1a1a">Характеристики затримки шляхопроводу (Total Latency ~1–5 ms):</text>
+  <text x="45" y="465" font-size="12" fill="#6b7280">• Передача кадру UART (115200 baud, ~18 chars): ~1.5 ms</text>
+  <text x="460" y="465" font-size="12" fill="#6b7280">• Переривання, парсинг AT-команди та запис у MMIO регістри: ~50–100 µs</text>
+</svg>

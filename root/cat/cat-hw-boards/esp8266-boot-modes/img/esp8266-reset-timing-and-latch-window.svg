@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 490" width="960" height="490" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="490" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діаграма защепкування режимів завантаження ESP8266</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Фіксація логічних рівнів strapping-ліній тригером Шмітта під час підйому сигнальної лінії RST</text>
+
+  <!-- Картка-підкладка діаграми -->
+  <rect x="25" y="65" width="910" height="335" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Зона защепкування (Latch-in Window) -->
+  <rect x="380" y="95" width="180" height="290" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="470" y="114" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вікно защепкування</text>
+  <text x="470" y="129" font-size="11" fill="#6b7280" text-anchor="middle">(Latch-in Window)</text>
+
+  <!-- Вертикальні сітки часу -->
+  <line x1="200" y1="95" x2="200" y2="385" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="380" y1="95" x2="380" y2="385" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="560" y1="95" x2="560" y2="385" stroke="#2457d6" stroke-width="2"/>
+  <line x1="760" y1="95" x2="760" y2="385" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Підписи відліків часу вгорі -->
+  <text x="200" y="82" font-size="11" fill="#6b7280" text-anchor="middle">t0: Скидання</text>
+  <text x="380" y="82" font-size="11" fill="#6b7280" text-anchor="middle">t1: Поріг V_IL (0.8V)</text>
+  <text x="560" y="82" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">t2: Latch V_IH (2.5V)</text>
+  <text x="760" y="82" font-size="11" fill="#27ae60" text-anchor="middle">t3: Старт ROM</text>
+
+  <!-- ТРЕК 1: Сигнал RST -->
+  <text x="40" y="110" font-size="13" font-weight="bold" fill="#1a1a1a">Сигнал RST</text>
+
+  <!-- Горизонтальні рівні напруги -->
+  <line x1="190" y1="140" x2="880" y2="140" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="190" y1="175" x2="880" y2="175" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="190" y1="245" x2="880" y2="245" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="190" y1="280" x2="880" y2="280" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="180" y="144" font-size="11" fill="#1a1a1a" text-anchor="end">3.3 В (VDD)</text>
+  <text x="180" y="179" font-size="11" fill="#2457d6" text-anchor="end">2.5 В (V_IH)</text>
+  <text x="180" y="249" font-size="11" fill="#6b7280" text-anchor="end">0.8 В (V_IL)</text>
+  <text x="180" y="284" font-size="11" fill="#1a1a1a" text-anchor="end">0.0 В (GND)</text>
+
+  <!-- Крива напруги RST -->
+  <path d="M 120,280 L 200,280 C 290,280 340,253 380,245 C 450,230 510,188 560,175 C 620,158 670,142 740,140 L 880,140" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Точка защепкування на кривій -->
+  <circle cx="560" cy="175" r="5" fill="#2457d6" stroke="white" stroke-width="2"/>
+  <path d="M 565,175 L 600,195" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Блок події Latch Event -->
+  <rect x="605" y="185" width="245" height="52" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="617" y="206" font-size="12" font-weight="bold" fill="#27ae60">Фіксація режимів (Latch Event)</text>
+  <text x="617" y="224" font-size="11" fill="#1a1a1a">Запис рівнів GPIO0/2/15 у завантажувач</text>
+
+  <!-- ТРЕК 2: Strapping лінії -->
+  <text x="40" y="325" font-size="13" font-weight="bold" fill="#1a1a1a">Strapping-лінії</text>
+  <text x="40" y="342" font-size="11" fill="#6b7280">GPIO0, GPIO2, GPIO15</text>
+
+  <text x="220" y="310" font-size="11" font-weight="bold" fill="#27ae60">High (1)</text>
+  <text x="220" y="385" font-size="11" font-weight="bold" fill="#c0392b">Low (0)</text>
+
+  <path d="M 170,315 L 560,315 L 575,325 L 880,325" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <path d="M 170,375 L 560,375 L 575,365 L 880,365" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <line x1="200" y1="345" x2="560" y2="345" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)" marker-start="url(#arr-blue)"/>
+  <text x="380" y="341" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Час утримання сигналів (Setup Time)</text>
+
+  <!-- Нижній блок легенди режимів -->
+  <rect x="40" y="415" width="275" height="54" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="435" font-size="12" font-weight="bold" fill="#1a1a1a">FLASH BOOT (Стандартний)</text>
+  <text x="55" y="455" font-size="11" fill="#6b7280">GPIO0=1, GPIO2=1, GPIO15=0</text>
+
+  <rect x="342" y="415" width="275" height="54" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="357" y="435" font-size="12" font-weight="bold" fill="#2457d6">UART DOWNLOAD (Прошивка)</text>
+  <text x="357" y="455" font-size="11" fill="#6b7280">GPIO0=0, GPIO2=1, GPIO15=0</text>
+
+  <rect x="645" y="415" width="275" height="54" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="660" y="435" font-size="12" font-weight="bold" fill="#c0392b">SDIO BOOT (Спеціальний)</text>
+  <text x="660" y="455" font-size="11" fill="#6b7280">GPIO0=x, GPIO2=x, GPIO15=1</text>
+</svg>

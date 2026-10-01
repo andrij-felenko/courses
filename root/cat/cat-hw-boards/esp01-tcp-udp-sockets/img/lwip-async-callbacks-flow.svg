@@ -1,0 +1,116 @@
+<svg viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Асинхронний потік callback-функцій lwIP в ESP-01</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Послідовність обробки подій прийому даних (tcp_recv) та підтвердження передачі (tcp_sent)</text>
+
+  <!-- Left Panel: Data Reception Flow -->
+  <rect x="24" y="75" width="444" height="413" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <rect x="36" y="85" width="420" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="246" y="105" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Потік прийому даних (tcp_recv)</text>
+
+  <!-- Left Step 1 -->
+  <rect x="44" y="125" width="404" height="55" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <rect x="54" y="133" width="60" height="20" fill="#eaf0fd" rx="4"/>
+  <text x="84" y="147" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Крок 1</text>
+  <text x="124" y="147" font-size="12" font-weight="bold" fill="#1a1a1a">Мережа &#8594; Wi-Fi Драйвер &#8594; tcp_input()</text>
+  <text x="54" y="167" font-size="12" fill="#6b7280">Прийом TCP-сегмента та парсинг заголовків lwIP</text>
+
+  <line x1="246" y1="180" x2="246" y2="198" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Left Step 2 -->
+  <rect x="44" y="198" width="404" height="65" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <rect x="54" y="206" width="60" height="20" fill="#eaf0fd" rx="4"/>
+  <text x="84" y="220" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Крок 2</text>
+  <text x="124" y="220" font-size="12" font-weight="bold" fill="#2457d6">tcp_recv_fn(arg, pcb, p, err)</text>
+  <text x="54" y="240" font-size="12" fill="#6b7280">lwIP виділяє struct pbuf *p та передає корисні дані</text>
+  <text x="54" y="255" font-size="12" fill="#6b7280">Передача управління у функцію зворотного виклику</text>
+
+  <line x1="246" y1="263" x2="246" y2="281" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Left Step 3 -->
+  <rect x="44" y="281" width="404" height="95" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <rect x="54" y="289" width="60" height="20" fill="#27ae60" rx="4"/>
+  <text x="84" y="303" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Крок 3</text>
+  <text x="124" y="303" font-size="12" font-weight="bold" fill="#27ae60">Успішний прийом даних (p != NULL)</text>
+  <text x="54" y="325" font-size="12" fill="#1a1a1a">1. Читання payload: memcpy(buf, p-&gt;payload, p-&gt;len)</text>
+  <text x="54" y="343" font-size="12" fill="#1a1a1a">2. Оновлення вікна: tcp_recved(pcb, p-&gt;tot_len)</text>
+  <text x="54" y="361" font-size="12" fill="#1a1a1a">3. Звільнення буфера: pbuf_free(p)</text>
+
+  <line x1="246" y1="376" x2="246" y2="394" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-main)"/>
+
+  <!-- Left Step 4 -->
+  <rect x="44" y="394" width="404" height="80" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="6"/>
+  <rect x="54" y="402" width="60" height="20" fill="#c0392b" rx="4"/>
+  <text x="84" y="416" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Крок 4</text>
+  <text x="124" y="416" font-size="12" font-weight="bold" fill="#c0392b">Закриття віддаленою стороною (p == NULL)</text>
+  <text x="54" y="438" font-size="12" fill="#1a1a1a">1. Скидання callback: tcp_recv(pcb, NULL)</text>
+  <text x="54" y="458" font-size="12" fill="#1a1a1a">2. Завершення сокета: tcp_close(pcb)</text>
+
+
+  <!-- Right Panel: Data Transmission &amp; ACK Flow -->
+  <rect x="492" y="75" width="444" height="413" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <rect x="504" y="85" width="420" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="714" y="105" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Потік передачі та ACK (tcp_sent)</text>
+
+  <!-- Right Step 1 -->
+  <rect x="512" y="125" width="404" height="65" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <rect x="522" y="133" width="60" height="20" fill="#eaf0fd" rx="4"/>
+  <text x="552" y="147" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Крок 1</text>
+  <text x="592" y="147" font-size="12" font-weight="bold" fill="#2457d6">tcp_write(pcb, data, len, flags)</text>
+  <text x="522" y="167" font-size="12" fill="#6b7280">Копіювання даних у буфер кольца RAM lwIP</text>
+  <text x="522" y="182" font-size="12" fill="#6b7280">Перевірка наявності вільного місця в tcp_sndbuf</text>
+
+  <line x1="714" y1="190" x2="714" y2="206" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Right Step 2 -->
+  <rect x="512" y="206" width="404" height="55" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <rect x="522" y="214" width="60" height="20" fill="#eaf0fd" rx="4"/>
+  <text x="552" y="228" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Крок 2</text>
+  <text x="592" y="228" font-size="12" font-weight="bold" fill="#1a1a1a">tcp_output(pcb) &#8594; Wi-Fi PHY</text>
+  <text x="522" y="248" font-size="12" fill="#6b7280">Передача сегментів у чергу MAC-контролера ESP8266</text>
+
+  <line x1="714" y1="261" x2="714" y2="277" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Right Step 3 -->
+  <rect x="512" y="277" width="404" height="55" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <rect x="522" y="285" width="60" height="20" fill="#eaf0fd" rx="4"/>
+  <text x="552" y="299" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Крок 3</text>
+  <text x="592" y="299" font-size="12" font-weight="bold" fill="#1a1a1a">Прихід ACK від віддаленого хоста</text>
+  <text x="522" y="319" font-size="12" fill="#6b7280">lwIP вилучає підтверджені дані з непотвердженої черги</text>
+
+  <line x1="714" y1="332" x2="714" y2="348" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Right Step 4 -->
+  <rect x="512" y="348" width="404" height="126" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <rect x="522" y="356" width="60" height="20" fill="#27ae60" rx="4"/>
+  <text x="552" y="370" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Крок 4</text>
+  <text x="592" y="370" font-size="12" font-weight="bold" fill="#27ae60">tcp_sent_fn(arg, pcb, u16_t len)</text>
+  <text x="522" y="392" font-size="12" fill="#1a1a1a">1. Сповіщення: len байт успішно доставлено адресату</text>
+  <text x="522" y="412" font-size="12" fill="#1a1a1a">2. Звільнення ресурсів або підготовка нової порції</text>
+  <text x="522" y="432" font-size="12" fill="#1a1a1a">3. Виклик tcp_write() для надсилання наступного блоку</text>
+  <text x="522" y="452" font-size="12" fill="#1a1a1a">4. Після передачі всього масиву: tcp_close(pcb)</text>
+
+  <!-- Bottom Notice Banner -->
+  <rect x="24" y="502" width="912" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <rect x="34" y="512" width="80" height="20" fill="#2457d6" rx="4"/>
+  <text x="74" y="526" font-size="12" font-weight="bold" fill="white" text-anchor="middle">ВАЖЛИВО</text>
+  <text x="126" y="526" font-size="12" fill="#1a1a1a">Усі callback-функції lwIP виконуються в єдиному мережевому потоці — тривалі операції мають виноситись у фонові задачі!</text>
+</svg>

@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Порівняльна топологія шин Quad SPI та Octal SPI в ESP32-S3</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Вплив розрядності шини й строба DQS на пропускну здатність та доступність виводів GPIO</text>
+
+  <!-- Panel 1: Quad SPI (Left) -->
+  <rect x="25" y="70" width="440" height="390" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="245" y="94" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Шина Quad SPI (4-бітна)</text>
+  <text x="245" y="112" text-anchor="middle" font-size="11" fill="#6b7280">Стандартний режим SDR / DDR • 4 лінії даних</text>
+
+  <!-- SoC Box Left -->
+  <rect x="45" y="130" width="135" height="235" rx="6" ry="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="112" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ESP32-S3 SoC</text>
+  <text x="112" y="168" text-anchor="middle" font-size="11" fill="#6b7280">SPI Контролер</text>
+
+  <rect x="55" y="185" width="115" height="26" rx="3" ry="3" fill="#eaf0fd"/>
+  <text x="112" y="202" text-anchor="middle" font-size="11" fill="#2457d6">CS0# / CS1#</text>
+
+  <rect x="55" y="220" width="115" height="26" rx="3" ry="3" fill="#eaf0fd"/>
+  <text x="112" y="237" text-anchor="middle" font-size="11" fill="#2457d6">SCLK (80 МГц)</text>
+
+  <rect x="55" y="255" width="115" height="35" rx="3" ry="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="112" y="271" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">DATA[0..3]</text>
+  <text x="112" y="285" text-anchor="middle" font-size="11" fill="#6b7280">4 біти шини</text>
+
+  <rect x="55" y="305" width="115" height="48" rx="3" ry="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="112" y="323" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">GPIO33–37</text>
+  <text x="112" y="339" text-anchor="middle" font-size="11" fill="#1a1a1a">Вільні для периферії</text>
+
+  <!-- Memory Box Left -->
+  <rect x="310" y="130" width="135" height="235" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="377" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Quad SPI</text>
+  <text x="377" y="168" text-anchor="middle" font-size="11" fill="#6b7280">Flash / PSRAM</text>
+
+  <rect x="320" y="185" width="115" height="26" rx="3" ry="3" fill="#f4f6f8"/>
+  <text x="377" y="202" text-anchor="middle" font-size="11" fill="#1a1a1a">CS#</text>
+
+  <rect x="320" y="220" width="115" height="26" rx="3" ry="3" fill="#f4f6f8"/>
+  <text x="377" y="237" text-anchor="middle" font-size="11" fill="#1a1a1a">CLK</text>
+
+  <rect x="320" y="255" width="115" height="35" rx="3" ry="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="377" y="271" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">SI, SO, WP, HOLD</text>
+  <text x="377" y="285" text-anchor="middle" font-size="11" fill="#6b7280">IO0 – IO3</text>
+
+  <!-- Interconnect Lines Left -->
+  <!-- CS Line -->
+  <path d="M 170 198 L 320 198" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <!-- CLK Line -->
+  <path d="M 170 233 L 320 233" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <!-- Data Bus -->
+  <path d="M 170 272 L 320 272" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+
+  <!-- Summary Box Left -->
+  <rect x="45" y="380" width="400" height="65" rx="5" ry="5" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="245" y="401" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Пропускна здатність: до 40–80 МБ/с</text>
+  <text x="245" y="419" text-anchor="middle" font-size="11" fill="#1a1a1a">• Задіяно 6 сигнальних ліній шини SPI</text>
+  <text x="245" y="435" text-anchor="middle" font-size="11" fill="#27ae60">• Виводи GPIO33–GPIO37 повністю доступні користувачу</text>
+
+  <!-- Panel 2: Octal SPI (Right) -->
+  <rect x="495" y="70" width="440" height="390" rx="8" ry="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="715" y="94" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Шина Octal SPI (8-бітна)</text>
+  <text x="715" y="112" text-anchor="middle" font-size="11" fill="#6b7280">Високошвидкісний режим DDR + DQS • 8 ліній даних</text>
+
+  <!-- SoC Box Right -->
+  <rect x="515" y="130" width="135" height="235" rx="6" ry="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="582" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ESP32-S3 SoC</text>
+  <text x="582" y="168" text-anchor="middle" font-size="11" fill="#6b7280">MSPI Контролер</text>
+
+  <rect x="525" y="180" width="115" height="22" rx="3" ry="3" fill="#e9f7ef"/>
+  <text x="582" y="195" text-anchor="middle" font-size="11" fill="#27ae60">CS0# / CS1#</text>
+
+  <rect x="525" y="207" width="115" height="22" rx="3" ry="3" fill="#e9f7ef"/>
+  <text x="582" y="222" text-anchor="middle" font-size="11" fill="#27ae60">SCLK / CLK_N (DDR)</text>
+
+  <rect x="525" y="234" width="115" height="35" rx="3" ry="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="582" y="249" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">DATA[0..7]</text>
+  <text x="582" y="263" text-anchor="middle" font-size="11" fill="#6b7280">8 бітів шини</text>
+
+  <rect x="525" y="274" width="115" height="25" rx="3" ry="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="582" y="290" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">DQS (Data Strobe)</text>
+
+  <rect x="525" y="304" width="115" height="52" rx="3" ry="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="582" y="320" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">GPIO33–37</text>
+  <text x="582" y="335" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Заблоковані шиною</text>
+  <text x="582" y="349" text-anchor="middle" font-size="11" fill="#1a1a1a">для DQS / DATA4..7</text>
+
+  <!-- Memory Box Right -->
+  <rect x="780" y="130" width="135" height="235" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="847" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Octal SPI</text>
+  <text x="847" y="168" text-anchor="middle" font-size="11" fill="#6b7280">OPI Flash / PSRAM</text>
+
+  <rect x="790" y="180" width="115" height="22" rx="3" ry="3" fill="#f4f6f8"/>
+  <text x="847" y="195" text-anchor="middle" font-size="11" fill="#1a1a1a">CE#</text>
+
+  <rect x="790" y="207" width="115" height="22" rx="3" ry="3" fill="#f4f6f8"/>
+  <text x="847" y="222" text-anchor="middle" font-size="11" fill="#1a1a1a">CK / CK#</text>
+
+  <rect x="790" y="234" width="115" height="35" rx="3" ry="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="847" y="249" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">DQ0 – DQ7</text>
+  <text x="847" y="263" text-anchor="middle" font-size="11" fill="#6b7280">8-бітна паралель</text>
+
+  <rect x="790" y="274" width="115" height="25" rx="3" ry="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="847" y="290" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">DQS / RWDS</text>
+
+  <!-- Interconnect Lines Right -->
+  <!-- CS Line -->
+  <path d="M 640 191 L 790 191" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <!-- CLK Line -->
+  <path d="M 640 218 L 790 218" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <!-- Data Bus (8-bit) -->
+  <path d="M 640 251 L 790 251" stroke="#27ae60" stroke-width="4" marker-end="url(#arr-green)"/>
+  <!-- DQS Line -->
+  <path d="M 640 286 L 790 286" stroke="#27ae60" stroke-width="2" stroke-dasharray="4 2" marker-end="url(#arr-green)"/>
+
+  <!-- Summary Box Right -->
+  <rect x="515" y="380" width="400" height="65" rx="5" ry="5" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="715" y="401" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Пропускна здатність: до 80–160 МБ/с (DDR 80 МГц)</text>
+  <text x="715" y="419" text-anchor="middle" font-size="11" fill="#1a1a1a">• Задіяно 11–12 сигнальних ліній (DQS для фазового розгалуження)</text>
+  <text x="715" y="435" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">• Блокує виводи GPIO33–GPIO37 для зовнішньої периферії</text>
+
+</svg>

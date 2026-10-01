@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Граф станів блоку керування протоколом TCP PCB у стеці lwIP</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Переходи між станами з'єднання від ініціалізації сокета до закриття сесії</text>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Legend Panel (Top Left) -->
+  <rect x="30" y="15" width="180" height="85" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="32" font-size="12" font-weight="bold" fill="#1a1a1a">Умовні позначення:</text>
+  <rect x="40" y="40" width="12" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="58" y="50" font-size="12" fill="#1a1a1a">Установка з'єднання</text>
+  <rect x="40" y="56" width="12" height="12" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="58" y="66" font-size="12" fill="#1a1a1a">Активне з'єднання</text>
+  <rect x="40" y="72" width="12" height="12" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="58" y="82" font-size="12" fill="#1a1a1a">Закриття сесії</text>
+
+  <!-- Info Panel (Top Right) -->
+  <rect x="750" y="15" width="180" height="85" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="760" y="32" font-size="12" font-weight="bold" fill="#1a1a1a">Контекст lwIP (ESP8266):</text>
+  <text x="760" y="50" font-size="12" fill="#6b7280">Пам'ять: struct tcp_pcb</text>
+  <text x="760" y="67" font-size="12" fill="#6b7280">Таймери: tcp_tmr()</text>
+  <text x="760" y="84" font-size="12" fill="#6b7280">Таймаут: 2MSL = 60c</text>
+
+  <!-- Transition Paths & Labels -->
+  <!-- 1. CLOSED -> LISTEN -->
+  <path d="M 415 115 C 340 115, 230 140, 230 192" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <text x="300" y="130" text-anchor="end" font-size="12" fill="#2457d6">tcp_listen()</text>
+
+  <!-- 2. CLOSED -> SYN_SENT -->
+  <path d="M 545 115 C 620 115, 730 140, 730 192" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <text x="660" y="130" text-anchor="start" font-size="12" fill="#2457d6">tcp_connect() / SYN</text>
+
+  <!-- 3. LISTEN -> SYN_RCVD -->
+  <path d="M 295 215 C 330 215, 330 240, 330 282" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <text x="250" y="255" text-anchor="end" font-size="12" fill="#2457d6">SYN / SYN+ACK</text>
+
+  <!-- 4. SYN_SENT -> SYN_RCVD -->
+  <path d="M 665 215 C 550 215, 450 250, 395 300" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <text x="540" y="235" text-anchor="start" font-size="12" fill="#2457d6">SYN / SYN+ACK</text>
+
+  <!-- 5. SYN_RCVD -> ESTABLISHED -->
+  <path d="M 330 328 C 330 350, 380 350, 410 325" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="370" y="360" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ACK</text>
+
+  <!-- 6. SYN_SENT -> ESTABLISHED -->
+  <path d="M 730 238 C 730 290, 640 310, 590 310" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="670" y="285" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">SYN+ACK / ACK</text>
+
+  <!-- 7. ESTABLISHED -> FIN_WAIT_1 -->
+  <path d="M 590 320 C 650 320, 710 345, 710 382" fill="none" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+  <text x="660" y="345" text-anchor="start" font-size="12" fill="#c0392b">tcp_close() / FIN</text>
+
+  <!-- 8. FIN_WAIT_1 -> FIN_WAIT_2 -->
+  <path d="M 710 428 L 710 462" fill="none" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arr-gray)"/>
+  <text x="722" y="448" text-anchor="start" font-size="12" fill="#6b7280">ACK</text>
+
+  <!-- 9. FIN_WAIT_2 -> TIME_WAIT -->
+  <path d="M 645 485 L 545 485" fill="none" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+  <text x="595" y="473" text-anchor="middle" font-size="12" fill="#c0392b">FIN / ACK</text>
+
+  <!-- 10. TIME_WAIT -> CLOSED -->
+  <path d="M 545 485 C 620 485, 620 135, 545 110" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arr-red)"/>
+  <text x="630" y="220" text-anchor="start" font-size="12" fill="#c0392b">Таймаут 2MSL</text>
+
+  <!-- 11. ESTABLISHED -> CLOSE_WAIT -->
+  <path d="M 410 320 C 330 320, 250 345, 250 382" fill="none" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arr-gray)"/>
+  <text x="240" y="345" text-anchor="end" font-size="12" fill="#6b7280">FIN / ACK</text>
+
+  <!-- 12. CLOSE_WAIT -> LAST_ACK -->
+  <path d="M 250 428 L 250 462" fill="none" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arr-gray)"/>
+  <text x="238" y="448" text-anchor="end" font-size="12" fill="#6b7280">tcp_close() / FIN</text>
+
+  <!-- 13. LAST_ACK -> CLOSED -->
+  <path d="M 185 485 C 100 485, 100 135, 415 110" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arr-gray)"/>
+  <text x="90" y="220" text-anchor="end" font-size="12" fill="#6b7280">ACK</text>
+
+  <!-- State Boxes -->
+  <!-- 1. CLOSED -->
+  <rect x="415" y="92" width="130" height="46" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="2"/>
+  <text x="480" y="111" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">CLOSED</text>
+  <text x="480" y="127" text-anchor="middle" font-size="12" fill="#6b7280">Початковий стан</text>
+
+  <!-- 2. LISTEN -->
+  <rect x="165" y="192" width="130" height="46" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="230" y="211" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">LISTEN</text>
+  <text x="230" y="227" text-anchor="middle" font-size="12" fill="#6b7280">Пасивне відкриття</text>
+
+  <!-- 3. SYN_SENT -->
+  <rect x="665" y="192" width="130" height="46" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="730" y="211" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">SYN_SENT</text>
+  <text x="730" y="227" text-anchor="middle" font-size="12" fill="#6b7280">Активне відкриття</text>
+
+  <!-- 4. SYN_RCVD -->
+  <rect x="265" y="282" width="130" height="46" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="330" y="301" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">SYN_RCVD</text>
+  <text x="330" y="317" text-anchor="middle" font-size="12" fill="#6b7280">Отримано SYN</text>
+
+  <!-- 5. ESTABLISHED -->
+  <rect x="410" y="288" width="180" height="48" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="500" y="309" text-anchor="middle" font-size="15" font-weight="bold" fill="#27ae60">ESTABLISHED</text>
+  <text x="500" y="326" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Обмін даними</text>
+
+  <!-- 6. CLOSE_WAIT -->
+  <rect x="185" y="382" width="130" height="46" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="250" y="401" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">CLOSE_WAIT</text>
+  <text x="250" y="417" text-anchor="middle" font-size="12" fill="#6b7280">Пасивне закриття</text>
+
+  <!-- 7. LAST_ACK -->
+  <rect x="185" y="462" width="130" height="46" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="250" y="481" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">LAST_ACK</text>
+  <text x="250" y="497" text-anchor="middle" font-size="12" fill="#6b7280">Остаточний ACK</text>
+
+  <!-- 8. FIN_WAIT_1 -->
+  <rect x="645" y="382" width="130" height="46" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="710" y="401" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">FIN_WAIT_1</text>
+  <text x="710" y="417" text-anchor="middle" font-size="12" fill="#6b7280">Активне закриття</text>
+
+  <!-- 9. FIN_WAIT_2 -->
+  <rect x="645" y="462" width="130" height="46" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="710" y="481" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">FIN_WAIT_2</text>
+  <text x="710" y="497" text-anchor="middle" font-size="12" fill="#6b7280">Очікування FIN</text>
+
+  <!-- 10. TIME_WAIT -->
+  <rect x="415" y="462" width="130" height="46" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="480" y="481" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">TIME_WAIT</text>
+  <text x="480" y="497" text-anchor="middle" font-size="12" fill="#6b7280">Таймер 2MSL</text>
+</svg>

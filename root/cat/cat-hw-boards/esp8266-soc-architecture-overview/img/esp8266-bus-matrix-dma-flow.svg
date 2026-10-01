@@ -1,0 +1,91 @@
+<svg viewBox="0 0 960 560" width="960" height="560" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Матриця шин AHB/APB та контролер DMA в ESP8266</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Арбітраж високої швидкодії при паралельній обробці Wi-Fi пакетів через DMA та зчитуванні команд CPU</text>
+
+  <!-- Master 1: CPU Core -->
+  <rect x="40" y="80" width="400" height="100" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="55" y="105" font-size="13" font-weight="bold" fill="#2457d6">CPU Core Xtensa L106 (AHB Master 1)</text>
+  <text x="55" y="130" font-size="12" fill="#1a1a1a">I-Bus: вибірка інструкцій з IRAM / iCache</text>
+  <text x="55" y="152" font-size="12" fill="#6b7280">D-Bus: зчитування та запис даних DRAM</text>
+
+  <!-- Master 2: Wi-Fi DMA -->
+  <rect x="520" y="80" width="400" height="100" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="535" y="105" font-size="13" font-weight="bold" fill="#27ae60">Wi-Fi MAC &amp; Hardware DMA (AHB Master 2)</text>
+  <text x="535" y="130" font-size="12" fill="#1a1a1a">Прямий доступ до RAM для мережевих пакетів</text>
+  <text x="535" y="152" font-size="12" fill="#27ae60">Zero-Copy пересилання без залучення CPU</text>
+
+  <!-- Central AHB Bus Matrix Panel -->
+  <rect x="40" y="210" width="880" height="110" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="232" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Системна матриця шин (AHB Bus Matrix) та Арбітр пріоритетів</text>
+
+  <!-- Sub-box Left: I-Bus Switch -->
+  <rect x="60" y="248" width="260" height="58" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="75" y="270" font-size="13" font-weight="bold" fill="#1a1a1a">AHB I-Bus Switch</text>
+  <text x="75" y="291" font-size="12" fill="#6b7280">IRAM / Flash MMU</text>
+
+  <!-- Sub-box Center: D-Bus Arbiter -->
+  <rect x="350" y="248" width="260" height="58" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="365" y="270" font-size="13" font-weight="bold" fill="#2457d6">AHB D-Bus Arbiter</text>
+  <text x="365" y="291" font-size="12" fill="#1a1a1a">Арбітраж DRAM (CPU/DMA)</text>
+
+  <!-- Sub-box Right: APB Bridge -->
+  <rect x="640" y="248" width="260" height="58" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="655" y="270" font-size="13" font-weight="bold" fill="#1a1a1a">AHB-to-APB Bridge</text>
+  <text x="655" y="291" font-size="12" fill="#6b7280">Міст низькошвидкісних шин</text>
+
+  <!-- Bottom Slaves -->
+  <!-- Slave 1: IRAM & iCache -->
+  <rect x="40" y="350" width="260" height="170" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="55" y="375" font-size="13" font-weight="bold" fill="#1a1a1a">IRAM (32 КБ) / iCache</text>
+  <text x="55" y="400" font-size="12" fill="#6b7280">• Прямий доступ I-Bus</text>
+  <text x="55" y="422" font-size="12" fill="#6b7280">• Виконання 0-wait state</text>
+  <text x="55" y="444" font-size="12" fill="#6b7280">• MMU мапування Flash</text>
+
+  <!-- Slave 2: DRAM -->
+  <rect x="350" y="350" width="260" height="170" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="365" y="375" font-size="13" font-weight="bold" fill="#2457d6">DRAM (80 КБ Shared SRAM)</text>
+  <text x="365" y="400" font-size="12" fill="#1a1a1a">• Спільний доступ пам'яті:</text>
+  <text x="365" y="422" font-size="12" fill="#2457d6">• CPU D-Bus (змінні, стек)</text>
+  <text x="365" y="444" font-size="12" fill="#27ae60">• DMA Wi-Fi RX/TX буфери</text>
+  <text x="365" y="466" font-size="12" fill="#6b7280">• Одночасне читання/запис</text>
+
+  <!-- Slave 3: APB Peripherals -->
+  <rect x="640" y="350" width="260" height="170" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="655" y="375" font-size="13" font-weight="bold" fill="#1a1a1a">APB Периферійні блоки</text>
+  <text x="655" y="400" font-size="12" fill="#6b7280">• UART0 / UART1 контролери</text>
+  <text x="655" y="422" font-size="12" fill="#6b7280">• SPI / HSPI інтерфейси</text>
+  <text x="655" y="444" font-size="12" fill="#6b7280">• GPIO &amp; IOMUX селектор</text>
+  <text x="655" y="466" font-size="12" fill="#6b7280">• Hardware WDT &amp; Timers</text>
+
+  <!-- Interconnect Lines -->
+  <!-- Master 1 (CPU I-Bus) to Matrix I-Bus Switch -->
+  <path d="M190,180 L190,246" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- Master 1 (CPU D-Bus) to Matrix D-Bus Arbiter -->
+  <path d="M240,180 L240,238 L380,238 L380,246" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- Master 2 (Wi-Fi DMA) to Matrix D-Bus Arbiter -->
+  <path d="M730,180 L730,238 L580,238 L580,246" stroke="#27ae60" stroke-width="1.5" fill="none" marker-end="url(#arr-green)"/>
+
+  <!-- Matrix I-Bus to Slave 1 (IRAM) -->
+  <path d="M190,306 L190,348" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- Matrix D-Bus to Slave 2 (DRAM) -->
+  <path d="M480,306 L480,348" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- Matrix APB Bridge to Slave 3 (APB Peripherals) -->
+  <path d="M770,306 L770,348" stroke="#1a1a1a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+</svg>

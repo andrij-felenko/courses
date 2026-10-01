@@ -1,0 +1,229 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма транзакції SWD (Serial Wire Debug)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Фази запиту Host, перехоплення шини (Trn), відповіді ACK та читання даних (Data)</text>
+
+  <!-- Головна панель діаграми -->
+  <rect x="40" y="70" width="880" height="275" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Шапки фаз транзакції -->
+  <rect x="180" y="78" width="200" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="280" y="94" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Запит (Request) — 8 біт</text>
+
+  <rect x="392" y="78" width="40" height="24" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="412" y="94" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Trn</text>
+
+  <rect x="444" y="78" width="100" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="494" y="94" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ACK — 3 біти</text>
+
+  <rect x="556" y="78" width="276" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="694" y="94" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Читання даних (Data 32 біти + Parity)</text>
+
+  <rect x="844" y="78" width="40" height="24" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="864" y="94" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Trn</text>
+
+  <!-- Рядок напрямку шини -->
+  <text x="55" y="129" font-size="12" font-weight="bold" fill="#1a1a1a">Напрямок SWDIO:</text>
+
+  <rect x="180" y="116" width="200" height="20" rx="3" fill="#eaf0fd"/>
+  <text x="280" y="129" font-size="12" fill="#2457d6" text-anchor="middle">Host ➔ Target</text>
+
+  <rect x="392" y="116" width="40" height="20" rx="3" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="412" y="129" font-size="12" fill="#6b7280" text-anchor="middle">Z</text>
+
+  <rect x="444" y="116" width="388" height="20" rx="3" fill="#e9f7ef"/>
+  <text x="638" y="129" font-size="12" fill="#27ae60" text-anchor="middle">Target ➔ Host (MCU передає ACK та Data)</text>
+
+  <rect x="844" y="116" width="40" height="20" rx="3" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="864" y="129" font-size="12" fill="#6b7280" text-anchor="middle">Z</text>
+
+  <!-- Назви сигнальних ліній -->
+  <text x="55" y="165" font-size="13" font-weight="bold" fill="#1a1a1a">SWCLK</text>
+  <text x="55" y="180" font-size="12" fill="#6b7280">(Clock / Такти)</text>
+
+  <text x="55" y="248" font-size="13" font-weight="bold" fill="#1a1a1a">SWDIO</text>
+  <text x="55" y="263" font-size="12" fill="#6b7280">(Data / Дані)</text>
+
+  <!-- Пунктирні лінії розділення фаз -->
+  <line x1="180" y1="70" x2="180" y2="345" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="380" y1="70" x2="380" y2="345" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="432" y1="70" x2="432" y2="345" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="544" y1="70" x2="544" y2="345" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="832" y1="70" x2="832" y2="345" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="884" y1="70" x2="884" y2="345" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Сигнал SWCLK -->
+  <path d="M 180 190
+           L 192.5 190 L 192.5 160 L 205 160 L 205 190
+           L 217.5 190 L 217.5 160 L 230 160 L 230 190
+           L 242.5 190 L 242.5 160 L 255 160 L 255 190
+           L 267.5 190 L 267.5 160 L 280 160 L 280 190
+           L 292.5 190 L 292.5 160 L 305 160 L 305 190
+           L 317.5 190 L 317.5 160 L 330 160 L 330 190
+           L 342.5 190 L 342.5 160 L 355 160 L 355 190
+           L 367.5 190 L 367.5 160 L 380 160 L 380 190
+           L 412 190 L 412 160 L 432 160 L 432 190
+           L 460.6 190 L 460.6 160 L 477.3 160 L 477.3 190
+           L 494 190 L 494 160 L 510.6 160 L 510.6 190
+           L 527.3 190 L 527.3 160 L 544 160 L 544 190
+           L 574 190 L 574 160 L 592 160 L 592 190
+           L 610 190 L 610 160 L 628 160 L 628 190
+           L 648 190 L 648 160 L 668 160 L 668 190
+           L 688 190 L 688 160 L 708 160 L 708 190
+           L 728 190 L 728 160 L 748 160 L 748 190
+           L 766 190 L 766 160 L 784 160 L 784 190
+           L 808 190 L 808 160 L 832 160 L 832 190
+           L 864 190 L 864 160 L 884 160 L 884 190"
+        fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Позначки фронтів зчитування (Rising Edge) -->
+  <line x1="192.5" y1="155" x2="192.5" y2="200" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+  <line x1="192.5" y1="222" x2="192.5" y2="236" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+  <line x1="192.5" y1="256" x2="192.5" y2="276" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+  <line x1="217.5" y1="155" x2="217.5" y2="200" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+  <line x1="217.5" y1="222" x2="217.5" y2="236" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+  <line x1="217.5" y1="256" x2="217.5" y2="276" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+  <line x1="242.5" y1="155" x2="242.5" y2="200" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+  <line x1="242.5" y1="222" x2="242.5" y2="236" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+  <line x1="242.5" y1="256" x2="242.5" y2="276" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+  <line x1="267.5" y1="155" x2="267.5" y2="200" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+  <line x1="267.5" y1="222" x2="267.5" y2="236" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+  <line x1="267.5" y1="256" x2="267.5" y2="276" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+  <line x1="292.5" y1="155" x2="292.5" y2="200" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+  <line x1="292.5" y1="222" x2="292.5" y2="236" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+  <line x1="292.5" y1="256" x2="292.5" y2="276" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+  <line x1="317.5" y1="155" x2="317.5" y2="200" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+  <line x1="317.5" y1="222" x2="317.5" y2="236" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+  <line x1="317.5" y1="256" x2="317.5" y2="276" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+  <line x1="342.5" y1="155" x2="342.5" y2="200" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+  <line x1="342.5" y1="222" x2="342.5" y2="236" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+  <line x1="342.5" y1="256" x2="342.5" y2="276" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+  <line x1="367.5" y1="155" x2="367.5" y2="200" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+  <line x1="367.5" y1="222" x2="367.5" y2="236" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+  <line x1="367.5" y1="256" x2="367.5" y2="276" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+
+  <line x1="460.6" y1="155" x2="460.6" y2="200" stroke="#27ae60" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+  <line x1="460.6" y1="222" x2="460.6" y2="236" stroke="#27ae60" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+  <line x1="460.6" y1="256" x2="460.6" y2="276" stroke="#27ae60" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+  <line x1="494.0" y1="155" x2="494.0" y2="200" stroke="#27ae60" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+  <line x1="494.0" y1="222" x2="494.0" y2="236" stroke="#27ae60" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+  <line x1="494.0" y1="256" x2="494.0" y2="276" stroke="#27ae60" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+  <line x1="527.3" y1="155" x2="527.3" y2="200" stroke="#27ae60" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+  <line x1="527.3" y1="222" x2="527.3" y2="236" stroke="#27ae60" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+  <line x1="527.3" y1="256" x2="527.3" y2="276" stroke="#27ae60" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+
+  <!-- Верхні підписи бітів SWDIO -->
+  <text x="192.5" y="215" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ST</text>
+  <text x="217.5" y="215" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">AP</text>
+  <text x="242.5" y="215" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">RnW</text>
+  <text x="267.5" y="215" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">A2</text>
+  <text x="292.5" y="215" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">A3</text>
+  <text x="317.5" y="215" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">PAR</text>
+  <text x="342.5" y="215" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">STP</text>
+  <text x="367.5" y="215" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">PRK</text>
+
+  <text x="412" y="215" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Trn</text>
+
+  <text x="460.6" y="215" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ACK0</text>
+  <text x="494.0" y="215" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ACK1</text>
+  <text x="527.3" y="215" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ACK2</text>
+
+  <text x="574" y="215" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D[0]</text>
+  <text x="610" y="215" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D[1]</text>
+  <text x="688" y="215" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Дані D[2..30]</text>
+  <text x="766" y="215" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D[31]</text>
+  <text x="808" y="215" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Parity</text>
+
+  <text x="864" y="215" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Trn</text>
+
+  <!-- Сигнал SWDIO Waveform -->
+  <!-- Phase 1: Request Waveform -->
+  <path d="M 180 235
+           L 205 235 L 205 275
+           L 230 275 L 230 235
+           L 255 235 L 255 275
+           L 280 275 L 280 235
+           L 305 235 L 305 275
+           L 355 275 L 355 235
+           L 380 235"
+        fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Phase 2: Trn (High-Z) -->
+  <line x1="380" y1="235" x2="392" y2="255" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <line x1="392" y1="255" x2="432" y2="255" stroke="#6b7280" stroke-width="2" stroke-dasharray="4 3"/>
+  <line x1="432" y1="255" x2="444" y2="235" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <text x="412" y="270" font-size="12" fill="#6b7280" text-anchor="middle">High-Z</text>
+
+  <!-- Phase 3: ACK Waveform (1, 0, 0) -->
+  <path d="M 444 235
+           L 477.3 235 L 477.3 275
+           L 544 275"
+        fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Phase 4: Data Read Waveform -->
+  <path d="M 544 275
+           L 556 235 L 592 235
+           L 592 275 L 628 275"
+        fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Collapsed Bus Envelope D[2..30] -->
+  <polygon points="628,255 636,235 740,235 748,255 740,275 636,275" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="688" y="260" font-size="12" fill="#1a1a1a" text-anchor="middle">30 біт даних</text>
+
+  <!-- Bit 31 & Parity -->
+  <path d="M 748 255
+           L 754 235 L 784 235
+           L 784 275 L 832 275"
+        fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Phase 5: Trn (High-Z) -->
+  <line x1="832" y1="275" x2="844" y2="255" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <line x1="844" y1="255" x2="884" y2="255" stroke="#6b7280" stroke-width="2" stroke-dasharray="4 3"/>
+  <text x="864" y="270" font-size="12" fill="#6b7280" text-anchor="middle">High-Z</text>
+
+  <!-- Нижні значення бітів SWDIO -->
+  <text x="192.5" y="250" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="217.5" y="290" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="242.5" y="250" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="267.5" y="290" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="292.5" y="250" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="317.5" y="290" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="342.5" y="290" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="367.5" y="250" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+
+  <text x="460.6" y="250" font-size="12" fill="#27ae60" text-anchor="middle">1</text>
+  <text x="494.0" y="290" font-size="12" fill="#27ae60" text-anchor="middle">0</text>
+  <text x="527.3" y="290" font-size="12" fill="#27ae60" text-anchor="middle">0</text>
+
+  <text x="574" y="250" font-size="12" fill="#1a1a1a" text-anchor="middle">LSB</text>
+  <text x="610" y="290" font-size="12" fill="#1a1a1a" text-anchor="middle">0/1</text>
+  <text x="766" y="250" font-size="12" fill="#1a1a1a" text-anchor="middle">MSB</text>
+  <text x="808" y="290" font-size="12" fill="#1a1a1a" text-anchor="middle">Par</text>
+
+  <!-- Нижні тлумачні картки -->
+  <!-- Картка 1: Запит -->
+  <rect x="40" y="365" width="285" height="135" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="52" y="385" font-size="12" font-weight="bold" fill="#2457d6">Структура запиту (Request, 8 біт):</text>
+  <text x="52" y="405" font-size="12" fill="#1a1a1a">• ST (Start=1), STP (Stop=0), PRK (Park=1)</text>
+  <text x="52" y="425" font-size="12" fill="#1a1a1a">• AP/DP: 0 = DP (Debug), 1 = AP (Access)</text>
+  <text x="52" y="445" font-size="12" fill="#1a1a1a">• RnW: 0 = Запис (Write), 1 = Читання (Read)</text>
+  <text x="52" y="465" font-size="12" fill="#1a1a1a">• A[2:3]: адреса регістра, PAR: парність</text>
+
+  <!-- Картка 2: ACK -->
+  <rect x="337" y="365" width="285" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="349" y="385" font-size="12" font-weight="bold" fill="#27ae60">Стани відповіді ACK (3 біти):</text>
+  <text x="349" y="405" font-size="12" fill="#1a1a1a">• OK (0b001): транзакція успішна</text>
+  <text x="349" y="425" font-size="12" fill="#1a1a1a">• WAIT (0b010): ціль зайнята, повторити</text>
+  <text x="349" y="445" font-size="12" fill="#1a1a1a">• FAULT (0b100): апаратний збій/помилка</text>
+  <text x="349" y="465" font-size="12" fill="#1a1a1a">• Передача молодшим бітом уперед (LSB)</text>
+
+  <!-- Картка 3: Таймінг та Trn -->
+  <rect x="635" y="365" width="285" height="135" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="647" y="385" font-size="12" font-weight="bold" fill="#1a1a1a">Часові вимоги та Turnaround:</text>
+  <text x="647" y="405" font-size="12" fill="#1a1a1a">• Зчитування SWDIO — по фронту SWCLK</text>
+  <text x="647" y="425" font-size="12" fill="#1a1a1a">• Trn: 1–4 такти для зміни напрямку</text>
+  <text x="647" y="445" font-size="12" fill="#1a1a1a">• Під час Trn лінія у стані High-Z</text>
+  <text x="647" y="465" font-size="12" fill="#1a1a1a">• Parity — парний контрольний біт</text>
+</svg>

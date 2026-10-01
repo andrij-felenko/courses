@@ -1,0 +1,166 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Titles -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Механізм паразитного живлення ESP8266 через ESD-діоди та його нейтралізація</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Пряме підключення ліній 5В через захисний діод живить шину VDD33; резистивний дільник знижує напругу та запобігає витоку</text>
+
+  <!-- PANEL 1: PROBLEM / DIRECT 5V CONNECTION -->
+  <rect x="25" y="75" width="440" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="25" y="75" width="440" height="40" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="25" y="103" width="440" height="12" fill="#fdecea"/>
+  <line x1="25" y1="115" x2="465" y2="115" stroke="#c0392b" stroke-width="1.5"/>
+
+  <text x="245" y="100" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Пряме з'єднання (5V TX → RXD)</text>
+
+  <!-- USB-UART Block (Panel 1) -->
+  <rect x="42" y="130" width="100" height="70" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="92" y="150" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">USB-UART</text>
+  <text x="92" y="170" font-size="12" fill="#1a1a1a" text-anchor="middle">Вихід TX</text>
+  <text x="92" y="190" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">V_TX = 5.0 В</text>
+
+  <!-- Direct Wire & Parasitic Current Arrow -->
+  <path d="M 142 165 L 172 165 L 172 245 L 245 245" fill="none" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="172" y="155" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">5.0В (Лог. 1)</text>
+
+  <!-- ESP8266 IC Diagram (Panel 1) -->
+  <rect x="245" y="130" width="205" height="230" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="347" y="152" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кристал ESP8266</text>
+
+  <!-- Internal Bus Rails (Panel 1) -->
+  <line x1="260" y1="180" x2="435" y2="180" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="347" y="172" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Шина VDD33 (3.3В)</text>
+
+  <line x1="260" y1="330" x2="435" y2="330" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="347" y="346" font-size="12" fill="#1a1a1a" text-anchor="middle">Земля GND (0В)</text>
+
+  <!-- RXD Input Node (Panel 1) -->
+  <circle cx="245" cy="245" r="4" fill="#c0392b"/>
+  <line x1="245" y1="245" x2="295" y2="245" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="295" cy="245" r="3.5" fill="#c0392b"/>
+  <text x="250" y="260" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">RXD (5.0В)</text>
+
+  <!-- Upper ESD Diode D_top (Conducting / Red) -->
+  <line x1="295" y1="245" x2="295" y2="225" stroke="#c0392b" stroke-width="2"/>
+  <polygon points="289,225 301,225 295,200" fill="#c0392b" stroke="#c0392b"/>
+  <line x1="287" y1="200" x2="303" y2="200" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="295" y1="200" x2="295" y2="180" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <text x="310" y="208" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">D_top: ВІДКРИТИЙ</text>
+  <text x="310" y="224" font-size="12" fill="#c0392b" text-anchor="start">I_leak → VDD33</text>
+
+  <!-- Lower ESD Diode D_bot (Non-conducting / Dashed Gray) -->
+  <line x1="295" y1="245" x2="380" y2="245" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <line x1="380" y1="330" x2="380" y2="295" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <polygon points="374,295 386,295 380,270" fill="#6b7280" stroke="#6b7280"/>
+  <line x1="372" y1="270" x2="388" y2="270" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="380" y1="270" x2="380" y2="245" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 2"/>
+
+  <text x="370" y="282" font-size="12" fill="#6b7280" text-anchor="end">D_bot: ЗАКРИТИЙ</text>
+
+  <!-- Result Warning Box (Panel 1) -->
+  <rect x="42" y="375" width="405" height="130" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="57" y="397" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">Наслідок: Паразитне живлення</text>
+  <text x="57" y="420" font-size="12" fill="#1a1a1a" text-anchor="start">• Напруга VDD33 зростає до ~4.3 В через діод D_top</text>
+  <text x="57" y="442" font-size="12" fill="#1a1a1a" text-anchor="start">• Чип не вимикається при знятті основного живлення</text>
+  <text x="57" y="464" font-size="12" fill="#c0392b" text-anchor="start">• Порушуються strapping-рівні та старт завантаження</text>
+  <text x="57" y="486" font-size="12" fill="#c0392b" text-anchor="start">• Ризик деградації або виходу з ладу входу RXD</text>
+
+
+  <!-- PANEL 2: SOLUTION / VOLTAGE DIVIDER -->
+  <rect x="495" y="75" width="440" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="495" y="75" width="440" height="40" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="495" y="103" width="440" height="12" fill="#e9f7ef"/>
+  <line x1="495" y1="115" x2="935" y2="115" stroke="#27ae60" stroke-width="1.5"/>
+
+  <text x="715" y="100" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Захист резистивним дільником (3.0V RXD)</text>
+
+  <!-- USB-UART Block (Panel 2) -->
+  <rect x="512" y="130" width="100" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="562" y="150" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">USB-UART</text>
+  <text x="562" y="170" font-size="12" fill="#1a1a1a" text-anchor="middle">Вихід TX</text>
+  <text x="562" y="190" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_TX = 5.0 В</text>
+
+  <!-- Voltage Divider Resistor R1 -->
+  <line x1="612" y1="165" x2="622" y2="165" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="622" y="155" width="36" height="20" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="640" y="147" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R1 = 2.2 кОм</text>
+
+  <!-- Connection wire from R1 to Node_Div -->
+  <line x1="658" y1="165" x2="675" y2="165" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="675" cy="165" r="3.5" fill="#27ae60"/>
+
+  <text x="700" y="155" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">V_rx ≈ 3.0 В</text>
+
+  <!-- Shunt Resistor R2 to GND -->
+  <line x1="675" y1="165" x2="675" y2="185" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="665" y="185" width="20" height="36" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="657" y="210" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">R2 = 3.3 кОм</text>
+
+  <line x1="675" y1="221" x2="675" y2="235" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="665" y1="235" x2="685" y2="235" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="669" y1="239" x2="681" y2="239" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="673" y1="243" x2="677" y2="243" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Divided Output Wire to ESP8266 RXD -->
+  <path d="M 675 165 L 700 165 L 700 245 L 720 245" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- ESP8266 IC Diagram (Panel 2) -->
+  <rect x="720" y="130" width="205" height="230" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="822" y="152" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кристал ESP8266</text>
+
+  <!-- Internal Bus Rails (Panel 2) -->
+  <line x1="735" y1="180" x2="910" y2="180" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="822" y="172" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Шина VDD33 (3.3В)</text>
+
+  <line x1="735" y1="330" x2="910" y2="330" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="822" y="346" font-size="12" fill="#1a1a1a" text-anchor="middle">Земля GND (0В)</text>
+
+  <!-- RXD Input Node (Panel 2) -->
+  <circle cx="720" cy="245" r="4" fill="#27ae60"/>
+  <line x1="720" y1="245" x2="770" y2="245" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="770" cy="245" r="3.5" fill="#27ae60"/>
+  <text x="725" y="260" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">RXD (3.0В)</text>
+
+  <!-- Upper ESD Diode D_top (CLOSED / Green Dashed) -->
+  <line x1="770" y1="245" x2="770" y2="225" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <polygon points="764,225 776,225 770,200" fill="#27ae60" stroke="#27ae60"/>
+  <line x1="762" y1="200" x2="778" y2="200" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="770" y1="200" x2="770" y2="180" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 2"/>
+
+  <text x="785" y="208" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">D_top: ЗАКРИТИЙ</text>
+  <text x="785" y="224" font-size="12" fill="#6b7280" text-anchor="start">I_leak = 0 мА</text>
+
+  <!-- Lower ESD Diode D_bot (CLOSED / Gray Dashed) -->
+  <line x1="770" y1="245" x2="855" y2="245" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <line x1="855" y1="330" x2="855" y2="295" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <polygon points="849,295 861,295 855,270" fill="#6b7280" stroke="#6b7280"/>
+  <line x1="847" y1="270" x2="863" y2="270" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="855" y1="270" x2="855" y2="245" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 2"/>
+
+  <text x="845" y="282" font-size="12" fill="#6b7280" text-anchor="end">D_bot: ЗАКРИТИЙ</text>
+
+  <!-- Result Success Box (Panel 2) -->
+  <rect x="512" y="375" width="405" height="130" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="527" y="397" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">Результат: Безпечне узгодження рівнів</text>
+  <text x="527" y="420" font-size="12" fill="#1a1a1a" text-anchor="start">• Напруга V_rx ≈ 3.0 В безпечна для входу RXD</text>
+  <text x="527" y="442" font-size="12" fill="#1a1a1a" text-anchor="start">• Діод D_top закритий (V_rx &lt; VDD33 + 0.6 В)</text>
+  <text x="527" y="464" font-size="12" fill="#27ae60" text-anchor="start">• Гарантований штатний старт strapping pins</text>
+  <text x="527" y="486" font-size="12" fill="#27ae60" text-anchor="start">• Повна відсутність паразитного живлення чипа</text>
+</svg>
