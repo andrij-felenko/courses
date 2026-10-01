@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Самопрогрів PT100 та теплова рівновага</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">При I_ex &gt; 1 мА потужність P = I²R спричиняє експоненційне зростання похибки ΔT</text>
+
+  <!-- Left Panel: Graph -->
+  <rect x="30" y="75" width="465" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="262" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Залежність похибки ΔT від струму збудження I_ex</text>
+
+  <!-- Graph Y-axis Label -->
+  <text x="35" y="120" font-size="12" font-weight="bold" fill="#1a1a1a">Похибка ΔT (°C)</text>
+
+  <!-- Zones background -->
+  <rect x="120" y="135" width="60" height="260" fill="#e9f7ef"/>
+  <rect x="180" y="135" width="240" height="260" fill="#fdecea"/>
+
+  <!-- Grid lines -->
+  <line x1="120" y1="135" x2="420" y2="135" stroke="#d0d7de" stroke-dasharray="3 3"/>
+  <line x1="120" y1="200" x2="420" y2="200" stroke="#d0d7de" stroke-dasharray="3 3"/>
+  <line x1="120" y1="265" x2="420" y2="265" stroke="#d0d7de" stroke-dasharray="3 3"/>
+  <line x1="120" y1="330" x2="420" y2="330" stroke="#d0d7de" stroke-dasharray="3 3"/>
+
+  <!-- Main Axes -->
+  <line x1="120" y1="135" x2="120" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="120" y1="395" x2="420" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Y Ticks & Labels -->
+  <text x="110" y="139" font-size="12" fill="#6b7280" text-anchor="end">2.0</text>
+  <text x="110" y="204" font-size="12" fill="#6b7280" text-anchor="end">1.5</text>
+  <text x="110" y="269" font-size="12" fill="#6b7280" text-anchor="end">1.0</text>
+  <text x="110" y="334" font-size="12" fill="#6b7280" text-anchor="end">0.5</text>
+  <text x="110" y="399" font-size="12" fill="#6b7280" text-anchor="end">0.0</text>
+
+  <!-- Boundary Line (I = 1 mA) -->
+  <line x1="180" y1="135" x2="180" y2="395" stroke="#2457d6" stroke-width="2" stroke-dasharray="4 4"/>
+  <text x="180" y="120" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Межа 1.0 мА</text>
+
+  <!-- X Ticks & Labels -->
+  <text x="120" y="413" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="180" y="413" font-size="12" fill="#6b7280" text-anchor="middle">1.0</text>
+  <text x="240" y="413" font-size="12" fill="#6b7280" text-anchor="middle">2.0</text>
+  <text x="300" y="413" font-size="12" fill="#6b7280" text-anchor="middle">3.0</text>
+  <text x="360" y="413" font-size="12" fill="#6b7280" text-anchor="middle">4.0</text>
+  <text x="420" y="413" font-size="12" fill="#6b7280" text-anchor="middle">5.0</text>
+
+  <!-- X Axis Title -->
+  <text x="270" y="435" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Струм збудження I_ex (мА)</text>
+
+  <!-- Curves -->
+  <!-- Air Curve (Red) -->
+  <path d="M 120,395 C 160,392 200,380 240,361 C 280,340 290,330 300,319 C 340,285 390,230 420,184" fill="none" stroke="#c0392b" stroke-width="3"/>
+
+  <!-- Liquid Curve (Green) -->
+  <path d="M 120,395 L 180,394 L 240,391 L 300,387 L 360,380 L 420,372" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Curve Labels -->
+  <text x="195" y="160" font-size="12" font-weight="bold" fill="#c0392b">У повітрі (R_th ≈ 400 K/W)</text>
+  <text x="195" y="176" font-size="12" fill="#6b7280">Стрімке зростання P = I²R</text>
+
+  <text x="415" y="344" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">У рідині</text>
+  <text x="415" y="356" font-size="12" fill="#6b7280" text-anchor="end">R_th ≈ 40 K/W</text>
+  <text x="415" y="368" font-size="12" fill="#6b7280" text-anchor="end">Ефективний тепловідвід</text>
+
+  <!-- Bottom Cards inside Panel 1 -->
+  <rect x="45" y="452" width="150" height="38" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="120" y="467" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Оптимальна зона</text>
+  <text x="120" y="482" font-size="12" fill="#1a1a1a" text-anchor="middle">I ≤ 1 мА (ΔT &lt; 0.1 °C)</text>
+
+  <rect x="210" y="452" width="270" height="38" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="345" y="467" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зона самопрогріву</text>
+  <text x="345" y="482" font-size="12" fill="#1a1a1a" text-anchor="middle">Експоненційне зростання похибки</text>
+
+  <!-- Right Panel: Thermal Model -->
+  <rect x="510" y="75" width="420" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="720" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Теплова модель рівноваги датчика</text>
+
+  <!-- Block 1: Power Source -->
+  <rect x="530" y="120" width="380" height="105" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="720" y="140" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Генерація тепла струмом збудження</text>
+  <text x="545" y="165" font-size="12" fill="#1a1a1a">I_ex — струм збудження (0.1...1 мА)</text>
+  <text x="545" y="185" font-size="12" fill="#1a1a1a">R_pt — опір платини (100 Ω при 0°C)</text>
+  <text x="545" y="207" font-size="12" fill="#1a1a1a">Джоулева потужність: <tspan font-weight="bold" fill="#c0392b">P_joule = I_ex² · R_pt</tspan></text>
+
+  <!-- Downward Arrow -->
+  <line x1="720" y1="225" x2="720" y2="250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="735" y="242" font-size="12" font-weight="bold" fill="#2457d6">Потік тепла P</text>
+
+  <!-- Block 2: Equilibrium -->
+  <rect x="530" y="255" width="380" height="105" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="720" y="275" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Умова теплової рівноваги (P_joule = Q_diss)</text>
+  <rect x="545" y="287" width="350" height="30" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="720" y="307" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">ΔT = P_joule · R_th = I_ex² · R_pt · R_th</text>
+  <text x="720" y="342" font-size="12" fill="#6b7280" text-anchor="middle">R_th — тепловий опір передачі тепла у довкілля (K/W)</text>
+
+  <!-- Bottom Row: Media comparison -->
+  <rect x="530" y="375" width="182" height="112" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="621" y="395" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Повітря (нерухоме)</text>
+  <text x="540" y="417" font-size="12" fill="#1a1a1a">Низький тепловідвід</text>
+  <text x="540" y="437" font-size="12" fill="#1a1a1a">R_th ≈ 200–500 K/W</text>
+  <text x="540" y="457" font-size="12" fill="#1a1a1a">S ≈ 2–5 mW/°C</text>
+  <text x="540" y="477" font-size="12" font-weight="bold" fill="#c0392b">Похибка: ВИСОКА</text>
+
+  <rect x="728" y="375" width="182" height="112" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="819" y="395" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Рідина / Протока</text>
+  <text x="738" y="417" font-size="12" fill="#1a1a1a">Високий тепловідвід</text>
+  <text x="738" y="437" font-size="12" fill="#1a1a1a">R_th ≈ 20–50 K/W</text>
+  <text x="738" y="457" font-size="12" fill="#1a1a1a">S ≈ 20–50 mW/°C</text>
+  <text x="738" y="477" font-size="12" font-weight="bold" fill="#27ae60">Похибка: НИЗЬКА</text>
+</svg>

@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Конструктивні типи платинових термоопорів PT100</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Дротяне виконання забезпечує високу стабільність, а тонкоплівкове — компактність і швидкий відгук</text>
+
+  <!-- Panel 1: Wire-Wound RTD -->
+  <rect x="30" y="85" width="435" height="405" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel 1 Header Badge -->
+  <rect x="45" y="100" width="405" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247" y="122" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">1. Дротяний термоопір (Wire-Wound)</text>
+
+  <!-- Panel 1 Graphic Representation -->
+  <!-- Lead Wires -->
+  <line x1="55" y1="200" x2="145" y2="200" stroke="#4b5563" stroke-width="2"/>
+  <line x1="55" y1="220" x2="145" y2="220" stroke="#4b5563" stroke-width="2"/>
+  <circle cx="145" cy="200" r="3" fill="#1a1a1a"/>
+  <circle cx="145" cy="220" r="3" fill="#1a1a1a"/>
+
+  <!-- Glass Glaze Outer Envelope -->
+  <rect x="130" y="170" width="230" height="80" rx="8" ry="8" fill="#60a5fa" fill-opacity="0.15" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+  <!-- Ceramic Core Body -->
+  <rect x="145" y="185" width="200" height="50" rx="4" ry="4" fill="#e2e8f0" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="145" y1="210" x2="345" y2="210" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4,2"/>
+
+  <!-- Platinum Wire Coil -->
+  <path d="M 160,200 C 160,175 175,175 175,200 C 175,225 190,225 190,200 C 190,175 205,175 205,200 C 205,225 220,225 220,200 C 220,175 235,175 235,200 C 235,225 250,225 250,200 C 250,175 265,175 265,200 C 265,225 280,225 280,200 C 280,175 295,175 295,200 C 295,225 310,225 310,200 C 310,175 325,175 325,200" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Panel 1 Pointer Lines -->
+  <!-- Lead wires pointer -->
+  <line x1="95" y1="162" x2="95" y2="192" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="95" y="154" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Вивідні провідники</text>
+
+  <!-- Glass glaze pointer -->
+  <line x1="265" y1="162" x2="265" y2="168" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="265" y="154" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Захисна скляна глазур</text>
+
+  <!-- Platinum coil pointer -->
+  <line x1="150" y1="275" x2="180" y2="225" stroke="#2457d6" stroke-width="1" marker-end="url(#arr-blue)"/>
+  <text x="150" y="292" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Платинова спіраль (Pt)</text>
+
+  <!-- Ceramic core pointer -->
+  <line x1="330" y1="275" x2="305" y2="238" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="330" y="292" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Керамічне осерді (Al₂O₃)</text>
+
+  <!-- Panel 1 Info Box -->
+  <rect x="45" y="315" width="405" height="160" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="338" font-size="13" font-weight="bold" fill="#1a1a1a">Особливості конструкції:</text>
+  <text x="60" y="362" font-size="12" fill="#1a1a1a">• Діапазон: -200 °C ... +850 °C (розширений)</text>
+  <text x="60" y="386" font-size="12" fill="#1a1a1a">• Найвища метрологічна стабільність та точність</text>
+  <text x="60" y="410" font-size="12" fill="#c0392b">• Чутливість до вібрацій та ударних навантажень</text>
+  <text x="60" y="434" font-size="12" fill="#6b7280">• Вища вартість (навивання платинового дроту)</text>
+  <text x="60" y="458" font-size="12" fill="#1a1a1a">• Використання: еталонні та високоточні датчики</text>
+
+
+  <!-- Panel 2: Thin-Film RTD -->
+  <rect x="495" y="85" width="435" height="405" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel 2 Header Badge -->
+  <rect x="510" y="100" width="405" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="712" y="122" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">2. Тонкоплівковий термоопір (Thin-Film)</text>
+
+  <!-- Panel 2 Graphic Representation -->
+  <!-- Lead Wires -->
+  <line x1="525" y1="207.5" x2="608" y2="207.5" stroke="#4b5563" stroke-width="2"/>
+  <line x1="525" y1="227.5" x2="608" y2="227.5" stroke="#4b5563" stroke-width="2"/>
+  <circle cx="608" cy="207.5" r="3" fill="#1a1a1a"/>
+  <circle cx="608" cy="227.5" r="3" fill="#1a1a1a"/>
+
+  <!-- Glass Passivation Layer -->
+  <rect x="630" y="187" width="160" height="28" rx="4" fill="#60a5fa" fill-opacity="0.25" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+  <!-- Upper Contact Pad -->
+  <rect x="608" y="200" width="18" height="15" rx="1" fill="#1e40af"/>
+
+  <!-- Ceramic Substrate Plate -->
+  <rect x="600" y="215" width="220" height="25" rx="3" fill="#e2e8f0" stroke="#9ca3af" stroke-width="1.5"/>
+
+  <!-- Lower Contact Pad -->
+  <rect x="608" y="220" width="18" height="15" rx="1" fill="#1e40af"/>
+
+  <!-- Thin-Film Platinum Meander -->
+  <path d="M 632,215 L 644,215 L 644,207 L 656,207 L 656,215 L 668,215 L 668,207 L 680,207 L 680,215 L 692,215 L 692,207 L 704,207 L 704,215 L 716,215 L 716,207 L 728,207 L 728,215 L 740,215 L 740,207 L 752,207 L 752,215 L 764,215 L 764,207 L 776,207 L 776,215 L 788,215" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Panel 2 Pointer Lines -->
+  <!-- Lead wires pointer -->
+  <line x1="560" y1="162" x2="560" y2="197" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="560" y="154" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Вивідні провідники</text>
+
+  <!-- Glass passivation pointer -->
+  <line x1="710" y1="162" x2="710" y2="182" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="710" y="154" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Захисний скляний шар</text>
+
+  <!-- Platinum meander pointer -->
+  <line x1="615" y1="275" x2="660" y2="210" stroke="#2457d6" stroke-width="1" marker-end="url(#arr-blue)"/>
+  <text x="615" y="292" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Платиновий шар (меандр)</text>
+
+  <!-- Ceramic substrate pointer -->
+  <line x1="795" y1="275" x2="775" y2="242" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="795" y="292" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Керамічна підкладка (Al₂O₃)</text>
+
+  <!-- Panel 2 Info Box -->
+  <rect x="510" y="315" width="405" height="160" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="525" y="338" font-size="13" font-weight="bold" fill="#1a1a1a">Особливості конструкції:</text>
+  <text x="525" y="362" font-size="12" fill="#1a1a1a">• Діапазон: -50 °C ... +500 °C (стандартний)</text>
+  <text x="525" y="386" font-size="12" fill="#27ae60">• Мініатюрні розміри (напр., 2.0×2.3 мм)</text>
+  <text x="525" y="410" font-size="12" fill="#27ae60">• Висока стійкість до вібрацій та ударів</text>
+  <text x="525" y="434" font-size="12" fill="#27ae60">• Низька теплова інерційність (швидкий відгук)</text>
+  <text x="525" y="458" font-size="12" fill="#1a1a1a">• Масове виробництво, доступна вартість</text>
+</svg>

@@ -1,0 +1,177 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Marker definitions -->
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header and Subheader -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема підключення та узгодження рівнів модуля A3144</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Вихід з відкритим колектором підтягується резистором R_pullup до логічного рівня МК (3.3 В або 5 В)</text>
+
+  <!-- LEFT PANEL: Module Schematics -->
+  <rect x="25" y="80" width="445" height="355" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="35" y="90" width="425" height="28" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="247.5" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Внутрішня схемотехніка модуля A3144</text>
+
+  <!-- Schematic Module Box -->
+  <rect x="45" y="130" width="320" height="230" fill="white" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6,4" rx="6"/>
+  <text x="55" y="148" font-size="12" font-weight="bold" fill="#6b7280">Плата модуля A3144</text>
+
+  <!-- Power Rails inside Module -->
+  <!-- VCC line (red) -->
+  <line x1="90" y1="170" x2="375" y2="170" stroke="#c0392b" stroke-width="2"/>
+  <text x="55" y="174" font-size="12" font-weight="bold" fill="#c0392b">VCC</text>
+  <!-- Wire from VCC rail to VCC pin -->
+  <line x1="375" y1="170" x2="375" y2="195" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- GND line (black) -->
+  <line x1="90" y1="335" x2="375" y2="335" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="55" y="339" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+  <!-- Wire from GND rail to GND pin -->
+  <line x1="375" y1="335" x2="375" y2="255" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- A3144 IC Chip Box -->
+  <rect x="60" y="210" width="90" height="90" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="105" y="235" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">A3144</text>
+  <text x="105" y="252" text-anchor="middle" font-size="12" fill="#6b7280">Елемент Холла</text>
+  <text x="105" y="270" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">+ NPN-вихід</text>
+
+  <!-- IC Connections -->
+  <line x1="105" y1="170" x2="105" y2="210" stroke="#c0392b" stroke-width="2"/>
+  <line x1="105" y1="300" x2="105" y2="335" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="150" y1="255" x2="345" y2="255" stroke="#2457d6" stroke-width="2"/>
+  <line x1="345" y1="255" x2="345" y2="315" stroke="#2457d6" stroke-width="2"/>
+  <line x1="345" y1="315" x2="375" y2="315" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Decoupling Capacitor Cf -->
+  <line x1="165" y1="170" x2="165" y2="228" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="155" y1="228" x2="175" y2="228" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="155" y1="236" x2="175" y2="236" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="165" y1="236" x2="165" y2="335" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="165" cy="170" r="3" fill="#c0392b"/>
+  <circle cx="165" cy="335" r="3" fill="#1a1a1a"/>
+  <text x="180" y="225" font-size="12" font-weight="bold" fill="#1a1a1a">C_f</text>
+  <text x="180" y="240" font-size="12" fill="#6b7280">0.1 мкФ</text>
+
+  <!-- Pull-up Resistor R_pullup -->
+  <line x1="230" y1="170" x2="230" y2="198" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="223" y="198" width="14" height="30" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="230" y1="228" x2="230" y2="255" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="230" cy="170" r="3" fill="#c0392b"/>
+  <circle cx="230" cy="255" r="3.5" fill="#2457d6"/>
+  <text x="244" y="208" font-size="12" font-weight="bold" fill="#2457d6">R_pullup</text>
+  <text x="244" y="223" font-size="12" fill="#2457d6">10 кОм</text>
+
+  <!-- Status LED and R_led -->
+  <line x1="305" y1="170" x2="305" y2="192" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="299" y="192" width="12" height="20" fill="white" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="305" y1="212" x2="305" y2="222" stroke="#6b7280" stroke-width="1.5"/>
+  <!-- LED Symbol -->
+  <polygon points="298,222 312,222 305,232" fill="#27ae60" stroke="#27ae60" stroke-width="1"/>
+  <line x1="298" y1="232" x2="312" y2="232" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="305" y1="232" x2="305" y2="255" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="305" cy="170" r="3" fill="#c0392b"/>
+  <circle cx="305" cy="255" r="3.5" fill="#2457d6"/>
+  <text x="318" y="208" font-size="12" fill="#6b7280">R_led</text>
+  <text x="318" y="228" font-size="12" font-weight="bold" fill="#27ae60">LED</text>
+
+  <!-- Module Output Terminal Header Block -->
+  <rect x="375" y="160" width="85" height="190" fill="white" stroke="#1a1a1a" stroke-width="1.5" rx="4"/>
+  <text x="417.5" y="178" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Виводи</text>
+  <circle cx="385" cy="195" r="5" fill="#c0392b"/>
+  <text x="397" y="199" font-size="12" font-weight="bold" fill="#c0392b">VCC</text>
+  <circle cx="385" cy="255" r="5" fill="#1a1a1a"/>
+  <text x="397" y="259" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+  <circle cx="385" cy="315" r="5" fill="#2457d6"/>
+  <text x="397" y="319" font-size="12" font-weight="bold" fill="#2457d6">OUT</text>
+
+  <!-- Explanatory note in Left Panel -->
+  <rect x="35" y="370" width="425" height="52" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="45" y="390" font-size="12" fill="#1a1a1a">• Магніт є: NPN відкритий &#x2192; OUT = 0 В (LOW)</text>
+  <text x="45" y="408" font-size="12" fill="#1a1a1a">• Немає магніту: NPN закритий &#x2192; OUT = VCC (HIGH)</text>
+
+  <!-- RIGHT PANEL: Wiring Options -->
+  <rect x="490" y="80" width="445" height="355" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+
+  <!-- SUB-PANEL 1: 3.3V Logic (ESP32) -->
+  <rect x="500" y="90" width="425" height="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="712.5" y="107" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Варіант 1: Логіка 3.3 В (ESP32 / STM32)</text>
+
+  <!-- Module Box 1 -->
+  <rect x="505" y="125" width="115" height="110" fill="white" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="562.5" y="143" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Модуль A3144</text>
+  <circle cx="610" cy="155" r="4" fill="#c0392b"/>
+  <text x="600" y="159" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">VCC</text>
+  <circle cx="610" cy="190" r="4" fill="#1a1a1a"/>
+  <text x="600" y="194" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+  <circle cx="610" cy="225" r="4" fill="#2457d6"/>
+  <text x="600" y="229" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">OUT</text>
+
+  <!-- ESP32 Box -->
+  <rect x="810" y="125" width="115" height="110" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="867.5" y="143" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ESP32 (3.3V)</text>
+  <circle cx="820" cy="155" r="4" fill="#c0392b"/>
+  <text x="830" y="159" font-size="12" font-weight="bold" fill="#c0392b">3V3</text>
+  <circle cx="820" cy="190" r="4" fill="#1a1a1a"/>
+  <text x="830" y="194" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+  <circle cx="820" cy="225" r="4" fill="#2457d6"/>
+  <text x="830" y="229" font-size="12" font-weight="bold" fill="#2457d6">GPIO21</text>
+
+  <!-- Wires for 3.3V -->
+  <line x1="610" y1="155" x2="820" y2="155" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="715" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Живлення 3.3 В</text>
+
+  <line x1="610" y1="190" x2="820" y2="190" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+  <text x="715" y="180" text-anchor="middle" font-size="12" fill="#6b7280">Спільна земля (GND)</text>
+
+  <line x1="610" y1="225" x2="820" y2="225" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="715" y="215" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Сигнал OUT (0 / 3.3 В)</text>
+
+  <!-- SUB-PANEL 2: 5V Logic (Arduino) -->
+  <rect x="500" y="275" width="425" height="26" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="712.5" y="292" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Варіант 2: Логіка 5 В (Arduino Uno / Nano)</text>
+
+  <!-- Module Box 2 -->
+  <rect x="505" y="310" width="115" height="110" fill="white" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="562.5" y="328" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Модуль A3144</text>
+  <circle cx="610" cy="340" r="4" fill="#c0392b"/>
+  <text x="600" y="344" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">VCC</text>
+  <circle cx="610" cy="375" r="4" fill="#1a1a1a"/>
+  <text x="600" y="379" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+  <circle cx="610" cy="410" r="4" fill="#27ae60"/>
+  <text x="600" y="414" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">OUT</text>
+
+  <!-- Arduino Box -->
+  <rect x="810" y="310" width="115" height="110" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="867.5" y="328" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Arduino (5V)</text>
+  <circle cx="820" cy="340" r="4" fill="#c0392b"/>
+  <text x="830" y="344" font-size="12" font-weight="bold" fill="#c0392b">5V</text>
+  <circle cx="820" cy="375" r="4" fill="#1a1a1a"/>
+  <text x="830" y="379" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+  <circle cx="820" cy="410" r="4" fill="#27ae60"/>
+  <text x="830" y="414" font-size="12" font-weight="bold" fill="#27ae60">Pin D2</text>
+
+  <!-- Wires for 5V -->
+  <line x1="610" y1="340" x2="820" y2="340" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="715" y="330" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Живлення 5 В</text>
+
+  <line x1="610" y1="375" x2="820" y2="375" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+  <text x="715" y="365" text-anchor="middle" font-size="12" fill="#6b7280">Спільна земля (GND)</text>
+
+  <line x1="610" y1="410" x2="820" y2="410" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="715" y="400" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Сигнал OUT (0 / 5 В)</text>
+</svg>

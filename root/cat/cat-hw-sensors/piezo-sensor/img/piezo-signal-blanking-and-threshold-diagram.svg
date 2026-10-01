@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 490" width="960" height="490" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="490" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Порогове детектування та часове блокування п'єзосигналу</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Інтервал t_blank відсікає згасаючі відбійні піки, запобігаючи повторним хибним спрацьовуванням</text>
+
+  <!-- Основна панель часової діаграми -->
+  <rect x="50" y="75" width="860" height="325" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+
+  <!-- Область інтервалу блокування (Blanking Time Region) -->
+  <rect x="235" y="90" width="345" height="295" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="5,4" rx="6"/>
+
+  <!-- Плашка заголовка інтервалу блокування -->
+  <rect x="250" y="100" width="315" height="26" fill="#27ae60" rx="4"/>
+  <text x="407" y="117" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Інтервал блокування t_blank (blanking time)</text>
+
+  <!-- Сітка та допоміжні лінії -->
+  <!-- Базова лінія (V_base) -->
+  <line x1="110" y1="340" x2="880" y2="340" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <rect x="115" y="348" width="92" height="22" fill="#ffffff" stroke="#d0d7de" rx="3"/>
+  <text x="118" y="363" text-anchor="start" font-size="12" fill="#6b7280">V_base (база)</text>
+
+  <!-- Поріг детектування (V_th) -->
+  <line x1="110" y1="210" x2="880" y2="210" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,4"/>
+  <rect x="115" y="182" width="76" height="22" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="120" y="197" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">Поріг V_th</text>
+
+  <!-- Осі координат -->
+  <!-- Вісь Y (Напруга) -->
+  <line x1="110" y1="375" x2="110" y2="95" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="68" y="93" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">U (В)</text>
+
+  <!-- Вісь X (Час) -->
+  <line x1="105" y1="340" x2="895" y2="340" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="895" y="362" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">Час t (мс)</text>
+
+  <!-- Сигнал п'єзодавача V_piezo(t) -->
+  <!-- Шлях осциляції п'єзодавача -->
+  <path d="M 110,340 
+           L 210,340 
+           Q 220,340 225,320 
+           L 235,210 
+           L 255,135 
+           Q 265,110 275,150 
+           L 300,365 
+           Q 310,385 320,350 
+           L 345,175 
+           Q 355,155 365,190 
+           L 395,355 
+           Q 405,370 415,345 
+           L 440,230 
+           Q 450,215 460,240 
+           L 485,348 
+           Q 495,358 505,342 
+           L 530,290 
+           Q 540,280 550,305 
+           L 580,340 
+           L 880,340" 
+        fill="none" stroke="#2457d6" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- Позначення сигналу V_piezo(t) -->
+  <rect x="730" y="308" width="135" height="24" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="737" y="324" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">Сигнал V_piezo(t)</text>
+
+  <!-- Точка первинного детектування (Перше перетинання V_th) -->
+  <line x1="235" y1="90" x2="235" y2="375" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="235" cy="210" r="6" fill="#27ae60" stroke="white" stroke-width="2"/>
+  
+  <!-- Картка Первинний удар -->
+  <rect x="118" y="125" width="105" height="44" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="5"/>
+  <text x="170" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Первинний удар</text>
+  <text x="170" y="159" text-anchor="middle" font-size="12" fill="#1a1a1a">ПОДІЯ ЗЧИТАНА</text>
+  <line x1="223" y1="160" x2="232" y2="202" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Повторний згасаючий пік усередині t_blank (Хибний пік) -->
+  <circle cx="345" cy="175" r="6" fill="#c0392b" stroke="white" stroke-width="2"/>
+  <!-- Перетинання порогу повторним піком -->
+  <circle cx="337" cy="210" r="4" fill="#c0392b"/>
+
+  <!-- Картка відсікання повторного піка -->
+  <rect x="375" y="135" width="175" height="44" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="5"/>
+  <text x="462" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Відбійний пік &gt; V_th</text>
+  <text x="462" y="169" text-anchor="middle" font-size="12" fill="#c0392b">ІГНОРУЄТЬСЯ (t_blank)</text>
+  <line x1="375" y1="157" x2="353" y2="171" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Завершення інтервалу блокування t_blank -->
+  <line x1="580" y1="90" x2="580" y2="375" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  
+  <!-- Картка Завершення блокування -->
+  <rect x="595" y="228" width="165" height="44" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="5"/>
+  <text x="677" y="245" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Кінець t_blank</text>
+  <text x="677" y="262" text-anchor="middle" font-size="12" fill="#1a1a1a">Драйвер відновлено</text>
+  <line x1="580" y1="250" x2="593" y2="250" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Нижня пояснювальна панель / Легенда -->
+  <rect x="50" y="415" width="860" height="50" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+
+  <!-- Блок 1 легенди: Первинне спрацьовування -->
+  <rect x="65" y="426" width="250" height="28" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <circle cx="80" cy="440" r="5" fill="#27ae60"/>
+  <text x="93" y="444" text-anchor="start" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">1. Поріг V_th:</tspan> запуск t_blank</text>
+
+  <!-- Блок 2 легенди: Блокування -->
+  <rect x="330" y="426" width="280" height="28" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <circle cx="345" cy="440" r="5" fill="#c0392b"/>
+  <text x="358" y="444" text-anchor="start" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#c0392b">2. Під час t_blank:</tspan> піки відсікаються</text>
+
+  <!-- Блок 3 легенди: Готовність -->
+  <rect x="625" y="426" width="270" height="28" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <circle cx="640" cy="440" r="5" fill="#2457d6"/>
+  <text x="653" y="444" text-anchor="start" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">3. Після t_blank:</tspan> готовність до подій</text>
+</svg>

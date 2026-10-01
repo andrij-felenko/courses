@@ -1,0 +1,202 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема захисту та узгодження п'єзодавача для ADC мікроконтролера</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Дільник зміщує baseline до V_CC/2, а діоди Шотткі з R_limit обмежують піки напруги в межах 0…V_CC</text>
+
+  <!-- ПАНЕЛЬ 1: П'єзодавач (Джерело) -->
+  <rect x="24" y="75" width="220" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="134" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. П'єзодавач</text>
+  <text x="134" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Генерує двополярні піки</text>
+
+  <!-- Символ п'єзоелемента -->
+  <!-- Сила / удар -->
+  <path d="M 44 250 L 78 250" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="60" y="240" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Удар F</text>
+
+  <!-- Ліва обкладка -->
+  <line x1="88" y1="230" x2="88" y2="270" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- П'єзокристал -->
+  <rect x="94" y="232" width="12" height="36" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Права обкладка -->
+  <line x1="112" y1="230" x2="112" y2="270" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- З'єднання п'єзодавача -->
+  <!-- Лівий вивід до GND -->
+  <path d="M 88 250 L 70 250 L 70 360 L 220 360" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Правий вивід до схеми -->
+  <path d="M 112 250 L 244 250" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Підписи п'єзодавача -->
+  <text x="100" y="290" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">П'єзодиск</text>
+  <text x="100" y="308" font-size="12" fill="#6b7280" text-anchor="middle">V_piezo = ±15 V</text>
+
+  <!-- Картка первинного сигналу -->
+  <rect x="40" y="325" width="188" height="135" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="134" y="344" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Незахищений сигнал</text>
+
+  <!-- Вісі графіка 1 -->
+  <line x1="55" y1="390" x2="213" y2="390" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="50" y="394" font-size="12" fill="#6b7280" text-anchor="end">0V</text>
+  <!-- Осцилограма 1 (згасаючі двополярні коливання) -->
+  <path d="M 60 390 Q 75 345, 90 390 T 120 390 T 150 390 T 180 390 T 210 390" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="134" y="446" font-size="12" fill="#c0392b" text-anchor="middle">⛔ Небезпечно для ADC!</text>
+
+
+  <!-- ПАНЕЛЬ 2: Обв'язка узгодження та захисту -->
+  <rect x="260" y="75" width="440" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Схема зміщення DC та обмежувача напруги</text>
+  <text x="480" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Зміщення до V_CC/2 = 1.65 В + зрізання піків діодами Шотткі</text>
+
+  <!-- Шини живлення та землі в схемах -->
+  <!-- Шина +3.3V (V_CC) -->
+  <line x1="375" y1="160" x2="550" y2="160" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="460" y="152" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+3.3V (V_CC)</text>
+
+  <!-- Земля (GND) -->
+  <line x1="244" y1="360" x2="700" y2="360" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Позначка GND -->
+  <path d="M 480 360 L 480 370 M 472 370 L 488 370 M 475 374 L 485 374 M 478 378 L 482 378" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="480" y="394" font-size="12" fill="#6b7280" text-anchor="middle">GND (0V)</text>
+
+  <!-- Основна сигнальна лінія -->
+  <line x1="244" y1="250" x2="420" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="480" y1="250" x2="700" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- 1. Шунтувальний резистор R_shunt (X = 295) -->
+  <line x1="295" y1="250" x2="295" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="288" y="280" width="14" height="40" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="295" y1="320" x2="295" y2="360" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Вузол на лінії -->
+  <circle cx="295" cy="250" r="3.5" fill="#1a1a1a"/>
+  <circle cx="295" cy="360" r="3.5" fill="#1a1a1a"/>
+  <!-- Підписи R_shunt -->
+  <text x="280" y="295" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">R_shunt</text>
+  <text x="280" y="312" font-size="12" fill="#6b7280" text-anchor="end">1 MΩ</text>
+
+  <!-- 2. Дільник зміщення R1, R2 (X = 375) -->
+  <!-- R1 (верхній) -->
+  <line x1="375" y1="160" x2="375" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="368" y="180" width="14" height="40" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="375" y1="220" x2="375" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- R2 (нижній) -->
+  <line x1="375" y1="250" x2="375" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="368" y="280" width="14" height="40" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="375" y1="320" x2="375" y2="360" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Вузли R1/R2 -->
+  <circle cx="375" cy="160" r="3.5" fill="#2457d6"/>
+  <circle cx="375" cy="250" r="3.5" fill="#2457d6"/>
+  <circle cx="375" cy="360" r="3.5" fill="#1a1a1a"/>
+  <!-- Підписи R1, R2 -->
+  <text x="360" y="195" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">R1</text>
+  <text x="360" y="212" font-size="12" fill="#6b7280" text-anchor="end">100 kΩ</text>
+  <text x="360" y="295" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">R2</text>
+  <text x="360" y="312" font-size="12" fill="#6b7280" text-anchor="end">100 kΩ</text>
+  <!-- Позначка V_bias -->
+  <text x="390" y="240" font-size="12" font-weight="bold" fill="#2457d6">V_bias = 1.65 V</text>
+
+  <!-- 3. Обмежувальний резистор R_limit (X = 420..480) -->
+  <rect x="420" y="243" width="60" height="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Підписи R_limit -->
+  <text x="450" y="235" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_limit (1...10 kΩ)</text>
+  <text x="450" y="273" font-size="12" fill="#6b7280" text-anchor="middle">обмежує струм</text>
+
+  <!-- 4. Захисні діоди Шотткі D1, D2 (X = 550) -->
+  <!-- Вузли на сигнальній лінії та шинах -->
+  <circle cx="550" cy="160" r="3.5" fill="#2457d6"/>
+  <circle cx="550" cy="250" r="3.5" fill="#27ae60"/>
+  <circle cx="550" cy="360" r="3.5" fill="#1a1a1a"/>
+
+  <!-- D2 (Верхній діод Шотткі до V_CC) -->
+  <line x1="550" y1="250" x2="550" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Діод трикутник -->
+  <polygon points="550,195 541,215 559,215" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- Катодний планар Шотткі -->
+  <path d="M 538 190 L 541 190 L 541 195 L 559 195 L 559 200 L 562 200" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="550" y1="195" x2="550" y2="160" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Підпис D2 -->
+  <text x="568" y="195" font-size="12" font-weight="bold" fill="#27ae60">D2 (Шотткі)</text>
+  <text x="568" y="210" font-size="12" fill="#6b7280">обрізає &gt; 3.6 V</text>
+
+  <!-- D1 (Нижній діод Шотткі від GND) -->
+  <line x1="550" y1="360" x2="550" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Діод трикутник -->
+  <polygon points="550,305 541,325 559,325" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- Катодний планар Шотткі -->
+  <path d="M 538 300 L 541 300 L 541 305 L 559 305 L 559 310 L 562 310" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="550" y1="305" x2="550" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Підпис D1 -->
+  <text x="568" y="305" font-size="12" font-weight="bold" fill="#27ae60">D1 (Шотткі)</text>
+  <text x="568" y="320" font-size="12" fill="#6b7280">обрізає &lt; -0.3 V</text>
+
+  <!-- 5. Фільтруючий конденсатор Cf (X = 675) -->
+  <line x1="675" y1="250" x2="675" y2="295" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Обкладки конденсатора -->
+  <line x1="665" y1="295" x2="685" y2="295" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="665" y1="305" x2="685" y2="305" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="675" y1="305" x2="675" y2="360" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="675" cy="250" r="3.5" fill="#1a1a1a"/>
+  <circle cx="675" cy="360" r="3.5" fill="#1a1a1a"/>
+  <!-- Підписи Cf (зліва від Cf) -->
+  <text x="660" y="295" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Cf</text>
+  <text x="660" y="312" font-size="12" fill="#6b7280" text-anchor="end">10 nF</text>
+
+
+  <!-- ПАНЕЛЬ 3: Вхід ADC мікроконтролера -->
+  <rect x="716" y="75" width="220" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="826" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Вхід ADC MCU</text>
+  <text x="826" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Безпечний аналоговий сигнал</text>
+
+  <!-- Блок Мікроконтролера -->
+  <rect x="735" y="140" width="182" height="170" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <rect x="735" y="140" width="182" height="32" rx="6" fill="#eaf0fd"/>
+  <text x="826" y="161" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Мікроконтролер (MCU)</text>
+
+  <!-- Внутрішня плашка ADC pinu -->
+  <rect x="740" y="238" width="38" height="24" rx="4" fill="#2457d6"/>
+  <text x="759" y="254" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">ADC</text>
+  <line x1="700" y1="250" x2="740" y2="250" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+
+  <!-- Всередині блоку MCU -->
+  <text x="830" y="196" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Аналоговий вхід A0</text>
+  <text x="830" y="218" font-size="12" fill="#6b7280" text-anchor="middle">Вхідний опір R_in &gt; 10 MΩ</text>
+  <text x="830" y="240" font-size="12" fill="#6b7280" text-anchor="middle">Робочий діапазон: 0...3.3 V</text>
+  <text x="830" y="262" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">Захищено від Latch-Up</text>
+  <text x="830" y="290" font-size="12" fill="#2457d6" text-anchor="middle">Baseline = V_CC/2</text>
+
+  <!-- Картка нормалізованого сигналу -->
+  <rect x="732" y="325" width="188" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="826" y="344" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Нормалізований сигнал</text>
+
+  <!-- Вісі графіка 2 -->
+  <!-- 3.3V верхня лінія -->
+  <line x1="747" y1="365" x2="905" y2="365" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="742" y="369" font-size="12" fill="#27ae60" text-anchor="end">3.3V</text>
+  <!-- 1.65V середня лінія -->
+  <line x1="747" y1="395" x2="905" y2="395" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="742" y="399" font-size="12" fill="#2457d6" text-anchor="end">1.65V</text>
+  <!-- 0V нижня лінія -->
+  <line x1="747" y1="425" x2="905" y2="425" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="742" y="429" font-size="12" fill="#6b7280" text-anchor="end">0V</text>
+
+  <!-- Осцилограма 2 (обмежена між 0V та 3.3V навколо 1.65V) -->
+  <path d="M 750 395 Q 765 365, 780 395 T 810 395 T 840 395 T 870 395 T 900 395" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="826" y="446" font-size="12" fill="#27ae60" text-anchor="middle">✓ Безпечно 0...3.3 В</text>
+</svg>

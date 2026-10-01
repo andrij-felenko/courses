@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-error" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-ok" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура та потік даних прошивкового драйвера PT100</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Перетворення аналогового сигналу через AFE та АЦП у лінеаризовану температуру й діагностику</text>
+
+  <!-- CONTAINER 1: HARDWARE LAYER -->
+  <rect x="25" y="70" width="240" height="425" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="25" y="70" width="240" height="32" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="145" y="91" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">АПАРАТНИЙ РІВЕНЬ (AFE &amp; АЦП)</text>
+
+  <!-- Block 1.1: Sensor -->
+  <rect x="35" y="112" width="220" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="145" y="132" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Давач PT100 (RTD)</text>
+  <text x="145" y="152" font-size="12" fill="#6b7280" text-anchor="middle">Схема: 2-, 3- або 4-провідна</text>
+  <text x="145" y="172" font-size="12" fill="#1a1a1a" text-anchor="middle">V_RTD = I_exc × R_PT100(T)</text>
+
+  <!-- Arrow 1.1 -> 1.2 -->
+  <line x1="145" y1="187" x2="145" y2="211" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="155" y="204" font-size="12" fill="#6b7280" text-anchor="start">V_RTD, V_ref</text>
+
+  <!-- Block 1.2: AFE -->
+  <rect x="35" y="211" width="220" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="145" y="231" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Аналоговий фронтенд (AFE)</text>
+  <text x="145" y="250" font-size="12" fill="#6b7280" text-anchor="middle">Джерело струму I_exc (0.1–1 мА)</text>
+  <text x="145" y="269" font-size="12" fill="#6b7280" text-anchor="middle">Еталонний резистор R_ref</text>
+  <text x="145" y="288" font-size="12" fill="#1a1a1a" text-anchor="middle">Фільтрація &amp; PGA посилення</text>
+
+  <!-- Arrow 1.2 -> 1.3 -->
+  <line x1="145" y1="296" x2="145" y2="320" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="155" y="313" font-size="12" fill="#6b7280" text-anchor="start">Диф. сигнал</text>
+
+  <!-- Block 1.3: ADC -->
+  <rect x="35" y="320" width="220" height="164" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="145" y="342" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">24-біт Sigma-Delta АЦП</text>
+  <text x="145" y="364" font-size="12" fill="#6b7280" text-anchor="middle">Відносне вимірювання</text>
+  <text x="145" y="386" font-size="12" fill="#6b7280" text-anchor="middle">(Ratiometric measurement)</text>
+  <text x="145" y="408" font-size="12" fill="#1a1a1a" text-anchor="middle">ADC_raw ∝ R_PT100 / R_ref</text>
+  <text x="145" y="430" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вихід: ADC_raw (код)</text>
+
+  <!-- CONTAINER 2: DRIVER LAYER -->
+  <rect x="335" y="70" width="310" height="425" rx="8" ry="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <rect x="335" y="70" width="310" height="32" rx="8" fill="#2457d6" stroke="#2457d6" stroke-width="2"/>
+  <text x="490" y="91" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">ДРАЙВЕР PT100 (C-Driver Layer)</text>
+
+  <!-- Block 2.0: Config -->
+  <rect x="345" y="112" width="290" height="70" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <text x="490" y="131" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Конфігурація pt100_config_t</text>
+  <text x="490" y="150" font-size="12" fill="#1a1a1a" text-anchor="middle">Параметри: R_ref, I_exc, wire_mode (2/3/4)</text>
+  <text x="490" y="169" font-size="12" fill="#1a1a1a" text-anchor="middle">Коефіцієнти CVD: A, B, C, R0 (100 Ом)</text>
+
+  <!-- Dashed line Config -> Processing -->
+  <line x1="490" y1="182" x2="490" y2="206" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 2"/>
+  <text x="500" y="199" font-size="12" fill="#6b7280" text-anchor="start">cfg</text>
+
+  <!-- Block 2.1: Fault detection -->
+  <rect x="345" y="206" width="290" height="70" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="490" y="226" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Перевірка меж &amp; Детекція аварій</text>
+  <text x="490" y="245" font-size="12" fill="#1a1a1a" text-anchor="middle">Виявлення: обрив щупа, КЗ, зсув I_exc</text>
+  <text x="490" y="264" font-size="12" fill="#c0392b" text-anchor="middle">При збої: повернення PT100_ERR_*</text>
+
+  <!-- Line 2.1 -> 2.2 -->
+  <line x1="490" y1="276" x2="490" y2="300" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <text x="500" y="293" font-size="12" fill="#27ae60" text-anchor="start">OK</text>
+
+  <!-- Block 2.2: Filter & R -->
+  <rect x="345" y="300" width="290" height="70" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="490" y="320" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Фільтрація &amp; Обчислення R_RTD</text>
+  <text x="490" y="339" font-size="12" fill="#6b7280" text-anchor="middle">Фільтр: скользяче середнє / EMA</text>
+  <text x="490" y="358" font-size="12" fill="#2457d6" text-anchor="middle">R_RTD = R_ref × (ADC_filt / ADC_max)</text>
+
+  <!-- Line 2.2 -> 2.3 -->
+  <line x1="490" y1="370" x2="490" y2="394" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <text x="500" y="387" font-size="12" fill="#2457d6" text-anchor="start">R_RTD</text>
+
+  <!-- Block 2.3: CVD Linearization -->
+  <rect x="345" y="394" width="290" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="490" y="414" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">3. pt100_read_temperature_c()</text>
+  <text x="490" y="433" font-size="12" fill="#1a1a1a" text-anchor="middle">Рівняння CVD: R(T) = R0(1 + AT + BT²)</text>
+  <text x="490" y="452" font-size="12" fill="#6b7280" text-anchor="middle">Компенсація опору ліній (R_wire)</text>
+  <text x="490" y="471" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Результат: T (°C) зі статусом OK</text>
+
+  <!-- CONTAINER 3: APPLICATION LAYER -->
+  <rect x="715" y="70" width="220" height="425" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="715" y="70" width="220" height="32" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="825" y="91" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ПРИКЛАДНИЙ ШАР</text>
+
+  <!-- Block 3.1: Fault Handler -->
+  <rect x="725" y="206" width="200" height="70" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="825" y="226" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Обробка аварій</text>
+  <text x="825" y="245" font-size="12" fill="#1a1a1a" text-anchor="middle">PT100_ERR_OPEN / SHORT</text>
+  <text x="825" y="264" font-size="12" fill="#6b7280" text-anchor="middle">Аварійний режим / Тривога</text>
+
+  <!-- Block 3.2: App Core -->
+  <rect x="725" y="394" width="200" height="90" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="825" y="414" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Прикладна логіка</text>
+  <text x="825" y="433" font-size="12" fill="#1a1a1a" text-anchor="middle">Отримано температуру T (°C)</text>
+  <text x="825" y="452" font-size="12" fill="#6b7280" text-anchor="middle">PID-регулювання / Моніторинг</text>
+
+  <!-- Inter-container Arrows -->
+  <!-- ADC -> Block 2.1 -->
+  <polyline points="255,430 300,430 300,241 345,241" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <text x="320" y="233" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ADC_raw</text>
+
+  <!-- Block 2.1 -> Block 3.1 (Error) -->
+  <line x1="635" y1="241" x2="725" y2="241" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 2" marker-end="url(#arr-error)"/>
+  <text x="680" y="233" font-size="12" fill="#c0392b" text-anchor="middle">Помилка</text>
+
+  <!-- Block 2.3 -> Block 3.2 (OK) -->
+  <line x1="635" y1="439" x2="725" y2="439" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-ok)"/>
+  <text x="680" y="431" font-size="12" fill="#27ae60" text-anchor="middle">T (°C)</text>
+</svg>

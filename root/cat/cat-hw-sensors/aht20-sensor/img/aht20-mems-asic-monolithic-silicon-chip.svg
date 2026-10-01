@@ -1,0 +1,49 @@
+<svg viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Монолітний кремнієвий кристал AHT20 другого покоління</text>
+  <text x="480" y="65" font-size="13" fill="#6b7280" text-anchor="middle">Об'єднання ємнісного MEMS, датчика температури та ASIC на єдиній підкладці 3x3 мм</text>
+
+  <!-- Monolithic Substrate (Silicon Die) -->
+  <rect x="40" y="100" width="880" height="290" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="480" y="130" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Єдина кремнієва підкладка (Monolithic Silicon Substrate)</text>
+
+  <!-- Block 1: MEMS Capacitive Sensor -->
+  <rect x="70" y="160" width="250" height="150" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="195" y="190" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Ємнісний MEMS-сенсор</text>
+  <rect x="85" y="210" width="220" height="50" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="195" y="232" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Полімерний діелектрик</text>
+  <text x="195" y="250" font-size="11" fill="#2457d6" text-anchor="middle">Мікровологозахисне покриття</text>
+  <text x="195" y="295" font-size="12" fill="#6b7280" text-anchor="middle">Висока стабільність нульової точки</text>
+
+  <!-- Block 2: Semiconductor Temp Sensor -->
+  <rect x="350" y="160" width="250" height="150" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="475" y="190" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Датчик температури</text>
+  <rect x="365" y="210" width="220" height="50" rx="4" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="475" y="232" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">P-N перехід на кристалі</text>
+  <text x="475" y="250" font-size="11" fill="#c0392b" text-anchor="middle">Пряма компенсація T(RH)</text>
+  <text x="475" y="295" font-size="12" fill="#6b7280" text-anchor="middle">Висока точність ±0.3°C</text>
+
+  <!-- Block 3: Integrated ASIC Core -->
+  <rect x="630" y="160" width="260" height="150" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="760" y="190" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Інтегроване ядро ASIC</text>
+  <rect x="645" y="210" width="230" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="760" y="232" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">20-біт АЦП + OTP Пам'ять</text>
+  <text x="760" y="250" font-size="11" fill="#27ae60" text-anchor="middle">Контролер I2C (0x38)</text>
+  <text x="760" y="295" font-size="12" fill="#6b7280" text-anchor="middle">Заводське калібрування в ромбі</text>
+
+  <!-- On-chip interconnect lines -->
+  <line x1="320" y1="235" x2="350" y2="235" stroke="#27ae60" stroke-width="2"/>
+  <line x1="600" y1="235" x2="630" y2="235" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Footer Info -->
+  <text x="480" y="425" font-size="12" fill="#6b7280" text-anchor="middle">Монолітна інтеграція мінімізує деградацію діелектрика та забезпечує довгострокову точність AHT20</text>
+</svg>

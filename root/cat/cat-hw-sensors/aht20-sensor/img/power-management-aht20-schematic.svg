@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема керування живленням давача AHT20 через GPIO / MOSFET ключ</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Ключ перериває кола VDD та Pull-Up, усуваючи витоки струму в Deep Sleep</text>
+
+  <!-- MCU Box -->
+  <rect x="40" y="100" width="220" height="300" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="150" y="130" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер</text>
+  <text x="150" y="150" font-size="12" fill="#6b7280" text-anchor="middle">(ESP32 / STM32)</text>
+
+  <rect x="60" y="180" width="180" height="40" rx="4" fill="white" stroke="#2457d6"/>
+  <text x="150" y="205" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">GPIO_PWR_EN</text>
+
+  <rect x="60" y="250" width="180" height="40" rx="4" fill="white" stroke="#27ae60"/>
+  <text x="150" y="275" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">I2C SDA</text>
+
+  <rect x="60" y="320" width="180" height="40" rx="4" fill="white" stroke="#27ae60"/>
+  <text x="150" y="345" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">I2C SCL</text>
+
+  <!-- Power Switch (P-MOSFET / LDO) -->
+  <rect x="340" y="150" width="240" height="100" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="460" y="180" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Power Switch (P-FET)</text>
+  <text x="460" y="205" font-size="12" fill="#1a1a1a" text-anchor="middle">Знеструмлення VDD_SENS</text>
+  <text x="460" y="230" font-size="12" fill="#6b7280" text-anchor="middle">I_leakage &lt; 0.01 µA</text>
+
+  <!-- Arrow GPIO_PWR_EN -> Power Switch -->
+  <path d="M 240 200 L 340 200" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="290" y="190" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Керування</text>
+
+  <!-- Switched Power Bus & Pull-ups -->
+  <rect x="380" y="280" width="160" height="120" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="460" y="305" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Коло підтяжки</text>
+  <text x="460" y="330" font-size="12" fill="#1a1a1a" text-anchor="middle">R_pullup (3.3k)</text>
+  <text x="460" y="355" font-size="12" fill="#1a1a1a" text-anchor="middle">C_filter (100nF)</text>
+  <text x="460" y="380" font-size="12" fill="#6b7280" text-anchor="middle">від VDD_SENS</text>
+
+  <!-- Connection Switch -> Switched Power Bus -->
+  <path d="M 460 250 L 460 280" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Sensor Box -->
+  <rect x="680" y="140" width="240" height="260" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="800" y="170" font-size="16" font-weight="bold" fill="#27ae60" text-anchor="middle">Давач AHT20</text>
+  <text x="800" y="190" font-size="12" fill="#6b7280" text-anchor="middle">(SMD-6 / QFN-6)</text>
+
+  <rect x="700" y="210" width="200" height="35" rx="4" fill="white" stroke="#2457d6"/>
+  <text x="800" y="233" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Pin 2: VDD_SENS</text>
+
+  <rect x="700" y="260" width="200" height="35" rx="4" fill="white" stroke="#27ae60"/>
+  <text x="800" y="283" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Pin 3: SDA</text>
+
+  <rect x="700" y="310" width="200" height="35" rx="4" fill="white" stroke="#27ae60"/>
+  <text x="800" y="333" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Pin 5: SCL</text>
+
+  <rect x="700" y="360" width="200" height="30" rx="4" fill="white" stroke="#6b7280"/>
+  <text x="800" y="380" font-size="12" fill="#6b7280" text-anchor="middle">Pin 4: GND</text>
+
+  <!-- Power Connection to Sensor -->
+  <path d="M 580 200 L 700 227" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- I2C Data lines -->
+  <path d="M 240 270 L 700 277" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M 240 340 L 700 327" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+</svg>

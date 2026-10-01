@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Ефект Холла: відхилення носіїв заряду та виникнення напруги Vh</text>
+  <text x="480" y="56" font-size="13" text-anchor="middle" fill="#6b7280">Магнітне поле B створює силу Лоренца FL, яка зміщує електрони e⁻ до краю пластини</text>
+
+  <!-- LEFT PANEL: Conditions & Vectors -->
+  <rect x="30" y="85" width="190" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="125" y="110" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Умови та вектори</text>
+  <line x1="45" y1="120" x2="205" y2="120" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Left Item 1: Current I -->
+  <rect x="45" y="132" width="24" height="24" rx="4" fill="#eaf0fd"/>
+  <text x="57" y="149" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">I</text>
+  <text x="78" y="148" font-size="12" font-weight="bold" fill="#1a1a1a">Струм I</text>
+  <text x="45" y="172" font-size="12" fill="#6b7280">Потік носіїв заряду</text>
+  <text x="45" y="188" font-size="12" fill="#6b7280">вдовж пластини</text>
+
+  <!-- Left Item 2: Magnetic Field B -->
+  <rect x="45" y="210" width="24" height="24" rx="4" fill="#eaf0fd"/>
+  <text x="57" y="227" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">B</text>
+  <text x="78" y="226" font-size="12" font-weight="bold" fill="#1a1a1a">Поле B</text>
+  <text x="45" y="250" font-size="12" fill="#6b7280">Перпендикулярне</text>
+  <text x="45" y="266" font-size="12" fill="#6b7280">до площини пластини</text>
+
+  <!-- Left Item 3: Lorentz Force FL -->
+  <rect x="45" y="288" width="24" height="24" rx="4" fill="#fdecea"/>
+  <text x="57" y="305" font-size="11" font-weight="bold" text-anchor="middle" fill="#c0392b">FL</text>
+  <text x="78" y="304" font-size="12" font-weight="bold" fill="#1a1a1a">Сила Лоренца FL</text>
+  <text x="45" y="328" font-size="12" fill="#6b7280">Діє на рухомі e⁻</text>
+  <text x="45" y="344" font-size="12" fill="#6b7280">FL = q · (v × B)</text>
+  <text x="45" y="360" font-size="12" fill="#6b7280">Відхиляє їх до бічної</text>
+  <text x="45" y="376" font-size="12" fill="#6b7280">грані пластини</text>
+
+
+  <!-- RIGHT PANEL: Effect Result -->
+  <rect x="740" y="85" width="190" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="835" y="110" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Результат ефекту</text>
+  <line x1="755" y1="120" x2="915" y2="120" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Right Item 1: Charge Gradient -->
+  <rect x="755" y="132" width="24" height="24" rx="4" fill="#fdecea"/>
+  <text x="767" y="149" font-size="14" font-weight="bold" text-anchor="middle" fill="#c0392b">-</text>
+  <text x="788" y="148" font-size="12" font-weight="bold" fill="#1a1a1a">Градієнт заряду</text>
+  <text x="755" y="172" font-size="12" fill="#6b7280">Ближній край: e⁻ (-)</text>
+  <text x="755" y="188" font-size="12" fill="#6b7280">Дальній край: іони (+)</text>
+
+  <!-- Right Item 2: Hall Voltage Vh -->
+  <rect x="755" y="210" width="24" height="24" rx="4" fill="#e9f7ef"/>
+  <text x="767" y="227" font-size="11" font-weight="bold" text-anchor="middle" fill="#27ae60">Vh</text>
+  <text x="788" y="226" font-size="12" font-weight="bold" fill="#1a1a1a">Напруга Холла Vh</text>
+  <text x="755" y="248" font-size="12" fill="#6b7280">Різниця потенціалів</text>
+  <text x="755" y="264" font-size="12" fill="#6b7280">між гранями пластини:</text>
+
+  <!-- Formula Box -->
+  <rect x="755" y="274" width="160" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="835" y="295" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Vh = RH · (I · B / d)</text>
+
+  <!-- Right Item 3: Balance -->
+  <text x="755" y="334" font-size="12" fill="#6b7280">Електричне поле Fe</text>
+  <text x="755" y="350" font-size="12" fill="#6b7280">урівноважує силу</text>
+  <text x="755" y="366" font-size="12" fill="#6b7280">Лоренца FL</text>
+
+
+  <!-- CENTRAL DIAGRAM: SEMICONDUCTOR PLATE AND VECTORS -->
+
+  <!-- B-field Label Box -->
+  <rect x="390" y="72" width="180" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="89" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Вектор B (Магнітне поле)</text>
+
+  <!-- Magnetic Field B Lines (vertical arrows on left and right sides) -->
+  <!-- Left B Vector -->
+  <line x1="320" y1="325" x2="320" y2="285" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="320" y1="285" x2="320" y2="215" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="320" y1="215" x2="320" y2="108" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Right B Vector -->
+  <line x1="640" y1="325" x2="640" y2="285" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="640" y1="285" x2="640" y2="215" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="640" y1="215" x2="640" y2="108" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Labels in the central open area above plate -->
+  <text x="480" y="148" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Напівпровідникова пластина (n-тип)</text>
+  <text x="480" y="192" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Позитивний потенціал (+)</text>
+
+  <!-- 3D Semiconductor Plate -->
+  <!-- Top Face -->
+  <polygon points="340,215 620,215 560,285 280,285" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <!-- Front Face -->
+  <polygon points="280,285 560,285 560,318 280,318" fill="#d4e2fb" stroke="#2457d6" stroke-width="2"/>
+  <!-- Right Side Face -->
+  <polygon points="560,285 620,215 620,248 560,318" fill="#b9d1f9" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Electron Drift Motion & Trajectory inside plate -->
+  <path d="M 530,235 Q 450,245 350,280" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <path d="M 510,248 Q 440,258 390,280" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+  <!-- Electron Drift Velocity Vector Arrow (vd) -->
+  <line x1="510" y1="255" x2="430" y2="255" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="470" y="246" font-size="11" font-weight="bold" text-anchor="middle" fill="#c0392b">vd (дрейф e⁻)</text>
+
+  <!-- Current I Arrows & Labels -->
+  <!-- Input Current Left -->
+  <line x1="205" y1="260" x2="265" y2="260" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="235" y="248" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Струм I</text>
+
+  <!-- Output Current Right -->
+  <line x1="575" y1="260" x2="635" y2="260" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="660" y="248" font-size="13" font-weight="bold" fill="#2457d6">Струм I</text>
+
+  <!-- Lorentz Force Vector (FL) Arrow -->
+  <line x1="410" y1="255" x2="370" y2="278" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="315" y="295" font-size="12" font-weight="bold" fill="#c0392b">Сила Лоренца FL</text>
+
+  <!-- Positive Charge Markers (+) on Back Edge -->
+  <g id="pos-charges">
+    <circle cx="365" cy="215" r="7" fill="#27ae60"/>
+    <text x="365" y="219" font-size="11" font-weight="bold" text-anchor="middle" fill="white">+</text>
+    <circle cx="405" cy="215" r="7" fill="#27ae60"/>
+    <text x="405" y="219" font-size="11" font-weight="bold" text-anchor="middle" fill="white">+</text>
+    <circle cx="445" cy="215" r="7" fill="#27ae60"/>
+    <text x="445" y="219" font-size="11" font-weight="bold" text-anchor="middle" fill="white">+</text>
+    <circle cx="485" cy="215" r="7" fill="#27ae60"/>
+    <text x="485" y="219" font-size="11" font-weight="bold" text-anchor="middle" fill="white">+</text>
+    <circle cx="525" cy="215" r="7" fill="#27ae60"/>
+    <text x="525" y="219" font-size="11" font-weight="bold" text-anchor="middle" fill="white">+</text>
+    <circle cx="565" cy="215" r="7" fill="#27ae60"/>
+    <text x="565" y="219" font-size="11" font-weight="bold" text-anchor="middle" fill="white">+</text>
+    <circle cx="595" cy="215" r="7" fill="#27ae60"/>
+    <text x="595" y="219" font-size="11" font-weight="bold" text-anchor="middle" fill="white">+</text>
+  </g>
+
+  <!-- Negative Charge Markers (-) on Front Edge -->
+  <g id="neg-charges">
+    <circle cx="310" cy="285" r="7" fill="#c0392b"/>
+    <text x="310" y="289" font-size="11" font-weight="bold" text-anchor="middle" fill="white">-</text>
+    <circle cx="350" cy="285" r="7" fill="#c0392b"/>
+    <text x="350" y="289" font-size="11" font-weight="bold" text-anchor="middle" fill="white">-</text>
+    <circle cx="390" cy="285" r="7" fill="#c0392b"/>
+    <text x="390" y="289" font-size="11" font-weight="bold" text-anchor="middle" fill="white">-</text>
+    <circle cx="430" cy="285" r="7" fill="#c0392b"/>
+    <text x="430" y="289" font-size="11" font-weight="bold" text-anchor="middle" fill="white">-</text>
+    <circle cx="470" cy="285" r="7" fill="#c0392b"/>
+    <text x="470" y="289" font-size="11" font-weight="bold" text-anchor="middle" fill="white">-</text>
+    <circle cx="510" cy="285" r="7" fill="#c0392b"/>
+    <text x="510" y="289" font-size="11" font-weight="bold" text-anchor="middle" fill="white">-</text>
+    <circle cx="535" cy="285" r="7" fill="#c0392b"/>
+    <text x="535" y="289" font-size="11" font-weight="bold" text-anchor="middle" fill="white">-</text>
+  </g>
+
+  <text x="375" y="345" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Накопичення електронів e⁻ (негативний потенціал)</text>
+  <!-- Pointer line from label to front charges -->
+  <line x1="375" y1="332" x2="375" y2="298" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+
+  <!-- VOLTMETER CIRCUIT (Hall Voltage Vh Measurement) -->
+  <!-- Wire from Back Edge (+) -->
+  <path d="M 570,215 L 690,215 L 690,360 L 612,360" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <!-- Wire from Front Edge (-) -->
+  <path d="M 530,285 L 530,360 L 568,360" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Voltmeter Instrument -->
+  <circle cx="590" cy="360" r="18" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="590" y="365" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">V</text>
+
+  <!-- Voltmeter Polarity & Label -->
+  <text x="635" y="345" font-size="12" font-weight="bold" fill="#27ae60">+ (Vh+)</text>
+  <text x="548" y="345" font-size="12" font-weight="bold" fill="#c0392b">- (Vh-)</text>
+  <text x="590" y="396" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">Напруга Холла Vh</text>
+
+</svg>

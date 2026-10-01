@@ -1,0 +1,188 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-mag" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1e40af"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фізика ефекту Холла</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Поперечне магнітне поле відхиляє носії заряду силою Лоренца, створюючи напругу VH</text>
+
+  <!-- LEFT PANEL: Input Factors -->
+  <rect x="30" y="75" width="190" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="125" y="96" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ВХІДНІ ФАКТОРИ</text>
+
+  <!-- Left Card 1: Magnetic Field -->
+  <rect x="42" y="108" width="166" height="92" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="52" y="128" font-size="13" font-weight="bold" fill="#2457d6">Магнітне поле B</text>
+  <text x="52" y="148" font-size="12" fill="#1a1a1a">Направлене</text>
+  <text x="52" y="164" font-size="12" fill="#1a1a1a">перпендикулярно</text>
+  <text x="52" y="180" font-size="12" fill="#1a1a1a">до пластини</text>
+
+  <!-- Left Card 2: Current I -->
+  <rect x="42" y="214" width="166" height="102" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="233" font-size="13" font-weight="bold" fill="#1a1a1a">Струм I та носії</text>
+  <text x="52" y="253" font-size="12" fill="#6b7280">Рух електронів e⁻</text>
+  <text x="52" y="269" font-size="12" fill="#6b7280">напрямлений проти</text>
+  <text x="52" y="285" font-size="12" fill="#6b7280">вектора струму</text>
+  <text x="52" y="301" font-size="12" fill="#6b7280">зі швидкістю v</text>
+
+  <!-- Left Card 3: Lorentz Force -->
+  <rect x="42" y="330" width="166" height="98" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="52" y="348" font-size="13" font-weight="bold" fill="#c0392b">Сила Лоренца FL</text>
+  <text x="52" y="368" font-size="12" fill="#1a1a1a">FL = q · (v × B)</text>
+  <text x="52" y="384" font-size="12" fill="#1a1a1a">Відхиляє носії</text>
+  <text x="52" y="400" font-size="12" fill="#1a1a1a">до передньої грані</text>
+
+  <!-- RIGHT PANEL: Effect Result -->
+  <rect x="740" y="75" width="190" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="835" y="96" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">РЕЗУЛЬТАТ ЕФЕКТУ</text>
+
+  <!-- Right Card 1: Charge Accumulation -->
+  <rect x="752" y="108" width="166" height="92" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="762" y="128" font-size="13" font-weight="bold" fill="#1a1a1a">Розділення зарядів</text>
+  <text x="762" y="148" font-size="12" fill="#c0392b">• Передня грань: (−)</text>
+  <text x="762" y="164" font-size="12" fill="#27ae60">• Задня грань: (+)</text>
+  <text x="762" y="180" font-size="12" fill="#6b7280">Поперечне поле EH</text>
+
+  <!-- Right Card 2: Hall Voltage -->
+  <rect x="752" y="214" width="166" height="102" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="762" y="233" font-size="13" font-weight="bold" fill="#27ae60">Напруга Холла VH</text>
+  <text x="762" y="253" font-size="12" fill="#1a1a1a">VH = (I · B) / (n · q · d)</text>
+  <text x="762" y="269" font-size="12" fill="#1a1a1a">Пропорційна B та I,</text>
+  <text x="762" y="285" font-size="12" fill="#1a1a1a">обернена товщині d</text>
+  <text x="762" y="301" font-size="12" fill="#1a1a1a">та концентрації n</text>
+
+  <!-- Right Card 3: Equilibrium -->
+  <rect x="752" y="330" width="166" height="98" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="762" y="348" font-size="13" font-weight="bold" fill="#1a1a1a">Стаціонарний стан</text>
+  <text x="762" y="368" font-size="12" fill="#6b7280">qEH = qvB</text>
+  <text x="762" y="384" font-size="12" fill="#6b7280">Електричне поле EH</text>
+  <text x="762" y="400" font-size="12" fill="#6b7280">компенсує силу FL</text>
+
+  <!-- CENTER AREA: 3D HALL PLATE DIAGRAM -->
+
+  <!-- Top Label: Magnetic Field B -->
+  <text x="480" y="96" font-size="14" font-weight="bold" fill="#1e40af" text-anchor="middle">Магнітне поле B</text>
+
+  <!-- Magnetic Field Vectors B (2 lines at x=370 and x=590) -->
+  <!-- Line 1 (x=370) -->
+  <line x1="370" y1="320" x2="370" y2="250" stroke="#1e40af" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="370" y1="250" x2="370" y2="115" stroke="#1e40af" stroke-width="2" marker-end="url(#arr-mag)"/>
+
+  <!-- Line 2 (x=590) -->
+  <line x1="590" y1="320" x2="590" y2="250" stroke="#1e40af" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="590" y1="250" x2="590" y2="115" stroke="#1e40af" stroke-width="2" marker-end="url(#arr-mag)"/>
+
+  <!-- 3D CONDUCTING PLATE -->
+  <!-- Top Face (amber-200) -->
+  <polygon points="310,250 610,250 670,190 370,190" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+
+  <!-- Front Face (amber-500) -->
+  <polygon points="310,250 610,250 610,285 310,285" fill="#f59e0b" stroke="#d97706" stroke-width="1.5"/>
+
+  <!-- Right Side Face (amber-600) -->
+  <polygon points="610,250 670,190 670,225 610,285" fill="#d97706" stroke="#b45309" stroke-width="1.5"/>
+
+  <!-- Thickness d Dimension Callout (left side) -->
+  <line x1="295" y1="250" x2="295" y2="285" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="290" y1="250" x2="300" y2="250" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="290" y1="285" x2="300" y2="285" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="285" y="272" font-size="12" fill="#6b7280" text-anchor="end">товщина d</text>
+
+  <!-- Plate Label -->
+  <text x="480" y="135" font-size="13" font-weight="bold" fill="#b45309" text-anchor="middle">Пластина-провідник</text>
+
+  <!-- Current I Arrows -->
+  <!-- Entering Left -->
+  <line x1="240" y1="238" x2="300" y2="238" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="270" y="222" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Струм I</text>
+
+  <!-- Exiting Right -->
+  <line x1="675" y1="238" x2="730" y2="238" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="702" y="222" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Струм I</text>
+
+  <!-- Positive Charge Accumulation (+) on Back Edge -->
+  <circle cx="400" cy="190" r="8" fill="#27ae60" stroke="#ffffff" stroke-width="1"/>
+  <text x="400" y="194" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">+</text>
+
+  <circle cx="460" cy="190" r="8" fill="#27ae60" stroke="#ffffff" stroke-width="1"/>
+  <text x="460" y="194" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">+</text>
+
+  <circle cx="520" cy="190" r="8" fill="#27ae60" stroke="#ffffff" stroke-width="1"/>
+  <text x="520" y="194" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">+</text>
+
+  <circle cx="570" cy="190" r="8" fill="#27ae60" stroke="#ffffff" stroke-width="1"/>
+  <text x="570" y="194" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">+</text>
+
+  <text x="480" y="162" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Накопичення (+)</text>
+
+  <!-- Electron Carriers e- and Drift Velocity v -->
+  <text x="480" y="205" font-size="12" fill="#1a1a1a" text-anchor="middle">Швидкість v (електронів)</text>
+
+  <!-- Electron 1 -->
+  <circle cx="540" cy="220" r="8" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="540" y="224" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">e⁻</text>
+  <line x1="530" y1="220" x2="505" y2="220" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Electron 2 -->
+  <circle cx="470" cy="220" r="8" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="470" y="224" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">e⁻</text>
+  <line x1="460" y1="220" x2="435" y2="220" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Electron 3 -->
+  <circle cx="400" cy="220" r="8" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="400" y="224" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">e⁻</text>
+  <line x1="390" y1="220" x2="365" y2="220" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Transverse Electric Field EH arrow (from back + to front -) -->
+  <line x1="525" y1="197" x2="495" y2="243" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+  <text x="532" y="238" font-size="12" font-style="italic" fill="#27ae60" text-anchor="start">Поле EH</text>
+
+  <!-- Lorentz Force Deflection Trajectory & Vector FL -->
+  <path d="M 470,220 Q 448,234 430,246" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+  <text x="315" y="318" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Сила Лоренца FL</text>
+
+  <!-- Negative Charge Accumulation (-) on Front Edge -->
+  <circle cx="360" cy="250" r="8" fill="#c0392b" stroke="#ffffff" stroke-width="1"/>
+  <text x="360" y="254" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">−</text>
+
+  <circle cx="420" cy="250" r="8" fill="#c0392b" stroke="#ffffff" stroke-width="1"/>
+  <text x="420" y="254" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">−</text>
+
+  <circle cx="480" cy="250" r="8" fill="#c0392b" stroke="#ffffff" stroke-width="1"/>
+  <text x="480" y="254" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">−</text>
+
+  <circle cx="540" cy="250" r="8" fill="#c0392b" stroke="#ffffff" stroke-width="1"/>
+  <text x="540" y="254" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">−</text>
+
+  <text x="480" y="318" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Накопичення (−)</text>
+
+  <!-- VOLTMETER & HALL VOLTAGE MEASUREMENT -->
+  <!-- Terminal Wires -->
+  <!-- Wire 1 from Back (+) Edge to Voltmeter -->
+  <path d="M 640,190 L 705,190 L 705,380 L 545,380" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="640" cy="190" r="3" fill="#27ae60"/>
+
+  <!-- Wire 2 from Front (-) Face to Voltmeter -->
+  <path d="M 580,268 L 580,398 L 545,398" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="580" cy="268" r="3" fill="#c0392b"/>
+
+  <!-- Voltmeter Box -->
+  <rect x="415" y="360" width="130" height="58" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="480" y="380" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ВОЛЬТМЕТР</text>
+  <text x="480" y="402" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Напруга VH</text>
+</svg>

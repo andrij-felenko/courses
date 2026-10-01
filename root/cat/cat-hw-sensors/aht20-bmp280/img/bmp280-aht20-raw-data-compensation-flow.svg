@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Компенсація сирих даних AHT20 та BMP280</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">AHT20 обчислює T і RH за лінійною шкалою, а BMP280 вимагає t_fine з калібруванням NVM для тиску</text>
+
+  <!-- Панель AHT20 -->
+  <rect x="25" y="75" width="910" height="190" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="98" font-size="15" font-weight="bold" fill="#2457d6">AHT20: Ємнісний модуль вологості та температури</text>
+
+  <!-- AHT20: Блок 1 (Регістри) -->
+  <rect x="45" y="110" width="250" height="135" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="133" font-size="13" font-weight="bold" fill="#1a1a1a">Регістри ADC (0x70)</text>
+  <text x="60" y="160" font-size="12" fill="#1a1a1a">S_T (20 біт) — Temp ADC</text>
+  <text x="60" y="185" font-size="12" fill="#1a1a1a">S_RH (20 біт) — Humidity ADC</text>
+  <text x="60" y="220" font-size="12" fill="#6b7280">Заводські константи в чіпі</text>
+
+  <!-- AHT20: Блок 2 (DSP) -->
+  <rect x="355" y="110" width="250" height="135" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="370" y="133" font-size="13" font-weight="bold" fill="#2457d6">Лінійний DSP-перерахунок</text>
+  <text x="370" y="160" font-size="12" fill="#1a1a1a">T = (S_T / 2^20) * 200 - 50</text>
+  <text x="370" y="185" font-size="12" fill="#1a1a1a">RH = (S_RH / 2^20) * 100</text>
+  <text x="370" y="220" font-size="12" fill="#6b7280">Пряме обчислення у DSP</text>
+
+  <!-- AHT20: Блок 3 (Результат) -->
+  <rect x="665" y="110" width="250" height="135" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="680" y="133" font-size="13" font-weight="bold" fill="#27ae60">Фізичні величини AHT20</text>
+  <text x="680" y="163" font-size="13" font-weight="bold" fill="#1a1a1a">T_AHT : -40 .. +85 °C</text>
+  <text x="680" y="190" font-size="13" font-weight="bold" fill="#1a1a1a">RH : 0 .. 100 %</text>
+  <text x="680" y="220" font-size="12" fill="#27ae60">Готові дані без t_fine</text>
+
+  <!-- Стрілки AHT20 -->
+  <line x1="295" y1="177" x2="350" y2="177" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="605" y1="177" x2="660" y2="177" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Панель BMP280 -->
+  <rect x="25" y="280" width="910" height="235" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="303" font-size="15" font-weight="bold" fill="#2457d6">BMP280: П'єзорезистивний прецизійний давач тиску</text>
+
+  <!-- BMP280: Блок 1A (ADC) -->
+  <rect x="45" y="315" width="250" height="80" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="335" font-size="13" font-weight="bold" fill="#1a1a1a">Регістри ADC (0xF7..0xFC)</text>
+  <text x="60" y="357" font-size="12" fill="#1a1a1a">UT (20 біт) — raw Temp</text>
+  <text x="60" y="379" font-size="12" fill="#1a1a1a">UP (20 біт) — raw Press</text>
+
+  <!-- BMP280: Блок 1B (NVM) -->
+  <rect x="45" y="407" width="250" height="90" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="427" font-size="13" font-weight="bold" fill="#1a1a1a">NVM Калібрування (0x88..0xA1)</text>
+  <text x="60" y="450" font-size="12" fill="#1a1a1a">T1..T3 (температурні коефіцієнти)</text>
+  <text x="60" y="475" font-size="12" fill="#1a1a1a">P1..P9 (коефіцієнти тиску)</text>
+
+  <!-- BMP280: Блок 2A (T -> t_fine) -->
+  <rect x="355" y="315" width="250" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="370" y="335" font-size="13" font-weight="bold" fill="#2457d6">1. Компенсація T -&gt; t_fine</text>
+  <text x="370" y="357" font-size="12" fill="#1a1a1a">t_fine = f(UT, T1, T2, T3)</text>
+  <text x="370" y="379" font-size="12" fill="#1a1a1a">T_BMP = t_fine / 5120 [°C]</text>
+
+  <!-- Внутрішній зв'язок t_fine -->
+  <line x1="480" y1="395" x2="480" y2="403" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- BMP280: Блок 2B (P з t_fine) -->
+  <rect x="355" y="407" width="250" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="370" y="427" font-size="13" font-weight="bold" fill="#2457d6">2. Компенсація P з t_fine</text>
+  <text x="370" y="450" font-size="12" fill="#1a1a1a">P = f(UP, t_fine, P1..P9)</text>
+  <text x="370" y="475" font-size="12" fill="#6b7280">Компенсує температурний дрейф</text>
+
+  <!-- BMP280: Блок 3 (Фізичні та похідні дані) -->
+  <rect x="665" y="315" width="250" height="182" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="680" y="335" font-size="13" font-weight="bold" fill="#27ae60">Фізичні та похідні дані</text>
+  <text x="680" y="360" font-size="13" font-weight="bold" fill="#1a1a1a">T_BMP : -40 .. +85 °C</text>
+  <text x="680" y="385" font-size="13" font-weight="bold" fill="#1a1a1a">P : 300 .. 1100 гПа</text>
+  <line x1="680" y1="400" x2="900" y2="400" stroke="#d0d7de" stroke-width="1"/>
+  <text x="680" y="420" font-size="12" font-weight="bold" fill="#1a1a1a">Похідні розрахунки:</text>
+  <text x="680" y="445" font-size="12" fill="#1a1a1a">• Точка роси T_d (RH, T)</text>
+  <text x="680" y="470" font-size="12" fill="#1a1a1a">• Висота h (P, P0)</text>
+
+  <!-- Стрілки BMP280 -->
+  <line x1="295" y1="355" x2="350" y2="355" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="295" y1="452" x2="350" y2="452" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="605" y1="355" x2="660" y2="355" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="605" y1="452" x2="660" y2="452" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Зв'язок між AHT20 та похідними даними -->
+  <path d="M 790,245 L 790,307" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arr-gray)"/>
+</svg>

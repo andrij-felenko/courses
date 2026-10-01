@@ -1,0 +1,186 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Схема 4-провідного підключення PT100 до MAX31865 та МК через SPI</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Відокремлення струмових FORCE та вимірювальних RTDIN ліній повністю компенсує опір дротів R_wire</text>
+
+  <!-- ЗОНА 1: Сенсор PT100 -->
+  <rect x="24" y="72" width="240" height="426" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="36" y="84" width="216" height="32" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="144" y="105" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Сенсор PT100 (4-провідний)</text>
+
+  <!-- Корпус зонда -->
+  <rect x="44" y="130" width="100" height="230" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="94" y="150" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Гільза зонда</text>
+
+  <!-- Елемент PT100 всередині зонда -->
+  <rect x="54" y="210" width="80" height="70" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="94" y="235" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">R_PT100</text>
+  <text x="94" y="255" text-anchor="middle" font-size="12" fill="#6b7280">100 Ом (0 °C)</text>
+
+  <!-- Внутрішнє розгалуження дротів у зонді -->
+  <!-- Верхня точка A (FORCE+ / RTDIN+) -->
+  <circle cx="94" cy="190" r="3" fill="#c0392b"/>
+  <line x1="94" y1="210" x2="94" y2="190" stroke="#c0392b" stroke-width="2"/>
+  <line x1="94" y1="190" x2="144" y2="155" stroke="#c0392b" stroke-width="2"/>
+  <line x1="94" y1="190" x2="144" y2="195" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Нижня точка B (RTDIN- / FORCE-) -->
+  <circle cx="94" cy="300" r="3" fill="#1a1a1a"/>
+  <line x1="94" y1="280" x2="94" y2="300" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="94" y1="300" x2="144" y2="295" stroke="#2457d6" stroke-width="2"/>
+  <line x1="94" y1="300" x2="144" y2="335" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Пояснення компенсації в ЗОНІ 1 -->
+  <rect x="36" y="375" width="216" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="144" y="395" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Компенсація опору дротів</text>
+  <text x="44" y="416" text-anchor="start" font-size="12" fill="#1a1a1a">• I_EXC тече лише через FORCE</text>
+  <text x="44" y="436" text-anchor="start" font-size="12" fill="#1a1a1a">• На RTDIN високий опір Z_in</text>
+  <text x="44" y="456" text-anchor="start" font-size="12" fill="#1a1a1a">• Спад V_wire = 0, похибка = 0</text>
+  <text x="44" y="474" text-anchor="start" font-size="12" fill="#27ae60">• Вимірюється суто V_PT100</text>
+
+
+  <!-- ДРОТИ ВІД СЕНСОРА ДО МОДУЛЯ MAX31865 -->
+  <!-- Дріт 1: FORCE+ -->
+  <line x1="144" y1="155" x2="296" y2="155" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="220" y="147" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">FORCE+ (Червоний)</text>
+
+  <!-- Дріт 2: RTDIN+ -->
+  <line x1="144" y1="195" x2="296" y2="195" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="220" y="187" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">RTDIN+ (Червоний)</text>
+
+  <!-- Дріт 3: RTDIN- -->
+  <line x1="144" y1="295" x2="296" y2="295" stroke="#2457d6" stroke-width="2" marker-start="url(#arr-blue)"/>
+  <text x="220" y="287" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">RTDIN- (Білий)</text>
+
+  <!-- Дріт 4: FORCE- -->
+  <line x1="144" y1="335" x2="296" y2="335" stroke="#1a1a1a" stroke-width="2" marker-start="url(#arr-gray)"/>
+  <text x="220" y="327" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">FORCE- (Білий)</text>
+
+
+  <!-- ЗОНА 2: Модуль MAX31865 -->
+  <rect x="284" y="72" width="400" height="426" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="296" y="84" width="376" height="32" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="484" y="105" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Модуль MAX31865 (Аналоговий фронтенд RTD)</text>
+
+  <!-- Клемник клем на модулі -->
+  <rect x="296" y="130" width="56" height="225" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="324" y="148" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Клеми</text>
+  
+  <rect x="302" y="160" width="44" height="26" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="324" y="177" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">F+</text>
+
+  <rect x="302" y="200" width="44" height="26" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="324" y="217" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">RTD+</text>
+
+  <rect x="302" y="260" width="44" height="26" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="324" y="277" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">RTD-</text>
+
+  <rect x="302" y="300" width="44" height="26" rx="3" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="324" y="317" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">F-</text>
+
+  <!-- Блок Джамперів -->
+  <rect x="364" y="130" width="138" height="95" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="433" y="148" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Перемички плати</text>
+  <text x="372" y="168" text-anchor="start" font-size="12" fill="#27ae60">2-Wire: OPEN</text>
+  <text x="372" y="186" text-anchor="start" font-size="12" fill="#27ae60">3-Wire: OPEN/CUT</text>
+  <text x="372" y="204" text-anchor="start" font-size="12" font-weight="700" fill="#2457d6">Режим: 4 провідники</text>
+
+  <!-- Внутрішня мікросхема MAX31865 -->
+  <rect x="514" y="130" width="158" height="225" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="593" y="150" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Чип MAX31865</text>
+
+  <!-- Джерело струму -->
+  <rect x="524" y="162" width="138" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="593" y="183" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Джерело I_EXC</text>
+
+  <!-- АЦП -->
+  <rect x="524" y="204" width="138" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="593" y="224" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">15-біт Σ-Δ АЦП</text>
+  <text x="593" y="240" text-anchor="middle" font-size="12" fill="#6b7280">Диф. вхід V_RTD</text>
+
+  <!-- Опорний резистор Rref -->
+  <rect x="524" y="258" width="138" height="52" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="593" y="278" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">R_ref = 400 Ом</text>
+  <text x="593" y="296" text-anchor="middle" font-size="12" fill="#6b7280">Точність 0.1% (Rref)</text>
+
+  <!-- Логіка SPI -->
+  <rect x="524" y="318" width="138" height="30" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="593" y="338" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Контролер SPI</text>
+
+  <!-- З'єднання всередині модуля MAX31865 (від клем до мікросхеми) -->
+  <line x1="346" y1="173" x2="524" y2="173" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="346" y1="213" x2="524" y2="218" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="346" y1="273" x2="524" y2="236" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="346" y1="313" x2="524" y2="284" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Логометричне пояснення у ЗОНІ 2 -->
+  <rect x="296" y="375" width="376" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="484" y="395" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Логометричне (Ratiometric) вимірювання</text>
+  <text x="484" y="418" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">ADC_Code = (R_PT100 / R_ref) × 32768</text>
+  <text x="484" y="440" text-anchor="middle" font-size="12" fill="#6b7280">Струм I_EXC тече послідовно через R_PT100 та R_ref.</text>
+  <text x="484" y="458" text-anchor="middle" font-size="12" fill="#6b7280">Нестабільність I_EXC взаємно скорочується в АЦП!</text>
+  <text x="484" y="476" text-anchor="middle" font-size="12" fill="#27ae60">Калібрування: T(°C) за формулою Каллендара — Ван Дюзена</text>
+
+
+  <!-- ЗОНА 3: Мікроконтролер МК -->
+  <rect x="704" y="72" width="232" height="426" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="716" y="84" width="208" height="32" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="820" y="105" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Мікроконтролер (МК)</text>
+
+  <rect x="716" y="130" width="208" height="225" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="820" y="152" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">MCU (ESP32 / STM32 / AVR)</text>
+
+  <!-- Лінії шини SPI та живлення між MAX31865 та MCU -->
+  <!-- 1. VCC -->
+  <line x1="672" y1="175" x2="716" y2="175" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="664" y="179" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">VCC</text>
+  <text x="724" y="179" text-anchor="start" font-size="12" font-weight="700" fill="#c0392b">3.3V</text>
+
+  <!-- 2. GND -->
+  <line x1="672" y1="200" x2="716" y2="200" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="664" y="204" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">GND</text>
+  <text x="724" y="204" text-anchor="start" font-size="12" font-weight="700" fill="#1a1a1a">GND</text>
+
+  <!-- 3. CS -->
+  <line x1="672" y1="225" x2="716" y2="225" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)"/>
+  <text x="664" y="229" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">CS</text>
+  <text x="724" y="229" text-anchor="start" font-size="12" font-weight="700" fill="#2457d6">GPIO (CS)</text>
+
+  <!-- 4. SCK -->
+  <line x1="672" y1="250" x2="716" y2="250" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)"/>
+  <text x="664" y="254" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">SCLK</text>
+  <text x="724" y="254" text-anchor="start" font-size="12" font-weight="700" fill="#2457d6">SCK</text>
+
+  <!-- 5. SDI / MOSI -->
+  <line x1="672" y1="275" x2="716" y2="275" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)"/>
+  <text x="664" y="279" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">SDI</text>
+  <text x="724" y="279" text-anchor="start" font-size="12" font-weight="700" fill="#2457d6">MOSI</text>
+
+  <!-- 6. SDO / MISO -->
+  <line x1="672" y1="300" x2="716" y2="300" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="664" y="304" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">SDO</text>
+  <text x="724" y="304" text-anchor="start" font-size="12" font-weight="700" fill="#2457d6">MISO</text>
+
+  <!-- 7. DRDY / RDY -->
+  <line x1="672" y1="325" x2="716" y2="325" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-gray)"/>
+  <text x="664" y="329" text-anchor="end" font-size="12" font-weight="700" fill="#6b7280">RDY</text>
+  <text x="724" y="329" text-anchor="start" font-size="12" font-weight="700" fill="#724" >INT (DRDY)</text>
+</svg>

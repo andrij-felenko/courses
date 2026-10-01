@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еволюція методів вимірювання струму в електротехніці</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Від гарячих неізольованих шунтів до інтегрального чипа ACS712 з ефектом Холла</text>
+
+  <!-- Central Timeline Arrow -->
+  <line x1="40" y1="260" x2="915" y2="260" stroke="#2457d6" stroke-width="4" marker-end="url(#arr-blue)"/>
+
+  <!-- Milestone 1: Resistive Shunt (XIX st) -->
+  <circle cx="130" cy="260" r="8" fill="#c0392b"/>
+  <line x1="130" y1="260" x2="130" y2="230" stroke="#c0392b" stroke-width="2"/>
+  <rect x="35" y="90" width="190" height="140" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="130" y="115" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Резистивний шунт</text>
+  <text x="130" y="135" font-size="12" fill="#6b7280" text-anchor="middle">XIX століття</text>
+  <text x="130" y="160" font-size="12" fill="#1a1a1a" text-anchor="middle">Спад напруги V = I·R</text>
+  <text x="130" y="180" font-size="12" fill="#c0392b" text-anchor="middle">Втрати тепла P = I²R</text>
+  <text x="130" y="200" font-size="12" fill="#c0392b" text-anchor="middle">Відсутня ізоляція</text>
+
+  <!-- Milestone 2: Discovery of Hall Effect (1879) -->
+  <circle cx="360" cy="260" r="8" fill="#2457d6"/>
+  <line x1="360" y1="260" x2="360" y2="290" stroke="#2457d6" stroke-width="2"/>
+  <rect x="265" y="290" width="190" height="140" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="360" y="315" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Ефект Холла (1879)</text>
+  <text x="360" y="335" font-size="12" fill="#6b7280" text-anchor="middle">Едвін Холл (Edwin Hall)</text>
+  <text x="360" y="360" font-size="12" fill="#1a1a1a" text-anchor="middle">Напруга VH у магнітному полі</text>
+  <text x="360" y="380" font-size="12" fill="#1a1a1a" text-anchor="middle">Безконтактний принцип</text>
+  <text x="360" y="400" font-size="12" fill="#2457d6" text-anchor="middle">Фундамент датчиків</text>
+
+  <!-- Milestone 3: Current Transformers (XX st) -->
+  <circle cx="590" cy="260" r="8" fill="#6b7280"/>
+  <line x1="590" y1="260" x2="590" y2="230" stroke="#6b7280" stroke-width="2"/>
+  <rect x="495" y="90" width="190" height="140" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="590" y="115" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Трансформатор струму</text>
+  <text x="590" y="135" font-size="12" fill="#6b7280" text-anchor="middle">XX століття</text>
+  <text x="590" y="160" font-size="12" fill="#1a1a1a" text-anchor="middle">Магнітна індукція</text>
+  <text x="590" y="180" font-size="12" fill="#6b7280" text-anchor="middle">Працює лише на AC</text>
+  <text x="590" y="200" font-size="12" fill="#6b7280" text-anchor="middle">Громіздке осердя</text>
+
+  <!-- Milestone 4: Integrated ACS712 Chip (Modern) -->
+  <circle cx="820" cy="260" r="8" fill="#27ae60"/>
+  <line x1="820" y1="260" x2="820" y2="290" stroke="#27ae60" stroke-width="2"/>
+  <rect x="725" y="290" width="190" height="150" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="820" y="315" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Чип ACS712 (SOIC-8)</text>
+  <text x="820" y="335" font-size="12" fill="#6b7280" text-anchor="middle">Allegro MicroSystems</text>
+  <text x="820" y="360" font-size="12" fill="#1a1a1a" text-anchor="middle">Провідник 1.2 мОм</text>
+  <text x="820" y="380" font-size="12" fill="#27ae60" text-anchor="middle">Ізоляція 2.1 кВ RMS</text>
+  <text x="820" y="400" font-size="12" fill="#1a1a1a" text-anchor="middle">Вимірює DC та AC</text>
+  <text x="820" y="420" font-size="12" fill="#27ae60" text-anchor="middle">Компактний модуль</text>
+</svg>

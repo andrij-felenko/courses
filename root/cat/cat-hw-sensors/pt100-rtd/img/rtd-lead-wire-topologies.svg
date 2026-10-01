@@ -1,0 +1,238 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Топології підключення терморезистора PT100</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">4-провідні схеми повністю усувають похибку від опору дротів кабелю R_w</text>
+
+  <!-- ================= PANEL 1: 2-WIRE ================= -->
+  <rect x="20" y="68" width="290" height="448" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Badges -->
+  <rect x="32" y="80" width="130" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="97" y="96" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">2-провідне (2-Wire)</text>
+
+  <rect x="170" y="80" width="128" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="234" y="96" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Низька точність</text>
+
+  <text x="165" y="122" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Схема з 2 дротами</text>
+
+  <!-- Schematic Box 1 -->
+  <rect x="32" y="135" width="266" height="215" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Device Box 1 -->
+  <rect x="42" y="150" width="70" height="185" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="77" y="166" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Прилад</text>
+
+  <!-- Terminals 1 -->
+  <circle cx="112" cy="185" r="3.5" fill="#c0392b"/>
+  <text x="105" y="183" text-anchor="end" font-size="12" fill="#1a1a1a">T1</text>
+  <circle cx="112" cy="305" r="3.5" fill="#c0392b"/>
+  <text x="105" y="320" text-anchor="end" font-size="12" fill="#1a1a1a">T2</text>
+  
+  <!-- Current Source Symbol 1 -->
+  <circle cx="77" cy="210" r="11" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="77" y1="203" x2="77" y2="217" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="77" y="234" text-anchor="middle" font-size="12" fill="#c0392b">I_exc</text>
+
+  <!-- Voltmeter Symbol 1 -->
+  <circle cx="77" cy="265" r="11" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="77" y="269" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">V</text>
+  <text x="77" y="290" text-anchor="middle" font-size="12" fill="#c0392b">V_meas</text>
+
+  <!-- Sensor Box 1 -->
+  <rect x="235" y="150" width="52" height="185" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="261" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">PT100</text>
+  <rect x="248" y="218" width="26" height="54" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="261" y="249" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">R_RTD</text>
+
+  <!-- Wire 1 (Top) -->
+  <path d="M 112 185 L 140 185 M 175 185 L 261 185 L 261 218" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <rect x="140" y="175" width="35" height="20" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="157" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">R_w1</text>
+
+  <!-- Wire 2 (Bottom) -->
+  <path d="M 112 305 L 140 305 M 175 305 L 261 305 L 261 272" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <rect x="140" y="295" width="35" height="20" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="157" y="329" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">R_w2</text>
+
+  <!-- Current path arrows -->
+  <line x1="120" y1="185" x2="132" y2="185" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="200" y1="305" x2="188" y2="305" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Analysis Box 1 -->
+  <rect x="32" y="360" width="266" height="142" rx="6" fill="#fdecea" stroke="#f5c6cb" stroke-width="1"/>
+  <text x="42" y="378" font-size="12" font-weight="bold" fill="#c0392b">Виміряна напруга:</text>
+  <text x="42" y="398" font-size="12" fill="#1a1a1a">V_meas = I_exc · (R_RTD + R_w1 + R_w2)</text>
+  <text x="42" y="422" font-size="12" font-weight="bold" fill="#c0392b">Обчислений опір:</text>
+  <text x="42" y="442" font-size="12" fill="#1a1a1a">R_calc = R_RTD + 2 · R_w</text>
+  <text x="42" y="466" font-size="12" fill="#6b7280">Похибка: 1 Ом кабелю додає</text>
+  <text x="42" y="488" font-size="12" font-weight="bold" fill="#c0392b">≈ +2.5 °C до вимірювання!</text>
+
+
+  <!-- ================= PANEL 2: 3-WIRE ================= -->
+  <rect x="335" y="68" width="290" height="448" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Badges -->
+  <rect x="347" y="80" width="130" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="412" y="96" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">3-провідне (3-Wire)</text>
+
+  <rect x="485" y="80" width="128" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="549" y="96" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Компенсація R_w</text>
+
+  <text x="480" y="122" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Схема з 3 дротами</text>
+
+  <!-- Schematic Box 2 -->
+  <rect x="347" y="135" width="266" height="215" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Device Box 2 -->
+  <rect x="357" y="150" width="70" height="185" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="392" y="166" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Прилад</text>
+
+  <!-- Terminals 2 -->
+  <circle cx="427" cy="185" r="3.5" fill="#2457d6"/>
+  <text x="420" y="183" text-anchor="end" font-size="12" fill="#1a1a1a">T1</text>
+  <circle cx="427" cy="245" r="3.5" fill="#2457d6"/>
+  <text x="420" y="235" text-anchor="end" font-size="12" fill="#1a1a1a">T2</text>
+  <circle cx="427" cy="305" r="3.5" fill="#6b7280"/>
+  <text x="420" y="320" text-anchor="end" font-size="12" fill="#1a1a1a">T3</text>
+
+  <!-- Dual Current Sources -->
+  <circle cx="392" cy="198" r="9" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="372" y="202" font-size="12" fill="#2457d6">I1</text>
+
+  <circle cx="392" cy="245" r="9" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="372" y="249" font-size="12" fill="#2457d6">I2</text>
+
+  <!-- Voltmeter V_diff -->
+  <circle cx="392" cy="290" r="10" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="392" y="294" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ΔV</text>
+
+  <!-- Sensor Box 2 -->
+  <rect x="550" y="150" width="52" height="185" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="576" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">PT100</text>
+  <rect x="563" y="218" width="26" height="54" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="576" y="249" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">R_RTD</text>
+
+  <!-- Wire 1 (Top) -->
+  <path d="M 427 185 L 455 185 M 490 185 L 576 185 L 576 218" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <rect x="455" y="175" width="35" height="20" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="472" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">R_w1</text>
+
+  <!-- Wire 2 (Middle) -->
+  <path d="M 427 245 L 455 245 M 490 245 L 540 245 L 540 185" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <rect x="455" y="235" width="35" height="20" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="472" y="268" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">R_w2</text>
+  <circle cx="540" cy="185" r="3.5" fill="#2457d6"/>
+
+  <!-- Wire 3 (Bottom) -->
+  <path d="M 427 305 L 455 305 M 490 305 L 576 305 L 576 272" fill="none" stroke="#6b7280" stroke-width="2"/>
+  <rect x="455" y="295" width="35" height="20" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="472" y="329" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">R_w3</text>
+
+  <!-- Analysis Box 2 -->
+  <rect x="347" y="360" width="266" height="142" rx="6" fill="#eaf0fd" stroke="#b3c8f9" stroke-width="1"/>
+  <text x="357" y="378" font-size="12" font-weight="bold" fill="#2457d6">Різниця напруг V1 - V2:</text>
+  <text x="357" y="398" font-size="12" fill="#1a1a1a">V_diff = I · (R_RTD + R_w1 - R_w2)</text>
+  <text x="357" y="422" font-size="12" font-weight="bold" fill="#2457d6">При однаковісті дротів (R_w1 = R_w2):</text>
+  <text x="357" y="442" font-size="12" fill="#1a1a1a">V_diff = I_exc · R_RTD</text>
+  <text x="357" y="466" font-size="12" fill="#6b7280">Вплив кабелю компенсатується</text>
+  <text x="357" y="488" font-size="12" font-weight="bold" fill="#27ae60">за умови симетрії дротів!</text>
+
+
+  <!-- ================= PANEL 3: 4-WIRE ================= -->
+  <rect x="650" y="68" width="290" height="448" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Badges -->
+  <rect x="662" y="80" width="130" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="727" y="96" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">4-провідне (Kelvin)</text>
+
+  <rect x="800" y="80" width="128" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="864" y="96" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Ідеальна точність</text>
+
+  <text x="795" y="122" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Схема з 4 дротами</text>
+
+  <!-- Schematic Box 3 -->
+  <rect x="662" y="135" width="266" height="215" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Device Box 3 -->
+  <rect x="672" y="150" width="70" height="185" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="707" y="166" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Прилад</text>
+
+  <!-- Terminals 3 -->
+  <circle cx="742" cy="170" r="3.5" fill="#1a1a1a"/>
+  <text x="734" y="181" text-anchor="end" font-size="12" fill="#1a1a1a">F+</text>
+
+  <circle cx="742" cy="210" r="3.5" fill="#27ae60"/>
+  <text x="734" y="206" text-anchor="end" font-size="12" fill="#27ae60">S+</text>
+
+  <circle cx="742" cy="280" r="3.5" fill="#27ae60"/>
+  <text x="734" y="292" text-anchor="end" font-size="12" fill="#27ae60">S-</text>
+
+  <circle cx="742" cy="320" r="3.5" fill="#1a1a1a"/>
+  <text x="734" y="334" text-anchor="end" font-size="12" fill="#1a1a1a">F-</text>
+
+  <!-- Current Source Force -->
+  <circle cx="707" cy="195" r="8" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="684" y="199" font-size="12" fill="#1a1a1a">I_exc</text>
+
+  <!-- Voltmeter Sense -->
+  <circle cx="707" cy="245" r="9" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="707" y="249" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">V</text>
+  <text x="707" y="267" text-anchor="middle" font-size="12" fill="#27ae60">V_sense</text>
+
+  <!-- Sensor Box 3 -->
+  <rect x="865" y="150" width="52" height="185" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="891" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">PT100</text>
+  <rect x="878" y="218" width="26" height="54" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="891" y="249" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">R_RTD</text>
+
+  <!-- Wire 1 (F+) -->
+  <path d="M 742 170 L 770 170 M 805 170 L 891 170 L 891 218" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="770" y="161" width="35" height="18" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="787" y="155" text-anchor="middle" font-size="12" fill="#1a1a1a">R_w1</text>
+
+  <!-- Wire 2 (S+) -->
+  <path d="M 742 210 L 770 210 M 805 210 L 855 210 L 855 190 L 891 190" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <rect x="770" y="201" width="35" height="18" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="787" y="196" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">R_w2</text>
+  <text x="830" y="205" font-size="12" fill="#27ae60">I=0</text>
+
+  <!-- Wire 3 (S-) -->
+  <path d="M 742 280 L 770 280 M 805 280 L 855 280 L 855 300 L 891 300" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <rect x="770" y="271" width="35" height="18" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="787" y="301" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">R_w3</text>
+  <text x="830" y="294" font-size="12" fill="#27ae60">I=0</text>
+
+  <!-- Wire 4 (F-) -->
+  <path d="M 742 320 L 770 320 M 805 320 L 891 320 L 891 272" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="770" y="311" width="35" height="18" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="787" y="341" text-anchor="middle" font-size="12" fill="#1a1a1a">R_w4</text>
+
+  <!-- Junction dots on PT100 terminals -->
+  <circle cx="891" cy="190" r="3.5" fill="#27ae60"/>
+  <circle cx="891" cy="300" r="3.5" fill="#27ae60"/>
+
+  <!-- Analysis Box 3 -->
+  <rect x="662" y="360" width="266" height="142" rx="6" fill="#e9f7ef" stroke="#a3e4d7" stroke-width="1"/>
+  <text x="672" y="378" font-size="12" font-weight="bold" fill="#27ae60">Вхідний струм вольтметра I=0:</text>
+  <text x="672" y="398" font-size="12" fill="#1a1a1a">V_Rw2 = V_Rw3 = 0 В</text>
+  <text x="672" y="422" font-size="12" font-weight="bold" fill="#27ae60">Виміряна напруга на сенсорі:</text>
+  <text x="672" y="442" font-size="12" fill="#1a1a1a">V_sense = I_exc · R_RTD</text>
+  <text x="672" y="466" font-size="12" fill="#6b7280">100% компенсація будь-яких дротів</text>
+  <text x="672" y="488" font-size="12" font-weight="bold" fill="#27ae60">Повна незалежність від R_w!</text>
+</svg>

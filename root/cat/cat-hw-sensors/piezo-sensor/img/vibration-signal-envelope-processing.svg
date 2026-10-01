@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-left" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,0 L0,4 L7,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Обробка огинаючої та алгоритм виявлення аномальної вібрації</text>
+  <text x="480" y="55" text-anchor="middle" font-size="13" fill="#6b7280">Огинаюча з інтегруванням фільтрує поодинокі завади, а поріг Vth формує стабільну тривогу</text>
+
+  <!-- Upper Panel: Graph 1 (Analog Vibration &amp; Envelope) -->
+  <rect x="40" y="68" width="880" height="254" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Upper Panel Header &amp; Legend -->
+  <text x="56" y="90" font-size="14" font-weight="bold" fill="#1a1a1a">1. Аналоговий сигнал V(t), огинаюча Venv(t) та поріг Vth</text>
+  
+  <line x1="495" y1="86" x2="515" y2="86" stroke="#8c9ba5" stroke-width="1.5"/>
+  <text x="520" y="90" font-size="12" fill="#6b7280">Сигнал V(t)</text>
+
+  <line x1="615" y1="86" x2="640" y2="86" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="645" y="90" font-size="12" font-weight="bold" fill="#2457d6">Огинаюча Venv(t)</text>
+
+  <line x1="775" y1="86" x2="800" y2="86" stroke="#c0392b" stroke-dasharray="4,3" stroke-width="2"/>
+  <text x="805" y="90" font-size="12" font-weight="bold" fill="#c0392b">Поріг Vth</text>
+
+  <!-- Shaded Area for Exceeded Threshold (Venv > Vth) -->
+  <path d="M 540 165 C 560 145, 570 145, 580 145 L 810 145 C 825 145, 832 155, 837 165 Z" fill="#eaf0fd" opacity="0.85"/>
+
+  <!-- Threshold Line Vth -->
+  <line x1="95" y1="165" x2="875" y2="165" stroke="#c0392b" stroke-dasharray="6,4" stroke-width="1.8"/>
+  <text x="92" y="169" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">Vth</text>
+
+  <!-- Raw Vibration Waveform V(t) -->
+  <path d="M 100.0 284.0 L 105.0 276.0 L 110.0 284.0 L 115.0 276.0 L 120.0 284.0 L 125.0 276.0 L 130.0 284.0 L 135.0 276.0 L 140.0 284.0 L 145.0 276.0 L 150.0 284.0 L 155.0 276.0 L 160.0 284.0 L 165.0 276.0 L 170.0 284.0 L 175.0 276.0 L 180.0 284.0 L 185.0 276.0 L 190.0 284.0 L 195.0 276.0 L 200.0 284.0 L 205.0 276.0 L 210.0 284.0 L 215.0 276.0 L 220.0 284.0 L 225.0 270.0 L 230.0 283.6 L 235.0 260.0 L 240.0 289.1 L 245.0 240.0 L 250.0 296.4 L 255.0 220.0 L 260.0 303.7 L 265.0 205.0 L 270.0 307.4 L 275.0 200.0 L 280.0 309.2 L 285.0 195.0 L 290.0 311.0 L 295.0 200.0 L 300.0 305.5 L 305.0 210.0 L 310.0 301.9 L 315.0 225.0 L 320.0 296.4 L 325.0 240.0 L 330.0 290.9 L 335.0 255.0 L 340.0 285.5 L 345.0 270.0 L 350.0 281.8 L 355.0 275.0 L 360.0 280.7 L 365.0 278.0 L 370.0 280.0 L 375.0 281.1 L 380.0 277.0 L 385.0 281.1 L 390.0 277.0 L 395.0 281.1 L 400.0 277.0 L 405.0 281.1 L 410.0 277.0 L 415.0 281.1 L 420.0 277.0 L 425.0 281.1 L 430.0 277.0 L 435.0 281.1 L 440.0 277.0 L 445.0 281.1 L 450.0 277.0 L 455.0 281.1 L 460.0 277.0 L 465.0 281.1 L 470.0 277.0 L 475.0 280.0 L 478.0 285.3 L 481.0 289.0 L 484.0 288.5 L 487.0 283.8 L 490.0 270.0 L 493.0 248.8 L 496.0 234.3 L 499.0 231.1 L 502.0 239.5 L 505.0 256.7 L 508.0 278.4 L 511.0 286.7 L 514.0 291.5 L 517.0 292.1 L 520.0 288.7 L 523.0 281.6 L 526.0 259.9 L 532.0 220.0 L 535.0 214.9 L 538.0 221.9 L 541.0 239.2 L 544.0 263.3 L 547.0 283.2 L 550.0 291.0 L 553.0 295.6 L 556.0 295.9 L 559.0 291.8 L 562.0 283.7 L 565.0 261.2 L 568.0 230.7 L 571.0 205.1 L 574.0 189.6 L 577.0 187.6 L 580.0 199.9 L 583.0 223.3 L 586.0 252.7 L 589.0 280.8 L 592.0 289.4 L 595.0 294.0 L 598.0 293.5 L 601.0 288.1 L 604.0 276.4 L 607.0 244.6 L 610.0 213.6 L 613.0 190.2 L 616.0 178.9 L 619.0 181.8 L 622.0 197.8 L 625.0 222.8 L 628.0 252.3 L 631.0 280.7 L 634.0 289.3 L 637.0 294.0 L 640.0 293.6 L 643.0 288.2 L 646.0 276.9 L 649.0 245.2 L 652.0 214.1 L 655.0 190.5 L 658.0 178.8 L 661.0 181.5 L 664.0 197.3 L 667.0 222.2 L 670.0 251.8 L 673.0 280.5 L 676.0 289.2 L 679.0 294.0 L 682.0 293.6 L 685.0 288.4 L 688.0 277.5 L 691.0 245.8 L 694.0 214.6 L 697.0 190.8 L 700.0 178.7 L 703.0 181.2 L 706.0 196.8 L 709.0 221.7 L 712.0 251.3 L 715.0 280.3 L 718.0 289.1 L 721.0 294.0 L 724.0 293.7 L 727.0 288.5 L 730.0 278.0 L 733.0 246.3 L 736.0 215.1 L 739.0 191.1 L 742.0 178.6 L 745.0 180.9 L 748.0 196.3 L 751.0 221.2 L 754.0 250.8 L 757.0 280.2 L 760.0 289.0 L 763.0 294.0 L 766.0 293.8 L 769.0 288.7 L 772.0 278.5 L 775.0 246.9 L 778.0 215.6 L 781.0 191.4 L 784.0 178.5 L 787.0 180.6 L 790.0 195.8 L 793.0 220.7 L 796.0 250.3 L 799.0 280.0 L 802.0 288.9 L 805.0 294.0 L 808.0 293.9 L 811.0 288.8 L 814.0 279.0 L 817.0 247.4 L 820.0 216.1 L 823.0 191.7 L 826.0 178.4 L 829.0 180.3 L 832.0 195.3 L 835.0 220.2 L 838.0 249.8 L 841.0 279.9 L 844.0 287.2 L 847.0 291.3 L 850.0 291.5 L 853.0 288.1 L 856.0 282.5 L 859.0 271.3 L 862.0 258.8 L 865.0 252.1 L 868.0 252.4 L 871.0 258.8 L 874.0 269.4" fill="none" stroke="#8c9ba5" stroke-width="1.2" opacity="0.85"/>
+
+  <!-- Envelope Curve Venv(t) -->
+  <path d="M 100 274 L 220 274 C 240 274, 270 195, 290 195 C 320 195, 360 274, 390 274 L 470 274 C 490 274, 530 145, 560 145 L 810 145 C 830 145, 850 274, 865 274" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Graph 1 Axes -->
+  <line x1="100" y1="285" x2="100" y2="108" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="92" y="112" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">V (В)</text>
+
+  <line x1="95" y1="280" x2="880" y2="280" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="92" y="284" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+  <text x="888" y="284" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">t (мс)</text>
+
+  <!-- ADC Sample Dots on Envelope -->
+  <circle cx="510" cy="205" r="3.5" fill="#2457d6" stroke="white" stroke-width="1"/>
+  <circle cx="540" cy="165" r="3.5" fill="#2457d6" stroke="white" stroke-width="1"/>
+  <circle cx="570" cy="145" r="3.5" fill="#2457d6" stroke="white" stroke-width="1"/>
+  <circle cx="600" cy="145" r="3.5" fill="#2457d6" stroke="white" stroke-width="1"/>
+  <circle cx="630" cy="145" r="3.5" fill="#2457d6" stroke="white" stroke-width="1"/>
+  <circle cx="660" cy="145" r="3.5" fill="#2457d6" stroke="white" stroke-width="1"/>
+  <circle cx="690" cy="145" r="3.5" fill="#2457d6" stroke="white" stroke-width="1"/>
+  <circle cx="720" cy="145" r="3.5" fill="#2457d6" stroke="white" stroke-width="1"/>
+  <circle cx="750" cy="145" r="3.5" fill="#2457d6" stroke="white" stroke-width="1"/>
+  <circle cx="780" cy="145" r="3.5" fill="#2457d6" stroke="white" stroke-width="1"/>
+
+  <!-- Sampling Interval Ts dimension arrow -->
+  <line x1="531" y1="130" x2="555" y2="130" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-blue-left)" marker-end="url(#arr-blue)"/>
+  <text x="543" y="122" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Інтервал АЦП (Ts)</text>
+
+  <!-- Annotations in Upper Graph -->
+  <!-- 1. Noise Spike Callout Box -->
+  <rect x="205" y="100" width="170" height="44" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="290" y="117" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Поодинокий сплеск</text>
+  <text x="290" y="133" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Venv &lt; Vth (Без тривоги)</text>
+
+  <!-- 2. Sustained Anomaly Callout Box (Positioned above envelope curve Venv=145) -->
+  <rect x="670" y="98" width="195" height="44" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="767.5" y="115" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Тривала вібрація</text>
+  <text x="767.5" y="131" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Venv &gt; Vth (Аварійний режим)</text>
+
+  <!-- Lower Panel: Graph 2 (Digital Alarm Output) -->
+  <rect x="40" y="334" width="880" height="106" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Lower Panel Header -->
+  <text x="56" y="356" font-size="14" font-weight="bold" fill="#1a1a1a">2. Вихідний цифровий сигнал тривоги (ALARM OUT)</text>
+
+  <!-- Shaded Area under Active Alarm Signal -->
+  <rect x="540" y="380" width="270" height="35" fill="#fdecea" opacity="0.75"/>
+
+  <!-- Alarm Signal Digital Waveform -->
+  <path d="M 100 415 L 540 415 L 540 380 L 810 380 L 810 415 L 875 415" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Graph 2 Axes -->
+  <line x1="100" y1="422" x2="100" y2="366" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="92" y="370" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">ALARM</text>
+
+  <line x1="96" y1="380" x2="100" y2="380" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="92" y="384" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">1</text>
+
+  <line x1="96" y1="415" x2="100" y2="415" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="92" y="419" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+
+  <line x1="95" y1="415" x2="880" y2="415" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="888" y="419" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">t (мс)</text>
+
+  <!-- Vertical Sync Dashed Lines -->
+  <!-- Spike Sync Line (broken around Panel 2 header &amp; label box to avoid line-text collision) -->
+  <line x1="290" y1="195" x2="290" y2="330" stroke="#94a3b8" stroke-dasharray="3,3" stroke-width="1.2"/>
+  <line x1="290" y1="402" x2="290" y2="415" stroke="#94a3b8" stroke-dasharray="3,3" stroke-width="1.2"/>
+  <rect x="215" y="380" width="150" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="290" y="394" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Заваду відфільтровано</text>
+
+  <!-- Threshold Crossing Sync Line &amp; Trigger Point -->
+  <line x1="540" y1="165" x2="540" y2="368" stroke="#c0392b" stroke-dasharray="4,3" stroke-width="1.5"/>
+  <line x1="540" y1="408" x2="540" y2="415" stroke="#c0392b" stroke-dasharray="4,3" stroke-width="1.5"/>
+  <circle cx="540" cy="165" r="4" fill="#c0392b"/>
+
+  <!-- Trigger Point Box (x: 395 to 525) -->
+  <rect x="395" y="372" width="130" height="36" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="460" y="386" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Поріг перевищено</text>
+  <text x="460" y="400" text-anchor="middle" font-size="12" fill="#6b7280">Формування ALARM</text>
+
+  <!-- Alarm Active Region Text -->
+  <text x="675" y="401" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">АКТИВНИЙ СИГНАЛ ТРИВОГИ (ALARM = 1)</text>
+
+</svg>

@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Marker definitions -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">A3144 — Внутрішня функціональна схема давача Холла</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Сигнал елемента Холла стабілізується чопером, підсилюється і через тригер Шмітта керує NPN-виходом</text>
+
+  <!-- External Magnet Source -->
+  <rect x="70" y="15" width="90" height="32" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="115" y="36" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Південь (S)</text>
+  <line x1="115" y1="47" x2="115" y2="220" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-red)"/>
+  <text x="125" y="60" font-size="12" font-weight="700" fill="#c0392b" text-anchor="start">Магнітне поле B</text>
+
+  <!-- Main IC Container Box -->
+  <rect x="50" y="75" width="800" height="395" rx="12" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="65" y="98" font-size="13" font-weight="700" fill="#1a1a1a">Мікросхема A3144 (Корпус / Chip)</text>
+
+  <!-- Block 1: Voltage Regulator -->
+  <rect x="210" y="115" width="220" height="50" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="320" y="136" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Регулятор напруги</text>
+  <text x="320" y="152" font-size="12" fill="#6b7280" text-anchor="middle">(Voltage Regulator)</text>
+
+  <!-- Internal VREG Power Bus -->
+  <line x1="320" y1="165" x2="320" y2="185" stroke="#27ae60" stroke-width="2"/>
+  <line x1="132" y1="185" x2="590" y2="185" stroke="#27ae60" stroke-width="2" stroke-dasharray="5 3"/>
+  <line x1="132" y1="185" x2="132" y2="220" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="277" y1="185" x2="277" y2="220" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="432" y1="185" x2="432" y2="220" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="590" y1="185" x2="590" y2="220" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="330" y="178" font-size="12" font-weight="700" fill="#27ae60" text-anchor="start">V_REG (живлення)</text>
+
+  <!-- Block 2: Hall Sensor Element -->
+  <rect x="75" y="220" width="115" height="110" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="117" y="232" width="30" height="24" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="132.5" y="275" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Елемент Холла</text>
+  <text x="132.5" y="293" font-size="12" fill="#6b7280" text-anchor="middle">(Hall Sensor)</text>
+  <text x="132.5" y="310" font-size="12" fill="#6b7280" text-anchor="middle">первинний давач</text>
+
+  <!-- Inter-block Signal 1: Hall -> Chopper -->
+  <line x1="190" y1="265" x2="215" y2="265" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="190" y1="285" x2="215" y2="285" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="202.5" y="250" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">V_H</text>
+
+  <!-- Block 3: Chopper Stabilization -->
+  <rect x="215" y="220" width="125" height="110" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="277.5" y="252" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Чоперна</text>
+  <text x="277.5" y="270" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">стабілізація</text>
+  <text x="277.5" y="290" font-size="12" fill="#6b7280" text-anchor="middle">динамічний зсув</text>
+  <text x="277.5" y="308" font-size="12" fill="#6b7280" text-anchor="middle">(Chopper Offset)</text>
+
+  <!-- Inter-block Signal 2: Chopper -> Diff Amp -->
+  <line x1="340" y1="265" x2="370" y2="265" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="340" y1="285" x2="370" y2="285" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="355" y="250" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">V_CH</text>
+
+  <!-- Block 4: Differential Amplifier -->
+  <rect x="370" y="220" width="125" height="110" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <polygon points="419,230 419,254 445,242" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="432.5" y="272" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Диференційний</text>
+  <text x="432.5" y="290" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">підсилювач</text>
+  <text x="432.5" y="308" font-size="12" fill="#6b7280" text-anchor="middle">(Diff Amp)</text>
+
+  <!-- Inter-block Signal 3: Diff Amp -> Schmitt Trigger -->
+  <line x1="495" y1="275" x2="525" y2="275" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="510" y="255" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">V_AMP</text>
+
+  <!-- Block 5: Schmitt Trigger -->
+  <rect x="525" y="220" width="130" height="110" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M573,248 L585,248 L585,234 L598,234 M598,242 L586,242 L586,256 L573,256" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="590" y="272" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Тригер Шмітта</text>
+  <text x="590" y="290" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">пороги Bop / Brp</text>
+  <text x="590" y="308" font-size="12" fill="#6b7280" text-anchor="middle">гістерезис</text>
+
+  <!-- Inter-block Signal 4: Schmitt Trigger -> NPN Transistor -->
+  <line x1="655" y1="275" x2="690" y2="275" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="672.5" y="255" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">V_ST</text>
+
+  <!-- Block 6: NPN Open Collector Output Transistor -->
+  <rect x="690" y="220" width="100" height="110" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="740" y="238" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">NPN вихід</text>
+  <text x="740" y="254" font-size="12" fill="#6b7280" text-anchor="middle">відкритий кол.</text>
+  <!-- Transistor schematic inside lower half of block -->
+  <line x1="690" y1="285" x2="720" y2="285" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="720" y1="272" x2="720" y2="298" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="720" y1="277" x2="740" y2="270" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="740" y1="270" x2="795" y2="270" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="720" y1="293" x2="740" y2="300" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="740" y1="300" x2="740" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Internal GND Bus -->
+  <line x1="132.5" y1="330" x2="132.5" y2="395" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="277.5" y1="330" x2="277.5" y2="395" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="432.5" y1="330" x2="432.5" y2="395" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="590" y1="330" x2="590" y2="395" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="132.5" y1="395" x2="740" y2="395" stroke="#6b7280" stroke-width="2"/>
+  <line x1="455" y1="395" x2="455" y2="425" stroke="#6b7280" stroke-width="2"/>
+  <text x="470" y="412" font-size="12" fill="#6b7280" text-anchor="start">Внутрішня шина заземлення (GND)</text>
+
+  <!-- Pin 1: VCC -->
+  <rect x="70" y="125" width="45" height="30" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="92.5" y="145" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">1</text>
+  <text x="92.5" y="112" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">VCC</text>
+  <text x="92.5" y="168" font-size="12" fill="#6b7280" text-anchor="middle">3.5–24V</text>
+  <line x1="115" y1="140" x2="210" y2="140" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Pin 2: GND -->
+  <rect x="432.5" y="425" width="45" height="30" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="455" y="445" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">2</text>
+  <text x="455" y="470" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">GND (Спільний 0V)</text>
+
+  <!-- Pin 3: OUT -->
+  <rect x="795" y="255" width="45" height="30" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="817.5" y="275" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">3</text>
+  <text x="817.5" y="243" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">OUT</text>
+  <text x="817.5" y="300" font-size="12" fill="#6b7280" text-anchor="middle">Вихід (ОК)</text>
+
+  <!-- External Pull-Up Resistor & Connection -->
+  <circle cx="875" cy="140" r="4" fill="#27ae60"/>
+  <text x="875" y="125" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">V_MCU (3.3V/5V)</text>
+  <line x1="875" y1="144" x2="875" y2="165" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="863" y="165" width="24" height="55" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="895" y="188" font-size="12" font-weight="700" fill="#27ae60" text-anchor="start">R_pull-up</text>
+  <text x="895" y="204" font-size="12" fill="#6b7280" text-anchor="start">1k..10k</text>
+  <line x1="875" y1="220" x2="875" y2="270" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="840" y1="270" x2="875" y2="270" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="875" cy="270" r="3.5" fill="#1a1a1a"/>
+  <line x1="875" y1="270" x2="930" y2="270" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="883" y="255" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="start">До МК</text>
+  <text x="883" y="293" font-size="12" fill="#6b7280" text-anchor="start">(GPIO Input)</text>
+</svg>

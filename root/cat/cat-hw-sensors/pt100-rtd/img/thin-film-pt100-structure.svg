@@ -1,0 +1,134 @@
+<svg viewBox="0 0 960 540" width="960" height="540" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Definitions -->
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gold" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d97706"/>
+    </marker>
+    <!-- Dot Markers -->
+    <marker id="dot-blue" markerWidth="8" markerHeight="8" refX="4" refY="4" markerUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="3" fill="#2457d6"/>
+    </marker>
+    <marker id="dot-dark" markerWidth="8" markerHeight="8" refX="4" refY="4" markerUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="3" fill="#1a1a1a"/>
+    </marker>
+    <marker id="dot-gold" markerWidth="8" markerHeight="8" refX="4" refY="4" markerUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="3" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Шарувата структура тонкоплівкового платинового термоопору PT100</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Фотолітографічний платиновий меандр на керамічній підкладці Al₂O₃ забезпечує мінімальну теплову інерційність та високу вібростійкість</text>
+
+  <!-- Exploded 3D Assembly Area -->
+  
+  <!-- Vertical Guide Alignment Lines (Dashed) -->
+  <line x1="480" y1="75" x2="480" y2="305" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="290" y1="120" x2="290" y2="350" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="670" y1="120" x2="670" y2="350" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="480" y1="165" x2="480" y2="395" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- LAYER 1 (BOTTOM): Alumina Ceramic Substrate (Al2O3) -->
+  <g id="layer-substrate">
+    <!-- Top Surface Rhombus -->
+    <polygon points="480,305 670,350 480,395 290,350" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+    <!-- Front-Left 3D Face -->
+    <polygon points="290,350 480,395 480,425 290,380" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1.5"/>
+    <!-- Front-Right 3D Face -->
+    <polygon points="480,395 670,350 670,380 480,425" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1.5"/>
+    <!-- Ceramic Grain Texture Lines -->
+    <line x1="340" y1="337" x2="530" y2="382" stroke="#e2e8f0" stroke-width="1"/>
+    <line x1="390" y1="326" x2="580" y2="371" stroke="#e2e8f0" stroke-width="1"/>
+    <line x1="440" y1="314" x2="630" y2="359" stroke="#e2e8f0" stroke-width="1"/>
+  </g>
+
+  <!-- LAYER 2 (MIDDLE): Platinum Thin-Film Meander & Contact Pads -->
+  <g id="layer-meander">
+    <!-- Film Outline Base -->
+    <polygon points="480,190 670,235 480,280 290,235" fill="#eaf0fd" fill-opacity="0.8" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,2"/>
+    
+    <!-- Photolithographic Platinum Serpentine Meander Path -->
+    <path d="M 366,235 L 480,208 L 499,212.5 L 385,239.5 L 404,244 L 518,217 L 537,221.5 L 423,248.5 L 442,253 L 556,226 L 575,230.5 L 461,257.5" fill="none" stroke="#2457d6" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+    
+    <!-- Contact Pads (Pt/Au Pads) at Front Corner -->
+    <!-- Pad 1 (Left Terminal) -->
+    <polygon points="465,263 485,258 495,268 475,273" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+    <!-- Pad 2 (Right Terminal) -->
+    <polygon points="520,250 540,245 550,255 530,260" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+
+    <!-- Lead Wires (Pt/Au/Ni Wire Leads) connected to pads -->
+    <path d="M 480,268 Q 500,310 520,335" fill="none" stroke="#475569" stroke-width="4" stroke-linecap="round"/>
+    <path d="M 535,255 Q 555,295 575,320" fill="none" stroke="#475569" stroke-width="4" stroke-linecap="round"/>
+    <!-- Solder / Weld Spots -->
+    <circle cx="480" cy="268" r="3.5" fill="#d97706"/>
+    <circle cx="535" cy="255" r="3.5" fill="#d97706"/>
+  </g>
+
+  <!-- LAYER 4 (TOP): Protective Glass Passivation Cover -->
+  <g id="layer-glass">
+    <!-- Glass Cover Top Surface -->
+    <polygon points="480,75 670,120 480,165 290,120" fill="#eaf0fd" fill-opacity="0.75" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,3"/>
+    <!-- Front-Left 3D Glass Edge -->
+    <polygon points="290,120 480,165 480,180 290,135" fill="#bfdbfe" fill-opacity="0.65" stroke="#3b82f6" stroke-width="1.5"/>
+    <!-- Front-Right 3D Glass Edge -->
+    <polygon points="480,165 670,120 670,135 480,180" fill="#93c5fd" fill-opacity="0.65" stroke="#2563eb" stroke-width="1.5"/>
+    <!-- Specular Glass Highlights -->
+    <line x1="380" y1="100" x2="520" y2="133" stroke="white" stroke-width="2" opacity="0.8"/>
+    <line x1="420" y1="95" x2="560" y2="128" stroke="white" stroke-width="1" opacity="0.6"/>
+  </g>
+
+  <!-- CALLOUT CARDS & ANNOTATION LINES -->
+
+  <!-- Card 1: Glass Passivation (Top Left) -->
+  <rect x="40" y="95" width="220" height="65" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="52" y="117" font-size="13" font-weight="bold" fill="#1a1a1a">Захисне скляне покриття</text>
+  <text x="52" y="138" font-size="12" fill="#6b7280">Захисна пасивація (скло)</text>
+  <line x1="260" y1="127" x2="360" y2="125" stroke="#2457d6" stroke-width="2" marker-end="url(#dot-blue)"/>
+
+  <!-- Card 2: Platinum Meander (Top Right) -->
+  <rect x="700" y="95" width="220" height="65" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712" y="117" font-size="13" font-weight="bold" fill="#1a1a1a">Платиновий меандр (Pt)</text>
+  <text x="712" y="138" font-size="12" fill="#6b7280">Тонка плівка (100 Ом/0°C)</text>
+  <line x1="700" y1="127" x2="580" y2="215" stroke="#2457d6" stroke-width="2" marker-end="url(#dot-blue)"/>
+
+  <!-- Card 3: Alumina Substrate (Bottom Left) -->
+  <rect x="40" y="335" width="220" height="65" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="52" y="357" font-size="13" font-weight="bold" fill="#1a1a1a">Підкладка Al₂O₃</text>
+  <text x="52" y="378" font-size="12" fill="#6b7280">Керамічна корунд-основа</text>
+  <line x1="260" y1="367" x2="360" y2="360" stroke="#1a1a1a" stroke-width="2" marker-end="url(#dot-dark)"/>
+
+  <!-- Card 4: Contact Pads & Lead Wires (Bottom Right) -->
+  <rect x="700" y="335" width="220" height="65" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712" y="357" font-size="13" font-weight="bold" fill="#1a1a1a">Контактні майданчики</text>
+  <text x="712" y="378" font-size="12" fill="#6b7280">Вивідні дроти (Pt/Au/Ni)</text>
+  <polyline points="700,367 560,367 520,280" fill="none" stroke="#d97706" stroke-width="2" marker-end="url(#dot-gold)"/>
+
+  <!-- SUMMARY PANEL (BOTTOM) -->
+  <rect x="40" y="430" width="880" height="80" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  
+  <!-- Column 1: Speed & Mass -->
+  <text x="60" y="455" font-size="13" font-weight="bold" fill="#2457d6">⚡ Мінімальна інерційність</text>
+  <text x="60" y="475" font-size="12" fill="#6b7280">Мала маса плівки: τ₀.₅ &lt; 0.1 с</text>
+  <text x="60" y="494" font-size="12" fill="#6b7280">Швидкий відгук на зміну t°</text>
+
+  <!-- Column 2: Vibration Resistance -->
+  <text x="350" y="455" font-size="13" font-weight="bold" fill="#2457d6">🛡️ Висока вібростійкість</text>
+  <text x="350" y="475" font-size="12" fill="#6b7280">Монолітна адгезія до Al₂O₃</text>
+  <text x="350" y="494" font-size="12" fill="#6b7280">Стійкість до прискорень до 40g</text>
+
+  <!-- Column 3: Precision & Trimming -->
+  <text x="640" y="455" font-size="13" font-weight="bold" fill="#2457d6">🎯 Прецизійна точність</text>
+  <text x="640" y="475" font-size="12" fill="#6b7280">Лазерна підгонка (Trimming)</text>
+  <text x="640" y="494" font-size="12" fill="#6b7280">Класи точності F0.1 / F0.3 (IEC 60751)</text>
+
+</svg>

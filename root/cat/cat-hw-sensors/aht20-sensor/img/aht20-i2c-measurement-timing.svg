@@ -1,0 +1,78 @@
+<svg viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Таймінги та структура 7-байтового пакета I2C сенсора AHT20</text>
+  <text x="480" y="65" font-size="13" fill="#6b7280" text-anchor="middle">Виконання тригера 0xAC, часова затримка конверсії 80 мс та розпакування 20-бітних даних</text>
+
+  <!-- Section 1: Trigger Phase (0xAC 0x33 0x00) -->
+  <rect x="40" y="100" width="220" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="150" y="125" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Запуск вимірювання</text>
+  <rect x="55" y="140" width="190" height="55" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="150" y="162" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Запис I2C: 0x70 (Addr W)</text>
+  <text x="150" y="182" font-size="12" fill="#2457d6" text-anchor="middle">Команда: 0xAC 0x33 0x00</text>
+
+  <!-- Delay Arrow & Text -->
+  <line x1="260" y1="155" x2="360" y2="155" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr-blue)"/>
+  <rect x="270" y="110" width="80" height="35" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="310" y="132" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Пауза 80 мс</text>
+
+  <!-- Section 2: Read Phase (0x71) -->
+  <rect x="360" y="100" width="560" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="640" y="125" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Зчитування пакета (7 байтів від AHT20)</text>
+
+  <!-- 7 Byte blocks -->
+  <rect x="375" y="145" width="70" height="50" rx="4" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="410" y="167" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Byte 0</text>
+  <text x="410" y="185" font-size="11" fill="#6b7280" text-anchor="middle">State 0x1C</text>
+
+  <rect x="452" y="145" width="70" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="487" y="167" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Byte 1</text>
+  <text x="487" y="185" font-size="11" fill="#2457d6" text-anchor="middle">RH[19:12]</text>
+
+  <rect x="529" y="145" width="70" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="564" y="167" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Byte 2</text>
+  <text x="564" y="185" font-size="11" fill="#2457d6" text-anchor="middle">RH[11:4]</text>
+
+  <rect x="606" y="145" width="70" height="50" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="641" y="167" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Byte 3</text>
+  <text x="641" y="185" font-size="11" fill="#6b7280" text-anchor="middle">RH[3:0]|T[19:16]</text>
+
+  <rect x="683" y="145" width="70" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="718" y="167" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Byte 4</text>
+  <text x="718" y="185" font-size="11" fill="#c0392b" text-anchor="middle">T[15:8]</text>
+
+  <rect x="760" y="145" width="70" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="795" y="167" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Byte 5</text>
+  <text x="795" y="185" font-size="11" fill="#c0392b" text-anchor="middle">T[7:0]</text>
+
+  <rect x="837" y="145" width="70" height="50" rx="4" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="872" y="167" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Byte 6</text>
+  <text x="872" y="185" font-size="11" fill="#27ae60" text-anchor="middle">CRC-8</text>
+
+  <!-- Bit Extraction Section below -->
+  <rect x="40" y="240" width="430" height="150" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="255" y="268" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Формування 20 біт вологості S_RH</text>
+  <text x="255" y="295" font-size="13" fill="#1a1a1a" text-anchor="middle">S_RH = (Byte1 &lt;&lt; 12) | (Byte2 &lt;&lt; 4) | (Byte3 &gt;&gt; 4)</text>
+  <text x="255" y="325" font-size="12" fill="#2457d6" text-anchor="middle">RH (%) = (S_RH / 2^20) * 100%</text>
+  <text x="255" y="355" font-size="12" fill="#6b7280" text-anchor="middle">Діапазон S_RH: 0x00000..0xFFFFF (0..1048575)</text>
+
+  <rect x="490" y="240" width="430" height="150" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="705" y="268" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Формування 20 біт температури S_T</text>
+  <text x="705" y="295" font-size="13" fill="#1a1a1a" text-anchor="middle">S_T = ((Byte3 &amp; 0x0F) &lt;&lt; 16) | (Byte4 &lt;&lt; 8) | Byte5</text>
+  <text x="705" y="325" font-size="12" fill="#c0392b" text-anchor="middle">t (°C) = (S_T / 2^20) * 200 - 50</text>
+  <text x="705" y="355" font-size="12" fill="#6b7280" text-anchor="middle">Діапазон S_T: 0x00000..0xFFFFF (-50°C..+150°C)</text>
+
+  <!-- Footer Info -->
+  <text x="480" y="425" font-size="12" fill="#6b7280" text-anchor="middle">Час вимірювання 80 мс гарантує оновлення даних АЦП перед зчитуванням пакета</text>
+</svg>

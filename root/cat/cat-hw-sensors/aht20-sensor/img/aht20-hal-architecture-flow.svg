@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратна абстракція драйвера AHT20 та зв'язок із периферією</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Вказівники на функції I2C ізолюють логіку обробки датчика від низькорівневих драйверів платформи</text>
+
+  <!-- Driver Layer -->
+  <rect x="40" y="90" width="400" height="320" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="240" y="120" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">Апаратно-незалежний драйвер AHT20</text>
+  <text x="240" y="140" font-size="12" fill="#6b7280" text-anchor="middle">Чиста переносна логіка (C99 / C++11)</text>
+
+  <rect x="60" y="160" width="360" height="60" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="240" y="185" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Автомат станів та алгоритми</text>
+  <text x="240" y="205" font-size="12" fill="#6b7280" text-anchor="middle">Обчислення CRC-8, 20-бітних даних, таймери 80 мс</text>
+
+  <rect x="60" y="240" width="360" height="150" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="240" y="265" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контекст драйвера (aht20_t / I2CBus)</text>
+  <text x="80" y="295" font-size="12" fill="#1a1a1a">• i2c_write(addr, reg, data, len)</text>
+  <text x="80" y="325" font-size="12" fill="#1a1a1a">• i2c_read(addr, reg, buffer, len)</text>
+  <text x="80" y="355" font-size="12" fill="#1a1a1a">• delay_ms(ms)</text>
+
+  <!-- Hardware Abstraction Arrow -->
+  <path d="M 440 290 L 510 290" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr-blue)"/>
+  <text x="475" y="280" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Виклик API</text>
+
+  <!-- MCU Peripheral Layer -->
+  <rect x="520" y="90" width="400" height="190" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="720" y="120" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Периферійний рівень МК (HAL / SDK)</text>
+
+  <rect x="540" y="145" width="360" height="115" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="720" y="170" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Реалізація функцій обміну</text>
+  <text x="560" y="195" font-size="12" fill="#6b7280">STM32: HAL_I2C_Master_Transmit / Receive</text>
+  <text x="560" y="220" font-size="12" fill="#6b7280">ESP32: i2c_master_write_read_device</text>
+  <text x="560" y="245" font-size="12" fill="#6b7280">Arduino: Wire.beginTransmission / requestFrom</text>
+
+  <!-- Physical Bus Arrow -->
+  <path d="M 720 280 L 720 310" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="730" y="300" font-size="12" font-weight="bold" fill="#27ae60">Шина I2C (SDA/SCL)</text>
+
+  <!-- Physical Sensor -->
+  <rect x="520" y="320" width="400" height="90" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="720" y="355" font-size="16" font-weight="bold" fill="#27ae60" text-anchor="middle">Давач AHT20 (SMD-6 / QFN-6)</text>
+  <text x="720" y="385" font-size="12" fill="#1a1a1a" text-anchor="middle">Фіксована 7-бітна адреса 0x38 | MEMS + ASIC</text>
+</svg>

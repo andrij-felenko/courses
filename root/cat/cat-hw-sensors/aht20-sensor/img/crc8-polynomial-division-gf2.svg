@@ -1,0 +1,62 @@
+<svg viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Обчислення CRC-8 у полі GF(2) з поліномом 0x31</text>
+  <text x="480" y="65" font-size="13" fill="#6b7280" text-anchor="middle">Попобітовий зсув даних AHT20 та покрокова операція XOR з полиномом x^8 + x^5 + x^4 + 1</text>
+
+  <!-- Step 1: Init Register -->
+  <rect x="40" y="100" width="260" height="130" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="170" y="125" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Ініціалізація (Init)</text>
+  <rect x="55" y="145" width="230" height="45" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="170" y="172" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Регістр CRC = 0xFF (11111111)</text>
+  <text x="170" y="215" font-size="12" fill="#6b7280" text-anchor="middle">Початкове значення за стандартом</text>
+
+  <!-- Arrow Step 1 -> Step 2 -->
+  <line x1="300" y1="165" x2="340" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 2: Bit Shift & MSB Test -->
+  <rect x="340" y="100" width="280" height="130" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="125" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Зсув та аналіз MSB</text>
+  <rect x="355" y="145" width="250" height="45" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="165" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">CRC = (CRC &lt;&lt; 1) ^ InputBit</text>
+  <text x="480" y="182" font-size="11" fill="#c0392b" text-anchor="middle">Перевірка: Старший біт (MSB == 1)?</text>
+  <text x="480" y="215" font-size="12" fill="#6b7280" text-anchor="middle">Аналіз висунутого біта на кожному кроці</text>
+
+  <!-- Arrow Step 2 -> Step 3 -->
+  <line x1="620" y1="165" x2="660" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 3: XOR with Polynomial -->
+  <rect x="660" y="100" width="260" height="130" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="790" y="125" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">3. Операція XOR (GF2)</text>
+  <rect x="675" y="145" width="230" height="45" rx="4" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="790" y="165" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">CRC = CRC ^ 0x31</text>
+  <text x="790" y="182" font-size="11" fill="#1a1a1a" text-anchor="middle">Поліном 0x31 (00110001)</text>
+  <text x="790" y="215" font-size="12" fill="#6b7280" text-anchor="middle">Виконати якщо MSB був 1</text>
+
+  <!-- Output Result Panel below -->
+  <rect x="180" y="260" width="600" height="130" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="290" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Результат: Перевірка залишка CRC-8</text>
+  
+  <rect x="200" y="305" width="560" height="45" rx="4" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="325" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Обчислений CRC-8 == 7-й байт пакета AHT20?</text>
+  <text x="480" y="342" font-size="12" fill="#27ae60" text-anchor="middle">Збіг гарантує відсутність помилок передачі по шині I2C</text>
+
+  <text x="480" y="378" font-size="12" fill="#6b7280" text-anchor="middle">Всі 6 байтів кадру (Status, RH, T) обробляються послідовно біт за бітом</text>
+
+  <!-- Arrow down to result -->
+  <line x1="480" y1="230" x2="480" y2="260" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Footer Info -->
+  <text x="480" y="425" font-size="12" fill="#6b7280" text-anchor="middle">Математичний апарат GF(2) гарантує виявлення поодиноких та кратних бітових викривлень</text>
+</svg>

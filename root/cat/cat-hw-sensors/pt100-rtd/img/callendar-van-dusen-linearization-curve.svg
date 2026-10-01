@@ -1,0 +1,199 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Залежність опору PT100 та похибка лінійної апроксимації</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Без поліноміального рівняння Каллендара — Ван Дюзена похибка сягає ~96 °C при +850 °C</text>
+
+  <!-- Декларація маркерів -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- ПАНЕЛЬ 1: Залежність R(T) -->
+  <g id="panel-1">
+    <!-- Тло та рамка панелі 1 -->
+    <rect x="30" y="75" width="435" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+    <text x="247" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Характеристика R(T) термоопору</text>
+    <text x="80" y="125" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Опір R, Ом</text>
+    <text x="260" y="458" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Температура T, °C</text>
+
+    <!-- Область графіка 1 -->
+    <rect x="80" y="140" width="360" height="270" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+    <!-- Сітка графіка 1 (з обходом блоків) -->
+    <line x1="80" y1="351" x2="440" y2="351" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+    <line x1="80" y1="292" x2="440" y2="292" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+    <line x1="80" y1="233" x2="440" y2="233" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+    <line x1="80" y1="174" x2="95" y2="174" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+    <line x1="280" y1="174" x2="440" y2="174" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+
+    <line x1="149" y1="140" x2="149" y2="410" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+    <line x1="217" y1="140" x2="217" y2="410" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+    <line x1="286" y1="140" x2="286" y2="410" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+    <line x1="354" y1="140" x2="354" y2="306" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+    <line x1="354" y1="346" x2="354" y2="410" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+
+    <!-- Засічки та підписи осі Y (Panel 1) -->
+    <line x1="75" y1="410" x2="80" y2="410" stroke="#1a1a1a"/>
+    <text x="74" y="414" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+
+    <line x1="75" y1="351" x2="80" y2="351" stroke="#1a1a1a"/>
+    <text x="74" y="355" text-anchor="end" font-size="12" fill="#6b7280">100</text>
+
+    <line x1="75" y1="292" x2="80" y2="292" stroke="#1a1a1a"/>
+    <text x="74" y="296" text-anchor="end" font-size="12" fill="#6b7280">200</text>
+
+    <line x1="75" y1="233" x2="80" y2="233" stroke="#1a1a1a"/>
+    <text x="74" y="237" text-anchor="end" font-size="12" fill="#6b7280">300</text>
+
+    <line x1="75" y1="174" x2="80" y2="174" stroke="#1a1a1a"/>
+    <text x="74" y="178" text-anchor="end" font-size="12" fill="#6b7280">400</text>
+
+    <!-- Засічки та підписи осі X (Panel 1) -->
+    <line x1="80" y1="410" x2="80" y2="415" stroke="#1a1a1a"/>
+    <text x="80" y="426" text-anchor="middle" font-size="12" fill="#6b7280">-200</text>
+
+    <line x1="149" y1="410" x2="149" y2="415" stroke="#1a1a1a"/>
+    <text x="149" y="426" text-anchor="middle" font-size="12" fill="#6b7280">0</text>
+
+    <line x1="217" y1="410" x2="217" y2="415" stroke="#1a1a1a"/>
+    <text x="217" y="426" text-anchor="middle" font-size="12" fill="#6b7280">200</text>
+
+    <line x1="286" y1="410" x2="286" y2="415" stroke="#1a1a1a"/>
+    <text x="286" y="426" text-anchor="middle" font-size="12" fill="#6b7280">400</text>
+
+    <line x1="354" y1="410" x2="354" y2="415" stroke="#1a1a1a"/>
+    <text x="354" y="426" text-anchor="middle" font-size="12" fill="#6b7280">600</text>
+
+    <line x1="440" y1="410" x2="440" y2="415" stroke="#1a1a1a"/>
+    <text x="440" y="426" text-anchor="middle" font-size="12" fill="#6b7280">850</text>
+
+    <!-- Крива Каллендара — Ван Дюзена (істинна) -->
+    <path d="M 80,399 Q 115,375 149,351 T 217,306 T 286,264 T 354,225 T 440,180" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+    <!-- Лінійна апроксимація -->
+    <line x1="80" y1="396.5" x2="440" y2="158.3" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,4"/>
+
+    <!-- Легенда панелі 1 -->
+    <rect x="95" y="150" width="185" height="48" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+    <line x1="105" y1="165" x2="125" y2="165" stroke="#2457d6" stroke-width="2.5"/>
+    <text x="130" y="169" font-size="12" font-weight="bold" fill="#1a1a1a">Каллендар — Ван Дюзен</text>
+    <line x1="105" y1="183" x2="125" y2="183" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,3"/>
+    <text x="130" y="187" font-size="12" fill="#1a1a1a">Лінійна апроксимація</text>
+
+    <!-- Опорна точка 0 °C -->
+    <circle cx="149" cy="351" r="4" fill="#2457d6"/>
+    <text x="157" y="370" font-size="12" font-weight="bold" fill="#1a1a1a">R₀ = 100 Ом (0 °C)</text>
+
+    <!-- Відхилення на верхній межі (+850 °C) -->
+    <line x1="440" y1="158.3" x2="440" y2="180" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+    <circle cx="440" cy="158.3" r="3.5" fill="#c0392b"/>
+    <circle cx="440" cy="180" r="3.5" fill="#2457d6"/>
+
+    <!-- Лінія-вказівник до плашки -->
+    <line x1="440" y1="180" x2="430" y2="306" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+
+    <!-- Плашка відхилення на верхній межі (+850 °C) -->
+    <rect x="295" y="306" width="135" height="40" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+    <text x="362" y="322" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ΔR = +36,8 Ом</text>
+    <text x="362" y="338" text-anchor="middle" font-size="12" fill="#c0392b">при T = +850 °C</text>
+  </g>
+
+  <!-- ПАНЕЛЬ 2: Похибка |ΔT| -->
+  <g id="panel-2">
+    <!-- Тло та рамка панелі 2 -->
+    <rect x="495" y="75" width="435" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+    <text x="712" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Абсолютна похибка вимірювання |ΔT|</text>
+    <text x="545" y="125" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Похибка |ΔT|, °C</text>
+    <text x="725" y="458" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Температура T, °C</text>
+
+    <!-- Область графіка 2 -->
+    <rect x="545" y="140" width="360" height="270" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+    <!-- Точна зона (0..100 °C) підсвічування (шлях замість rect, щоб уникнути конфліктів прямокутників) -->
+    <path d="M 614,140 H 648 V 410 H 614 Z" fill="#27ae60" fill-opacity="0.08"/>
+
+    <!-- Сітка графіка 2 (з обходом блоків) -->
+    <line x1="545" y1="356" x2="905" y2="356" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+    <line x1="545" y1="302" x2="905" y2="302" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+    <line x1="545" y1="248" x2="654" y2="248" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+    <line x1="810" y1="248" x2="905" y2="248" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+    <line x1="545" y1="194" x2="905" y2="194" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+
+    <line x1="614" y1="140" x2="614" y2="306" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+    <line x1="614" y1="348" x2="614" y2="410" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+    <line x1="682" y1="140" x2="682" y2="410" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+    <line x1="751" y1="192" x2="751" y2="220" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+    <line x1="751" y1="262" x2="751" y2="410" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+    <line x1="819" y1="192" x2="819" y2="410" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+
+    <!-- Засічки та підписи осі Y (Panel 2) -->
+    <line x1="540" y1="410" x2="545" y2="410" stroke="#1a1a1a"/>
+    <text x="539" y="414" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+
+    <line x1="540" y1="356" x2="545" y2="356" stroke="#1a1a1a"/>
+    <text x="539" y="360" text-anchor="end" font-size="12" fill="#6b7280">20</text>
+
+    <line x1="540" y1="302" x2="545" y2="302" stroke="#1a1a1a"/>
+    <text x="539" y="306" text-anchor="end" font-size="12" fill="#6b7280">40</text>
+
+    <line x1="540" y1="248" x2="545" y2="248" stroke="#1a1a1a"/>
+    <text x="539" y="252" text-anchor="end" font-size="12" fill="#6b7280">60</text>
+
+    <line x1="540" y1="194" x2="545" y2="194" stroke="#1a1a1a"/>
+    <text x="539" y="198" text-anchor="end" font-size="12" fill="#6b7280">80</text>
+
+    <line x1="540" y1="140" x2="545" y2="140" stroke="#1a1a1a"/>
+    <text x="539" y="144" text-anchor="end" font-size="12" fill="#6b7280">100</text>
+
+    <!-- Засічки та підписи осі X (Panel 2) -->
+    <line x1="545" y1="410" x2="545" y2="415" stroke="#1a1a1a"/>
+    <text x="545" y="426" text-anchor="middle" font-size="12" fill="#6b7280">-200</text>
+
+    <line x1="614" y1="410" x2="614" y2="415" stroke="#1a1a1a"/>
+    <text x="614" y="426" text-anchor="middle" font-size="12" fill="#6b7280">0</text>
+
+    <line x1="682" y1="410" x2="682" y2="415" stroke="#1a1a1a"/>
+    <text x="682" y="426" text-anchor="middle" font-size="12" fill="#6b7280">200</text>
+
+    <line x1="751" y1="410" x2="751" y2="415" stroke="#1a1a1a"/>
+    <text x="751" y="426" text-anchor="middle" font-size="12" fill="#6b7280">400</text>
+
+    <line x1="819" y1="410" x2="819" y2="415" stroke="#1a1a1a"/>
+    <text x="819" y="426" text-anchor="middle" font-size="12" fill="#6b7280">600</text>
+
+    <line x1="905" y1="410" x2="905" y2="415" stroke="#1a1a1a"/>
+    <text x="905" y="426" text-anchor="middle" font-size="12" fill="#6b7280">850</text>
+
+    <!-- Заповнення зони під кривою похибки -->
+    <path d="M 545,410 L 545,379 Q 579,403 614,410 T 682,402 T 751,361 T 819,288 T 905,152 L 905,410 Z" fill="#c0392b" fill-opacity="0.1"/>
+
+    <!-- Крива похибки без лінеаризації -->
+    <path d="M 545,379 Q 579,403 614,410 T 682,402 T 751,361 T 819,288 T 905,152" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+    <!-- Плашка "Точна зона" -->
+    <rect x="654" y="220" width="156" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="732" y="236" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Точна зона (0..100 °C)</text>
+    <text x="732" y="252" text-anchor="middle" font-size="12" fill="#27ae60">Похибка |ΔT| &lt; 0,4 °C</text>
+
+    <!-- Плашка відхилення при -200 °C -->
+    <circle cx="545" cy="379" r="4" fill="#c0392b"/>
+    <line x1="545" y1="379" x2="550" y2="348" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+    <rect x="550" y="306" width="116" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+    <text x="608" y="322" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">|ΔT| = 11,6 °C</text>
+    <text x="608" y="338" text-anchor="middle" font-size="12" fill="#c0392b">при T = -200 °C</text>
+
+    <!-- Точка та лінія-вказівник для фатальної похибки при +850 °C -->
+    <circle cx="905" cy="152" r="4" fill="#c0392b"/>
+    <line x1="905" y1="152" x2="876" y2="170" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+
+    <!-- Плашка фатальної похибки при +850 °C -->
+    <rect x="680" y="148" width="196" height="44" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="778" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Фатальна похибка ~96 °C!</text>
+    <text x="778" y="181" text-anchor="middle" font-size="12" fill="#c0392b">Потрібне рівняння Каллендара</text>
+  </g>
+</svg>

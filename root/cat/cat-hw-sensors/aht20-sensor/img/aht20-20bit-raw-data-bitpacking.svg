@@ -1,0 +1,69 @@
+<svg viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розпакування 20-бітних даних AHT20 із 6-байтового масиву</text>
+  <text x="480" y="65" font-size="13" fill="#6b7280" text-anchor="middle">Побітове маскування та зсув розділеного 3-го байта для побудови кодів вологості й температури</text>
+
+  <!-- Array Bytes Header -->
+  <rect x="40" y="100" width="880" height="110" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="125" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Масив зчитаних байтів I2C [Byte 0 ... Byte 5]</text>
+
+  <!-- Bytes 1 to 5 boxes -->
+  <rect x="60" y="145" width="150" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="135" y="167" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Byte 1</text>
+  <text x="135" y="185" font-size="11" fill="#1a1a1a" text-anchor="middle">RH [19 : 12]</text>
+
+  <rect x="230" y="145" width="150" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="305" y="167" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Byte 2</text>
+  <text x="305" y="185" font-size="11" fill="#1a1a1a" text-anchor="middle">RH [11 : 4]</text>
+
+  <!-- Split Byte 3 -->
+  <rect x="400" y="145" width="160" height="50" rx="4" fill="#white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="400" y="145" width="80" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <rect x="480" y="145" width="80" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="440" y="167" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Byte 3 High</text>
+  <text x="440" y="185" font-size="10" fill="#2457d6" text-anchor="middle">RH [3:0]</text>
+  <text x="520" y="167" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Byte 3 Low</text>
+  <text x="520" y="185" font-size="10" fill="#c0392b" text-anchor="middle">T [19:16]</text>
+
+  <rect x="580" y="145" width="150" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="655" y="167" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Byte 4</text>
+  <text x="655" y="185" font-size="11" fill="#1a1a1a" text-anchor="middle">T [15 : 8]</text>
+
+  <rect x="750" y="145" width="150" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="825" y="167" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Byte 5</text>
+  <text x="825" y="185" font-size="11" fill="#1a1a1a" text-anchor="middle">T [7 : 0]</text>
+
+  <!-- Arrows & Reconstruction -->
+  <!-- Left Column: Humidity S_RH -->
+  <rect x="40" y="240" width="420" height="150" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="250" y="268" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Збирання 20 біт вологості S_RH</text>
+  <text x="250" y="295" font-size="13" fill="#1a1a1a" text-anchor="middle">S_RH = (Byte1 &lt;&lt; 12) | (Byte2 &lt;&lt; 4) | (Byte3 &gt;&gt; 4)</text>
+  <text x="250" y="325" font-size="12" fill="#2457d6" text-anchor="middle">Дискваретний код: 0 .. 1048575 (2^20 - 1)</text>
+  <text x="250" y="355" font-size="12" fill="#6b7280" text-anchor="middle">Маскування Byte3 &gt;&gt; 4 залишає лише старші 4 біти</text>
+
+  <!-- Right Column: Temperature S_T -->
+  <rect x="500" y="240" width="420" height="150" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="710" y="268" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Збирання 20 біт температури S_T</text>
+  <text x="710" y="295" font-size="13" fill="#1a1a1a" text-anchor="middle">S_T = ((Byte3 &amp; 0x0F) &lt;&lt; 16) | (Byte4 &lt;&lt; 8) | Byte5</text>
+  <text x="710" y="325" font-size="12" fill="#c0392b" text-anchor="middle">Дискваретний код: 0 .. 1048575 (2^20 - 1)</text>
+  <text x="710" y="355" font-size="12" fill="#6b7280" text-anchor="middle">Маска Byte3 &amp; 0x0F виділяє молодшу тетраду</text>
+
+  <!-- Down Arrows -->
+  <line x1="250" y1="195" x2="250" y2="240" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="710" y1="195" x2="710" y2="240" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Footer Info -->
+  <text x="480" y="425" font-size="12" fill="#6b7280" text-anchor="middle">Точне розбиття байта Byte 3 дає змогу витягнути незалежні 20-бітні коди без перекриття бітів</text>
+</svg>

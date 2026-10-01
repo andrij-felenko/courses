@@ -1,0 +1,198 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема інструментального підсилювача з каскадом зсуву рівня та масштабування</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Диференціальний підсилювач знімає ΔV_IN від містка, а каскад зсуву формує сигнал 0–5 V для АЦП</text>
+
+  <!-- Блок 1: Місток Вітстона (Панель А) -->
+  <rect x="25" y="70" width="150" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="100" y="92" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Місток Вітстона</text>
+  <text x="100" y="108" font-size="12" fill="#6b7280" text-anchor="middle">(Сигнал PT100)</text>
+
+  <!-- Вхідні клеми й описовий блок підсилювача в Панелі А -->
+  <text x="95" y="172" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">V_IN+</text>
+  <circle cx="105" cy="180" r="4" fill="#2457d6"/>
+  <line x1="109" y1="180" x2="240" y2="180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <text x="95" y="372" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">V_IN-</text>
+  <circle cx="105" cy="380" r="4" fill="#2457d6"/>
+  <line x1="109" y1="380" x2="240" y2="380" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Картка параметрів малого сигналу в Панелі А -->
+  <rect x="35" y="240" width="130" height="85" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="100" y="260" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Малий сигнал</text>
+  <text x="100" y="280" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ΔV_IN ≈ 50 mV</text>
+  <text x="100" y="298" font-size="12" fill="#6b7280" text-anchor="middle">+ Синфазна</text>
+  <text x="100" y="314" font-size="12" fill="#6b7280" text-anchor="middle">завада V_CM</text>
+
+  <!-- Блок 2: Інструментальний підсилювач (Панель B) -->
+  <rect x="190" y="70" width="445" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="412.5" y="92" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Каскад інструментального підсилювача (3 ОП)</text>
+  <text x="412.5" y="108" font-size="12" fill="#6b7280" text-anchor="middle">Виділення диференціального сигналу та високий CMRR</text>
+
+  <!-- ОП A1 (Верхній буфер) -->
+  <polygon points="240,155 240,205 280,180" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+  <text x="246" y="172" font-size="12" font-weight="bold" fill="#1a1a1a">+</text>
+  <text x="246" y="196" font-size="12" font-weight="bold" fill="#1a1a1a">-</text>
+  <text x="252" y="184" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">A1</text>
+
+  <!-- ОП A2 (Нижній буфер) -->
+  <polygon points="240,355 240,405 280,380" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+  <text x="246" y="372" font-size="12" font-weight="bold" fill="#1a1a1a">-</text>
+  <text x="246" y="396" font-size="12" font-weight="bold" fill="#1a1a1a">+</text>
+  <text x="252" y="384" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">A2</text>
+
+  <!-- Дроти інвертуючих входів A1, A2 до лінії RG -->
+  <line x1="240" y1="192" x2="215" y2="192" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="240" y1="368" x2="215" y2="368" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="215" cy="192" r="3" fill="#1a1a1a"/>
+  <circle cx="215" cy="368" r="3" fill="#1a1a1a"/>
+
+  <!-- Резистор RG -->
+  <line x1="215" y1="192" x2="215" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="208" y="260" width="14" height="40" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="215" y1="300" x2="215" y2="368" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="198" y="278" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">R_G</text>
+  <text x="198" y="294" font-size="12" fill="#6b7280" text-anchor="end">(Gain)</text>
+
+  <!-- Зворотний зв'язок R1 для A1 -->
+  <line x1="280" y1="180" x2="300" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="300" cy="180" r="3" fill="#1a1a1a"/>
+  <line x1="300" y1="180" x2="300" y2="135" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="300" y1="135" x2="275" y2="135" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="245" y="128" width="30" height="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="245" y1="135" x2="215" y2="135" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="215" y1="135" x2="215" y2="192" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="260" y="120" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_1</text>
+
+  <!-- Зворотний зв'язок R1 для A2 -->
+  <line x1="280" y1="380" x2="300" y2="380" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="300" cy="380" r="3" fill="#1a1a1a"/>
+  <line x1="300" y1="380" x2="300" y2="425" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="300" y1="425" x2="275" y2="425" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="245" y="418" width="30" height="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="245" y1="425" x2="215" y2="425" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="215" y1="425" x2="215" y2="368" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="260" y="442" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_1</text>
+
+  <!-- ОП A3 (Диференціальний підсилювач) -->
+  <polygon points="460,255 460,305 500,280" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+  <text x="466" y="272" font-size="12" font-weight="bold" fill="#1a1a1a">-</text>
+  <text x="466" y="296" font-size="12" font-weight="bold" fill="#1a1a1a">+</text>
+  <text x="472" y="284" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">A3</text>
+
+  <!-- Резистори R2 до A3 -->
+  <!-- Від A1 виходу до A3(-) -->
+  <line x1="300" y1="180" x2="340" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="340" y1="180" x2="340" y2="268" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="340" y1="268" x2="375" y2="268" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="375" y="261" width="40" height="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="415" y1="268" x2="460" y2="268" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="395" y="253" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_2</text>
+
+  <!-- Від A2 виходу до A3(+) -->
+  <line x1="300" y1="380" x2="340" y2="380" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="340" y1="380" x2="340" y2="292" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="340" y1="292" x2="375" y2="292" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="375" y="285" width="40" height="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="415" y1="292" x2="460" y2="292" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="395" y="313" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_2</text>
+
+  <!-- Зворотний зв'язок R3 для A3 -->
+  <circle cx="435" cy="268" r="3" fill="#1a1a1a"/>
+  <line x1="435" y1="268" x2="435" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="435" y1="220" x2="455" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="455" y="213" width="40" height="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="495" y1="220" x2="520" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="520" y1="220" x2="520" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="520" cy="280" r="3" fill="#1a1a1a"/>
+  <text x="475" y="205" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_3</text>
+
+  <!-- Земля та R3 для A3(+) -->
+  <circle cx="435" cy="292" r="3" fill="#1a1a1a"/>
+  <line x1="435" y1="292" x2="435" y2="315" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="428" y="315" width="14" height="30" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="435" y1="345" x2="435" y2="360" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="425" y1="360" x2="445" y2="360" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="429" y1="364" x2="441" y2="364" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="433" y1="368" x2="437" y2="368" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="450" y="333" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">R_3</text>
+
+  <!-- Проміжний вихід V_IA до Панелі C -->
+  <line x1="500" y1="280" x2="670" y2="280" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="565" y="268" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">V_IA</text>
+  <text x="565" y="296" font-size="12" fill="#6b7280" text-anchor="middle">(Підсилена ΔV)</text>
+
+  <!-- Формульний блок у Панелі B -->
+  <rect x="205" y="455" width="415" height="48" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="412.5" y="473" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">K_1 = 1 + (2·R_1 / R_G)   |   R_3 / R_2 = 1</text>
+  <text x="412.5" y="491" font-size="12" fill="#1a1a1a" text-anchor="middle">V_IA = K_1 · (V_IN+ - V_IN-)  [Диференційна напруга]</text>
+
+  <!-- Блок 3: Каскад зсуву та масштабування (Панель C) -->
+  <rect x="650" y="70" width="285" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="792.5" y="92" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Каскад зсуву та масштабування</text>
+  <text x="792.5" y="108" font-size="12" fill="#6b7280" text-anchor="middle">Нормалізація під вхід АЦП 0–5 V</text>
+
+  <!-- Вхідний резистор R4 для A4 -->
+  <line x1="670" y1="280" x2="670" y2="268" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="670" y1="268" x2="690" y2="268" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="690" y="261" width="40" height="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="730" y1="268" x2="770" y2="268" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="710" y="253" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_4</text>
+
+  <!-- ОП A4 (Масштабування та зсув) -->
+  <polygon points="770,255 770,305 810,280" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+  <text x="776" y="272" font-size="12" font-weight="bold" fill="#1a1a1a">-</text>
+  <text x="776" y="296" font-size="12" font-weight="bold" fill="#1a1a1a">+</text>
+  <text x="782" y="284" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">A4</text>
+
+  <!-- Джерело напруги зсуву V_REF та R5 -->
+  <rect x="665" y="340" width="60" height="42" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="695" y="357" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_REF</text>
+  <text x="695" y="373" font-size="12" fill="#6b7280" text-anchor="middle">2.5 V</text>
+
+  <line x1="695" y1="340" x2="695" y2="292" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="695" y1="292" x2="720" y2="292" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="720" y="285" width="30" height="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="750" y1="292" x2="770" y2="292" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="735" y="313" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_5</text>
+
+  <!-- Зворотний зв'язок RF для A4 -->
+  <circle cx="675" cy="268" r="3" fill="#1a1a1a"/>
+  <line x1="675" y1="268" x2="675" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="675" y1="215" x2="730" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="730" y="208" width="40" height="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="770" y1="215" x2="830" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="830" y1="215" x2="830" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="830" cy="280" r="3" fill="#1a1a1a"/>
+  <text x="750" y="200" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_F</text>
+
+  <!-- Вихідний сигнал V_OUT до АЦП -->
+  <line x1="810" y1="280" x2="910" y2="280" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <circle cx="910" cy="280" r="4" fill="#27ae60"/>
+  <text x="900" y="260" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">До АЦП</text>
+
+  <!-- Картка вихідної напруги 0..5V -->
+  <rect x="830" y="340" width="95" height="42" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="877.5" y="357" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V_OUT</text>
+  <text x="877.5" y="373" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0.0 ... 5.0 V</text>
+
+  <!-- Формульний блок у Панелі C -->
+  <rect x="665" y="455" width="255" height="48" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="792.5" y="473" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V_OUT = (R_F/R_4)·V_IA + V_REF</text>
+  <text x="792.5" y="491" font-size="12" fill="#1a1a1a" text-anchor="middle">Масштаб: 0.0 V ... 5.0 V АЦП</text>
+</svg>

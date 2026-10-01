@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема ватметра на модулі ACS712 із дільником напруги та реле</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Узгодження 5V аналогового сигналу ACS712 з 3.3V АЦП та керування силовим реле</text>
+
+  <!-- Block 1: High Voltage Circuit (Left) -->
+  <rect x="30" y="85" width="210" height="345" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="135" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Силове коло (230V AC / DC)</text>
+
+  <rect x="55" y="145" width="160" height="55" fill="white" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="135" y="170" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Джерело живлення</text>
+  <text x="135" y="188" text-anchor="middle" font-size="12" fill="#6b7280">230V AC / 50Hz</text>
+
+  <rect x="55" y="240" width="160" height="55" fill="white" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="135" y="265" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Навантаження (LOAD)</text>
+  <text x="135" y="283" text-anchor="middle" font-size="12" fill="#6b7280">ТЕН / Двигун</text>
+
+  <rect x="55" y="335" width="160" height="65" fill="white" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="135" y="360" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Контакти Реле</text>
+  <text x="135" y="380" text-anchor="middle" font-size="12" fill="#6b7280">NO / COM (10A max)</text>
+
+  <!-- Wire AC to ACS712 IP+ -->
+  <path d="M 135 200 L 135 240" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <path d="M 135 295 L 135 335" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Block 2: ACS712 Sensor Module -->
+  <rect x="270" y="85" width="210" height="345" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="375" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Модуль ACS712 (GY-712)</text>
+
+  <rect x="290" y="135" width="170" height="60" fill="white" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="375" y="160" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Первинний провідник</text>
+  <text x="375" y="180" text-anchor="middle" font-size="12" fill="#6b7280">IP+ / IP- (1.2 mOm)</text>
+
+  <rect x="295" y="225" width="160" height="185" fill="white" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="375" y="250" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">SOIC-8 і обв'язка</text>
+  <text x="315" y="280" font-size="12" fill="#1a1a1a">VCC: +5V DC</text>
+  <text x="315" y="310" font-size="12" fill="#1a1a1a">GND: 0V Земля</text>
+  <text x="315" y="340" font-size="12" fill="#1a1a1a">OUT: VIOUT (0..5V)</text>
+  <text x="315" y="370" font-size="12" fill="#1a1a1a">FILT: C_FILTER 1nF</text>
+
+  <!-- Wiring Heavy current to ACS712 -->
+  <path d="M 135 400 L 135 415 L 280 415 L 280 165 L 290 165" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Block 3: Voltage Divider (R1 / R2) -->
+  <rect x="510" y="85" width="170" height="345" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="595" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Дільник 5V -&gt; 3.3V</text>
+
+  <rect x="530" y="150" width="130" height="60" fill="white" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="595" y="175" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Резистор R1</text>
+  <text x="595" y="195" text-anchor="middle" font-size="12" fill="#6b7280">10 kOm</text>
+
+  <rect x="530" y="250" width="130" height="60" fill="white" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="595" y="275" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Резистор R2</text>
+  <text x="595" y="295" text-anchor="middle" font-size="12" fill="#6b7280">20 kOm</text>
+
+  <text x="595" y="350" text-anchor="middle" font-size="12" fill="#1a1a1a">Коефіцієнт: 2/3</text>
+  <text x="595" y="375" text-anchor="middle" font-size="12" fill="#27ae60">V_ADC max: 3.3V</text>
+
+  <!-- Connect VIOUT to Divider -->
+  <path d="M 455 340 L 530 180" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-main)"/>
+  <path d="M 595 210 L 595 250" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-main)"/>
+
+  <!-- Block 4: Microcontroller (Right) -->
+  <rect x="710" y="85" width="220" height="345" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="820" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Мікроконтролер (MCU)</text>
+
+  <rect x="730" y="145" width="180" height="65" fill="white" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="820" y="170" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Вхід АЦП (ADC1)</text>
+  <text x="820" y="190" text-anchor="middle" font-size="12" fill="#6b7280">Вхід 0..3.3V (ESP32)</text>
+
+  <rect x="730" y="240" width="180" height="65" fill="white" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="820" y="265" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Програма та RMS</text>
+  <text x="820" y="285" text-anchor="middle" font-size="12" fill="#6b7280">Обчислення I_rms та P</text>
+
+  <rect x="730" y="335" width="180" height="65" fill="white" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="820" y="360" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Вивід GPIO Захисту</text>
+  <text x="820" y="380" text-anchor="middle" font-size="12" fill="#6b7280">Керування Реле</text>
+
+  <!-- Connect Divider to ADC -->
+  <path d="M 660 280 L 730 178" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-main)"/>
+
+  <!-- Connect GPIO to Relay Contacts routed below blocks -->
+  <path d="M 730 368 L 700 368 L 700 440 L 135 440 L 135 400" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr-red)"/>
+</svg>

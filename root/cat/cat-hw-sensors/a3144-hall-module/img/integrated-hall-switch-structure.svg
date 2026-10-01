@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня структура інтегрованого перемикача Холла (A3144)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Перетворення мікровольтового аналогового сигналу Холла на цифровий вихід</text>
+
+  <!-- IC Chip Outer Frame -->
+  <rect x="50" y="70" width="860" height="375" rx="12" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="70" y="94" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">ІНТЕГРОВАНА МІКРОСХЕМА A3144</text>
+
+  <!-- External IC Pins -->
+  <!-- Pin 1: VCC -->
+  <text x="15" y="108" font-size="12" fill="#6b7280" text-anchor="start">Pin 1 (+5..24V)</text>
+  <rect x="15" y="115" width="35" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="32.5" y="134" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">VCC</text>
+  <line x1="50" y1="130" x2="68" y2="130" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Voltage Regulator Block -->
+  <rect x="70" y="108" width="230" height="48" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="185" y="127" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стабілізатор напруги</text>
+  <text x="185" y="143" font-size="12" fill="#6b7280" text-anchor="middle">(Voltage Regulator)</text>
+
+  <!-- Internal V_REG Supply Line -->
+  <line x1="185" y1="156" x2="185" y2="173" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="193" y="168" font-size="12" fill="#6b7280" text-anchor="start">V_REG</text>
+
+  <!-- Ground Line & Distribution -->
+  <line x1="50" y1="330" x2="870" y2="330" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="50" y1="380" x2="50" y2="330" stroke="#2457d6" stroke-width="2"/>
+  <text x="70" y="324" font-size="12" fill="#6b7280" text-anchor="start">Спільна шина заземлення (GND)</text>
+
+  <!-- Pin 2: GND -->
+  <rect x="15" y="380" width="35" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="32.5" y="399" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">GND</text>
+  <text x="15" y="425" font-size="12" fill="#6b7280" text-anchor="start">Pin 2 (0V)</text>
+
+  <!-- Pin 3: OUT -->
+  <rect x="910" y="240" width="35" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="927.5" y="259" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">OUT</text>
+  <text x="945" y="285" font-size="12" fill="#6b7280" text-anchor="end">Pin 3 (Out)</text>
+
+  <!-- Main Block 1: Hall Element -->
+  <rect x="70" y="175" width="125" height="130" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="132.5" y="195" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Елемент Холла</text>
+
+  <!-- Plate graphic -->
+  <rect x="100" y="208" width="65" height="40" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="120" y1="202" x2="120" y2="225" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="145" y1="202" x2="145" y2="225" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="132.5" y="239" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">B ⊥</text>
+
+  <text x="132.5" y="272" font-size="12" fill="#6b7280" text-anchor="middle">Пластина InSb/GaAs</text>
+  <text x="132.5" y="290" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V_H ≈ 10–50 µV</text>
+
+  <!-- Inter-block Signal 1 -->
+  <line x1="195" y1="240" x2="233" y2="240" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="214" y="233" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">µV</text>
+
+  <!-- Main Block 2: Chopper Stabilization -->
+  <rect x="235" y="175" width="125" height="130" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="297.5" y="194" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Чопперна</text>
+  <text x="297.5" y="210" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">стабілізація</text>
+
+  <rect x="262.5" y="220" width="70" height="34" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 270,241 L 280,241 L 280,229 L 295,229 L 295,241 L 310,241 L 310,229 L 325,229" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <text x="297.5" y="266" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">f_CLK</text>
+
+  <text x="297.5" y="280" font-size="12" fill="#6b7280" text-anchor="middle">Компенсація зсуву</text>
+  <text x="297.5" y="296" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стабільність нуля</text>
+
+  <!-- Inter-block Signal 2 -->
+  <line x1="360" y1="240" x2="398" y2="240" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="379" y="233" font-size="12" fill="#6b7280" text-anchor="middle">V_mod</text>
+
+  <!-- Main Block 3: Differential Amplifier -->
+  <rect x="400" y="175" width="125" height="130" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="462.5" y="194" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Диференційний</text>
+  <text x="462.5" y="210" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">підсилювач</text>
+
+  <!-- Op-amp symbol -->
+  <path d="M 437.5,222 L 487.5,242 L 437.5,262 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="442.5" y="234" font-size="12" font-weight="bold" fill="#2457d6">+</text>
+  <text x="442.5" y="257" font-size="12" font-weight="bold" fill="#2457d6">-</text>
+  <text x="457.5" y="246" font-size="12" font-weight="bold" fill="#2457d6">A_V</text>
+
+  <text x="462.5" y="280" font-size="12" fill="#6b7280" text-anchor="middle">Малошумний каскад</text>
+  <text x="462.5" y="296" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сигнал: µV → mV</text>
+
+  <!-- Inter-block Signal 3 -->
+  <line x1="525" y1="240" x2="563" y2="240" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="544" y="233" font-size="12" fill="#6b7280" text-anchor="middle">V_amp</text>
+
+  <!-- Main Block 4: Schmitt Trigger -->
+  <rect x="565" y="175" width="125" height="130" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="627.5" y="195" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Тригер Шмітта</text>
+
+  <!-- Hysteresis symbol -->
+  <rect x="592.5" y="210" width="70" height="42" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 610,240 L 635,240 L 635,220 L 645,220 M 645,220 L 620,220 L 620,240 L 610,240" stroke="#2457d6" stroke-width="2" fill="none"/>
+
+  <text x="627.5" y="278" font-size="12" fill="#6b7280" text-anchor="middle">Гістерезис B_OP/B_RP</text>
+  <text x="627.5" y="294" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Захист від дребезгу</text>
+
+  <!-- Inter-block Signal 4 -->
+  <line x1="690" y1="240" x2="733" y2="240" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="711.5" y="233" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Digital</text>
+
+  <!-- Main Block 5: Open Collector NPN Transistor -->
+  <rect x="735" y="175" width="140" height="130" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="805" y="195" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вихідний ключ NPN</text>
+
+  <!-- Transistor NPN symbol -->
+  <circle cx="765" cy="240" r="22" fill="none" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="735" y1="240" x2="755" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="755" y1="228" x2="755" y2="252" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="755" y1="233" x2="775" y2="220" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="755" y1="247" x2="775" y2="260" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <line x1="775" y1="220" x2="775" y2="190" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="775" y1="260" x2="775" y2="328" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <text x="788" y="272" font-size="12" fill="#6b7280" text-anchor="start">Відкритий колектор</text>
+  <text x="788" y="290" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">LOW при B &gt; B_OP</text>
+
+  <!-- Open Collector Signal to OUT pin -->
+  <path d="M 775,190 L 890,190 L 890,255 L 908,255" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-accent)"/>
+  <text x="832.5" y="183" font-size="12" fill="#6b7280" text-anchor="middle">Open Collector Output</text>
+
+  <!-- Bottom Waveform Panels -->
+  <!-- Stage 1 Panel -->
+  <rect x="70" y="345" width="280" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="80" y="363" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">1. Аналоговий сигнал Холла</text>
+  <path d="M 80,395 Q 92.5,380 105,395 T 130,395 T 155,395 T 180,395" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+  <text x="190" y="393" font-size="12" fill="#6b7280" text-anchor="start">µV-сигнал без дрейфу</text>
+
+  <!-- Stage 2 Panel -->
+  <rect x="370" y="345" width="300" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="380" y="363" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">2. Підсилення та компаратор</text>
+  <path d="M 380,400 L 420,400 L 420,378 L 460,378 L 460,400 L 490,400" stroke="#27ae60" stroke-width="2" fill="none"/>
+  <text x="500" y="393" font-size="12" fill="#6b7280" text-anchor="start">Пороги B_OP та B_RP</text>
+
+  <!-- Stage 3 Panel -->
+  <rect x="690" y="345" width="195" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="700" y="363" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">3. Цифровий вихід</text>
+  <text x="700" y="382" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">B &gt; B_OP: NPN ON (LOW)</text>
+  <text x="700" y="400" font-size="12" fill="#6b7280" text-anchor="start">B &lt; B_RP: OFF (HIGH-Z)</text>
+</svg>

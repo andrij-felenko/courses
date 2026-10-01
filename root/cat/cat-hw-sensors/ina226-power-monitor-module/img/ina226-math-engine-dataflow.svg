@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Апаратний обчислювальний блок INA226: Потік даних Math Engine</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Автоматичне множення V_SHUNT на CAL та V_BUS без навантаження процесора MCU</text>
+
+  <!-- Chip Container Panel -->
+  <rect x="30" y="75" width="900" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="96" font-size="12" font-weight="bold" fill="#6b7280">ВНУТРІШНЯ АРХІТЕКТУРА КРИСТАЛА INA226</text>
+
+  <!-- COLUMN 1: ADC SAMPLING -->
+  <!-- Shunt ADC -->
+  <rect x="50" y="115" width="180" height="100" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="140" y="140" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">16-бітний Shunt ADC</text>
+  <text x="140" y="165" text-anchor="middle" font-size="12" fill="#1a1a1a">V_SHUNT (±81.92 мВ)</text>
+  <text x="140" y="190" text-anchor="middle" font-size="12" fill="#6b7280">LSB = 2.5 мкВ</text>
+
+  <!-- Bus ADC -->
+  <rect x="50" y="375" width="180" height="100" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="140" y="400" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">16-бітний Bus ADC</text>
+  <text x="140" y="425" text-anchor="middle" font-size="12" fill="#1a1a1a">V_BUS (0…36 В)</text>
+  <text x="140" y="450" text-anchor="middle" font-size="12" fill="#6b7280">LSB = 1.25 мВ</text>
+
+  <!-- COLUMN 2: REGISTERS & CALIBRATION -->
+  <!-- Shunt Voltage Reg -->
+  <rect x="260" y="115" width="185" height="100" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="352" y="140" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Shunt Voltage (01h)</text>
+  <text x="352" y="165" text-anchor="middle" font-size="12" fill="#1a1a1a">16-бітний регістр</text>
+  <text x="352" y="190" text-anchor="middle" font-size="12" fill="#6b7280">Сирі дані V_SHUNT</text>
+
+  <!-- Calibration Reg -->
+  <rect x="260" y="245" width="185" height="100" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="352" y="270" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Calibration Reg (05h)</text>
+  <text x="352" y="295" text-anchor="middle" font-size="12" fill="#1a1a1a">CAL (16-бітний коеф.)</text>
+  <text x="352" y="320" text-anchor="middle" font-size="12" fill="#6b7280">Записується від MCU</text>
+
+  <!-- Bus Voltage Reg -->
+  <rect x="260" y="375" width="185" height="100" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="352" y="400" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Bus Voltage (02h)</text>
+  <text x="352" y="425" text-anchor="middle" font-size="12" fill="#1a1a1a">16-бітний регістр</text>
+  <text x="352" y="450" text-anchor="middle" font-size="12" fill="#6b7280">Сирі дані V_BUS</text>
+
+  <!-- COLUMN 3: HARDWARE MATH ENGINE -->
+  <!-- Current Multiplier Block -->
+  <rect x="480" y="115" width="225" height="230" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="592" y="140" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Множник струму (Math Engine)</text>
+
+  <rect x="490" y="155" width="205" height="40" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="592" y="180" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Current = (V_SHUNT × CAL) / 2048</text>
+
+  <text x="592" y="220" text-anchor="middle" font-size="12" fill="#1a1a1a">16×16-бітне перемноження</text>
+  <text x="592" y="245" text-anchor="middle" font-size="12" fill="#6b7280">Апаратний зсув на 11 біт</text>
+  <text x="592" y="270" text-anchor="middle" font-size="12" fill="#6b7280">Фіксований дільник 2048</text>
+  <text x="592" y="300" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Автообчислення без MCU</text>
+
+  <!-- Power Multiplier Block -->
+  <rect x="480" y="360" width="225" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="592" y="383" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Множник потужності</text>
+
+  <rect x="490" y="395" width="205" height="36" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="592" y="418" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Power = (Current × V_BUS) / 20000</text>
+
+  <text x="592" y="450" text-anchor="middle" font-size="12" fill="#6b7280">Дільник масштабу 20000</text>
+
+  <!-- COLUMN 4: RESULT REGISTERS -->
+  <!-- Current Reg -->
+  <rect x="740" y="115" width="170" height="110" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="825" y="140" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Current Reg (04h)</text>
+  <text x="825" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">I = Reg × Current_LSB</text>
+  <text x="825" y="190" text-anchor="middle" font-size="12" fill="#6b7280">16-бітний signed</text>
+  <text x="825" y="212" text-anchor="middle" font-size="12" fill="#2457d6">Струм у фізичних од.</text>
+
+  <!-- Power Reg -->
+  <rect x="740" y="375" width="170" height="100" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="825" y="400" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Power Reg (03h)</text>
+  <text x="825" y="425" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">P = Reg × 25 × I_LSB</text>
+  <text x="825" y="450" text-anchor="middle" font-size="12" fill="#6b7280">16-бітний unsigned</text>
+
+  <!-- CONNECTIONS / ARROWS -->
+  <!-- Shunt ADC -> Shunt Reg -->
+  <line x1="230" y1="165" x2="252" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Bus ADC -> Bus Reg -->
+  <line x1="230" y1="425" x2="252" y2="425" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Shunt Reg -> Current Math Engine -->
+  <line x1="445" y1="165" x2="472" y2="165" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- CAL Reg -> Current Math Engine -->
+  <path d="M 445 295 L 462 295 L 462 270 L 472 270" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Current Math Engine -> Current Reg -->
+  <line x1="705" y1="170" x2="732" y2="170" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Bus Reg -> Power Math Engine -->
+  <line x1="445" y1="425" x2="472" y2="425" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Current Reg -> Power Math Engine -->
+  <path d="M 825 225 L 825 330 L 725 330 L 725 390 L 712 390" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-accent)"/>
+
+  <!-- Power Math Engine -> Power Reg -->
+  <line x1="705" y1="425" x2="732" y2="425" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+</svg>

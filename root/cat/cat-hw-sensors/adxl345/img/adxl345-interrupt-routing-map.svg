@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#9ca3af"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="40" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Маршрутизація переривань ADXL345 на виводи INT1 та INT2</text>
+  <text x="480" y="62" font-size="13" text-anchor="middle" fill="#6b7280">Регістр INT_MAP спрямовує кожне дозволене джерело (INT_ENABLE) на вивід INT1 (0) або INT2 (1)</text>
+
+  <!-- COLUMN 1: INT_SOURCE -->
+  <rect x="25" y="85" width="180" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="115" y="110" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">INT_SOURCE (0x30)</text>
+  <text x="115" y="128" font-size="12" text-anchor="middle" fill="#6b7280">Прапорці подій</text>
+
+  <!-- Col 1 - Channel 1 -->
+  <rect x="40" y="155" width="150" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="115" y="172" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">DATA_READY</text>
+  <text x="115" y="187" font-size="12" text-anchor="middle" fill="#6b7280">Біт 7</text>
+
+  <!-- Col 1 - Channel 2 -->
+  <rect x="40" y="235" width="150" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="115" y="252" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">SINGLE_TAP</text>
+  <text x="115" y="267" font-size="12" text-anchor="middle" fill="#6b7280">Біт 6</text>
+
+  <!-- Col 1 - Channel 3 -->
+  <rect x="40" y="315" width="150" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="115" y="332" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">FREE_FALL</text>
+  <text x="115" y="347" font-size="12" text-anchor="middle" fill="#6b7280">Біт 2</text>
+
+  <!-- Col 1 - Channel 4 -->
+  <rect x="40" y="395" width="150" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="115" y="412" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Watermark</text>
+  <text x="115" y="427" font-size="12" text-anchor="middle" fill="#6b7280">Біт 1</text>
+
+  <!-- Col 1 - Summary Box -->
+  <rect x="35" y="455" width="160" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="115" y="472" font-size="12" text-anchor="middle" fill="#6b7280">+ 4 інші джерела</text>
+  <text x="115" y="488" font-size="12" text-anchor="middle" fill="#6b7280">(Overrun, Act, Inact...)</text>
+
+
+  <!-- COLUMN 2: INT_ENABLE -->
+  <rect x="230" y="85" width="165" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="312" y="110" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">INT_ENABLE (0x2E)</text>
+  <text x="312" y="128" font-size="12" text-anchor="middle" fill="#6b7280">Дозвіл переривань</text>
+
+  <!-- Col 2 - Mask 1 -->
+  <rect x="245" y="155" width="135" height="40" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="312" y="172" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Маска (AND)</text>
+  <text x="312" y="187" font-size="12" text-anchor="middle" fill="#27ae60">Біт 7 = 1 (увімк)</text>
+
+  <!-- Col 2 - Mask 2 -->
+  <rect x="245" y="235" width="135" height="40" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="312" y="252" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Маска (AND)</text>
+  <text x="312" y="267" font-size="12" text-anchor="middle" fill="#27ae60">Біт 6 = 1 (увімк)</text>
+
+  <!-- Col 2 - Mask 3 -->
+  <rect x="245" y="315" width="135" height="40" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="312" y="332" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Маска (AND)</text>
+  <text x="312" y="347" font-size="12" text-anchor="middle" fill="#27ae60">Біт 2 = 1 (увімк)</text>
+
+  <!-- Col 2 - Mask 4 -->
+  <rect x="245" y="395" width="135" height="40" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="312" y="412" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Маска (AND)</text>
+  <text x="312" y="427" font-size="12" text-anchor="middle" fill="#c0392b">Біт 1 = 0 (вимк)</text>
+
+  <!-- Col 2 - Summary Box -->
+  <rect x="240" y="455" width="145" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="312" y="472" font-size="12" text-anchor="middle" fill="#6b7280">1 = дозволено</text>
+  <text x="312" y="488" font-size="12" text-anchor="middle" fill="#6b7280">0 = заблоковано</text>
+
+
+  <!-- COLUMN 3: INT_MAP -->
+  <rect x="420" y="85" width="210" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="525" y="110" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">INT_MAP (0x2F)</text>
+  <text x="525" y="128" font-size="12" text-anchor="middle" fill="#6b7280">Маршрутизація сигналів</text>
+
+  <!-- Col 3 - Map 1 -->
+  <rect x="435" y="155" width="180" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="525" y="172" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Маршрут: INT1</text>
+  <text x="525" y="187" font-size="12" text-anchor="middle" fill="#6b7280">INT_MAP[7] = 0</text>
+
+  <!-- Col 3 - Map 2 -->
+  <rect x="435" y="235" width="180" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="525" y="252" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Маршрут: INT2</text>
+  <text x="525" y="267" font-size="12" text-anchor="middle" fill="#6b7280">INT_MAP[6] = 1</text>
+
+  <!-- Col 3 - Map 3 -->
+  <rect x="435" y="315" width="180" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="525" y="332" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Маршрут: INT1</text>
+  <text x="525" y="347" font-size="12" text-anchor="middle" fill="#6b7280">INT_MAP[2] = 0</text>
+
+  <!-- Col 3 - Map 4 -->
+  <rect x="435" y="395" width="180" height="40" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="525" y="412" font-size="13" font-weight="bold" text-anchor="middle" fill="#c0392b">Заблоковано</text>
+  <text x="525" y="427" font-size="12" text-anchor="middle" fill="#6b7280">INT_MAP[1] = 1</text>
+
+  <!-- Col 3 - Summary Box -->
+  <rect x="430" y="455" width="190" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="525" y="472" font-size="12" text-anchor="middle" fill="#6b7280">0 = на вивід INT1</text>
+  <text x="525" y="488" font-size="12" text-anchor="middle" fill="#6b7280">1 = на вивід INT2</text>
+
+
+  <!-- COLUMN 4: PHYSICAL PINS & OR BUSES -->
+  <rect x="655" y="85" width="280" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="795" y="110" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Фізичні виводи МК</text>
+  <text x="795" y="128" font-size="12" text-anchor="middle" fill="#6b7280">Збиральні шини АБО (OR)</text>
+
+  <!-- OR INT1 Block -->
+  <rect x="670" y="155" width="105" height="120" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="722" y="195" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">Шина АБО</text>
+  <text x="722" y="215" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">(OR INT1)</text>
+  <text x="722" y="238" font-size="12" text-anchor="middle" fill="#6b7280">канали з 0</text>
+
+  <line x1="775" y1="215" x2="803" y2="215" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Pin INT1 Box -->
+  <rect x="810" y="180" width="110" height="70" rx="6" fill="#2457d6" stroke="#1a1a1a"/>
+  <text x="865" y="210" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">INT1</text>
+  <text x="865" y="230" font-size="12" text-anchor="middle" fill="#eaf0fd">Вивід 6 (Pin 6)</text>
+
+  <!-- OR INT2 Block -->
+  <rect x="670" y="315" width="105" height="120" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="722" y="355" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">Шина АБО</text>
+  <text x="722" y="375" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">(OR INT2)</text>
+  <text x="722" y="398" font-size="12" text-anchor="middle" fill="#6b7280">канали з 1</text>
+
+  <line x1="775" y1="375" x2="803" y2="375" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Pin INT2 Box -->
+  <rect x="810" y="340" width="110" height="70" rx="6" fill="#2457d6" stroke="#1a1a1a"/>
+  <text x="865" y="370" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">INT2</text>
+  <text x="865" y="390" font-size="12" text-anchor="middle" fill="#eaf0fd">Вивід 7 (Pin 7)</text>
+
+  <!-- Col 4 - Summary Box -->
+  <rect x="670" y="460" width="250" height="38" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="795" y="483" font-size="12" text-anchor="middle" fill="#6b7280">Активний рівень виводів: HIGH / LOW</text>
+
+
+  <!-- SIGNAL ROUTING LINES -->
+  <!-- Row 1: DATA_READY -> INT_ENABLE -> INT_MAP -> OR INT1 -->
+  <line x1="190" y1="175" x2="237" y2="175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="380" y1="175" x2="427" y2="175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="615" y1="175" x2="662" y2="175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Row 2: SINGLE_TAP -> INT_ENABLE -> INT_MAP -> OR INT2 -->
+  <line x1="190" y1="255" x2="237" y2="255" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="380" y1="255" x2="427" y2="255" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 615,255 L 640,255 L 640,345 L 662,345" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Row 3: FREE_FALL -> INT_ENABLE -> INT_MAP -> OR INT1 -->
+  <line x1="190" y1="335" x2="237" y2="335" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="380" y1="335" x2="427" y2="335" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 615,335 L 648,335 L 648,235 L 662,235" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Row 4: Watermark -> (Disabled) -->
+  <line x1="190" y1="415" x2="237" y2="415" stroke="#9ca3af" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-gray)"/>
+  <line x1="380" y1="415" x2="427" y2="415" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-red)"/>
+  <line x1="615" y1="415" x2="636" y2="415" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 3"/>
+  <line x1="636" y1="411" x2="644" y2="419" stroke="#c0392b" stroke-width="2"/>
+  <line x1="636" y1="419" x2="644" y2="411" stroke="#c0392b" stroke-width="2"/>
+</svg>

@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема захисту та узгодження п'єзодавача з входом АЦП</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Паралельний резистор розряджає елемент, а діоди Шотткі й струмообмежувач захищають АЦП від сплесків</text>
+
+  <!-- Section 1: Piezo Sensor Panel -->
+  <rect x="24" y="78" width="230" height="352" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="139" y="102" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">П'ЄЗОДАВАЧ</text>
+  <text x="139" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Високий вихідний імпеданс</text>
+
+  <!-- Piezodisc graphic -->
+  <circle cx="75" cy="190" r="32" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <circle cx="75" cy="190" r="18" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/>
+  <circle cx="75" cy="190" r="4" fill="#4f46e5"/>
+  <circle cx="75" cy="222" r="4" fill="#d97706"/>
+
+  <!-- Wires out of Piezo -->
+  <path d="M 75 190 L 270 190" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+  <path d="M 75 222 L 45 222 L 45 340 L 270 340" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+
+  <!-- Piezo Labels -->
+  <text x="175" y="150" font-size="12" fill="#6b7280" text-anchor="middle">Керамічний електрод</text>
+  <text x="175" y="168" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сигнал V_piezo (+)</text>
+  <text x="110" y="228" font-size="12" fill="#d97706" text-anchor="start">Підкладка GND (-)</text>
+
+  <!-- Piezo Warning Box -->
+  <rect x="42" y="275" width="194" height="48" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="6"/>
+  <text x="139" y="295" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Сплески напруги: до ±50 В!</text>
+  <text x="139" y="312" font-size="12" fill="#c0392b" text-anchor="middle">Небезпечно для входу АЦП</text>
+
+  <!-- Section 2: Protection Circuit Panel -->
+  <rect x="270" y="78" width="420" height="352" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="480" y="102" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">СХЕМА ЗАХИСТУ ТА УЗГОДЖЕННЯ</text>
+  <text x="480" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Захисна обв'язка входу АЦП</text>
+
+  <!-- Ground Wire in Panel 2 -->
+  <path d="M 270 340 L 690 340" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+
+  <!-- Ground symbol -->
+  <path d="M 305 340 L 305 348" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <line x1="295" y1="348" x2="315" y2="348" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="299" y1="352" x2="311" y2="352" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="303" y1="356" x2="307" y2="356" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="305" y="372" font-size="12" fill="#6b7280" text-anchor="middle">GND</text>
+
+  <!-- Bleed Resistor R_bleed -->
+  <circle cx="335" cy="190" r="4" fill="#2457d6"/>
+  <path d="M 335 190 L 335 225" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <rect x="327" y="225" width="16" height="50" fill="#ffffff" stroke="#1a1a1a" stroke-width="2" rx="2"/>
+  <path d="M 335 275 L 335 340" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <circle cx="335" cy="340" r="4" fill="#1a1a1a"/>
+
+  <text x="352" y="242" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">R_bleed = 100 кОм...1 МОм</text>
+  <text x="352" y="260" font-size="12" fill="#27ae60" text-anchor="start">Стікання розрядного струму</text>
+
+  <!-- Signal path R_bleed to R_limit -->
+  <path d="M 335 190 L 430 190" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+  <path d="M 365 190 L 395 190" stroke="#2457d6" stroke-width="2.5" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- Limit Resistor R_limit -->
+  <rect x="430" y="182" width="50" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="2" rx="2"/>
+  <text x="455" y="150" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_limit = 1 кОм...10 кОм</text>
+  <text x="455" y="166" font-size="12" fill="#6b7280" text-anchor="middle">Обмеження струму діодів</text>
+
+  <!-- Signal path R_limit to Diodes node -->
+  <path d="M 480 190 L 570 190" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+
+  <!-- Schottky Diodes Node -->
+  <circle cx="570" cy="190" r="4" fill="#2457d6"/>
+
+  <!-- VCC Rail -->
+  <path d="M 535 142 L 595 142" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3" fill="none"/>
+  <text x="600" y="146" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">+VCC (+3.3В)</text>
+
+  <!-- Upper Diode D1 -->
+  <path d="M 570 190 L 570 174" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <polygon points="562,174 578,174 570,158" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 560 163 L 562 158 L 578 158 L 580 153" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <path d="M 570 158 L 570 142" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <circle cx="570" cy="142" r="3" fill="#2457d6"/>
+
+  <text x="586" y="166" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">D1 (Шотткі)</text>
+  <text x="586" y="182" font-size="12" fill="#c0392b" text-anchor="start">Зрізає &gt; VCC</text>
+
+  <!-- Lower Diode D2 -->
+  <path d="M 570 190 L 570 226" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <path d="M 560 231 L 562 226 L 578 226 L 580 221" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <polygon points="562,242 578,242 570,226" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 570 242 L 570 340" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <circle cx="570" cy="340" r="4" fill="#1a1a1a"/>
+
+  <text x="586" y="238" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">D2 (Шотткі)</text>
+  <text x="586" y="254" font-size="12" fill="#c0392b" text-anchor="start">Зрізає &lt; 0 В</text>
+
+  <!-- Signal Path to MCU -->
+  <path d="M 570 190 L 706 190" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+  <path d="M 615 190 L 645 190" stroke="#2457d6" stroke-width="2.5" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- Info Banner Panel 2 -->
+  <rect x="290" y="378" width="380" height="36" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="480" y="400" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Діоди Шотткі обмежують напругу: -0.3 В ... VCC + 0.3 В</text>
+
+  <!-- Section 3: Microcontroller Panel -->
+  <rect x="706" y="78" width="230" height="352" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="821" y="102" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">МІКРОКОНТРОЛЕР</text>
+  <text x="821" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Вхід АЦП (ADC)</text>
+
+  <!-- Wires into MCU -->
+  <path d="M 690 190 L 760 190" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+  <path d="M 690 340 L 821 340" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+
+  <!-- MCU External Wire Pin Labels -->
+  <text x="714" y="184" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">AIN</text>
+  <text x="714" y="330" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">GND</text>
+
+  <!-- Ground symbol MCU -->
+  <path d="M 821 340 L 821 348" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <line x1="811" y1="348" x2="831" y2="348" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="815" y1="352" x2="827" y2="352" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="819" y1="356" x2="823" y2="356" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="821" y="372" font-size="12" fill="#6b7280" text-anchor="middle">GND</text>
+
+  <!-- MCU Module Box -->
+  <rect x="760" y="150" width="156" height="156" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <circle cx="760" cy="190" r="4" fill="#2457d6"/>
+
+  <text x="838" y="168" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">МОДУЛЬ АЦП</text>
+  <line x1="772" y1="176" x2="904" y2="176" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="772" y="194" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">АЦП (AIN)</text>
+  <text x="838" y="212" font-size="12" fill="#6b7280" text-anchor="middle">R_in ≈ 10 МОм</text>
+  <text x="838" y="228" font-size="12" fill="#6b7280" text-anchor="middle">Вхідний струм &lt; 1 мА</text>
+
+  <rect x="770" y="238" width="136" height="60" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="838" y="254" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Безпечний режим</text>
+  <text x="838" y="270" font-size="12" fill="#27ae60" text-anchor="middle">Діапазон напруги:</text>
+  <text x="838" y="286" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">0 В ... VCC</text>
+</svg>

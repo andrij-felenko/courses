@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Архітектура ADXL345: FIFO-буфер та апаратні детектори подій</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Внутрішній 32-рівневий буфер накопичує відліки без участі МК, пробуджуючи його лише за подією</text>
+
+  <!-- ADXL345 Chip Container -->
+  <rect x="20" y="75" width="660" height="385" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="8"/>
+  <text x="35" y="100" font-size="14" font-weight="bold" fill="#2457d6">ЦИФРОВИЙ АКСЕЛЕРОМЕТР ADXL345</text>
+
+  <!-- Block A: Sensing Core -->
+  <rect x="35" y="115" width="185" height="330" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="127" y="138" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Вимірювальне ядро</text>
+
+  <rect x="47" y="152" width="161" height="95" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="127" y="173" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">3-осьовий MEMS-сенсор</text>
+  <text x="127" y="193" text-anchor="middle" font-size="12" fill="#6b7280">Ємнісний датчик (X, Y, Z)</text>
+  <text x="127" y="213" text-anchor="middle" font-size="12" fill="#2457d6">Диференціальна ємність</text>
+  <text x="127" y="233" text-anchor="middle" font-size="12" fill="#6b7280">Мікромеханіка (Silicon)</text>
+
+  <line x1="127" y1="247" x2="127" y2="270" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="47" y="275" width="161" height="155" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="127" y="297" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">АЦП та фільтрація</text>
+  <text x="127" y="319" text-anchor="middle" font-size="12" fill="#2457d6">Full Resolution (13-біт)</text>
+  <text x="127" y="339" text-anchor="middle" font-size="12" fill="#6b7280">Масштаб 4 мг/LSB</text>
+  <text x="127" y="359" text-anchor="middle" font-size="12" fill="#6b7280">Діапазон до ±16g</text>
+  <text x="127" y="381" text-anchor="middle" font-size="12" fill="#1a1a1a">Вихідна частота (ODR):</text>
+  <text x="127" y="401" text-anchor="middle" font-size="12" fill="#2457d6">0.10 Гц – 3200 Гц</text>
+
+  <!-- Internal data flow line from Core to Block B -->
+  <path d="M 208 350 L 225 350 L 225 219 L 247 219" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 225 350 L 247 365" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Block B: Buffering & Event Detection -->
+  <rect x="240" y="115" width="230" height="330" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="355" y="138" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Цифрова обробка та FIFO</text>
+
+  <!-- FIFO Sub-box -->
+  <rect x="252" y="152" width="206" height="135" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="355" y="172" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">32-рівневий FIFO-буфер</text>
+  <text x="355" y="188" text-anchor="middle" font-size="12" fill="#6b7280">Пам’ять: 32 × 48 біт (X, Y, Z)</text>
+  <rect x="265" y="196" width="180" height="16" fill="#ffffff" stroke="#27ae60" rx="2"/>
+  <text x="355" y="208" text-anchor="middle" font-size="12" fill="#1a1a1a">Відлік 31 (найновіший)</text>
+  <rect x="265" y="215" width="180" height="16" fill="#ffffff" stroke="#27ae60" rx="2"/>
+  <text x="355" y="227" text-anchor="middle" font-size="12" fill="#6b7280">• • • (накопичення без МК) • • •</text>
+  <rect x="265" y="234" width="180" height="16" fill="#ffffff" stroke="#27ae60" rx="2"/>
+  <text x="355" y="246" text-anchor="middle" font-size="12" fill="#1a1a1a">Відлік 0 (для зчитування)</text>
+  <text x="355" y="265" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Режими: Bypass, FIFO, Stream</text>
+  <text x="355" y="280" text-anchor="middle" font-size="12" fill="#6b7280">Поріг Watermark: 1..31</text>
+
+  <!-- Event Detection Sub-box -->
+  <rect x="252" y="297" width="206" height="133" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="355" y="317" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Апаратні детектори подій</text>
+  <text x="265" y="337" font-size="12" fill="#1a1a1a">• Вільне падіння (Free-Fall)</text>
+  <text x="265" y="357" font-size="12" fill="#1a1a1a">• Одиночний / Подвійний дотик</text>
+  <text x="265" y="377" font-size="12" fill="#1a1a1a">• Активність / Бездіяльність</text>
+  <text x="265" y="397" font-size="12" fill="#2457d6">• Порогові значення (THRESH)</text>
+  <text x="265" y="417" font-size="12" fill="#6b7280">• Часові вікна (DUR, LATENT)</text>
+
+  <!-- Lines from Block B to Block C -->
+  <line x1="458" y1="219" x2="490" y2="219" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <path d="M 458 365 L 477 365 L 477 250 L 490 250" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <path d="M 458 263 L 468 263 L 468 365 L 490 365" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Block C: Interface & Interrupts -->
+  <rect x="485" y="115" width="180" height="330" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="575" y="138" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Вхід / Вихід</text>
+
+  <!-- Interrupt Logic Sub-box -->
+  <rect x="495" y="152" width="160" height="135" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="575" y="172" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Логіка переривань</text>
+  <text x="575" y="193" text-anchor="middle" font-size="12" fill="#1a1a1a">Маскування джерел</text>
+  <text x="575" y="213" text-anchor="middle" font-size="12" fill="#c0392b">Генерація тригера</text>
+  <text x="575" y="233" text-anchor="middle" font-size="12" fill="#6b7280">Призначення на піни:</text>
+  <text x="575" y="253" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">INT1 / INT2</text>
+  <text x="575" y="273" text-anchor="middle" font-size="12" fill="#6b7280">(Watermark / Event)</text>
+
+  <!-- Serial Interface Sub-box -->
+  <rect x="495" y="297" width="160" height="133" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="575" y="317" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Шина даних</text>
+  <text x="575" y="338" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">SPI (3/4-провідна)</text>
+  <text x="575" y="358" text-anchor="middle" font-size="12" fill="#6b7280">до 5 МГц</text>
+  <text x="575" y="378" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">I2C (Fast Mode)</text>
+  <text x="575" y="398" text-anchor="middle" font-size="12" fill="#6b7280">100 / 400 кГц</text>
+  <text x="575" y="418" text-anchor="middle" font-size="12" fill="#27ae60">Пакетний режим (Burst)</text>
+
+  <!-- MCU Container -->
+  <rect x="710" y="75" width="230" height="385" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="8"/>
+  <text x="825" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">МІКРОКОНТРОЛЕР (HOST)</text>
+
+  <!-- MCU Sleep State -->
+  <rect x="722" y="115" width="206" height="100" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="825" y="137" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Режим сну (Low-Power)</text>
+  <text x="825" y="159" text-anchor="middle" font-size="12" fill="#1a1a1a">Ядро МК зупинено (Sleep)</text>
+  <text x="825" y="179" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Струм: ~0.1 мкА</text>
+  <text x="825" y="199" text-anchor="middle" font-size="12" fill="#6b7280">Очікування сигналів INT</text>
+
+  <!-- MCU Interrupt Handling -->
+  <rect x="722" y="230" width="206" height="215" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="825" y="252" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Реакція на переривання</text>
+  <text x="734" y="277" font-size="12" font-weight="bold" fill="#c0392b">1. Отримання INT1/INT2</text>
+  <text x="744" y="295" font-size="12" fill="#6b7280">Апаратне пробудження ядра</text>
+  <text x="734" y="320" font-size="12" font-weight="bold" fill="#2457d6">2. Пакетне зчитування</text>
+  <text x="744" y="338" font-size="12" fill="#6b7280">Читання 32 відліків з FIFO</text>
+  <text x="744" y="356" font-size="12" fill="#6b7280">на максимальній швидкості</text>
+  <text x="734" y="381" font-size="12" font-weight="bold" fill="#27ae60">3. Швидка обробка</text>
+  <text x="744" y="399" font-size="12" fill="#6b7280">Обчислення алгоритму в МК</text>
+  <text x="734" y="424" font-size="12" font-weight="bold" fill="#27ae60">4. Миттєве повернення в сон</text>
+
+  <!-- External Signal Connections -->
+  <!-- INT Line -->
+  <line x1="655" y1="190" x2="705" y2="190" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+  <text x="680" y="172" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">INT1/2</text>
+  <text x="680" y="185" text-anchor="middle" font-size="12" fill="#c0392b">Сигнал</text>
+
+  <!-- SPI/I2C Line -->
+  <line x1="655" y1="360" x2="705" y2="360" stroke="#2457d6" stroke-width="3" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+  <text x="680" y="346" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">SPI/I2C</text>
+  <text x="680" y="378" text-anchor="middle" font-size="12" fill="#2457d6">Burst</text>
+</svg>

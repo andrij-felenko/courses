@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-axis" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Залежність температури точки роси від відносної вологості</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Зниження відносної вологості збільшує депресію точки роси T_d відносно температури довкілля</text>
+
+  <!-- Plot Area Background & Grid -->
+  <rect x="100" y="80" width="760" height="320" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Horizontal Grid Lines & Y-labels (-10°C to 40°C) -->
+  <line x1="100" y1="400" x2="860" y2="400" stroke="#e1e4e8" stroke-width="1"/>
+  <text x="85" y="404" font-size="12" fill="#6b7280" text-anchor="end">-10 °C</text>
+
+  <line x1="100" y1="336" x2="860" y2="336" stroke="#e1e4e8" stroke-width="1"/>
+  <text x="85" y="340" font-size="12" fill="#6b7280" text-anchor="end">0 °C</text>
+
+  <line x1="100" y1="272" x2="860" y2="272" stroke="#e1e4e8" stroke-width="1"/>
+  <text x="85" y="276" font-size="12" fill="#6b7280" text-anchor="end">10 °C</text>
+
+  <line x1="100" y1="208" x2="860" y2="208" stroke="#e1e4e8" stroke-width="1"/>
+  <text x="85" y="212" font-size="12" fill="#6b7280" text-anchor="end">20 °C</text>
+
+  <line x1="100" y1="144" x2="860" y2="144" stroke="#e1e4e8" stroke-width="1"/>
+  <text x="85" y="148" font-size="12" fill="#6b7280" text-anchor="end">30 °C</text>
+
+  <line x1="100" y1="80" x2="860" y2="80" stroke="#e1e4e8" stroke-width="1"/>
+  <text x="85" y="84" font-size="12" fill="#6b7280" text-anchor="end">40 °C</text>
+
+  <!-- Vertical Grid Lines & X-labels (20% to 100%) -->
+  <line x1="100" y1="80" x2="100" y2="400" stroke="#e1e4e8" stroke-width="1"/>
+  <text x="100" y="420" font-size="12" fill="#6b7280" text-anchor="middle">20%</text>
+
+  <line x1="290" y1="80" x2="290" y2="400" stroke="#e1e4e8" stroke-width="1"/>
+  <text x="290" y="420" font-size="12" fill="#6b7280" text-anchor="middle">40%</text>
+
+  <line x1="480" y1="80" x2="480" y2="400" stroke="#e1e4e8" stroke-width="1"/>
+  <text x="480" y="420" font-size="12" fill="#6b7280" text-anchor="middle">60%</text>
+
+  <line x1="670" y1="80" x2="670" y2="400" stroke="#e1e4e8" stroke-width="1"/>
+  <text x="670" y="420" font-size="12" fill="#6b7280" text-anchor="middle">80%</text>
+
+  <line x1="860" y1="80" x2="860" y2="400" stroke="#e1e4e8" stroke-width="1"/>
+  <text x="860" y="420" font-size="12" fill="#6b7280" text-anchor="middle">100%</text>
+
+  <!-- Axes Titles -->
+  <text x="480" y="445" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Відносна вологість RH (%)</text>
+  <text x="100" y="70" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Точка роси T_d (°C)</text>
+
+  <!-- Curve T = 30°C (Red) -->
+  <path d="M 100,285 C 290,225 480,180 860,144" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="870" y="148" font-size="12" font-weight="bold" fill="#c0392b">T = 30 °C</text>
+
+  <!-- Curve T = 20°C (Blue) -->
+  <path d="M 100,342 C 290,285 480,242 860,208" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="870" y="212" font-size="12" font-weight="bold" fill="#2457d6">T = 20 °C</text>
+
+  <!-- Curve T = 10°C (Green) -->
+  <path d="M 100,390 C 290,345 480,305 860,272" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="870" y="276" font-size="12" font-weight="bold" fill="#27ae60">T = 10 °C</text>
+
+  <!-- Highlighting Example Point (RH = 50%, T = 20°C => T_d = 9.27°C) -->
+  <circle cx="385" cy="254" r="5" fill="#2457d6"/>
+  <line x1="385" y1="254" x2="385" y2="400" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="100" y1="254" x2="385" y2="254" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,4"/>
+  <rect x="300" y="220" width="160" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="380" y="237" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">RH=50%, T_d=9.27 °C</text>
+</svg>

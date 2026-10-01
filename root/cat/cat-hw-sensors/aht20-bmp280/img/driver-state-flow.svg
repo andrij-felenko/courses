@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Діаграма станів драйвера AHT20 + BMP280</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Асинхронний цикл: ініціалізація, опитування готовності та обробка даних на I2C</text>
+
+  <!-- Transitions / Arrow Lines -->
+
+  <!-- Transition 1 -> 2: INIT to IDLE -->
+  <line x1="280" y1="135" x2="352" y2="135" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="320" y="122" text-anchor="middle" font-size="12" fill="#2457d6" font-weight="bold">OK</text>
+
+  <!-- Transition 2 -> 3: IDLE to START -->
+  <line x1="600" y1="135" x2="672" y2="135" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+  <text x="640" y="122" text-anchor="middle" font-size="12" fill="#1a1a1a">t_sample</text>
+
+  <!-- Transition 3 -> 4: START to POLL -->
+  <line x1="800" y1="180" x2="800" y2="242" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="812" y="215" text-anchor="start" font-size="12" fill="#2457d6">Запит</text>
+
+  <!-- Transition 4 -> 4: Loop in POLL (Busy == 1) -->
+  <path d="M 800 340 L 800 365 L 938 365 L 938 315 L 928 315" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-gray)"/>
+  <text x="860" y="358" text-anchor="middle" font-size="11" fill="#6b7280">Очікування (Busy = 1)</text>
+
+  <!-- Transition 4 -> 5: POLL to READ (Busy == 0) -->
+  <line x1="680" y1="295" x2="608" y2="295" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="644" y="282" text-anchor="middle" font-size="12" fill="#2457d6" font-weight="bold">Busy = 0</text>
+
+  <!-- Transition 5 -> 6: READ to PROCESS -->
+  <line x1="360" y1="295" x2="288" y2="295" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+  <text x="320" y="282" text-anchor="middle" font-size="12" fill="#1a1a1a">Зчитано</text>
+
+  <!-- Transition 6 -> 2: PROCESS to IDLE (CRC OK) -->
+  <path d="M 160 250 L 160 215 L 480 215 L 480 188" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="320" y="202" text-anchor="middle" font-size="12" fill="#27ae60" font-weight="bold">CRC OK (Дані валідні)</text>
+
+  <!-- Transition 4 -> 7: POLL to ERROR (Timeout) -->
+  <path d="M 800 340 L 800 445 L 608 445" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="812" y="395" text-anchor="start" font-size="12" fill="#c0392b">Таймаут I2C</text>
+
+  <!-- Transition 6 -> 7: PROCESS to ERROR (CRC error) -->
+  <path d="M 160 340 L 160 445 L 352 445" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="260" y="432" text-anchor="middle" font-size="12" fill="#c0392b" font-weight="bold">Помилка CRC8</text>
+
+  <!-- Transition 7 -> 1: ERROR to INIT (Reset / Recovery) -->
+  <path d="M 360 465 L 20 465 L 20 135 L 32 135" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="190" y="452" text-anchor="middle" font-size="11" fill="#c0392b">Скидання шини / Re-init</text>
+
+  <!-- STATE CARDS -->
+
+  <!-- 1. STATE_INIT -->
+  <g>
+    <rect x="40" y="90" width="240" height="28" fill="#2457d6" rx="4"/>
+    <rect x="40" y="118" width="240" height="62" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+    <text x="160" y="109" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">1. STATE_INIT (Ініціалізація)</text>
+    <text x="54" y="140" font-size="12" fill="#1a1a1a">• Скидання AHT20 та BMP280</text>
+    <text x="54" y="160" font-size="12" fill="#1a1a1a">• Читання калібрувальних N_T, N_P</text>
+  </g>
+
+  <!-- 2. STATE_IDLE -->
+  <g>
+    <rect x="360" y="90" width="240" height="28" fill="#4b5563" rx="4"/>
+    <rect x="360" y="118" width="240" height="62" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+    <text x="480" y="109" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">2. STATE_IDLE (Пауза)</text>
+    <text x="374" y="140" font-size="12" fill="#1a1a1a">• Очікування таймера t_sample</text>
+    <text x="374" y="160" font-size="12" fill="#1a1a1a">• Очікування команди запуску</text>
+  </g>
+
+  <!-- 3. STATE_START -->
+  <g>
+    <rect x="680" y="90" width="240" height="28" fill="#2457d6" rx="4"/>
+    <rect x="680" y="118" width="240" height="62" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+    <text x="800" y="109" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">3. STATE_START (Запуск)</text>
+    <text x="694" y="140" font-size="12" fill="#1a1a1a">• AHT20: тригер 0xAC, 0x33, 0x00</text>
+    <text x="694" y="160" font-size="12" fill="#1a1a1a">• BMP280: запис ctrl_meas</text>
+  </g>
+
+  <!-- 4. STATE_POLL -->
+  <g>
+    <rect x="680" y="250" width="240" height="28" fill="#2457d6" rx="4"/>
+    <rect x="680" y="278" width="240" height="62" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+    <text x="800" y="269" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">4. STATE_POLL (Опитування)</text>
+    <text x="694" y="298" font-size="12" fill="#1a1a1a">• Опитування AHT20 (Busy == 0)</text>
+    <text x="694" y="318" font-size="12" fill="#1a1a1a">• Перевірка BMP280 (meas == 0)</text>
+  </g>
+
+  <!-- 5. STATE_READ -->
+  <g>
+    <rect x="360" y="250" width="240" height="28" fill="#4b5563" rx="4"/>
+    <rect x="360" y="278" width="240" height="62" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+    <text x="480" y="269" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">5. STATE_READ (Зчитування)</text>
+    <text x="374" y="298" font-size="12" fill="#1a1a1a">• AHT20: 7 байт (дані + CRC8)</text>
+    <text x="374" y="318" font-size="12" fill="#1a1a1a">• BMP280: 6 байт (P, T)</text>
+  </g>
+
+  <!-- 6. STATE_PROCESS -->
+  <g>
+    <rect x="40" y="250" width="240" height="28" fill="#27ae60" rx="4"/>
+    <rect x="40" y="278" width="240" height="62" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+    <text x="160" y="269" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">6. STATE_PROCESS (Обробка)</text>
+    <text x="54" y="298" font-size="12" fill="#1a1a1a">• Перевірка полінома CRC8 AHT20</text>
+    <text x="54" y="318" font-size="12" fill="#1a1a1a">• Обчислення T (°C), RH (%), P (Па)</text>
+  </g>
+
+  <!-- 7. STATE_ERROR -->
+  <g>
+    <rect x="360" y="400" width="240" height="28" fill="#c0392b" rx="4"/>
+    <rect x="360" y="428" width="240" height="62" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+    <text x="480" y="419" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">7. STATE_ERROR (Помилка)</text>
+    <text x="374" y="448" font-size="12" fill="#1a1a1a">• Невдала CRC8 або таймаут I2C</text>
+    <text x="374" y="468" font-size="12" fill="#1a1a1a">• Скидання шини та відновлення</text>
+  </g>
+</svg>

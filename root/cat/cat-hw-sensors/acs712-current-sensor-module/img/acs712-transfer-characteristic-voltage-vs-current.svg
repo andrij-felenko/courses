@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Передавальна характеристика вихідної напруги ACS712 від струму</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Усі модифікації мають спільне зміщення VCC/2 (2.5 В) при 0 А та різний нахил чутливості Sens</text>
+
+  <!-- Main Graph Background Panel -->
+  <rect x="80" y="80" width="650" height="400" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Grid lines -->
+  <!-- Horizontal VCC/2 = 2.5V line (Y = 280) -->
+  <line x1="80" y1="280" x2="730" y2="280" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="70" y="284" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">2.5 В</text>
+
+  <!-- Horizontal VCC = 5.0V line (Y = 100) -->
+  <line x1="80" y1="100" x2="730" y2="100" stroke="#d0d7de" stroke-width="1"/>
+  <text x="70" y="104" font-size="12" fill="#6b7280" text-anchor="end">5.0 В</text>
+
+  <!-- Horizontal 0V line (Y = 460) -->
+  <line x1="80" y1="460" x2="730" y2="460" stroke="#d0d7de" stroke-width="1"/>
+  <text x="70" y="464" font-size="12" fill="#6b7280" text-anchor="end">0.0 В</text>
+
+  <!-- Vertical I = 0A line (X = 405) -->
+  <line x1="405" y1="80" x2="405" y2="480" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="405" y="498" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">0 А</text>
+
+  <!-- X-Axis Labels -->
+  <text x="145" y="498" font-size="12" fill="#6b7280" text-anchor="middle">-30 А</text>
+  <text x="230" y="498" font-size="12" fill="#6b7280" text-anchor="middle">-20 А</text>
+  <text x="320" y="498" font-size="12" fill="#6b7280" text-anchor="middle">-5 А</text>
+  <text x="490" y="498" font-size="12" fill="#6b7280" text-anchor="middle">+5 А</text>
+  <text x="580" y="498" font-size="12" fill="#6b7280" text-anchor="middle">+20 А</text>
+  <text x="665" y="498" font-size="12" fill="#6b7280" text-anchor="middle">+30 А</text>
+  <text x="715" y="445" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">Струм I (А)</text>
+
+  <!-- Axis Arrows -->
+  <line x1="80" y1="460" x2="80" y2="85" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+  <text x="95" y="95" font-size="13" font-weight="bold" fill="#1a1a1a">VOUT (В)</text>
+
+  <!-- Characteristic 1: ACS712-30A (Sens = 66 mV/A) Green -->
+  <!-- Range -30A (X=145, Y=424) to +30A (X=665, Y=136) -->
+  <line x1="145" y1="424" x2="665" y2="136" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Characteristic 2: ACS712-20A (Sens = 100 mV/A) Blue -->
+  <!-- Range -20A (X=230, Y=424) to +20A (X=580, Y=136) -->
+  <line x1="230" y1="424" x2="580" y2="136" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Characteristic 3: ACS712-05B (Sens = 185 mV/A) Red -->
+  <!-- Range -5A (X=320, Y=413) to +5A (X=490, Y=147) -->
+  <line x1="320" y1="413" x2="490" y2="147" stroke="#c0392b" stroke-width="3"/>
+
+  <!-- Quiescent Center Point (I=0A, Vout=2.5V) -->
+  <circle cx="405" cy="280" r="6" fill="#1a1a1a"/>
+  <text x="420" y="270" font-size="12" font-weight="bold" fill="#1a1a1a">VCC / 2 = 2.5 В</text>
+
+  <!-- Legend Panel Right -->
+  <rect x="750" y="120" width="190" height="280" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="845" y="145" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Модифікації</text>
+
+  <!-- Item 1: 05B -->
+  <rect x="765" y="165" width="20" height="20" rx="4" fill="#c0392b"/>
+  <text x="795" y="180" font-size="13" font-weight="bold" fill="#c0392b">ACS712-05B</text>
+  <text x="795" y="198" font-size="12" fill="#6b7280">Діапазон: ±5 А</text>
+  <text x="795" y="214" font-size="12" fill="#6b7280"> Sens = 185 мВ/А</text>
+
+  <!-- Item 2: 20A -->
+  <rect x="765" y="235" width="20" height="20" rx="4" fill="#2457d6"/>
+  <text x="795" y="250" font-size="13" font-weight="bold" fill="#2457d6">ACS712-20A</text>
+  <text x="795" y="268" font-size="12" fill="#6b7280">Діапазон: ±20 А</text>
+  <text x="795" y="284" font-size="12" fill="#6b7280"> Sens = 100 мВ/А</text>
+
+  <!-- Item 3: 30A -->
+  <rect x="765" y="305" width="20" height="20" rx="4" fill="#27ae60"/>
+  <text x="795" y="320" font-size="13" font-weight="bold" fill="#27ae60">ACS712-30A</text>
+  <text x="795" y="338" font-size="12" fill="#6b7280">Діапазон: ±30 А</text>
+  <text x="795" y="354" font-size="12" fill="#6b7280"> Sens = 66 мВ/А</text>
+
+  <line x1="765" y1="370" x2="925" y2="370" stroke="#d0d7de" stroke-width="1"/>
+  <text x="845" y="388" font-size="12" fill="#6b7280" text-anchor="middle">Живлення VCC = 5.0 В</text>
+</svg>

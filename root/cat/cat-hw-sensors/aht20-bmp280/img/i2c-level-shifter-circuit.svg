@@ -1,0 +1,194 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема підключення модуля AHT20+BMP280 через перетворювач рівнів</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Узгодження 5 В та 3.3 В доменів I2C із підтягувальними резисторами для безпечного обміну даними</text>
+
+  <!-- 1. ЛІВА ПАНЕЛЬ: Мікроконтролер (5V Domain) -->
+  <rect x="24" y="75" width="250" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="149" y="102" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер (MCU)</text>
+  <text x="149" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Логіка 5 В (HV domain)</text>
+
+  <!-- Блок процесора MCU -->
+  <rect x="40" y="142" width="114" height="330" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="97" y="175" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MCU Board</text>
+  <text x="97" y="195" font-size="12" fill="#6b7280" text-anchor="middle">(Arduino / 5V)</text>
+
+  <!-- Застереження MCU -->
+  <rect x="48" y="375" width="98" height="85" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="97" y="396" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">УВАГА!</text>
+  <text x="97" y="414" font-size="12" fill="#c0392b" text-anchor="middle">Прямі 5 В SDA/SCL</text>
+  <text x="97" y="432" font-size="12" fill="#c0392b" text-anchor="middle">виведуть сенсори</text>
+  <text x="97" y="450" font-size="12" fill="#c0392b" text-anchor="middle">з ладу</text>
+
+  <!-- Внутрішні з'єднання MCU до пінів -->
+  <path d="M 154 160 L 174 160" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 154 220 L 174 220" stroke="#27ae60" stroke-width="1.5"/>
+  <path d="M 154 280 L 174 280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 154 340 L 174 340" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 154 400 L 174 400" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Піни MCU -->
+  <!-- 5V Out -->
+  <rect x="174" y="142" width="80" height="36" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="214" y="164" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">5V Out</text>
+
+  <!-- 3.3V Out -->
+  <rect x="174" y="202" width="80" height="36" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="214" y="224" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3.3V Out</text>
+
+  <!-- GND MCU -->
+  <rect x="174" y="262" width="80" height="36" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="214" y="284" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND</text>
+
+  <!-- SDA MCU -->
+  <rect x="174" y="322" width="80" height="36" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="214" y="344" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SDA (5V)</text>
+
+  <!-- SCL MCU -->
+  <rect x="174" y="382" width="80" height="36" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="214" y="404" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SCL (5V)</text>
+
+
+  <!-- 2. ЦЕНТРАЛЬНА ПАНЕЛЬ: Двонаправлений перетворювач рівнів -->
+  <rect x="340" y="75" width="280" height="420" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="102" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Перетворювач рівнів I2C</text>
+  <text x="480" y="122" font-size="12" fill="#2457d6" text-anchor="middle">Двонаправлений узгоджувач (Level Shifter)</text>
+
+  <!-- Сторони HV та LV усередині shifter -->
+  <text x="390" y="140" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">HV (5V)</text>
+  <text x="570" y="140" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">LV (3.3V)</text>
+
+  <!-- Піни Level Shifter -->
+  <!-- HV Pin -->
+  <rect x="360" y="146" width="60" height="28" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="390" y="164" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">HV</text>
+
+  <!-- LV Pin -->
+  <rect x="540" y="206" width="60" height="28" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="570" y="224" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">LV</text>
+
+  <!-- GND Pin Shifter -->
+  <rect x="450" y="266" width="60" height="28" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="480" y="284" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND</text>
+
+  <!-- HV1 & LV1 Pins (SDA Channel) -->
+  <rect x="360" y="322" width="60" height="36" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="390" y="344" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">HV1</text>
+
+  <rect x="430" y="322" width="100" height="36" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="338" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Канал SDA</text>
+  <text x="480" y="352" font-size="12" fill="#6b7280" text-anchor="middle">N-FET + R1,R3</text>
+
+  <rect x="540" y="322" width="60" height="36" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="570" y="344" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">LV1</text>
+
+  <!-- HV2 & LV2 Pins (SCL Channel) -->
+  <rect x="360" y="382" width="60" height="36" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="390" y="404" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">HV2</text>
+
+  <rect x="430" y="382" width="100" height="36" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="398" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Канал SCL</text>
+  <text x="480" y="412" font-size="12" fill="#6b7280" text-anchor="middle">N-FET + R2,R4</text>
+
+  <rect x="540" y="382" width="60" height="36" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="570" y="404" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">LV2</text>
+
+  <!-- Підтягувальні резистори усереднені підписи -->
+  <rect x="355" y="435" width="250" height="50" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="455" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Підтягувальні резистори 10 кОм</text>
+  <text x="480" y="473" font-size="12" fill="#6b7280" text-anchor="middle">R1, R2 до HV (5V) | R3, R4 до LV (3.3V)</text>
+
+
+  <!-- 3. ПРАВА ПАНЕЛЬ: Модуль давачів AHT20 + BMP280 -->
+  <rect x="686" y="75" width="250" height="420" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="811" y="102" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Модуль AHT20 + BMP280</text>
+  <text x="811" y="122" font-size="12" fill="#27ae60" text-anchor="middle">Логіка 3.3 В (LV domain)</text>
+
+  <!-- Внутрішні з'єднання сенсорів до мікросхем -->
+  <path d="M 786 220 L 800 220" stroke="#27ae60" stroke-width="1.5"/>
+  <path d="M 786 280 L 800 280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 786 340 L 800 340" stroke="#27ae60" stroke-width="1.5"/>
+  <path d="M 786 400 L 800 400" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Піни сенсорного модуля -->
+  <!-- VCC Pin -->
+  <rect x="706" y="202" width="80" height="36" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="746" y="224" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">VCC (3.3V)</text>
+
+  <!-- GND Sensor -->
+  <rect x="706" y="262" width="80" height="36" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="746" y="284" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND</text>
+
+  <!-- SDA Sensor -->
+  <rect x="706" y="322" width="80" height="36" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="746" y="344" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">SDA (3.3V)</text>
+
+  <!-- SCL Sensor -->
+  <rect x="706" y="382" width="80" height="36" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="746" y="404" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">SCL (3.3V)</text>
+
+  <!-- Мікросхеми давачів на платі -->
+  <rect x="800" y="202" width="122" height="110" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="861" y="224" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">AHT20</text>
+  <text x="861" y="242" font-size="12" fill="#27ae60" text-anchor="middle">Температура</text>
+  <text x="861" y="260" font-size="12" fill="#27ae60" text-anchor="middle">та вологість</text>
+  <text x="861" y="295" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Адреса: 0x38</text>
+
+  <rect x="800" y="322" width="122" height="150" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="861" y="344" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">BMP280</text>
+  <text x="861" y="362" font-size="12" fill="#27ae60" text-anchor="middle">Атмосферний</text>
+  <text x="861" y="380" font-size="12" fill="#27ae60" text-anchor="middle">тиск і темп.</text>
+  <text x="861" y="415" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Адреса: 0x76</text>
+  <text x="861" y="433" font-size="12" fill="#6b7280" text-anchor="middle">(або 0x77)</text>
+
+
+  <!-- ПРОВІДНИКИ ТА ЛІНІЇ З'ЄДНАННЯ -->
+
+  <!-- Line 1: 5V Power (MCU 5V Out -> Level Shifter HV) -->
+  <path d="M 254 160 L 360 160" fill="none" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="307" y="148" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+5 В</text>
+
+  <!-- Line 2: 3.3V Power (MCU 3.3V Out -> Level Shifter LV & Sensor VCC) -->
+  <path d="M 254 220 L 540 220" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <path d="M 600 220 L 706 220" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="307" y="208" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">+3.3 В</text>
+  <text x="653" y="208" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">+3.3 В</text>
+
+  <!-- Line 3: Ground (MCU GND -> Level Shifter GND -> Sensor GND) -->
+  <path d="M 254 280 L 450 280" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 510 280 L 706 280" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="307" y="268" font-size="12" fill="#6b7280" text-anchor="middle">GND</text>
+  <text x="653" y="268" fill="#6b7280" font-size="12" text-anchor="middle">GND</text>
+
+  <!-- Line 4: SDA 5V (MCU SDA -> Level Shifter HV1) -->
+  <path d="M 254 340 L 360 340" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="307" y="328" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SDA 5V</text>
+
+  <!-- Line 5: SDA 3.3V (Level Shifter LV1 -> Sensor SDA) -->
+  <path d="M 600 340 L 706 340" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="653" y="328" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">SDA 3.3V</text>
+
+  <!-- Line 6: SCL 5V (MCU SCL -> Level Shifter HV2) -->
+  <path d="M 254 400 L 360 400" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="307" y="388" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SCL 5V</text>
+
+  <!-- Line 7: SCL 3.3V (Level Shifter LV2 -> Sensor SCL) -->
+  <path d="M 600 400 L 706 400" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="653" y="388" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">SCL 3.3V</text>
+
+</svg>

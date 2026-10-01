@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Залежність тиску насиченої пари та температури точки роси (Магнус — Тетенс)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">При охолодженні повітря зі сталим тиском пари e досягається стан насичення (RH = 100%) у точці роси T_d</text>
+
+  <!-- Панель графічного полотна -->
+  <rect x="65" y="85" width="530" height="450" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Зони графіка (Конденсація та Ненасичена пара) -->
+  <path d="M 120,130 L 120,403.3 C 180,385 220,368 273.7,337.7 C 310,315 345,280 376.2,250 C 410,215 440,165 463.4,129.8 L 463.4,130 Z" fill="#fdecea"/>
+  <path d="M 120,440 L 120,403.3 C 180,385 220,368 273.7,337.7 C 310,315 345,280 376.2,250 C 410,215 440,165 463.4,129.8 L 530,129.8 L 530,440 Z" fill="#e9f7ef"/>
+
+  <!-- Сітка графіка -->
+  <line x1="120" y1="380" x2="530" y2="380" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="120" y1="326" x2="530" y2="326" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="120" y1="250" x2="530" y2="250" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="120" y1="140" x2="530" y2="140" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <line x1="222.5" y1="130" x2="222.5" y2="440" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="325.0" y1="130" x2="325.0" y2="440" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="427.5" y1="130" x2="427.5" y2="440" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="530.0" y1="130" x2="530.0" y2="440" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Головні осі -->
+  <line x1="120" y1="440" x2="540" y2="440" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="120" y1="440" x2="120" y2="115" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Назви осей -->
+  <text x="335" y="520" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Температура повітря T (°C)</text>
+  <text x="75" y="112" font-size="13" font-weight="700" fill="#1a1a1a">Тиск пари e, E (hPa)</text>
+
+  <!-- Засічки осей X та Y -->
+  <text x="120" y="458" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="222.5" y="458" font-size="12" fill="#6b7280" text-anchor="middle">10</text>
+  <text x="325" y="458" font-size="12" fill="#6b7280" text-anchor="middle">20</text>
+  <text x="427.5" y="458" font-size="12" fill="#6b7280" text-anchor="middle">30</text>
+  <text x="530" y="458" font-size="12" fill="#6b7280" text-anchor="middle">40</text>
+
+  <text x="112" y="444" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="112" y="384" font-size="12" fill="#6b7280" text-anchor="end">10</text>
+  <text x="112" y="330" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">e = 19.0</text>
+  <text x="112" y="254" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">E(25°C) = 31.7</text>
+  <text x="112" y="144" font-size="12" fill="#6b7280" text-anchor="end">50</text>
+
+  <!-- Проєкційні лінії до осей -->
+  <line x1="291.2" y1="326" x2="291.2" y2="440" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="291.2" y="482" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">T_d = 16.7 °C</text>
+
+  <line x1="376.2" y1="250" x2="376.2" y2="440" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="376.2" y="482" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">T = 25 °C</text>
+
+  <!-- Крива насичення E(T) -->
+  <path d="M 120,403.3 C 180,385 220,368 273.7,337.7 C 310,315 345,280 376.2,250 C 410,215 440,165 463.4,129.8" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <text x="420" y="155" font-size="13" font-weight="700" fill="#2457d6">Крива насичення E(T)</text>
+
+  <!-- Позначення областей на графіку -->
+  <text x="140" y="165" font-size="13" font-weight="700" fill="#c0392b">Область конденсації</text>
+  <text x="140" y="183" font-size="12" fill="#c0392b">(випадання вологи, RH ≥ 100%)</text>
+
+  <text x="400" y="390" font-size="13" font-weight="700" fill="#27ae60">Ненасичене повітря</text>
+  <text x="400" y="408" font-size="12" fill="#27ae60">(RH &lt; 100%, без роси)</text>
+
+  <!-- Процес охолодження (лінія A -> B) -->
+  <line x1="370" y1="326" x2="299" y2="326" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="335" y="348" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Охолодження (e = const)</text>
+
+  <!-- Точка C (Насичення при T=25°C) -->
+  <circle cx="376.2" cy="250" r="5" fill="#2457d6"/>
+
+  <!-- Точка A (Поточний стан) -->
+  <circle cx="376.2" cy="326" r="6" fill="#2457d6" stroke="#ffffff" stroke-width="2"/>
+  <rect x="395" y="280" width="145" height="48" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="403" y="299" font-size="12" font-weight="700" fill="#2457d6">Поточний стан A</text>
+  <text x="403" y="316" font-size="12" fill="#1a1a1a">T = 25 °C, RH = 60%</text>
+  <line x1="382.2" y1="326" x2="395" y2="304" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Точка B (Точка роси) -->
+  <circle cx="291.2" cy="326" r="6" fill="#c0392b" stroke="#ffffff" stroke-width="2"/>
+  <rect x="140" y="275" width="135" height="48" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="148" y="294" font-size="12" font-weight="700" fill="#c0392b">Точка роси B (T_d)</text>
+  <text x="148" y="311" font-size="12" fill="#1a1a1a">T_d = 16.7 °C, 100% RH</text>
+  <line x1="275" y1="299" x2="285.2" y2="326" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- ПРАВА ПАНЕЛЬ (Інформаційні картки) -->
+
+  <!-- Картка 1: Формула Магнуса — Тетенса -->
+  <rect x="615" y="85" width="310" height="135" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="630" y="108" font-size="14" font-weight="700" fill="#1a1a1a">Формула Магнуса — Тетенса</text>
+  <text x="630" y="130" font-size="12" fill="#1a1a1a">E(T) = a · exp[ (b · T) / (c + T) ]</text>
+  <text x="630" y="148" font-size="12" fill="#6b7280">a = 6.112 hPa, b = 17.625, c = 243.04 °C</text>
+  <text x="630" y="170" font-size="12" fill="#1a1a1a">γ(T, RH) = (b · T)/(c + T) + ln(RH / 100)</text>
+  <text x="630" y="192" font-size="13" font-weight="700" fill="#2457d6">T_d = (c · γ) / (b - γ)  [°C]</text>
+
+  <!-- Картка 2: Давачі AHT20 + BMP280 -->
+  <rect x="615" y="235" width="310" height="140" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="630" y="258" font-size="14" font-weight="700" fill="#2457d6">Давачі AHT20 + BMP280</text>
+  <text x="630" y="280" font-size="12" fill="#1a1a1a">• AHT20: вимірює T (°C) та RH (%)</text>
+  <text x="630" y="300" font-size="12" fill="#1a1a1a">• BMP280: вимірює тиск P (hPa)</text>
+  <text x="630" y="320" font-size="12" fill="#1a1a1a">• МК обчислює e = E(T) · (RH / 100)</text>
+  <text x="630" y="342" font-size="12" font-weight="700" fill="#2457d6">• Знаходження точки роси T_d</text>
+
+  <!-- Картка 3: Критичний стан конденсації -->
+  <rect x="615" y="390" width="310" height="145" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="630" y="413" font-size="14" font-weight="700" fill="#c0392b">Критичний стан конденсації</text>
+  <text x="630" y="435" font-size="12" fill="#1a1a1a">• При T_поверхні ≤ T_d випадає роса</text>
+  <text x="630" y="455" font-size="12" fill="#1a1a1a">• Ризик корозії та коротких</text>
+  <text x="642" y="473" font-size="12" fill="#1a1a1a">замикань у мікроконтролері</text>
+  <text x="630" y="497" font-size="12" font-weight="700" fill="#c0392b">• Моніторинг T_d запобігає відмовам</text>
+</svg>

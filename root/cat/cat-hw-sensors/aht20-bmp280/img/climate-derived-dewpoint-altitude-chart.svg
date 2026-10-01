@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зв'язок вимірювань BMP280 і AHT20 з висотою та точкою роси</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Барометрична формула дає висоту h(P), а стан вологості визначає точку роси T_d(T, RH)</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Барометричне нівелювання h(P) -->
+  <rect x="24" y="70" width="444" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="246" y="94" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Залежність тиску від висоти h(P)</text>
+  <text x="246" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Давач BMP280: вимірювання тиску P₀ та P</text>
+
+  <!-- Блок вхідних даних BMP280 -->
+  <rect x="40" y="126" width="412" height="48" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="145" font-size="12" fill="#1a1a1a">Замір BMP280: <tspan font-weight="bold" fill="#2457d6">P = 950.0 hPa</tspan>, опорний <tspan font-weight="bold" fill="#27ae60">P₀ = 1013.25 hPa</tspan></text>
+  <text x="52" y="163" font-size="12" fill="#6b7280">Формула: h ≈ 44330 · [1 - (P / P₀)^0.1903] ⇒ <tspan font-weight="bold" fill="#2457d6">h = 540 m</tspan></text>
+
+  <!-- Графік h(P) -->
+  <rect x="54" y="190" width="384" height="250" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Сітка та осі Left -->
+  <line x1="94" y1="220" x2="418" y2="220" stroke="#e5e7eb" stroke-dasharray="4 4"/>
+  <text x="86" y="224" font-size="12" fill="#6b7280" text-anchor="end">1000</text>
+
+  <line x1="94" y1="293" x2="418" y2="293" stroke="#2457d6" stroke-dasharray="3 3"/>
+  <text x="86" y="297" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">540</text>
+
+  <line x1="94" y1="380" x2="418" y2="380" stroke="#d0d7de"/>
+  <text x="86" y="384" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <line x1="140" y1="198" x2="140" y2="380" stroke="#f0f2f5"/>
+  <text x="140" y="398" font-size="12" fill="#6b7280" text-anchor="middle">900</text>
+
+  <line x1="260" y1="198" x2="260" y2="380" stroke="#2457d6" stroke-dasharray="3 3"/>
+  <text x="260" y="398" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">950</text>
+
+  <line x1="400" y1="198" x2="400" y2="380" stroke="#27ae60" stroke-dasharray="3 3"/>
+  <text x="396" y="398" font-size="12" fill="#27ae60" text-anchor="middle">1013</text>
+
+  <!-- Осі з стрілками -->
+  <line x1="94" y1="380" x2="94" y2="204" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="104" y="208" font-size="12" font-weight="bold" fill="#1a1a1a">h [m]</text>
+
+  <line x1="94" y1="380" x2="424" y2="380" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="424" y="366" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">P [hPa]</text>
+
+  <!-- Крива h(P) -->
+  <path d="M 400,380 Q 260,293 136,220" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Точка заміру -->
+  <circle cx="260" cy="293" r="5" fill="#2457d6" stroke="#ffffff" stroke-width="2"/>
+  <rect x="272" y="270" width="138" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="280" y="286" font-size="12" font-weight="bold" fill="#2457d6">Точка заміру</text>
+  <text x="280" y="301" font-size="12" fill="#1a1a1a">P=950 hPa ⇒ 540 m</text>
+
+  <!-- Підсумкова плашка Left -->
+  <rect x="40" y="452" width="412" height="46" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="471" font-size="12" fill="#1a1a1a">• Зниження тиску: ~1 hPa на кожні 8.3 m висоти</text>
+  <text x="52" y="488" font-size="12" fill="#6b7280">• Калібрування: потрібне актуальне P₀ для точності</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: Точка роси T_d(T, RH) -->
+  <rect x="492" y="70" width="444" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="714" y="94" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Крива насичення вологи та точка роси T_d</text>
+  <text x="714" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Давач AHT20: температура T та відносна вологість RH</text>
+
+  <!-- Блок вхідних даних AHT20 -->
+  <rect x="508" y="126" width="412" height="48" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="145" font-size="12" fill="#1a1a1a">Замір AHT20: <tspan font-weight="bold" fill="#2457d6">T = 25.0 °C</tspan>, <tspan font-weight="bold" fill="#2457d6">RH = 60 %</tspan></text>
+  <text x="520" y="163" font-size="12" fill="#6b7280">Магнус: γ(T,RH) = (17.27·T)/(237.7+T) + ln(RH/100) ⇒ <tspan font-weight="bold" fill="#27ae60">T_d = 16.7 °C</tspan></text>
+
+  <!-- Графік E(T) -->
+  <rect x="522" y="190" width="384" height="250" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Сітка та осі Right -->
+  <line x1="562" y1="230" x2="886" y2="230" stroke="#c0392b" stroke-dasharray="3 3"/>
+  <text x="554" y="234" font-size="12" fill="#c0392b" text-anchor="end">31.7</text>
+
+  <line x1="562" y1="295" x2="886" y2="295" stroke="#2457d6" stroke-dasharray="3 3"/>
+  <text x="554" y="299" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">19.0</text>
+
+  <line x1="562" y1="380" x2="886" y2="380" stroke="#d0d7de"/>
+  <text x="554" y="384" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <line x1="710" y1="198" x2="710" y2="380" stroke="#27ae60" stroke-dasharray="3 3"/>
+  <text x="710" y="398" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">16.7 (T_d)</text>
+
+  <line x1="810" y1="198" x2="810" y2="380" stroke="#2457d6" stroke-dasharray="3 3"/>
+  <text x="810" y="398" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">25.0 (T)</text>
+
+  <!-- Осі з стрілками -->
+  <line x1="562" y1="380" x2="562" y2="204" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="572" y="208" font-size="12" font-weight="bold" fill="#1a1a1a">E [hPa]</text>
+
+  <line x1="562" y1="380" x2="892" y2="380" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="892" y="366" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">T [°C]</text>
+
+  <!-- Крива насичення E_sat(T) -->
+  <path d="M 590,365 Q 710,300 870,195" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="874" y="212" font-size="12" font-weight="bold" fill="#c0392b">100% RH</text>
+
+  <!-- Охолодження до точки роси -->
+  <line x1="804" y1="295" x2="718" y2="295" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Точка стану повітря -->
+  <circle cx="810" cy="295" r="5" fill="#2457d6" stroke="#ffffff" stroke-width="2"/>
+  <text x="816" y="288" font-size="12" font-weight="bold" fill="#2457d6">Повітря (60% RH)</text>
+
+  <!-- Точка роси на кривій -->
+  <circle cx="710" cy="295" r="5" fill="#27ae60" stroke="#ffffff" stroke-width="2"/>
+  <rect x="584" y="244" width="120" height="38" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="592" y="260" font-size="12" font-weight="bold" fill="#27ae60">Точка роси T_d</text>
+  <text x="592" y="275" font-size="12" fill="#1a1a1a">Конденсація 16.7 °C</text>
+
+  <!-- Підсумкова плашка Right -->
+  <rect x="508" y="452" width="412" height="46" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="471" font-size="12" fill="#1a1a1a">• При охолодженні до T_d (16.7 °C) RH досягне 100 %</text>
+  <text x="520" y="488" font-size="12" fill="#6b7280">• Захист: не допускати охолодження плати нижче T_d</text>
+</svg>

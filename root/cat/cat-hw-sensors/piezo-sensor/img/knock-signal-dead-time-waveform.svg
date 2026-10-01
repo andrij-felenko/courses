@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Форма аналогового сигналу п'єзодавача та інтервал мертвого часу</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Мертвий час T_dead ігнорує згасаючі резонансні осциляції, запобігаючи повторним хибним спрацьовуванням</text>
+
+  <!-- ГОЛОВНА ПАНЕЛЬ ОСЦИЛОГРАМИ -->
+  <rect x="24" y="75" width="912" height="315" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок панелі та бейджі у верхній зоні -->
+  <rect x="40" y="80" width="210" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="145" y="97" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Удар 1: Сильний (3.6 В) ✓</text>
+
+  <text x="480" y="97" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Осцилограма U_piezo(t) на вході АЦП</text>
+
+  <rect x="710" y="80" width="210" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="815" y="97" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Удар 2: Середній (2.3 В) ✓</text>
+
+  <!-- Зони мертвого часу -->
+  <rect x="190" y="115" width="320" height="215" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Інформаційна картка в зоні мертвого часу 1 (між порогами 3.0 В та 2.0 В) -->
+  <rect x="270" y="157" width="220" height="44" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="380" y="173" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Мертвий час T_dead = 100 мс</text>
+  <text x="380" y="191" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">3 повторні піки ігноровано ✗</text>
+
+  <!-- Зона мертвого часу 2 -->
+  <rect x="630" y="115" width="250" height="215" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <rect x="655" y="122" width="200" height="24" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="755" y="138" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Мертвий час T_dead</text>
+
+  <!-- Лінії порогів з підписами праворуч -->
+  <line x1="70" y1="150" x2="890" y2="150" stroke="#27ae60" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="880" y="144" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">V_high = 3.0 В (Сильний удар)</text>
+
+  <line x1="70" y1="210" x2="890" y2="210" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="880" y="204" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">V_med = 2.0 В (Середній удар)</text>
+
+  <line x1="70" y1="270" x2="890" y2="270" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="880" y="264" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">V_th = 1.0 В (Поріг детектування)</text>
+
+  <!-- Сітка й осі -->
+  <line x1="70" y1="330" x2="900" y2="330" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="70" y1="330" x2="70" y2="115" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="65" y="118" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">U, В</text>
+  <text x="905" y="334" font-size="12" font-weight="bold" fill="#1a1a1a">t, мс</text>
+
+  <!-- Позначки часу на осі X -->
+  <line x1="140" y1="330" x2="140" y2="336" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="140" y="352" font-size="12" fill="#6b7280" text-anchor="middle">0 мс</text>
+
+  <line x1="190" y1="330" x2="190" y2="336" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="190" y="352" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">30 мс</text>
+
+  <line x1="510" y1="330" x2="510" y2="336" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="510" y="352" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">130 мс</text>
+
+  <line x1="630" y1="330" x2="630" y2="336" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="630" y="352" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">165 мс</text>
+
+  <!-- Хвильовий аналоговий сигнал п'єзоелемента -->
+  <path d="M 70 330 L 140 330 Q 165 330 190 114 Q 207 325 225 320 Q 242 165 260 174 Q 278 320 295 315 Q 312 210 330 222 Q 348 315 365 310 Q 382 245 400 252 Q 418 310 435 305 Q 452 280 470 285 Q 490 330 510 330 L 600 330 Q 615 330 630 192 Q 645 322 660 318 Q 675 220 690 225 Q 705 315 720 312 Q 735 270 750 275 Q 765 330 780 330 L 890 330" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Маркери подій -->
+  <!-- Перший удар (Пік 1) -->
+  <circle cx="190" cy="114" r="5" fill="#27ae60" stroke="#ffffff" stroke-width="2"/>
+  <line x1="190" y1="114" x2="190" y2="330" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Ігноровані резонансні піки -->
+  <circle cx="260" cy="174" r="4" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="330" cy="222" r="4" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="400" cy="252" r="4" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+
+  <!-- Другий удар (Пік 6) -->
+  <circle cx="630" cy="192" r="5" fill="#27ae60" stroke="#ffffff" stroke-width="2"/>
+  <line x1="630" y1="192" x2="630" y2="330" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- НИЖНІ ПАНЕЛІ -->
+  <!-- Панель 1: Логіка алгоритму -->
+  <rect x="24" y="402" width="444" height="113" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="246" y="423" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Алгоритм обробки сигналу з мертвим часом</text>
+
+  <rect x="40" y="433" width="412" height="24" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="449" font-size="12" fill="#1a1a1a">1. Детектування: при U &gt; V_th фіксується пік та старт T_dead.</text>
+
+  <rect x="40" y="461" width="412" height="24" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="477" font-size="12" fill="#1a1a1a">2. Мертвий час: упродовж T_dead усі повторні сплески відкинуто.</text>
+
+  <rect x="40" y="489" width="412" height="24" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="505" font-size="12" fill="#1a1a1a">3. Градація: сила оцінюється за порівнянням U_max з V_high/V_med.</text>
+
+  <!-- Панель 2: Результати класифікації -->
+  <rect x="492" y="402" width="444" height="113" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="714" y="423" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Класифікація подій осцилограми</text>
+
+  <rect x="508" y="433" width="412" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="516" y="449" font-size="12" fill="#1a1a1a">Удар 1 (t = 30 мс): U_max = 3.6 В &gt; V_high — Сильний удар ✓</text>
+
+  <rect x="508" y="461" width="412" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="516" y="477" font-size="12" fill="#1a1a1a">Осциляції (30..130 мс): 3 піки &gt; V_th — Відсічено (T_dead) ✗</text>
+
+  <rect x="508" y="489" width="412" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="516" y="505" font-size="12" fill="#1a1a1a">Удар 2 (t = 165 мс): U_max = 2.3 В &gt; V_med — Середній удар ✓</text>
+</svg>

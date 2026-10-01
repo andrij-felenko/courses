@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Алгоритм обробки та лінеаризації даних давача PT100</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Від сирого відліку АЦП до температури в °C за рівнянням Каллендара — Ван Дюзена з контролем збоїв</text>
+
+  <!-- COLUMN 1: Sampling & Filtering (x=25..225, y=80..360) -->
+  <rect x="25" y="80" width="200" height="280" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="25" y="80" width="200" height="36" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="125" y="103" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. АЦП та Фільтрація</text>
+
+  <!-- Step 1.1 -->
+  <rect x="40" y="130" width="170" height="75" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="125" y="150" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідний відлік</text>
+  <text x="125" y="168" font-size="12" fill="#2457d6" text-anchor="middle">ADC_raw (24-bit SPI)</text>
+  <text x="125" y="186" font-size="12" fill="#6b7280" text-anchor="middle">з AFE (напр. MAX31865)</text>
+
+  <!-- Arrow Step 1.1 -> Step 1.2 -->
+  <line x1="125" y1="205" x2="125" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 1.2 -->
+  <rect x="40" y="240" width="170" height="100" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="125" y="260" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цифрова фільтрація</text>
+  <text x="125" y="278" font-size="12" fill="#2457d6" text-anchor="middle">ADC_filt = Filter(ADC)</text>
+  <text x="125" y="296" font-size="12" fill="#6b7280" text-anchor="middle">Медіана / Ковзне середнє</text>
+  <text x="125" y="314" font-size="12" fill="#6b7280" text-anchor="middle">Пригнічення 50/60 Гц</text>
+
+  <!-- Arrow Col 1 -> Col 2 -->
+  <line x1="225" y1="220" x2="250" y2="220" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- COLUMN 2: Fault Detection (x=255..455, y=80..360) -->
+  <rect x="255" y="80" width="200" height="280" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="255" y="80" width="200" height="36" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="355" y="103" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Перевірка Збоїв</text>
+
+  <!-- Decision Box (Diamond) -->
+  <path d="M355,140 L435,220 L355,300 L275,220 Z" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="355" y="195" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Норма відліку?</text>
+  <text x="355" y="215" font-size="12" fill="#2457d6" text-anchor="middle">ADC_min ≤ ADC_filt</text>
+  <text x="355" y="233" font-size="12" fill="#2457d6" text-anchor="middle">≤ ADC_max</text>
+
+  <!-- Arrow Decision -> Error (Down) -->
+  <line x1="355" y1="300" x2="355" y2="390" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="365" y="345" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Ні (Збій)</text>
+
+  <!-- Arrow Decision -> Col 3 (Right) -->
+  <line x1="435" y1="220" x2="480" y2="220" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="460" y="208" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Так</text>
+
+  <!-- COLUMN 3: Resistance Calculation (x=485..685, y=80..360) -->
+  <rect x="485" y="80" width="200" height="280" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="485" y="80" width="200" height="36" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="585" y="103" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Розрахунок R_PT100</text>
+
+  <!-- Step 3.1 -->
+  <rect x="500" y="130" width="170" height="95" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="585" y="150" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема відношення</text>
+  <text x="585" y="168" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R_PT100 = R_ref · Ratio</text>
+  <text x="585" y="186" font-size="12" fill="#2457d6" text-anchor="middle">Ratio = ADC_filt / ADC_max</text>
+  <text x="585" y="204" font-size="12" fill="#6b7280" text-anchor="middle">Компенсація дрейфу I_exc</text>
+
+  <!-- Arrow Step 3.1 -> Step 3.2 -->
+  <line x1="585" y1="225" x2="585" y2="245" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 3.2 -->
+  <rect x="500" y="250" width="170" height="90" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="585" y="270" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Компенсація ліній</text>
+  <text x="585" y="288" font-size="12" fill="#2457d6" text-anchor="middle">R_sens = R_PT100 - R_wire</text>
+  <text x="585" y="306" font-size="12" fill="#6b7280" text-anchor="middle">2-, 3- або 4-провідне</text>
+  <text x="585" y="324" font-size="12" fill="#6b7280" text-anchor="middle">Корекція опору дротів</text>
+
+  <!-- Arrow Col 3 -> Col 4 -->
+  <line x1="685" y1="220" x2="710" y2="220" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- COLUMN 4: Linearization CVD (x=715..935, y=80..360, width=220) -->
+  <rect x="715" y="80" width="220" height="280" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="715" y="80" width="220" height="36" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="825" y="103" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">4. Лінеаризація (CVD)</text>
+
+  <!-- Step 4.1 -->
+  <rect x="730" y="130" width="190" height="100" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="825" y="148" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Каллендар — Ван Дюзен</text>
+  <text x="825" y="166" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">T ≥ 0 °C (Квадратне)</text>
+  <text x="825" y="184" font-size="12" fill="#1a1a1a" text-anchor="middle">T_C = (-A + √D) / (2B)</text>
+  <text x="825" y="202" font-size="12" fill="#1a1a1a" text-anchor="middle">D = A² - 4B(1 - R/R₀)</text>
+  <text x="825" y="220" font-size="12" fill="#6b7280" text-anchor="middle">A = 3.9083e-3, B = -5.775e-7</text>
+
+  <!-- Arrow Step 4.1 -> Step 4.2 -->
+  <line x1="825" y1="230" x2="825" y2="245" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 4.2 -->
+  <rect x="730" y="250" width="190" height="90" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="825" y="268" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">T &lt; 0 °C (Кубічне)</text>
+  <text x="825" y="286" font-size="12" fill="#1a1a1a" text-anchor="middle">+ C·(T_C - 100)·T_C³</text>
+  <text x="825" y="304" font-size="12" fill="#6b7280" text-anchor="middle">C = -4.183e-12</text>
+  <text x="825" y="322" font-size="12" fill="#6b7280" text-anchor="middle">Ітераційний розрахунок</text>
+
+  <!-- Arrow Col 4 -> Final Result -->
+  <line x1="825" y1="360" x2="825" y2="390" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- BOTTOM ROW: Outcomes (y=400..515) -->
+
+  <!-- Error Outcome Box (below Col 2: x=120..455, w=335) -->
+  <rect x="120" y="400" width="335" height="115" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="120" y="400" width="335" height="28" rx="8" fill="#c0392b"/>
+  <text x="287" y="419" font-size="13" font-weight="bold" fill="white" text-anchor="middle">ОБРОБКА АПАРАТНОЇ ПОМИЛКИ</text>
+  <text x="287" y="445" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Код: ERR_SENSOR_FAULT</text>
+  <text x="287" y="465" font-size="12" fill="#1a1a1a" text-anchor="middle">Причини: Відрив щупа (Open-circuit),</text>
+  <text x="287" y="482" font-size="12" fill="#1a1a1a" text-anchor="middle">коротке замикання ліній або збій I_exc</text>
+  <text x="287" y="500" font-size="12" fill="#6b7280" text-anchor="middle">Дія: Блокування виходу, тривога, аварійний стан</text>
+
+  <!-- Success Outcome Box (below Col 3 & 4: x=485..935, w=450) -->
+  <rect x="485" y="400" width="450" height="115" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="485" y="400" width="450" height="28" rx="8" fill="#27ae60"/>
+  <text x="710" y="419" font-size="13" font-weight="bold" fill="white" text-anchor="middle">ВАЛІДНИЙ ВИХІД ДРАЙВЕРА</text>
+  <text x="710" y="445" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">pt100_read_temperature_c() → STATUS_OK</text>
+  <text x="710" y="465" font-size="12" fill="#1a1a1a" text-anchor="middle">Повернуте значення: Температура T_C у градусах Цельсія (°C)</text>
+  <text x="710" y="485" font-size="12" fill="#6b7280" text-anchor="middle">Точність відповідає класу A/B за IEC 60751</text>
+  <text x="710" y="502" font-size="12" fill="#6b7280" text-anchor="middle">Готові дані передаються у верхньорівневе ПЗ</text>
+</svg>

@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Раціометрична схема збудження платинового термоопору PT100</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Дрейф струму збудження I_exc скасовується завдяки спільній опорній напрузі V_ref для АЦП</text>
+
+  <!-- Панель 1: Принципова схема кола -->
+  <rect x="40" y="85" width="530" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="112" font-size="14" font-weight="bold" fill="#1a1a1a">Принципова схема кола збудження</text>
+
+  <!-- Джерело струму I_exc -->
+  <line x1="170" y1="122" x2="170" y2="147" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="170" cy="165" r="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <line x1="170" y1="154" x2="170" y2="172" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="145" y="156" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">I_exc</text>
+  <text x="145" y="174" font-size="12" fill="#6b7280" text-anchor="end">Джерело струму</text>
+
+  <!-- Провідник від джерела струму до PT100 -->
+  <line x1="170" y1="183" x2="170" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Термоопір PT100 -->
+  <rect x="153" y="230" width="34" height="50" fill="white" stroke="#2457d6" stroke-width="2" rx="3"/>
+  <text x="170" y="260" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">PT100</text>
+  <text x="145" y="250" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Термоопір</text>
+  <text x="145" y="266" font-size="12" fill="#2457d6" text-anchor="end">R_PT100(T)</text>
+
+  <!-- Провідник від PT100 до R_ref -->
+  <line x1="170" y1="280" x2="170" y2="340" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Референсний резистор R_ref -->
+  <rect x="153" y="340" width="34" height="50" fill="white" stroke="#27ae60" stroke-width="2" rx="3"/>
+  <text x="170" y="370" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">R_ref</text>
+  <text x="145" y="356" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Опорний опір</text>
+  <text x="145" y="372" font-size="12" fill="#27ae60" text-anchor="end">R_ref</text>
+  <text x="145" y="387" font-size="11" fill="#6b7280" text-anchor="end">(прецизійний)</text>
+
+  <!-- Провідник до заземлення GND -->
+  <line x1="170" y1="390" x2="170" y2="430" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Символ GND -->
+  <line x1="155" y1="430" x2="185" y2="430" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="160" y1="435" x2="180" y2="435" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="165" y1="440" x2="175" y2="440" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="170" y="458" font-size="12" fill="#6b7280" text-anchor="middle">GND</text>
+
+  <!-- Лінії вимірювання напруги V_IN (збудження PT100) -->
+  <circle cx="170" cy="215" r="3.5" fill="#2457d6"/>
+  <line x1="170" y1="215" x2="330" y2="215" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+
+  <circle cx="170" cy="295" r="3.5" fill="#2457d6"/>
+  <polyline points="170,295 300,295 300,265 330,265" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+
+  <text x="250" y="244" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_IN = I_exc · R_PT100</text>
+
+  <!-- Лінії вимірювання опорної напруги V_REF (збудження R_ref) -->
+  <circle cx="170" cy="325" r="3.5" fill="#27ae60"/>
+  <polyline points="170,325 300,325 300,340 330,340" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+
+  <circle cx="170" cy="405" r="3.5" fill="#27ae60"/>
+  <polyline points="170,405 300,405 300,390 330,390" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+
+  <text x="250" y="369" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V_REF = I_exc · R_ref</text>
+
+  <!-- Блок АЦП / ADC -->
+  <rect x="330" y="160" width="220" height="270" rx="8" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 330,168 A 8,8 0 0,1 338,160 L 542,160 A 8,8 0 0,1 550,168 L 550,195 L 330,195 Z" fill="#eaf0fd"/>
+  <text x="440" y="183" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">АЦП / ADC</text>
+
+  <!-- Виводи АЦП -->
+  <text x="342" y="220" font-size="12" font-weight="bold" fill="#2457d6">V_IN+</text>
+  <text x="342" y="270" font-size="12" font-weight="bold" fill="#2457d6">V_IN-</text>
+  <text x="342" y="345" font-size="12" font-weight="bold" fill="#27ae60">V_REF+</text>
+  <text x="342" y="395" font-size="12" font-weight="bold" fill="#27ae60">V_REF-</text>
+
+  <!-- Внутрішнє обчислення АЦП -->
+  <rect x="390" y="285" width="145" height="50" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="462" y="305" font-size="11" fill="#6b7280" text-anchor="middle">Обчислення відношення</text>
+  <text x="462" y="322" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Code ∝ V_IN / V_REF</text>
+
+  <!-- Панель 2: Математична модель -->
+  <rect x="590" y="85" width="330" height="395" rx="8" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="610" y="112" font-size="14" font-weight="bold" fill="#1a1a1a">Математична модель раціометрії</text>
+
+  <!-- Картка 1: Вхідна напруга V_IN -->
+  <rect x="605" y="125" width="300" height="55" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="620" y="142" font-size="12" font-weight="bold" fill="#2457d6">1. Вимірювана напруга (сигнал PT100):</text>
+  <text x="620" y="165" font-size="14" font-weight="bold" fill="#1a1a1a">V_IN = I_exc · R_PT100</text>
+
+  <!-- Картка 2: Опорна напруга V_REF -->
+  <rect x="605" y="193" width="300" height="55" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="620" y="210" font-size="12" font-weight="bold" fill="#27ae60">2. Опорна напруга АЦП (Ref input):</text>
+  <text x="620" y="233" font-size="14" font-weight="bold" fill="#1a1a1a">V_REF = I_exc · R_ref</text>
+
+  <!-- Картка 3: Код АЦП -->
+  <rect x="605" y="261" width="300" height="85" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="620" y="278" font-size="12" font-weight="bold" fill="#1a1a1a">3. Формування цифрового коду АЦП:</text>
+  <text x="620" y="303" font-size="13" fill="#1a1a1a">Code = (2^N - 1) · (V_IN / V_REF)</text>
+  <text x="620" y="330" font-size="13" font-weight="bold" fill="#2457d6">Code = (2^N - 1) · (R_PT100 / R_ref)</text>
+
+  <!-- Картка 4: Висновок -->
+  <rect x="605" y="359" width="300" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="620" y="377" font-size="12" font-weight="bold" fill="#27ae60">Ключовий висновок:</text>
+  <text x="620" y="397" font-size="12" fill="#1a1a1a">• I_exc повністю скорочується в дробу</text>
+  <text x="620" y="417" font-size="12" fill="#1a1a1a">• Дрейф і шуми джерела не впливають</text>
+  <text x="620" y="437" font-size="12" font-weight="bold" fill="#27ae60">• Точність залежить лише від R_ref</text>
+</svg>

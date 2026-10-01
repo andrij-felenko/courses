@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Архітектура та обробка сигналу в драйвері п'єзодавача</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Послідовне проходження від АЦП через компенсацію дрейфу та блокування осциляцій (blanking) до API подій</text>
+
+  <!-- Stage 1: ADC Sampling -->
+  <rect x="30" y="75" width="195" height="385" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <rect x="40" y="87" width="175" height="30" fill="#eaf0fd" rx="4"/>
+  <text x="127" y="107" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">1. АЦП та ініціалізація</text>
+
+  <rect x="42" y="130" width="171" height="75" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="127" y="152" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">П'єзоелемент → АЦП</text>
+  <text x="127" y="170" font-size="12" fill="#6b7280" text-anchor="middle">Частота опитування f_s</text>
+  <text x="127" y="188" font-size="12" fill="#2457d6" text-anchor="middle">Сирий відлік: V_raw</text>
+
+  <rect x="42" y="220" width="171" height="85" fill="#fdecea" stroke="#c0392b" stroke-dasharray="3,3" rx="4"/>
+  <text x="127" y="242" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Перевірка насичення</text>
+  <text x="127" y="262" font-size="12" fill="#c0392b" text-anchor="middle">V_raw ≥ V_max (АЦП)</text>
+  <text x="127" y="282" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Прапорець: SATURATION</text>
+
+  <rect x="42" y="320" width="171" height="125" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="127" y="342" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">API ініціалізації</text>
+  <text x="127" y="365" font-size="12" fill="#2457d6" text-anchor="middle">piezo_init(adc_ch, f_s)</text>
+  <text x="127" y="388" font-size="12" fill="#6b7280" text-anchor="middle">Конфігурація каналу АЦП</text>
+  <text x="127" y="408" font-size="12" fill="#6b7280" text-anchor="middle">та таймера опитування</text>
+
+  <!-- Stage 2: Baseline Compensation -->
+  <rect x="255" y="75" width="200" height="385" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <rect x="265" y="87" width="180" height="30" fill="#eaf0fd" rx="4"/>
+  <text x="355" y="107" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">2. Компенсація дрейфу</text>
+
+  <rect x="267" y="130" width="176" height="85" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="355" y="152" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Оцінка нульової лінії V_base</text>
+  <text x="355" y="172" font-size="12" fill="#6b7280" text-anchor="middle">Низькочастотна фільтрація</text>
+  <text x="355" y="194" font-size="12" fill="#2457d6" text-anchor="middle">V_base = V_base + α·ΔV</text>
+
+  <rect x="267" y="230" width="176" height="75" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="355" y="252" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Корекція зміщення</text>
+  <text x="355" y="272" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">V_clean = V_raw - V_base</text>
+  <text x="355" y="290" font-size="12" fill="#6b7280" text-anchor="middle">Усунення дрейфу нуля</text>
+
+  <rect x="267" y="320" width="176" height="125" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="355" y="342" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">API коригування нуля</text>
+  <text x="355" y="365" font-size="12" fill="#2457d6" text-anchor="middle">piezo_update_baseline()</text>
+  <text x="355" y="388" font-size="12" fill="#6b7280" text-anchor="middle">Автоматичне стеження</text>
+  <text x="355" y="408" font-size="12" fill="#6b7280" text-anchor="middle">за покійним рівнем</text>
+
+  <!-- Stage 3: Threshold & Blanking -->
+  <rect x="485" y="75" width="215" height="385" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <rect x="495" y="87" width="195" height="30" fill="#eaf0fd" rx="4"/>
+  <text x="592" y="107" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">3. Пороги та Blanking</text>
+
+  <rect x="497" y="130" width="191" height="75" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="592" y="152" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Порівняння з порогом V_th</text>
+  <text x="592" y="172" font-size="12" fill="#2457d6" text-anchor="middle">Умова: V_clean &gt; V_th</text>
+  <text x="592" y="190" font-size="12" fill="#6b7280" text-anchor="middle">Фіксація початку удару</text>
+
+  <rect x="497" y="220" width="191" height="85" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="592" y="242" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Інтервал блокування t_blank</text>
+  <text x="592" y="262" font-size="12" fill="#1a1a1a" text-anchor="middle">Придушення осциляцій відбою</text>
+  <text x="592" y="282" font-size="12" fill="#2457d6" text-anchor="middle">Обчислення: V_peak = max(V)</text>
+
+  <rect x="497" y="320" width="191" height="125" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="592" y="342" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">API налаштувань</text>
+  <text x="592" y="364" font-size="12" fill="#2457d6" text-anchor="middle">piezo_set_threshold(V_th)</text>
+  <text x="592" y="384" font-size="12" fill="#2457d6" text-anchor="middle">piezo_set_blanking(t_blank)</text>
+  <text x="592" y="408" font-size="12" fill="#6b7280" text-anchor="middle">Захист від ложних відбіїв</text>
+
+  <!-- Stage 4: Output Modes & Event Struct -->
+  <rect x="730" y="75" width="200" height="385" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <rect x="740" y="87" width="180" height="30" fill="#eaf0fd" rx="4"/>
+  <text x="830" y="107" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">4. Режими виходу API</text>
+
+  <rect x="742" y="130" width="176" height="75" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="830" y="152" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Сирий / очищений потік</text>
+  <text x="830" y="172" font-size="12" fill="#2457d6" text-anchor="middle">piezo_read_raw()</text>
+  <text x="830" y="190" font-size="12" fill="#6b7280" text-anchor="middle">Безперервний моніторинг</text>
+
+  <rect x="742" y="220" width="176" height="75" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="830" y="242" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Режим пікової напруги</text>
+  <text x="830" y="262" font-size="12" fill="#2457d6" text-anchor="middle">piezo_read_peak()</text>
+  <text x="830" y="280" font-size="12" fill="#6b7280" text-anchor="middle">Максимальна амплітуда V_peak</text>
+
+  <rect x="742" y="310" width="176" height="125" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="830" y="332" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Подія стуку piezo_event_t</text>
+  <text x="830" y="352" font-size="12" fill="#1a1a1a" text-anchor="middle">• intensity (сила удару)</text>
+  <text x="830" y="370" font-size="12" fill="#1a1a1a" text-anchor="middle">• duration (тривалість)</text>
+  <text x="830" y="392" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">piezo_poll_event()</text>
+  <text x="830" y="410" font-size="12" fill="#6b7280" text-anchor="middle">Фіксація події з відсічкою</text>
+
+  <!-- Flow Arrows -->
+  <line x1="213" y1="167" x2="262" y2="167" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 443 267 L 464 267 L 464 167 L 492 167" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+  <line x1="688" y1="167" x2="737" y2="167" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 688 262 L 715 262 L 715 257 L 737 257" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <path d="M 688 262 L 715 262 L 715 372 L 737 372" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+</svg>

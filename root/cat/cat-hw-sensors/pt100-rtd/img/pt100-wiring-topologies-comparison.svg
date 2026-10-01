@@ -1,0 +1,237 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння топологій підключення сенсора PT100</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Шляхи струму збудження та механізми компенсації опору кабелю (Rw)</text>
+
+  <!-- ==================== PANEL 1: 2-WIRE TOPOLOGY ==================== -->
+  <g id="panel-2wire">
+    <!-- Panel Container -->
+    <rect x="24" y="76" width="288" height="444" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="168" y="100" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2-провідне підключення</text>
+
+    <!-- Status Badge -->
+    <rect x="68" y="112" width="200" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+    <text x="168" y="128" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Некомпенсований опір</text>
+
+    <!-- ADC Module Box -->
+    <rect x="32" y="155" width="94" height="160" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="79" y="173" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">АЦП / AFE</text>
+
+    <!-- Internal Module Symbols -->
+    <circle cx="70" cy="240" r="11" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <path d="M70,233 L70,247 M67,243 L70,247 L73,243" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+    <text x="56" y="244" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Iзб</text>
+
+    <circle cx="102" cy="240" r="11" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="102" y="244" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V</text>
+
+    <path d="M70,200 L70,229 M102,200 L102,229 M70,200 L126,200" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+    <path d="M70,251 L70,280 M102,251 L102,280 M70,280 L126,280" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+    <circle cx="126" cy="200" r="3" fill="#1a1a1a"/>
+    <circle cx="126" cy="280" r="3" fill="#1a1a1a"/>
+
+    <!-- Sensor Probe Outline -->
+    <rect x="226" y="155" width="68" height="160" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <text x="260" y="173" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">PT100</text>
+
+    <!-- PT100 Resistor Element -->
+    <rect x="248" y="218" width="24" height="44" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="260" y="244" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Rpt</text>
+    <path d="M260,200 L260,218 M260,262 L260,280" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+    <circle cx="226" cy="200" r="3" fill="#1a1a1a"/>
+    <circle cx="226" cy="280" r="3" fill="#1a1a1a"/>
+    <path d="M226,200 L260,200 M226,280 L260,280" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+
+    <!-- Wires with Parasitic Resistors -->
+    <path d="M126,200 L161,200" stroke="#c0392b" stroke-width="1.5" fill="none" marker-end="url(#arr-red)"/>
+    <rect x="161" y="193" width="30" height="14" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <path d="M191,200 L226,200" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+    <text x="176" y="184" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Rw1</text>
+
+    <path d="M226,280 L191,280" stroke="#c0392b" stroke-width="1.5" fill="none" marker-end="url(#arr-red)"/>
+    <rect x="161" y="273" width="30" height="14" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <path d="M161,280 L126,280" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+    <text x="176" y="302" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Rw2</text>
+
+    <!-- Bottom Card -->
+    <rect x="36" y="336" width="264" height="172" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="48" y="356" font-size="12" font-weight="bold" fill="#1a1a1a">Рівняння схеми:</text>
+    <text x="48" y="376" font-size="12" font-weight="bold" fill="#c0392b">U = Iзб · (Rpt + Rw1 + Rw2)</text>
+    <line x1="48" y1="388" x2="288" y2="388" stroke="#e5e7eb" stroke-width="1"/>
+
+    <text x="48" y="406" font-size="12" font-weight="bold" fill="#1a1a1a">Джерело похибки:</text>
+    <text x="48" y="424" font-size="12" fill="#6b7280">Опір обох провідників (2·Rw)</text>
+    <text x="48" y="440" font-size="12" fill="#6b7280">додається до опору сенсора.</text>
+
+    <rect x="44" y="454" width="248" height="44" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+    <text x="168" y="471" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Похибка: ΔR = 2 · Rw</text>
+    <text x="168" y="488" font-size="12" fill="#c0392b" text-anchor="middle">1 Ом Rw дає ~2.55 °C помилки</text>
+  </g>
+
+  <!-- ==================== PANEL 2: 3-WIRE TOPOLOGY ==================== -->
+  <g id="panel-3wire">
+    <!-- Panel Container -->
+    <rect x="336" y="76" width="288" height="444" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="480" y="100" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3-провідне підключення</text>
+
+    <!-- Status Badge -->
+    <rect x="380" y="112" width="200" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="480" y="128" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Симетрична компенсація</text>
+
+    <!-- ADC Module Box -->
+    <rect x="344" y="155" width="94" height="160" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="391" y="173" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">АЦП / AFE</text>
+
+    <!-- Internal Module Symbols -->
+    <circle cx="382" cy="240" r="11" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <path d="M382,233 L382,247 M379,243 L382,247 L385,243" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+    <text x="368" y="244" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Iзб</text>
+
+    <circle cx="414" cy="215" r="11" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="414" y="219" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V</text>
+
+    <path d="M382,190 L382,229 M414,190 L414,204 M382,190 L438,190" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+    <path d="M414,226 L414,240 L438,240" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+    <path d="M382,251 L382,290 L438,290" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+    <circle cx="438" cy="190" r="3" fill="#1a1a1a"/>
+    <circle cx="438" cy="240" r="3" fill="#1a1a1a"/>
+    <circle cx="438" cy="290" r="3" fill="#1a1a1a"/>
+
+    <!-- Sensor Probe Outline -->
+    <rect x="538" y="155" width="68" height="160" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <text x="572" y="173" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">PT100</text>
+
+    <!-- PT100 Resistor Element -->
+    <rect x="560" y="218" width="24" height="44" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="572" y="244" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Rpt</text>
+    <path d="M572,190 L572,218 M572,262 L572,290" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+    <circle cx="538" cy="190" r="3" fill="#1a1a1a"/>
+    <circle cx="538" cy="240" r="3" fill="#1a1a1a"/>
+    <circle cx="538" cy="290" r="3" fill="#1a1a1a"/>
+    <path d="M538,190 L572,190 M538,240 L572,290 M538,290 L572,290" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+
+    <!-- Connecting Wires -->
+    <path d="M438,190 L473,190" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+    <rect x="473" y="183" width="30" height="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <path d="M503,190 L538,190" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+    <text x="488" y="174" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Rw1</text>
+
+    <path d="M438,240 L473,240" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 2" fill="none"/>
+    <rect x="473" y="233" width="30" height="14" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+    <path d="M503,240 L538,240" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 2" fill="none"/>
+    <text x="488" y="224" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Rw2 (I=0)</text>
+
+    <path d="M538,290 L503,290" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+    <rect x="473" y="283" width="30" height="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <path d="M473,290 L438,290" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+    <text x="488" y="312" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Rw3</text>
+
+    <!-- Bottom Card -->
+    <rect x="348" y="336" width="264" height="172" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="360" y="356" font-size="12" font-weight="bold" fill="#1a1a1a">Рівняння схеми:</text>
+    <text x="360" y="376" font-size="12" font-weight="bold" fill="#2457d6">U = Iзб · (Rpt + Rw1 - Rw3)</text>
+    <line x1="360" y1="388" x2="600" y2="388" stroke="#e5e7eb" stroke-width="1"/>
+
+    <text x="360" y="406" font-size="12" font-weight="bold" fill="#1a1a1a">Механізм компенсації:</text>
+    <text x="360" y="424" font-size="12" fill="#6b7280">Падіння напруги на Rw1 і Rw3</text>
+    <text x="360" y="440" font-size="12" fill="#6b7280">віднімаються (якщо Rw1 = Rw3).</text>
+
+    <rect x="356" y="454" width="248" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="480" y="471" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Залишок: ΔR = |Rw1 - Rw3|</text>
+    <text x="480" y="488" font-size="12" fill="#2457d6" text-anchor="middle">Залежить від симетрії дротів</text>
+  </g>
+
+  <!-- ==================== PANEL 3: 4-WIRE TOPOLOGY ==================== -->
+  <g id="panel-4wire">
+    <!-- Panel Container -->
+    <rect x="648" y="76" width="288" height="444" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="792" y="100" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4-провідне підключення</text>
+
+    <!-- Status Badge -->
+    <rect x="682" y="112" width="220" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="792" y="128" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Повна компенсація (Кельвін)</text>
+
+    <!-- ADC Module Box -->
+    <rect x="656" y="155" width="94" height="160" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="703" y="173" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">АЦП / AFE</text>
+
+    <!-- Internal Module Symbols -->
+    <circle cx="694" cy="240" r="11" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <path d="M694,233 L694,247 M691,243 L694,247 L697,243" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+    <text x="680" y="244" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Iзб</text>
+
+    <circle cx="726" cy="240" r="11" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="726" y="244" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V</text>
+
+    <path d="M694,175 L694,229 M694,175 L750,175" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+    <path d="M726,215 L726,229 M726,215 L750,215" stroke="#27ae60" stroke-width="1.5" fill="none"/>
+    <path d="M726,251 L726,265 M726,265 L750,265" stroke="#27ae60" stroke-width="1.5" fill="none"/>
+    <path d="M694,251 L694,305 M694,305 L750,305" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+    <circle cx="750" cy="175" r="3" fill="#2457d6"/>
+    <circle cx="750" cy="215" r="3" fill="#27ae60"/>
+    <circle cx="750" cy="265" r="3" fill="#27ae60"/>
+    <circle cx="750" cy="305" r="3" fill="#2457d6"/>
+
+    <!-- Sensor Probe Outline -->
+    <rect x="850" y="155" width="68" height="160" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <text x="884" y="173" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">PT100</text>
+
+    <!-- PT100 Resistor Element -->
+    <rect x="872" y="218" width="24" height="44" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="884" y="244" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Rpt</text>
+    <path d="M884,175 L884,218 M884,262 L884,305" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+    <circle cx="850" cy="175" r="3" fill="#2457d6"/>
+    <circle cx="850" cy="215" r="3" fill="#27ae60"/>
+    <circle cx="850" cy="265" r="3" fill="#27ae60"/>
+    <circle cx="850" cy="305" r="3" fill="#2457d6"/>
+    <path d="M850,175 L884,175 M850,215 L884,215 M850,265 L884,265 M850,305 L884,305" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+
+    <!-- Connecting Wires -->
+    <path d="M750,175 L785,175" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+    <rect x="785" y="168" width="30" height="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <path d="M815,175 L850,175" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+    <text x="800" y="162" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I+ (Rw)</text>
+
+    <path d="M750,215 L785,215" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 2" fill="none"/>
+    <rect x="785" y="208" width="30" height="14" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <path d="M815,215 L850,215" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 2" fill="none"/>
+    <text x="800" y="202" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V+ (I=0)</text>
+
+    <path d="M750,265 L785,265" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 2" fill="none"/>
+    <rect x="785" y="258" width="30" height="14" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <path d="M815,265 L850,265" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 2" fill="none"/>
+    <text x="800" y="285" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V- (I=0)</text>
+
+    <path d="M850,305 L815,305" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+    <rect x="785" y="298" width="30" height="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <path d="M785,305 L750,305" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+    <text x="800" y="325" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I- (Rw)</text>
+
+    <!-- Bottom Card -->
+    <rect x="660" y="336" width="264" height="172" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="672" y="356" font-size="12" font-weight="bold" fill="#1a1a1a">Рівняння схеми:</text>
+    <text x="672" y="376" font-size="12" font-weight="bold" fill="#27ae60">U = Iзб · Rpt</text>
+    <line x1="672" y1="388" x2="912" y2="388" stroke="#e5e7eb" stroke-width="1"/>
+
+    <text x="672" y="406" font-size="12" font-weight="bold" fill="#1a1a1a">Принцип вимірювання:</text>
+    <text x="672" y="424" font-size="12" fill="#6b7280">Струмові лінії окремо від</text>
+    <text x="672" y="440" font-size="12" fill="#6b7280">потенційних (струм I_V = 0).</text>
+
+    <rect x="668" y="454" width="248" height="44" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="792" y="471" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Похибка: ΔR = 0 (Ідеально)</text>
+    <text x="792" y="488" font-size="12" fill="#27ae60" text-anchor="middle">Не залежить від довжини кабелю</text>
+  </g>
+</svg>

@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Потік даних та апаратні обчислення в регістрах INA226</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Значення калібрування (05h) дає змогу чипу самостійно обчислювати струм (04h) та потужність (03h)</text>
+
+  <!-- Panel 1: External Circuits (Left) -->
+  <rect x="20" y="85" width="170" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="105" y="108" font-size="13" font-weight="bold" fill="#6b7280" text-anchor="middle">Зовнішні кола</text>
+
+  <!-- Box 1A: Shunt Resistor -->
+  <rect x="32" y="125" width="146" height="115" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="105" y="147" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шунт R_SHUNT</text>
+  <text x="105" y="167" font-size="12" fill="#6b7280" text-anchor="middle">Входи IN+ / IN-</text>
+  <text x="105" y="192" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_SHUNT = I × R_SHUNT</text>
+  <text x="105" y="212" font-size="12" fill="#6b7280" text-anchor="middle">(макс. ±81.92 mV)</text>
+
+  <!-- Box 1B: Bus Voltage -->
+  <rect x="32" y="255" width="146" height="90" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="105" y="277" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шина живлення</text>
+  <text x="105" y="297" font-size="12" fill="#6b7280" text-anchor="middle">Вхід VBUS (до GND)</text>
+  <text x="105" y="322" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_BUS (0...36 V)</text>
+
+  <!-- Box 1C: Host Microcontroller -->
+  <rect x="32" y="360" width="146" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="105" y="382" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Мікроконтролер</text>
+  <text x="105" y="402" font-size="12" fill="#1a1a1a" text-anchor="middle">Запис CAL через I2C</text>
+  <text x="105" y="427" font-size="12" fill="#6b7280" text-anchor="middle">Читає I та P без ЦПУ</text>
+
+  <!-- Panel 2: INA226 Internal Chip Architecture -->
+  <rect x="210" y="85" width="730" height="385" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <text x="575" y="108" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Внутрішня структура цифрового монітора INA226</text>
+
+  <!-- Sub-column 1: ADC -->
+  <rect x="225" y="125" width="115" height="220" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="282.5" y="150" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">16-бітний</text>
+  <text x="282.5" y="168" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">ΔΣ АЦП</text>
+  <text x="282.5" y="195" font-size="12" fill="#6b7280" text-anchor="middle">Дискретизація</text>
+  <text x="282.5" y="213" font-size="12" fill="#6b7280" text-anchor="middle">сигналів</text>
+  <text x="282.5" y="240" font-size="12" fill="#1a1a1a" text-anchor="middle">V_SHUNT LSB:</text>
+  <text x="282.5" y="258" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2.5 µV</text>
+  <text x="282.5" y="290" font-size="12" fill="#1a1a1a" text-anchor="middle">V_BUS LSB:</text>
+  <text x="282.5" y="308" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1.25 mV</text>
+
+  <!-- Sub-column 2: Primary Registers -->
+  <!-- Box B1: Register 01h -->
+  <rect x="360" y="125" width="180" height="65" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="450" y="147" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Регістр 01h (Shunt Volt)</text>
+  <text x="450" y="167" font-size="12" fill="#6b7280" text-anchor="middle">Прямі дані АЦП (16 біт)</text>
+
+  <!-- Box B2: Register 02h -->
+  <rect x="360" y="205" width="180" height="65" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="450" y="227" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Регістр 02h (Bus Volt)</text>
+  <text x="450" y="247" font-size="12" fill="#6b7280" text-anchor="middle">Прямі дані АЦП (16 біт)</text>
+
+  <!-- Box B3: Register 05h Calibration -->
+  <rect x="360" y="360" width="180" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="450" y="382" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Регістр 05h (Calib)</text>
+  <text x="450" y="402" font-size="12" fill="#1a1a1a" text-anchor="middle">CAL = 0.00512 /</text>
+  <text x="450" y="420" font-size="12" fill="#1a1a1a" text-anchor="middle">(Current_LSB × R_shunt)</text>
+  <text x="450" y="442" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Записано МК через I2C</text>
+
+  <!-- Sub-column 3: Hardware Multiplier Engine -->
+  <rect x="570" y="125" width="150" height="330" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="645" y="148" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Апаратний</text>
+  <text x="645" y="166" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">множник чипа</text>
+
+  <!-- Math Engine - Current Section -->
+  <rect x="580" y="185" width="130" height="110" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="645" y="205" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Множення струму</text>
+  <text x="645" y="225" font-size="12" fill="#2457d6" text-anchor="middle">Reg01h × CAL (05h)</text>
+  <line x1="595" y1="237" x2="695" y2="237" stroke="#6b7280" stroke-width="1"/>
+  <text x="645" y="253" font-size="12" fill="#6b7280" text-anchor="middle">2048</text>
+  <text x="645" y="278" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">→ Струм (04h)</text>
+
+  <!-- Math Engine - Internal Arrow Current to Power -->
+  <line x1="645" y1="295" x2="645" y2="310" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Math Engine - Power Section -->
+  <rect x="580" y="310" width="130" height="135" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="645" y="330" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Множення потужності</text>
+  <text x="645" y="350" font-size="12" fill="#2457d6" text-anchor="middle">Current × Reg02h</text>
+  <line x1="595" y1="362" x2="695" y2="362" stroke="#6b7280" stroke-width="1"/>
+  <text x="645" y="378" font-size="12" fill="#6b7280" text-anchor="middle">20000</text>
+  <text x="645" y="420" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">→ Потужність (03h)</text>
+
+  <!-- Sub-column 4: Output Registers -->
+  <!-- Box C1: Register 04h Current -->
+  <rect x="750" y="185" width="175" height="110" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="837.5" y="208" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Регістр 04h (Current)</text>
+  <text x="837.5" y="230" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">I = CurrentReg × I_LSB</text>
+  <text x="837.5" y="255" font-size="12" fill="#6b7280" text-anchor="middle">Готові показання</text>
+  <text x="837.5" y="275" font-size="12" fill="#6b7280" text-anchor="middle">у фізичних одиницях</text>
+
+  <!-- Box C2: Register 03h Power -->
+  <rect x="750" y="320" width="175" height="120" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="837.5" y="343" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Регістр 03h (Power)</text>
+  <text x="837.5" y="365" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">P = PowerReg × P_LSB</text>
+  <text x="837.5" y="390" font-size="12" fill="#6b7280" text-anchor="middle">P_LSB = 25 × I_LSB</text>
+  <text x="837.5" y="415" font-size="12" fill="#6b7280" text-anchor="middle">Готові показання</text>
+
+  <!-- Lines and Signals -->
+  <!-- 1. Shunt Signal to ADC -->
+  <line x1="178" y1="182.5" x2="225" y2="182.5" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="201.5" y="175" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_SHUNT</text>
+
+  <!-- 2. Bus Signal to ADC -->
+  <line x1="178" y1="300" x2="225" y2="300" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="201.5" y="292" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_BUS</text>
+
+  <!-- 3. ADC to Register 01h -->
+  <line x1="340" y1="157.5" x2="360" y2="157.5" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- 4. ADC to Register 02h -->
+  <line x1="340" y1="237.5" x2="360" y2="237.5" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- 5. Microcontroller I2C write to Register 05h -->
+  <line x1="178" y1="407.5" x2="360" y2="407.5" stroke="#27ae60" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-green)"/>
+  <text x="269" y="398" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Шина I2C (Запис CAL)</text>
+
+  <!-- 6. Reg 01h to Math Engine -->
+  <path d="M 540 157.5 L 555 157.5 L 555 240 L 570 240" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- 7. Reg 05h to Math Engine -->
+  <path d="M 540 407.5 L 555 407.5 L 555 265 L 570 265" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+
+  <!-- 8. Reg 02h to Math Engine -->
+  <path d="M 540 237.5 L 550 237.5 L 550 365 L 570 365" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- 9. Math Engine to Register 04h -->
+  <line x1="720" y1="240" x2="750" y2="240" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- 10. Math Engine to Register 03h -->
+  <line x1="720" y1="380" x2="750" y2="380" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+</svg>

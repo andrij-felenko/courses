@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Принцип роботи виходу з відкритим колектором (датчик A3144)</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Без магніту NPN закритий і pull-up дає HIGH (VCC); з магнітом NPN відкритий і притискає OUT до GND (LOW)</text>
+
+  <!-- ================= ЛІВА ПАНЕЛЬ: СТАН 1 (ЗАКРИТИЙ NPN / HIGH) ================= -->
+  <rect x="24" y="68" width="444" height="372" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок лівої панелі -->
+  <rect x="38" y="80" width="416" height="32" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="246" y="101" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">1. Немає магнітного поля — вихід HIGH (VCC)</text>
+
+  <!-- Внутрішня область чипа A3144 -->
+  <rect x="38" y="124" width="190" height="230" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-dasharray="4 3" stroke-width="1.2"/>
+  <rect x="48" y="132" width="170" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="133" y="148" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Чип A3144 (всередині)</text>
+
+  <!-- Елемент Холла -->
+  <rect x="48" y="168" width="70" height="46" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="83" y="186" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Елемент</text>
+  <text x="83" y="202" text-anchor="middle" font-size="12" fill="#6b7280">Холла</text>
+
+  <!-- Тригер Шмітта -->
+  <rect x="130" y="168" width="88" height="46" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="174" y="186" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Тригер</text>
+  <text x="174" y="202" text-anchor="middle" font-size="12" fill="#c0392b">Шмітта</text>
+
+  <!-- З'єднання Холл -> Шмітт -->
+  <line x1="118" y1="191" x2="130" y2="191" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- З'єднання Шмітт -> База NPN -->
+  <path d="M 174 214 L 174 276 L 164 276" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="122" y="270" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">0 В (OFF)</text>
+
+  <!-- NPN транзистор (Символ) -->
+  <circle cx="174" cy="276" r="20" fill="none" stroke="#6b7280" stroke-width="1.2"/>
+  <!-- База -->
+  <line x1="166" y1="266" x2="166" y2="286" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- Колектор -->
+  <line x1="180" y1="238" x2="180" y2="268" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="180" y1="268" x2="166" y2="270" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Емітер -->
+  <line x1="166" y1="282" x2="180" y2="284" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="180" y1="284" x2="180" y2="314" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Позначка NPN -->
+  <text x="202" y="280" text-anchor="start" font-size="12" font-weight="700" fill="#c0392b">NPN розімкнений</text>
+
+  <!-- Шина VCC зверху -->
+  <line x1="280" y1="138" x2="430" y2="138" stroke="#2457d6" stroke-width="2"/>
+  <text x="355" y="130" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">+VCC (3.3В / 5В)</text>
+
+  <!-- Шина GND знизу -->
+  <line x1="180" y1="314" x2="430" y2="314" stroke="#6b7280" stroke-width="2"/>
+  <text x="246" y="332" text-anchor="middle" font-size="12" fill="#6b7280">GND (0 В)</text>
+
+  <!-- Підтягувальний резистор R_pullup -->
+  <line x1="280" y1="138" x2="280" y2="164" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="270" y="164" width="20" height="40" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="280" y1="204" x2="280" y2="238" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Підпис резистора -->
+  <text x="298" y="180" text-anchor="start" font-size="12" font-weight="700" fill="#1a1a1a">R_pullup</text>
+  <text x="298" y="196" text-anchor="start" font-size="12" fill="#6b7280">10 кОм</text>
+
+  <!-- Вузол OUT -->
+  <circle cx="280" cy="238" r="4" fill="#2457d6"/>
+  <line x1="180" y1="238" x2="280" y2="238" stroke="#6b7280" stroke-dasharray="3 3" stroke-width="1.5"/>
+  <line x1="280" y1="238" x2="340" y2="238" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Бедж напруги OUT -->
+  <rect x="235" y="252" width="90" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="280" y="268" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">V_out = VCC</text>
+
+  <!-- МК блок -->
+  <rect x="340" y="204" width="100" height="68" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="390" y="224" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Мікроконтролер</text>
+  <text x="390" y="242" text-anchor="middle" font-size="12" fill="#1a1a1a">Вхід GPIO</text>
+  <text x="390" y="260" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Зчитує: HIGH (1)</text>
+
+  <!-- Нижня картка підсумку -->
+  <rect x="38" y="364" width="416" height="64" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="246" y="384" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Транзистор закритий — вихід підтягнуто до VCC</text>
+  <text x="246" y="402" text-anchor="middle" font-size="12" fill="#1a1a1a">Ключ NPN закритий (не проводить струм на GND).</text>
+  <text x="246" y="418" text-anchor="middle" font-size="12" fill="#6b7280">Резистор R_pullup фіксує стабільний рівень HIGH на вході МК.</text>
+
+
+  <!-- ================= ПРАВА ПАНЕЛЬ: СТАН 2 (ВІДКРИТИЙ NPN / LOW) ================= -->
+  <rect x="492" y="68" width="444" height="372" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок правої панелі -->
+  <rect x="506" y="80" width="416" height="32" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="714" y="101" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">2. Магніт поруч (Пд/N) — вихід LOW (~0 В)</text>
+
+  <!-- Внутрішня область чипа A3144 -->
+  <rect x="506" y="124" width="190" height="230" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-dasharray="4 3" stroke-width="1.2"/>
+  <rect x="516" y="132" width="170" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="601" y="148" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Чип A3144 (всередині)</text>
+
+  <!-- Елемент Холла -->
+  <rect x="516" y="168" width="70" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="551" y="186" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Елемент</text>
+  <text x="551" y="202" text-anchor="middle" font-size="12" fill="#2457d6">Холла (S)</text>
+
+  <!-- Тригер Шмітта -->
+  <rect x="598" y="168" width="88" height="46" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="642" y="186" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Тригер</text>
+  <text x="642" y="202" text-anchor="middle" font-size="12" fill="#27ae60">АКТИВНИЙ</text>
+
+  <!-- З'єднання Холл -> Шмітт -->
+  <line x1="586" y1="191" x2="598" y2="191" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- З'єднання Шмітт -> База NPN -->
+  <path d="M 642 214 L 642 276 L 632 276" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="588" y="270" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">HIGH (ON)</text>
+
+  <!-- NPN транзистор (Символ - відкритий) -->
+  <circle cx="642" cy="276" r="20" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- База -->
+  <line x1="634" y1="266" x2="634" y2="286" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- Колектор -->
+  <line x1="648" y1="238" x2="648" y2="268" stroke="#27ae60" stroke-width="2"/>
+  <line x1="648" y1="268" x2="634" y2="270" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Емітер -->
+  <line x1="634" y1="282" x2="648" y2="284" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="648" y1="284" x2="648" y2="314" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Позначка NPN -->
+  <text x="670" y="280" text-anchor="start" font-size="12" font-weight="700" fill="#27ae60">NPN замкнений</text>
+
+  <!-- Шина VCC зверху -->
+  <line x1="748" y1="138" x2="898" y2="138" stroke="#2457d6" stroke-width="2"/>
+  <text x="823" y="130" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">+VCC (3.3В / 5В)</text>
+
+  <!-- Шина GND знизу -->
+  <line x1="648" y1="314" x2="898" y2="314" stroke="#6b7280" stroke-width="2"/>
+  <text x="714" y="332" text-anchor="middle" font-size="12" fill="#6b7280">GND (0 В)</text>
+
+  <!-- Підтягувальний резистор R_pullup -->
+  <line x1="748" y1="138" x2="748" y2="164" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="738" y="164" width="20" height="40" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="748" y1="204" x2="748" y2="238" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Підпис резистора -->
+  <text x="766" y="180" text-anchor="start" font-size="12" font-weight="700" fill="#1a1a1a">R_pullup</text>
+  <text x="766" y="196" text-anchor="start" font-size="12" fill="#6b7280">10 кОм</text>
+
+  <!-- Вузол OUT -->
+  <circle cx="748" cy="238" r="4" fill="#27ae60"/>
+  <!-- Струм повертає наліво в NPN -->
+  <line x1="748" y1="238" x2="648" y2="238" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="748" y1="238" x2="808" y2="238" stroke="#6b7280" stroke-dasharray="3 3" stroke-width="1.5"/>
+
+  <!-- Бедж напруги OUT -->
+  <rect x="703" y="252" width="90" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="748" y="268" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">V_out ≈ 0.1 В</text>
+
+  <!-- МК блок -->
+  <rect x="808" y="204" width="100" height="68" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="858" y="224" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Мікроконтролер</text>
+  <text x="858" y="242" text-anchor="middle" font-size="12" fill="#1a1a1a">Вхід GPIO</text>
+  <text x="858" y="260" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Зчитує: LOW (0)</text>
+
+  <!-- Нижня картка підсумку -->
+  <rect x="506" y="364" width="416" height="64" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="714" y="384" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Транзистор відкритий — вихід замкнено на GND</text>
+  <text x="714" y="402" text-anchor="middle" font-size="12" fill="#1a1a1a">Струм тече від VCC через R_pullup та NPN-ключ прямо на земляну шину.</text>
+  <text x="714" y="418" text-anchor="middle" font-size="12" fill="#6b7280">Напруга виходу OUT притискається до GND (~0.1 В, рівень LOW).</text>
+</svg>

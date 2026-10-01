@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема захисту та узгодження п'єзодавача з входом АЦП</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Шунт R_L пригнічує резонанс, а діоди Шотткі зрізають високовольтні сплески до рівня 0…Vcc</text>
+
+  <!-- SECTION 1: Principal Circuit Diagram -->
+  <rect x="30" y="80" width="900" height="230" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="45" y="104" font-size="13" font-weight="bold" fill="#1a1a1a">Принципова схема узгодження та обводу захисту АЦП</text>
+
+  <!-- Piezo Sensor Block -->
+  <rect x="60" y="130" width="120" height="150" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="120" y="152" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">П'єзоелемент</text>
+  <text x="120" y="172" font-size="12" fill="#1a1a1a" text-anchor="middle">Генератор</text>
+  <text x="120" y="190" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="middle">V_piezo: ±30 В</text>
+  
+  <!-- Piezo Ceramic Icon -->
+  <circle cx="120" cy="222" r="18" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="120" cy="222" r="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="102" y1="222" x2="138" y2="222" stroke="#2457d6" stroke-width="1"/>
+  
+  <text x="120" y="268" font-size="12" fill="#6b7280" text-anchor="middle">(Джерело сплесків)</text>
+
+  <!-- Wires & Nodes -->
+  <!-- Signal Line from Piezo (+) to MCU -->
+  <path d="M 180,170 L 270,170 L 450,170 L 560,170" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 600,170 L 660,170" fill="none" stroke="#27ae60" stroke-width="2"/>
+  
+  <!-- Node Dots -->
+  <circle cx="270" cy="170" r="3.5" fill="#2457d6"/>
+  <circle cx="450" cy="170" r="3.5" fill="#27ae60"/>
+
+  <!-- Shunt Resistor R_L (1M Ohm) -->
+  <path d="M 270,170 L 270,185" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <rect x="260" y="185" width="20" height="40" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 270,225 L 270,250" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="292" y="200" font-size="13" font-weight="bold" fill="#1a1a1a">R_L = 1 МОм</text>
+  <text x="292" y="218" font-size="12" fill="#6b7280">Шунт (розряд)</text>
+  <!-- Discharge Flow Arrow -->
+  <path d="M 252,188 L 252,222" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Clamping Diode D1 (Schottky to Vcc) -->
+  <path d="M 450,170 L 450,152" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <polygon points="442,152 458,152 450,136" fill="#27ae60" stroke="#27ae60"/>
+  <path d="M 440,134 L 442,136 L 458,136 L 460,138" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <path d="M 450,136 L 450,115" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <line x1="435" y1="115" x2="465" y2="115" stroke="#27ae60" stroke-width="3"/>
+  <text x="450" y="108" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">+3.3 В (Vcc)</text>
+  <text x="470" y="140" font-size="12" font-weight="bold" fill="#27ae60">D1 (Шотткі)</text>
+  <text x="470" y="155" font-size="12" fill="#6b7280">Зріз +V &gt; Vcc</text>
+  <!-- Discharge flow arrow up to Vcc -->
+  <path d="M 432,165 L 432,125" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Clamping Diode D2 (Schottky from GND) -->
+  <path d="M 450,170 L 450,202" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <path d="M 440,200 L 442,202 L 458,202 L 460,204" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <polygon points="442,218 458,218 450,202" fill="#27ae60" stroke="#27ae60"/>
+  <path d="M 450,218 L 450,250" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="470" y="210" font-size="12" font-weight="bold" fill="#27ae60">D2 (Шотткі)</text>
+  <text x="470" y="225" font-size="12" fill="#6b7280">Зріз -V &lt; GND</text>
+  <!-- Discharge flow arrow up from GND -->
+  <path d="M 432,245 L 432,205" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Series Limiting Resistor R_s (1k Ohm) -->
+  <rect x="560" y="160" width="40" height="20" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="580" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_s = 1 кОм</text>
+  <text x="580" y="195" font-size="12" fill="#6b7280" text-anchor="middle">Обмеження струму</text>
+
+  <!-- MCU / ADC Block -->
+  <rect x="660" y="130" width="240" height="150" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="780" y="154" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Мікроконтролер (MCU)</text>
+  <circle cx="660" cy="170" r="4" fill="#27ae60"/>
+  <text x="680" y="174" font-size="12" font-weight="bold" fill="#1a1a1a">Вхід АЦП (ADC)</text>
+  <text x="780" y="198" font-size="12" fill="#1a1a1a" text-anchor="middle">Вхідний діапазон: 0…3.3 В</text>
+  <text x="780" y="218" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">✓ Захищено від перенапруги</text>
+  <text x="780" y="238" font-size="12" fill="#6b7280" text-anchor="middle">Алгоритм: мертвий час 50 мс</text>
+  <text x="780" y="258" font-size="12" fill="#6b7280" text-anchor="middle">Класифікація сили (3 рівні)</text>
+
+  <!-- Ground Line & Symbol -->
+  <path d="M 180,250 L 660,250" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="270" cy="250" r="3.5" fill="#1a1a1a"/>
+  <circle cx="450" cy="250" r="3.5" fill="#1a1a1a"/>
+  <line x1="360" y1="250" x2="360" y2="260" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="348" y1="260" x2="372" y2="260" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="353" y1="264" x2="367" y2="264" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="357" y1="268" x2="363" y2="268" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="360" y="280" font-size="12" fill="#6b7280" text-anchor="middle">GND (0 В)</text>
+
+
+  <!-- SECTION 2: Waveforms / Oscillograms -->
+
+  <!-- Left Graph: Unprotected Signal -->
+  <rect x="30" y="325" width="435" height="180" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="8"/>
+  <text x="45" y="347" font-size="13" font-weight="bold" fill="#c0392b">Сигнал п'єзоелемента без захисту</text>
+  <text x="45" y="364" font-size="12" fill="#6b7280">Небезпечні сплески напруги (±30 В)</text>
+
+  <!-- Left Axes -->
+  <path d="M 85,480 L 85,375" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <path d="M 85,445 L 435,445" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="80" y="380" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">V (В)</text>
+  <text x="445" y="460" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">t (мс)</text>
+
+  <!-- Left Reference Lines -->
+  <line x1="85" y1="390" x2="420" y2="390" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="85" y1="420" x2="420" y2="420" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="85" y1="475" x2="420" y2="475" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <text x="80" y="394" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="end">+30V</text>
+  <text x="80" y="424" font-size="12" fill="#6b7280" text-anchor="end">+3.3V</text>
+  <text x="80" y="449" font-size="12" fill="#6b7280" text-anchor="end">0V</text>
+  <text x="80" y="479" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="end">-20V</text>
+
+  <!-- Unprotected Curve -->
+  <path d="M 85,445 C 92,445 95,390 102,390 C 112,390 118,475 128,475 C 138,475 144,405 154,405 C 164,405 170,465 180,465 C 190,465 198,425 210,425 C 222,425 235,455 250,455 C 265,455 280,445 300,445 L 420,445" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="102" cy="390" r="4" fill="#c0392b"/>
+  <circle cx="128" cy="475" r="4" fill="#c0392b"/>
+  <text x="230" y="398" font-size="12" font-weight="bold" fill="#c0392b">Загроза пошкодження АЦП!</text>
+
+
+  <!-- Right Graph: Protected Signal -->
+  <rect x="495" y="325" width="435" height="180" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <text x="510" y="347" font-size="13" font-weight="bold" fill="#27ae60">Сигнал на вході АЦП (зрізані піки)</text>
+  <text x="510" y="364" font-size="12" fill="#6b7280">Безпечний діапазон напруги: 0…Vcc</text>
+
+  <!-- Safe Voltage Band Highlight -->
+  <rect x="550" y="405" width="340" height="47" fill="#27ae60" fill-opacity="0.1"/>
+
+  <!-- Right Axes -->
+  <path d="M 550,480 L 550,375" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <path d="M 550,445 L 900,445" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="545" y="380" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">V (В)</text>
+  <text x="910" y="460" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">t (мс)</text>
+
+  <!-- Right Reference Lines -->
+  <line x1="550" y1="405" x2="890" y2="405" stroke="#27ae60" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="550" y1="420" x2="890" y2="420" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="550" y1="452" x2="890" y2="452" stroke="#27ae60" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <text x="545" y="408" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="end">+3.6V</text>
+  <text x="545" y="424" font-size="12" fill="#6b7280" text-anchor="end">+3.3V</text>
+  <text x="545" y="449" font-size="12" fill="#6b7280" text-anchor="end">0V</text>
+  <text x="545" y="466" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="end">-0.3V</text>
+
+  <!-- Clamped Signal Curve -->
+  <path d="M 550,445 C 555,445 558,405 565,405 L 585,405 C 592,405 596,452 602,452 L 610,452 C 616,452 622,425 630,425 C 640,425 650,450 665,445 L 890,445" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Annotation for Clamping -->
+  <path d="M 640,392 L 585,403" fill="none" stroke="#27ae60" stroke-width="1" marker-end="url(#arr-green)"/>
+  <text x="645" y="395" font-size="12" font-weight="bold" fill="#27ae60">Зрізано діодом D1 (Vcc + Vf)</text>
+
+  <!-- Dead Time Region Overlay -->
+  <rect x="555" y="472" width="115" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2" rx="4"/>
+  <text x="612.5" y="486" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Мертвий час (Dead Time)</text>
+</svg>

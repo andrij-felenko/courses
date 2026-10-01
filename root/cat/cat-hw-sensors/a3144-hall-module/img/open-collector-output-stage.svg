@@ -1,0 +1,174 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вихідний каскад з відкритим колектором (Open Collector)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Формування рівнів HIGH та LOW за допомогою NPN-транзистора A3144 та резистора R_pullup</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: СТАН HIGH ==================== -->
+  <rect x="24" y="75" width="444" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="246" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стан HIGH: Транзистор закритий</text>
+  <text x="246" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Магніт відсутній (B &lt; B_rp) — підтяжка до VCC</text>
+
+  <!-- Модуль A3144 (Лівий блок) -->
+  <rect x="40" y="132" width="175" height="215" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="127" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Датчик A3144 (внутрішній)</text>
+
+  <!-- Блок Сенсор + Шмітт -->
+  <rect x="52" y="165" width="85" height="40" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="94" y="181" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Елемент Холла</text>
+  <text x="94" y="196" font-size="12" fill="#6b7280" text-anchor="middle">+ Шмітт</text>
+
+  <!-- Базовий дріт та стан бази -->
+  <line x1="137" y1="185" x2="155" y2="185" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="155" y1="185" x2="155" y2="234" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="155" y1="234" x2="168" y2="234" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="94" y="245" font-size="12" fill="#c0392b" text-anchor="middle">V_B = 0 V</text>
+
+  <!-- NPN Транзистор (Закритий) -->
+  <circle cx="176" cy="234" r="18" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="168" y1="224" x2="168" y2="244" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="168" y1="228" x2="182" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="182" y1="220" x2="198" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="168" y1="240" x2="182" y2="248" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="176,248 182,248 180,242" fill="#1a1a1a"/>
+  <line x1="182" y1="248" x2="182" y2="305" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="176" y="208" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">NPN</text>
+
+  <!-- Земля A3144 -->
+  <line x1="170" y1="305" x2="194" y2="305" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="174" y1="309" x2="190" y2="309" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="178" y1="313" x2="186" y2="313" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="182" y="328" font-size="12" fill="#6b7280" text-anchor="middle">GND</text>
+  <text x="127" y="295" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ЗАКРИТИЙ</text>
+
+  <!-- Вихідний вивід OUT модуля -->
+  <circle cx="198" cy="220" r="3" fill="#1a1a1a"/>
+  <text x="194" y="212" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">OUT</text>
+
+  <!-- Шина VCC та резистор R_pullup -->
+  <text x="250" y="148" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">VCC (+5V)</text>
+  <line x1="250" y1="152" x2="250" y2="165" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="243" y="165" width="14" height="36" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="264" y="180" font-size="12" font-weight="bold" fill="#1a1a1a">R_pullup</text>
+  <text x="264" y="195" font-size="12" fill="#6b7280">10 kΩ</text>
+  <line x1="250" y1="201" x2="250" y2="220" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Вузол з'єднання OUT -->
+  <line x1="198" y1="220" x2="250" y2="220" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="250" cy="220" r="4" fill="#2457d6"/>
+  <text x="250" y="236" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">OUT вузол</text>
+
+  <!-- Дріт до МК -->
+  <line x1="250" y1="220" x2="330" y2="220" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="290" y="212" font-size="12" fill="#2457d6" text-anchor="middle">I ≈ 0 мА</text>
+
+  <!-- Блок Мікроконтролера -->
+  <rect x="330" y="165" width="124" height="182" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="392" y="185" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер</text>
+  <text x="336" y="214" font-size="12" fill="#6b7280">Вхід GPIO</text>
+
+  <!-- Індикатор стану входу МК -->
+  <rect x="342" y="240" width="100" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="392" y="260" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">HIGH (1)</text>
+  <text x="392" y="278" font-size="12" fill="#1a1a1a" text-anchor="middle">V_OUT = VCC</text>
+  <text x="392" y="292" font-size="12" fill="#6b7280" text-anchor="middle">+5.0 V</text>
+
+  <!-- Картка опису стану 1 -->
+  <rect x="40" y="360" width="414" height="62" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="380" font-size="12" font-weight="bold" fill="#1a1a1a">• Стан без магніту:</text>
+  <text x="175" y="380" font-size="12" fill="#6b7280">транзистор вимкнений (високий опір).</text>
+  <text x="52" y="402" font-size="12" fill="#6b7280">• Резистор R_pullup підтягує лінію OUT до рівня VCC (HIGH).</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: СТАН LOW ==================== -->
+  <rect x="492" y="75" width="444" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="714" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стан LOW: Транзистор відкритий</text>
+  <text x="714" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Магніт поруч (B &gt; B_op) — шунтування на Землю</text>
+
+  <!-- Модуль A3144 (Правий блок) -->
+  <rect x="508" y="132" width="175" height="215" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="595" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Датчик A3144 (внутрішній)</text>
+
+  <!-- Блок Сенсор + Шмітт -->
+  <rect x="520" y="165" width="85" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="562" y="181" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Елемент Холла</text>
+  <text x="562" y="196" font-size="12" fill="#27ae60" text-anchor="middle">Активний (S)</text>
+
+  <!-- Базовий дріт та стан бази -->
+  <line x1="605" y1="185" x2="623" y2="185" stroke="#27ae60" stroke-width="2"/>
+  <line x1="623" y1="185" x2="623" y2="234" stroke="#27ae60" stroke-width="2"/>
+  <line x1="623" y1="234" x2="636" y2="234" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="562" y="245" font-size="12" fill="#27ae60" text-anchor="middle">V_B &gt; 0.7 V</text>
+
+  <!-- NPN Транзистор (Відкритий) -->
+  <circle cx="644" cy="234" r="18" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="636" y1="224" x2="636" y2="244" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="636" y1="228" x2="650" y2="220" stroke="#27ae60" stroke-width="2"/>
+  <line x1="650" y1="220" x2="666" y2="220" stroke="#27ae60" stroke-width="2"/>
+  <line x1="636" y1="240" x2="650" y2="248" stroke="#27ae60" stroke-width="2"/>
+  <polygon points="644,248 650,248 648,242" fill="#27ae60"/>
+  <line x1="650" y1="248" x2="650" y2="305" stroke="#27ae60" stroke-width="2"/>
+  <text x="644" y="208" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">NPN</text>
+
+  <!-- Земля A3144 -->
+  <line x1="638" y1="305" x2="662" y2="305" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="642" y1="309" x2="658" y2="309" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="646" y1="313" x2="654" y2="313" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="650" y="328" font-size="12" fill="#6b7280" text-anchor="middle">GND</text>
+  <text x="595" y="295" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ВІДКРИТИЙ</text>
+
+  <!-- Вихідний вивід OUT модуля -->
+  <circle cx="666" cy="220" r="3" fill="#27ae60"/>
+  <text x="662" y="212" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">OUT</text>
+
+  <!-- Шина VCC та резистор R_pullup -->
+  <text x="718" y="148" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">VCC (+5V)</text>
+  <line x1="718" y1="152" x2="718" y2="165" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="711" y="165" width="14" height="36" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="732" y="180" font-size="12" font-weight="bold" fill="#1a1a1a">R_pullup</text>
+  <text x="732" y="195" font-size="12" fill="#6b7280">10 kΩ</text>
+  <!-- Струм протікання в Землю -->
+  <line x1="718" y1="201" x2="718" y2="220" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Вузол з'єднання OUT -->
+  <line x1="666" y1="220" x2="718" y2="220" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="718" cy="220" r="4" fill="#27ae60"/>
+  <text x="718" y="236" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">OUT вузол</text>
+
+  <!-- Стрілка струму I_pullup -->
+  <path d="M 718 152 L 718 220 L 666 220 L 650 220 L 650 300" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arr-green)"/>
+  <text x="750" y="212" font-size="12" font-weight="bold" fill="#27ae60">I_pullup</text>
+
+  <!-- Дріт до МК -->
+  <line x1="718" y1="220" x2="798" y2="220" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Блок Мікроконтролера -->
+  <rect x="798" y="165" width="124" height="182" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="860" y="185" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер</text>
+  <text x="804" y="214" font-size="12" fill="#6b7280">Вхід GPIO</text>
+
+  <!-- Індикатор стану входу МК -->
+  <rect x="810" y="240" width="100" height="60" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="860" y="260" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">LOW (0)</text>
+  <text x="860" y="278" font-size="12" fill="#1a1a1a" text-anchor="middle">V_OUT = V_CE</text>
+  <text x="860" y="292" font-size="12" fill="#6b7280" text-anchor="middle">≈ 0.1 V</text>
+
+  <!-- Картка опису стану 2 -->
+  <rect x="508" y="360" width="414" height="62" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="380" font-size="12" font-weight="bold" fill="#1a1a1a">• Стан з магнітом:</text>
+  <text x="635" y="380" font-size="12" fill="#6b7280">транзистор відкритий (насичений ключ).</text>
+  <text x="520" y="402" font-size="12" fill="#6b7280">• Струм I_pullup скидається на GND, формуючи рівень LOW (0V).</text>
+</svg>

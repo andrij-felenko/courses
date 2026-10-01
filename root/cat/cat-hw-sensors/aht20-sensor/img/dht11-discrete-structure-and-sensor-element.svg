@@ -1,0 +1,52 @@
+<svg viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дискретна будова першого покоління сенсорів DHT11</text>
+  <text x="480" y="65" font-size="13" fill="#6b7280" text-anchor="middle">Роздільні компоненти на друкованій платі замість монолітного кристала MEMS + ASIC</text>
+
+  <!-- Outer Plastic Shell -->
+  <rect x="40" y="100" width="880" height="290" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="480" y="130" font-size="14" font-weight="bold" fill="#6b7280" text-anchor="middle">Пластиковий захисний корпус DHT11 з вентиляційними решітками</text>
+
+  <!-- Component 1: Humidity Element -->
+  <rect x="70" y="160" width="250" height="150" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="195" y="190" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Дискретний елемент RH</text>
+  <rect x="85" y="210" width="220" height="50" rx="4" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="195" y="232" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Резистивна плівка на підкладці</text>
+  <text x="195" y="250" font-size="11" fill="#c0392b" text-anchor="middle">Висока схильність до деградації</text>
+  <text x="195" y="295" font-size="12" fill="#6b7280" text-anchor="middle">Помилка ±5% RH, повільний відгук</text>
+
+  <!-- Component 2: NTC Thermistor -->
+  <rect x="350" y="160" width="250" height="150" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="475" y="190" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Окремий NTC-термістор</text>
+  <rect x="365" y="210" width="220" height="50" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="475" y="232" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Аналоговий терморезистор</text>
+  <text x="475" y="250" font-size="11" fill="#2457d6" text-anchor="middle">Нелінійна характеристика R(T)</text>
+  <text x="475" y="295" font-size="12" fill="#6b7280" text-anchor="middle">Помилка ±2°C, температурний дрейф</text>
+
+  <!-- Component 3: 8-bit MCU -->
+  <rect x="630" y="160" width="260" height="150" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="760" y="190" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">8-бітний МК (OTP)</text>
+  <rect x="645" y="210" width="230" height="50" rx="4" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="760" y="232" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Опитування та 1-Wire протокол</text>
+  <text x="760" y="250" font-size="11" fill="#27ae60" text-anchor="middle">Запрограмовані таблиці АЦП</text>
+  <text x="760" y="295" font-size="12" fill="#6b7280" text-anchor="middle">Застарілий однопровідний інтерфейс</text>
+
+  <!-- Wiring connections below inside housing -->
+  <line x1="320" y1="235" x2="350" y2="235" stroke="#6b7280" stroke-width="2"/>
+  <line x1="600" y1="235" x2="630" y2="235" stroke="#6b7280" stroke-width="2"/>
+
+  <!-- Footer Info -->
+  <text x="480" y="425" font-size="12" fill="#6b7280" text-anchor="middle">Відсутність єдиного кремнієвого моноліту обумовлює великі габарити та високу похибку DHT11</text>
+</svg>

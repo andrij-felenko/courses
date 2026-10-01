@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 495" width="960" height="495" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="495" fill="white"/>
+
+  <!-- Definitions for Markers -->
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Фільтрація відбійних сплесків п'єзоелектричного давача</text>
+  <text x="480" y="48" font-size="13" text-anchor="middle" fill="#6b7280">Інтервал глушіння T_blank та огинаюча V_env усувають хибні спрацьовування</text>
+
+  <!-- Main Background Container Panel -->
+  <rect x="20" y="65" width="920" height="420" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+
+  <!-- Vertical Guide Lines for Time Events -->
+  <!-- t0 guide line -->
+  <line x1="280" y1="75" x2="280" y2="400" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <!-- t0 + T_blank guide line -->
+  <line x1="560" y1="205" x2="560" y2="400" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- Divider Line separating Left Labels from Timeline Plots -->
+  <line x1="178" y1="75" x2="178" y2="405" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- ================= CHANNEL 1: ANALOG SIGNAL & ENVELOPE ================= -->
+  <!-- Channel 1 Labels -->
+  <text x="165" y="104" font-size="13" font-weight="bold" text-anchor="end" fill="#1a1a1a">Вхідний сигнал V(t)</text>
+  <text x="165" y="122" font-size="12" text-anchor="end" fill="#2457d6">огинаюча V_env(t)</text>
+  <text x="165" y="138" font-size="12" text-anchor="end" fill="#c0392b">поріг V_th</text>
+
+  <!-- Zero Baseline for Channel 1 -->
+  <line x1="180" y1="190" x2="870" y2="190" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Threshold Line V_th -->
+  <line x1="180" y1="145" x2="870" y2="145" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="780" y="138" font-size="12" font-weight="bold" text-anchor="end" fill="#c0392b">Поріг V_th</text>
+
+  <!-- Peak Envelope V_env(t) (blue curve) -->
+  <path d="M 180,190 L 280,190 L 295,98 C 320,105 340,118 355,125 C 380,133 400,139 415,142 C 440,150 460,158 475,162 C 500,168 520,174 535,178 C 560,184 580,190 610,190 L 870,190" fill="none" stroke="#2457d6" stroke-width="2.2"/>
+  <text x="410" y="105" font-size="12" font-weight="bold" text-anchor="start" fill="#2457d6">Огинаюча V_env(t)</text>
+
+  <!-- Raw Piezo Voltage Signal V(t) (dark line) -->
+  <path d="M 180,190 L 280,190 C 283,190 288,98 295,98 C 305,98 315,222 325,222 C 335,222 345,125 355,125 C 365,125 375,210 385,210 C 395,210 405,142 415,142 C 425,142 435,202 445,202 C 455,202 465,162 475,162 C 485,162 495,196 505,196 C 515,196 525,178 535,178 C 550,178 560,190 580,190 L 870,190" fill="none" stroke="#1a1a1a" stroke-width="1.8"/>
+
+  <!-- Impact & Bounce Annotations in Channel 1 -->
+  <!-- Primary Impact Annotation -->
+  <text x="280" y="80" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Первинний удар</text>
+  <line x1="280" y1="83" x2="280" y2="93" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-black)"/>
+  <!-- Impact trigger point circle -->
+  <circle cx="286" cy="145" r="4" fill="#27ae60"/>
+
+  <!-- Secondary Bounce Peak Annotation -->
+  <text x="370" y="172" font-size="12" text-anchor="middle" fill="#c0392b">Відбійний сплеск</text>
+  <line x1="370" y1="160" x2="360" y2="133" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+  <!-- Bounce threshold crossing point circle -->
+  <circle cx="348" cy="145" r="4" fill="#c0392b"/>
+
+  <!-- Horizontal Dimension Line for T_blank (between Plot 1 & 2) -->
+  <line x1="280" y1="210" x2="560" y2="210" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+  <text x="420" y="205" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Вікно T_blank</text>
+
+  <!-- ================= CHANNEL 2: BLANKING TIME WINDOW ================= -->
+  <!-- Channel 2 Labels -->
+  <text x="165" y="240" font-size="13" font-weight="bold" text-anchor="end" fill="#1a1a1a">Інтервал глушіння</text>
+  <text x="165" y="258" font-size="12" text-anchor="end" fill="#2457d6">T_blank (глушіння)</text>
+  <text x="165" y="274" font-size="12" text-anchor="end" fill="#6b7280">блокування відбоїв</text>
+
+  <!-- Blanking Shaded Box -->
+  <rect x="280" y="228" width="280" height="72" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3" rx="4"/>
+  <text x="420" y="252" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Активна зона глушіння T_blank</text>
+  <text x="420" y="270" font-size="12" text-anchor="middle" fill="#6b7280">(повторні сплески V &gt; V_th ігноруються)</text>
+
+  <!-- Suppressed Trigger Icon & Text in Channel 2 -->
+  <circle cx="365" cy="286" r="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="361" y1="282" x2="369" y2="290" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="369" y1="282" x2="361" y2="290" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="382" y="290" font-size="12" font-weight="bold" text-anchor="start" fill="#c0392b">Пригнічено</text>
+
+  <!-- ================= CHANNEL 3: DIGITAL OUTPUT PULSE ================= -->
+  <!-- Channel 3 Labels -->
+  <text x="165" y="344" font-size="13" font-weight="bold" text-anchor="end" fill="#27ae60">Вихідний сигнал D_out</text>
+  <text x="165" y="362" font-size="12" text-anchor="end" fill="#27ae60">чистий імпульс</text>
+  <text x="165" y="378" font-size="12" text-anchor="end" fill="#6b7280">1 удар = 1 подія</text>
+
+  <!-- Output Signal Waveform -->
+  <path d="M 180,385 L 280,385 L 280,338 L 560,338 L 560,385 L 870,385" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Digital Pulse Badge inside HIGH state -->
+  <rect x="330" y="346" width="180" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="420" y="362" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Чистий імпульс D_out</text>
+
+  <!-- ================= TIME AXIS AT BOTTOM ================= -->
+  <!-- Horizontal Time Axis Line -->
+  <line x1="180" y1="400" x2="870" y2="400" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="865" y="394" font-size="12" font-style="italic" text-anchor="end" fill="#6b7280">Час (t)</text>
+
+  <!-- Ticks and Time Labels -->
+  <line x1="280" y1="397" x2="280" y2="405" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="280" y="418" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">t_0 (початок удару)</text>
+
+  <line x1="560" y1="397" x2="560" y2="405" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="560" y="418" font-size="12" text-anchor="middle" fill="#1a1a1a">t_0 + T_blank</text>
+
+  <!-- ================= BOTTOM SUMMARY CARDS ================= -->
+  <!-- Left Card: Without Filtering (Problem) -->
+  <rect x="190" y="435" width="330" height="43" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="202" y="452" font-size="12" font-weight="bold" fill="#c0392b">❌ Без глушіння (без T_blank):</text>
+  <text x="202" y="468" font-size="12" fill="#c0392b">3 хибні спрацьовування на 1 удар</text>
+
+  <!-- Right Card: With Filtering (Solution) -->
+  <rect x="540" y="435" width="330" height="43" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="552" y="452" font-size="12" font-weight="bold" fill="#27ae60">✅ З фільтрацією T_blank:</text>
+  <text x="552" y="468" font-size="12" fill="#27ae60">1 чистий імпульс без хибних відбоїв</text>
+</svg>

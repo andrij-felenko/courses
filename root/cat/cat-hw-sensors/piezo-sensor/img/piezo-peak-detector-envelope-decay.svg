@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Піковий детектор п'єзосигналу з керованим спадом огинаючої</text>
+  <text x="480" y="56" font-size="13" text-anchor="middle" fill="#6b7280">Рекурсивний оновлювач захоплює максимуми і спадає для формування огинаючої</text>
+
+  <!-- Legend Panel -->
+  <rect x="40" y="72" width="880" height="42" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Legend Items -->
+  <line x1="55" y1="93" x2="80" y2="93" stroke="#6b7280" stroke-width="2"/>
+  <text x="88" y="97" font-size="12" fill="#1a1a1a">Сигнал V_in(t)</text>
+
+  <line x1="195" y1="93" x2="220" y2="93" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="228" y="97" font-size="12" font-weight="bold" fill="#27ae60">Оптимальний спад (огинаюча)</text>
+
+  <line x1="430" y1="93" x2="455" y2="93" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="463" y="97" font-size="12" font-weight="bold" fill="#c0392b">Швидкий спад (пульсації)</text>
+
+  <line x1="645" y1="93" x2="670" y2="93" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="678" y="97" font-size="12" font-weight="bold" fill="#2457d6">Повільний спад (пропуск)</text>
+
+  <!-- Main Waveform Panel -->
+  <rect x="40" y="126" width="880" height="240" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Axes & Grid -->
+  <!-- Y Axis -->
+  <line x1="95" y1="330" x2="95" y2="155" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="90" y="150" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">V (В)</text>
+
+  <!-- Baseline (0 V) -->
+  <line x1="90" y1="290" x2="895" y2="290" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="85" y="294" font-size="12" text-anchor="end" fill="#6b7280">0 В</text>
+
+  <!-- Time Axis X -->
+  <line x1="95" y1="330" x2="895" y2="330" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="895" y="352" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">Час t</text>
+
+  <!-- Translucent area fill under optimal envelope -->
+  <path d="M 130,290 L 165,175 Q 200,195 225,205 Q 260,220 285,230 Q 320,242 345,250 Q 385,260 405,265 C 460,275 520,283 580,286 L 615,215 Q 650,232 675,245 Q 710,256 735,265 C 780,275 830,288 885,290 L 885,290 L 130,290 Z" fill="#27ae60" fill-opacity="0.08"/>
+
+  <!-- 1. Raw Piezo Signal Curve V_in(t) -->
+  <path d="M 95,290 L 130,290 C 140,290 152,175 165,175 C 178,175 185,330 195,330 C 205,330 215,205 225,205 C 235,205 245,320 255,320 C 265,320 275,230 285,230 C 295,230 305,310 315,310 C 325,310 335,250 345,250 C 355,250 365,302 375,302 C 385,302 395,265 405,265 C 415,265 425,296 435,296 C 445,296 455,276 465,276 C 485,276 520,290 580,290 C 590,290 602,215 615,215 C 628,215 635,315 645,315 C 655,315 665,245 675,245 C 685,245 695,305 705,305 C 715,305 725,265 735,265 C 755,265 790,290 885,290" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- 2. Too Slow Decay Envelope (Blue Dashed) -->
+  <path d="M 95,290 L 130,290 L 165,175 L 580,235 L 615,215 L 885,270" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,4"/>
+
+  <!-- 3. Too Fast Decay Envelope (Red Dashed) -->
+  <path d="M 95,290 L 130,290 L 165,175 L 200,282 L 225,205 L 260,282 L 285,230 L 320,282 L 345,250 L 380,285 L 405,265 L 440,290 L 580,290 L 615,215 L 650,283 L 675,245 L 710,285 L 735,265 L 770,290 L 885,290" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <!-- 4. Optimal Decay Envelope (Green Solid) -->
+  <path d="M 95,290 L 130,290 L 165,175 Q 200,195 225,205 Q 260,220 285,230 Q 320,242 345,250 Q 385,260 405,265 C 460,275 520,283 580,286 L 615,215 Q 650,232 675,245 Q 710,256 735,265 C 780,275 830,288 885,290" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Indicator Dots & Annotations on Plot -->
+  <!-- Peak 1 capture point -->
+  <circle cx="165" cy="175" r="3.5" fill="#27ae60"/>
+  <line x1="165" y1="148" x2="165" y2="171" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="165" y="145" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Захоплення піку Vmax</text>
+
+  <!-- Hit 1 Label -->
+  <text x="330" y="145" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Поштовх 1 (удар)</text>
+
+  <!-- Fast Decay Ripple Label -->
+  <text x="250" y="352" font-size="12" text-anchor="middle" fill="#c0392b">Пульсації (хибні відбої)</text>
+
+  <!-- Slow Decay Masking Label -->
+  <text x="500" y="185" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">
+    <tspan x="500" dy="0">Маскування</tspan>
+    <tspan x="500" dy="15">повторного удару</tspan>
+  </text>
+
+  <!-- Hit 2 Label -->
+  <text x="645" y="185" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Поштовх 2 (відбій)</text>
+
+  <!-- Lower Cards Section -->
+  <!-- Card 1: Algorithm -->
+  <rect x="40" y="382" width="285" height="96" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="403" font-size="13" font-weight="bold" fill="#1a1a1a">1. Рекурсивний оновлювач</text>
+  <text x="55" y="424" font-size="12" fill="#1a1a1a">V_env[k] = max( V_in[k], V_env[k-1]·α )</text>
+  <text x="55" y="444" font-size="12" fill="#6b7280">де α = exp( -Δt / τ_decay ) &lt; 1</text>
+  <text x="55" y="464" font-size="12" font-weight="bold" fill="#27ae60">Захоплення піків і плавність</text>
+
+  <!-- Card 2: Energy Integration -->
+  <rect x="338" y="382" width="285" height="96" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="353" y="403" font-size="13" font-weight="bold" fill="#2457d6">2. Енергія поштовху E_rel</text>
+  <text x="353" y="424" font-size="12" fill="#1a1a1a">E_rel = ∫ V_env²(t) dt ≈ ∑ V_env²[k] · Δt</text>
+  <text x="353" y="444" font-size="12" fill="#6b7280">Вікно інтегрування: t_0 ... t_0 + T</text>
+  <text x="353" y="464" font-size="12" font-weight="bold" fill="#2457d6">Оцінка кінетичної енергії удару</text>
+
+  <!-- Card 3: Bounce Filtering -->
+  <rect x="636" y="382" width="284" height="96" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="651" y="403" font-size="13" font-weight="bold" fill="#27ae60">3. Фільтрація відбоїв</text>
+  <text x="651" y="424" font-size="12" fill="#1a1a1a">Bounce Filtering (усунення «хвостів»)</text>
+  <text x="651" y="444" font-size="12" fill="#6b7280">Блокування повторних тригерів:</text>
+  <text x="651" y="464" font-size="12" font-weight="bold" fill="#27ae60">Поки V_env &gt; V_th або при T_hold</text>
+</svg>

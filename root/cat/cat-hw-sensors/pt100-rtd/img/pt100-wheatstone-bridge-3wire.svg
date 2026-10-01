@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3-провідна схема моста Вітстона для термоопору PT100</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Компенсація опору дротів R_L1 = R_L2 та знімання диференціального сигналу ΔV</text>
+
+  <!-- Left Panel: Normalization PCB -->
+  <rect x="30" y="85" width="460" height="330" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="45" y="110" font-size="14" font-weight="bold" fill="#1a1a1a">Плата нормалізації сигналу (Мостовий вимірювач)</text>
+
+  <!-- Current Source Block -->
+  <circle cx="240" cy="140" r="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <line x1="240" y1="118" x2="240" y2="124" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="240" y1="156" x2="240" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M240,131 L240,149 M236,143 L240,149 L244,143" stroke="#2457d6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text x="268" y="138" font-size="13" font-weight="bold" fill="#2457d6">I_exc = 1 mA</text>
+  <text x="268" y="154" font-size="12" fill="#6b7280">Джерело струму</text>
+
+  <!-- Bridge Top Rail -->
+  <line x1="140" y1="175" x2="340" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="240" cy="175" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Left Branch (R1 & R3) -->
+  <line x1="140" y1="175" x2="140" y2="190" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="130" y="190" width="20" height="40" fill="white" stroke="#1a1a1a" stroke-width="2" rx="2"/>
+  <text x="120" y="215" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">R1 = 1 kΩ</text>
+  <line x1="140" y1="230" x2="140" y2="270" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Node B (V-) -->
+  <circle cx="140" cy="250" r="4.5" fill="#2457d6"/>
+  <text x="155" y="254" font-size="13" font-weight="bold" fill="#2457d6">V_-</text>
+
+  <!-- Resistor R3 -->
+  <rect x="130" y="270" width="20" height="40" fill="white" stroke="#1a1a1a" stroke-width="2" rx="2"/>
+  <text x="120" y="288" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">R3 = 100 Ω</text>
+  <text x="120" y="304" font-size="12" fill="#6b7280" text-anchor="end">0°C опорний</text>
+  <line x1="140" y1="310" x2="140" y2="325" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Right Branch (R2 & Node C) -->
+  <line x1="340" y1="175" x2="340" y2="190" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="330" y="190" width="20" height="40" fill="white" stroke="#1a1a1a" stroke-width="2" rx="2"/>
+  <text x="360" y="215" font-size="13" font-weight="bold" fill="#1a1a1a">R2 = 1 kΩ</text>
+  <line x1="340" y1="230" x2="340" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Node C (V+) -->
+  <circle cx="340" cy="250" r="4.5" fill="#2457d6"/>
+  <text x="325" y="254" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">V_+</text>
+
+  <!-- PCB Wires to Terminal Block X1 -->
+  <path d="M 340,250 L 435,250 L 435,190 L 455,190" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <path d="M 140,310 L 140,330 L 390,330 L 390,270 L 455,270" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- GND Symbol & Wire -->
+  <path d="M 420,350 L 455,350" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="420" y1="335" x2="420" y2="350" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="410" y1="350" x2="430" y2="350" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="414" y1="354" x2="426" y2="354" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="418" y1="358" x2="422" y2="358" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="420" y="372" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">GND</text>
+
+  <!-- Terminal Block X1 -->
+  <rect x="455" y="165" width="24" height="210" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="467" y="158" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">X1</text>
+  <circle cx="467" cy="190" r="4" fill="#c0392b"/>
+  <circle cx="467" cy="270" r="4" fill="#2457d6"/>
+  <circle cx="467" cy="350" r="4" fill="#1a1a1a"/>
+
+  <!-- Differential Output InAmp Box -->
+  <rect x="130" y="350" width="220" height="55" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="240" y="372" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">ΔV = V_+ - V_-</text>
+  <text x="240" y="392" font-size="12" fill="#1a1a1a" text-anchor="middle">До підсилювача (InAmp)</text>
+
+  <!-- Output Signal Connection Lines -->
+  <path d="M 140,250 L 140,350" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <path d="M 340,250 L 340,350" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Middle Cable Section -->
+  <rect x="510" y="135" width="210" height="280" fill="#f4f6f8" stroke="#d0d7de" stroke-dasharray="4,4" rx="8"/>
+  <text x="615" y="120" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3-жильний кабель</text>
+
+  <!-- Wire 1 (RL1) -->
+  <line x1="479" y1="190" x2="751" y2="190" stroke="#c0392b" stroke-width="2.5"/>
+  <rect x="595" y="182" width="40" height="16" fill="white" stroke="#c0392b" stroke-width="1.5" rx="2"/>
+  <text x="615" y="174" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R_L1</text>
+  <line x1="515" y1="190" x2="545" y2="190" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Wire 2 (RL2) -->
+  <line x1="479" y1="270" x2="751" y2="270" stroke="#2457d6" stroke-width="2.5"/>
+  <rect x="595" y="262" width="40" height="16" fill="white" stroke="#2457d6" stroke-width="1.5" rx="2"/>
+  <text x="615" y="254" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R_L2</text>
+  <line x1="545" y1="270" x2="515" y2="270" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Wire 3 (RL3) -->
+  <line x1="479" y1="350" x2="751" y2="350" stroke="#1a1a1a" stroke-width="2.5"/>
+  <rect x="595" y="342" width="40" height="16" fill="white" stroke="#1a1a1a" stroke-width="1.5" rx="2"/>
+  <text x="615" y="334" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_L3</text>
+  <line x1="710" y1="350" x2="680" y2="350" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+
+  <!-- Cable Resistance Match Box -->
+  <rect x="535" y="372" width="160" height="28" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="615" y="390" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">R_L1 = R_L2 = R_L3</text>
+
+  <!-- Right Panel: PT100 Probe -->
+  <rect x="750" y="85" width="180" height="330" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="840" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Датчик PT100</text>
+  <text x="840" y="127" font-size="12" fill="#6b7280" text-anchor="middle">(Виносний зонд)</text>
+
+  <!-- Terminal Block X2 -->
+  <rect x="751" y="165" width="24" height="210" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <circle cx="763" cy="190" r="4" fill="#c0392b"/>
+  <circle cx="763" cy="270" r="4" fill="#2457d6"/>
+  <circle cx="763" cy="350" r="4" fill="#1a1a1a"/>
+
+  <!-- Probe Internal Connections -->
+  <path d="M 763,190 L 820,190" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 763,270 L 795,270 L 795,190 L 820,190" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="820" cy="190" r="4" fill="#1a1a1a"/>
+  <line x1="820" y1="190" x2="820" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+
+  <line x1="763" y1="350" x2="820" y2="350" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="820" y1="350" x2="820" y2="310" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- PT100 Resistor Box -->
+  <rect x="810" y="230" width="20" height="80" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="2"/>
+  <text x="838" y="248" font-size="13" font-weight="bold" fill="#2457d6">R_PT100</text>
+  <text x="838" y="265" font-size="12" font-weight="bold" fill="#1a1a1a">100 Ω</text>
+  <text x="838" y="281" font-size="12" fill="#6b7280">при 0°C</text>
+  <text x="838" y="297" font-size="12" fill="#6b7280">α = 0.00385</text>
+
+  <!-- Bottom Callout 1: Compensation Formula -->
+  <rect x="25" y="430" width="475" height="75" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="40" y="452" font-size="13" font-weight="bold" fill="#27ae60">Рівняння компенсації опору ліній зв'язку:</text>
+  <text x="40" y="472" font-size="12" font-weight="bold" fill="#1a1a1a">ΔV = I_exc · (R_PT100 + R_L1 - R3 - R_L2) = I_exc · (R_PT100 - R3)</text>
+  <text x="40" y="490" font-size="12" fill="#27ae60">Оскільки R_L1 = R_L2, опір дротів R_L повністю скасовується!</text>
+
+  <!-- Bottom Callout 2: Self-Heating Prevention -->
+  <rect x="515" y="430" width="420" height="75" fill="#e9f7ef" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="530" y="452" font-size="13" font-weight="bold" fill="#2457d6">Запобігання похибці самонагріву:</text>
+  <text x="530" y="472" font-size="12" font-weight="bold" fill="#1a1a1a">Струм збудження I_exc = 1 mA є оптимальним.</text>
+  <text x="530" y="490" font-size="12" fill="#6b7280">Розсіювана потужність P = I² · R ≈ 0.1 mW (&lt; 1 mW).</text>
+</svg>

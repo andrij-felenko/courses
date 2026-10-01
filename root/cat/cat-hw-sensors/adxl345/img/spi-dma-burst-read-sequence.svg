@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Потік даних пакетного зчитування (Burst Read) через SPI та DMA</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Автоматичне перенесення вимірювань з FIFO ADXL345 в RAM без залучення ядра CPU</text>
+
+  <!-- Panel 1: ADXL345 Accelerometer -->
+  <rect x="24" y="75" width="260" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="36" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">ADXL345 (Акселерометр)</text>
+
+  <!-- Sub-box 1.1: FIFO Buffer -->
+  <rect x="36" y="115" width="236" height="130" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="48" y="136" font-size="13" font-weight="bold" fill="#2457d6">Апаратний FIFO буфер</text>
+  <text x="48" y="153" font-size="12" fill="#6b7280">32 відліки × 6 байт (X, Y, Z)</text>
+
+  <rect x="48" y="163" width="212" height="20" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="56" y="177" font-size="12" fill="#1a1a1a">[X0, Y0, Z0]  —  Sample 0</text>
+
+  <rect x="48" y="187" width="212" height="20" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="56" y="201" font-size="12" fill="#1a1a1a">[X1, Y1, Z1]  —  Sample 1</text>
+
+  <rect x="48" y="211" width="212" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="56" y="226" font-size="12" font-weight="bold" fill="#27ae60">... Watermark (поріг 16)</text>
+
+  <!-- Sub-box 1.2: Watermark Interrupt -->
+  <rect x="36" y="255" width="236" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="48" y="276" font-size="13" font-weight="bold" fill="#27ae60">Переривання (INT1)</text>
+  <text x="48" y="294" font-size="12" fill="#1a1a1a">Сигнал заповнення FIFO</text>
+  <text x="48" y="310" font-size="12" fill="#6b7280">Порогова подія (Watermark)</text>
+
+  <!-- Sub-box 1.3: SPI Registers -->
+  <rect x="36" y="335" width="236" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="48" y="356" font-size="13" font-weight="bold" fill="#1a1a1a">SPI Інтерфейс (Регістри)</text>
+  <text x="48" y="376" font-size="12" fill="#6b7280">Регістри 0x32..0x37 (DATA)</text>
+  <text x="48" y="396" font-size="12" font-weight="bold" fill="#2457d6">Burst Mode (Авто-інкремент)</text>
+
+  <!-- Inter-module Signal Arrows -->
+  <!-- INT1 Line -->
+  <path d="M 272 290 L 380 290" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="328" y="278" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">INT1 Подія</text>
+
+  <!-- SPI Data Stream Line -->
+  <path d="M 272 378 L 380 378" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="328" y="366" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SPI Burst Stream</text>
+
+
+  <!-- Panel 2: STM32 Microcontroller -->
+  <rect x="384" y="75" width="556" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="396" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">Мікроконтролер STM32</text>
+
+  <!-- Block 2.1: CPU Core (Sleep Mode) -->
+  <rect x="396" y="115" width="230" height="85" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="408" y="136" font-size="13" font-weight="bold" fill="#27ae60">Ядро CPU (Cortex-M)</text>
+  <text x="408" y="156" font-size="12" font-weight="bold" fill="#27ae60">Режим сну (Low-Power)</text>
+  <text x="408" y="176" font-size="12" fill="#6b7280">Не витрачає ресурси на SPI</text>
+
+  <!-- Block 2.2: SPI Peripheral -->
+  <rect x="396" y="335" width="150" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="408" y="356" font-size="13" font-weight="bold" fill="#1a1a1a">Периферія SPI1</text>
+  <text x="408" y="376" font-size="12" fill="#6b7280">Регістр SPI_DR</text>
+  <text x="408" y="396" font-size="12" font-weight="bold" fill="#2457d6">Запит SPI_RX DMA</text>
+
+  <!-- SPI to DMA Req Arrow -->
+  <path d="M 546 378 L 572 378" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Block 2.3: DMA Controller -->
+  <rect x="576" y="215" width="190" height="205" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="588" y="236" font-size="13" font-weight="bold" fill="#2457d6">Контролер DMA</text>
+  <text x="588" y="256" font-size="12" font-weight="bold" fill="#1a1a1a">Канал SPI_RX DMA</text>
+  <text x="588" y="278" font-size="12" fill="#6b7280">• Джерело: SPI_DR</text>
+  <text x="588" y="298" font-size="12" fill="#6b7280">• Приймач: rx_buf</text>
+  <text x="588" y="318" font-size="12" fill="#6b7280">• Розмір: 6..192 байт</text>
+  <text x="588" y="338" font-size="12" fill="#6b7280">• Авто-інкремент RAM</text>
+  <rect x="588" y="355" width="166" height="52" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="596" y="373" font-size="12" font-weight="bold" fill="#2457d6">Пряме перенесення</text>
+  <text x="596" y="392" font-size="12" fill="#6b7280">без залучення CPU</text>
+
+  <!-- DMA to RAM Arrow -->
+  <path d="M 766 280 L 780 280" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Block 2.4: SRAM (RAM Buffer) -->
+  <rect x="780" y="115" width="140" height="305" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="792" y="136" font-size="13" font-weight="bold" fill="#2457d6">SRAM (RAM)</text>
+  <text x="792" y="153" font-size="12" fill="#6b7280">Буфер rx_buf</text>
+
+  <rect x="791" y="165" width="118" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="799" y="181" font-size="12" font-weight="bold" fill="#1a1a1a">rx_buf[0..5]</text>
+  <text x="799" y="194" font-size="12" fill="#6b7280">Sample 0 (X,Y,Z)</text>
+
+  <rect x="791" y="207" width="118" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="799" y="223" font-size="12" font-weight="bold" fill="#1a1a1a">rx_buf[6..11]</text>
+  <text x="799" y="236" font-size="12" fill="#6b7280">Sample 1 (X,Y,Z)</text>
+
+  <text x="850" y="260" font-size="14" font-weight="bold" fill="#6b7280" text-anchor="middle">...</text>
+
+  <rect x="791" y="271" width="118" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="799" y="287" font-size="12" font-weight="bold" fill="#1a1a1a">rx_buf[186..191]</text>
+  <text x="799" y="300" font-size="12" fill="#6b7280">Sample 31 (X,Y,Z)</text>
+
+  <rect x="791" y="317" width="118" height="93" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="799" y="336" font-size="12" font-weight="bold" fill="#27ae60">Завершення TC</text>
+  <text x="799" y="354" font-size="12" fill="#1a1a1a">Генерація TC IRQ</text>
+  <text x="799" y="372" font-size="12" fill="#6b7280">Пробудження CPU</text>
+  <text x="799" y="390" font-size="12" fill="#6b7280">для обробки даних</text>
+
+  <!-- Interrupt TC to CPU Arrow -->
+  <path d="M 909 363 H 928 V 86 H 511 V 115" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+  <text x="683" y="82" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">TC IRQ: Пробудження CPU</text>
+</svg>

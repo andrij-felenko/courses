@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-brass" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#b89235"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конструкція аналогового п'єзоелемента</text>
+  <text x="480" y="66" font-size="13" fill="#6b7280" text-anchor="middle">Металева підкладка слугує спільним проводом (GND), а керамічний центр — сигнальним виводом</text>
+
+  <!-- Panel 1: Top view & Leads -->
+  <rect x="40" y="90" width="425" height="340" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="252.5" y="118" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вигляд згори та виводи</text>
+
+  <!-- Panel 1 Top Lead Labels -->
+  <text x="55" y="145" font-size="12" font-weight="bold" fill="#c0392b">Сигнальний вивід (+)</text>
+  <text x="55" y="161" font-size="12" fill="#6b7280">Центральний електрод</text>
+
+  <text x="450" y="145" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Спільний вивід (GND)</text>
+  <text x="450" y="161" font-size="12" fill="#6b7280" text-anchor="end">Латунна підкладка</text>
+
+  <!-- Wires Panel 1 -->
+  <path d="M 235 245 C 190 230, 135 195, 120 178" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <path d="M 300 220 C 330 200, 365 190, 385 178" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Piezo disk assembly Panel 1 -->
+  <circle cx="252.5" cy="255" r="75" fill="#ebd59b" stroke="#b89235" stroke-width="2"/>
+  <circle cx="252.5" cy="255" r="48" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/>
+
+  <!-- Solder points Panel 1 -->
+  <circle cx="235" cy="245" r="5.5" fill="#64748b" stroke="#334155" stroke-width="1.5"/>
+  <circle cx="300" cy="220" r="5.5" fill="#64748b" stroke="#334155" stroke-width="1.5"/>
+
+  <!-- Pointer lines Panel 1 -->
+  <line x1="215" y1="270" x2="160" y2="342" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-gray)"/>
+  <line x1="310" y1="285" x2="330" y2="342" stroke="#b89235" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-brass)"/>
+
+  <!-- Panel 1 Bottom Callouts -->
+  <rect x="55" y="348" width="12" height="12" rx="2" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="73" y="358" font-size="12" font-weight="bold" fill="#1a1a1a">Срібний електрод</text>
+  <text x="73" y="374" font-size="12" fill="#6b7280">Центральний шар кераміки</text>
+
+  <rect x="250" y="348" width="12" height="12" rx="2" fill="#ebd59b" stroke="#b89235" stroke-width="1.5"/>
+  <text x="268" y="358" font-size="12" font-weight="bold" fill="#1a1a1a">Латунна підкладка</text>
+  <text x="268" y="374" font-size="12" fill="#6b7280">Основа та спільний електрод</text>
+
+  <!-- Panel 2: Cross-Section Structure -->
+  <rect x="495" y="90" width="425" height="340" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="707.5" y="118" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Поперечний розріз та шари</text>
+
+  <!-- Panel 2 Top Lead Labels -->
+  <text x="510" y="145" font-size="12" font-weight="bold" fill="#c0392b">Сигнальний провід (+)</text>
+  <text x="510" y="161" font-size="12" fill="#6b7280">До аналогового входу АЦП</text>
+
+  <text x="905" y="145" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Спільний провід (GND)</text>
+  <text x="905" y="161" font-size="12" fill="#6b7280" text-anchor="end">Земля та екран системи</text>
+
+  <!-- Wires Panel 2 -->
+  <path d="M 635 228 C 635 195, 595 185, 575 178" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <path d="M 835 272 C 835 220, 860 190, 870 178" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Solder blobs Panel 2 -->
+  <path d="M 627 228 Q 635 220 643 228 Z" fill="#64748b" stroke="#334155" stroke-width="1"/>
+  <path d="M 827 272 Q 835 264 843 272 Z" fill="#64748b" stroke="#334155" stroke-width="1"/>
+
+  <!-- Layer 1 Callout Top Label -->
+  <text x="707.5" y="206" font-size="12" font-weight="bold" fill="#334155" text-anchor="middle">1. Срібний електрод (напилення)</text>
+  <line x1="707.5" y1="210" x2="707.5" y2="224" stroke="#475569" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Layer 1: Silver Electrode -->
+  <rect x="585" y="228" width="245" height="10" rx="1" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Layer 2: Piezo Ceramic Layer -->
+  <rect x="565" y="238" width="285" height="34" rx="2" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <text x="707.5" y="259" font-size="12" font-weight="bold" fill="#475569" text-anchor="middle">2. П'єзокерамічний диск (PZT)</text>
+
+  <!-- Layer 3: Brass Substrate -->
+  <rect x="525" y="272" width="365" height="26" rx="2" fill="#ebd59b" stroke="#b89235" stroke-width="1.5"/>
+  <text x="707.5" y="289" font-size="12" font-weight="bold" fill="#78350f" text-anchor="middle">3. Латунна підкладка (основа)</text>
+
+  <!-- Panel 2 Bottom Legend -->
+  <!-- Left Column -->
+  <rect x="510" y="336" width="12" height="12" rx="2" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+  <text x="528" y="346" font-size="12" font-weight="bold" fill="#1a1a1a">Срібний електрод</text>
+  <text x="528" y="360" font-size="12" fill="#6b7280">Верхній сигнальний контакт</text>
+
+  <rect x="510" y="378" width="12" height="12" rx="2" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <text x="528" y="388" font-size="12" font-weight="bold" fill="#1a1a1a">П'єзокераміка (PZT)</text>
+  <text x="528" y="402" font-size="12" fill="#6b7280">Ґенерує напругу при стиску</text>
+
+  <!-- Right Column -->
+  <rect x="715" y="336" width="12" height="12" rx="2" fill="#ebd59b" stroke="#b89235" stroke-width="1.5"/>
+  <text x="733" y="346" font-size="12" font-weight="bold" fill="#1a1a1a">Латунна підкладка</text>
+  <text x="733" y="360" font-size="12" fill="#6b7280">Основа та спільний електрод</text>
+
+  <rect x="715" y="378" width="12" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="733" y="388" font-size="12" font-weight="bold" fill="#2457d6">Призначення GND</text>
+  <text x="733" y="402" font-size="12" fill="#6b7280">Спільний провід та екран</text>
+</svg>

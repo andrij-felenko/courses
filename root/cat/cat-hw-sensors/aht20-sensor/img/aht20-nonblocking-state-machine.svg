@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Автомат станів неблокуючого опитування давача AHT20</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Переходи між станами з урахуванням асинхронної витримки 80 мс та перевірки готовності</text>
+
+  <!-- State 1: UNINIT -->
+  <rect x="40" y="120" width="160" height="80" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="120" y="150" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">UNINIT</text>
+  <text x="120" y="175" font-size="12" fill="#1a1a1a" text-anchor="middle">Неініціалізовано</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M 200 160 L 250 160" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="225" y="145" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">0xBE 0x08 0x00</text>
+
+  <!-- State 2: IDLE -->
+  <rect x="260" y="120" width="160" height="80" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="340" y="150" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">IDLE</text>
+  <text x="340" y="175" font-size="12" fill="#1a1a1a" text-anchor="middle">Готовий до заміру</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M 420 160 L 470 160" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="445" y="145" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">0xAC 0x33 0x00</text>
+
+  <!-- State 3: MEASURING -->
+  <rect x="480" y="120" width="180" height="80" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="570" y="150" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MEASURING</text>
+  <text x="570" y="175" font-size="12" fill="#6b7280" text-anchor="middle">Конверсія (80 мс)</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <path d="M 660 160 L 710 160" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="685" y="145" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">dt ≥ 80 ms</text>
+
+  <!-- State 4: READ_DATA -->
+  <rect x="720" y="120" width="180" height="80" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="810" y="150" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">READ_DATA</text>
+  <text x="810" y="175" font-size="12" fill="#1a1a1a" text-anchor="middle">Зчитування 7 байт</text>
+
+  <!-- Return Loop: READ_DATA -> IDLE (OK) -->
+  <path d="M 810 200 L 810 260 L 340 260 L 340 200" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="570" y="250" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Busy[7]==0 &amp; CRC-8 OK (Оновлення даних)</text>
+
+  <!-- Error State & Branch -->
+  <rect x="480" y="320" width="180" height="80" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="570" y="350" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">ERROR_RECOVERY</text>
+  <text x="570" y="375" font-size="12" fill="#1a1a1a" text-anchor="middle">М'який скид (0xBA)</text>
+
+  <!-- Arrow READ_DATA -> ERROR -->
+  <path d="M 850 200 L 850 360 L 660 360" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="755" y="350" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">CRC помилка / NACK</text>
+
+  <!-- Arrow ERROR -> UNINIT -->
+  <path d="M 480 360 L 120 360 L 120 200" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="280" y="350" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Перезапуск каналу I2C</text>
+</svg>

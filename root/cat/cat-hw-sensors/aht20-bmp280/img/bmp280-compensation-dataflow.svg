@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Алгоритм компенсації даних давача BMP280</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Обчислення t_fine за коефіцієнтами NVM є обов'язковим для корекції нелінійності тиску</text>
+
+  <!-- КОЛОНА 1: ВХІДНІ ДАНІ ( Raw ADC + NVM ) -->
+  <!-- Блок 1.1: Регістри АЦП -->
+  <rect x="25" y="80" width="215" height="160" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="132" y="103" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Регістри АЦП (Raw Data)</text>
+  
+  <rect x="35" y="117" width="195" height="48" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="45" y="136" font-size="13" font-weight="bold" fill="#2457d6">adc_T (20 біт)</text>
+  <text x="45" y="154" font-size="12" fill="#6b7280">Сирий код температури</text>
+
+  <rect x="35" y="177" width="195" height="48" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="45" y="196" font-size="13" font-weight="bold" fill="#2457d6">adc_P (20 біт)</text>
+  <text x="45" y="214" font-size="12" fill="#6b7280">Сирий код тиску</text>
+
+  <!-- Блок 1.2: Пам'ять NVM -->
+  <rect x="25" y="260" width="215" height="260" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="132" y="283" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пам'ять NVM (OTP)</text>
+  <text x="132" y="299" font-size="12" fill="#6b7280" text-anchor="middle">Заводські коефіцієнти</text>
+
+  <rect x="35" y="311" width="195" height="74" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-opacity="0.3"/>
+  <text x="45" y="330" font-size="12" font-weight="bold" fill="#2457d6">Для температури (3):</text>
+  <text x="45" y="348" font-size="12" fill="#1a1a1a">dig_T1 (uint16)</text>
+  <text x="45" y="366" font-size="12" fill="#1a1a1a">dig_T2, dig_T3 (int16)</text>
+
+  <rect x="35" y="397" width="195" height="110" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="45" y="416" font-size="12" font-weight="bold" fill="#1a1a1a">Для тиску (9):</text>
+  <text x="45" y="434" font-size="12" fill="#6b7280">dig_P1 (uint16)</text>
+  <text x="45" y="452" font-size="12" fill="#6b7280">dig_P2 .. dig_P9 (int16)</text>
+  <text x="45" y="476" font-size="12" fill="#2457d6">Поліном нелінійності</text>
+  <text x="45" y="494" font-size="12" fill="#2457d6">залежить від t_fine</text>
+
+
+  <!-- КОЛОНА 2: АЛГОРИТМИ КОМПЕНСАЦІЇ -->
+  <!-- Блок 2.1: Компенсація температури -->
+  <rect x="270" y="80" width="380" height="175" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="270" y="80" width="380" height="30" rx="6" fill="#eaf0fd"/>
+  <text x="460" y="100" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Компенсація температури</text>
+
+  <rect x="282" y="115" width="356" height="46" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="292" y="132" font-size="12" fill="#1a1a1a">var1 = (adc_T/8 - dig_T1*2) * dig_T2 / 2048</text>
+  <text x="292" y="150" font-size="12" fill="#1a1a1a">var2 = (adc_T/16 - dig_T1)^2 * dig_T3 / 67108864</text>
+
+  <!-- Ключова змінна t_fine -->
+  <rect x="282" y="167" width="170" height="78" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="367" y="187" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_fine = var1 + var2</text>
+  <text x="367" y="205" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">(Ключова змінна)</text>
+  <text x="367" y="225" font-size="12" fill="#6b7280" text-anchor="middle">місток до тиску</text>
+
+  <!-- Фінальне T_degC -->
+  <rect x="468" y="167" width="170" height="78" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="553" y="187" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">T_degC (0.01 °C)</text>
+  <text x="553" y="207" font-size="12" fill="#1a1a1a" text-anchor="middle">(t_fine * 5 + 128)</text>
+  <text x="553" y="225" font-size="12" fill="#1a1a1a" text-anchor="middle">&gt;&gt; 8</text>
+
+
+  <!-- Блок 2.2: Компенсація тиску -->
+  <rect x="270" y="260" width="380" height="260" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="270" y="260" width="380" height="30" rx="6" fill="#eaf0fd"/>
+  <text x="460" y="280" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Компенсація тиску (Non-linear P)</text>
+
+  <rect x="282" y="298" width="356" height="32" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="460" y="319" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Приймає t_fine від блоку температури!</text>
+
+  <rect x="282" y="338" width="356" height="98" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="292" y="357" font-size="12" font-weight="bold" fill="#1a1a1a">Корекція зсуву та чутливості:</text>
+  <text x="292" y="377" font-size="12" fill="#6b7280">var1_p = (t_fine / 2) - 64000</text>
+  <text x="292" y="397" font-size="12" fill="#6b7280">var2_p = var1_p^2 * dig_P6 / 32768 + var1_p * dig_P5</text>
+  <text x="292" y="417" font-size="12" fill="#6b7280">Поліном 3-го порядку від adc_P та dig_P1..P9</text>
+
+  <rect x="282" y="444" width="356" height="66" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="460" y="465" font-size="12" fill="#1a1a1a" text-anchor="middle">Обчислення тиску Q24.8 або 64-біт цілого</text>
+  <text x="460" y="489" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">P_final в Паскалях [Па] або [hPa]</text>
+
+
+  <!-- КОЛОНА 3: РЕЗУЛЬТАТИ ТА МКУ -->
+  <!-- Блок 3.1: Фізичні значення -->
+  <rect x="680" y="80" width="255" height="175" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="807" y="103" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фізичні значення</text>
+
+  <rect x="692" y="117" width="231" height="54" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="704" y="136" font-size="12" font-weight="bold" fill="#27ae60">Температура T (°C)</text>
+  <text x="704" y="158" font-size="14" font-weight="bold" fill="#1a1a1a">25.08 °C (2508 / 100)</text>
+
+  <rect x="692" y="181" width="231" height="54" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="704" y="200" font-size="12" font-weight="bold" fill="#27ae60">Атмосферний тиск P (Па)</text>
+  <text x="704" y="222" font-size="14" font-weight="bold" fill="#1a1a1a">101325 Па (1013.25 гПа)</text>
+
+  <!-- Блок 3.2: Обчислення в MCU -->
+  <rect x="680" y="260" width="255" height="260" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="807" y="283" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Обчислення в MCU</text>
+
+  <rect x="692" y="298" width="231" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="704" y="317" font-size="12" font-weight="bold" fill="#2457d6">Роль t_fine (місток):</text>
+  <text x="704" y="335" font-size="12" fill="#1a1a1a">Передає температурний стан</text>
+  <text x="704" y="351" font-size="12" fill="#1a1a1a">в формулу нелінійності P</text>
+
+  <rect x="692" y="366" width="231" height="74" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="704" y="385" font-size="12" font-weight="bold" fill="#1a1a1a">32/64-біт Integer Math:</text>
+  <text x="704" y="403" font-size="12" fill="#6b7280">64-біт запобігає переповненню</text>
+  <text x="704" y="419" font-size="12" fill="#6b7280">при множенні поліномів</text>
+  <text x="704" y="435" font-size="12" fill="#27ae60">Економить ресурси без FPU</text>
+
+  <rect x="692" y="448" width="231" height="62" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="704" y="467" font-size="12" font-weight="bold" fill="#1a1a1a">Double Float API:</text>
+  <text x="704" y="485" font-size="12" fill="#6b7280">Простіший у реалізації,</text>
+  <text x="704" y="501" font-size="12" fill="#6b7280">потребує FPU / більше тактів</text>
+
+  <!-- ЗВ'ЯЗКИ ТА СТРІЛКИ -->
+  <!-- adc_T -> Temp Block -->
+  <path d="M 230 141 L 268 141" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- dig_T1..T3 -> Temp Block -->
+  <path d="M 230 348 L 250 348 L 250 160 L 268 160" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- adc_P -> Press Block -->
+  <path d="M 230 201 L 258 201 L 258 385 L 268 385" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+
+  <!-- dig_P1..P9 -> Press Block -->
+  <path d="M 230 452 L 268 452" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- КЛЮЧОВИЙ ЗВ'ЯЗОК: t_fine z Temp -> Press -->
+  <!-- Стрілка йде від x=300, y=245 до x=300, y=296 -->
+  <path d="M 300 245 L 300 296" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="310" y="255" font-size="12" font-weight="bold" fill="#2457d6">передача t_fine</text>
+
+  <!-- Temp output -> Physical Temp Card -->
+  <path d="M 638 206 L 678 206 L 678 144 L 690 144" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Press output -> Physical Press Card -->
+  <path d="M 638 477 L 678 477 L 678 208 L 690 208" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+</svg>

@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння схем вимірювання струму: Резистивний шунт проти ACS712</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Пряме підключення шунта створює електричний контакт із силовим колом, а ACS712 дає гальванічну ізоляцію</text>
+
+  <!-- LEFT PANEL: Non-isolated Shunt -->
+  <rect x="30" y="75" width="435" height="425" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="247" y="105" font-size="16" font-weight="bold" fill="#c0392b" text-anchor="middle">Неізольований резистивний шунт</text>
+  <text x="247" y="125" font-size="13" fill="#6b7280" text-anchor="middle">Прямий електричний контакт (Небезпека для МК)</text>
+
+  <!-- Power Source Box -->
+  <rect x="50" y="150" width="110" height="60" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="105" y="175" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Джерело 230 В</text>
+  <text x="105" y="195" font-size="12" fill="#6b7280" text-anchor="middle">Силовий ланцюг</text>
+
+  <!-- Shunt Resistor -->
+  <rect x="200" y="160" width="90" height="40" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <text x="245" y="180" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Шунт R</text>
+  <text x="245" y="195" font-size="12" fill="#6b7280" text-anchor="middle">0.001 Ом</text>
+
+  <!-- Load Box -->
+  <rect x="330" y="150" width="110" height="60" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="385" y="175" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Навантаження</text>
+  <text x="385" y="195" font-size="12" fill="#6b7280" text-anchor="middle">Потужне коло</text>
+
+  <!-- Wiring Lines top -->
+  <line x1="160" y1="180" x2="200" y2="180" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="290" y1="180" x2="330" y2="180" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Warning Box for direct electrical link -->
+  <rect x="50" y="240" width="390" height="70" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="245" y="265" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Спільне електричне заземлення</text>
+  <text x="245" y="285" font-size="12" fill="#1a1a1a" text-anchor="middle">Висока напруга або імпульсні завади надходять</text>
+  <text x="245" y="300" font-size="12" fill="#1a1a1a" text-anchor="middle">безпосередньо на вхід АЦП мікроконтролера</text>
+
+  <!-- Direct Connections to Warning Box -->
+  <line x1="245" y1="200" x2="245" y2="240" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- MCU Box Left -->
+  <rect x="140" y="345" width="210" height="70" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <text x="245" y="370" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер</text>
+  <text x="245" y="390" font-size="12" fill="#c0392b" text-anchor="middle">Неізольований АЦП (Високий ризик)</text>
+
+  <line x1="245" y1="310" x2="245" y2="345" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- RIGHT PANEL: Isolated ACS712 -->
+  <rect x="495" y="75" width="435" height="425" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="712" y="105" font-size="16" font-weight="bold" fill="#27ae60" text-anchor="middle">Інтегральний модуль ACS712 (Ефект Холла)</text>
+  <text x="712" y="125" font-size="13" fill="#6b7280" text-anchor="middle">Гальванічна розв'язка 2.1 кВ (Повна безпека МК)</text>
+
+  <!-- High Voltage Domain Side -->
+  <rect x="515" y="150" width="130" height="150" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="580" y="175" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Силовий ланцюг</text>
+  <text x="580" y="195" font-size="12" fill="#6b7280" text-anchor="middle">230 В / зміний струм</text>
+  <text x="580" y="225" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">IP+ / IP-</text>
+  <text x="580" y="245" font-size="12" fill="#6b7280" text-anchor="middle">Мідний провідник</text>
+  <text x="580" y="260" font-size="12" fill="#6b7280" text-anchor="middle">1.2 мОм</text>
+
+  <!-- Isolation Barrier Line -->
+  <line x1="675" y1="140" x2="675" y2="440" stroke="#27ae60" stroke-width="3" stroke-dasharray="6,4"/>
+  <rect x="655" y="275" width="40" height="30" rx="4" fill="#27ae60"/>
+  <text x="675" y="295" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">2.1кВ</text>
+
+  <text x="675" y="465" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Бар'єр гальванічної ізоляції</text>
+  <text x="675" y="485" font-size="12" fill="#6b7280" text-anchor="middle">Передача сигналу через магнітне поле B</text>
+
+  <!-- ACS712 Chip & Signal Side -->
+  <rect x="715" y="150" width="195" height="150" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="812" y="175" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Модуль ACS712</text>
+  <text x="812" y="195" font-size="12" fill="#1a1a1a" text-anchor="middle">Тонкоплівковий сенсор Холла</text>
+  <text x="812" y="225" font-size="12" fill="#6b7280" text-anchor="middle">VCC (5.0 В) | GND</text>
+  <text x="812" y="245" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">VOUT = VCC/2 ± Sens×I</text>
+  <text x="812" y="265" font-size="12" fill="#6b7280" text-anchor="middle">Лінійний вихід</text>
+
+  <!-- Magnetic Coupling Arrow across barrier -->
+  <path d="M 645,210 Q 675,190 715,210" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+  <text x="675" y="180" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Поле B</text>
+
+  <!-- MCU Box Right -->
+  <rect x="715" y="345" width="195" height="70" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="812" y="370" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер</text>
+  <text x="812" y="390" font-size="12" fill="#27ae60" text-anchor="middle">Ізольоване зчитування АЦП</text>
+
+  <!-- Connection from VOUT to MCU -->
+  <line x1="812" y1="300" x2="812" y2="345" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+</svg>

@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr_blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Комутація виводів ADXL345 для вибору шини I²C та SPI</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Рівень на CS обирає шину (High = I²C, Low = SPI), а SDO/ALT_ADDRESS задає адресацію I²C чи лінію MISO</text>
+
+  <!-- ==================== LEFT PANEL: I2C MODE ==================== -->
+  <rect x="30" y="70" width="435" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel 1 Header Badge -->
+  <rect x="45" y="85" width="405" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247.5" y="107" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Режим I²C (CS = VDD_I/O)</text>
+
+  <!-- Panel 1 MCU Box -->
+  <rect x="45" y="140" width="110" height="270" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M45,146 A6,6 0 0,1 51,140 L149,140 A6,6 0 0,1 155,146 L155,168 L45,168 Z" fill="#6b7280"/>
+  <text x="100" y="158" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Мікроконтролер</text>
+
+  <!-- MCU Pins Labels inside MCU -->
+  <text x="148" y="194" font-size="12" fill="#6b7280" text-anchor="end">VDD_I/O</text>
+  <text x="148" y="254" font-size="12" fill="#1a1a1a" text-anchor="end">SCL</text>
+  <text x="148" y="314" font-size="12" fill="#1a1a1a" text-anchor="end">SDA</text>
+  <text x="148" y="384" font-size="12" fill="#6b7280" text-anchor="end">GND / VDD</text>
+
+  <!-- Panel 1 ADXL345 Box -->
+  <rect x="300" y="140" width="135" height="270" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M300,146 A6,6 0 0,1 306,140 L429,140 A6,6 0 0,1 435,146 L435,168 L300,168 Z" fill="#2457d6"/>
+  <text x="367.5" y="158" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">ADXL345</text>
+
+  <!-- ADXL345 Pins Labels inside ADXL345 -->
+  <text x="308" y="194" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">CS (Pin 7)</text>
+  <text x="308" y="254" font-size="12" fill="#1a1a1a" text-anchor="start">SCL (Pin 1)</text>
+  <text x="308" y="314" font-size="12" fill="#1a1a1a" text-anchor="start">SDA (Pin 6)</text>
+  <text x="308" y="384" font-size="12" fill="#1a1a1a" text-anchor="start">SDO (Pin 12)</text>
+
+  <!-- Power Bus VDD_I/O in Panel 1 -->
+  <line x1="155" y1="170" x2="300" y2="170" stroke="#2457d6" stroke-width="2"/>
+  <text x="227.5" y="164" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">VDD_I/O (+3.3V)</text>
+
+  <!-- CS Connection to VDD_I/O (CS = High) -->
+  <path d="M300,190 L285,190 L285,170" stroke="#27ae60" stroke-width="2" fill="none"/>
+  <rect x="165" y="180" width="115" height="20" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="222.5" y="194" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">CS = High (VDD_I/O)</text>
+
+  <!-- SCL Connection + Pull-up R_PU -->
+  <line x1="155" y1="250" x2="300" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="190" y1="170" x2="190" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="183" y="200" width="14" height="24" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="178" y="216" font-size="12" fill="#1a1a1a" text-anchor="end">R_PU 4.7k</text>
+  <text x="245" y="244" font-size="12" fill="#1a1a1a" text-anchor="middle">SCL (Clock)</text>
+
+  <!-- SDA Connection + Pull-up R_PU -->
+  <line x1="155" y1="310" x2="300" y2="310" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="265" y1="170" x2="265" y2="310" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="258" y="200" width="14" height="24" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="277" y="216" font-size="12" fill="#1a1a1a" text-anchor="start">R_PU 4.7k</text>
+  <text x="210" y="304" font-size="12" fill="#1a1a1a" text-anchor="middle">SDA (Data)</text>
+
+  <!-- SDO / ALT ADDRESS Config Box in Panel 1 -->
+  <line x1="270" y1="380" x2="300" y2="380" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="160" y="360" width="110" height="44" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="215" y="377" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">GND → 0x53</text>
+  <text x="215" y="395" font-size="12" fill="#6b7280" text-anchor="middle">VDD → 0x1D</text>
+
+  <!-- Panel 1 Explanatory Note Card -->
+  <rect x="45" y="435" width="405" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="453" font-size="12" font-weight="bold" fill="#1a1a1a">Вибір шини I²C та адреси:</text>
+  <text x="55" y="471" font-size="12" fill="#6b7280">• CS фіксується на VDD_I/O (High disables SPI)</text>
+  <text x="55" y="487" font-size="12" fill="#6b7280">• Обов'язкові підтягувальні резистори R_PU (2.2–4.7 кОм)</text>
+
+
+  <!-- ==================== RIGHT PANEL: SPI MODE ==================== -->
+  <rect x="495" y="70" width="435" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel 2 Header Badge -->
+  <rect x="510" y="85" width="405" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="712.5" y="107" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Режим SPI (CS керується МК)</text>
+
+  <!-- Panel 2 MCU Box -->
+  <rect x="510" y="140" width="110" height="270" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M510,146 A6,6 0 0,1 516,140 L614,140 A6,6 0 0,1 620,146 L620,168 L510,168 Z" fill="#6b7280"/>
+  <text x="565" y="158" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Мікроконтролер</text>
+
+  <!-- MCU Pins Labels inside MCU (Panel 2) -->
+  <text x="613" y="194" font-size="12" fill="#2457d6" text-anchor="end">CS (GPIO)</text>
+  <text x="613" y="254" font-size="12" fill="#1a1a1a" text-anchor="end">SCLK</text>
+  <text x="613" y="314" font-size="12" fill="#1a1a1a" text-anchor="end">MOSI (SDI)</text>
+  <text x="613" y="384" font-size="12" fill="#1a1a1a" text-anchor="end">MISO (SDO)</text>
+
+  <!-- Panel 2 ADXL345 Box -->
+  <rect x="765" y="140" width="135" height="270" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M765,146 A6,6 0 0,1 771,140 L894,140 A6,6 0 0,1 900,146 L900,168 L765,168 Z" fill="#2457d6"/>
+  <text x="832.5" y="158" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">ADXL345</text>
+
+  <!-- ADXL345 Pins Labels inside ADXL345 (Panel 2) -->
+  <text x="773" y="194" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">CS (Pin 7)</text>
+  <text x="773" y="254" font-size="12" fill="#1a1a1a" text-anchor="start">SCLK (Pin 1)</text>
+  <text x="773" y="314" font-size="12" fill="#1a1a1a" text-anchor="start">SDI (Pin 6)</text>
+  <text x="773" y="384" font-size="12" fill="#1a1a1a" text-anchor="start">SDO (Pin 12)</text>
+
+  <!-- CS Line (MCU to ADXL345) -->
+  <line x1="620" y1="190" x2="765" y2="190" stroke="#2457d6" stroke-width="2" marker-end="url(#arr_blue)"/>
+  <rect x="635" y="160" width="115" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="692.5" y="175" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">CS = Low (Active)</text>
+
+  <!-- SCLK Line -->
+  <line x1="620" y1="250" x2="765" y2="250" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="692.5" y="244" font-size="12" fill="#1a1a1a" text-anchor="middle">SCLK (Clock)</text>
+
+  <!-- SDI / MOSI Line -->
+  <line x1="620" y1="310" x2="765" y2="310" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="692.5" y="304" font-size="12" fill="#1a1a1a" text-anchor="middle">SDI / MOSI (Data In)</text>
+
+  <!-- SDO / MISO Line -->
+  <line x1="765" y1="380" x2="620" y2="380" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="692.5" y="374" font-size="12" fill="#1a1a1a" text-anchor="middle">SDO / MISO (Data Out)</text>
+
+  <!-- Panel 2 Explanatory Note Card -->
+  <rect x="510" y="435" width="405" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="453" font-size="12" font-weight="bold" fill="#1a1a1a">Вибір режиму SPI (4-пров. / 3-пров.):</text>
+  <text x="520" y="471" font-size="12" fill="#6b7280">• CS переводиться в Low на час сесії обміну SPI</text>
+  <text x="520" y="487" font-size="12" fill="#6b7280">• В 3-провідному SPI вивід SDO переходить у стан Hi-Z</text>
+
+</svg>

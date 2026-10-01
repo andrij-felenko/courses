@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топології вимірювання струму: Low-Side проти High-Side</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Low-Side зміщує землю системи на V_shunt, High-Side зберігає цілісність спільної землі</text>
+
+  <!-- ================= LEFT PANEL: LOW-SIDE SENSING ================= -->
+  <rect x="30" y="75" width="435" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="90" width="405" height="34" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="247.5" y="112" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Low-Side (Шунт між навантаженням і земляною шиною)</text>
+
+  <!-- Left Circuit Elements -->
+  <!-- Power Source -->
+  <rect x="55" y="150" width="65" height="135" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="87.5" y="210" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Джерело</text>
+  <text x="87.5" y="228" font-size="12" fill="#6b7280" text-anchor="middle">V_BUS</text>
+  <text x="75" y="167" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+</text>
+  <text x="75" y="277" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">−</text>
+
+  <!-- Top Rail & Current Arrow -->
+  <path d="M 87.5 150 L 87.5 146 L 240 146 L 240 155" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="105" y1="146" x2="185" y2="146" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="145" y="138" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I_LOAD</text>
+
+  <!-- Load Block -->
+  <rect x="200" y="155" width="80" height="50" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="240" y="185" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Навантаження</text>
+
+  <!-- Node A (GND_LOAD) & Wire -->
+  <line x1="240" y1="205" x2="240" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="240" cy="225" r="3" fill="#c0392b"/>
+  <text x="252" y="229" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">GND_LOAD = +V_shunt</text>
+
+  <!-- Shunt Resistor -->
+  <rect x="228" y="232" width="24" height="34" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="218" y="253" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">R_SHUNT</text>
+
+  <!-- Node B (GND_SYS) & Bottom Rail -->
+  <line x1="240" y1="266" x2="240" y2="295" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="240" cy="295" r="3" fill="#1a1a1a"/>
+  <path d="M 240 295 L 87.5 295 L 87.5 285" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="252" y="299" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">GND_SYS (0 В)</text>
+
+  <!-- Ground Symbol -->
+  <line x1="240" y1="295" x2="240" y2="307" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="232" y1="307" x2="248" y2="307" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="235" y1="311" x2="245" y2="311" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="238" y1="315" x2="242" y2="315" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- V_shunt Dimension / Voltage Drop -->
+  <path d="M 370 225 L 375 225 L 375 295 L 370 295" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="382" y="264" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">V_shunt</text>
+
+  <!-- Left Warning Box -->
+  <rect x="45" y="325" width="405" height="95" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="58" y="347" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">Проблема Low-Side включення:</text>
+  <text x="58" y="369" font-size="12" fill="#1a1a1a" text-anchor="start">• Зсув землі навантаження: GND_LOAD = GND_SYS + V_shunt</text>
+  <text x="58" y="387" font-size="12" fill="#1a1a1a" text-anchor="start">• Порушення рівня сигналів шин даних (I2C / UART / GPIO)</text>
+  <text x="58" y="405" font-size="12" fill="#1a1a1a" text-anchor="start">• Ризик КЗ через зовнішнє заземлення навантаження</text>
+
+  <!-- ================= RIGHT PANEL: HIGH-SIDE SENSING ================= -->
+  <rect x="495" y="75" width="435" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="510" y="90" width="405" height="34" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712.5" y="112" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">High-Side (Шунт у колі V_BUS — INA226)</text>
+
+  <!-- Right Circuit Elements -->
+  <!-- Power Source -->
+  <rect x="520" y="150" width="65" height="135" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="552.5" y="210" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Джерело</text>
+  <text x="552.5" y="228" font-size="12" fill="#6b7280" text-anchor="middle">V_BUS</text>
+  <text x="540" y="167" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+</text>
+  <text x="540" y="277" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">−</text>
+
+  <!-- Top Rail with High-Side Shunt -->
+  <path d="M 552.5 150 L 552.5 152 L 610 152" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="565" y1="152" x2="600" y2="152" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="582.5" y="144" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I_LOAD</text>
+
+  <!-- Shunt Resistor (Horizontal) -->
+  <rect x="610" y="142" width="40" height="20" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="630" y="135" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">R_SHUNT</text>
+  <circle cx="610" cy="152" r="3" fill="#27ae60"/>
+  <circle cx="650" cy="152" r="3" fill="#27ae60"/>
+
+  <!-- Wire from Shunt to Load -->
+  <path d="M 650 152 L 730 152 L 730 160" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Load Block -->
+  <rect x="690" y="160" width="80" height="50" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="730" y="190" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Навантаження</text>
+
+  <!-- Direct GND Connection (GND_LOAD = GND_SYS) -->
+  <line x1="730" y1="210" x2="730" y2="295" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="730" cy="295" r="3" fill="#27ae60"/>
+  <path d="M 730 295 L 552.5 295 L 552.5 285" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="742" y="299" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">GND_LOAD = GND_SYS (0 В)</text>
+
+  <!-- Ground Symbol -->
+  <line x1="730" y1="295" x2="730" y2="307" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="722" y1="307" x2="738" y2="307" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="725" y1="311" x2="735" y2="311" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="728" y1="315" x2="732" y2="315" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- INA226 Digital Power Monitor Block -->
+  <rect x="805" y="150" width="105" height="135" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="857.5" y="172" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">INA226</text>
+  <text x="857.5" y="188" font-size="12" fill="#6b7280" text-anchor="middle">Модуль INA226</text>
+
+  <!-- Sense Lines to INA226 -->
+  <path d="M 610 152 L 610 210 L 805 210" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="798" y="206" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">IN+</text>
+
+  <path d="M 650 152 L 650 230 L 805 230" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="798" y="226" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">IN−</text>
+
+  <!-- INA226 Specifications inside box -->
+  <text x="857.5" y="254" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_CM до 36 В</text>
+  <text x="857.5" y="270" font-size="12" fill="#6b7280" text-anchor="middle">16-біт АЦП (I2C)</text>
+
+  <!-- INA226 GND wire to system GND -->
+  <path d="M 857.5 285 L 857.5 295 L 730 295" fill="none" stroke="#1a1a1a" stroke-dasharray="3,3" stroke-width="1.5"/>
+
+  <!-- Right Advantage Box -->
+  <rect x="510" y="325" width="405" height="95" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="523" y="347" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">Переваги High-Side включення:</text>
+  <text x="523" y="369" font-size="12" fill="#1a1a1a" text-anchor="start">• Спільна земля не порушується: GND_LOAD = GND_SYS = 0 В</text>
+  <text x="523" y="387" font-size="12" fill="#1a1a1a" text-anchor="start">• Безпечне підключення цифрових шин даних (I2C / SMBus)</text>
+  <text x="523" y="405" font-size="12" fill="#1a1a1a" text-anchor="start">• Високовольтний диф. вхід INA226 витримує V_CM до 36 В</text>
+</svg>

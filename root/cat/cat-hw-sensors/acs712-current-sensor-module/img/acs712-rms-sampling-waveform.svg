@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дискретна дискретизація та обчислення RMS змінного струму</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Сума квадратів N миттєвих вибірок АЦП за період 20 мс дає діюче значення I_rms</text>
+
+  <!-- Main Graph Background Panel -->
+  <rect x="70" y="80" width="620" height="390" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Zero Axis (Current I = 0 A) -->
+  <line x1="70" y1="275" x2="690" y2="275" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="60" y="279" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">0 А</text>
+
+  <!-- Peak +10A line -->
+  <line x1="70" y1="145" x2="690" y2="145" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="149" font-size="12" fill="#6b7280" text-anchor="end">+10 А</text>
+
+  <!-- Negative Peak -10A line -->
+  <line x1="70" y1="405" x2="690" y2="405" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="409" font-size="12" fill="#6b7280" text-anchor="end">-10 А</text>
+
+  <!-- RMS Level Line (+7.07 A) -->
+  <line x1="70" y1="183" x2="690" y2="183" stroke="#27ae60" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="670" y="173" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">I_rms = 7.07 А</text>
+
+  <!-- Time Axis (X) -->
+  <line x1="120" y1="275" x2="675" y2="275" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+  <text x="675" y="300" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">Час t (мс)</text>
+
+  <!-- Vertical Axis (Y) -->
+  <line x1="120" y1="450" x2="120" y2="90" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+  <text x="135" y="105" font-size="13" font-weight="bold" fill="#1a1a1a">Струм I (А)</text>
+
+  <!-- Period Window Markers (T = 20 ms) -->
+  <line x1="120" y1="80" x2="120" y2="470" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="600" y1="80" x2="600" y2="470" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="120" y="490" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t = 0 мс</text>
+  <text x="600" y="490" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t = 20 мс (Період T)</text>
+
+  <!-- Continuous Sine Wave Path -->
+  <path d="M 120,275 C 180,105 300,105 360,275 C 420,445 540,445 600,275" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Discrete Sample Points (Stems and Dots) -->
+  <!-- Sample 1 -->
+  <line x1="180" y1="275" x2="180" y2="183" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="180" cy="183" r="4" fill="#c0392b"/>
+  <text x="180" y="170" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">I₁</text>
+
+  <!-- Sample 2 (Peak) -->
+  <line x1="240" y1="275" x2="240" y2="145" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="240" cy="145" r="4" fill="#c0392b"/>
+  <text x="240" y="132" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">I₂</text>
+
+  <!-- Sample 3 -->
+  <line x1="300" y1="275" x2="300" y2="183" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="300" cy="183" r="4" fill="#c0392b"/>
+  <text x="300" y="170" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">I₃</text>
+
+  <!-- Sample 4 -->
+  <line x1="420" y1="275" x2="420" y2="367" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="420" cy="367" r="4" fill="#c0392b"/>
+  <text x="420" y="385" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">I₄</text>
+
+  <!-- Sample 5 (Neg Peak) -->
+  <line x1="480" y1="275" x2="480" y2="405" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="480" cy="405" r="4" fill="#c0392b"/>
+  <text x="480" y="423" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">I₅</text>
+
+  <!-- Sample 6 -->
+  <line x1="540" y1="275" x2="540" y2="367" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="540" cy="367" r="4" fill="#c0392b"/>
+  <text x="540" y="385" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">I₆</text>
+
+  <!-- Calculation Card Panel Right -->
+  <rect x="715" y="80" width="225" height="390" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="827" y="110" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Алгоритм обчислення</text>
+
+  <!-- Step 1 -->
+  <rect x="735" y="130" width="185" height="40" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="827" y="155" font-size="12" fill="#1a1a1a" text-anchor="middle">1. Зчитування N вибірок Iₖ</text>
+
+  <!-- Step 2 -->
+  <rect x="735" y="180" width="185" height="40" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="827" y="205" font-size="12" fill="#1a1a1a" text-anchor="middle">2. Піднесення у квадрат Iₖ²</text>
+
+  <!-- Step 3 -->
+  <rect x="735" y="230" width="185" height="40" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="827" y="255" font-size="12" fill="#1a1a1a" text-anchor="middle">3. Підсумовування ∑ Iₖ²</text>
+
+  <!-- Step 4 -->
+  <rect x="735" y="280" width="185" height="40" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="827" y="305" font-size="12" fill="#1a1a1a" text-anchor="middle">4. Усереднення (1/N)·∑ Iₖ²</text>
+
+  <!-- Step 5 Result -->
+  <rect x="735" y="335" width="185" height="60" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="827" y="360" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">I_rms = √( (1/N) ∑ Iₖ² )</text>
+  <text x="827" y="380" font-size="12" fill="#6b7280" text-anchor="middle">Діюче значення струму</text>
+</svg>

@@ -1,0 +1,76 @@
+<svg viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структура сенсора AHT20: MEMS, термодатчик та мікросхема ASIC</text>
+  <text x="480" y="65" font-size="13" fill="#6b7280" text-anchor="middle">Перетворення фізичних величин довкілля у 20-бітні цифрові коди температури й вологості через I2C</text>
+
+  <!-- Panel 1: Environment -->
+  <rect x="40" y="100" width="210" height="280" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="145" y="130" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зовнішнє середовище</text>
+  
+  <rect x="55" y="150" width="180" height="70" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="145" y="178" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Вологість повітря</text>
+  <text x="145" y="200" font-size="12" fill="#6b7280" text-anchor="middle">Відносна вологість RH (%)</text>
+
+  <rect x="55" y="280" width="180" height="70" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="145" y="308" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Температура повітря</text>
+  <text x="145" y="330" font-size="12" fill="#6b7280" text-anchor="middle">Градуси Цельсія t (C)</text>
+
+  <!-- Panel 2: Sensing Elements -->
+  <rect x="310" y="100" width="250" height="280" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="435" y="130" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сенсорні елементи чипа</text>
+
+  <rect x="330" y="150" width="210" height="90" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="435" y="175" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">MEMS-конденсатор</text>
+  <text x="435" y="198" font-size="12" fill="#1a1a1a" text-anchor="middle">Полімерний діелектрик</text>
+  <text x="435" y="220" font-size="12" fill="#2457d6" text-anchor="middle">Зміна ємності dC</text>
+
+  <rect x="330" y="260" width="210" height="90" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="435" y="285" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Терморезистивний сенсор</text>
+  <text x="435" y="308" font-size="12" fill="#1a1a1a" text-anchor="middle">Напівпровідниковий P-N перехід</text>
+  <text x="435" y="330" font-size="12" fill="#c0392b" text-anchor="middle">Зміна напруги dV</text>
+
+  <!-- Panel 3: ASIC -->
+  <rect x="620" y="100" width="300" height="280" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="770" y="130" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Обробка сигналів (ASIC)</text>
+
+  <rect x="640" y="150" width="260" height="55" rx="4" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="770" y="173" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">20-бітний прецизійний АЦП</text>
+  <text x="770" y="193" font-size="12" fill="#6b7280" text-anchor="middle">Оцифрування dC та dV</text>
+
+  <rect x="640" y="215" width="260" height="55" rx="4" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="770" y="238" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DSP + OTP Калібрування</text>
+  <text x="770" y="258" font-size="12" fill="#6b7280" text-anchor="middle">Заводська компенсація точок</text>
+
+  <rect x="640" y="280" width="260" height="80" rx="4" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="770" y="303" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Контролер шини I2C (0x38)</text>
+  <text x="770" y="325" font-size="12" fill="#1a1a1a" text-anchor="middle">7-байтовий пакет + CRC-8</text>
+  <text x="770" y="345" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Виводи SDA / SCL</text>
+
+  <!-- Arrows -->
+  <line x1="235" y1="185" x2="320" y2="185" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="235" y1="315" x2="320" y2="315" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  
+  <line x1="540" y1="185" x2="630" y2="178" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="540" y1="305" x2="630" y2="190" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <line x1="770" y1="205" x2="770" y2="215" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="770" y1="270" x2="770" y2="280" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Footer Info -->
+  <text x="480" y="420" font-size="12" fill="#6b7280" text-anchor="middle">Монтаж у корпусі SMD-6 (3.0 x 3.0 x 1.0 мм) з живленням 2.0-5.5 В</text>
+</svg>

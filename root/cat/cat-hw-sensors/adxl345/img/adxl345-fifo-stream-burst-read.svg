@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Definitions -->
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Накопичення даних у FIFO-буфері ADXL345 та пакетне зчитування</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">МК спить під час накопичення FIFO до рівня Watermark, після чого виконує Burst Read</text>
+
+  <!-- Outer Container Panel -->
+  <rect x="20" y="70" width="920" height="390" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+
+  <!-- Left Labels Column Card -->
+  <rect x="35" y="85" width="180" height="360" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="125" y="106" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сигнали / Стани</text>
+  <line x1="45" y1="115" x2="205" y2="115" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Left Track 1 Label -->
+  <text x="45" y="138" font-size="12" font-weight="bold" fill="#1a1a1a">1. Такт ODR</text>
+  <text x="45" y="152" font-size="12" fill="#6b7280">Генерація відліків</text>
+
+  <!-- Left Track 2 Label -->
+  <text x="45" y="198" font-size="12" font-weight="bold" fill="#1a1a1a">2. Заповнення FIFO</text>
+  <text x="45" y="212" font-size="12" fill="#6b7280">Буфер (0…32 відліків)</text>
+
+  <!-- Left Track 3 Label -->
+  <text x="45" y="263" font-size="12" font-weight="bold" fill="#1a1a1a">3. Сигнал INT1</text>
+  <text x="45" y="277" font-size="12" fill="#6b7280">Watermark flag</text>
+
+  <!-- Left Track 4 Label -->
+  <text x="45" y="333" font-size="12" font-weight="bold" fill="#1a1a1a">4. Стан МК</text>
+  <text x="45" y="347" font-size="12" fill="#6b7280">Power saving mode</text>
+
+  <!-- Left Track 5 Label -->
+  <text x="45" y="398" font-size="12" font-weight="bold" fill="#1a1a1a">5. Шина SPI / I2C</text>
+  <text x="45" y="412" font-size="12" fill="#6b7280">Пакетне зчитування</text>
+
+  <!-- Right Chart Area Card -->
+  <rect x="230" y="85" width="690" height="360" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+
+  <!-- Phase A Background Area -->
+  <rect x="245" y="92" width="430" height="346" fill="#e9f7ef" fill-opacity="0.3" rx="4"/>
+  <rect x="330" y="96" width="270" height="20" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="465" y="111" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Фаза 1: Накопичення у FIFO (МК у сні)</text>
+
+  <!-- Phase B Background Area -->
+  <rect x="680" y="92" width="155" height="346" fill="#eaf0fd" fill-opacity="0.4" rx="4"/>
+  <rect x="695" y="96" width="125" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="757" y="111" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Фаза 2: Burst Read</text>
+
+  <!-- Phase Grid Vertical Dividers -->
+  <line x1="675" y1="92" x2="675" y2="438" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="835" y1="92" x2="835" y2="438" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- TRACK 1: ODR Clock -->
+  <line x1="250" y1="155" x2="890" y2="155" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- ODR Sample Pulses -->
+  <line x1="270" y1="155" x2="270" y2="140" stroke="#2457d6" stroke-width="2"/>
+  <line x1="310" y1="155" x2="310" y2="140" stroke="#2457d6" stroke-width="2"/>
+  <line x1="350" y1="155" x2="350" y2="140" stroke="#2457d6" stroke-width="2"/>
+  <line x1="390" y1="155" x2="390" y2="140" stroke="#2457d6" stroke-width="2"/>
+  <line x1="430" y1="155" x2="430" y2="140" stroke="#2457d6" stroke-width="2"/>
+  <line x1="470" y1="155" x2="470" y2="140" stroke="#2457d6" stroke-width="2"/>
+  <line x1="510" y1="155" x2="510" y2="140" stroke="#2457d6" stroke-width="2"/>
+  <line x1="550" y1="155" x2="550" y2="140" stroke="#2457d6" stroke-width="2"/>
+  <line x1="590" y1="155" x2="590" y2="140" stroke="#2457d6" stroke-width="2"/>
+  <line x1="630" y1="155" x2="630" y2="140" stroke="#2457d6" stroke-width="2"/>
+  <line x1="670" y1="155" x2="670" y2="138" stroke="#c0392b" stroke-width="2.5"/>
+
+  <text x="270" y="134" font-size="11" fill="#6b7280" text-anchor="middle">Sample 1</text>
+  <text x="670" y="134" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Sample N (WM)</text>
+  <text x="290" y="172" font-size="11" fill="#6b7280" text-anchor="middle">T_ODR</text>
+
+  <!-- TRACK 2: FIFO Level Step Curve -->
+  <!-- Watermark Threshold Line -->
+  <line x1="250" y1="195" x2="890" y2="195" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="255" y="186" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="start">Рівень Watermark (N відліків)</text>
+
+  <!-- Filled Area under FIFO Fill Curve -->
+  <path d="M 250,240 L 270,240 L 270,236 L 310,236 L 310,232 L 350,232 L 350,228 L 390,228 L 390,224 L 430,224 L 430,220 L 470,220 L 470,216 L 510,216 L 510,212 L 550,212 L 550,208 L 590,208 L 590,204 L 630,204 L 630,200 L 670,200 L 670,195 L 700,195 L 820,240 L 890,240 L 250,240 Z" fill="#2457d6" fill-opacity="0.15"/>
+
+  <!-- Top Line of FIFO Step Curve -->
+  <path d="M 250,240 L 270,240 L 270,236 L 310,236 L 310,232 L 350,232 L 350,228 L 390,228 L 390,224 L 430,224 L 430,220 L 470,220 L 470,216 L 510,216 L 510,212 L 550,212 L 550,208 L 590,208 L 590,204 L 630,204 L 630,200 L 670,200 L 670,195 L 700,195 L 820,240 L 890,240" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Circle Marker at Watermark Level Reached -->
+  <circle cx="670" cy="195" r="4.5" fill="#c0392b"/>
+
+  <!-- FIFO WM Trigger Alert Tag -->
+  <rect x="525" y="202" width="140" height="18" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="3"/>
+  <text x="595" y="215" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">FIFO досяг WM (N)</text>
+
+  <!-- TRACK 3: INT1 Interrupt Signal -->
+  <text x="240" y="270" font-size="11" fill="#6b7280" text-anchor="end">HIGH</text>
+  <text x="240" y="295" font-size="11" fill="#6b7280" text-anchor="end">LOW</text>
+  <path d="M 250,295 L 670,295 L 670,265 L 820,265 L 820,295 L 890,295" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- INT Trigger Indicator Arrow and Text -->
+  <text x="670" y="252" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Переривання: WM спрацював</text>
+  <line x1="670" y1="255" x2="670" y2="261" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- TRACK 4: MCU Power State Banners -->
+  <rect x="250" y="325" width="425" height="36" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="462" y="341" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">МК у режимі сну (Low-Power Sleep)</text>
+  <text x="462" y="355" font-size="11" fill="#6b7280" text-anchor="middle">Ядро вимкнене • Мінімальне споживання струму</text>
+
+  <rect x="680" y="325" width="150" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="755" y="341" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">МК Активний</text>
+  <text x="755" y="355" font-size="11" fill="#2457d6" text-anchor="middle">Burst Read &amp; Обробка</text>
+
+  <rect x="835" y="325" width="55" height="36" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="862" y="347" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Сон</text>
+
+  <!-- TRACK 5: Bus Activity (SPI / I2C) -->
+  <line x1="250" y1="406" x2="695" y2="406" stroke="#d0d7de" stroke-width="2"/>
+  <text x="465" y="398" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Шина в режимі очікування (0% трафіку шини)</text>
+
+  <!-- Burst Read Bus Protocol Box -->
+  <rect x="695" y="386" width="140" height="36" fill="#2457d6" rx="4"/>
+  <rect x="697" y="388" width="38" height="32" fill="#1a3ba8" rx="2"/>
+  <text x="716" y="408" font-size="11" font-weight="bold" fill="white" text-anchor="middle">0x32</text>
+
+  <rect x="737" y="388" width="96" height="32" fill="#3b72f6" rx="2"/>
+  <text x="785" y="401" font-size="10" font-weight="bold" fill="white" text-anchor="middle">Burst Read (6×N б)</text>
+  <text x="785" y="413" font-size="10" fill="#eaf0fd" text-anchor="middle">DATAX0…DATAZ1</text>
+
+  <line x1="835" y1="406" x2="890" y2="406" stroke="#d0d7de" stroke-width="2"/>
+
+  <text x="765" y="438" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Зчитування всіх накопичених відліків за 1 транзакцію</text>
+</svg>

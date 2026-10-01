@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Схема й апаратна структура модуля AHT20 + BMP280</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Узгодження живлення 5 В / 3.3 В та захист шини I²C транзисторними перетворювачами</text>
+
+  <!-- Panel 1: External Connector (MCU Domain) -->
+  <rect x="20" y="75" width="130" height="465" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="85" y="100" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Роз'єм MCU</text>
+
+  <!-- Pin VCC -->
+  <rect x="35" y="125" width="100" height="35" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="85" y="147" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">VCC (5V)</text>
+
+  <!-- Pin GND -->
+  <rect x="35" y="215" width="100" height="35" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="85" y="237" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">GND (0V)</text>
+
+  <!-- Pin SDA -->
+  <rect x="35" y="315" width="100" height="35" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="85" y="337" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">SDA (5V)</text>
+
+  <!-- Pin SCL -->
+  <rect x="35" y="415" width="100" height="35" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="85" y="437" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">SCL (5V)</text>
+
+
+  <!-- Panel 2: Power Supply & Level Translation Block -->
+  <rect x="170" y="75" width="370" height="465" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="355" y="100" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Узгодження живлення та логіки</text>
+
+  <!-- LDO Regulator -->
+  <rect x="190" y="118" width="330" height="75" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="355" y="140" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">LDO-стабілізатор (XC6206 / 662K)</text>
+  <text x="355" y="160" font-size="12" fill="#6b7280" text-anchor="middle">Вхід: 3.3…5.5 В  ➔  Вихід VDD: 3.3 В (живлення чипів)</text>
+  <text x="355" y="180" font-size="12" fill="#1a1a1a" text-anchor="middle">Конденсатори фільтрації C1, C2 (0.1 мкФ)</text>
+
+  <!-- SDA Level Translator Box -->
+  <rect x="190" y="208" width="330" height="150" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="355" y="228" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Двонапрямні MOSFET-перетворювачі SDA та SCL</text>
+  <text x="355" y="246" font-size="12" fill="#2457d6" text-anchor="middle">Канал SDA: N-channel MOSFET Q1 (BSS138)</text>
+
+  <rect x="215" y="260" width="55" height="22" fill="#ffffff" stroke="#1a1a1a"/>
+  <text x="242" y="275" font-size="12" fill="#1a1a1a" text-anchor="middle">R1 10k</text>
+
+  <rect x="440" y="260" width="55" height="22" fill="#ffffff" stroke="#1a1a1a"/>
+  <text x="467" y="275" font-size="12" fill="#1a1a1a" text-anchor="middle">R3 10k</text>
+
+  <rect x="315" y="265" width="80" height="38" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="355" y="281" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Q1 BSS138</text>
+  <text x="355" y="296" font-size="12" fill="#6b7280" text-anchor="middle">Затвор=3.3V</text>
+
+  <text x="355" y="328" font-size="12" fill="#6b7280" text-anchor="middle">HV (5В) ⟷ DRAIN | SOURCE ⟷ LV (3.3В)</text>
+  <text x="355" y="348" font-size="12" fill="#27ae60" font-weight="700" text-anchor="middle">Двонапрямна передача SDA</text>
+
+  <!-- SCL Level Translator Box -->
+  <rect x="190" y="368" width="330" height="158" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="355" y="388" font-size="12" fill="#2457d6" text-anchor="middle">Канал SCL: N-channel MOSFET Q2 (BSS138)</text>
+
+  <rect x="215" y="400" width="55" height="22" fill="#ffffff" stroke="#1a1a1a"/>
+  <text x="242" y="415" font-size="12" fill="#1a1a1a" text-anchor="middle">R2 10k</text>
+
+  <rect x="440" y="400" width="55" height="22" fill="#ffffff" stroke="#1a1a1a"/>
+  <text x="467" y="415" font-size="12" fill="#1a1a1a" text-anchor="middle">R4 10k</text>
+
+  <rect x="315" y="405" width="80" height="38" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="355" y="421" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Q2 BSS138</text>
+  <text x="355" y="436" font-size="12" fill="#6b7280" text-anchor="middle">Затвор=3.3V</text>
+
+  <text x="355" y="470" font-size="12" fill="#6b7280" text-anchor="middle">HV (5В) ⟷ DRAIN | SOURCE ⟷ LV (3.3В)</text>
+  <text x="355" y="495" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Захищає виводи чипів 3.3 В від високої напруги 5 В</text>
+
+
+  <!-- Panel 3: Sensor ICs & I2C Bus -->
+  <rect x="560" y="75" width="380" height="465" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="750" y="100" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Давачі та шина I²C (3.3 В)</text>
+
+  <!-- AHT20 Box -->
+  <rect x="580" y="118" width="160" height="210" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="660" y="142" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">AHT20 (ASAIR)</text>
+  <text x="660" y="162" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Адреса I²C: 0x38</text>
+  <text x="660" y="180" font-size="12" fill="#6b7280" text-anchor="middle">Температура + Вологість</text>
+  <line x1="590" y1="190" x2="730" y2="190" stroke="#d0d7de"/>
+  <text x="595" y="212" font-size="12" font-weight="700" fill="#1a1a1a">VDD (3.3V)</text>
+  <text x="595" y="240" font-size="12" fill="#1a1a1a">GND (0V)</text>
+  <text x="595" y="272" font-size="12" font-weight="700" fill="#2457d6">SDA (3.3V)</text>
+  <text x="595" y="304" font-size="12" font-weight="700" fill="#2457d6">SCL (3.3V)</text>
+
+  <!-- BMP280 Box -->
+  <rect x="765" y="118" width="160" height="210" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="845" y="142" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">BMP280 (Bosch)</text>
+  <text x="845" y="162" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Адреса I²C: 0x76/0x77</text>
+  <text x="845" y="180" font-size="12" fill="#6b7280" text-anchor="middle">Температура + Тиск</text>
+  <line x1="775" y1="190" x2="915" y2="190" stroke="#d0d7de"/>
+  <text x="780" y="212" font-size="12" font-weight="700" fill="#1a1a1a">VDD (3.3V)</text>
+  <text x="780" y="240" font-size="12" fill="#1a1a1a">GND (0V)</text>
+  <text x="780" y="272" font-size="12" font-weight="700" fill="#2457d6">SDA (3.3V)</text>
+  <text x="780" y="304" font-size="12" font-weight="700" fill="#2457d6">SCL (3.3V)</text>
+
+  <!-- Summary Box -->
+  <rect x="580" y="345" width="345" height="175" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="752" y="370" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Конфігурація та правила I²C</text>
+  <text x="595" y="396" font-size="12" fill="#1a1a1a">• AHT20: адреса 0x38 (не змінюється)</text>
+  <text x="595" y="420" font-size="12" fill="#1a1a1a">• BMP280: 0x76 (SDO=GND) або 0x77 (SDO=VDD)</text>
+  <text x="595" y="444" font-size="12" fill="#1a1a1a">• Обидва чипи живляться від єдиної лінії 3.3 В</text>
+  <text x="595" y="468" font-size="12" fill="#1a1a1a">• Резистори R1–R4 підтягують лінію до VCC і VDD</text>
+  <text x="595" y="495" font-size="12" font-weight="700" fill="#27ae60">• Вихідні дані: T, RH (AHT20) + T, P (BMP280)</text>
+
+  <!-- Signal Lines / Traces -->
+  <!-- VCC line from pin 1 (135,142) to LDO in (190,142) -->
+  <path d="M135,142 L190,142" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- GND line from pin 2 (135,232) -->
+  <path d="M135,232 L160,232" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- SDA line from pin 3 (135,332) to shifter (190,332) -->
+  <path d="M135,332 L190,332" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- SCL line from pin 4 (135,432) to shifter (190,432) -->
+  <path d="M135,432 L190,432" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- LDO VOUT to sensor VDD pins -->
+  <path d="M520,142 L550,142 L550,212 L580,212" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <path d="M740,212 L765,212" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- Shifter SDA output to sensor SDA pins -->
+  <path d="M520,290 L540,290 L540,272 L580,272" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <path d="M740,272 L765,272" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- Shifter SCL output to sensor SCL pins -->
+  <path d="M520,430 L555,430 L555,304 L580,304" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <path d="M740,304 L765,304" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+</svg>

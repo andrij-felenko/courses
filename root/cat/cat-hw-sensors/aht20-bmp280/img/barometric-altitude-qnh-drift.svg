@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дрейф опорного тиску QNH та похибка барометричної висоти</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Зміна QNH на 1 гПа зміщує розраховану висоту на ~8,4 м за незмінного атмосферного тиску</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Схема атмосферного стовпа -->
+  <rect x="24" y="75" width="448" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="248" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема атмосферного стовпа та дрейфу</text>
+  <text x="248" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Розрахунок висоти за формулою для двох рівнів QNH</text>
+
+  <!-- Вісь висоти h -->
+  <line x1="65" y1="410" x2="65" y2="155" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="65" y="142" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Висота h (м)</text>
+
+  <!-- Вісь тиску P -->
+  <line x1="65" y1="410" x2="445" y2="410" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Позначки вісі та QNH під віссю P -->
+  <text x="75" y="428" font-size="12" font-weight="bold" fill="#27ae60">QNH₁=1013.25</text>
+  <text x="195" y="428" font-size="12" font-weight="bold" fill="#c0392b">QNH₂=1018.25</text>
+  <text x="445" y="428" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Тиск P (гПа)</text>
+
+  <!-- Лінія рівня моря (h = 0) -->
+  <line x1="65" y1="400" x2="435" y2="400" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="310" y="385" font-size="12" fill="#6b7280">Рівень моря (h = 0 м)</text>
+
+  <!-- Лінія реальної висоти (h = 100 м) розділена навколо блоку давача -->
+  <line x1="65" y1="310" x2="75" y2="310" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="210" y1="310" x2="435" y2="310" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="58" y="314" font-size="12" fill="#2457d6" text-anchor="end">100 м</text>
+
+  <!-- Блок давача BMP280 на реальній висоті (ліворуч від точки перетину) -->
+  <rect x="75" y="296" width="130" height="28" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="140" y="314" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">BMP280: P = 1001.2 гПа</text>
+
+  <!-- Точка перетину 1 (Точна висота) -->
+  <circle cx="247" cy="310" r="5" fill="#27ae60"/>
+  <rect x="180" y="260" width="135" height="24" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="247" y="276" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">h₁ = 100 м (Точна)</text>
+
+  <!-- Лінія розрахованої похибної висоти (h = 142 м) -->
+  <line x1="65" y1="220" x2="435" y2="220" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="58" y="224" font-size="12" fill="#c0392b" text-anchor="end">142 м</text>
+
+  <!-- Профіль тиску 1: Базовий -->
+  <path d="M 120 400 Q 220 320 410 170" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="120" cy="400" r="4" fill="#27ae60"/>
+
+  <!-- Профіль тиску 2: Зсунутий -->
+  <path d="M 170 400 Q 270 320 440 170" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6 3"/>
+  <circle cx="170" cy="400" r="4" fill="#c0392b"/>
+
+  <!-- Точка перетину 2 (Похибна висота) -->
+  <circle cx="345" cy="220" r="5" fill="#c0392b"/>
+  <rect x="250" y="150" width="135" height="24" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="317" y="166" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">h₂ = 142 м (Похибна)</text>
+
+  <!-- Стрілка похибки дрейфу -->
+  <line x1="425" y1="305" x2="425" y2="225" stroke="#c0392b" stroke-width="2" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <text x="415" y="258" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Δh = +42 м</text>
+  <text x="415" y="274" font-size="12" fill="#c0392b" text-anchor="end">Похибка дрейфу</text>
+
+  <!-- Картка висновку лівої панелі -->
+  <rect x="40" y="442" width="416" height="56" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="463" font-size="12" font-weight="bold" fill="#1a1a1a">Висновок графічної моделі:</text>
+  <text x="52" y="481" font-size="12" fill="#6b7280">При зростанні тиску QNH без перекалібрування барометр занижує</text>
+  <text x="52" y="495" font-size="12" fill="#c0392b">відносне розрідження повітря і завищує розраховану висоту.</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Математичний апарат -->
+  <rect x="488" y="75" width="448" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Математичний апарат та чутливість</text>
+  <text x="712" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Формули Барометрії та алгоритми для мікроконтролера</text>
+
+  <!-- Картка 1: Гіпсометрична формула -->
+  <rect x="504" y="132" width="416" height="88" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="516" y="152" font-size="12" font-weight="bold" fill="#1a1a1a">Міжнародна гіпсометрична формула (ГОСТ 4401-81):</text>
+  <rect x="516" y="160" width="392" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="712" y="181" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">h = (T₀ / L) · [ 1 - ( P / QNH )^(R·L / g₀) ] ≈ 44330 · [ 1 - ( P / QNH )^0.1903 ]</text>
+  <text x="516" y="208" font-size="12" fill="#6b7280">де L = 0.0065 К/м (градієнт), T₀ = 288.15 K, R = 287.05 Дж/(кг·К)</text>
+
+  <!-- Картка 2: Чутливість QNH -->
+  <rect x="504" y="228" width="416" height="102" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="516" y="248" font-size="12" font-weight="bold" fill="#1a1a1a">Градієнт чутливості висоти біля поверхні землі:</text>
+  <rect x="516" y="256" width="392" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="712" y="275" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">∂h / ∂QNH = (R · T₀) / (g₀ · QNH) ≈ 8.43 м / гПа (на h ≈ 0 м)</text>
+  <text x="516" y="302" font-size="12" fill="#1a1a1a">• Похибка QNH в 1 гПа (0.75 мм рт. ст.) створює похибку висоти 8.4 м</text>
+  <text x="516" y="318" font-size="12" fill="#6b7280">• Синоптичний дрейф тиску (10 гПа / добу) дає похибку висоти 84 м!</text>
+
+  <!-- Картка 3: Рекомендації прошивки -->
+  <rect x="504" y="338" width="416" height="160" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="516" y="358" font-size="12" font-weight="bold" fill="#27ae60">Рекомендації з обробки даних (BMP280 + AHT20):</text>
+  <text x="516" y="380" font-size="12" fill="#1a1a1a">1. <tspan font-weight="bold">Автокалібрування QNH:</tspan> оновлення QNH з метеостанції або GPS</text>
+  <text x="516" y="400" font-size="12" fill="#1a1a1a">2. <tspan font-weight="bold">Відносна висота QFE:</tspan> фіксація P₀ = P_старт під час ініціалізації</text>
+  <text x="516" y="420" font-size="12" fill="#1a1a1a">3. <tspan font-weight="bold">Термокомпенсація AHT20:</tspan> використання виміряної T замість T₀</text>
+  <text x="516" y="440" font-size="12" fill="#1a1a1a">4. <tspan font-weight="bold">Фільтрація Калмана / EMA:</tspan> згладжування шуму вимірювань BMP280</text>
+  <text x="516" y="460" font-size="12" fill="#1a1a1a">5. <tspan font-weight="bold">Комплементарний фільтр:</tspan> комплексування з IMU та GNSS</text>
+  <text x="516" y="484" font-size="12" fill="#27ae60" font-weight="bold">Результат: точність визначення висоти до ±0.5 м у динаміці</text>
+</svg>

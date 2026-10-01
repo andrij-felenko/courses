@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма й профіль струму циклу Deep Sleep кліматичного вузла</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Основний час вузол перебуває в режимі глибокого сну з мікроамперним споживанням</text>
+
+  <!-- Axes -->
+  <path d="M 80 380 L 900 380" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <text x="915" y="385" font-size="12" font-weight="bold" fill="#1a1a1a">Час t</text>
+
+  <path d="M 80 380 L 80 150" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <text x="75" y="140" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Струм I (mA)</text>
+
+  <!-- Y ticks -->
+  <text x="70" y="385" font-size="12" fill="#6b7280" text-anchor="end">0 mA</text>
+  <text x="70" y="320" font-size="12" fill="#6b7280" text-anchor="end">1 mA</text>
+  <text x="70" y="240" font-size="12" fill="#6b7280" text-anchor="end">15 mA</text>
+  <text x="70" y="170" font-size="12" fill="#6b7280" text-anchor="end">120 mA</text>
+
+  <!-- Current Profile Waveform -->
+  <path d="M 80 380 L 80 240 L 160 240 L 160 320 L 400 320 L 400 170 L 520 170 L 520 379 L 880 379 L 880 380 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Phase 1: Wakeup -->
+  <line x1="80" y1="150" x2="80" y2="380" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="160" y1="150" x2="160" y2="380" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <rect x="85" y="85" width="70" height="45" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="120" y="103" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Phase 1</text>
+  <text x="120" y="120" font-size="12" fill="#6b7280" text-anchor="middle">5-10 ms</text>
+
+  <!-- Phase 2: AHT20 Measure -->
+  <line x1="400" y1="150" x2="400" y2="380" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <rect x="230" y="85" width="120" height="45" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="290" y="103" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Phase 2: AHT20</text>
+  <text x="290" y="120" font-size="12" fill="#1a1a1a" text-anchor="middle">80 ms (1 mA)</text>
+
+  <!-- Phase 3: Wireless TX -->
+  <line x1="520" y1="150" x2="520" y2="380" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <rect x="425" y="85" width="90" height="45" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="470" y="103" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Phase 3: TX</text>
+  <text x="470" y="120" font-size="12" fill="#1a1a1a" text-anchor="middle">120 mA peak</text>
+
+  <!-- Phase 4: Deep Sleep -->
+  <rect x="620" y="85" width="180" height="45" rx="4" fill="#f4f6f8" stroke="#2457d6"/>
+  <text x="710" y="103" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Phase 4: Deep Sleep</text>
+  <text x="710" y="120" font-size="12" fill="#6b7280" text-anchor="middle">60 sec (I &lt; 5 µA)</text>
+
+  <!-- Summary Box at bottom -->
+  <rect x="80" y="405" width="800" height="45" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="480" y="432" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Середній струм за цикл: I_avg ≈ 8.5 µA | Термін служби від CR2032 (220 mAh): &gt; 2.5 роки</text>
+</svg>

@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема FIFO-буфера та маршрутизації переривань ADXL345</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">32-рівневе накопичення даних (FIFO) та гнучке призначення подій на виводи INT1/INT2 через регістр INT_MAP</text>
+
+  <!-- Panel 1: FIFO Core -->
+  <rect x="30" y="80" width="290" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="175" y="103" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Блок FIFO-буфера (32 відліки)</text>
+
+  <!-- Data Input Box -->
+  <rect x="45" y="118" width="260" height="44" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="175" y="136" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Дані вимірювань X, Y, Z (16 біт)</text>
+  <text x="175" y="152" font-size="12" fill="#6b7280" text-anchor="middle">Частота ODR: 0.1 Гц … 3200 Гц</text>
+
+  <!-- Arrow down into FIFO -->
+  <path d="M 175 162 L 175 178" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- FIFO Queue Slots -->
+  <rect x="50" y="180" width="140" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="120" y="196" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Семпл 31 (Вхід)</text>
+
+  <rect x="50" y="208" width="140" height="22" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="120" y="223" font-size="12" fill="#1a1a1a" text-anchor="middle">Семпл 30</text>
+
+  <text x="120" y="244" font-size="12" fill="#6b7280" text-anchor="middle">• • •</text>
+
+  <!-- WTM Label & Line -->
+  <text x="202" y="246" font-size="12" font-weight="bold" fill="#c0392b">Поріг WTM</text>
+  <line x1="45" y1="256" x2="195" y2="256" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <rect x="50" y="264" width="140" height="22" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="120" y="279" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Семпл 16 (WTM)</text>
+
+  <text x="120" y="300" font-size="12" fill="#6b7280" text-anchor="middle">• • •</text>
+
+  <rect x="50" y="310" width="140" height="24" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="120" y="326" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Семпл 0 (Вихід)</text>
+
+  <!-- Arrow to Read Box -->
+  <path d="M 120 334 L 120 350" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Read Box -->
+  <rect x="45" y="352" width="150" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="120" y="372" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Зчитування I2C / SPI</text>
+
+  <!-- FIFO Modes Box -->
+  <rect x="45" y="394" width="260" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="55" y="412" font-size="12" font-weight="bold" fill="#1a1a1a">Режими FIFO (FIFO_CTL):</text>
+  <text x="55" y="430" font-size="12" fill="#6b7280">• Bypass: Буфер вимкнено (1 відлік)</text>
+  <text x="55" y="448" font-size="12" fill="#6b7280">• FIFO: Зупинка при заповненні (32)</text>
+  <text x="55" y="466" font-size="12" fill="#6b7280">• Stream: Безперервний перезапис</text>
+  <text x="55" y="484" font-size="12" fill="#6b7280">• Trigger: Stream → FIFO по події</text>
+
+  <!-- Panel 2: Events & Masking -->
+  <rect x="335" y="80" width="290" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="103" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Події та маскування (INT_ENABLE)</text>
+  <text x="480" y="122" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Джерела переривань (INT_SOURCE)</text>
+
+  <!-- Source 1: DATA_READY -->
+  <rect x="350" y="132" width="260" height="34" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="360" y="153" font-size="12" font-weight="bold" fill="#1a1a1a">DATA_READY</text>
+  <text x="600" y="153" font-size="12" fill="#6b7280" text-anchor="end">D7 | Готовність даних</text>
+
+  <!-- Source 2: TAP -->
+  <rect x="350" y="172" width="260" height="34" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="360" y="193" font-size="12" font-weight="bold" fill="#1a1a1a">SINGLE / DBL_TAP</text>
+  <text x="600" y="193" font-size="12" fill="#6b7280" text-anchor="end">D6..D5 | Торкання</text>
+
+  <!-- Source 3: ACT / INACT -->
+  <rect x="350" y="212" width="260" height="34" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="360" y="233" font-size="12" font-weight="bold" fill="#1a1a1a">ACT / INACT</text>
+  <text x="600" y="233" font-size="12" fill="#6b7280" text-anchor="end">D4..D3 | Рух / Спокій</text>
+
+  <!-- Source 4: FREE_FALL -->
+  <rect x="350" y="252" width="260" height="34" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="360" y="273" font-size="12" font-weight="bold" fill="#c0392b">FREE_FALL</text>
+  <text x="600" y="273" font-size="12" fill="#c0392b" text-anchor="end">D2 | Вільне падіння</text>
+
+  <!-- Source 5: WATERMARK -->
+  <rect x="350" y="292" width="260" height="34" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="360" y="313" font-size="12" font-weight="bold" fill="#2457d6">WATERMARK</text>
+  <text x="600" y="313" font-size="12" fill="#2457d6" text-anchor="end">D1 | Поріг FIFO</text>
+
+  <!-- Source 6: OVERRUN -->
+  <rect x="350" y="332" width="260" height="34" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="360" y="353" font-size="12" font-weight="bold" fill="#c0392b">OVERRUN</text>
+  <text x="600" y="353" font-size="12" fill="#c0392b" text-anchor="end">D0 | Переповнення</text>
+
+  <!-- Masking Box (INT_ENABLE) -->
+  <rect x="350" y="376" width="260" height="128" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="480" y="396" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Регістр дозволу (INT_ENABLE)</text>
+  <text x="360" y="416" font-size="12" fill="#1a1a1a">• Бітове маскування подій (AND):</text>
+  <text x="372" y="434" font-size="12" fill="#27ae60">1 = Переривання дозволено (Active)</text>
+  <text x="372" y="452" font-size="12" fill="#6b7280">0 = Переривання замасковано</text>
+  <text x="360" y="476" font-size="12" font-weight="bold" fill="#1a1a1a">Сигнал активних подій ➔ INT_MAP</text>
+
+  <!-- Panel 3: Routing (INT_MAP) & Pins -->
+  <rect x="640" y="80" width="290" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="785" y="103" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Маршрутизація (INT_MAP) та Ніжки</text>
+
+  <!-- INT_MAP Box -->
+  <rect x="655" y="120" width="260" height="235" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="785" y="140" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Регістр конфігурації INT_MAP</text>
+  <text x="785" y="157" font-size="12" fill="#6b7280" text-anchor="middle">Вибір виводу для кожної події</text>
+
+  <!-- Rule 0 -->
+  <rect x="665" y="167" width="240" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="675" y="185" font-size="12" font-weight="bold" fill="#2457d6">Біт INT_MAP = 0 ➔ Маршрут на INT1</text>
+
+  <!-- Rule 1 -->
+  <rect x="665" y="200" width="240" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="675" y="218" font-size="12" font-weight="bold" fill="#27ae60">Біт INT_MAP = 1 ➔ Маршрут на INT2</text>
+
+  <!-- Example Subpanel -->
+  <rect x="665" y="234" width="240" height="110" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="675" y="251" font-size="12" font-weight="bold" fill="#1a1a1a">Типовий розподіл переривань:</text>
+  <text x="675" y="269" font-size="12" fill="#2457d6">• Watermark / Overrun ➔ INT1 (0)</text>
+  <text x="675" y="287" font-size="12" fill="#2457d6">• DATA_READY ➔ INT1 (0)</text>
+  <text x="675" y="305" font-size="12" fill="#27ae60">• FREE_FALL / TAP ➔ INT2 (1)</text>
+  <text x="675" y="323" font-size="12" fill="#27ae60">• ACT / INACT ➔ INT2 (1)</text>
+
+  <!-- Side-by-Side Pin Boxes -->
+  <!-- INT1 Pin -->
+  <rect x="655" y="375" width="125" height="125" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="717" y="398" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вивід INT1</text>
+  <text x="717" y="415" font-size="12" fill="#6b7280" text-anchor="middle">(Ніжка 8)</text>
+  <text x="717" y="438" font-size="12" fill="#1a1a1a" text-anchor="middle">WTM, Overrun,</text>
+  <text x="717" y="456" font-size="12" fill="#1a1a1a" text-anchor="middle">DATA_READY</text>
+  <text x="717" y="482" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">➔ MCU EXTI1</text>
+
+  <!-- INT2 Pin -->
+  <rect x="790" y="375" width="125" height="125" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="852" y="398" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вивід INT2</text>
+  <text x="852" y="415" font-size="12" fill="#6b7280" text-anchor="middle">(Ніжка 9)</text>
+  <text x="852" y="438" font-size="12" fill="#1a1a1a" text-anchor="middle">Free Fall, Tap,</text>
+  <text x="852" y="456" font-size="12" fill="#1a1a1a" text-anchor="middle">Activity / Inact</text>
+  <text x="852" y="482" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">➔ MCU EXTI2</text>
+
+  <!-- Connecting Arrows between Panels -->
+  <!-- 1. Arrow from WTM threshold in FIFO to WATERMARK source box -->
+  <path d="M 195 256 L 315 256 L 315 309 L 342 309" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+
+  <!-- 2. Arrow from INT_ENABLE output to INT_MAP -->
+  <path d="M 610 440 L 632 440 L 632 200 L 647 200" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- 3. Arrows from INT_MAP to Pin INT1 and Pin INT2 -->
+  <path d="M 717 355 L 717 368" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 852 355 L 852 368" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+</svg>

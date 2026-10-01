@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Диференціальна ємнісна MEMS-структура ADXL345</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Зміщення рухомої маси під дією прискорення змінює зазори d₁ і d₂ та ємності C₁ i C₂</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Схема MEMS-осередку -->
+  <rect x="24" y="75" width="540" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="44" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">Фізична структура осередку акселерометра</text>
+
+  <!-- Внутрішнє біле поле для схеми -->
+  <rect x="40" y="115" width="508" height="390" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+
+  <!-- Кремнієва підкладка (основа) -->
+  <rect x="50" y="472" width="488" height="24" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="3"/>
+  <text x="294" y="489" font-size="12" fill="#6b7280" text-anchor="middle">Кремнієва підкладка (Substrate Ground)</text>
+
+  <!-- Анкери фіксації пружин (ліворуч) -->
+  <!-- Верхній анкер -->
+  <rect x="55" y="135" width="50" height="30" fill="#d0d7de" stroke="#475569" stroke-width="1.5" rx="3"/>
+  <text x="80" y="154" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Анкер</text>
+
+  <!-- Нижній анкер -->
+  <rect x="55" y="425" width="50" height="30" fill="#d0d7de" stroke="#475569" stroke-width="1.5" rx="3"/>
+  <text x="80" y="444" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Анкер</text>
+
+  <!-- Пружинні підвіси (меандр) -->
+  <!-- Верхня пружина -->
+  <path d="M 105,150 L 130,150 L 130,175 L 145,175 L 145,150 L 170,150 L 170,210" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="125" y="140" font-size="12" fill="#2457d6" text-anchor="middle">Підвіс</text>
+
+  <!-- Нижня пружина -->
+  <path d="M 105,440 L 130,440 L 130,415 L 145,415 L 145,440 L 170,440 L 170,380" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="125" y="456" font-size="12" fill="#2457d6" text-anchor="middle">Підвіс</text>
+
+  <!-- Рухома сейсмічна маса (Proof Mass) -->
+  <rect x="170" y="190" width="85" height="210" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="4"/>
+  <text x="212" y="280" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Рухома</text>
+  <text x="212" y="297" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">маса</text>
+  <text x="212" y="314" font-size="12" fill="#6b7280" text-anchor="middle">(Proof Mass)</text>
+
+  <!-- Вектор прискорення / зміщення над рухомою масою -->
+  <line x1="212" y1="132" x2="212" y2="168" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="224" y="154" font-size="12" font-weight="bold" fill="#2457d6">Зміщення Δx (при a &gt; 0)</text>
+
+  <!-- Значки ємностей C1 та C2 (ліворуч від пальців) -->
+  <!-- Плашка C1 -->
+  <rect x="55" y="250" width="95" height="28" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="102" y="268" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Ємність C₁</text>
+
+  <!-- Плашка C2 -->
+  <rect x="55" y="345" width="95" height="28" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="102" y="363" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Ємність C₂</text>
+
+  <!-- Нерухомі та рухомі пальці (гребінки) -->
+
+  <!-- Верхній нерухомий палець (CS1) -->
+  <rect x="270" y="230" width="160" height="35" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="3"/>
+  <text x="350" y="252" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Нерухомий палець CS1</text>
+
+  <!-- Анкер електрода CS1 -->
+  <rect x="430" y="210" width="100" height="55" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="4"/>
+  <text x="480" y="234" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Електрод CS1</text>
+  <text x="480" y="250" font-size="12" fill="#6b7280" text-anchor="middle">(опорний V1)</text>
+
+  <!-- Зазор d1 (між CS1 та рухомим пальцем) -->
+  <!-- Електричне поле CS1 <-> Рухомий -->
+  <line x1="285" y1="272" x2="285" y2="288" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="330" y1="272" x2="330" y2="288" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="375" y1="272" x2="375" y2="288" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="415" y1="272" x2="415" y2="288" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Стрілка зазору d1 -->
+  <line x1="252" y1="267" x2="252" y2="293" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <text x="244" y="284" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="end">d₁</text>
+
+  <!-- Центральний рухомий палець (з'єднаний з рухомою масою) -->
+  <rect x="255" y="295" width="175" height="35" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="3"/>
+  <text x="342" y="317" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Рухомий палець (маса)</text>
+
+  <!-- Зазор d2 (між рухомим пальцем та CS2) -->
+  <!-- Електричне поле Рухомий <-> CS2 -->
+  <line x1="285" y1="337" x2="285" y2="353" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="330" y1="337" x2="330" y2="353" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="375" y1="337" x2="375" y2="353" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="415" y1="337" x2="415" y2="353" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Стрілка зазору d2 -->
+  <line x1="252" y1="332" x2="252" y2="358" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <text x="244" y="350" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="end">d₂</text>
+
+  <!-- Нижній нерухомий палець (CS2) -->
+  <rect x="270" y="360" width="160" height="35" fill="#fdecea" stroke="#c0392b" stroke-width="2" rx="3"/>
+  <text x="350" y="382" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Нерухомий палець CS2</text>
+
+  <!-- Анкер електрода CS2 -->
+  <rect x="430" y="360" width="100" height="55" fill="#fdecea" stroke="#c0392b" stroke-width="2" rx="4"/>
+  <text x="480" y="384" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Електрод CS2</text>
+  <text x="480" y="400" font-size="12" fill="#6b7280" text-anchor="middle">(опорний V2)</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: Фізичні формули та принцип дії -->
+  <rect x="580" y="75" width="356" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="596" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">Математична модель та принципи</text>
+
+  <!-- Блок 1: Стан спокою -->
+  <rect x="596" y="115" width="324" height="110" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="612" y="138" font-size="13" font-weight="bold" fill="#1a1a1a">1. Стан спокою (а = 0)</text>
+  <text x="612" y="160" font-size="12" fill="#1a1a1a">• Рівноважні зазори: d₁ = d₂ = d₀</text>
+  <text x="612" y="180" font-size="12" fill="#1a1a1a">• Рівні ємності: C₁ = C₂ = C₀</text>
+  <text x="612" y="200" font-size="12" font-weight="bold" fill="#27ae60">• Нульовий баланс: ΔC = C₁ − C₂ = 0</text>
+
+  <!-- Блок 2: Дія прискорення -->
+  <rect x="596" y="240" width="324" height="140" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="612" y="263" font-size="13" font-weight="bold" fill="#2457d6">2. Дія прискорення (a &gt; 0)</text>
+  <text x="612" y="285" font-size="12" fill="#1a1a1a">• Рухома маса зміщується на Δx ∝ a</text>
+  <text x="612" y="305" font-size="12" fill="#27ae60">• d₁ зменшується ⇒ C₁ = εA / (d₀ − Δx) ↑</text>
+  <text x="612" y="325" font-size="12" fill="#c0392b">• d₂ збільшується ⇒ C₂ = εA / (d₀ + Δx) ↓</text>
+  <text x="612" y="348" font-size="12" font-weight="bold" fill="#2457d6">• Диференційна ємність: ΔC ∝ Δx ∝ a</text>
+
+  <!-- Блок 3: Перетворення в код -->
+  <rect x="596" y="395" width="324" height="110" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="612" y="418" font-size="13" font-weight="bold" fill="#1a1a1a">3. Цифрова обробка (Full Res)</text>
+  <text x="612" y="440" font-size="12" fill="#1a1a1a">• Опорні сигнали: 180° протифазні меандри</text>
+  <text x="612" y="460" font-size="12" fill="#1a1a1a">• Σ-Δ АЦП вимірює розбаланс зарядів</text>
+  <text x="612" y="480" font-size="12" font-weight="bold" fill="#2457d6">• Стала чутливість: 4 мг/МЗР (13 біт)</text>
+</svg>

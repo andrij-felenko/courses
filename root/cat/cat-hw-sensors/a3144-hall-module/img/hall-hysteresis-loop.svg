@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <!-- Axis Arrow -->
+    <marker id="arr-axis" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <!-- Blue Line Arrow -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <!-- Green Line Arrow -->
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <!-- Dimension Left Arrow -->
+    <marker id="arr-dim-left" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <!-- Dimension Right Arrow -->
+    <marker id="arr-dim-right" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Гістерезис уніполярного давача Холла A3144</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Пороги Bop (спрацьовування) та Brp (відпускання) запобігають дребезгу виходу VOUT</text>
+
+  <!-- Shaded Hysteresis Region -->
+  <rect x="290" y="170" width="160" height="160" fill="#eaf0fd" opacity="0.6"/>
+
+  <!-- Voltage Reference Lines -->
+  <line x1="135" y1="170" x2="540" y2="170" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="135" y1="330" x2="540" y2="330" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- B-field Vertical Reference Lines -->
+  <line x1="290" y1="170" x2="290" y2="360" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="450" y1="170" x2="450" y2="360" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Coordinate Axes -->
+  <line x1="130" y1="360" x2="560" y2="360" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-axis)"/>
+  <line x1="140" y1="375" x2="140" y2="105" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-axis)"/>
+
+  <!-- Axis Ticks -->
+  <line x1="290" y1="360" x2="290" y2="366" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="450" y1="360" x2="450" y2="366" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Axis Titles & Tick Labels -->
+  <text x="130" y="98" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">Вихід VOUT</text>
+  <text x="125" y="174" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">VCC</text>
+  <text x="125" y="334" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">0V (GND)</text>
+
+  <text x="370" y="432" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Магнітна індукція B (mT)</text>
+
+  <text x="290" y="382" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Brp</text>
+  <text x="290" y="398" font-size="12" fill="#6b7280" text-anchor="middle">Відпускання</text>
+
+  <text x="450" y="382" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Bop</text>
+  <text x="450" y="398" font-size="12" fill="#6b7280" text-anchor="middle">Спрацьовування</text>
+
+  <!-- Hysteresis Window Annotations -->
+  <text x="370" y="228" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Bhys = Bop - Brp</text>
+  <text x="370" y="246" font-size="12" fill="#6b7280" text-anchor="middle">Ширина гістерезису</text>
+  <line x1="295" y1="262" x2="445" y2="262" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-dim-left)" marker-end="url(#arr-dim-right)"/>
+
+  <!-- Shared Outer State Lines -->
+  <line x1="150" y1="170" x2="290" y2="170" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="450" y1="330" x2="530" y2="330" stroke="#1a1a1a" stroke-width="3"/>
+
+  <!-- Upper Branch (Increasing B Field, Accent Blue) -->
+  <line x1="290" y1="170" x2="450" y2="170" stroke="#2457d6" stroke-width="3"/>
+  <line x1="450" y1="170" x2="450" y2="330" stroke="#2457d6" stroke-width="3"/>
+  <line x1="365" y1="170" x2="375" y2="170" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <line x1="450" y1="205" x2="450" y2="215" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="200" y="152" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Зростання поля B (наближення)</text>
+
+  <!-- Lower Branch (Decreasing B Field, Solution Green) -->
+  <line x1="450" y1="330" x2="290" y2="330" stroke="#27ae60" stroke-width="3"/>
+  <line x1="290" y1="330" x2="290" y2="170" stroke="#27ae60" stroke-width="3"/>
+  <line x1="375" y1="330" x2="365" y2="330" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+  <line x1="290" y1="295" x2="290" y2="285" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+  <text x="530" y="350" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Зменшення поля B (віддалення)</text>
+
+  <!-- Right Information Panel -->
+  <rect x="580" y="85" width="355" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="757" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Режими роботи виходу A3144</text>
+
+  <!-- Card 1: State OFF (HIGH) -->
+  <rect x="595" y="128" width="325" height="82" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="610" y="150" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">1. B &lt; Brp — Стан ВИМКНЕННО (HIGH)</text>
+  <text x="610" y="171" font-size="12" fill="#1a1a1a" text-anchor="start">Вихід VOUT = VCC (транзистор закритий)</text>
+  <text x="610" y="191" font-size="12" fill="#6b7280" text-anchor="start">Магніт віддалений. Сигнал виходу високий.</text>
+
+  <!-- Card 2: Hysteresis Window -->
+  <rect x="595" y="222" width="325" height="82" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="610" y="244" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">2. Brp &lt; B &lt; Bop — Зона гістерезису</text>
+  <text x="610" y="265" font-size="12" fill="#1a1a1a" text-anchor="start">Зберігається ПОПЕРЕДНІЙ стан виходу</text>
+  <text x="610" y="285" font-size="12" fill="#6b7280" text-anchor="start">Захист від дребезгу при шумах та вібрації.</text>
+
+  <!-- Card 3: State ON (LOW) -->
+  <rect x="595" y="316" width="325" height="82" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="610" y="338" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">3. B &gt; Bop — Стан УВІМКНЕНО (LOW)</text>
+  <text x="610" y="359" font-size="12" fill="#1a1a1a" text-anchor="start">Вихід VOUT = 0V (транзистор відкритий)</text>
+  <text x="610" y="379" font-size="12" fill="#6b7280" text-anchor="start">Наближення S-полюса магніту до сенсора.</text>
+</svg>

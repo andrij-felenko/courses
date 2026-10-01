@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Орієнтація магніту та робочий зазор давача A3144</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Давач спрацьовує (OUT = LOW) лише при наближенні південного полюса (S) до скошеного фасаду</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Геометрія та полярність -->
+  <rect x="24" y="72" width="444" height="364" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="246" y="96" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрія та полярність наближення</text>
+  <text x="246" y="114" font-size="12" fill="#6b7280" text-anchor="middle">Скошений лицьовий бік TO-92 чутливий до S-полюса</text>
+
+  <!-- Картка 1A: Правильна орієнтація (S-полюс) -->
+  <rect x="40" y="130" width="412" height="132" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="48" y="138" width="150" height="22" rx="4" fill="#27ae60"/>
+  <text x="123" y="153" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Правильно: S → Фасад</text>
+
+  <!-- Магніт N/S -->
+  <rect x="55" y="170" width="45" height="42" fill="#c0392b"/>
+  <text x="77.5" y="196" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">N</text>
+  <rect x="100" y="170" width="45" height="42" fill="#2457d6"/>
+  <text x="122.5" y="196" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">S</text>
+
+  <!-- Лінії магнітного поля -->
+  <path d="M 145 180 C 165 180, 195 183, 215 187" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <path d="M 145 191 L 210 191" fill="none" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <path d="M 145 202 C 165 202, 195 199, 215 195" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Давач A3144 (TO-92) -->
+  <rect x="215" y="168" width="36" height="46" rx="0" fill="#2c3e50"/>
+  <path d="M 251 168 A 23 23 0 0 1 251 214 Z" fill="#1a252f"/>
+  <line x1="215" y1="168" x2="215" y2="214" stroke="#f39c12" stroke-width="3"/>
+  <text x="233" y="196" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">A3144</text>
+
+  <!-- Виноси й зазор d_op -->
+  <line x1="145" y1="212" x2="145" y2="228" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="215" y1="214" x2="215" y2="228" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="145" y1="224" x2="215" y2="224" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <text x="180" y="244" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">d ≤ d_OP (d ≤ 4 мм)</text>
+
+  <!-- Стан виходу OUT 1A -->
+  <rect x="268" y="142" width="172" height="108" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="354" y="162" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Стан виходу OUT</text>
+  <text x="354" y="184" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">OUT = LOW (0 В)</text>
+  <text x="354" y="204" font-size="12" fill="#27ae60" text-anchor="middle">Транзистор: ВІДКРИТИЙ</text>
+  <text x="354" y="224" font-size="12" fill="#6b7280" text-anchor="middle">Світлодіод модуля ON</text>
+  <text x="354" y="240" font-size="12" fill="#6b7280" text-anchor="middle">Потік B > B_OP</text>
+
+  <!-- Картка 1B: Неправильна орієнтація (N-полюс) -->
+  <rect x="40" y="278" width="412" height="142" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="48" y="286" width="165" height="22" rx="4" fill="#c0392b"/>
+  <text x="130.5" y="301" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Неправильно: N → Фасад</text>
+
+  <!-- Магніт S/N -->
+  <rect x="55" y="318" width="45" height="42" fill="#2457d6"/>
+  <text x="77.5" y="344" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">S</text>
+  <rect x="100" y="318" width="45" height="42" fill="#c0392b"/>
+  <text x="122.5" y="344" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">N</text>
+
+  <!-- Лінії відштовхування / блокування -->
+  <path d="M 145 339 L 205 339" fill="none" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+  <line x1="172" y1="331" x2="182" y2="347" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="182" y1="331" x2="172" y2="347" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Давач A3144 (TO-92) -->
+  <rect x="215" y="316" width="36" height="46" rx="0" fill="#2c3e50"/>
+  <path d="M 251 316 A 23 23 0 0 1 251 362 Z" fill="#1a252f"/>
+  <line x1="215" y1="316" x2="215" y2="362" stroke="#c0392b" stroke-width="3"/>
+  <text x="233" y="344" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">A3144</text>
+
+  <!-- Підписи відмови 1B -->
+  <text x="180" y="380" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Немає спрацьовування</text>
+  <text x="180" y="396" font-size="12" fill="#6b7280" text-anchor="middle">(N-полюс або d > d_RP)</text>
+
+  <!-- Стан виходу OUT 1B -->
+  <rect x="268" y="290" width="172" height="118" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="354" y="310" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Стан виходу OUT</text>
+  <text x="354" y="330" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">OUT = HIGH (Vcc)</text>
+  <text x="354" y="350" font-size="12" fill="#c0392b" text-anchor="middle">Транзистор: ЗАКРИТИЙ</text>
+  <text x="354" y="370" font-size="12" fill="#6b7280" text-anchor="middle">Світлодіод модуля OFF</text>
+  <text x="354" y="390" font-size="12" fill="#6b7280" text-anchor="middle">Потік B &lt; B_RP</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Графік залежності та гістерезис -->
+  <rect x="492" y="72" width="444" height="364" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="714" y="96" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Залежність напруги OUT від зазору d</text>
+  <text x="714" y="114" font-size="12" fill="#6b7280" text-anchor="middle">Гістерезис перемикання запобігає дребезгу сигналу</text>
+
+  <!-- Штриховка зони гістерезису -->
+  <rect x="675" y="165" width="110" height="90" fill="#eaf0fd" opacity="0.85"/>
+  <text x="730" y="195" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Гістерезис</text>
+  <text x="730" y="213" font-size="12" fill="#2457d6" text-anchor="middle">Δd = d_RP - d_OP</text>
+
+  <!-- Осі координат -->
+  <path d="M 575 275 L 885 275" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <path d="M 575 275 L 575 140" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="885" y="295" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Зазор d (мм)</text>
+  <text x="567" y="136" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">V_OUT (В)</text>
+
+  <!-- Горизонтальні рівні напруги -->
+  <line x1="575" y1="165" x2="865" y2="165" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="567" y="169" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">V_CC (HIGH)</text>
+
+  <line x1="575" y1="255" x2="865" y2="255" stroke="#d0d7de" stroke-width="1"/>
+  <text x="567" y="259" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">GND (0 В)</text>
+
+  <!-- Вертикальні лінії порогів d_OP та d_RP -->
+  <line x1="675" y1="165" x2="675" y2="275" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="675" y="293" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">d_OP</text>
+  <text x="675" y="309" font-size="12" fill="#6b7280" text-anchor="middle">(включення)</text>
+
+  <line x1="785" y1="165" x2="785" y2="275" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="785" y="293" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">d_RP</text>
+  <text x="785" y="309" font-size="12" fill="#6b7280" text-anchor="middle">(відпускання)</text>
+
+  <!-- Графік наближення (зелений d ↓) -->
+  <path d="M 865 165 L 675 165 L 675 255 L 585 255" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <path d="M 840 165 L 800 165" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="830" y="153" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Наближення (d ↓)</text>
+
+  <!-- Графік віддалення (червоний d ↑) -->
+  <path d="M 585 255 L 785 255 L 785 165 L 865 165" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <path d="M 605 255 L 645 255" fill="none" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="635" y="243" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Віддалення (d ↑)</text>
+
+  <!-- Підсумкова картка правої панелі -->
+  <rect x="508" y="332" width="412" height="92" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="352" font-size="12" font-weight="bold" fill="#1a1a1a">Логіка спрацьовування та рекомендації:</text>
+  <text x="520" y="370" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold" fill="#27ae60">робочий зазор d ≤ d_OP</tspan> — гарантоване включення (OUT = 0 В)</text>
+  <text x="520" y="388" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold" fill="#c0392b">відпускання d > d_RP</tspan> — повернення у стан HIGH (OUT = Vcc)</text>
+  <text x="520" y="406" font-size="12" fill="#6b7280">• Гістерезис виключає хибні спрацьовування від вібрацій</text>
+</svg>

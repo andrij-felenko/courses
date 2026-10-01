@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема взаємодії ADXL345 з STM32 через FIFO, INT1/INT2 та DMA</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Накопичення в FIFO та передача через DMA розвантажують CPU і знижують енергоспоживання</text>
+
+  <!-- LEFT PANEL: ADXL345 -->
+  <rect x="30" y="70" width="425" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="82" width="395" height="28" rx="4" fill="#1a1a1a"/>
+  <text x="242" y="101" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">Цифровий акселерометр ADXL345</text>
+
+  <!-- MEMS Sensor -->
+  <rect x="45" y="122" width="185" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="137" y="145" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3-осьовий MEMS-сенсор</text>
+  <text x="137" y="165" font-size="12" fill="#6b7280" text-anchor="middle">Осі X, Y, Z (чутливість)</text>
+  <text x="137" y="183" font-size="12" fill="#2457d6" text-anchor="middle">13-бітний АЦП (ADC)</text>
+
+  <!-- Event Detectors -->
+  <rect x="245" y="122" width="195" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="342" y="145" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратні детектори</text>
+  <text x="342" y="165" font-size="12" fill="#6b7280" text-anchor="middle">Активність / Спокій</text>
+  <text x="342" y="183" font-size="12" fill="#c0392b" text-anchor="middle">Вільне падіння (Free-Fall)</text>
+
+  <!-- Hardware FIFO Buffer -->
+  <rect x="45" y="215" width="395" height="120" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="242" y="235" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">32-рівневий апаратний буфер FIFO</text>
+  
+  <rect x="60" y="247" width="365" height="32" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <rect x="64" y="251" width="34" height="24" rx="2" fill="#2457d6"/>
+  <text x="81" y="267" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">F0</text>
+  <rect x="102" y="251" width="34" height="24" rx="2" fill="#2457d6"/>
+  <text x="119" y="267" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">F1</text>
+  <rect x="140" y="251" width="34" height="24" rx="2" fill="#2457d6"/>
+  <text x="157" y="267" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">F2</text>
+  <rect x="178" y="251" width="34" height="24" rx="2" fill="#2457d6"/>
+  <text x="195" y="267" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">F3</text>
+  <rect x="216" y="251" width="40" height="24" rx="2" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="236" y="267" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">...</text>
+  <rect x="260" y="251" width="45" height="24" rx="2" fill="#2457d6"/>
+  <text x="282" y="267" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">F30</text>
+  <rect x="310" y="251" width="45" height="24" rx="2" fill="#c0392b"/>
+  <text x="332" y="267" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">F31</text>
+  
+  <line x1="305" y1="242" x2="305" y2="284" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="305" y="239" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">Watermark (поріг)</text>
+
+  <text x="242" y="297" font-size="12" fill="#1a1a1a" text-anchor="middle">Автоматичне накопичення 32 кадрів даних [X, Y, Z]</text>
+  <text x="242" y="316" font-size="11" fill="#6b7280" text-anchor="middle">Режими: Bypass, FIFO, Stream, Trigger</text>
+
+  <!-- Interrupt Logic -->
+  <rect x="45" y="348" width="185" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="137" y="368" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контролер INT</text>
+  <text x="137" y="388" font-size="12" fill="#6b7280" text-anchor="middle">Гнучка маршрутизація</text>
+
+  <rect x="55" y="398" width="165" height="40" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="137" y="423" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Вихід INT1 (Watermark)</text>
+
+  <rect x="55" y="446" width="165" height="40" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="137" y="471" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Вихід INT2 (Free-Fall)</text>
+
+  <!-- SPI / I2C Transceiver -->
+  <rect x="245" y="348" width="195" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="342" y="368" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інтерфейс SPI / I2C</text>
+  <text x="342" y="388" font-size="12" fill="#6b7280" text-anchor="middle">Регістри 0x32–0x37 (DATA)</text>
+
+  <rect x="255" y="398" width="175" height="88" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="342" y="418" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Трансівер даних</text>
+  <text x="342" y="438" font-size="11" fill="#1a1a1a" text-anchor="middle">SPI: CS, SCLK, SDI, SDO</text>
+  <text x="342" y="458" font-size="11" fill="#1a1a1a" text-anchor="middle">I2C: SDA, SCL (до 5 Мбіт/с)</text>
+
+  <!-- Internal ADXL345 Connections -->
+  <path d="M 137 202 L 137 215" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 137 335 L 137 348" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <path d="M 342 335 L 342 348" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- RIGHT PANEL: STM32 MCU -->
+  <rect x="505" y="70" width="425" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="520" y="82" width="395" height="28" rx="4" fill="#1a1a1a"/>
+  <text x="717" y="101" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">Мікроконтролер STM32 (MCU)</text>
+
+  <!-- EXTI Controller -->
+  <rect x="520" y="122" width="185" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="612" y="144" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контролер EXTI</text>
+  <text x="612" y="164" font-size="12" fill="#6b7280" text-anchor="middle">Входи GPIO (INT1/INT2)</text>
+  <text x="612" y="185" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Тригер події / пакета</text>
+
+  <!-- CPU Core -->
+  <rect x="720" y="122" width="195" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="817" y="142" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Ядро ARM Cortex-M</text>
+  <rect x="735" y="150" width="165" height="26" rx="4" fill="#27ae60"/>
+  <text x="817" y="167" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">РЕЖИМ СНУ (SLEEP)</text>
+  <text x="817" y="196" font-size="11" fill="#1a1a1a" text-anchor="middle">Пробудження лише за TC DMA</text>
+
+  <!-- SPI / I2C Peripheral -->
+  <rect x="520" y="230" width="185" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="612" y="252" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Периферія SPI / I2C</text>
+  <text x="612" y="272" font-size="12" fill="#6b7280" text-anchor="middle">Регістр даних (DR)</text>
+  <text x="612" y="293" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Запит DMA (Rx Request)</text>
+
+  <!-- DMA Controller -->
+  <rect x="720" y="230" width="195" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="817" y="252" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Контролер DMA</text>
+  <text x="817" y="272" font-size="12" fill="#1a1a1a" text-anchor="middle">Автономна передача</text>
+  <text x="817" y="292" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">SPI DR → SRAM Buffer</text>
+
+  <!-- SRAM Buffer -->
+  <rect x="520" y="340" width="395" height="158" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="717" y="362" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пам'ять ОЗП (SRAM) — Буфер кадрів</text>
+
+  <rect x="535" y="372" width="365" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <rect x="540" y="376" width="52" height="28" rx="2" fill="#ffffff" stroke="#2457d6"/>
+  <text x="566" y="394" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">RAM[0]</text>
+  <rect x="597" y="376" width="52" height="28" rx="2" fill="#ffffff" stroke="#2457d6"/>
+  <text x="623" y="394" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">RAM[1]</text>
+  <rect x="654" y="376" width="52" height="28" rx="2" fill="#ffffff" stroke="#2457d6"/>
+  <text x="680" y="394" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">RAM[2]</text>
+  <rect x="711" y="376" width="40" height="28" rx="2" fill="#ffffff" stroke="#2457d6"/>
+  <text x="731" y="394" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">...</text>
+  <rect x="756" y="376" width="65" height="28" rx="2" fill="#ffffff" stroke="#2457d6"/>
+  <text x="788" y="394" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">RAM[30]</text>
+  <rect x="826" y="376" width="68" height="28" rx="2" fill="#27ae60"/>
+  <text x="860" y="394" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">RAM[31]</text>
+
+  <text x="717" y="430" font-size="12" fill="#1a1a1a" text-anchor="middle">Прямий запис 32 кадрів без участі процесора</text>
+  <text x="717" y="450" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Сигнал TC (Transfer Complete) → Пробудження CPU</text>
+  <text x="717" y="470" font-size="11" fill="#6b7280" text-anchor="middle">Пакетне обчислення та обробка кадрів у RAM</text>
+
+  <!-- Internal STM32 Connections -->
+  <path d="M 612 217 L 612 230" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-black)"/>
+  <path d="M 705 277 L 720 277" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 817 325 L 817 340" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <path d="M 817 230 L 817 217" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- INTER-PANEL CONNECTIONS (BUS & INTERRUPTS) -->
+  <!-- INT Line -->
+  <path d="M 220 418 L 475 418 L 475 169 L 520 169" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <rect x="442" y="270" width="66" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="475" y="287" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">INT1 / INT2</text>
+
+  <!-- SPI/I2C Line -->
+  <path d="M 440 442 L 490 442 L 490 277 L 520 277" fill="none" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <rect x="458" y="340" width="64" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="490" y="357" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">SPI / I2C</text>
+
+</svg>

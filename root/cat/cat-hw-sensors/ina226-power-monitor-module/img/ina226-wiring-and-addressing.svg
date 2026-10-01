@@ -1,0 +1,208 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка полотна -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Схема підключення та апаратне адресування модуля INA226</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Вимірювання струму через шунт R_shunt та вибір 16 I2C-адрес комбінаціями ліній A0/A1</text>
+
+  <!-- Ліва панель: Схема підключення -->
+  <rect x="24" y="68" width="456" height="472" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="36" y="80" width="432" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="252" y="100" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Схема вимірювання та інтерфейсу (High-Side Sensing)</text>
+
+  <!-- Компоненти силового кола -->
+  <rect x="44" y="124" width="86" height="42" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="87" y="142" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">V_BUS</text>
+  <text x="87" y="157" text-anchor="middle" font-size="12" fill="#6b7280">+0V...+36V</text>
+
+  <rect x="170" y="133" width="60" height="24" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="200" y="149" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">R_shunt</text>
+  <text x="200" y="123" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">I_LOAD &#x2192;</text>
+
+  <rect x="310" y="124" width="80" height="42" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="350" y="142" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">LOAD</text>
+  <text x="350" y="157" text-anchor="middle" font-size="12" fill="#6b7280">Навантаження</text>
+
+  <!-- Провідники силового кола -->
+  <line x1="130" y1="145" x2="170" y2="145" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="150" cy="145" r="3.5" fill="#2457d6"/>
+  <text x="150" y="138" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">IN+</text>
+
+  <line x1="230" y1="145" x2="310" y2="145" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="250" cy="145" r="3.5" fill="#2457d6"/>
+  <text x="250" y="138" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">IN-</text>
+
+  <line x1="350" y1="166" x2="350" y2="188" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="338" y1="188" x2="362" y2="188" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="343" y1="192" x2="357" y2="192" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="348" y1="196" x2="352" y2="196" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="350" y="210" text-anchor="middle" font-size="12" fill="#6b7280">GND</text>
+
+  <!-- Модуль INA226 -->
+  <rect x="44" y="222" width="220" height="230" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="44" y="222" width="220" height="26" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="154" y="239" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Модуль INA226</text>
+
+  <!-- Виводи INA226 (Верхні) -->
+  <path d="M150,145 L150,200 L74,200 L74,248" fill="none" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="74" y="260" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">VBUS</text>
+
+  <path d="M150,145 L150,200 L98,200 L98,248" fill="none" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="98" y="260" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">IN+</text>
+
+  <path d="M250,145 L250,200 L210,200 L210,248" fill="none" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="210" y="260" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">IN-</text>
+
+  <!-- Правий бок INA226 (Інтерфейс) -->
+  <text x="254" y="284" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">VCC</text>
+  <text x="254" y="309" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">GND</text>
+  <text x="254" y="334" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">SCL</text>
+  <text x="254" y="359" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">SDA</text>
+  <text x="254" y="384" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">ALERT</text>
+
+  <!-- Нижні виводи INA226 (Адресні) -->
+  <text x="90" y="442" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">A0</text>
+  <text x="210" y="442" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">A1</text>
+  <line x1="90" y1="446" x2="90" y2="458" stroke="#27ae60" stroke-width="1.2"/>
+  <line x1="210" y1="446" x2="210" y2="458" stroke="#27ae60" stroke-width="1.2"/>
+
+  <!-- Мікроконтролер (MCU) -->
+  <rect x="330" y="260" width="138" height="150" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="330" y="260" width="138" height="24" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="399" y="276" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Мікроконтролер</text>
+
+  <text x="338" y="299" text-anchor="start" font-size="12" fill="#1a1a1a">3.3V</text>
+  <text x="338" y="324" text-anchor="start" font-size="12" fill="#1a1a1a">GND</text>
+  <text x="338" y="349" text-anchor="start" font-size="12" font-weight="700" fill="#2457d6">SCL</text>
+  <text x="338" y="374" text-anchor="start" font-size="12" font-weight="700" fill="#2457d6">SDA</text>
+  <text x="338" y="399" text-anchor="start" font-size="12" font-weight="700" fill="#c0392b">GPIO</text>
+
+  <!-- З'єднання INA226 - MCU -->
+  <path d="M264,280 L305,280 L305,295 L330,295" fill="none" stroke="#6b7280" stroke-width="1.2"/>
+  <path d="M264,305 L298,305 L298,320 L330,320" fill="none" stroke="#6b7280" stroke-width="1.2"/>
+  <path d="M264,330 L290,330 L290,345 L330,345" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M264,355 L282,355 L282,370 L330,370" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M264,380 L274,380 L274,395 L330,395" fill="none" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3 3"/>
+
+  <!-- Нижня примітка лівої панелі -->
+  <rect x="36" y="468" width="432" height="58" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="252" y="487" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Особливості вимірювального кола INA226:</text>
+  <text x="252" y="504" text-anchor="middle" font-size="12" fill="#1a1a1a">V_BUS міряється відносно GND (до 36V); V_SHUNT = V(IN+) - V(IN-)</text>
+  <text x="252" y="519" text-anchor="middle" font-size="12" fill="#6b7280">Вивід ALERT дає апаратний сигнал про переповнення або поріг</text>
+
+  <!-- Права панель: Таблиця 16 I2C-адрес -->
+  <rect x="496" y="68" width="440" height="472" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="508" y="80" width="416" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="716" y="100" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">Таблиця 16 унікальних I2C-адрес (виводи A0, A1)</text>
+
+  <!-- Заголовок таблиці -->
+  <rect x="508" y="118" width="416" height="22" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="548" y="134" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">A1</text>
+  <text x="628" y="134" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">A0</text>
+  <text x="718" y="134" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">HEX-адреса</text>
+  <text x="846" y="134" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Бінарна (7 біт)</text>
+
+  <!-- Група 1: A1 = GND -->
+  <rect x="508" y="140" width="416" height="76" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+  <text x="548" y="182" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">GND</text>
+
+  <text x="628" y="153" text-anchor="middle" font-size="12" fill="#1a1a1a">GND</text>
+  <text x="718" y="153" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">0x40</text>
+  <text x="846" y="153" text-anchor="middle" font-size="12" fill="#6b7280">1000000_2</text>
+
+  <text x="628" y="172" text-anchor="middle" font-size="12" fill="#1a1a1a">VCC</text>
+  <text x="718" y="172" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">0x41</text>
+  <text x="846" y="172" text-anchor="middle" font-size="12" fill="#6b7280">1000001_2</text>
+
+  <text x="628" y="191" text-anchor="middle" font-size="12" fill="#2457d6">SDA</text>
+  <text x="718" y="191" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">0x42</text>
+  <text x="846" y="191" text-anchor="middle" font-size="12" fill="#6b7280">1000010_2</text>
+
+  <text x="628" y="210" text-anchor="middle" font-size="12" fill="#2457d6">SCL</text>
+  <text x="718" y="210" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">0x43</text>
+  <text x="846" y="210" text-anchor="middle" font-size="12" fill="#6b7280">1000011_2</text>
+
+  <!-- Група 2: A1 = VCC -->
+  <rect x="508" y="216" width="416" height="76" fill="#f4f6f8" stroke="#d0d7de" stroke-width="0.8"/>
+  <text x="548" y="258" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">VCC</text>
+
+  <text x="628" y="229" text-anchor="middle" font-size="12" fill="#1a1a1a">GND</text>
+  <text x="718" y="229" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">0x44</text>
+  <text x="846" y="229" text-anchor="middle" font-size="12" fill="#6b7280">1000100_2</text>
+
+  <text x="628" y="248" text-anchor="middle" font-size="12" fill="#1a1a1a">VCC</text>
+  <text x="718" y="248" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">0x45</text>
+  <text x="846" y="248" text-anchor="middle" font-size="12" fill="#6b7280">1000101_2</text>
+
+  <text x="628" y="267" text-anchor="middle" font-size="12" fill="#2457d6">SDA</text>
+  <text x="718" y="267" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">0x46</text>
+  <text x="846" y="267" text-anchor="middle" font-size="12" fill="#6b7280">1000110_2</text>
+
+  <text x="628" y="286" text-anchor="middle" font-size="12" fill="#2457d6">SCL</text>
+  <text x="718" y="286" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">0x47</text>
+  <text x="846" y="286" text-anchor="middle" font-size="12" fill="#6b7280">1000111_2</text>
+
+  <!-- Група 3: A1 = SDA -->
+  <rect x="508" y="292" width="416" height="76" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+  <text x="548" y="334" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">SDA</text>
+
+  <text x="628" y="305" text-anchor="middle" font-size="12" fill="#1a1a1a">GND</text>
+  <text x="718" y="305" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">0x48</text>
+  <text x="846" y="305" text-anchor="middle" font-size="12" fill="#6b7280">1001000_2</text>
+
+  <text x="628" y="324" text-anchor="middle" font-size="12" fill="#1a1a1a">VCC</text>
+  <text x="718" y="324" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">0x49</text>
+  <text x="846" y="324" text-anchor="middle" font-size="12" fill="#6b7280">1001001_2</text>
+
+  <text x="628" y="343" text-anchor="middle" font-size="12" fill="#2457d6">SDA</text>
+  <text x="718" y="343" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">0x4A</text>
+  <text x="846" y="343" text-anchor="middle" font-size="12" fill="#6b7280">1001010_2</text>
+
+  <text x="628" y="362" text-anchor="middle" font-size="12" fill="#2457d6">SCL</text>
+  <text x="718" y="362" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">0x4B</text>
+  <text x="846" y="362" text-anchor="middle" font-size="12" fill="#6b7280">1001011_2</text>
+
+  <!-- Група 4: A1 = SCL -->
+  <rect x="508" y="368" width="416" height="76" fill="#f4f6f8" stroke="#d0d7de" stroke-width="0.8"/>
+  <text x="548" y="410" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">SCL</text>
+
+  <text x="628" y="381" text-anchor="middle" font-size="12" fill="#1a1a1a">GND</text>
+  <text x="718" y="381" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">0x4C</text>
+  <text x="846" y="381" text-anchor="middle" font-size="12" fill="#6b7280">1001100_2</text>
+
+  <text x="628" y="400" text-anchor="middle" font-size="12" fill="#1a1a1a">VCC</text>
+  <text x="718" y="400" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">0x4D</text>
+  <text x="846" y="400" text-anchor="middle" font-size="12" fill="#6b7280">1001101_2</text>
+
+  <text x="628" y="419" text-anchor="middle" font-size="12" fill="#2457d6">SDA</text>
+  <text x="718" y="419" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">0x4E</text>
+  <text x="846" y="419" text-anchor="middle" font-size="12" fill="#6b7280">1001110_2</text>
+
+  <text x="628" y="438" text-anchor="middle" font-size="12" fill="#2457d6">SCL</text>
+  <text x="718" y="438" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">0x4F</text>
+  <text x="846" y="438" text-anchor="middle" font-size="12" fill="#6b7280">1001111_2</text>
+
+  <!-- Розділювачі колонок таблиці -->
+  <line x1="588" y1="118" x2="588" y2="444" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="668" y1="118" x2="668" y2="444" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="768" y1="118" x2="768" y2="444" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Нижня примітка правої панелі -->
+  <rect x="508" y="468" width="416" height="58" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="716" y="487" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Формування адреси веденого пристрою (Slave Address):</text>
+  <text x="716" y="504" text-anchor="middle" font-size="12" fill="#1a1a1a">Адресні лінії A0 та A1 підключаються до GND, VCC, SDA або SCL</text>
+  <text x="716" y="519" text-anchor="middle" font-size="12" fill="#6b7280">Дає змогу розмістити до 16 модулів INA226 на одній шині I2C</text>
+</svg>

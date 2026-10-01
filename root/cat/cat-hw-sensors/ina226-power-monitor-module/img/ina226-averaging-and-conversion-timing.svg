@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-main-start" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма перетворення та цифрового усереднення в INA226</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Усереднення N_AVG розширює часове вікно вибірок та знижує шум, зменшуючи частоту оновлення регістрів</text>
+
+  <!-- PANEL 1: N_AVG = 1 -->
+  <rect x="30" y="78" width="900" height="174" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <text x="50" y="102" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">Режим без усереднення (N_AVG = 1)</text>
+  <text x="310" y="102" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Період оновлення даних: T = t_SHUNT + t_BUS = 2.2 мс</text>
+
+  <!-- Cycle 1 Blocks -->
+  <rect x="140" y="118" width="115" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="197.5" y="139" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_SHUNT (1.1 мс)</text>
+
+  <rect x="260" y="118" width="115" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="317.5" y="139" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V_BUS (1.1 мс)</text>
+
+  <rect x="380" y="118" width="110" height="34" rx="4" fill="#2457d6" stroke="#2457d6"/>
+  <text x="435" y="139" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Обчислення &amp; Reg</text>
+
+  <!-- Cycle 2 Blocks -->
+  <rect x="500" y="118" width="115" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="557.5" y="139" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_SHUNT (1.1 мс)</text>
+
+  <rect x="620" y="118" width="115" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="677.5" y="139" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V_BUS (1.1 мс)</text>
+
+  <rect x="740" y="118" width="110" height="34" rx="4" fill="#2457d6" stroke="#2457d6"/>
+  <text x="795" y="139" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Обчислення &amp; Reg</text>
+
+  <!-- Dimension lines P1 -->
+  <line x1="140" y1="172" x2="488" y2="172" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-main-start)" marker-end="url(#arr-main)"/>
+  <text x="314" y="167" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цикл 1: T_1 = 2.2 мс</text>
+
+  <line x1="500" y1="172" x2="848" y2="172" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-main-start)" marker-end="url(#arr-main)"/>
+  <text x="674" y="167" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цикл 2: T_2 = 2.2 мс</text>
+
+  <!-- ALERT Signal P1 -->
+  <text x="50" y="208" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">ALERT (CVRF):</text>
+  <path d="M 140 200 L 488 200 L 488 214 L 500 214 L 500 200 L 848 200 L 848 214 L 860 214 L 860 200 L 880 200" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="494" y="232" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Оновлення (2.2 мс)</text>
+  <text x="854" y="232" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Оновлення (4.4 мс)</text>
+
+
+  <!-- PANEL 2: N_AVG = 4 -->
+  <rect x="30" y="268" width="900" height="232" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <text x="50" y="292" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">Режим з усередненням 4 вибірок (N_AVG = 4)</text>
+  <text x="385" y="292" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Період оновлення даних: T_total = 4 × (1.1 + 1.1) мс = 8.8 мс</text>
+
+  <!-- Pair 1 -->
+  <rect x="140" y="308" width="58" height="32" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="169" y="328" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">V_SH1</text>
+  
+  <rect x="202" y="308" width="58" height="32" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="231" y="328" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">V_BUS1</text>
+
+  <!-- Pair 2 -->
+  <rect x="272" y="308" width="58" height="32" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="301" y="328" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">V_SH2</text>
+  
+  <rect x="334" y="308" width="58" height="32" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="363" y="328" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">V_BUS2</text>
+
+  <!-- Pair 3 -->
+  <rect x="404" y="308" width="58" height="32" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="433" y="328" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">V_SH3</text>
+  
+  <rect x="466" y="308" width="58" height="32" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="495" y="328" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">V_BUS3</text>
+
+  <!-- Pair 4 -->
+  <rect x="536" y="308" width="58" height="32" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="565" y="328" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">V_SH4</text>
+  
+  <rect x="598" y="308" width="58" height="32" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="627" y="328" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">V_BUS4</text>
+
+  <!-- Math & Averaging block -->
+  <rect x="668" y="308" width="175" height="32" rx="4" fill="#27ae60" stroke="#27ae60"/>
+  <text x="755.5" y="328" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Усереднення (AVG) &amp; P, I Reg</text>
+
+  <!-- Dimension Line P2 -->
+  <line x1="140" y1="358" x2="656" y2="358" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-main-start)" marker-end="url(#arr-main)"/>
+  <text x="398" y="353" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Накопичення 4 вибірок: 4 × (1.1 + 1.1) мс = 8.8 мс</text>
+
+  <!-- Card 1 -->
+  <rect x="140" y="374" width="345" height="54" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="152" y="393" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="start">Проміжні вибірки:</text>
+  <text x="272" y="393" font-size="11" fill="#1a1a1a" text-anchor="start">Сумуються у внутрішніх регістрах</text>
+  <text x="152" y="415" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="start">Вихідні регістри:</text>
+  <text x="272" y="415" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="start">Зберігають ПОПЕРЕДНІ значення</text>
+
+  <!-- Card 2 -->
+  <rect x="500" y="374" width="345" height="54" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="512" y="393" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="start">Обчислення:</text>
+  <text x="596" y="393" font-size="11" fill="#1a1a1a" text-anchor="start">V_avg = ΣV/4,  I = (V_avg × CAL)/2048</text>
+  <text x="512" y="415" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="start">Оновлення:</text>
+  <text x="596" y="415" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="start">Одночасний запис V, P, I та імпульс ALERT</text>
+
+  <!-- ALERT Signal P2 -->
+  <text x="50" y="460" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">ALERT (CVRF):</text>
+  <path d="M 140 452 L 843 452 L 843 466 L 855 466 L 855 452 L 880 452" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="849" y="484" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Оновлення (8.8 мс)</text>
+
+</svg>

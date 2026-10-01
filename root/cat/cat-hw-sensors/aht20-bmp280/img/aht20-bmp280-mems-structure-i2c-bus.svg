@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратна структура AHT20 та BMP280 на спільній шині I2C</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Ємнісний MEMS-сенсор RH та п'єзорезистивний MEMS-сенсор P працюють на шині I2C за адресами 0x38 і 0x76</text>
+
+  <!-- ВЕРХНЯ ПАНЕЛЬ: Шина I2C та підтягувальні резистори -->
+  <rect x="24" y="68" width="912" height="72" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Блок Master (Мікроконтролер) -->
+  <rect x="36" y="76" width="165" height="56" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="118" y="96" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер</text>
+  <text x="118" y="116" font-size="12" fill="#2457d6" text-anchor="middle">I2C Master (SCL / SDA)</text>
+
+  <!-- Підтягувальні резистори R_pu -->
+  <rect x="216" y="76" width="175" height="56" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="303" y="96" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Підтягувальні резистори</text>
+  <text x="303" y="116" font-size="12" fill="#6b7280" text-anchor="middle">R_pu = 4.7 kΩ (до VDD 3.3V)</text>
+
+  <!-- Лінії шини I2C між резисторами і леґендою -->
+  <line x1="405" y1="92" x2="815" y2="92" stroke="#2457d6" stroke-width="2"/>
+  <line x1="405" y1="116" x2="815" y2="116" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Відгалуження до AHT20 -->
+  <line x1="246" y1="132" x2="246" y2="152" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Відгалуження до BMP280 -->
+  <line x1="714" y1="132" x2="714" y2="152" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Позначення ліній шини -->
+  <rect x="825" y="76" width="98" height="56" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="874" y="94" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SCL (Clock)</text>
+  <text x="874" y="118" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">SDA (Data)</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: AHT20 -->
+  <rect x="24" y="152" width="444" height="352" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="178" font-size="14" font-weight="bold" fill="#1a1a1a">AHT20 — Сенсор вологості й T</text>
+  <rect x="355" y="162" width="98" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="404" y="178" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Адреса: 0x38</text>
+
+  <!-- AHT20: MEMS Чутливий елемент -->
+  <rect x="40" y="196" width="412" height="110" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="52" y="214" font-size="12" font-weight="bold" fill="#2457d6">Ємнісний MEMS-елемент вологості (RH)</text>
+
+  <rect x="52" y="226" width="210" height="10" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="52" y="236" width="210" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="157" y="250" font-size="12" fill="#2457d6" text-anchor="middle">Полімерний діелектрик (H₂O)</text>
+  <rect x="52" y="256" width="210" height="10" fill="#1a1a1a"/>
+  <rect x="52" y="266" width="210" height="8" fill="#6b7280"/>
+
+  <rect x="278" y="226" width="160" height="66" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="286" y="244" font-size="12" font-weight="bold" fill="#1a1a1a">Принцип вимірювання:</text>
+  <text x="286" y="262" font-size="13" font-weight="bold" fill="#2457d6">ΔRH → Δε_r → ΔC</text>
+  <text x="286" y="280" font-size="12" fill="#6b7280">Зміна ємності сенсора</text>
+
+  <!-- AHT20: Temp sensor -->
+  <rect x="40" y="314" width="412" height="46" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="333" font-size="12" font-weight="bold" fill="#1a1a1a">Вбудований сенсор температури T_AHT</text>
+  <text x="52" y="350" font-size="12" fill="#6b7280">Вимірювання T для компенсації вологості</text>
+
+  <!-- AHT20: ASIC + ADC -->
+  <rect x="40" y="368" width="412" height="56" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="388" font-size="12" font-weight="bold" fill="#1a1a1a">ASIC обробки + 24-bit АЦП + OTP калібрування</text>
+  <text x="52" y="408" font-size="12" fill="#6b7280">Перетворення сигналів у цифровий код RH i T</text>
+
+  <!-- AHT20: I2C Interface -->
+  <rect x="40" y="432" width="412" height="56" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="52" y="452" font-size="12" font-weight="bold" fill="#1a1a1a">I2C Контролер AHT20 (команди 0xAC, 0x71)</text>
+  <text x="52" y="472" font-size="12" fill="#27ae60">Видає State, 20-bit RH та 20-bit T за адресою 0x38</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: BMP280 -->
+  <rect x="492" y="152" width="444" height="352" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="508" y="178" font-size="14" font-weight="bold" fill="#1a1a1a">BMP280 — Сенсор тиску й T</text>
+  <rect x="823" y="162" width="98" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="872" y="178" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Адреса: 0x76</text>
+
+  <!-- BMP280: MEMS Membrane -->
+  <rect x="508" y="196" width="412" height="110" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="520" y="214" font-size="12" font-weight="bold" fill="#2457d6">П'єзорезистивна MEMS-мембрана тиску (P)</text>
+
+  <path d="M 520 236 Q 625 244 730 236 L 730 242 Q 625 250 520 242 Z" fill="#2457d6"/>
+  <rect x="530" y="232" width="14" height="10" fill="#c0392b"/>
+  <rect x="706" y="232" width="14" height="10" fill="#c0392b"/>
+  <rect x="535" y="246" width="180" height="20" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="625" y="260" font-size="12" fill="#6b7280" text-anchor="middle">Вакуумна камера P_0 ≈ 0</text>
+  <rect x="520" y="266" width="210" height="8" fill="#6b7280"/>
+
+  <rect x="746" y="226" width="160" height="66" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="754" y="244" font-size="12" font-weight="bold" fill="#1a1a1a">Принцип вимірювання:</text>
+  <text x="754" y="262" font-size="12" font-weight="bold" fill="#2457d6">ΔP → Прогин → ΔR</text>
+  <text x="754" y="280" font-size="12" fill="#6b7280">Зміна опору мосту</text>
+
+  <!-- BMP280: Temp sensor -->
+  <rect x="508" y="314" width="412" height="46" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="333" font-size="12" font-weight="bold" fill="#1a1a1a">Вбудований сенсор температури T_BMP</text>
+  <text x="520" y="350" font-size="12" fill="#6b7280">Термокомпенсація для усунення дрейфу P</text>
+
+  <!-- BMP280: ASIC + Calib -->
+  <rect x="508" y="368" width="412" height="56" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="388" font-size="12" font-weight="bold" fill="#1a1a1a">ASIC + 20-bit АЦП + NVM з коефіцієнтами</text>
+  <text x="520" y="408" font-size="12" fill="#6b7280">Заводські dig_T1..T3 та dig_P1..P9 для розрахунку P</text>
+
+  <!-- BMP280: I2C Interface -->
+  <rect x="508" y="432" width="412" height="56" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="520" y="452" font-size="12" font-weight="bold" fill="#1a1a1a">I2C Контролер BMP280 (регістри 0xF7..0xFC)</text>
+  <text x="520" y="472" font-size="12" fill="#27ae60">Видає 20-bit raw P та 20-bit raw T за адресою 0x76</text>
+
+</svg>

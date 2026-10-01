@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня будова чипа ACS712 у корпусі SOIC-8</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Первинний мідний провідник 1.2 мОм створює магнітне поле B, яке безконтактно зчитує елемент Холла</text>
+
+  <!-- External Pins Left (Power Domain) -->
+  <rect x="50" y="140" width="110" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="105" y="167" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">IP+ (Виводи 1, 2)</text>
+  <text x="105" y="187" font-size="12" fill="#6b7280" text-anchor="middle">Вхід струму</text>
+
+  <rect x="50" y="300" width="110" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="105" y="327" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">IP- (Виводи 3, 4)</text>
+  <text x="105" y="347" font-size="12" fill="#6b7280" text-anchor="middle">Вихід струму</text>
+
+  <!-- Main Chip Body SOIC-8 -->
+  <rect x="180" y="80" width="580" height="390" rx="10" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="470" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Монолітний корпус SOIC-8</text>
+
+  <!-- Internal Primary Copper Conductor Loop -->
+  <path d="M 160,170 L 320,170 Q 360,170 360,250 Q 360,330 320,330 L 160,330" fill="none" stroke="#2457d6" stroke-width="8" stroke-linejoin="round"/>
+  <text x="260" y="155" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Мідний провідник 1.2 мОм</text>
+
+  <!-- Conductor Current Arrow -->
+  <line x1="200" y1="170" x2="280" y2="170" stroke="#ffffff" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="240" y="195" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Струм I</text>
+
+  <!-- Dielectric Isolation Barrier -->
+  <line x1="395" y1="115" x2="395" y2="445" stroke="#27ae60" stroke-width="3" stroke-dasharray="6,4"/>
+  <rect x="375" y="260" width="40" height="30" rx="4" fill="#27ae60"/>
+  <text x="395" y="280" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">2.1кВ</text>
+  <text x="395" y="460" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Гальванічна ізоляція</text>
+
+  <!-- Magnetic Field Concentric Ellipses -->
+  <ellipse cx="360" cy="250" rx="35" ry="60" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3"/>
+  <ellipse cx="360" cy="250" rx="55" ry="85" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="360" y="355" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Поле B</text>
+
+  <!-- Internal Silicon Sensor Die -->
+  <rect x="445" y="160" width="280" height="230" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="585" y="185" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Кремнієва мікросхема</text>
+
+  <!-- Hall Element inside Die -->
+  <rect x="475" y="210" width="100" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="525" y="235" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Елемент</text>
+  <text x="525" y="255" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Холла</text>
+
+  <!-- Internal Amplifier & Temp Compensation -->
+  <rect x="600" y="210" width="105" height="150" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="652" y="235" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Підсилювач</text>
+  <text x="652" y="255" font-size="12" fill="#6b7280" text-anchor="middle">&amp; Схема VCC/2</text>
+  <text x="652" y="285" font-size="12" fill="#6b7280" text-anchor="middle">Температурна</text>
+  <text x="652" y="305" font-size="12" fill="#6b7280" text-anchor="middle">компенсація</text>
+  <text x="652" y="335" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Sens (мВ/А)</text>
+
+  <!-- Signal Arrow from Hall to Amplifier -->
+  <line x1="575" y1="240" x2="600" y2="240" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- External Pins Right (Signal Domain) -->
+  <rect x="780" y="115" width="130" height="40" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="845" y="140" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND (Вивід 5)</text>
+
+  <rect x="780" y="195" width="130" height="40" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="845" y="220" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">FILTER (Вивід 6)</text>
+
+  <rect x="780" y="275" width="130" height="40" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="845" y="300" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">VOUT (Вивід 7)</text>
+
+  <rect x="780" y="355" width="130" height="40" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="845" y="380" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">VCC 5V (Вивід 8)</text>
+
+  <!-- Internal Signal Connections right -->
+  <line x1="725" y1="295" x2="780" y2="295" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="725" y1="215" x2="780" y2="215" stroke="#6b7280" stroke-width="1.5"/>
+</svg>
