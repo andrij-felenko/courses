@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+  
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Напрямок переміщення термофена при усаджуванні трубки</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Прогрівання від центра до країв витискає повітря та забезпечує суцільний клейовий шар</text>
+
+  <!-- LEFT PANEL: CORRECT METHOD -->
+  <rect x="30" y="80" width="435" height="380" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <rect x="45" y="95" width="405" height="28" fill="#27ae60" rx="4"/>
+  <text x="247.5" y="114" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">ПРАВИЛЬНО: від центра до країв</text>
+
+  <text x="247.5" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#15803d">Рух сопла фена в обидва боки</text>
+  
+  <!-- Sweeping motion arrows -->
+  <path d="M225,141 L175,141" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <path d="M270,141 L320,141" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- Heat Gun Nozzle -->
+  <path d="M235,155 L260,155 L254,178 L241,178 Z" fill="#475569" stroke="#1e293b" stroke-width="1.5"/>
+  <path d="M242,181 L240,200" stroke="#e65100" stroke-width="2" stroke-dasharray="3,2" marker-end="url(#arr-red)"/>
+  <path d="M247.5,181 L247.5,202" stroke="#e65100" stroke-width="2" stroke-dasharray="3,2" marker-end="url(#arr-red)"/>
+  <path d="M253,181 L255,200" stroke="#e65100" stroke-width="2" stroke-dasharray="3,2" marker-end="url(#arr-red)"/>
+
+  <!-- Air escape labels and arrows -->
+  <text x="135" y="210" text-anchor="middle" font-size="12" fill="#2457d6">Витискання повітря</text>
+  <path d="M175,250 L125,250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <text x="360" y="210" text-anchor="middle" font-size="12" fill="#2457d6">Витискання повітря</text>
+  <path d="M320,250 L370,250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Tubing and Wire Structure (Left) -->
+  <!-- Copper wire (path) -->
+  <path d="M60,250 L435,250" stroke="#d97706" stroke-width="8"/>
+  <!-- Solder joint -->
+  <rect x="215" y="241" width="65" height="18" rx="4" fill="#94a3b8" stroke="#475569"/>
+
+  <!-- Unshrunk outer tubing profile -->
+  <path d="M85,225 L170,225 L200,235 L295,235 L325,225 L410,225 L410,275 L325,275 L295,265 L200,265 L170,275 L85,275 Z" fill="#bbf7d0" stroke="#16a34a" stroke-width="1.5" opacity="0.85"/>
+  <!-- Melted Adhesive inner lining -->
+  <path d="M200,238 L295,238 L295,262 L200,262 Z" fill="#fef08a" stroke="#ca8a04" stroke-width="1"/>
+
+  <!-- Explanatory labels below diagram -->
+  <text x="247.5" y="315" text-anchor="middle" font-size="12" font-weight="bold" fill="#166534">Рівномірно розплавлений клейовий шар</text>
+  <text x="247.5" y="338" text-anchor="middle" font-size="12" fill="#166534">Клей заповнює всі мікропорожнини</text>
+
+  <!-- Left Result Box -->
+  <rect x="50" y="375" width="395" height="65" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="247.5" y="398" text-anchor="middle" font-size="13" font-weight="bold" fill="#15803d">РЕЗУЛЬТАТ:</text>
+  <text x="247.5" y="420" text-anchor="middle" font-size="12" fill="#166534">Герметичне з'єднання, стійке до вологи та зламу</text>
+
+
+  <!-- RIGHT PANEL: INCORRECT METHOD -->
+  <rect x="495" y="80" width="435" height="380" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="8"/>
+  <rect x="510" y="95" width="405" height="28" fill="#c0392b" rx="4"/>
+  <text x="712.5" y="114" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">НЕПРАВИЛЬНО: з країв або хаотично</text>
+
+  <text x="712.5" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Першочергове прогрівання кінців трубки</text>
+
+  <!-- Faulty Nozzles -->
+  <path d="M555,155 L580,155 L574,178 L561,178 Z" fill="#475569" stroke="#1e293b" stroke-width="1.5"/>
+  <path d="M567.5,181 L567.5,200" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,2" marker-end="url(#arr-red)"/>
+
+  <path d="M845,155 L870,155 L864,178 L851,178 Z" fill="#475569" stroke="#1e293b" stroke-width="1.5"/>
+  <path d="M857.5,181 L857.5,200" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,2" marker-end="url(#arr-red)"/>
+
+  <!-- Sealed ends warning labels -->
+  <text x="575" y="210" text-anchor="middle" font-size="12" fill="#dc2626">Затиснутий край</text>
+  <text x="850" y="210" text-anchor="middle" font-size="12" fill="#dc2626">Затиснутий край</text>
+
+  <!-- Tubing and Wire Structure (Right) -->
+  <!-- Copper wire (path) -->
+  <path d="M525,250 L900,250" stroke="#d97706" stroke-width="8"/>
+  <!-- Solder joint -->
+  <rect x="680" y="241" width="65" height="18" rx="4" fill="#94a3b8" stroke="#475569"/>
+
+  <!-- Faulty shrunk ends & bulged center tubing profile -->
+  <path d="M550,235 L615,235 L630,220 L760,220 L775,235 L875,235 L875,265 L775,265 L760,280 L630,280 L615,265 L550,265 Z" fill="#fca5a5" stroke="#dc2626" stroke-width="1.5" opacity="0.85"/>
+
+  <!-- Trapped Air Bubbles inside bulged center -->
+  <circle cx="655" cy="240" r="8" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+  <circle cx="705" cy="265" r="9" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+  <circle cx="745" cy="235" r="7" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+
+  <!-- Blocked exit arrows -->
+  <path d="M640,250 L615,250" stroke="#dc2626" stroke-width="2"/>
+  <path d="M620,244 L620,256" stroke="#dc2626" stroke-width="2"/>
+
+  <path d="M765,250 L790,250" stroke="#dc2626" stroke-width="2"/>
+  <path d="M785,244 L785,256" stroke="#dc2626" stroke-width="2"/>
+
+  <!-- Explanatory labels below diagram (Right) -->
+  <text x="712.5" y="315" text-anchor="middle" font-size="12" font-weight="bold" fill="#b91c1c">Запечені повітряні бульбашки всередині</text>
+  <text x="712.5" y="338" text-anchor="middle" font-size="12" fill="#991b1b">Повітря не має шляху для виходу</text>
+
+  <!-- Right Result Box -->
+  <rect x="515" y="375" width="395" height="65" fill="#ffffff" stroke="#c0392b" stroke-width="1" rx="6"/>
+  <text x="712.5" y="398" text-anchor="middle" font-size="13" font-weight="bold" fill="#b91c1c">РЕЗУЛЬТАТ:</text>
+  <text x="712.5" y="420" text-anchor="middle" font-size="12" fill="#991b1b">Порожнини, ризик проникнення вологи та корозії</text>
+</svg>

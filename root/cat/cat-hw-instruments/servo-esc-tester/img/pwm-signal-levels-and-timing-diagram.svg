@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+  
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Амплітудно-часова діаграма ШІМ-сигналів сервотестера</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Логічні рівні напруги TTL (3.3В / 5В) та часові характеристики режимів 50 Гц і 760 мкс</text>
+
+  <!-- Panel 1: Voltage Levels (TTL 3.3V / 5.0V) -->
+  <rect x="25" y="75" width="420" height="285" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="98" font-size="14" font-weight="bold" fill="#2457d6">1. Логічні рівні напруги (TTL 3.3V / 5.0V)</text>
+
+  <!-- Reference lines & labels -->
+  <line x1="120" y1="130" x2="425" y2="130" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="112" y="134" font-size="12" font-weight="bold" text-anchor="end" fill="#c0392b">5.0 V</text>
+
+  <line x1="120" y1="165" x2="425" y2="165" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="112" y="169" font-size="12" font-weight="bold" text-anchor="end" fill="#2457d6">3.3 V</text>
+
+  <line x1="120" y1="200" x2="425" y2="200" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="112" y="204" font-size="12" text-anchor="end" fill="#6b7280">2.0 V (V_IH)</text>
+
+  <line x1="120" y1="235" x2="425" y2="235" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="112" y="239" font-size="12" text-anchor="end" fill="#6b7280">0.8 V (V_IL)</text>
+
+  <line x1="120" y1="270" x2="425" y2="270" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="112" y="274" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">0.0 V (GND)</text>
+
+  <!-- Uncertainty Region background rect -->
+  <rect x="120" y="200" width="305" height="35" fill="#fdecea" opacity="0.4"/>
+
+  <!-- Waveform trace -->
+  <path d="M 120 270 L 140 270 L 140 165 L 190 165 L 190 270 L 350 270 L 350 165 L 400 165 L 400 270 L 425 270" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+
+  <!-- Waveform region labels -->
+  <text x="165" y="152" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Логічна "1" (HIGH): ≥ 2.0 V</text>
+  
+  <text x="270" y="214" font-size="12" text-anchor="middle" fill="#c0392b">Зона невизначеності</text>
+  <text x="270" y="228" font-size="12" text-anchor="middle" fill="#c0392b">(0.8 В ... 2.0 В)</text>
+  
+  <text x="270" y="290" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Логічний "0" (LOW): ≤ 0.8 V</text>
+
+  <!-- Footer text for Panel 1 -->
+  <text x="40" y="325" font-size="12" fill="#1a1a1a">● Вихідний сигнал тестера: 5.0V TTL / 3.3V CMOS</text>
+  <text x="40" y="343" font-size="12" fill="#6b7280">● Поріг V_IH = 2.0V забезпечує сумісність із MCU 3.3V</text>
+
+  <!-- Panel 2: Timing Diagrams (50 Hz and 760 us) -->
+  <rect x="465" y="75" width="470" height="285" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Sub-panel B1: 50 Hz Standard -->
+  <rect x="480" y="92" width="440" height="120" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="495" y="112" font-size="13" font-weight="bold" fill="#2457d6">Стандартний режим: f = 50 Гц (Період T = 20 мс)</text>
+
+  <path d="M 495 170 L 525 170 L 525 138 L 575 138 L 575 170 L 855 170 L 855 138 L 900 138 L 900 170" stroke="#2457d6" stroke-width="2" fill="none"/>
+  
+  <line x1="525" y1="130" x2="575" y2="130" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <text x="525" y="124" font-size="12" font-weight="bold" text-anchor="start" fill="#27ae60">t_pulse = 1000–2000 мкс (1500 мкс)</text>
+
+  <line x1="525" y1="182" x2="855" y2="182" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="690" y="198" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Період кадру T = 20 мс (частота 50 Гц)</text>
+
+  <!-- Sub-panel B2: 760 us Narrow-band -->
+  <rect x="480" y="222" width="440" height="128" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="495" y="242" font-size="13" font-weight="bold" fill="#27ae60">Вузькоімпульсний режим: 760 мкс (f = 333–560 Гц)</text>
+
+  <path d="M 495 300 L 525 300 L 525 270 L 550 270 L 550 300 L 675 300 L 675 270 L 700 270 L 700 300 L 910 300" stroke="#27ae60" stroke-width="2" fill="none"/>
+
+  <line x1="525" y1="262" x2="550" y2="262" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <text x="525" y="256" font-size="12" font-weight="bold" text-anchor="start" fill="#c0392b">760 мкс</text>
+
+  <line x1="525" y1="312" x2="675" y2="312" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="600" y="328" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">T = 1.8–3.0 мс (333–560 Гц)</text>
+  
+  <text x="710" y="275" font-size="12" fill="#1a1a1a">● Нейтраль: 760 мкс</text>
+  <text x="710" y="291" font-size="12" font-weight="bold" fill="#27ae60">● Швидкий відгук серво</text>
+
+  <!-- Panel 3: Comparison Table -->
+  <rect x="25" y="375" width="910" height="140" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="398" font-size="13" font-weight="bold" fill="#1a1a1a">3. Порівняльна характеристика режимів ШІМ та електрична сумісність</text>
+
+  <rect x="40" y="410" width="880" height="24" rx="4" fill="#eaf0fd"/>
+  <text x="50" y="426" font-size="12" font-weight="bold" fill="#2457d6">Режим роботи</text>
+  <text x="280" y="426" font-size="12" font-weight="bold" fill="#2457d6">Центральна нейтраль</text>
+  <text x="470" y="426" font-size="12" font-weight="bold" fill="#2457d6">Частота оновлення</text>
+  <text x="660" y="426" font-size="12" font-weight="bold" fill="#2457d6">Призначення та сумісність</text>
+
+  <text x="50" y="450" font-size="12" font-weight="bold" fill="#1a1a1a">Стандартний (1500 мкс)</text>
+  <text x="280" y="450" font-size="12" fill="#1a1a1a">1500 мкс (1.5 мс)</text>
+  <text x="470" y="450" font-size="12" fill="#1a1a1a">50 Гц (період 20 мс)</text>
+  <text x="660" y="450" font-size="12" fill="#1a1a1a">Аналогові / цифрові серво, ESC</text>
+
+  <text x="50" y="472" font-size="12" font-weight="bold" fill="#27ae60">Вузькоімпульсний (760 мкс)</text>
+  <text x="280" y="472" font-size="12" fill="#27ae60">760 мкс (0.76 мс)</text>
+  <text x="470" y="472" font-size="12" fill="#27ae60">333–560 Гц (1.8–3.0 мс)</text>
+  <text x="660" y="472" font-size="12" fill="#27ae60">Швидкісні хвостові цифровики</text>
+
+  <rect x="40" y="484" width="880" height="22" rx="4" fill="#fdecea"/>
+  <text x="50" y="499" font-size="12" font-weight="bold" fill="#c0392b">⚠️ ПОПЕРЕДЖЕННЯ: Подача сигналу 1500 мкс на серво 760 мкс спричиняє перегрів та поломку редуктора!</text>
+</svg>

@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принципова схема плати керування термофеном BAKU BK-8033</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Розводка силового живлення 220 В, оптосимисторного керування нагрівачем та вимірювальних кіл термопари</text>
+
+  <!-- Main Pipeline Container Panel -->
+  <rect x="20" y="75" width="920" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Module 1: Mains 220V Power -->
+  <rect x="35" y="95" width="200" height="335" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="135" y="120" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Мережа 220 В AC</text>
+  <text x="135" y="140" font-size="12" fill="#6b7280" text-anchor="middle">Mains &amp; Power Unit</text>
+  <line x1="45" y1="150" x2="225" y2="150" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="45" y="175" font-size="12" fill="#1a1a1a">• Вхід 220V AC (L, N)</text>
+  <text x="45" y="200" font-size="12" fill="#1a1a1a">• Запобіжник 3.15A</text>
+  <text x="45" y="225" font-size="12" fill="#1a1a1a">• Мережевий вимикач</text>
+  <text x="45" y="255" font-size="12" fill="#1a1a1a">• Тр-р 220V / 24V AC</text>
+  <text x="45" y="280" font-size="12" fill="#1a1a1a">• Діодний міст (24V DC)</text>
+  <text x="45" y="305" font-size="12" fill="#1a1a1a">• Стабілізатор 5V DC</text>
+  <text x="45" y="340" font-size="12" fill="#1a1a1a">• Лінія заземлення PE</text>
+  <text x="45" y="375" font-size="11" fill="#c0392b">Вхід живлення станції</text>
+
+  <!-- Flow Line 1 -> 2 (220V to TRIAC) -->
+  <line x1="235" y1="210" x2="255" y2="210" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Module 2: TRIAC Heater Control -->
+  <rect x="255" y="95" width="220" height="335" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="365" y="120" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Силовий нагрівач</text>
+  <text x="365" y="140" font-size="12" fill="#6b7280" text-anchor="middle">TRIAC &amp; Heater Control</text>
+  <line x1="265" y1="150" x2="465" y2="150" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="265" y="175" font-size="12" fill="#1a1a1a">• Сигнал ШІМ MCU (5V)</text>
+  <text x="265" y="200" font-size="12" fill="#1a1a1a">• Оптосимистор MOC3021</text>
+  <text x="265" y="225" font-size="12" fill="#1a1a1a">• Симистор BTA16 / 600V</text>
+  <text x="265" y="255" font-size="12" fill="#1a1a1a">• RC-снабер (39 Ом+10nF)</text>
+  <text x="265" y="280" font-size="12" fill="#1a1a1a">• Спіраль фена (~70 Ом)</text>
+  <text x="265" y="305" font-size="12" fill="#1a1a1a">• Потужність до 700 Вт</text>
+  <text x="265" y="340" font-size="12" fill="#1a1a1a">• Імпульсна регуляція</text>
+  <text x="265" y="375" font-size="11" fill="#2457d6">Фазове керування AC</text>
+
+  <!-- Module 3: Fan Driver & Reed Switch -->
+  <rect x="495" y="95" width="210" height="335" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="600" y="120" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Турбіна &amp; Геркон</text>
+  <text x="600" y="140" font-size="12" fill="#6b7280" text-anchor="middle">Fan Driver &amp; Standby</text>
+  <line x1="505" y1="150" x2="695" y2="150" stroke="#d0d7de" stroke-width="1"/>
+  <text x="505" y="175" font-size="12" fill="#1a1a1a">• Живлення мотора 24V DC</text>
+  <text x="505" y="200" font-size="12" fill="#1a1a1a">• Регулювання Air (Pot)</text>
+  <text x="505" y="225" font-size="12" fill="#1a1a1a">• Силовий транзистор</text>
+  <text x="505" y="255" font-size="12" fill="#1a1a1a">• Турбіна в ручці фена</text>
+  <text x="505" y="280" font-size="12" fill="#1a1a1a">• Геркон тримача (Reed)</text>
+  <text x="505" y="305" font-size="12" fill="#1a1a1a">• Автопродування 100°C</text>
+  <text x="505" y="340" font-size="12" fill="#1a1a1a">• Перехід у режим сну</text>
+  <text x="505" y="375" font-size="11" fill="#2457d6">Захист від перегріву</text>
+
+  <!-- Flow Line 3 -> 4 (Sensor Feedback) -->
+  <line x1="705" y1="210" x2="725" y2="210" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Module 4: K-Type Thermocouple Signal -->
+  <rect x="725" y="95" width="200" height="335" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="825" y="120" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">4. Т-пара K-типу</text>
+  <text x="825" y="140" font-size="12" fill="#6b7280" text-anchor="middle">Thermocouple Signal</text>
+  <line x1="735" y1="150" x2="915" y2="150" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="735" y="175" font-size="12" fill="#1a1a1a">• Термопара K (+ / -)</text>
+  <text x="735" y="200" font-size="12" fill="#1a1a1a">• Сигнал 0..20 мВ (DC)</text>
+  <text x="735" y="225" font-size="12" fill="#1a1a1a">• Підсилювач OP-AMP</text>
+  <text x="735" y="255" font-size="12" fill="#1a1a1a">• Мікросхема LM358</text>
+  <text x="735" y="280" font-size="12" fill="#1a1a1a">• Вхід АЦП MCU (0..5V)</text>
+  <text x="735" y="305" font-size="12" fill="#1a1a1a">• Петля PID-регулятора</text>
+  <text x="735" y="340" font-size="12" fill="#1a1a1a">• Індикація температури</text>
+  <text x="735" y="375" font-size="11" fill="#27ae60">Зворотний зв'язок T°C</text>
+
+  <!-- Bottom Pinout Explanation Bar -->
+  <rect x="20" y="455" width="920" height="52" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="475" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розпідключення 8-пінового роз'єму ручки фена Baku BK-8033:</text>
+  <text x="480" y="495" font-size="12" fill="#6b7280" text-anchor="middle">1-2: Нагрівач (220V AC), 3-4: Термопара K-типу (мВ), 5-6: Мотор турбіни (24V DC), 7-8: Геркон підвісу (Reed SW)</text>
+</svg>

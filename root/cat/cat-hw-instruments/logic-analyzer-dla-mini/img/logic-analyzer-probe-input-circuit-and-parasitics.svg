@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еквівалентна схема вхідного каналу DLA Mini та паразитна ємність щупа</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Захист вхідного буфера діодами ESD, струмообмеження R_in та вплив паразитної ємності C_probe на фронти</text>
+
+  <!-- Panel 1: DUT & Probe -->
+  <rect x="40" y="90" width="270" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="175" y="115" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вимірювальний щуп (Probe)</text>
+
+  <!-- Panel 2: DLA Mini Input Protection -->
+  <rect x="330" y="90" width="340" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="500" y="115" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідний захист каналу (DLA Mini)</text>
+
+  <!-- Panel 3: CMOS Input Buffer -->
+  <rect x="690" y="90" width="230" height="380" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="805" y="115" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">CMOS Компаратор</text>
+
+  <!-- Main Ground Bus (y=390) -->
+  <line x1="70" y1="390" x2="860" y2="390" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="480" y="440" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Спільна шина заземлення (GND)</text>
+
+  <!-- GND Ground symbols -->
+  <!-- GND at x=230 -->
+  <line x1="230" y1="390" x2="230" y2="400" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="220" y1="400" x2="240" y2="400" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="224" y1="404" x2="236" y2="404" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="228" y1="408" x2="232" y2="408" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- GND at x=480 -->
+  <line x1="480" y1="390" x2="480" y2="400" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="470" y1="400" x2="490" y2="400" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="474" y1="404" x2="486" y2="404" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="478" y1="408" x2="482" y2="408" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- GND at x=725 -->
+  <line x1="725" y1="390" x2="725" y2="400" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="715" y1="400" x2="735" y2="400" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="719" y1="404" x2="731" y2="404" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="723" y1="408" x2="727" y2="408" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Signal Source Generator (x=80, y=250) -->
+  <circle cx="80" cy="250" r="16" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <path d="M72,250 Q76,242 80,250 T88,250" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="80" y="215" font-size="12" fill="#1a1a1a" text-anchor="middle">Джерело V_in</text>
+  <line x1="96" y1="250" x2="150" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Probe Connection Point (x=150, y=250) -->
+  <circle cx="150" cy="250" r="4" fill="#2457d6"/>
+  <text x="150" y="215" font-size="12" fill="#1a1a1a" text-anchor="middle">Контакт щупа</text>
+  <line x1="150" y1="250" x2="230" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Probe Stray Capacitance C_probe (x=230) -->
+  <circle cx="230" cy="250" r="4" fill="#1a1a1a"/>
+  <line x1="230" y1="250" x2="230" y2="295" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="215" y1="295" x2="245" y2="295" stroke="#c0392b" stroke-width="2"/>
+  <line x1="215" y1="305" x2="245" y2="305" stroke="#c0392b" stroke-width="2"/>
+  <line x1="230" y1="305" x2="230" y2="390" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="255" y="308" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">C_probe</text>
+  <text x="255" y="326" font-size="12" fill="#6b7280" text-anchor="start">~10–15 пФ</text>
+
+  <!-- Line connecting to Dupont Pin (x=230 to x=305) -->
+  <line x1="230" y1="250" x2="305" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Dupont Pin Header (x=305) -->
+  <rect x="298" y="242" width="14" height="16" rx="2" fill="#2457d6"/>
+  <text x="305" y="215" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пін CHx</text>
+  <line x1="312" y1="250" x2="360" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Input Protective Resistor R_in (x=360 to x=420) -->
+  <rect x="360" y="240" width="60" height="20" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="390" y="215" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_in (100 Ом / 1 кОм)</text>
+  <text x="390" y="280" font-size="12" fill="#6b7280" text-anchor="middle">Струмообмеження</text>
+  <line x1="420" y1="250" x2="480" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- ESD Clamping Node (x=480) -->
+  <circle cx="480" cy="250" r="4" fill="#1a1a1a"/>
+
+  <!-- V_CC Rail (+3.3V) at y=170 -->
+  <line x1="450" y1="170" x2="510" y2="170" stroke="#27ae60" stroke-width="2"/>
+  <text x="480" y="155" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">+3.3V (V_CC)</text>
+  <line x1="480" y1="170" x2="480" y2="195" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Upper ESD Diode (Clamping to V_CC) -->
+  <path d="M 480,195 L 468,220 L 492,220 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <line x1="468" y1="195" x2="492" y2="195" stroke="#27ae60" stroke-width="2"/>
+  <line x1="480" y1="220" x2="480" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="505" y="195" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">D_ESD (+3.3V)</text>
+
+  <!-- Lower ESD Diode (Clamping to GND) -->
+  <line x1="480" y1="250" x2="480" y2="305" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 480,305 L 468,330 L 492,330 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <line x1="468" y1="305" x2="492" y2="305" stroke="#27ae60" stroke-width="2"/>
+  <line x1="480" y1="330" x2="480" y2="390" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="505" y="345" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">D_ESD (GND)</text>
+
+  <!-- Pull-down Resistor R_pd (x=570) -->
+  <line x1="480" y1="250" x2="570" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="570" cy="250" r="4" fill="#1a1a1a"/>
+  <line x1="570" y1="250" x2="570" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="560" y="280" width="20" height="50" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="570" y1="330" x2="570" y2="390" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="595" y="308" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">R_pd = 100 кОм</text>
+  <text x="595" y="326" font-size="12" fill="#6b7280" text-anchor="start">Фіксація нуля</text>
+
+  <!-- Line entering Right Panel (x=570 to x=725) -->
+  <line x1="570" y1="250" x2="725" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Internal MCU Input Capacitance C_in (x=725) -->
+  <circle cx="725" cy="250" r="4" fill="#1a1a1a"/>
+  <line x1="725" y1="250" x2="725" y2="295" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="710" y1="295" x2="740" y2="295" stroke="#c0392b" stroke-width="2"/>
+  <line x1="710" y1="305" x2="740" y2="305" stroke="#c0392b" stroke-width="2"/>
+  <line x1="725" y1="305" x2="725" y2="390" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="748" y="315" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">C_in ≈ 5–10 пФ</text>
+
+  <!-- Line entering CMOS Buffer -->
+  <line x1="725" y1="250" x2="790" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Threshold Box above CMOS Buffer -->
+  <rect x="740" y="130" width="130" height="55" rx="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="805" y="145" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Пороги компаратора</text>
+  <text x="805" y="162" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_IL = 0.8 В</text>
+  <text x="805" y="178" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_IH = 2.0 В</text>
+
+  <!-- CMOS Buffer Symbol (Triangle pointing right) -->
+  <path d="M 790,215 L 850,250 L 790,285 Z" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="820" y="254" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">CMOS</text>
+
+  <!-- Output line from CMOS Buffer -->
+  <line x1="850" y1="250" x2="905" y2="250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="885" y="215" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">До FPGA / MCU</text>
+
+  <!-- Bottom Summary Banner -->
+  <rect x="40" y="480" width="880" height="48" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="500" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Паразитна ємність C_Σ = C_probe + C_in (15–25 пФ) разом із опором джерела формує RC-ланцюг</text>
+  <text x="480" y="518" font-size="12" fill="#6b7280" text-anchor="middle">Це обмежує максимальну частоту сигналів та збільшує тривалість фронту: t_r ≈ 2.2 · R_src · C_Σ</text>
+</svg>

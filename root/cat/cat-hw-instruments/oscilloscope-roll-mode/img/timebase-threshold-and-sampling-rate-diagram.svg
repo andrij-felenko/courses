@@ -1,0 +1,174 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Залежність режиму збору даних та частоти дискретизації від часової розгортки</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Перехід у Roll Mode відбувається при t_div ≥ 50–100 мс/под зі зниженням f_s для запобігання переповненню пам'яті</text>
+
+  <!-- UPPER GRAPH SECTION -->
+  <rect x="60" y="75" width="840" height="215" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="75" y="93" font-size="13" font-weight="bold" fill="#1a1a1a">Залежність частоти дискретизації f_s від часової розгортки t_div</text>
+
+  <!-- Region Background Highlights inside Graph -->
+  <rect x="130" y="105" width="390" height="140" fill="#eaf0fd" fill-opacity="0.4"/>
+  <rect x="520" y="105" width="340" height="140" fill="#e9f7ef" fill-opacity="0.4"/>
+
+  <!-- Threshold Line & Callout Badge -->
+  <line x1="520" y1="114" x2="520" y2="245" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <rect x="445" y="88" width="150" height="22" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="520" y="104" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Поріг: 50–100 мс/под</text>
+
+  <!-- Graph Region Titles -->
+  <text x="300" y="145" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Тригерний режим збору</text>
+  <text x="300" y="160" font-size="12" fill="#6b7280" text-anchor="middle">t_div &lt; 50 мс/под</text>
+
+  <text x="670" y="145" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Режим самописця Roll</text>
+  <text x="670" y="160" font-size="12" fill="#6b7280" text-anchor="middle">t_div ≥ 50 мс/под</text>
+
+  <!-- Y-Axis -->
+  <line x1="130" y1="245" x2="130" y2="108" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="135" y="112" font-size="12" font-weight="bold" fill="#1a1a1a">f_s (Частота дискретизації)</text>
+
+  <!-- Y Ticks -->
+  <line x1="126" y1="120" x2="130" y2="120" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="122" y="124" font-size="12" fill="#1a1a1a" text-anchor="end">1 GS/s</text>
+
+  <line x1="126" y1="155" x2="130" y2="155" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="122" y="159" font-size="12" fill="#1a1a1a" text-anchor="end">1 MS/s</text>
+
+  <line x1="126" y1="190" x2="130" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="122" y="194" font-size="12" fill="#1a1a1a" text-anchor="end">100 kS/s</text>
+
+  <line x1="126" y1="235" x2="130" y2="235" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="122" y="239" font-size="12" fill="#1a1a1a" text-anchor="end">1 kS/s</text>
+
+  <!-- X-Axis -->
+  <line x1="130" y1="245" x2="862" y2="245" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="855" y="278" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">t_div (Часова розгортка)</text>
+
+  <!-- X Ticks -->
+  <line x1="170" y1="245" x2="170" y2="248" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="170" y="263" font-size="12" fill="#1a1a1a" text-anchor="middle">1 нс/под</text>
+
+  <line x1="280" y1="245" x2="280" y2="248" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="280" y="263" font-size="12" fill="#1a1a1a" text-anchor="middle">1 мкс/под</text>
+
+  <line x1="410" y1="245" x2="410" y2="248" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="410" y="263" font-size="12" fill="#1a1a1a" text-anchor="middle">10 мс/под</text>
+
+  <line x1="520" y1="245" x2="520" y2="248" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="520" y="263" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">50 мс/под</text>
+
+  <line x1="670" y1="245" x2="670" y2="248" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="670" y="263" font-size="12" fill="#1a1a1a" text-anchor="middle">1 с/под</text>
+
+  <line x1="800" y1="245" x2="800" y2="248" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="800" y="263" font-size="12" fill="#1a1a1a" text-anchor="middle">50 с/под</text>
+
+  <!-- Sampling Rate Curve f_s(t_div) -->
+  <path d="M 130,120 L 340,120 Q 430,130 520,185 T 800,235" stroke="#2457d6" stroke-width="3" fill="none"/>
+  <!-- Point at threshold -->
+  <circle cx="520" cy="185" r="4" fill="#c0392b"/>
+
+  <!-- LOWER COMPARISON PANELS -->
+
+  <!-- Left Panel: Triggered Mode -->
+  <rect x="60" y="305" width="410" height="240" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <path d="M 60,313 A 8,8 0 0,1 68,305 L 462,305 A 8,8 0 0,1 470,305 L 470,341 L 60,341 Z" fill="#eaf0fd"/>
+  <line x1="60" y1="341" x2="470" y2="341" stroke="#2457d6" stroke-width="1"/>
+  <text x="265" y="328" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Тригерний режим (t_div &lt; 50 мс/поділ)</text>
+
+  <!-- Left Panel Mini Screen -->
+  <rect x="75" y="355" width="165" height="110" fill="#0f172a" stroke="#334155" stroke-width="1.5" rx="6"/>
+  <!-- Grid lines ending at y=428 to keep bottom clear -->
+  <line x1="75" y1="395" x2="240" y2="395" stroke="#1e293b" stroke-dasharray="2 2"/>
+  <line x1="75" y1="415" x2="240" y2="415" stroke="#1e293b" stroke-dasharray="2 2"/>
+  <line x1="116" y1="380" x2="116" y2="428" stroke="#1e293b" stroke-dasharray="2 2"/>
+  <line x1="157" y1="380" x2="157" y2="428" stroke="#1e293b" stroke-dasharray="2 2"/>
+  <line x1="198" y1="380" x2="198" y2="428" stroke="#1e293b" stroke-dasharray="2 2"/>
+
+  <!-- Trigger Badge -->
+  <rect x="80" y="360" width="56" height="18" fill="#2457d6" rx="3"/>
+  <text x="108" y="373" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">TRIG'D</text>
+
+  <!-- Triggered Waveform -->
+  <path d="M 85,410 Q 95,390 105,410 T 125,410 Q 135,430 145,410 T 165,410 Q 175,390 185,410 T 205,410 Q 215,430 225,410" stroke="#00f0ff" stroke-width="2" fill="none"/>
+
+  <!-- Screen Caption -->
+  <text x="157" y="483" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Покадрове оновлення екрана</text>
+  <text x="157" y="498" font-size="12" fill="#6b7280" text-anchor="middle">(збір всієї кадрової вибірки)</text>
+
+  <!-- Left Panel Bullets -->
+  <text x="255" y="372" font-size="12" font-weight="bold" fill="#1a1a1a">• Буферизація кадру</text>
+  <text x="255" y="387" font-size="12" fill="#6b7280">  Збір даних перед показом</text>
+
+  <text x="255" y="410" font-size="12" font-weight="bold" fill="#1a1a1a">• Наявність мертвих зон</text>
+  <text x="255" y="425" font-size="12" fill="#6b7280">  Паузи між запуском розгортки</text>
+
+  <text x="255" y="448" font-size="12" font-weight="bold" fill="#1a1a1a">• Повна смуга АЦП</text>
+  <text x="255" y="463" font-size="12" fill="#6b7280">  Графік без втрати деталей</text>
+
+  <!-- Left Formula Card -->
+  <rect x="75" y="507" width="380" height="26" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="265" y="524" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Буфер: N_mem = f_s × 10 · t_div (потрібна велика пам'ять)</text>
+
+  <!-- Right Panel: Roll Mode -->
+  <rect x="490" y="305" width="410" height="240" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <path d="M 490,313 A 8,8 0 0,1 498,305 L 892,305 A 8,8 0 0,1 900,305 L 900,341 L 490,341 Z" fill="#e9f7ef"/>
+  <line x1="490" y1="341" x2="900" y2="341" stroke="#27ae60" stroke-width="1"/>
+  <text x="695" y="328" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Режим самописця (t_div ≥ 50 мс/поділ)</text>
+
+  <!-- Right Panel Mini Screen -->
+  <rect x="505" y="355" width="165" height="110" fill="#0f172a" stroke="#334155" stroke-width="1.5" rx="6"/>
+  <!-- Grid lines ending at y=428 to leave bottom area clear of vertical lines -->
+  <line x1="505" y1="395" x2="670" y2="395" stroke="#1e293b" stroke-dasharray="2 2"/>
+  <line x1="505" y1="415" x2="670" y2="415" stroke="#1e293b" stroke-dasharray="2 2"/>
+  <line x1="546" y1="380" x2="546" y2="428" stroke="#1e293b" stroke-dasharray="2 2"/>
+  <line x1="587" y1="380" x2="587" y2="428" stroke="#1e293b" stroke-dasharray="2 2"/>
+  <line x1="628" y1="380" x2="628" y2="428" stroke="#1e293b" stroke-dasharray="2 2"/>
+
+  <!-- Roll Badge -->
+  <rect x="510" y="360" width="54" height="18" fill="#27ae60" rx="3"/>
+  <text x="537" y="373" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">ROLL</text>
+
+  <!-- Roll Waveform -->
+  <path d="M 515,410 Q 530,390 545,400 T 575,395 Q 590,415 605,400 T 635,405 Q 650,385 660,395" stroke="#2ecc71" stroke-width="2" fill="none"/>
+
+  <!-- Continuous Motion Arrow & Text (positioned in clear area y=432 to 455) -->
+  <text x="585" y="444" font-size="12" font-weight="bold" fill="#2ecc71" text-anchor="middle">Зсув даних</text>
+  <line x1="640" y1="452" x2="530" y2="452" stroke="#2ecc71" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Screen Caption -->
+  <text x="587" y="483" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Безперервна прокрутка</text>
+  <text x="587" y="498" font-size="12" fill="#6b7280" text-anchor="middle">(потоковий вивід відліків)</text>
+
+  <!-- Right Panel Bullets -->
+  <text x="685" y="372" font-size="12" font-weight="bold" fill="#1a1a1a">• Потокове оновлення</text>
+  <text x="685" y="387" font-size="12" fill="#6b7280">  Нові точки одразу на екрані</text>
+
+  <text x="685" y="410" font-size="12" font-weight="bold" fill="#1a1a1a">• Нуль мертвого часу</text>
+  <text x="685" y="425" font-size="12" fill="#6b7280">  Запис без пропуску подій</text>
+
+  <text x="685" y="448" font-size="12" font-weight="bold" fill="#1a1a1a">• Адаптивна частота f_s</text>
+  <text x="685" y="463" font-size="12" fill="#6b7280">  Зниження f_s під швидкість</text>
+
+  <!-- Right Formula Card -->
+  <rect x="505" y="507" width="380" height="26" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="695" y="524" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Частота збору: f_s = N_mem / (10 · t_div) (фіксований буфер)</text>
+</svg>

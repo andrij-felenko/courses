@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-left" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Модель смуги пропускання, часу наростання та аліасингу</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Недостатня частота вибірки створює хибні частоти, а АЧХ обмежує фронт за формулою t_r ≈ 0.35 / BW</text>
+
+  <!-- Panel A (Left) -->
+  <rect x="30" y="75" width="435" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="48" y="102" font-size="15" font-weight="bold" fill="#c0392b">1. Спектральне накладання (аліасинг)</text>
+  <text x="48" y="120" font-size="12" fill="#6b7280">При f_in &gt; f_s / 2 виникає хибна низькочастотна складова</text>
+
+  <!-- Sub-box A1: Time domain waveform -->
+  <rect x="45" y="132" width="405" height="175" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="60" y="152" font-size="13" font-weight="bold" fill="#1a1a1a">Відновлення сигналу в часовій області</text>
+
+  <!-- Axes A1 -->
+  <line x1="75" y1="240" x2="435" y2="240" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="75" y1="255" x2="75" y2="162" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="440" y="244" font-size="12" fill="#1a1a1a">t</text>
+  <text x="62" y="166" font-size="12" fill="#1a1a1a">A</text>
+
+  <!-- High frequency input signal (blue) -->
+  <path d="M 85,210 Q 95,180 105,210 T 125,210 T 145,210 T 165,210 T 185,210 T 205,210 T 225,210 T 245,210 T 265,210 T 285,210 T 305,210 T 325,210 T 345,210 T 365,210 T 385,210 T 405,210" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Low frequency aliased signal (red) -->
+  <path d="M 85,210 Q 135,180 185,210 T 285,210 T 385,210" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- ADC sampling points -->
+  <circle cx="85" cy="210" r="4" fill="#1a1a1a"/>
+  <circle cx="135" cy="180" r="4" fill="#1a1a1a"/>
+  <circle cx="185" cy="210" r="4" fill="#1a1a1a"/>
+  <circle cx="235" cy="240" r="4" fill="#1a1a1a"/>
+  <circle cx="285" cy="210" r="4" fill="#1a1a1a"/>
+  <circle cx="335" cy="180" r="4" fill="#1a1a1a"/>
+  <circle cx="385" cy="210" r="4" fill="#1a1a1a"/>
+
+  <!-- Vertical dashed sampling lines -->
+  <line x1="135" y1="180" x2="135" y2="240" stroke="#6b7280" stroke-dasharray="2,2"/>
+  <line x1="235" y1="240" x2="235" y2="240" stroke="#6b7280" stroke-dasharray="2,2"/>
+  <line x1="335" y1="180" x2="335" y2="240" stroke="#6b7280" stroke-dasharray="2,2"/>
+
+  <!-- Legend A1 -->
+  <text x="85" y="295" font-size="12" fill="#2457d6">f_in = 200 МГц (вхідний)</text>
+  <text x="245" y="295" font-size="12" fill="#c0392b">f_alias = 50 МГц (хибний)</text>
+
+  <!-- Sub-box A2: Spectrum domain -->
+  <rect x="45" y="319" width="405" height="202" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="60" y="339" font-size="13" font-weight="bold" fill="#1a1a1a">Спектральне накладання у зоні Найквіста</text>
+
+  <!-- Axes A2 -->
+  <line x1="75" y1="440" x2="435" y2="440" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="75" y1="440" x2="75" y2="350" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="440" y="444" font-size="12" fill="#1a1a1a">f</text>
+  <text x="62" y="352" font-size="12" fill="#1a1a1a">|X|</text>
+
+  <!-- Frequency lines & labels -->
+  <line x1="235" y1="355" x2="235" y2="440" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="235" y="350" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">f_s / 2 = 125 МГц</text>
+
+  <line x1="395" y1="365" x2="395" y2="440" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="395" y="360" font-size="12" fill="#6b7280" text-anchor="middle">f_s = 250 МГц</text>
+
+  <!-- Spectral peaks -->
+  <!-- Signal Peak -->
+  <line x1="331" y1="440" x2="331" y2="380" stroke="#2457d6" stroke-width="3"/>
+  <text x="331" y="375" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">f_in = 200 МГц</text>
+
+  <!-- Alias Peak -->
+  <line x1="139" y1="440" x2="139" y2="380" stroke="#c0392b" stroke-width="3"/>
+  <text x="139" y="375" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">f_alias = 50 МГц</text>
+
+  <!-- Reflection arc -->
+  <path d="M 325,390 Q 235,360 145,390" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+
+  <!-- Callout Box A2 -->
+  <rect x="55" y="462" width="385" height="46" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="247" y="480" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Помилка: f_in &gt; f_s / 2 створює хибний пік 50 МГц</text>
+  <text x="247" y="497" font-size="12" fill="#1a1a1a" text-anchor="middle">Умова: ФНЧ має зрізати всі частоти понад 125 МГц</text>
+
+  <!-- Panel B (Right) -->
+  <rect x="495" y="75" width="435" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="513" y="102" font-size="15" font-weight="bold" fill="#27ae60">2. Смуга BW та час наростання t_r</text>
+  <text x="513" y="120" font-size="12" fill="#6b7280">АЧХ аналогового тракту визначає тривалість фронту</text>
+
+  <!-- Sub-box B1: Frequency Response -->
+  <rect x="510" y="132" width="405" height="175" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="525" y="152" font-size="13" font-weight="bold" fill="#1a1a1a">Амплітудно-частотна характеристика (АЧХ)</text>
+
+  <!-- Axes B1 -->
+  <line x1="540" y1="260" x2="900" y2="260" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="540" y1="260" x2="540" y2="162" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="905" y="264" font-size="12" fill="#1a1a1a">f</text>
+  <text x="527" y="166" font-size="12" fill="#1a1a1a">K</text>
+
+  <!-- Levels -->
+  <line x1="540" y1="180" x2="710" y2="180" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="548" y="176" font-size="12" fill="#6b7280">1.0 (0 дБ)</text>
+
+  <line x1="540" y1="204" x2="710" y2="204" stroke="#c0392b" stroke-dasharray="3,3"/>
+  <text x="548" y="200" font-size="12" font-weight="bold" fill="#c0392b">0.707 (-3 дБ)</text>
+
+  <line x1="710" y1="180" x2="710" y2="260" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <circle cx="710" cy="204" r="4" fill="#c0392b"/>
+  <text x="710" y="278" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">BW = 50 МГц</text>
+
+  <!-- АЧХ Curve -->
+  <path d="M 540,180 L 650,180 Q 710,180 710,204 T 880,255" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="600" y="235" font-size="12" fill="#27ae60" text-anchor="middle">Смуга пропускання</text>
+
+  <!-- Sub-box B2: Step response & Rise time -->
+  <rect x="510" y="319" width="405" height="202" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="525" y="338" font-size="13" font-weight="bold" fill="#1a1a1a">Перехідна характеристика та час наростання фронту</text>
+
+  <!-- Axes B2 -->
+  <line x1="540" y1="445" x2="900" y2="445" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="540" y1="445" x2="540" y2="348" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="905" y="444" font-size="12" fill="#1a1a1a">t</text>
+  <text x="527" y="352" font-size="12" fill="#1a1a1a">U</text>
+
+  <!-- Levels -->
+  <line x1="540" y1="365" x2="900" y2="365" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <text x="546" y="362" font-size="12" fill="#6b7280">100%</text>
+
+  <line x1="540" y1="372.3" x2="640" y2="372.3" stroke="#6b7280" stroke-dasharray="2,2"/>
+  <text x="546" y="370" font-size="12" fill="#6b7280">90%</text>
+
+  <line x1="540" y1="430.7" x2="640" y2="430.7" stroke="#6b7280" stroke-dasharray="2,2"/>
+  <text x="546" y="428" font-size="12" fill="#6b7280">10%</text>
+
+  <!-- Step response curve -->
+  <path d="M 540,438 L 620,438 C 660,438 700,365 740,365 L 900,365" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Vertical dashed lines for 10% and 90% points -->
+  <line x1="642" y1="375" x2="642" y2="445" stroke="#27ae60" stroke-dasharray="2,2"/>
+  <line x1="718" y1="375" x2="718" y2="445" stroke="#27ae60" stroke-dasharray="2,2"/>
+
+  <!-- Double arrow for t_r -->
+  <line x1="642" y1="380" x2="718" y2="380" stroke="#27ae60" stroke-width="2" marker-start="url(#arr-green-left)" marker-end="url(#arr-green)"/>
+  <text x="680" y="372" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t_r = 7 нс</text>
+
+  <!-- Callout Box B2 -->
+  <rect x="520" y="462" width="385" height="46" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="712" y="480" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Формула: t_r ≈ 0.35 / BW = 0.35 / 50 МГц = 7.0 нс</text>
+  <text x="712" y="497" font-size="12" fill="#1a1a1a" text-anchor="middle">Сумарний фронт тракту: t_sys = √(t_osc² + t_probe² + t_sig²)</text>
+</svg>

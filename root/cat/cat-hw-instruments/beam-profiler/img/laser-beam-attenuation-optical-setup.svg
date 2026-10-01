@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Оптична схема послаблення потужності лазерного пучка</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Світлодільний клин та ND-фільтри знижують інтенсивність до безпечного динамічного діапазону КМОН-сенсора</text>
+
+  <!-- Optical Axis Z -->
+  <line x1="30" y1="230" x2="785" y2="230" stroke="#9ca3af" stroke-width="1" stroke-dasharray="6,4"/>
+  <text x="205" y="272" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Вісь Z</text>
+
+  <!-- Laser Source -->
+  <text x="92" y="115" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Лазерне джерело</text>
+  <rect x="50" y="165" width="85" height="130" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="135" y="210" width="25" height="40" rx="2" fill="#c0392b"/>
+  <text x="92" y="202" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ЛАЗЕР</text>
+  <text x="92" y="262" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">(100% P)</text>
+
+  <!-- High Power Beam (Laser to Wedge) -->
+  <text x="215" y="195" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Висока потужність</text>
+  <polygon points="160,220 270,215 270,245 160,240" fill="#c0392b" opacity="0.25"/>
+  <line x1="160" y1="230" x2="265" y2="230" stroke="#c0392b" stroke-width="4" marker-end="url(#arr-red)"/>
+
+  <!-- Beamsplitter Wedge -->
+  <text x="310" y="105" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Світлодільний клин</text>
+  <text x="310" y="122" font-size="12" fill="#6b7280" text-anchor="middle">(кут клина α)</text>
+  <polygon points="285,155 330,170 315,305 285,305" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Stray Second Surface Reflection -->
+  <line x1="305" y1="220" x2="360" y2="155" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="370" y="150" font-size="12" fill="#c0392b" text-anchor="start">Паразитне відбиття</text>
+
+  <!-- Main 96% Reflection Down to Beam Dump -->
+  <polygon points="292,235 308,235 313,325 297,325" fill="#c0392b" opacity="0.3"/>
+  <line x1="302" y1="235" x2="302" y2="320" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+  <rect x="245" y="325" width="115" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="302" y="351" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Beam Dump (96%)</text>
+
+  <!-- Attenuated Beam (Wedge to ND Filters) -->
+  <text x="392" y="195" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Послаблення ~4%</text>
+  <polygon points="315,225 475,225 475,235 315,235" fill="#2457d6" opacity="0.2"/>
+  <line x1="315" y1="230" x2="470" y2="230" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- ND Filters Set -->
+  <text x="525" y="105" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Нейтральні фільтри</text>
+  <text x="525" y="122" font-size="12" fill="#6b7280" text-anchor="middle">(набір ND-фільтрів)</text>
+  <rect x="475" y="160" width="100" height="140" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="490" y="170" width="12" height="120" fill="#6b7280" opacity="0.6" rx="1"/>
+  <rect x="515" y="170" width="12" height="120" fill="#4b5563" opacity="0.8" rx="1"/>
+  <rect x="540" y="170" width="12" height="120" fill="#1f2937" opacity="0.95" rx="1"/>
+
+  <!-- Safe Beam (ND Filters to Camera) -->
+  <text x="665" y="195" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Безпечний сигнал (&lt;1 мВт/см²)</text>
+  <polygon points="575,227 760,227 760,233 575,233" fill="#27ae60" opacity="0.3"/>
+  <line x1="575" y1="230" x2="755" y2="230" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- CMOS Profiler Camera -->
+  <text x="840" y="115" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">КМОН-профілометр</text>
+  <rect x="760" y="145" width="160" height="170" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <rect x="760" y="210" width="15" height="40" fill="#1f2937" rx="2"/>
+  <rect x="775" y="170" width="12" height="120" fill="#1f2937" stroke="#9ca3af" stroke-width="1" rx="2"/>
+  <rect x="785" y="180" width="4" height="100" fill="#27ae60"/>
+
+  <!-- Info Card inside camera (completely clear of any optical lines) -->
+  <rect x="800" y="165" width="110" height="130" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="855" y="202" font-size="12" font-weight="bold" fill="#1f2937" text-anchor="middle">CMOS-сенсор</text>
+  <line x1="815" y1="225" x2="895" y2="225" stroke="#d0d7de" stroke-width="1"/>
+  <text x="855" y="260" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">2D / 3D D4σ</text>
+
+  <!-- Bottom Legend Panel -->
+  <rect x="50" y="380" width="860" height="58" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="70" y="403" font-size="12" font-weight="bold" fill="#1a1a1a">1. Світлодільний клин:</text>
+  <text x="70" y="423" font-size="12" fill="#6b7280">Усуває інтерференцію (еталонування) та відводить 96% потужності</text>
+  <text x="510" y="403" font-size="12" font-weight="bold" fill="#1a1a1a">2. Набір ND-фільтрів:</text>
+  <text x="510" y="423" font-size="12" fill="#6b7280">Точно узгоджує інтенсивність із динамічним діапазоном камери</text>
+</svg>

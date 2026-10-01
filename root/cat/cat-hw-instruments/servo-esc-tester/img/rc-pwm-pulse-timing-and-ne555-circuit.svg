@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма RC PWM та принципова схема тестера на NE555</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">ШІМ-імпульс регульованої тривалості (1.0–2.0 мс) з періодом T = 20 мс (50 Гц) формується таймером NE555</text>
+
+  <!-- Left Panel: RC PWM Waveform Diagram -->
+  <rect x="40" y="80" width="420" height="440" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="55" y="110" font-size="14" font-weight="bold" fill="#1a1a1a">Часова діаграма ШІМ-сигналу (50 Гц)</text>
+
+  <!-- Waveform 1: 1.0 ms -->
+  <text x="55" y="142" font-size="12" font-weight="bold" fill="#c0392b">1.0 мс (-60° / 0% газу)</text>
+  <path d="M 55,170 L 110,170 L 110,148 L 135,148 L 135,170 L 390,170" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Waveform 2: 1.5 ms -->
+  <text x="55" y="217" font-size="12" font-weight="bold" fill="#2457d6">1.5 мс (0° Нейтраль / 50%)</text>
+  <path d="M 55,245 L 110,245 L 110,223 L 147,223 L 147,245 L 390,245" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Waveform 3: 2.0 ms -->
+  <text x="55" y="292" font-size="12" font-weight="bold" fill="#27ae60">2.0 мс (+60° / 100% газу)</text>
+  <path d="M 55,320 L 110,320 L 110,298 L 160,298 L 160,320 L 390,320" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Period Alignment & Dimension Line -->
+  <line x1="110" y1="140" x2="110" y2="365" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="390" y1="140" x2="390" y2="365" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="110" y1="360" x2="390" y2="360" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-dark)" marker-end="url(#arr-dark)"/>
+  <text x="250" y="380" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Період кадру T = 20 мс (f = 50 Гц)</text>
+
+  <!-- Legend Notes in Left Panel -->
+  <text x="55" y="420" font-size="12" fill="#6b7280">• Амплітуда сигналу V_pp = 3.3V – 5.0V TTL</text>
+  <text x="55" y="440" font-size="12" fill="#6b7280">• Тривалість імпульсу t_p = 1.0 мс ... 2.0 мс</text>
+  <text x="55" y="460" font-size="12" fill="#6b7280">• Коефіцієнт заповнення D = 5% ... 10%</text>
+
+  <!-- Right Panel: NE555 Circuit Schematic -->
+  <rect x="500" y="80" width="420" height="440" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="515" y="110" font-size="14" font-weight="bold" fill="#1a1a1a">Схема тестера на таймері NE555</text>
+
+  <!-- Power Rails -->
+  <line x1="530" y1="135" x2="890" y2="135" stroke="#c0392b" stroke-width="2"/>
+  <text x="535" y="127" font-size="13" font-weight="bold" fill="#c0392b">+5V (VCC)</text>
+
+  <line x1="530" y1="440" x2="890" y2="440" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="535" y="460" font-size="13" font-weight="bold" fill="#1a1a1a">GND (0V)</text>
+
+  <!-- IC NE555 Chip -->
+  <rect x="660" y="210" width="140" height="180" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <text x="730" y="240" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">NE555</text>
+  <text x="730" y="258" font-size="12" fill="#6b7280" text-anchor="middle">Таймер</text>
+
+  <!-- Pins & Connections -->
+  <!-- Pin 8 VCC -->
+  <line x1="690" y1="210" x2="690" y2="135" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="690" cy="135" r="3" fill="#c0392b"/>
+  <text x="690" y="226" font-size="12" fill="#2457d6" text-anchor="middle">8 VCC</text>
+
+  <!-- Pin 4 RST -->
+  <line x1="770" y1="210" x2="770" y2="135" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="770" cy="135" r="3" fill="#c0392b"/>
+  <text x="770" y="226" font-size="12" fill="#2457d6" text-anchor="middle">4 RST</text>
+
+  <!-- Pin 1 GND -->
+  <line x1="730" y1="390" x2="730" y2="440" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="730" cy="440" r="3" fill="#1a1a1a"/>
+  <text x="730" y="380" font-size="12" fill="#2457d6" text-anchor="middle">1 GND</text>
+
+  <!-- Pin 3 OUT -->
+  <line x1="800" y1="300" x2="870" y2="300" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="870" cy="300" r="4" fill="#27ae60"/>
+  <text x="785" y="304" font-size="12" fill="#2457d6" text-anchor="end">3 OUT</text>
+  <text x="880" y="296" font-size="13" font-weight="bold" fill="#27ae60">PWM Out</text>
+  <text x="880" y="312" font-size="12" fill="#6b7280">(До серво)</text>
+
+  <!-- Pin 7 DISCHARGE -->
+  <line x1="660" y1="280" x2="610" y2="280" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="670" y="284" font-size="12" fill="#2457d6">7 DIS</text>
+
+  <!-- Pin 6 THRESHOLD & Pin 2 TRIGGER tied -->
+  <line x1="660" y1="330" x2="625" y2="330" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="660" y1="350" x2="625" y2="350" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="625" y1="330" x2="625" y2="350" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="625" y1="340" x2="590" y2="340" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="670" y="334" font-size="12" fill="#2457d6">6 THR</text>
+  <text x="670" y="354" font-size="12" fill="#2457d6">2 TRG</text>
+
+  <!-- Timing RC Components -->
+  <!-- R1 Resistor (10k) -->
+  <line x1="590" y1="135" x2="590" y2="160" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="582" y="160" width="16" height="40" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="590" y1="200" x2="590" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="590" cy="135" r="3" fill="#1a1a1a"/>
+  <text x="575" y="185" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">R_1 (10 kΩ)</text>
+
+  <!-- R_pot Potentiometer (50k) -->
+  <rect x="582" y="220" width="16" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="590" y1="270" x2="590" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="575" y="248" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">R_pot (50 kΩ)</text>
+  <text x="575" y="264" font-size="12" fill="#2457d6" text-anchor="end">1.0...2.0 мс</text>
+
+  <!-- Diode D1 -->
+  <line x1="610" y1="210" x2="610" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="605,235 615,235 610,245" fill="#1a1a1a"/>
+  <line x1="605" y1="245" x2="615" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="590" y1="210" x2="610" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="590" y1="280" x2="610" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="590" cy="210" r="3" fill="#1a1a1a"/>
+  <circle cx="590" cy="280" r="3" fill="#1a1a1a"/>
+  <text x="620" y="245" font-size="12" fill="#1a1a1a">D1 (1N4148)</text>
+
+  <!-- C1 Timing Capacitor (100nF) -->
+  <line x1="590" y1="340" x2="590" y2="375" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="580" y1="375" x2="600" y2="375" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="580" y1="383" x2="600" y2="383" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="590" y1="383" x2="590" y2="440" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="590" cy="340" r="3" fill="#1a1a1a"/>
+  <circle cx="590" cy="440" r="3" fill="#1a1a1a"/>
+  <text x="575" y="382" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">C_1 (100 nF)</text>
+
+  <!-- Bottom Explanatory Note -->
+  <text x="710" y="495" font-size="12" fill="#6b7280" text-anchor="middle">Зміна опору R_pot регулює тривалість t_p від 1.0 мс до 2.0 мс</text>
+</svg>

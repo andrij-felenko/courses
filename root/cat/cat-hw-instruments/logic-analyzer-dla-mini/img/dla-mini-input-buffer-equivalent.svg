@@ -1,0 +1,146 @@
+<svg viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еквівалентна схема вхідного буфера каналу WeAct DLA Mini та пороги спрацьовування</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Захисні діоди обмежують напругу (-0.5 V ... +5.5 V), а компаратор визначає пороги V_IL ≈ 0.8 V та V_IH ≈ 2.0 V</text>
+
+  <!-- ПАНЕЛЬ 1: СХЕМА ВХІДНОГО КОЛА (ЛІВОРУЧ) -->
+  <rect x="30" y="85" width="490" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="100" width="460" height="32" rx="4" fill="#eaf0fd"/>
+  <text x="275" y="121" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Принципова схема еквівалентного кола каналу (CH0–CH7)</text>
+
+  <!-- Шини живлення та заземлення -->
+  <text x="190" y="145" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">V_CC (+5.5 V max)</text>
+  <line x1="120" y1="155" x2="380" y2="155" stroke="#c0392b" stroke-width="2"/>
+
+  <line x1="120" y1="365" x2="420" y2="365" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="190" y="380" font-size="11" fill="#6b7280" text-anchor="middle">GND (0 V)</text>
+
+  <!-- Вхідний роз'єм CH_in -->
+  <circle cx="60" cy="260" r="6" fill="#2457d6" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="40" y="240" font-size="11" font-weight="bold" fill="#1a1a1a">CH_in</text>
+  <line x1="66" y1="260" x2="110" y2="260" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Послідовний захисний резистор R_s -->
+  <rect x="110" y="250" width="45" height="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="132.5" y="240" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_s = 100 Ω</text>
+  <line x1="155" y1="260" x2="190" y2="260" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Захисні діоди D1 та D2 (підписи розміщені ліворуч від лінії гілки x < 190) -->
+  <!-- D1 до VCC -->
+  <line x1="190" y1="260" x2="190" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="183,195 197,195 190,180" fill="#c0392b" stroke="#c0392b" stroke-width="1"/>
+  <line x1="183" y1="180" x2="197" y2="180" stroke="#c0392b" stroke-width="2"/>
+  <line x1="190" y1="180" x2="190" y2="155" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="175" y="175" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="end">D1 (V_CC clamp)</text>
+
+  <!-- D2 до GND -->
+  <line x1="190" y1="260" x2="190" y2="325" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="183,325 197,325 190,310" fill="#2457d6" stroke="#2457d6" stroke-width="1"/>
+  <line x1="183" y1="310" x2="197" y2="310" stroke="#2457d6" stroke-width="2"/>
+  <line x1="190" y1="310" x2="190" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="175" y="340" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="end">D2 (GND clamp)</text>
+
+  <!-- Основна лінія сигналу далі -->
+  <line x1="190" y1="260" x2="410" y2="260" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Вхідний опір R_in (100 кОм) до GND (підпис ліворуч від резистора x < 260) -->
+  <line x1="270" y1="260" x2="270" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="260" y="285" width="20" height="45" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="270" y1="330" x2="270" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="255" y="312" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="end">R_in = 100 kΩ</text>
+
+  <!-- Паразитне ємність C_in (5 пФ) до GND (підпис праворуч від конденсатора x > 340) -->
+  <line x1="340" y1="260" x2="340" y2="300" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="330" y1="300" x2="350" y2="300" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="330" y1="306" x2="350" y2="306" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="340" y1="306" x2="340" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="355" y="312" font-size="11" font-weight="bold" fill="#1a1a1a">C_in ≈ 5 pF</text>
+
+  <!-- Вхідний компаратор / Буфер Stage -->
+  <polygon points="410,230 470,260 410,290" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="430" y="264" font-size="11" font-weight="bold" fill="#2457d6">Буфер</text>
+  <line x1="470" y1="260" x2="505" y2="260" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="485" y="252" font-size="11" font-weight="bold" fill="#2457d6">До FPGA</text>
+
+  <!-- Картки опису на підкладці Лівої панелі -->
+  <rect x="45" y="420" width="220" height="70" fill="#ffffff" stroke="#cbd5e1" rx="6"/>
+  <text x="155" y="442" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідний опір та ємність</text>
+  <text x="155" y="460" font-size="11" fill="#6b7280" text-anchor="middle">Високий R_in (100 кОм)</text>
+  <text x="155" y="476" font-size="11" fill="#6b7280" text-anchor="middle">Мінімальний вплив C_in (5 пФ)</text>
+
+  <rect x="285" y="420" width="220" height="70" fill="#ffffff" stroke="#cbd5e1" rx="6"/>
+  <text x="395" y="442" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Захисні обмеження</text>
+  <text x="395" y="460" font-size="11" fill="#6b7280" text-anchor="middle">Захист від ESD та сплесків</text>
+  <text x="395" y="476" font-size="11" fill="#6b7280" text-anchor="middle">Кламування D1 (VCC) / D2 (GND)</text>
+
+
+  <!-- ПАНЕЛЬ 2: ПОРОГИ ЛОГІЧНИХ РІВНІВ (ПРАВОРУЧ) -->
+  <rect x="540" y="85" width="390" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="555" y="100" width="360" height="32" rx="4" fill="#e9f7ef"/>
+  <text x="735" y="121" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Пороги логічних рівнів V_IL та V_IH</text>
+
+  <!-- Зони напруг -->
+  <!-- Зона HIGH (2.0V - 5.5V) -->
+  <rect x="600" y="175" width="300" height="95" fill="#e9f7ef" opacity="0.6"/>
+  <!-- Зона невизначеності (0.8V - 2.0V) -->
+  <rect x="600" y="270" width="300" height="70" fill="#fef3c7" opacity="0.7"/>
+  <!-- Зона LOW (0.0V - 0.8V) -->
+  <rect x="600" y="340" width="300" height="50" fill="#eaf0fd" opacity="0.6"/>
+
+  <!-- Вісь напруги V_in (напис ліворуч від осі x < 600) -->
+  <line x1="600" y1="440" x2="600" y2="155" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="540" y="145" font-size="12" font-weight="bold" fill="#1a1a1a">V_in (В)</text>
+
+  <!-- Лінії порогів -->
+  <!-- 5.5 V Макс -->
+  <line x1="600" y1="175" x2="900" y2="175" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="750" y="171" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">5.5 V — Максимально допустима вхідна напруга</text>
+
+  <!-- Зона "1" (HIGH) -->
+  <text x="750" y="225" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Зона логічної "1" (HIGH)</text>
+
+  <!-- V_IH = 2.0 V -->
+  <line x1="600" y1="270" x2="900" y2="270" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="615" y="263" font-size="11" font-weight="bold" fill="#27ae60">V_IH = 2.0 V (Поріг розпізнавання "1")</text>
+
+  <!-- Невизначена зона -->
+  <text x="750" y="308" font-size="11" font-weight="bold" fill="#d97706" text-anchor="middle">Зона невизначеності (0.8 В ... 2.0 В)</text>
+
+  <!-- V_IL = 0.8 V -->
+  <line x1="600" y1="340" x2="900" y2="340" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="615" y="333" font-size="11" font-weight="bold" fill="#2457d6">V_IL = 0.8 V (Поріг розпізнавання "0")</text>
+
+  <!-- Зона "0" (LOW) -->
+  <text x="750" y="372" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Зона логічного "0" (LOW)</text>
+
+  <!-- 0.0 V (GND) -->
+  <line x1="600" y1="390" x2="900" y2="390" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <text x="615" y="386" font-size="11" fill="#1a1a1a">0.0 V (GND)</text>
+
+  <!-- -0.5 V Мін -->
+  <line x1="600" y1="430" x2="900" y2="430" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="615" y="423" font-size="11" font-weight="bold" fill="#c0392b">-0.5 V — Обмеження нижнього діода D2</text>
+
+  <!-- Підсумкова картка сумісності -->
+  <rect x="555" y="450" width="360" height="50" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="735" y="470" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сумісність із логікою: 1.8 V, 2.5 V, 3.3 V, 5.0 V</text>
+  <text x="735" y="488" font-size="11" fill="#6b7280" text-anchor="middle">Постійні пороги дозволяють пряме підключення</text>
+</svg>

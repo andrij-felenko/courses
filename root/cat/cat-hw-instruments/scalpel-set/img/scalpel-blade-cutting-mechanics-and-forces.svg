@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Механіка різання та розклад сил на скальпельному лезі</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Нормальна сила F_N та сила протягування F_t долають опір зсуву та тертя F_fr</text>
+
+  <!-- Left Panel: Geometry Parameters -->
+  <rect x="40" y="80" width="210" height="450" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="55" y="110" font-size="14" font-weight="bold" fill="#1a1a1a">Геометричні параметри</text>
+
+  <text x="55" y="145" font-size="13" font-weight="bold" fill="#2457d6">Кут атаки (α)</text>
+  <text x="55" y="165" font-size="12" fill="#6b7280">Кут нахилу леза до</text>
+  <text x="55" y="181" font-size="12" fill="#6b7280">площини різання.</text>
+
+  <text x="55" y="225" font-size="13" font-weight="bold" fill="#c0392b">Кут загострення (β)</text>
+  <text x="55" y="245" font-size="12" fill="#6b7280">Кут між бічними</text>
+  <text x="55" y="261" font-size="12" fill="#6b7280">фасками клина.</text>
+
+  <text x="55" y="305" font-size="13" font-weight="bold" fill="#1a1a1a">Радіус кромки (r)</text>
+  <text x="55" y="325" font-size="12" fill="#6b7280">Мікрорадіус загострення</text>
+  <text x="55" y="341" font-size="12" fill="#6b7280">вершини леза.</text>
+
+  <text x="55" y="385" font-size="13" font-weight="bold" fill="#27ae60">Глибина проникнення</text>
+  <text x="55" y="405" font-size="12" fill="#6b7280">Величина занурення</text>
+  <text x="55" y="421" font-size="12" fill="#6b7280">кромки в матеріал.</text>
+
+  <!-- Right Panel: Force Analysis -->
+  <rect x="710" y="80" width="210" height="450" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="725" y="110" font-size="14" font-weight="bold" fill="#1a1a1a">Силові фактори</text>
+
+  <text x="725" y="145" font-size="13" font-weight="bold" fill="#c0392b">Нормальна сила (F_N)</text>
+  <text x="725" y="165" font-size="12" fill="#6b7280">Притискне зусилля,</text>
+  <text x="725" y="181" font-size="12" fill="#6b7280">перпендикулярне різу.</text>
+
+  <text x="725" y="225" font-size="13" font-weight="bold" fill="#2457d6">Сила протягування (F_t)</text>
+  <text x="725" y="245" font-size="12" fill="#6b7280">Поздовжня сила,</text>
+  <text x="725" y="261" font-size="12" fill="#6b7280">що створює зсув.</text>
+
+  <text x="725" y="305" font-size="13" font-weight="bold" fill="#27ae60">Сила тертя (F_fr)</text>
+  <text x="725" y="325" font-size="12" fill="#6b7280">Опір тертя фаски:</text>
+  <text x="725" y="341" font-size="12" fill="#6b7280">F_fr = μ · N.</text>
+
+  <text x="725" y="385" font-size="13" font-weight="bold" fill="#1a1a1a">Умова чистого зрізу</text>
+  <text x="725" y="405" font-size="12" fill="#6b7280">Досягнення критичних</text>
+  <text x="725" y="421" font-size="12" fill="#6b7280">напружень зсуву τ_crit.</text>
+
+  <!-- Central Diagram: Material Block -->
+  <rect x="280" y="380" width="400" height="130" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <text x="480" y="485" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Оброблюваний матеріал (пластик / плівка)</text>
+
+  <!-- Cut Notch / Groove in Material -->
+  <polygon points="435,380 480,425 500,380" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Horizontal Cut Plane Reference Line -->
+  <line x1="280" y1="380" x2="680" y2="380" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="300" y="372" font-size="12" fill="#6b7280">Площина різання</text>
+
+  <!-- Scalpel Blade Body -->
+  <polygon points="480,380 360,220 440,180 530,210" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.5"/>
+  <polygon points="480,380 440,180 530,210" fill="#e9f7ef" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="480" y1="380" x2="440" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Force Vectors applied at node (420, 170) -->
+  <!-- F_N: Normal Force (red, downward) -->
+  <line x1="420" y1="85" x2="420" y2="170" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+  <text x="410" y="120" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="end">F_N</text>
+  <text x="410" y="136" font-size="12" fill="#c0392b" text-anchor="end">(Нормальне зусилля)</text>
+
+  <!-- F_t: Pulling Force (blue, horizontal rightward) -->
+  <line x1="420" y1="170" x2="550" y2="170" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="485" y="142" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">F_t</text>
+  <text x="485" y="158" font-size="12" fill="#2457d6" text-anchor="middle">(Сила протягування)</text>
+
+  <!-- F_R: Resultant Force (dark vector) -->
+  <line x1="420" y1="170" x2="550" y2="235" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#arr-dark)"/>
+  <line x1="420" y1="235" x2="550" y2="235" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="550" y1="170" x2="550" y2="235" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="562" y="240" font-size="13" font-weight="bold" fill="#1a1a1a">F_R (Результуюча сила)</text>
+
+  <!-- F_fr: Friction Force along right facet (green, opposing motion) -->
+  <line x1="505" y1="375" x2="465" y2="325" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="515" y="335" font-size="13" font-weight="bold" fill="#27ae60">F_fr</text>
+  <text x="515" y="351" font-size="12" fill="#27ae60">(Сила тертя фаски)</text>
+
+  <!-- Angles -->
+  <!-- Attack Angle alpha arc -->
+  <path d="M 425,380 A 55,55 0 0,1 437,337" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="395" y="360" font-size="14" font-weight="bold" fill="#2457d6">α</text>
+  <text x="325" y="345" font-size="12" fill="#2457d6">(Кут атаки)</text>
+
+  <!-- Sharpening Angle beta arc -->
+  <path d="M 445,330 A 45,45 0 0,1 495,338" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="470" y="315" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">β</text>
+  <text x="470" y="298" font-size="12" fill="#c0392b" text-anchor="middle">(Кут загострення)</text>
+</svg>

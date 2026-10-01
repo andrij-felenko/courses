@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-dark" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрія вторинних моментів D4σ та еліпс ISO 11146</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Визначення центроїда (x̄, ȳ), кута орієнтації θ та діаметрів D4σ_major й D4σ_minor</text>
+
+  <!-- Left Panel: 2D Beam Intensity Profile Plot -->
+  <rect x="40" y="75" width="540" height="365" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Sensor Cartesian Grid Axes -->
+  <line x1="70" y1="260" x2="550" y2="260" stroke="#a0aec0" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="475" y="280" font-size="12" fill="#6b7280">Ось X сенсора</text>
+  
+  <line x1="310" y1="95" x2="310" y2="420" stroke="#a0aec0" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="318" y="110" font-size="12" fill="#6b7280">Ось Y сенсора</text>
+
+  <!-- ISO 11146 Intensity Ellipses (Rotated by 25 deg) -->
+  <!-- Outer D4σ boundary ellipse -->
+  <ellipse cx="310" cy="260" rx="160" ry="95" transform="rotate(-25 310 260)" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <!-- Middle 2σ contour -->
+  <ellipse cx="310" cy="260" rx="90" ry="53" transform="rotate(-25 310 260)" fill="#d4e2fb" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <!-- Peak intensity core -->
+  <ellipse cx="310" cy="260" rx="35" ry="21" transform="rotate(-25 310 260)" fill="#2457d6" opacity="0.35"/>
+
+  <!-- Principal Axes of Ellipse -->
+  <!-- Major Axis D4σ_major -->
+  <line x1="165" y1="328" x2="455" y2="192" stroke="#27ae60" stroke-width="2" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <text x="445" y="175" font-size="12" font-weight="bold" fill="#27ae60">D4σ_major = 4σ_x'</text>
+
+  <!-- Minor Axis D4σ_minor -->
+  <line x1="270" y1="174" x2="350" y2="346" stroke="#27ae60" stroke-width="2" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <text x="180" y="155" font-size="12" font-weight="bold" fill="#27ae60">D4σ_minor = 4σ_y'</text>
+
+  <!-- Azimuth Angle Arc θ -->
+  <path d="M 370,260 A 60 60 0 0 0 364,235" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="340" y="230" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Кут θ</text>
+
+  <!-- Centroid Point (x̄, ȳ) -->
+  <circle cx="310" cy="260" r="5" fill="#c0392b"/>
+  <circle cx="310" cy="260" r="9" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="325" y="280" font-size="12" font-weight="bold" fill="#c0392b">Центроїд (x̄, ȳ)</text>
+
+  <!-- Right Panel: Formulas & Parameter Summary -->
+  <rect x="600" y="75" width="320" height="365" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="615" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">Параметри стандарту ISO 11146</text>
+
+  <!-- Card 1: Centroid -->
+  <rect x="615" y="115" width="290" height="65" rx="6" ry="6" fill="white" stroke="#d0d7de"/>
+  <text x="625" y="133" font-size="12" font-weight="bold" fill="#c0392b">1. Центроїд (Центр маси)</text>
+  <text x="625" y="151" font-size="12" fill="#1a1a1a">x̄ = (∑ x · I(x, y)) ÷ (∑ I(x, y))</text>
+  <text x="625" y="167" font-size="12" fill="#1a1a1a">ȳ = (∑ y · I(x, y)) ÷ (∑ I(x, y))</text>
+
+  <!-- Card 2: Azimuth Angle -->
+  <rect x="615" y="190" width="290" height="65" rx="6" ry="6" fill="white" stroke="#d0d7de"/>
+  <text x="625" y="208" font-size="12" font-weight="bold" fill="#2457d6">2. Орієнтація еліпса (Кут θ)</text>
+  <text x="625" y="226" font-size="12" fill="#1a1a1a">θ = 0.5 · arctan( 2σ_xy ÷ (σ_x² - σ_y²) )</text>
+  <text x="625" y="242" font-size="12" fill="#6b7280">Кут повороту головних осей пучка</text>
+
+  <!-- Card 3: D4σ Diameters -->
+  <rect x="615" y="265" width="290" height="160" rx="6" ry="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="625" y="285" font-size="12" font-weight="bold" fill="#27ae60">3. Вторинні моменти (D4σ)</text>
+  <text x="625" y="307" font-size="12" fill="#1a1a1a">D4σ_x = 4 · σ_x  (діаметр по X)</text>
+  <text x="625" y="327" font-size="12" fill="#1a1a1a">D4σ_y = 4 · σ_y  (діаметр по Y)</text>
+  <text x="625" y="350" font-size="12" font-weight="bold" fill="#1a1a1a">D4σ_major = 4 · σ_x'</text>
+  <text x="625" y="370" font-size="12" font-weight="bold" fill="#1a1a1a">D4σ_minor = 4 · σ_y'</text>
+  <text x="625" y="400" font-size="12" fill="#6b7280">Еліптичність ε = D4σ_minor ÷ D4σ_major</text>
+</svg>

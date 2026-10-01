@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-purple" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#8e44ad"/>
+    </marker>
+    <marker id="arr-orange" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d35400"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2980b9"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Canvas Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема вимірювального стенда на базі FNIRSI 2C53T</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Подача DDS-сигналу, двоканальний моніторинг CH1/CH2 та вимірювання DC-струму споживання</text>
+
+  <!-- Left Panel: FNIRSI 2C53T Device -->
+  <rect x="35" y="75" width="270" height="400" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="8" ry="8"/>
+  <text x="170" y="100" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">FNIRSI 2C53T (3-в-1)</text>
+
+  <!-- Display Screen -->
+  <rect x="55" y="115" width="230" height="145" fill="#1c2833" rx="4"/>
+  <text x="170" y="133" font-size="12" fill="#95a5a6" text-anchor="middle">Дисплей приладу</text>
+  
+  <!-- Waveform CH1 (Input - Orange) -->
+  <path d="M 70,165 Q 85,150 100,165 T 130,165 T 160,165 T 190,165 T 220,165" fill="none" stroke="#f39c12" stroke-width="2"/>
+  <text x="225" y="160" font-size="11" font-weight="bold" fill="#f39c12">CH1: V_in</text>
+
+  <!-- Waveform CH2 (Output - Blue) -->
+  <path d="M 70,200 Q 85,175 100,200 T 130,200 T 160,200 T 190,200 T 220,200" fill="none" stroke="#3498db" stroke-width="2"/>
+  <text x="225" y="195" font-size="11" font-weight="bold" fill="#3498db">CH2: V_out</text>
+
+  <!-- DMM Reading -->
+  <rect x="70" y="222" width="160" height="26" fill="#111827" rx="3"/>
+  <text x="150" y="239" font-size="12" font-weight="bold" fill="#2ecc71" text-anchor="middle">DMM: I_DC = 450 mA</text>
+
+  <!-- Connectors Area -->
+  <!-- DDS Out Port -->
+  <text x="90" y="278" font-size="12" font-weight="bold" fill="#8e44ad" text-anchor="middle">DDS Out</text>
+  <circle cx="90" cy="300" r="14" fill="#ffffff" stroke="#8e44ad" stroke-width="3"/>
+  <circle cx="90" cy="300" r="4" fill="#8e44ad"/>
+
+  <!-- CH1 In Port -->
+  <text x="170" y="278" font-size="12" font-weight="bold" fill="#d35400" text-anchor="middle">CH1 In</text>
+  <circle cx="170" cy="300" r="14" fill="#ffffff" stroke="#d35400" stroke-width="3"/>
+  <circle cx="170" cy="300" r="4" fill="#d35400"/>
+
+  <!-- CH2 In Port -->
+  <text x="250" y="278" font-size="12" font-weight="bold" fill="#2980b9" text-anchor="middle">CH2 In</text>
+  <circle cx="250" cy="300" r="14" fill="#ffffff" stroke="#2980b9" stroke-width="3"/>
+  <circle cx="250" cy="300" r="4" fill="#2980b9"/>
+
+  <!-- DMM Terminals -->
+  <circle cx="110" cy="400" r="12" fill="#27ae60" stroke="#1e8449" stroke-width="2"/>
+  <text x="110" y="435" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">DMM A</text>
+
+  <text x="230" y="380" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DMM COM</text>
+  <circle cx="230" cy="400" r="12" fill="#34495e" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Middle DC Power Supply Unit -->
+  <rect x="330" y="395" width="150" height="60" fill="#ffffff" stroke="#27ae60" stroke-width="2" rx="6"/>
+  <text x="405" y="420" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Джерело DC</text>
+  <text x="405" y="440" font-size="11" fill="#6b7280" text-anchor="middle">+12 В / 2 А</text>
+  <circle cx="405" cy="395" r="5" fill="#27ae60"/>
+
+  <!-- Right Panel: Audio Amplifier (DUT) -->
+  <rect x="515" y="75" width="415" height="400" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="8" ry="8"/>
+  <text x="722" y="100" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Аудіопідсилювач НЧ (DUT)</text>
+  <text x="700" y="122" font-size="12" font-weight="bold" fill="#2980b9" text-anchor="middle">CH2: Моніторинг V_out (АЧХ / кліпінг)</text>
+
+  <!-- Preamp Stage -->
+  <rect x="540" y="135" width="140" height="100" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <text x="610" y="180" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідний каскад</text>
+  <text x="610" y="198" font-size="11" fill="#6b7280" text-anchor="middle">Попередній підсилювач</text>
+
+  <!-- Interstage Arrow -->
+  <path d="M 680,185 L 710,185" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Power Amp Stage -->
+  <rect x="710" y="135" width="140" height="100" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <text x="780" y="180" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вихідний каскад</text>
+  <text x="780" y="198" font-size="11" fill="#6b7280" text-anchor="middle">Підсилювач потужності</text>
+
+  <!-- Dummy Load -->
+  <rect x="730" y="285" width="130" height="65" fill="#ffffff" stroke="#1a1a1a" stroke-width="2" rx="4"/>
+  <text x="795" y="310" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_L = 8 Ом</text>
+  <text x="795" y="330" font-size="11" fill="#6b7280" text-anchor="middle">Еквівалент R_L</text>
+  <path d="M 795,235 L 795,285" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Amp VCC Rail -->
+  <rect x="600" y="375" width="230" height="45" fill="#fdecea" stroke="#c0392b" stroke-width="2" rx="4"/>
+  <text x="715" y="395" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Шина живлення VCC (+12 В)</text>
+  <text x="715" y="411" font-size="11" fill="#6b7280" text-anchor="middle">Контур постійного струму</text>
+  <circle cx="640" cy="375" r="5" fill="#c0392b"/>
+
+  <!-- Connection Lines from VCC Rail to Stages (Bypassing Dummy Load) -->
+  <path d="M 620,375 L 620,235" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <path d="M 670,375 L 670,235" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- CABLES AND PROBES TRACES -->
+
+  <!-- DDS Signal (Purple) -->
+  <path d="M 90,300 L 90,340 L 490,340 L 490,185 L 540,185" fill="none" stroke="#8e44ad" stroke-width="2.5" marker-end="url(#arr-purple)"/>
+  <text x="330" y="330" font-size="12" font-weight="bold" fill="#8e44ad" text-anchor="middle">DDS: Тестовий сигнал (1 кГц sin)</text>
+  <circle cx="540" cy="185" r="4" fill="#8e44ad"/>
+
+  <!-- CH1 Probe (Orange) -->
+  <path d="M 170,300 L 170,360 L 515,360 L 515,185" fill="none" stroke="#d35400" stroke-width="2" marker-end="url(#arr-orange)"/>
+  <text x="330" y="378" font-size="12" font-weight="bold" fill="#d35400" text-anchor="middle">CH1: Моніторинг V_in</text>
+  <circle cx="515" cy="185" r="4" fill="#d35400"/>
+
+  <!-- CH2 Probe (Blue) -->
+  <path d="M 250,300 L 250,380 L 870,380 L 870,185 L 850,185" fill="none" stroke="#2980b9" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <circle cx="850" cy="185" r="4" fill="#2980b9"/>
+
+  <!-- DMM Current Loop Wire 1 (Green: Power Supply + to DMM A) -->
+  <path d="M 405,395 L 405,350 L 110,350 L 110,388" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  
+  <!-- DMM Current Loop Wire 2 (Green: DMM COM to Amp VCC Rail) -->
+  <path d="M 230,412 L 230,475 L 640,475 L 640,420" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="435" y="492" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Послідовне коло DMM (вимірювання I_DC у розриві VCC)</text>
+
+</svg>

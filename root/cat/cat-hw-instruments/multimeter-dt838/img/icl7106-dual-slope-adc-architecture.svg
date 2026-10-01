@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структура та принцип дії АЦП подвійного інтегрування ICL7106</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Двофазне інтегрування (V_IN та V_REF) з безпосереднім керуванням 3½-розрядним РК-дисплеєм</text>
+
+  <!-- TOP SECTION: FUNCTIONAL BLOCK DIAGRAM -->
+  <rect x="25" y="70" width="910" height="190" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="90" font-size="12" font-weight="bold" fill="#6b7280">ФУНКЦІОНАЛЬНА СХЕМА КІЛЬЦЯ АЦП (ICL7106)</text>
+
+  <!-- Feedback Control Line (Control Logic) -->
+  <path d="M 697.5 110 L 697.5 100 L 105 100 L 105 110" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-blue)"/>
+  <text x="420" y="90" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Керування фазами (Control Logic)</text>
+
+  <!-- Block 1: Input Switch -->
+  <rect x="40" y="110" width="130" height="140" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="105" y="128" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Комутатор фаз</text>
+  <text x="105" y="142" font-size="12" fill="#6b7280" text-anchor="middle">(Analog Switch)</text>
+  
+  <text x="48" y="166" font-size="12" font-weight="bold" fill="#2457d6">V_IN</text>
+  <text x="98" y="166" font-size="12" fill="#6b7280">(Фаза 1)</text>
+
+  <text x="48" y="194" font-size="12" font-weight="bold" fill="#27ae60">-V_REF</text>
+  <text x="98" y="194" font-size="12" fill="#6b7280">(Фаза 2)</text>
+
+  <text x="48" y="222" font-size="12" font-weight="bold" fill="#6b7280">GND</text>
+  <text x="98" y="222" font-size="12" fill="#6b7280">(Автонуль)</text>
+
+  <!-- Switch to Integrator Line & R_INT -->
+  <line x1="170" y1="180" x2="188" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="188" y="172" width="28" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="202" y="164" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_INT</text>
+  <line x1="216" y1="180" x2="235" y2="180" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <!-- Block 2: Integrator -->
+  <rect x="235" y="110" width="130" height="140" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="300" y="128" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Інтегратор</text>
+  
+  <!-- C_INT Label & Feedback Path -->
+  <text x="300" y="144" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">C_INT</text>
+  <path d="M 250 180 L 250 156 L 297 156" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="297" y1="149" x2="297" y2="163" stroke="#2457d6" stroke-width="2"/>
+  <line x1="303" y1="149" x2="303" y2="163" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 303 156 L 345 156 L 345 195" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Op-Amp Triangle -->
+  <polygon points="260,168 260,222 305,195" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="267" y="184" font-size="14" font-weight="bold" fill="#2457d6">-</text>
+  <text x="267" y="214" font-size="14" font-weight="bold" fill="#2457d6">+</text>
+  
+  <!-- Inverting connection -->
+  <line x1="235" y1="180" x2="260" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <!-- Non-inverting ground -->
+  <line x1="245" y1="210" x2="260" y2="210" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="245" y1="204" x2="245" y2="216" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Integrator Output Line -->
+  <line x1="305" y1="195" x2="365" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <!-- Line between Block 2 and 3 with V_INT -->
+  <text x="400" y="184" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V_INT</text>
+  <line x1="365" y1="195" x2="435" y2="195" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <!-- Block 3: Comparator -->
+  <rect x="435" y="110" width="110" height="140" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="490" y="128" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Компаратор</text>
+  <text x="490" y="142" font-size="12" fill="#6b7280" text-anchor="middle">(Zero Cross)</text>
+
+  <polygon points="455,183 455,230 495,206.5" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="461" y="198" font-size="14" font-weight="bold" fill="#1a1a1a">-</text>
+  <text x="461" y="223" font-size="14" font-weight="bold" fill="#1a1a1a">+</text>
+  
+  <!-- Non-inverting ground for comparator -->
+  <line x1="445" y1="218" x2="455" y2="218" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="445" y1="212" x2="445" y2="224" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Comparator Output to Block 4 -->
+  <line x1="495" y1="206.5" x2="545" y2="206.5" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="585" y="194" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стоп-сигнал</text>
+  <line x1="545" y1="206.5" x2="625" y2="206.5" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <!-- Block 4: Digital Control & Counter -->
+  <rect x="625" y="110" width="145" height="140" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="697.5" y="128" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Логіка та лічильник</text>
+
+  <rect x="633" y="144" width="129" height="34" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="697.5" y="158" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Таймінг T1 / T2</text>
+  <text x="697.5" y="172" font-size="12" fill="#6b7280" text-anchor="middle">Декодер РКД</text>
+
+  <!-- Clock Generator Input -->
+  <text x="697.5" y="202" font-size="12" fill="#6b7280" text-anchor="middle">f_CLK = 48 kHz</text>
+  <line x1="697.5" y1="250" x2="697.5" y2="212" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <!-- Connection to LCD -->
+  <text x="792.5" y="168" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">7-сегм.</text>
+  <line x1="770" y1="180" x2="815" y2="180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Block 5: LCD Display -->
+  <rect x="815" y="110" width="115" height="140" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="872.5" y="128" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">РК-дисплей 3½</text>
+
+  <rect x="825" y="144" width="95" height="52" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="872.5" y="180" font-size="26" font-weight="bold" fill="#1a1a1a" text-anchor="middle" letter-spacing="2">199.9</text>
+  <text x="872.5" y="222" font-size="12" fill="#27ae60" text-anchor="middle">0…1999 (T2)</text>
+
+  <!-- BOTTOM SECTION: WAVEFORM GRAPH & FORMULA -->
+  <rect x="25" y="275" width="530" height="170" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="296" font-size="13" font-weight="bold" fill="#1a1a1a">Діаграма напруги інтегратора V_INT(t)</text>
+
+  <!-- Slope labels placed safely in clear space above dashed line y=335 -->
+  <text x="100" y="325" font-size="12" font-weight="bold" fill="#2457d6">+V_IN / (R·C)</text>
+  <text x="270" y="325" font-size="12" font-weight="bold" fill="#27ae60">-V_REF / (R·C)</text>
+
+  <!-- Axes -->
+  <line x1="75" y1="415" x2="520" y2="415" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="525" y="419" font-size="12" font-weight="bold" fill="#1a1a1a">t</text>
+
+  <line x1="75" y1="415" x2="75" y2="310" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="70" y="305" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">V_INT</text>
+
+  <!-- Waveform Phase 1 & 2 -->
+  <line x1="75" y1="415" x2="240" y2="335" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="240" y1="335" x2="410" y2="415" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Peak point & Projections -->
+  <circle cx="240" cy="335" r="4" fill="#2457d6"/>
+  <line x1="240" y1="335" x2="240" y2="415" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="75" y1="335" x2="240" y2="335" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="70" y="339" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">V_PEAK</text>
+
+  <circle cx="410" cy="415" r="4" fill="#27ae60"/>
+  <line x1="410" y1="415" x2="410" y2="423" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Time Intervals Annotations -->
+  <line x1="75" y1="423" x2="240" y2="423" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="157.5" y="441" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Фаза 1: T1 (фіксований)</text>
+
+  <line x1="240" y1="423" x2="410" y2="423" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <text x="325" y="441" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Фаза 2: T2 ∝ V_IN</text>
+
+  <!-- Right Box: Mathematical Principle -->
+  <rect x="575" y="275" width="360" height="170" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="755" y="296" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Принцип скасування похибок</text>
+
+  <text x="590" y="321" font-size="12" fill="#1a1a1a">Пікова напруга (Фаза 1):</text>
+  <text x="755" y="339" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_PEAK = (V_IN · T1) / (R_INT · C_INT)</text>
+
+  <text x="590" y="361" font-size="12" fill="#1a1a1a">Розряд до нуля (Фаза 2):</text>
+  <text x="755" y="379" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V_PEAK = (V_REF · T2) / (R_INT · C_INT)</text>
+
+  <line x1="590" y1="390" x2="920" y2="390" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="755" y="411" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">T2 = T1 · (V_IN / V_REF)</text>
+  <text x="755" y="430" font-size="12" fill="#27ae60" text-anchor="middle">R_INT, C_INT та f_CLK скорочуються!</text>
+
+</svg>

@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-dark-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Кінематика та розподіл векторів сил при свердлінні спіральним свердлом HSS</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Вектори швидкості різання V_c, подачі f_rev та реакцій сил F_z, F_c на різальній кромці</text>
+
+  <!-- Left Main Box (Schematic Diagram) -->
+  <rect x="30" y="75" width="560" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 31,76 L 589,76 L 589,109 L 31,109 Z" fill="#eaf0fd"/>
+  <rect x="30" y="75" width="560" height="425" rx="8" fill="none" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="98" font-size="14" font-weight="bold" fill="#2457d6">Схема кінематичних рухів та векторів сил</text>
+
+  <!-- Workpiece Material Block -->
+  <path d="M 50,290 L 200,290 L 200,385 L 290,435 L 290,485 L 50,485 Z" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+  <path d="M 530,290 L 380,290 L 380,385 L 290,435 L 290,485 L 530,485 Z" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+  <!-- Hole Cavity Background -->
+  <path d="M 200,290 L 380,290 L 380,385 L 290,435 L 200,385 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+
+  <!-- Workpiece Hatching Lines (Верхня зона, строго y <= 330) -->
+  <line x1="65" y1="310" x2="95" y2="290" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="65" y1="330" x2="125" y2="290" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="515" y1="310" x2="485" y2="290" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="515" y1="330" x2="455" y2="290" stroke="#cbd5e1" stroke-width="1"/>
+
+  <!-- Напис деталей у чистій зоні заготовки -->
+  <text x="60" y="475" font-size="12" fill="#6b7280" font-weight="bold">Оброблювана деталь</text>
+
+  <!-- Drill Bit Body & Flutes -->
+  <rect x="200" y="150" width="180" height="235" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>
+  <!-- Flute Helical Lines -->
+  <path d="M 200,170 Q 290,195 380,220 Q 290,245 200,270 Q 290,295 380,320 Q 290,345 200,370" fill="none" stroke="#94a3b8" stroke-width="3"/>
+  <path d="M 380,155 Q 290,180 200,205 Q 290,230 380,255 Q 290,280 200,305 Q 290,330 380,355" fill="none" stroke="#cbd5e1" stroke-width="2"/>
+
+  <!-- Drill Tip (Cutting Cone 118 deg) -->
+  <polygon points="200,385 290,435 380,385" fill="#cbd5e1" stroke="#334155" stroke-width="2.5"/>
+  <line x1="286" y1="435" x2="294" y2="435" stroke="#1e293b" stroke-width="3"/>
+
+  <!-- Axis of Rotation (З розривами для запобігання перетинів з текстом) -->
+  <line x1="290" y1="125" x2="290" y2="210" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="10,4,2,4"/>
+  <line x1="290" y1="260" x2="290" y2="440" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="10,4,2,4"/>
+  <line x1="290" y1="465" x2="290" y2="485" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="10,4,2,4"/>
+
+  <!-- Dimension D (Diameter) - винесено у верхній чистий простір -->
+  <line x1="200" y1="135" x2="200" y2="150" stroke="#94a3b8" stroke-dasharray="3,3"/>
+  <line x1="380" y1="135" x2="380" y2="150" stroke="#94a3b8" stroke-dasharray="3,3"/>
+  <line x1="200" y1="120" x2="380" y2="120" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-dark-rev)" marker-end="url(#arr-dark)"/>
+  <rect x="215" y="92" width="150" height="20" fill="#ffffff" rx="4" stroke="#d0d7de" stroke-width="1"/>
+  <text x="290" y="106" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Діаметр D (2.0–8.0 мм)</text>
+
+  <!-- Point Angle 2phi = 118 deg -->
+  <path d="M 270,424 A 25,25 0 0,0 310,424" fill="none" stroke="#475569" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="335" y="455" font-size="12" font-weight="bold" fill="#475569">2φ = 118°</text>
+
+  <!-- Kinematic Vectors -->
+  <!-- 1. Rotation n (винесено праворуч від свердла x > 380) -->
+  <path d="M 255,160 A 35,12 0 1,1 325,160" fill="none" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <path d="M 325,160 L 390,160" stroke="#2457d6" stroke-dasharray="2,2"/>
+  <rect x="390" y="148" width="185" height="24" fill="#eaf0fd" rx="4" stroke="#b4c6fc"/>
+  <text x="395" y="165" font-size="12" font-weight="bold" fill="#2457d6">n (об/хв) — Обертання</text>
+
+  <!-- 2. Feed f_rev & V_f (винесено праворуч від свердла x > 380) -->
+  <line x1="290" y1="210" x2="290" y2="260" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <path d="M 290,235 L 390,235" stroke="#2457d6" stroke-dasharray="2,2"/>
+  <rect x="390" y="215" width="185" height="38" fill="#ffffff" stroke="#cbd5e1" rx="4"/>
+  <text x="482.5" y="231" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">f_rev (мм/об) — Подача</text>
+  <text x="482.5" y="245" text-anchor="middle" font-size="11" fill="#6b7280">V_f = f_rev · n (мм/хв)</text>
+
+  <!-- 3. Cutting Speed V_c (винесено праворуч x > 445) -->
+  <line x1="380" y1="385" x2="445" y2="385" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="455" y="365" font-size="12" font-weight="bold" fill="#2457d6">V_c (м/хв)</text>
+  <text x="455" y="380" font-size="11" fill="#2457d6">V_c = π·D·n / 1000</text>
+
+  <!-- 4. Resultant Speed V_e -->
+  <line x1="380" y1="385" x2="435" y2="415" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="445" y="420" font-size="12" font-weight="bold" fill="#27ae60">V_e</text>
+
+  <!-- Force Vectors -->
+  <!-- 1. Axial Force F_z (винесено ліворуч у вільну зону x < 200) -->
+  <line x1="290" y1="435" x2="290" y2="375" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <path d="M 190,420 L 280,410" stroke="#c0392b" stroke-dasharray="2,2"/>
+  <rect x="50" y="402" width="140" height="36" fill="#ffffff" stroke="#cbd5e1" rx="4"/>
+  <text x="120" y="416" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">F_z (Осьова сила)</text>
+  <text x="120" y="430" text-anchor="middle" font-size="11" fill="#c0392b">Опір прониканню</text>
+
+  <!-- 2. Tangential Force F_c & Torque M_c (винесено ліворуч у вільну зону x < 200) -->
+  <line x1="200" y1="385" x2="135" y2="385" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <rect x="40" y="340" width="150" height="38" fill="#ffffff" stroke="#cbd5e1" rx="4"/>
+  <text x="115" y="356" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">F_c (Тангенціальна)</text>
+  <text x="115" y="370" text-anchor="middle" font-size="11" fill="#c0392b">M_c = F_c · D / 2</text>
+
+  <!-- 3. Radial Balance Note -->
+  <text x="45" y="495" font-size="11" fill="#6b7280">F_y1 = F_y2 (рівновага)</text>
+
+  <!-- Right Column Panels -->
+  <!-- Panel 1: Kinematic Formulas -->
+  <rect x="610" y="75" width="320" height="135" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="625" y="98" font-size="14" font-weight="bold" fill="#2457d6">1. Кінематика різання</text>
+  <text x="625" y="122" font-size="12" font-weight="bold" fill="#1a1a1a">• Швидкість різання V_c (на периферії):</text>
+  <text x="640" y="142" font-size="12" font-weight="bold" fill="#2457d6">V_c = (π · D · n) / 1000  [м/хв]</text>
+  <text x="625" y="166" font-size="12" fill="#1a1a1a">• Необхідні оберти шпинделя n:</text>
+  <text x="640" y="186" font-size="12" font-weight="bold" fill="#2457d6">n = (1000 · V_c) / (π · D)  [об/хв]</text>
+
+  <!-- Panel 2: Dynamic & Power Formulas -->
+  <rect x="610" y="222" width="320" height="145" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="625" y="245" font-size="14" font-weight="bold" fill="#1a1a1a">2. Силові параметри та енергетика</text>
+  <text x="625" y="269" font-size="12" fill="#1a1a1a">• Осьове зусилля (опір подачі F_z):</text>
+  <text x="640" y="289" font-size="12" fill="#6b7280">Максимальне на перемичці свердла</text>
+  <text x="625" y="313" font-size="12" fill="#1a1a1a">• Крутний момент M_c та потужність P_c:</text>
+  <text x="640" y="333" font-size="12" font-weight="bold" fill="#1a1a1a">P_c = (M_c · n) / 9550  [Вт]</text>
+  <text x="640" y="351" font-size="11" fill="#6b7280">M_c = (F_c · D) / 2000  [Н·м]</text>
+
+  <!-- Panel 3: Heat Balance & HSS Limits -->
+  <rect x="610" y="379" width="320" height="121" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="625" y="402" font-size="14" font-weight="bold" fill="#c0392b">3. Тепловий режим та знос HSS</text>
+  <text x="625" y="426" font-size="12" font-weight="bold" fill="#c0392b">• Червоностійкість HSS: T_крит ≈ 600°C</text>
+  <text x="625" y="448" font-size="12" fill="#1a1a1a">• Теплорозподіл: ~80% стружка, ~15% свердло</text>
+  <text x="625" y="470" font-size="12" fill="#1a1a1a">• Перегрів кутів розгартовує HSS</text>
+</svg>

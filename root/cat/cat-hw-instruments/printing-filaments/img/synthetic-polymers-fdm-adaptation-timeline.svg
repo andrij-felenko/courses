@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еволюція синтетичних полімерів: від промислового лиття до FDM-друку</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Перехід від волокон і лиття під тиском до пошарової екструзії та подолання інженерних бар'єрів</text>
+
+  <!-- PANEL 1: EARLY SYNTHESIS & INJECTION MOLDING -->
+  <rect x="30" y="75" width="280" height="250" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="42" y="87" width="256" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="170" y="106" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Промислові волокна та лиття</text>
+
+  <text x="45" y="132" font-size="12" font-weight="bold" fill="#1a1a1a">• NYLON (1935, DuPont):</text>
+  <text x="55" y="148" font-size="11" fill="#6b7280">Синтез В. Карозерса, текстиль</text>
+
+  <text x="45" y="168" font-size="12" font-weight="bold" fill="#1a1a1a">• PET (1941) та TPU (1959):</text>
+  <text x="55" y="184" font-size="11" fill="#6b7280">Волокна, плівки, еластомери</text>
+
+  <text x="45" y="204" font-size="12" font-weight="bold" fill="#1a1a1a">• Спосіб формування:</text>
+  <text x="55" y="220" font-size="11" fill="#6b7280">Лиття під тиском (Injection)</text>
+
+  <text x="45" y="240" font-size="12" font-weight="bold" fill="#1a1a1a">• Особливість:</text>
+  <text x="55" y="256" font-size="11" fill="#6b7280">Суцільні форми, без вимог до нитки</text>
+
+  <!-- PANEL 2: ADAPTATION BARRIERS -->
+  <rect x="340" y="75" width="280" height="250" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="352" y="87" width="256" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="106" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">2. Інженерні бар'єри адаптації</text>
+
+  <text x="355" y="132" font-size="12" font-weight="bold" fill="#c0392b">• Калібр діаметра:</text>
+  <text x="365" y="148" font-size="11" fill="#1a1a1a">Вимога ±0.03 мм (подача екструдера)</text>
+
+  <text x="355" y="168" font-size="12" font-weight="bold" fill="#c0392b">• Кристалізація та усадка:</text>
+  <text x="365" y="184" font-size="11" fill="#1a1a1a">Внутрішні напруження, Warping</text>
+
+  <text x="355" y="204" font-size="12" font-weight="bold" fill="#c0392b">• Міжшарова адгезія:</text>
+  <text x="365" y="220" font-size="11" fill="#1a1a1a">Деламінація при охолодженні</text>
+
+  <text x="355" y="240" font-size="12" font-weight="bold" fill="#c0392b">• Гігроскопічність:</text>
+  <text x="365" y="256" font-size="11" fill="#1a1a1a">Гідроліз розплаву (бульбашки, пара)</text>
+
+  <!-- PANEL 3: FDM OPTIMIZATION -->
+  <rect x="650" y="75" width="280" height="250" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="662" y="87" width="256" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="790" y="106" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">3. FDM-модифіковані філаменти</text>
+
+  <text x="665" y="132" font-size="12" font-weight="bold" fill="#27ae60">• PETG (Модифікація гліколем):</text>
+  <text x="675" y="148" font-size="11" fill="#1a1a1a">Пригнічення кристалізації, прозорість</text>
+
+  <text x="665" y="168" font-size="12" font-weight="bold" fill="#27ae60">• FDM-Nylon (Поліаміди):</text>
+  <text x="675" y="184" font-size="11" fill="#1a1a1a">Контрольована усадка, міцність шарів</text>
+
+  <text x="665" y="204" font-size="12" font-weight="bold" fill="#27ae60">• TPU (Еластомери):</text>
+  <text x="675" y="220" font-size="11" fill="#1a1a1a">Твердість 95A, Direct-екструзія</text>
+
+  <text x="665" y="240" font-size="12" font-weight="bold" fill="#27ae60">• Стандарт калібру:</text>
+  <text x="675" y="256" font-size="11" fill="#1a1a1a">Діаметр 1.75 мм / 2.85 мм (допуск ±0.02)</text>
+
+  <!-- TIMELINE CONNECTING ARROWS -->
+  <line x1="312" y1="200" x2="338" y2="200" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="622" y1="200" x2="648" y2="200" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- BOTTOM SUMMARY BANNER -->
+  <rect x="30" y="345" width="900" height="145" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="372" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Ключовий висновок: Фізико-хімічні передумови успішної FDM-екструзії</text>
+
+  <!-- Column 1 -->
+  <text x="50" y="398" font-size="12" font-weight="bold" fill="#1a1a1a">1. Точність геометрії нитки:</text>
+  <text x="50" y="418" font-size="11" fill="#1a1a1a">Стабільний діаметр d = 1.75 ± 0.02 мм</text>
+  <text x="50" y="436" font-size="11" fill="#6b7280">забезпечує рівномірну об'ємну витрату Q</text>
+  <text x="50" y="454" font-size="11" fill="#6b7280">та виключає проковзування шестерень.</text>
+
+  <!-- Column 2 -->
+  <text x="340" y="398" font-size="12" font-weight="bold" fill="#1a1a1a">2. Термомеханіка розплаву:</text>
+  <text x="340" y="418" font-size="11" fill="#1a1a1a">Контроль реології та склування (Tg)</text>
+  <text x="340" y="436" font-size="11" fill="#6b7280">запобігає неконтрольованій усадці</text>
+  <text x="340" y="454" font-size="11" fill="#6b7280">та коробленню (Warping) деталей.</text>
+
+  <!-- Column 3 -->
+  <text x="630" y="398" font-size="12" font-weight="bold" fill="#1a1a1a">3. Дифузійна міжшарова адгезія:</text>
+  <text x="630" y="418" font-size="11" fill="#1a1a1a">Молекулярне зварювання треків</text>
+  <text x="630" y="436" font-size="11" fill="#6b7280">гарантує монолітність та ізотропію</text>
+  <text x="630" y="454" font-size="11" font-weight="bold" fill="#27ae60">механічних властивостей виробу.</text>
+</svg>

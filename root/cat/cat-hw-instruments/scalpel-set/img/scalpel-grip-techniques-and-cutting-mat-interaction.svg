@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Техніки хвату скальпеля, кут атаки леза та захист килимка</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Олівцевий хват забезпечує прецизійність фігурних різів, а смичковий — стабільність на довгих лініях</text>
+
+  <!-- Left Panel: Pencil Grip -->
+  <rect x="25" y="70" width="290" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="25" y="70" width="290" height="35" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="165" y="92" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Олівцевий хват (Pencil Grip)</text>
+
+  <!-- Left Diagram Box -->
+  <rect x="35" y="115" width="270" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="45" y1="235" x2="295" y2="235" stroke="#27ae60" stroke-width="3"/>
+  <text x="170" y="253" font-size="12" fill="#27ae60" text-anchor="middle">Поверхня макетного килимка</text>
+
+  <!-- Scalpel Handle & Blade at 35 degrees -->
+  <line x1="120" y1="235" x2="235" y2="155" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
+  <polygon points="120,235 145,210 140,225" fill="#2457d6"/>
+  <path d="M 160,235 A 40,40 0 0 0 153,212" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="172" y="222" font-size="13" font-weight="bold" fill="#2457d6">θ ≈ 30°–45°</text>
+
+  <!-- Force FN -->
+  <line x1="140" y1="160" x2="140" y2="190" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="135" y="178" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">F_N (натиск)</text>
+
+  <!-- Left Text Points -->
+  <text x="45" y="295" font-size="13" font-weight="bold" fill="#1a1a1a">Характеристики олівцевого хвату:</text>
+  <text x="45" y="318" font-size="12" fill="#1a1a1a">• Утримання пальцями біля цанги</text>
+  <text x="45" y="336" font-size="12" fill="#6b7280">  (як звичайну кулькову ручку)</text>
+  <text x="45" y="358" font-size="12" fill="#2457d6">• Крутий кут атаки: θ = 30°–45°</text>
+  <text x="45" y="376" font-size="12" fill="#6b7280">  працює переважно кінчик леза</text>
+  <text x="45" y="398" font-size="12" fill="#1a1a1a">• Максимальна точність маневру</text>
+  <text x="45" y="416" font-size="12" fill="#6b7280">  для складних криволінійних контурів</text>
+  <text x="45" y="438" font-size="12" fill="#27ae60">• Використання: виганяння масок,</text>
+  <text x="57" y="456" font-size="12" fill="#27ae60">підрізка доріжок плат, SMD-макет</text>
+
+  <!-- Center Panel: Bow Grip -->
+  <rect x="335" y="70" width="290" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="335" y="70" width="290" height="35" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="92" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Смичковий хват (Bow / Power Grip)</text>
+
+  <!-- Center Diagram Box -->
+  <rect x="345" y="115" width="270" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="355" y1="235" x2="605" y2="235" stroke="#27ae60" stroke-width="3"/>
+  <text x="480" y="253" font-size="12" fill="#27ae60" text-anchor="middle">Поверхня макетного килимка</text>
+
+  <!-- Scalpel Handle & Blade at 18 degrees -->
+  <line x1="410" y1="235" x2="562" y2="186" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
+  <line x1="410" y1="235" x2="445" y2="235" stroke="#2457d6" stroke-width="3"/>
+  <path d="M 460,235 A 50,50 0 0 0 457,219" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="470" y="222" font-size="13" font-weight="bold" fill="#2457d6">θ ≈ 15°–25°</text>
+
+  <!-- Traction force FT and Pressure FN -->
+  <line x1="430" y1="160" x2="390" y2="160" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="410" y="150" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">F_T (тяга)</text>
+
+  <line x1="480" y1="155" x2="480" y2="180" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="492" y="172" font-size="12" font-weight="bold" fill="#c0392b">F_N</text>
+
+  <!-- Center Text Points -->
+  <text x="355" y="295" font-size="13" font-weight="bold" fill="#1a1a1a">Характеристики смичкового хвату:</text>
+  <text x="355" y="318" font-size="12" fill="#1a1a1a">• Тримання всіма пальцями за корпус</text>
+  <text x="355" y="336" font-size="12" fill="#6b7280">  (вказівний палець лежить на обуху)</text>
+  <text x="355" y="358" font-size="12" fill="#2457d6">• Пологий кут атаки: θ = 15°–25°</text>
+  <text x="355" y="376" font-size="12" fill="#6b7280">  працює довша частина кромки</text>
+  <text x="355" y="398" font-size="12" fill="#1a1a1a">• Високе рівномірне зусилля натиску</text>
+  <text x="355" y="416" font-size="12" fill="#6b7280">  запобігає сованню та вилянню леза</text>
+  <text x="355" y="438" font-size="12" fill="#27ae60">• Використання: довгі прямі різи</text>
+  <text x="367" y="456" font-size="12" fill="#27ae60">по металевій лінійці, товсті матеріали</text>
+
+  <!-- Right Panel: Self-Healing Mat -->
+  <rect x="645" y="70" width="290" height="425" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="645" y="70" width="290" height="35" rx="8" fill="#27ae60"/>
+  <text x="790" y="92" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">Самовідновлювальний килимок</text>
+
+  <!-- Right Diagram Box -->
+  <rect x="655" y="115" width="270" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- 3-layer Sandwich Structure -->
+  <rect x="665" y="130" width="250" height="22" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="790" y="145" font-size="12" fill="#27ae60" text-anchor="middle">М'який зовнішній ПВХ (Soft PVC)</text>
+
+  <rect x="665" y="152" width="250" height="26" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="790" y="169" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Тверде осереддя (Hard Core Panel)</text>
+
+  <rect x="665" y="178" width="250" height="22" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="790" y="193" font-size="12" fill="#27ae60" text-anchor="middle">Нижній захисний шар (Bottom PVC)</text>
+
+  <!-- Self-Healing Cut Closing Mechanism -->
+  <path d="M 740,215 L 750,232 L 760,215" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="725" y1="223" x2="738" y2="223" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="775" y1="223" x2="762" y2="223" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="790" y="250" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Пружне закриття мікронадрізу</text>
+
+  <!-- Right Text Points -->
+  <text x="665" y="295" font-size="13" font-weight="bold" fill="#27ae60">Принцип роботи та переваги:</text>
+  <text x="665" y="318" font-size="12" fill="#1a1a1a">• 3-шарова сендвіч-конструкція</text>
+  <text x="665" y="336" font-size="12" fill="#6b7280">  з твердим внутрішнім осереддям</text>
+  <text x="665" y="358" font-size="12" fill="#2457d6">• Захист кромки: м'який ПВХ занурює</text>
+  <text x="665" y="376" font-size="12" fill="#6b7280">  лезо без затуплення і кришення</text>
+  <text x="665" y="398" font-size="12" fill="#1a1a1a">• Молекулярна пам'ять еластомеру</text>
+  <text x="665" y="416" font-size="12" fill="#6b7280">  стуляє надрізи після виходу леза</text>
+  <text x="665" y="438" font-size="12" font-weight="bold" fill="#27ae60">• Збільшення ресурсу леза у 5–10 разів</text>
+  <text x="665" y="456" font-size="12" fill="#6b7280">  запобігає пошкодженню стільниці</text>
+</svg>

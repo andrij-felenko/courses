@@ -1,0 +1,144 @@
+<svg viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Техніка монтажу та демонтажу QFP станцією BAKU BK-8033</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Круговий прогрів запобігає перегріву, а поверхневий натяг припаю забезпечує самовирівнювання</text>
+
+  <!-- ПАНЕЛЬ 1: Круговий прогрів -->
+  <rect x="30" y="85" width="280" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="100" width="250" height="32" rx="4" fill="#eaf0fd"/>
+  <text x="170" y="121" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Круговий прогрів виводів</text>
+
+  <!-- Сопло термофена -->
+  <rect x="120" y="142" width="100" height="28" rx="3" fill="#64748b" stroke="#334155" stroke-width="1.5"/>
+  <text x="170" y="161" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Сопло (Ø 8 мм)</text>
+
+  <!-- Верхні сегменти потоку повітря -->
+  <line x1="145" y1="170" x2="145" y2="178" stroke="#2457d6" stroke-width="2"/>
+  <line x1="170" y1="170" x2="170" y2="178" stroke="#2457d6" stroke-width="2"/>
+  <line x1="195" y1="170" x2="195" y2="178" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Блок із текстом повітря -->
+  <rect x="65" y="178" width="210" height="24" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="170" y="194" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Гаряче повітря (300–380 °C)</text>
+
+  <!-- Нижні сегменти потоку повітря -->
+  <path d="M 145,202 L 130,230" stroke="#2457d6" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+  <path d="M 170,202 L 170,230" stroke="#2457d6" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+  <path d="M 195,202 L 210,230" stroke="#2457d6" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Позначка кругового руху -->
+  <rect x="80" y="234" width="180" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="170" y="249" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Круговий рух сопла</text>
+
+  <!-- Плата та мікросхема QFP -->
+  <rect x="55" y="265" width="230" height="155" rx="6" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+  <ellipse cx="170" cy="335" rx="85" ry="50" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,4"/>
+  <rect x="110" y="295" width="120" height="80" rx="4" fill="#334155" stroke="#0f172a" stroke-width="2"/>
+  <text x="170" y="341" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">QFP-64</text>
+  <text x="170" y="405" font-size="12" fill="#6b7280" text-anchor="middle">Шари гелеподібного флюсу</text>
+
+  <!-- Пояснення Панелі 1 -->
+  <text x="170" y="445" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Рівномірний прогрів 4 сторін</text>
+  <text x="170" y="467" font-size="12" fill="#6b7280" text-anchor="middle">Запобігання відриву доріжок</text>
+  <text x="170" y="489" font-size="12" fill="#6b7280" text-anchor="middle">та теплового удару корпусу</text>
+
+  <!-- ПАНЕЛЬ 2: Рідка фаза та демонтаж -->
+  <rect x="340" y="85" width="280" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="355" y="100" width="250" height="32" rx="4" fill="#eaf0fd"/>
+  <text x="480" y="121" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Рідка фаза та демонтаж</text>
+
+  <!-- Пінцет та підйом -->
+  <text x="480" y="145" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Захоплення пінцетом</text>
+  <path d="M 430,152 L 438,205" stroke="#64748b" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 530,152 L 522,205" stroke="#64748b" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 430,152 C 450,148 510,148 530,152" stroke="#64748b" stroke-width="2.5" fill="none"/>
+
+  <!-- Стрілки та блок вертикального підйому -->
+  <path d="M 405,245 L 405,200" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 555,245 L 555,200" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="420" y="170" width="120" height="22" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="185" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вертикальне зняття</text>
+
+  <!-- Піднятий корпус -->
+  <rect x="420" y="200" width="120" height="75" rx="4" fill="#334155" stroke="#0f172a" stroke-width="2"/>
+  <text x="480" y="243" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">QFP-64</text>
+
+  <!-- Плата під корпусом -->
+  <rect x="365" y="305" width="230" height="110" rx="6" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="410" y="320" width="140" height="8" rx="2" fill="#d97706"/>
+  <rect x="410" y="392" width="140" height="8" rx="2" fill="#d97706"/>
+  <text x="480" y="348" font-size="12" font-weight="bold" fill="#d97706" text-anchor="middle">Рідкий припай на майданчиках</text>
+  <text x="480" y="375" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зняття лише після розплавлення!</text>
+
+  <!-- Пояснення Панелі 2 -->
+  <text x="480" y="445" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Безконтактний демонтаж</text>
+  <text x="480" y="467" font-size="12" fill="#6b7280" text-anchor="middle">Зусилля підйому — мінімальне</text>
+  <text x="480" y="489" font-size="12" fill="#6b7280" text-anchor="middle">Збереження цілісності площадок</text>
+
+  <!-- ПАНЕЛЬ 3: Самовирівнювання -->
+  <rect x="650" y="85" width="280" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="665" y="100" width="250" height="32" rx="4" fill="#e9f7ef"/>
+  <text x="790" y="121" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Ефект самовирівнювання</text>
+
+  <!-- Блок А: Зсув -->
+  <rect x="665" y="142" width="250" height="118" rx="6" fill="#fdecea" stroke="#f5c6cb" stroke-width="1"/>
+  <text x="790" y="161" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">А. Неточне позиціонування (зсув)</text>
+
+  <rect x="715" y="172" width="120" height="50" rx="3" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <rect x="735" y="182" width="120" height="50" rx="3" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,2"/>
+  <path d="M 715,172 L 733,181" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <rect x="730" y="234" width="120" height="20" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="790" y="248" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зсув Δx, Δy</text>
+
+  <!-- Блок Б: Самовирівнювання -->
+  <rect x="665" y="268" width="250" height="152" rx="6" fill="#e9f7ef" stroke="#c3e6cb" stroke-width="1"/>
+  <text x="790" y="287" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Б. Самовирівнювання виводів</text>
+
+  <text x="790" y="306" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Сила поверхневого натягу F_s</text>
+
+  <!-- Меніски та виводи -->
+  <rect x="700" y="358" width="40" height="42" rx="2" fill="#d97706"/>
+  <rect x="770" y="358" width="40" height="42" rx="2" fill="#d97706"/>
+  <rect x="840" y="358" width="40" height="42" rx="2" fill="#d97706"/>
+
+  <path d="M 700,358 Q 720,344 740,358 Z" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1"/>
+  <path d="M 770,358 Q 790,344 810,358 Z" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1"/>
+  <path d="M 840,358 Q 860,344 880,358 Z" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1"/>
+
+  <rect x="710" y="312" width="20" height="46" rx="2" fill="#475569" stroke="#1e293b" stroke-width="1"/>
+  <rect x="780" y="312" width="20" height="46" rx="2" fill="#475569" stroke="#1e293b" stroke-width="1"/>
+  <rect x="850" y="312" width="20" height="46" rx="2" fill="#475569" stroke="#1e293b" stroke-width="1"/>
+
+  <path d="M 692,335 L 707,335" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M 748,335 L 733,335" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M 762,335 L 777,335" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M 818,335 L 803,335" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M 832,335 L 847,335" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M 888,335 L 873,335" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <text x="790" y="412" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Рідкий припай центрує виводи на падах</text>
+
+  <!-- Пояснення Панелі 3 -->
+  <text x="790" y="445" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Автоматичне вирівнювання</text>
+  <text x="790" y="467" font-size="12" fill="#27ae60" text-anchor="middle">Флюсовий шар + рідкий припай</text>
+  <text x="790" y="489" font-size="12" fill="#6b7280" text-anchor="middle">Точна посадка корпусів QFP/SOIC</text>
+</svg>

@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Структурна блок-схема комбінованого приладу FNIRSI 2C53T</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Поєднання трьох вимірювальних трактів (осцилограф, генератор, мультиметр) під управлінням МК</text>
+
+  <!-- Left Column: Frontends -->
+  <!-- Oscilloscope Frontend -->
+  <rect x="40" y="85" width="210" height="105" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="145" y="108" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Осцилограф (2 канали)</text>
+  <text x="145" y="130" text-anchor="middle" font-size="12" fill="#1a1a1a">BNC входи CH1 / CH2</text>
+  <text x="145" y="150" text-anchor="middle" font-size="12" fill="#6b7280">Атенюатор та передпідсилювач</text>
+  <text x="145" y="170" text-anchor="middle" font-size="12" fill="#6b7280">Смуга 50 МГц (1 МОм / 15 пФ)</text>
+
+  <!-- DDS Generator Frontend -->
+  <rect x="40" y="205" width="210" height="95" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="145" y="228" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">DDS Генератор</text>
+  <text x="145" y="250" text-anchor="middle" font-size="12" fill="#1a1a1a">Вихід GEN (BNC)</text>
+  <text x="145" y="270" text-anchor="middle" font-size="12" fill="#6b7280">Буферний підсилювач (0–10 МГц)</text>
+  <text x="145" y="288" text-anchor="middle" font-size="12" fill="#6b7280">Амплітуда 0.1–3.3 В</text>
+
+  <!-- Multimeter Isolated Frontend -->
+  <rect x="40" y="315" width="210" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="145" y="338" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Цифровий Мультиметр</text>
+  <text x="145" y="360" text-anchor="middle" font-size="12" fill="#1a1a1a">Входи V / Ω / A / C</text>
+  <text x="145" y="380" text-anchor="middle" font-size="12" fill="#6b7280">АЦП мультиметра (6000 відл.)</text>
+  <text x="145" y="400" text-anchor="middle" font-size="12" fill="#27ae60">Гальванічна ізоляція</text>
+
+  <!-- Middle Column: Converters & Interfaces -->
+  <!-- Oscilloscope ADC -->
+  <rect x="285" y="85" width="145" height="105" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="357" y="118" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Двоканальний АЦП</text>
+  <text x="357" y="145" text-anchor="middle" font-size="12" fill="#1a1a1a">250 MSa/s</text>
+  <text x="357" y="165" text-anchor="middle" font-size="12" fill="#6b7280">8-біт вибірка</text>
+
+  <!-- DDS DAC -->
+  <rect x="285" y="205" width="145" height="95" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="357" y="238" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">DDS ЦАП</text>
+  <text x="357" y="262" text-anchor="middle" font-size="12" fill="#1a1a1a">Синтез сигналів</text>
+  <text x="357" y="282" text-anchor="middle" font-size="12" fill="#6b7280">Формування хвиль</text>
+
+  <!-- Optocoupler Isolation -->
+  <rect x="285" y="315" width="145" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="357" y="348" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Оптоізоляція</text>
+  <text x="357" y="375" text-anchor="middle" font-size="12" fill="#1a1a1a">UART шина</text>
+  <text x="357" y="395" text-anchor="middle" font-size="12" fill="#27ae60">Захист від витоків</text>
+
+  <!-- Center Column: Main Microcontroller (MCU) -->
+  <rect x="465" y="85" width="200" height="340" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="565" y="120" text-anchor="middle" font-size="15" font-weight="bold" fill="#2457d6">Центральний МК</text>
+  <text x="565" y="140" text-anchor="middle" font-size="12" fill="#6b7280">(ARM Cortex-M / FPGA)</text>
+
+  <text x="565" y="185" text-anchor="middle" font-size="12" fill="#1a1a1a">• Опрацювання АЦП</text>
+  <text x="565" y="210" text-anchor="middle" font-size="12" fill="#1a1a1a">• Буфер вибірки та тригер</text>
+  <text x="565" y="240" text-anchor="middle" font-size="12" fill="#1a1a1a">• Керування DDS та ЦАП</text>
+  <text x="565" y="270" text-anchor="middle" font-size="12" fill="#1a1a1a">• Декодування ДММ даних</text>
+  <text x="565" y="300" text-anchor="middle" font-size="12" fill="#1a1a1a">• Дисплейний контролер</text>
+  <text x="565" y="330" text-anchor="middle" font-size="12" fill="#1a1a1a">• Інтерфейс користувача</text>
+
+  <!-- Right Column: UI & System Peripherals -->
+  <!-- TFT Display -->
+  <rect x="700" y="85" width="220" height="115" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="810" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">TFT Дисплей (4.3")</text>
+  <text x="810" y="140" text-anchor="middle" font-size="12" fill="#1a1a1a">Кольоровий ЖК екран 480×272</text>
+  <text x="810" y="160" text-anchor="middle" font-size="12" fill="#6b7280">Відображення 2CH + DMM</text>
+  <text x="810" y="180" text-anchor="middle" font-size="12" fill="#6b7280">Меню та налаштування</text>
+
+  <!-- Control Buttons -->
+  <rect x="700" y="215" width="220" height="95" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="810" y="240" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Панель управління</text>
+  <text x="810" y="265" text-anchor="middle" font-size="12" fill="#1a1a1a">Кнопки, енкодер, Mode</text>
+  <text x="810" y="285" text-anchor="middle" font-size="12" fill="#6b7280">Перемикання між приладами</text>
+
+  <!-- Power & USB Interface -->
+  <rect x="700" y="325" width="220" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="810" y="350" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Живлення / USB</text>
+  <text x="810" y="375" text-anchor="middle" font-size="12" fill="#1a1a1a">Li-Ion акумулятор (3000 мА·год)</text>
+  <text x="810" y="395" text-anchor="middle" font-size="12" fill="#6b7280">Type-C зарядка / PC data</text>
+
+  <!-- Flow & Signal Connections (Lines & Arrows) -->
+  <!-- Oscilloscope Path (Blue) -->
+  <line x1="250" y1="137" x2="285" y2="137" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="430" y1="137" x2="465" y2="137" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Generator Path (Black) -->
+  <line x1="465" y1="252" x2="430" y2="252" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="285" y1="252" x2="250" y2="252" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Multimeter Isolated Path (Green) -->
+  <line x1="250" y1="370" x2="285" y2="370" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="430" y1="370" x2="465" y2="370" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Display Output Connection (Blue) -->
+  <line x1="665" y1="142" x2="700" y2="142" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Control & Power Connections (Black) -->
+  <line x1="700" y1="262" x2="665" y2="262" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="700" y1="375" x2="665" y2="375" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+</svg>

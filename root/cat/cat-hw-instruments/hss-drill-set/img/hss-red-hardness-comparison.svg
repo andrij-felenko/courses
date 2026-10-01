@@ -1,0 +1,118 @@
+<svg viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Температурна стійкість твердості (красностійкість): HSS vs Вуглецева сталь</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Швидкорізальна сталь (HSS) зберігає робочу твердість HRC ≥ 60 при 600 °C, а вуглецева втрачає її вже при 200 °C</text>
+
+  <!-- Зона красностійкості (напівпрозорий полігон-фон) -->
+  <path d="M 288.6,110 H 585.7 V 430 H 288.6 Z" fill="#2457d6" fill-opacity="0.04"/>
+  <text x="437" y="415" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Зона красностійкості HSS (200–600 °C)</text>
+
+  <!-- Сітка графіка та орієнтири -->
+  <line x1="140" y1="110" x2="660" y2="110" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="140" y1="155.7" x2="660" y2="155.7" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="140" y1="201.4" x2="660" y2="201.4" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="140" y1="247.1" x2="660" y2="247.1" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="140" y1="292.9" x2="660" y2="292.9" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="140" y1="338.6" x2="660" y2="338.6" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="140" y1="384.3" x2="660" y2="384.3" stroke="#e2e8f0" stroke-width="1"/>
+
+  <line x1="214.3" y1="110" x2="214.3" y2="430" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Вертикальна лінія 200°C з розривом під напис (y=132..162) -->
+  <line x1="288.6" y1="110" x2="288.6" y2="132" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="288.6" y1="162" x2="288.6" y2="430" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <line x1="362.9" y1="110" x2="362.9" y2="430" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="437.1" y1="110" x2="437.1" y2="430" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="511.4" y1="110" x2="511.4" y2="430" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="585.7" y1="110" x2="585.7" y2="430" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Поріг 60 HRC -->
+  <text x="360" y="148" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">Мінімальна робоча твердість для різання сталі (60 HRC)</text>
+
+  <!-- Осі координат -->
+  <line x1="140" y1="430" x2="660" y2="430" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="140" y1="430" x2="140" y2="100" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Написи осей -->
+  <text x="45" y="95" font-size="12" font-weight="bold" fill="#1a1a1a">Твердість HRC</text>
+  <text x="400" y="485" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Температура нагріву кромки T (°C)</text>
+
+  <!-- Позначки Y (HRC) -->
+  <text x="125" y="114" font-size="11" fill="#6b7280" text-anchor="end">70</text>
+  <text x="125" y="159.7" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="end">60</text>
+  <text x="125" y="205.4" font-size="11" fill="#6b7280" text-anchor="end">50</text>
+  <text x="125" y="251.1" font-size="11" fill="#6b7280" text-anchor="end">40</text>
+  <text x="125" y="296.9" font-size="11" fill="#6b7280" text-anchor="end">30</text>
+  <text x="125" y="342.6" font-size="11" fill="#6b7280" text-anchor="end">20</text>
+  <text x="125" y="388.3" font-size="11" fill="#6b7280" text-anchor="end">10</text>
+  <text x="125" y="434" font-size="11" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Позначки X (°C) -->
+  <text x="140" y="455" font-size="11" fill="#6b7280" text-anchor="middle">0°C</text>
+  <text x="214" y="455" font-size="11" fill="#6b7280" text-anchor="middle">100°C</text>
+  <text x="289" y="455" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">200°C</text>
+  <text x="363" y="455" font-size="11" fill="#6b7280" text-anchor="middle">300°C</text>
+  <text x="437" y="455" font-size="11" fill="#6b7280" text-anchor="middle">400°C</text>
+  <text x="511" y="455" font-size="11" fill="#6b7280" text-anchor="middle">500°C</text>
+  <text x="586" y="455" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">600°C</text>
+  <text x="660" y="455" font-size="11" fill="#6b7280" text-anchor="middle">700°C</text>
+
+  <!-- Крива Вуглецевої сталі -->
+  <path d="M 140,137.4 C 200,137.4 250,140 288.6,155.7 C 325.7,200 362.9,247.1 437.1,315.7 C 511.4,350 585.7,361.4 660,370" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <circle cx="288.6" cy="155.7" r="5" fill="#c0392b"/>
+
+  <!-- Виносне пояснення для Вуглецевої сталі (розміщене повністю поза лініями) -->
+  <rect x="148" y="210" width="127" height="38" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="211.5" y="226" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Вуглецева сталь</text>
+  <text x="211.5" y="240" font-size="10" fill="#c0392b" text-anchor="middle">Відпуск при 200 °C</text>
+  <path d="M 275,210 L 284,164" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+  <!-- Крива HSS -->
+  <path d="M 140,137.4 L 288.6,137.4 L 437.1,137.4 C 475,137.4 511.4,140 545,142 C 565,143 585.7,146.5 600,160 C 622.8,185 640,230 660,270" fill="none" stroke="#2457d6" stroke-width="3.5"/>
+  <circle cx="585.7" cy="146.5" r="5" fill="#2457d6"/>
+
+  <!-- Виносне пояснення для HSS -->
+  <rect x="425" y="115" width="150" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="500" y="133" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">HSS: 62 HRC при 600 °C</text>
+  <path d="M 575,130 L 581,142" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+  <!-- Бокова панель опису та легенди -->
+  <rect x="690" y="110" width="240" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="810" y="135" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Властивості марок сталей</text>
+
+  <!-- Картка HSS -->
+  <rect x="705" y="150" width="210" height="120" rx="6" fill="#eaf0fd" stroke="#b4c6fc" stroke-width="1"/>
+  <text x="810" y="170" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Швидкорізальна сталь (HSS)</text>
+  <text x="715" y="192" font-size="11" fill="#1a1a1a">• Легування: W, Mo, Cr, V</text>
+  <text x="715" y="212" font-size="11" fill="#1a1a1a">• Красностійкість: 600 °C</text>
+  <text x="715" y="232" font-size="11" fill="#2457d6" font-weight="bold">• Твердість: &gt; 60 HRC</text>
+  <text x="715" y="252" font-size="11" fill="#6b7280">• Висока швидкість різання</text>
+
+  <!-- Картка Вуглецевої сталі -->
+  <rect x="705" y="285" width="210" height="120" rx="6" fill="#fdecea" stroke="#f5c6cb" stroke-width="1"/>
+  <text x="810" y="305" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Вуглецева сталь (У10/У12)</text>
+  <text x="715" y="327" font-size="11" fill="#1a1a1a">• Склад: Fe + C (0.9-1.2%)</text>
+  <text x="715" y="347" font-size="11" fill="#1a1a1a">• Втрата твердості: 200 °C</text>
+  <text x="715" y="367" font-size="11" fill="#c0392b" font-weight="bold">• При 600 °C: ~15 HRC</text>
+  <text x="715" y="387" font-size="11" fill="#6b7280">• Обмеження за швидкістю</text>
+
+  <!-- Підсумок -->
+  <text x="810" y="430" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Прорив Тейлора та Вайта</text>
+  <text x="810" y="450" font-size="11" fill="#6b7280" text-anchor="middle">Підвищення продуктивності в 3-5 разів</text>
+</svg>

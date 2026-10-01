@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діапазони температур та обдуву для філаментів PETG, TPU та Nylon</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Дотримання безпечних робочих вікон запобігає міжшаровому розшаруванню й деформації</text>
+
+  <!-- CARD 1: PETG -->
+  <rect x="40" y="80" width="270" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Header Pill -->
+  <rect x="55" y="95" width="240" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="175" y="116" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">PETG (Поліетилентерефталат)</text>
+
+  <!-- Hotend Temp -->
+  <text x="60" y="148" font-size="12" fill="#6b7280">Температура хотенда</text>
+  <text x="60" y="168" font-size="14" font-weight="bold" fill="#1a1a1a">230 °C – 250 °C</text>
+  <rect x="60" y="178" width="230" height="10" rx="5" fill="#d0d7de"/>
+  <rect x="129" y="178" width="46" height="10" rx="5" fill="#2457d6"/>
+
+  <!-- Bed Temp -->
+  <text x="60" y="210" font-size="12" fill="#6b7280">Температура столу</text>
+  <text x="60" y="230" font-size="14" font-weight="bold" fill="#1a1a1a">70 °C – 85 °C</text>
+  <rect x="60" y="240" width="230" height="10" rx="5" fill="#d0d7de"/>
+  <rect x="114" y="240" width="34" height="10" rx="5" fill="#27ae60"/>
+
+  <!-- Cooling Fan -->
+  <text x="60" y="272" font-size="12" fill="#6b7280">Обдув деталі</text>
+  <text x="60" y="292" font-size="13" font-weight="bold" fill="#1a1a1a">20 % – 50 % (Помірний)</text>
+
+  <!-- Risk/Optimal Box -->
+  <rect x="55" y="310" width="240" height="112" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="67" y="328" font-size="12" font-weight="bold" fill="#27ae60">Оптимальне вікно</text>
+  <text x="67" y="348" font-size="12" fill="#1a1a1a">• Висока міжшарова адгезія</text>
+  <text x="67" y="368" font-size="12" fill="#1a1a1a">• Низьке терможолоблення</text>
+  <text x="67" y="388" font-size="12" fill="#c0392b">• &lt;230°C: деламінація шарів</text>
+  <text x="67" y="408" font-size="12" fill="#c0392b">• &gt;250°C: сопління (stringing)</text>
+
+
+  <!-- CARD 2: TPU -->
+  <rect x="345" y="80" width="270" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Header Pill -->
+  <rect x="360" y="95" width="240" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="116" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">TPU (Еластомер 95A)</text>
+
+  <!-- Hotend Temp -->
+  <text x="365" y="148" font-size="12" fill="#6b7280">Температура хотенда</text>
+  <text x="365" y="168" font-size="14" font-weight="bold" fill="#1a1a1a">215 °C – 235 °C</text>
+  <rect x="365" y="178" width="230" height="10" rx="5" fill="#d0d7de"/>
+  <rect x="399" y="178" width="46" height="10" rx="5" fill="#2457d6"/>
+
+  <!-- Bed Temp -->
+  <text x="365" y="210" font-size="12" fill="#6b7280">Температура столу</text>
+  <text x="365" y="230" font-size="14" font-weight="bold" fill="#1a1a1a">40 °C – 60 °C</text>
+  <rect x="365" y="240" width="230" height="10" rx="5" fill="#d0d7de"/>
+  <rect x="411" y="240" width="46" height="10" rx="5" fill="#27ae60"/>
+
+  <!-- Cooling Fan -->
+  <text x="365" y="272" font-size="12" fill="#6b7280">Обдув деталі</text>
+  <text x="365" y="292" font-size="13" font-weight="bold" fill="#1a1a1a">0 % – 20 % (Мінімальний)</text>
+
+  <!-- Risk/Optimal Box -->
+  <rect x="360" y="310" width="240" height="112" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="372" y="328" font-size="12" font-weight="bold" fill="#27ae60">Оптимальне вікно</text>
+  <text x="372" y="348" font-size="12" fill="#1a1a1a">• Висока гнучкість і міцність</text>
+  <text x="372" y="368" font-size="12" fill="#1a1a1a">• Повільний друк 15–30 мм/с</text>
+  <text x="372" y="388" font-size="12" fill="#c0392b">• Без ретракції: заминання</text>
+  <text x="372" y="408" font-size="12" fill="#c0392b">• Вологий TPU: бульбашки пару</text>
+
+
+  <!-- CARD 3: NYLON -->
+  <rect x="650" y="80" width="270" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Header Pill -->
+  <rect x="665" y="95" width="240" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="785" y="116" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Nylon (Поліамід PA6)</text>
+
+  <!-- Hotend Temp -->
+  <text x="670" y="148" font-size="12" fill="#6b7280">Температура хотенда</text>
+  <text x="670" y="168" font-size="14" font-weight="bold" fill="#1a1a1a">250 °C – 280 °C</text>
+  <rect x="670" y="178" width="230" height="10" rx="5" fill="#d0d7de"/>
+  <rect x="785" y="178" width="69" height="10" rx="5" fill="#2457d6"/>
+
+  <!-- Bed Temp -->
+  <text x="670" y="210" font-size="12" fill="#6b7280">Температура столу</text>
+  <text x="670" y="230" font-size="14" font-weight="bold" fill="#1a1a1a">90 °C – 110 °C</text>
+  <rect x="670" y="240" width="230" height="10" rx="5" fill="#d0d7de"/>
+  <rect x="773" y="240" width="46" height="10" rx="5" fill="#27ae60"/>
+
+  <!-- Cooling Fan -->
+  <text x="670" y="272" font-size="12" fill="#6b7280">Обдув деталі</text>
+  <text x="670" y="292" font-size="13" font-weight="bold" fill="#1a1a1a">0 % (Вимкнено, термокамера)</text>
+
+  <!-- Risk/Optimal Box -->
+  <rect x="665" y="310" width="240" height="112" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="677" y="328" font-size="12" font-weight="bold" fill="#c0392b">Оптимальне вікно та ризики</text>
+  <text x="677" y="348" font-size="12" fill="#1a1a1a">• Конструкційна зносостійкість</text>
+  <text x="677" y="368" font-size="12" fill="#1a1a1a">• Висока термічна усадка</text>
+  <text x="677" y="388" font-size="12" fill="#c0392b">• Обдув / холодний стіл: warping</text>
+  <text x="677" y="408" font-size="12" fill="#c0392b">• Гігроскопічний: сушіння &gt;70°C</text>
+
+
+  <!-- Bottom Legend -->
+  <rect x="40" y="450" width="880" height="44" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="476" font-size="12" fill="#1a1a1a" text-anchor="middle">Ключове правило: дотримання специфікації температур забезпечує завершення міжшарової дифузії молекул без терможолоблення.</text>
+</svg>

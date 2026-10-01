@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Алгоритм керування кнопками та налаштування режимів MESTEK IR01B</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Кнопка MODE циклічно перемикає параметри, кнопки ▲ і ▼ коригують значення, курок зберігає стан</text>
+
+  <!-- Left Column: Controls -->
+  <rect x="25" y="75" width="260" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="25" y="75" width="260" height="35" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="155" y="97" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Кнопкова панель приладу</text>
+
+  <!-- Up Button -->
+  <rect x="35" y="125" width="240" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="145" font-size="13" font-weight="bold" fill="#1a1a1a">Кнопка ▲ (Up / Лазер)</text>
+  <text x="45" y="163" font-size="12" fill="#6b7280">• У меню: збільшення значення</text>
+  <text x="45" y="179" font-size="12" fill="#6b7280">• Робочий режим: 12-точк. лазер</text>
+
+  <!-- MODE Button -->
+  <rect x="35" y="210" width="240" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="45" y="230" font-size="13" font-weight="bold" fill="#2457d6">Кнопка MODE (Меню)</text>
+  <text x="45" y="248" font-size="12" fill="#1a1a1a">• Натискання: вхід у меню</text>
+  <text x="45" y="264" font-size="12" fill="#1a1a1a">• Перебір: EMS → HAL → LAL → °C/°F</text>
+
+  <!-- Down Button -->
+  <rect x="35" y="295" width="240" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="315" font-size="13" font-weight="bold" fill="#1a1a1a">Кнопка ▼ (Down / UV)</text>
+  <text x="45" y="333" font-size="12" fill="#6b7280">• У меню: зменшення значення</text>
+  <text x="45" y="349" font-size="12" fill="#6b7280">• Робочий режим: УФ-підсвічування</text>
+
+  <!-- Trigger -->
+  <rect x="35" y="380" width="240" height="125" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="398" font-size="13" font-weight="bold" fill="#1a1a1a">Курок вимірювання (Trigger)</text>
+  <text x="45" y="416" font-size="12" fill="#6b7280">• Утримувати: вимірювання (SCAN)</text>
+  <text x="45" y="432" font-size="12" fill="#6b7280">• Відпустити: фіксація (HOLD)</text>
+  <text x="45" y="448" font-size="12" fill="#2457d6">• У меню: збереження та вихід</text>
+  <text x="45" y="464" font-size="12" fill="#27ae60">• Швидкий старт при натисканні</text>
+  <text x="45" y="480" font-size="12" fill="#6b7280">• Автовимкнення через 30 с idle</text>
+
+  <!-- Center Column: Menu Flow -->
+  <!-- State 0: Normal Measurement -->
+  <rect x="315" y="75" width="330" height="55" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="96" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">РОБОЧИЙ РЕЖИМ (SCAN / HOLD)</text>
+  <text x="480" y="116" font-size="12" fill="#1a1a1a" text-anchor="middle">Вимірювання температури (°C / °F)</text>
+
+  <!-- Arrow 0 -> 1 -->
+  <path d="M 480,130 L 480,152" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="490" y="145" font-size="12" font-weight="bold" fill="#2457d6">MODE (1-ше натискання)</text>
+
+  <!-- State 1: EMS -->
+  <rect x="315" y="160" width="330" height="65" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="180" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">РЕЖИМ 1: EMS (Коефіцієнт емісії ε)</text>
+  <text x="480" y="198" font-size="12" fill="#1a1a1a" text-anchor="middle">Діапазон ε: 0.10 … 1.00 (базовий 0.95)</text>
+  <text x="480" y="214" font-size="12" fill="#6b7280" text-anchor="middle">Кнопками ▲ (більше) та ▼ (менше)</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M 480,225 L 480,242" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="490" y="238" font-size="12" font-weight="bold" fill="#2457d6">MODE</text>
+
+  <!-- State 2: HAL -->
+  <rect x="315" y="250" width="330" height="65" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="270" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">РЕЖИМ 2: HAL (Верхній поріг T_max)</text>
+  <text x="480" y="288" font-size="12" fill="#1a1a1a" text-anchor="middle">Сигналізація HI при перевищенні порогу</text>
+  <text x="480" y="304" font-size="12" fill="#6b7280" text-anchor="middle">Налаштування порогу: кнопками ▲ / ▼</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M 480,315 L 480,332" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="490" y="328" font-size="12" font-weight="bold" fill="#2457d6">MODE</text>
+
+  <!-- State 3: LAL -->
+  <rect x="315" y="340" width="330" height="65" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="360" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">РЕЖИМ 3: LAL (Нижній поріг T_min)</text>
+  <text x="480" y="378" font-size="12" fill="#1a1a1a" text-anchor="middle">Сигналізація LOW при зниженні нижче порогу</text>
+  <text x="480" y="394" font-size="12" fill="#6b7280" text-anchor="middle">Налаштування порогу: кнопками ▲ / ▼</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <path d="M 480,405 L 480,422" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="490" y="418" font-size="12" font-weight="bold" fill="#2457d6">MODE</text>
+
+  <!-- State 4: Unit selection -->
+  <rect x="315" y="430" width="330" height="65" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="450" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">РЕЖИМ 4: Вибір одиниць (°C / °F)</text>
+  <text x="480" y="468" font-size="12" fill="#1a1a1a" text-anchor="middle">Перемикання температурної шкали</text>
+  <text x="480" y="484" font-size="12" fill="#6b7280" text-anchor="middle">Перемикання: кнопками ▲ або ▼</text>
+
+  <!-- Return Loop Arrow -->
+  <path d="M 645,462 H 670 V 102 H 653" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="678" y="275" font-size="12" font-weight="bold" fill="#2457d6">
+    <tspan x="678" dy="0">MODE</tspan>
+    <tspan x="678" dy="14">(цикл)</tspan>
+  </text>
+
+  <!-- Right Column: System & Power -->
+  <rect x="730" y="75" width="205" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="730" y="75" width="205" height="35" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="832" y="97" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Системи та таймери</text>
+
+  <!-- Right Box 1: Save -->
+  <rect x="740" y="125" width="185" height="105" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="750" y="145" font-size="13" font-weight="bold" fill="#27ae60">Збереження налаштувань</text>
+  <text x="750" y="163" font-size="12" fill="#1a1a1a">• Натискання курка</text>
+  <text x="760" y="179" font-size="12" fill="#6b7280">негайно зберігає</text>
+  <text x="760" y="195" font-size="12" fill="#6b7280">параметри у EEPROM</text>
+  <text x="750" y="213" font-size="12" fill="#1a1a1a">• Автозбереження: 10 с</text>
+
+  <!-- Right Box 2: Auto Off -->
+  <rect x="740" y="242" width="185" height="105" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="750" y="262" font-size="13" font-weight="bold" fill="#c0392b">Таймер автовимкнення</text>
+  <text x="750" y="280" font-size="12" fill="#1a1a1a">• Через 30 с бездіяльності</text>
+  <text x="760" y="296" font-size="12" fill="#6b7280">прилад вимикається</text>
+  <text x="760" y="312" font-size="12" fill="#6b7280">для збереження батареї</text>
+  <text x="750" y="330" font-size="12" fill="#27ae60">• Збереження ε та одиниць</text>
+
+  <!-- Right Box 3: Power -->
+  <rect x="740" y="359" width="185" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="750" y="379" font-size="13" font-weight="bold" fill="#1a1a1a">Параметри живлення</text>
+  <text x="750" y="397" font-size="12" fill="#1a1a1a">• Батареї: 2 × AAA (3 В)</text>
+  <text x="750" y="413" font-size="12" fill="#6b7280">• Струм без лазера: ~15 мА</text>
+  <text x="750" y="429" font-size="12" fill="#2457d6">• Струм з лазером: ~45 мА</text>
+  <text x="750" y="445" font-size="12" fill="#6b7280">• Індикатор розряду AAA</text>
+  <text x="760" y="461" font-size="12" fill="#c0392b">попереджає про просідання</text>
+  <text x="760" y="477" font-size="12" fill="#6b7280">напруги &lt; 2.4 В</text>
+</svg>

@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Практична схема підключення CCPM-сервотестера</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Розводка 3-пінових роз'ємів (S, +, -), комутація ESC з вбудованим BEC та заходи безпеки</text>
+
+  <!-- MOTOR BLOCK -->
+  <rect x="40" y="75" width="220" height="95" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="150" y="95" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Безколекторний мотор</text>
+  <rect x="55" y="105" width="190" height="24" rx="4" fill="#c0392b"/>
+  <text x="150" y="121" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">⚠️ ЗНЯТО ПРОПЕЛЕР! (БЕЗПЕКА)</text>
+  <text x="150" y="152" font-size="11" fill="#6b7280" text-anchor="middle">Запобігання травмам при пуску</text>
+
+  <!-- 3-PHASE WIRES (MOTOR TO ESC) -->
+  <path d="M110,170 L110,210" stroke="#d97706" stroke-width="2" fill="none"/>
+  <path d="M150,170 L150,210" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <path d="M190,170 L190,210" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <text x="205" y="194" font-size="11" fill="#6b7280" text-anchor="start">3 фази (U, V, W)</text>
+
+  <!-- ESC BLOCK -->
+  <rect x="40" y="210" width="220" height="150" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="150" y="232" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESC (Регулятор ходу)</text>
+  <rect x="65" y="242" width="170" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="150" y="257" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Вбудований BEC (5.0В / 3А)</text>
+  <text x="150" y="285" font-size="11" fill="#6b7280" text-anchor="middle">Калібрування газу: 1000–2000 мкс</text>
+  <text x="150" y="305" font-size="11" fill="#6b7280" text-anchor="middle">Кабель BEC подає живлення на тестер</text>
+
+  <!-- POWER WIRES (ESC TO BATTERY) -->
+  <path d="M110,360 L110,390" stroke="#c0392b" stroke-width="3" fill="none"/>
+  <path d="M190,360 L190,390" stroke="#1a1a1a" stroke-width="3" fill="none"/>
+  <text x="100" y="380" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="end">+ DC</text>
+  <text x="200" y="380" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="start">- GND</text>
+
+  <!-- BATTERY BLOCK -->
+  <rect x="40" y="390" width="220" height="65" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="150" y="412" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Силовий акумулятор LiPo</text>
+  <text x="150" y="432" font-size="12" fill="#6b7280" text-anchor="middle">2S – 6S (7.4В – 22.2В DC)</text>
+
+  <!-- BEC CABLE (ESC TO TESTER IN PORT) -->
+  <path d="M260,315 L300,315 L300,285 L350,285" stroke="#d97706" stroke-width="2" fill="none"/>
+  <path d="M260,325 L305,325 L305,295 L350,295" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <path d="M260,335 L310,335 L310,305 L350,305" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <text x="305" y="272" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Кабель BEC (S, +, -)</text>
+
+  <!-- CCPM SERVO TESTER (CENTER BLOCK) -->
+  <rect x="350" y="75" width="270" height="380" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" filter="url(#shadow)"/>
+
+  <!-- Tester Header -->
+  <rect x="350" y="75" width="270" height="40" rx="8" fill="#2457d6"/>
+  <rect x="350" y="105" width="270" height="10" fill="#2457d6"/>
+  <text x="485" y="101" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">CCPM Servo Tester</text>
+
+  <!-- Mode Indicators -->
+  <rect x="370" y="128" width="230" height="32" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <circle cx="395" cy="144" r="5" fill="#27ae60"/>
+  <text x="405" y="148" font-size="11" font-weight="bold" fill="#1a1a1a">Manual</text>
+
+  <circle cx="470" cy="144" r="5" fill="#d0d7de"/>
+  <text x="480" y="148" font-size="11" fill="#6b7280">Neutral</text>
+
+  <circle cx="545" cy="144" r="5" fill="#d0d7de"/>
+  <text x="555" y="148" font-size="11" fill="#6b7280">Auto</text>
+
+  <!-- Dial / Knob -->
+  <circle cx="485" cy="205" r="26" fill="#ffffff" stroke="#2457d6" stroke-width="3"/>
+  <line x1="485" y1="205" x2="470" y2="190" stroke="#2457d6" stroke-width="4" stroke-linecap="round"/>
+  <text x="485" y="246" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Потенціометр ШІМ</text>
+  <text x="485" y="261" font-size="10" fill="#6b7280" text-anchor="middle">1000 мкс ⟵ 1500 ⟶ 2000 мкс</text>
+
+  <!-- IN PORT (Left Side) -->
+  <rect x="350" y="280" width="40" height="40" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="370" y="274" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">IN</text>
+  <circle cx="360" cy="288" r="3" fill="#d97706"/>
+  <circle cx="360" cy="298" r="3" fill="#c0392b"/>
+  <circle cx="360" cy="308" r="3" fill="#1a1a1a"/>
+
+  <!-- OUT PORTS (Right Side S1, S2, S3) -->
+  <text x="600" y="98" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">OUT (S1–S3)</text>
+
+  <!-- OUT 1 (S1) -->
+  <rect x="580" y="108" width="40" height="35" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="600" y="103" font-size="10" fill="#6b7280" text-anchor="middle">S1</text>
+  <circle cx="610" cy="116" r="3" fill="#d97706"/>
+  <circle cx="610" cy="125" r="3" fill="#c0392b"/>
+  <circle cx="610" cy="134" r="3" fill="#1a1a1a"/>
+
+  <!-- OUT 2 (S2) -->
+  <rect x="580" y="218" width="40" height="35" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="600" y="213" font-size="10" fill="#6b7280" text-anchor="middle">S2</text>
+  <circle cx="610" cy="226" r="3" fill="#d97706"/>
+  <circle cx="610" cy="235" r="3" fill="#c0392b"/>
+  <circle cx="610" cy="244" r="3" fill="#1a1a1a"/>
+
+  <!-- OUT 3 (S3) -->
+  <rect x="580" y="328" width="40" height="35" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="600" y="323" font-size="10" fill="#6b7280" text-anchor="middle">S3</text>
+  <circle cx="610" cy="336" r="3" fill="#d97706"/>
+  <circle cx="610" cy="345" r="3" fill="#c0392b"/>
+  <circle cx="610" cy="354" r="3" fill="#1a1a1a"/>
+
+  <!-- SERVO WIRES & SERVO BLOCKS -->
+  <!-- Channel S1 -->
+  <path d="M620,116 L690,116" stroke="#d97706" stroke-width="2" fill="none"/>
+  <path d="M620,125 L690,125" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <path d="M620,134 L690,134" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+
+  <rect x="690" y="90" width="230" height="70" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="805" y="112" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сервопривод 1 (Канал S1)</text>
+  <text x="805" y="130" font-size="11" fill="#2457d6" text-anchor="middle">ШІМ 1.0–2.0 мс / 50 Гц</text>
+  <text x="805" y="146" font-size="11" fill="#6b7280" text-anchor="middle">Роз'єм: S (жовтий), + (червоний), - (чорний)</text>
+
+  <!-- Channel S2 -->
+  <path d="M620,226 L690,226" stroke="#d97706" stroke-width="2" fill="none"/>
+  <path d="M620,235 L690,235" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <path d="M620,244 L690,244" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+
+  <rect x="690" y="200" width="230" height="70" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="805" y="222" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сервопривод 2 (Канал S2)</text>
+  <text x="805" y="240" font-size="11" fill="#2457d6" text-anchor="middle">Синхронний режим CCPM</text>
+  <text x="805" y="256" font-size="11" fill="#6b7280" text-anchor="middle">Паралельна діагностика каналу</text>
+
+  <!-- Channel S3 -->
+  <path d="M620,336 L690,336" stroke="#d97706" stroke-width="2" fill="none"/>
+  <path d="M620,345 L690,345" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <path d="M620,354 L690,354" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+
+  <rect x="690" y="310" width="230" height="70" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="805" y="332" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сервопривод 3 (Канал S3)</text>
+  <text x="805" y="350" font-size="11" fill="#2457d6" text-anchor="middle">Автоматичне сканування (Auto)</text>
+  <text x="805" y="366" font-size="11" fill="#6b7280" text-anchor="middle">Перевірка обкатки та редуктора</text>
+
+  <!-- BOTTOM LEGEND & SAFETY PANEL -->
+  <rect x="40" y="470" width="880" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="55" y="490" font-size="12" font-weight="bold" fill="#27ae60">Правила розводки та заходи безпеки підключення тестера:</text>
+  <text x="55" y="510" font-size="11" fill="#1a1a1a">• <tspan font-weight="bold" fill="#d97706">S (Signal)</tspan>: Жовтий/Білий провід — сигнальна лінія ШІМ імпульсів (1.0–2.0 мс)</text>
+  <text x="55" y="528" font-size="11" fill="#1a1a1a">• <tspan font-weight="bold" fill="#c0392b">+ (VCC)</tspan>: Червоний провід — живлення 4.8–6.0В DC | <tspan font-weight="bold" fill="#1a1a1a">- (GND)</tspan>: Чорний/Коричневий — спільна земля</text>
+  <text x="510" y="510" font-size="11" font-weight="bold" fill="#c0392b">• ⚠️ При живленні від BEC зовнішня батарея на роз'єм IN НЕ підключається!</text>
+  <text x="510" y="528" font-size="11" font-weight="bold" fill="#c0392b">• ⚠️ Знімайте пропелер з мотора перед калібруванням газу ESC!</text>
+</svg>

@@ -1,0 +1,118 @@
+<svg viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Матричний (CCD/CMOS) та сканувальний щілинний профілометри</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Матриця надає миттєвий 2D-розподіл інтенсивності, а щілина — інтегральний профіль і високий LDT</text>
+
+  <!-- Left Panel: Matrix Profiler -->
+  <rect x="30" y="70" width="435" height="365" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247" y="95" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Матричний профілометр (CCD / CMOS)</text>
+  <text x="247" y="114" text-anchor="middle" font-size="12" fill="#6b7280">Одномоментна 2D/3D реєстрація всього перерізу</text>
+
+  <!-- Beam Arrow Left -->
+  <path d="M 45,220 L 88,220" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="66" y="210" text-anchor="middle" font-size="12" fill="#2457d6">Пучок</text>
+
+  <!-- Sensor Grid Box Title -->
+  <text x="170" y="136" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Матричний сенсор</text>
+
+  <!-- Sensor Grid Box -->
+  <rect x="95" y="145" width="150" height="150" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Grid lines (split around center to avoid overlapping text/core) -->
+  <line x1="120" y1="145" x2="120" y2="295" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="145" y1="145" x2="145" y2="295" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="170" y1="145" x2="170" y2="195" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="170" y1="245" x2="170" y2="295" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="195" y1="145" x2="195" y2="295" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="220" y1="145" x2="220" y2="295" stroke="#e5e7eb" stroke-width="1"/>
+
+  <line x1="95" y1="170" x2="245" y2="170" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="95" y1="195" x2="245" y2="195" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="95" y1="220" x2="145" y2="220" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="195" y1="220" x2="245" y2="220" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="95" y1="245" x2="245" y2="245" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="95" y1="270" x2="245" y2="270" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Gaussian 2D Spot Heatmap -->
+  <circle cx="170" cy="220" r="55" fill="#3498db" opacity="0.3"/>
+  <circle cx="170" cy="220" r="42" fill="#f1c40f" opacity="0.5"/>
+  <circle cx="170" cy="220" r="30" fill="#e67e22" opacity="0.75"/>
+  <circle cx="170" cy="220" r="22" fill="#c0392b"/>
+  <text x="170" y="224" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">I(x,y)</text>
+
+  <!-- 1D Profiles Box on Left Panel -->
+  <rect x="265" y="145" width="165" height="150" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+
+  <!-- Profile X -->
+  <text x="347" y="156" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Профіль I(x)</text>
+  <line x1="280" y1="210" x2="415" y2="210" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="280" y1="210" x2="280" y2="168" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 280,210 Q 347,172 415,210" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Profile Y -->
+  <text x="347" y="226" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Профіль I(y)</text>
+  <line x1="280" y1="280" x2="415" y2="280" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="280" y1="280" x2="280" y2="238" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 280,280 Q 347,242 415,280" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Left Callout Box -->
+  <rect x="45" y="315" width="405" height="105" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="60" y="337" font-size="12" fill="#1a1a1a">• Одномоментний 2D/3D кадр за один імпульс</text>
+  <text x="60" y="359" font-size="12" fill="#1a1a1a">• Точне вимірювання центроїда та еліптичності</text>
+  <text x="60" y="381" font-size="12" fill="#1a1a1a">• Вимагає атенюаторів (поріг LDT ~ мВт/см²)</text>
+  <text x="60" y="403" font-size="12" fill="#6b7280">• Роздільність обмежена пікселем (~3.5 мкм)</text>
+
+  <!-- Right Panel: Scanning Slit Profiler -->
+  <rect x="495" y="70" width="435" height="365" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712" y="95" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Сканувальний щілинний (Scanning Slit)</text>
+  <text x="712" y="114" text-anchor="middle" font-size="12" fill="#6b7280">Послідовне інтегрування потоку крізь щілину</text>
+
+  <!-- Integrated Plot Box -->
+  <rect x="510" y="145" width="145" height="150" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="582" y="163" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Інтегральний профіль</text>
+  <line x1="525" y1="255" x2="640" y2="255" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="525" y1="255" x2="525" y2="175" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 525,255 Q 582,185 640,255" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="582" y="280" text-anchor="middle" font-size="12" fill="#27ae60">P(x) = ∫ I(x,y) dy</text>
+
+  <!-- Beam vector into Slit -->
+  <rect x="655" y="210" width="45" height="20" fill="#2457d6" opacity="0.15" stroke="#2457d6" stroke-dasharray="3,3"/>
+  <path d="M 655,220 L 700,220" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="677" y="202" text-anchor="middle" font-size="12" fill="#2457d6">Пучок</text>
+
+  <!-- Slit Motion Arrow & Text -->
+  <path d="M 700,137 L 755,137" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="727" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Рух щілини v</text>
+
+  <!-- Moving Slit Plate -->
+  <rect x="710" y="145" width="40" height="150" rx="4" fill="#34495e"/>
+  <rect x="727" y="160" width="6" height="120" rx="1" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Photodetector Box -->
+  <rect x="770" y="160" width="140" height="120" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="840" y="195" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Одноелементний</text>
+  <text x="840" y="213" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">фотодетектор</text>
+  <text x="840" y="245" text-anchor="middle" font-size="12" fill="#6b7280">Вимірювання P(t)</text>
+
+  <!-- Right Callout Box -->
+  <rect x="510" y="315" width="405" height="105" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="525" y="337" font-size="12" fill="#1a1a1a">• Високий поріг руйнування LDT (до десятків Вт)</text>
+  <text x="525" y="359" font-size="12" fill="#1a1a1a">• Субмікронна роздільність (ширина щілини ~0.1-1 мкм)</text>
+  <text x="525" y="381" font-size="12" fill="#1a1a1a">• Вимірює інтегральні проекції P(x) та P(y)</text>
+  <text x="525" y="403" font-size="12" fill="#6b7280">• Оптимально для безперервних (CW) пучків</text>
+</svg>

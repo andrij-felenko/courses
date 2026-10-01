@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Покроковий процес реворку BGA/SMD із флюсом FVS-7</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Технологія дозування флюсу, оптичного позиціонування та температурного профілювання</text>
+
+  <!-- Left Column: Process Steps 1, 2, 3 -->
+  
+  <!-- Step 1 Panel -->
+  <rect x="25" y="70" width="420" height="105" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="35" y="80" width="24" height="24" rx="12" fill="#2457d6"/>
+  <text x="47" y="96" text-anchor="middle" font-size="13" font-weight="bold" fill="white">1</text>
+  <text x="68" y="96" font-size="14" font-weight="bold" fill="#1a1a1a">Підготовка площадок і мідного оплетення</text>
+  <text x="35" y="120" font-size="12" fill="#1a1a1a">Видалення припою ґнотом при 280–320 °C з первинним FVS-7</text>
+  <rect x="35" y="130" width="400" height="34" rx="4" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="151" font-size="12" fill="#2457d6">Ширина ґнота: 1.5–2.0 мм (QFP) · 2.5–3.5 мм (BGA/Ground)</text>
+
+  <!-- Connecting Arrow 1 to 2 -->
+  <line x1="235" y1="175" x2="235" y2="188" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-main)"/>
+
+  <!-- Step 2 Panel -->
+  <rect x="25" y="190" width="420" height="105" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="35" y="200" width="24" height="24" rx="12" fill="#2457d6"/>
+  <text x="47" y="216" text-anchor="middle" font-size="13" font-weight="bold" fill="white">2</text>
+  <text x="68" y="216" font-size="14" font-weight="bold" fill="#1a1a1a">Дозування гель-флюсу FVS-7</text>
+  <text x="35" y="240" font-size="12" fill="#1a1a1a">Шприц 20–22G · Товщина шару: 40–50 мкм (0.4 мм) / 80–100 мкм (1.0 мм)</text>
+  <rect x="35" y="250" width="400" height="34" rx="4" fill="#e9f7ef" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="271" font-size="12" fill="#27ae60">Запобігання кипінню, бульбашкам та гідродинамічному зсуву</text>
+
+  <!-- Connecting Arrow 2 to 3 -->
+  <line x1="235" y1="295" x2="235" y2="308" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-main)"/>
+
+  <!-- Step 3 Panel -->
+  <rect x="25" y="310" width="420" height="110" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="35" y="320" width="24" height="24" rx="12" fill="#2457d6"/>
+  <text x="47" y="336" text-anchor="middle" font-size="13" font-weight="bold" fill="white">3</text>
+  <text x="68" y="336" font-size="14" font-weight="bold" fill="#1a1a1a">Позиціонування та фіксація компонента</text>
+  <text x="35" y="360" font-size="12" fill="#1a1a1a">Суміщення за допомогою split-beam optics. Утримання за рахунок tackiness</text>
+  <rect x="35" y="370" width="400" height="38" rx="4" fill="#fdecea" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="393" font-size="12" fill="#c0392b">QFN: крапкове нанесення на Exposed Pad (уникати плаваючої подушки)</text>
+
+  <!-- Right Column: Step 4 Thermal Profile Graph Panel -->
+  <rect x="470" y="70" width="465" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <rect x="480" y="80" width="24" height="24" rx="12" fill="#2457d6"/>
+  <text x="492" y="96" text-anchor="middle" font-size="13" font-weight="bold" fill="white">4</text>
+  <text x="513" y="96" font-size="14" font-weight="bold" fill="#1a1a1a">Температурно-часовий профіль паяння</text>
+
+  <!-- Graph Axes Area: origin at (530, 330) -->
+  <!-- Y-axis line -->
+  <line x1="530" y1="110" x2="530" y2="330" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="525" y="115" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">T (°C)</text>
+
+  <!-- X-axis line -->
+  <line x1="530" y1="330" x2="915" y2="330" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="920" y="345" font-size="12" font-weight="bold" fill="#1a1a1a">t (с)</text>
+
+  <!-- Horizontal Reference Grid Lines & Y-Labels -->
+  <!-- 235 °C -->
+  <line x1="530" y1="160" x2="900" y2="160" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="522" y="164" text-anchor="end" font-size="11" fill="#6b7280">235°C</text>
+
+  <!-- 180 °C -->
+  <line x1="530" y1="205" x2="900" y2="205" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="522" y="209" text-anchor="end" font-size="11" fill="#6b7280">180°C</text>
+
+  <!-- 120 °C -->
+  <line x1="530" y1="250" x2="900" y2="250" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="522" y="254" text-anchor="end" font-size="11" fill="#6b7280">120°C</text>
+
+  <!-- 25 °C -->
+  <text x="522" y="334" text-anchor="end" font-size="11" fill="#6b7280">25°C</text>
+
+  <!-- Temperature Curve -->
+  <path d="M 530,320 L 600,250 L 710,205 L 780,160 L 870,290" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Phase Vertical Dividers -->
+  <line x1="600" y1="110" x2="600" y2="330" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="710" y1="110" x2="710" y2="330" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="810" y1="110" x2="810" y2="330" stroke="#d0d7de" stroke-dasharray="2,2"/>
+
+  <!-- Phase Labels at top of graph -->
+  <text x="565" y="112" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Підігрів</text>
+  <text x="565" y="124" text-anchor="middle" font-size="10" fill="#6b7280">1–2 °C/с</text>
+
+  <text x="655" y="112" text-anchor="middle" font-size="11" font-weight="bold" fill="#e67e22">Активація FVS-7</text>
+  <text x="655" y="124" text-anchor="middle" font-size="10" fill="#6b7280">відновлення оксидів</text>
+
+  <text x="780" y="112" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Оплавлення</text>
+  <text x="780" y="124" text-anchor="middle" font-size="10" fill="#6b7280">пік 217–235 °C</text>
+
+  <text x="860" y="112" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Охолодження</text>
+  <text x="860" y="124" text-anchor="middle" font-size="10" fill="#6b7280">2–4 °C/с (IMC)</text>
+
+  <!-- Point Callout Highlights on Curve -->
+  <circle cx="655" cy="228" r="4" fill="#e67e22"/>
+
+  <circle cx="780" cy="160" r="5" fill="#c0392b"/>
+  <text x="780" y="143" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Самопосадка</text>
+
+  <!-- Bottom Info Panel inside Graph Area -->
+  <rect x="485" y="360" width="435" height="48" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="495" y="378" font-size="11" font-weight="bold" fill="#1a1a1a">Результат фази оплавлення:</text>
+  <text x="495" y="396" font-size="11" fill="#1a1a1a">Низький поверхневий натяг · Відсутність містків · SIR тест IPC-TM-650 &gt; 100 МОм</text>
+</svg>

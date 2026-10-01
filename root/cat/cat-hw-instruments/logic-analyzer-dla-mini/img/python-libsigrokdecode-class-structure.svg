@@ -1,0 +1,109 @@
+<svg viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структура класу Python-декодера libsigrokdecode та потік методу decode()</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Оголошення метаданих каналів, цикл обробки відліків self.wait() та генерація анотацій self.put()</text>
+
+  <!-- ПАНЕЛЬ 1: Атрибути та метадані класу Decoder -->
+  <rect x="30" y="80" width="270" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="95" width="240" height="30" rx="4" fill="#eaf0fd"/>
+  <text x="165" y="115" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Метадані класу Decoder</text>
+
+  <!-- Блок визначення класу -->
+  <rect x="50" y="140" width="230" height="200" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="50" y="140" width="230" height="26" rx="6" fill="#eaf0fd"/>
+  <text x="165" y="157" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">class Decoder(srd.Decoder):</text>
+
+  <text x="62" y="185" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">id, name, longname</text>
+  <text x="62" y="200" font-size="12" fill="#6b7280" text-anchor="start">Ідентифікатори декодера</text>
+
+  <text x="62" y="225" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">channels = (...)</text>
+  <text x="62" y="240" font-size="12" fill="#6b7280" text-anchor="start">Вхідні логічні канали RX/TX</text>
+
+  <text x="62" y="265" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">options = (...)</text>
+  <text x="62" y="280" font-size="12" fill="#6b7280" text-anchor="start">Налаштування (бодрейт, парність)</text>
+
+  <text x="62" y="305" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">annotations = (...)</text>
+  <text x="62" y="320" font-size="12" fill="#6b7280" text-anchor="start">Типи та ряди графічних міток</text>
+
+  <!-- Пояснення Панелі 1 -->
+  <text x="165" y="380" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Статична конфігурація</text>
+  <text x="165" y="402" font-size="12" fill="#6b7280" text-anchor="middle">Реєстрація в libsigrokdecode</text>
+  <text x="165" y="424" font-size="12" fill="#6b7280" text-anchor="middle">Прив'язка до каналів сигналів</text>
+
+  <!-- ПАНЕЛЬ 2: Виконання циклу decode() та self.wait() -->
+  <rect x="315" y="80" width="330" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="330" y="95" width="300" height="30" rx="4" fill="#eaf0fd"/>
+  <text x="480" y="115" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Потік виконання методу decode()</text>
+
+  <!-- Метод start() -->
+  <rect x="345" y="140" width="270" height="35" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="162" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">def start(self) — Ініціалізація стану</text>
+  <path d="M 480,175 L 480,190" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Метод decode() -->
+  <rect x="345" y="190" width="270" height="150" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="345" y="190" width="270" height="24" rx="6" fill="#eaf0fd"/>
+  <text x="480" y="206" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">def decode(self, ss, es):</text>
+
+  <rect x="360" y="222" width="240" height="32" rx="4" fill="#fdecea" stroke="#f5c6cb" stroke-width="1"/>
+  <text x="480" y="242" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">self.wait({0: 'f', 1: 'r'})</text>
+  <path d="M 480,254 L 480,265" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <text x="480" y="280" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Обробка стану та samplenum</text>
+  <text x="480" y="296" font-size="12" fill="#6b7280" text-anchor="middle">Декодування бітів пакета</text>
+  <path d="M 480,302 L 480,312" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <rect x="360" y="312" width="240" height="22" rx="4" fill="#e9f7ef" stroke="#c3e6cb" stroke-width="1"/>
+  <text x="480" y="327" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">self.put(ss, es, self.out_ann, ...)</text>
+
+  <!-- Пояснення Панелі 2 -->
+  <text x="480" y="380" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Подієво-орієнтована обробка</text>
+  <text x="480" y="402" font-size="12" fill="#6b7280" text-anchor="middle">Синхронізація за номером відліку</text>
+  <text x="480" y="424" font-size="12" fill="#6b7280" text-anchor="middle">Неблокуючий виклик self.wait()</text>
+
+  <!-- Стрілки між Панеллю 2 та Панеллю 3 -->
+  <path d="M 600,323 C 640,323 640,187 675,187" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+  <path d="M 600,323 C 635,323 640,292 675,292" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- ПАНЕЛЬ 3: Генерація анотацій та стекування -->
+  <rect x="660" y="80" width="270" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="675" y="95" width="240" height="30" rx="4" fill="#eaf0fd"/>
+  <text x="795" y="115" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Вихідні дані та стекування</text>
+
+  <!-- Вихід анотацій (out_ann) -->
+  <rect x="675" y="140" width="240" height="95" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="795" y="160" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Графічні анотації (out_ann)</text>
+  <text x="795" y="180" font-size="12" fill="#1a1a1a" text-anchor="middle">Передаються в GUI PulseView</text>
+  <text x="795" y="200" font-size="12" fill="#6b7280" text-anchor="middle">Накладання прапорців і байтів</text>
+  <text x="795" y="220" font-size="12" fill="#27ae60" text-anchor="middle">[start_sample, end_sample, text]</text>
+
+  <!-- Стековий вихід (out_python) -->
+  <rect x="675" y="245" width="240" height="95" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="795" y="265" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Стековий вихід (out_python)</text>
+  <text x="795" y="285" font-size="12" fill="#1a1a1a" text-anchor="middle">Передача даних наступному декодеру</text>
+  <text x="795" y="305" font-size="12" fill="#6b7280" text-anchor="middle">Приклад: UART -&gt; Modbus RTU</text>
+  <text x="795" y="323" font-size="12" fill="#2457d6" text-anchor="middle">self.put(ss, es, out_py, data)</text>
+
+  <!-- Пояснення Панелі 3 -->
+  <text x="795" y="380" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Модульна конвеєризація</text>
+  <text x="795" y="402" font-size="12" fill="#6b7280" text-anchor="middle">Створення кастомних протоколів</text>
+  <text x="795" y="424" font-size="12" fill="#6b7280" text-anchor="middle">Гнучкий вивід анотацій в GUI</text>
+</svg>

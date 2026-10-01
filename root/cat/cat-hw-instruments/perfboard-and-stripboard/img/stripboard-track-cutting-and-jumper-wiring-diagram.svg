@@ -1,0 +1,166 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Технологія перерізання шин та монтажу перемичок на Stripboard</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Формування кільцевого розриву мідного шару свердлом та міжлінійне з'єднання дротяними перемичками</text>
+
+  <!-- ==================== LEFT PANEL: TRACK CUTTING ==================== -->
+  <rect x="40" y="80" width="425" height="370" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8" ry="8"/>
+
+  <!-- Header Box -->
+  <rect x="52" y="90" width="401" height="36" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="252.5" y="113" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">Механічний розрив шини (Track Cut)</text>
+
+  <!-- Subhead -->
+  <text x="252.5" y="142" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Зняття мідного фольгованого шару навколо отвору</text>
+
+  <!-- Diagram Inner Box -->
+  <rect x="62" y="155" width="381" height="140" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+
+  <!-- Substrate Board Cross-section -->
+  <rect x="80" y="222" width="345" height="24" fill="#fef3c7" stroke="#d97706" stroke-width="1" rx="2"/>
+
+  <!-- Copper Foil Layer (Split by Crater Cut) -->
+  <rect x="80" y="216" width="145" height="6" fill="#f59e0b" stroke="#b45309" stroke-width="0.75"/>
+  <rect x="300" y="216" width="125" height="6" fill="#f59e0b" stroke="#b45309" stroke-width="0.75"/>
+
+  <!-- Crater Cut In Substrate & Foil -->
+  <path d="M 225,216 Q 262.5,237 300,216 L 300,222 Q 262.5,237 225,222 Z" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Drill Bit Representation -->
+  <rect x="254" y="168" width="17" height="28" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <polygon points="246,196 279,196 262.5,223" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+
+  <!-- Rotation Symbol -->
+  <path d="M 240,183 A 10,10 0 0,1 252,178" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- Drill Bit Labels -->
+  <text x="315" y="180" font-size="12" font-weight="bold" fill="#1a1a1a">Конусне свердло</text>
+  <text x="315" y="196" font-size="12" fill="#6b7280">Ø 3.5–4 мм</text>
+  <line x1="310" y1="185" x2="282" y2="193" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+
+  <!-- Isolated Gap Label & Pointer -->
+  <text x="262.5" y="268" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Кільцевий розрив фольги</text>
+  <line x1="262.5" y1="254" x2="262.5" y2="237" stroke="#c0392b" stroke-width="1" marker-end="url(#arr-red)"/>
+
+  <!-- Substrate Label -->
+  <text x="120" y="268" font-size="12" fill="#6b7280" text-anchor="middle">Гетинаксова основа</text>
+
+  <!-- Feature List -->
+  <text x="252.5" y="315" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Правила виконання</text>
+  <text x="252.5" y="338" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">• Оборот ручного свердла знімає мідне кільце</text>
+  <text x="252.5" y="358" font-size="12" fill="#6b7280" text-anchor="middle">• Запобігає замкненню виводів під DIP-корпусами</text>
+  <text x="252.5" y="378" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">• Контроль мультиметром на відсутність контакту</text>
+  <text x="252.5" y="398" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">• Не заглиблюватися, щоб не зламати плату</text>
+
+  <!-- Summary Badge Card -->
+  <rect x="62" y="415" width="381" height="26" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="252.5" y="432" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Результат: надійна ізоляція сусідніх вузлів</text>
+
+  <!-- ==================== RIGHT PANEL: JUMPER WIRING ==================== -->
+  <rect x="495" y="80" width="425" height="370" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8" ry="8"/>
+
+  <!-- Header Box -->
+  <rect x="507" y="90" width="401" height="36" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="707.5" y="113" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">Дротяні перемички (Jumper Wires)</text>
+
+  <!-- Subhead -->
+  <text x="707.5" y="142" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">З'єднання між розрізаними паралельними шинами</text>
+
+  <!-- Diagram Inner Box -->
+  <rect x="517" y="155" width="381" height="140" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+
+  <!-- Substrate Base Top View -->
+  <rect x="535" y="182" width="345" height="96" fill="#fef3c7" fill-opacity="0.5" stroke="#d97706" stroke-width="1" rx="4"/>
+
+  <!-- Horizontal Tracks (Rows y=198, 220, 242, 264) -->
+  <!-- Track 1 y=198 -->
+  <rect x="545" y="192" width="325" height="12" fill="#f59e0b" fill-opacity="0.7" rx="2"/>
+
+  <!-- Track 2 y=220 with cut under IC -->
+  <rect x="545" y="214" width="137" height="12" fill="#f59e0b" fill-opacity="0.7" rx="2"/>
+  <rect x="698" y="214" width="172" height="12" fill="#f59e0b" fill-opacity="0.7" rx="2"/>
+  <circle cx="690" cy="220" r="7" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Track 3 y=242 with cut under IC -->
+  <rect x="545" y="236" width="137" height="12" fill="#f59e0b" fill-opacity="0.7" rx="2"/>
+  <rect x="698" y="236" width="172" height="12" fill="#f59e0b" fill-opacity="0.7" rx="2"/>
+  <circle cx="690" cy="242" r="7" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Track 4 y=264 -->
+  <rect x="545" y="258" width="325" height="12" fill="#f59e0b" fill-opacity="0.7" rx="2"/>
+
+  <!-- Grid Holes -->
+  <!-- Row 1 y=198 -->
+  <circle cx="560" cy="198" r="2.5" fill="#ffffff"/><circle cx="588" cy="198" r="2.5" fill="#ffffff"/>
+  <circle cx="616" cy="198" r="2.5" fill="#ffffff"/><circle cx="644" cy="198" r="2.5" fill="#ffffff"/>
+  <circle cx="672" cy="198" r="2.5" fill="#ffffff"/><circle cx="718" cy="198" r="2.5" fill="#ffffff"/>
+  <circle cx="746" cy="198" r="2.5" fill="#ffffff"/><circle cx="774" cy="198" r="2.5" fill="#ffffff"/>
+
+  <!-- Row 2 y=220 -->
+  <circle cx="560" cy="220" r="2.5" fill="#ffffff"/><circle cx="588" cy="220" r="2.5" fill="#ffffff"/>
+  <circle cx="616" cy="220" r="2.5" fill="#ffffff"/><circle cx="644" cy="220" r="2.5" fill="#ffffff"/>
+  <circle cx="672" cy="220" r="2.5" fill="#ffffff"/><circle cx="718" cy="220" r="2.5" fill="#ffffff"/>
+  <circle cx="746" cy="220" r="2.5" fill="#ffffff"/><circle cx="774" cy="220" r="2.5" fill="#ffffff"/>
+
+  <!-- Row 3 y=242 -->
+  <circle cx="560" cy="242" r="2.5" fill="#ffffff"/><circle cx="588" cy="242" r="2.5" fill="#ffffff"/>
+  <circle cx="616" cy="242" r="2.5" fill="#ffffff"/><circle cx="644" cy="242" r="2.5" fill="#ffffff"/>
+  <circle cx="672" cy="242" r="2.5" fill="#ffffff"/><circle cx="718" cy="242" r="2.5" fill="#ffffff"/>
+  <circle cx="746" cy="242" r="2.5" fill="#ffffff"/><circle cx="774" cy="242" r="2.5" fill="#ffffff"/>
+
+  <!-- Row 4 y=264 -->
+  <circle cx="560" cy="264" r="2.5" fill="#ffffff"/><circle cx="588" cy="264" r="2.5" fill="#ffffff"/>
+  <circle cx="616" cy="264" r="2.5" fill="#ffffff"/><circle cx="644" cy="264" r="2.5" fill="#ffffff"/>
+  <circle cx="672" cy="264" r="2.5" fill="#ffffff"/><circle cx="718" cy="264" r="2.5" fill="#ffffff"/>
+  <circle cx="746" cy="264" r="2.5" fill="#ffffff"/><circle cx="774" cy="264" r="2.5" fill="#ffffff"/>
+
+  <!-- DIP IC Footprint Over Track Cuts -->
+  <rect x="662" y="206" width="56" height="50" fill="#1e293b" fill-opacity="0.9" stroke="#475569" stroke-width="1" rx="2"/>
+  <path d="M 662,228 A 3,3 0 0,1 662,234 Z" fill="#cbd5e1"/>
+  <text x="690" y="235" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">DIP-8</text>
+
+  <!-- Vertical Jumper Wire (connecting row 1 at x=588 to row 4 at x=588) -->
+  <line x1="588" y1="198" x2="588" y2="264" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="588" cy="198" r="4" fill="#94a3b8" stroke="#334155" stroke-width="1"/>
+  <circle cx="588" cy="264" r="4" fill="#94a3b8" stroke="#334155" stroke-width="1"/>
+  <text x="588" y="174" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Перемичка</text>
+  <line x1="588" y1="176" x2="588" y2="194" stroke="#27ae60" stroke-width="1" marker-end="url(#arr-gray)"/>
+
+  <!-- Angled Jumper Wire (connecting row 2 at x=616 to row 4 at x=746) -->
+  <path d="M 616,220 L 746,264" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+  <circle cx="616" cy="220" r="4" fill="#94a3b8" stroke="#334155" stroke-width="1"/>
+  <circle cx="746" cy="264" r="4" fill="#94a3b8" stroke="#334155" stroke-width="1"/>
+
+  <!-- Cut Callout Label & Pointer -->
+  <text x="740" y="174" font-size="12" font-weight="bold" fill="#c0392b">Розрив під DIP</text>
+  <line x1="738" y1="176" x2="698" y2="214" stroke="#c0392b" stroke-width="1" marker-end="url(#arr-red)"/>
+
+  <!-- Feature List -->
+  <text x="707.5" y="315" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Правила трасування</text>
+  <text x="707.5" y="338" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">• Обов'язковий розрив шин під DIP-мікросхемами</text>
+  <text x="707.5" y="358" font-size="12" fill="#6b7280" text-anchor="middle">• Перемички прокладаються на верхній стороні</text>
+  <text x="707.5" y="378" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">• Прямі одножильні провідники (AWG 24) уздовж сітки</text>
+  <text x="707.5" y="398" font-size="12" fill="#6b7280" text-anchor="middle">• Короткі перемички запобігають наводкам</text>
+
+  <!-- Summary Badge Card -->
+  <rect x="517" y="415" width="381" height="26" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="707.5" y="432" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Результат: охайний та легкодоступний для перевірки макет</text>
+</svg>

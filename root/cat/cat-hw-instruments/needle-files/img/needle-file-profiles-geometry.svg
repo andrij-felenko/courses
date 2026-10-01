@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрія та застосування п'яти основних профілів надфілів (140 мм)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Форма поперечного перерізу інструмента визначає доступний профіль оброблюваного отвору та пазу</text>
+
+  <!-- CARD 1: ПЛОСКИЙ -->
+  <rect x="20" y="75" width="172" height="465" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="106" y="100" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ПЛОСКИЙ</text>
+  <text x="106" y="117" font-size="12" fill="#6b7280" text-anchor="middle">Прямокутний</text>
+  <line x1="32" y1="128" x2="180" y2="128" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Card 1 Box 1: Cross-section -->
+  <rect x="30" y="136" width="152" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="106" y="152" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ПЕРЕРІЗ ПРОФІЛЮ</text>
+  <rect x="74" y="180" width="64" height="34" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <line x1="106" y1="174" x2="106" y2="220" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+  <line x1="68" y1="197" x2="144" y2="197" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+  <text x="106" y="248" font-size="12" fill="#1a1a1a" text-anchor="middle">Ширина b × t</text>
+
+  <!-- Card 1 Box 2: Workpiece shape -->
+  <rect x="30" y="283" width="152" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="106" y="299" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ФОРМА ДЕТАЛІ</text>
+  <rect x="56" y="322" width="100" height="48" rx="4" fill="#f4f6f8" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="81" y="322" width="50" height="20" rx="1" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="106" y="396" font-size="12" fill="#1a1a1a" text-anchor="middle">Прямий паз / площина</text>
+
+  <!-- Card 1 Box 3: Applications -->
+  <rect x="30" y="430" width="152" height="104" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="106" y="446" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ОСНОВНЕ ЗАСТОСУВАННЯ</text>
+  <text x="38" y="465" font-size="12" fill="#1a1a1a">• Плоскі поверхні</text>
+  <text x="38" y="483" font-size="12" fill="#1a1a1a">• Прямолінійні пази</text>
+  <text x="38" y="501" font-size="12" fill="#1a1a1a">• Зняття заусенців</text>
+  <text x="38" y="519" font-size="12" fill="#1a1a1a">• Доводка площин</text>
+
+  <!-- CARD 2: ТРИГРАННИЙ -->
+  <rect x="207" y="75" width="172" height="465" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="293" y="100" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ТРИГРАННИЙ</text>
+  <text x="293" y="117" font-size="12" fill="#6b7280" text-anchor="middle">Трикутний 60°</text>
+  <line x1="219" y1="128" x2="367" y2="128" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Card 2 Box 1: Cross-section -->
+  <rect x="217" y="136" width="152" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="293" y="152" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ПЕРЕРІЗ ПРОФІЛЮ</text>
+  <polygon points="293,178 270,218 316,218" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <line x1="293" y1="178" x2="293" y2="218" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+  <text x="293" y="248" font-size="12" fill="#1a1a1a" text-anchor="middle">Трикутник 60°</text>
+
+  <!-- Card 2 Box 2: Workpiece shape -->
+  <rect x="217" y="283" width="152" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="293" y="299" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ФОРМА ДЕТАЛІ</text>
+  <rect x="243" y="322" width="100" height="48" rx="4" fill="#f4f6f8" stroke="#94a3b8" stroke-width="1.5"/>
+  <path d="M 271,322 L 293,354 L 315,322 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="293" y="396" font-size="12" fill="#1a1a1a" text-anchor="middle">V-паз / кути ≥ 60°</text>
+
+  <!-- Card 2 Box 3: Applications -->
+  <rect x="217" y="430" width="152" height="104" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="293" y="446" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ОСНОВНЕ ЗАСТОСУВАННЯ</text>
+  <text x="225" y="465" font-size="12" fill="#1a1a1a">• Внутрішні кути 60°</text>
+  <text x="225" y="483" font-size="12" fill="#1a1a1a">• V-подібні канавки</text>
+  <text x="225" y="501" font-size="12" fill="#1a1a1a">• Зачищення різьб</text>
+  <text x="225" y="519" font-size="12" fill="#1a1a1a">• Вузькі прорізи</text>
+
+  <!-- CARD 3: КВАДРАТНИЙ -->
+  <rect x="394" y="75" width="172" height="465" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="100" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">КВАДРАТНИЙ</text>
+  <text x="480" y="117" font-size="12" fill="#6b7280" text-anchor="middle">Чотиригранний</text>
+  <line x1="406" y1="128" x2="554" y2="128" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Card 3 Box 1: Cross-section -->
+  <rect x="404" y="136" width="152" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="152" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ПЕРЕРІЗ ПРОФІЛЮ</text>
+  <rect x="460" y="179" width="40" height="40" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <line x1="480" y1="172" x2="480" y2="226" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+  <line x1="453" y1="199" x2="507" y2="199" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+  <text x="480" y="248" font-size="12" fill="#1a1a1a" text-anchor="middle">Квадрат a × a</text>
+
+  <!-- Card 3 Box 2: Workpiece shape -->
+  <rect x="404" y="283" width="152" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="299" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ФОРМА ДЕТАЛІ</text>
+  <rect x="430" y="322" width="100" height="48" rx="4" fill="#f4f6f8" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="466" y="332" width="28" height="28" rx="1" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="480" y="396" font-size="12" fill="#1a1a1a" text-anchor="middle">Квадратне вікно 90°</text>
+
+  <!-- Card 3 Box 3: Applications -->
+  <rect x="404" y="430" width="152" height="104" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="446" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ОСНОВНЕ ЗАСТОСУВАННЯ</text>
+  <text x="412" y="465" font-size="12" fill="#1a1a1a">• Квадратні отвори</text>
+  <text x="412" y="483" font-size="12" fill="#1a1a1a">• Прямі пази 90°</text>
+  <text x="412" y="501" font-size="12" fill="#1a1a1a">• Шпонкові пази</text>
+  <text x="412" y="519" font-size="12" fill="#1a1a1a">• Вікна в корпусах</text>
+
+  <!-- CARD 4: КРУГЛИЙ -->
+  <rect x="581" y="75" width="172" height="465" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="667" y="100" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">КРУГЛИЙ</text>
+  <text x="667" y="117" font-size="12" fill="#6b7280" text-anchor="middle">Циліндричний</text>
+  <line x1="593" y1="128" x2="741" y2="128" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Card 4 Box 1: Cross-section -->
+  <rect x="591" y="136" width="152" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="667" y="152" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ПЕРЕРІЗ ПРОФІЛЮ</text>
+  <circle cx="667" cy="199" r="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <line x1="667" y1="172" x2="667" y2="226" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+  <line x1="640" y1="199" x2="694" y2="199" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+  <text x="667" y="248" font-size="12" fill="#1a1a1a" text-anchor="middle">Коло (Ø d)</text>
+
+  <!-- Card 4 Box 2: Workpiece shape -->
+  <rect x="591" y="283" width="152" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="667" y="299" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ФОРМА ДЕТАЛІ</text>
+  <rect x="617" y="322" width="100" height="48" rx="4" fill="#f4f6f8" stroke="#94a3b8" stroke-width="1.5"/>
+  <circle cx="667" cy="346" r="15" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="667" y="396" font-size="12" fill="#1a1a1a" text-anchor="middle">Круглий отвір</text>
+
+  <!-- Card 4 Box 3: Applications -->
+  <rect x="591" y="430" width="152" height="104" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="667" y="446" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ОСНОВНЕ ЗАСТОСУВАННЯ</text>
+  <text x="599" y="465" font-size="12" fill="#1a1a1a">• Круглі отвори</text>
+  <text x="599" y="483" font-size="12" fill="#1a1a1a">• Радіусні галтелі</text>
+  <text x="599" y="501" font-size="12" fill="#1a1a1a">• Розточка отворів</text>
+  <text x="599" y="519" font-size="12" fill="#1a1a1a">• Підганяння плат</text>
+
+  <!-- CARD 5: НАПІВКРУГЛИЙ -->
+  <rect x="768" y="75" width="172" height="465" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="854" y="100" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">НАПІВКРУГЛИЙ</text>
+  <text x="854" y="117" font-size="12" fill="#6b7280" text-anchor="middle">Плоско-опуклий</text>
+  <line x1="780" y1="128" x2="928" y2="128" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Card 5 Box 1: Cross-section -->
+  <rect x="778" y="136" width="152" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="854" y="152" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ПЕРЕРІЗ ПРОФІЛЮ</text>
+  <path d="M 831,214 A 23,23 0 0,1 877,214 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <line x1="854" y1="184" x2="854" y2="220" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+  <line x1="824" y1="214" x2="884" y2="214" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+  <text x="854" y="248" font-size="12" fill="#1a1a1a" text-anchor="middle">Сегмент кола / R</text>
+
+  <!-- Card 5 Box 2: Workpiece shape -->
+  <rect x="778" y="283" width="152" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="854" y="299" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ФОРМА ДЕТАЛІ</text>
+  <rect x="804" y="322" width="100" height="48" rx="4" fill="#f4f6f8" stroke="#94a3b8" stroke-width="1.5"/>
+  <path d="M 834,322 A 20,20 0 0,0 874,322 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="854" y="396" font-size="12" fill="#1a1a1a" text-anchor="middle">Увігнутий радіус</text>
+
+  <!-- Card 5 Box 3: Applications -->
+  <rect x="778" y="430" width="152" height="104" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="854" y="446" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ОСНОВНЕ ЗАСТОСУВАННЯ</text>
+  <text x="786" y="465" font-size="12" fill="#1a1a1a">• Увігнуті поверхні</text>
+  <text x="786" y="483" font-size="12" fill="#1a1a1a">• Овальні отвори</text>
+  <text x="786" y="501" font-size="12" fill="#1a1a1a">• Плоскі поверхні</text>
+  <text x="786" y="519" font-size="12" fill="#1a1a1a">• Універсальний опил</text>
+</svg>

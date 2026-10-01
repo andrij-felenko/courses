@@ -1,0 +1,109 @@
+<svg viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Поширення лазерного пучка, перетяжка w₀ та довжина Релея z_R</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Гіперболічне розширення пучка w(z), фактор M² та кут розбіжності θ</text>
+
+  <!-- Left Panel: Beam Geometry -->
+  <rect x="30" y="70" width="590" height="365" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="325" y="95" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Геометрія поширення пучка w(z)</text>
+  <text x="325" y="114" text-anchor="middle" font-size="12" fill="#6b7280">Перетяжка w₀, довжина Релея z_R та асимптота θ</text>
+
+  <!-- Z Optical Axis -->
+  <line x1="70" y1="230" x2="580" y2="230" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arr)"/>
+  <text x="595" y="234" font-size="12" font-weight="bold" fill="#1a1a1a">z</text>
+
+  <!-- Vertical Axis R at z = 0 -->
+  <line x1="230" y1="120" x2="230" y2="340" stroke="#6b7280" stroke-dasharray="3,3"/>
+  <text x="230" y="113" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">w(z)</text>
+
+  <!-- Filled Beam Profile Area -->
+  <path d="M 86,175.3 C 140,185 180,195 230,195 C 280,195 320,185 530,135.8 L 530,324.2 C 320,275 280,265 230,265 C 180,265 140,275 86,284.7 Z" fill="#eaf0fd" opacity="0.6"/>
+
+  <!-- Beam Envelope Hyperbolic Curves -->
+  <path d="M 86,175.3 C 140,185 180,195 230,195 C 280,195 320,185 530,135.8" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 86,284.7 C 140,275 180,265 230,265 C 180,265 140,275 86,284.7" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Far-field Asymptote Lines -->
+  <line x1="230" y1="230" x2="540" y2="139.6" stroke="#6b7280" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <line x1="230" y1="230" x2="540" y2="320.4" stroke="#6b7280" stroke-dasharray="4,4" stroke-width="1.5"/>
+
+  <!-- Divergence Angle Arc and Labels -->
+  <path d="M 340,230 A 110 110 0 0 0 336,199" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="352" y="222" font-size="12" font-weight="bold" fill="#27ae60">θ / 2</text>
+  <text x="410" y="132" font-size="12" font-weight="bold" fill="#27ae60">Кут розбіжності θ</text>
+
+  <!-- Beam Waist Radius and Diameter Dimensions -->
+  <path d="M 230,230 L 230,195" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="218" y="215" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">w₀</text>
+
+  <path d="M 230,195 L 230,265" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-rev)" marker-end="url(#arr-red)"/>
+  <text x="242" y="215" font-size="12" font-weight="bold" fill="#c0392b">2w₀ (перетяжка)</text>
+
+  <!-- Rayleigh Length z_R Dimension -->
+  <line x1="230" y1="265" x2="230" y2="347" stroke="#2457d6" stroke-dasharray="2,2"/>
+  <line x1="350" y1="280" x2="350" y2="347" stroke="#2457d6" stroke-dasharray="2,2"/>
+  <path d="M 230,345 L 350,345" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="290" y="362" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">z_R (довжина Релея)</text>
+
+  <!-- Beam Radius at z_R Dimension -->
+  <path d="M 350,230 L 350,180.5" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="358" y="250" font-size="12" font-weight="bold" fill="#2457d6">w(z_R) = √2 · w₀</text>
+
+  <!-- Left Callout Box -->
+  <rect x="45" y="380" width="560" height="42" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="325" y="398" text-anchor="middle" font-size="12" fill="#1a1a1a">У точці z = ±z_R площа перерізу пучка подвоюється, а амплітуда спадає у √2 разів</text>
+  <text x="325" y="414" text-anchor="middle" font-size="12" fill="#6b7280">У далекій зоні (z » z_R) огинаюча наближається до конічної асимптоти θ</text>
+
+  <!-- Right Panel: Formulas & M^2 -->
+  <rect x="640" y="70" width="290" height="365" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="785" y="95" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Формули та параметр M²</text>
+  <text x="785" y="114" text-anchor="middle" font-size="12" fill="#6b7280">Стандарт ISO 11146</text>
+
+  <!-- Box 1: Propagation Equation -->
+  <rect x="655" y="130" width="260" height="75" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="785" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Рівняння розповсюдження</text>
+  <text x="785" y="170" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">w(z) = w₀ · √( 1 + (z / z_R)² )</text>
+  <text x="785" y="190" text-anchor="middle" font-size="12" fill="#6b7280">де z_R = π · w₀² / ( M² · λ )</text>
+
+  <!-- Box 2: Quality Factor M^2 -->
+  <rect x="655" y="215" width="260" height="90" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="785" y="233" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Фактор якості пучка M²</text>
+  <text x="785" y="256" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">M² = ( π · w₀ · θ ) / λ  ≥ 1</text>
+  <text x="785" y="278" text-anchor="middle" font-size="12" fill="#1a1a1a">M² = 1 : ідеальний Гаусів пучок</text>
+  <text x="785" y="295" text-anchor="middle" font-size="12" fill="#6b7280">M² > 1 : реальне випромінювання</text>
+
+  <!-- Box 3: ISO 11146 Method -->
+  <rect x="655" y="315" width="260" height="105" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="785" y="333" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Методика ISO 11146</text>
+  <text x="668" y="353" font-size="12" fill="#1a1a1a">• ≥ 10 зрізів уздовж осі z</text>
+  <text x="668" y="373" font-size="12" fill="#1a1a1a">• 5 зрізів біля перетяжки (z &lt; z_R)</text>
+  <text x="668" y="393" font-size="12" fill="#1a1a1a">• 5 зрізів у далекій зоні (z &gt; 2z_R)</text>
+  <text x="668" y="410" font-size="12" fill="#6b7280">• Параболічна апроксимація w²(z)</text>
+</svg>

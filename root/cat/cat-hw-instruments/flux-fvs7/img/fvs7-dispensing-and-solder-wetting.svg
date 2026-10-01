@@ -1,0 +1,136 @@
+<svg viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Definitions for Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дозування флюсу FVS-7 та змочування SMD-площадок</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Зниження поверхневого натягу та оксидного шару забезпечує формування якісного меніска без припайних містків</text>
+
+  <!-- Flow Arrows between Cards -->
+  <line x1="308" y1="260" x2="330" y2="260" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr)"/>
+  <line x1="622" y1="260" x2="644" y2="260" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- CARD 1: DISPENSING -->
+  <g id="card1">
+    <rect x="24" y="85" width="284" height="395" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+    <rect x="24" y="85" width="284" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+    <rect x="24" y="115" width="284" height="10" fill="#eaf0fd"/>
+    <text x="166" y="110" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Дозоване нанесення</text>
+    <text x="166" y="150" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Нанесення гелю на оксидовані площадки</text>
+
+    <!-- Visual Plot 1 -->
+    <rect x="36" y="165" width="260" height="100" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+    <!-- Dispenser Needle -->
+    <rect x="95" y="168" width="12" height="30" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1" rx="1"/>
+    <rect x="99" y="198" width="4" height="12" fill="#6b7280"/>
+    <!-- Flux Droplet -->
+    <path d="M 96,210 C 86,210 80,220 101,220 C 122,220 116,210 106,210 Z" fill="#f39c12" opacity="0.85" stroke="#d35400"/>
+    <!-- Copper Pads -->
+    <rect x="66" y="216" width="70" height="4" fill="#b87333" rx="1"/>
+    <rect x="186" y="216" width="70" height="4" fill="#b87333" rx="1"/>
+    <!-- PCB Board -->
+    <rect x="46" y="220" width="240" height="10" fill="#27ae60" opacity="0.3" rx="2"/>
+    <!-- Label at bottom of Plot 1 (y=252, clear of PCB at y=220..230) -->
+    <text x="166" y="252" font-size="11" fill="#c0392b" text-anchor="middle">Кут змочування θ₀ > 70°</text>
+
+    <!-- Bullet Points -->
+    <text x="36" y="285" font-size="12" fill="#1a1a1a">• Дозування через шприц 20G/22G</text>
+    <text x="36" y="305" font-size="12" fill="#1a1a1a">• Гелеподібна в'язкість (без розтікання)</text>
+    <text x="36" y="325" font-size="12" fill="#1a1a1a">• Покриття оксидного шару Cu₂O</text>
+    <text x="36" y="345" font-size="12" fill="#1a1a1a">• Захист міді від окиснення в повітрі</text>
+
+    <!-- Tag Box -->
+    <rect x="34" y="375" width="264" height="85" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+    <text x="166" y="395" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Стан до нагріву:</text>
+    <text x="166" y="412" font-size="11" fill="#c0392b" text-anchor="middle">високий поверхневий натяг,</text>
+    <text x="166" y="429" font-size="11" fill="#c0392b" text-anchor="middle">наявність оксидної плівки</text>
+    <text x="166" y="446" font-size="11" fill="#c0392b" text-anchor="middle">перешкоджає розтіканню припою</text>
+  </g>
+
+  <!-- CARD 2: ACTIVATION -->
+  <g id="card2">
+    <rect x="338" y="85" width="284" height="395" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+    <rect x="338" y="85" width="284" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+    <rect x="338" y="115" width="284" height="10" fill="#eaf0fd"/>
+    <text x="480" y="110" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Термічна активація</text>
+    <text x="480" y="150" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Температурний діапазон 150..220 °C</text>
+
+    <!-- Visual Plot 2 -->
+    <rect x="350" y="165" width="260" height="100" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+    <!-- Heat Wave Lines -->
+    <path d="M 415,170 Q 415,178 415,185" stroke="#e67e22" stroke-width="2" fill="none"/>
+    <path d="M 480,168 Q 480,176 480,185" stroke="#e67e22" stroke-width="2" fill="none"/>
+    <path d="M 545,170 Q 545,178 545,185" stroke="#e67e22" stroke-width="2" fill="none"/>
+    <text x="480" y="200" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Активація кислот T = 180°C</text>
+    <!-- Spreading Flux Layer -->
+    <path d="M 375,216 C 415,212 465,212 575,216 L 575,220 L 375,220 Z" fill="#f39c12" opacity="0.6"/>
+    <!-- Clean Copper Pads -->
+    <rect x="380" y="216" width="70" height="4" fill="#e67e22" rx="1"/>
+    <rect x="500" y="216" width="70" height="4" fill="#e67e22" rx="1"/>
+    <!-- PCB Board -->
+    <rect x="360" y="220" width="240" height="10" fill="#27ae60" opacity="0.3" rx="2"/>
+    <!-- Label at bottom of Plot 2 (y=252, clear of PCB at y=220..230) -->
+    <text x="480" y="252" font-size="11" fill="#2457d6" text-anchor="middle">Оксиди Cu₂O + Flux → Солі + H₂O</text>
+
+    <!-- Bullet Points -->
+    <text x="350" y="285" font-size="12" fill="#1a1a1a">• Розчинення оксидів Cu₂O органікою</text>
+    <text x="350" y="305" font-size="12" fill="#1a1a1a">• Зниження поверхневого натягу σ</text>
+    <text x="350" y="325" font-size="12" fill="#1a1a1a">• Збільшення поверхневої енергії міді</text>
+    <text x="350" y="345" font-size="12" fill="#1a1a1a">• Випаровування легких розчинників</text>
+
+    <!-- Tag Box -->
+    <rect x="348" y="375" width="264" height="85" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+    <text x="480" y="395" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Механізм дії FVS-7:</text>
+    <text x="480" y="412" font-size="11" fill="#2457d6" text-anchor="middle">органічні активатори видаляють</text>
+    <text x="480" y="429" font-size="11" fill="#2457d6" text-anchor="middle">оксидну плівку та готують мідь</text>
+    <text x="480" y="446" font-size="11" fill="#2457d6" text-anchor="middle">до миттєвого змочування припоєм</text>
+  </g>
+
+  <!-- CARD 3: SOLDER MENISCUS -->
+  <g id="card3">
+    <rect x="652" y="85" width="284" height="395" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+    <rect x="652" y="85" width="284" height="40" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+    <rect x="652" y="115" width="284" height="10" fill="#e9f7ef"/>
+    <text x="794" y="110" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Формування меніска</text>
+    <text x="794" y="150" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Низький кут змочування θ &lt; 30°</text>
+
+    <!-- Visual Plot 3 -->
+    <rect x="664" y="165" width="260" height="100" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+    <!-- Angle Indicator -->
+    <path d="M 694,220 L 710,208" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="2,2"/>
+    <text x="705" y="200" font-size="11" font-weight="bold" fill="#27ae60">θ &lt; 30°</text>
+    <!-- Solder Fillets -->
+    <path d="M 694,220 C 714,200 744,200 764,220 Z" fill="#95a5a6" stroke="#7f8c8d" stroke-width="1.5"/>
+    <path d="M 814,220 C 834,200 864,200 884,220 Z" fill="#95a5a6" stroke="#7f8c8d" stroke-width="1.5"/>
+    <!-- Copper Pads -->
+    <rect x="694" y="216" width="70" height="4" fill="#e67e22" rx="1"/>
+    <rect x="814" y="216" width="70" height="4" fill="#e67e22" rx="1"/>
+    <!-- PCB Board -->
+    <rect x="674" y="220" width="240" height="10" fill="#27ae60" opacity="0.3" rx="2"/>
+    <!-- Label at bottom of Plot 3 (y=252, clear of PCB at y=220..230) -->
+    <text x="794" y="252" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Ідеальний вогнутий галтель (Fillet)</text>
+
+    <!-- Bullet Points -->
+    <text x="664" y="285" font-size="12" fill="#1a1a1a">• Ідеальне змочування припоєм</text>
+    <text x="664" y="305" font-size="12" fill="#1a1a1a">• Відсутність спайкових містків</text>
+    <text x="664" y="325" font-size="12" fill="#1a1a1a">• Висока механічна міцність</text>
+    <text x="664" y="345" font-size="12" fill="#1a1a1a">• Безвідмивний нейтральний залишок</text>
+
+    <!-- Tag Box -->
+    <rect x="662" y="375" width="264" height="85" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+    <text x="794" y="395" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Результат FVS-7:</text>
+    <text x="794" y="412" font-size="11" fill="#27ae60" text-anchor="middle">правильна геометрія галтелі,</text>
+    <text x="794" y="429" font-size="11" fill="#27ae60" text-anchor="middle">високий опір ізоляції (SIR)</text>
+    <text x="794" y="446" font-size="11" fill="#27ae60" text-anchor="middle">без ризику корозії плати</text>
+  </g>
+</svg>

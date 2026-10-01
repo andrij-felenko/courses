@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-dark-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Залежність кута повороту вала θ від тривалості керуючого імпульсу t_pulse</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Лінійна характеристика K_θ та вплив розрядності 8-бітного і 16-бітного таймерів ШІМ на крок квантування</text>
+
+  <!-- Left Main Panel: Graph Plot -->
+  <rect x="25" y="75" width="475" height="345" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+
+  <!-- Y-axis Label & Arrow -->
+  <text x="90" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Кут θ (°)</text>
+  <line x1="115" y1="375" x2="115" y2="105" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+
+  <!-- X-axis Label & Arrow -->
+  <line x1="115" y1="375" x2="480" y2="375" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="290" y="415" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">t_pulse (мкс)</text>
+
+  <!-- Grid Lines & Ticks Y-axis -->
+  <!-- 0° -->
+  <line x1="110" y1="375" x2="115" y2="375" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="105" y="379" text-anchor="end" font-size="12" fill="#1a1a1a">0°</text>
+
+  <!-- 90° -->
+  <line x1="115" y1="250" x2="465" y2="250" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <line x1="110" y1="250" x2="115" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="105" y="254" text-anchor="end" font-size="12" fill="#1a1a1a">90°</text>
+
+  <!-- 180° -->
+  <line x1="115" y1="125" x2="465" y2="125" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <line x1="110" y1="125" x2="115" y2="125" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="105" y="129" text-anchor="end" font-size="12" fill="#1a1a1a">180°</text>
+
+  <!-- Grid Lines & Ticks X-axis -->
+  <!-- 1000 мкс -->
+  <line x1="115" y1="375" x2="115" y2="380" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="115" y="395" text-anchor="middle" font-size="12" fill="#1a1a1a">1000 мкс</text>
+
+  <!-- 1500 мкс -->
+  <line x1="290" y1="125" x2="290" y2="375" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <line x1="290" y1="375" x2="290" y2="380" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="290" y="395" text-anchor="middle" font-size="12" fill="#1a1a1a">1500 мкс</text>
+
+  <!-- 2000 мкс -->
+  <line x1="465" y1="125" x2="465" y2="375" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <line x1="465" y1="375" x2="465" y2="380" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="465" y="395" text-anchor="middle" font-size="12" fill="#1a1a1a">2000 мкс</text>
+
+  <!-- Main Linear Plot Line θ(t_pulse) -->
+  <line x1="115" y1="375" x2="465" y2="125" stroke="#2457d6" stroke-width="3.5"/>
+
+  <!-- Slope K_θ Annotation Triangle -->
+  <line x1="290" y1="250" x2="360" y2="250" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="360" y1="250" x2="360" y2="200" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="370" y="230" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">K_θ = 0.18 °/мкс</text>
+
+  <!-- Inset Box: Quantization Microsteps (Positioned at y=138..240, strictly below y=125 grid line) -->
+  <rect x="125" y="138" width="150" height="102" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="200" y="153" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Квантування (1250 мкс)</text>
+
+  <text x="133" y="169" text-anchor="start" font-size="11" font-weight="bold" fill="#c0392b">8 біт (Крок Δθ = 0.70°)</text>
+  <path d="M 135,190 L 165,190 L 165,180 L 195,180 L 195,174 L 225,174" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <text x="133" y="208" text-anchor="start" font-size="11" font-weight="bold" fill="#27ae60">16 біт (Плавна лінія)</text>
+  <line x1="133" y1="223" x2="245" y2="216" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="3,2"/>
+
+  <!-- Callout line connecting inset to point (202, 312) -->
+  <circle cx="202" cy="312" r="5" fill="#2457d6"/>
+  <line x1="202" y1="307" x2="202" y2="240" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Bottom Left Formula Panel -->
+  <rect x="25" y="435" width="475" height="85" fill="#eaf0fd" stroke="#2457d6" rx="8"/>
+  <text x="262" y="462" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Крутизна нахилу: K_θ = Δθ / Δt_pulse = 180° / 1000 мкс = 0.18 °/мкс</text>
+  <text x="262" y="492" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Рівняння керування: θ(t_pulse) = 0.18 °/мкс × (t_pulse - 1000 мкс)</text>
+
+  <!-- Top Right Panel: PWM Frame (20 ms) -->
+  <rect x="520" y="75" width="415" height="200" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+  <text x="727" y="100" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Структура періоду ШІМ-сигналу (T_frame = 20 мс, 50 Гц)</text>
+
+  <!-- PWM Waveform -->
+  <path d="M 540,160 L 570,160 L 570,125 L 630,125 L 630,160 L 890,160 L 890,125 L 905,125" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Dimension Arrow t_pulse -->
+  <line x1="570" y1="118" x2="630" y2="118" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+  <text x="600" y="110" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">t_pulse</text>
+  <text x="600" y="178" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">1.0–2.0 мс</text>
+
+  <!-- Dimension Arrow T_frame -->
+  <line x1="570" y1="198" x2="890" y2="198" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-dark-start)" marker-end="url(#arr-dark)"/>
+  <text x="730" y="218" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Період кадру T_frame = 20 мс (20 000 мкс)</text>
+
+  <!-- Duty Cycle Badge -->
+  <rect x="535" y="234" width="385" height="26" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="727" y="252" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Коефіцієнт заповнення: D = 1.0 мс / 20 мс (5%) ... 2.0 мс / 20 мс (10%)</text>
+
+  <!-- Bottom Right Panel: Timer Resolution Comparison -->
+  <rect x="520" y="290" width="415" height="230" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+  <text x="727" y="313" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Дискретизація та роздільна здатність таймера</text>
+
+  <!-- Sub-card 1: 8-bit -->
+  <rect x="535" y="325" width="188" height="180" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="629" y="346" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">8-бітний таймер</text>
+  <text x="629" y="362" text-anchor="middle" font-size="11" fill="#6b7280">(Arduino AVR / Timer2)</text>
+
+  <text x="545" y="384" text-anchor="start" font-size="11" fill="#1a1a1a">Кількість рівнів N:</text>
+  <text x="545" y="399" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">N = 2⁸ = 256 кроків</text>
+
+  <text x="545" y="419" text-anchor="start" font-size="11" fill="#1a1a1a">Крок часу Δt:</text>
+  <text x="545" y="434" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">Δt = 1000 мкс / 256 = 3.91 мкс</text>
+
+  <text x="545" y="454" text-anchor="start" font-size="11" fill="#1a1a1a">Крок кута Δθ:</text>
+  <text x="545" y="469" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">Δθ = 180° / 256 = 0.70°</text>
+
+  <text x="629" y="492" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">❌ Дискретність руху</text>
+
+  <!-- Sub-card 2: 16-bit -->
+  <rect x="732" y="325" width="188" height="180" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="826" y="346" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">16-бітний таймер</text>
+  <text x="826" y="362" text-anchor="middle" font-size="11" fill="#6b7280">(CCPM тестер / STM32)</text>
+
+  <text x="742" y="384" text-anchor="start" font-size="11" fill="#1a1a1a">Кількість рівнів N:</text>
+  <text x="742" y="399" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">N = 2¹⁶ = 65 536 кроків</text>
+
+  <text x="742" y="419" text-anchor="start" font-size="11" fill="#1a1a1a">Крок часу Δt:</text>
+  <text x="742" y="434" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">Δt = 1000 мкс / 65536 = 0.015 мкс</text>
+
+  <text x="742" y="454" text-anchor="start" font-size="11" fill="#1a1a1a">Крок кута Δθ:</text>
+  <text x="742" y="469" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">Δθ = 180° / 65536 = 0.0027°</text>
+
+  <text x="826" y="492" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">✔ Висока плавність</text>
+</svg>

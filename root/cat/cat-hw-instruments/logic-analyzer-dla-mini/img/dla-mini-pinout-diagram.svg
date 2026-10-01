@@ -1,0 +1,150 @@
+<svg viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цокольовка 10-пінового роз'єму логічного аналізатора WeAct DLA Mini</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">8 вхідних каналів (CH0–CH7) та подвоєні виводи заземлення (GND) з колірним маркуванням</text>
+
+  <!-- ПАНЕЛЬ 1: Апаратний блок DLA Mini -->
+  <rect x="30" y="80" width="270" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="95" width="240" height="30" rx="4" fill="#eaf0fd"/>
+  <text x="165" y="115" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Апаратний блок DLA Mini</text>
+
+  <!-- USB Type-C плашка -->
+  <rect x="50" y="132" width="90" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="95" y="146" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">USB Type-C</text>
+
+  <!-- Корпус приладу -->
+  <rect x="70" y="155" width="190" height="110" rx="10" fill="#1e293b" stroke="#0f172a" stroke-width="2"/>
+  <rect x="52" y="195" width="18" height="30" rx="4" fill="#64748b" stroke="#334155" stroke-width="1.5"/>
+
+  <!-- Світлодіод та написи на корпусі -->
+  <circle cx="95" cy="210" r="5" fill="#27ae60"/>
+  <text x="95" y="230" font-size="12" fill="#94a3b8" text-anchor="middle">PWR / ACT</text>
+
+  <text x="175" y="195" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">WeAct DLA</text>
+  <text x="175" y="215" font-size="12" fill="#cbd5e1" text-anchor="middle">24 MHz / 8 CH</text>
+
+  <!-- 10-піновий роз'єм на корпусі -->
+  <rect x="235" y="175" width="25" height="70" fill="#0f172a" stroke="#475569" stroke-width="1.5"/>
+  <rect x="260" y="183" width="15" height="4" fill="#d97706"/>
+  <rect x="260" y="195" width="15" height="4" fill="#d97706"/>
+  <rect x="260" y="207" width="15" height="4" fill="#d97706"/>
+  <rect x="260" y="219" width="15" height="4" fill="#d97706"/>
+  <rect x="260" y="231" width="15" height="4" fill="#d97706"/>
+
+  <path d="M 235,280 L 265,245" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <rect x="135" y="280" width="145" height="22" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="207" y="295" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">10-pin (2×5) Header</text>
+
+  <!-- Пояснення Панелі 1 -->
+  <text x="165" y="380" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Компактний USB-аналізатор</text>
+  <text x="165" y="402" font-size="12" fill="#6b7280" text-anchor="middle">Живлення 5 В від порта USB</text>
+  <text x="165" y="424" font-size="12" fill="#6b7280" text-anchor="middle">Сумісність із макетними шлейфами</text>
+
+  <!-- ПАНЕЛЬ 2: Цокольовка роз'єму 2×5 -->
+  <rect x="315" y="80" width="330" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="330" y="95" width="300" height="30" rx="4" fill="#eaf0fd"/>
+  <text x="480" y="115" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Цокольовка роз'єму (2×5 штирів)</text>
+
+  <!-- Корпус роз'єму 2×5 -->
+  <rect x="360" y="142" width="240" height="126" rx="8" fill="#1e293b" stroke="#0f172a" stroke-width="2"/>
+
+  <!-- Рядок 1 (Верхній: Pin 1, 3, 5, 7, 9) -->
+  <text x="390" y="158" font-size="12" font-weight="bold" fill="#cbd5e1" text-anchor="middle">Pin 1</text>
+  <rect x="375" y="165" width="30" height="30" rx="6" fill="#9a3412" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="390" y="184" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">CH0</text>
+
+  <text x="435" y="158" font-size="12" font-weight="bold" fill="#cbd5e1" text-anchor="middle">Pin 3</text>
+  <rect x="420" y="165" width="30" height="30" rx="6" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="435" y="184" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">CH1</text>
+
+  <text x="480" y="158" font-size="12" font-weight="bold" fill="#cbd5e1" text-anchor="middle">Pin 5</text>
+  <rect x="465" y="165" width="30" height="30" rx="6" fill="#d97706" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="480" y="184" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">CH2</text>
+
+  <text x="525" y="158" font-size="12" font-weight="bold" fill="#cbd5e1" text-anchor="middle">Pin 7</text>
+  <rect x="510" y="165" width="30" height="30" rx="6" fill="#ca8a04" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="525" y="184" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">CH3</text>
+
+  <text x="570" y="158" font-size="12" font-weight="bold" fill="#cbd5e1" text-anchor="middle">Pin 9</text>
+  <rect x="555" y="165" width="30" height="30" rx="6" fill="#1a1a1a" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="570" y="184" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">GND</text>
+
+  <!-- Рядок 2 (Нижній: Pin 2, 4, 6, 8, 10) -->
+  <rect x="375" y="215" width="30" height="30" rx="6" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="390" y="234" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">CH4</text>
+  <text x="390" y="258" font-size="12" font-weight="bold" fill="#cbd5e1" text-anchor="middle">Pin 2</text>
+
+  <rect x="420" y="215" width="30" height="30" rx="6" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="435" y="234" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">CH5</text>
+  <text x="435" y="258" font-size="12" font-weight="bold" fill="#cbd5e1" text-anchor="middle">Pin 4</text>
+
+  <rect x="465" y="215" width="30" height="30" rx="6" fill="#7c3aed" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="480" y="234" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">CH6</text>
+  <text x="480" y="258" font-size="12" font-weight="bold" fill="#cbd5e1" text-anchor="middle">Pin 6</text>
+
+  <rect x="510" y="215" width="30" height="30" rx="6" fill="#6b7280" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="525" y="234" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">CH7</text>
+  <text x="525" y="258" font-size="12" font-weight="bold" fill="#cbd5e1" text-anchor="middle">Pin 8</text>
+
+  <rect x="555" y="215" width="30" height="30" rx="6" fill="#475569" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="570" y="234" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">GND</text>
+  <text x="570" y="258" font-size="12" font-weight="bold" fill="#cbd5e1" text-anchor="middle">Pin 10</text>
+
+  <!-- Блоки опису призначень -->
+  <rect x="330" y="280" width="145" height="42" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="402" y="297" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">CH0–CH7 (8 входів)</text>
+  <text x="402" y="315" font-size="12" fill="#6b7280" text-anchor="middle">Логічні аналогові входи</text>
+
+  <rect x="485" y="280" width="145" height="42" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="557" y="297" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND × 2 (Подвоєні)</text>
+  <text x="557" y="315" font-size="12" fill="#6b7280" text-anchor="middle">Спільне заземлення</text>
+
+  <!-- Пояснення Панелі 2 -->
+  <text x="480" y="380" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стандартна цокольовка 2×5</text>
+  <text x="480" y="402" font-size="12" fill="#6b7280" text-anchor="middle">Колірне маркування провідників</text>
+  <text x="480" y="424" font-size="12" fill="#6b7280" text-anchor="middle">Обов'язкове підключення GND</text>
+
+  <!-- ПАНЕЛЬ 3: Електричні параметри -->
+  <rect x="660" y="80" width="270" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="675" y="95" width="240" height="30" rx="4" fill="#eaf0fd"/>
+  <text x="795" y="115" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Електричні параметри</text>
+
+  <!-- Діапазон вхідної напруги -->
+  <rect x="675" y="140" width="240" height="60" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="795" y="160" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідна напруга входу</text>
+  <text x="795" y="184" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">-0.5 B  до  +5.5 B (Max)</text>
+
+  <!-- Пороги спрацьовування -->
+  <rect x="675" y="210" width="240" height="75" rx="6" fill="#e9f7ef" stroke="#c3e6cb" stroke-width="1"/>
+  <text x="795" y="230" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Логічні рівні (CMOS/TTL)</text>
+  <text x="795" y="250" font-size="12" fill="#1a1a1a" text-anchor="middle">V_IL ≤ 0.8 B (Низький / 0)</text>
+  <text x="795" y="270" font-size="12" fill="#1a1a1a" text-anchor="middle">V_IH ≥ 2.0 B (Високий / 1)</text>
+
+  <!-- Вхідний імпеданс -->
+  <rect x="675" y="295" width="240" height="50" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="795" y="315" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхідний імпеданс</text>
+  <text x="795" y="333" font-size="12" fill="#6b7280" text-anchor="middle">R_in = 100 кОм || C_in = 10 пФ</text>
+
+  <!-- Пояснення Панелі 3 -->
+  <text x="795" y="380" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Підтримка логіки 1.8 В / 3.3 В / 5 В</text>
+  <text x="795" y="402" font-size="12" fill="#6b7280" text-anchor="middle">Захисні резистори для сплесків</text>
+  <text x="795" y="424" font-size="12" fill="#6b7280" text-anchor="middle">Вирівнювання потенціалів GND</text>
+</svg>

@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Перевірка біполярних транзисторів (NPN/PNP) та вимірювання hFE</text>
+  <text x="480" y="57" font-size="13" fill="#6b7280" text-anchor="middle">Вбудований роз'єм hFE, еквівалентна схема P-N переходів та визначення цокольовки щупами</text>
+
+  <!-- Panel 1: hFE Socket Measurement (Left) -->
+  <rect x="30" y="75" width="280" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="170" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Вимірювання hFE в колодці</text>
+
+  <!-- Sub-box Socket -->
+  <rect x="45" y="115" width="250" height="180" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="170" y="135" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Роз'єм hFE (DT-838)</text>
+
+  <!-- NPN Row -->
+  <rect x="55" y="145" width="230" height="35" rx="4" fill="#eaf0fd" stroke="#d0d7de"/>
+  <text x="65" y="167" font-size="12" font-weight="bold" fill="#2457d6">NPN:</text>
+  <circle cx="115" cy="162" r="4" fill="#1a1a1a"/>
+  <text x="115" y="153" font-size="10" fill="#6b7280" text-anchor="middle">E</text>
+  <circle cx="145" cy="162" r="4" fill="#1a1a1a"/>
+  <text x="145" y="153" font-size="10" fill="#6b7280" text-anchor="middle">B</text>
+  <circle cx="175" cy="162" r="4" fill="#1a1a1a"/>
+  <text x="175" y="153" font-size="10" fill="#6b7280" text-anchor="middle">C</text>
+  <circle cx="205" cy="162" r="4" fill="#1a1a1a"/>
+  <text x="205" y="153" font-size="10" fill="#6b7280" text-anchor="middle">E</text>
+
+  <!-- PNP Row -->
+  <rect x="55" y="190" width="230" height="35" rx="4" fill="#fdecea" stroke="#d0d7de"/>
+  <text x="65" y="212" font-size="12" font-weight="bold" fill="#c0392b">PNP:</text>
+  <circle cx="115" cy="207" r="4" fill="#1a1a1a"/>
+  <text x="115" y="198" font-size="10" fill="#6b7280" text-anchor="middle">E</text>
+  <circle cx="145" cy="207" r="4" fill="#1a1a1a"/>
+  <text x="145" y="198" font-size="10" fill="#6b7280" text-anchor="middle">B</text>
+  <circle cx="175" cy="207" r="4" fill="#1a1a1a"/>
+  <text x="175" y="198" font-size="10" fill="#6b7280" text-anchor="middle">C</text>
+  <circle cx="205" cy="207" r="4" fill="#1a1a1a"/>
+  <text x="205" y="198" font-size="10" fill="#6b7280" text-anchor="middle">E</text>
+
+  <!-- TO-92 Transistor -->
+  <rect x="135" y="240" width="50" height="24" rx="3" fill="#1a1a1a"/>
+  <text x="160" y="256" font-size="10" fill="#ffffff" text-anchor="middle">BC547</text>
+  <line x1="145" y1="264" x2="145" y2="285" stroke="#6b7280" stroke-width="2"/>
+  <line x1="160" y1="264" x2="160" y2="285" stroke="#6b7280" stroke-width="2"/>
+  <line x1="175" y1="264" x2="175" y2="285" stroke="#6b7280" stroke-width="2"/>
+
+  <!-- Display Box 1 -->
+  <rect x="85" y="310" width="170" height="65" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="170" y="325" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">Дисплей (Режим hFE)</text>
+  <text x="170" y="355" font-size="22" font-weight="bold" fill="#1a1a1a" text-anchor="middle">245</text>
+  <text x="170" y="368" font-size="10" fill="#27ae60" text-anchor="middle">hFE = I_c / I_b</text>
+
+  <text x="45" y="400" font-size="12" font-weight="bold" fill="#27ae60">✓ Перемикач в положенні hFE</text>
+  <text x="45" y="420" font-size="12" fill="#1a1a1a">✓ Без вимірювальних щупів!</text>
+  <text x="45" y="440" font-size="12" fill="#6b7280">✓ Тестовий струм бази I_b ≈ 10 µA</text>
+  <text x="45" y="460" font-size="12" fill="#6b7280">✓ Напруга V_ce ≈ 2.8 V</text>
+  <text x="45" y="485" font-size="12" font-weight="bold" fill="#c0392b">⚠ Переплутані E/C ➔ hFE &lt; 20</text>
+
+
+  <!-- Panel 2: Equivalent Diode Model (Middle) -->
+  <rect x="330" y="75" width="300" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Еквівалентна діодна модель</text>
+
+  <!-- NPN Equivalent Sub-box -->
+  <rect x="345" y="115" width="270" height="180" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="360" y="135" font-size="12" font-weight="bold" fill="#2457d6">Структура NPN (Спільний Анод = База)</text>
+
+  <!-- NPN Diodes Drawing -->
+  <circle cx="390" cy="180" r="8" fill="#1a1a1a"/>
+  <text x="390" y="160" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">E (-)</text>
+
+  <circle cx="480" cy="180" r="8" fill="#c0392b"/>
+  <text x="480" y="160" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">B (+)</text>
+
+  <circle cx="570" cy="180" r="8" fill="#1a1a1a"/>
+  <text x="570" y="160" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">C (-)</text>
+
+  <!-- B-E Diode -->
+  <line x1="472" y1="180" x2="398" y2="180" stroke="#2457d6" stroke-width="2"/>
+  <polygon points="440,174 428,180 440,186" fill="#2457d6"/>
+  <line x1="428" y1="174" x2="428" y2="186" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- B-C Diode -->
+  <line x1="488" y1="180" x2="562" y2="180" stroke="#2457d6" stroke-width="2"/>
+  <polygon points="528,174 540,180 528,186" fill="#2457d6"/>
+  <line x1="540" y1="174" x2="540" y2="186" stroke="#2457d6" stroke-width="2"/>
+
+  <text x="360" y="225" font-size="11" font-weight="bold" fill="#c0392b">• Червоний щуп (+ VΩmA) ➔ на Базу (B)</text>
+  <text x="360" y="245" font-size="11" fill="#1a1a1a">• Чорний щуп (- COM) ➔ на Емітер (E) чи C</text>
+  <text x="360" y="265" font-size="11" font-weight="bold" fill="#27ae60">✓ Дисплей: U_f = 600 – 700 мВ (обидва)</text>
+  <text x="360" y="283" font-size="11" fill="#6b7280">✓ Навпаки (Червоний на E/C) ➔ Дисплей: 1 .</text>
+
+
+  <!-- PNP Equivalent Sub-box -->
+  <rect x="345" y="305" width="270" height="210" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="360" y="325" font-size="12" font-weight="bold" fill="#c0392b">Структура PNP (Спільний Катод = База)</text>
+
+  <!-- PNP Diodes Drawing -->
+  <circle cx="390" cy="370" r="8" fill="#c0392b"/>
+  <text x="390" y="350" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">E (+)</text>
+
+  <circle cx="480" cy="370" r="8" fill="#1a1a1a"/>
+  <text x="480" y="350" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">B (-)</text>
+
+  <circle cx="570" cy="370" r="8" fill="#c0392b"/>
+  <text x="570" y="350" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">C (+)</text>
+
+  <!-- E-B Diode -->
+  <line x1="398" y1="370" x2="472" y2="370" stroke="#c0392b" stroke-width="2"/>
+  <polygon points="428,364 440,370 428,376" fill="#c0392b"/>
+  <line x1="440" y1="364" x2="440" y2="376" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- C-B Diode -->
+  <line x1="562" y1="370" x2="488" y2="370" stroke="#c0392b" stroke-width="2"/>
+  <polygon points="540,364 528,370 540,376" fill="#c0392b"/>
+  <line x1="528" y1="364" x2="528" y2="376" stroke="#c0392b" stroke-width="2"/>
+
+  <text x="360" y="415" font-size="11" font-weight="bold" fill="#1a1a1a">• Чорний щуп (- COM) ➔ на Базу (B)</text>
+  <text x="360" y="435" font-size="11" fill="#c0392b">• Червоний щуп (+ VΩmA) ➔ на Емітер (E) чи C</text>
+  <text x="360" y="455" font-size="11" font-weight="bold" fill="#27ae60">✓ Дисплей: U_f = 600 – 700 мВ (обидва)</text>
+  <text x="360" y="473" font-size="11" fill="#6b7280">✓ Навпаки (Чорний на E/C) ➔ Дисплей: 1 .</text>
+  <text x="360" y="495" font-size="11" font-weight="bold" fill="#c0392b">⛔ Між E та C в обох напрямках ➔ 1 .</text>
+
+
+  <!-- Panel 3: Pinout Algorithm (Right) -->
+  <rect x="650" y="75" width="280" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="790" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Покрокове визначення цокольовки</text>
+
+  <!-- Step 1 Box -->
+  <rect x="665" y="115" width="250" height="115" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="675" y="135" font-size="12" font-weight="bold" fill="#2457d6">Крок 1: Пошук Бази (B) та типу</text>
+  <text x="675" y="155" font-size="11" fill="#1a1a1a">• Шукаємо вивід, який прозвонюється</text>
+  <text x="675" y="173" font-size="11" fill="#1a1a1a">  до ДВОХ інших виводів як діод.</text>
+  <text x="675" y="193" font-size="11" font-weight="bold" fill="#2457d6">• Червоний на Базі ➔ NPN транзистор</text>
+  <text x="675" y="211" font-size="11" font-weight="bold" fill="#c0392b">• Чорний на Базі ➔ PNP транзистор</text>
+
+  <!-- Step 2 Box -->
+  <rect x="665" y="245" width="250" height="125" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="675" y="265" font-size="12" font-weight="bold" fill="#27ae60">Крок 2: Відрізнення E від C</text>
+  <text x="675" y="285" font-size="11" fill="#1a1a1a">• Вимірюємо падіння напруги U_f:</text>
+  <text x="675" y="305" font-size="11" font-weight="bold" fill="#27ae60">  U_f(B-E) завжди на 2 – 10 мВ БІЛЬШЕ</text>
+  <text x="675" y="323" font-size="11" fill="#6b7280">  ніж U_f(B-C) через вище легування!</text>
+  <text x="675" y="345" font-size="11" font-weight="bold" fill="#1a1a1a">Приклад: U_f(B-E)=675 мВ, U_f(B-C)=668 мВ</text>
+
+  <!-- Step 3 Box -->
+  <rect x="665" y="385" width="250" height="130" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="675" y="405" font-size="12" font-weight="bold" fill="#1a1a1a">Крок 3: Верифікація в hFE</text>
+  <text x="675" y="425" font-size="11" fill="#1a1a1a">• Вставляємо ніжки в колодку hFE.</text>
+  <text x="675" y="445" font-size="11" font-weight="bold" fill="#27ae60">• Правильний орієнтир E-B-C ➔ hFE = 100-400</text>
+  <text x="675" y="465" font-size="11" font-weight="bold" fill="#c0392b">• Переплутано E та C ➔ hFE = 10...20</text>
+  <text x="675" y="490" font-size="11" fill="#2457d6">✓ Максимальне hFE підтверджує цокольовку</text>
+
+</svg>

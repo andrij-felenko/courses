@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діаграма станів керування та світлодіодної індикації TK-USB-DS</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Дотик до ємнісного сенсора вмикає нагрів (червоний LED), а при паузі &gt;15 с прилад переходить у режим сну</text>
+
+  <!-- State 1: Standby Mode -->
+  <rect x="40" y="85" width="260" height="320" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="55" y="100" width="130" height="24" rx="4" fill="#eaf0fd"/>
+  <text x="120" y="117" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Режим сну</text>
+
+  <rect x="55" y="135" width="230" height="36" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <circle cx="75" cy="153" r="8" fill="#27ae60"/>
+  <text x="92" y="158" font-size="12" font-weight="bold" fill="#1a1a1a">LED: Зелений / Вимк</text>
+
+  <text x="55" y="190" font-size="12" fill="#1a1a1a">• Нагрівальне жало: Вимкнено</text>
+  <text x="55" y="210" font-size="12" fill="#6b7280">• Струм споживання: &lt; 0.05 А</text>
+  <text x="55" y="230" font-size="12" fill="#6b7280">• Температура: охолодження</text>
+
+  <rect x="52" y="250" width="236" height="135" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="62" y="270" font-size="12" font-weight="bold" fill="#1a1a1a">Характеристики стану:</text>
+  <text x="62" y="290" font-size="12" fill="#6b7280">Сенсор очищено від дотиків.</text>
+  <text x="62" y="310" font-size="12" fill="#6b7280">Прилад безпечний для розміщення</text>
+  <text x="62" y="330" font-size="12" fill="#6b7280">на підставці. Економія джерела</text>
+  <text x="62" y="350" font-size="12" fill="#6b7280">живлення USB (5 В).</text>
+
+  <!-- Arrow 1 -> 2: Touch Trigger -->
+  <path d="M 300,195 L 350,195" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="290" y="165" width="70" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="325" y="180" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Дотик</text>
+
+  <!-- State 2: Active Heating Mode -->
+  <rect x="350" y="85" width="260" height="320" rx="8" fill="white" stroke="#c0392b" stroke-width="2"/>
+  <rect x="365" y="100" width="150" height="24" rx="4" fill="#fdecea"/>
+  <text x="440" y="117" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">2. Робочий нагрів</text>
+
+  <rect x="365" y="135" width="230" height="36" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <circle cx="385" cy="153" r="8" fill="#c0392b"/>
+  <text x="402" y="158" font-size="12" font-weight="bold" fill="#c0392b">LED: Червоний (Нагрів)</text>
+
+  <text x="365" y="190" font-size="12" fill="#1a1a1a">• Нагрівальне жало: Подача 5 В</text>
+  <text x="365" y="210" font-size="12" fill="#6b7280">• Струм споживання: ~ 1.6 А (8 Вт)</text>
+  <text x="365" y="230" font-size="12" fill="#6b7280">• Температура жала: 260–420 °C</text>
+
+  <rect x="362" y="250" width="236" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="372" y="270" font-size="12" font-weight="bold" fill="#27ae60">Умова утримання стану:</text>
+  <text x="372" y="290" font-size="12" fill="#1a1a1a">Утримуйте палець на металевій</text>
+  <text x="372" y="310" font-size="12" fill="#1a1a1a">сенсорній кнопці на корпусі.</text>
+  <text x="372" y="330" font-size="12" fill="#1a1a1a">Час виходу на робочу</text>
+  <text x="372" y="350" font-size="12" fill="#1a1a1a">температуру: ~15 секунд.</text>
+
+  <!-- Arrow 2 -> 3: Release Touch -->
+  <path d="M 610,180 L 660,180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="590" y="150" width="90" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="635" y="165" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Відпускання</text>
+
+  <!-- Arrow 3 -> 2: Re-touch -->
+  <path d="M 660,230 L 610,230" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="585" y="238" width="100" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="635" y="253" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Повторний дотик</text>
+
+  <!-- State 3: Auto Sleep / Delay -->
+  <rect x="660" y="85" width="260" height="320" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="675" y="100" width="160" height="24" rx="4" fill="#eaf0fd"/>
+  <text x="755" y="117" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Пауза / Таймаут</text>
+
+  <rect x="675" y="135" width="230" height="36" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <circle cx="695" cy="153" r="8" fill="#2457d6"/>
+  <text x="712" y="158" font-size="12" font-weight="bold" fill="#2457d6">LED: Синій / Блимання</text>
+
+  <text x="675" y="190" font-size="12" fill="#1a1a1a">• Відпускання сенсора</text>
+  <text x="675" y="210" font-size="12" fill="#6b7280">• Таймер затримки: t = 15 с</text>
+  <text x="675" y="230" font-size="12" fill="#6b7280">• Початок охолодження жала</text>
+
+  <rect x="672" y="250" width="236" height="135" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="682" y="270" font-size="12" font-weight="bold" fill="#1a1a1a">Логіка автовимкнення:</text>
+  <text x="682" y="290" font-size="12" fill="#6b7280">Якщо протягом 15 секунд немає</text>
+  <text x="682" y="310" font-size="12" fill="#6b7280">повторного дотику до сенсора,</text>
+  <text x="682" y="330" font-size="12" fill="#6b7280">нагрів вимикається повністю</text>
+  <text x="682" y="350" font-size="12" fill="#6b7280">і прилад повертається до Сну.</text>
+
+  <!-- Loop-back Arrow 3 -> 1: Timeout > 15s (Discontinuous lines to avoid intersecting label) -->
+  <path d="M 790,405 L 790,432 L 575,432" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <rect x="390" y="420" width="180" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="436" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">Таймаут &gt; 15 секунд (Сон)</text>
+  <path d="M 385,432 L 170,432 L 170,405" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arr-gray)"/>
+
+  <!-- Bottom Summary Box -->
+  <rect x="40" y="460" width="880" height="48" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="478" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Захист від перегріву та виключення людського фактора:</text>
+  <text x="480" y="496" font-size="12" fill="#1a1a1a" text-anchor="middle">Ємнісний сенсор гарантує подачу 5 В / 8 Вт лише під час утримання інструмента в руці, запобігаючи пожежі</text>
+</svg>

@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрія наконечника щупа IEC 61010 та індикатор зносу кабелю</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Обмеження оголеного металу ≤ 4 мм, захисний бар'єр та двохшарова силіконова ізоляція</text>
+
+  <!-- LEFT BOX: PROBE TIP & FINGER BARRIER -->
+  <rect x="25" y="75" width="440" height="300" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="245" y="98" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Геометрія щупа та бар'єр для пальців</text>
+
+  <!-- Finger barrier label top -->
+  <text x="93" y="146" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Бар'єр для пальців</text>
+
+  <!-- Cable Entry -->
+  <rect x="45" y="210" width="35" height="20" rx="3" fill="#374151"/>
+  <text x="62.5" y="245" font-size="12" fill="#6b7280" text-anchor="middle">Кабель</text>
+
+  <!-- Finger Barrier Flange -->
+  <rect x="85" y="160" width="16" height="120" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="93" y="295" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Висота h &gt; 12 мм</text>
+
+  <!-- Probe Handle Body -->
+  <rect x="101" y="195" width="145" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="173.5" y="224" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Корпус щупа</text>
+
+  <!-- Insulating Safety Cap / Sleeve -->
+  <text x="301" y="194" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Насадка CAT III / IV</text>
+  <rect x="246" y="208" width="110" height="24" rx="2" fill="#2457d6" stroke="#1d4ed8"/>
+
+  <!-- Short Exposed Metal Tip -->
+  <rect x="356" y="214" width="20" height="12" rx="1" fill="#fef08a" stroke="#d97706" stroke-width="1.5"/>
+  <polygon points="376,214 384,220 376,226" fill="#fef08a" stroke="#d97706" stroke-width="1.5"/>
+
+  <!-- Dimension line for exposed metal tip (<= 4 mm) -->
+  <line x1="356" y1="252" x2="384" y2="252" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <line x1="356" y1="226" x2="356" y2="258" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="384" y1="220" x2="384" y2="258" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="370" y="270" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">≤ 4.0 мм</text>
+
+  <!-- CAT II Mode Note Box -->
+  <rect x="40" y="315" width="410" height="48" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="245" y="334" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Без насадки (CAT II): відкритий штир = 19 мм</text>
+  <text x="245" y="352" font-size="12" fill="#6b7280" text-anchor="middle">Тільки для побутових розеток та низьковольтних кіл</text>
+
+  <!-- RIGHT BOX: DUAL-LAYER SILICONE CABLE WITH WEAR INDICATOR -->
+  <rect x="495" y="75" width="440" height="300" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="715" y="98" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Двоколірний індикатор зносу кабелю</text>
+
+  <!-- Cable Stepped Cutaway (Non-overlapping segments) -->
+  <!-- Outer Red Layer Segment -->
+  <rect x="515" y="140" width="100" height="44" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="565" y="128" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">2-й шар (червоний)</text>
+
+  <!-- Inner White Layer Segment -->
+  <rect x="615" y="146" width="110" height="32" fill="#ffffff" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="670" y="128" font-size="12" font-weight="bold" fill="#d97706" text-anchor="middle">1-й шар (білий)</text>
+
+  <!-- Copper Core Segment -->
+  <rect x="725" y="152" width="190" height="20" rx="2" fill="#fef08a" stroke="#d97706" stroke-width="1.5"/>
+  <text x="820" y="128" font-size="12" font-weight="bold" fill="#d97706" text-anchor="middle">Мідна жила (200+ волокон)</text>
+
+  <!-- DIAGNOSTIC CARDS -->
+  <!-- Card 1: Normal State -->
+  <rect x="515" y="200" width="190" height="155" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="610" y="222" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">НОРМАЛЬНИЙ СТАН</text>
+
+  <rect x="535" y="235" width="150" height="22" rx="11" fill="#c0392b" stroke="#a02010" stroke-width="1"/>
+  <text x="610" y="250" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Червона ізоляція</text>
+
+  <text x="610" y="278" font-size="12" fill="#27ae60" text-anchor="middle">Зовнішній шар цілий</text>
+  <text x="610" y="298" font-size="12" fill="#1a1a1a" text-anchor="middle">Безпечно до 1000 В</text>
+  <text x="610" y="335" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ГОТОВИЙ ДО РОБОТИ</text>
+
+  <!-- Card 2: Damaged / Worn State -->
+  <rect x="725" y="200" width="190" height="155" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="820" y="222" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ЗНОС / ПОШКОДЖЕННЯ</text>
+
+  <rect x="745" y="235" width="150" height="22" rx="11" fill="#c0392b" stroke="#a02010" stroke-width="1"/>
+  <rect x="800" y="235" width="40" height="22" fill="#ffffff" stroke="#fbbf24" stroke-width="1.5"/>
+
+  <text x="820" y="278" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ВИДИМИЙ БІЛИЙ ШАР!</text>
+  <text x="820" y="298" font-size="12" fill="#c0392b" text-anchor="middle">Пробійна міцність впала</text>
+  <text x="820" y="335" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ПІДЛЯГАЄ ЗАМІНІ!</text>
+
+  <!-- BOTTOM SUMMARY PANEL -->
+  <rect x="25" y="390" width="910" height="65" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="414" font-size="12" fill="#1a1a1a" text-anchor="middle">У колах CAT III / CAT IV обов'язкові щупи з насадкою (оголений метал ≤ 4 мм).</text>
+  <text x="480" y="436" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Поява внутрішнього білого шару на кабелі свідчити про знос ізоляції — роботу заборонено!</text>
+</svg>

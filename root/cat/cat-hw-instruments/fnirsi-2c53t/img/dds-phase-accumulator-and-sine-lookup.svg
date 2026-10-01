@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура прямого цифрового синтезу (DDS) та квантування фази</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Крок ΔP визначає частоту f_out = (ΔP · f_clk) / 2^N, а відсікання бітів фази створює побічні завади (spurs)</text>
+
+  <!-- =================Панель 1: Фазовий акумулятор================= -->
+  <rect x="30" y="85" width="210" height="245" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="135" y="108" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Фазовий акумулятор</text>
+
+  <!-- Схема суматора та регістра -->
+  <text x="40" y="142" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">ΔP (Крок)</text>
+  <line x1="40" y1="155" x2="75" y2="155" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Суматор + -->
+  <rect x="75" y="140" width="30" height="30" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="90" y="159" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">+</text>
+
+  <line x1="105" y1="155" x2="135" y2="155" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- N-бітовий регістр -->
+  <rect x="135" y="140" width="50" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="160" y="159" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">Регістр N</text>
+
+  <!-- Тактовий сигнал f_clk -->
+  <line x1="160" y1="118" x2="160" y2="140" stroke="#6b7280" stroke-dasharray="2,2" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <text x="160" y="115" font-size="10" fill="#6b7280" text-anchor="middle">f_clk</text>
+
+  <!-- Лінія зворотного зв'язку -->
+  <line x1="185" y1="155" x2="200" y2="155" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="200" y1="155" x2="200" y2="190" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="200" y1="190" x2="90" y2="190" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="90" y1="190" x2="90" y2="170" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <text x="145" y="202" font-size="10" fill="#6b7280" text-anchor="middle">Зворотний зв'язок N бітів</text>
+
+  <!-- Підпанель параметрів акумулятора -->
+  <rect x="40" y="215" width="190" height="105" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="135" y="232" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Параметри акумулятора:</text>
+  <text x="135" y="252" font-size="10" fill="#1a1a1a" text-anchor="middle">Розрядність: N = 32 біти</text>
+  <text x="135" y="270" font-size="10" fill="#2457d6" text-anchor="middle">Переповнення = 2π рад</text>
+  <text x="135" y="288" font-size="10" fill="#6b7280" text-anchor="middle">Лінійний приріст фази</text>
+  <text x="135" y="306" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">f_out = (ΔP · f_clk) / 2^N</text>
+
+  <!-- Стрілка зв'язку 1 -> 2 -->
+  <path d="M240,155 L255,155" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- =================Панель 2: Відсікання фази (MSB)================= -->
+  <rect x="255" y="85" width="200" height="245" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="355" y="108" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Відсікання фази (MSB)</text>
+
+  <!-- Блок урізання бітів -->
+  <line x1="255" y1="155" x2="280" y2="155" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="280" y="138" width="75" height="34" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="317" y="152" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">12 MSB бітів</text>
+  <text x="317" y="165" font-size="10" fill="#c0392b" text-anchor="middle">Відкинуто 20 б</text>
+
+  <line x1="355" y1="155" x2="455" y2="155" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Підпанель причин шуму -->
+  <rect x="265" y="215" width="180" height="105" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="355" y="232" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Причина фазового шуму:</text>
+  <text x="355" y="252" font-size="10" fill="#1a1a1a" text-anchor="middle">Адреса LUT: M = 12 бітів</text>
+  <text x="355" y="270" font-size="10" fill="#c0392b" text-anchor="middle">Відкинуті біти: N - M = 20</text>
+  <text x="355" y="288" font-size="10" fill="#6b7280" text-anchor="middle">Помилка урізання фази</text>
+  <text x="355" y="306" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">Утворює гармоніки (Spurs)</text>
+
+  <!-- Стрілка зв'язку 2 -> 3 -->
+  <path d="M455,155 L470,155" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- =================Панель 3: Таблиця синуса (LUT)================= -->
+  <rect x="470" y="85" width="200" height="245" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="570" y="108" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Таблиця синуса (LUT)</text>
+
+  <!-- ПЗП / ПЗУ Синуса -->
+  <line x1="470" y1="155" x2="495" y2="155" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="495" y="138" width="70" height="34" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="530" y="152" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">ROM / RAM</text>
+  <text x="530" y="165" font-size="10" fill="#1a1a1a" text-anchor="middle">2^M x B біт</text>
+
+  <line x1="565" y1="155" x2="670" y2="155" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Підпанель амплітудного квантування -->
+  <rect x="480" y="215" width="180" height="105" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="570" y="232" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Квантування амплітуди:</text>
+  <text x="570" y="252" font-size="10" fill="#1a1a1a" text-anchor="middle">Розмір LUT: 2^12 = 4096 точок</text>
+  <text x="570" y="270" font-size="10" fill="#2457d6" text-anchor="middle">Вихідна шина: B = 12 бітів</text>
+  <text x="570" y="288" font-size="10" fill="#6b7280" text-anchor="middle">Динамічний діапазон SFDR:</text>
+  <text x="570" y="306" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">SFDR ≈ 6.02·B ≈ 74 дБc</text>
+
+  <!-- Стрілка зв'язку 3 -> 4 -->
+  <path d="M670,155 L685,155" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- =================Панель 4: ЦАП і ФНЧ відновлення================= -->
+  <rect x="685" y="85" width="245" height="245" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="807" y="108" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">4. ЦАП і ФНЧ відновлення</text>
+
+  <!-- ЦАП та ФНЧ -->
+  <line x1="685" y1="155" x2="710" y2="155" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="710" y="140" width="45" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="732" y="159" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">ЦАП 12b</text>
+
+  <line x1="755" y1="155" x2="780" y2="155" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <rect x="780" y="140" width="45" height="30" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="802" y="159" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">ФНЧ (LPF)</text>
+
+  <line x1="825" y1="155" x2="865" y2="155" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="895" y="159" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">V_out(t)</text>
+
+  <!-- Підпанель аналогового відновлення -->
+  <rect x="695" y="215" width="225" height="105" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="807" y="232" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Відновлення гладкого синуса:</text>
+  <text x="807" y="252" font-size="10" fill="#1a1a1a" text-anchor="middle">ЦАП формує сходинковий сигнал</text>
+  <text x="807" y="270" font-size="10" fill="#27ae60" text-anchor="middle">ФНЧ згладжує сходинки та джиттер</text>
+  <text x="807" y="288" font-size="10" fill="#6b7280" text-anchor="middle">Частота зрізу f_c ≈ 0.4 · f_clk</text>
+  <text x="807" y="306" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">Чистий аналоговий синус</text>
+
+  <!-- =================Нижня частина: Математика та завади================= -->
+
+  <!-- Блок 1: Формули DDS (x=30...315) -->
+  <rect x="30" y="350" width="285" height="185" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="172" y="372" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Формули прямого синтезу DDS</text>
+
+  <text x="172" y="398" font-size="10" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вихідна частота f_out:</text>
+  <rect x="50" y="408" width="245" height="32" fill="#ffffff" stroke="#2457d6" stroke-width="1.2" rx="4"/>
+  <text x="172" y="428" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">f_out = (ΔP · f_clk) / 2^N</text>
+
+  <text x="172" y="458" font-size="10" fill="#1a1a1a" text-anchor="middle">Крок частоти: Δf = f_clk / 2^N</text>
+  <text x="172" y="478" font-size="10" fill="#6b7280" text-anchor="middle">При f_clk = 200 МГц, N = 32 біти:</text>
+  <text x="172" y="498" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">Δf = 200·10^6 / 2^32 ≈ 0.0465 Гц</text>
+
+  <!-- Блок 2: Спектральні побічні завади (Spurs) (x=330...630) -->
+  <rect x="330" y="350" width="300" height="185" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="372" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Побічні гармоніки (Phase Spurs)</text>
+
+  <rect x="345" y="388" width="270" height="92" fill="#1a1a1a" rx="4"/>
+  <line x1="355" y1="468" x2="605" y2="468" stroke="#333333" stroke-width="1"/>
+
+  <!-- Основний пік f_out -->
+  <line x1="420" y1="468" x2="420" y2="400" stroke="#27ae60" stroke-width="3"/>
+  <text x="420" y="396" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">f_out</text>
+
+  <!-- Побічні завади (Spurs) -->
+  <line x1="480" y1="468" x2="480" y2="435" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="535" y1="468" x2="535" y2="445" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="575" y1="468" x2="575" y2="448" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Пунктирна лінія рівню завад -->
+  <line x1="355" y1="435" x2="605" y2="435" stroke="#c0392b" stroke-dasharray="3,2" stroke-width="1"/>
+  <text x="545" y="428" font-size="10" fill="#c0392b" text-anchor="middle">Поріг завад ≈ -6.02·M dBc</text>
+
+  <text x="480" y="500" font-size="10" fill="#c0392b" text-anchor="middle">Урізання N-M бітів викликає фазовий джиттер</text>
+  <text x="480" y="518" font-size="10" fill="#6b7280" text-anchor="middle">Для M = 12 бітів: SFDR ≈ -72 ... -74 dBc</text>
+
+  <!-- Блок 3: Відновлення сигналу ФНЧ (x=645...930) -->
+  <rect x="645" y="350" width="285" height="185" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="787" y="372" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Згладжування сигналу ФНЧ</text>
+
+  <rect x="660" y="388" width="255" height="92" fill="#1a1a1a" rx="4"/>
+  
+  <!-- Сходинки ЦАП (червоний) -->
+  <path d="M670,440 L685,440 L685,410 L700,410 L700,398 L715,398 L715,410 L730,410 L730,440 L745,440 L745,465 L760,465 L760,472 L775,472 L775,465 L790,465 L790,440" stroke="#c0392b" stroke-width="1.2" fill="none"/>
+
+  <!-- Згладжений синус (зелений) -->
+  <path d="M670,435 Q692,390 715,435 T760,435 T805,435 T850,435 T895,435" stroke="#27ae60" stroke-width="2" fill="none"/>
+
+  <text x="720" y="500" font-size="10" fill="#c0392b" text-anchor="middle">Червоний: сходинки ЦАП</text>
+  <text x="850" y="500" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">Зелений: після ФНЧ</text>
+  <text x="787" y="518" font-size="10" fill="#6b7280" text-anchor="middle">Фільтрація усуває вищі гармоніки Nyquist</text>
+</svg>

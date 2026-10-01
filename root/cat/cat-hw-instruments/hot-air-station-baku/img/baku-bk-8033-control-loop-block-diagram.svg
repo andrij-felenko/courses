@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Система цифрового керування нагрівом і турбіною BAKU BK-8033</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Замкнений контур терморегулювання з фазовим симисторним вихідним каскадом</text>
+
+  <!-- Block 1: User Input -->
+  <rect x="40" y="140" width="150" height="100" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="115" y="165" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Задання режиму</text>
+  <text x="115" y="185" text-anchor="middle" font-size="12" fill="#2457d6">T_set (100–480°C)</text>
+  <text x="115" y="205" text-anchor="middle" font-size="12" fill="#2457d6">F_set (потік air)</text>
+  <text x="115" y="225" text-anchor="middle" font-size="12" fill="#6b7280">Енкодери / кнопки</text>
+
+  <!-- Arrow: Input -> MCU -->
+  <path d="M190,190 L228,190" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#arr-black)"/>
+
+  <!-- Block 2: Microcontroller (MCU) -->
+  <rect x="230" y="140" width="170" height="100" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="315" y="165" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Мікроконтролер</text>
+  <text x="315" y="185" text-anchor="middle" font-size="12" fill="#1a1a1a">PID-алгоритм</text>
+  <text x="315" y="205" text-anchor="middle" font-size="12" fill="#1a1a1a">Детектор нуля (AC)</text>
+  <text x="315" y="225" text-anchor="middle" font-size="12" fill="#6b7280">Формування ШІМ/Gate</text>
+
+  <!-- Branch Arrows from MCU -->
+  <path d="M400,165 L430,165 L430,120 L448,120" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <path d="M400,215 L430,215 L430,260 L448,260" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Channel A: Heating Control -->
+  <!-- Block 3A: Optocoupler + TRIAC -->
+  <rect x="450" y="85" width="170" height="70" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="535" y="110" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Опторозв'язка + TRIAC</text>
+  <text x="535" y="130" text-anchor="middle" font-size="12" fill="#1a1a1a">Комутація AC 220V</text>
+  <text x="535" y="145" text-anchor="middle" font-size="12" fill="#6b7280">Фазове регулювання</text>
+
+  <!-- Arrow 3A -> 4A -->
+  <path d="M620,120 L658,120" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- Block 4A: Ceramic Heater -->
+  <rect x="660" y="85" width="150" height="70" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="735" y="110" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Нагрівач</text>
+  <text x="735" y="130" text-anchor="middle" font-size="12" fill="#1a1a1a">Ніхром 700W</text>
+  <text x="735" y="145" text-anchor="middle" font-size="12" fill="#6b7280">Теплова потужність</text>
+
+  <!-- Channel B: Airflow Control -->
+  <!-- Block 3B: Turbine Driver -->
+  <rect x="450" y="225" width="170" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="535" y="250" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Драйвер двигуна</text>
+  <text x="535" y="270" text-anchor="middle" font-size="12" fill="#1a1a1a">Регулятор напруги DC</text>
+  <text x="535" y="285" text-anchor="middle" font-size="12" fill="#6b7280">ШІМ-регулювання обертів</text>
+
+  <!-- Arrow 3B -> 4B -->
+  <path d="M620,260 L658,260" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Block 4B: Turbine Fan -->
+  <rect x="660" y="225" width="150" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="735" y="250" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Турбіна</text>
+  <text x="735" y="270" text-anchor="middle" font-size="12" fill="#1a1a1a">Вентилятор рукоятки</text>
+  <text x="735" y="285" text-anchor="middle" font-size="12" fill="#6b7280">Повітряний потік</text>
+
+  <!-- Output Mixer / Nozzle Assembly -->
+  <rect x="840" y="105" width="80" height="170" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="880" y="130" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Сопло</text>
+  <text x="880" y="170" text-anchor="middle" font-size="12" fill="#c0392b">Тепло</text>
+  <text x="880" y="190" text-anchor="middle" font-size="12" fill="#2457d6">Потік</text>
+  <text x="880" y="220" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">T_real</text>
+
+  <!-- Arrows into Nozzle -->
+  <path d="M810,120 L838,120" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <path d="M810,260 L838,260" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Feedback Loop & Sensors (Bottom Section) -->
+  <!-- Feedback Arrow from Nozzle to Sensor Amp -->
+  <path d="M880,275 L880,360 L678,360" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- Block 5: Thermocouple Amp + ADC -->
+  <rect x="450" y="325" width="220" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="560" y="350" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Термопара K-типу &amp; АЦП</text>
+  <text x="560" y="370" text-anchor="middle" font-size="12" fill="#1a1a1a">Вимірювання реальної T_real</text>
+  <text x="560" y="385" text-anchor="middle" font-size="12" fill="#6b7280">Компенсація холодного спаю</text>
+
+  <!-- Feedback Arrow from Amp to MCU -->
+  <path d="M450,360 L315,360 L315,242" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="382" y="350" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">e(t) = T_set - T_real</text>
+
+  <!-- Block 6: Reed Switch Safety Control -->
+  <rect x="40" y="325" width="150" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="115" y="350" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Геркон підставки</text>
+  <text x="115" y="370" text-anchor="middle" font-size="12" fill="#1a1a1a">Датчик положення</text>
+  <text x="115" y="385" text-anchor="middle" font-size="12" fill="#6b7280">Автоохолодження / Сон</text>
+
+  <!-- Reed Switch Arrow to MCU -->
+  <path d="M190,360 L280,360 L280,242" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+</svg>

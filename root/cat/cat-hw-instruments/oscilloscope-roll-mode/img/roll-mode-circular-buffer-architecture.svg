@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура кільцевого буфера та відображення даних у режимі Roll Mode</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">АЦП безперервно перезаписує найстаріші відліки за вказівником запису, а дисплейний контролер зчитує вікно буфера</text>
+
+  <!-- BLOCK 1: ADC & ANALOG IN -->
+  <rect x="50" y="90" width="180" height="420" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="140" y="115" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Вхідний тракт і АЦП</text>
+
+  <!-- Input Waveform Card -->
+  <rect x="65" y="135" width="150" height="95" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="140" y="152" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Аналоговий сигнал V_in(t)</text>
+  <path d="M 75,190 Q 90,160 110,185 T 150,180 Q 170,210 205,175" stroke="#2457d6" stroke-width="2" fill="none"/>
+
+  <!-- ADC Box -->
+  <rect x="65" y="250" width="150" height="85" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="140" y="273" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">АЦП (ADC)</text>
+  <text x="140" y="291" font-size="12" fill="#6b7280" text-anchor="middle">Частота f_s (sample/s)</text>
+  <text x="140" y="309" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дискретизація</text>
+
+  <!-- Clock Generator Box -->
+  <rect x="65" y="355" width="150" height="65" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="140" y="378" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Тактовий генератор</text>
+  <text x="140" y="396" font-size="12" fill="#6b7280" text-anchor="middle">Період T_s = 1 / f_s</text>
+
+  <!-- Arrow: ADC to Buffer -->
+  <line x1="215" y1="292" x2="262" y2="292" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="242" y="282" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Потік даних</text>
+
+
+  <!-- BLOCK 2: CIRCULAR BUFFER MEMORY -->
+  <rect x="270" y="90" width="400" height="420" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="470" y="115" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Кільцевий буфер пам'яті (Ring Buffer)</text>
+  <text x="470" y="133" font-size="12" fill="#6b7280" text-anchor="middle">Фіксований обсяг N відліків; перезапис по колу</text>
+
+  <!-- CIRCULAR MEMORY RING GRAPHIC -->
+  <!-- Read Window Sector (left half, 90° to 270°) -->
+  <path d="M 470,380 A 100,100 0 0,1 370,280 A 100,100 0 0,1 470,180 L 470,220 A 60,60 0 0,0 410,280 A 60,60 0 0,0 470,340 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Overwritten Sector (top, 270° to 315°) -->
+  <path d="M 470,180 A 100,100 0 0,1 540.7,209.3 L 512.4,237.6 A 60,60 0 0,0 470,220 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Active Write Sector (top-right, 315° to 360°) -->
+  <path d="M 512.4,237.6 L 540.7,209.3 A 100,100 0 0,1 570,280 L 530,280 A 60,60 0 0,0 512.4,237.6 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Outer & Inner Ring Outlines -->
+  <circle cx="470" cy="280" r="100" fill="none" stroke="#d0d7de" stroke-width="1.5"/>
+  <circle cx="470" cy="280" r="60" fill="none" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Sector Divider Lines -->
+  <line x1="530" y1="280" x2="570" y2="280" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="512.4" y1="322.4" x2="540.7" y2="350.7" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="470" y1="340" x2="470" y2="380" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="427.6" y1="322.4" x2="399.3" y2="350.7" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="410" y1="280" x2="370" y2="280" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="427.6" y1="237.6" x2="399.3" y2="209.3" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="470" y1="220" x2="470" y2="180" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="512.4" y1="237.6" x2="540.7" y2="209.3" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Sector Cell Labels (Positioned cleanly off sector lines!) -->
+  <text x="544" y="253" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">[N-1]</text>
+  <text x="500" y="210" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">[N-2]</text>
+  <text x="440" y="210" font-size="12" fill="#2457d6" text-anchor="middle">[0]</text>
+  <text x="396" y="253" font-size="12" fill="#2457d6" text-anchor="middle">[1]</text>
+  <text x="396" y="314" font-size="12" fill="#2457d6" text-anchor="middle">[2]</text>
+  <text x="440" y="357" font-size="12" fill="#2457d6" text-anchor="middle">[3]</text>
+  <text x="500" y="357" font-size="12" fill="#2457d6" text-anchor="middle">[4]</text>
+
+  <!-- Central Ring Hub with Internal Pointer Rotation Arrow -->
+  <circle cx="470" cy="280" r="50" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 448,264 A 24,24 0 1,1 492,264" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="470" y="278" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Буфер N</text>
+  <text x="470" y="295" font-size="12" fill="#6b7280" text-anchor="middle">(mod N)</text>
+
+  <!-- Write Pointer Callout Badge (Top-Right) -->
+  <rect x="550" y="148" width="105" height="30" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="602" y="161" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Write_Ptr</text>
+  <text x="602" y="174" font-size="12" fill="#1a1a1a" text-anchor="middle">Запис АЦП</text>
+  <line x1="570" y1="178" x2="545" y2="230" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Overwritten Callout Badge (Top-Left) -->
+  <rect x="275" y="148" width="115" height="30" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="332" y="161" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Найстаріший</text>
+  <text x="332" y="174" font-size="12" fill="#1a1a1a" text-anchor="middle">Перезапис</text>
+
+  <!-- Read Window Callout Badge (Bottom-Left) -->
+  <rect x="275" y="385" width="115" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="332" y="399" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вікно дисплея</text>
+  <text x="332" y="411" font-size="12" fill="#1a1a1a" text-anchor="middle">Зчитування</text>
+
+  <!-- Bottom Cards in Block 2 -->
+  <rect x="285" y="435" width="175" height="55" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="295" y="452" font-size="12" font-weight="bold" fill="#27ae60">• Запис відліків:</text>
+  <text x="295" y="467" font-size="12" fill="#1a1a1a">  Запис по колу (mod N)</text>
+  <text x="295" y="481" font-size="12" fill="#6b7280">  Беззупинний потік</text>
+
+  <rect x="480" y="435" width="175" height="55" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="490" y="452" font-size="12" font-weight="bold" fill="#2457d6">• Вивід на екран:</text>
+  <text x="490" y="467" font-size="12" fill="#1a1a1a">  Зсув вікна на 1 точку</text>
+  <text x="490" y="481" font-size="12" fill="#6b7280">  Реальний час</text>
+
+  <!-- Arrow: Buffer to Display -->
+  <line x1="670" y1="190" x2="717" y2="190" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="693" y="180" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вікно</text>
+
+
+  <!-- BLOCK 3: DISPLAY & REAL-TIME SCREEN -->
+  <rect x="710" y="90" width="200" height="420" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="810" y="115" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Вивід на екран</text>
+  <text x="810" y="133" font-size="12" fill="#6b7280" text-anchor="middle">Реальний час (Real-Time)</text>
+
+  <!-- Display Controller Box -->
+  <rect x="725" y="155" width="170" height="65" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="810" y="178" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Дисплейний процесор</text>
+  <text x="810" y="196" font-size="12" fill="#1a1a1a" text-anchor="middle">Зсув пікселів наліво</text>
+
+  <!-- Arrow: Display Controller to Screen Frame -->
+  <line x1="810" y1="220" x2="810" y2="234" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Screen Frame -->
+  <rect x="725" y="240" width="170" height="170" fill="#0f172a" stroke="#334155" stroke-width="2" rx="6"/>
+  <!-- Screen Grid -->
+  <line x1="725" y1="282" x2="895" y2="282" stroke="#1e293b" stroke-dasharray="2,2"/>
+  <line x1="725" y1="325" x2="895" y2="325" stroke="#1e293b" stroke-dasharray="2,2"/>
+  <line x1="725" y1="367" x2="895" y2="367" stroke="#1e293b" stroke-dasharray="2,2"/>
+  <line x1="767" y1="240" x2="767" y2="410" stroke="#1e293b" stroke-dasharray="2,2"/>
+  <line x1="810" y1="240" x2="810" y2="410" stroke="#1e293b" stroke-dasharray="2,2"/>
+  <line x1="852" y1="240" x2="852" y2="410" stroke="#1e293b" stroke-dasharray="2,2"/>
+
+  <!-- Screen Roll Waveform -->
+  <path d="M 735,335 Q 750,305 765,325 T 795,315 Q 810,345 825,320 T 855,330 Q 870,295 885,315" stroke="#2ecc71" stroke-width="2" fill="none"/>
+
+  <!-- Screen Roll Badge -->
+  <rect x="735" y="250" width="50" height="20" fill="#27ae60" rx="3"/>
+  <text x="760" y="264" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">ROLL</text>
+
+  <!-- Screen Motion Arrow -->
+  <line x1="840" y1="360" x2="755" y2="360" stroke="#2ecc71" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="797" y="352" font-size="12" font-weight="bold" fill="#2ecc71" text-anchor="middle">Зсув ◄</text>
+
+  <!-- Screen Labels -->
+  <text x="735" y="395" font-size="12" fill="#94a3b8">Старі</text>
+  <text x="885" y="395" font-size="12" font-weight="bold" fill="#2ecc71" text-anchor="end">Нові</text>
+
+  <!-- Caption under Screen -->
+  <text x="810" y="440" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Безперервний потік</text>
+  <text x="810" y="456" font-size="12" fill="#6b7280" text-anchor="middle">Без тригера й пауз</text>
+  <text x="810" y="472" font-size="12" fill="#6b7280" text-anchor="middle">Потокове оновлення</text>
+</svg>

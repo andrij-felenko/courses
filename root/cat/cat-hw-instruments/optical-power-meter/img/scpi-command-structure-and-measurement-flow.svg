@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ієрархія команд SCPI та потік вимірювання оптичної потужності</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Послідовне налаштування довжини хвилі й одиниць з наступним опитуванням виміряного значення</text>
+
+  <!-- LEFT PANEL: SCPI COMMAND HIERARCHY -->
+  <g id="panel-hierarchy">
+    <rect x="24" y="74" width="440" height="426" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="244" y="96" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ІЄРАРХІЯ ПІДСИСТЕМ ТА КОМАНД SCPI</text>
+
+    <!-- Block 1: IEEE 488.2 Common Commands -->
+    <rect x="38" y="112" width="412" height="66" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="50" y="130" font-size="12" font-weight="bold" fill="#1a1a1a">Загальні команди IEEE 488.2</text>
+    <text x="50" y="154" font-size="11" fill="#2457d6">• *IDN? — ідентифікація | *RST — скидання</text>
+
+    <!-- Block 2: SENSe Subsystem -->
+    <rect x="38" y="190" width="412" height="154" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="50" y="208" font-size="12" font-weight="bold" fill="#2457d6">Підсистема :SENSe:POWer (Параметри)</text>
+    <text x="50" y="236" font-size="11" fill="#1a1a1a">• :WAVelength &lt;num&gt; [NM] — довжина хвилі</text>
+    <text x="50" y="264" font-size="11" fill="#1a1a1a">• :RANGe:AUTO {ON|OFF} — автодіапазон</text>
+    <text x="50" y="292" font-size="11" fill="#1a1a1a">• :UNIT {DBM|W|MW|UW} — одиниці потужності</text>
+    <text x="50" y="320" font-size="11" fill="#6b7280">• :CORRection:GAIN &lt;num&gt; — кастомний коефіцієнт</text>
+
+    <!-- Block 3: READ & SYSTem Subsystem -->
+    <rect x="38" y="356" width="412" height="130" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="50" y="374" font-size="12" font-weight="bold" fill="#1a1a1a">Команди опитування та статусу</text>
+    <text x="50" y="404" font-size="11" fill="#1a1a1a">• :READ? / :MEASure? — зчитати потужність</text>
+    <text x="50" y="432" font-size="11" fill="#1a1a1a">• :SYSTem:ERRor? — зчитати чергу помилок</text>
+    <text x="50" y="460" font-size="11" fill="#6b7280">• :STATus:QUEStionable? — регістр статусу</text>
+  </g>
+
+  <!-- RIGHT PANEL: SEQUENCE FLOW DIAGRAM -->
+  <g id="panel-sequence">
+    <rect x="496" y="74" width="440" height="426" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="716" y="96" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ПОСЛІДОВНІСТЬ ОБМІНУ ДАНИМИ (HOST &lt;-&gt; OPM)</text>
+
+    <!-- Host PC Lifeline Header -->
+    <rect x="540" y="112" width="80" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="580" y="132" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ПК (Host)</text>
+    <line x1="580" y1="144" x2="580" y2="476" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+    <!-- OPM Lifeline Header -->
+    <rect x="820" y="112" width="90" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="865" y="132" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Ватметр (OPM)</text>
+    <line x1="865" y1="144" x2="865" y2="476" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+    <!-- Step 1: *IDN? -->
+    <text x="722" y="171" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1. *IDN? (Ідентифікація)</text>
+    <line x1="580" y1="180" x2="865" y2="180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+    <text x="722" y="203" font-size="11" fill="#27ae60" text-anchor="middle">"THORLABS,PM100D,190412,v2.4"</text>
+    <line x1="865" y1="210" x2="580" y2="210" stroke="#27ae60" stroke-width="2" stroke-dasharray="4 2" marker-end="url(#arr-green)"/>
+
+    <!-- Step 2: :SENS:POW:WAV 1550NM -->
+    <text x="722" y="246" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2. :SENS:POW:WAV 1550NM</text>
+    <line x1="580" y1="255" x2="865" y2="255" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+    <!-- Step 3: :SENS:POW:UNIT DBM -->
+    <text x="722" y="286" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">3. :SENS:POW:UNIT DBM</text>
+    <line x1="580" y1="295" x2="865" y2="295" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+    <!-- Step 4: :READ? -->
+    <text x="722" y="336" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">4. :READ? (Запит вимірювання)</text>
+    <line x1="580" y1="345" x2="865" y2="345" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+    <text x="722" y="366" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">-12.45 (значення в дБм)</text>
+    <line x1="865" y1="375" x2="580" y2="375" stroke="#27ae60" stroke-width="2" stroke-dasharray="4 2" marker-end="url(#arr-green)"/>
+
+    <!-- Step 5: :SYST:ERR? -->
+    <text x="722" y="411" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">5. :SYST:ERR? (Перевірка помилок)</text>
+    <line x1="580" y1="420" x2="865" y2="420" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+    <text x="722" y="441" font-size="11" fill="#27ae60" text-anchor="middle">0,"No error"</text>
+    <line x1="865" y1="450" x2="580" y2="450" stroke="#27ae60" stroke-width="2" stroke-dasharray="4 2" marker-end="url(#arr-green)"/>
+  </g>
+</svg>

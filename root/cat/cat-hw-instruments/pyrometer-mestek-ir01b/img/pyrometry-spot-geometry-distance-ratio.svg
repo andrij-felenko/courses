@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрія вимірювального конуса та оптичної роздільності D:S 12:1</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Діаметр плями S = D / 12 зростає лінійно з відстанню D; деталь має повністю перекривати пляму S</text>
+
+  <!-- Top Diagram Container -->
+  <rect x="25" y="70" width="910" height="235" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="92" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Оптичний вимірювальний конус пірометра (D:S = 12:1)</text>
+
+  <!-- Pyrometer Lens Schematic -->
+  <rect x="40" y="155" width="55" height="50" rx="4" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 95,155 A 25,25 0 0 1 95,205 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="67" y="222" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Лінза ІЧ-сенсора</text>
+
+  <!-- Label for Optical Axis placed above cone line to avoid intersection -->
+  <text x="135" y="145" font-size="12" fill="#6b7280">Оптична вісь</text>
+
+  <!-- Optical Axis Line -->
+  <line x1="95" y1="180" x2="890" y2="180" stroke="#6b7280" stroke-width="1" stroke-dasharray="6,4"/>
+
+  <!-- Cone Envelope -->
+  <polygon points="95,180 863,100 863,260" fill="#eaf0fd" opacity="0.6" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="5,3"/>
+
+  <!-- Station 1 (D = 300 mm, S = 25 mm) -->
+  <ellipse cx="287" cy="180" rx="10" ry="20" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <line x1="287" y1="160" x2="287" y2="200" stroke="#2457d6" stroke-width="1"/>
+  <text x="287" y="145" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">D₁ = 300 мм</text>
+  <text x="287" y="222" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S₁ = 25 мм</text>
+
+  <!-- Station 2 (D = 600 mm, S = 50 mm) -->
+  <ellipse cx="479" cy="180" rx="16" ry="40" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <line x1="479" y1="140" x2="479" y2="220" stroke="#2457d6" stroke-width="1"/>
+  <text x="479" y="125" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">D₂ = 600 мм</text>
+  <text x="479" y="242" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S₂ = 50 мм</text>
+
+  <!-- Station 3 (D = 1200 mm, S = 100 mm) -->
+  <ellipse cx="863" cy="180" rx="24" ry="80" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <line x1="863" y1="100" x2="863" y2="260" stroke="#2457d6" stroke-width="1"/>
+  <text x="863" y="93" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">D₃ = 1200 мм</text>
+  <text x="863" y="282" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S₃ = 100 мм</text>
+
+  <!-- Formula Box -->
+  <rect x="565" y="195" width="250" height="50" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="690" y="215" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">D : S = 12 : 1  (S = D / 12)</text>
+  <text x="690" y="233" font-size="12" fill="#1a1a1a" text-anchor="middle">Макс. відстань: D_max = 12 · S_деталі</text>
+
+  <!-- Bottom Left Panel: Correct Measurement -->
+  <rect x="25" y="335" width="445" height="165" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="25" y="335" width="445" height="32" rx="8" fill="#27ae60"/>
+  <text x="247" y="356" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">ПРАВИЛЬНО: Повне перекриття плями (S_obj ≥ S_spot)</text>
+
+  <!-- Left Mini Diagram -->
+  <rect x="45" y="380" width="85" height="85" rx="4" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="87" cy="422" r="30" fill="#eaf0fd" opacity="0.8" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="87" y="478" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ 100% охоплення</text>
+
+  <!-- Left Points -->
+  <text x="145" y="393" font-size="12" font-weight="bold" fill="#1a1a1a">• Площа деталі повністю покриває пляму S</text>
+  <text x="145" y="411" font-size="12" fill="#6b7280">• Фонове випромінювання T_bg не потрапляє в конус</text>
+  <text x="145" y="429" font-size="12" fill="#27ae60">• P_total = ε · σ · T_obj⁴  (без паразитного тепла)</text>
+  <text x="145" y="447" font-size="12" fill="#1a1a1a">• Виміряна температура дорівнює істинній T_obj</text>
+  <text x="145" y="465" font-size="12" font-weight="bold" fill="#27ae60">• Похибка вимірювання: ΔT = 0 °C</text>
+
+  <!-- Bottom Right Panel: Error from Background -->
+  <rect x="490" y="335" width="445" height="165" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="490" y="335" width="445" height="32" rx="8" fill="#c0392b"/>
+  <text x="712" y="356" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">ПОМИЛКА: Неповне перекриття плями (S_obj &lt; S_spot)</text>
+
+  <!-- Right Mini Diagram -->
+  <circle cx="552" cy="422" r="40" fill="#fdecea" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,2"/>
+  <rect x="537" y="407" width="30" height="30" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="552" y="377" font-size="12" fill="#c0392b" text-anchor="middle">Фон T_bg</text>
+  <text x="552" y="478" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">✗ Засвічення фону</text>
+
+  <!-- Right Points -->
+  <text x="610" y="393" font-size="12" font-weight="bold" fill="#c0392b">• Об'єкт менший за пляму: частка площі k &lt; 1</text>
+  <text x="610" y="411" font-size="12" fill="#1a1a1a">• P_total = k · σ · T_obj⁴ + (1 - k) · σ · T_bg⁴</text>
+  <text x="610" y="429" font-size="12" fill="#6b7280">• Сенсор інтегрує тепло деталі та фону T_bg</text>
+  <text x="610" y="447" font-size="12" fill="#c0392b">• Значна похибка (наприклад: +100 °C → +49 °C)</text>
+  <text x="610" y="465" font-size="12" font-weight="bold" fill="#c0392b">• Критична похибка: ΔT може сягати &gt; 50 °C</text>
+</svg>

@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Тракт подачі гнучкого філаменту (TPU): Bowden проти Direct Drive</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Вплив довжини й обмеження тракту на зминання та точність екструзії еластомеру</text>
+
+  <!-- PANEL 1: BOWDEN SYSTEM -->
+  <rect x="30" y="75" width="435" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Система Bowden (довгий вільний тракт)</text>
+
+  <!-- Extruder Drive Gear & Pressure Roller -->
+  <circle cx="215" cy="155" r="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="215" cy="155" r="5" fill="#6b7280"/>
+  <circle cx="279" cy="155" r="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="279" cy="155" r="5" fill="#6b7280"/>
+  <text x="145" y="150" font-size="12" fill="#1a1a1a" text-anchor="end">Подавальна</text>
+  <text x="145" y="165" font-size="12" fill="#1a1a1a" text-anchor="end">шестірня</text>
+
+  <!-- Upper Guide Entry -->
+  <rect x="239" y="120" width="16" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <line x1="247" y1="120" x2="247" y2="140" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Unconstrained Gap & Buckled Filament (Red Wavy Path) -->
+  <!-- Gap guides boundaries -->
+  <line x1="235" y1="171" x2="235" y2="182" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="259" y1="171" x2="259" y2="182" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Buckled Filament Path -->
+  <path d="M 247,140 L 247,173 C 247,192 282,197 272,218 C 265,228 247,233 247,245 L 247,290" fill="none" stroke="#c0392b" stroke-width="3"/>
+
+  <!-- Pointer & Warning Text for Buckling -->
+  <line x1="285" y1="202" x2="272" y2="202" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+  <text x="292" y="195" font-size="12" font-weight="bold" fill="#c0392b">Зминання нитки (buckling)</text>
+  <text x="292" y="210" font-size="12" fill="#c0392b">у вільному зазорі</text>
+
+  <!-- Bowden PTFE Tube -->
+  <rect x="239" y="235" width="16" height="55" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="145" y="255" font-size="12" fill="#6b7280" text-anchor="end">Трубка Bowden</text>
+  <text x="145" y="270" font-size="12" fill="#6b7280" text-anchor="end">(L ≈ 500 мм)</text>
+
+  <!-- Hotend Heatbreak & Nozzle (Panel 1) -->
+  <rect x="237" y="290" width="20" height="22" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 237,312 L 257,312 L 250,332 L 244,332 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="292" y="315" font-size="12" fill="#1a1a1a">Нагрівальний блок</text>
+  <text x="292" y="330" font-size="12" fill="#1a1a1a">і сопло</text>
+
+  <!-- Panel 1 Summary Box -->
+  <rect x="45" y="350" width="405" height="135" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="60" y="370" font-size="12" font-weight="bold" fill="#c0392b">Проблеми Bowden при друці TPU:</text>
+  <text x="60" y="390" font-size="12" fill="#1a1a1a">1. Великий зазор між шестірнею та трубкою спричиняє</text>
+  <text x="60" y="408" font-size="12" fill="#1a1a1a">   вигинання (buckling) гнучкої нитки вбік.</text>
+  <text x="60" y="428" font-size="12" fill="#1a1a1a">2. Пружинення нитки в трубці довжиною 500 мм</text>
+  <text x="60" y="446" font-size="12" fill="#1a1a1a">   робить ретракцію неефективною (сопління).</text>
+  <text x="60" y="466" font-size="12" font-weight="bold" fill="#c0392b">3. Ризик заклинювання та недоекструзії.</text>
+
+  <!-- PANEL 2: DIRECT DRIVE SYSTEM -->
+  <rect x="495" y="75" width="435" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Система Direct Drive (короткий закритий тракт)</text>
+
+  <!-- Dual-Drive Extruder Gears -->
+  <circle cx="680" cy="155" r="16" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="680" cy="155" r="5" fill="#2457d6"/>
+  <circle cx="744" cy="155" r="16" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="744" cy="155" r="5" fill="#2457d6"/>
+  <text x="610" y="150" font-size="12" fill="#1a1a1a" text-anchor="end">Подвійний привід</text>
+  <text x="610" y="165" font-size="12" fill="#1a1a1a" text-anchor="end">(Dual Drive)</text>
+
+  <!-- Upper Guide Tube -->
+  <rect x="704" y="120" width="16" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- Tightly Constrained Guide Channel (< 2mm Gap) -->
+  <rect x="704" y="171" width="16" height="119" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Straight Filament Path (Green) -->
+  <line x1="712" y1="120" x2="712" y2="330" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Pointer & Text for Constrained Guide -->
+  <line x1="740" y1="202" x2="722" y2="202" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arr-green)"/>
+  <text x="745" y="195" font-size="12" font-weight="bold" fill="#27ae60">Затворений зазор (&lt; 2 мм)</text>
+  <text x="745" y="210" font-size="12" fill="#27ae60">напрямний капіляр</text>
+
+  <text x="610" y="255" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Рівний тракт</text>
+  <text x="610" y="270" font-size="12" fill="#27ae60" text-anchor="end">без деформацій</text>
+
+  <!-- Hotend Heatbreak & Nozzle (Panel 2) -->
+  <rect x="702" y="290" width="20" height="22" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 702,312 L 722,312 L 715,332 L 709,332 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="745" y="315" font-size="12" fill="#1a1a1a">Короткий хотенд</text>
+  <text x="745" y="330" font-size="12" fill="#1a1a1a">прямо під приводом</text>
+
+  <!-- Flow Direction Arrow inside Nozzle -->
+  <line x1="712" y1="318" x2="712" y2="336" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Panel 2 Summary Box -->
+  <rect x="510" y="350" width="405" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="525" y="370" font-size="12" font-weight="bold" fill="#27ae60">Переваги Direct Drive для TPU:</text>
+  <text x="525" y="390" font-size="12" fill="#1a1a1a">1. Короткий і повністю закритий тракт подачі</text>
+  <text x="525" y="408" font-size="12" fill="#1a1a1a">   унеможливлює вигинання еластомеру.</text>
+  <text x="525" y="428" font-size="12" fill="#1a1a1a">2. Пряма передача зусилля забезпечує точний</text>
+  <text x="525" y="446" font-size="12" fill="#1a1a1a">   дозовий контроль та коротку ретракцію.</text>
+  <text x="525" y="466" font-size="12" font-weight="bold" fill="#27ae60">3. Стабільний друк м'якими TPU (70A–95A).</text>
+</svg>

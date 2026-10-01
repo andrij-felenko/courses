@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr_green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr_red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Коефіцієнт випромінювання ε та похибка відбиття</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Шкала ε матеріалів та фізика похибки відбитого випромінювання</text>
+
+  <!-- LEFT PANEL: Emissivity Scale Chart -->
+  <rect x="20" y="70" width="450" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <text x="245" y="94" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шкала коефіцієнтів емісії ε</text>
+  <text x="245" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Значення ε для різних матеріалів</text>
+
+  <!-- Bar Chart Box -->
+  <rect x="35" y="125" width="420" height="280" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Row 1: Matte Paint / Rubber -->
+  <text x="45" y="164" font-size="12" font-weight="bold" fill="#1a1a1a">Матова фарба / гума</text>
+  <rect x="185" y="149" width="171" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="445" y="164" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">ε = 0.95</text>
+
+  <!-- Row 2: Plastic / FR4 -->
+  <text x="45" y="209" font-size="12" fill="#1a1a1a">Пластик / Текстоліт</text>
+  <rect x="185" y="194" width="153" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="445" y="209" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">ε = 0.85</text>
+
+  <!-- Row 3: Oxidized Metal -->
+  <text x="45" y="254" font-size="12" fill="#1a1a1a">Окислений метал</text>
+  <rect x="185" y="239" width="117" height="20" rx="3" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="445" y="254" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">ε = 0.65</text>
+
+  <!-- Row 4: Rough Aluminum -->
+  <text x="45" y="299" font-size="12" fill="#1a1a1a">Шорсткий алюміній</text>
+  <rect x="185" y="284" width="72" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="445" y="299" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">ε = 0.40</text>
+
+  <!-- Row 5: Polished Metal -->
+  <text x="45" y="344" font-size="12" fill="#1a1a1a">Полірований метал</text>
+  <rect x="185" y="329" width="27" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="445" y="344" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">ε = 0.15</text>
+
+  <!-- Scale Axis -->
+  <line x1="185" y1="365" x2="365" y2="365" stroke="#6b7280" stroke-width="1"/>
+  <line x1="185" y1="365" x2="185" y2="371" stroke="#6b7280" stroke-width="1"/>
+  <text x="185" y="386" font-size="12" fill="#6b7280" text-anchor="middle">0.0</text>
+
+  <line x1="275" y1="365" x2="275" y2="371" stroke="#6b7280" stroke-width="1"/>
+  <text x="275" y="386" font-size="12" fill="#6b7280" text-anchor="middle">0.5</text>
+
+  <line x1="365" y1="365" x2="365" y2="371" stroke="#6b7280" stroke-width="1"/>
+  <text x="365" y="386" font-size="12" fill="#6b7280" text-anchor="middle">1.0</text>
+
+  <!-- Formula Box -->
+  <rect x="35" y="418" width="420" height="68" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="245" y="438" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Формула енергії:  ε + ρ = 1</text>
+  <text x="245" y="458" font-size="12" fill="#1a1a1a" text-anchor="middle">Чим менша емісія ε, тим більше відбиття тла ρ</text>
+  <text x="245" y="476" font-size="12" fill="#6b7280" text-anchor="middle">(для непрозорих матеріалів)</text>
+
+  <!-- RIGHT PANEL: Reflection Error Physics -->
+  <rect x="490" y="70" width="450" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <text x="715" y="94" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Механізм похибки відбиття</text>
+  <text x="715" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Вплив відбитого випромінювання на сенсор</text>
+
+  <!-- Card 1: High Emissivity Surface -->
+  <rect x="505" y="125" width="420" height="175" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="520" y="145" font-size="13" font-weight="bold" fill="#27ae60">1. Матова поверхня (ε = 0.95) — ТОЧНО</text>
+
+  <circle cx="535" cy="175" r="10" fill="#2457d6"/>
+  <text x="535" y="197" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Датчик</text>
+
+  <rect x="510" y="250" width="95" height="22" rx="3" fill="#1a1a1a"/>
+  <text x="557" y="265" font-size="12" fill="#ffffff" text-anchor="middle">Об'єкт (ε=0.95)</text>
+
+  <line x1="545" y1="250" x2="538" y2="190" stroke="#27ae60" stroke-width="3" marker-end="url(#arr_green)"/>
+  <text x="562" y="182" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">95% ІЧ</text>
+
+  <text x="635" y="172" font-size="12" fill="#1a1a1a">• 95% сигналу — власне тепло об'єкта</text>
+  <text x="635" y="195" font-size="12" fill="#1a1a1a">• Лише 5% відбиття стороннього тла</text>
+  <text x="635" y="218" font-size="12" fill="#1a1a1a">• Похибка вимірювання менше 1%</text>
+  <text x="635" y="241" font-size="12" font-weight="bold" fill="#27ae60">• Висновок: Точні показання t°</text>
+
+  <!-- Card 2: Low Emissivity Surface -->
+  <rect x="505" y="312" width="420" height="175" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="520" y="332" font-size="13" font-weight="bold" fill="#c0392b">2. Блискучий метал (ε = 0.15) — ПОХИБКА</text>
+
+  <circle cx="535" cy="365" r="10" fill="#2457d6"/>
+  <text x="535" y="387" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Датчик</text>
+
+  <rect x="510" y="440" width="95" height="22" rx="3" fill="#d0d7de" stroke="#1a1a1a"/>
+  <text x="557" y="455" font-size="12" fill="#1a1a1a" text-anchor="middle">Метал (ε=0.15)</text>
+
+  <line x1="585" y1="395" x2="545" y2="440" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,2"/>
+  <line x1="545" y1="440" x2="538" y2="380" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr_red)"/>
+  <text x="562" y="372" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">85% тло</text>
+
+  <text x="635" y="359" font-size="12" fill="#1a1a1a">• 85% сигналу — відбите тепло тла!</text>
+  <text x="635" y="382" font-size="12" fill="#c0392b" font-weight="bold">• Велика похибка вимірювання t°</text>
+  <text x="635" y="405" font-size="12" font-weight="bold" fill="#2457d6">• Рішення 1: Наклейте матовий скотч</text>
+  <text x="635" y="428" font-size="12" fill="#2457d6">  (скотч має ε = 0.95 для точного виміру)</text>
+  <text x="635" y="451" font-size="12" font-weight="bold" fill="#2457d6">• Рішення 2: Змініть ε в меню MESTEK</text>
+</svg>

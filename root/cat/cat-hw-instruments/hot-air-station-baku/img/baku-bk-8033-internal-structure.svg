@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Внутрішня структура рукоятки термофена BAKU BK-8033</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Каналізація повітряного потоку та розташування вузлів нагріву й контролю</text>
+
+  <!-- Top Info Panels -->
+  <rect x="40" y="68" width="270" height="60" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="55" y="86" font-size="13" font-weight="bold" fill="#2457d6">1. Вхідний потік і турбіна</text>
+  <text x="55" y="104" font-size="12" fill="#1a1a1a">Безколекторна турбіна затягує</text>
+  <text x="55" y="119" font-size="12" fill="#6b7280">зовнішнє повітря крізь ґрати</text>
+
+  <rect x="335" y="68" width="290" height="60" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="350" y="86" font-size="13" font-weight="bold" fill="#c0392b">2. Нагрівальний елемент і датчик</text>
+  <text x="350" y="104" font-size="12" fill="#1a1a1a">Кераміка зі спіраллю гріє потік;</text>
+  <text x="350" y="119" font-size="12" fill="#6b7280">K-термопара вимірює T в соплі</text>
+
+  <rect x="650" y="68" width="270" height="60" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="665" y="86" font-size="13" font-weight="bold" fill="#27ae60">3. Сопло й герконовий датчик</text>
+  <text x="665" y="104" font-size="12" fill="#1a1a1a">Металеве сопло фокусує струмінь;</text>
+  <text x="665" y="119" font-size="12" fill="#6b7280">геркон активує режим сну</text>
+
+  <!-- Handle Casing -->
+  <rect x="90" y="170" width="340" height="170" rx="15" fill="#f4f6f8" stroke="#6c757d" stroke-width="2"/>
+  <text x="110" y="190" font-size="12" font-weight="bold" fill="#6b7280">Корпус рукоятки</text>
+
+  <!-- Cable Gland -->
+  <rect x="40" y="240" width="50" height="30" rx="4" fill="#495057" stroke="#212529" stroke-width="1.5"/>
+  <text x="65" y="232" text-anchor="middle" font-size="12" fill="#6b7280">Кабель</text>
+
+  <!-- Air Inlet Slots -->
+  <line x1="90" y1="200" x2="90" y2="310" stroke="#2457d6" stroke-width="3" stroke-dasharray="8,5"/>
+  <text x="102" y="330" font-size="12" fill="#2457d6">Вхід повітря</text>
+
+  <!-- Turbine Assembly -->
+  <rect x="140" y="195" width="90" height="120" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="185" cy="255" r="24" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="185" cy="255" r="8" fill="#2457d6"/>
+  <line x1="185" y1="231" x2="185" y2="279" stroke="#2457d6" stroke-width="2"/>
+  <line x1="161" y1="255" x2="209" y2="255" stroke="#2457d6" stroke-width="2"/>
+  <text x="185" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Турбіна (Fan)</text>
+
+  <!-- Air Channel Arrows -->
+  <path d="M240,235 L415,235" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <path d="M240,275 L415,275" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="330" y="225" text-anchor="middle" font-size="12" fill="#2457d6">Холодний потік повітря</text>
+
+  <!-- Reed Switch -->
+  <rect x="260" y="305" width="80" height="20" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <line x1="270" y1="315" x2="296" y2="315" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="304" y1="315" x2="330" y2="315" stroke="#27ae60" stroke-width="1.5"/>
+  <path d="M300,325 L300,355" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="300" y="367" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Герконовий датчик (Sleep Sensor)</text>
+
+  <!-- Protective Metal Tube -->
+  <rect x="430" y="195" width="310" height="120" rx="4" fill="#e9ecef" stroke="#495057" stroke-width="2"/>
+  <text x="585" y="187" text-anchor="middle" font-size="12" font-weight="bold" fill="#495057">Захисна металева труба</text>
+
+  <!-- Ceramic Heater Core -->
+  <rect x="450" y="210" width="230" height="90" rx="4" fill="#ffffff" stroke="#ced4da" stroke-width="1.5"/>
+  <path d="M460,235 Q470,225 480,235 T500,235 T520,235 T540,235 T560,235 T580,235 T600,235 T620,235 T640,235 T660,235" fill="none" stroke="#e67e22" stroke-width="2.5"/>
+  <path d="M460,275 Q470,265 480,275 T500,275 T520,275 T540,275 T560,275 T580,275 T600,275 T620,275 T640,275 T660,275" fill="none" stroke="#e67e22" stroke-width="2.5"/>
+  <text x="555" y="258" text-anchor="middle" font-size="12" font-weight="bold" fill="#e67e22">Керамічний нагрівач (700W)</text>
+
+  <!-- Thermocouple Sensor -->
+  <circle cx="700" cy="255" r="7" fill="#c0392b" stroke="#795548" stroke-width="1.5"/>
+  <line x1="450" y1="250" x2="693" y2="250" stroke="#795548" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <line x1="450" y1="260" x2="693" y2="260" stroke="#d32f2f" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <path d="M700,262 L700,345" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="700" y="358" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Термопара K-типу (зчитування T)</text>
+
+  <!-- Output Nozzle -->
+  <path d="M740,215 L820,230 L820,280 L740,295 Z" fill="#ced4da" stroke="#343a40" stroke-width="2"/>
+  <text x="780" y="210" text-anchor="middle" font-size="12" font-weight="bold" fill="#343a40">Сопло</text>
+
+  <!-- Hot Air Output Stream -->
+  <path d="M820,240 L925,235" stroke="#c0392b" stroke-width="3.5" marker-end="url(#arr-red)"/>
+  <path d="M820,255 L935,255" stroke="#c0392b" stroke-width="4" marker-end="url(#arr-red)"/>
+  <path d="M820,270 L925,275" stroke="#c0392b" stroke-width="3.5" marker-end="url(#arr-red)"/>
+  <text x="880" y="220" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Гаряче повітря</text>
+  <text x="880" y="295" text-anchor="middle" font-size="12" fill="#6b7280">(100–480 °C)</text>
+
+  <!-- Bottom Legend Panel -->
+  <rect x="40" y="390" width="880" height="50" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="60" y="408" width="16" height="14" rx="3" fill="#2457d6"/>
+  <text x="84" y="420" font-size="12" fill="#1a1a1a">Холодний потік (від турбіни)</text>
+  <rect x="290" y="408" width="16" height="14" rx="3" fill="#e67e22"/>
+  <text x="314" y="420" font-size="12" fill="#1a1a1a">Ніхромова спіраль нагрівача</text>
+  <rect x="520" y="408" width="16" height="14" rx="3" fill="#c0392b"/>
+  <text x="544" y="420" font-size="12" fill="#1a1a1a">Термопара K-типу &amp; Гаряче повітря</text>
+  <rect x="780" y="408" width="16" height="14" rx="3" fill="#27ae60"/>
+  <text x="804" y="420" font-size="12" fill="#1a1a1a">Геркон (сон)</text>
+</svg>

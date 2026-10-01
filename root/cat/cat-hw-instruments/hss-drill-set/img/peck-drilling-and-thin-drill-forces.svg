@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-cyan" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0284c7"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл сил та техніка переривчастого свердління (d = 2.5 мм)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Порівняння небезпеки згинання при безперервному натиску та ефективності циклічного відведення свердла</text>
+
+  <!-- PANEL 1: DANGEROUS MODE (LEFT) -->
+  <rect x="30" y="75" width="435" height="370" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="45" y="88" width="405" height="30" rx="4" fill="#c0392b"/>
+  <text x="247" y="108" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">1. Небезпечний режим (Безперервний тиск)</text>
+
+  <!-- Chuck Panel 1 -->
+  <text x="247" y="138" font-size="12" fill="#475569" text-anchor="middle">Патрон верстата</text>
+  <rect x="217" y="145" width="60" height="35" rx="3" fill="#475569"/>
+
+  <!-- Axial force arrow F_ax & Label -->
+  <line x1="247" y1="120" x2="247" y2="140" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="60" y="135" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Надмірне F_ось</text>
+
+  <!-- Bent Drill bit -->
+  <path d="M 244,180 Q 275,260 244,340 L 250,340 Q 281,260 250,180 Z" fill="#64748b" stroke="#334155" stroke-width="1"/>
+  <path d="M 245,200 Q 274,250 246,300" fill="none" stroke="#475569" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- Bending force arrow F_lat & Label -->
+  <line x1="325" y1="255" x2="280" y2="255" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="330" y="248" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Сила вигинання F_бік</text>
+  <text x="330" y="264" font-size="12" fill="#991b1b" text-anchor="start">(вигинає стержень)</text>
+
+  <!-- Danger Annotation Box 1 (Top Left inside Panel 1) -->
+  <rect x="45" y="180" width="150" height="55" rx="4" fill="#ffffff" stroke="#fca5a5"/>
+  <text x="53" y="198" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Критичне згинання:</text>
+  <text x="53" y="214" font-size="12" fill="#1a1a1a" text-anchor="start">F_ось &gt; F_крит</text>
+  <text x="53" y="228" font-size="12" fill="#6b7280" text-anchor="start">(ризик зламу d=2.5)</text>
+
+  <!-- Danger Annotation Box 2 (Bottom Left inside Panel 1) -->
+  <rect x="45" y="260" width="155" height="55" rx="4" fill="#ffffff" stroke="#fca5a5"/>
+  <text x="53" y="278" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Перегрів та заклинення:</text>
+  <text x="53" y="294" font-size="12" fill="#1a1a1a" text-anchor="start">T &gt; 400 °C, стружка</text>
+  <text x="53" y="308" font-size="12" fill="#6b7280" text-anchor="start">забиває канавки</text>
+
+  <!-- Heat and Clogged Chip Effect at Tip -->
+  <circle cx="247" cy="340" r="18" fill="#ef4444" opacity="0.3"/>
+  <path d="M 241,335 C 235,330 238,325 244,328 C 248,322 254,325 250,332 Z" fill="#78350f"/>
+  <path d="M 248,342 C 255,345 252,352 246,348 C 242,354 236,350 242,343 Z" fill="#78350f"/>
+
+  <!-- Workpiece Panel 1 -->
+  <rect x="65" y="340" width="365" height="85" rx="4" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="244" y="340" width="6" height="45" fill="#cbd5e1" stroke="#64748b" stroke-width="1"/>
+  <text x="247" y="410" font-size="12" font-weight="bold" fill="#475569" text-anchor="middle">Деталь (сталь) — безперервне свердління</text>
+
+  <!-- PANEL 2: RECOMMENDED PECK DRILLING (RIGHT) -->
+  <rect x="495" y="75" width="435" height="370" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="510" y="88" width="405" height="30" rx="4" fill="#27ae60"/>
+  <text x="712" y="108" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">2. Правильний режим (Переривчасте свердління)</text>
+
+  <!-- Chuck Panel 2 -->
+  <text x="712" y="138" font-size="12" fill="#475569" text-anchor="middle">Патрон верстата</text>
+  <rect x="682" y="145" width="60" height="35" rx="3" fill="#475569"/>
+
+  <!-- Advantages Box Top Right inside Panel 2 -->
+  <rect x="770" y="145" width="155" height="55" rx="4" fill="#ffffff" stroke="#86efac"/>
+  <text x="778" y="163" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Переваги режиму:</text>
+  <text x="778" y="179" font-size="12" fill="#1a1a1a" text-anchor="start">• Без згинання свердла</text>
+  <text x="778" y="193" font-size="12" fill="#1a1a1a" text-anchor="start">• Низька T зони різання</text>
+
+  <!-- Retraction Motion Arrow (UP, green) -->
+  <line x1="660" y1="260" x2="660" y2="200" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="510" y="225" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">1. Відведення свердла</text>
+  <text x="510" y="240" font-size="12" fill="#15803d" text-anchor="start">(через кожні 1-2 мм)</text>
+
+  <!-- Feed Motion Arrow (DOWN, blue) -->
+  <line x1="764" y1="200" x2="764" y2="260" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="774" y="225" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">2. Осьова подача F_ось</text>
+  <text x="774" y="240" font-size="12" fill="#1d4ed8" text-anchor="start">(контрольований тиск)</text>
+
+  <!-- Straight Drill Bit Panel 2 -->
+  <rect x="710" y="180" width="4" height="145" fill="#64748b" stroke="#334155" stroke-width="1"/>
+  <line x1="712" y1="185" x2="712" y2="320" stroke="#475569" stroke-width="1" stroke-dasharray="6 4"/>
+
+  <!-- Coolant / Lubrication -->
+  <path d="M 525,305 L 590,312 L 670,320" fill="none" stroke="#0284c7" stroke-width="3" marker-end="url(#arr-cyan)"/>
+  <circle cx="678" cy="322" r="3" fill="#38bdf8"/>
+  <circle cx="686" cy="324" r="2.5" fill="#38bdf8"/>
+  <circle cx="694" cy="325" r="2" fill="#38bdf8"/>
+  <text x="510" y="280" font-size="12" font-weight="bold" fill="#0284c7" text-anchor="start">Подача ЗОР / оливи</text>
+  <text x="510" y="295" font-size="12" fill="#0369a1" text-anchor="start">(охолодження крайок)</text>
+
+  <!-- Ejected Chips -->
+  <path d="M 716,335 Q 730,320 740,325 Q 750,330 745,315" fill="none" stroke="#ca8a04" stroke-width="2"/>
+  <path d="M 708,338 Q 695,325 690,332 Q 685,335 688,320" fill="none" stroke="#ca8a04" stroke-width="2"/>
+  <text x="774" y="295" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Евакуація стружки</text>
+  <text x="774" y="310" font-size="12" fill="#15803d" text-anchor="start">(вільне виштовхування)</text>
+
+  <!-- Workpiece Panel 2 -->
+  <rect x="530" y="340" width="365" height="85" rx="4" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="709" y="340" width="6" height="45" fill="#cbd5e1" stroke="#64748b" stroke-width="1"/>
+  <text x="712" y="410" font-size="12" font-weight="bold" fill="#475569" text-anchor="middle">Деталь (сталь) — циклічна евакуація стружки</text>
+
+  <!-- BOTTOM SUMMARY BAR -->
+  <rect x="30" y="460" width="900" height="45" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="477" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Правило для тонких свердел (2.0–4.0 мм): L/D &gt; 3 потребує циклів «подача — відвід — охолодження»</text>
+  <text x="480" y="493" font-size="12" fill="#1a1a1a" text-anchor="middle">Запобігає повздовжньому згинанню, перегріву різальних крайок і заклинюванню стружки у глибоких отворах</text>
+</svg>

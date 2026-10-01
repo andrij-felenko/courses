@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-spike" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#f87171"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Двоканальна діагностика ШІМ-драйвера за допомогою FNIRSI 2C53T</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Схема подачі ШІМ-сигналу DDS-генератором на затвор MOSFET та аналіз осцилограм CH1 і CH2</text>
+
+  <!-- Left Column: Circuit Setup Panel -->
+  <rect x="25" y="70" width="440" height="365" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <text x="245" y="96" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Схема підключення до силового ключа</text>
+  <text x="245" y="114" text-anchor="middle" font-size="12" fill="#6b7280">Автономний тест MOSFET при вимкненому контролері</text>
+
+  <!-- FNIRSI 2C53T Device Box -->
+  <rect x="45" y="135" width="160" height="185" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="125" y="155" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">FNIRSI 2C53T</text>
+
+  <!-- Device Terminals -->
+  <text x="155" y="189" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">DDS Out</text>
+  <circle cx="175" cy="185" r="7" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <text x="155" y="229" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">CH1 (затвор)</text>
+  <circle cx="175" cy="225" r="7" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <text x="155" y="269" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">CH2 (стік)</text>
+  <circle cx="175" cy="265" r="7" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Power Stage Box -->
+  <rect x="250" y="135" width="195" height="185" rx="5" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="347" y="153" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Силовий каскад (MOSFET)</text>
+
+  <text x="347" y="172" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">+12 В (Живлення)</text>
+
+  <!-- Inductive Load Block -->
+  <rect x="295" y="184" width="104" height="28" rx="3" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="347" y="202" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Навантаження L</text>
+
+  <!-- MOSFET Block -->
+  <rect x="310" y="235" width="74" height="34" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="347" y="256" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">MOSFET</text>
+
+  <!-- Wire: Supply to Load -->
+  <line x1="347" y1="176" x2="347" y2="184" stroke="#c0392b" stroke-width="2"/>
+  <!-- Wire: Load to Drain -->
+  <line x1="347" y1="212" x2="347" y2="235" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Wire: Source to GND -->
+  <line x1="347" y1="269" x2="347" y2="295" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="335" y1="295" x2="359" y2="295" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="341" y1="299" x2="353" y2="299" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="344" y1="303" x2="350" y2="303" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Connecting Probes Wires -->
+  <!-- Red Wire: DDS Out to Gate -->
+  <path d="M 182,185 L 275,185 L 275,252 L 310,252" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <!-- Green Wire: CH1 to Gate -->
+  <path d="M 182,225 L 290,225 L 290,252 L 310,252" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <!-- Blue Wire: CH2 to Drain -->
+  <path d="M 182,265 L 415,265 L 415,224 L 347,224" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Left Panel Bottom Info Box -->
+  <rect x="35" y="340" width="420" height="75" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="360" font-size="12" font-weight="bold" fill="#1a1a1a">Режим вимірювання:</text>
+  <text x="45" y="378" font-size="12" fill="#27ae60">CH1 (DC-coupling): імпульси ШІМ керування на затворі (0–5 В)</text>
+  <text x="45" y="396" font-size="12" fill="#2457d6">CH2 (DC/AC-coupling): напруга стоку та індуктивний викид V_ds</text>
+
+  <!-- Right Column: Scope Oscillograms Panel -->
+  <rect x="495" y="70" width="440" height="365" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <text x="715" y="96" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Осцилограми каналів CH1 та CH2</text>
+  <text x="715" y="114" text-anchor="middle" font-size="12" fill="#6b7280">Аналіз частоти, фронтів та індуктивного сплеску напруги</text>
+
+  <!-- Screen Display Area -->
+  <rect x="525" y="130" width="380" height="200" rx="4" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Grid Lines -->
+  <line x1="525" y1="170" x2="905" y2="170" stroke="#334155" stroke-dasharray="3,3"/>
+  <line x1="525" y1="210" x2="905" y2="210" stroke="#334155" stroke-dasharray="3,3"/>
+  <line x1="525" y1="250" x2="905" y2="250" stroke="#334155" stroke-dasharray="3,3"/>
+  <line x1="525" y1="290" x2="905" y2="290" stroke="#334155" stroke-dasharray="3,3"/>
+
+  <line x1="600" y1="130" x2="600" y2="330" stroke="#334155" stroke-dasharray="3,3"/>
+  <line x1="675" y1="130" x2="675" y2="330" stroke="#334155" stroke-dasharray="3,3"/>
+  <line x1="750" y1="130" x2="750" y2="330" stroke="#334155" stroke-dasharray="3,3"/>
+  <line x1="825" y1="130" x2="825" y2="330" stroke="#334155" stroke-dasharray="3,3"/>
+
+  <!-- Waveform CH1: Gate Signal (Green) -->
+  <path d="M 540,210 L 590,210 L 590,160 L 690,160 L 690,210 L 790,210 L 790,160 L 890,160" fill="none" stroke="#2ecc71" stroke-width="2.5"/>
+  <text x="535" y="148" font-size="12" font-weight="bold" fill="#2ecc71">CH1: V_gate (5V PWM)</text>
+
+  <!-- Waveform CH2: Drain Signal (Blue) -->
+  <path d="M 540,260 L 590,260 L 590,300 L 690,300 L 690,215 L 700,215 L 705,270 L 715,255 L 725,260 L 790,260 L 790,300 L 890,300" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+  <text x="535" y="322" font-size="12" font-weight="bold" fill="#38bdf8">CH2: V_drain (12V + Spike)</text>
+
+  <!-- Annotations on Display -->
+  <!-- Duty Cycle Label (positioned inside CH1 high pulse, away from vertical edges) -->
+  <text x="640" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#fbbf24">Період T</text>
+  <text x="640" y="194" text-anchor="middle" font-size="12" font-weight="bold" fill="#fbbf24">(Duty = 50%)</text>
+
+  <!-- Inductive Spike Pointer & Text -->
+  <path d="M 735,234 L 708,220" fill="none" stroke="#f87171" stroke-width="1.5" marker-end="url(#arr-spike)"/>
+  <text x="735" y="240" font-size="12" font-weight="bold" fill="#f87171">Викид V_spike</text>
+
+  <!-- Right Panel Bottom Info Box -->
+  <rect x="505" y="340" width="420" height="75" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="515" y="360" font-size="12" font-weight="bold" fill="#1a1a1a">Результат діагностики каскаду:</text>
+  <text x="515" y="378" font-size="12" fill="#27ae60">Затвор (CH1): прямокутні фронти без завалювання (t_r &lt; 50 нс)</text>
+  <text x="515" y="396" font-size="12" fill="#c0392b">Стік (CH2): небезпечний викид напруги V_spike (потрібен снаббер)</text>
+</svg>

@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Структурна схема мультиметра DT-838 на основі АЦП ICL7106</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Шлях проходження вимірювального сигналу від вхідних щупів до 3½-розрядного ЖК-дисплея</text>
+
+  <!-- COLUMN 1: Input Terminals -->
+  <rect x="30" y="75" width="170" height="175" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="115" y="96" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Вхідні гнізда</text>
+
+  <rect x="45" y="110" width="140" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="115" y="131" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">V / Ω / mA (Червоний)</text>
+
+  <rect x="45" y="150" width="140" height="32" rx="4" fill="#1a1a1a"/>
+  <text x="115" y="171" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">COM (Спільний GND)</text>
+
+  <rect x="45" y="190" width="140" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="115" y="211" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">10ADC (Струм до 10 А)</text>
+
+  <!-- COLUMN 1: Rotary Range Switch -->
+  <rect x="30" y="265" width="170" height="270" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="115" y="285" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Перемикач режимів</text>
+  <text x="115" y="300" text-anchor="middle" font-size="12" fill="#6b7280">(Rotary Switch)</text>
+
+  <rect x="45" y="312" width="140" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="115" y="331" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">DCV (0.2–1000 В)</text>
+
+  <rect x="45" y="348" width="140" height="28" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="115" y="367" text-anchor="middle" font-size="12" fill="#1a1a1a">ACV (200–750 В)</text>
+
+  <rect x="45" y="384" width="140" height="28" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="115" y="403" text-anchor="middle" font-size="12" fill="#1a1a1a">DCA (200 мкА–10 А)</text>
+
+  <rect x="45" y="420" width="140" height="28" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="115" y="439" text-anchor="middle" font-size="12" fill="#1a1a1a">Ω (200 Ом–2 МОм)</text>
+
+  <rect x="45" y="456" width="140" height="28" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="115" y="475" text-anchor="middle" font-size="12" fill="#1a1a1a">Temp °C / hFE</text>
+
+  <rect x="45" y="492" width="140" height="30" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="115" y="511" text-anchor="middle" font-size="12" fill="#1a1a1a">Продзвін / Діод</text>
+
+  <!-- COLUMN 2: Conditioning & Protection -->
+  <rect x="230" y="75" width="220" height="225" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="340" y="96" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Дільники та захист</text>
+
+  <rect x="245" y="108" width="190" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="340" y="127" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Дільники (9M - 900k - 90k)</text>
+  <text x="340" y="145" text-anchor="middle" font-size="12" fill="#6b7280">Масштабування до ±200 мВ</text>
+
+  <rect x="245" y="164" width="190" height="48" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="340" y="183" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Захист (PTC &amp; Діоди)</text>
+  <text x="340" y="201" text-anchor="middle" font-size="12" fill="#6b7280">Обмеження напруги Vmax</text>
+
+  <rect x="245" y="220" width="190" height="68" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="340" y="239" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Струмові шунти R_s</text>
+  <text x="340" y="257" text-anchor="middle" font-size="12" fill="#6b7280">0.01 Ом (10 А) / 9.9 Ом (DCA)</text>
+  <text x="340" y="275" text-anchor="middle" font-size="12" fill="#6b7280">Запобіжник 0.5 A / 250 V</text>
+
+  <rect x="230" y="315" width="220" height="220" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="340" y="336" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Аналогові обробники</text>
+
+  <rect x="245" y="348" width="190" height="48" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="340" y="367" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Діодний випрямляч AC</text>
+  <text x="340" y="385" text-anchor="middle" font-size="12" fill="#6b7280">Перетворення U_rms -&gt; U_dc</text>
+
+  <rect x="245" y="404" width="190" height="48" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="340" y="423" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Джерело струму I_ref (Опори)</text>
+  <text x="340" y="441" text-anchor="middle" font-size="12" fill="#6b7280">Запомпування I -&gt; U_x</text>
+
+  <rect x="245" y="460" width="190" height="60" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="340" y="481" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Компаратор &amp; Бузер</text>
+  <text x="340" y="500" text-anchor="middle" font-size="12" fill="#6b7280">Звук при R &lt; 50 Ом</text>
+
+  <!-- COLUMN 3: Core ADC ICL7106 -->
+  <rect x="475" y="75" width="250" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="600" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Мікросхема АЦП ICL7106</text>
+  <text x="600" y="115" text-anchor="middle" font-size="12" fill="#6b7280">Dual-Slope Integration ADC</text>
+
+  <rect x="490" y="125" width="220" height="75" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="600" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Аналоговий інтегратор &amp; Компаратор</text>
+  <text x="600" y="163" text-anchor="middle" font-size="12" fill="#1a1a1a">Входи: IN HI (+), IN LO (-)</text>
+  <text x="600" y="181" text-anchor="middle" font-size="12" fill="#6b7280">Фази: Автонуль / Заряд / Дезінтеграція</text>
+
+  <rect x="490" y="210" width="220" height="65" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="600" y="233" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Стабілітрон V_REF (100.0 мВ)</text>
+  <text x="600" y="252" text-anchor="middle" font-size="12" fill="#6b7280">Виводи: REF HI (+), REF LO (-)</text>
+
+  <rect x="490" y="285" width="220" height="75" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="600" y="308" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Логіка керування &amp; Лічильник</text>
+  <text x="600" y="326" text-anchor="middle" font-size="12" fill="#1a1a1a">Рахунок 0–1999 імпульсів</text>
+  <text x="600" y="344" text-anchor="middle" font-size="12" fill="#6b7280">Визначення полярності знака (-)</text>
+
+  <rect x="490" y="370" width="220" height="75" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="600" y="393" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Декодер &amp; Драйвер LCD (7-seg)</text>
+  <text x="600" y="411" text-anchor="middle" font-size="12" fill="#1a1a1a">Формування протифазного меандру</text>
+  <text x="600" y="429" text-anchor="middle" font-size="12" fill="#6b7280">Пряме керування сегментами (a..g)</text>
+
+  <rect x="490" y="455" width="220" height="65" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="600" y="478" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">RC-генератор тактів (40 кГц)</text>
+  <text x="600" y="497" text-anchor="middle" font-size="12" fill="#6b7280">Частота оновлення: 3 вим/сек</text>
+
+  <!-- COLUMN 4: Display & Power -->
+  <rect x="780" y="125" width="160" height="165" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="860" y="148" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">3½ РК-Дисплей</text>
+
+  <rect x="795" y="160" width="130" height="65" rx="4" fill="#d4edda" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="860" y="204" text-anchor="middle" font-size="30" font-weight="bold" font-family="monospace" fill="#155724">19.99</text>
+
+  <text x="860" y="245" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Одиниці: V, mA, kΩ</text>
+  <text x="860" y="265" text-anchor="middle" font-size="12" fill="#6b7280">Знаки: (-), Bat, High V</text>
+
+  <rect x="780" y="335" width="160" height="145" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="860" y="355" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Джерело живлення</text>
+
+  <rect x="795" y="370" width="130" height="38" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="860" y="394" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Батарея 9 В (6F22)</text>
+
+  <text x="860" y="426" text-anchor="middle" font-size="12" fill="#1a1a1a">Штучна середня</text>
+  <text x="860" y="443" text-anchor="middle" font-size="12" fill="#1a1a1a">точка (GND)</text>
+  <text x="860" y="462" text-anchor="middle" font-size="12" fill="#6b7280">V+ (+2.8V), V- (-6.2V)</text>
+
+  <!-- CONNECTING PATHS & ARROWS -->
+  <!-- Signal 1: Inputs -> Divider -->
+  <path d="M 185 126 L 230 126" stroke="#2457d6" stroke-width="2.5" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="207" y="118" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">V_in</text>
+
+  <!-- Signal 2: Divider -> ICL7106 -->
+  <path d="M 435 132 L 475 132" stroke="#2457d6" stroke-width="2.5" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="455" y="124" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">±200 мВ</text>
+
+  <!-- Signal 3: ICL7106 -> LCD Display -->
+  <path d="M 725 407 L 750 407 L 750 212 L 780 212" stroke="#27ae60" stroke-width="2.5" fill="none" marker-end="url(#arr-green)"/>
+  <text x="756" y="308" font-size="11" font-weight="bold" fill="#27ae60">7-сегментні</text>
+  <text x="756" y="322" font-size="11" font-weight="bold" fill="#27ae60">лінії LCD</text>
+
+  <!-- Power Line: Battery -> ICL7106 -->
+  <path d="M 780 389 L 738 389 L 738 487 L 725 487" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" fill="none" marker-end="url(#arr-gray)"/>
+</svg>

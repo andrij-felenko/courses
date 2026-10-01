@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Еволюція від паперового самописця до цифрового Roll Mode</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Заміна механічної протяжки паперу та перового запису циклічною буферизацією в пам'яті ОЗП</text>
+
+  <!-- Left Panel: Mechanical Strip-Chart Recorder -->
+  <rect x="40" y="75" width="420" height="425" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="60" y="98" font-size="14" font-weight="bold" fill="#c0392b">1. Механічний паперовий самописець</text>
+  <text x="60" y="118" font-size="12" fill="#6b7280">Фізична протяжка паперу та інерційне перо</text>
+
+  <!-- Paper Chart Simulation Frame -->
+  <rect x="60" y="135" width="380" height="165" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+
+  <!-- Paper Roll Cylinders -->
+  <circle cx="85" cy="217" r="14" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="85" cy="217" r="5" fill="#6b7280"/>
+  <circle cx="415" cy="217" r="14" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="415" cy="217" r="5" fill="#6b7280"/>
+
+  <!-- Paper Grid Lines -->
+  <line x1="105" y1="175" x2="395" y2="175" stroke="#e2e8f0" stroke-dasharray="4 4"/>
+  <line x1="105" y1="215" x2="395" y2="215" stroke="#e2e8f0" stroke-dasharray="4 4"/>
+  <line x1="105" y1="255" x2="395" y2="255" stroke="#e2e8f0" stroke-dasharray="4 4"/>
+  <line x1="165" y1="140" x2="165" y2="295" stroke="#e2e8f0" stroke-dasharray="4 4"/>
+  <line x1="235" y1="140" x2="235" y2="295" stroke="#e2e8f0" stroke-dasharray="4 4"/>
+  <line x1="305" y1="140" x2="305" y2="295" stroke="#e2e8f0" stroke-dasharray="4 4"/>
+  <line x1="375" y1="140" x2="375" y2="295" stroke="#e2e8f0" stroke-dasharray="4 4"/>
+
+  <!-- Paper Motion Arrow -->
+  <line x1="360" y1="155" x2="143" y2="155" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="250" y="144" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Протяжка паперової стрічки</text>
+
+  <!-- Pen Arm & Trace -->
+  <text x="250" y="174" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Механічне перо (інерція)</text>
+  <line x1="250" y1="185" x2="250" y2="270" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <circle cx="250" cy="220" r="4" fill="#c0392b"/>
+
+  <!-- Ink Trace -->
+  <path d="M 105,240 C 145,240 175,200 215,220 C 250,235 285,190 395,210" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Limitations Card Box -->
+  <rect x="60" y="320" width="380" height="165" rx="6" fill="#ffffff" stroke="#f5c6cb"/>
+  <text x="75" y="345" font-size="12" font-weight="bold" fill="#c0392b">Основні обмеження паперового самописця:</text>
+  <text x="75" y="370" font-size="12" fill="#1a1a1a">• Механічна інерція пера обмежує частоту</text>
+  <text x="75" y="395" font-size="12" fill="#1a1a1a">• Витрати паперу, чорнила та ризик поломки</text>
+  <text x="75" y="420" font-size="12" fill="#1a1a1a">• Низька точність та складність обробки</text>
+  <text x="75" y="445" font-size="12" fill="#1a1a1a">• Фізична скінченність паперового рулону</text>
+
+  <!-- Right Panel: Digital Roll Mode Buffer -->
+  <rect x="500" y="75" width="420" height="425" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="520" y="98" font-size="14" font-weight="bold" fill="#2457d6">2. Цифровий режим Roll Mode</text>
+  <text x="520" y="118" font-size="12" fill="#6b7280">Переадресація кільцевого буфера ОЗП</text>
+
+  <!-- Digital Screen Display Frame -->
+  <rect x="520" y="135" width="380" height="165" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+
+  <!-- Bezel Header Bar -->
+  <rect x="520" y="135" width="380" height="25" rx="6" fill="#1e293b"/>
+  <text x="530" y="152" font-size="11" font-weight="bold" fill="#22c55e">Цифровий Roll Mode (ОЗП Буфер)</text>
+
+  <!-- Digital Grid Lines -->
+  <line x1="520" y1="195" x2="900" y2="195" stroke="#1e293b" stroke-dasharray="4 4"/>
+  <line x1="520" y1="230" x2="900" y2="230" stroke="#1e293b" stroke-dasharray="4 4"/>
+  <line x1="520" y1="265" x2="900" y2="265" stroke="#1e293b" stroke-dasharray="4 4"/>
+  <line x1="583" y1="160" x2="583" y2="300" stroke="#1e293b" stroke-dasharray="4 4"/>
+  <line x1="646" y1="160" x2="646" y2="300" stroke="#1e293b" stroke-dasharray="4 4"/>
+  <line x1="710" y1="160" x2="710" y2="300" stroke="#1e293b" stroke-dasharray="4 4"/>
+  <line x1="773" y1="160" x2="773" y2="300" stroke="#1e293b" stroke-dasharray="4 4"/>
+  <line x1="836" y1="160" x2="836" y2="300" stroke="#1e293b" stroke-dasharray="4 4"/>
+
+  <!-- Screen Motion Arrow -->
+  <line x1="820" y1="172" x2="603" y2="172" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="710" y="166" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Зсув кадрів на екрані (справа наліво)</text>
+
+  <!-- Digital Waveform Trace -->
+  <path d="M 520,240 C 565,240 595,190 645,210 C 695,230 745,180 890,210" fill="none" stroke="#22c55e" stroke-width="2.5"/>
+
+  <!-- Pointer Arrow -->
+  <line x1="910" y1="210" x2="893" y2="210" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="835" y="195" font-size="11" font-weight="bold" fill="#27ae60">Покажчик ОЗП</text>
+
+  <!-- Advantages Card Box -->
+  <rect x="520" y="320" width="380" height="165" rx="6" fill="#ffffff" stroke="#b3c8f8"/>
+  <text x="535" y="345" font-size="12" font-weight="bold" fill="#2457d6">Переваги цифрової буферизації Roll Mode:</text>
+  <text x="535" y="370" font-size="12" fill="#1a1a1a">• АЦП оцифровує сигнал без механічних затримок</text>
+  <text x="535" y="395" font-size="12" fill="#1a1a1a">• Кільцевий буфер ОЗП забезпечує нескінченний запис</text>
+  <text x="535" y="420" font-size="12" fill="#1a1a1a">• Програмне масштабування та вимірювання курсорами</text>
+  <text x="535" y="445" font-size="12" fill="#1a1a1a">• Можливість фіксації по тригеру Single / Stop</text>
+</svg>

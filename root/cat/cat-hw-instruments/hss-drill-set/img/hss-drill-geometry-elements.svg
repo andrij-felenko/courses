@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <linearGradient id="metalGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#cbd5e0"/>
+      <stop offset="50%" stop-color="#f7fafc"/>
+      <stop offset="100%" stop-color="#a0aec0"/>
+    </linearGradient>
+    <linearGradient id="fluteGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4a5568"/>
+      <stop offset="100%" stop-color="#2d3748"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Елементи геометрії спірального свердла HSS</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Основні конструктивні параметри різальної частини, стрічки та гвинтової канавки</text>
+
+  <!-- Panel 1: Side View -->
+  <rect x="30" y="80" width="560" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="105" font-size="14" font-weight="bold" fill="#2457d6">1. Поздовжній профіль свердла</text>
+
+  <!-- Drill Bit Drawing -->
+  <!-- Shank -->
+  <rect x="65" y="190" width="110" height="80" rx="2" fill="url(#metalGrad)" stroke="#4a5568" stroke-width="1.5"/>
+  <line x1="65" y1="210" x2="175" y2="210" stroke="#718096" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="65" y1="250" x2="175" y2="250" stroke="#718096" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Body -->
+  <rect x="175" y="190" width="290" height="80" fill="url(#metalGrad)" stroke="#4a5568" stroke-width="1.5"/>
+
+  <!-- Helical Flutes -->
+  <path d="M 210,190 Q 240,230 270,270 L 290,270 Q 260,230 230,190 Z" fill="url(#fluteGrad)" opacity="0.85"/>
+  <path d="M 290,190 Q 320,230 350,270 L 370,270 Q 340,230 310,190 Z" fill="url(#fluteGrad)" opacity="0.85"/>
+  <path d="M 370,190 Q 400,230 430,270 L 450,270 Q 420,230 390,190 Z" fill="url(#fluteGrad)" opacity="0.85"/>
+
+  <!-- Margins -->
+  <line x1="175" y1="190" x2="465" y2="190" stroke="#2457d6" stroke-width="3"/>
+  <line x1="175" y1="270" x2="465" y2="270" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Point / Tip -->
+  <path d="M 465,190 L 535,230 L 465,270 Z" fill="url(#metalGrad)" stroke="#4a5568" stroke-width="1.5"/>
+  <line x1="465" y1="190" x2="535" y2="230" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="465" y1="270" x2="535" y2="230" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Point Angle Arc 118 deg -->
+  <path d="M 505,213 A 35,35 0 0,1 505,247" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="2,2"/>
+
+  <!-- Labels Panel 1 (Staggered Y coordinates to avoid text collisions) -->
+  <!-- Flute Label -->
+  <text x="250" y="130" font-size="12" fill="#1a1a1a" text-anchor="middle">Гвинтова канавка</text>
+  <line x1="250" y1="136" x2="250" y2="205" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <!-- Margin Label (Staggered to Y=154) -->
+  <text x="390" y="154" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Стрічка (калібрувальна)</text>
+  <line x1="390" y1="160" x2="390" y2="187" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+
+  <!-- Point Angle Label -->
+  <text x="515" y="130" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Кут при вершині 118°</text>
+  <line x1="515" y1="136" x2="512" y2="205" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+
+  <!-- Shank Label -->
+  <text x="120" y="310" font-size="12" fill="#1a1a1a" text-anchor="middle">Хвостовик</text>
+  <line x1="120" y1="298" x2="120" y2="273" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <!-- Body Length Dimension (Staggered to Y=335) -->
+  <line x1="175" y1="285" x2="465" y2="285" stroke="#6b7280" stroke-width="1.2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="320" y="335" font-size="12" fill="#1a1a1a" text-anchor="middle">Робоча частина</text>
+
+  <!-- Point Label -->
+  <text x="515" y="310" font-size="12" fill="#1a1a1a" text-anchor="middle">Вершина (Point)</text>
+  <line x1="515" y1="298" x2="530" y2="243" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <!-- Panel 2: Front / End View -->
+  <rect x="610" y="80" width="320" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="630" y="105" font-size="14" font-weight="bold" fill="#2457d6">2. Торцевий профіль (Вершина)</text>
+
+  <!-- Drill End View Drawing -->
+  <circle cx="770" cy="240" r="70" fill="url(#metalGrad)" stroke="#4a5568" stroke-width="2"/>
+
+  <!-- Flute Cutouts -->
+  <path d="M 740,175 Q 770,210 758,228 Q 720,240 705,220 Z" fill="url(#fluteGrad)"/>
+  <path d="M 800,305 Q 770,270 782,252 Q 820,240 835,260 Z" fill="url(#fluteGrad)"/>
+
+  <!-- Chisel Edge (Web) -->
+  <line x1="758" y1="228" x2="782" y2="252" stroke="#1a1a1a" stroke-width="4"/>
+
+  <!-- Cutting Lips -->
+  <line x1="782" y1="252" x2="832" y2="200" stroke="#2457d6" stroke-width="3"/>
+  <line x1="758" y1="228" x2="708" y2="280" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Outer Margins -->
+  <path d="M 830,202 A 70,70 0 0,1 840,240" fill="none" stroke="#2457d6" stroke-width="4"/>
+  <path d="M 710,278 A 70,70 0 0,1 700,240" fill="none" stroke="#2457d6" stroke-width="4"/>
+
+  <!-- Labels Panel 2 -->
+  <!-- Web Label -->
+  <text x="635" y="150" font-size="12" font-weight="bold" fill="#1a1a1a">Перемичка (Web)</text>
+  <line x1="685" y1="156" x2="765" y2="235" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <!-- Lip Label -->
+  <text x="635" y="330" font-size="12" font-weight="bold" fill="#2457d6">Різальна кромка</text>
+  <line x1="690" y1="320" x2="740" y2="262" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+
+  <!-- Margin Label -->
+  <text x="880" y="150" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Стрічка</text>
+  <line x1="880" y1="156" x2="838" y2="218" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+
+  <!-- Flute Label -->
+  <text x="880" y="330" font-size="12" fill="#1a1a1a" text-anchor="middle">Канавка</text>
+  <line x1="880" y1="321" x2="805" y2="278" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <!-- Bottom Summary Bar -->
+  <rect x="30" y="440" width="900" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="50" y="462" font-size="13" font-weight="bold" fill="#1a1a1a">Головні параметри та їх призначення:</text>
+  <text x="50" y="487" font-size="12" fill="#4a5568">• Кут 118°: універсальний для сталі  • Перемичка: врізання  • Стрічка: калібрування діаметра  • Канавка: вивід стружки</text>
+</svg>

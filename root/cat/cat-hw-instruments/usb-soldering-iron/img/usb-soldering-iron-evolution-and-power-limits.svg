@@ -1,0 +1,163 @@
+<svg width="960" height="560" viewBox="0 0 960 560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr-dark" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#475569"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Еволюція паяльних інструментів: від мережевих до картриджних USB PD</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Інтеграція нагрівача у тисо мінімізує R_th, а USB PD забезпечує потужність до 65–100 Вт</text>
+
+  <!-- Card 1: Network 220V -->
+  <rect x="30" y="75" width="285" height="220" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="172.5" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">1. Мережевий (220 В AC)</text>
+  
+  <!-- Card 1 Schematic -->
+  <rect x="55" y="115" width="105" height="30" rx="3" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <path d="M 65 130 H 150" stroke="#c0392b" stroke-width="4" stroke-dasharray="6,3"/>
+  <path d="M 160 120 H 215 L 250 130 L 215 140 H 160 Z" fill="#d97706" stroke="#b45309" stroke-width="1.5"/>
+  <line x1="157" y1="110" x2="157" y2="150" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <text x="172.5" y="162" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Зазор: R_th1 = 15–25 K/W</text>
+
+  <!-- Card 1 Bullets -->
+  <text x="45" y="182" font-size="12" fill="#1a1a1a">• Напруга: 220 В AC (небезпека пробою)</text>
+  <text x="45" y="198" font-size="12" fill="#1a1a1a">• Нагрів: зовнішній ніхром / кераміка</text>
+  <text x="45" y="214" font-size="12" fill="#1a1a1a">• Час розігріву: 180–300 секунд</text>
+  <text x="45" y="230" font-size="12" fill="#1a1a1a">• Термосенсор: відсутній / віддалений</text>
+
+  <!-- Card 1 Badge -->
+  <rect x="45" y="248" width="255" height="26" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="172.5" y="265" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Висока інерція та теплові втрати</text>
+
+  <!-- Card 2: First 5V USB -->
+  <rect x="337.5" y="75" width="285" height="220" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">2. Перші USB 5V (8 Вт)</text>
+  
+  <!-- Card 2 Schematic -->
+  <rect x="355" y="120" width="45" height="20" rx="3" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5"/>
+  <text x="377.5" y="134" text-anchor="middle" font-size="12" font-weight="bold" fill="#475569">USB 5V</text>
+  <path d="M 400 126 H 515 L 550 130 L 515 134 H 400 Z" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+  <line x1="410" y1="130" x2="505" y2="130" stroke="#e67e22" stroke-width="3"/>
+  <text x="480" y="162" text-anchor="middle" font-size="12" font-weight="bold" fill="#d97706">Середній: R_th2 = 8–12 K/W</text>
+
+  <!-- Card 2 Bullets -->
+  <text x="352.5" y="182" font-size="12" fill="#1a1a1a">• Напруга: 5 В DC (безпечна низька)</text>
+  <text x="352.5" y="198" font-size="12" fill="#1a1a1a">• Нагрів: внутрішній тонкий елемент</text>
+  <text x="352.5" y="214" font-size="12" fill="#1a1a1a">• Час розігріву: 15–25 секунд</text>
+  <text x="352.5" y="230" font-size="12" fill="#1a1a1a">• Потужність: P_max = 8 Вт (обмежена)</text>
+
+  <!-- Card 2 Badge -->
+  <rect x="352.5" y="248" width="255" height="26" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="265" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Просідання T при контакті з платою</text>
+
+  <!-- Card 3: Cartridge TS100 / PD -->
+  <rect x="645" y="75" width="285" height="220" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="787.5" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">3. Картридж TS100 / PD (65 W)</text>
+
+  <!-- Card 3 Schematic -->
+  <rect x="660" y="123" width="25" height="14" rx="2" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+  <line x1="668" y1="123" x2="668" y2="137" stroke="#334155" stroke-width="1.5"/>
+  <line x1="676" y1="123" x2="676" y2="137" stroke="#334155" stroke-width="1.5"/>
+  <path d="M 685 124 H 820 L 855 130 L 820 136 H 685 Z" fill="#e2e8f0" stroke="#2563eb" stroke-width="1.5"/>
+  <path d="M 805 124 H 820 L 855 130 L 820 136 H 805 Z" fill="#d97706"/>
+  <line x1="695" y1="130" x2="840" y2="130" stroke="#2563eb" stroke-width="3.5"/>
+  <circle cx="840" cy="130" r="3" fill="#27ae60"/>
+  <text x="787.5" y="162" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Мінімальний: R_th3 = 1.5–3 K/W</text>
+
+  <!-- Card 3 Bullets -->
+  <text x="660" y="182" font-size="12" fill="#1a1a1a">• Напруга: 9–28 В DC (USB PD / QC)</text>
+  <text x="660" y="198" font-size="12" fill="#1a1a1a">• Моноліт: нагрівач + сенсор у тисі</text>
+  <text x="660" y="214" font-size="12" fill="#1a1a1a">• Час розігріву: 6–8 секунд (300 °C)</text>
+  <text x="660" y="230" font-size="12" fill="#1a1a1a">• Потужність: 65–100 Вт (PID-режим)</text>
+
+  <!-- Card 3 Badge -->
+  <rect x="660" y="248" width="255" height="26" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="787.5" y="265" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Миттєве стабілізування температури</text>
+
+  <!-- Bottom Left Panel: Temperature Chart T(t) -->
+  <rect x="30" y="315" width="440" height="230" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="250" y="337" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Діаграма розігріву та стабілізації температури T(t)</text>
+
+  <!-- Panel Left Axes -->
+  <line x1="80" y1="490" x2="80" y2="350" stroke="#475569" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="80" y1="490" x2="440" y2="490" stroke="#475569" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="75" y="348" text-anchor="end" font-size="12" font-weight="bold" fill="#475569">T, °C</text>
+  <text x="440" y="508" text-anchor="end" font-size="12" font-weight="bold" fill="#475569">Час t, с</text>
+
+  <!-- Grid and Y ticks -->
+  <line x1="80" y1="380" x2="430" y2="380" stroke="#94a3b8" stroke-dasharray="4,4"/>
+  <text x="75" y="384" text-anchor="end" font-size="12" fill="#475569">300°</text>
+
+  <line x1="80" y1="425" x2="430" y2="425" stroke="#cbd5e1" stroke-dasharray="2,2"/>
+  <text x="75" y="429" text-anchor="end" font-size="12" fill="#475569">200°</text>
+
+  <text x="75" y="494" text-anchor="end" font-size="12" fill="#475569">0°</text>
+
+  <!-- Event marker: Contact -->
+  <line x1="240" y1="360" x2="240" y2="490" stroke="#94a3b8" stroke-dasharray="2,2"/>
+  <text x="240" y="357" text-anchor="middle" font-size="12" font-weight="bold" fill="#e67e22">Контакт з деталлю</text>
+
+  <!-- T(t) Curves -->
+  <!-- 220V Network -->
+  <path d="M 80 490 C 130 480, 180 410, 220 380 H 240 C 270 420, 310 430, 340 425 C 380 410, 400 390, 420 380" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- USB 5V (8W) -->
+  <path d="M 80 490 C 100 450, 120 390, 140 380 H 240 C 270 440, 310 455, 350 455 H 420" fill="none" stroke="#d97706" stroke-width="2.5" stroke-dasharray="6,2"/>
+
+  <!-- USB PD (65W) -->
+  <path d="M 80 490 L 105 380 H 240 L 252 388 L 265 380 H 420" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Panel Left Legend -->
+  <line x1="85" y1="524" x2="105" y2="524" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="110" y="528" font-size="12" fill="#1a1a1a">220V Мережевий</text>
+
+  <line x1="210" y1="524" x2="230" y2="524" stroke="#d97706" stroke-width="2.5" stroke-dasharray="4,2"/>
+  <text x="235" y="528" font-size="12" fill="#1a1a1a">USB 5V (8 Вт)</text>
+
+  <line x1="330" y1="524" x2="350" y2="524" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="355" y="528" font-size="12" fill="#1a1a1a">USB PD (65 Вт)</text>
+
+  <!-- Bottom Right Panel: Power Chart P(t) -->
+  <rect x="490" y="315" width="440" height="230" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="710" y="337" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Динаміка вихідної потужності P(t) при навантаженні</text>
+
+  <!-- Panel Right Axes -->
+  <line x1="540" y1="490" x2="540" y2="350" stroke="#475569" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="540" y1="490" x2="900" y2="490" stroke="#475569" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="535" y="348" text-anchor="end" font-size="12" font-weight="bold" fill="#475569">P, Вт</text>
+  <text x="900" y="508" text-anchor="end" font-size="12" font-weight="bold" fill="#475569">Час t, с</text>
+
+  <!-- Grid and Y ticks -->
+  <line x1="540" y1="375" x2="890" y2="375" stroke="#94a3b8" stroke-dasharray="4,4"/>
+  <text x="535" y="379" text-anchor="end" font-size="12" fill="#475569">65 Вт</text>
+
+  <line x1="540" y1="430" x2="890" y2="430" stroke="#cbd5e1" stroke-dasharray="2,2"/>
+  <text x="535" y="434" text-anchor="end" font-size="12" fill="#475569">30 Вт</text>
+
+  <line x1="540" y1="475" x2="890" y2="475" stroke="#fed7aa" stroke-dasharray="2,2"/>
+  <text x="535" y="479" text-anchor="end" font-size="12" fill="#475569">8 Вт</text>
+
+  <text x="535" y="494" text-anchor="end" font-size="12" fill="#475569">0 Вт</text>
+
+  <!-- Event marker: Contact -->
+  <line x1="700" y1="360" x2="700" y2="490" stroke="#94a3b8" stroke-dasharray="2,2"/>
+  <text x="700" y="357" text-anchor="middle" font-size="12" font-weight="bold" fill="#e67e22">Контакт з деталлю</text>
+
+  <!-- P(t) Curves -->
+  <!-- 220V Network -->
+  <path d="M 540 430 H 880" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- USB 5V (8W) -->
+  <path d="M 540 475 H 880" fill="none" stroke="#d97706" stroke-width="2.5" stroke-dasharray="6,2"/>
+
+  <!-- USB PD (65W) -->
+  <path d="M 540 375 H 565 L 580 475 H 700 L 705 375 H 780 L 795 475 H 880" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Panel Right Bottom Note -->
+  <rect x="545" y="515" width="375" height="24" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="732.5" y="531" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e293b">PID форсаж: P_max подається лише у момент паяння</text>
+</svg>

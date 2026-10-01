@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структура бінарного кадру USB-протоколу FNIRSI 2C53T</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Послідовність полів заголовка, команди, довжини, дампа даних та контрольної суми</text>
+
+  <!-- Головна панель кадру -->
+  <rect x="40" y="85" width="880" height="98" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="50" y="106" font-size="12" font-weight="bold" fill="#6b7280">Структура кадру (Packet Frame Layout):</text>
+
+  <!-- Поле 1: MAGIC -->
+  <rect x="50" y="118" width="120" height="53" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="110" y="138" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">MAGIC (2 B)</text>
+  <text x="110" y="156" font-size="11" fill="#6b7280" text-anchor="middle">0x55 0xAA</text>
+
+  <!-- Поле 2: CMD -->
+  <rect x="182" y="118" width="120" height="53" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="242" y="138" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">CMD (1 B)</text>
+  <text x="242" y="156" font-size="11" fill="#6b7280" text-anchor="middle">0x30..0x35</text>
+
+  <!-- Поле 3: LENGTH -->
+  <rect x="314" y="118" width="120" height="53" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="374" y="138" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">LENGTH (2 B)</text>
+  <text x="374" y="156" font-size="11" fill="#6b7280" text-anchor="middle">N (0..2048 B)</text>
+
+  <!-- Поле 4: PAYLOAD -->
+  <rect x="446" y="118" width="330" height="53" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="611" y="138" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">PAYLOAD DATA (N Bytes)</text>
+  <text x="611" y="156" font-size="11" fill="#6b7280" text-anchor="middle">Осцилограма / Мультиметр / Скріншот</text>
+
+  <!-- Поле 5: CRC-16 -->
+  <rect x="788" y="118" width="122" height="53" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="849" y="138" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">CRC-16 (2 B)</text>
+  <text x="849" y="156" font-size="11" fill="#6b7280" text-anchor="middle">Poly: 0x8005</text>
+
+  <!-- З'єднувальні стрілки до карток -->
+  <path d="M 110 171 L 140 205" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 300 171 L 360 205" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 611 171 L 595 205" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M 849 171 L 822.5 205" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Картка 1: Заголовок -->
+  <rect x="40" y="210" width="200" height="240" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <rect x="50" y="220" width="180" height="24" fill="#2457d6" rx="3"/>
+  <text x="140" y="236" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Заголовок (Header)</text>
+  <text x="55" y="262" font-size="12" font-weight="bold" fill="#1a1a1a">Преамбула Magic:</text>
+  <text x="55" y="280" font-size="11" fill="#6b7280">Сигнальні байти 0x55 0xAA</text>
+  <text x="55" y="305" font-size="12" font-weight="bold" fill="#1a1a1a">Призначення:</text>
+  <text x="55" y="323" font-size="11" fill="#6b7280">Початок нового кадру</text>
+  <text x="55" y="341" font-size="11" fill="#6b7280">Пошук межі у потоці</text>
+  <text x="55" y="366" font-size="12" font-weight="bold" fill="#1a1a1a">Фіксований розмір:</text>
+  <text x="55" y="384" font-size="11" fill="#6b7280">2 байти у заголовку</text>
+
+  <!-- Картка 2: Команди -->
+  <rect x="255" y="210" width="210" height="240" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <rect x="265" y="220" width="190" height="24" fill="#2457d6" rx="3"/>
+  <text x="360" y="236" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Коди команд (CMD)</text>
+  <text x="270" y="262" font-size="12" font-weight="bold" fill="#1a1a1a">Основні команди:</text>
+  <text x="270" y="280" font-size="11" fill="#6b7280">• 0x30: Запит осцилограми</text>
+  <text x="270" y="298" font-size="11" fill="#6b7280">• 0x31: Дані мультиметра</text>
+  <text x="270" y="316" font-size="11" fill="#6b7280">• 0x32: Скріншот LCD</text>
+  <text x="270" y="334" font-size="11" fill="#6b7280">• 0x33: Статус генератора</text>
+  <text x="270" y="352" font-size="11" fill="#6b7280">• 0x35: Режим прошивки</text>
+  <text x="270" y="377" font-size="12" font-weight="bold" fill="#1a1a1a">Розмір поля:</text>
+  <text x="270" y="395" font-size="11" fill="#6b7280">1 байт команди + 2 Б довжини</text>
+
+  <!-- Картка 3: Payload -->
+  <rect x="480" y="210" width="230" height="240" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <rect x="490" y="220" width="210" height="24" fill="#27ae60" rx="3"/>
+  <text x="595" y="236" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Payload (Дані)</text>
+  <text x="495" y="262" font-size="12" font-weight="bold" fill="#1a1a1a">Структура масивів:</text>
+  <text x="495" y="280" font-size="11" fill="#6b7280">• CH1/CH2: 1024–2048 семплів</text>
+  <text x="495" y="298" font-size="11" fill="#6b7280">• DMM: значення, одиниці, стан</text>
+  <text x="495" y="316" font-size="11" fill="#6b7280">• BMP/PNG: графічний дамп</text>
+  <text x="495" y="341" font-size="12" font-weight="bold" fill="#1a1a1a">Змінна довжина N:</text>
+  <text x="495" y="359" font-size="11" fill="#6b7280">Визначається значенням LENGTH</text>
+  <text x="495" y="384" font-size="12" font-weight="bold" fill="#27ae60">✓ Експорт у CSV / Python</text>
+
+  <!-- Картка 4: CRC-16 -->
+  <rect x="725" y="210" width="195" height="240" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <rect x="735" y="220" width="175" height="24" fill="#c0392b" rx="3"/>
+  <text x="822.5" y="236" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Перевірка цілісності</text>
+  <text x="735" y="262" font-size="12" font-weight="bold" fill="#1a1a1a">Алгоритм CRC-16:</text>
+  <text x="735" y="280" font-size="11" fill="#6b7280">Поліном: 0x8005</text>
+  <text x="735" y="298" font-size="11" fill="#6b7280">Ініціалізація: 0xFFFF</text>
+  <text x="735" y="323" font-size="12" font-weight="bold" fill="#1a1a1a">Область обчислення:</text>
+  <text x="735" y="341" font-size="11" fill="#6b7280">Від CMD до кінця Payload</text>
+  <text x="735" y="366" font-size="12" font-weight="bold" fill="#c0392b">Захист від збоїв:</text>
+  <text x="735" y="384" font-size="11" fill="#c0392b">Відкидання при помилці</text>
+</svg>

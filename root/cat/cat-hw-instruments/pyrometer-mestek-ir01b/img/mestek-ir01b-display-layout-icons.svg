@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,4 L0,8 Z" fill="#64748b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Зонування та піктограми інверсного дисплея MESTEK IR01B</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Розташування графічних індикаторів режимів, виміряної температури, вологості, ε та порогів тривоги</text>
+
+  <!-- Корпус приладу та рамка екрана -->
+  <rect x="270" y="80" width="420" height="375" rx="16" fill="#1e293b" stroke="#334155" stroke-width="3"/>
+  <!-- Інверсний рідкокристалічний дисплей -->
+  <rect x="282" y="92" width="396" height="351" rx="10" fill="#0b1329"/>
+
+  <!-- ЕЛЕМЕНТИ ДИСПЛЕЯ -->
+  <!-- Рядок статусів -->
+  <text x="295" y="118" font-size="15" font-weight="bold" fill="#22c55e">SCAN</text>
+  <text x="348" y="118" font-size="13" fill="#475569">HOLD</text>
+
+  <!-- Піктограма лазерного цілевказівника -->
+  <circle cx="480" cy="114" r="9" fill="none" stroke="#ef4444" stroke-width="1.8"/>
+  <circle cx="480" cy="114" r="2.5" fill="#ef4444"/>
+  <circle cx="480" cy="101" r="1" fill="#ef4444"/>
+  <circle cx="480" cy="127" r="1" fill="#ef4444"/>
+  <circle cx="467" cy="114" r="1" fill="#ef4444"/>
+  <circle cx="493" cy="114" r="1" fill="#ef4444"/>
+  <circle cx="471" cy="105" r="1" fill="#ef4444"/>
+  <circle cx="489" cy="105" r="1" fill="#ef4444"/>
+  <circle cx="471" cy="123" r="1" fill="#ef4444"/>
+  <circle cx="489" cy="123" r="1" fill="#ef4444"/>
+
+  <!-- Індикатор заряду батареї -->
+  <rect x="625" y="105" width="28" height="16" rx="2" fill="none" stroke="#facc15" stroke-width="1.5"/>
+  <rect x="653" y="109" width="3" height="8" rx="1" fill="#facc15"/>
+  <rect x="628" y="108" width="6" height="10" fill="#facc15"/>
+  <rect x="636" y="108" width="6" height="10" fill="#facc15"/>
+  <rect x="644" y="108" width="6" height="10" fill="#facc15"/>
+
+  <!-- Прапорці тривоги HI / LOW -->
+  <rect x="295" y="135" width="28" height="18" rx="3" fill="#ef4444"/>
+  <text x="309" y="148" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">HI</text>
+  <rect x="329" y="135" width="36" height="18" rx="3" fill="#3b82f6"/>
+  <text x="347" y="148" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">LOW</text>
+  <text x="480" y="148" text-anchor="middle" font-size="12" fill="#64748b">ІЧ-ВИМІРЮВАННЯ</text>
+
+  <!-- Основні цифри виміряної температури -->
+  <text x="440" y="240" text-anchor="middle" font-size="64" font-weight="bold" fill="#f8fafc">36.5</text>
+  <text x="555" y="205" font-size="28" font-weight="bold" fill="#38bdf8">°C</text>
+  <text x="555" y="235" font-size="16" fill="#475569">°F</text>
+
+  <!-- Розділювальна пунтктирна лінія -->
+  <line x1="290" y1="268" x2="670" y2="268" stroke="#1e293b" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Допоміжний рядок параметрів -->
+  <rect x="295" y="285" width="32" height="20" rx="3" fill="#0284c7"/>
+  <text x="311" y="300" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">DP</text>
+  <text x="385" y="325" text-anchor="middle" font-size="36" font-weight="bold" fill="#f8fafc">21.3</text>
+  <text x="435" y="310" font-size="18" font-weight="bold" fill="#38bdf8">°C</text>
+
+  <!-- Блок емісивності epsilon -->
+  <rect x="540" y="285" width="120" height="42" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+  <text x="555" y="312" font-size="18" font-weight="bold" fill="#facc15">ε =</text>
+  <text x="610" y="312" font-size="22" font-weight="bold" fill="#facc15">0.95</text>
+
+  <!-- Нижній блок меж HAL / LAL -->
+  <line x1="290" y1="360" x2="670" y2="360" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="298" y="395" font-size="12" font-weight="bold" fill="#ef4444">HAL</text>
+  <text x="335" y="395" font-size="14" font-weight="bold" fill="#f8fafc">50.0 °C</text>
+  <text x="530" y="395" font-size="12" font-weight="bold" fill="#3b82f6">LAL</text>
+  <text x="565" y="395" font-size="14" font-weight="bold" fill="#f8fafc">0.0 °C</text>
+
+  <!-- ПАНЕЛЬ КНОПОК ПІД ДИСПЛЕЄМ -->
+  <rect x="270" y="465" width="420" height="70" rx="12" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+  <!-- Кнопка 1: Mode -->
+  <rect x="310" y="480" width="90" height="40" rx="8" fill="#2457d6"/>
+  <text x="355" y="505" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">Mode</text>
+  <!-- Кнопка 2: Up / Laser -->
+  <rect x="435" y="480" width="90" height="40" rx="8" fill="#334155"/>
+  <text x="480" y="505" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">▲ / Laser</text>
+  <!-- Кнопка 3: Down / °C/°F -->
+  <rect x="560" y="480" width="90" height="40" rx="8" fill="#334155"/>
+  <text x="605" y="505" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">▼ / °C/°F</text>
+
+  <!-- ВИНОСНІ ПАНЕЛІ ЛІВОРУЧ -->
+  <rect x="25" y="85" width="215" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="35" y="105" font-size="13" font-weight="bold" fill="#2457d6">1. Статуси вимірювання</text>
+  <text x="35" y="124" font-size="12" fill="#1a1a1a">SCAN — безперервний збір</text>
+  <text x="35" y="142" font-size="12" fill="#1a1a1a">HOLD — фіксація результату</text>
+  <text x="35" y="160" font-size="12" fill="#1a1a1a">Лазер — цілевказівник</text>
+
+  <rect x="25" y="195" width="215" height="115" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="35" y="215" font-size="13" font-weight="bold" fill="#1a1a1a">2. Основна температура</text>
+  <text x="35" y="234" font-size="12" fill="#1a1a1a">Великі сегментні цифри</text>
+  <text x="35" y="252" font-size="12" fill="#1a1a1a">Безконтактний ІЧ-датчик</text>
+  <text x="35" y="270" font-size="12" fill="#1a1a1a">Діапазон: -50…+550 °C</text>
+  <text x="35" y="288" font-size="12" fill="#1a1a1a">Одиниці: °C або °F</text>
+
+  <rect x="25" y="325" width="215" height="115" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="35" y="345" font-size="13" font-weight="bold" fill="#1a1a1a">3. Допоміжні параметри</text>
+  <text x="35" y="364" font-size="12" fill="#1a1a1a">AT — температура повітря</text>
+  <text x="35" y="382" font-size="12" fill="#1a1a1a">RH % — відносна вологість</text>
+  <text x="35" y="400" font-size="12" fill="#1a1a1a">DP — точка роси</text>
+  <text x="35" y="418" font-size="12" fill="#1a1a1a">KT — контактна термопара</text>
+
+  <!-- ВИНОСНІ ПАНЕЛІ праворуч -->
+  <rect x="715" y="85" width="220" height="105" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="725" y="105" font-size="13" font-weight="bold" fill="#c0392b">4. Батарея та індикація</text>
+  <text x="725" y="124" font-size="12" fill="#1a1a1a">3-сегментний рівень 3 В</text>
+  <text x="725" y="142" font-size="12" fill="#1a1a1a">Блимання при U &lt; 2.4 В</text>
+  <text x="725" y="160" font-size="12" fill="#1a1a1a">HI / LOW — межі тривоги</text>
+  <text x="725" y="178" font-size="12" fill="#1a1a1a">LED індикатор над екраном</text>
+
+  <rect x="715" y="200" width="220" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="725" y="220" font-size="13" font-weight="bold" fill="#27ae60">5. Коефіцієнт емісії ε</text>
+  <text x="725" y="239" font-size="12" fill="#1a1a1a">Регулювання: 0.10…1.00</text>
+  <text x="725" y="257" font-size="12" fill="#1a1a1a">Крок змінення: 0.01</text>
+  <text x="725" y="275" font-size="12" fill="#1a1a1a">Корекція для металів</text>
+  <text x="725" y="293" font-size="12" fill="#1a1a1a">Збереження в EEPROM</text>
+
+  <rect x="715" y="320" width="220" height="115" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="725" y="340" font-size="13" font-weight="bold" fill="#1a1a1a">6. Граничні пороги HAL / LAL</text>
+  <text x="725" y="359" font-size="12" fill="#1a1a1a">HAL — верхній поріг (HI)</text>
+  <text x="725" y="377" font-size="12" fill="#1a1a1a">LAL — нижній поріг (LOW)</text>
+  <text x="725" y="395" font-size="12" fill="#1a1a1a">Звукова + LED тривога</text>
+  <text x="725" y="413" font-size="12" fill="#1a1a1a">Скидання: Up + Down (&gt;2с)</text>
+
+  <!-- ВИНОСНІ ЛІНІЇ СОЗ'ЄДНАННЯ -->
+  <line x1="240" y1="130" x2="292" y2="118" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+  <line x1="240" y1="250" x2="360" y2="230" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr)"/>
+  <line x1="240" y1="375" x2="292" y2="300" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr)"/>
+
+  <line x1="715" y1="130" x2="658" y2="113" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+  <line x1="715" y1="255" x2="662" y2="305" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+  <line x1="715" y1="375" x2="600" y2="395" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr)"/>
+</svg>

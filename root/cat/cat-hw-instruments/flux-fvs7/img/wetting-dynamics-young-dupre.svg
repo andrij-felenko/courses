@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Рівняння Юнга-Дюпре та динаміка змочування флюсом FVS-7</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Баланс міжфазних натягів γ_SF = γ_SL + γ_LF·cos θ визначає крайовий кут θ та роботу адгезії W_ad</text>
+
+  <!-- Left Panel: Physical Wetting Diagram -->
+  <rect x="40" y="80" width="580" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Environment Label: Flux -->
+  <text x="170" y="112" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Середовище: Активований флюс FVS-7</text>
+  <text x="170" y="130" text-anchor="middle" font-size="12" fill="#6b7280">(видаляє оксиди, знижує γ_SF та γ_LF)</text>
+
+  <!-- Label for Vector gamma_LF (positioned clearly above the droplet and tangent vector) -->
+  <text x="120" y="225" text-anchor="start" font-size="13" font-weight="bold" fill="#27ae60">γ_LF (припій - флюс)</text>
+
+  <!-- Substrate Rect -->
+  <rect x="70" y="310" width="520" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="410" y="342" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Металева підкладка (контактна площадка Cu)</text>
+
+  <!-- Solder Droplet Path -->
+  <path d="M 180,310 C 230,240 430,240 480,310 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="360" y="265" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Рідкий припій</text>
+  <text x="360" y="283" text-anchor="middle" font-size="12" fill="#6b7280">(Sn-Ag-Cu)</text>
+
+  <!-- Triple Point Circle & Label -->
+  <circle cx="180" cy="310" r="4" fill="#1a1a1a"/>
+  <text x="180" y="385" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Трифазна точка</text>
+
+  <!-- Vector 1: gamma_SF (Solid-Flux, Left along substrate) -->
+  <line x1="180" y1="310" x2="75" y2="310" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="55" y="290" text-anchor="start" font-size="13" font-weight="bold" fill="#2457d6">γ_SF (підкладка - флюс)</text>
+
+  <!-- Vector 2: gamma_SL (Solid-Liquid, Right along substrate) -->
+  <line x1="180" y1="310" x2="285" y2="310" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="252" y="290" text-anchor="start" font-size="13" font-weight="bold" fill="#c0392b">γ_SL (підкладка - припій)</text>
+
+  <!-- Vector 3: gamma_LF (Liquid-Flux, Tangent along droplet surface at ~35 deg) -->
+  <line x1="180" y1="310" x2="245" y2="264" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- Contact Angle Arc theta -->
+  <path d="M 220,310 A 40,40 0 0,0 212.8,287.1" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="230" y="305" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a1a">θ</text>
+
+  <!-- Projection of gamma_LF cos theta -->
+  <line x1="245" y1="264" x2="245" y2="310" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="180" y1="325" x2="237" y2="325" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-green)"/>
+  <text x="210" y="342" text-anchor="middle" font-size="12" fill="#27ae60">γ_LF · cos θ</text>
+
+  <!-- Right Panel 1: Young's Equation -->
+  <rect x="640" y="80" width="280" height="160" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="780" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Рівняння Юнга (Рівновага)</text>
+  <rect x="655" y="118" width="250" height="36" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="780" y="141" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">γ_SF = γ_SL + γ_LF · cos θ</text>
+  <text x="655" y="172" text-anchor="start" font-size="12" fill="#1a1a1a">• γ_SF — поверхневий натяг підкладки</text>
+  <text x="655" y="190" text-anchor="start" font-size="12" fill="#1a1a1a">• γ_SL — міжфазний натяг припій-мідь</text>
+  <text x="655" y="208" text-anchor="start" font-size="12" fill="#1a1a1a">• γ_LF — поверхневий натяг припою</text>
+  <text x="655" y="226" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">• Флюс FVS-7: γ_SF ↑, γ_LF ↓ → θ ↓</text>
+
+  <!-- Right Panel 2: Dupré Equation -->
+  <rect x="640" y="255" width="280" height="165" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="780" y="280" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Рівняння Дюпре (Робота адгезії)</text>
+  <rect x="655" y="293" width="250" height="36" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="780" y="316" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">W_ad = γ_LF · (1 + cos θ)</text>
+  <text x="655" y="347" text-anchor="start" font-size="12" fill="#1a1a1a">• W_ad — питома робота адгезії</text>
+  <text x="655" y="365" text-anchor="start" font-size="12" fill="#1a1a1a">• При θ → 0°: cos θ → 1, W_ad → max</text>
+  <text x="655" y="383" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">• Змочування: θ &lt; 30° (відмінно)</text>
+  <text x="655" y="401" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">• Оксиди без флюсу: θ &gt; 90° (погано)</text>
+</svg>

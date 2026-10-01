@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Потік даних осцилограми FNIRSI 2C53T через USB CDC</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Від масиву відліків АЦП через USB-пакет до обчислення фізичної напруги в рази на ПК</text>
+
+  <!-- Main Pipeline Container Panel -->
+  <rect x="20" y="75" width="920" height="305" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Stage 1: Hardware ADC Buffer -->
+  <rect x="35" y="95" width="195" height="265" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="132" y="120" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Приймач АЦП</text>
+  <text x="132" y="140" font-size="12" fill="#6b7280" text-anchor="middle">Hardware Buffer</text>
+  <line x1="45" y1="150" x2="220" y2="150" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="45" y="175" font-size="12" fill="#1a1a1a">• Вхідний сигнал A(t)</text>
+  <text x="45" y="200" font-size="12" fill="#1a1a1a">• 8-біт оцифрування</text>
+  <text x="45" y="225" font-size="12" fill="#1a1a1a">• Пам'ять RAM приладу</text>
+  <text x="45" y="255" font-size="12" fill="#1a1a1a">• Відліки від 0 до 255:</text>
+  <text x="50" y="280" font-size="11" font-family="Consolas, monospace" fill="#2457d6">[0x80, 0x9A, 0xC2...]</text>
+  <text x="45" y="315" font-size="11" fill="#6b7280">Сирі байти у буфері</text>
+
+  <!-- Flow Arrow 1 -->
+  <line x1="230" y1="228" x2="260" y2="228" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Stage 2: USB CDC Frame -->
+  <rect x="265" y="95" width="200" height="265" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="365" y="120" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. USB CDC Кадр</text>
+  <text x="365" y="140" font-size="12" fill="#6b7280" text-anchor="middle">Virtual COM Port</text>
+  <line x1="275" y1="150" x2="455" y2="150" stroke="#d0d7de" stroke-width="1"/>
+  <text x="275" y="175" font-size="12" fill="#1a1a1a">• Заголовок: 0xAA 0x55</text>
+  <text x="275" y="200" font-size="12" fill="#1a1a1a">• Команда: CMD 0x02</text>
+  <text x="275" y="225" font-size="12" fill="#1a1a1a">• Довжина кадру (2 B)</text>
+  <text x="275" y="255" font-size="12" fill="#1a1a1a">• Масив вибірок (Payload)</text>
+  <text x="280" y="280" font-size="11" font-family="Consolas, monospace" fill="#1a1a1a">Payload: 1024 байти</text>
+  <text x="275" y="315" font-size="11" fill="#2457d6">Контроль CRC16</text>
+
+  <!-- Flow Arrow 2 -->
+  <line x1="465" y1="228" x2="495" y2="228" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Stage 3: PC Decoder Script -->
+  <rect x="500" y="95" width="200" height="265" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="600" y="120" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Декодер ПК</text>
+  <text x="600" y="140" font-size="12" fill="#6b7280" text-anchor="middle">Python / C Script</text>
+  <line x1="510" y1="150" x2="690" y2="150" stroke="#d0d7de" stroke-width="1"/>
+  <text x="510" y="175" font-size="12" fill="#1a1a1a">• Читання COM-порту</text>
+  <text x="510" y="200" font-size="12" fill="#1a1a1a">• Перевірка CRC16</text>
+  <text x="510" y="225" font-size="12" fill="#1a1a1a">• Видалення заголовків</text>
+  <text x="510" y="255" font-size="12" fill="#1a1a1a">• Витягнення чисел:</text>
+  <text x="515" y="280" font-size="11" font-family="Consolas, monospace" fill="#1a1a1a">raw_data[0..N-1]</text>
+  <text x="510" y="315" font-size="11" fill="#27ae60">Перевірений потік</text>
+
+  <!-- Flow Arrow 3 -->
+  <line x1="700" y1="228" x2="725" y2="228" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Stage 4: Voltage Conversion -->
+  <rect x="730" y="95" width="195" height="265" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="827" y="120" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">4. Обчислення В</text>
+  <text x="827" y="140" font-size="12" fill="#6b7280" text-anchor="middle">Physical Values</text>
+  <line x1="740" y1="150" x2="915" y2="150" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="740" y="175" font-size="12" fill="#1a1a1a">• Врахування D_zero</text>
+  <text x="740" y="200" font-size="12" fill="#1a1a1a">• Множення на K_scale</text>
+  <text x="740" y="225" font-size="12" fill="#1a1a1a">• Отримання V(t)</text>
+  <text x="740" y="255" font-size="12" fill="#1a1a1a">• Формування точок:</text>
+  <text x="745" y="280" font-size="11" font-family="Consolas, monospace" fill="#27ae60">[1.25V, 3.30V...]</text>
+  <text x="740" y="315" font-size="11" fill="#27ae60">Фізична напруга (В)</text>
+
+  <!-- Bottom Formula Box -->
+  <rect x="20" y="395" width="920" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="420" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Формула переведення: V_out = (D_raw - D_zero) · (V_div / 25)  [В]</text>
+  <text x="480" y="445" font-size="12" fill="#6b7280" text-anchor="middle">де D_raw — байт відліку [0..255], D_zero — зсув нульового рівня, V_div — вольт-ділення каналу осцилографа</text>
+</svg>

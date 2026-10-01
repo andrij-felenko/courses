@@ -1,0 +1,155 @@
+<svg viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Definitions for Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-left" markerWidth="8" markerHeight="8" refX="0" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,0 L0,3.5 L7,7 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конвеєр обробки кадру лазерного профілометра</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Послідовність усунення темнового фонового шуму (Ultracal) та відсікання завад для точного розрахунку D₄σ</text>
+
+  <!-- Flow Arrows between Cards -->
+  <line x1="226" y1="260" x2="254" y2="260" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr)"/>
+  <line x1="462" y1="260" x2="490" y2="260" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr)"/>
+  <line x1="698" y1="260" x2="726" y2="260" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- STAGE 1: RAW FRAME -->
+  <g id="stage1">
+    <rect x="24" y="85" width="200" height="395" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+    <rect x="24" y="85" width="200" height="40" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="6"/>
+    <rect x="24" y="115" width="200" height="10" fill="#fdecea"/>
+    <text x="124" y="110" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Сирий кадр</text>
+    <text x="124" y="150" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">I_raw(x, y)</text>
+
+    <!-- Visual Plot 1 -->
+    <rect x="36" y="165" width="176" height="100" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+    <path d="M 46,235 C 80,235 95,185 124,185 C 153,185 168,235 202,235 L 202,255 L 46,255 Z" fill="#fdecea" opacity="0.6"/>
+    <line x1="36" y1="235" x2="212" y2="235" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1.5"/>
+    <path d="M 46,235 C 80,235 95,185 124,185 C 153,185 168,235 202,235" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+    <text x="124" y="255" font-size="11" fill="#c0392b" text-anchor="middle">Темновий шум I_dark</text>
+
+    <!-- Bullet Points -->
+    <text x="36" y="285" font-size="12" fill="#1a1a1a">• Сигнал з матриці</text>
+    <text x="36" y="305" font-size="12" fill="#1a1a1a">• Температурний зсув</text>
+    <text x="36" y="325" font-size="12" fill="#1a1a1a">• Шум темного струму</text>
+    <text x="36" y="345" font-size="12" fill="#1a1a1a">• Гарячі пікселі</text>
+
+    <!-- Warning Tag -->
+    <rect x="34" y="375" width="180" height="85" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+    <text x="124" y="395" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Увага: шум створює</text>
+    <text x="124" y="412" font-size="11" fill="#c0392b" text-anchor="middle">штучний зсув нуля</text>
+    <text x="124" y="429" font-size="11" fill="#c0392b" text-anchor="middle">та спотворює D4σ</text>
+    <text x="124" y="446" font-size="11" fill="#c0392b" text-anchor="middle">в кілька разів!</text>
+  </g>
+
+  <!-- STAGE 2: ULTRACAL SUBTRACTION -->
+  <g id="stage2">
+    <rect x="260" y="85" width="200" height="395" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+    <rect x="260" y="85" width="200" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+    <rect x="260" y="115" width="200" height="10" fill="#eaf0fd"/>
+    <text x="360" y="110" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Калібрування Ultracal</text>
+    <text x="360" y="150" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">I_sub = max(0, I_raw - I_dark)</text>
+
+    <!-- Visual Plot 2 -->
+    <rect x="272" y="165" width="176" height="100" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+    <path d="M 282,245 C 316,245 331,185 360,185 C 389,185 404,245 438,245 Z" fill="#eaf0fd" opacity="0.6"/>
+    <line x1="272" y1="245" x2="448" y2="245" stroke="#2457d6" stroke-width="1.5"/>
+    <path d="M 282,245 C 316,245 331,185 360,185 C 389,185 404,245 438,245" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+    <text x="360" y="258" font-size="11" fill="#2457d6" text-anchor="middle">Нульовий фоновий рівень</text>
+
+    <!-- Bullet Points -->
+    <text x="272" y="285" font-size="12" fill="#1a1a1a">• Захоплення I_dark</text>
+    <text x="272" y="305" font-size="12" fill="#1a1a1a">• При закритій шторці</text>
+    <text x="272" y="325" font-size="12" fill="#1a1a1a">• Попіксельне віднімання</text>
+    <text x="272" y="345" font-size="12" fill="#1a1a1a">• Обнулення від'ємних</text>
+
+    <!-- Info Tag -->
+    <rect x="270" y="375" width="180" height="85" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+    <text x="360" y="395" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Вимога ISO 11146:</text>
+    <text x="360" y="412" font-size="11" fill="#2457d6" text-anchor="middle">повне усунення</text>
+    <text x="360" y="429" font-size="11" fill="#2457d6" text-anchor="middle">постійної складової</text>
+    <text x="360" y="446" font-size="11" fill="#2457d6" text-anchor="middle">фонового шуму</text>
+  </g>
+
+  <!-- STAGE 3: THRESHOLDING -->
+  <g id="stage3">
+    <rect x="496" y="85" width="200" height="395" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+    <rect x="496" y="85" width="200" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+    <rect x="496" y="115" width="200" height="10" fill="#eaf0fd"/>
+    <text x="596" y="110" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Поріг та відсікання</text>
+    <text x="596" y="150" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">I_filt = I_sub (якщо I_sub ≥ T)</text>
+
+    <!-- Visual Plot 3 -->
+    <rect x="508" y="165" width="176" height="100" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+    <path d="M 550,245 L 565,228 C 575,205 585,185 596,185 C 607,185 617,205 627,228 L 642,245 Z" fill="#e9f7ef" opacity="0.6"/>
+    <line x1="508" y1="245" x2="684" y2="245" stroke="#d0d7de" stroke-width="1"/>
+    <line x1="508" y1="228" x2="684" y2="228" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1.5"/>
+    <path d="M 518,245 L 550,245 L 565,228 C 575,205 585,185 596,185 C 607,185 617,205 627,228 L 642,245 L 674,245" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+    
+    <!-- Repositioned Threshold Text in Top Left of Plot 3 -->
+    <text x="512" y="196" font-size="11" font-weight="bold" fill="#2457d6">Поріг T</text>
+    <text x="512" y="210" font-size="11" fill="#2457d6">T = 1..2%</text>
+    <text x="596" y="258" font-size="11" fill="#27ae60" text-anchor="middle">Фон = 0 за межами</text>
+
+    <!-- Bullet Points -->
+    <text x="508" y="285" font-size="12" fill="#1a1a1a">• Поріг T = 1..2% I_max</text>
+    <text x="508" y="305" font-size="12" fill="#1a1a1a">• Відсікання периферії</text>
+    <text x="508" y="325" font-size="12" fill="#1a1a1a">• Захист від r² плеча</text>
+    <text x="508" y="345" font-size="12" fill="#1a1a1a">• Обмеження зони ROI</text>
+
+    <!-- Green Info Tag -->
+    <rect x="506" y="375" width="180" height="85" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+    <text x="596" y="395" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Захист від плеча r²:</text>
+    <text x="596" y="412" font-size="11" fill="#27ae60" text-anchor="middle">далекі пікселі з шумом</text>
+    <text x="596" y="429" font-size="11" fill="#27ae60" text-anchor="middle">не множаться на</text>
+    <text x="596" y="446" font-size="11" fill="#27ae60" text-anchor="middle">квадрат відстані (x-x₀)²</text>
+  </g>
+
+  <!-- STAGE 4: MOMENTS CALCULATION D4σ -->
+  <g id="stage4">
+    <rect x="732" y="85" width="200" height="395" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+    <rect x="732" y="85" width="200" height="40" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+    <rect x="732" y="115" width="200" height="10" fill="#e9f7ef"/>
+    <text x="832" y="110" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">4. Обчислення D4σ</text>
+    <text x="832" y="150" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">D4σ = 4 · σ_x = 4 · √(M₂ / M₀)</text>
+
+    <!-- Visual Plot 4 -->
+    <rect x="744" y="165" width="176" height="100" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+    <path d="M 754,245 C 788,245 803,185 832,185 C 861,185 876,245 910,245 Z" fill="#e9f7ef" opacity="0.6"/>
+    <path d="M 754,245 C 788,245 803,185 832,185 C 861,185 876,245 910,245" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+    <line x1="788" y1="175" x2="788" y2="245" stroke="#27ae60" stroke-dasharray="2,2" stroke-width="1.5"/>
+    <line x1="876" y1="175" x2="876" y2="245" stroke="#27ae60" stroke-dasharray="2,2" stroke-width="1.5"/>
+    
+    <!-- Split Dimension Lines to completely avoid text box overlap -->
+    <line x1="788" y1="212" x2="820" y2="212" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green-left)"/>
+    <line x1="844" y1="212" x2="876" y2="212" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+    
+    <!-- Text D4σ above the split dimension line (y=208, y-range [197, 208]) -->
+    <text x="832" y="208" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">D4σ</text>
+    <text x="832" y="258" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Діаметр D4σ за ISO 11146</text>
+
+    <!-- Bullet Points -->
+    <text x="744" y="285" font-size="12" fill="#1a1a1a">• Центроїд (x₀, y₀)</text>
+    <text x="744" y="305" font-size="12" fill="#1a1a1a">• Другі моменти σ_x, σ_y</text>
+    <text x="744" y="325" font-size="12" fill="#1a1a1a">• Еліптичність і орієнтація</text>
+    <text x="744" y="345" font-size="12" fill="#1a1a1a">• Точний фактор M²</text>
+
+    <!-- Success Tag -->
+    <rect x="742" y="375" width="180" height="85" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+    <text x="832" y="395" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Результат ISO:</text>
+    <text x="832" y="412" font-size="11" fill="#27ae60" text-anchor="middle">точний та відтворюваний</text>
+    <text x="832" y="429" font-size="11" fill="#27ae60" text-anchor="middle">діаметр променя без</text>
+    <text x="832" y="446" font-size="11" fill="#27ae60" text-anchor="middle">впливу темнового шуму</text>
+  </g>
+</svg>

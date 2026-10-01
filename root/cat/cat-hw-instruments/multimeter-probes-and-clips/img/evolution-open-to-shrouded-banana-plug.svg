@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background canvas -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Titles -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еволюція банан-штекерів: від відкритого контакту до IEC 61010-031</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Ізольований кожух та подвійна ізоляція запобігають ураженню струмом і дуговому пробою</text>
+
+  <!-- LEFT PANEL: Traditional Open Plug -->
+  <rect x="40" y="70" width="420" height="395" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="250" y="96" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">Відкритий банан-штекер (1920-ті рр.)</text>
+  
+  <rect x="110" y="106" width="280" height="24" rx="4" fill="#f9d5d3" stroke="#c0392b" stroke-width="1"/>
+  <text x="250" y="122" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">НЕБЕЗПЕЧНО: Немає захисту від торкання</text>
+
+  <!-- Danger callout box (positioned to left of finger, completely free of collisions) -->
+  <rect x="55" y="140" width="165" height="36" rx="4" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="137" y="154" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Оголений контакт!</text>
+  <text x="137" y="168" font-size="10" fill="#6b7280" text-anchor="middle">Доторк пальцем під напругою</text>
+  <path d="M 222,158 L 235,182" stroke="#c0392b" stroke-width="1" stroke-dasharray="2 2" marker-end="url(#arr-red)"/>
+
+  <!-- Left Plug Assembly Drawing -->
+  <!-- Cable -->
+  <path d="M 55,210 L 100,210" stroke="#c0392b" stroke-width="8" stroke-linecap="round"/>
+  <text x="77" y="194" font-size="11" fill="#6b7280" text-anchor="middle">Кабель</text>
+
+  <!-- Handle -->
+  <rect x="100" y="195" width="70" height="30" rx="4" fill="#e74c3c" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="135" y="214" font-size="11" fill="white" font-weight="bold" text-anchor="middle">Ручка</text>
+
+  <!-- Brass pin -->
+  <rect x="170" y="203" width="70" height="14" fill="#f1c40f" stroke="#d4ac0d" stroke-width="1"/>
+  <path d="M 180,203 Q 205,197 230,203 M 180,217 Q 205,223 230,217" fill="none" stroke="#b7950b" stroke-width="2"/>
+
+  <!-- Finger touching bare pin (placed at x=235..250, top y=175) -->
+  <path d="M 248,175 C 248,165 233,165 233,175 L 233,198 C 233,203 236,205 239,205 C 242,205 245,203 245,198 L 245,180 C 245,177 248,177 248,180 Z" fill="#f5cba7" stroke="#d58555" stroke-width="1.5"/>
+
+  <!-- Spark symbol -->
+  <path d="M 230,196 L 238,203 L 234,204 L 242,211 L 236,207 L 239,205 Z" fill="#e74c3c"/>
+
+  <!-- Socket Panel Wall -->
+  <text x="366" y="142" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Гніздо</text>
+  <rect x="360" y="150" width="12" height="120" fill="#95a5a6" stroke="#7f8c8d"/>
+  <rect x="372" y="200" width="40" height="20" fill="#bdc3c7" stroke="#7f8c8d" stroke-width="1.5"/>
+  <rect x="372" y="203" width="35" height="14" fill="#7f8c8d"/>
+
+  <!-- Left Text Boxes -->
+  <rect x="55" y="285" width="390" height="75" rx="4" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="70" y="303" font-size="12" font-weight="bold" fill="#c0392b">Ризики незахищеної конструкції (1920-ті):</text>
+  <text x="70" y="322" font-size="11" fill="#1a1a1a">• Оголений металевий штир при частковому вставлянні</text>
+  <text x="70" y="338" font-size="11" fill="#1a1a1a">• Високий ризик короткого замикання та дуги в CAT III/IV</text>
+  <text x="70" y="352" font-size="11" fill="#c0392b" font-weight="bold">• Відсутні стандарти безпеки (зараз заборонено)</text>
+
+  <rect x="55" y="370" width="390" height="80" rx="4" fill="#fdecea" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="70" y="388" font-size="12" font-weight="bold" fill="#c0392b">Одиночна ПВХ-ізоляція провідника:</text>
+  <text x="70" y="407" font-size="11" fill="#1a1a1a">• Один шар ізоляції без індикації зносу</text>
+  <text x="70" y="423" font-size="11" fill="#1a1a1a">• Швидке старіння, твердіє та трискається з часом</text>
+  <text x="70" y="439" font-size="11" fill="#c0392b" font-weight="bold">• Пробій при механічному пошкодженні кабелю</text>
+
+
+  <!-- RIGHT PANEL: Modern Shrouded Safety Plug -->
+  <rect x="500" y="70" width="420" height="395" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="710" y="96" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">Безпековий роз'єм (IEC 61010-031)</text>
+
+  <rect x="580" y="106" width="260" height="24" rx="4" fill="#c8e6c9" stroke="#27ae60" stroke-width="1"/>
+  <text x="710" y="122" font-size="12" font-weight="bold" fill="#1e8449" text-anchor="middle">БЕЗПЕЧНО: CAT II 1000V / CAT III 1000V</text>
+
+  <!-- Shroud callout box (positioned to left of shroud) -->
+  <rect x="515" y="140" width="165" height="36" rx="4" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="597" y="154" font-size="11" font-weight="bold" fill="#1e8449" text-anchor="middle">Захисний кожух</text>
+  <text x="597" y="168" font-size="10" fill="#6b7280" text-anchor="middle">Контакт утоплений (Shroud)</text>
+  <path d="M 682,158 L 695,188" stroke="#27ae60" stroke-width="1" stroke-dasharray="2 2" marker-end="url(#arr-green)"/>
+
+  <!-- Right Plug Assembly Drawing -->
+  <!-- Double Silicone Cable -->
+  <path d="M 515,210 L 560,210" stroke="#e74c3c" stroke-width="10" stroke-linecap="round"/>
+  <path d="M 515,210 L 542,210" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/>
+  <path d="M 515,210 L 530,210" stroke="#2980b9" stroke-width="2" stroke-linecap="round"/>
+  <text x="537" y="194" font-size="11" fill="#6b7280" text-anchor="middle">Подвійний кабель</text>
+
+  <!-- Handle -->
+  <rect x="560" y="195" width="65" height="30" rx="4" fill="#27ae60" stroke="#1e8449" stroke-width="1.5"/>
+  <text x="592" y="214" font-size="11" fill="white" font-weight="bold" text-anchor="middle">Ручка</text>
+
+  <!-- Shrouded Collar (Cutaway view) -->
+  <rect x="625" y="191" width="85" height="38" rx="3" fill="#a9dfbf" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <rect x="625" y="191" width="85" height="38" rx="3" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Recessed Inner Metal Contact -->
+  <rect x="625" y="203" width="60" height="14" fill="#f1c40f" stroke="#d4ac0d" stroke-width="1"/>
+  <path d="M 635,203 Q 655,198 675,203 M 635,217 Q 655,222 675,217" fill="none" stroke="#b7950b" stroke-width="2"/>
+  <path d="M 685,203 L 691,203 L 691,217 L 685,217 Z" fill="#27ae60"/>
+
+  <!-- Socket Panel Wall -->
+  <text x="806" y="142" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Гніздо</text>
+  <rect x="800" y="150" width="12" height="120" fill="#95a5a6" stroke="#7f8c8d"/>
+  <rect x="812" y="187" width="45" height="46" rx="4" fill="#27ae60" stroke="#1e8449" stroke-width="1.5"/>
+  <rect x="812" y="193" width="40" height="34" fill="#d5f5e3"/>
+  <rect x="832" y="200" width="20" height="20" fill="#f1c40f" stroke="#d4ac0d"/>
+
+  <!-- Right Text Boxes -->
+  <rect x="515" y="285" width="390" height="75" rx="4" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="530" y="303" font-size="12" font-weight="bold" fill="#1e8449">Конструктивний захист IEC 61010-031:</text>
+  <text x="530" y="322" font-size="11" fill="#1a1a1a">• Утоплений контакт унеможливлює доторк пальцем</text>
+  <text x="530" y="338" font-size="11" fill="#1a1a1a">• Збільшений шлях витоку струму та повітряний зазор</text>
+  <text x="530" y="352" font-size="11" fill="#1e8449" font-weight="bold">• Гарантована стійкість до дугового пробою (CAT III/IV)</text>
+
+  <rect x="515" y="370" width="390" height="80" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="530" y="388" font-size="12" font-weight="bold" fill="#1e8449">Подвійна силіконова ізоляція (з індикатором зносу):</text>
+  <text x="530" y="407" font-size="11" fill="#1a1a1a">• Два шари різного кольору (зовнішній кольоровий + білий)</text>
+  <text x="530" y="423" font-size="11" fill="#1a1a1a">• Поява білого кольору сигналізує про знос чи пошкодження</text>
+  <text x="530" y="439" font-size="11" fill="#1e8449" font-weight="bold">• Висока термостійкість (паяльник) та гнучкість на морозі</text>
+</svg>

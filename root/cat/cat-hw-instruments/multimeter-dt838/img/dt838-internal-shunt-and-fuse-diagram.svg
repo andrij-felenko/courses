@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня схема струмових кіл мультиметра DT-838</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Низькострумовий вхід (200 mA) захищено запобіжником, а лінію 10 A підключено напряму до шунта</text>
+
+  <!-- Front Panel Sockets Container -->
+  <rect x="35" y="70" width="165" height="360" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="117" y="92" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Гнізда панелі</text>
+
+  <!-- 10ADC Socket -->
+  <rect x="50" y="110" width="135" height="54" fill="#fdecea" stroke="#c0392b" stroke-width="2" rx="6"/>
+  <text x="117" y="131" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">10ADC</text>
+  <text x="117" y="150" font-size="12" fill="#c0392b" text-anchor="middle">макс. 10 A (10 c)</text>
+
+  <!-- VΩmA Socket -->
+  <rect x="50" y="210" width="135" height="54" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="6"/>
+  <text x="117" y="231" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">VΩmA</text>
+  <text x="117" y="250" font-size="12" fill="#27ae60" text-anchor="middle">до 200 mA</text>
+
+  <!-- COM Socket -->
+  <rect x="50" y="330" width="135" height="54" fill="#1a1a1a" stroke="#4b5563" stroke-width="2" rx="6"/>
+  <text x="117" y="351" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">COM</text>
+  <text x="117" y="370" font-size="12" fill="#d1d5db" text-anchor="middle">Спільний (GND)</text>
+
+  <!-- 10A High-Current Channel -->
+  <!-- Main 10A Wire -->
+  <line x1="185" y1="137" x2="240" y2="137" stroke="#c0392b" stroke-width="3"/>
+  <line x1="380" y1="137" x2="650" y2="137" stroke="#c0392b" stroke-width="3"/>
+  <line x1="650" y1="137" x2="650" y2="357" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Warning Badge for 10A Path -->
+  <rect x="420" y="78" width="200" height="36" fill="#fdecea" stroke="#c0392b" stroke-dasharray="4 3" rx="4"/>
+  <text x="520" y="94" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">БЕЗ ЗАПОБІЖНИКА!</text>
+  <text x="520" y="107" font-size="12" fill="#c0392b" text-anchor="middle">Небезпека перегріву &gt; 10 с</text>
+
+  <!-- 10A Shunt Component Box -->
+  <rect x="240" y="112" width="140" height="50" fill="#fdecea" stroke="#c0392b" stroke-width="2" rx="6"/>
+  <text x="310" y="133" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Шунт 10 A (R_sh)</text>
+  <text x="310" y="150" font-size="12" fill="#1a1a1a" text-anchor="middle">≈ 0.01 Ом (скоба)</text>
+
+  <!-- Tap Line from 10A Shunt to ADC -->
+  <path d="M 390 137 L 560 170 L 740 226" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-red)"/>
+  <rect x="480" y="160" width="140" height="20" fill="#ffffff" stroke="#c0392b" stroke-width="1" rx="3"/>
+  <text x="550" y="174" font-size="12" fill="#c0392b" text-anchor="middle">Сигнал U_sh (10A)</text>
+
+  <!-- Low-Current mA Channel -->
+  <!-- Main mA Wire -->
+  <line x1="185" y1="237" x2="240" y2="237" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="380" y1="237" x2="420" y2="237" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="540" y1="237" x2="570" y2="237" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="710" y1="237" x2="710" y2="357" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Safety Badge for mA Path -->
+  <rect x="240" y="180" width="140" height="24" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="310" y="196" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Захищено F1</text>
+
+  <!-- Fuse F1 Box -->
+  <rect x="240" y="212" width="140" height="50" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="6"/>
+  <text x="310" y="233" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Запобіжник F1</text>
+  <text x="310" y="250" font-size="12" fill="#1a1a1a" text-anchor="middle">0.2 A / 250 V (200 mA)</text>
+
+  <!-- Rotary Switch S1 Box -->
+  <rect x="420" y="212" width="120" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="480" y="233" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Перемикач S1</text>
+  <text x="480" y="250" font-size="12" fill="#2457d6" text-anchor="middle">Вибір діапазону</text>
+
+  <!-- mA Shunts Box -->
+  <rect x="570" y="212" width="140" height="50" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="6"/>
+  <text x="640" y="233" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шунти mA</text>
+  <text x="640" y="250" font-size="12" fill="#6b7280" text-anchor="middle">1 Ом / 10 Ом / 100 Ом</text>
+
+  <!-- Tap Line from mA Shunt to ADC -->
+  <path d="M 710 237 L 740 251" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-green)"/>
+
+  <!-- COM Line (Common Ground) -->
+  <line x1="185" y1="357" x2="832" y2="357" stroke="#1a1a1a" stroke-width="3"/>
+  <circle cx="650" cy="357" r="4" fill="#1a1a1a"/>
+  <circle cx="710" cy="357" r="4" fill="#1a1a1a"/>
+  <circle cx="832" cy="357" r="4" fill="#1a1a1a"/>
+
+  <!-- Ground Connection Symbol -->
+  <line x1="832" y1="357" x2="832" y2="372" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="817" y1="372" x2="847" y2="372" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="822" y1="377" x2="842" y2="377" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="827" y1="382" x2="837" y2="382" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="832" y="398" font-size="12" fill="#6b7280" text-anchor="middle">Шина COM (GND)</text>
+
+  <!-- ADC Chip Container (Right Side) -->
+  <rect x="740" y="130" width="185" height="180" fill="#f4f6f8" stroke="#2457d6" stroke-width="2" rx="8"/>
+  <text x="832" y="156" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">АЦП ICL7106</text>
+  <text x="832" y="178" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхід вимірювання U_in</text>
+  <text x="832" y="196" font-size="12" fill="#6b7280" text-anchor="middle">Шкала: ±200.0 mV</text>
+
+  <rect x="752" y="212" width="160" height="24" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="832" y="228" font-size="12" fill="#c0392b" text-anchor="middle">Вхід U_sh (10A)</text>
+
+  <rect x="752" y="242" width="160" height="24" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="832" y="258" font-size="12" fill="#27ae60" text-anchor="middle">Вхід U_sh (mA)</text>
+
+  <line x1="832" y1="357" x2="832" y2="310" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-dark)"/>
+  <text x="832" y="300" font-size="12" fill="#1a1a1a" text-anchor="middle">Опорний GND</text>
+
+  <!-- Bottom Explanatory Panel -->
+  <rect x="230" y="385" width="530" height="55" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="495" y="407" font-size="12" fill="#1a1a1a" text-anchor="middle">Струм створює спад напруги U_sh = I · R_sh, який вимірює АЦП (шкала 200 mV).</text>
+  <text x="495" y="426" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Подача понад 200 mA на вхід VΩmA викликає перегорання запобіжника F1!</text>
+</svg>

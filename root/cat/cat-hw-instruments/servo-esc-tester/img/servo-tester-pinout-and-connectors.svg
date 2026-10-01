@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розводка роз'ємів та полярність підключення CCPM-сервотестера</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Розташування контактних груп Вхід (IN: 4.8–6.0V) та Вихід (OUT: S1–S3) з кольоровою маркіровкою Signal / VCC / GND</text>
+
+  <!-- PANEL 1: IN (Input Power) -->
+  <rect x="30" y="90" width="230" height="330" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="145" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">ВХІД ЖИВЛЕННЯ (IN)</text>
+  <text x="145" y="135" text-anchor="middle" font-size="12" fill="#2457d6">4.8 В – 6.0 В DC</text>
+
+  <!-- IN Pins Sockets -->
+  <text x="160" y="189" text-anchor="end" font-size="12" font-weight="bold" fill="#b45309">Signal (S)</text>
+  <rect x="170" y="170" width="50" height="28" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="195" y="189" text-anchor="middle" font-size="12" font-weight="bold" fill="#b45309">S</text>
+
+  <text x="160" y="249" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">VCC (+)</text>
+  <rect x="170" y="230" width="50" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="195" y="249" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">+</text>
+
+  <text x="160" y="309" text-anchor="end" font-size="12" font-weight="bold" fill="#1f2937">GND (-)</text>
+  <rect x="170" y="290" width="50" height="28" rx="4" fill="#e5e7eb" stroke="#374151" stroke-width="1.5"/>
+  <text x="195" y="309" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2937">-</text>
+
+  <!-- Wire Legend Box -->
+  <rect x="42" y="335" width="206" height="72" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="145" y="352" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Кольори дротів:</text>
+  <text x="50" y="370" font-size="12" font-weight="bold" fill="#b45309">• S:</text>
+  <text x="80" y="370" font-size="12" fill="#1a1a1a">Жовтий / Помаранчевий</text>
+  <text x="50" y="386" font-size="12" font-weight="bold" fill="#c0392b">• VCC:</text>
+  <text x="95" y="386" font-size="12" fill="#1a1a1a">Червоний</text>
+  <text x="50" y="401" font-size="12" font-weight="bold" fill="#1f2937">• GND:</text>
+  <text x="95" y="401" font-size="12" fill="#1a1a1a">Чорний / Коричневий</text>
+
+  <!-- Arrow IN -> Tester -->
+  <line x1="260" y1="244" x2="292" y2="244" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="276" y="236" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вхід</text>
+
+  <!-- PANEL 2: CENTER TESTER BODY -->
+  <rect x="300" y="90" width="360" height="330" rx="14" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="118" text-anchor="middle" font-size="15" font-weight="bold" fill="#2457d6">CCPM SERVO / ESC TESTER</text>
+  <text x="480" y="136" text-anchor="middle" font-size="12" fill="#6b7280">Апаратний генератор ШІМ (50 Гц)</text>
+
+  <!-- Potentiometer Dial -->
+  <circle cx="480" cy="205" r="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="480" cy="205" r="26" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <line x1="480" y1="205" x2="480" y2="172" stroke="#2457d6" stroke-width="3"/>
+  <line x1="450" y1="235" x2="442" y2="243" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="428" y="258" text-anchor="middle" font-size="12" fill="#6b7280">1000 мкс</text>
+  <line x1="480" y1="160" x2="480" y2="152" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="480" y="148" text-anchor="middle" font-size="12" fill="#6b7280">1500 мкс</text>
+  <line x1="510" y1="235" x2="518" y2="243" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="532" y="258" text-anchor="middle" font-size="12" fill="#6b7280">2000 мкс</text>
+  <text x="480" y="280" text-anchor="middle" font-size="12" fill="#1a1a1a">Ручне регулювання ШІМ (1.0–2.0 мс)</text>
+
+  <!-- Mode LEDs -->
+  <circle cx="370" cy="312" r="7" fill="#27ae60"/>
+  <text x="370" y="330" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Manual</text>
+
+  <circle cx="480" cy="312" r="7" fill="#d0d7de"/>
+  <text x="480" y="330" text-anchor="middle" font-size="12" fill="#6b7280">Neutral</text>
+
+  <circle cx="590" cy="312" r="7" fill="#d0d7de"/>
+  <text x="590" y="330" text-anchor="middle" font-size="12" fill="#6b7280">Auto</text>
+
+  <!-- SELECT Button -->
+  <rect x="415" y="352" width="130" height="32" rx="6" fill="#2457d6"/>
+  <text x="480" y="373" text-anchor="middle" font-size="12" font-weight="bold" fill="white">SELECT (Режим)</text>
+
+  <!-- Arrow Tester -> OUT -->
+  <line x1="660" y1="244" x2="682" y2="244" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="671" y="236" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ШІМ</text>
+
+  <!-- PANEL 3: OUT (Outputs S1..S3) -->
+  <rect x="690" y="90" width="240" height="330" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="810" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">ВИХОДИ (OUT S1..S3)</text>
+  <text x="810" y="135" text-anchor="middle" font-size="12" fill="#2457d6">Канали S1, S2, S3</text>
+
+  <!-- Column Headers -->
+  <text x="792" y="160" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">S1</text>
+  <text x="842" y="160" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">S2</text>
+  <text x="892" y="160" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">S3</text>
+
+  <!-- OUT Row 1: Signal -->
+  <text x="702" y="189" font-size="12" font-weight="bold" fill="#b45309">Signal (S)</text>
+  <rect x="775" y="172" width="34" height="26" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="792" y="189" text-anchor="middle" font-size="12" font-weight="bold" fill="#b45309">S</text>
+
+  <rect x="825" y="172" width="34" height="26" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="842" y="189" text-anchor="middle" font-size="12" font-weight="bold" fill="#b45309">S</text>
+
+  <rect x="875" y="172" width="34" height="26" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="892" y="189" text-anchor="middle" font-size="12" font-weight="bold" fill="#b45309">S</text>
+
+  <!-- OUT Row 2: VCC -->
+  <text x="702" y="249" font-size="12" font-weight="bold" fill="#c0392b">VCC (+)</text>
+  <rect x="775" y="232" width="34" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="792" y="249" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">+</text>
+
+  <rect x="825" y="232" width="34" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="842" y="249" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">+</text>
+
+  <rect x="875" y="232" width="34" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="892" y="249" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">+</text>
+
+  <!-- OUT Row 3: GND -->
+  <text x="702" y="309" font-size="12" font-weight="bold" fill="#1f2937">GND (-)</text>
+  <rect x="775" y="292" width="34" height="26" rx="4" fill="#e5e7eb" stroke="#374151" stroke-width="1.5"/>
+  <text x="792" y="309" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2937">-</text>
+
+  <rect x="825" y="292" width="34" height="26" rx="4" fill="#e5e7eb" stroke="#374151" stroke-width="1.5"/>
+  <text x="842" y="309" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2937">-</text>
+
+  <rect x="875" y="292" width="34" height="26" rx="4" fill="#e5e7eb" stroke="#374151" stroke-width="1.5"/>
+  <text x="892" y="309" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2937">-</text>
+
+  <!-- OUT Bottom Labels -->
+  <text x="810" y="355" text-anchor="middle" font-size="12" fill="#1a1a1a">Підключення до серво / ESC</text>
+  <text x="810" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Збіг полярності обов'язковий!</text>
+
+  <!-- Bottom Safety Banner -->
+  <rect x="30" y="426" width="900" height="26" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="443" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Зверніть увагу: Помилка полярності (переплутування GND та VCC) може пошкодити сервопривод або вихідний каскад тестера</text>
+</svg>

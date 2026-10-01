@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрія змінних лез скальпеля та механіка різання</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Профілі кромки визначають кінематику розрізу, а кут нахилу α розподіляє зусилля на Fn та Fs</text>
+
+  <!-- Left Panel: Blade Shapes Geometry -->
+  <rect x="24" y="65" width="444" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="246" y="90" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Форми та кути заточування лез</text>
+  <text x="246" y="108" font-size="12" fill="#6b7280" text-anchor="middle">Стандартизовані профілі кромки та їхнє призначення</text>
+
+  <!-- Blade #10 Card -->
+  <rect x="38" y="122" width="416" height="104" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <path d="M 52,185 L 85,185 Q 120,185 134,160 Q 115,146 85,146 L 52,146 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="55" y="156" width="22" height="9" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="142" y="142" font-size="13" font-weight="bold" fill="#2457d6">Лезо №10 (вигнутий живіт)</text>
+  <text x="142" y="160" font-size="12" fill="#1a1a1a">• Кут заточування: β ≈ 20–25° (дуга)</text>
+  <text x="142" y="178" font-size="12" fill="#6b7280">• Застосування: довгі плавні розрізи</text>
+  <text x="142" y="196" font-size="12" fill="#27ae60">• Механіка: велика площа, рівномірний тиск</text>
+
+  <!-- Blade #11 Card -->
+  <rect x="38" y="234" width="416" height="104" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <path d="M 52,297 L 98,297 L 134,258 L 88,258 L 52,258 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="55" y="268" width="22" height="9" rx="2" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="142" y="254" font-size="13" font-weight="bold" fill="#c0392b">Лезо №11 (гострокутний клин)</text>
+  <text x="142" y="272" font-size="12" fill="#1a1a1a">• Кут вістря: θ ≈ 45°, заточування: β ≈ 15°</text>
+  <text x="142" y="290" font-size="12" fill="#6b7280">• Застосування: проколи, підрізання доріжок</text>
+  <text x="142" y="308" font-size="12" fill="#c0392b">• Ризик: крихкість кінчика при вигині</text>
+
+  <!-- Blade #16 Card -->
+  <rect x="38" y="346" width="416" height="104" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <path d="M 52,409 L 95,409 Q 122,409 134,383 L 95,370 L 52,370 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="55" y="380" width="22" height="9" rx="2" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="142" y="366" font-size="13" font-weight="bold" fill="#27ae60">Лезо №16 (мале закруглене)</text>
+  <text x="142" y="384" font-size="12" fill="#1a1a1a">• Прямий обух та малий дугоподібний носок</text>
+  <text x="142" y="402" font-size="12" fill="#6b7280">• Застосування: фігурне точне вирізання</text>
+  <text x="142" y="420" font-size="12" fill="#27ae60">• Механіка: малий радіус, точний контроль</text>
+
+  <text x="246" y="478" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Матеріал: вуглецева сталь (гострота) або нержавіюча сталь</text>
+
+  <!-- Right Panel: Force Resolution Diagram -->
+  <rect x="492" y="65" width="444" height="435" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="714" y="90" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Розподіл зусиль під час різання</text>
+  <text x="714" y="108" font-size="12" fill="#6b7280" text-anchor="middle">Залежність нормального Fn та зсувного Fs зусиль від кута α</text>
+
+  <!-- Material Substrate Base -->
+  <rect x="520" y="300" width="388" height="30" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="810" y="319" font-size="12" fill="#6b7280" font-weight="bold" text-anchor="middle">Оброблюваний матеріал</text>
+
+  <!-- Inclined Blade Geometry -->
+  <polygon points="670,300 570,230 590,200 690,270" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="670" y1="300" x2="570" y2="230" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Horizontal Reference Line & Angle Alpha Arc -->
+  <line x1="590" y1="300" x2="670" y2="300" stroke="#95a5a6" stroke-width="1" stroke-dasharray="3,3"/>
+  <path d="M 610,300 A 60,60 0 0,1 621,266" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="595" y="280" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Кут α</text>
+
+  <!-- Force Vectors -->
+  <!-- Applied Force F -->
+  <line x1="540" y1="209" x2="620" y2="265" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="530" y="195" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">F (сила натиску)</text>
+
+  <!-- Normal Force Fn -->
+  <line x1="670" y1="300" x2="670" y2="345" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="682" y="325" font-size="12" font-weight="bold" fill="#c0392b">Fn = F · sin(α)</text>
+  <text x="682" y="340" font-size="12" fill="#6b7280">(нормальний тиск)</text>
+
+  <!-- Shear Force Fs -->
+  <line x1="670" y1="300" x2="745" y2="300" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="755" y="292" font-size="12" font-weight="bold" fill="#27ae60">Fs = F · cos(α)</text>
+  <text x="755" y="307" font-size="12" fill="#6b7280">(зсувне різання)</text>
+
+  <!-- Angle Comparison Cards -->
+  <rect x="508" y="360" width="204" height="100" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="610" y="378" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Великий кут α (60–75°)</text>
+  <text x="516" y="398" font-size="12" fill="#1a1a1a">• Fn &gt;&gt; Fs (переважає тиск)</text>
+  <text x="516" y="416" font-size="12" fill="#1a1a1a">• Точкові проколи, надрізи</text>
+  <text x="516" y="434" font-size="12" fill="#c0392b">• Ризик згинання й зламу</text>
+
+  <rect x="724" y="360" width="204" height="100" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="826" y="378" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Оптимальний кут α (30–45°)</text>
+  <text x="732" y="398" font-size="12" fill="#1a1a1a">• Баланс Fn і Fs (чистий зріз)</text>
+  <text x="732" y="416" font-size="12" fill="#1a1a1a">• Плавний ковзний розріз</text>
+  <text x="732" y="434" font-size="12" fill="#27ae60">• Мінімальний знос кромки</text>
+
+  <text x="714" y="482" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">✓ Зсувна складова Fs забезпечує чисте ковзне розрізання</text>
+</svg>

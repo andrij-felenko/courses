@@ -1,0 +1,201 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння топології макетних плат: Perfboard та Stripboard</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Точкові ізольовані площадки вимагають дротів, а смугові доріжки потребують перерізання шин</text>
+
+  <!-- ==================== LEFT PANEL: PERFBOARD ==================== -->
+  <rect x="40" y="80" width="425" height="370" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8" ry="8"/>
+
+  <!-- Header Box -->
+  <rect x="52" y="90" width="401" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="252.5" y="113" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Точкова плата (Perfboard)</text>
+
+  <!-- Subhead -->
+  <text x="252.5" y="145" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Конструкція та крок сітки 2.54 мм (0.1")</text>
+
+  <!-- Diagram Inner Box -->
+  <rect x="62" y="155" width="381" height="140" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+
+  <!-- Substrate Board Base -->
+  <rect x="80" y="168" width="345" height="104" fill="#fef3c7" fill-opacity="0.5" stroke="#d97706" stroke-width="1" rx="4"/>
+
+  <!-- Perfboard Donut Pads Grid (Rows y=190, 214, 238, 262) -->
+  <!-- Row 1 y=190 -->
+  <circle cx="105" cy="190" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="105" cy="190" r="3" fill="#ffffff"/>
+  <circle cx="133" cy="190" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="133" cy="190" r="3" fill="#ffffff"/>
+  <circle cx="161" cy="190" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="161" cy="190" r="3" fill="#ffffff"/>
+  <circle cx="189" cy="190" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="189" cy="190" r="3" fill="#ffffff"/>
+  <circle cx="217" cy="190" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="217" cy="190" r="3" fill="#ffffff"/>
+  <circle cx="245" cy="190" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="245" cy="190" r="3" fill="#ffffff"/>
+  <circle cx="273" cy="190" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="273" cy="190" r="3" fill="#ffffff"/>
+  <circle cx="301" cy="190" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="301" cy="190" r="3" fill="#ffffff"/>
+  <circle cx="329" cy="190" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="329" cy="190" r="3" fill="#ffffff"/>
+  <circle cx="357" cy="190" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="357" cy="190" r="3" fill="#ffffff"/>
+  <circle cx="385" cy="190" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="385" cy="190" r="3" fill="#ffffff"/>
+
+  <!-- Row 2 y=214 with wire connection between x=161 and x=273 -->
+  <circle cx="105" cy="214" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="105" cy="214" r="3" fill="#ffffff"/>
+  <circle cx="133" cy="214" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="133" cy="214" r="3" fill="#ffffff"/>
+  <circle cx="161" cy="214" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="161" cy="214" r="3" fill="#ffffff"/>
+  <circle cx="189" cy="214" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="189" cy="214" r="3" fill="#ffffff"/>
+  <circle cx="217" cy="214" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="217" cy="214" r="3" fill="#ffffff"/>
+  <circle cx="245" cy="214" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="245" cy="214" r="3" fill="#ffffff"/>
+  <circle cx="273" cy="214" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="273" cy="214" r="3" fill="#ffffff"/>
+  <circle cx="301" cy="214" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="301" cy="214" r="3" fill="#ffffff"/>
+  <circle cx="329" cy="214" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="329" cy="214" r="3" fill="#ffffff"/>
+  <circle cx="357" cy="214" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="357" cy="214" r="3" fill="#ffffff"/>
+  <circle cx="385" cy="214" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="385" cy="214" r="3" fill="#ffffff"/>
+
+  <!-- Wire Connection Line & Solder Joints on Row 2 -->
+  <line x1="161" y1="214" x2="273" y2="214" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="161" cy="214" r="5" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <circle cx="273" cy="214" r="5" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+
+  <!-- Row 3 y=238 -->
+  <circle cx="105" cy="238" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="105" cy="238" r="3" fill="#ffffff"/>
+  <circle cx="133" cy="238" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="133" cy="238" r="3" fill="#ffffff"/>
+  <circle cx="161" cy="238" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="161" cy="238" r="3" fill="#ffffff"/>
+  <circle cx="189" cy="238" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="189" cy="238" r="3" fill="#ffffff"/>
+  <circle cx="217" cy="238" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="217" cy="238" r="3" fill="#ffffff"/>
+  <circle cx="245" cy="238" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="245" cy="238" r="3" fill="#ffffff"/>
+  <circle cx="273" cy="238" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="273" cy="238" r="3" fill="#ffffff"/>
+  <circle cx="301" cy="238" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="301" cy="238" r="3" fill="#ffffff"/>
+  <circle cx="329" cy="238" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="329" cy="238" r="3" fill="#ffffff"/>
+  <circle cx="357" cy="238" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="357" cy="238" r="3" fill="#ffffff"/>
+  <circle cx="385" cy="238" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="385" cy="238" r="3" fill="#ffffff"/>
+
+  <!-- Row 4 y=262 -->
+  <circle cx="105" cy="262" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="105" cy="262" r="3" fill="#ffffff"/>
+  <circle cx="133" cy="262" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="133" cy="262" r="3" fill="#ffffff"/>
+  <circle cx="161" cy="262" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="161" cy="262" r="3" fill="#ffffff"/>
+  <circle cx="189" cy="262" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="189" cy="262" r="3" fill="#ffffff"/>
+  <circle cx="217" cy="262" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="217" cy="262" r="3" fill="#ffffff"/>
+  <circle cx="245" cy="262" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="245" cy="262" r="3" fill="#ffffff"/>
+  <circle cx="273" cy="262" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="273" cy="262" r="3" fill="#ffffff"/>
+  <circle cx="301" cy="262" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="301" cy="262" r="3" fill="#ffffff"/>
+  <circle cx="329" cy="262" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="329" cy="262" r="3" fill="#ffffff"/>
+  <circle cx="357" cy="262" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="357" cy="262" r="3" fill="#ffffff"/>
+  <circle cx="385" cy="262" r="7" fill="#f59e0b" stroke="#d97706" stroke-width="1"/><circle cx="385" cy="262" r="3" fill="#ffffff"/>
+
+  <!-- Grid Pitch Dimension Line & Label -->
+  <line x1="105" y1="276" x2="133" y2="276" stroke="#6b7280" stroke-width="1" marker-start="url(#arr-gray)" marker-end="url(#arr-gray)"/>
+  <text x="119" y="291" font-size="12" fill="#6b7280" text-anchor="middle">P = 2.54 мм</text>
+
+  <!-- Feature List -->
+  <text x="252.5" y="315" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Особливості монтажу</text>
+  <text x="252.5" y="338" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">• Ізольовані точкові контактні площадки</text>
+  <text x="252.5" y="358" font-size="12" fill="#6b7280" text-anchor="middle">• Кожне з'єднання вимагає окремого дроту</text>
+  <text x="252.5" y="378" font-size="12" fill="#6b7280" text-anchor="middle">• Висока гнучкість для довільних схем</text>
+  <text x="252.5" y="398" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">• Потребує більше часу на розпайку дротів</text>
+
+  <!-- Summary Badge Card -->
+  <rect x="62" y="415" width="381" height="26" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="252.5" y="432" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Призначення: макети з довільною топологією</text>
+
+  <!-- ==================== RIGHT PANEL: STRIPBOARD ==================== -->
+  <rect x="495" y="80" width="425" height="370" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8" ry="8"/>
+
+  <!-- Header Box -->
+  <rect x="507" y="90" width="401" height="36" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="707.5" y="113" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">Смугова плата (Stripboard / Veroboard)</text>
+
+  <!-- Subhead -->
+  <text x="707.5" y="145" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Паралельні мідні шини та розриви колій</text>
+
+  <!-- Diagram Inner Box -->
+  <rect x="517" y="155" width="381" height="140" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+
+  <!-- Substrate Board Base -->
+  <rect x="535" y="168" width="345" height="104" fill="#fef3c7" fill-opacity="0.5" stroke="#d97706" stroke-width="1" rx="4"/>
+
+  <!-- Track Cut Label & Pointer Line (Y range of text: 168 to 180, well below diagram top 155 and above track 1 184) -->
+  <text x="755" y="180" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Розрив шини</text>
+  <line x1="755" y1="183" x2="755" y2="205" stroke="#c0392b" stroke-width="1" marker-end="url(#arr-red)"/>
+
+  <!-- Continuous Copper Strips (Row 1 to 4) -->
+  <!-- Track 1 y=190 -->
+  <rect x="545" y="184" width="325" height="12" fill="#f59e0b" fill-opacity="0.8" stroke="#d97706" stroke-width="1" rx="2"/>
+
+  <!-- Track 2 y=214 with cut out at x=755 -->
+  <rect x="545" y="208" width="200" height="12" fill="#f59e0b" fill-opacity="0.8" stroke="#d97706" stroke-width="1" rx="2"/>
+  <rect x="765" y="208" width="105" height="12" fill="#f59e0b" fill-opacity="0.8" stroke="#d97706" stroke-width="1" rx="2"/>
+  <!-- Cut indicator box and cross at x=755 -->
+  <rect x="747" y="206" width="16" height="16" fill="#fef3c7" stroke="#c0392b" stroke-width="1.5" rx="2"/>
+  <line x1="749" y1="208" x2="761" y2="220" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="761" y1="208" x2="749" y2="220" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Track 3 y=238 -->
+  <rect x="545" y="232" width="325" height="12" fill="#f59e0b" fill-opacity="0.8" stroke="#d97706" stroke-width="1" rx="2"/>
+
+  <!-- Track 4 y=262 -->
+  <rect x="545" y="256" width="325" height="12" fill="#f59e0b" fill-opacity="0.8" stroke="#d97706" stroke-width="1" rx="2"/>
+
+  <!-- Holes grid over tracks (Cols x=560,588,616,644,672,700,728,756,784,812,840) -->
+  <!-- Row 1 y=190 -->
+  <circle cx="560" cy="190" r="3" fill="#ffffff"/><circle cx="588" cy="190" r="3" fill="#ffffff"/>
+  <circle cx="616" cy="190" r="3" fill="#ffffff"/><circle cx="644" cy="190" r="3" fill="#ffffff"/>
+  <circle cx="672" cy="190" r="3" fill="#ffffff"/><circle cx="700" cy="190" r="3" fill="#ffffff"/>
+  <circle cx="728" cy="190" r="3" fill="#ffffff"/><circle cx="756" cy="190" r="3" fill="#ffffff"/>
+  <circle cx="784" cy="190" r="3" fill="#ffffff"/><circle cx="812" cy="190" r="3" fill="#ffffff"/>
+  <circle cx="840" cy="190" r="3" fill="#ffffff"/>
+
+  <!-- Row 2 y=214 -->
+  <circle cx="560" cy="214" r="3" fill="#ffffff"/><circle cx="588" cy="214" r="3" fill="#ffffff"/>
+  <circle cx="616" cy="214" r="3" fill="#ffffff"/><circle cx="644" cy="214" r="3" fill="#ffffff"/>
+  <circle cx="672" cy="214" r="3" fill="#ffffff"/><circle cx="700" cy="214" r="3" fill="#ffffff"/>
+  <circle cx="728" cy="214" r="3" fill="#ffffff"/>
+  <circle cx="784" cy="214" r="3" fill="#ffffff"/><circle cx="812" cy="214" r="3" fill="#ffffff"/>
+  <circle cx="840" cy="214" r="3" fill="#ffffff"/>
+
+  <!-- Row 3 y=238 -->
+  <circle cx="560" cy="238" r="3" fill="#ffffff"/><circle cx="588" cy="238" r="3" fill="#ffffff"/>
+  <circle cx="616" cy="238" r="3" fill="#ffffff"/><circle cx="644" cy="238" r="3" fill="#ffffff"/>
+  <circle cx="672" cy="238" r="3" fill="#ffffff"/><circle cx="700" cy="238" r="3" fill="#ffffff"/>
+  <circle cx="728" cy="238" r="3" fill="#ffffff"/><circle cx="756" cy="238" r="3" fill="#ffffff"/>
+  <circle cx="784" cy="238" r="3" fill="#ffffff"/><circle cx="812" cy="238" r="3" fill="#ffffff"/>
+  <circle cx="840" cy="238" r="3" fill="#ffffff"/>
+
+  <!-- Row 4 y=262 -->
+  <circle cx="560" cy="262" r="3" fill="#ffffff"/><circle cx="588" cy="262" r="3" fill="#ffffff"/>
+  <circle cx="616" cy="262" r="3" fill="#ffffff"/><circle cx="644" cy="262" r="3" fill="#ffffff"/>
+  <circle cx="672" cy="262" r="3" fill="#ffffff"/><circle cx="700" cy="262" r="3" fill="#ffffff"/>
+  <circle cx="728" cy="262" r="3" fill="#ffffff"/><circle cx="756" cy="262" r="3" fill="#ffffff"/>
+  <circle cx="784" cy="262" r="3" fill="#ffffff"/><circle cx="812" cy="262" r="3" fill="#ffffff"/>
+  <circle cx="840" cy="262" r="3" fill="#ffffff"/>
+
+  <!-- Vertical Jumper Line (connecting row 1 at x=644 to row 3 at x=644) -->
+  <line x1="644" y1="190" x2="644" y2="238" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="644" cy="190" r="4" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <circle cx="644" cy="238" r="4" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <text x="644" y="285" font-size="12" fill="#27ae60" text-anchor="middle">Перемичка</text>
+
+  <!-- Grid Pitch Dimension Line & Label -->
+  <line x1="560" y1="276" x2="588" y2="276" stroke="#6b7280" stroke-width="1" marker-start="url(#arr-gray)" marker-end="url(#arr-gray)"/>
+  <text x="574" y="291" font-size="12" fill="#6b7280" text-anchor="middle">P = 2.54 мм</text>
+
+  <!-- Feature List -->
+  <text x="707.5" y="315" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Особливості монтажу</text>
+  <text x="707.5" y="338" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">• Суцільні паралельні мідні доріжки</text>
+  <text x="707.5" y="358" font-size="12" fill="#6b7280" text-anchor="middle">• Спільні шини живлення та сигналів</text>
+  <text x="707.5" y="378" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">• Швидкий монтаж без зайвих дротів</text>
+  <text x="707.5" y="398" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">• Потребує перерізання шин під корпусами</text>
+
+  <!-- Summary Badge Card -->
+  <rect x="517" y="415" width="381" height="26" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="707.5" y="432" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Призначення: швидкі макети з паралельними шинами</text>
+</svg>

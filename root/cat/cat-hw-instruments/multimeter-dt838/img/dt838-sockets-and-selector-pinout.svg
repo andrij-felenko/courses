@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мультиметр DT-838: Конфігурація вхідних гнізд та роторного селектора</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Правила підключення вимірювальних щупів та межі вимірювань для основних режимів</text>
+
+  <!-- Left Panel: Sockets -->
+  <rect x="30" y="75" width="300" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="180" y="100" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідні гнізда приладу</text>
+
+  <!-- Socket 1: COM -->
+  <circle cx="75" cy="155" r="16" fill="#1a1a1a" stroke="#666666" stroke-width="2"/>
+  <circle cx="75" cy="155" r="8" fill="#444444"/>
+  <text x="105" y="150" font-size="13" font-weight="bold" fill="#1a1a1a">COM (Спільний мінус)</text>
+  <text x="105" y="168" font-size="12" fill="#6b7280">Чорний щуп • Маса / Ground</text>
+  <text x="105" y="184" font-size="12" fill="#6b7280">Макс. 1000V DC / 750V AC</text>
+
+  <!-- Socket 2: VΩmA -->
+  <circle cx="75" cy="250" r="16" fill="#c0392b" stroke="#e74c3c" stroke-width="2"/>
+  <circle cx="75" cy="250" r="8" fill="#8b0000"/>
+  <text x="105" y="245" font-size="13" font-weight="bold" fill="#c0392b">VΩmA (Основне гніздо)</text>
+  <text x="105" y="263" font-size="12" fill="#1a1a1a">Червоний щуп • U, R, I &lt; 200mA</text>
+  <text x="105" y="279" font-size="12" fill="#6b7280">Запобіжник 200 mA / 250 V</text>
+
+  <!-- Socket 3: 10ADC -->
+  <circle cx="75" cy="345" r="16" fill="#c0392b" stroke="#e74c3c" stroke-width="2"/>
+  <circle cx="75" cy="345" r="8" fill="#8b0000"/>
+  <text x="105" y="340" font-size="13" font-weight="bold" fill="#c0392b">10ADC (Великий струм)</text>
+  <text x="105" y="358" font-size="12" fill="#1a1a1a">Червоний щуп • 200mA ... 10A</text>
+  <text x="105" y="374" font-size="12" font-weight="bold" fill="#c0392b">⛔ БЕЗ ЗАПОБІЖНИКА! (10 s max)</text>
+
+  <!-- Socket 4: hFE / Temp Connector -->
+  <rect x="45" y="405" width="270" height="115" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="180" y="425" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Колодка hFE / Термопара K-типу</text>
+
+  <rect x="55" y="437" width="250" height="34" rx="4" fill="#eaf0fd" stroke="#d0d7de"/>
+  <text x="65" y="458" font-size="12" font-weight="bold" fill="#2457d6">NPN:</text>
+  <circle cx="115" cy="454" r="4" fill="#1a1a1a"/>
+  <text x="115" y="445" font-size="10" fill="#6b7280" text-anchor="middle">E</text>
+  <circle cx="140" cy="454" r="4" fill="#1a1a1a"/>
+  <text x="140" y="445" font-size="10" fill="#6b7280" text-anchor="middle">B</text>
+  <circle cx="165" cy="454" r="4" fill="#1a1a1a"/>
+  <text x="165" y="445" font-size="10" fill="#6b7280" text-anchor="middle">C</text>
+  <circle cx="190" cy="454" r="4" fill="#1a1a1a"/>
+  <text x="190" y="445" font-size="10" fill="#6b7280" text-anchor="middle">E</text>
+
+  <text x="210" y="458" font-size="12" font-weight="bold" fill="#c0392b">PNP:</text>
+  <circle cx="250" cy="454" r="4" fill="#1a1a1a"/>
+  <circle cx="267" cy="454" r="4" fill="#1a1a1a"/>
+  <circle cx="284" cy="454" r="4" fill="#1a1a1a"/>
+
+  <text x="60" y="492" font-size="12" fill="#1a1a1a">Термопара K-типу:</text>
+  <text x="60" y="510" font-size="12" fill="#6b7280">Вилка в гнізда VΩmA (+) та COM (-)</text>
+
+
+  <!-- Middle Panel: Selector -->
+  <rect x="350" y="75" width="270" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="485" y="100" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Роторний селектор</text>
+
+  <!-- Knob background circle (r=70) -->
+  <circle cx="485" cy="280" r="70" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <circle cx="485" cy="280" r="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <line x1="485" y1="280" x2="485" y2="242" stroke="#2457d6" stroke-width="4" stroke-linecap="round"/>
+  <polygon points="485,236 479,246 491,246" fill="#2457d6"/>
+
+  <!-- Mode labels around knob (positioned clearly outside the r=70 circle) -->
+  <text x="485" y="185" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">OFF</text>
+
+  <text x="565" y="205" font-size="12" font-weight="bold" fill="#2457d6">DCV</text>
+  <text x="565" y="220" font-size="11" fill="#6b7280">200mV-1000V</text>
+
+  <text x="575" y="275" font-size="12" font-weight="bold" fill="#2457d6">ACV</text>
+  <text x="575" y="290" font-size="11" fill="#6b7280">200V-750V</text>
+
+  <text x="565" y="345" font-size="12" font-weight="bold" fill="#2457d6">DCA</text>
+  <text x="565" y="360" font-size="11" fill="#6b7280">2000µA-10A</text>
+
+  <text x="485" y="385" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">hFE • Temp • ➔| • •)))</text>
+
+  <text x="410" y="275" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Ω (Опір)</text>
+  <text x="410" y="290" font-size="11" fill="#6b7280" text-anchor="end">200k-2MΩ</text>
+
+  <!-- Sub-box inner contacts -->
+  <rect x="365" y="415" width="240" height="105" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="375" y="435" font-size="12" font-weight="bold" fill="#1a1a1a">Внутрішня контактна група:</text>
+  <text x="375" y="455" font-size="12" fill="#6b7280">• Замикає доріжки плати приладу</text>
+  <text x="375" y="473" font-size="12" fill="#6b7280">• Підключає дільники напруги R</text>
+  <text x="375" y="491" font-size="12" fill="#6b7280">• Комутує шунти струму та AFE</text>
+
+
+  <!-- Right Panel: Rules -->
+  <rect x="640" y="75" width="290" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="785" y="100" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Правила підключення щупів</text>
+
+  <!-- Case A Box -->
+  <rect x="655" y="115" width="260" height="115" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="670" y="135" font-size="13" font-weight="bold" fill="#27ae60">1. Напруга, опір, T, прозвонка</text>
+  <text x="670" y="155" font-size="12" fill="#1a1a1a">• Чорний щуп ➔ гніздо COM</text>
+  <text x="670" y="173" font-size="12" fill="#1a1a1a">• Червоний щуп ➔ гніздо VΩmA</text>
+  <text x="670" y="191" font-size="12" fill="#27ae60">✓ Паралельне підключення до кола</text>
+  <text x="670" y="209" font-size="12" fill="#6b7280">✓ Вхідний опір приладу R_in ≈ 1 MΩ</text>
+
+  <!-- Case B Box -->
+  <rect x="655" y="245" width="260" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="670" y="265" font-size="13" font-weight="bold" fill="#2457d6">2. Малі струми (I &lt; 200 mA)</text>
+  <text x="670" y="285" font-size="12" fill="#1a1a1a">• Чорний щуп ➔ гніздо COM</text>
+  <text x="670" y="303" font-size="12" fill="#1a1a1a">• Червоний щуп ➔ гніздо VΩmA</text>
+  <text x="670" y="321" font-size="12" font-weight="bold" fill="#2457d6">⚡ ПОСЛІДОВНЕ підключення в розрив!</text>
+  <text x="670" y="339" font-size="12" fill="#6b7280">🔒 Захищено запобіжником 0.2A</text>
+
+  <!-- Case C Box -->
+  <rect x="655" y="375" width="260" height="145" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="670" y="395" font-size="13" font-weight="bold" fill="#c0392b">3. Великі струми (200 mA - 10 A)</text>
+  <text x="670" y="415" font-size="12" fill="#1a1a1a">• Чорний щуп ➔ гніздо COM</text>
+  <text x="670" y="433" font-size="12" font-weight="bold" fill="#c0392b">• Червоний щуп ➔ гніздо 10ADC</text>
+  <text x="670" y="451" font-size="12" font-weight="bold" fill="#c0392b">⛔ ГНІЗДО БЕЗ ЗАПОБІЖНИКА!</text>
+  <text x="670" y="469" font-size="12" fill="#1a1a1a">⏱ Час вимірювання max 10 секунд</text>
+  <text x="670" y="487" font-size="12" fill="#6b7280">⏱ Охолодження шунта &gt; 15 хвилин</text>
+  <text x="670" y="505" font-size="12" fill="#c0392b">⚠ Невідомий струм ➔ починати з 10A</text>
+
+</svg>

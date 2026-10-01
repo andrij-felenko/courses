@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принцип дії фотометричної інтегрувальної сфери Ульбріхта</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Багаторазове дифузне відбиття та екранування бафлом забезпечують рівномірність освітлення й захист від пробою</text>
+
+  <!-- Top Annotation above Sphere -->
+  <text x="280" y="105" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Дифузне покриття (Spectralon / BaSO₄, R ≈ 99%)</text>
+  <text x="280" y="123" font-size="12" fill="#6b7280" text-anchor="middle">Багаторазове ламбертівське розсіювання світла</text>
+
+  <!-- Sphere Structure -->
+  <circle cx="280" cy="300" r="140" fill="#f4f6f8" stroke="#d0d7de" stroke-width="3"/>
+  <circle cx="280" cy="300" r="130" fill="#ffffff" stroke="#2457d6" stroke-width="2" stroke-dasharray="6 3"/>
+
+  <!-- Laser Source Box -->
+  <rect x="30" y="270" width="80" height="60" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="70" y="294" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Джерело</text>
+  <text x="70" y="312" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">лазера P_in</text>
+
+  <!-- Input Port Flange Hardware & Label -->
+  <rect x="115" y="285" width="25" height="30" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="80" y="245" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Вхідний порт</text>
+
+  <!-- High Power Direct Laser Beam -->
+  <line x1="110" y1="300" x2="402" y2="300" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+
+  <!-- Primary Hit Spot (Target Spot) -->
+  <circle cx="410" cy="300" r="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="428" y="293" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Первинна пляма P_in</text>
+  <text x="428" y="311" font-size="12" fill="#6b7280" text-anchor="start">(дифузне відбиття)</text>
+
+  <!-- Diffuse Rays Path 1 -->
+  <line x1="405" y1="292" x2="288" y2="173" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-blue)"/>
+  <line x1="275" y1="173" x2="173" y2="365" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-blue)"/>
+  <line x1="173" y1="375" x2="255" y2="440" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-green)"/>
+
+  <!-- Diffuse Rays Path 2 -->
+  <line x1="408" y1="292" x2="372" y2="208" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-blue)"/>
+  <line x1="365" y1="208" x2="205" y2="385" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-blue)"/>
+  <line x1="205" y1="395" x2="265" y2="440" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-green)"/>
+
+  <!-- Blocked Line-of-sight from Primary Spot to Detector -->
+  <line x1="400" y1="310" x2="315" y2="405" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <text x="350" y="365" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">✕</text>
+
+  <!-- Baffle (Shield) -->
+  <rect x="290" y="395" width="36" height="8" rx="2" fill="#1a1a1a" stroke="#6b7280"/>
+  <line x1="308" y1="403" x2="308" y2="430" stroke="#6b7280" stroke-width="2"/>
+  <text x="336" y="396" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Бафл (захисний екран)</text>
+  <text x="336" y="414" font-size="12" fill="#6b7280" text-anchor="start">блокує пряму видимість</text>
+
+  <!-- Detector Port & Photodiode -->
+  <rect x="245" y="440" width="70" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="280" y="462" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Фотодіод</text>
+  <text x="280" y="480" font-size="12" fill="#6b7280" text-anchor="middle">P_det = K · P_in</text>
+
+  <!-- Right Explanatory Cards -->
+  <!-- Card 1: High Power Input -->
+  <rect x="570" y="90" width="366" height="115" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="586" y="114" font-size="14" font-weight="bold" fill="#c0392b">1. Вхідний промінь (P_in)</text>
+  <text x="586" y="136" font-size="12" fill="#1a1a1a">• Пряме спрямування лазерного пучка</text>
+  <text x="586" y="156" font-size="12" fill="#1a1a1a">• Висока локальна густина потужності</text>
+  <text x="586" y="176" font-size="12" fill="#1a1a1a">• Пряме попадання зруйнувало б сенсор</text>
+
+  <!-- Card 2: Diffuse Sphere Chamber -->
+  <rect x="570" y="225" width="366" height="125" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="586" y="249" font-size="14" font-weight="bold" fill="#2457d6">2. Дифузна камера (Spectralon)</text>
+  <text x="586" y="271" font-size="12" fill="#1a1a1a">• Покриття з відбиттям R ≈ 99%</text>
+  <text x="586" y="291" font-size="12" fill="#1a1a1a">• Багаторазові перевідбиття променів</text>
+  <text x="586" y="311" font-size="12" fill="#1a1a1a">• Бафл блокує пряме світло первинної плями</text>
+
+  <!-- Card 3: Safe Measurement -->
+  <rect x="570" y="370" width="366" height="125" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="586" y="394" font-size="14" font-weight="bold" fill="#27ae60">3. Безпечне вимірювання</text>
+  <text x="586" y="416" font-size="12" fill="#1a1a1a">• Ослаблення K_sphere = P_det / P_in ≈ 10⁻³...10⁻⁵</text>
+  <text x="586" y="436" font-size="12" fill="#1a1a1a">• Рівномірне ізотропне освітлення фотодіода</text>
+  <text x="586" y="456" font-size="12" fill="#1a1a1a">• Вимірювання високої потужності без пробою</text>
+</svg>

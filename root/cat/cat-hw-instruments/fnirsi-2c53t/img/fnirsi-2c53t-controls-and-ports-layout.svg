@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Компонування органів керування та портів FNIRSI 2C53T</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Розташування вимірювальних гнізд BNC/DDS/DMM, джойстика керування, дисплея та порту USB-C</text>
+
+  <!-- Panel 1: Front View Container -->
+  <rect x="50" y="85" width="450" height="445" rx="16" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="275" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Передня панель та верхні вимірювальні входи</text>
+
+  <!-- Top Connectors Bar inside Front View -->
+  <rect x="70" y="125" width="410" height="60" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  
+  <!-- BNC CH1 -->
+  <circle cx="110" cy="155" r="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="110" cy="155" r="6" fill="#2457d6"/>
+  <text x="110" y="177" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">CH1</text>
+
+  <!-- BNC CH2 -->
+  <circle cx="170" cy="155" r="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="170" cy="155" r="6" fill="#2457d6"/>
+  <text x="170" y="177" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">CH2</text>
+
+  <!-- DDS Generator -->
+  <circle cx="230" cy="155" r="16" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="230" cy="155" r="6" fill="#27ae60"/>
+  <text x="230" y="177" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">DDS</text>
+
+  <!-- DMM Sockets: COM, V/Ω/C, A/mA -->
+  <circle cx="310" cy="155" r="12" fill="#1a1a1a" stroke="#d0d7de" stroke-width="2"/>
+  <circle cx="310" cy="155" r="5" fill="#ffffff"/>
+  <text x="310" y="177" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">COM</text>
+
+  <circle cx="370" cy="155" r="12" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="370" cy="155" r="5" fill="#c0392b"/>
+  <text x="370" y="177" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">V/Ω/C</text>
+
+  <circle cx="435" cy="155" r="12" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="435" cy="155" r="5" fill="#c0392b"/>
+  <text x="435" y="177" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">A/mA</text>
+
+  <!-- Screen Area -->
+  <rect x="70" y="195" width="410" height="175" rx="6" fill="#1a1a1a"/>
+  <!-- Screen Header Line -->
+  <rect x="70" y="195" width="410" height="24" rx="4" fill="#2457d6"/>
+  <text x="80" y="212" font-size="12" fill="#ffffff">SCOPE: 2-CH 50MHz  |  DMM: 4.982 V  |  DDS: 1.00 kHz</text>
+  <!-- Screen Grid -->
+  <line x1="70" y1="282" x2="480" y2="282" stroke="#333333" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="275" y1="219" x2="275" y2="370" stroke="#333333" stroke-width="1" stroke-dasharray="4,4"/>
+  <!-- Screen Signal Trace 1 (CH1 Blue) -->
+  <path d="M 80 282 Q 130 220 180 282 T 280 282 T 380 282 T 470 282" fill="none" stroke="#5b9bd5" stroke-width="2.5"/>
+  <!-- Screen Signal Trace 2 (DDS Green) -->
+  <path d="M 80 320 L 130 320 L 130 250 L 230 250 L 230 320 L 330 320 L 330 250 L 430 250 L 430 320 L 470 320" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Controls Area -->
+  <!-- D-Pad Navigation Joystick -->
+  <circle cx="160" cy="445" r="42" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <circle cx="160" cy="445" r="18" fill="#2457d6"/>
+  <text x="160" y="449" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">OK</text>
+  <!-- D-Pad Arrows Text -->
+  <text x="160" y="416" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">▲</text>
+  <text x="160" y="480" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">▼</text>
+  <text x="127" y="449" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">◄</text>
+  <text x="193" y="449" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">►</text>
+  <text x="160" y="505" font-size="12" fill="#6b7280" text-anchor="middle">Джойстик навігації</text>
+
+  <!-- Mode Buttons -->
+  <rect x="240" y="400" width="65" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="272" y="420" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SCOPE</text>
+
+  <rect x="320" y="400" width="65" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="352" y="420" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">DDS</text>
+
+  <rect x="400" y="400" width="65" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="432" y="420" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">DMM</text>
+
+  <rect x="240" y="445" width="65" height="30" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="272" y="465" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">AUTO</text>
+
+  <rect x="320" y="445" width="65" height="30" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="352" y="465" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RUN/STOP</text>
+
+  <rect x="400" y="445" width="65" height="30" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="432" y="465" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MENU</text>
+  
+  <text x="352" y="505" font-size="12" fill="#6b7280" text-anchor="middle">Кнопки перемикання режимів та меню</text>
+
+  <!-- Panel 2: Specifications & Side View Cards (Right side) -->
+  
+  <!-- Card 1: Connector Specs -->
+  <rect x="525" y="85" width="385" height="215" rx="10" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <text x="545" y="112" font-size="14" font-weight="bold" fill="#2457d6">Параметри вимірювальних входів</text>
+
+  <circle cx="552" cy="138" r="4" fill="#2457d6"/>
+  <text x="565" y="142" font-size="12" font-weight="bold" fill="#1a1a1a">BNC CH1 / CH2 (Осцилограф):</text>
+  <text x="565" y="160" font-size="12" fill="#6b7280">Вхідний імпеданс 1 МОм / 18 пФ, смуга 50 МГц</text>
+
+  <circle cx="552" cy="183" r="4" fill="#2457d6"/>
+  <text x="565" y="187" font-size="12" font-weight="bold" fill="#1a1a1a">Граничні напруги дільників щупа:</text>
+  <text x="565" y="205" font-size="12" fill="#6b7280">1X: до 40 В (PK) | 10X: до 400 В (PK-PK)</text>
+
+  <circle cx="552" cy="228" r="4" fill="#27ae60"/>
+  <text x="565" y="232" font-size="12" font-weight="bold" fill="#1a1a1a">DDS Вихід &amp; Гнізда Мультиметра (DMM):</text>
+  <text x="565" y="250" font-size="12" fill="#6b7280">DDS 0–10 МГц | DMM: CAT II 600V (V/Ω/C, A/mA, COM)</text>
+  <text x="565" y="268" font-size="12" fill="#6b7280">Запобіжник струмового каналу: 10 A / 250 V</text>
+
+  <!-- Card 2: Side Panel & Power Specs -->
+  <rect x="525" y="315" width="385" height="215" rx="10" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <text x="545" y="342" font-size="14" font-weight="bold" fill="#27ae60">Бічна панель та порт живлення</text>
+
+  <!-- Side View Mini Diagram inside Card 2 -->
+  <rect x="545" y="358" width="85" height="155" rx="8" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="587" y="377" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">БІК</text>
+
+  <!-- Power Switch on Side -->
+  <rect x="560" y="388" width="55" height="22" rx="4" fill="#d0d7de" stroke="#6b7280"/>
+  <text x="587" y="403" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ON/OFF</text>
+
+  <!-- USB-C Port on Side -->
+  <rect x="560" y="425" width="55" height="18" rx="6" fill="#1a1a1a" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="587" y="438" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">USB-C</text>
+
+  <!-- LED Indicator on Side -->
+  <circle cx="587" cy="470" r="7" fill="#27ae60" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="587" y="492" font-size="12" fill="#6b7280" text-anchor="middle">LED</text>
+
+  <!-- Explanatory Text for Side Panel -->
+  <circle cx="650" cy="370" r="4" fill="#1a1a1a"/>
+  <text x="662" y="374" font-size="12" font-weight="bold" fill="#1a1a1a">Перемикач живлення ON/OFF:</text>
+  <text x="662" y="392" font-size="12" fill="#6b7280">Механічне вимикання акумулятора</text>
+
+  <circle cx="650" cy="415" r="4" fill="#2457d6"/>
+  <text x="662" y="419" font-size="12" font-weight="bold" fill="#1a1a1a">Порт USB Type-C:</text>
+  <text x="662" y="437" font-size="12" fill="#6b7280">Зарядка 5 В / 2 А, підключення до ПК,</text>
+  <text x="662" y="453" font-size="12" fill="#6b7280">передача осцилограм та оновлення ПО</text>
+
+  <circle cx="650" cy="476" r="4" fill="#27ae60"/>
+  <text x="662" y="480" font-size="12" font-weight="bold" fill="#1a1a1a">Світлодіод індикатора зарядки:</text>
+  <text x="662" y="498" font-size="12" fill="#6b7280">Червоний — зарядка | Зелений — готова</text>
+  <text x="662" y="514" font-size="12" fill="#6b7280">Акумулятор: Li-Ion 3000 мА·год</text>
+</svg>

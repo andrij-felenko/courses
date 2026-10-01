@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Модель теплопередачі в хотенді та межа об'ємного потоку Q_max</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Розподіл температур по зонах хотенда та нелінійне зростання тиску при перевищенні Q_max</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: ТЕПЛОПЕРЕДАЧА ТА ПРОГРІВ НИТКИ -->
+  <rect x="24" y="75" width="444" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок лівої панелі -->
+  <rect x="36" y="87" width="420" height="36" rx="4" fill="#2457d6"/>
+  <text x="246" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="white">1. ЗОНИ ХОТЕНДА ТА РАДІАЛЬНИЙ ПРОГРІВ НИТКИ</text>
+
+  <!-- Блок L1: Зонування хотенда -->
+  <rect x="36" y="135" width="420" height="153" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="48" y="155" font-size="13" font-weight="bold" fill="#2457d6">Термічне зонування хотенда (Cold -&gt; Hot)</text>
+
+  <!-- Схема зон хотенда -->
+  <rect x="48" y="168" width="130" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="113" y="187" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Холодна зона</text>
+
+  <rect x="58" y="202" width="110" height="24" rx="2" fill="#f2f3f4" stroke="#7f8c8d" stroke-dasharray="3,3"/>
+  <text x="113" y="218" text-anchor="middle" font-size="12" font-weight="bold" fill="#5d6d7e">Терморозрив</text>
+
+  <rect x="48" y="230" width="130" height="46" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="113" y="247" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Зона розплаву</text>
+  <text x="113" y="266" text-anchor="middle" font-size="12" fill="#c0392b">T_wall = 200–250 °C</text>
+
+  <!-- Текст праворуч від зон -->
+  <text x="195" y="175" font-size="12" font-weight="bold" fill="#1a1a1a">Фізичні параметри зони:</text>
+  <text x="195" y="196" font-size="12" fill="#1a1a1a">• Довжина зони розплаву L (мм)</text>
+  <text x="195" y="217" font-size="12" fill="#1a1a1a">• Швидкість нитки v = Q / (π·r₀²)</text>
+  <text x="195" y="238" font-size="12" fill="#1a1a1a">• Час перебування t_res = L / v</text>
+  <text x="195" y="268" font-size="12" font-style="italic" fill="#2457d6">Умова плавлення: t_res ≥ τ</text>
+
+  <!-- Блок L2: Радіальний прогрів нитки -->
+  <rect x="36" y="300" width="420" height="195" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="48" y="320" font-size="13" font-weight="bold" fill="#2457d6">Радіальний прогрів нитки у соплі</text>
+
+  <!-- Схема перерізу нитки -->
+  <circle cx="113" cy="400" r="45" fill="#fdecea" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="113" cy="400" r="22" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <text x="113" y="372" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">T_wall</text>
+  <text x="113" y="405" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">T_core &lt; T_m</text>
+  <text x="113" y="465" text-anchor="middle" font-size="12" fill="#6b7280">Потік тепла q_th</text>
+
+  <!-- Текст праворуч від перерізу -->
+  <text x="195" y="345" font-size="12" font-weight="bold" fill="#c0392b">Рівняння теплопровідності:</text>
+  <text x="195" y="368" font-size="12" fill="#1a1a1a">∂T/∂t = α · (∂²T/∂r² + (1/r)·∂T/∂r)</text>
+  <text x="195" y="391" font-size="12" fill="#1a1a1a">α = k / (ρ · c_p) (температуропров.)</text>
+  <text x="195" y="414" font-size="12" font-weight="bold" fill="#2457d6">Час релаксації (прогріву ядра):</text>
+  <text x="195" y="437" font-size="12" fill="#1a1a1a">τ = r₀² / (5.78 · α)</text>
+  <text x="195" y="468" font-size="12" font-style="italic" fill="#c0392b">При Q &gt; Q_max ядро не розплавляється!</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: ГРАФІК ΔP(Q) ТА ГРАНИЦЯ Q_MAX -->
+  <rect x="492" y="75" width="444" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок правої панелі -->
+  <rect x="504" y="87" width="420" height="36" rx="4" fill="#c0392b"/>
+  <text x="714" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="white">2. ЗАЛЕЖНІСТЬ ТИСКУ ΔP ВІД ПОТОКУ Q</text>
+
+  <!-- Блок R1: Графік ΔP(Q) -->
+  <rect x="504" y="135" width="420" height="240" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="516" y="155" font-size="13" font-weight="bold" fill="#c0392b">Графік гідродинамічного опору ΔP(Q)</text>
+
+  <!-- Вісі координат -->
+  <line x1="560" y1="335" x2="900" y2="335" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="560" y1="335" x2="560" y2="170" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <text x="555" y="174" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Тиск ΔP</text>
+  <text x="895" y="358" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Потік Q (мм³/с)</text>
+
+  <!-- Сітка та межа Q_max -->
+  <line x1="560" y1="290" x2="890" y2="290" stroke="#e5e7eb" stroke-dasharray="2,2"/>
+  <line x1="560" y1="245" x2="890" y2="245" stroke="#e5e7eb" stroke-dasharray="2,2"/>
+  <line x1="560" y1="200" x2="890" y2="200" stroke="#e5e7eb" stroke-dasharray="2,2"/>
+
+  <line x1="720" y1="170" x2="720" y2="335" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,4"/>
+  <text x="720" y="358" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Q_max</text>
+
+  <!-- Крива тиску та зона ризику -->
+  <path d="M 720,335 L 720,275 C 760,265 800,220 880,180 L 880,335 Z" fill="#fdecea" opacity="0.6"/>
+  <path d="M 560,320 L 720,275" fill="none" stroke="#27ae60" stroke-width="3"/>
+  <path d="M 720,275 C 760,265 800,220 880,180" fill="none" stroke="#c0392b" stroke-width="3.5"/>
+
+  <!-- Написи на графіку (розміщені строго ПОЗА лініями) -->
+  <text x="570" y="225" font-size="12" font-weight="bold" fill="#27ae60">Нормальна екструзія</text>
+  <text x="570" y="240" font-size="12" fill="#27ae60">Ламінарний потік</text>
+
+  <text x="735" y="308" font-size="12" font-weight="bold" fill="#c0392b">Недоекструзія (Q &gt; Q_max)</text>
+  <text x="735" y="324" font-size="12" fill="#c0392b">Стрімке зростання ΔP</text>
+
+  <!-- Блок R2: Підсумкова формула Q_max -->
+  <rect x="504" y="390" width="420" height="110" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="516" y="410" font-size="13" font-weight="bold" fill="#c0392b">Формула граничного об'ємного потоку</text>
+
+  <rect x="516" y="422" width="396" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="714" y="443" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Q_max = (π · r₀² · L) / τ = 5.78 · π · L · α</text>
+
+  <text x="516" y="470" font-size="12" fill="#1a1a1a">• V6 (L = 15 мм): Q_max ≈ 12–15 мм³/с</text>
+  <text x="516" y="488" font-size="12" fill="#1a1a1a">• Volcano (L = 21 мм): Q_max ≈ 25–30 мм³/с</text>
+
+</svg>

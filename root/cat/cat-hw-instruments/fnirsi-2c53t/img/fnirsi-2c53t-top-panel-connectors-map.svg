@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розташування та призначення роз'ємів верхньої панелі FNIRSI 2C53T</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">BNC-входи осцилографа (CH1/CH2), вихід DDS-генератора, гнізда мультиметра та порт USB-C</text>
+
+  <!-- Main Instrument Panel Outer Shell -->
+  <rect x="40" y="78" width="880" height="362" rx="12" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+
+  <!-- BLOCK 1: OSCILLOSCOPE (CH1 / CH2) -->
+  <rect x="55" y="92" width="240" height="334" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="55" y="92" width="240" height="34" rx="8" fill="#2457d6"/>
+  <text x="175" y="114" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">Осцилограф (CH1 / CH2)</text>
+
+  <!-- BNC Sockets CH1 and CH2 -->
+  <g>
+    <!-- CH1 Socket -->
+    <circle cx="115" cy="165" r="22" fill="#ffffff" stroke="#2457d6" stroke-width="3"/>
+    <circle cx="115" cy="165" r="14" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="115" cy="165" r="5" fill="#2457d6"/>
+    <text x="115" y="204" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CH1 Вхід</text>
+
+    <!-- CH2 Socket -->
+    <circle cx="235" cy="165" r="22" fill="#ffffff" stroke="#2457d6" stroke-width="3"/>
+    <circle cx="235" cy="165" r="14" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="235" cy="165" r="5" fill="#2457d6"/>
+    <text x="235" y="204" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CH2 Вхід</text>
+  </g>
+
+  <!-- CH Info Card -->
+  <rect x="65" y="218" width="220" height="198" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="75" y="240" font-size="12" font-weight="bold" fill="#1a1a1a">Вхідний імпеданс:</text>
+  <text x="75" y="258" font-size="12" fill="#2457d6">1 МОм // 18 пФ</text>
+  
+  <text x="75" y="284" font-size="12" font-weight="bold" fill="#1a1a1a">Допустима напруга:</text>
+  <text x="75" y="302" font-size="12" fill="#1a1a1a">1X щуп: <tspan font-weight="bold" fill="#c0392b">до 40 Vpk</tspan></text>
+  <text x="75" y="320" font-size="12" fill="#1a1a1a">10X щуп: <tspan font-weight="bold" fill="#27ae60">до 400 Vpk</tspan></text>
+  
+  <text x="75" y="346" font-size="12" font-weight="bold" fill="#1a1a1a">Категорія безпеки:</text>
+  <text x="75" y="364" font-size="12" font-weight="bold" fill="#2457d6">CAT II 300 V</text>
+  <text x="75" y="392" font-size="11" fill="#6b7280">BNC-роз'єми (50 Ом)</text>
+
+  <!-- BLOCK 2: DDS GENERATOR -->
+  <rect x="310" y="92" width="170" height="334" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="310" y="92" width="170" height="34" rx="8" fill="#6b7280"/>
+  <text x="395" y="114" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">DDS-генератор</text>
+
+  <!-- BNC Socket GEN -->
+  <g>
+    <circle cx="395" cy="165" r="22" fill="#ffffff" stroke="#6b7280" stroke-width="3"/>
+    <circle cx="395" cy="165" r="14" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+    <circle cx="395" cy="165" r="5" fill="#6b7280"/>
+    <text x="395" y="204" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GEN Вихід</text>
+  </g>
+
+  <!-- GEN Info Card -->
+  <rect x="320" y="218" width="150" height="198" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="330" y="240" font-size="12" font-weight="bold" fill="#1a1a1a">Смуга частот:</text>
+  <text x="330" y="258" font-size="12" fill="#2457d6">0.1 Гц – 2 МГц</text>
+
+  <text x="330" y="286" font-size="12" font-weight="bold" fill="#1a1a1a">Амплітуда:</text>
+  <text x="330" y="304" font-size="12" fill="#1a1a1a">0 – 3.3 В (Vpp)</text>
+
+  <text x="330" y="334" font-size="12" font-weight="bold" fill="#1a1a1a">Форми сигналу:</text>
+  <text x="330" y="352" font-size="11" fill="#6b7280">Синус, меандр,</text>
+  <text x="330" y="368" font-size="11" fill="#6b7280">пила, імпульс</text>
+
+  <!-- BLOCK 3: MULTIMETER (DMM) -->
+  <rect x="495" y="92" width="275" height="334" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="495" y="92" width="275" height="34" rx="8" fill="#27ae60"/>
+  <text x="632" y="114" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">Мультиметр (DMM)</text>
+
+  <!-- Banana Jacks -->
+  <g>
+    <!-- Jack A/mA -->
+    <circle cx="540" cy="165" r="18" fill="#ffffff" stroke="#c0392b" stroke-width="3"/>
+    <circle cx="540" cy="165" r="7" fill="#c0392b"/>
+    <text x="540" y="204" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">A / mA</text>
+
+    <!-- Jack COM -->
+    <circle cx="632" cy="165" r="18" fill="#ffffff" stroke="#1a1a1a" stroke-width="3"/>
+    <circle cx="632" cy="165" r="7" fill="#1a1a1a"/>
+    <text x="632" y="204" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">COM (-)</text>
+
+    <!-- Jack V/Ω/C -->
+    <circle cx="725" cy="165" r="18" fill="#ffffff" stroke="#27ae60" stroke-width="3"/>
+    <circle cx="725" cy="165" r="7" fill="#27ae60"/>
+    <text x="725" y="204" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V / Ω / C</text>
+  </g>
+
+  <!-- DMM Info Card -->
+  <rect x="505" y="218" width="255" height="198" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="515" y="240" font-size="12" font-weight="bold" fill="#27ae60">V / Ω / C / Діод / T:</text>
+  <text x="515" y="258" font-size="12" fill="#1a1a1a">DCV до 600V, ACV до 600V</text>
+  <text x="515" y="276" font-size="11" fill="#6b7280">Опір до 99.99 МОм</text>
+
+  <text x="515" y="300" font-size="12" font-weight="bold" fill="#c0392b">A / mA струмовий вхід:</text>
+  <text x="515" y="318" font-size="12" fill="#1a1a1a">Струм до 9.999 A (DC/AC)</text>
+  <text x="515" y="336" font-size="11" font-weight="bold" fill="#c0392b">Запобіжник 10A / 600V</text>
+
+  <text x="515" y="360" font-size="12" font-weight="bold" fill="#1a1a1a">Категорія безпеки:</text>
+  <text x="515" y="378" font-size="12" font-weight="bold" fill="#27ae60">CAT II 600 V / CAT III 300 V</text>
+
+  <!-- BLOCK 4: USB-C -->
+  <rect x="785" y="92" width="120" height="334" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="785" y="92" width="120" height="34" rx="8" fill="#1a1a1a"/>
+  <text x="845" y="114" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">USB-C</text>
+
+  <!-- USB-C Port -->
+  <g>
+    <rect x="825" y="156" width="40" height="18" rx="7" fill="#1a1a1a" stroke="#6b7280" stroke-width="2"/>
+    <rect x="833" y="162" width="24" height="6" rx="2" fill="#d0d7de"/>
+    <text x="845" y="204" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB-C</text>
+  </g>
+
+  <!-- USB-C Info Card -->
+  <rect x="793" y="218" width="104" height="198" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="801" y="240" font-size="12" font-weight="bold" fill="#1a1a1a">Живлення:</text>
+  <text x="801" y="258" font-size="12" fill="#2457d6">5 В / 2 А</text>
+
+  <text x="801" y="288" font-size="12" font-weight="bold" fill="#1a1a1a">Функції:</text>
+  <text x="801" y="306" font-size="11" fill="#1a1a1a">• Зарядка</text>
+  <text x="801" y="324" font-size="11" fill="#1a1a1a">• Зв'язок з ПК</text>
+  <text x="801" y="342" font-size="11" fill="#1a1a1a">• Оновлення ПЗ</text>
+</svg>

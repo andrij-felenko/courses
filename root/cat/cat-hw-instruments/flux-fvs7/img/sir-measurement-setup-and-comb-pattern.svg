@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема вимірювання поверхневого опору ізоляції (SIR) за IPC-TM-650</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Підключення тестової плати IPC-B-24 з залишками FVS-7 у кліматичній камері та динаміка опору SIR під вологою</text>
+
+  <!-- Left Column: Climate Chamber & Test Setup -->
+  <rect x="25" y="70" width="440" height="365" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <text x="245" y="96" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Кліматична камера (85 °C / 85% RH)</text>
+  <text x="245" y="114" text-anchor="middle" font-size="12" fill="#6b7280">Тестова плата IPC-B-24 із залишками FVS-7</text>
+
+  <!-- PCB Substrate -->
+  <rect x="45" y="135" width="240" height="195" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="55" y="153" font-size="12" font-weight="bold" fill="#27ae60">Плата FR-4 (IPC-B-24)</text>
+
+  <!-- Comb Pattern Electrodes -->
+  <!-- Top Rail (+50V DC Bias) -->
+  <line x1="75" y1="170" x2="255" y2="170" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="95" y1="170" x2="95" y2="275" stroke="#c0392b" stroke-width="2"/>
+  <line x1="135" y1="170" x2="135" y2="275" stroke="#c0392b" stroke-width="2"/>
+  <line x1="175" y1="170" x2="175" y2="275" stroke="#c0392b" stroke-width="2"/>
+  <line x1="215" y1="170" x2="215" y2="275" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Bottom Rail (Electrometer Signal) -->
+  <line x1="75" y1="285" x2="255" y2="285" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="115" y1="285" x2="115" y2="180" stroke="#2457d6" stroke-width="2"/>
+  <line x1="155" y1="285" x2="155" y2="180" stroke="#2457d6" stroke-width="2"/>
+  <line x1="195" y1="285" x2="195" y2="180" stroke="#2457d6" stroke-width="2"/>
+  <line x1="235" y1="285" x2="235" y2="180" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Translucent FVS-7 Gel Flux Layer -->
+  <rect x="85" y="185" width="160" height="90" rx="4" fill="#e67e22" fill-opacity="0.18" stroke="#e67e22" stroke-width="1.5" stroke-dasharray="3,3"/>
+  
+  <!-- Pointer line from FVS-7 gel layer to badge -->
+  <line x1="165" y1="275" x2="165" y2="297" stroke="#e67e22" stroke-dasharray="2,2" stroke-width="1"/>
+
+  <!-- FVS-7 Layer Badge Label (Placed in clean space below bottom rail) -->
+  <rect x="105" y="297" width="120" height="22" rx="3" fill="#fff3e0" stroke="#e67e22" stroke-width="1"/>
+  <text x="165" y="312" text-anchor="middle" font-size="12" font-weight="bold" fill="#d35400">Шар FVS-7</text>
+
+  <!-- External Equipment -->
+  <!-- Power Supply (+50V DC) -->
+  <rect x="305" y="145" width="145" height="65" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="377" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Джерело +50 В</text>
+  <text x="377" y="188" text-anchor="middle" font-size="12" fill="#6b7280">DC Bias Voltage</text>
+
+  <!-- Electrometer -->
+  <rect x="305" y="265" width="145" height="65" rx="4" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="377" y="288" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Електрометр</text>
+  <text x="377" y="308" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вимірювач SIR</text>
+
+  <!-- Connecting Wires -->
+  <path d="M 255,170 L 305,170" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <path d="M 255,285 L 305,285" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Left Panel Bottom Info Box -->
+  <rect x="35" y="345" width="420" height="75" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="364" font-size="12" font-weight="bold" fill="#1a1a1a">Параметри випробування IPC-TM-650 (2.6.3.7):</text>
+  <text x="45" y="383" font-size="12" fill="#6b7280">Зазор між штирями: 0,5 мм · Напруга: 50 В DC · 168 годин</text>
+  <text x="45" y="402" font-size="12" fill="#6b7280">Температура: 85 °C · Відносна вологість: 85% RH</text>
+
+  <!-- Right Column: SIR Dynamic Graph Panel -->
+  <rect x="495" y="70" width="440" height="365" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <text x="715" y="96" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Динаміка опору SIR під час 168-годинного тесту</text>
+
+  <!-- Graph Axes Area: origin at (565, 330) -->
+  <line x1="565" y1="125" x2="565" y2="330" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="557" y="120" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">R (Ом)</text>
+
+  <line x1="565" y1="330" x2="870" y2="330" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="880" y="334" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">t (год)</text>
+
+  <!-- Log Scale Y Grid Lines -->
+  <!-- 10^12 grid line (stops before end point label) -->
+  <line x1="565" y1="150" x2="640" y2="150" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="557" y="154" text-anchor="end" font-size="12" fill="#6b7280">10¹²</text>
+
+  <!-- 10^10 grid line -->
+  <line x1="565" y1="200" x2="870" y2="200" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="557" y="204" text-anchor="end" font-size="12" fill="#6b7280">10¹⁰</text>
+
+  <!-- 10^8 Pass Threshold Line -->
+  <line x1="565" y1="260" x2="870" y2="260" stroke="#27ae60" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <text x="557" y="264" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">10⁸</text>
+  <text x="865" y="252" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">Норма IPC &gt; 100 МОм (10⁸ Ом)</text>
+
+  <!-- 10^6 grid line -->
+  <line x1="565" y1="310" x2="870" y2="310" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="557" y="314" text-anchor="end" font-size="12" fill="#6b7280">10⁶</text>
+
+  <!-- X-Axis Marks -->
+  <text x="565" y="348" text-anchor="middle" font-size="12" fill="#6b7280">0</text>
+  <text x="625" y="348" text-anchor="middle" font-size="12" fill="#6b7280">24</text>
+  <text x="705" y="348" text-anchor="middle" font-size="12" fill="#6b7280">72</text>
+  <text x="785" y="348" text-anchor="middle" font-size="12" fill="#6b7280">120</text>
+  <text x="855" y="348" text-anchor="middle" font-size="12" fill="#6b7280">168</text>
+
+  <!-- Dynamic SIR Curve for FVS-7 -->
+  <path d="M 565,150 L 595,225 L 625,205 L 705,185 L 785,178 L 855,172" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- End Point Circle & Label -->
+  <circle cx="855" cy="172" r="5" fill="#27ae60"/>
+  <text x="850" y="138" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">FVS-7: R = 3·10¹¹ Ом (ПРОЙДЕНО)</text>
+
+  <!-- Right Panel Bottom Info Box -->
+  <rect x="505" y="360" width="420" height="63" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="515" y="378" font-size="12" font-weight="bold" fill="#1a1a1a">Результат випробування FVS-7:</text>
+  <text x="515" y="396" font-size="12" font-weight="bold" fill="#27ae60">Відсутність дендритів та електрохімічної міграції</text>
+  <text x="515" y="413" font-size="12" font-weight="bold" fill="#27ae60">Показник SIR &gt;&gt; 100 МОм (тест пройдено успішно)</text>
+</svg>

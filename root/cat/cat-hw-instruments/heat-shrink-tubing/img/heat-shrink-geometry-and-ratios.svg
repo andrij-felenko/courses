@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-orange" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Геометрія та коефіцієнти радіального усаджування термозшитої трубки</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Співвідношення внутрішнього діаметра D_1, D_2 та товщини стінки w_1, w_2 при коефіцієнті 2:1</text>
+
+  <!-- Left Panel: State 1 (Before Heating) -->
+  <rect x="25" y="70" width="440" height="275" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="245" y="96" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Стан 1: До нагрівання (D_1, w_1)</text>
+  <text x="245" y="114" text-anchor="middle" font-size="12" fill="#6b7280">Вільне розміщення трубки над спаєм (T &lt; 70 °C)</text>
+
+  <!-- Left Diagram: Conductor & Splice -->
+  <rect x="55" y="185" width="80" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="135" y="193" width="50" height="14" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+  <ellipse cx="245" cy="200" rx="60" ry="12" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+  <rect x="305" y="193" width="50" height="14" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+  <rect x="355" y="185" width="80" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Left Diagram: Unshrunk Heat-Shrink Tube -->
+  <rect x="95" y="164" width="300" height="6" fill="#c0392b" opacity="0.85"/>
+  <rect x="95" y="230" width="300" height="6" fill="#c0392b" opacity="0.85"/>
+
+  <!-- Left Diagram: Callouts & Dimensions -->
+  <!-- w1 Callout -->
+  <line x1="110" y1="156" x2="110" y2="164" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="110" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">w_1 = 0.3 мм</text>
+
+  <!-- Splice Diameter Callout -->
+  <line x1="245" y1="188" x2="245" y2="212" stroke="#475569" stroke-width="1.2" stroke-dasharray="2,2"/>
+  <text x="245" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#475569">d_вузла = 3.2 мм</text>
+
+  <!-- D1 Dimension Line -->
+  <line x1="410" y1="170" x2="410" y2="230" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <text x="420" y="204" font-size="13" font-weight="bold" fill="#c0392b">D_1 = 6.0 мм</text>
+
+  <!-- Left Panel Status Box -->
+  <rect x="45" y="285" width="400" height="48" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="304" font-size="12" font-weight="bold" fill="#c0392b">Зазори до усаджування: D_1 &gt; d_вузла</text>
+  <text x="55" y="321" font-size="12" fill="#6b7280">Трубка легко надівається поверх з'єднання перед нагріванням</text>
+
+  <!-- Right Panel: State 2 (After Shrinking) -->
+  <rect x="495" y="70" width="440" height="275" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="715" y="96" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Стан 2: Після усаджування (D_2, w_2)</text>
+  <text x="715" y="114" text-anchor="middle" font-size="12" fill="#27ae60">Радіальне обтискання та потовщення стінки (70–120 °C)</text>
+
+  <!-- Right Diagram: Conductor & Splice -->
+  <rect x="525" y="185" width="80" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="605" y="193" width="50" height="14" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+  <ellipse cx="715" cy="200" rx="60" ry="12" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+  <rect x="775" y="193" width="50" height="14" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+  <rect x="825" y="185" width="80" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Right Diagram: Shrunk Tube (Conformed & Thickened) -->
+  <path d="M 565,173 L 655,173 Q 715,170 775,173 L 865,173 L 865,185 L 775,185 Q 715,188 655,185 L 565,185 Z" fill="#27ae60" opacity="0.9"/>
+  <path d="M 565,215 L 655,215 Q 715,212 775,215 L 865,215 L 865,227 L 775,227 Q 715,230 655,227 L 565,227 Z" fill="#27ae60" opacity="0.9"/>
+
+  <!-- Right Diagram: Callouts & Dimensions -->
+  <!-- Heat Application Arrow -->
+  <path d="M 715,140 L 715,158" stroke="#d97706" stroke-width="2" fill="none" marker-end="url(#arr-orange)"/>
+  <text x="715" y="136" text-anchor="middle" font-size="12" font-weight="bold" fill="#d97706">+ Q (70–120 °C)</text>
+
+  <!-- w2 Callout -->
+  <line x1="580" y1="156" x2="580" y2="173" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="580" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">w_2 ≈ 0.6 мм</text>
+
+  <!-- D2 Dimension Line -->
+  <line x1="880" y1="185" x2="880" y2="215" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <text x="880" y="172" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">D_2 = 3.0 мм</text>
+
+  <!-- Right Panel Status Box -->
+  <rect x="515" y="285" width="400" height="48" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="525" y="304" font-size="12" font-weight="bold" fill="#27ae60">Герметичне обтискання: D_2 ≤ d_вузла</text>
+  <text x="525" y="321" font-size="12" fill="#6b7280">Стінка потовщується вдвічі (w_2 ≈ 2·w_1), довжина L = const</text>
+
+  <!-- Bottom Panel: Engineering Summary -->
+  <rect x="25" y="360" width="910" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="45" y="380" font-size="13" font-weight="bold" fill="#2457d6">Інженерне правило вибору та розрахунку термоусадки (коефіцієнт 2:1):</text>
+  <text x="45" y="399" font-size="12" fill="#1a1a1a">1. Співвідношення діаметрів: D_2 &lt; d_вузла &lt; D_1  (Оптимально: d_вузла ≈ 1.2…1.4 · D_2 для надійного натягу)</text>
+  <text x="45" y="418" font-size="12" fill="#1a1a1a">2. Збереження об'єму матеріалу: w_2 ≈ w_1 · (D_1 / D_2)  — товщина стінки зростає пропорційно коефіцієнту стискання</text>
+</svg>

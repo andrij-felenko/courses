@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <linearGradient id="ir-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff6b6b"/>
+      <stop offset="100%" stop-color="#2457d6"/>
+    </linearGradient>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еволюція безконтактної термометрії</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Перехід від суб'єктивного зорового зіставлення до автоматичного оцифрування ІЧ-потоку</text>
+
+  <!-- 1. Left Panel (Optical Pyrometer - Old) -->
+  <rect x="25" y="70" width="435" height="425" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="242.5" y="96" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Оптичний пірометр (згасаюча нитка)</text>
+  <text x="242.5" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Візуальне порівняння яскравості нитки розжарення й об'єкта</text>
+
+  <!-- Object inside Left Panel -->
+  <rect x="45" y="160" width="55" height="100" rx="4" fill="#ff6b6b" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="72.5" y="205" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Гарячий</text>
+  <text x="72.5" y="222" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">об'єкт T</text>
+
+  <!-- Light rays from object -->
+  <line x1="100" y1="180" x2="145" y2="195" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <line x1="100" y1="210" x2="145" y2="210" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <line x1="100" y1="240" x2="145" y2="225" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+  <!-- Optical Tube -->
+  <rect x="145" y="170" width="220" height="80" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M145,170 Q155,210 145,250" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <path d="M365,170 Q355,210 365,250" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Tungsten Bulb inside Tube -->
+  <circle cx="235" cy="210" r="18" fill="#ffffff" stroke="#d0d7de"/>
+  <path d="M230,220 C230,200 240,200 240,220" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <line x1="235" y1="228" x2="235" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Rheostat control below tube -->
+  <rect x="200" y="265" width="70" height="26" rx="3" fill="#f4f6f8" stroke="#1a1a1a"/>
+  <text x="235" y="282" font-size="12" fill="#1a1a1a" text-anchor="middle">Реостат I</text>
+  <text x="255" y="162" font-size="12" fill="#1a1a1a" text-anchor="middle">Згасаюча лампа</text>
+
+  <!-- Human Eye -->
+  <path d="M385,210 Q405,190 425,210 Q405,230 385,210 Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="402" cy="210" r="7" fill="#2457d6"/>
+  <circle cx="402" cy="210" r="3" fill="#1a1a1a"/>
+  <text x="405" y="245" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Око оператора</text>
+
+  <!-- Visual Matching Method Section (Bottom of Left Box) -->
+  <text x="242.5" y="322" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Метод зрівнювання яскравості (в окулярі):</text>
+
+  <!-- Circle 1: Dark filament -->
+  <circle cx="100" cy="375" r="32" fill="#ffe3e3" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M92,385 C92,365 108,365 108,385" stroke="#1a1a1a" stroke-width="3" fill="none"/>
+  <text x="100" y="425" font-size="12" fill="#c0392b" text-anchor="middle">I замало</text>
+  <text x="100" y="442" font-size="12" fill="#6b7280" text-anchor="middle">(темна нитка)</text>
+
+  <!-- Circle 2: Matched filament -->
+  <circle cx="242.5" cy="375" r="32" fill="#ffd8a8" stroke="#27ae60" stroke-width="2"/>
+  <path d="M234.5,385 C234.5,365 250.5,365 250.5,385" stroke="#ffb900" stroke-width="2.5" stroke-dasharray="2,2" fill="none"/>
+  <text x="242.5" y="425" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">I в нормі</text>
+  <text x="242.5" y="442" font-size="12" fill="#27ae60" text-anchor="middle">(нитка зникає)</text>
+
+  <!-- Circle 3: Bright filament -->
+  <circle cx="385" cy="375" r="32" fill="#ffe3e3" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M377,385 C377,365 393,365 393,385" stroke="#ffffff" stroke-width="4" fill="none"/>
+  <text x="385" y="425" font-size="12" fill="#c0392b" text-anchor="middle">I забагато</text>
+  <text x="385" y="442" font-size="12" fill="#6b7280" text-anchor="middle">(яскрава нитка)</text>
+
+  <text x="242.5" y="475" font-size="12" fill="#c0392b" text-anchor="middle">⛔ Суб'єктивно, низька точність, лише для &gt; 700 °C</text>
+
+  <!-- Central Transition Arrow -->
+  <line x1="465" y1="250" x2="493" y2="250" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="480" y="240" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">ІЧ</text>
+
+  <!-- 2. Right Panel (Modern IR Pyrometer) -->
+  <rect x="500" y="70" width="435" height="425" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="717.5" y="96" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Сучасний ІЧ-пірометр (термостовпчик)</text>
+  <text x="717.5" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Автоматичне оцифрування теплового потоку (8–14 мкм)</text>
+
+  <!-- Target Object Surface inside Right Panel -->
+  <rect x="515" y="160" width="55" height="100" rx="4" fill="#3498db" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="542.5" y="205" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Поверхня</text>
+  <text x="542.5" y="222" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">об'єкта T</text>
+
+  <!-- IR Radiation Cone focusing on Lens -->
+  <polygon points="570,175 635,190 635,230 570,245" fill="url(#ir-grad)" opacity="0.65" stroke="#2457d6" stroke-dasharray="3,2"/>
+  <polygon points="635,190 705,205 705,215 635,230" fill="#2457d6" opacity="0.3"/>
+
+  <!-- IR Lens (Germanium) -->
+  <path d="M635,185 Q643,210 635,235 Q627,210 635,185 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="635" y="165" font-size="12" fill="#1a1a1a" text-anchor="middle">ІЧ-лінза (Ge)</text>
+
+  <!-- Thermopile Sensor -->
+  <rect x="705" y="195" width="45" height="30" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="727.5" y="168" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Термостовпчик</text>
+  <text x="727.5" y="182" font-size="12" fill="#6b7280" text-anchor="middle">(Thermopile)</text>
+
+  <!-- Signal Arrow (mV) to MCU -->
+  <line x1="750" y1="210" x2="775" y2="210" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="762.5" y="230" font-size="12" fill="#27ae60" text-anchor="middle">U (мВ)</text>
+
+  <!-- MCU Box -->
+  <rect x="780" y="170" width="95" height="80" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="827.5" y="192" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікропроцесор</text>
+  <text x="827.5" y="210" font-size="12" fill="#6b7280" text-anchor="middle">АЦП + Алгоритм</text>
+  <text x="827.5" y="226" font-size="12" fill="#2457d6" text-anchor="middle">T = ⁴√(W/εσ)</text>
+  <text x="827.5" y="242" font-size="12" fill="#6b7280" text-anchor="middle">+ ввід ε</text>
+
+  <!-- Line to Display -->
+  <line x1="827.5" y1="250" x2="827.5" y2="270" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="780" y="270" width="95" height="35" rx="4" fill="#1a1a1a" stroke="#d0d7de"/>
+  <text x="827.5" y="293" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">385.2 °C</text>
+
+  <!-- Laser Pointer Diode & Beam -->
+  <rect x="705" y="250" width="30" height="18" rx="2" fill="#f4f6f8" stroke="#c0392b"/>
+  <line x1="705" y1="259" x2="570" y2="220" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,2" marker-end="url(#arr-red)"/>
+  <text x="720" y="283" font-size="12" fill="#c0392b" text-anchor="middle">Лазер (лише приціл!)</text>
+
+  <!-- Feature panel 1 (Left feature panel inside Right Box) -->
+  <rect x="515" y="325" width="200" height="125" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="615" y="345" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Переваги ІЧ-методів:</text>
+  <text x="525" y="367" font-size="12" fill="#1a1a1a">✓ Повна об'єктивність (АЦП)</text>
+  <text x="525" y="387" font-size="12" fill="#1a1a1a">✓ Швидкість виміру &lt; 0.5 с</text>
+  <text x="525" y="407" font-size="12" fill="#1a1a1a">✓ Діапазон −50...+550 °C</text>
+  <text x="525" y="427" font-size="12" fill="#1a1a1a">✓ Дистанційність й безпека</text>
+
+  <!-- Feature panel 2 (Right feature panel inside Right Box) -->
+  <rect x="725" y="325" width="195" height="125" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="822.5" y="345" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Автокомпенсація:</text>
+  <text x="735" y="367" font-size="12" fill="#1a1a1a">• Корекція емісивності ε</text>
+  <text x="735" y="387" font-size="12" fill="#1a1a1a">• Врахування фону T_bg</text>
+  <text x="735" y="407" font-size="12" fill="#1a1a1a">• Сенсор термокомпенсації</text>
+  <text x="735" y="427" font-size="12" fill="#1a1a1a">• Лазер не вимірює тепло!</text>
+
+  <!-- Bottom status line in Right Box -->
+  <text x="717.5" y="475" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Висока точність, миттєвий електронний результат</text>
+</svg>

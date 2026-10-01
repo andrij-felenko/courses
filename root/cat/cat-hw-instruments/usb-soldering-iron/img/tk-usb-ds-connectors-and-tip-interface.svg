@@ -1,0 +1,103 @@
+<svg width="960" height="520" viewBox="0 0 960 520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розпіновка живлення та цанговий вузол картриджа паяльника TK-USB-DS</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Живлення 5 В / 2 А подається через USB, а цанговий затискач забезпечує контакт картриджа</text>
+
+  <!-- Left Panel: USB Power Pinout -->
+  <rect x="30" y="75" width="435" height="420" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247.5" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">1. Розпіновка вхідного роз'єму живлення (USB 5V)</text>
+
+  <!-- USB Connector Shell -->
+  <rect x="80" y="115" width="335" height="70" rx="6" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5"/>
+
+  <!-- Pin 1: VBUS (+5V) -->
+  <rect x="95" y="125" width="65" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="127.5" y="146" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Pin 1</text>
+  <text x="127.5" y="163" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">+5V VBUS</text>
+
+  <!-- Pin 2: D- -->
+  <rect x="175" y="125" width="65" height="50" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+  <text x="207.5" y="146" text-anchor="middle" font-size="12" font-weight="bold" fill="#475569">Pin 2</text>
+  <text x="207.5" y="163" text-anchor="middle" font-size="12" fill="#475569">D- Data</text>
+
+  <!-- Pin 3: D+ -->
+  <rect x="255" y="125" width="65" height="50" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+  <text x="287.5" y="146" text-anchor="middle" font-size="12" font-weight="bold" fill="#475569">Pin 3</text>
+  <text x="287.5" y="163" text-anchor="middle" font-size="12" fill="#475569">D+ Data</text>
+
+  <!-- Pin 4: GND -->
+  <rect x="335" y="125" width="65" height="50" rx="4" fill="#f4f6f8" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="367.5" y="146" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e293b">Pin 4</text>
+  <text x="367.5" y="163" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e293b">GND 0V</text>
+
+  <!-- Left Sub-panel Box -->
+  <rect x="45" y="200" width="405" height="280" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="247.5" y="222" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Електричні параметри входу живлення</text>
+
+  <text x="60" y="245" font-size="12" fill="#1a1a1a">• Номінальна напруга живлення: U_in = 5.0 В DC (±5%)</text>
+  <text x="60" y="268" font-size="12" fill="#1a1a1a">• Максимальний струм нагріву: I_max = 2.0 А</text>
+  <text x="60" y="291" font-size="12" fill="#1a1a1a">• Максимальна споживана потужність: P_max = 10 Вт</text>
+  <text x="60" y="314" font-size="12" fill="#1a1a1a">• Опір силового кабелю: R_cable ≤ 0.15 Ом (20–22 AWG)</text>
+  <text x="60" y="337" font-size="12" fill="#1a1a1a">• Допустиме падіння напруги на кабелі: ΔU ≤ 0.3 В</text>
+  <text x="60" y="360" font-size="12" fill="#1a1a1a">• Ідентифікація порту: D+ та D- замкнені (DCP режим)</text>
+  <text x="60" y="383" font-size="12" fill="#1a1a1a">• Режим Power Bank: підтримання струму Always-On</text>
+
+  <!-- Left Badge -->
+  <rect x="60" y="405" width="375" height="55" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247.5" y="426" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">УВАГА: Живлення від портів USB 2.0 (0.5A) недопустиме</text>
+  <text x="247.5" y="446" text-anchor="middle" font-size="12" fill="#1e293b">При I &lt; 2A паяльник не досягає робочої температури</text>
+
+  <!-- Right Panel: Collet & Cartridge Assembly -->
+  <rect x="495" y="75" width="435" height="420" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712.5" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">2. Вузол цангової фіксації та картриджа</text>
+
+  <!-- Assembly Drawings & Annotations -->
+  <text x="660" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="#475569">Цангова гайка</text>
+  <line x1="660" y1="114" x2="660" y2="125" stroke="#475569" stroke-width="1"/>
+
+  <text x="840" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="#d97706">Змінне жало</text>
+  <line x1="840" y1="114" x2="840" y2="140" stroke="#d97706" stroke-width="1"/>
+
+  <!-- Handle housing -->
+  <rect x="515" y="125" width="80" height="50" rx="4" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+  <text x="555" y="154" text-anchor="middle" font-size="12" font-weight="bold" fill="#475569">Корпус</text>
+
+  <!-- Collet sleeve with threads -->
+  <rect x="595" y="130" width="45" height="40" fill="#e2e8f0" stroke="#2563eb" stroke-width="1.5"/>
+  <line x1="605" y1="130" x2="605" y2="170" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="615" y1="130" x2="615" y2="170" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="625" y1="130" x2="625" y2="170" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="635" y1="130" x2="635" y2="170" stroke="#94a3b8" stroke-width="1"/>
+
+  <!-- Fixation Nut -->
+  <rect x="640" y="125" width="40" height="50" rx="3" fill="#94a3b8" stroke="#334155" stroke-width="1.5"/>
+  <line x1="660" y1="125" x2="660" y2="175" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Cartridge stem & tip -->
+  <path d="M 680 140 H 830 L 870 150 L 830 160 H 680 Z" fill="#e2e8f0" stroke="#2563eb" stroke-width="1.5"/>
+  <path d="M 810 140 H 830 L 870 150 L 830 160 H 810 Z" fill="#d97706" stroke="#b45309" stroke-width="1.5"/>
+
+  <!-- Core line -->
+  <line x1="690" y1="150" x2="850" y2="150" stroke="#2563eb" stroke-width="3"/>
+  <circle cx="850" cy="150" r="3" fill="#27ae60"/>
+
+  <!-- Right Sub-panel Box -->
+  <rect x="510" y="200" width="405" height="280" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712.5" y="222" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Характеристики цанги та нагрівального елемента</text>
+
+  <text x="525" y="245" font-size="12" fill="#1a1a1a">• Опір нагрівача в цанзі: R_heater = 2.5 Ом (±0.2 Ом)</text>
+  <text x="525" y="268" font-size="12" fill="#1a1a1a">• Струм нагріву: I = U / R = 5.0В / 2.5 Ом = 2.0 А</text>
+  <text x="525" y="291" font-size="12" fill="#1a1a1a">• Монолітна конструкція: нагрівач + термосенсор у тисі</text>
+  <text x="525" y="314" font-size="12" fill="#1a1a1a">• Механізм цанги: нарізна втулка з пружинним затиском</text>
+  <text x="525" y="337" font-size="12" fill="#1a1a1a">• Час розігріву до 300 °C: 15–20 секунд</text>
+  <text x="525" y="360" font-size="12" fill="#1a1a1a">• Діапазон терморегуляції: 260–420 °C (3 ступені)</text>
+  <text x="525" y="383" font-size="12" fill="#1a1a1a">• Сенсорне керування: ємнісна кнопка на корпусі</text>
+
+  <!-- Right Badge -->
+  <rect x="525" y="405" width="375" height="55" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712.5" y="426" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ПРАВИЛО: Фіксуйте цангову гайку виключно руками</text>
+  <text x="712.5" y="446" text-anchor="middle" font-size="12" fill="#1e293b">Надмірне затискання інструментом руйнує різьбу</text>
+</svg>

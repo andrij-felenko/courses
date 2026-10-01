@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-down" markerWidth="8" markerHeight="8" refX="4" refY="7" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M1,1 L4,7 L7,1 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-left" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L1,4 L7,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-right" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-up" markerWidth="8" markerHeight="8" refX="4" refY="1" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M1,7 L4,1 L7,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-left-red" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L1,4 L7,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-right-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фізика FDM-екструзії та міжмолекулярне спікання шарів</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Процес продавлювання в соплі, утворення контактної шийки та міжмолекулярна дифузія полімерних ланцюгів</text>
+
+  <!-- PANEL 1: Extrusion Process -->
+  <rect x="30" y="70" width="440" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="80" width="420" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="250" y="100" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Екструзія філаменту в хотенді</text>
+
+  <!-- Filament Solid -->
+  <rect x="230" y="125" width="40" height="70" fill="#2457d6" opacity="0.25" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="205" y="155" font-size="12" fill="#1a1a1a" text-anchor="end">Тверда нитка (1.75 мм)</text>
+  <line x1="210" y1="151" x2="228" y2="151" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Heat Block -->
+  <rect x="195" y="195" width="110" height="70" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="182" y="235" font-size="12" fill="#c0392b" text-anchor="end">Зона нагріву (210–250 °C)</text>
+  <line x1="185" y1="231" x2="194" y2="231" stroke="#c0392b" stroke-width="1"/>
+
+  <!-- Melt Channel -->
+  <path d="M 230,195 L 230,265 L 242,285 L 258,285 L 270,265 L 270,195 Z" fill="#2457d6" opacity="0.8"/>
+  <line x1="250" y1="140" x2="250" y2="265" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-down)"/>
+  <text x="315" y="155" font-size="12" fill="#2457d6" text-anchor="start">Потік розплаву Q</text>
+  <line x1="312" y1="151" x2="254" y2="151" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- Nozzle Tip -->
+  <path d="M 215,265 L 235,295 L 265,295 L 285,265 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="315" y="280" font-size="12" fill="#1a1a1a" text-anchor="start">Сопло (d_n = 0.4 мм)</text>
+  <line x1="312" y1="276" x2="270" y2="276" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Substrate Layer (N-1) -->
+  <rect x="120" y="380" width="260" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="250" y="400" font-size="12" fill="#2457d6" text-anchor="middle">Попередній шар (Layer N-1)</text>
+
+  <!-- Extruded Layer N -->
+  <path d="M 180,380 C 180,350 200,350 250,350 C 300,350 320,350 320,380 Z" fill="#27ae60" opacity="0.85" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="250" y="368" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Новий шар (Layer N)</text>
+
+  <!-- Dimensions -->
+  <line x1="335" y1="350" x2="335" y2="380" stroke="#1a1a1a" stroke-width="1" marker-start="url(#arr-up)" marker-end="url(#arr-down)"/>
+  <text x="345" y="369" font-size="12" fill="#1a1a1a" text-anchor="start">h = 0.2 мм</text>
+
+  <line x1="180" y1="420" x2="320" y2="420" stroke="#1a1a1a" stroke-width="1" marker-start="url(#arr-left)" marker-end="url(#arr-right)"/>
+  <text x="250" y="440" font-size="12" fill="#1a1a1a" text-anchor="middle">Ширина лінії w = 0.45 мм</text>
+
+  <!-- Note Box -->
+  <rect x="50" y="455" width="400" height="30" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="250" y="475" font-size="12" fill="#6b7280" text-anchor="middle">Об'ємний потік екструзії: Q = v · w · h</text>
+
+  <!-- PANEL 2: Interlayer Adhesion & Diffusion -->
+  <rect x="490" y="70" width="440" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="500" y="80" width="420" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="710" y="100" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Міжмолекулярне злиття та адгезія</text>
+
+  <!-- SUB-PANEL 2A: Necking -->
+  <rect x="505" y="120" width="410" height="165" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="515" y="140" font-size="13" font-weight="bold" fill="#1a1a1a">А. Формування шийки контакту (Wetting &amp; Necking)</text>
+
+  <!-- Beads in Contact -->
+  <path d="M 620,195 C 620,165 650,160 720,160 C 790,160 820,165 820,195 C 800,200 780,205 720,205 C 660,205 640,200 620,195 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 620,215 C 640,210 660,205 720,205 C 780,205 800,210 820,215 C 820,245 790,250 720,250 C 650,250 620,245 620,215 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Neck Interface -->
+  <line x1="650" y1="205" x2="790" y2="205" stroke="#c0392b" stroke-width="3" stroke-dasharray="4 2"/>
+  <line x1="650" y1="260" x2="790" y2="260" stroke="#c0392b" stroke-width="1" marker-start="url(#arr-left-red)" marker-end="url(#arr-right-red)"/>
+  <text x="720" y="275" font-size="12" fill="#c0392b" text-anchor="middle">Контактна шийка y_c (Wetting width)</text>
+
+  <text x="515" y="180" font-size="12" fill="#2457d6">Шар N (T &gt; Tg)</text>
+  <text x="515" y="235" font-size="12" fill="#27ae60">Шар N-1</text>
+  <text x="830" y="210" font-size="12" fill="#6b7280">Межа розплаву</text>
+
+  <!-- SUB-PANEL 2B: Diffusion -->
+  <rect x="505" y="295" width="410" height="190" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="515" y="315" font-size="13" font-weight="bold" fill="#1a1a1a">Б. Дифузія макромолекул (Chain Interdiffusion)</text>
+
+  <!-- Interface Line -->
+  <line x1="520" y1="390" x2="900" y2="390" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <text x="895" y="382" font-size="12" fill="#6b7280" text-anchor="end">Міжшарова межа</text>
+
+  <!-- Polymer Chains (bounded x <= 780 so they don't intersect the text label at x=796..895) -->
+  <path d="M 545,350 Q 565,340 580,370 T 610,410 T 635,380" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 600,430 Q 620,400 645,370 T 680,400 T 705,360" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <path d="M 670,345 Q 690,385 715,420 T 745,375 T 765,410" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 730,435 Q 750,395 765,365 T 780,390" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Entanglement Circles -->
+  <circle cx="610" cy="390" r="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" opacity="0.85"/>
+  <circle cx="705" cy="390" r="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" opacity="0.85"/>
+  <circle cx="765" cy="390" r="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" opacity="0.85"/>
+
+  <!-- Labels -->
+  <text x="515" y="345" font-size="12" fill="#2457d6">Ланцюги шару N</text>
+  <text x="515" y="445" font-size="12" fill="#27ae60">Ланцюги шару N-1</text>
+  <text x="710" y="470" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Сплутування ланцюгів = Міцність з'єднання</text>
+</svg>

@@ -1,0 +1,112 @@
+<svg viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Асинхронна дискретизація та часова невизначеність (квантувальний джиттер)</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Асинхронний фронт фіксується лише на наступному такті f_s, виникає невизначеність ± T_sample = ± (1 / f_s)</text>
+
+  <!-- ПАНЕЛЬ 1: ЧАСОВА ДІАГРАМА (ЛІВОРУЧ/ЦЕНТР) -->
+  <rect x="30" y="85" width="620" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="98" width="590" height="28" rx="4" fill="#eaf0fd"/>
+  <text x="340" y="117" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Часова діаграма асинхронної дискретизації та затримки фронту</text>
+
+  <!-- Розмірна лінія T_sample -->
+  <text x="330" y="142" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">T_sample = 41.67 нс</text>
+  <line x1="300" y1="150" x2="360" y2="150" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+
+  <!-- Позначки тактової сітки t_0...t_7 -->
+  <text x="180" y="163" font-size="11" fill="#6b7280" text-anchor="middle">t_0</text>
+  <text x="240" y="163" font-size="11" fill="#6b7280" text-anchor="middle">t_1</text>
+  <text x="300" y="163" font-size="11" fill="#6b7280" text-anchor="middle">t_2</text>
+  <text x="360" y="163" font-size="11" fill="#6b7280" text-anchor="middle">t_3</text>
+  <text x="420" y="163" font-size="11" fill="#6b7280" text-anchor="middle">t_4</text>
+  <text x="480" y="163" font-size="11" fill="#6b7280" text-anchor="middle">t_5</text>
+  <text x="540" y="163" font-size="11" fill="#6b7280" text-anchor="middle">t_6</text>
+  <text x="600" y="163" font-size="11" fill="#6b7280" text-anchor="middle">t_7</text>
+
+  <!-- Пунктирні лінії тактової сітки дискретизації -->
+  <line x1="180" y1="170" x2="180" y2="380" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="240" y1="170" x2="240" y2="380" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="300" y1="170" x2="300" y2="380" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="360" y1="170" x2="360" y2="380" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="420" y1="170" x2="420" y2="380" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="480" y1="170" x2="480" y2="380" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="540" y1="170" x2="540" y2="380" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="600" y1="170" x2="600" y2="380" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- СИГНАЛ 1: Тактовий CLK (f_s) -->
+  <text x="50" y="195" font-size="12" font-weight="bold" fill="#2457d6">Тактовий CLK (f_s)</text>
+  <path d="M 170,200 H 180 V 175 H 210 V 200 H 240 V 175 H 270 V 200 H 300 V 175 H 330 V 200 H 360 V 175 H 390 V 200 H 420 V 175 H 450 V 200 H 480 V 175 H 510 V 200 H 540 V 175 H 570 V 200 H 600 V 175 H 620" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- СИГНАЛ 2: Реальний вхідний асинхронний сигнал -->
+  <text x="50" y="260" font-size="12" font-weight="bold" fill="#c0392b">Реальний вхід</text>
+  <path d="M 170,280 H 325 V 240 H 620" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Реальний асинхронний фронт (x = 325) -->
+  <line x1="325" y1="210" x2="325" y2="385" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="325" cy="260" r="4" fill="#c0392b"/>
+  <text x="320" y="232" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="end">Реальний фронт</text>
+
+  <!-- СИГНАЛ 3: Зафіксований вхід у семплах (Sampled) -->
+  <text x="50" y="340" font-size="12" font-weight="bold" fill="#27ae60">Зафіксований семпл</text>
+  <path d="M 170,360 H 360 V 320 H 620" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Зафіксований фронт на такті t_3 (x = 360) -->
+  <line x1="360" y1="210" x2="360" y2="385" stroke="#27ae60" stroke-width="2"/>
+  <text x="368" y="312" font-size="11" font-weight="bold" fill="#27ae60">Фіксація в семплі (t_3)</text>
+
+  <!-- Зона та розмір невизначеності Δt (компактні написи строго між x=315 та x=370) -->
+  <rect x="325" y="380" width="35" height="40" fill="#fdecea" opacity="0.6"/>
+  <text x="342.5" y="390" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Δt ≤ T_s</text>
+  <line x1="325" y1="395" x2="360" y2="395" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <text x="342.5" y="415" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">± T_s / 2</text>
+
+  <!-- Підсумкова картка знизу Лівої панелі -->
+  <rect x="45" y="435" width="590" height="70" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="340" y="455" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Квантувальний джиттер: асинхронні події зміщуються до найближчого такту f_s</text>
+  <text x="340" y="475" font-size="11" fill="#6b7280" text-anchor="middle">При f_s = 24 МГц період T_s = 41.67 нс, невизначеність тривалості = ± 41.67 нс</text>
+  <text x="340" y="492" font-size="11" fill="#2457d6" font-weight="bold" text-anchor="middle">Для 5% похибки фронту потрібна частота f_s ≥ 20 · f_сигналу</text>
+
+
+  <!-- ПАНЕЛЬ 2: МАТЕМАТИЧНА МОДЕЛЬ (ПРАВОРУЧ) -->
+  <rect x="670" y="85" width="260" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="685" y="100" width="230" height="32" rx="4" fill="#eaf0fd"/>
+  <text x="800" y="121" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Математична модель</text>
+
+  <!-- Картка T_sample -->
+  <rect x="685" y="145" width="230" height="110" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="800" y="167" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Період семплювання T_s</text>
+  <text x="695" y="190" font-size="11" font-weight="bold" fill="#1a1a1a">T_sample = 1 / f_s</text>
+  <text x="695" y="210" font-size="11" fill="#2457d6" font-weight="bold">При 24 МГц: T_s = 41.67 нс</text>
+  <text x="695" y="230" font-size="11" fill="#6b7280">• Крок дискретизаційної сітки</text>
+
+  <!-- Картка Джиттеру -->
+  <rect x="685" y="270" width="230" height="110" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="800" y="292" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Похибка вимірювання</text>
+  <text x="695" y="315" font-size="11" font-weight="bold" fill="#1a1a1a">Фронт: Δt_edge = [0 ... T_s]</text>
+  <text x="695" y="335" font-size="11" font-weight="bold" fill="#c0392b">Імпульс: Error = ± T_s</text>
+  <text x="695" y="355" font-size="11" fill="#6b7280">• Квантувальний джиттер</text>
+
+  <!-- Картка Наквіста -->
+  <rect x="685" y="395" width="230" height="110" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="800" y="417" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Рекомендація f_s</text>
+  <text x="695" y="440" font-size="11" font-weight="bold" fill="#1a1a1a">f_s ≥ 4...10 · f_sig</text>
+  <text x="695" y="460" font-size="11" fill="#6b7280">• Для прямокутного сигналу</text>
+  <text x="695" y="480" font-size="11" fill="#27ae60" font-weight="bold">• DLA 24МГц → f_sig ≤ 4-6МГц</text>
+</svg>

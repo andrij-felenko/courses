@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Будова пірометра MESTEK IR01B та 12-точковий лазер</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Формування плями D:S 12:1 та огляд вимірювальної зони</text>
+
+  <!-- PANEL 1: Pyrometer Structure & LCD -->
+  <rect x="30" y="70" width="310" height="470" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="185" y="94" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Будова та вузли пірометра</text>
+
+  <!-- Pyrometer Body Schematic -->
+  <path d="M 120 120 L 175 120 L 175 215 L 155 215 L 140 305 L 105 305 L 120 215 L 120 120 Z" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 120 225 L 105 235 L 120 245 Z" fill="#2457d6"/>
+
+  <!-- Lens & Sensors -->
+  <rect x="172" y="150" width="8" height="50" rx="3" fill="#2457d6"/>
+  <rect x="135" y="160" width="22" height="30" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="130" y="225" width="30" height="24" rx="2" fill="#eaf0fd" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Laser Emitter Dots -->
+  <circle cx="176" cy="137" r="3" fill="#c0392b"/>
+  <circle cx="176" cy="213" r="3" fill="#c0392b"/>
+
+  <!-- Internal Ray Path -->
+  <line x1="172" y1="155" x2="157" y2="165" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <line x1="172" y1="195" x2="157" y2="185" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+  <!-- Pointer Callout Lines -->
+  <line x1="176" y1="137" x2="210" y2="137" stroke="#c0392b" stroke-width="1"/>
+  <text x="215" y="142" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">12-точковий лазер</text>
+
+  <line x1="176" y1="177" x2="210" y2="177" stroke="#2457d6" stroke-width="1"/>
+  <text x="215" y="182" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">ІЧ-лінза</text>
+
+  <line x1="135" y1="177" x2="127" y2="177" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="42" y="182" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Термостовпчик</text>
+
+  <line x1="130" y1="237" x2="127" y2="237" stroke="#6b7280" stroke-width="1"/>
+  <text x="42" y="242" font-size="12" fill="#6b7280" text-anchor="start">Контролер</text>
+
+  <!-- Color LCD Sub-card -->
+  <rect x="45" y="320" width="280" height="205" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="185" y="340" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">ЖК-дисплей MESTEK IR01B</text>
+
+  <!-- Black LCD Screen -->
+  <rect x="58" y="352" width="254" height="160" rx="4" fill="#1a1a1a"/>
+
+  <!-- LCD UI Content -->
+  <text x="70" y="372" font-size="12" font-weight="bold" fill="#27ae60">HOLD</text>
+  <text x="185" y="372" font-size="12" fill="#ffffff" text-anchor="middle">12-LASER</text>
+  <text x="300" y="372" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="end">ε=0.95</text>
+
+  <text x="185" y="412" font-size="26" font-weight="bold" fill="#27ae60" text-anchor="middle">28.4 °C</text>
+  <text x="185" y="430" font-size="12" fill="#6b7280" text-anchor="middle">Температура поверхні</text>
+
+  <rect x="70" y="444" width="230" height="54" rx="3" fill="#2d3748"/>
+  <text x="80" y="464" font-size="12" fill="#ffffff">MAX:</text>
+  <text x="115" y="464" font-size="12" font-weight="bold" fill="#eaf0fd">32.1°C</text>
+  <text x="185" y="464" font-size="12" fill="#ffffff">T_amb:</text>
+  <text x="235" y="464" font-size="12" font-weight="bold" fill="#eaf0fd">22.0°C</text>
+  <text x="80" y="486" font-size="12" fill="#6b7280">RH:</text>
+  <text x="115" y="486" font-size="12" font-weight="bold" fill="#2457d6">45 %</text>
+
+  <!-- PANEL 2: Optical Resolution D:S = 12:1 -->
+  <rect x="360" y="70" width="570" height="225" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="645" y="94" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Оптична роздільність D:S = 12:1</text>
+
+  <!-- Formula Card -->
+  <rect x="375" y="108" width="160" height="44" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="455" y="125" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">S = D / 12</text>
+  <text x="455" y="142" font-size="12" fill="#6b7280" text-anchor="middle">D — відстань, S — пляма</text>
+
+  <!-- Lens icon -->
+  <rect x="375" y="170" width="10" height="40" rx="3" fill="#2457d6"/>
+  <text x="380" y="232" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Лінза</text>
+
+  <!-- IR Rays & Cones -->
+  <polygon points="385,190 610,145 610,235" fill="#2457d6" fill-opacity="0.12"/>
+  <polygon points="385,190 840,110 840,270" fill="#2457d6" fill-opacity="0.08"/>
+
+  <line x1="385" y1="190" x2="840" y2="110" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="385" y1="190" x2="840" y2="270" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="385" y1="190" x2="850" y2="190" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Target Plane 1 (D = 36cm, S = 3cm) -->
+  <line x1="610" y1="135" x2="610" y2="245" stroke="#1a1a1a" stroke-width="2"/>
+  <ellipse cx="610" cy="190" rx="4" ry="45" fill="#2457d6" fill-opacity="0.3" stroke="#2457d6" stroke-width="2"/>
+  <text x="610" y="127" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S₁ = 3 см</text>
+
+  <line x1="385" y1="265" x2="610" y2="265" stroke="#1a1a1a" stroke-width="1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="497" y="258" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">D₁ = 36 см</text>
+
+  <!-- Target Plane 2 (D = 60cm, S = 5cm) -->
+  <line x1="840" y1="100" x2="840" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  <ellipse cx="840" cy="190" rx="6" ry="80" fill="#2457d6" fill-opacity="0.2" stroke="#2457d6" stroke-width="2"/>
+  <text x="840" y="93" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S₂ = 5 см</text>
+
+  <line x1="385" y1="282" x2="840" y2="282" stroke="#6b7280" stroke-width="1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="725" y="277" font-size="12" fill="#6b7280" text-anchor="middle">D₂ = 60 см</text>
+
+  <!-- PANEL 3: 12-point Laser Ring Visualisation -->
+  <rect x="360" y="315" width="570" height="225" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="645" y="338" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Візуалізація 12-точковим лазерним кільцем</text>
+
+  <!-- Surface & Circle Spot -->
+  <rect x="375" y="355" width="180" height="170" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <circle cx="465" cy="435" r="52" fill="#fdecea" fill-opacity="0.5" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <circle cx="465" cy="435" r="4" fill="#2457d6"/>
+  <text x="465" y="426" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Зона ІЧ-збору</text>
+
+  <!-- 12 Laser Dots -->
+  <circle cx="517" cy="435" r="3.5" fill="#c0392b"/>
+  <circle cx="510" cy="461" r="3.5" fill="#c0392b"/>
+  <circle cx="491" cy="480" r="3.5" fill="#c0392b"/>
+  <circle cx="465" cy="487" r="3.5" fill="#c0392b"/>
+  <circle cx="439" cy="480" r="3.5" fill="#c0392b"/>
+  <circle cx="420" cy="461" r="3.5" fill="#c0392b"/>
+  <circle cx="413" cy="435" r="3.5" fill="#c0392b"/>
+  <circle cx="420" cy="409" r="3.5" fill="#c0392b"/>
+  <circle cx="439" cy="390" r="3.5" fill="#c0392b"/>
+  <circle cx="465" cy="383" r="3.5" fill="#c0392b"/>
+  <circle cx="491" cy="390" r="3.5" fill="#c0392b"/>
+  <circle cx="510" cy="409" r="3.5" fill="#c0392b"/>
+
+  <line x1="413" y1="506" x2="517" y2="506" stroke="#c0392b" stroke-width="1" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <text x="465" y="520" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Діаметр S</text>
+
+  <!-- Feature Callout Cards -->
+  <rect x="570" y="355" width="345" height="50" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <rect x="578" y="363" width="34" height="34" rx="4" fill="#e9f7ef"/>
+  <text x="595" y="386" font-size="16" font-weight="bold" fill="#27ae60" text-anchor="middle">✓</text>
+  <text x="620" y="375" font-size="13" font-weight="bold" fill="#27ae60">Межі зони вимірювання</text>
+  <text x="620" y="393" font-size="12" fill="#1a1a1a">12 точок показують контур плями S</text>
+
+  <rect x="570" y="413" width="345" height="50" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <rect x="578" y="421" width="34" height="34" rx="4" fill="#eaf0fd"/>
+  <text x="595" y="444" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">ІЧ</text>
+  <text x="620" y="433" font-size="13" font-weight="bold" fill="#2457d6">Усереднення температури</text>
+  <text x="620" y="451" font-size="12" fill="#1a1a1a">Детектор вимірює середнє значення в крузі</text>
+
+  <rect x="570" y="471" width="345" height="54" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <rect x="578" y="480" width="34" height="36" rx="4" fill="#fdecea"/>
+  <text x="595" y="504" font-size="16" font-weight="bold" fill="#c0392b" text-anchor="middle">!</text>
+  <text x="620" y="490" font-size="13" font-weight="bold" fill="#c0392b">Вимога до об'єкта</text>
+  <text x="620" y="508" font-size="12" fill="#1a1a1a">Поверхня має перекривати всі 12 точок</text>
+</svg>

@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема 4-пінового виводу штангенциркуля та узгодження рівнів</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Безпечна трансформація низьковольтних сигналів (1.5 В) у логіку 3.3 В за допомогою транзисторного ключа</text>
+
+  <!-- Left Panel: Caliper Output Connector -->
+  <rect x="30" y="75" width="270" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="165" y="100" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Штангенциркуль (1.5 В)</text>
+
+  <rect x="45" y="118" width="240" height="192" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Pin 1: VCC -->
+  <rect x="55" y="128" width="220" height="36" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="70" y="151" font-size="12" font-weight="bold" fill="#c0392b">Pin 1: VCC (1.5 В)</text>
+
+  <!-- Pin 2: CLK -->
+  <rect x="55" y="172" width="220" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="70" y="195" font-size="12" font-weight="bold" fill="#2457d6">Pin 2: CLK (Тактування)</text>
+
+  <!-- Pin 3: DATA -->
+  <rect x="55" y="216" width="220" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="70" y="239" font-size="12" font-weight="bold" fill="#2457d6">Pin 3: DATA (Дані)</text>
+
+  <!-- Pin 4: GND -->
+  <rect x="55" y="260" width="220" height="36" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="70" y="283" font-size="12" font-weight="bold" fill="#1a1a1a">Pin 4: GND (0 В)</text>
+
+  <!-- Warning Badge -->
+  <rect x="45" y="326" width="240" height="110" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="60" y="348" font-size="12" font-weight="bold" fill="#c0392b">УВАГА: Небезпека пробою</text>
+  <text x="60" y="370" font-size="12" fill="#1a1a1a">• Живлення від батареї 1.5 В</text>
+  <text x="60" y="392" font-size="12" fill="#1a1a1a">• Пряма подача 3.3 В викликає</text>
+  <text x="60" y="414" font-size="12" fill="#c0392b">• Струм через ESD-діод (пробій)</text>
+
+  <!-- Middle Panel: Transistor Level Shifter Circuit -->
+  <rect x="330" y="75" width="300" height="370" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="100" text-anchor="middle" font-size="15" font-weight="bold" fill="#27ae60">Каскад узгодження рівнів</text>
+
+  <rect x="345" y="118" width="270" height="192" rx="6" fill="white" stroke="#27ae60" stroke-width="1"/>
+
+  <!-- VCC 3.3V Line -->
+  <line x1="485" y1="142" x2="485" y2="160" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="485" y="138" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">+3.3 В (MCU)</text>
+
+  <!-- R2 Pull-up Resistor -->
+  <rect x="477" y="160" width="16" height="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="505" y="177" font-size="12" fill="#1a1a1a">R2 10 кОм</text>
+  <line x1="485" y1="186" x2="485" y2="202" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Collector Node -->
+  <circle cx="485" cy="202" r="3" fill="#1a1a1a"/>
+  <line x1="485" y1="202" x2="595" y2="202" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="545" y="194" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Вихід 3.3 В</text>
+
+  <!-- Input Line & R1 Base Resistor -->
+  <line x1="345" y1="234" x2="385" y2="234" stroke="#2457d6" stroke-width="2"/>
+  <rect x="385" y="226" width="28" height="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="399" y="220" text-anchor="middle" font-size="12" fill="#1a1a1a">R1 10 кОм</text>
+  <line x1="413" y1="234" x2="445" y2="234" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- NPN Transistor Q1 Symbol -->
+  <line x1="445" y1="218" x2="445" y2="250" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="445" y1="224" x2="485" y2="202" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="445" y1="244" x2="485" y2="266" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="475,257 485,266 472,267" fill="#1a1a1a"/>
+  <text x="502" y="245" font-size="12" font-weight="bold" fill="#1a1a1a">Q1 (2N3904)</text>
+
+  <!-- Emitter to GND Symbol -->
+  <line x1="485" y1="266" x2="485" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="473" y1="285" x2="497" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="477" y1="289" x2="493" y2="289" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="481" y1="293" x2="489" y2="293" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="485" y="305" text-anchor="middle" font-size="12" fill="#6b7280">GND</text>
+
+  <!-- Explanatory Badge -->
+  <rect x="345" y="326" width="270" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="360" y="348" font-size="12" font-weight="bold" fill="#27ae60">Принцип інверсії напруги:</text>
+  <text x="360" y="370" font-size="12" fill="#1a1a1a">• Вхід 1.5 В → Q1 відкритий → Вихід 0 В</text>
+  <text x="360" y="392" font-size="12" fill="#1a1a1a">• Вхід 0 В → Q1 закритий → Вихід 3.3 В</text>
+  <text x="360" y="414" font-size="12" fill="#6b7280">• Ізоляція батареї від шини 3.3 В</text>
+
+  <!-- Right Panel: Microcontroller MCU -->
+  <rect x="660" y="75" width="270" height="370" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="795" y="100" text-anchor="middle" font-size="15" font-weight="bold" fill="#2457d6">Мікроконтролер (MCU)</text>
+
+  <rect x="675" y="118" width="240" height="192" rx="6" fill="white" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- MCU Pin 1: VCC 3.3V -->
+  <rect x="685" y="128" width="220" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="700" y="151" font-size="12" font-weight="bold" fill="#2457d6">Pin 3.3V: Джерело VCC</text>
+
+  <!-- MCU Pin 2: GPIO DATA -->
+  <rect x="685" y="172" width="220" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="700" y="195" font-size="12" font-weight="bold" fill="#27ae60">GPIO_DATA (0 / 3.3 В)</text>
+
+  <!-- MCU Pin 3: GPIO CLK -->
+  <rect x="685" y="216" width="220" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="700" y="239" font-size="12" font-weight="bold" fill="#2457d6">GPIO_CLK (0 / 3.3 В)</text>
+
+  <!-- MCU Pin 4: GND -->
+  <rect x="685" y="260" width="220" height="36" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="700" y="283" font-size="12" font-weight="bold" fill="#1a1a1a">GND (Спільна земля)</text>
+
+  <!-- MCU Info Badge -->
+  <rect x="675" y="326" width="240" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="690" y="348" font-size="12" font-weight="bold" fill="#2457d6">Обробка в мікроконтролері</text>
+  <text x="690" y="370" font-size="12" fill="#1a1a1a">• Безпечний прийом рівня 3.3 В</text>
+  <text x="690" y="392" font-size="12" fill="#1a1a1a">• Програмна інверсія сигналу</text>
+  <text x="690" y="414" font-size="12" fill="#1a1a1a">• Декодування кадру (24/52 біт)</text>
+
+  <!-- Signal Arrow from Caliper DATA Pin to Level Shifter Input -->
+  <path d="M 275 234 L 345 234" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="310" y="224" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">DATA (1.5 В)</text>
+
+  <!-- Signal Arrow from Level Shifter to MCU GPIO_DATA -->
+  <path d="M 595 202 L 635 202 L 635 190 L 685 190" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+  <text x="640" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">3.3 В</text>
+
+  <!-- Common GND Line -->
+  <path d="M 275 278 H 315 V 458 H 645 V 278 H 685 M 485 285 V 300 H 315" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4" fill="none"/>
+  <text x="480" y="476" text-anchor="middle" font-size="12" fill="#6b7280">Спільна шина заземлення (GND)</text>
+</svg>

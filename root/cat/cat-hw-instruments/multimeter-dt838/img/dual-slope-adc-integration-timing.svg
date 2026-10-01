@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-start-blue" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-start-green" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова діаграма подвійного інтегрування АЦП ICL7106</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Фіксований інтервал T₁ накопичує вхідну напругу U_in, а вимірювальний час T₂ пропорційний U_in</text>
+
+  <!-- Main Container Panel -->
+  <rect x="20" y="72" width="920" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+
+  <!-- Plot Canvas Background (Height 315 so bottom border ends exactly at y=400 baseline) -->
+  <rect x="80" y="85" width="570" height="315" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+
+  <!-- Horizontal Grid Lines (Start at Y-axis x=140 to avoid tick label collision) -->
+  <line x1="140" y1="200" x2="650" y2="200" stroke="#f3f4f6" stroke-width="1"/>
+  <line x1="140" y1="300" x2="650" y2="300" stroke="#f3f4f6" stroke-width="1"/>
+
+  <!-- Dashed Voltage Peak Lines -->
+  <line x1="140" y1="200" x2="440" y2="200" stroke="#27ae60" stroke-width="1" stroke-dasharray="3 3" stroke-opacity="0.6"/>
+  <line x1="140" y1="300" x2="440" y2="300" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3" stroke-opacity="0.6"/>
+
+  <!-- Dashed Time Markers -->
+  <line x1="440" y1="120" x2="440" y2="400" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="540" y1="300" x2="540" y2="400" stroke="#2457d6" stroke-width="1" stroke-dasharray="4 4" stroke-opacity="0.5"/>
+  <line x1="640" y1="200" x2="640" y2="400" stroke="#27ae60" stroke-width="1" stroke-dasharray="4 4" stroke-opacity="0.5"/>
+
+  <!-- Y-Axis (Voltage) -->
+  <line x1="140" y1="400" x2="140" y2="118" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="140" y="108" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">V_int (В)</text>
+  
+  <!-- Voltage Axis Tick Labels -->
+  <text x="132" y="204" text-anchor="end" font-size="11" font-weight="bold" fill="#27ae60">V_int2</text>
+  <text x="132" y="304" text-anchor="end" font-size="11" font-weight="bold" fill="#2457d6">V_int1</text>
+  <text x="132" y="404" text-anchor="end" font-size="11" fill="#6b7280">0 В</text>
+
+  <!-- X-Axis (0V Baseline) -->
+  <line x1="135" y1="400" x2="635" y2="400" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="635" y="390" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Час t</text>
+
+  <!-- Signal Curves -->
+  <!-- Curve 1 (Lower Voltage U_in1) -->
+  <polyline points="140,400 440,300 540,400" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-linejoin="round"/>
+  <!-- Curve 2 (Higher Voltage U_in2) -->
+  <polyline points="140,400 440,200 640,400" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- Peak Dots -->
+  <circle cx="440" cy="300" r="4" fill="#2457d6"/>
+  <circle cx="440" cy="200" r="4" fill="#27ae60"/>
+
+  <!-- Peak Labels -->
+  <text x="448" y="196" font-size="11" font-weight="bold" fill="#27ae60">V_int2</text>
+  <text x="448" y="296" font-size="11" font-weight="bold" fill="#2457d6">V_int1</text>
+
+  <!-- Labels on Slopes -->
+  <text x="240" y="235" font-size="11" font-weight="bold" fill="#27ae60">U_in2 (висока напруга)</text>
+  <text x="260" y="325" font-size="11" font-weight="bold" fill="#2457d6">U_in1 (низька напруга)</text>
+  <text x="530" y="270" font-size="11" fill="#6b7280">Нахил розряду = -U_ref / RC</text>
+
+  <!-- Time Labels under Baseline (Placed in open space below y=400 canvas border) -->
+  <text x="140" y="418" text-anchor="middle" font-size="11" fill="#6b7280">t = 0</text>
+  <text x="440" y="418" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">t = T₁</text>
+  <text x="540" y="418" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">T₁ + T₂A</text>
+  <text x="640" y="418" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">T₁ + T₂B</text>
+
+  <!-- Dimension Arrows at Bottom -->
+  <!-- T1 Interval -->
+  <line x1="140" y1="438" x2="440" y2="438" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-start)" marker-end="url(#arr)"/>
+  <text x="290" y="433" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">T₁ (Фіксований час накопичення)</text>
+  <text x="290" y="451" text-anchor="middle" font-size="11" fill="#6b7280">T₁ = 100 мс (придушує 50 Гц)</text>
+
+  <!-- T2A Interval -->
+  <line x1="440" y1="470" x2="540" y2="470" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-start-blue)" marker-end="url(#arr-blue)"/>
+  <text x="490" y="465" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">T₂A</text>
+
+  <!-- T2B Interval -->
+  <line x1="440" y1="492" x2="640" y2="492" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-start-green)" marker-end="url(#arr-green)"/>
+  <text x="540" y="487" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">T₂B (Час розряду пропорційний U_in)</text>
+
+  <!-- Right Information Panel -->
+  <rect x="665" y="85" width="265" height="405" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="797" y="110" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Математичні рівняння АЦП</text>
+  <line x1="680" y1="120" x2="915" y2="120" stroke="#e5e7eb"/>
+
+  <!-- Section 1 -->
+  <text x="680" y="140" font-size="11" font-weight="bold" fill="#2457d6">1. Фаза 1 (Накопичення):</text>
+  <text x="690" y="158" font-size="11" fill="#1a1a1a">V_int = (U_in / (R · C)) · T₁</text>
+  <text x="690" y="174" font-size="11" fill="#6b7280">T₁ — сталий час (1000 тактів)</text>
+
+  <!-- Section 2 -->
+  <text x="680" y="198" font-size="11" font-weight="bold" fill="#27ae60">2. Фаза 2 (Розряд):</text>
+  <text x="690" y="216" font-size="11" fill="#1a1a1a">V_int = (U_ref / (R · C)) · T₂</text>
+  <text x="690" y="232" font-size="11" fill="#6b7280">U_ref — опорна напруга</text>
+
+  <!-- Section 3 -->
+  <text x="680" y="256" font-size="11" font-weight="bold" fill="#1a1a1a">3. Баланс зарядів:</text>
+  <rect x="680" y="264" width="235" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-opacity="0.4"/>
+  <text x="797" y="283" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">U_in · T₁ = U_ref · T₂</text>
+
+  <!-- Section 4 -->
+  <text x="680" y="314" font-size="11" font-weight="bold" fill="#1a1a1a">4. Підсумковий час розряду:</text>
+  <rect x="680" y="322" width="235" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="797" y="345" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">T₂ = T₁ · (U_in / U_ref)</text>
+
+  <!-- Highlights & Advantages -->
+  <text x="797" y="378" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">✓ Незалежно від R та C!</text>
+  <text x="797" y="394" text-anchor="middle" font-size="11" fill="#6b7280">Похибка не залежить від дрейфу</text>
+  <text x="797" y="408" text-anchor="middle" font-size="11" fill="#6b7280">номіналів резистора та конденсатора</text>
+  
+  <line x1="680" y1="418" x2="915" y2="418" stroke="#e5e7eb"/>
+  
+  <text x="797" y="435" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Придушення завади 50 Гц:</text>
+  <text x="797" y="450" text-anchor="middle" font-size="11" fill="#6b7280">T₁ = k · (1 / 50 Гц) = 100 мс</text>
+  <text x="797" y="465" text-anchor="middle" font-size="11" fill="#6b7280">Інтеграл синусоїди 50 Гц = 0</text>
+</svg>

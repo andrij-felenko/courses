@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кінематика двощелепного механізму стрипера INTERTOOL HT-7024</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Послідовність фіксації провідника, надрізання оболонки та поздовжнього зсуву різального блоку</text>
+
+  <!-- Card 1: Capture and Clamping -->
+  <rect x="30" y="85" width="280" height="330" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="92" width="260" height="26" rx="4" fill="#eaf0fd"/>
+  <text x="170" y="110" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Крок 1: Захоплення та затискання</text>
+
+  <!-- Card 1 Diagram -->
+  <line x1="45" y1="215" x2="295" y2="215" stroke="#d35400" stroke-width="6"/>
+  <rect x="50" y="206" width="240" height="18" rx="3" fill="#2457d6" opacity="0.85"/>
+  <rect x="65" y="148" width="55" height="42" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <path d="M70,190 L75,183 L80,190 L85,183 L90,190 L95,183 L100,190 L105,183 L110,190 L115,183" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="92" y="170" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Губка</text>
+  <rect x="65" y="240" width="55" height="42" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <path d="M70,240 L75,247 L80,240 L85,247 L90,240 L95,247 L100,240 L105,247 L110,240 L115,247" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="92" y1="128" x2="92" y2="144" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <line x1="92" y1="302" x2="92" y2="286" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="125" y="136" font-size="11" font-weight="bold" fill="#c0392b">F_притиску</text>
+  <path d="M190,148 L235,148 L235,188 L212.5,204 L190,188 Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="212" y="168" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Лезо</text>
+  <path d="M190,282 L235,282 L235,242 L212.5,226 L190,242 Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="212" y1="128" x2="212" y2="144" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <line x1="212" y1="302" x2="212" y2="286" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+
+  <!-- Card 1 Description -->
+  <text x="45" y="320" font-size="12" fill="#1a1a1a">• Ліва пара губок нерухомо фіксує кабель</text>
+  <text x="45" y="340" font-size="12" fill="#1a1a1a">• Права пара лез прорізає ізоляцію</text>
+  <text x="45" y="360" font-size="12" fill="#1a1a1a">• Сила тертя запобігає прослизанню</text>
+  <text x="45" y="385" font-size="12" font-weight="bold" fill="#2457d6">  F_тертя = F_притиску · μ &gt; F_зсуву</text>
+
+  <!-- Card 2: Lever Action -->
+  <rect x="340" y="85" width="280" height="330" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="350" y="92" width="260" height="26" rx="4" fill="#eaf0fd"/>
+  <text x="480" y="110" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Крок 2: Спрацьовування важеля</text>
+
+  <!-- Card 2 Diagram -->
+  <rect x="360" y="246" width="240" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <circle cx="480" cy="210" r="16" fill="#ffffff" stroke="#2457d6" stroke-width="3"/>
+  <circle cx="480" cy="210" r="6" fill="#2457d6"/>
+  <text x="480" y="240" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Ось повороту</text>
+
+  <path d="M480,210 L435,165" stroke="#1a1a1a" stroke-width="4" stroke-linecap="round"/>
+  <path d="M480,210 L540,210" stroke="#2457d6" stroke-width="4" stroke-linecap="round"/>
+  <path d="M420,152 Q430,144 440,152 T460,152 T480,152" fill="none" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="440" y="136" font-size="11" fill="#6b7280" text-anchor="middle">Пружина важеля</text>
+
+  <path d="M445,192 A22,22 0 0,1 467,198" fill="none" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="420" y="195" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="end">Поворот</text>
+
+  <line x1="510" y1="210" x2="575" y2="210" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="545" y="196" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Зусилля зсуву</text>
+
+  <!-- Card 2 Description -->
+  <text x="355" y="320" font-size="12" fill="#1a1a1a">• Леза занурюються на задану глибину</text>
+  <text x="355" y="340" font-size="12" fill="#1a1a1a">• Опір досягає порогу пружини важеля</text>
+  <text x="355" y="360" font-size="12" fill="#1a1a1a">• Важіль повертається навколо опорної осі</text>
+  <text x="355" y="385" font-size="12" font-weight="bold" fill="#2457d6">  Перенаправлення руху в поздовжній</text>
+
+  <!-- Card 3: Longitudinal Displacement -->
+  <rect x="650" y="85" width="280" height="330" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="660" y="92" width="260" height="26" rx="4" fill="#e9f7ef"/>
+  <text x="790" y="110" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Крок 3: Поздовжній зсув оболонки</text>
+
+  <!-- Card 3 Diagram -->
+  <rect x="670" y="206" width="70" height="18" rx="3" fill="#2457d6" opacity="0.85"/>
+  <line x1="740" y1="215" x2="840" y2="215" stroke="#d35400" stroke-width="6"/>
+  <path d="M740,212 L840,212 M740,218 L840,218" stroke="#e67e22" stroke-width="1.5"/>
+  <rect x="840" y="206" width="60" height="18" rx="3" fill="#2457d6" opacity="0.85"/>
+  <rect x="680" y="148" width="50" height="42" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <path d="M685,190 L690,183 L695,190 L700,183 L710,190 L715,183 L720,190 L725,183" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="680" y="240" width="50" height="42" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <path d="M815,148 L855,148 L855,188 L835,204 L815,188 Z" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <path d="M815,282 L855,282 L855,242 L835,226 L815,242 Z" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <line x1="745" y1="148" x2="805" y2="148" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+  <text x="775" y="136" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">F_зсуву (Рух)</text>
+
+  <!-- Card 3 Description -->
+  <text x="665" y="320" font-size="12" fill="#1a1a1a">• Кабель залишається затиснутим губками</text>
+  <text x="665" y="340" font-size="12" fill="#1a1a1a">• Блок лез зсувається вздовж направляючих</text>
+  <text x="665" y="360" font-size="12" fill="#1a1a1a">• Ізоляційний шар знімається повністю</text>
+  <text x="665" y="385" font-size="12" font-weight="bold" fill="#27ae60">  Чисте знімання оболонки за 1 хід</text>
+
+  <!-- Bottom Summary Panel -->
+  <rect x="30" y="435" width="900" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Bottom Left Formula -->
+  <text x="50" y="458" font-size="13" font-weight="bold" fill="#1a1a1a">Умова відсутності прослизання:</text>
+  <rect x="50" y="468" width="270" height="52" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="185" y="492" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">F_притиску &gt; F_зсуву / μ</text>
+  <text x="185" y="510" font-size="11" fill="#6b7280" text-anchor="middle">μ — коефіцієнт тертя губок об ПВХ (0.3)</text>
+
+  <!-- Bottom Right Flow -->
+  <text x="350" y="458" font-size="13" font-weight="bold" fill="#1a1a1a">Послідовне спрацьовування двощелепної кінематики HT-7024:</text>
+  <rect x="350" y="468" width="120" height="26" rx="3" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="410" y="485" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Затиск губок</text>
+  <text x="480" y="485" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">→</text>
+
+  <rect x="496" y="468" width="120" height="26" rx="3" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="556" y="485" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Надріз лезами</text>
+  <text x="626" y="485" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">→</text>
+
+  <rect x="642" y="468" width="120" height="26" rx="3" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="702" y="485" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Поворот важеля</text>
+  <text x="772" y="485" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">→</text>
+
+  <rect x="788" y="468" width="120" height="26" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="848" y="485" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">4. Зсув оболонки</text>
+
+  <text x="350" y="514" font-size="11" fill="#6b7280">Розведення губок відбувається тільки після повного надрізання оболонки на задану глибину.</text>
+</svg>

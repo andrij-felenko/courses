@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Canvas Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діаграма станів автоохолодження термофена BAKU BK-8033</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Автоматичне продування до T ≤ 100 °C перед вимкненням турбіни при встановленні на підставку</text>
+
+  <!-- STATE 1: WORK -->
+  <rect x="60" y="140" width="220" height="120" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="8" ry="8"/>
+  <text x="170" y="170" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">РОБОЧИЙ (WORK)</text>
+  <text x="170" y="195" font-size="12" fill="#1a1a1a" text-anchor="middle">Нагрівач: ВКЛ (PID, T_set)</text>
+  <text x="170" y="215" font-size="12" fill="#1a1a1a" text-anchor="middle">Турбіна: ВКЛ (F_set)</text>
+  <text x="170" y="235" font-size="12" fill="#6b7280" text-anchor="middle">Геркон: ВІДКРИТО (у руці)</text>
+
+  <!-- STATE 2: COOLING -->
+  <rect x="370" y="140" width="220" height="120" fill="#fdecea" stroke="#c0392b" stroke-width="2" rx="8" ry="8"/>
+  <text x="480" y="170" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">ОХОЛОДЖЕННЯ (COOL)</text>
+  <text x="480" y="195" font-size="12" fill="#1a1a1a" text-anchor="middle">Нагрівач: ВИКЛ (0 Вт)</text>
+  <text x="480" y="215" font-size="12" fill="#1a1a1a" text-anchor="middle">Турбіна: ВКЛ (Продування)</text>
+  <text x="480" y="235" font-size="12" fill="#c0392b" text-anchor="middle">Умова: T &gt; 100 °C</text>
+
+  <!-- STATE 3: SLEEP -->
+  <rect x="680" y="140" width="220" height="120" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="8" ry="8"/>
+  <text x="790" y="170" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">ОЧІКУВАННЯ (SLEEP)</text>
+  <text x="790" y="195" font-size="12" fill="#1a1a1a" text-anchor="middle">Нагрівач: ВИКЛ</text>
+  <text x="790" y="215" font-size="12" fill="#1a1a1a" text-anchor="middle">Турбіна: ВИКЛ (0 об/хв)</text>
+  <text x="790" y="235" font-size="12" fill="#27ae60" text-anchor="middle">Дисплей: «SLP» / Безпечно</text>
+
+  <!-- TRANSITION 1: WORK -> COOLING -->
+  <path d="M 280,200 L 370,200" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="325" y="168" font-size="11" fill="#6b7280" text-anchor="middle">(Магніт + геркон)</text>
+  <text x="325" y="186" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Фен на підставці</text>
+
+  <!-- TRANSITION 2: COOLING -> SLEEP -->
+  <path d="M 590,200 L 680,200" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="635" y="168" font-size="11" fill="#6b7280" text-anchor="middle">(Охолодження OK)</text>
+  <text x="635" y="186" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">T ≤ 100 °C</text>
+
+  <!-- TRANSITION 3: RETURN TO WORK -->
+  <path d="M 790,260 L 790,320 L 170,320 L 170,260" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 480,260 L 480,320" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="480" y="342" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Фен знято з підставки (Геркон розімкнуто) → Відновлення нагріву T_set</text>
+
+  <!-- BOTTOM SUMMARY BANNER -->
+  <rect x="90" y="385" width="780" height="65" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6" ry="6"/>
+  <text x="480" y="410" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Захист елемента: Заборона вимкнення турбіни при T &gt; 100 °C запобігає перегріву спіралі</text>
+  <text x="480" y="430" font-size="11" fill="#6b7280" text-anchor="middle">Приладу потрібен час для продування залишкового тепла перед повним знеструмленням нагнітача</text>
+
+</svg>

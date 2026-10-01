@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Main Header -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Стан залишків флюсу FVS-7 залежно від температурного режиму</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Повний термоцикл гарантує високий поверхневий опір ізоляції (SIR), а недогрів залишає корозійно-активні залишки</text>
+
+  <!-- Panel 1 (Left): Problem / Undercooked Residues -->
+  <rect x="30" y="75" width="435" height="445" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="8"/>
+  <text x="247.5" y="98" text-anchor="middle" font-size="15" font-weight="bold" fill="#c0392b">1. Недогрів / неповна нейтралізація</text>
+
+  <!-- Card 1A: PCB Diagram Problem -->
+  <rect x="50" y="115" width="395" height="215" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="65" y="135" font-size="13" font-weight="bold" fill="#c0392b">Недогріті або перегріті активні залишки</text>
+
+  <!-- Leakage Current Vector -->
+  <line x1="160" y1="200" x2="330" y2="200" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arr-red)"/>
+  <text x="245" y="185" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Струм витоку I_leak</text>
+
+  <!-- Active Residue Layer -->
+  <path d="M155,222 Q245,208 335,222 L335,240 L155,240 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+  <!-- Ionic specks / active spots -->
+  <circle cx="205" cy="220" r="2.5" fill="#c0392b"/>
+  <circle cx="245" cy="216" r="2.5" fill="#c0392b"/>
+  <circle cx="285" cy="220" r="2.5" fill="#c0392b"/>
+
+  <!-- PCB Copper Pads -->
+  <rect x="85" y="215" width="70" height="25" fill="#c0392b" rx="3"/>
+  <rect x="335" y="215" width="70" height="25" fill="#c0392b" rx="3"/>
+  <text x="120" y="232" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Провідник A</text>
+  <text x="370" y="232" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Провідник B</text>
+
+  <!-- FR-4 Base -->
+  <rect x="65" y="240" width="365" height="25" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="2"/>
+  <text x="247.5" y="257" text-anchor="middle" font-size="10" fill="#6b7280">Текстоліт FR-4</text>
+
+  <!-- Card 1B: Consequences -->
+  <rect x="50" y="345" width="395" height="155" fill="white" stroke="#c0392b" stroke-width="1" rx="6"/>
+  <text x="65" y="368" font-size="12" font-weight="bold" fill="#c0392b">Наслідки недотримання термопрофілю:</text>
+  <text x="65" y="392" font-size="11" fill="#1a1a1a">• Низький опір ізоляції (SIR &lt; 10⁸ Ом)</text>
+  <text x="65" y="414" font-size="11" fill="#1a1a1a">• Активні незаполимеризовані кислоти</text>
+  <text x="65" y="436" font-size="11" fill="#1a1a1a">• Ризик дендритоутворення та корозії</text>
+  <text x="65" y="458" font-size="11" font-weight="bold" fill="#c0392b">• Вимагає ОБОВ'ЯЗКОВОГО відмивання</text>
+
+  <!-- Panel 2 (Right): Solution / Optimal Polymer Film -->
+  <rect x="495" y="75" width="435" height="445" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="8"/>
+  <text x="712.5" y="98" text-anchor="middle" font-size="15" font-weight="bold" fill="#27ae60">2. Нормальний термоцикл (150–250 °C)</text>
+
+  <!-- Card 2A: PCB Diagram Solution -->
+  <rect x="515" y="115" width="395" height="215" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="530" y="135" font-size="13" font-weight="bold" fill="#27ae60">Безвідмивна інертна плівка FVS-7</text>
+
+  <!-- High SIR Barrier Label -->
+  <text x="712.5" y="185" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Високий опір SIR &gt; 10¹² Ом</text>
+
+  <!-- Inert Polymer Layer -->
+  <path d="M620,222 Q710,214 800,222 L800,240 L620,240 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- PCB Copper Pads -->
+  <rect x="550" y="215" width="70" height="25" fill="#27ae60" rx="3"/>
+  <rect x="800" y="215" width="70" height="25" fill="#27ae60" rx="3"/>
+  <text x="585" y="232" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Провідник A</text>
+  <text x="835" y="232" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Провідник B</text>
+
+  <!-- FR-4 Base -->
+  <rect x="530" y="240" width="365" height="25" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="2"/>
+  <text x="712.5" y="257" text-anchor="middle" font-size="10" fill="#6b7280">Текстоліт FR-4</text>
+
+  <!-- Card 2B: Advantages -->
+  <rect x="515" y="345" width="395" height="155" fill="white" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="530" y="368" font-size="12" font-weight="bold" fill="#27ae60">Переваги нормованого термоциклу FVS-7:</text>
+  <text x="530" y="392" font-size="11" fill="#1a1a1a">• Високий поверхневий опір (SIR &gt; 10¹² Ом)</text>
+  <text x="530" y="414" font-size="11" fill="#1a1a1a">• Повна термічна нейтралізація кислот</text>
+  <text x="530" y="436" font-size="11" fill="#1a1a1a">• Відсутність корозії та електроміграції</text>
+  <text x="530" y="458" font-size="11" font-weight="bold" fill="#27ae60">• НЕ ВИМАГАЄ відмивання (IPC-J-STD-004)</text>
+</svg>

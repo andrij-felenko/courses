@@ -1,0 +1,203 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розрізання шин Stripboard та монтаж DIP-мікросхеми</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Локальний розрив мідних доріжок свердлом 3.5 мм ізолює протилежні виводи DIP-корпусу</text>
+
+  <!-- Marker definition for arrows -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- PANEL 1: Проблема -->
+  <g id="panel-problem">
+    <rect x="28" y="75" width="288" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="172" y="98" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Суцільна доріжка</text>
+    <text x="172" y="115" font-size="12" fill="#6b7280" text-anchor="middle">Замикання виводів DIP</text>
+
+    <!-- Sub-container for board graphic -->
+    <rect x="42" y="126" width="260" height="244" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+
+    <!-- Left copper tracks (x=52..92) -->
+    <rect x="52" y="146" width="40" height="18" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <rect x="52" y="180" width="40" height="18" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <rect x="52" y="230" width="40" height="18" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <rect x="52" y="264" width="40" height="18" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <rect x="52" y="298" width="40" height="18" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <rect x="52" y="332" width="40" height="18" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+    <!-- Right copper tracks (x=252..292) -->
+    <rect x="252" y="146" width="40" height="18" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <rect x="252" y="180" width="40" height="18" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <rect x="252" y="230" width="40" height="18" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <rect x="252" y="264" width="40" height="18" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <rect x="252" y="298" width="40" height="18" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <rect x="252" y="332" width="40" height="18" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+    <!-- Holes along tracks -->
+    <!-- Left pin row holes x=72 -->
+    <circle cx="72" cy="155" r="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+    <circle cx="72" cy="189" r="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+    <circle cx="72" cy="239" r="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+    <circle cx="72" cy="273" r="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+    <circle cx="72" cy="307" r="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+    <circle cx="72" cy="341" r="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+
+    <!-- Right pin row holes x=272 -->
+    <circle cx="272" cy="155" r="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+    <circle cx="272" cy="189" r="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+    <circle cx="272" cy="239" r="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+    <circle cx="272" cy="273" r="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+    <circle cx="272" cy="307" r="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+    <circle cx="272" cy="341" r="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+
+    <!-- DIP IC Body (x=98..246, width=148) -->
+    <rect x="98" y="170" width="148" height="152" rx="4" fill="#1a1a1a" stroke="#1a1a1a"/>
+    <circle cx="118" cy="185" r="5" fill="#6b7280"/>
+
+    <!-- DIP IC text inside package -->
+    <text x="172" y="250" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">DIP-14</text>
+
+    <!-- Explanatory note box at bottom -->
+    <rect x="42" y="382" width="260" height="105" rx="6" fill="#fdecea" stroke="#c0392b"/>
+    <text x="172" y="404" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ПОМИЛКА МОНТАЖУ</text>
+    <text x="52" y="426" font-size="12" fill="#1a1a1a" text-anchor="start">• Без розрізання шини</text>
+    <text x="52" y="446" font-size="12" fill="#1a1a1a" text-anchor="start">  протилежні виводи</text>
+    <text x="52" y="466" font-size="12" fill="#1a1a1a" text-anchor="start">  DIP коротко замкнені</text>
+  </g>
+
+  <!-- PANEL 2: Розрізання свердлом 3.5 мм -->
+  <g id="panel-cutting">
+    <rect x="336" y="75" width="288" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="480" y="98" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Зняття фольги</text>
+    <text x="480" y="115" font-size="12" fill="#6b7280" text-anchor="middle">Розрив свердлом 3.5 мм</text>
+
+    <!-- Sub-container for cutting diagram -->
+    <rect x="350" y="126" width="260" height="244" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+
+    <!-- 6 horizontal copper tracks with central gaps -->
+    <rect x="360" y="146" width="102" height="18" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="498" y="146" width="102" height="18" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+    <rect x="360" y="180" width="102" height="18" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="498" y="180" width="102" height="18" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+    <rect x="360" y="230" width="102" height="18" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="498" y="230" width="102" height="18" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+    <rect x="360" y="264" width="102" height="18" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="498" y="264" width="102" height="18" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+    <rect x="360" y="298" width="102" height="18" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="498" y="298" width="102" height="18" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+    <rect x="360" y="332" width="102" height="18" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="498" y="332" width="102" height="18" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+    <!-- Pin holes left x=420 -->
+    <circle cx="420" cy="155" r="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="420" cy="189" r="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="420" cy="239" r="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="420" cy="273" r="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="420" cy="307" r="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="420" cy="341" r="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+
+    <!-- Drill cut circles along central axis x=480 -->
+    <circle cx="480" cy="155" r="10" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+    <circle cx="480" cy="189" r="10" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+    <circle cx="480" cy="239" r="10" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+    <circle cx="480" cy="273" r="10" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+    <circle cx="480" cy="307" r="10" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+    <circle cx="480" cy="341" r="10" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+
+    <!-- Central substrate dot remaining inside cut -->
+    <circle cx="480" cy="155" r="3" fill="#6b7280"/>
+    <circle cx="480" cy="189" r="3" fill="#6b7280"/>
+    <circle cx="480" cy="239" r="3" fill="#6b7280"/>
+    <circle cx="480" cy="273" r="3" fill="#6b7280"/>
+    <circle cx="480" cy="307" r="3" fill="#6b7280"/>
+    <circle cx="480" cy="341" r="3" fill="#6b7280"/>
+
+    <!-- Pin holes right x=540 -->
+    <circle cx="540" cy="155" r="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="540" cy="189" r="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="540" cy="239" r="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="540" cy="273" r="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="540" cy="307" r="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="540" cy="341" r="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+
+    <!-- Explanatory note box at bottom -->
+    <rect x="350" y="382" width="260" height="105" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="480" y="404" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ТЕХНОЛОГІЯ РОЗРІЗАННЯ</text>
+    <text x="360" y="426" font-size="12" fill="#1a1a1a" text-anchor="start">• Ручне свердло 3.5 мм</text>
+    <text x="360" y="446" font-size="12" fill="#1a1a1a" text-anchor="start">• Зрізає кільце фольги</text>
+    <text x="360" y="466" font-size="12" fill="#1a1a1a" text-anchor="start">• 2-3 оберти за часовою</text>
+  </g>
+
+  <!-- PANEL 3: Готовий вузол та перемички -->
+  <g id="panel-assembly">
+    <rect x="644" y="75" width="288" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="788" y="98" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Монтаж та комутація</text>
+    <text x="788" y="115" font-size="12" fill="#6b7280" text-anchor="middle">Перемички й ізольовані кола</text>
+
+    <!-- Sub-container for completed assembly -->
+    <rect x="658" y="126" width="260" height="244" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+
+    <!-- Left copper tracks (x=668..724, width=56) -->
+    <rect x="668" y="146" width="56" height="18" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <rect x="668" y="180" width="56" height="18" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <rect x="668" y="230" width="56" height="18" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <rect x="668" y="264" width="56" height="18" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <rect x="668" y="298" width="56" height="18" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <rect x="668" y="332" width="56" height="18" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+    <!-- Right copper tracks (x=852..908, width=56) -->
+    <rect x="852" y="146" width="56" height="18" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <rect x="852" y="180" width="56" height="18" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <rect x="852" y="230" width="56" height="18" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <rect x="852" y="264" width="56" height="18" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <rect x="852" y="298" width="56" height="18" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <rect x="852" y="332" width="56" height="18" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+    <!-- Cut circles at x=788 -->
+    <circle cx="788" cy="155" r="9" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <circle cx="788" cy="189" r="9" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <circle cx="788" cy="239" r="9" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <circle cx="788" cy="273" r="9" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <circle cx="788" cy="307" r="9" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <circle cx="788" cy="341" r="9" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+
+    <!-- Wire jumper (routing signal from Track 1 left to Track 4 left) -->
+    <path d="M 684,155 C 660,180 660,230 684,273" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+    <circle cx="684" cy="155" r="3" fill="#2457d6"/>
+    <circle cx="684" cy="273" r="3" fill="#2457d6"/>
+
+    <!-- Jumper label placed safely at x=666, y=216 -->
+    <text x="666" y="216" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Перемичка</text>
+
+    <!-- DIP IC package seated over cuts (x=736..840, width=104) -->
+    <rect x="736" y="170" width="104" height="152" rx="4" fill="#1a1a1a" stroke="#1a1a1a"/>
+    <circle cx="750" cy="185" r="5" fill="#6b7280"/>
+    <text x="788" y="250" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">DIP-14</text>
+
+    <!-- Explanatory note box at bottom -->
+    <rect x="658" y="382" width="260" height="105" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+    <text x="788" y="404" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">РЕЗУЛЬТАТ МОНТАЖУ</text>
+    <text x="668" y="426" fill="#1a1a1a" font-size="12" text-anchor="start">• Незалежні виводи DIP</text>
+    <text x="668" y="446" fill="#1a1a1a" font-size="12" text-anchor="start">• З'єднання перемичками</text>
+    <text x="668" y="466" fill="#1a1a1a" font-size="12" text-anchor="start">• Надійний контакт</text>
+  </g>
+</svg>

@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Захисний ковпачок щупа за стандартом IEC 61010-031</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Обмеження відкритого кінчика до ≤ 4 мм для запобігання міжфазному замиканню в мережах CAT III / CAT IV</text>
+
+  <!-- PANEL 1: UNPROTECTED PROBE (CAT II) -->
+  <rect x="25" y="75" width="440" height="245" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="40" y="98" font-size="13" font-weight="bold" fill="#c0392b">1. Без ковпачка (Категорія CAT II)</text>
+  <text x="40" y="116" font-size="12" fill="#6b7280">Відкритий штир 19 мм — ризик міжфазного замикання</text>
+
+  <!-- Dimension line 19 mm -->
+  <line x1="242" y1="158" x2="364" y2="158" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <line x1="242" y1="191" x2="242" y2="152" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="364" y1="194" x2="364" y2="152" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="295" y="148" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">19 мм (Відкритий метал)</text>
+
+  <!-- Probe 1 Drawing -->
+  <rect x="50" y="180" width="150" height="28" rx="4" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="125" y="198" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Корпус щупа</text>
+
+  <rect x="200" y="165" width="12" height="58" rx="2" fill="#1a1a1a"/>
+  <rect x="212" y="186" width="30" height="16" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Long tip metal -->
+  <rect x="242" y="191" width="110" height="6" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <polygon points="352,191 364,194 352,197" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+
+  <!-- Terminals L1 & L2 -->
+  <rect x="355" y="225" width="15" height="55" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="395" y="225" width="15" height="55" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="362.5" y="295" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">L1</text>
+  <text x="402.5" y="295" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">L2</text>
+
+  <!-- Arc flash explosion graphic -->
+  <path d="M 380,182 L 384,190 L 393,186 L 387,194 L 395,198 L 386,201 L 390,210 L 381,204 L 375,211 L 376,202 L 367,200 L 375,195 L 370,187 L 378,191 Z" fill="#c0392b" stroke="#ffffff" stroke-width="1"/>
+  <text x="380" y="222" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">КЗ / Дуга!</text>
+
+  <!-- PANEL 2: PROTECTED PROBE WITH CAP (CAT III/IV) -->
+  <rect x="495" y="75" width="440" height="245" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="510" y="98" font-size="13" font-weight="bold" fill="#27ae60">2. З ковпачком (Категорія CAT III / CAT IV)</text>
+  <text x="510" y="116" font-size="12" fill="#6b7280">Відкритий кінчик ≤ 4 мм — дуговий пробій унеможливлено</text>
+
+  <!-- Dimension line <= 4 mm -->
+  <line x1="807" y1="158" x2="835" y2="158" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <line x1="807" y1="184" x2="807" y2="152" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="835" y1="194" x2="835" y2="152" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="821" y="148" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">≤ 4 мм</text>
+
+  <!-- Probe 2 Drawing -->
+  <rect x="520" y="180" width="150" height="28" rx="4" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="595" y="198" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Корпус щупа</text>
+
+  <rect x="670" y="165" width="12" height="58" rx="2" fill="#1a1a1a"/>
+  <rect x="682" y="186" width="30" height="16" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Insulated Safety Cap -->
+  <rect x="712" y="184" width="95" height="20" rx="3" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="759.5" y="174" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Ізоляційний ковпачок</text>
+
+  <!-- Short exposed metal tip -->
+  <rect x="807" y="191" width="20" height="6" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <polygon points="827,191 835,194 827,197" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+
+  <!-- Terminals L1 & L2 -->
+  <rect x="825" y="225" width="15" height="55" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="865" y="225" width="15" height="55" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="832.5" y="295" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">L1</text>
+  <text x="872.5" y="295" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">L2</text>
+
+  <!-- Checkmark / Safe badge -->
+  <circle cx="850" cy="195" r="12" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+  <path d="M 844,195 L 848,199 L 856,191" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="850" y="222" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Безпечно!</text>
+
+  <!-- BOTTOM SECTION: CATEGORY COMPARISON TABLE -->
+  <rect x="25" y="335" width="910" height="125" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="358" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння категорій захисту відповідно до стандарту IEC 61010-031</text>
+
+  <!-- Card 1 (CAT II) -->
+  <rect x="40" y="370" width="425" height="75" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="55" y="390" font-size="12" font-weight="bold" fill="#c0392b">Категорія CAT II (без ковпачка):</text>
+  <text x="265" y="390" font-size="12" fill="#1a1a1a">Відкритий штир 19 мм</text>
+
+  <text x="55" y="412" font-size="12" fill="#6b7280">Застосування:</text>
+  <text x="148" y="412" font-size="12" fill="#1a1a1a">Розетки, побутова техніка, прилади</text>
+
+  <text x="55" y="434" font-size="12" font-weight="bold" fill="#c0392b">Ризик:</text>
+  <text x="100" y="434" font-size="12" fill="#c0392b">Коротке замикання та дуга у силових шафах</text>
+
+  <!-- Card 2 (CAT III / IV) -->
+  <rect x="495" y="370" width="425" height="75" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="510" y="390" font-size="12" font-weight="bold" fill="#27ae60">Категорії CAT III / CAT IV (з ковпачком):</text>
+  <text x="780" y="390" font-size="12" fill="#1a1a1a">Відкритий штир ≤ 4 мм</text>
+
+  <text x="510" y="412" font-size="12" fill="#6b7280">Застосування:</text>
+  <text x="603" y="412" font-size="12" fill="#1a1a1a">Промислові щити, шинопроводи, вводи</text>
+
+  <text x="510" y="434" font-size="12" font-weight="bold" fill="#27ae60">Захист:</text>
+  <text x="562" y="434" font-size="12" fill="#27ae60">Унеможливлення міжфазного замикання</text>
+
+</svg>

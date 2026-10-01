@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Шумова модель та динамічний діапазон фотодіодного оптичного ватметра</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Співвідношення між тепловим і дробовим шумами, рівнем NEP та межею насичення фотодетектора</text>
+
+  <!-- Plot Area Background Grid & Axes -->
+  <!-- Dynamic Range Region Fill -->
+  <rect x="180" y="90" width="380" height="350" fill="#e9f7ef" opacity="0.45"/>
+
+  <!-- Gridlines -->
+  <line x1="100" y1="380" x2="610" y2="380" stroke="#d0d7de" stroke-dasharray="3 3"/>
+  <line x1="100" y1="310" x2="610" y2="310" stroke="#d0d7de" stroke-dasharray="3 3"/>
+  <line x1="100" y1="240" x2="610" y2="240" stroke="#d0d7de" stroke-dasharray="3 3"/>
+  <line x1="100" y1="170" x2="610" y2="170" stroke="#d0d7de" stroke-dasharray="3 3"/>
+  <line x1="100" y1="100" x2="610" y2="100" stroke="#d0d7de" stroke-dasharray="3 3"/>
+
+  <line x1="180" y1="90" x2="180" y2="440" stroke="#d0d7de" stroke-dasharray="3 3"/>
+  <line x1="275" y1="90" x2="275" y2="440" stroke="#d0d7de" stroke-dasharray="3 3"/>
+  <line x1="370" y1="90" x2="370" y2="440" stroke="#d0d7de" stroke-dasharray="3 3"/>
+  <line x1="465" y1="90" x2="465" y2="440" stroke="#d0d7de" stroke-dasharray="3 3"/>
+  <line x1="560" y1="90" x2="560" y2="440" stroke="#d0d7de" stroke-dasharray="3 3"/>
+
+  <!-- Plot Axes -->
+  <line x1="100" y1="440" x2="625" y2="440" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="100" y1="440" x2="100" y2="75" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Y-Axis Title -->
+  <text x="100" y="70" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Струм (А)</text>
+
+  <!-- X-Axis Ticks & Labels -->
+  <text x="100" y="460" text-anchor="middle" font-size="12" fill="#6b7280">1 pW</text>
+  <text x="180" y="460" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">NEP (pW)</text>
+  <text x="275" y="460" text-anchor="middle" font-size="12" fill="#6b7280">1 nW</text>
+  <text x="370" y="460" text-anchor="middle" font-size="12" fill="#6b7280">1 µW</text>
+  <text x="465" y="460" text-anchor="middle" font-size="12" fill="#6b7280">1 mW</text>
+  <text x="560" y="460" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">P_max</text>
+
+  <text x="360" y="495" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Падаюча оптична потужність P_in (Вт)</text>
+
+  <!-- Y-Axis Labels -->
+  <text x="90" y="384" text-anchor="end" font-size="12" fill="#6b7280">10⁻¹⁴ А</text>
+  <text x="90" y="314" text-anchor="end" font-size="12" fill="#6b7280">10⁻¹² А</text>
+  <text x="90" y="244" text-anchor="end" font-size="12" fill="#6b7280">10⁻¹⁰ А</text>
+  <text x="90" y="174" text-anchor="end" font-size="12" fill="#6b7280">10⁻⁸ А</text>
+  <text x="90" y="104" text-anchor="end" font-size="12" fill="#6b7280">10⁻⁶ А</text>
+
+  <!-- Curves -->
+  <!-- Thermal Noise Floor (Blue Dashed) -->
+  <line x1="100" y1="380" x2="610" y2="380" stroke="#2457d6" stroke-width="2" stroke-dasharray="6 3"/>
+  <text x="210" y="408" font-size="12" font-weight="bold" fill="#2457d6">Тепловий шум i_th = √(4k_BT Δf / R_f)</text>
+
+  <!-- Shot Noise Curve (Red Dashed) -->
+  <path d="M 100 380 Q 360 355 610 230" stroke="#c0392b" stroke-width="2" stroke-dasharray="6 3" fill="none"/>
+  <text x="340" y="270" font-size="12" font-weight="bold" fill="#c0392b">Дробовий шум i_shot</text>
+  <text x="340" y="286" font-size="12" fill="#c0392b">= √(2q I_ph Δf)</text>
+
+  <!-- Total Noise Floor Curve (Black Solid) -->
+  <path d="M 100 377 C 220 377 360 350 610 225" stroke="#1a1a1a" stroke-width="2.5" fill="none"/>
+  <text x="380" y="365" font-size="12" font-weight="bold" fill="#1a1a1a">Сумарний шум i_total</text>
+
+  <!-- Photocurrent Signal Line (Green Solid) -->
+  <line x1="100" y1="440" x2="560" y2="100" stroke="#27ae60" stroke-width="3"/>
+  <text x="140" y="180" font-size="13" font-weight="bold" fill="#27ae60">Сигнал фотоструму I_ph = Rλ × P_in</text>
+
+  <!-- Dynamic Range Shaded Region Text -->
+  <text x="370" y="120" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Динамічний діапазон (DR ≈ 80...100 dB)</text>
+
+  <!-- Key Marker Lines & Points -->
+  <!-- NEP Line & Point -->
+  <line x1="180" y1="377" x2="180" y2="440" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 3"/>
+  <circle cx="180" cy="377" r="6" fill="#c0392b"/>
+  <text x="185" y="398" font-size="12" font-weight="bold" fill="#c0392b">NEP (SNR = 1)</text>
+
+  <!-- Saturation Limit Line & Point -->
+  <line x1="560" y1="100" x2="560" y2="440" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 3"/>
+  <circle cx="560" cy="100" r="6" fill="#c0392b"/>
+  <text x="560" y="85" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Насичення P_max</text>
+
+  <!-- Right Explanatory Cards -->
+  <!-- Card 1: NEP -->
+  <rect x="645" y="90" width="295" height="115" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="660" y="114" font-size="13" font-weight="bold" fill="#c0392b">1. Поріг чутливості (NEP)</text>
+  <text x="660" y="136" font-size="12" fill="#1a1a1a">• Потужність при SNR = 1</text>
+  <text x="660" y="156" font-size="12" fill="#1a1a1a">• NEP = i_n,total / Rλ (Вт/√Гц)</text>
+  <text x="660" y="176" font-size="12" fill="#6b7280">• Визначається тепловим шумом</text>
+
+  <!-- Card 2: Shot Noise & SNR -->
+  <rect x="645" y="220" width="295" height="120" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="660" y="244" font-size="13" font-weight="bold" fill="#2457d6">2. Дробовий шум (Shot Noise)</text>
+  <text x="660" y="266" font-size="12" fill="#1a1a1a">• Домінує при великому P_in</text>
+  <text x="660" y="286" font-size="12" fill="#1a1a1a">• SNR ∝ √P_in (зростає як √P)</text>
+  <text x="660" y="306" font-size="12" fill="#6b7280">• Квантова межа точності</text>
+
+  <!-- Card 3: Dynamic Range -->
+  <rect x="645" y="355" width="295" height="120" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="660" y="379" font-size="13" font-weight="bold" fill="#27ae60">3. Динамічний діапазон (DR)</text>
+  <text x="660" y="401" font-size="12" fill="#1a1a1a">• DR = 10 log (P_max / NEP)</text>
+  <text x="660" y="421" font-size="12" fill="#1a1a1a">• Область лінійного фотоструму</text>
+  <text x="660" y="441" font-size="12" fill="#6b7280">• Широкий діапазон pW...mW</text>
+</svg>

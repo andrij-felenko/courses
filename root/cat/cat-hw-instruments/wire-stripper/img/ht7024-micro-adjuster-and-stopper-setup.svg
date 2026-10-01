@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-black" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-rev" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема налаштування мікрорегулятора та обмежувача довжини HT-7024</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Точне калібрування глибини підрізання ізоляції та серійного вильоту зачищення провідника</text>
+
+  <!-- Main Mechanism Base Body (Chassis) -->
+  <rect x="100" y="120" width="220" height="230" rx="10" fill="#f4f6f8" stroke="#6b7280" stroke-width="2"/>
+
+  <!-- Micro-Adjuster Knob Assembly (Top Center) -->
+  <text x="190" y="62" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Гвинт мікрорегулювання притиску</text>
+  <line x1="190" y1="68" x2="190" y2="78" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Rotary Dial Knob -->
+  <rect x="165" y="80" width="50" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <line x1="177" y1="80" x2="177" y2="108" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="190" y1="80" x2="190" y2="108" stroke="#2457d6" stroke-width="2"/>
+  <line x1="203" y1="80" x2="203" y2="108" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Adjustment Direction Arrows (+ / -) -->
+  <text x="145" y="98" text-anchor="end" font-size="14" font-weight="bold" fill="#2457d6">-</text>
+  <text x="235" y="98" text-anchor="start" font-size="14" font-weight="bold" fill="#c0392b">+</text>
+
+  <!-- Labels for Jaws -->
+  <text x="135" y="115" text-anchor="middle" font-size="12" fill="#2457d6" font-weight="bold">Затискні губки</text>
+  <text x="245" y="115" text-anchor="middle" font-size="12" fill="#c0392b" font-weight="bold">Різальні леза</text>
+
+  <!-- Upper & Lower Clamping Jaws (Left) -->
+  <rect x="120" y="135" width="60" height="80" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="120" y="245" width="60" height="80" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Clamping Serrations -->
+  <line x1="180" y1="185" x2="180" y2="215" stroke="#2457d6" stroke-width="2"/>
+  <line x1="180" y1="245" x2="180" y2="275" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Upper & Lower Stripping Blades (Right) -->
+  <rect x="195" y="135" width="60" height="80" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="195" y="245" width="60" height="80" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <!-- Blade V-Notch Edges -->
+  <polygon points="195,200 210,215 195,215" fill="#c0392b"/>
+  <polygon points="195,260 210,245 195,245" fill="#c0392b"/>
+
+  <!-- Wire Entry Label (Positioned completely outside chassis x=90, text-anchor="end") -->
+  <text x="90" y="200" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Провід</text>
+  <text x="90" y="215" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">0.2–6.0 мм²</text>
+
+  <!-- Main Copper Core (Line stroke) -->
+  <line x1="30" y1="230" x2="330" y2="230" stroke="#d35400" stroke-width="4"/>
+
+  <!-- Wire Insulation Sleeves (Line strokes with stroke-width=14 to prevent rect-on-rect overlap!) -->
+  <line x1="30" y1="230" x2="195" y2="230" stroke="#34495e" stroke-width="14" stroke-linecap="round"/>
+  <line x1="225" y1="230" x2="320" y2="230" stroke="#7f8c8d" stroke-width="14" stroke-linecap="round" stroke-dasharray="4 2"/>
+
+  <!-- Adjustable Length Stopper (Green Accent) -->
+  <text x="350" y="170" text-anchor="start" font-size="12" fill="#27ae60" font-weight="bold">Рухомий упор-обмежувач</text>
+  <line x1="345" y1="174" x2="335" y2="190" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Stopper Block -->
+  <rect x="325" y="190" width="20" height="70" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="335" cy="205" r="3" fill="#27ae60"/>
+
+  <!-- Stopper Slide Guide Bar with Scale Ticks -->
+  <line x1="270" y1="275" x2="380" y2="275" stroke="#27ae60" stroke-width="2"/>
+  <line x1="280" y1="275" x2="280" y2="282" stroke="#27ae60" stroke-width="1"/>
+  <line x1="300" y1="275" x2="300" y2="282" stroke="#27ae60" stroke-width="1"/>
+  <line x1="320" y1="275" x2="320" y2="282" stroke="#27ae60" stroke-width="1"/>
+  <line x1="340" y1="275" x2="340" y2="282" stroke="#27ae60" stroke-width="1"/>
+  <line x1="360" y1="275" x2="360" y2="282" stroke="#27ae60" stroke-width="1"/>
+
+  <!-- Stripping Length L Dimension Line -->
+  <line x1="195" y1="235" x2="195" y2="310" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="325" y1="235" x2="325" y2="310" stroke="#27ae60" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="195" y1="300" x2="325" y2="300" stroke="#27ae60" stroke-width="2" marker-start="url(#arr-green-rev)" marker-end="url(#arr-green)"/>
+  <text x="260" y="325" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Довжина зачищення L (2–20 мм)</text>
+
+  <!-- Bottom Panel: Micro-Adjuster Rules (Left Area) -->
+  <rect x="40" y="365" width="570" height="145" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="390" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Правила налаштування мікрорегулятора притиску:</text>
+
+  <text x="60" y="415" text-anchor="start" font-size="12" fill="#c0392b" font-weight="bold">• Поворот за ГОДИННИКОВОЮ стрілкою (+):</text>
+  <text x="75" y="433" text-anchor="start" font-size="12" fill="#6b7280">Збільшує притиск для товстої/твердої ізоляції (PTFE, жорсткий PVC)</text>
+
+  <text x="60" y="460" text-anchor="start" font-size="12" fill="#2457d6" font-weight="bold">• Поворот ПРОТИ годинникової стрілки (-):</text>
+  <text x="75" y="478" text-anchor="start" font-size="12" fill="#6b7280">Зменшує притиск для м'якої оболонки (силікон, тонка ізоляція)</text>
+
+  <!-- Right Information Panel -->
+  <rect x="640" y="80" width="290" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Card 1: Micro-Adjuster Benefits (Green accent) -->
+  <rect x="660" y="100" width="250" height="185" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="675" y="123" text-anchor="start" font-size="13" font-weight="bold" fill="#27ae60">Функції мікрорегулятора:</text>
+
+  <text x="675" y="148" text-anchor="start" font-size="12" fill="#1a1a1a">1. Адаптація під тип ізоляції</text>
+  <text x="690" y="166" text-anchor="start" font-size="12" fill="#6b7280">(запобігає зминанню жилок)</text>
+
+  <text x="675" y="189" text-anchor="start" font-size="12" fill="#1a1a1a">2. Точне калібрування зазору</text>
+  <text x="690" y="207" text-anchor="start" font-size="12" fill="#6b7280">(для малого перерізу 24 AWG)</text>
+
+  <text x="675" y="230" text-anchor="start" font-size="12" fill="#1a1a1a">3. Збереження цілісності міді</text>
+  <text x="690" y="248" text-anchor="start" font-size="12" fill="#6b7280">(нульове підрізання волокон)</text>
+
+  <!-- Card 2: Length Stopper Benefits (Blue accent) -->
+  <rect x="660" y="305" width="250" height="185" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="675" y="328" text-anchor="start" font-size="13" font-weight="bold" fill="#2457d6">Обмежувач довжини (Stopper):</text>
+
+  <text x="675" y="353" text-anchor="start" font-size="12" fill="#1a1a1a">1. Серійне зачищення L</text>
+  <text x="690" y="371" text-anchor="start" font-size="12" fill="#6b7280">(діапазон налаштування 2–20 мм)</text>
+
+  <text x="675" y="394" text-anchor="start" font-size="12" fill="#1a1a1a">2. Швидке відкидання упора</text>
+  <text x="690" y="412" text-anchor="start" font-size="12" fill="#6b7280">(для довільної довжини зачищення)</text>
+
+  <text x="675" y="435" text-anchor="start" font-size="12" fill="#1a1a1a">3. Стандартизація монтажу</text>
+  <text x="690" y="453" text-anchor="start" font-size="12" fill="#6b7280">(під обтиск клем та наконечників)</text>
+</svg>

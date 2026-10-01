@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr_black" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr_green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Калібрування ретракції філаменту (Retraction Test)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Тестова вежа з градацією довжини втягування нитки Lret та порівняння якості друку</text>
+
+  <!-- LEFT PANEL: Retraction Tower Diagram -->
+  <g id="left_panel">
+    <rect x="20" y="72" width="450" height="428" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+    <text x="245" y="94" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема калібрувальної вежі</text>
+    <text x="245" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Градація Lret по висоті Z</text>
+
+    <!-- Ruler / Height Labels on Left -->
+    <line x1="145" y1="145" x2="145" y2="385" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="130" y="170" font-size="12" fill="#6b7280" text-anchor="end">Z = 30 мм</text>
+    <text x="130" y="230" font-size="12" fill="#6b7280" text-anchor="end">Z = 20 мм</text>
+    <text x="130" y="290" font-size="12" fill="#6b7280" text-anchor="end">Z = 10 мм</text>
+    <text x="130" y="350" font-size="12" fill="#6b7280" text-anchor="end">Z = 0 мм</text>
+
+    <!-- Zone Horizontal Divider Lines -->
+    <line x1="135" y1="205" x2="340" y2="205" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+    <line x1="135" y1="265" x2="340" y2="265" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+    <line x1="135" y1="325" x2="340" y2="325" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+
+    <!-- Tower Pillars -->
+    <rect x="170" y="145" width="35" height="240" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="295" y="145" width="35" height="240" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+    <!-- Base Plate -->
+    <rect x="140" y="390" width="220" height="20" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="250" y="405" font-size="12" fill="#1a1a1a" text-anchor="middle">Столик 3D-принтера</text>
+
+    <!-- Zone 1 (Bottom, y=325..385): Dense Stringing -->
+    <line x1="205" y1="340" x2="295" y2="340" stroke="#c0392b" stroke-width="1.5"/>
+    <line x1="205" y1="348" x2="295" y2="352" stroke="#c0392b" stroke-width="1.5"/>
+    <line x1="205" y1="358" x2="295" y2="355" stroke="#c0392b" stroke-width="1.5"/>
+    <line x1="205" y1="368" x2="295" y2="370" stroke="#c0392b" stroke-width="1.5"/>
+
+    <rect x="345" y="328" width="115" height="48" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+    <text x="353" y="346" font-size="12" font-weight="bold" fill="#c0392b">Lret = 1.0 мм</text>
+    <text x="353" y="364" font-size="12" fill="#c0392b">Сильний соплінг</text>
+
+    <!-- Zone 2 (y=265..325): Light Stringing -->
+    <line x1="205" y1="285" x2="295" y2="288" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 2"/>
+    <line x1="205" y1="305" x2="295" y2="303" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 2"/>
+
+    <rect x="345" y="268" width="115" height="48" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="353" y="286" font-size="12" font-weight="bold" fill="#1a1a1a">Lret = 2.0 мм</text>
+    <text x="353" y="304" font-size="12" fill="#6b7280">Слабкі ниті</text>
+
+    <!-- Zone 3 (Optimal, y=205..265): CLEAN GAP -->
+    <rect x="345" y="208" width="115" height="48" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="353" y="226" font-size="12" font-weight="bold" fill="#27ae60">Lret = 3.0 мм</text>
+    <text x="353" y="244" font-size="12" font-weight="bold" fill="#27ae60">ОПТИМАЛЬНО</text>
+
+    <line x1="345" y1="232" x2="300" y2="232" stroke="#27ae60" stroke-width="2" marker-end="url(#arr_green)"/>
+
+    <!-- Zone 4 (Top, y=145..205): Over-retraction Gaps -->
+    <rect x="170" y="160" width="8" height="6" fill="#ffffff"/>
+    <rect x="322" y="160" width="8" height="6" fill="#ffffff"/>
+
+    <rect x="345" y="148" width="115" height="48" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="353" y="166" font-size="12" font-weight="bold" fill="#1a1a1a">Lret = 4.0 мм</text>
+    <text x="353" y="184" font-size="12" fill="#6b7280">Пере-ретракція</text>
+  </g>
+
+  <!-- RIGHT PANEL: Before vs After Comparison -->
+  <g id="right_panel">
+    <rect x="490" y="72" width="450" height="428" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+    <text x="715" y="94" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Результат налаштування</text>
+    <text x="715" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Порівняння якості холостих переходів сопла</text>
+
+    <!-- Card 1: BEFORE Calibration -->
+    <rect x="505" y="128" width="420" height="170" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+    <text x="520" y="152" font-size="13" font-weight="bold" fill="#c0392b">ДО КАЛІБРУВАННЯ (Lret &lt; 1.5 мм)</text>
+
+    <!-- Illustration Bad Print -->
+    <rect x="530" y="172" width="22" height="95" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="610" y="172" width="22" height="95" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="552" y1="185" x2="610" y2="190" stroke="#c0392b" stroke-width="1.5"/>
+    <line x1="552" y1="200" x2="610" y2="198" stroke="#c0392b" stroke-width="1.5"/>
+    <line x1="552" y1="215" x2="610" y2="222" stroke="#c0392b" stroke-width="1.5"/>
+    <line x1="552" y1="230" x2="610" y2="228" stroke="#c0392b" stroke-width="1.5"/>
+    <line x1="552" y1="245" x2="610" y2="250" stroke="#c0392b" stroke-width="1.5"/>
+
+    <text x="650" y="182" font-size="12" fill="#1a1a1a">• Витікання пластику (oozing)</text>
+    <text x="650" y="206" font-size="12" fill="#1a1a1a">• Паутиння й дефекти (stringing)</text>
+    <text x="650" y="230" font-size="12" fill="#1a1a1a">• Напливи на початках шарів</text>
+    <text x="650" y="254" font-size="12" fill="#c0392b" font-weight="bold">• Потребує механічної зачистки</text>
+
+    <!-- Card 2: AFTER Calibration -->
+    <rect x="505" y="312" width="420" height="170" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="520" y="336" font-size="13" font-weight="bold" fill="#27ae60">ПІСЛЯ КАЛІБРУВАННЯ (Lret = 3.0 мм)</text>
+
+    <!-- Illustration Good Print -->
+    <rect x="530" y="356" width="22" height="95" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="610" y="356" width="22" height="95" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+    <text x="650" y="366" font-size="12" fill="#1a1a1a">• Чистий холостий перехід сопла</text>
+    <text x="650" y="390" font-size="12" fill="#1a1a1a">• Повний скид тиску в хотенді</text>
+    <text x="650" y="414" font-size="12" fill="#1a1a1a">• Ідеальна точність геометрії</text>
+    <text x="650" y="438" font-size="12" fill="#27ae60" font-weight="bold">• Повна відсутність нитування</text>
+  </g>
+</svg>

@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Паразитні параметри вимірювальних щупів та спотворення сигналів</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Формування паразитного RC-фільтра низьких частот (R_щупа + C_паразитна) та затягування фронтів</text>
+
+  <!-- PANEL 1: EQUIVALENT RC CIRCUIT -->
+  <rect x="30" y="70" width="435" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247" y="94" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Еквівалентна RC-схема вимірювального щупа</text>
+
+  <!-- Resistor Labels -->
+  <text x="157" y="114" font-size="12" fill="#6b7280" text-anchor="middle">(опір провідника)</text>
+  <text x="157" y="130" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_щупа</text>
+
+  <!-- Generator Box -->
+  <rect x="50" y="135" width="60" height="80" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="80" y="155" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Генератор</text>
+  <path d="M 65,185 L 75,185 L 75,168 L 92,168 L 92,185 L 100,185" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="80" y="204" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Vin(t)</text>
+
+  <!-- Circuit Wires & Resistor R_probe -->
+  <line x1="110" y1="150" x2="130" y2="150" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="130" y="142" width="55" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="185" y1="150" x2="280" y2="150" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Node A (Top) -->
+  <circle cx="280" cy="150" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Parasitic Capacitance Cp -->
+  <line x1="280" y1="150" x2="280" y2="170" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="268" y1="170" x2="292" y2="170" stroke="#c0392b" stroke-width="2"/>
+  <line x1="268" y1="176" x2="292" y2="176" stroke="#c0392b" stroke-width="2"/>
+  <line x1="280" y1="176" x2="280" y2="210" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Label to Left of Capacitance -->
+  <text x="262" y="174" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Cp (паразитна)</text>
+  <text x="262" y="190" font-size="12" fill="#c0392b" text-anchor="end">ємність</text>
+
+  <!-- Output Wire to Instrument -->
+  <line x1="280" y1="150" x2="340" y2="150" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Instrument Box -->
+  <rect x="340" y="135" width="110" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="395" y="156" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхід приладу</text>
+  <text x="395" y="176" font-size="12" fill="#6b7280" text-anchor="middle">R_вх = 1 МОм</text>
+  <text x="395" y="196" font-size="12" fill="#6b7280" text-anchor="middle">C_вх = 20 пФ</text>
+
+  <!-- Ground Wire -->
+  <line x1="110" y1="210" x2="340" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="280" cy="210" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Panel 1 Math Box -->
+  <rect x="45" y="235" width="405" height="115" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="256" font-size="12" font-weight="bold" fill="#1a1a1a">Математична модель RC-ланки:</text>
+  <text x="60" y="278" font-size="12" fill="#2457d6">Стала часу:   τ = R_сум × C_паразитне</text>
+  <text x="60" y="300" font-size="12" fill="#1a1a1a">Рівняння наростання:   V_out(t) = V_0 × (1 - e^(-t / τ))</text>
+  <text x="60" y="322" font-size="12" font-weight="bold" fill="#c0392b">Час фронту (10% → 90%):   t_r ≈ 2.2 × τ = 2.2 × R × C</text>
+
+  <!-- Panel 1 Summary Box -->
+  <rect x="45" y="365" width="405" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="60" y="386" font-size="12" font-weight="bold" fill="#2457d6">Фізичний зміст:</text>
+  <text x="60" y="406" font-size="12" fill="#1a1a1a">Навіть мала паразитна ємність кабелю (100–200 пФ)</text>
+  <text x="60" y="426" font-size="12" fill="#1a1a1a">разом із опором щупа утворює ФНЧ, який обмежує</text>
+  <text x="60" y="446" font-size="12" fill="#1a1a1a">смугу пропускання та затримує швидкі сигнали.</text>
+
+  <!-- PANEL 2: WAVEFORM DISTORTION -->
+  <rect x="495" y="70" width="435" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712" y="94" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Спотворення імпульсу (Затягування фронту)</text>
+
+  <!-- Waveform Plot Axes -->
+  <!-- Y Axis -->
+  <line x1="570" y1="260" x2="570" y2="115" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="558" y="122" font-size="12" font-weight="bold" fill="#1a1a1a">V</text>
+
+  <!-- X Axis -->
+  <line x1="570" y1="260" x2="910" y2="260" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="880" y="278" font-size="12" font-weight="bold" fill="#1a1a1a">Час t</text>
+
+  <!-- Reference Voltage Levels -->
+  <line x1="570" y1="140" x2="890" y2="140" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="562" y="144" font-size="12" fill="#6b7280" text-anchor="end">V0 (100%)</text>
+
+  <line x1="570" y1="152" x2="890" y2="152" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="562" y="156" font-size="12" fill="#6b7280" text-anchor="end">90%</text>
+
+  <line x1="570" y1="248" x2="890" y2="248" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="562" y="252" font-size="12" fill="#6b7280" text-anchor="end">10%</text>
+
+  <!-- Waveforms -->
+  <!-- Ideal Input Pulse Vin(t) -->
+  <path d="M 570,260 L 610,260 L 610,140 L 830,140 L 830,260 L 890,260" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,4"/>
+  <text x="620" y="128" font-size="12" font-weight="bold" fill="#2457d6">Вхідний імпульс Vin(t)</text>
+
+  <!-- Distorted Output Curve Vout(t) -->
+  <path d="M 570,260 L 610,260 C 640,260 660,152 715,152 C 735,152 755,142 785,142 L 830,142 C 845,180 860,240 885,260 L 890,260" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="770" y="172" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Vout(t)</text>
+  <text x="770" y="188" font-size="12" fill="#c0392b" text-anchor="middle">(виміряний)</text>
+
+  <!-- Rise Time Markers (10% to 90%) -->
+  <line x1="628" y1="248" x2="628" y2="278" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="715" y1="152" x2="715" y2="278" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Rise Time Arrow -->
+  <line x1="628" y1="275" x2="715" y2="275" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <text x="671.5" y="295" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Час наростання tr ≈ 2.2 · τ</text>
+
+  <!-- Panel 2 Summary Box -->
+  <rect x="510" y="315" width="405" height="160" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="525" y="335" font-size="12" font-weight="bold" fill="#c0392b">Практичні наслідки для вимірювань:</text>
+  <text x="525" y="355" font-size="12" fill="#1a1a1a">1. Фронт сигналу спотворюється: прямокутний перепад</text>
+  <text x="525" y="373" font-size="12" fill="#1a1a1a">   перетворюється на пологу експоненту.</text>
+  <text x="525" y="395" font-size="12" fill="#1a1a1a">2. На високій частоті імпульс не досягає V0,</text>
+  <text x="525" y="413" font-size="12" fill="#1a1a1a">   що спричиняє похибку вимірювання амплітуди.</text>
+  <text x="525" y="435" font-size="12" fill="#1a1a1a">3. Для збереження ВЧ-сигналів застосовують</text>
+  <text x="525" y="453" font-size="12" font-weight="bold" fill="#27ae60">   компенсовані щупи 10:1 або активні щупи.</text>
+</svg>

@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Методика калібрування штангенциркуля за плитками КМД</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Покрокова схема базування мір довжини, притиску губок та розрахунку похибки</text>
+
+  <!-- Panel 1: Step 1 Positioning -->
+  <rect x="30" y="80" width="280" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="170" y="110" text-anchor="middle" font-size="15" font-weight="bold" fill="#2457d6">1. Базування та притиск</text>
+
+  <rect x="45" y="130" width="250" height="195" rx="6" fill="white" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- Fixed Jaw Left -->
+  <path d="M 65 145 L 115 145 L 115 295 L 90 295 L 90 200 L 65 200 Z" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="90" y="175" text-anchor="middle" font-size="11" fill="#6b7280">Нерухома губка</text>
+
+  <!-- Movable Jaw Right -->
+  <path d="M 225 145 L 175 145 L 175 295 L 200 295 L 200 200 L 225 200 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="200" y="175" text-anchor="middle" font-size="11" fill="#2457d6">Рухома губка</text>
+
+  <!-- Gauge Block (КМД) between jaws -->
+  <rect x="115" y="200" width="60" height="95" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="145" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Плитка КМД</text>
+  <text x="145" y="260" text-anchor="middle" font-size="11" fill="#1a1a1a">L_ref = 20.00 мм</text>
+
+  <!-- Force Arrows -->
+  <path d="M 65 248 L 105 248" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 225 248 L 185 248" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="145" y="190" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">F_N = 5–10 Н</text>
+
+  <!-- Panel 1 Info Badge -->
+  <rect x="45" y="340" width="250" height="105" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="60" y="362" font-size="12" font-weight="bold" fill="#2457d6">Правила базування:</text>
+  <text x="60" y="384" font-size="11" fill="#1a1a1a">• Контакт біля основи губок</text>
+  <text x="60" y="404" font-size="11" fill="#1a1a1a">• Нормоване зусилля F_N</text>
+  <text x="60" y="424" font-size="11" fill="#1a1a1a">• Усунення похибки Аббе</text>
+
+  <!-- Panel 2: Step 2 Measurements across beam -->
+  <rect x="340" y="80" width="280" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="110" text-anchor="middle" font-size="15" font-weight="bold" fill="#2457d6">2. Виміри у точках штанги</text>
+
+  <rect x="355" y="130" width="250" height="195" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Caliper Scale Representation -->
+  <rect x="365" y="210" width="230" height="35" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="232" text-anchor="middle" font-size="11" fill="#6b7280">Шкала штанги (0...150 мм)</text>
+
+  <!-- Control Point 1: 10mm -->
+  <circle cx="395" cy="227" r="5" fill="#27ae60"/>
+  <text x="395" y="195" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">10 мм</text>
+  <text x="395" y="175" text-anchor="middle" font-size="11" fill="#27ae60">Δ = 0.00</text>
+
+  <!-- Control Point 2: 50mm -->
+  <circle cx="475" cy="227" r="5" fill="#c0392b"/>
+  <text x="475" y="195" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">50 мм</text>
+  <text x="475" y="175" text-anchor="middle" font-size="11" fill="#c0392b">Δ = +0.02</text>
+
+  <!-- Control Point 3: 100mm -->
+  <circle cx="565" cy="227" r="5" fill="#c0392b"/>
+  <text x="565" y="195" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">100 мм</text>
+  <text x="565" y="175" text-anchor="middle" font-size="11" fill="#c0392b">Δ = +0.04</text>
+
+  <!-- Scale ticks -->
+  <line x1="395" y1="210" x2="395" y2="218" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="475" y1="210" x2="475" y2="218" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="565" y1="210" x2="565" y2="218" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Deviation Arrow Trend -->
+  <path d="M 395 270 Q 475 285 565 295" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="480" y="265" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Зношення штанги</text>
+
+  <!-- Panel 2 Info Badge -->
+  <rect x="355" y="340" width="250" height="105" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="370" y="362" font-size="12" font-weight="bold" fill="#c0392b">Контроль похибки:</text>
+  <text x="370" y="384" font-size="11" fill="#1a1a1a">• Оцінка відхилень по довжині</text>
+  <text x="370" y="404" font-size="11" fill="#1a1a1a">• Виявлення зносу напрямних</text>
+  <text x="370" y="424" font-size="11" fill="#c0392b">• Формула: Δ = L_вимір - L_еталон</text>
+
+  <!-- Panel 3: Step 3 Calibration Table & Correction -->
+  <rect x="650" y="80" width="280" height="380" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="790" y="110" text-anchor="middle" font-size="15" font-weight="bold" fill="#27ae60">3. Поправкова таблиця</text>
+
+  <rect x="665" y="130" width="250" height="195" rx="6" fill="white" stroke="#27ae60" stroke-width="1"/>
+
+  <!-- Calibration Table Render -->
+  <rect x="675" y="145" width="230" height="115" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Table Header -->
+  <line x1="675" y1="175" x2="905" y2="175" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="165" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">L_еталон</text>
+  <text x="790" y="165" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">L_вимір</text>
+  <text x="865" y="165" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Поправка C</text>
+
+  <!-- Table Rows -->
+  <line x1="675" y1="200" x2="905" y2="200" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="710" y="192" text-anchor="middle" font-size="11" fill="#1a1a1a">10.00 мм</text>
+  <text x="790" y="192" text-anchor="middle" font-size="11" fill="#1a1a1a">10.00 мм</text>
+  <text x="865" y="192" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">0.00 мм</text>
+
+  <line x1="675" y1="225" x2="905" y2="225" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="710" y="217" text-anchor="middle" font-size="11" fill="#1a1a1a">50.00 мм</text>
+  <text x="790" y="217" text-anchor="middle" font-size="11" fill="#1a1a1a">50.02 мм</text>
+  <text x="865" y="217" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">-0.02 мм</text>
+
+  <text x="710" y="247" text-anchor="middle" font-size="11" fill="#1a1a1a">100.00 мм</text>
+  <text x="790" y="247" text-anchor="middle" font-size="11" fill="#1a1a1a">100.04 мм</text>
+  <text x="865" y="247" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">-0.04 мм</text>
+
+  <!-- Vertical Table Grid Lines -->
+  <line x1="748" y1="145" x2="748" y2="260" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="830" y1="145" x2="830" y2="260" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Formula Box -->
+  <rect x="675" y="272" width="230" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="790" y="297" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">L_дійсне = L_вимір + C(L)</text>
+
+  <!-- Panel 3 Info Badge -->
+  <rect x="665" y="340" width="250" height="105" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="680" y="362" font-size="12" font-weight="bold" fill="#27ae60">Результат калібрування:</text>
+  <text x="680" y="384" font-size="11" fill="#1a1a1a">• Розрахунок поправки C(L)</text>
+  <text x="680" y="404" font-size="11" fill="#1a1a1a">• Компенсація систематики</text>
+  <text x="680" y="424" font-size="11" fill="#27ae60">• Висока точність виміру</text>
+
+  <!-- Flow Arrows between Panels -->
+  <path d="M 310 230 L 340 230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 620 230 L 650 230" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+</svg>

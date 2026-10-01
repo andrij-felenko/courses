@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Теплофізична модель конвективного нагріву термофеном</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Передача теплової потужності P_flow через потік повітря (ṁ, v) до контактної площадки друкованої плати (T_jet &gt; T_pad)</text>
+
+  <!-- Main Pipeline Container Panel -->
+  <rect x="20" y="75" width="920" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel 1: Hot Air Generator -->
+  <rect x="35" y="95" width="270" height="335" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="170" y="120" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Гарячий струмінь</text>
+  <text x="170" y="140" font-size="12" fill="#6b7280" text-anchor="middle">Nozzle &amp; Hot Air Generator</text>
+  <line x1="45" y1="150" x2="295" y2="150" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="45" y="175" font-size="12" fill="#1a1a1a">• Температура нагрівача T_spiral</text>
+  <text x="45" y="200" font-size="12" fill="#1a1a1a">• Температура повітря T_jet</text>
+  <text x="45" y="225" font-size="12" fill="#1a1a1a">• Швидкість обдування v⃗ [м/с]</text>
+  <text x="45" y="255" font-size="12" fill="#1a1a1a">• Масова витрата повітря ṁ:</text>
+  <text x="55" y="280" font-size="11" font-family="Consolas, monospace" fill="#c0392b">ṁ = ρ · V_vol  [кг/с]</text>
+  <text x="45" y="310" font-size="12" fill="#1a1a1a">• Питома теплоємність c_p</text>
+  <text x="45" y="340" font-size="12" fill="#1a1a1a">• Потужність потоку P_flow:</text>
+  <text x="55" y="365" font-size="11" font-family="Consolas, monospace" fill="#c0392b">P = ṁ · c_p · (T_jet - T_amb)</text>
+
+  <!-- Flow Line 1 -> 2 (Hot Stream Vector) -->
+  <line x1="305" y1="260" x2="345" y2="260" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Panel 2: Convective Boundary Layer -->
+  <rect x="345" y="95" width="270" height="335" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="120" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Конвективний шар</text>
+  <text x="480" y="140" font-size="12" fill="#6b7280" text-anchor="middle">Heat Transfer Boundary Layer</text>
+  <line x1="355" y1="150" x2="605" y2="150" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="355" y="175" font-size="12" fill="#1a1a1a">• Примежовий шар товщиною δ_t</text>
+  <text x="355" y="200" font-size="12" fill="#1a1a1a">• Тепловіддача h_conv [Вт/(м²·К)]</text>
+  <text x="355" y="225" font-size="12" fill="#1a1a1a">• Залежність від v⃗ (Число Nu)</text>
+  <text x="355" y="255" font-size="12" fill="#1a1a1a">• Температурний градієнт:</text>
+  <text x="365" y="280" font-size="11" font-family="Consolas, monospace" fill="#2457d6">ΔT = T_jet - T_pad</text>
+  <text x="355" y="310" font-size="12" fill="#1a1a1a">• Густина теплового потоку q:</text>
+  <text x="365" y="340" font-size="11" font-family="Consolas, monospace" fill="#2457d6">q_conv = h_conv · (T_jet - T_pad)</text>
+  <text x="355" y="365" font-size="11" fill="#2457d6">• Зростання v⃗ зменшує δ_t</text>
+
+  <!-- Flow Line 2 -> 3 (Heat Transfer to Pad) -->
+  <line x1="615" y1="260" x2="655" y2="260" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Panel 3: Solder Joint & Board Absorption -->
+  <rect x="655" y="95" width="270" height="335" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="790" y="120" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Паяльне з'єднання</text>
+  <text x="790" y="140" font-size="12" fill="#6b7280" text-anchor="middle">Solder Joint &amp; PCB Substrate</text>
+  <line x1="665" y1="150" x2="915" y2="150" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="665" y="175" font-size="12" fill="#1a1a1a">• Температура площадки T_pad</text>
+  <text x="665" y="200" font-size="12" fill="#1a1a1a">• Точка плавлення T_melt (217°C)</text>
+  <text x="665" y="225" font-size="12" fill="#1a1a1a">• Відведення тепла у плату Q_pcb</text>
+  <text x="665" y="255" font-size="12" fill="#1a1a1a">• Тепловий баланс вузла:</text>
+  <text x="675" y="280" font-size="11" font-family="Consolas, monospace" fill="#27ae60">q_net = q_conv - q_pcb</text>
+  <text x="665" y="310" font-size="12" fill="#1a1a1a">• Швидкість нагріву dT/dt:</text>
+  <text x="675" y="340" font-size="11" font-family="Consolas, monospace" fill="#27ae60">dT/dt = q_net / (m_pad · c_pad)</text>
+  <text x="665" y="365" font-size="11" fill="#27ae60">• Захист від термошоку ≤3°C/с</text>
+
+  <!-- Bottom Heat Balance Bar -->
+  <rect x="20" y="455" width="920" height="52" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="475" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Рівняння теплового балансу конвекції: P_heat = ṁ · c_p · (T_jet - T_amb) = h_conv · A_pad · (T_jet - T_pad)</text>
+  <text x="480" y="495" font-size="12" fill="#6b7280" text-anchor="middle">де ṁ — масова витрата [кг/с], c_p — теплоємність повітря [Дж/(кг·К)], h_conv — коефіцієнт конвекції [Вт/(м²·К)], A_pad — площа контактного вузла [м²]</text>
+</svg>

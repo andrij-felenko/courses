@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Порівняння оновлення кадрів YT та безперервної прокрутки Roll Mode</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Спостереження повільного виходу джерела живлення на режим (перехідний процес V_out)</text>
+
+  <!-- Top Section Title -->
+  <text x="40" y="76" font-size="14" font-weight="bold" fill="#c0392b">1. Стандартна розгортка YT (Кадрове оновлення за тригером)</text>
+
+  <!-- Top Panel Rect -->
+  <rect x="40" y="85" width="880" height="175" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Left Info Box (Top) -->
+  <rect x="55" y="100" width="165" height="145" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="65" y="122" font-size="12" font-weight="bold" fill="#c0392b">Очікування тригера</text>
+  <text x="65" y="145" font-size="12" fill="#1a1a1a">Завмирання екрана</text>
+  <text x="65" y="168" font-size="12" fill="#1a1a1a">Пропуски вибірок</text>
+  <text x="65" y="191" font-size="12" fill="#1a1a1a">«Сліпий» час між</text>
+  <text x="65" y="210" font-size="12" fill="#1a1a1a">окремими кадрами</text>
+
+  <!-- Oscilloscope Screen Rect (Top) -->
+  <rect x="235" y="100" width="670" height="145" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Vertical Grid Lines (Top) -->
+  <line x1="369" y1="100" x2="369" y2="245" stroke="#f4f6f8" stroke-width="1"/>
+  <line x1="503" y1="100" x2="503" y2="245" stroke="#f4f6f8" stroke-width="1"/>
+  <line x1="637" y1="100" x2="637" y2="245" stroke="#f4f6f8" stroke-width="1"/>
+  <line x1="771" y1="100" x2="771" y2="245" stroke="#f4f6f8" stroke-width="1"/>
+
+  <!-- Horizontal Grid Lines (Top) -->
+  <line x1="235" y1="136" x2="905" y2="136" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="235" y1="182" x2="905" y2="182" stroke="#f4f6f8" stroke-width="1"/>
+  <line x1="235" y1="218" x2="905" y2="218" stroke="#f4f6f8" stroke-width="1"/>
+
+  <!-- V_nom Label (Top) -->
+  <text x="895" y="148" text-anchor="end" font-size="11" fill="#6b7280">V_nom</text>
+
+  <!-- Frame 1 -->
+  <path d="M 250,225 L 350,225" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="302" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Кадр 1 (0 V)</text>
+
+  <!-- Gap 1 Box & Text -->
+  <rect x="375" y="135" width="122" height="40" rx="4" fill="#fdecea" opacity="0.8" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="436" y="150" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Очікування тригера</text>
+  <text x="436" y="165" text-anchor="middle" font-size="11" fill="#6b7280">(Сліпий час)</text>
+
+  <!-- Frame 2 -->
+  <path d="M 515,195 L 625,160" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="570" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Кадр 2 (Стрибок)</text>
+
+  <!-- Gap 2 Box & Text -->
+  <rect x="643" y="135" width="122" height="40" rx="4" fill="#fdecea" opacity="0.8" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="704" y="150" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Пропуск вибірок</text>
+  <text x="704" y="165" text-anchor="middle" font-size="11" fill="#6b7280">(Без оновлення)</text>
+
+  <!-- Frame 3 -->
+  <path d="M 785,136 L 895,136" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="838" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Кадр 3 (Усталений)</text>
+
+  <!-- Bottom Section Title -->
+  <text x="40" y="276" font-size="14" font-weight="bold" fill="#27ae60">2. Режим безперервної прокрутки Roll Mode (Потоковий запис без тригера)</text>
+
+  <!-- Bottom Panel Rect -->
+  <rect x="40" y="285" width="880" height="175" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Left Info Box (Bottom) -->
+  <rect x="55" y="300" width="165" height="145" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="65" y="322" font-size="12" font-weight="bold" fill="#27ae60">Безперервна прокрутка</text>
+  <text x="65" y="345" font-size="12" fill="#1a1a1a">Нуль «сліпого» часу</text>
+  <text x="65" y="368" font-size="12" fill="#1a1a1a">Повний процес V(t)</text>
+  <text x="65" y="391" font-size="12" fill="#1a1a1a">Запис у реальному часі</text>
+  <text x="65" y="414" font-size="11" fill="#6b7280">Зсув справа наліво</text>
+
+  <!-- Oscilloscope Screen Rect (Bottom) -->
+  <rect x="235" y="300" width="670" height="145" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Vertical Grid Lines (Bottom) -->
+  <line x1="369" y1="300" x2="369" y2="445" stroke="#f4f6f8" stroke-width="1"/>
+  <line x1="503" y1="300" x2="503" y2="445" stroke="#f4f6f8" stroke-width="1"/>
+  <line x1="637" y1="300" x2="637" y2="445" stroke="#f4f6f8" stroke-width="1"/>
+  <line x1="771" y1="300" x2="771" y2="445" stroke="#f4f6f8" stroke-width="1"/>
+
+  <!-- Horizontal Grid Lines (Bottom) -->
+  <line x1="235" y1="336" x2="905" y2="336" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="235" y1="372" x2="905" y2="372" stroke="#f4f6f8" stroke-width="1"/>
+  <line x1="235" y1="418" x2="905" y2="418" stroke="#f4f6f8" stroke-width="1"/>
+
+  <!-- V_nom Label (Bottom) -->
+  <text x="895" y="348" text-anchor="end" font-size="11" fill="#6b7280">V_nom</text>
+
+  <!-- Smooth Continuous Roll Waveform -->
+  <path d="M 250,425 L 340,425 Q 420,425 460,375 T 560,336 L 895,336" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Rolling Direction Arrow -->
+  <line x1="750" y1="318" x2="658" y2="318" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="704" y="313" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Напрямок прокрутки</text>
+
+  <!-- Key Points & Annotations on Roll Waveform -->
+  <circle cx="280" cy="425" r="4" fill="#27ae60"/>
+  <text x="302" y="440" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">t_0 (Старт)</text>
+
+  <text x="436" y="398" text-anchor="middle" font-size="11" fill="#27ae60">Наростання V_out(t)</text>
+
+  <circle cx="560" cy="336" r="4" fill="#27ae60"/>
+  <text x="570" y="328" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Усталений режим</text>
+</svg>

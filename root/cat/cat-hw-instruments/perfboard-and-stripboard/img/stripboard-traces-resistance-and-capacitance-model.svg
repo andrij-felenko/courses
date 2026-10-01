@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-amber" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header Zone -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Паразитичні RC-параметри та теплова модель доріжок Stripboard</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Геометрія доріжок (L, w, t, s) визначає омичний опір R, паразитну ємність Cp та перегрів ΔT</text>
+
+  <!-- Left Panel: Geometry & Physical Model Diagram -->
+  <rect x="30" y="80" width="430" height="450" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">1. Геометрія та розріз доріжок</text>
+
+  <!-- Cross-Section Schematic -->
+  <!-- Substrate -->
+  <rect x="60" y="210" width="370" height="30" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="245" y="230" font-size="12" fill="#b45309" text-anchor="middle">Бакелітова основа (FR-2 / Phenolic), ε_r ≈ 4.5</text>
+
+  <!-- Copper Trace A -->
+  <rect x="80" y="180" width="120" height="30" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+  <text x="140" y="200" font-size="12" font-weight="bold" fill="#78350f" text-anchor="middle">Доріжка A (Сигнал)</text>
+
+  <!-- Copper Trace B -->
+  <rect x="270" y="180" width="120" height="30" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+  <text x="330" y="200" font-size="12" font-weight="bold" fill="#78350f" text-anchor="middle">Доріжка B (GND)</text>
+
+  <!-- Dimension Overlay (Staggered to prevent overlap) -->
+  <!-- Width w on Level y=135 -->
+  <line x1="80" y1="140" x2="200" y2="140" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="80" y1="135" x2="80" y2="145" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="200" y1="135" x2="200" y2="145" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="140" y="132" font-size="12" fill="#1a1a1a" text-anchor="middle">Ширина w = 1.5 мм</text>
+
+  <!-- Thickness t on Level y=155 -->
+  <text x="140" y="155" font-size="12" fill="#1a1a1a" text-anchor="middle">Товщина t = 35 мкм</text>
+
+  <!-- Gap s on Level y=145 -->
+  <line x1="200" y1="150" x2="270" y2="150" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="200" y1="145" x2="200" y2="155" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="270" y1="145" x2="270" y2="155" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="235" y="142" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зазор s = 1.04 мм</text>
+
+  <!-- Pitch p -->
+  <line x1="140" y1="260" x2="330" y2="260" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <line x1="140" y1="255" x2="140" y2="265" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="330" y1="255" x2="330" y2="265" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="235" y="276" font-size="12" fill="#6b7280" text-anchor="middle">Крок доріжок p = 2.54 мм (100 mil)</text>
+
+  <!-- Physical Cards on Left Panel -->
+  <!-- Card B1: Resistance -->
+  <rect x="50" y="300" width="390" height="55" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="65" y="322" font-size="12" font-weight="bold" fill="#2457d6">Омичний опір провідника R:</text>
+  <text x="65" y="342" font-size="12" fill="#1a1a1a">Струм I тече уздовж довжини L. Опір R = ρ · L / A</text>
+
+  <!-- Card B2: Capacitance -->
+  <rect x="50" y="365" width="390" height="60" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <text x="65" y="387" font-size="12" font-weight="bold" fill="#d97706">Паразитна міждоріжкова ємність C_p:</text>
+  <text x="65" y="407" font-size="12" fill="#1a1a1a">Електричне поле у зазорі s та діелектрику FR-2</text>
+
+  <!-- Card B3: Thermal -->
+  <rect x="50" y="435" width="390" height="60" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="65" y="457" font-size="12" font-weight="bold" fill="#c0392b">Тепловиділення та розсіювання тепла:</text>
+  <text x="65" y="477" font-size="12" fill="#1a1a1a">Потужність P = I² · R розсіюється, викликаючи перегрів ΔT</text>
+
+  <!-- Right Panel: Formulas & Calculations -->
+  <!-- Card 1: Resistance & Voltage Drop -->
+  <rect x="480" y="80" width="450" height="135" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="495" y="105" font-size="14" font-weight="bold" fill="#2457d6">1. Омичний опір шини та спад напруги</text>
+  <text x="505" y="128" font-size="13" fill="#1a1a1a">R = (ρ_Cu · L) / (w · t) = (ρ_Cu · L) / A</text>
+  <text x="505" y="150" font-size="13" font-weight="bold" fill="#2457d6">ΔV = I · R</text>
+  <text x="505" y="172" font-size="12" fill="#6b7280">Питомий опір міді ρ_Cu = 1.72·10⁻⁸ Ом·м</text>
+  <text x="505" y="194" font-size="12" font-weight="bold" fill="#1e40af">Приклад: L = 100 мм → R ≈ 32.8 мОм (ΔV = 32.8 мВ при I = 1 А)</text>
+
+  <!-- Card 2: Parasitic Capacitance -->
+  <rect x="480" y="230" width="450" height="135" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="495" y="255" font-size="14" font-weight="bold" fill="#d97706">2. Паразитна міжелектродна ємність C_p</text>
+  <text x="505" y="278" font-size="13" fill="#1a1a1a">C_p ≈ (ε_0 · ε_r · t · L) / s + C_fringe</text>
+  <text x="505" y="300" font-size="13" font-weight="bold" fill="#b45309">f_cutoff = 1 / (2 · π · R_src · C_p)</text>
+  <text x="505" y="322" font-size="12" fill="#6b7280">Діелектрична проникність бакеліту ε_r ≈ 4.5</text>
+  <text x="505" y="344" font-size="12" font-weight="bold" fill="#92400e">Наслідок: C_p ≈ 0.8–1.5 пФ/см → Перехресні завади</text>
+
+  <!-- Card 3: Thermal & IPC-2221 Current Limit -->
+  <rect x="480" y="380" width="450" height="135" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="495" y="405" font-size="14" font-weight="bold" fill="#c0392b">3. Тепловий режим та обмеження струму (IPC-2221)</text>
+  <text x="505" y="428" font-size="13" fill="#1a1a1a">P_heat = I² · R</text>
+  <text x="505" y="450" font-size="13" font-weight="bold" fill="#c0392b">I_max = k · (ΔT)^0.44 · (A_cross)^0.725</text>
+  <text x="505" y="472" font-size="12" fill="#6b7280">k = 0.048 (зовнішня доріжка), ΔT — перегрів (°C)</text>
+  <text x="505" y="494" font-size="12" font-weight="bold" fill="#991b1b">Граничний струм: Для ΔT = 10 °C → I_max ≈ 1.5–1.8 А</text>
+</svg>

@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr_black" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Термомеханічні криві полімерів для 3D-друку</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Залежність модуля пружності lg E від температури T та межі склування Tg і плавлення Tm</text>
+
+  <!-- LEFT PANEL: Main Chart Area -->
+  <g id="chart_panel">
+    <rect x="20" y="72" width="650" height="428" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+    <!-- Y-axis Label & Unit -->
+    <text x="40" y="96" font-size="13" font-weight="bold" fill="#1a1a1a">Модуль пружності lg E [Па]</text>
+
+    <!-- Region State Label -->
+    <text x="240" y="96" font-size="12" fill="#6b7280">(Склоподібний стан)</text>
+
+    <!-- Chart Legend Box -->
+    <rect x="400" y="80" width="250" height="58" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <line x1="412" y1="93" x2="437" y2="93" stroke="#2457d6" stroke-width="3"/>
+    <text x="444" y="97" font-size="12" font-weight="bold" fill="#1a1a1a">PETG (Аморфний)</text>
+    <line x1="412" y1="109" x2="437" y2="109" stroke="#27ae60" stroke-width="3"/>
+    <text x="444" y="113" font-size="12" font-weight="bold" fill="#1a1a1a">NYLON (Напівкристалічний)</text>
+    <line x1="412" y1="125" x2="437" y2="125" stroke="#c0392b" stroke-width="3"/>
+    <text x="444" y="129" font-size="12" font-weight="bold" fill="#1a1a1a">TPU (Еластомер)</text>
+
+    <!-- Grid / Temperature Vertical Lines (Start below Legend Box y1=150) -->
+    <line x1="130" y1="150" x2="130" y2="430" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+    <line x1="254" y1="150" x2="254" y2="430" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+    <line x1="300" y1="150" x2="300" y2="430" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+    <line x1="470" y1="150" x2="470" y2="430" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+    <line x1="516" y1="150" x2="516" y2="430" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+    <!-- Axes Lines -->
+    <line x1="100" y1="430" x2="630" y2="430" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr_black)"/>
+    <line x1="100" y1="430" x2="100" y2="110" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr_black)"/>
+
+    <!-- Y-axis Ticks & Labels -->
+    <line x1="95" y1="150" x2="100" y2="150" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="88" y="154" font-size="12" fill="#6b7280" text-anchor="end">10⁹</text>
+
+    <line x1="95" y1="210" x2="100" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="88" y="214" font-size="12" fill="#6b7280" text-anchor="end">10⁸</text>
+
+    <line x1="95" y1="290" x2="100" y2="290" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="88" y="294" font-size="12" fill="#6b7280" text-anchor="end">10⁷</text>
+
+    <line x1="95" y1="370" x2="100" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="88" y="374" font-size="12" fill="#6b7280" text-anchor="end">10⁶</text>
+
+    <!-- Curves -->
+    <!-- 1. TPU Curve (Red) -->
+    <path d="M 100,155 L 115,160 C 130,160 140,290 160,290 L 440,300 C 470,300 480,380 500,420" fill="none" stroke="#c0392b" stroke-width="3"/>
+    
+    <!-- 2. PETG Curve (Blue) -->
+    <path d="M 100,150 L 280,160 C 300,160 310,240 330,380 L 360,420" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+    <!-- 3. NYLON Curve (Green) -->
+    <path d="M 100,140 L 235,148 C 254,148 265,210 280,210 L 485,220 C 516,220 525,340 540,420" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+    <!-- Critical Transition Points (Circles & Labels) -->
+    <!-- TPU Tg -->
+    <circle cx="130" cy="225" r="5" fill="#c0392b"/>
+    <text x="142" y="220" font-size="12" font-weight="bold" fill="#c0392b">Tg TPU (-30°C)</text>
+
+    <!-- Nylon Tg -->
+    <circle cx="254" cy="180" r="5" fill="#27ae60"/>
+    <text x="244" y="174" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Tg Nylon (50°C)</text>
+
+    <!-- PETG Tg -->
+    <circle cx="300" cy="200" r="5" fill="#2457d6"/>
+    <text x="312" y="196" font-size="12" font-weight="bold" fill="#2457d6">Tg PETG (80°C)</text>
+
+    <!-- TPU Tm -->
+    <circle cx="470" cy="350" r="5" fill="#c0392b"/>
+    <text x="458" y="344" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Tm TPU (190°C)</text>
+
+    <!-- Nylon Tm -->
+    <circle cx="516" cy="280" r="5" fill="#27ae60"/>
+    <text x="528" y="276" font-size="12" font-weight="bold" fill="#27ae60">Tm Nylon (220°C)</text>
+
+    <!-- X-axis Ticks & Labels -->
+    <line x1="130" y1="430" x2="130" y2="436" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="130" y="454" font-size="12" fill="#1a1a1a" text-anchor="middle">-30°</text>
+
+    <line x1="177" y1="430" x2="177" y2="436" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="177" y="454" font-size="12" fill="#1a1a1a" text-anchor="middle">0°</text>
+
+    <line x1="254" y1="430" x2="254" y2="436" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="254" y="454" font-size="12" fill="#1a1a1a" text-anchor="middle">50°</text>
+
+    <line x1="300" y1="430" x2="300" y2="436" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="300" y="454" font-size="12" fill="#1a1a1a" text-anchor="middle">80°</text>
+
+    <line x1="470" y1="430" x2="470" y2="436" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="470" y="454" font-size="12" fill="#1a1a1a" text-anchor="middle">190°</text>
+
+    <line x1="516" y1="430" x2="516" y2="436" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="516" y="454" font-size="12" fill="#1a1a1a" text-anchor="middle">220°</text>
+
+    <!-- X-axis Title -->
+    <text x="360" y="484" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Температура T, °C</text>
+  </g>
+
+  <!-- RIGHT PANEL: Material Properties & Operating Ranges -->
+  <g id="right_panel">
+    <rect x="685" y="72" width="255" height="428" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+    
+    <text x="812" y="94" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Властивості матеріалів</text>
+    <text x="812" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Параметри та межі експлуатації</text>
+
+    <!-- Card 1: PETG -->
+    <rect x="695" y="125" width="235" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="705" y="145" font-size="13" font-weight="bold" fill="#2457d6">PETG (Кополіестер)</text>
+    <text x="705" y="167" font-size="12" fill="#1a1a1a">• Tg (склування): 80 °C</text>
+    <text x="705" y="187" font-size="12" fill="#1a1a1a">• Tексп max: ~70 °C</text>
+    <text x="705" y="207" font-size="12" fill="#1a1a1a">• Жорсткий, стабільний</text>
+    <text x="705" y="225" font-size="12" fill="#6b7280">  Хотенд: 230–250 °C</text>
+
+    <!-- Card 2: NYLON -->
+    <rect x="695" y="247" width="235" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="705" y="267" font-size="13" font-weight="bold" fill="#27ae60">NYLON / PA (Поліамід)</text>
+    <text x="705" y="289" font-size="12" fill="#1a1a1a">• Tg: 50–60 °C, Tm: 220 °C</text>
+    <text x="705" y="309" font-size="12" fill="#1a1a1a">• Tексп max: 100–120 °C</text>
+    <text x="705" y="329" font-size="12" fill="#1a1a1a">• Термостійкий, міцний</text>
+    <text x="705" y="347" font-size="12" fill="#6b7280">  Хотенд: 250–280 °C</text>
+
+    <!-- Card 3: TPU -->
+    <rect x="695" y="369" width="235" height="115" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+    <text x="705" y="389" font-size="13" font-weight="bold" fill="#c0392b">TPU (Поліуретан)</text>
+    <text x="705" y="411" font-size="12" fill="#1a1a1a">• Tg: -30 °C, Tm: 190 °C</text>
+    <text x="705" y="431" font-size="12" fill="#1a1a1a">• Tексп max: ~80 °C</text>
+    <text x="705" y="451" font-size="12" fill="#1a1a1a">• Гнучкий еластомер</text>
+    <text x="705" y="469" font-size="12" fill="#6b7280">  Хотенд: 210–230 °C</text>
+  </g>
+</svg>

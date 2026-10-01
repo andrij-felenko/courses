@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr_black" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрія вимірювальної плями пірометра (D:S = 12:1)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Діаметр плями S зростає пропорційно відстані D (S = D / 12)</text>
+
+  <!-- LEFT PANEL: Field of View Diagram -->
+  <g id="left_panel">
+    <rect x="20" y="72" width="640" height="428" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+    <text x="340" y="94" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Залежність діаметра плями S від відстані D</text>
+    <text x="340" y="112" font-size="12" fill="#6b7280" text-anchor="middle">MESTEK IR01B: оптичне відношення D:S = 12:1</text>
+
+    <!-- Optical Cone Cone Polygon -->
+    <polygon points="95,270 580,185 580,355" fill="#eaf0fd" opacity="0.75" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 2"/>
+
+    <!-- Optical Center Axis Line -->
+    <line x1="95" y1="270" x2="600" y2="270" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="3 3"/>
+
+    <!-- Pyrometer Body Drawing -->
+    <text x="65" y="235" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пірометр</text>
+    <rect x="35" y="245" width="60" height="50" rx="5" fill="#1a1a1a" stroke="#d0d7de" stroke-width="1"/>
+    <path d="M 45,295 L 35,340 A 5 5 0 0 0 45,345 L 60,345 L 65,295 Z" fill="#2457d6"/>
+    <circle cx="95" cy="270" r="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+    <!-- Target Spot Plane 1 (D1 = 300 mm, S1 = 25 mm) -->
+    <line x1="250" y1="230" x2="250" y2="310" stroke="#2457d6" stroke-width="1.5"/>
+    <ellipse cx="250" cy="270" rx="7" ry="27" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+    <text x="250" y="222" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S₁ = 25 мм</text>
+    <text x="250" y="375" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">D₁ = 300 мм</text>
+
+    <!-- Target Spot Plane 2 (D2 = 600 mm, S2 = 50 mm) -->
+    <line x1="400" y1="198" x2="400" y2="342" stroke="#2457d6" stroke-width="1.5"/>
+    <ellipse cx="400" cy="270" rx="11" ry="54" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+    
+    <!-- 12 Laser Dots Ring around Spot 2 -->
+    <circle cx="400" cy="216" r="2.5" fill="#c0392b"/>
+    <circle cx="410" cy="220" r="2.5" fill="#c0392b"/>
+    <circle cx="411" cy="243" r="2.5" fill="#c0392b"/>
+    <circle cx="411" cy="297" r="2.5" fill="#c0392b"/>
+    <circle cx="410" cy="320" r="2.5" fill="#c0392b"/>
+    <circle cx="400" cy="324" r="2.5" fill="#c0392b"/>
+    <circle cx="390" cy="320" r="2.5" fill="#c0392b"/>
+    <circle cx="389" cy="297" r="2.5" fill="#c0392b"/>
+    <circle cx="389" cy="243" r="2.5" fill="#c0392b"/>
+    <circle cx="390" cy="220" r="2.5" fill="#c0392b"/>
+
+    <text x="400" y="190" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S₂ = 50 мм</text>
+    <text x="400" y="375" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">D₂ = 600 мм</text>
+
+    <!-- Target Spot Plane 3 (D3 = 900 mm, S3 = 75 mm) -->
+    <line x1="550" y1="168" x2="550" y2="355" stroke="#2457d6" stroke-width="1.5"/>
+    <ellipse cx="550" cy="270" rx="15" ry="80" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+    <text x="550" y="160" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S₃ = 75 мм</text>
+    <text x="550" y="375" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">D₃ = 900 мм</text>
+
+    <!-- Distance Ruler Line -->
+    <line x1="95" y1="420" x2="550" y2="420" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr_black)"/>
+    <line x1="250" y1="415" x2="250" y2="425" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="400" y1="415" x2="400" y2="425" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="550" y1="415" x2="550" y2="425" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="320" y="442" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Відстань вимірювання D (від сочевиці)</text>
+
+    <!-- Formula Box -->
+    <rect x="35" y="455" width="590" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="330" y="476" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Формула розрахунку плями:  S = D / 12   (наприклад, D = 1200 мм ➔ S = 100 мм)</text>
+  </g>
+
+  <!-- RIGHT PANEL: Measurement Accuracy Rules -->
+  <g id="right_panel">
+    <rect x="680" y="72" width="260" height="428" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+    <text x="810" y="94" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Правило вимірювання</text>
+    <text x="810" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Розмір об'єкта vs пляма S</text>
+
+    <!-- Card 1: Correct Condition -->
+    <rect x="690" y="128" width="240" height="170" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="700" y="148" font-size="13" font-weight="bold" fill="#27ae60">1. ТОЧНО: Об'єкт &gt; S</text>
+
+    <rect x="710" y="170" width="50" height="50" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5" rx="3"/>
+    <circle cx="735" cy="195" r="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+    <text x="770" y="180" font-size="12" font-weight="bold" fill="#27ae60">100% сигнал</text>
+    <text x="770" y="198" font-size="12" fill="#1a1a1a">• Пляма повністю</text>
+    <text x="770" y="214" font-size="12" fill="#1a1a1a">  на об'єкті</text>
+    <text x="770" y="232" font-size="12" fill="#1a1a1a">• Без завад тла</text>
+
+    <text x="700" y="282" font-size="12" font-weight="bold" fill="#27ae60">Рекомендація: Об'єкт ≥ 1.5 · S</text>
+
+    <!-- Card 2: Incorrect Condition -->
+    <rect x="690" y="310" width="240" height="170" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+    <text x="700" y="330" font-size="13" font-weight="bold" fill="#c0392b">2. ПОХИБКА: Об'єкт &lt; S</text>
+
+    <rect x="722" y="357" width="26" height="26" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5" rx="2"/>
+    <circle cx="735" cy="370" r="22" fill="#fdecea" fill-opacity="0.5" stroke="#c0392b" stroke-width="2" stroke-dasharray="3 2"/>
+
+    <text x="770" y="362" font-size="12" font-weight="bold" fill="#c0392b">Фонова завада</text>
+    <text x="770" y="380" font-size="12" fill="#1a1a1a">• Пляма захоплює</text>
+    <text x="770" y="396" font-size="12" fill="#1a1a1a">  сусідні зони</text>
+    <text x="770" y="414" font-size="12" fill="#1a1a1a">• Спотворення t°</text>
+
+    <text x="700" y="464" font-size="12" font-weight="bold" fill="#c0392b">Результат: Заниження t°</text>
+  </g>
+</svg>

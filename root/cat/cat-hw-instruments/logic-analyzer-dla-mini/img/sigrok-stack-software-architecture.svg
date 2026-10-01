@@ -1,0 +1,108 @@
+<svg viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Модульна архітектура програмного стеку sigrok для логічних аналізаторів</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Ієрархічна передача даних від апаратного рівня (fx2lafw) до декодерів протоколів та GUI PulseView</text>
+
+  <!-- ПАНЕЛЬ 1: Апаратний шар та libsigrok -->
+  <rect x="30" y="80" width="270" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="95" width="240" height="30" rx="4" fill="#eaf0fd"/>
+  <text x="165" y="115" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Апаратний шар та libsigrok</text>
+
+  <!-- Апаратний пристрій -->
+  <rect x="50" y="140" width="230" height="55" rx="6" fill="#1e293b" stroke="#0f172a" stroke-width="1.5"/>
+  <text x="165" y="160" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">WeAct DLA Mini (FX2LP)</text>
+  <text x="165" y="180" font-size="12" fill="#cbd5e1" text-anchor="middle">Прошивка fx2lafw (USB 2.0)</text>
+
+  <!-- USB транспорт -->
+  <path d="M 165,195 L 165,210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="105" y="210" width="120" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="165" y="224" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">libusb / WinUSB</text>
+  <path d="M 165,230 L 165,245" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Ядро C-бібліотеки libsigrok -->
+  <rect x="50" y="245" width="230" height="90" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="165" y="265" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Ядро C-бібліотеки libsigrok</text>
+  <text x="165" y="287" font-size="12" fill="#1a1a1a" text-anchor="middle">Драйвери пристроїв (Driver API)</text>
+  <text x="165" y="307" font-size="12" fill="#6b7280" text-anchor="middle">Керування сесією, тригери, буфер</text>
+  <text x="165" y="325" font-size="12" fill="#6b7280" text-anchor="middle">Формати файлів (SRZIP, VCD, CSV)</text>
+
+  <!-- Пояснення Панелі 1 -->
+  <text x="165" y="380" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Базовий шар доступу</text>
+  <text x="165" y="402" font-size="12" fill="#6b7280" text-anchor="middle">Абстракція від заліза</text>
+  <text x="165" y="424" font-size="12" fill="#6b7280" text-anchor="middle">Асинхронний захват 24 МГц</text>
+
+  <!-- Стрілка між Панеллю 1 та Панеллю 2 -->
+  <path d="M 280,265 L 335,165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ПАНЕЛЬ 2: Декодери libsigrokdecode -->
+  <rect x="315" y="80" width="330" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="330" y="95" width="300" height="30" rx="4" fill="#eaf0fd"/>
+  <text x="480" y="115" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Декодери libsigrokdecode</text>
+
+  <!-- libsigrokdecode двигун -->
+  <rect x="335" y="140" width="290" height="45" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="160" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">C-бібліотека libsigrokdecode</text>
+  <text x="480" y="177" font-size="12" fill="#6b7280" text-anchor="middle">Менеджер інтерпретаторів Python API</text>
+
+  <!-- Низькорівневі декодери -->
+  <rect x="335" y="195" width="290" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="215" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Низькорівневі декодери (Low Level)</text>
+  <text x="480" y="235" font-size="12" fill="#1a1a1a" text-anchor="middle">UART, SPI, I2C, CAN, 1-Wire, Parallel</text>
+
+  <!-- Стекові декодери -->
+  <rect x="335" y="265" width="290" height="70" rx="6" fill="#e9f7ef" stroke="#c3e6cb" stroke-width="1"/>
+  <text x="480" y="285" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Стекові декодери (Stacked / High Level)</text>
+  <text x="480" y="305" font-size="12" fill="#1a1a1a" text-anchor="middle">Modbus, SD/MMC, EEPROM 24xx, Display</text>
+  <text x="480" y="325" font-size="12" fill="#27ae60" text-anchor="middle">Кастомні Python-скрипти декодерів</text>
+
+  <!-- Пояснення Панелі 2 -->
+  <text x="480" y="380" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Багаторівневий аналіз шин</text>
+  <text x="480" y="402" font-size="12" fill="#6b7280" text-anchor="middle">Розширюваність мовою Python</text>
+  <text x="480" y="424" font-size="12" fill="#6b7280" text-anchor="middle">Пакетна інтерпретація тактів</text>
+
+  <!-- Стрілки між Панеллю 2 та Панеллю 3 -->
+  <line x1="625" y1="162" x2="675" y2="162" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 625,235 L 675,285" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- ПАНЕЛЬ 3: Інтерфейси та GUI -->
+  <rect x="660" y="80" width="270" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="675" y="95" width="240" height="30" rx="4" fill="#eaf0fd"/>
+  <text x="795" y="115" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Інтерфейси та GUI</text>
+
+  <!-- PulseView GUI -->
+  <rect x="675" y="140" width="240" height="95" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="795" y="160" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">PulseView (GUI / Qt5)</text>
+  <text x="795" y="180" font-size="12" fill="#1a1a1a" text-anchor="middle">Відображення часових діаграм</text>
+  <text x="795" y="200" font-size="12" fill="#27ae60" text-anchor="middle">Накладання шарів декодерів</text>
+  <text x="795" y="220" font-size="12" fill="#6b7280" text-anchor="middle">Курсори, вимірювання, пошук</text>
+
+  <!-- sigrok-cli Консоль -->
+  <rect x="675" y="245" width="240" height="90" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="795" y="265" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">sigrok-cli (Консоль)</text>
+  <text x="795" y="285" font-size="12" fill="#1a1a1a" text-anchor="middle">Автоматизація в командному рядку</text>
+  <text x="795" y="305" font-size="12" fill="#6b7280" text-anchor="middle">Пакетний захват та скрипти</text>
+  <text x="795" y="323" font-size="12" fill="#2457d6" text-anchor="middle">Експорт в VCD, CSV, SRZIP</text>
+
+  <!-- Пояснення Панелі 3 -->
+  <text x="795" y="380" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зручна візуалізація даних</text>
+  <text x="795" y="402" font-size="12" fill="#6b7280" text-anchor="middle">Повний контроль над сесією</text>
+  <text x="795" y="424" font-size="12" fill="#6b7280" text-anchor="middle">Збереження та експорт сигналів</text>
+</svg>

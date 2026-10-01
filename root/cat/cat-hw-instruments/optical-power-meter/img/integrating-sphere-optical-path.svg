@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Маркери стрілок та градієнти -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-orange" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d35400"/>
+    </marker>
+
+    <!-- Градієнт лазерного пучка -->
+    <linearGradient id="laserGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#e74c3c" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#c0392b" stop-opacity="0.95"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Оптична схема фотометричної інтегрувальної сфери Ульбріхта</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Багаторазове дифузне розсіювання згладжує пучок та послаблює інтенсивність для фотодіода</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Оптична схема сфери -->
+  <rect x="40" y="70" width="580" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="55" y="93" font-size="14" font-weight="bold" fill="#1a1a1a">Схема ходу променів у сферичному інтеграторі</text>
+
+  <!-- Зовнішній металевий корпус сфери -->
+  <circle cx="260" cy="265" r="138" fill="#7f8c8d" stroke="#2c3e50" stroke-width="2"/>
+  <!-- Внутрішнє дифузне покриття (PTFE / Spectralon) -->
+  <circle cx="260" cy="265" r="130" fill="#ffffff" stroke="#2457d6" stroke-width="3" stroke-dasharray="6 3"/>
+  <circle cx="260" cy="265" r="126" fill="#fcfdfe"/>
+
+  <!-- Вхідний порт -->
+  <rect x="90" y="243" width="36" height="44" fill="#bdc3c7" stroke="#2c3e50" stroke-width="1.5"/>
+
+  <!-- Лазерний пучок P_in -->
+  <polygon points="45,253 126,253 387,253 387,277 126,277 45,277" fill="url(#laserGrad)" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 2"/>
+  <line x1="45" y1="265" x2="387" y2="265" stroke="#ffffff" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- Підпис вхідного пучка -->
+  <rect x="46" y="98" width="110" height="42" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="101" y="115" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Вхідний пучок</text>
+  <text x="101" y="131" font-size="12" fill="#6b7280" text-anchor="middle">P_in (Вхідний)</text>
+  <line x1="101" y1="140" x2="101" y2="241" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Підпис дифузного покриття -->
+  <rect x="180" y="92" width="160" height="24" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="260" y="108" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Покриття PTFE (ρ ≥ 98%)</text>
+  <line x1="260" y1="116" x2="260" y2="132" stroke="#2457d6" stroke-width="1" marker-end="url(#arr-blue)"/>
+
+  <!-- Первинна пляма розсіювання -->
+  <ellipse cx="387" cy="265" rx="4" ry="12" fill="#e74c3c" stroke="#c0392b"/>
+
+  <!-- Підпис першої плями -->
+  <rect x="425" y="235" width="130" height="42" rx="4" fill="#ffffff" stroke="#d35400" stroke-width="1"/>
+  <text x="490" y="252" font-size="12" font-weight="bold" fill="#d35400" text-anchor="middle">Перша пляма</text>
+  <text x="490" y="268" font-size="12" fill="#d35400" text-anchor="middle">розсіювання</text>
+  <line x1="425" y1="256" x2="395" y2="263" stroke="#d35400" stroke-width="1.5" marker-end="url(#arr-orange)"/>
+
+  <!-- Первинні дифузні промені від першої плями -->
+  <line x1="384" y1="265" x2="325" y2="140" stroke="#f39c12" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <line x1="384" y1="265" x2="365" y2="175" stroke="#f39c12" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <line x1="384" y1="265" x2="310" y2="360" stroke="#f39c12" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <line x1="384" y1="265" x2="200" y2="365" stroke="#f39c12" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+  <!-- Вторинні дифузні промені -->
+  <line x1="325" y1="140" x2="370" y2="220" stroke="#f1c40f" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="365" y1="175" x2="290" y2="145" stroke="#f1c40f" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="370" y1="220" x2="260" y2="388" stroke="#3498db" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+  <!-- Текст багаторазового відбиття всередині сфери в безпечному бейджі -->
+  <rect x="150" y="148" width="135" height="38" rx="4" fill="#ffffff" stroke="#d35400" stroke-width="1"/>
+  <text x="217.5" y="164" font-size="11" font-weight="bold" fill="#d35400" text-anchor="middle">Багаторазове</text>
+  <text x="217.5" y="178" font-size="11" font-weight="bold" fill="#d35400" text-anchor="middle">дифузне відбиття</text>
+
+  <!-- Екранатор (Baffle) -->
+  <line x1="295" y1="335" x2="325" y2="310" stroke="#34495e" stroke-width="5" stroke-linecap="round"/>
+  <line x1="295" y1="335" x2="325" y2="310" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Підпис екранатора -->
+  <rect x="355" y="330" width="115" height="42" rx="4" fill="#ffffff" stroke="#34495e" stroke-width="1"/>
+  <text x="412.5" y="347" font-size="12" font-weight="bold" fill="#34495e" text-anchor="middle">Екранатор (Baffle)</text>
+  <text x="412.5" y="363" font-size="12" fill="#6b7280" text-anchor="middle">Захист від світла</text>
+  <line x1="355" y1="351" x2="328" y2="328" stroke="#34495e" stroke-width="1" marker-end="url(#arr)"/>
+
+  <!-- Вихідний порт з фотодіодним приймачем -->
+  <rect x="238" y="392" width="44" height="30" fill="#bdc3c7" stroke="#2c3e50" stroke-width="1.5"/>
+  <!-- Фотодіодний кристал -->
+  <rect x="245" y="407" width="30" height="10" rx="2" fill="#2980b9" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Підпис фотодіода -->
+  <rect x="45" y="380" width="140" height="42" rx="4" fill="#ffffff" stroke="#2980b9" stroke-width="1"/>
+  <text x="115" y="397" font-size="12" font-weight="bold" fill="#2980b9" text-anchor="middle">Фотодіодний сенсор</text>
+  <text x="115" y="413" font-size="12" fill="#6b7280" text-anchor="middle">(Вихідний порт)</text>
+  <line x1="185" y1="401" x2="236" y2="408" stroke="#2980b9" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок вихідного електричного сигналу I_ph -->
+  <path d="M260,422 L260,455 L485,455" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 2" fill="none"/>
+
+  <rect x="485" y="350" width="125" height="105" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="547.5" y="370" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Фотострум I_ph</text>
+  <text x="547.5" y="390" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">I_ph = R(λ) · P_det</text>
+  <text x="547.5" y="410" font-size="12" fill="#6b7280" text-anchor="middle">P_det = k_s · P_in</text>
+  <text x="547.5" y="430" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">(послаблення ~10⁻⁴)</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Фізичні принципи сфери -->
+  <rect x="640" y="70" width="295" height="410" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="787.5" y="93" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Фізичні принципи сфери</text>
+
+  <!-- Блок 1: Функція інтегрувальної сфери -->
+  <rect x="655" y="108" width="265" height="112" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="667" y="128" font-size="12" font-weight="bold" fill="#1a1a1a">Принцип сфери Ульбріхта:</text>
+  <text x="667" y="148" font-size="12" fill="#1a1a1a">• Просторова інтеграція потоку</text>
+  <text x="667" y="166" font-size="12" fill="#1a1a1a">• Згладжування спекл-структури</text>
+  <text x="667" y="184" font-size="12" font-weight="bold" fill="#2457d6">• Ослаблення інтенсивності k_s ~ 10⁻⁴</text>
+  <text x="667" y="202" font-size="12" fill="#6b7280">• Захист від пробою фотодіода</text>
+
+  <!-- Блок 2: Розрахунок освітленості та ЕРС -->
+  <rect x="655" y="230" width="265" height="112" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="667" y="250" font-size="12" font-weight="bold" fill="#1a1a1a">Освітленість та фотострум:</text>
+  <text x="667" y="270" font-size="12" font-weight="bold" fill="#c0392b">• Освітленість: E_i ∝ ρ · P_in / D²</text>
+  <text x="667" y="288" font-size="12" fill="#6b7280">• Портовий фактор: f = A_port / A_sph</text>
+  <text x="667" y="306" font-size="12" font-weight="bold" fill="#2457d6">• Фотострум: I_ph = R(λ) · P_det</text>
+  <text x="667" y="324" font-size="12" font-weight="bold" fill="#27ae60">• Лінійність: I_ph ∝ P_in</text>
+
+  <!-- Блок 3: Особливості конструкції -->
+  <rect x="655" y="352" width="265" height="112" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="667" y="372" font-size="12" font-weight="bold" fill="#27ae60">Вимоги до конструкції:</text>
+  <text x="667" y="392" font-size="12" fill="#1a1a1a">• Обов'язковий екранатор (Baffle)</text>
+  <text x="667" y="410" font-size="12" fill="#1a1a1a">• Сумарна площа портів f ≤ 5%</text>
+  <text x="667" y="428" font-size="12" fill="#1a1a1a">• Вимірювання розбіжних пучків</text>
+  <text x="667" y="446" font-size="12" fill="#6b7280">• Незалежність від поляризації</text>
+</svg>

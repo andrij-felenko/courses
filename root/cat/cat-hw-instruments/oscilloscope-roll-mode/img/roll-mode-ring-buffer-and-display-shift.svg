@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Принцип роботи кільцевого буфера в режимі Roll Mode</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Безперервний зсув даних на екрані справа наліво під час запису нових відліків АЦП</text>
+
+  <!-- Left Top Section: ADC & Ring Buffer Structure -->
+  <!-- ADC Box -->
+  <rect x="30" y="100" width="110" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="85" y="122" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">АЦП (ADC)</text>
+  <text x="85" y="138" text-anchor="middle" font-size="11" fill="#6b7280">відліки сигналу</text>
+
+  <!-- Arrow from ADC to Ring Buffer -->
+  <line x1="140" y1="125" x2="183" y2="125" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="162" y="115" text-anchor="middle" font-size="11" fill="#2457d6">потік</text>
+
+  <!-- Ring Buffer Container -->
+  <rect x="190" y="95" width="340" height="55" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Ring Buffer Memory Slots -->
+  <rect x="196" y="102" width="36" height="40" rx="2" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="214" y="126" text-anchor="middle" font-size="11" fill="#6b7280">0</text>
+
+  <rect x="236" y="102" width="36" height="40" rx="2" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="254" y="126" text-anchor="middle" font-size="11" fill="#6b7280">1</text>
+
+  <rect x="276" y="102" width="36" height="40" rx="2" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="294" y="126" text-anchor="middle" font-size="11" fill="#6b7280">2</text>
+
+  <rect x="316" y="102" width="36" height="40" rx="2" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="334" y="126" text-anchor="middle" font-size="11" fill="#6b7280">3</text>
+
+  <rect x="356" y="102" width="36" height="40" rx="2" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="374" y="126" text-anchor="middle" font-size="11" fill="#6b7280">4</text>
+
+  <!-- Active Write Head Slot -->
+  <rect x="396" y="102" width="36" height="40" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="414" y="126" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">N_нов</text>
+
+  <!-- Oldest Slots (To be overwritten) -->
+  <rect x="436" y="102" width="36" height="40" rx="2" fill="#fdecea" stroke="#c0392b"/>
+  <text x="454" y="126" text-anchor="middle" font-size="11" fill="#c0392b">старі</text>
+
+  <rect x="476" y="102" width="36" height="40" rx="2" fill="#fdecea" stroke="#c0392b"/>
+  <text x="494" y="126" text-anchor="middle" font-size="11" fill="#c0392b">старі</text>
+
+  <!-- Write Pointer Annotation -->
+  <text x="360" y="78" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Покажчик запису (Write Pointer)</text>
+  <line x1="414" y1="82" x2="414" y2="96" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Circular Buffer Loop Arrow -->
+  <path d="M 515,122 C 530,165 360,170 185,135" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-blue)"/>
+  <text x="350" y="185" text-anchor="middle" font-size="11" fill="#6b7280">Кільцеве перезаписування пам'яті ОЗП</text>
+
+  <!-- Left Bottom Section: Oscilloscope Display -->
+  <rect x="60" y="220" width="470" height="260" rx="8" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+
+  <!-- Bezel Header Bar -->
+  <rect x="60" y="220" width="470" height="30" rx="8" fill="#1e293b"/>
+  <text x="75" y="240" font-size="11" font-weight="bold" fill="#94a3b8">Осцилограф — Roll Mode (500 мс/под)</text>
+  <text x="515" y="240" text-anchor="end" font-size="11" fill="#22c55e">Безперервна прокрутка</text>
+
+  <!-- Screen Grid Area -->
+  <rect x="70" y="255" width="450" height="215" fill="#020617" stroke="#1e293b"/>
+
+  <!-- Grid Lines -->
+  <line x1="70" y1="300" x2="520" y2="300" stroke="#1e293b" stroke-dasharray="4 4"/>
+  <line x1="70" y1="350" x2="520" y2="350" stroke="#1e293b" stroke-dasharray="4 4"/>
+  <line x1="70" y1="400" x2="520" y2="400" stroke="#1e293b" stroke-dasharray="4 4"/>
+
+  <line x1="145" y1="255" x2="145" y2="470" stroke="#1e293b" stroke-dasharray="4 4"/>
+  <line x1="220" y1="255" x2="220" y2="470" stroke="#1e293b" stroke-dasharray="4 4"/>
+  <line x1="295" y1="255" x2="295" y2="470" stroke="#1e293b" stroke-dasharray="4 4"/>
+  <line x1="370" y1="255" x2="370" y2="470" stroke="#1e293b" stroke-dasharray="4 4"/>
+  <line x1="445" y1="255" x2="445" y2="470" stroke="#1e293b" stroke-dasharray="4 4"/>
+
+  <!-- Waveform Trace -->
+  <path d="M 70,430 C 130,430 160,320 220,310 L 350,310 C 380,310 400,300 430,310 L 520,310" fill="none" stroke="#22c55e" stroke-width="2.5"/>
+
+  <!-- Screen Display Motion Arrow -->
+  <line x1="370" y1="275" x2="217" y2="275" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="290" y="268" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Зсув зображення (справа наліво)</text>
+
+  <!-- Right Entry Arrow (New Data) -->
+  <line x1="540" y1="310" x2="525" y2="310" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="460" y="285" font-size="11" font-weight="bold" fill="#27ae60">Нові відліки</text>
+
+  <!-- Left Exit Arrow (Oldest Data) -->
+  <line x1="70" y1="430" x2="48" y2="430" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="35" y="460" font-size="11" font-weight="bold" fill="#c0392b">Старі відліки зникають</text>
+
+  <!-- Right Panel Explanations -->
+  <!-- Box 1: Sampling & Buffer -->
+  <rect x="580" y="75" width="350" height="130" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="595" y="98" font-size="14" font-weight="bold" fill="#2457d6">1. Безперервний збір даних</text>
+  <text x="595" y="123" font-size="12" fill="#1a1a1a">• АЦП безперервно оцифровує сигнал</text>
+  <text x="595" y="145" font-size="12" fill="#1a1a1a">• Відліки пишуться в кільцевий буфер</text>
+  <text x="595" y="167" font-size="12" fill="#1a1a1a">• Старі дані заміщуються новими</text>
+
+  <!-- Box 2: Display Shift -->
+  <rect x="580" y="220" width="350" height="135" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="595" y="243" font-size="14" font-weight="bold" fill="#27ae60">2. Зсув графіку справа наліво</text>
+  <text x="595" y="268" font-size="12" fill="#1a1a1a">• Нові відліки малюються на правому краї</text>
+  <text x="595" y="290" font-size="12" fill="#1a1a1a">• Весь осцилограма зсувається наліво</text>
+  <text x="595" y="312" font-size="12" fill="#1a1a1a">• Старі точки зникають на лівому краї</text>
+
+  <!-- Box 3: Roll Mode Application -->
+  <rect x="580" y="370" width="350" height="135" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="595" y="393" font-size="14" font-weight="bold" fill="#1a1a1a">3. Застосування в Roll Mode</text>
+  <text x="595" y="418" font-size="12" fill="#1a1a1a">• Для повільних процесів (≥ 50...100 мс/под)</text>
+  <text x="595" y="440" font-size="12" fill="#1a1a1a">• Відсутнє очікування тригера (No Wait)</text>
+  <text x="595" y="462" font-size="12" fill="#1a1a1a">• Фіксація по кнопці Single / Stop</text>
+</svg>

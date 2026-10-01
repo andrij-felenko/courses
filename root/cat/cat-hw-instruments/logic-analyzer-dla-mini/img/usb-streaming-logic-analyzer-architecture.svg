@@ -1,0 +1,106 @@
+<svg viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еволюція архітектури: стаціонарні аналізатори проти USB-стримерів</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Перенесення буферизації та обробки сигналів з дорогих вбудованих модулів в ОЗП комп'ютера</text>
+
+  <!-- ПАНЕЛЬ 1: Класичний стаціонарний аналізатор -->
+  <rect x="30" y="80" width="435" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="95" width="405" height="30" rx="4" fill="#fdecea" stroke="#f5c6cb" stroke-width="1"/>
+  <text x="247" y="115" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Стаціонарний аналізатор (Hardware Memory Buffer)</text>
+
+  <!-- Вхідні проби -->
+  <rect x="55" y="145" width="100" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="105" y="170" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідні проби</text>
+  <text x="105" y="195" font-size="12" fill="#6b7280" text-anchor="middle">CH0 ... CH63</text>
+  <text x="105" y="215" font-size="12" fill="#6b7280" text-anchor="middle">Буферні компаратори</text>
+  <text x="105" y="235" font-size="12" fill="#6b7280" text-anchor="middle">і тригери</text>
+
+  <path d="M 155,200 L 180,200" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Вбудована SRAM -->
+  <rect x="180" y="145" width="130" height="110" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="245" y="170" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Вбудована SRAM</text>
+  <text x="245" y="195" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Обмежений обсяг</text>
+  <text x="245" y="215" font-size="12" fill="#6b7280" text-anchor="middle">1 КБ – 16 МБ</text>
+  <text x="245" y="235" font-size="12" fill="#6b7280" text-anchor="middle">Висока вартість</text>
+
+  <path d="M 310,200 L 335,200" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Дисплей та ОС -->
+  <rect x="335" y="145" width="110" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="390" y="170" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вбудований</text>
+  <text x="390" y="188" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">дисплей та ОС</text>
+  <text x="390" y="215" font-size="12" fill="#6b7280" text-anchor="middle">Локальний перегляд</text>
+  <text x="390" y="235" font-size="12" fill="#6b7280" text-anchor="middle">і тригерний аналіз</text>
+
+  <!-- Блок обмежень -->
+  <rect x="55" y="270" width="390" height="75" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="250" y="290" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Обмеження класичної архітектури:</text>
+  <text x="250" y="310" font-size="12" fill="#1a1a1a" text-anchor="middle">• Мала глибина буфера пам'яті (короткий проміжок захоплення)</text>
+  <text x="250" y="330" font-size="12" fill="#1a1a1a" text-anchor="middle">• Висока ціна приладу, громіздкі габарити та складність оновлень</text>
+
+  <!-- Пояснення Панелі 1 -->
+  <text x="247" y="385" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Автономний стаціонарний прилад</text>
+  <text x="247" y="407" font-size="12" fill="#6b7280" text-anchor="middle">Фіксована внутрішня пам'ять обмежує довжину сесії</text>
+  <text x="247" y="429" font-size="12" fill="#6b7280" text-anchor="middle">Залежність роздільної здатності від обсягу SRAM</text>
+
+  <!-- ПАНЕЛЬ 2: USB-streaming архітектура -->
+  <rect x="495" y="80" width="435" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="510" y="95" width="405" height="30" rx="4" fill="#e9f7ef" stroke="#c3e6cb" stroke-width="1"/>
+  <text x="712" y="115" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Архітектура USB-стримінгу (Direct-to-PC RAM Streaming)</text>
+
+  <!-- Вхідні канали -->
+  <rect x="510" y="145" width="95" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="557" y="170" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідні канали</text>
+  <text x="557" y="195" font-size="12" fill="#2457d6" text-anchor="middle">CH0 ... CH7</text>
+  <text x="557" y="215" font-size="12" fill="#6b7280" text-anchor="middle">24 МГц такт</text>
+  <text x="557" y="235" font-size="12" fill="#6b7280" text-anchor="middle">Без апаратної RAM</text>
+
+  <path d="M 605,200 L 625,200" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- FX2LP USB контролер -->
+  <rect x="625" y="145" width="115" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="682" y="168" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">FX2LP Controller</text>
+  <text x="682" y="188" font-size="12" fill="#1a1a1a" text-anchor="middle">USB FIFO Stream</text>
+  <rect x="635" y="200" width="95" height="20" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="682" y="214" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">USB 2.0 (480M)</text>
+  <text x="682" y="238" font-size="12" fill="#6b7280" text-anchor="middle">24 МБ/с потік</text>
+
+  <path d="M 740,200 L 760,200" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- ОЗП ПК та PulseView -->
+  <rect x="760" y="145" width="155" height="110" rx="6" fill="#e9f7ef" stroke="#c3e6cb" stroke-width="1.5"/>
+  <text x="837" y="168" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Системне ОЗП ПК</text>
+  <text x="837" y="188" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Гігабайти пам'яті (RAM)</text>
+  <text x="837" y="210" font-size="12" fill="#1a1a1a" text-anchor="middle">ПО PulseView / sigrok</text>
+  <text x="837" y="230" font-size="12" fill="#6b7280" text-anchor="middle">Тривалі діаграми</text>
+
+  <!-- Блок переваг -->
+  <rect x="510" y="270" width="405" height="75" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="290" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Переваги стримінгової архітектури:</text>
+  <text x="712" y="310" font-size="12" fill="#1a1a1a" text-anchor="middle">• Запис тривалих цифрових сесій (обсяг обмежений лише ОЗП ПК)</text>
+  <text x="712" y="330" font-size="12" fill="#1a1a1a" text-anchor="middle">• Низька вартість, кишеньковий розмір та постійні оновлення ПО</text>
+
+  <!-- Пояснення Панелі 2 -->
+  <text x="712" y="385" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сучасний USB-аналізатор DLA Mini</text>
+  <text x="712" y="407" font-size="12" fill="#6b7280" text-anchor="middle">Потік даних у реальному часі зі швидкістю 24 млн відліків/с</text>
+  <text x="712" y="429" font-size="12" fill="#6b7280" text-anchor="middle">Гнучкий аналіз та декодування протоколів на ПК</text>
+</svg>
