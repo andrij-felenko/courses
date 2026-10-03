@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr_blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr_green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr_red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Мажоритарні архітектури 1o2D та 2o3 (TMR) з Lockstep-контролем</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">1o2D забезпечує безпечне відключення, а 2o3 (TMR) зберігає безперервність роботи при відмові одного каналу</text>
+
+  <!-- Left Panel: 1o2D -->
+  <rect x="25" y="70" width="440" height="450" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="245" y="93" text-anchor="middle" font-size="15" font-weight="bold" fill="#2457d6">Архітектура 1o2D (1 out of 2 with Diagnostics)</text>
+  <text x="245" y="110" text-anchor="middle" font-size="12" fill="#6b7280">Висока безпека (Fail-Safe): діагностика та аварійна зупинка</text>
+
+  <!-- 1o2D Sensors -->
+  <rect x="45" y="125" width="400" height="32" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="245" y="146" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Дубльовані входи (Датчики S1 / S2)</text>
+
+  <line x1="140" y1="157" x2="140" y2="183" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr_blue)"/>
+  <line x1="350" y1="157" x2="350" y2="183" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr_blue)"/>
+
+  <!-- Channel A -->
+  <rect x="45" y="185" width="190" height="185" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="140" y="206" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Канал A (CPU 1)</text>
+
+  <rect x="55" y="217" width="170" height="75" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-dasharray="3,3"/>
+  <text x="140" y="236" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Lockstep-ядра 1A / 1B</text>
+  <text x="140" y="254" text-anchor="middle" font-size="12" fill="#6b7280">Потактне порівняння</text>
+  <text x="140" y="272" text-anchor="middle" font-size="12" fill="#2457d6">Апаратна синхронізація</text>
+
+  <line x1="140" y1="292" x2="140" y2="300" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr_red)"/>
+
+  <rect x="55" y="302" width="170" height="58" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="140" y="322" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Самодіагностика (D1)</text>
+  <text x="140" y="340" text-anchor="middle" font-size="12" fill="#6b7280">ОЗП / ПЗП / Watchdog</text>
+
+  <!-- Cross Diag Line -->
+  <line x1="235" y1="254" x2="255" y2="254" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Channel B -->
+  <rect x="255" y="185" width="190" height="185" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="350" y="206" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Канал B (CPU 2)</text>
+
+  <rect x="265" y="217" width="170" height="75" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-dasharray="3,3"/>
+  <text x="350" y="236" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Lockstep-ядра 2A / 2B</text>
+  <text x="350" y="254" text-anchor="middle" font-size="12" fill="#6b7280">Потактне порівняння</text>
+  <text x="350" y="272" text-anchor="middle" font-size="12" fill="#2457d6">Апаратна синхронізація</text>
+
+  <line x1="350" y1="292" x2="350" y2="300" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr_red)"/>
+
+  <rect x="265" y="302" width="170" height="58" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="350" y="322" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Самодіагностика (D2)</text>
+  <text x="350" y="340" text-anchor="middle" font-size="12" fill="#6b7280">ОЗП / ПЗП / Watchdog</text>
+
+  <!-- Lines to 1o2D Evaluator -->
+  <line x1="140" y1="370" x2="140" y2="388" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr_green)"/>
+  <line x1="350" y1="370" x2="350" y2="388" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr_green)"/>
+
+  <!-- 1o2D Evaluator -->
+  <rect x="45" y="390" width="400" height="52" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="245" y="410" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Логіка відключення та перевірки (1o2D)</text>
+  <text x="245" y="428" text-anchor="middle" font-size="12" fill="#1a1a1a">Сигнал ОК, якщо хоча б 1 канал справний і вивірений</text>
+
+  <!-- 1o2D Summary -->
+  <rect x="45" y="452" width="400" height="55" rx="5" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="245" y="472" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Режим Fail-Safe (SIL3)</text>
+  <text x="245" y="492" text-anchor="middle" font-size="12" fill="#6b7280">Виявлена помилка у каналі → перехід у безпечний стан</text>
+
+  <!-- Right Panel: 2o3 TMR -->
+  <rect x="495" y="70" width="440" height="450" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="715" y="93" text-anchor="middle" font-size="15" font-weight="bold" fill="#2457d6">Архітектура 2o3 (TMR — Потрійне резервування)</text>
+  <text x="715" y="110" text-anchor="middle" font-size="12" fill="#6b7280">Відмовостійкість (Fault Tolerance): неперервна робота</text>
+
+  <!-- 2o3 Sensors -->
+  <rect x="515" y="125" width="400" height="32" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="715" y="146" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Потрійні входи (Датчики SA / SB / SC)</text>
+
+  <line x1="575" y1="157" x2="575" y2="183" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr_blue)"/>
+  <line x1="715" y1="157" x2="715" y2="183" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr_blue)"/>
+  <line x1="855" y1="157" x2="855" y2="183" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr_blue)"/>
+
+  <!-- Channel A -->
+  <rect x="515" y="185" width="120" height="185" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="575" y="206" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Канал A</text>
+
+  <rect x="523" y="217" width="104" height="75" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-dasharray="3,3"/>
+  <text x="575" y="236" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Процесор A</text>
+  <text x="575" y="254" text-anchor="middle" font-size="12" fill="#6b7280">Lockstep Core</text>
+  <text x="575" y="272" text-anchor="middle" font-size="12" fill="#2457d6">Сигнал: 1</text>
+
+  <line x1="575" y1="292" x2="575" y2="300" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr_green)"/>
+
+  <rect x="523" y="302" width="104" height="58" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="575" y="322" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Стан: Норма</text>
+  <text x="575" y="340" text-anchor="middle" font-size="12" fill="#1a1a1a">Вихід = 1</text>
+
+  <!-- Channel B -->
+  <rect x="655" y="185" width="120" height="185" rx="6" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="715" y="206" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Канал B</text>
+
+  <rect x="663" y="217" width="104" height="75" rx="4" fill="#fdecea" stroke="#c0392b" stroke-dasharray="3,3"/>
+  <text x="715" y="236" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Процесор B</text>
+  <text x="715" y="254" text-anchor="middle" font-size="12" fill="#6b7280">Lockstep Core</text>
+  <text x="715" y="272" text-anchor="middle" font-size="12" fill="#c0392b">Сигнал: 0 (Збій)</text>
+
+  <line x1="715" y1="292" x2="715" y2="300" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr_red)"/>
+
+  <rect x="663" y="302" width="104" height="58" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="715" y="322" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Відмова</text>
+  <text x="715" y="340" text-anchor="middle" font-size="12" fill="#c0392b">Вихід = 0 (Хиба)</text>
+
+  <!-- Channel C -->
+  <rect x="795" y="185" width="120" height="185" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="855" y="206" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Канал C</text>
+
+  <rect x="803" y="217" width="104" height="75" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-dasharray="3,3"/>
+  <text x="855" y="236" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Процесор C</text>
+  <text x="855" y="254" text-anchor="middle" font-size="12" fill="#6b7280">Lockstep Core</text>
+  <text x="855" y="272" text-anchor="middle" font-size="12" fill="#2457d6">Сигнал: 1</text>
+
+  <line x1="855" y1="292" x2="855" y2="300" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr_green)"/>
+
+  <rect x="803" y="302" width="104" height="58" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="855" y="322" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Стан: Норма</text>
+  <text x="855" y="340" text-anchor="middle" font-size="12" fill="#1a1a1a">Вихід = 1</text>
+
+  <!-- Inter-bus sync lines -->
+  <line x1="635" y1="254" x2="655" y2="254" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <line x1="775" y1="254" x2="795" y2="254" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+  <!-- Lines to Majority Voter -->
+  <line x1="575" y1="370" x2="575" y2="388" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr_green)"/>
+  <line x1="715" y1="370" x2="715" y2="388" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr_red)"/>
+  <line x1="855" y1="370" x2="855" y2="388" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr_green)"/>
+
+  <!-- Majority Voter Block -->
+  <rect x="515" y="390" width="400" height="52" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="715" y="410" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Мажоритарний голосувальник 2o3 (Majority Voter)</text>
+  <text x="715" y="428" text-anchor="middle" font-size="12" fill="#1a1a1a">Переважає більшість (A=1, C=1) → Вихід = 1 (Ігнорує збій B)</text>
+
+  <!-- 2o3 Summary -->
+  <rect x="515" y="452" width="400" height="55" rx="5" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="715" y="472" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Відмовостійкість (Fault Tolerance)</text>
+  <text x="715" y="492" text-anchor="middle" font-size="12" fill="#6b7280">Гаряча заміна відкликнутого модуля B без зупинки процесу</text>
+</svg>

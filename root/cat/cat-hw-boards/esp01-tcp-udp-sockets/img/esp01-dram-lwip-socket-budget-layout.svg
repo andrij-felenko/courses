@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл DRAM і бюджет сокетів lwIP у модулі ESP-01</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Обсяг вільної DRAM визначає ліміт одночасних TCP/UDP сесій з урахуванням PCB та буферів pbuf</text>
+
+  <!-- COLUMN 1: Memory Layout for Sockets -->
+  <rect x="28" y="80" width="522" height="435" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="48" y="106" font-size="15" font-weight="bold" fill="#1a1a1a">Структура пам'яті сокетів (tcp_pcb / udp_pcb)</text>
+
+  <!-- TCP Socket Panel -->
+  <rect x="44" y="120" width="490" height="175" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="60" y="142" font-size="14" font-weight="bold" fill="#2457d6">TCP Socket (Активне з'єднання)</text>
+
+  <!-- tcp_pcb block -->
+  <rect x="60" y="155" width="458" height="36" fill="white" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="70" y="177" font-size="12" font-weight="bold" fill="#1a1a1a">tcp_pcb (~144-160 B)</text>
+  <text x="215" y="177" font-size="12" fill="#6b7280">Статичний контроль: IP, порти, таймери, стан</text>
+
+  <!-- pbuf chain block -->
+  <rect x="60" y="199" width="458" height="82" fill="white" stroke="#2457d6" stroke-width="1" rx="4"/>
+  
+  <!-- TCP_WND (Rx) -->
+  <rect x="68" y="207" width="218" height="66" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="78" y="227" font-size="12" font-weight="bold" fill="#2457d6">TCP_WND (Rx): 2048 B</text>
+  <text x="78" y="244" font-size="12" fill="#1a1a1a">pbuf_pool (~16 B/pbuf)</text>
+  <text x="78" y="261" font-size="12" fill="#6b7280">Сегменти від клієнта</text>
+
+  <!-- TCP_SND_BUF (Tx) -->
+  <rect x="294" y="207" width="226" height="66" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="298" y="227" font-size="12" font-weight="bold" fill="#2457d6">TCP_SND_BUF (Tx): 1024 B</text>
+  <text x="298" y="244" font-size="12" fill="#1a1a1a">Черга ретрансляцій</text>
+  <text x="298" y="261" font-size="12" fill="#6b7280">Дані для відправки</text>
+
+  <!-- UDP Socket Panel -->
+  <rect x="44" y="307" width="490" height="130" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="60" y="329" font-size="14" font-weight="bold" fill="#27ae60">UDP Socket (Датаграмне з'єднання)</text>
+
+  <!-- udp_pcb block -->
+  <rect x="60" y="342" width="458" height="32" fill="white" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="70" y="362" font-size="12" font-weight="bold" fill="#1a1a1a">udp_pcb (~32 B)</text>
+  <text x="182" y="362" font-size="12" fill="#6b7280">Мінімальний стан: IP та порт</text>
+
+  <!-- UDP pbuf block -->
+  <rect x="60" y="380" width="458" height="47" fill="white" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="70" y="398" font-size="12" font-weight="bold" fill="#27ae60">Rx/Tx pbuf pool (~512 B)</text>
+  <text x="70" y="417" font-size="12" fill="#6b7280">Наклади: pbuf (16 B) + UDP (8 B) + IP (20 B)</text>
+
+  <!-- Bottom Note Panel -->
+  <rect x="44" y="449" width="490" height="54" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="56" y="468" font-size="12" font-weight="bold" fill="#1a1a1a">Накладні витрати заголовків (Header Overhead):</text>
+  <text x="56" y="488" font-size="12" fill="#6b7280">ETH (14B) + IP (20B) + TCP (20B) = 54 B на пакет</text>
+
+  <!-- COLUMN 2: Math Model & Memory Limits -->
+  <rect x="568" y="80" width="364" height="435" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="588" y="106" font-size="15" font-weight="bold" fill="#1a1a1a">Бюджет DRAM та ліміти сокетів</text>
+
+  <!-- Box 1: DRAM Total -->
+  <rect x="584" y="120" width="332" height="90" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="596" y="142" font-size="13" font-weight="bold" fill="#1a1a1a">Загальний DRAM: ~80 KB</text>
+  <text x="596" y="162" font-size="12" fill="#6b7280">SDK, WiFi driver, OS: ~56 KB</text>
+  <text x="596" y="180" font-size="12" font-weight="bold" fill="#2457d6">Вільна купа (Free Heap): ~24 KB</text>
+  <text x="596" y="198" font-size="12" fill="#c0392b">Поріг стабільності: ~4 KB</text>
+
+  <line x1="750" y1="210" x2="750" y2="222" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Box 2: Formula -->
+  <rect x="584" y="222" width="332" height="110" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="596" y="244" font-size="13" font-weight="bold" fill="#2457d6">Розрахунок ліміту TCP-сокетів:</text>
+  <text x="596" y="268" font-size="13" font-weight="bold" fill="#1a1a1a">N_max = (Heap_free - Heap_res) / M_sock</text>
+  <text x="596" y="290" font-size="12" fill="#6b7280">де Heap_res = 4 KB, M_sock ≈ 3.2 KB</text>
+  <text x="596" y="310" font-size="12" font-weight="bold" fill="#27ae60">N_max (TCP) = (24 - 4) / 3.2 ≈ 6 сесій</text>
+
+  <line x1="750" y1="332" x2="750" y2="344" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Box 3: UART Sync & Overhead -->
+  <rect x="584" y="344" width="332" height="158" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="596" y="366" font-size="13" font-weight="bold" fill="#1a1a1a">Узгодження з шиною UART:</text>
+  <text x="596" y="388" font-size="12" fill="#1a1a1a">UART @ 115200 baud ≈ 11.5 KB/s</text>
+  <text x="596" y="408" font-size="12" fill="#1a1a1a">Мережевий потік lwIP ≈ 200–500 KB/s</text>
+  <text x="596" y="430" font-size="12" font-weight="bold" fill="#c0392b">Ризик: Переповнення DRAM (pbuf overflow)</text>
+  <text x="596" y="450" font-size="12" fill="#6b7280">При повільному прочитанні UART буфери lwIP</text>
+  <text x="596" y="468" font-size="12" fill="#6b7280">накопичуються в DRAM, викликаючи ERR_MEM</text>
+  <text x="596" y="488" font-size="12" font-weight="bold" fill="#27ae60">Рішення: Оптимізація TCP_WND (1.4–2 KB)</text>
+</svg>

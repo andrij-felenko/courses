@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Життєвий цикл кадрового буфера camera_fb_t</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Кожен отриманий через esp_camera_fb_get() буфер має повертатися в пул викликом esp_camera_fb_return()</text>
+
+  <!-- Panel 1: Lifecycle Diagram -->
+  <rect x="35" y="80" width="630" height="310" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="50" y="103" font-size="13" font-weight="bold" fill="#1a1a1a">ЖИТТЄВИЙ ЦИКЛ БУФЕРА В ДРАЙВЕРІ ESP_CAMERA</text>
+
+  <!-- State 1 Box -->
+  <rect x="50" y="118" width="220" height="92" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="62" y="138" font-size="13" font-weight="bold" fill="#1a1a1a">1. Вільний буфер (Пул)</text>
+  <text x="62" y="158" font-size="12" fill="#6b7280">Пам'ять виділена в PSRAM</text>
+  <text x="62" y="176" font-size="12" fill="#6b7280">Очікує кадр від OV3640</text>
+  <text x="62" y="196" font-size="12" font-weight="bold" fill="#2457d6">Стан: FREE</text>
+
+  <!-- State 2 Box -->
+  <rect x="415" y="118" width="230" height="92" fill="#eaf0fd" stroke="#2457d6" rx="6"/>
+  <text x="427" y="138" font-size="13" font-weight="bold" fill="#2457d6">2. Заповнення через DMA</text>
+  <text x="427" y="158" font-size="12" fill="#1a1a1a">Сенсор OV3640 → I2S/CAM</text>
+  <text x="427" y="176" font-size="12" fill="#6b7280">Запис пікселів без CPU</text>
+  <text x="427" y="196" font-size="12" font-weight="bold" fill="#2457d6">Стан: WRITING</text>
+
+  <!-- State 3 Box -->
+  <rect x="415" y="270" width="230" height="92" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="427" y="290" font-size="13" font-weight="bold" fill="#1a1a1a">3. Запечений кадр</text>
+  <text x="427" y="310" font-size="12" fill="#6b7280">Готовий у черзі fb_queue</text>
+  <text x="427" y="328" font-size="12" fill="#6b7280">Очікує виклику застосунку</text>
+  <text x="427" y="348" font-size="12" font-weight="bold" fill="#27ae60">Стан: READY</text>
+
+  <!-- State 4 Box -->
+  <rect x="50" y="270" width="220" height="92" fill="#e9f7ef" stroke="#27ae60" rx="6"/>
+  <text x="62" y="290" font-size="13" font-weight="bold" fill="#27ae60">4. Обробка застосунком</text>
+  <text x="62" y="310" font-size="12" fill="#1a1a1a">Утримання за вказівником fb</text>
+  <text x="62" y="328" font-size="12" fill="#6b7280">HTTP-стрім / JPEG / AI</text>
+  <text x="62" y="348" font-size="12" font-weight="bold" fill="#27ae60">Стан: IN_USE</text>
+
+  <!-- Transitions / Flow Arrows -->
+  <!-- Arrow 1: State 1 -> State 2 -->
+  <line x1="270" y1="164" x2="406" y2="164" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="342" y="143" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">
+    <tspan x="342" dy="0">Старт захоплення</tspan>
+    <tspan x="342" dy="14">(DMA тригер)</tspan>
+  </text>
+
+  <!-- Arrow 2: State 2 -> State 3 -->
+  <line x1="530" y1="210" x2="530" y2="261" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <text x="540" y="231" font-size="12" fill="#6b7280">
+    <tspan x="540" dy="0">EOF переривання</tspan>
+    <tspan x="540" dy="14">(Кадр запечено)</tspan>
+  </text>
+
+  <!-- Arrow 3: State 3 -> State 4 -->
+  <line x1="415" y1="316" x2="279" y2="316" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="342" y="295" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">
+    <tspan x="342" dy="0">Отримання:</tspan>
+    <tspan x="342" dy="14">esp_camera_fb_get()</tspan>
+  </text>
+
+  <!-- Arrow 4: State 4 -> State 1 -->
+  <line x1="160" y1="270" x2="160" y2="219" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="170" y="238" font-size="12" fill="#27ae60" font-weight="bold">
+    <tspan x="170" dy="0">Повернення:</tspan>
+    <tspan x="170" dy="14">fb_return()</tspan>
+  </text>
+
+  <!-- Panel 2: Memory & Safety Rules -->
+  <rect x="680" y="80" width="245" height="310" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="695" y="103" font-size="13" font-weight="bold" fill="#1a1a1a">РЕЖИМИ ТА БЕЗПЕКА ПАМ'ЯТІ</text>
+
+  <!-- Sub-card 1: Pool configuration -->
+  <rect x="695" y="118" width="215" height="110" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="707" y="138" font-size="12" font-weight="bold" fill="#1a1a1a">Пул буферів (config.fb_count)</text>
+  <text x="707" y="158" font-size="12" fill="#1a1a1a">• Single buffer (fb_count=1)</text>
+  <text x="707" y="176" font-size="12" fill="#6b7280">  Захоплення блокує чергу</text>
+  <text x="707" y="194" font-size="12" fill="#1a1a1a">• Double buffer (fb_count=2)</text>
+  <text x="707" y="212" font-size="12" fill="#6b7280">  Безперервний FPS у PSRAM</text>
+
+  <!-- Sub-card 2: Memory Leak Warning -->
+  <rect x="695" y="240" width="215" height="132" fill="#fdecea" stroke="#c0392b" rx="6"/>
+  <text x="707" y="260" font-size="12" font-weight="bold" fill="#c0392b">⚠️ Виснаження пулу кадрів</text>
+  <text x="707" y="280" font-size="12" fill="#1a1a1a">Якщо пропустити fb_return():</text>
+  <text x="707" y="298" font-size="12" font-weight="bold" fill="#c0392b">1. Вільні буфери = 0</text>
+  <text x="707" y="316" font-size="12" fill="#1a1a1a">2. fb_get() повертає NULL</text>
+  <text x="707" y="334" font-size="12" fill="#6b7280">3. Потік відео повністю стає</text>
+  <text x="707" y="352" font-size="12" font-weight="bold" fill="#c0392b">4. Витік пам'яті в PSRAM!</text>
+
+  <!-- Panel 3: Struct Details -->
+  <rect x="35" y="405" width="890" height="110" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="50" y="426" font-size="13" font-weight="bold" fill="#1a1a1a">ПОЛЯ СТРУКТУРИ КАДРОВОГО БУФЕРА (camera_fb_t)</text>
+
+  <!-- Struct Box 1: buf -->
+  <rect x="50" y="436" width="160" height="66" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="60" y="454" font-size="12" font-weight="bold" fill="#2457d6">uint8_t * buf</text>
+  <text x="60" y="472" font-size="12" fill="#1a1a1a">Дані пікселів</text>
+  <text x="60" y="490" font-size="12" fill="#6b7280">У пам'яті PSRAM</text>
+
+  <!-- Struct Box 2: len -->
+  <rect x="222" y="436" width="150" height="66" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="232" y="454" font-size="12" font-weight="bold" fill="#2457d6">size_t len</text>
+  <text x="232" y="472" font-size="12" fill="#1a1a1a">Розмір у байтах</text>
+  <text x="232" y="490" font-size="12" fill="#6b7280">Обсяг JPEG / RAW</text>
+
+  <!-- Struct Box 3: width/height -->
+  <rect x="384" y="436" width="175" height="66" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="394" y="454" font-size="12" font-weight="bold" fill="#2457d6">width / height</text>
+  <text x="394" y="472" font-size="12" fill="#1a1a1a">Розміри в px</text>
+  <text x="394" y="490" font-size="12" fill="#6b7280">UXGA, SVGA тощо</text>
+
+  <!-- Struct Box 4: format -->
+  <rect x="571" y="436" width="185" height="66" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="581" y="454" font-size="12" font-weight="bold" fill="#2457d6">pixformat_t format</text>
+  <text x="581" y="472" font-size="12" fill="#1a1a1a">Формат кадру</text>
+  <text x="581" y="490" font-size="12" fill="#6b7280">JPEG / RGB565 / YUV</text>
+
+  <!-- Struct Box 5: timestamp -->
+  <rect x="768" y="436" width="142" height="66" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="778" y="454" font-size="12" font-weight="bold" fill="#2457d6">timestamp</text>
+  <text x="778" y="472" font-size="12" fill="#1a1a1a">Час захоплення</text>
+  <text x="778" y="490" font-size="12" fill="#6b7280">struct timeval</text>
+</svg>

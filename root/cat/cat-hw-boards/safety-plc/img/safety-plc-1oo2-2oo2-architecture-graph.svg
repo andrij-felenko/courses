@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Архітектури дубльованих Safety PLC: 1oo2 та 2oo2</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">1oo2 пріоритезує безпеку (відмова 1 каналу = зупинка), 2oo2 — безперервність (відмова 1 каналу = продовження роботи)</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: 1oo2 -->
+  <rect x="30" y="80" width="435" height="430" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+
+  <!-- Заголовок панелі 1oo2 -->
+  <text x="247.5" y="108" font-size="15" font-weight="700" fill="#1a1a1a" text-anchor="middle">Архітектура 1oo2 (1 з 2)</text>
+  <text x="247.5" y="126" font-size="12" fill="#6b7280" text-anchor="middle">Спрацьовування за сигналом будь-якого з каналів</text>
+
+  <!-- Схема 1oo2 -->
+  <!-- Вхід (IN) -->
+  <rect x="50" y="145" width="90" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="95" y="169" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Вхід (IN)</text>
+
+  <!-- Канал A (CH1) -->
+  <rect x="175" y="145" width="110" height="40" fill="white" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="230" y="169" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Канал A (CH1)</text>
+
+  <!-- Канал B (CH2) -->
+  <rect x="175" y="205" width="110" height="40" fill="white" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="230" y="229" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Канал B (CH2)</text>
+
+  <!-- Діагностика (DC) -->
+  <rect x="175" y="260" width="110" height="34" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="230" y="281" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Діагностика (DC)</text>
+
+  <!-- Вотер (OR / 1oo2) -->
+  <rect x="320" y="160" width="125" height="85" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="382.5" y="182" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Вотер (OR / 1oo2)</text>
+  <text x="382.5" y="202" font-size="12" fill="#1a1a1a" text-anchor="middle">Зупинка, якщо</text>
+  <text x="382.5" y="222" font-size="12" fill="#1a1a1a" text-anchor="middle">CH1 або CH2</text>
+
+  <!-- Лінії зв'язку 1oo2 -->
+  <path d="M 140 165 L 175 165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 155 165 L 155 225 L 175 225" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <path d="M 285 165 L 302 165 L 302 185 L 320 185" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <path d="M 285 225 L 302 225 L 302 220 L 320 220" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <path d="M 230 185 L 230 205" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <path d="M 230 245 L 230 260" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+
+  <!-- Картки 1oo2 -->
+  <rect x="45" y="308" width="405" height="90" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="60" y="328" font-size="12" font-weight="700" fill="#27ae60">Режим безпеки: ВІДМОВОБЕЗПЕЧНИЙ (Fail-Safe)</text>
+  <text x="60" y="348" font-size="12" fill="#1a1a1a">• Відмова 1 каналу: Аварійна зупинка (Trip в безпечний стан)</text>
+  <text x="60" y="368" font-size="12" fill="#1a1a1a">• Безпека: ВИСОКА (SIL 3 / PL e, PFDavg ∝ λDU² · tCE²)</text>
+  <text x="60" y="388" font-size="12" fill="#1a1a1a">• Недолік: Висока ймовірність хибних зупинок (False Trips)</text>
+
+  <rect x="45" y="410" width="405" height="90" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="60" y="430" font-size="12" font-weight="700" fill="#1a1a1a">Ключові параметри IEC 61508 / ISO 13849:</text>
+  <text x="60" y="450" font-size="12" fill="#1a1a1a">• Фактор загальної причини (CCF): β = 1% ... 10%</text>
+  <text x="60" y="470" font-size="12" fill="#1a1a1a">• Діагностичне покриття: DC ≥ 90% (High / Medium)</text>
+  <text x="60" y="490" font-size="12" fill="#1a1a1a">• Сфера застосування: Критичні захисні системи (ESD)</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: 2oo2 -->
+  <rect x="495" y="80" width="435" height="430" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+
+  <!-- Заголовок панелі 2oo2 -->
+  <text x="712.5" y="108" font-size="15" font-weight="700" fill="#1a1a1a" text-anchor="middle">Архітектура 2oo2 (2 з 2)</text>
+  <text x="712.5" y="126" font-size="12" fill="#6b7280" text-anchor="middle">Спрацьовування лише за наявності сигналів обох каналів</text>
+
+  <!-- Схема 2oo2 -->
+  <!-- Вхід (IN) -->
+  <rect x="515" y="145" width="90" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="560" y="169" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Вхід (IN)</text>
+
+  <!-- Канал A (CH1) -->
+  <rect x="640" y="145" width="110" height="40" fill="white" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="695" y="169" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Канал A (CH1)</text>
+
+  <!-- Канал B (CH2) -->
+  <rect x="640" y="205" width="110" height="40" fill="white" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="695" y="229" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Канал B (CH2)</text>
+
+  <!-- Діагностика (DC) -->
+  <rect x="640" y="260" width="110" height="34" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="695" y="281" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Діагностика (DC)</text>
+
+  <!-- Вотер (AND / 2oo2) -->
+  <rect x="785" y="160" width="125" height="85" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="847.5" y="182" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Вотер (AND / 2oo2)</text>
+  <text x="847.5" y="202" font-size="12" fill="#1a1a1a" text-anchor="middle">Зупинка, якщо</text>
+  <text x="847.5" y="222" font-size="12" fill="#1a1a1a" text-anchor="middle">CH1 і CH2 разом</text>
+
+  <!-- Лінії зв'язку 2oo2 -->
+  <path d="M 605 165 L 640 165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 620 165 L 620 225 L 640 225" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <path d="M 750 165 L 767 165 L 767 185 L 785 185" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <path d="M 750 225 L 767 225 L 767 220 L 785 220" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <path d="M 695 185 L 695 205" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <path d="M 695 245 L 695 260" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+
+  <!-- Картки 2oo2 -->
+  <rect x="510" y="308" width="405" height="90" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="525" y="328" font-size="12" font-weight="700" fill="#c0392b">Режим готовності: БЕЗПЕРЕРВНИЙ (Fail-Operational)</text>
+  <text x="525" y="348" font-size="12" fill="#1a1a1a">• Відмова 1 каналу: Робота триває (без хибних зупинок)</text>
+  <text x="525" y="368" font-size="12" fill="#1a1a1a">• Безпека: НИЖЧА (SIL 1–SIL 2, PFDavg ≈ 2 · λDU · tCE)</text>
+  <text x="525" y="388" font-size="12" fill="#1a1a1a">• Ризик: Небезпечна відмова при прихованому дефекті 1 каналу</text>
+
+  <rect x="510" y="410" width="405" height="90" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="525" y="430" font-size="12" font-weight="700" fill="#1a1a1a">Ключові параметри IEC 61508 / ISO 13849:</text>
+  <text x="525" y="450" font-size="12" fill="#1a1a1a">• Висока готовність системи (High Availability / MTTFs ↗)</text>
+  <text x="525" y="470" font-size="12" fill="#1a1a1a">• Потребує високого діагностичного покриття (DC ≥ 99%)</text>
+  <text x="525" y="490" font-size="12" fill="#1a1a1a">• Сфера застосування: Неперервні технологічні процеси</text>
+</svg>

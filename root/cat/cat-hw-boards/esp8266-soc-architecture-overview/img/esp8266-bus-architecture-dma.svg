@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="26" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура системних шин та DMA в ESP8266</text>
+  <text x="480" y="46" font-size="13" fill="#6b7280" text-anchor="middle">Асинхронний міст ізолює периферію APB, а арбітр AHB віддає пріоритет DMA Wi-Fi MAC без затримок ядра</text>
+
+  <!-- AHB Domain Container -->
+  <rect x="35" y="65" width="890" height="280" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="50" y="86" font-size="13" font-weight="bold" fill="#1a1a1a">Домен системної шини AHB (High-Performance Bus Domain)</text>
+
+  <!-- Masters and Slaves on AHB -->
+  <!-- Xtensa CPU Core -->
+  <rect x="55" y="100" width="220" height="75" fill="#ffffff" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <text x="165" y="123" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Процесорне ядро Xtensa L106</text>
+  <text x="165" y="143" font-size="12" fill="#1a1a1a" text-anchor="middle">32-бітне ядро RISC (80/160 МГц)</text>
+  <text x="165" y="161" font-size="12" fill="#6b7280" text-anchor="middle">AHB Master (I-Code / D-Code)</text>
+
+  <!-- Wi-Fi MAC & DMA -->
+  <rect x="295" y="100" width="240" height="75" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <text x="415" y="123" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Wi-Fi MAC / Baseband</text>
+  <text x="415" y="143" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Апаратний контролер DMA</text>
+  <text x="415" y="161" font-size="12" fill="#6b7280" text-anchor="middle">AHB Master (Пріоритетний доступ)</text>
+
+  <!-- Internal SRAM -->
+  <rect x="555" y="100" width="175" height="75" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="642" y="123" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня SRAM</text>
+  <text x="642" y="143" font-size="12" fill="#27ae60" text-anchor="middle">DRAM (Дані &amp; DMA)</text>
+  <text x="642" y="161" font-size="12" fill="#2457d6" text-anchor="middle">IRAM (Інструкції)</text>
+
+  <!-- Flash Controller & MMU -->
+  <rect x="750" y="100" width="160" height="75" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="830" y="123" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MMU &amp; Cache</text>
+  <text x="830" y="143" font-size="12" fill="#1a1a1a" text-anchor="middle">Контролер Flash</text>
+  <text x="830" y="161" font-size="12" fill="#6b7280" text-anchor="middle">Зовнішня SPI Flash</text>
+
+  <!-- AHB Bus Bar / Matrix -->
+  <rect x="55" y="205" width="855" height="40" fill="#2457d6" rx="6"/>
+  <text x="482" y="230" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">Системна шина AHB &amp; Апаратний арбітр доступу (AHB Bus Matrix / Arbiter)</text>
+
+  <!-- Vertical Connection lines in AHB domain -->
+  <!-- CPU line -->
+  <line x1="165" y1="175" x2="165" y2="205" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  
+  <!-- Wi-Fi DMA line -->
+  <line x1="415" y1="175" x2="415" y2="205" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  
+  <!-- SRAM line -->
+  <line x1="642" y1="205" x2="642" y2="175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  
+  <!-- MMU line -->
+  <line x1="830" y1="205" x2="830" y2="175" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <!-- Annotations beside vertical lines -->
+  <text x="423" y="193" font-size="12" font-weight="bold" fill="#27ae60">Пріоритет DMA</text>
+
+  <!-- Async AHB-to-APB Bridge Block -->
+  <rect x="55" y="270" width="855" height="60" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="6"/>
+  <text x="482" y="293" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Асинхронний міст шини (Async AHB-to-APB Bridge)</text>
+  <text x="482" y="314" font-size="12" fill="#1a1a1a" text-anchor="middle">Ізоляція тактових доменів і буферизація периферії (запобігає затримкам ядра CPU)</text>
+
+  <!-- Connection from AHB Bus Bar to APB Bridge -->
+  <line x1="482" y1="245" x2="482" y2="270" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- APB Domain Container -->
+  <rect x="35" y="360" width="890" height="140" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="50" y="378" font-size="13" font-weight="bold" fill="#1a1a1a">Домен периферійної шини APB (Peripheral Bus Domain)</text>
+
+  <!-- APB Bus Bar -->
+  <rect x="55" y="390" width="855" height="28" fill="#6b7280" rx="4"/>
+  <text x="482" y="409" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Шина периферії APB (Advanced Peripheral Bus)</text>
+
+  <!-- Connection from APB Bridge to APB Bus Bar -->
+  <line x1="482" y1="330" x2="482" y2="390" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- APB Peripherals -->
+  <!-- 1. GPIO & IOMUX -->
+  <rect x="55" y="432" width="150" height="53" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="130" y="453" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO &amp; IOMUX</text>
+  <text x="130" y="471" font-size="12" fill="#6b7280" text-anchor="middle">Мультиплексор</text>
+  <line x1="130" y1="418" x2="130" y2="432" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- 2. UART0 / UART1 -->
+  <rect x="230" y="432" width="150" height="53" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="305" y="453" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">UART0 / UART1</text>
+  <text x="305" y="471" font-size="12" fill="#6b7280" text-anchor="middle">Послідовний порт</text>
+  <line x1="305" y1="418" x2="305" y2="432" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- 3. Timers & WDT -->
+  <rect x="405" y="432" width="150" height="53" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="480" y="453" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Таймери &amp; WDT</text>
+  <text x="480" y="471" font-size="12" fill="#6b7280" text-anchor="middle">Сторожовий таймер</text>
+  <line x1="480" y1="418" x2="480" y2="432" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- 4. SAR ADC -->
+  <rect x="580" y="432" width="150" height="53" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="655" y="453" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SAR ADC (АЦП)</text>
+  <text x="655" y="471" font-size="12" fill="#6b7280" text-anchor="middle">Аналоговий вхід</text>
+  <line x1="655" y1="418" x2="655" y2="432" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- 5. SPI / I2C / PWM -->
+  <rect x="755" y="432" width="150" height="53" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="830" y="453" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SPI / I2C / PWM</text>
+  <text x="830" y="471" font-size="12" fill="#6b7280" text-anchor="middle">Периферія</text>
+  <line x1="830" y1="418" x2="830" y2="432" stroke="#6b7280" stroke-width="1.5"/>
+</svg>

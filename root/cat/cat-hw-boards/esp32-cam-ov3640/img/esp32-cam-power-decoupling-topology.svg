@@ -1,0 +1,180 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топологія розв'язки живлення OV3640 в ESP32-CAM</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Розділені LDO та триступеневе шунтування (10 µF + 0.1 µF + 100 pF) захищають AVDD від цифрових завад</text>
+
+  <!-- Main Schematic Panel -->
+  <rect x="30" y="90" width="900" height="295" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="112" font-size="13" font-weight="bold" fill="#1a1a1a">Схема розподілу доменів живлення та фільтрації</text>
+
+  <!-- Power Source Block -->
+  <rect x="50" y="140" width="85" height="210" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="92.5" y="215" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">VCC_3V3</text>
+  <text x="92.5" y="235" font-size="12" fill="#6b7280" text-anchor="middle">Шина 3.3V</text>
+  <text x="92.5" y="252" font-size="12" fill="#6b7280" text-anchor="middle">(ESP32-CAM)</text>
+
+  <!-- Power Distribution Lines -->
+  <path d="M 135 245 L 155 245" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="155" cy="245" r="3" fill="#2457d6"/>
+  <line x1="155" y1="170" x2="155" y2="335" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Domain 1: AVDD Branch (Top Path) -->
+  <line x1="155" y1="170" x2="175" y2="170" stroke="#2457d6" stroke-width="2"/>
+  <text x="195" y="146" font-size="12" fill="#6b7280" text-anchor="middle">Фільтр ВЧ</text>
+  <rect x="175" y="158" width="40" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="195" y="174" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">FB1</text>
+  <line x1="215" y1="170" x2="235" y2="170" stroke="#2457d6" stroke-width="2"/>
+
+  <rect x="235" y="145" width="115" height="50" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="292.5" y="166" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">LDO 1 (Low Noise)</text>
+  <text x="292.5" y="184" font-size="12" fill="#1a1a1a" text-anchor="middle">2.8V AVDD</text>
+
+  <line x1="350" y1="170" x2="675" y2="170" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- AVDD Shunt Capacitors -->
+  <!-- CA1 (10 uF) -->
+  <circle cx="385" cy="170" r="3" fill="#27ae60"/>
+  <line x1="385" y1="170" x2="385" y2="186" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="375" y1="186" x2="395" y2="186" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="375" y1="192" x2="395" y2="192" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="385" y1="192" x2="385" y2="210" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="385" cy="210" r="3" fill="#27ae60"/>
+  <text x="385" y="154" font-size="12" fill="#6b7280" text-anchor="middle">10 µF (НЧ)</text>
+  <text x="385" y="230" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">CA1 = 10 µF</text>
+
+  <!-- CA2 (0.1 uF) -->
+  <circle cx="475" cy="170" r="3" fill="#27ae60"/>
+  <line x1="475" y1="170" x2="475" y2="186" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="465" y1="186" x2="485" y2="186" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="465" y1="192" x2="485" y2="192" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="475" y1="192" x2="475" y2="210" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="475" cy="210" r="3" fill="#27ae60"/>
+  <text x="475" y="154" font-size="12" fill="#6b7280" text-anchor="middle">0.1 µF (СЧ)</text>
+  <text x="475" y="230" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">CA2 = 0.1 µF</text>
+
+  <!-- CA3 (100 pF) -->
+  <circle cx="565" cy="170" r="3" fill="#27ae60"/>
+  <line x1="565" y1="170" x2="565" y2="186" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="555" y1="186" x2="575" y2="186" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="555" y1="192" x2="575" y2="192" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="565" y1="192" x2="565" y2="210" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="565" cy="210" r="3" fill="#27ae60"/>
+  <text x="565" y="154" font-size="12" fill="#6b7280" text-anchor="middle">100 pF (ВЧ)</text>
+  <text x="565" y="230" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">CA3 = 100 pF</text>
+
+  <!-- AGND Line -->
+  <line x1="385" y1="210" x2="630" y2="210" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Star GND Point -->
+  <line x1="630" y1="210" x2="630" y2="360" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <circle cx="630" cy="210" r="4" fill="#27ae60"/>
+  <circle cx="630" cy="285" r="4" fill="#2457d6"/>
+  <circle cx="630" cy="360" r="4" fill="#2457d6"/>
+  <text x="622" y="196" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Star GND</text>
+  <text x="622" y="210" font-size="12" fill="#6b7280" text-anchor="end">(одноточкова)</text>
+
+  <!-- Domain 2: DVDD Branch (Middle Path) -->
+  <line x1="155" y1="260" x2="235" y2="260" stroke="#2457d6" stroke-width="2"/>
+
+  <rect x="235" y="235" width="115" height="50" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="292.5" y="256" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">LDO 2 (Digital)</text>
+  <text x="292.5" y="274" font-size="12" fill="#1a1a1a" text-anchor="middle">1.5V DVDD</text>
+
+  <line x1="350" y1="260" x2="675" y2="260" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- DVDD Capacitors -->
+  <circle cx="415" cy="260" r="3" fill="#2457d6"/>
+  <line x1="415" y1="260" x2="415" y2="268" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="405" y1="268" x2="425" y2="268" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="405" y1="273" x2="425" y2="273" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="415" y1="273" x2="415" y2="285" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="415" cy="285" r="3" fill="#2457d6"/>
+  <text x="415" y="302" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">CD1 = 10 µF</text>
+
+  <circle cx="505" cy="260" r="3" fill="#2457d6"/>
+  <line x1="505" y1="260" x2="505" y2="268" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="495" y1="268" x2="515" y2="268" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="495" y1="273" x2="515" y2="273" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="505" y1="273" x2="505" y2="285" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="505" cy="285" r="3" fill="#2457d6"/>
+  <text x="505" y="302" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">CD2 = 0.1 µF</text>
+
+  <line x1="415" y1="285" x2="630" y2="285" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Domain 3: DOVDD Branch (Bottom Path) -->
+  <line x1="155" y1="335" x2="235" y2="335" stroke="#2457d6" stroke-width="2"/>
+
+  <rect x="235" y="310" width="115" height="50" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="292.5" y="331" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">LDO 3 (I/O)</text>
+  <text x="292.5" y="349" font-size="12" fill="#1a1a1a" text-anchor="middle">2.8V DOVDD</text>
+
+  <line x1="350" y1="335" x2="675" y2="335" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- DOVDD Capacitors -->
+  <circle cx="415" cy="335" r="3" fill="#2457d6"/>
+  <line x1="415" y1="335" x2="415" y2="343" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="405" y1="343" x2="425" y2="343" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="405" y1="348" x2="425" y2="348" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="415" y1="348" x2="415" y2="360" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="415" cy="360" r="3" fill="#2457d6"/>
+  <text x="415" y="376" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">CIO1 = 10 µF</text>
+
+  <circle cx="505" cy="335" r="3" fill="#2457d6"/>
+  <line x1="505" y1="335" x2="505" y2="343" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="495" y1="343" x2="515" y2="343" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="495" y1="348" x2="515" y2="348" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="505" y1="348" x2="505" y2="360" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="505" cy="360" r="3" fill="#2457d6"/>
+  <text x="505" y="376" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">CIO2 = 0.1 µF</text>
+
+  <line x1="415" y1="360" x2="630" y2="360" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- OV3640 Sensor Chip Block -->
+  <rect x="680" y="135" width="230" height="235" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="795" y="156" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сенсор OV3640 (2 МП)</text>
+
+  <!-- Sub-block 1: AVDD Analog Core -->
+  <rect x="695" y="165" width="200" height="55" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="795" y="186" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Аналогова матриця (AVDD)</text>
+  <text x="795" y="204" font-size="12" fill="#6b7280" text-anchor="middle">Піксельний масив та АЦП</text>
+
+  <!-- Sub-block 2: DVDD Digital Core -->
+  <rect x="695" y="230" width="200" height="55" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="795" y="251" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цифрове ядро (DVDD)</text>
+  <text x="795" y="269" font-size="12" fill="#6b7280" text-anchor="middle">DSP / Регістри / FIFO</text>
+
+  <!-- Sub-block 3: DOVDD DVP Interface -->
+  <rect x="695" y="295" width="200" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="795" y="316" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Інтерфейс I/O (DOVDD)</text>
+  <text x="795" y="334" font-size="12" fill="#6b7280" text-anchor="middle">DVP (PCLK, VSYNC, D[0..9])</text>
+  <text x="795" y="349" font-size="12" fill="#6b7280" text-anchor="middle">Шина SCCB (SIOC, SIOD)</text>
+
+  <!-- Bottom Comparison Panels -->
+  <!-- Left Panel: Incorrect -->
+  <rect x="30" y="400" width="435" height="135" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="247.5" y="423" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">⛔ Неправильно: спільна лінія живлення</text>
+  <text x="247.5" y="445" font-size="12" fill="#1a1a1a" text-anchor="middle">• Один LDO для AVDD і DVDD передає імпульсні завади</text>
+  <text x="247.5" y="465" font-size="12" fill="#1a1a1a" text-anchor="middle">• Відсутність ВЧ-конденсатора (100 pF) пропускає шум</text>
+  <text x="247.5" y="485" font-size="12" fill="#1a1a1a" text-anchor="middle">• Спільний ground створює петлі струму та смуги</text>
+  <text x="247.5" y="512" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Наслідок: горизонтальні смуги та збої кадрів</text>
+
+  <!-- Right Panel: Correct -->
+  <rect x="495" y="400" width="435" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712.5" y="423" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Правильно: розділені LDO + 3-ступеневе шунтування</text>
+  <text x="712.5" y="445" font-size="12" fill="#1a1a1a" text-anchor="middle">• Окремий LDO 2.8V з FB1 ізолює аналоговий домен AVDD</text>
+  <text x="712.5" y="465" font-size="12" fill="#1a1a1a" text-anchor="middle">• Конденсатори 10 µF + 0.1 µF + 100 pF гасять НЧ, СЧ, ВЧ</text>
+  <text x="712.5" y="485" font-size="12" fill="#1a1a1a" text-anchor="middle">• Star GND з'єднання ізолює струми АЦП та цифри</text>
+  <text x="712.5" y="512" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Наслідок: чисте зображення UXGA без артефактів</text>
+</svg>

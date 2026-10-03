@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Карта пам'яті та механізм MMU в SoC ESP8266</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Відображення SPI Flash через MMU, розбивка SRAM на IRAM/DRAM та динамічна купа Heap</text>
+
+  <!-- Left Container: Memory Map -->
+  <rect x="30" y="80" width="440" height="435" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="45" y="102" font-size="13" font-weight="bold" fill="#1a1a1a">Карта адресового простору SoC (32-bit)</text>
+
+  <!-- Memory Segment 1: Mapped SPI Flash -->
+  <rect x="45" y="115" width="410" height="55" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="5"/>
+  <text x="55" y="134" font-size="13" font-weight="bold" fill="#2457d6">0x40200000 – 0x403C0000 | Mapped SPI Flash</text>
+  <text x="55" y="153" font-size="12" fill="#6b7280">Кешований доступ до інструкцій коду (до 1 MB)</text>
+
+  <!-- Memory Segment 2: IRAM -->
+  <rect x="45" y="182" width="410" height="55" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="5"/>
+  <text x="55" y="201" font-size="13" font-weight="bold" fill="#2457d6">0x40100000 – 0x4010C000 | IRAM (32–64 KB)</text>
+  <text x="55" y="220" font-size="12" fill="#6b7280">Швидкісні ISR-переривання, Wi-Fi драйвер</text>
+
+  <!-- Memory Segment 3: Internal ROM -->
+  <rect x="45" y="249" width="410" height="45" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="5"/>
+  <text x="55" y="268" font-size="13" font-weight="bold" fill="#1a1a1a">0x40000000 | Внутрішня ROM (~64 KB)</text>
+  <text x="55" y="284" font-size="12" fill="#6b7280">Bootloader, системні крипто- й математичні функції</text>
+
+  <!-- Memory Segment 4: DRAM Outer -->
+  <rect x="45" y="306" width="410" height="135" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="5"/>
+  <text x="55" y="324" font-size="13" font-weight="bold" fill="#27ae60">0x3FFE8000 – 0x40000000 | DRAM (~80 KB)</text>
+
+  <!-- DRAM Sub-block a: Static Data -->
+  <rect x="55" y="334" width="390" height="28" fill="#f4f6f8" stroke="#d0d7de" rx="3"/>
+  <text x="250" y="352" font-size="12" text-anchor="middle" fill="#1a1a1a">Статичні дані (.data, .bss: ~15–30 KB)</text>
+
+  <!-- DRAM Sub-block b: Heap -->
+  <rect x="55" y="368" width="390" height="42" fill="#e9f7ef" stroke="#27ae60" rx="3"/>
+  <text x="250" y="385" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Динамічна купа Heap (вільний простір ~30–50 KB)</text>
+  <text x="250" y="401" font-size="12" text-anchor="middle" fill="#6b7280">Виділяється під lwIP сокети, TLS контексти та malloc()</text>
+
+  <!-- DRAM Sub-block c: Stack -->
+  <rect x="55" y="414" width="390" height="22" fill="#f4f6f8" stroke="#d0d7de" rx="3"/>
+  <text x="250" y="429" font-size="12" text-anchor="middle" fill="#1a1a1a">Системний стек (Stack: ~1–4 KB)</text>
+
+  <!-- Memory Segment 5: MMIO Peripherals -->
+  <rect x="45" y="453" width="410" height="50" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="5"/>
+  <text x="55" y="471" font-size="13" font-weight="bold" fill="#1a1a1a">0x60000000 | MMIO Регістри периферії</text>
+  <text x="55" y="490" font-size="12" fill="#6b7280">GPIO, UART, SPI, АЦП, Таймери (контроль через APB)</text>
+
+  <!-- Right Top Container: Flash MMU & Cache -->
+  <rect x="490" y="80" width="440" height="205" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="505" y="102" font-size="13" font-weight="bold" fill="#2457d6">Апаратне відображення SPI Flash (MMU &amp; Cache)</text>
+
+  <!-- External SPI Flash Box -->
+  <rect x="735" y="115" width="180" height="65" fill="#eaf0fd" stroke="#2457d6" stroke-dasharray="4 3" rx="5"/>
+  <text x="825" y="135" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Зовнішня SPI Flash</text>
+  <text x="825" y="152" font-size="12" text-anchor="middle" fill="#1a1a1a">512 KB – 16 MB</text>
+  <text x="825" y="168" font-size="12" text-anchor="middle" fill="#6b7280">Код, FlashFS, OTA</text>
+
+  <!-- MMU & Cache Box -->
+  <rect x="505" y="115" width="180" height="65" fill="#2457d6" rx="5"/>
+  <text x="595" y="135" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">Flash MMU &amp; Cache</text>
+  <text x="595" y="152" font-size="12" text-anchor="middle" fill="#eaf0fd">Кеш 32 KB (сторінки 64 KB)</text>
+  <text x="595" y="168" font-size="12" text-anchor="middle" fill="#ffffff">Апаратна трансляція</text>
+
+  <!-- Arrow SPI Flash -> MMU -->
+  <line x1="735" y1="147" x2="693" y2="147" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="714" y="140" font-size="12" text-anchor="middle" fill="#6b7280">SPI</text>
+
+  <!-- Arrow MMU -> Mapped SPI Flash (Left panel) -->
+  <line x1="505" y1="142" x2="463" y2="142" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="484" y="134" font-size="12" text-anchor="middle" fill="#2457d6">MMU</text>
+
+  <!-- MMU Explanation Box -->
+  <rect x="505" y="192" width="410" height="80" fill="#f4f6f8" stroke="#d0d7de" rx="5"/>
+  <text x="515" y="211" font-size="12" font-weight="bold" fill="#1a1a1a">Принцип роботи MMU:</text>
+  <text x="515" y="228" font-size="12" fill="#6b7280">• Процесор зчитує інструкції з адресового простору 0x40200000</text>
+  <text x="515" y="244" font-size="12" fill="#6b7280">• MMU підвантажує блоки по 64 KB у 32 KB кеш-пам'ять через SPI</text>
+  <text x="515" y="260" font-size="12" fill="#6b7280">• Дозволяє виконувати великі програми безпосередньо з Flash</text>
+
+  <!-- Right Bottom Container: DRAM & Heap Budget -->
+  <rect x="490" y="297" width="440" height="218" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <text x="505" y="319" font-size="13" font-weight="bold" fill="#27ae60">Розподіл DRAM та динаміка виділення Heap</text>
+
+  <!-- DRAM Allocation Bar -->
+  <rect x="505" y="332" width="125" height="32" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="567" y="352" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">.data/.bss (~25KB)</text>
+
+  <rect x="635" y="332" width="210" height="32" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="740" y="352" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Heap (Вільна купа ~48KB)</text>
+
+  <rect x="850" y="332" width="65" height="32" fill="#f4f6f8" stroke="#6b7280" rx="4"/>
+  <text x="882" y="352" font-size="12" font-weight="bold" text-anchor="middle" fill="#6b7280">Stack (~7K)</text>
+
+  <!-- Heap Consumers Box -->
+  <rect x="505" y="376" width="410" height="55" fill="#f4f6f8" stroke="#d0d7de" rx="5"/>
+  <text x="515" y="395" font-size="12" font-weight="bold" fill="#1a1a1a">Основні споживачі Heap:</text>
+  <text x="515" y="413" font-size="12" fill="#6b7280">• lwIP сокети/буфери PBUF (~10–20 KB)  • TLS/SSL контексти (~20–35 KB)</text>
+
+  <!-- Heap Alert Box -->
+  <rect x="505" y="443" width="410" height="60" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="5"/>
+  <text x="515" y="461" font-size="12" font-weight="bold" fill="#c0392b">⛔ Ризик вичерпання пам'яті та перезавантаження WDT:</text>
+  <text x="515" y="478" font-size="12" fill="#1a1a1a">Фрагментація Heap при частих викликах malloc/free призводить до</text>
+  <text x="515" y="493" font-size="12" fill="#c0392b">неможливості виділення суцільного блоку DRAM для TLS або lwIP</text>
+
+</svg>

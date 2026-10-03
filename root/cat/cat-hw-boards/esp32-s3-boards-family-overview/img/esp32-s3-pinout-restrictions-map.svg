@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Карта апаратних обмежень розпіновки ESP32-S3</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Для стабільності пристрою периферію підключають до безперешкодних GPIO, уникаючи Octal SPI, strapping та ADC2</text>
+
+  <!-- Legend Bar -->
+  <rect x="35" y="75" width="205" height="43" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="137" y="93" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Безперешкодні GPIO</text>
+  <text x="137" y="109" font-size="12" fill="#6b7280" text-anchor="middle">Вільні (ADC1, I2C, SPI)</text>
+
+  <rect x="260" y="75" width="205" height="43" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="362" y="93" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Octal SPI (GPIO33–37)</text>
+  <text x="362" y="109" font-size="12" fill="#6b7280" text-anchor="middle">Зарезервовано (Flash/PSRAM)</text>
+
+  <rect x="485" y="75" width="215" height="43" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="592" y="93" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Strapping (GPIO0,3,45,46)</text>
+  <text x="592" y="109" font-size="12" fill="#6b7280" text-anchor="middle">Режим завантаження SoC</text>
+
+  <rect x="720" y="75" width="205" height="43" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="822" y="93" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ADC2 (GPIO11–20)</text>
+  <text x="822" y="109" font-size="12" fill="#6b7280" text-anchor="middle">Конфлікт із Wi-Fi</text>
+
+  <!-- Zone 1: Safe GPIOs (Top Left Panel) -->
+  <rect x="35" y="138" width="305" height="190" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.8"/>
+  <text x="50" y="162" font-size="14" font-weight="bold" fill="#27ae60">Зона 1: Безперешкодні GPIO</text>
+  <rect x="50" y="174" width="275" height="26" rx="4" fill="#27ae60"/>
+  <text x="187" y="191" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">GPIO1–10, 19–21, 38–42, 47–48</text>
+  <text x="50" y="218" font-size="12" fill="#1a1a1a">• Повна апаратна незалежність</text>
+  <text x="50" y="236" font-size="12" fill="#6b7280">  Безпечні для будь-яких цифрових сигналів</text>
+  <text x="50" y="254" font-size="12" fill="#1a1a1a">• Сумісні з каналом ADC1</text>
+  <text x="50" y="272" font-size="12" fill="#6b7280">  Працюють без перешкод під час передачі Wi-Fi</text>
+  <text x="50" y="290" font-size="12" fill="#1a1a1a">• Рекомендовані для I2C, SPI, UART, PWM</text>
+  <rect x="50" y="300" width="185" height="22" rx="4" fill="#27ae60"/>
+  <text x="142" y="315" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">✓ ОСНОВНА БЕЗПЕЧНА ЗОНА</text>
+
+  <!-- Zone 2: Octal SPI (Bottom Left Panel) -->
+  <rect x="35" y="344" width="305" height="190" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+  <text x="50" y="368" font-size="14" font-weight="bold" fill="#c0392b">Зона 2: Octal SPI (OPI Reserved)</text>
+  <rect x="50" y="380" width="275" height="26" rx="4" fill="#c0392b"/>
+  <text x="187" y="397" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">GPIO33, GPIO34, GPIO35, GPIO36, GPIO37</text>
+  <text x="50" y="424" font-size="12" fill="#1a1a1a">• Лінії високошвидкісної шини OPI</text>
+  <text x="50" y="442" font-size="12" fill="#6b7280">  Використовуються для Octal Flash / PSRAM</text>
+  <text x="50" y="460" font-size="12" fill="#1a1a1a">• Зарезервовані у модулях N8R8 / N16R8</text>
+  <text x="50" y="478" font-size="12" fill="#6b7280">  Спроба підключення спричинить збій шини</text>
+  <text x="50" y="496" font-size="12" fill="#c0392b" font-weight="bold">• ⛔ НЕ використовувати для периферії</text>
+  <rect x="50" y="506" width="205" height="22" rx="4" fill="#c0392b"/>
+  <text x="152" y="521" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">✕ СУВОРЕ БЛОКУВАННЯ ШИНОЮ</text>
+
+  <!-- Center Panel: ESP32-S3 SoC / Module Core -->
+  <rect x="360" y="138" width="240" height="396" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="480" y="162" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP32-S3 SoC / Module</text>
+  <text x="480" y="178" font-size="12" fill="#6b7280" text-anchor="middle">Двоядерний Xtensa LX7 (240 MHz)</text>
+
+  <!-- Sub-block 1 inside Center -->
+  <rect x="375" y="195" width="210" height="68" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="480" y="215" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Матриця GPIO та ADC1</text>
+  <text x="480" y="232" font-size="12" fill="#1a1a1a" text-anchor="middle">Цифрові шини (I2C, SPI, UART)</text>
+  <text x="480" y="248" font-size="12" fill="#6b7280" text-anchor="middle">Аналогові канали ADC1_CH0–CH9</text>
+
+  <!-- Sub-block 2 inside Center -->
+  <rect x="375" y="278" width="210" height="68" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="480" y="298" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Контролер Octal SPI</text>
+  <text x="480" y="315" font-size="12" fill="#1a1a1a" text-anchor="middle">Шина OPI (Flash / PSRAM 8 MB)</text>
+  <text x="480" y="331" font-size="12" fill="#6b7280" text-anchor="middle">Лінії D4–D7, DQS, CLK (33–37)</text>
+
+  <!-- Sub-block 3 inside Center -->
+  <rect x="375" y="361" width="210" height="75" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="480" y="381" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Контролер завантаження</text>
+  <text x="480" y="398" font-size="12" fill="#1a1a1a" text-anchor="middle">Аналіз рівнів Strapping-пінів</text>
+  <text x="480" y="414" font-size="12" fill="#6b7280" text-anchor="middle">Вибір джерела Boot та VDD_SPI</text>
+  <text x="480" y="428" font-size="12" fill="#6b7280" text-anchor="middle">(GPIO0, GPIO3, GPIO45, GPIO46)</text>
+
+  <!-- Sub-block 4 inside Center -->
+  <rect x="375" y="451" width="210" height="68" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="480" y="471" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Радіомодуль Wi-Fi / BT</text>
+  <text x="480" y="488" font-size="12" fill="#1a1a1a" text-anchor="middle">Апаратний калориметр &amp; ADC2</text>
+  <text x="480" y="504" font-size="12" fill="#6b7280" text-anchor="middle">Блокує ADC2 під час Tx/Rx</text>
+
+  <!-- Zone 3: Strapping Pins (Top Right Panel) -->
+  <rect x="620" y="138" width="305" height="190" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+  <text x="635" y="162" font-size="14" font-weight="bold" fill="#c0392b">Зона 3: Strapping-виводи (Boot)</text>
+  <rect x="635" y="174" width="275" height="26" rx="4" fill="#c0392b"/>
+  <text x="772" y="191" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">GPIO0, GPIO3, GPIO45, GPIO46</text>
+  <text x="635" y="218" font-size="12" fill="#1a1a1a">• Контроль режиму завантаження</text>
+  <text x="635" y="236" font-size="12" fill="#6b7280">  Стан фіксується під час скидання (Reset)</text>
+  <text x="635" y="254" font-size="12" fill="#1a1a1a">• Задають напругу VDD_SPI та ROM-логіку</text>
+  <text x="635" y="272" font-size="12" fill="#6b7280">  Зовнішні резистори можуть зблокувати старт</text>
+  <text x="635" y="290" font-size="12" fill="#1a1a1a">• Після старту працюють як звичайні GPIO</text>
+  <rect x="635" y="300" width="205" height="22" rx="4" fill="#c0392b"/>
+  <text x="737" y="315" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">⚠️ ПОТРЕБУЮТЬ ОБЕРЕЖНОСТІ</text>
+
+  <!-- Zone 4: ADC2 / Wi-Fi Restriction (Bottom Right Panel) -->
+  <rect x="620" y="344" width="305" height="190" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="635" y="368" font-size="14" font-weight="bold" fill="#2457d6">Зона 4: Виводи ADC2 (Wi-Fi Conflict)</text>
+  <rect x="635" y="380" width="275" height="26" rx="4" fill="#2457d6"/>
+  <text x="772" y="397" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">GPIO11–GPIO20 (Канали ADC2_CH0–CH9)</text>
+  <text x="635" y="424" font-size="12" fill="#1a1a1a">• Цифровий I/O працює без обмежень</text>
+  <text x="635" y="442" font-size="12" fill="#6b7280">  Підходять для I2C, SPI, PWM, цифрових датчиків</text>
+  <text x="635" y="460" font-size="12" fill="#1a1a1a">• АЦП заблоковано при активному Wi-Fi</text>
+  <text x="635" y="478" font-size="12" fill="#6b7280">  Wi-Fi контролер використовує ADC2 при Tx/Rx</text>
+  <text x="635" y="496" font-size="12" fill="#2457d6" font-weight="bold">• Для аналогового зчитування беріть ADC1</text>
+  <rect x="635" y="506" width="215" height="22" rx="4" fill="#2457d6"/>
+  <text x="742" y="521" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">ℹ️ ЦИФРОВІ — OK / АНАЛОГ — ОБМЕЖЕНО</text>
+
+  <!-- Connection Paths & Flow Arrows -->
+  <path d="M375,229 L340,229" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+  <path d="M375,312 L350,312 L350,439 L340,439" stroke="#c0392b" stroke-width="2" fill="none" marker-end="url(#arr-red)"/>
+  <path d="M585,400 L600,400 L600,233 L620,233" stroke="#c0392b" stroke-width="2" fill="none" marker-end="url(#arr-red)"/>
+  <path d="M585,485 L605,485 L605,439 L620,439" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+</svg>

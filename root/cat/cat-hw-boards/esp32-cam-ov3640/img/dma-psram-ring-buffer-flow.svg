@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Переміщення даних кадру через DMA та кільцевий буфер в PSRAM</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Апаратний DMA зчитує DVP-потік OV3640 за дескрипторами в PSRAM без залучення CPU</text>
+
+  <!-- Панель 1: Сенсор OV3640 -->
+  <rect x="30" y="80" width="200" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="130" y="105" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Сенсор OV3640</text>
+  <text x="130" y="125" font-size="12" fill="#6b7280" text-anchor="middle">(2 МП / JPEG-потік)</text>
+
+  <!-- Блок матриці та кодера -->
+  <rect x="45" y="140" width="170" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="168" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Піксельна матриця</text>
+  <text x="130" y="190" font-size="12" fill="#1a1a1a" text-anchor="middle">та JPEG-кодер</text>
+  <text x="130" y="212" font-size="12" fill="#6b7280" text-anchor="middle">UXGA (1600×1200)</text>
+
+  <!-- Блок сигналів DVP -->
+  <rect x="45" y="245" width="170" height="235" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="130" y="270" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Паралельна шина DVP</text>
+  <text x="58" y="305" font-size="12" fill="#1a1a1a">• Data: D[0..7]</text>
+  <text x="58" y="338" font-size="12" fill="#1a1a1a">• PCLK (Тактування)</text>
+  <text x="58" y="371" font-size="12" fill="#1a1a1a">• VSYNC (Кадр)</text>
+  <text x="58" y="404" font-size="12" fill="#1a1a1a">• HREF (Рядок)</text>
+  <text x="130" y="455" font-size="12" fill="#6b7280" text-anchor="middle">Частота: до 20 МГц</text>
+
+  <!-- Стрілка між Сенсором та ESP32 -->
+  <path d="M 230 185 L 265 185" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="247" y="172" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">DVP</text>
+
+  <!-- Панель 2: Модуль ESP32 та DMA -->
+  <rect x="270" y="80" width="310" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="425" y="105" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Модуль ESP32 (DMA)</text>
+  <text x="425" y="125" font-size="12" fill="#6b7280" text-anchor="middle">(Апаратний інтерфейс I2S/CAM)</text>
+
+  <!-- RX FIFO -->
+  <rect x="285" y="140" width="280" height="60" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="425" y="165" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Апаратний RX FIFO</text>
+  <text x="425" y="185" font-size="12" fill="#6b7280" text-anchor="middle">Тимчасовий буфер входження байтів</text>
+
+  <!-- Стрілка від FIFO до дескрипторів -->
+  <path d="M 425 200 L 425 218" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Контейнер дескрипторів DMA -->
+  <rect x="285" y="222" width="280" height="258" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="425" y="244" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Дескриптори DMA (Linked List)</text>
+
+  <!-- Desc #0 -->
+  <rect x="295" y="256" width="260" height="52" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="305" y="275" font-size="12" font-weight="700" fill="#2457d6">Desc #0 [АКТИВНИЙ]:</text>
+  <text x="305" y="295" font-size="12" fill="#1a1a1a">buf: &amp;FB0_chunk0 | len: 4095 B</text>
+
+  <!-- Стрілка між Desc #0 та Desc #1 -->
+  <path d="M 425 308 L 425 320" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Desc #1 -->
+  <rect x="295" y="322" width="260" height="52" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="305" y="341" font-size="12" font-weight="700" fill="#1a1a1a">Desc #1 [ЧЕРГА]:</text>
+  <text x="305" y="361" font-size="12" fill="#6b7280">buf: &amp;FB0_chunk1 | len: 4095 B</text>
+
+  <!-- Стрілка між Desc #1 та Desc #N -->
+  <path d="M 425 374 L 425 386" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Desc #N -->
+  <rect x="295" y="388" width="260" height="52" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="305" y="407" font-size="12" font-weight="700" fill="#1a1a1a">Desc #N [EOF - Кінець кадру]:</text>
+  <text x="305" y="427" font-size="12" fill="#6b7280">EOF=1 ➔ Переривання VSYNC</text>
+
+  <!-- Текст уніфікованого кільця -->
+  <text x="425" y="464" font-size="12" fill="#6b7280" text-anchor="middle">Зациклений список в SRAM</text>
+
+  <!-- Стрілка між DMA та PSRAM -->
+  <path d="M 580 280 L 615 280" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+  <text x="597" y="265" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">DMA</text>
+  <text x="597" y="298" font-size="12" fill="#6b7280" text-anchor="middle">прямий</text>
+  <text x="597" y="314" font-size="12" fill="#6b7280" text-anchor="middle">запис</text>
+
+  <!-- Панель 3: PSRAM -->
+  <rect x="620" y="80" width="310" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="775" y="105" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Зовнішня PSRAM</text>
+  <text x="775" y="125" font-size="12" fill="#6b7280" text-anchor="middle">(Подвійна кадрова буферизація)</text>
+
+  <!-- FB0 -->
+  <rect x="635" y="140" width="280" height="150" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="648" y="165" font-size="13" font-weight="700" fill="#27ae60">Кадровий буфер #0 (FB0)</text>
+
+  <rect x="815" y="148" width="90" height="22" rx="3" fill="#27ae60"/>
+  <text x="860" y="163" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">DMA ЗАПИС</text>
+
+  <rect x="648" y="180" width="76" height="36" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="686" y="202" font-size="12" fill="#1a1a1a" text-anchor="middle">Чанк 0</text>
+
+  <rect x="732" y="180" width="76" height="36" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="770" y="202" font-size="12" fill="#1a1a1a" text-anchor="middle">Чанк 1</text>
+
+  <rect x="816" y="180" width="88" height="36" rx="3" fill="#ffffff" stroke="#27ae60" stroke-dasharray="3,3" stroke-width="1"/>
+  <text x="860" y="202" font-size="12" fill="#6b7280" text-anchor="middle">Чанк N...</text>
+
+  <text x="648" y="238" font-size="12" fill="#1a1a1a">• Прийом поточних блоків кадру</text>
+  <text x="648" y="260" font-size="12" fill="#6b7280">• Наповнюється без втручання CPU</text>
+  <text x="648" y="280" font-size="12" fill="#27ae60" font-weight="700">• Стан: Буфер заповнюється</text>
+
+  <!-- Перемикач між буферами -->
+  <text x="775" y="306" font-size="12" fill="#6b7280" text-anchor="middle">↕ Перемикання буферів по VSYNC</text>
+
+  <!-- FB1 -->
+  <rect x="635" y="320" width="280" height="160" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="648" y="345" font-size="13" font-weight="700" fill="#2457d6">Кадровий буфер #1 (FB1)</text>
+
+  <rect x="805" y="328" width="100" height="22" rx="3" fill="#2457d6"/>
+  <text x="855" y="343" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">CPU ЧИТАННЯ</text>
+
+  <text x="648" y="375" font-size="12" fill="#1a1a1a">• Готовий збережений кадр</text>
+  <text x="648" y="398" font-size="12" fill="#1a1a1a">• Передача: HTTP / Wi-Fi / SD</text>
+  <text x="648" y="421" font-size="12" fill="#2457d6" font-weight="700">• Стан: Обробка застосунком</text>
+  <text x="648" y="455" font-size="12" fill="#27ae60" font-weight="700">✔ Без артефактів та розривів</text>
+</svg>

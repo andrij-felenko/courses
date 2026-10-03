@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мажоритарна схема 2oo3 та вплив діагностичного покриття (DC) на PFHD</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Підвищення коефіцієнта DC зменшує частоту небезпечних відмов (PFHD) і підвищує рівень безпеки SIL</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Схема 2oo3 -->
+  <rect x="30" y="85" width="435" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мажоритарна архітектура 2oo3</text>
+  <text x="247" y="130" font-size="12" fill="#6b7280" text-anchor="middle">3 канали з міждіагностичним трикутником зв'язку</text>
+
+  <!-- Вхідні датчики -->
+  <rect x="55" y="145" width="235" height="26" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="172.5" y="162" font-size="12" fill="#1a1a1a" text-anchor="middle">Вхідні датчики (S1, S2, S3)</text>
+
+  <!-- Три канали -->
+  <rect x="55" y="195" width="105" height="45" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="107.5" y="222" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Канал A</text>
+
+  <rect x="55" y="405" width="105" height="45" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="107.5" y="432" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Канал B</text>
+
+  <rect x="185" y="300" width="105" height="45" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="237.5" y="327" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Канал C</text>
+
+  <!-- Стрілки від датчиків до каналів -->
+  <line x1="107.5" y1="171" x2="107.5" y2="195" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="237.5" y1="171" x2="237.5" y2="300" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 60,171 L 45,171 L 45,427.5 L 55,427.5" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Трикутник діагностичних зв'язків між каналами -->
+  <line x1="80" y1="240" x2="80" y2="405" stroke="#2457d6" stroke-width="2" stroke-dasharray="4 3"/>
+  <line x1="145" y1="240" x2="195" y2="300" stroke="#2457d6" stroke-width="2" stroke-dasharray="4 3"/>
+  <line x1="145" y1="405" x2="195" y2="345" stroke="#2457d6" stroke-width="2" stroke-dasharray="4 3"/>
+
+  <!-- Напис усередині трикутника -->
+  <text x="135" y="318" font-size="11" fill="#2457d6" text-anchor="middle">Міжканальний</text>
+  <text x="135" y="332" font-size="11" fill="#2457d6" text-anchor="middle">зв'язок (DC)</text>
+
+  <!-- Вузол голосування (Voter 2oo3) -->
+  <rect x="325" y="210" width="120" height="225" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="385" y="238" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Вузол голосування</text>
+  <text x="385" y="256" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">2oo3 Voter</text>
+  <line x1="340" y1="268" x2="430" y2="268" stroke="#27ae60" stroke-width="0.75" stroke-dasharray="2 2"/>
+  <text x="385" y="288" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Правило 2 з 3:</text>
+  <text x="385" y="306" font-size="11" fill="#6b7280" text-anchor="middle">Норма: ≥ 2 канали OK</text>
+  <text x="385" y="322" font-size="11" fill="#6b7280" text-anchor="middle">Відмова: 2 канали НОК</text>
+  <line x1="340" y1="334" x2="430" y2="334" stroke="#27ae60" stroke-width="0.75" stroke-dasharray="2 2"/>
+  <text x="385" y="356" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Безпечний стан</text>
+  <text x="385" y="374" font-size="11" fill="#1a1a1a" text-anchor="middle">Вихід (Output)</text>
+  <text x="385" y="415" font-size="11" fill="#6b7280" text-anchor="middle">T_proof = 1...5 років</text>
+
+  <!-- Стрілки від каналів до голосувача -->
+  <path d="M 160,217.5 L 305,217.5 L 305,235 L 325,235" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M 290,322.5 L 325,322.5" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M 160,427.5 L 305,427.5 L 305,400 L 325,400" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- ПРАВА ПАНЕЛЬ: Графік PFHD vs DC -->
+  <rect x="495" y="85" width="435" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712.5" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Залежність PFHD від коефіцієнта DC</text>
+  <text x="712.5" y="130" font-size="12" fill="#6b7280" text-anchor="middle">Логарифмічна шкала частоти небезпечних відмов</text>
+
+  <!-- Зони повноти безпеки (SIL) -->
+  <rect x="560" y="170" width="325" height="60" fill="#fdecea" opacity="0.7"/>
+  <text x="892" y="205" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="start">SIL 1</text>
+
+  <rect x="560" y="230" width="325" height="80" fill="#fff8e1" opacity="0.7"/>
+  <text x="892" y="275" font-size="11" font-weight="bold" fill="#d35400" text-anchor="start">SIL 2</text>
+
+  <rect x="560" y="310" width="325" height="120" fill="#e9f7ef" opacity="0.7"/>
+  <text x="892" y="375" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="start">SIL 3</text>
+
+  <!-- Горизонтальні лінії сітки (шкала Y) -->
+  <line x1="560" y1="170" x2="885" y2="170" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="560" y1="230" x2="885" y2="230" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="560" y1="310" x2="885" y2="310" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="560" y1="370" x2="885" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Позначки оси Y -->
+  <text x="552" y="174" font-size="11" fill="#6b7280" text-anchor="end">10⁻⁵</text>
+  <text x="552" y="234" font-size="11" fill="#6b7280" text-anchor="end">10⁻⁶</text>
+  <text x="552" y="314" font-size="11" fill="#6b7280" text-anchor="end">10⁻⁷</text>
+  <text x="552" y="374" font-size="11" fill="#6b7280" text-anchor="end">10⁻⁸</text>
+  <text x="552" y="434" font-size="11" fill="#6b7280" text-anchor="end">10⁻⁹</text>
+
+  <text x="555" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">PFHD [1/год]</text>
+
+  <!-- Вертикальні лінії сітки (шкала X) -->
+  <line x1="655" y1="170" x2="655" y2="430" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="765" y1="170" x2="765" y2="430" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="875" y1="170" x2="875" y2="430" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Позначки оси X -->
+  <text x="560" y="447" font-size="11" fill="#6b7280" text-anchor="middle">0%</text>
+  <text x="655" y="447" font-size="11" fill="#6b7280" text-anchor="middle">60%</text>
+  <text x="765" y="447" font-size="11" fill="#6b7280" text-anchor="middle">90%</text>
+  <text x="875" y="447" font-size="11" fill="#6b7280" text-anchor="middle">99%</text>
+
+  <text x="722.5" y="472" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Коефіцієнт діагностичного покриття (DC)</text>
+
+  <!-- Осі координат -->
+  <line x1="560" y1="430" x2="895" y2="430" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="560" y1="430" x2="560" y2="158" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Крива залежності PFHD від DC -->
+  <path d="M 560,195 C 610,230 635,250 655,270 C 695,310 730,335 765,350 C 810,370 850,395 875,410" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Точки даних на кривій -->
+  <circle cx="560" cy="195" r="5" fill="#c0392b" stroke="#ffffff" stroke-width="2"/>
+  <circle cx="655" cy="270" r="5" fill="#e67e22" stroke="#ffffff" stroke-width="2"/>
+  <circle cx="765" cy="350" r="5" fill="#27ae60" stroke="#ffffff" stroke-width="2"/>
+  <circle cx="875" cy="410" r="5" fill="#27ae60" stroke="#ffffff" stroke-width="2"/>
+
+  <!-- Підписи до точок -->
+  <text x="568" y="186" font-size="11" font-weight="bold" fill="#c0392b">Без DC (0%)</text>
+  <text x="655" y="258" font-size="11" fill="#d35400" text-anchor="middle">Низьке (60%)</text>
+  <text x="765" y="338" font-size="11" fill="#27ae60" text-anchor="middle">Середнє (90%)</text>
+  <text x="865" y="398" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="end">Високе (99%)</text>
+</svg>

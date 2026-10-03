@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема живлення 3.3 В та кола скидання (EN) для ESP32-S3</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Фільтрація завад VDD конденсаторами та RC-затримка EN для стабільного старту МК</text>
+
+  <!-- Left Card: Decoupling Filters -->
+  <rect x="25" y="78" width="225" height="382" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+  <rect x="37" y="90" width="201" height="28" fill="#eaf0fd" rx="4"/>
+  <text x="137" y="109" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Фільтрація VDD33</text>
+  
+  <text x="40" y="140" font-size="12" font-weight="bold" fill="#1a1a1a">C1 (10 µF) — Bulk-фільтр</text>
+  <text x="40" y="157" font-size="12" fill="#6b7280">• Керамічний низенькоімпедансний</text>
+  <text x="40" y="173" font-size="12" fill="#6b7280">• Гасить просідання напруги</text>
+  <text x="40" y="189" font-size="12" fill="#6b7280">  під час піків струму Wi-Fi</text>
+
+  <text x="40" y="219" font-size="12" font-weight="bold" fill="#1a1a1a">C2 (0.1 µF) — ВЧ-декуплинг</text>
+  <text x="40" y="236" font-size="12" fill="#6b7280">• Високочастотний фільтр</text>
+  <text x="40" y="252" font-size="12" fill="#6b7280">• Шунує ВЧ-перемикальні</text>
+  <text x="40" y="268" font-size="12" fill="#6b7280">  імпульси та шуми ядра</text>
+
+  <rect x="35" y="292" width="205" height="154" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="45" y="312" font-size="12" font-weight="bold" fill="#27ae60">Правило монтажу PCB:</text>
+  <text x="45" y="332" font-size="12" fill="#1a1a1a">1. C1 та C2 розміщують</text>
+  <text x="45" y="350" font-size="12" fill="#1a1a1a">   якомога ближче до VDD.</text>
+  <text x="45" y="368" font-size="12" fill="#1a1a1a">2. Доріжки мають бути</text>
+  <text x="45" y="386" font-size="12" fill="#1a1a1a">   короткими та широкими.</text>
+  <text x="45" y="404" font-size="12" fill="#1a1a1a">3. Прямий перехід на</text>
+  <text x="45" y="422" font-size="12" fill="#6b7280">   суцільну площину GND.</text>
+
+  <!-- Center Card: Schematic Diagram -->
+  <rect x="265" y="78" width="425" height="382" fill="#ffffff" stroke="#d0d7de" rx="8"/>
+  <rect x="277" y="90" width="401" height="28" fill="#eaf0fd" rx="4"/>
+  <text x="477" y="109" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Принципова схема підключення живлення та EN</text>
+
+  <!-- ESP32-S3 Module Block -->
+  <rect x="548" y="135" width="130" height="305" fill="#f4f6f8" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <text x="613" y="162" text-anchor="middle" font-size="15" font-weight="bold" fill="#2457d6">ESP32-S3</text>
+  <text x="613" y="180" text-anchor="middle" font-size="12" fill="#6b7280">(SoC / Модуль)</text>
+
+  <!-- ESP32-S3 Pins -->
+  <line x1="538" y1="210" x2="548" y2="210" stroke="#2457d6" stroke-width="2"/>
+  <text x="554" y="214" font-size="12" font-weight="bold" fill="#1a1a1a">VDD33</text>
+
+  <line x1="538" y1="310" x2="548" y2="310" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="554" y="314" font-size="12" font-weight="bold" fill="#1a1a1a">EN</text>
+  <text x="554" y="328" font-size="11" fill="#6b7280">(CHIP_PU)</text>
+
+  <line x1="538" y1="400" x2="548" y2="400" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="554" y="404" font-size="12" fill="#6b7280">GND</text>
+
+  <!-- Power Rail (+3.3V) -->
+  <circle cx="285" cy="210" r="4" fill="#2457d6"/>
+  <text x="285" y="192" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">+3.3V</text>
+  <line x1="285" y1="210" x2="538" y2="210" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- GND Rail & Common GND Symbol -->
+  <line x1="325" y1="400" x2="538" y2="400" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="395" y1="400" x2="395" y2="412" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="385" y1="412" x2="405" y2="412" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="389" y1="416" x2="401" y2="416" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="393" y1="420" x2="397" y2="420" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="395" y="434" text-anchor="middle" font-size="12" fill="#6b7280">GND</text>
+
+  <!-- Branch 1: C1 Bulk Capacitor -->
+  <line x1="325" y1="210" x2="325" y2="249" stroke="#2457d6" stroke-width="2"/>
+  <line x1="313" y1="249" x2="337" y2="249" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="313" y1="261" x2="337" y2="261" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="325" y1="261" x2="325" y2="400" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="325" cy="210" r="3" fill="#2457d6"/>
+  <circle cx="325" cy="400" r="3" fill="#1a1a1a"/>
+  <text x="306" y="250" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">C1</text>
+  <text x="306" y="264" text-anchor="end" font-size="12" fill="#6b7280">10 µF</text>
+
+  <!-- Branch 2: C2 HF Capacitor -->
+  <line x1="380" y1="210" x2="380" y2="249" stroke="#2457d6" stroke-width="2"/>
+  <line x1="368" y1="249" x2="392" y2="249" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="368" y1="261" x2="392" y2="261" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="380" y1="261" x2="380" y2="400" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="380" cy="210" r="3" fill="#2457d6"/>
+  <circle cx="380" cy="400" r="3" fill="#1a1a1a"/>
+  <text x="398" y="250" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">C2</text>
+  <text x="398" y="264" text-anchor="start" font-size="12" fill="#6b7280">0.1 µF</text>
+
+  <!-- Branch 3: R_EN Pull-up Resistor -->
+  <line x1="435" y1="210" x2="435" y2="243" stroke="#2457d6" stroke-width="2"/>
+  <rect x="428" y="243" width="14" height="24" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+  <line x1="435" y1="267" x2="435" y2="310" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="435" cy="210" r="3" fill="#2457d6"/>
+  <text x="448" y="250" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">R_EN</text>
+  <text x="448" y="264" text-anchor="start" font-size="12" fill="#6b7280">10 kΩ</text>
+
+  <!-- EN Node & C_EN Capacitor -->
+  <circle cx="435" cy="310" r="3.5" fill="#1a1a1a"/>
+  <line x1="435" y1="310" x2="538" y2="310" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="435" y1="310" x2="435" y2="344" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="423" y1="344" x2="447" y2="344" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="423" y1="356" x2="447" y2="356" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="435" y1="356" x2="435" y2="400" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="435" cy="400" r="3" fill="#1a1a1a"/>
+  <text x="450" y="346" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">C_EN</text>
+  <text x="450" y="360" text-anchor="start" font-size="12" fill="#6b7280">1 µF</text>
+
+  <!-- Branch 4: Reset Button SW1 -->
+  <circle cx="490" cy="310" r="3" fill="#1a1a1a"/>
+  <line x1="490" y1="310" x2="490" y2="345" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="490" cy="347" r="2.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="490" cy="369" r="2.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="487" y1="367" x2="478" y2="350" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="475" y1="358" x2="467" y2="358" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="467" y1="352" x2="467" y2="364" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="490" y1="371.5" x2="490" y2="400" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="490" cy="400" r="3" fill="#1a1a1a"/>
+  <text x="500" y="352" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">SW1</text>
+  <text x="500" y="367" text-anchor="start" font-size="11" fill="#6b7280">RESET</text>
+
+  <!-- Right Card: RC Delay Analysis & Diagram -->
+  <rect x="705" y="78" width="230" height="382" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+  <rect x="717" y="90" width="206" height="28" fill="#eaf0fd" rx="4"/>
+  <text x="820" y="109" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Аналіз затримки EN</text>
+
+  <!-- Formula Box -->
+  <rect x="717" y="126" width="206" height="66" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="727" y="144" font-size="12" font-weight="bold" fill="#1a1a1a">Стала часу RC-кола:</text>
+  <text x="727" y="162" font-size="12" font-weight="bold" fill="#2457d6">τ = R_EN × C_EN</text>
+  <text x="727" y="180" font-size="12" fill="#6b7280">τ = 10 kΩ × 1 µF = 10 ms</text>
+
+  <!-- Mini Timing Chart -->
+  <rect x="717" y="200" width="206" height="96" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <!-- Axes -->
+  <line x1="732" y1="276" x2="910" y2="276" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="732" y1="212" x2="732" y2="276" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="912" y="280" font-size="11" fill="#6b7280">t</text>
+  <text x="722" y="210" font-size="11" fill="#6b7280">V</text>
+
+  <!-- VDD Curve (Blue step) -->
+  <path d="M 732 276 L 746 276 L 752 222 L 905 222" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="758" y="218" font-size="11" font-weight="bold" fill="#2457d6">VDD (3.3V)</text>
+
+  <!-- EN Curve (Green exponential) -->
+  <path d="M 732 276 L 746 276 Q 780 270, 905 228" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="825" y="262" font-size="11" font-weight="bold" fill="#27ae60">EN (CHIP_PU)</text>
+
+  <!-- Threshold line -->
+  <line x1="732" y1="238" x2="905" y2="238" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="795" y="234" font-size="11" fill="#c0392b">V_IH (0.75×VDD)</text>
+
+  <!-- Risk Warning Box -->
+  <rect x="717" y="304" width="206" height="142" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="6"/>
+  <text x="727" y="324" font-size="12" font-weight="bold" fill="#c0392b">Ризик без RC-затримки:</text>
+  <text x="727" y="344" font-size="12" fill="#1a1a1a">Якщо EN зростає синхронно</text>
+  <text x="727" y="362" font-size="12" fill="#1a1a1a">з VDD, МК стартує при</text>
+  <text x="727" y="380" font-size="12" fill="#1a1a1a">нестабільному живленні,</text>
+  <text x="727" y="398" font-size="12" fill="#1a1a1a">що спричиняє циклічний</text>
+  <text x="727" y="416" font-size="12" fill="#c0392b">перезапуск (boot loop)!</text>
+</svg>

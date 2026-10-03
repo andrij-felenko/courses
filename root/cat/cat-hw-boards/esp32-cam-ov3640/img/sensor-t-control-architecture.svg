@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Архітектура керування сенсором OV3640 через об'єкт sensor_t</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Методи sensor_t транслюють виклики API у регістрові команди SCCB для налаштування матриці</text>
+
+  <!-- Панель 1: Програмний API -->
+  <rect x="35" y="90" width="200" height="370" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="135" y="115" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">Програмний API</text>
+  <text x="135" y="133" text-anchor="middle" font-size="12" fill="#6b7280">(ESP-IDF / Arduino)</text>
+
+  <rect x="45" y="150" width="180" height="80" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="55" y="170" font-size="12" font-weight="700" fill="#2457d6">Керування витримкою:</text>
+  <text x="55" y="190" font-size="12" fill="#1a1a1a">s-&gt;set_exposure_ctrl()</text>
+  <text x="55" y="210" font-size="12" fill="#1a1a1a">s-&gt;set_aec_value()</text>
+
+  <rect x="45" y="245" width="180" height="80" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="55" y="265" font-size="12" font-weight="700" fill="#2457d6">Керування підсиленням:</text>
+  <text x="55" y="285" font-size="12" fill="#1a1a1a">s-&gt;set_gain_ctrl()</text>
+  <text x="55" y="305" font-size="12" fill="#1a1a1a">s-&gt;set_gainceiling()</text>
+
+  <rect x="45" y="340" width="180" height="100" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="55" y="360" font-size="12" font-weight="700" fill="#2457d6">Геоперетворення:</text>
+  <text x="55" y="380" font-size="12" fill="#1a1a1a">s-&gt;set_hmirror()</text>
+  <text x="55" y="400" font-size="12" fill="#1a1a1a">s-&gt;set_vflip()</text>
+  <text x="55" y="420" font-size="12" fill="#1a1a1a">s-&gt;set_framesize()</text>
+
+  <!-- Зв'язки 1 -> 2 -->
+  <line x1="225" y1="190" x2="270" y2="190" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="225" y1="285" x2="270" y2="285" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="225" y1="390" x2="270" y2="390" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Панель 2: Структура sensor_t -->
+  <rect x="265" y="90" width="260" height="370" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="395" y="115" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">Структура sensor_t</text>
+  <text x="395" y="133" text-anchor="middle" font-size="12" fill="#6b7280">(Методи драйвера esp_camera)</text>
+
+  <rect x="275" y="150" width="240" height="80" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="285" y="170" font-size="12" font-weight="700" fill="#1a1a1a">Вказівники AEC / Exposure:</text>
+  <text x="285" y="190" font-size="12" fill="#6b7280">(*set_exposure_ctrl)()</text>
+  <text x="285" y="210" font-size="12" fill="#6b7280">(*set_aec_value)()</text>
+
+  <rect x="275" y="245" width="240" height="80" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="285" y="265" font-size="12" font-weight="700" fill="#1a1a1a">Вказівники AGC / Gain:</text>
+  <text x="285" y="285" font-size="12" fill="#6b7280">(*set_gain_ctrl)()</text>
+  <text x="285" y="305" font-size="12" fill="#6b7280">(*set_gainceiling)()</text>
+
+  <rect x="275" y="340" width="240" height="100" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="285" y="360" font-size="12" font-weight="700" fill="#1a1a1a">Вказівники кадрування:</text>
+  <text x="285" y="380" font-size="12" fill="#6b7280">(*set_hmirror)()</text>
+  <text x="285" y="400" font-size="12" fill="#6b7280">(*set_vflip)()</text>
+  <text x="285" y="420" font-size="12" fill="#6b7280">(*set_framesize)()</text>
+
+  <!-- Зв'язки 2 -> 3 -->
+  <line x1="515" y1="190" x2="560" y2="190" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="515" y1="285" x2="560" y2="285" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="515" y1="390" x2="560" y2="390" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Панель 3: Шина SCCB -->
+  <rect x="555" y="90" width="130" height="370" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="620" y="115" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">Шина SCCB</text>
+  <text x="620" y="133" text-anchor="middle" font-size="12" fill="#6b7280">(I2C протокол)</text>
+
+  <rect x="565" y="150" width="110" height="80" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="620" y="180" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Запис SCCB</text>
+  <text x="620" y="200" text-anchor="middle" font-size="12" fill="#1a1a1a">Reg 0x3500..</text>
+
+  <rect x="565" y="245" width="110" height="80" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="620" y="275" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Запис SCCB</text>
+  <text x="620" y="295" text-anchor="middle" font-size="12" fill="#1a1a1a">Reg 0x3000..</text>
+
+  <rect x="565" y="340" width="110" height="100" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="620" y="380" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Запис SCCB</text>
+  <text x="620" y="400" text-anchor="middle" font-size="12" fill="#1a1a1a">Reg 0x3800..</text>
+
+  <!-- Зв'язки 3 -> 4 -->
+  <line x1="675" y1="190" x2="720" y2="190" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="675" y1="285" x2="720" y2="285" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="675" y1="390" x2="720" y2="390" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Панель 4: Сенсор OV3640 -->
+  <rect x="715" y="90" width="210" height="370" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="820" y="115" text-anchor="middle" font-size="14" font-weight="700" fill="#27ae60">Сенсор OV3640</text>
+  <text x="820" y="133" text-anchor="middle" font-size="12" fill="#6b7280">(Апаратні блоки)</text>
+
+  <rect x="725" y="150" width="190" height="80" fill="white" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="735" y="172" font-size="12" font-weight="700" fill="#1a1a1a">Контролер витримки:</text>
+  <text x="735" y="192" font-size="12" fill="#6b7280">Регулювання експозиції</text>
+  <text x="735" y="212" font-size="12" fill="#6b7280">піксельної матриці</text>
+
+  <rect x="725" y="245" width="190" height="80" fill="white" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="735" y="267" font-size="12" font-weight="700" fill="#1a1a1a">Підсилювач (AGC / AFE):</text>
+  <text x="735" y="287" font-size="12" fill="#6b7280">Налаштування коефіцієнта</text>
+  <text x="735" y="307" font-size="12" fill="#6b7280">підсилення сигналу</text>
+
+  <rect x="725" y="340" width="190" height="100" fill="white" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="735" y="362" font-size="12" font-weight="700" fill="#1a1a1a">Процесор ISP / DVP:</text>
+  <text x="735" y="382" font-size="12" fill="#6b7280">Дзеркалювання (Mirror/Flip),</text>
+  <text x="735" y="402" font-size="12" fill="#6b7280">масштабування та вибір</text>
+  <text x="735" y="422" font-size="12" fill="#6b7280">роздільності (VGA, UXGA)</text>
+
+  <!-- Нижня підсумкова плашка -->
+  <rect x="35" y="472" width="890" height="32" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="480" y="492" text-anchor="middle" font-size="12" fill="#1a1a1a"><tspan font-weight="700" fill="#2457d6">Потік керування:</tspan> Виклик методу sensor_t → Формування команди esp_camera → Запис по SCCB → Апаратне застосування в OV3640</text>
+</svg>

@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Markers Definition -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Скінченний автомат (FSM) потокового UART-парсера ESP-01</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Відокремлення текстових відповідей AT-команд від бінарного payload пакета +IPD</text>
+
+  <!-- Reset / Entry Point -->
+  <path d="M 20,252.5 L 60,252.5" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="30" y="244" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Reset</text>
+
+  <!-- State 1: IDLE / SEARCH -->
+  <rect x="60" y="200" width="170" height="105" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <text x="145" y="225" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">IDLE / SEARCH</text>
+  <text x="145" y="245" font-size="12" fill="#6b7280" text-anchor="middle">Очікування даних</text>
+  <text x="145" y="267" font-size="12" fill="#1a1a1a" text-anchor="middle">Посимвольне читання</text>
+  <text x="145" y="284" font-size="12" fill="#1a1a1a" text-anchor="middle">з FIFO UART</text>
+
+  <!-- State 2: ACCUMULATE_LINE -->
+  <rect x="310" y="95" width="210" height="105" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="415" y="120" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ACCUMULATE_LINE</text>
+  <text x="415" y="140" font-size="12" fill="#6b7280" text-anchor="middle">Накопичення ASCII-рядка</text>
+  <text x="415" y="162" font-size="12" fill="#1a1a1a" text-anchor="middle">Буферизація відповідей</text>
+  <text x="415" y="179" font-size="12" fill="#1a1a1a" text-anchor="middle">до термінатора '\r\n'</text>
+
+  <!-- State 3: PARSE_IPD_HEADER -->
+  <rect x="670" y="95" width="230" height="105" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="785" y="120" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">PARSE_IPD_HEADER</text>
+  <text x="785" y="140" font-size="12" fill="#6b7280" text-anchor="middle">Декодування +IPD,&lt;id&gt;,&lt;len&gt;:</text>
+  <text x="785" y="162" font-size="12" fill="#1a1a1a" text-anchor="middle">Виділення ID та довжини N</text>
+  <text x="785" y="179" font-size="12" fill="#1a1a1a" text-anchor="middle">Скидання rx_cnt = 0</text>
+
+  <!-- State 4: READ_PAYLOAD -->
+  <rect x="670" y="305" width="230" height="105" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="785" y="330" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">READ_PAYLOAD</text>
+  <text x="785" y="350" font-size="12" fill="#6b7280" text-anchor="middle">Потоковий бінарний доступ</text>
+  <text x="785" y="372" font-size="12" fill="#1a1a1a" text-anchor="middle">Зчитування N байт у буфер</text>
+  <text x="785" y="389" font-size="12" fill="#1a1a1a" text-anchor="middle">Ігнорування '\r' та '\n'</text>
+
+  <!-- State 5: PROCESS_EVENT -->
+  <rect x="310" y="305" width="210" height="105" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="415" y="330" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">PROCESS_EVENT</text>
+  <text x="415" y="350" font-size="12" fill="#6b7280" text-anchor="middle">Диспетчеризація події</text>
+  <text x="415" y="372" font-size="12" fill="#1a1a1a" text-anchor="middle">Передача даних сокету</text>
+  <text x="415" y="389" font-size="12" fill="#1a1a1a" text-anchor="middle">або обробка OK / ERROR</text>
+
+  <!-- Transitions -->
+  <!-- 1. IDLE -> ACCUMULATE_LINE -->
+  <path d="M 145,200 L 145,147.5 L 310,147.5" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="227" y="136" font-size="12" fill="#1a1a1a" text-anchor="middle">Перший символ ASCII</text>
+
+  <!-- 2. ACCUMULATE_LINE Self Loop -->
+  <path d="M 370,95 C 370,68 460,68 460,95" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="415" y="62" font-size="12" fill="#6b7280" text-anchor="middle">Символ != '\r' &amp; '\n'</text>
+
+  <!-- 3. ACCUMULATE_LINE -> PARSE_IPD_HEADER -->
+  <path d="M 520,147.5 L 670,147.5" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="595" y="136" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Префікс "+IPD,"</text>
+
+  <!-- 4. PARSE_IPD_HEADER -> READ_PAYLOAD -->
+  <path d="M 785,200 L 785,305" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="797" y="243" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Символ ':'</text>
+  <text x="797" y="260" font-size="12" fill="#6b7280" text-anchor="start">len = N</text>
+
+  <!-- 5. READ_PAYLOAD Self Loop -->
+  <path d="M 730,410 C 730,434 790,434 790,410" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="760" y="432" font-size="11" fill="#27ae60" text-anchor="middle">rx_cnt &lt; N</text>
+
+  <!-- 6. READ_PAYLOAD -> PROCESS_EVENT -->
+  <path d="M 670,357.5 L 520,357.5" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="595" y="346" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">rx_cnt == N</text>
+
+  <!-- 7. ACCUMULATE_LINE -> PROCESS_EVENT -->
+  <path d="M 415,200 L 415,305" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="405" y="243" font-size="12" fill="#1a1a1a" text-anchor="end">Термінатор '\r\n'</text>
+  <text x="405" y="260" font-size="11" fill="#6b7280" text-anchor="end">("OK", "ERROR")</text>
+
+  <!-- 8. PROCESS_EVENT -> IDLE -->
+  <path d="M 310,357.5 L 145,357.5 L 145,305" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="227" y="346" font-size="12" fill="#6b7280" text-anchor="middle">Обробку завершено</text>
+
+  <!-- 9. Timeout / Error Handling Transition (READ_PAYLOAD -> IDLE) -->
+  <path d="M 850,410 L 850,444 L 95,444 L 95,305" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-red)"/>
+  <text x="472" y="437" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Таймаут очікування байта UART (аварійне скидання в IDLE)</text>
+
+  <!-- Legend Panel -->
+  <rect x="60" y="455" width="840" height="35" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="80" y="466" width="12" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="98" y="476" font-size="12" fill="#1a1a1a">Детекція +IPD</text>
+
+  <rect x="240" y="466" width="12" height="12" rx="2" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="258" y="476" font-size="12" fill="#1a1a1a">Бінарний payload (без пошуку '\r\n')</text>
+
+  <line x1="560" y1="472" x2="580" y2="472" stroke="#c0392b" stroke-dasharray="4 3" stroke-width="1.5"/>
+  <text x="586" y="476" font-size="12" fill="#1a1a1a">Контроль таймаутів та скидання</text>
+</svg>

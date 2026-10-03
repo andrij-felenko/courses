@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Маршрутизація сигналів в ESP32-S3: IO MUX та GPIO Matrix</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Швидкісні й аналогові блоки йдуть напряму через IO MUX, а цифрові — через гнучку GPIO Matrix</text>
+
+  <!-- COLUMN 1: Peripherals Panel -->
+  <rect x="30" y="75" width="210" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="135" y="97" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Периферійні блоки</text>
+
+  <!-- 1A: Direct / High-speed & Analog -->
+  <rect x="42" y="110" width="186" height="145" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="135" y="130" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Прямий маршрут (IO MUX)</text>
+  <text x="52" y="152" font-size="12" fill="#1a1a1a">• USB OTG / Serial JTAG</text>
+  <text x="52" y="172" font-size="12" fill="#1a1a1a">• High-Speed SPI (Flash/PSRAM)</text>
+  <text x="52" y="192" font-size="12" fill="#1a1a1a">• Аналогові ADC1 / ADC2</text>
+  <text x="52" y="212" font-size="12" fill="#1a1a1a">• RTC GPIOs / Touch Sensors</text>
+  <text x="135" y="238" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Обходить GPIO Matrix</text>
+
+  <!-- 1B: General Digital -->
+  <rect x="42" y="270" width="186" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="135" y="290" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Цифрова периферія</text>
+  <text x="52" y="312" font-size="12" fill="#1a1a1a">• UART0 / UART1 / UART2</text>
+  <text x="52" y="332" font-size="12" fill="#1a1a1a">• I2C, SPI2 / SPI3, I2S</text>
+  <text x="52" y="352" font-size="12" fill="#1a1a1a">• LEDC (PWM), TWAI (CAN)</text>
+  <text x="52" y="372" font-size="12" fill="#1a1a1a">• RMT, General Timers</text>
+  <text x="135" y="402" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Комутація через Matrix</text>
+
+
+  <!-- COLUMN 2: GPIO Matrix Panel -->
+  <rect x="290" y="75" width="220" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="400" y="97" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">GPIO Matrix</text>
+
+  <!-- 2A: Bypass Zone -->
+  <rect x="302" y="110" width="196" height="65" rx="6" fill="#ffffff" stroke="#2457d6" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <text x="400" y="133" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Байпас матриці (Bypass)</text>
+  <text x="400" y="155" font-size="12" text-anchor="middle" fill="#6b7280">Пряма передача без затримок</text>
+
+  <!-- 2B: Matrix Grid Zone -->
+  <rect x="302" y="190" width="196" height="230" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="400" y="212" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Матриця перекросування</text>
+
+  <!-- Schematic Crossbar Grid inside Matrix -->
+  <!-- Horizontal Signal Lines -->
+  <line x1="315" y1="240" x2="485" y2="240" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="315" y1="270" x2="485" y2="270" stroke="#27ae60" stroke-width="2"/>
+  <line x1="315" y1="300" x2="485" y2="300" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Vertical Routing Lines -->
+  <line x1="360" y1="230" x2="360" y2="320" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="400" y1="230" x2="400" y2="320" stroke="#27ae60" stroke-width="2"/>
+  <line x1="440" y1="230" x2="440" y2="320" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Crosspoint Junction Dots -->
+  <circle cx="360" cy="240" r="4" fill="#9ca3af"/>
+  <circle cx="400" cy="270" r="5" fill="#27ae60"/>
+  <circle cx="440" cy="300" r="4" fill="#9ca3af"/>
+
+  <text x="400" y="348" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Програмна комутація</text>
+  <text x="400" y="370" font-size="12" text-anchor="middle" fill="#6b7280">Будь-який сигнал ➔ будь-який пин</text>
+  <text x="400" y="392" font-size="12" text-anchor="middle" fill="#27ae60">Затримка: ~1 такт (12.5 нс)</text>
+
+
+  <!-- COLUMN 3: IO MUX Panel -->
+  <rect x="560" y="75" width="160" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="640" y="97" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Блок IO MUX</text>
+
+  <!-- MUX Selector 1 (High Speed / Analog) -->
+  <rect x="572" y="110" width="136" height="145" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="640" y="130" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Мультиплексор 1</text>
+  <text x="640" y="152" font-size="12" text-anchor="middle" fill="#1a1a1a">Режим MCU_SEL</text>
+  <text x="582" y="175" font-size="12" fill="#2457d6">• Прямий аналог/USB</text>
+  <text x="582" y="197" font-size="12" fill="#6b7280">• Канал GPIO Matrix</text>
+  <text x="640" y="224" font-size="12" text-anchor="middle" fill="#6b7280">Пряме підключення</text>
+
+  <!-- MUX Selector 2 (General Digital) -->
+  <rect x="572" y="270" width="136" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="640" y="290" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Мультиплексор 2</text>
+  <text x="640" y="312" font-size="12" text-anchor="middle" fill="#1a1a1a">Налаштування виводів</text>
+  <text x="582" y="335" font-size="12" fill="#27ae60">• Вихід з Matrix</text>
+  <text x="582" y="357" font-size="12" fill="#1a1a1a">• Pull-up / Pull-down</text>
+  <text x="640" y="385" font-size="12" text-anchor="middle" fill="#6b7280">Керування струмом</text>
+  <text x="640" y="405" font-size="12" text-anchor="middle" fill="#6b7280">(Drive Strength)</text>
+
+
+  <!-- COLUMN 4: Physical Pins Panel -->
+  <rect x="770" y="75" width="160" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="850" y="97" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Фізичні пади IC</text>
+
+  <!-- Pad 1: USB / High-Speed -->
+  <rect x="782" y="110" width="136" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="850" y="132" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">GPIO19 / GPIO20</text>
+  <text x="850" y="152" font-size="12" text-anchor="middle" fill="#1a1a1a">USB D- / D+ (OTG)</text>
+  <text x="850" y="172" font-size="12" text-anchor="middle" fill="#6b7280">Прямий USB PHY</text>
+
+  <!-- Pad 2: Strapping & ADC2 -->
+  <rect x="782" y="195" width="136" height="65" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="850" y="217" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">GPIO0 / GPIO45</text>
+  <text x="850" y="237" font-size="12" text-anchor="middle" fill="#1a1a1a">Strapping / ADC2</text>
+  <text x="850" y="252" font-size="12" text-anchor="middle" fill="#c0392b">(Wi-Fi обмеження)</text>
+
+  <!-- Pad 3: General GPIO -->
+  <rect x="782" y="270" width="136" height="150" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="850" y="292" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">GPIO1 ... GPIO48</text>
+  <text x="850" y="315" font-size="12" text-anchor="middle" fill="#1a1a1a">Цифрові виводи</text>
+  <text x="850" y="337" font-size="12" text-anchor="middle" fill="#1a1a1a">UART, SPI, I2C,</text>
+  <text x="850" y="357" font-size="12" text-anchor="middle" fill="#1a1a1a">PWM, TWAI, I2S</text>
+  <text x="850" y="385" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Гнучка перекомутація</text>
+
+
+  <!-- ROUTING LINES AND ARROWS -->
+
+  <!-- Top Blue Path: High Speed / USB / Analog -->
+  <!-- Col 1 to Col 2 Bypass -->
+  <line x1="228" y1="140" x2="302" y2="140" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <!-- Col 2 Bypass to Col 3 MUX 1 -->
+  <line x1="498" y1="140" x2="572" y2="140" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <!-- Col 3 MUX 1 to Col 4 Pad 1 -->
+  <line x1="708" y1="140" x2="782" y2="140" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Red Path: Strapping / ADC2 Line -->
+  <!-- From Col 1 Analog (y=210) to MUX 1 (y=225) to Pad 2 (y=225) -->
+  <path d="M 228,210 L 260,210 L 260,225 L 572,225" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <line x1="708" y1="225" x2="782" y2="225" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+  <!-- Bottom Green Path: General Digital Matrix Routing -->
+  <!-- Col 1 Digital to Col 2 Matrix -->
+  <line x1="228" y1="340" x2="302" y2="340" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <!-- Col 2 Matrix to Col 3 MUX 2 -->
+  <line x1="498" y1="340" x2="572" y2="340" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <!-- Col 3 MUX 2 to Col 4 Pad 3 -->
+  <line x1="708" y1="340" x2="782" y2="340" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+</svg>

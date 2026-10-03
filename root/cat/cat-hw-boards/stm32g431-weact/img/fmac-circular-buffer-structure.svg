@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структура циклічних буферів FMAC у STM32G4</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Апаратні буфери X1, X2, Y з вказівниками зсуву реалізують КІХ-фільтрацію без зсуву масивів у пам'яті</text>
+
+  <!-- Панель 1: Вхідний циклічний буфер X1 -->
+  <rect x="30" y="80" width="285" height="270" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="173" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Буфер входу X1 (циклічний)</text>
+  <text x="173" y="123" font-size="12" fill="#6b7280" text-anchor="middle">Вхідні відліки сигналів x[n]</text>
+  <text x="173" y="141" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">X1_START | X1_BUF_SIZE</text>
+
+  <!-- Осередки пам'яті X1 -->
+  <rect x="98" y="155" width="150" height="28" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="173" y="173" font-size="12" fill="#1a1a1a" text-anchor="middle">x[n-3]</text>
+
+  <rect x="98" y="187" width="150" height="28" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="173" y="205" font-size="12" fill="#1a1a1a" text-anchor="middle">x[n-2]</text>
+
+  <rect x="98" y="219" width="150" height="28" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="173" y="237" font-size="12" fill="#1a1a1a" text-anchor="middle">x[n-1]</text>
+
+  <rect x="98" y="251" width="150" height="28" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="4"/>
+  <text x="173" y="269" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">x[n] (активний відлік)</text>
+
+  <rect x="98" y="283" width="150" height="28" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="173" y="301" font-size="12" fill="#6b7280" text-anchor="middle">x[n-4] (найстаріший)</text>
+
+  <text x="173" y="333" font-size="12" fill="#6b7280" text-anchor="middle">авто-перехід за модулем BUF_SIZE</text>
+
+  <!-- Вказівник X1_OFFSET -->
+  <line x1="302" y1="265" x2="251" y2="265" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="300" y="252" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">X1_OFFSET</text>
+
+  <!-- Панель 2: Буфер коефіцієнтів X2 -->
+  <rect x="337" y="80" width="285" height="270" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Буфер коефіцієнтів X2</text>
+  <text x="480" y="123" font-size="12" fill="#6b7280" text-anchor="middle">Коефіцієнти КІХ-фільтра b[k]</text>
+  <text x="480" y="141" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">X2_START | X2_BUF_SIZE = N</text>
+
+  <!-- Осередки пам'яті X2 -->
+  <rect x="405" y="155" width="150" height="28" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="480" y="173" font-size="12" fill="#1a1a1a" text-anchor="middle">b[0]</text>
+
+  <rect x="405" y="187" width="150" height="28" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="480" y="205" font-size="12" fill="#1a1a1a" text-anchor="middle">b[1]</text>
+
+  <rect x="405" y="219" width="150" height="28" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="480" y="237" font-size="12" fill="#1a1a1a" text-anchor="middle">b[2]</text>
+
+  <rect x="405" y="251" width="150" height="28" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="4"/>
+  <text x="480" y="269" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">b[k] (поточний)</text>
+
+  <rect x="405" y="283" width="150" height="28" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="480" y="301" font-size="12" fill="#6b7280" text-anchor="middle">b[N-1]</text>
+
+  <text x="480" y="333" font-size="12" fill="#6b7280" text-anchor="middle">Фіксовані коефіцієнти в Q1.15</text>
+
+  <!-- Панель 3: Вихідний циклічний буфер Y -->
+  <rect x="645" y="80" width="285" height="270" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="788" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Буфер виходу Y (циклічний)</text>
+  <text x="788" y="123" font-size="12" fill="#6b7280" text-anchor="middle">Обчислені результати y[n]</text>
+  <text x="788" y="141" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Y_START | Y_BUF_SIZE</text>
+
+  <!-- Осередки пам'яті Y -->
+  <rect x="713" y="155" width="150" height="28" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="788" y="173" font-size="12" fill="#1a1a1a" text-anchor="middle">y[n-3]</text>
+
+  <rect x="713" y="187" width="150" height="28" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="788" y="205" font-size="12" fill="#1a1a1a" text-anchor="middle">y[n-2]</text>
+
+  <rect x="713" y="219" width="150" height="28" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="788" y="237" font-size="12" fill="#1a1a1a" text-anchor="middle">y[n-1]</text>
+
+  <rect x="713" y="251" width="150" height="28" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="4"/>
+  <text x="788" y="269" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">y[n] (новий результат)</text>
+
+  <rect x="713" y="283" width="150" height="28" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="788" y="301" font-size="12" fill="#6b7280" text-anchor="middle">вільно (наступний)</text>
+
+  <text x="788" y="333" font-size="12" fill="#6b7280" text-anchor="middle">авто-зсув вказівника Y_OFFSET</text>
+
+  <!-- Вказівник Y_OFFSET -->
+  <line x1="920" y1="265" x2="866" y2="265" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="920" y="252" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Y_OFFSET</text>
+
+  <!-- Нижня панель: Апаратне ядро FMAC -->
+  <rect x="120" y="365" width="720" height="150" rx="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="392" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Апаратне математичне ядро FMAC (MAC Engine)</text>
+
+  <!-- Блок формули -->
+  <rect x="210" y="407" width="540" height="36" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="480" y="430" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">y[n] = ∑ ( b[k] · x[n - k] )  для  k = 0 ... N - 1</text>
+
+  <!-- Пояснювальні рядки -->
+  <text x="480" y="465" font-size="12" fill="#1a1a1a" text-anchor="middle">1. Одночасно зчитує відлік x[n-k] з X1 та коефіцієнт b[k] з X2 за один такт</text>
+  <text x="480" y="487" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">2. Записує суму добутків y[n] в Q1.15 у буфер Y та інкрементує Y_OFFSET</text>
+  <text x="480" y="505" font-size="12" fill="#6b7280" text-anchor="middle">DMA автоматично завантажує новий x[n+1] у X1 і вивантажує y[n] з Y</text>
+
+  <!-- Стрілки зв'язку з MAC ядром -->
+  <line x1="173" y1="350" x2="173" y2="363" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="185" y="360" font-size="12" font-weight="bold" fill="#2457d6">x[n-k]</text>
+
+  <line x1="480" y1="350" x2="480" y2="363" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="492" y="360" font-size="12" font-weight="bold" fill="#2457d6">b[k]</text>
+
+  <line x1="788" y1="365" x2="788" y2="352" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="798" y="360" font-size="12" font-weight="bold" fill="#27ae60">y[n]</text>
+</svg>

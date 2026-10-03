@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Функціональне кодування виводів плат ESP32-S3</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Призначення GPIO вимагає врахування strapping-режимів, конфліктів ADC2 з Wi-Fi та шини Native USB</text>
+
+  <!-- Legend Panel -->
+  <rect x="20" y="68" width="920" height="44" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <rect x="35" y="82" width="16" height="16" rx="3" fill="#27ae60"/>
+  <text x="57" y="95" font-size="12" fill="#1a1a1a"><tspan font-weight="700">Безпечні GPIO</tspan> (ADC1, GPIO1–10)</text>
+
+  <rect x="270" y="82" width="16" height="16" rx="3" fill="#c0392b"/>
+  <text x="292" y="95" font-size="12" fill="#1a1a1a"><tspan font-weight="700">Strapping</tspan> (GPIO0, 3, 45, 46)</text>
+
+  <rect x="505" y="82" width="16" height="16" rx="3" fill="#2457d6"/>
+  <text x="527" y="95" font-size="12" fill="#1a1a1a"><tspan font-weight="700">Native USB</tspan> (GPIO19 D-, 20 D+)</text>
+
+  <rect x="745" y="82" width="16" height="16" rx="3" fill="#d97706"/>
+  <text x="767" y="95" font-size="12" fill="#1a1a1a"><tspan font-weight="700">ADC2</tspan> (Wi-Fi конфлікт)</text>
+
+  <!-- Board 1: ESP32-S3-DevKitC-1 -->
+  <rect x="20" y="126" width="315" height="304" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="177" y="146" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">ESP32-S3-DevKitC-1</text>
+  <text x="177" y="162" font-size="12" text-anchor="middle" fill="#6b7280">Стандартний формат (44 пини, dual header)</text>
+
+  <!-- Card 1.1 -->
+  <rect x="32" y="172" width="291" height="38" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="42" y="187" font-size="12" font-weight="700" fill="#c0392b">GPIO0, GPIO3, GPIO45, GPIO46</text>
+  <text x="42" y="203" font-size="12" fill="#6b7280">BOOT режим, VDD_SPI напруга, ROM log</text>
+
+  <!-- Card 1.2 -->
+  <rect x="32" y="222" width="291" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="42" y="237" font-size="12" font-weight="700" fill="#2457d6">GPIO19 (USB D-), GPIO20 (USB D+)</text>
+  <text x="42" y="253" font-size="12" fill="#6b7280">Нативний USB OTG / JTAG (теж ADC2_8/9)</text>
+
+  <!-- Card 1.3 -->
+  <rect x="32" y="272" width="291" height="38" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="42" y="287" font-size="12" font-weight="700" fill="#d97706">GPIO11 – GPIO18 (ADC2_CH0..7)</text>
+  <text x="42" y="303" font-size="12" fill="#6b7280">Недоступні під час активного Wi-Fi</text>
+
+  <!-- Card 1.4 -->
+  <rect x="32" y="322" width="291" height="38" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="42" y="337" font-size="12" font-weight="700" fill="#27ae60">GPIO1 – GPIO10 (ADC1_CH0..9)</text>
+  <text x="42" y="353" font-size="12" fill="#6b7280">Безпечний АЦП під час Wi-Fi сесій</text>
+
+  <!-- Card 1.5 -->
+  <rect x="32" y="372" width="291" height="38" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="42" y="387" font-size="12" font-weight="700" fill="#1a1a1a">5V (VEXT), 3.3V, GND, EN (Reset)</text>
+  <text x="42" y="403" font-size="12" fill="#6b7280">LDO 3.3В (800 мА); EN з підтяжкою 10 кОм</text>
+
+  <!-- Board 2: Waveshare ESP32-S3 -->
+  <rect x="350" y="126" width="290" height="304" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="495" y="146" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Waveshare ESP32-S3</text>
+  <text x="495" y="162" font-size="12" text-anchor="middle" fill="#6b7280">Компактний формат (Zero / Matrix)</text>
+
+  <!-- Card 2.1 -->
+  <rect x="362" y="172" width="266" height="38" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="372" y="187" font-size="12" font-weight="700" fill="#c0392b">GPIO0 (BOOT кнопка)</text>
+  <text x="372" y="203" font-size="12" fill="#6b7280">GPIO45, 46 фіксовані на платі</text>
+
+  <!-- Card 2.2 -->
+  <rect x="362" y="222" width="266" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="372" y="237" font-size="12" font-weight="700" fill="#2457d6">USB Type-C (GPIO19 / GPIO20)</text>
+  <text x="372" y="253" font-size="12" fill="#6b7280">Пряме підключення OTG/CDC JTAG</text>
+
+  <!-- Card 2.3 -->
+  <rect x="362" y="272" width="266" height="38" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="372" y="287" font-size="12" font-weight="700" fill="#d97706">GPIO11 – GPIO14 (ADC2)</text>
+  <text x="372" y="303" font-size="12" fill="#6b7280">Обмежені під час використання Wi-Fi</text>
+
+  <!-- Card 2.4 -->
+  <rect x="362" y="322" width="266" height="38" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="372" y="337" font-size="12" font-weight="700" fill="#27ae60">GPIO1 – GPIO6 (ADC1, SPI)</text>
+  <text x="372" y="353" font-size="12" fill="#6b7280">Рекомендовані для датчиків і шин</text>
+
+  <!-- Card 2.5 -->
+  <rect x="362" y="372" width="266" height="38" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="372" y="387" font-size="12" font-weight="700" fill="#1a1a1a">RGB LED (GPIO21) / WS2812</text>
+  <text x="372" y="403" font-size="12" fill="#6b7280">Вбудована світлодіодна матриця</text>
+
+  <!-- Board 3: Seeed XIAO ESP32S3 -->
+  <rect x="655" y="126" width="285" height="304" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="797" y="146" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Seeed XIAO ESP32S3</text>
+  <text x="797" y="162" font-size="12" text-anchor="middle" fill="#6b7280">Ультракомпакт (14 пинів, 7x2)</text>
+
+  <!-- Card 3.1 -->
+  <rect x="667" y="172" width="261" height="38" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="677" y="187" font-size="12" font-weight="700" fill="#c0392b">GPIO0 (BOOT контакт)</text>
+  <text x="677" y="203" font-size="12" fill="#6b7280">Замикання на GND викликає BOOT</text>
+
+  <!-- Card 3.2 -->
+  <rect x="667" y="222" width="261" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="677" y="237" font-size="12" font-weight="700" fill="#2457d6">Type-C Native USB (D-/D+)</text>
+  <text x="677" y="253" font-size="12" fill="#6b7280">GPIO19/20 підведені до Type-C</text>
+
+  <!-- Card 3.3 -->
+  <rect x="667" y="272" width="261" height="38" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="677" y="287" font-size="12" font-weight="700" fill="#d97706">A0..A3 (GPIO1..GPIO4 - ADC1)</text>
+  <text x="677" y="303" font-size="12" fill="#6b7280">XIAO виводить переважно ADC1</text>
+
+  <!-- Card 3.4 -->
+  <rect x="667" y="322" width="261" height="38" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="677" y="337" font-size="12" font-weight="700" fill="#27ae60">D4/D5 (I2C), D6/D7 (UART0)</text>
+  <text x="677" y="353" font-size="12" fill="#6b7280">GPIO5 (SDA), GPIO6 (SCL), GPIO43/44</text>
+
+  <!-- Card 3.5 -->
+  <rect x="667" y="372" width="261" height="38" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="677" y="387" font-size="12" font-weight="700" fill="#1a1a1a">Заряд Li-Ion (3.7V BAT)</text>
+  <text x="677" y="403" font-size="12" fill="#6b7280">Вбудований контролер заряду</text>
+
+  <!-- Bottom Panel -->
+  <rect x="20" y="445" width="920" height="95" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="35" y="465" font-size="13" font-weight="700" fill="#1a1a1a">Правила безпечного проектування схем на ESP32-S3:</text>
+  
+  <text x="35" y="484" font-size="12" fill="#1a1a1a"><tspan font-weight="700" fill="#c0392b">1. Strapping-лінії:</tspan> GPIO0 повинен мати Pull-Up (10 кОм) до 3.3V. Не затягувати GPIO45/46 до станів помилки при старті.</text>
+  <text x="35" y="503" font-size="12" fill="#1a1a1a"><tspan font-weight="700" fill="#d97706">2. Аналоговий вхід (АЦП):</tspan> Використовувати ADC1 (GPIO1–10) для датчиків. ADC2 (GPIO11–20) блокується апаратно під час Wi-Fi.</text>
+  <text x="35" y="522" font-size="12" fill="#1a1a1a"><tspan font-weight="700" fill="#2457d6">3. USB &amp; JTAG:</tspan> GPIO19 (D-) та GPIO20 (D+) відповідають за нативний USB OTG / CDC JTAG. Перепризначення вимикає апаратний дебаг.</text>
+</svg>

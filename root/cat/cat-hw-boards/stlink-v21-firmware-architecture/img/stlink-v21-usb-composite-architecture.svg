@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Архітектура USB Composite пристрою ST-Link V2.1</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Апаратна інтеграція трьох незалежних USB-інтерфейсів та їхніх кінцевих точок</text>
+
+  <!-- 1. ПК-господар (Host PC) -->
+  <rect x="24" y="76" width="200" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="34" y="88" width="180" height="32" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="124" y="109" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">ПК-господар (Host PC)</text>
+
+  <!-- GDB / IDE -->
+  <rect x="34" y="132" width="180" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="124" y="154" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">GDB / IDE / OpenOCD</text>
+  <text x="124" y="174" text-anchor="middle" font-size="12" fill="#1a1a1a">Вендорний драйвер</text>
+  <text x="124" y="194" text-anchor="middle" font-size="12" fill="#6b7280">(ST-Link Debug Protocol)</text>
+  <text x="124" y="214" text-anchor="middle" font-size="12" fill="#6b7280">Прямий доступ RAM/Flash</text>
+
+  <!-- MSC Explorer -->
+  <rect x="34" y="252" width="180" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="124" y="274" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Файловий провідник</text>
+  <text x="124" y="294" text-anchor="middle" font-size="12" fill="#1a1a1a">Драйвер Mass Storage</text>
+  <text x="124" y="314" text-anchor="middle" font-size="12" fill="#6b7280">(SCSI / Drag-and-Drop)</text>
+  <text x="124" y="334" text-anchor="middle" font-size="12" fill="#6b7280">Копіювання .bin файлу</text>
+
+  <!-- VCP Terminal -->
+  <rect x="34" y="372" width="180" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="124" y="394" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">COM-термінал</text>
+  <text x="124" y="414" text-anchor="middle" font-size="12" fill="#1a1a1a">Драйвер CDC Serial</text>
+  <text x="124" y="434" text-anchor="middle" font-size="12" fill="#6b7280">(Virtual COM Port)</text>
+  <text x="124" y="454" text-anchor="middle" font-size="12" fill="#6b7280">Обмін даними UART</text>
+
+  <text x="124" y="495" text-anchor="middle" font-size="12" font-weight="700" fill="#6b7280">Операційна система</text>
+  <text x="124" y="515" text-anchor="middle" font-size="12" fill="#6b7280">Розпізнає 3 пристрої</text>
+
+  <!-- Лінія шини USB -->
+  <line x1="244" y1="130" x2="244" y2="520" stroke="#6b7280" stroke-width="2" stroke-dasharray="4 4"/>
+  <text x="244" y="122" text-anchor="middle" font-size="12" font-weight="700" fill="#6b7280">Шина USB</text>
+
+  <!-- Стрілки USB від ПК -->
+  <path d="M214,179 H244 V225 H276" stroke="#27ae60" stroke-width="1.8" fill="none" marker-end="url(#arr-green)"/>
+  <path d="M214,299 H244 V339 H276" stroke="#2457d6" stroke-width="1.8" fill="none" marker-end="url(#arr-blue)"/>
+  <path d="M214,419 H244 V491 H276" stroke="#2457d6" stroke-width="1.8" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- 2. ST-Link V2.1 (Composite Device) -->
+  <rect x="264" y="76" width="440" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="276" y="88" width="416" height="32" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="484" y="109" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">ST-Link V2.1 (USB Composite Device)</text>
+
+  <rect x="276" y="128" width="416" height="28" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="484" y="147" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">EP0 Control: Дескриптори пристрою та конфігурації (Enum)</text>
+
+  <!-- Lane 1: Vendor Debugger -->
+  <rect x="276" y="164" width="416" height="106" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="286" y="182" text-anchor="start" font-size="12" font-weight="700" fill="#27ae60">Інтерфейс 0: Vendor Debug (Class 0xFF, SubClass 0x80)</text>
+
+  <rect x="286" y="190" width="120" height="70" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="346" y="210" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">EP1 OUT (Bulk)</text>
+  <text x="346" y="230" text-anchor="middle" font-size="12" fill="#6b7280">Команди JTAG/SWD</text>
+  <text x="346" y="248" text-anchor="middle" font-size="12" fill="#27ae60">Запис RAM / Flash</text>
+
+  <rect x="414" y="190" width="120" height="70" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="474" y="210" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">EP1 IN (Bulk)</text>
+  <text x="474" y="230" text-anchor="middle" font-size="12" fill="#6b7280">Дані / Стан CPU</text>
+  <text x="474" y="248" text-anchor="middle" font-size="12" fill="#27ae60">Читання / ACK</text>
+
+  <rect x="546" y="190" width="136" height="70" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="614" y="210" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">SWD / JTAG Драйвер</text>
+  <text x="614" y="230" text-anchor="middle" font-size="12" fill="#6b7280">Обробник команд</text>
+  <text x="614" y="248" text-anchor="middle" font-size="12" fill="#6b7280">Reset, Halt, Run</text>
+
+  <line x1="534" y1="225" x2="546" y2="225" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+
+  <!-- Lane 2: Mass Storage -->
+  <rect x="276" y="278" width="416" height="106" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="286" y="296" text-anchor="start" font-size="12" font-weight="700" fill="#2457d6">Інтерфейс 1: Mass Storage (Class 0x08, SubClass 0x06 SCSI)</text>
+
+  <rect x="286" y="304" width="120" height="70" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="346" y="324" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">EP2 OUT (Bulk)</text>
+  <text x="346" y="344" text-anchor="middle" font-size="12" fill="#6b7280">SCSI Запити (CBW)</text>
+  <text x="346" y="362" text-anchor="middle" font-size="12" fill="#2457d6">Дані .bin файлу</text>
+
+  <rect x="414" y="304" width="120" height="70" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="474" y="324" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">EP2 IN (Bulk)</text>
+  <text x="474" y="344" text-anchor="middle" font-size="12" fill="#6b7280">SCSI Стан (CSW)</text>
+  <text x="474" y="362" text-anchor="middle" font-size="12" fill="#2457d6">Virtual FAT Дані</text>
+
+  <rect x="546" y="304" width="136" height="70" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="614" y="324" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Емулятор FAT16</text>
+  <text x="614" y="344" text-anchor="middle" font-size="12" fill="#6b7280">Автопрошивач</text>
+  <text x="614" y="362" text-anchor="middle" font-size="12" fill="#6b7280">Запис у Flash MCU</text>
+
+  <line x1="534" y1="339" x2="546" y2="339" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- Lane 3: VCP CDC -->
+  <rect x="276" y="392" width="416" height="132" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="286" y="410" text-anchor="start" font-size="12" font-weight="700" fill="#2457d6">Інтерфейси 2/3: VCP (CDC Class 0x02 Control / 0x0A Data)</text>
+
+  <rect x="286" y="418" width="120" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="346" y="436" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">EP3 IN (Interrupt)</text>
+  <text x="346" y="454" text-anchor="middle" font-size="12" fill="#6b7280">Стан лінії UART</text>
+
+  <rect x="286" y="468" width="120" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="346" y="486" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">EP4 OUT (Bulk)</text>
+  <text x="346" y="504" text-anchor="middle" font-size="12" fill="#2457d6">TX Дані (Host->MCU)</text>
+
+  <rect x="414" y="468" width="120" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="474" y="486" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">EP4 IN (Bulk)</text>
+  <text x="474" y="504" text-anchor="middle" font-size="12" fill="#2457d6">RX Дані (MCU->Host)</text>
+
+  <rect x="546" y="418" width="136" height="96" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="614" y="445" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Міст UART (USART)</text>
+  <text x="614" y="465" text-anchor="middle" font-size="12" fill="#6b7280">Baudrate / Parity</text>
+  <text x="614" y="485" text-anchor="middle" font-size="12" fill="#6b7280">Hardware FIFO</text>
+
+  <line x1="534" y1="491" x2="546" y2="491" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- 3. Цільовий STM32 (Target MCU) -->
+  <rect x="736" y="76" width="200" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="746" y="88" width="180" height="32" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="836" y="109" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Цільовий STM32</text>
+
+  <!-- Target Debug Core -->
+  <rect x="746" y="164" width="180" height="106" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="836" y="190" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">Порт зневадження</text>
+  <text x="836" y="210" text-anchor="middle" font-size="12" fill="#1a1a1a">ARM CoreSight / SWD</text>
+  <text x="836" y="230" text-anchor="middle" font-size="12" fill="#6b7280">SWCLK, SWDIO</text>
+  <text x="836" y="250" text-anchor="middle" font-size="12" fill="#27ae60">NRST, SWO (Trace)</text>
+
+  <!-- Target Flash Memory -->
+  <rect x="746" y="278" width="180" height="106" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="836" y="304" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Внутрішня Flash</text>
+  <text x="836" y="324" text-anchor="middle" font-size="12" fill="#1a1a1a">Пам'ять програм</text>
+  <text x="836" y="344" text-anchor="middle" font-size="12" fill="#6b7280">Сектори прошивки</text>
+  <text x="836" y="364" text-anchor="middle" font-size="12" fill="#2457d6">Запис через SWD</text>
+
+  <!-- Target USART Peripheral -->
+  <rect x="746" y="392" width="180" height="132" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="836" y="420" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Периферія USART</text>
+  <text x="836" y="445" text-anchor="middle" font-size="12" fill="#1a1a1a">Послідовний порт</text>
+  <text x="836" y="470" text-anchor="middle" font-size="12" fill="#6b7280">Лінії TXD / RXD</text>
+  <text x="836" y="495" text-anchor="middle" font-size="12" fill="#2457d6">Обмін з VCP</text>
+
+  <!-- Стрілки від ST-Link до Цільового MCU -->
+  <line x1="682" y1="225" x2="746" y2="225" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <text x="714" y="217" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">SWD/JTAG</text>
+
+  <line x1="682" y1="339" x2="746" y2="339" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <text x="714" y="331" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">SWD Flash</text>
+
+  <line x1="682" y1="466" x2="746" y2="466" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <text x="714" y="458" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">UART RX/TX</text>
+</svg>

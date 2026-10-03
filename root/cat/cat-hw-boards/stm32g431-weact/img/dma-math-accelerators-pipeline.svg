@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-solution" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-error" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Автоматичний конвеєр обробки сигналів STM32G431 через DMA</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">ADC, OPAMP, CORDIC та FMAC працюють без залучення CPU; переривання виникають лише при помилках</text>
+
+  <!-- Panel 1: Signal Digitization -->
+  <rect x="30" y="80" width="190" height="270" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="125" y="102" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">1. Оцифрування сигналу</text>
+
+  <!-- OPAMP Box -->
+  <rect x="45" y="118" width="160" height="95" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="125" y="138" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">OPAMP</text>
+  <text x="125" y="158" font-size="12" fill="#1a1a1a" text-anchor="middle">Малошумний підсилювач</text>
+  <text x="125" y="176" font-size="12" fill="#6b7280" text-anchor="middle">Калібрування &amp; PGA</text>
+  <text x="125" y="194" font-size="12" fill="#6b7280" text-anchor="middle">Вхідний аналоговий сигнал</text>
+
+  <!-- Arrow OPAMP to ADC -->
+  <line x1="125" y1="213" x2="125" y2="233" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- ADC Box -->
+  <rect x="45" y="235" width="160" height="95" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="125" y="255" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">ADC1 / ADC2</text>
+  <text x="125" y="275" font-size="12" fill="#1a1a1a" text-anchor="middle">АЦП перетворення</text>
+  <text x="125" y="293" font-size="12" fill="#6b7280" text-anchor="middle">Формати Q1.15 / Q1.31</text>
+  <text x="125" y="311" font-size="12" fill="#6b7280" text-anchor="middle">Автозапуск від таймера</text>
+
+  <!-- Panel 2: DMA Routing -->
+  <rect x="245" y="80" width="210" height="270" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="350" y="102" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">2. Маршрутизація DMA</text>
+  <text x="350" y="118" font-size="12" fill="#6b7280" text-anchor="middle">Автоматичне пересилання</text>
+
+  <!-- DMA Ch1 -->
+  <rect x="260" y="130" width="180" height="60" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="350" y="150" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">DMA1 Канал 1</text>
+  <text x="350" y="170" font-size="12" fill="#6b7280" text-anchor="middle">Потік відліків ADC</text>
+
+  <!-- DMA Ch2 -->
+  <rect x="260" y="200" width="180" height="60" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="350" y="220" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">DMA1 Канал 2/3</text>
+  <text x="350" y="240" font-size="12" fill="#6b7280" text-anchor="middle">Обмін з CORDIC</text>
+
+  <!-- DMA Ch3 -->
+  <rect x="260" y="270" width="180" height="60" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="350" y="290" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">DMA2 Канал 1/2</text>
+  <text x="350" y="310" font-size="12" fill="#6b7280" text-anchor="middle">Обмін з FMAC</text>
+
+  <!-- Panel 3: Hardware Accelerators -->
+  <rect x="480" y="80" width="220" height="270" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="590" y="102" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">3. Обчислення</text>
+
+  <!-- CORDIC Box -->
+  <rect x="495" y="118" width="190" height="95" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="590" y="138" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">CORDIC</text>
+  <text x="590" y="158" font-size="12" fill="#1a1a1a" text-anchor="middle">sin, cos, atan, sqrt</text>
+  <text x="590" y="176" font-size="12" fill="#6b7280" text-anchor="middle">Векторизація / Ротація</text>
+  <text x="590" y="194" font-size="12" fill="#6b7280" text-anchor="middle">Формат Q1.31</text>
+
+  <!-- FMAC Box -->
+  <rect x="495" y="235" width="190" height="95" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="590" y="255" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">FMAC</text>
+  <text x="590" y="275" font-size="12" fill="#1a1a1a" text-anchor="middle">КІХ / ІІХ фільтрація</text>
+  <text x="590" y="293" font-size="12" fill="#6b7280" text-anchor="middle">Циклічні буфери X/Y</text>
+  <text x="590" y="311" font-size="12" fill="#6b7280" text-anchor="middle">Формат Q1.15 / Q1.31</text>
+
+  <!-- Panel 4: RAM Buffers -->
+  <rect x="725" y="80" width="205" height="270" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="827" y="102" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">4. Накопичення в RAM</text>
+
+  <!-- RAM Input Buffer -->
+  <rect x="740" y="118" width="175" height="95" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="827" y="138" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Вхідний буфер RAM</text>
+  <text x="827" y="158" font-size="12" fill="#1a1a1a" text-anchor="middle">Масив відліків Q1.15</text>
+  <text x="827" y="176" font-size="12" fill="#6b7280" text-anchor="middle">Circular / Ping-Pong</text>
+  <text x="827" y="194" font-size="12" fill="#6b7280" text-anchor="middle">Прямий запис DMA</text>
+
+  <!-- RAM Output Buffer -->
+  <rect x="740" y="235" width="175" height="95" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="827" y="255" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Вихідний буфер RAM</text>
+  <text x="827" y="275" font-size="12" fill="#1a1a1a" text-anchor="middle">Оброблені дані Q1.31</text>
+  <text x="827" y="293" font-size="12" fill="#6b7280" text-anchor="middle">Готові відліки</text>
+  <text x="827" y="311" font-size="12" fill="#27ae60" text-anchor="middle">Результат для застосунку</text>
+
+  <!-- Horizontal Connections between Panels -->
+  <!-- ADC to DMA -->
+  <line x1="205" y1="282" x2="243" y2="282" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- DMA to Accelerators -->
+  <line x1="455" y1="165" x2="478" y2="165" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <line x1="455" y1="282" x2="478" y2="282" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- Accelerators to RAM -->
+  <line x1="685" y1="165" x2="723" y2="165" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <line x1="685" y1="282" x2="723" y2="282" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-solution)"/>
+
+  <!-- Bottom Panels (Execution & Error Interrupts) -->
+
+  <!-- Left Bottom Panel: Zero CPU Load -->
+  <rect x="30" y="370" width="425" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="242" y="394" font-size="14" font-weight="700" fill="#27ae60" text-anchor="middle">Штатний режим: Автономна робота без CPU</text>
+  <text x="242" y="418" font-size="12" fill="#1a1a1a" text-anchor="middle">✓ ADC, DMA, CORDIC та FMAC обмінюються даними шиною AHB</text>
+  <text x="242" y="440" font-size="12" fill="#1a1a1a" text-anchor="middle">✓ Центральний процесор (Cortex-M4F) не витрачає такти на пересилання</text>
+  <text x="242" y="462" font-size="12" fill="#6b7280" text-anchor="middle">✓ Підтримка високої частоти дискретизації та низького енергоспоживання</text>
+  <text x="242" y="484" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Навантаження процесора = 0% під час потокової обробки</text>
+
+  <!-- Right Bottom Panel: Error Interrupts -->
+  <rect x="475" y="370" width="455" height="135" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="702" y="394" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">Винятковий режим: Генерування переривань (IRQ)</text>
+  <text x="702" y="418" font-size="12" fill="#1a1a1a" text-anchor="middle">⚠ CORDIC: Прапорець COVF (Переповнення / втрата точності)</text>
+  <text x="702" y="440" font-size="12" fill="#1a1a1a" text-anchor="middle">⚠ FMAC: Прапорці OVR / UNR (Переповнення / переповнення буфера)</text>
+  <text x="702" y="462" font-size="12" fill="#1a1a1a" text-anchor="middle">⚠ DMA: Прапорець TEIF (Помилка адресації чи передачі даних)</text>
+  <text x="702" y="484" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">→ Процесор викликається ЛИШЕ для обробки та відновлення після збою</text>
+
+  <!-- Error trigger line -->
+  <path d="M 350 350 L 350 360 L 702 360 L 702 368" fill="none" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arr-error)"/>
+
+</svg>

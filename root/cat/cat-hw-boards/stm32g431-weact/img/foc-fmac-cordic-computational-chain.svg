@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr_blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr_green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr_dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Ланцюг математичних перетворень FOC з FMAC та CORDIC у STM32G431</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Апаратне розвантаження у форматах Q15/Q31 знижує фазову затримку контуру та запобігає втраті точності</text>
+
+  <!-- Panel 1: ADC & FMAC (Left) -->
+  <rect x="25" y="75" width="275" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="162" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">1. АЦП та фільтрація FMAC</text>
+  <text x="162" y="118" text-anchor="middle" font-size="12" fill="#6b7280">Оцифрування струмів фаз Ia, Ib</text>
+
+  <rect x="45" y="135" width="235" height="65" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="162" y="157" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">12-bit ADC (фазові струми)</text>
+  <text x="162" y="177" text-anchor="middle" font-size="12" fill="#6b7280">Квантування 12 біт → Q15 format</text>
+
+  <line x1="162" y1="200" x2="162" y2="228" stroke="#2457d6" stroke-width="2" marker-end="url(#arr_blue)"/>
+
+  <rect x="45" y="230" width="235" height="115" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="162" y="252" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Прискорювач FMAC</text>
+  <text x="162" y="273" text-anchor="middle" font-size="12" fill="#1a1a1a">КІХ / ІІХ цифрова фільтрація</text>
+  <text x="162" y="293" text-anchor="middle" font-size="12" fill="#6b7280">Множення MAC: Q15 × Q15 → Q31</text>
+  <text x="162" y="313" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">0 циклів CPU (DMA-сумісний)</text>
+
+  <rect x="45" y="365" width="235" height="135" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="162" y="387" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Джерела похибок та затримок:</text>
+  <text x="58" y="412" font-size="12" fill="#1a1a1a">• Шум квантування АЦП: ±1 LSB</text>
+  <text x="58" y="434" font-size="12" fill="#1a1a1a">• Фазова затримка фільтра Δφ_filt</text>
+  <text x="58" y="456" font-size="12" fill="#1a1a1a">• Квантування коефіцієнтів Q15</text>
+  <text x="58" y="478" font-size="12" fill="#c0392b">→ Вплив на фазовий запас стійкості</text>
+
+  <!-- Panel 2: Clarke & CORDIC (Center) -->
+  <rect x="320" y="75" width="370" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="505" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">2. Векторні перетворення та CORDIC</text>
+  <text x="505" y="118" text-anchor="middle" font-size="12" fill="#6b7280">Тригонометрія та пряма/зворотна ротація</text>
+
+  <rect x="340" y="135" width="330" height="65" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="505" y="157" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Пряме перетворення Кларка (Clarke)</text>
+  <text x="505" y="177" text-anchor="middle" font-size="12" fill="#2457d6">Iα = Ia_filt,  Iβ = (Ia + 2·Ib) / √3   [Q15]</text>
+
+  <line x1="505" y1="200" x2="505" y2="228" stroke="#2457d6" stroke-width="2" marker-end="url(#arr_blue)"/>
+
+  <rect x="340" y="230" width="330" height="170" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="505" y="252" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Прискорювач CORDIC (Vectoring / Rotation)</text>
+  
+  <rect x="355" y="265" width="300" height="75" rx="4" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="505" y="285" text-anchor="middle" font-size="12" fill="#1a1a1a">Ітеративна ротація: x[k+1] = x[k] - d_k · y[k] · 2^-k</text>
+  <text x="505" y="303" text-anchor="middle" font-size="12" fill="#1a1a1a">y[k+1] = y[k] + d_k · x[k] · 2^-k</text>
+  <text x="505" y="323" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вхід: (Iα, Iβ, θ)  →  Вихід: Id, Iq  [Q1.15 / Q1.31]</text>
+
+  <text x="505" y="360" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Обчислення sin(θ), cos(θ) за 16–24 такти</text>
+  <text x="505" y="380" text-anchor="middle" font-size="12" fill="#6b7280">Без LUT у Flash та без циклів ALU</text>
+
+  <rect x="340" y="415" width="330" height="85" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="505" y="435" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Оцінка точності та кутової похибки:</text>
+  <text x="505" y="455" text-anchor="middle" font-size="12" fill="#1a1a1a">• Залишковий кутовий шум: ε_theta &lt; 2^-15 rad</text>
+  <text x="505" y="475" text-anchor="middle" font-size="12" fill="#1a1a1a">• Масштабний коефіцієнт Kn ≈ 1.64676 (компенсовано)</text>
+
+  <!-- Panel 3: Control Loop & PWM (Right) -->
+  <rect x="710" y="75" width="225" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="822" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">3. PI-регуляція та ШІМ</text>
+  <text x="822" y="118" text-anchor="middle" font-size="12" fill="#6b7280">Формування Vd, Vq та ШІМ</text>
+
+  <rect x="725" y="135" width="195" height="75" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="822" y="155" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">PI-регулятори Id, Iq</text>
+  <text x="822" y="175" text-anchor="middle" font-size="12" fill="#2457d6">Id, Iq → Vd, Vq [Q15]</text>
+  <text x="822" y="193" text-anchor="middle" font-size="12" fill="#6b7280">Anti-windup обмеження</text>
+
+  <line x1="822" y1="210" x2="822" y2="228" stroke="#2457d6" stroke-width="2" marker-end="url(#arr_blue)"/>
+
+  <rect x="725" y="230" width="195" height="85" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="822" y="250" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Зворотний CORDIC</text>
+  <text x="822" y="270" text-anchor="middle" font-size="12" fill="#1a1a1a">Inv. Park (Vd, Vq, θ)</text>
+  <text x="822" y="290" text-anchor="middle" font-size="12" fill="#2457d6">→ Vα, Vβ [Q15]</text>
+
+  <line x1="822" y1="315" x2="822" y2="333" stroke="#2457d6" stroke-width="2" marker-end="url(#arr_blue)"/>
+
+  <rect x="725" y="335" width="195" height="65" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="822" y="357" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">SVPWM / TIM1 PWM</text>
+  <text x="822" y="377" text-anchor="middle" font-size="12" fill="#6b7280">Генерація Duty PWM A, B, C</text>
+
+  <rect x="725" y="415" width="195" height="85" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="822" y="435" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Ефективність прискорення:</text>
+  <text x="822" y="455" text-anchor="middle" font-size="12" fill="#1a1a1a">• Період FOC-циклу: &lt; 2.5 мкс</text>
+  <text x="822" y="475" text-anchor="middle" font-size="12" fill="#1a1a1a">• Навантаження CPU: &lt; 15%</text>
+
+  <!-- Flow Connections between panels -->
+  <path d="M 280 285 H 310 V 167 H 333" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr_blue)"/>
+  <path d="M 670 315 H 700 V 172 H 718" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr_blue)"/>
+</svg>

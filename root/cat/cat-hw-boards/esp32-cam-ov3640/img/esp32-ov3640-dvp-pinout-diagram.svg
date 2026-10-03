@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-left" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Схема підключення сенсора OV3640 до ESP32 через 8-бітну шину DVP</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Розподіл GPIO для ліній даних D0–D7, тактування XCLK/PCLK та синхронізації VSYNC/HREF</text>
+
+  <!-- Блок ESP32 -->
+  <rect x="35" y="75" width="245" height="440" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="35" y="75" width="245" height="42" fill="#2457d6" rx="8"/>
+  <text x="157.5" y="101" font-size="14" font-weight="700" fill="white" text-anchor="middle">Мікроконтролер ESP32</text>
+  <text x="157.5" y="130" font-size="12" fill="#6b7280" text-anchor="middle">Драйвер esp_camera (DVP)</text>
+
+  <!-- Блок OV3640 -->
+  <rect x="680" y="75" width="245" height="440" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="680" y="75" width="245" height="42" fill="#2457d6" rx="8"/>
+  <text x="802.5" y="101" font-size="14" font-weight="700" fill="white" text-anchor="middle">Модуль камери OV3640</text>
+  <text x="802.5" y="130" font-size="12" fill="#6b7280" text-anchor="middle">2 МП CMOS Сенсор</text>
+
+  <!-- Внутрішня інформація ESP32 (ліворуч у блоці) -->
+  <text x="50" y="165" font-size="12" font-weight="700" fill="#2457d6">Апаратна обробка:</text>
+  <text x="50" y="185" font-size="12" fill="#1a1a1a">• Контролер DMA</text>
+  <text x="50" y="205" font-size="12" fill="#1a1a1a">• Подвійна буферизація</text>
+  <text x="50" y="225" font-size="12" fill="#1a1a1a">• Зовнішня PSRAM</text>
+
+  <!-- Внутрішня інформація OV3640 (праворуч у блоці) -->
+  <text x="910" y="165" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">Параметри сенсора:</text>
+  <text x="910" y="185" font-size="12" fill="#1a1a1a" text-anchor="end">1600×1200 (UXGA) •</text>
+  <text x="910" y="205" font-size="12" fill="#1a1a1a" text-anchor="end">Апаратний JPEG •</text>
+  <text x="910" y="225" font-size="12" fill="#1a1a1a" text-anchor="end">Тактування XCLK •</text>
+
+  <!-- Група 1: Тактування та синхронізація -->
+  <rect x="295" y="138" width="370" height="118" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="4 3" rx="6"/>
+  <text x="480" y="154" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Тактування та синхронізація</text>
+
+  <text x="480" y="170" font-size="12" fill="#2457d6" text-anchor="middle">XCLK (ESP32 → OV3640, 10–24 МГц)</text>
+  <line x1="280" y1="178" x2="680" y2="178" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="270" y="182" font-size="12" fill="#1a1a1a" text-anchor="end">GPIO0 (XCLK)</text>
+  <text x="690" y="182" font-size="12" fill="#1a1a1a" text-anchor="start">XVCLK</text>
+
+  <text x="480" y="192" font-size="12" fill="#2457d6" text-anchor="middle">PCLK (OV3640 → ESP32, Тактування пікселів)</text>
+  <line x1="680" y1="200" x2="280" y2="200" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="270" y="204" font-size="12" fill="#1a1a1a" text-anchor="end">GPIO22 (PCLK)</text>
+  <text x="690" y="204" font-size="12" fill="#1a1a1a" text-anchor="start">PCLK</text>
+
+  <text x="480" y="214" font-size="12" fill="#2457d6" text-anchor="middle">VSYNC (OV3640 → ESP32, Синхронізація кадру)</text>
+  <line x1="680" y1="222" x2="280" y2="222" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="270" y="226" font-size="12" fill="#1a1a1a" text-anchor="end">GPIO25 (VSYNC)</text>
+  <text x="690" y="226" font-size="12" fill="#1a1a1a" text-anchor="start">VSYNC</text>
+
+  <text x="480" y="236" font-size="12" fill="#2457d6" text-anchor="middle">HREF (OV3640 → ESP32, Синхронізація рядка)</text>
+  <line x1="680" y1="244" x2="280" y2="244" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="270" y="248" font-size="12" fill="#1a1a1a" text-anchor="end">GPIO23 (HREF)</text>
+  <text x="690" y="248" font-size="12" fill="#1a1a1a" text-anchor="start">HREF</text>
+
+  <!-- Група 2: Шина даних -->
+  <rect x="295" y="264" width="370" height="84" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="4 3" rx="6"/>
+  <text x="480" y="280" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">8-бітна шина даних DVP</text>
+
+  <text x="480" y="300" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D[7:0] (OV3640 → ESP32, 8 біт даних)</text>
+  <line x1="680" y1="308" x2="280" y2="308" stroke="#2457d6" stroke-width="4" marker-end="url(#arr-blue)"/>
+  <text x="480" y="330" font-size="12" fill="#6b7280" text-anchor="middle">Передача кадрів YUV422 / RGB565 / JPEG</text>
+  <text x="270" y="312" font-size="12" fill="#1a1a1a" text-anchor="end">GPIO35..5 (D7–D0)</text>
+  <text x="690" y="312" font-size="12" fill="#1a1a1a" text-anchor="start">D7–D0 (8 біт)</text>
+
+  <!-- Група 3: SCCB -->
+  <rect x="295" y="356" width="370" height="78" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="4 3" rx="6"/>
+  <text x="480" y="372" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Шина налаштування SCCB (I2C)</text>
+
+  <text x="480" y="384" font-size="12" fill="#2457d6" text-anchor="middle">SIOC / SCL (ESP32 → OV3640, Тактування SCCB)</text>
+  <line x1="280" y1="390" x2="680" y2="390" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="270" y="394" font-size="12" fill="#1a1a1a" text-anchor="end">GPIO27 (SIOC)</text>
+  <text x="690" y="394" font-size="12" fill="#1a1a1a" text-anchor="start">SIOC</text>
+
+  <text x="480" y="412" font-size="12" fill="#2457d6" text-anchor="middle">SIOD / SDA (Двонапрямлені дані SCCB)</text>
+  <line x1="280" y1="418" x2="680" y2="418" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-left)" marker-end="url(#arr-blue)"/>
+  <text x="270" y="422" font-size="12" fill="#1a1a1a" text-anchor="end">GPIO26 (SIOD)</text>
+  <text x="690" y="422" font-size="12" fill="#1a1a1a" text-anchor="start">SIOD</text>
+
+  <!-- Група 4: Живлення та скидання -->
+  <rect x="295" y="442" width="370" height="68" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="480" y="457" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Живлення та керування станом</text>
+
+  <text x="480" y="468" font-size="12" fill="#1a1a1a" text-anchor="middle">PWDN / RESET (Керування живленням та скидання)</text>
+  <line x1="280" y1="474" x2="680" y2="474" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="270" y="478" font-size="12" fill="#1a1a1a" text-anchor="end">GPIO32 / RESET</text>
+  <text x="690" y="478" font-size="12" fill="#1a1a1a" text-anchor="start">PWDN / RESET</text>
+
+  <text x="480" y="490" font-size="12" fill="#27ae60" text-anchor="middle">3.3V / GND (Основне живлення та спільний дріт)</text>
+  <line x1="280" y1="496" x2="680" y2="496" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="270" y="500" font-size="12" fill="#1a1a1a" text-anchor="end">3V3 / GND</text>
+  <text x="690" y="500" font-size="12" fill="#1a1a1a" text-anchor="start">VCC / GND</text>
+</svg>

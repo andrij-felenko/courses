@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-dark-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title Block -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма та інтервали гасіння шини DVP</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Дані D[0..7] передаються лише при високому HREF, а інтервали гасіння обмежують граничний FPS</text>
+
+  <!-- Upper Panel: Macro Timing -->
+  <rect x="30" y="75" width="900" height="215" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="92" font-size="13" font-weight="bold" fill="#1a1a1a">Кадровий та рядковий рівень синхронізації (Макрохронограма)</text>
+
+  <!-- Highlight Regions in Upper Panel -->
+  <!-- Vertical Blanking Region -->
+  <rect x="170" y="118" width="100" height="112" fill="#fdecea" opacity="0.6" rx="4"/>
+  <!-- Active Frame Region -->
+  <rect x="270" y="118" width="560" height="112" fill="#eaf0fd" opacity="0.4" rx="4"/>
+
+  <!-- Dimension Arrows at top of Upper Panel -->
+  <line x1="170" y1="114" x2="270" y2="114" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-start)" marker-end="url(#arr-red)"/>
+  <text x="220" y="108" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t_vblank (Гасіння кадру)</text>
+
+  <line x1="270" y1="114" x2="830" y2="114" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+  <text x="550" y="108" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Активна зона кадру (t_vactive = N_lines × T_line)</text>
+
+  <!-- Signal Labels Upper Panel -->
+  <text x="45" y="142" font-size="13" font-weight="bold" fill="#1a1a1a">VSYNC</text>
+  <text x="45" y="158" font-size="12" fill="#6b7280">(Кадрова синхр.)</text>
+
+  <text x="45" y="196" font-size="13" font-weight="bold" fill="#1a1a1a">HREF</text>
+  <text x="45" y="212" font-size="12" fill="#6b7280">(Рядкова синхр.)</text>
+
+  <!-- VSYNC Waveform -->
+  <path d="M 170,128 L 270,128 L 270,152 L 830,152 L 830,128 L 890,128" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- HREF Waveform -->
+  <path d="M 170,208 L 270,208 L 270,185 L 360,185 L 360,208 L 415,208 L 415,185 L 505,185 L 505,208 L 645,208 L 645,185 L 735,185 L 735,208 L 890,208" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Active Line Text Labels inside/above HREF High Pulses -->
+  <text x="315" y="172" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Рядок 1</text>
+  <text x="460" y="172" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Рядок 2</text>
+  <text x="575" y="172" font-size="12" fill="#6b7280" text-anchor="middle">... Рядки 3..N-1 ...</text>
+  <text x="690" y="172" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Рядок N</text>
+
+  <!-- HREF Sub-Dimension Brackets -->
+  <line x1="270" y1="235" x2="360" y2="235" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-dark-start)" marker-end="url(#arr-dark)"/>
+  <text x="315" y="249" font-size="12" fill="#1a1a1a" text-anchor="middle">t_hactive</text>
+
+  <line x1="360" y1="235" x2="415" y2="235" stroke="#c0392b" stroke-width="1.2" marker-start="url(#arr-red-start)" marker-end="url(#arr-red)"/>
+  <text x="387.5" y="249" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t_hblank</text>
+
+  <line x1="270" y1="268" x2="415" y2="268" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-dark-start)" marker-end="url(#arr-dark)"/>
+  <text x="342.5" y="282" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Період рядка: T_line = t_hactive + t_hblank</text>
+
+  <!-- Lower Panel: Micro Timing -->
+  <rect x="30" y="305" width="900" height="215" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="325" font-size="13" font-weight="bold" fill="#1a1a1a">Піксельний рівень: тактування PCLK та вихідний потік байтів D[0..7]</text>
+
+  <!-- Signal Labels Lower Panel -->
+  <text x="45" y="356" font-size="13" font-weight="bold" fill="#1a1a1a">HREF</text>
+
+  <text x="45" y="396" font-size="13" font-weight="bold" fill="#1a1a1a">PCLK</text>
+  <text x="45" y="412" font-size="12" fill="#6b7280">(Піксельний такт)</text>
+
+  <text x="45" y="450" font-size="13" font-weight="bold" fill="#1a1a1a">D[0..7]</text>
+  <text x="45" y="466" font-size="12" fill="#6b7280">(8-біт шина)</text>
+
+  <!-- Micro HREF Waveform -->
+  <path d="M 170,350 L 530,350 L 530,365 L 650,365" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="350" y="340" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">АКТИВНИЙ РЯДОК (HREF = HIGH)</text>
+
+  <!-- PCLK Waveform -->
+  <path d="M 170,405 L 215,405 L 215,385 L 260,385 L 260,405 L 305,405 L 305,385 L 350,385 L 350,405 L 395,405 L 395,385 L 440,385 L 440,405 L 485,405 L 485,385 L 530,385 L 530,405 L 575,405 L 575,385 L 620,385 L 620,405 L 650,405" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Dashed Vertical Lines for PCLK Sampling Edges -->
+  <line x1="215" y1="380" x2="215" y2="435" stroke="#2457d6" stroke-dasharray="2,2" opacity="0.6"/>
+  <line x1="260" y1="380" x2="260" y2="435" stroke="#2457d6" stroke-dasharray="2,2" opacity="0.6"/>
+  <line x1="305" y1="380" x2="305" y2="435" stroke="#2457d6" stroke-dasharray="2,2" opacity="0.6"/>
+  <line x1="350" y1="380" x2="350" y2="435" stroke="#2457d6" stroke-dasharray="2,2" opacity="0.6"/>
+  <line x1="395" y1="380" x2="395" y2="435" stroke="#2457d6" stroke-dasharray="2,2" opacity="0.6"/>
+  <line x1="440" y1="380" x2="440" y2="435" stroke="#2457d6" stroke-dasharray="2,2" opacity="0.6"/>
+  <line x1="485" y1="380" x2="485" y2="435" stroke="#2457d6" stroke-dasharray="2,2" opacity="0.6"/>
+  <line x1="530" y1="380" x2="530" y2="435" stroke="#2457d6" stroke-dasharray="2,2" opacity="0.6"/>
+
+  <!-- D[0..7] Hexagonal Bus Shapes -->
+  <!-- Byte 1 (170..260) -->
+  <polygon points="170,450 176,436 254,436 260,450 254,464 176,464" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="215" y="454" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Байт 1 (Hi)</text>
+
+  <!-- Byte 2 (260..350) -->
+  <polygon points="260,450 266,436 344,436 350,450 344,464 266,464" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="305" y="454" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Байт 2 (Lo)</text>
+
+  <!-- Byte 3 (350..440) -->
+  <polygon points="350,450 356,436 434,436 440,450 434,464 356,464" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="395" y="454" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Байт 3 (Hi)</text>
+
+  <!-- Byte 4 (440..530) -->
+  <polygon points="440,450 446,436 524,436 530,450 524,464 446,464" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="485" y="454" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Байт 4 (Lo)</text>
+
+  <!-- Blanking / Inactive Bus (530..650) -->
+  <polygon points="530,450 536,436 644,436 650,450 644,464 536,464" fill="#f4f6f8" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="590" y="454" font-size="12" fill="#6b7280" text-anchor="middle">Гасіння кадру</text>
+
+  <!-- Pixel Grouping Brackets -->
+  <line x1="170" y1="478" x2="350" y2="478" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+  <text x="260" y="494" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Піксель 1 (RGB565)</text>
+
+  <line x1="350" y1="478" x2="530" y2="478" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+  <text x="440" y="494" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Піксель 2 (RGB565)</text>
+
+  <!-- Right Info Card -->
+  <rect x="665" y="330" width="250" height="178" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="680" y="352" font-size="13" font-weight="bold" fill="#1a1a1a">Формули та залежності:</text>
+  <text x="680" y="374" font-size="12" fill="#1a1a1a">• 1 px (RGB565) = 2 такти PCLK</text>
+  <text x="680" y="396" font-size="12" fill="#1a1a1a">• Вибірка = 8 біт на такт PCLK</text>
+  <text x="680" y="418" font-size="12" font-weight="bold" fill="#2457d6">• T_frame = (W+blank)×(H+blank)</text>
+  <text x="680" y="440" font-size="12" font-weight="bold" fill="#27ae60">• FPS = f_PCLK / T_frame</text>
+  <text x="680" y="462" font-size="12" fill="#1a1a1a">• DMA PSRAM = 2 × Line_bytes</text>
+  <text x="680" y="484" font-size="12" fill="#6b7280">• Blanking запобігає overflow</text>
+</svg>

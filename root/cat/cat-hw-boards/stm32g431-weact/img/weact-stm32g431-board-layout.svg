@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr_blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr_green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr_dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Топологія та специфікація плати WeAct Studio STM32G431CBU6</text>
+  <text x="480" y="55" text-anchor="middle" font-size="13" fill="#6b7280">Розташування USB Type-C, CAN FD та аналогових виводів для силової електроніки й FOC</text>
+
+  <!-- Panel 1: MCU Specs (Left) -->
+  <rect x="30" y="85" width="260" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="160" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">1. Характеристики МК</text>
+  <text x="160" y="130" text-anchor="middle" font-size="12" fill="#6b7280">STM32G431CBU6 (Cortex-M4F)</text>
+
+  <!-- Panel 1 Card 1: Accelerators -->
+  <rect x="45" y="145" width="230" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="160" y="165" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Математичні прискорювачі</text>
+  <text x="55" y="187" font-size="12" fill="#1a1a1a">• CORDIC: векторна математика</text>
+  <text x="55" y="207" font-size="12" fill="#1a1a1a">• FMAC: фільтрація КІХ / БІХ</text>
+  <text x="160" y="227" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">170 МГц | FPU | 128KB Flash</text>
+
+  <!-- Panel 1 Card 2: Analog -->
+  <rect x="45" y="252" width="230" height="120" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="160" y="272" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Аналогова периферія</text>
+  <text x="55" y="294" font-size="12" fill="#1a1a1a">• 3× АЦП 12-біт (до 4 MSPS)</text>
+  <text x="55" y="314" font-size="12" fill="#1a1a1a">• 4× ЦАП 12-біт</text>
+  <text x="55" y="334" font-size="12" fill="#1a1a1a">• 4× ОУ (OpAmp) з PGA</text>
+  <text x="55" y="354" font-size="12" fill="#1a1a1a">• 4× Швидкі компаратори</text>
+
+  <!-- Panel 1 Card 3: Interfaces -->
+  <rect x="45" y="384" width="230" height="130" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="160" y="404" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Інтерфейси та живлення</text>
+  <text x="55" y="426" font-size="12" fill="#1a1a1a">• USB Type-C (Power / DFU)</text>
+  <text x="55" y="446" font-size="12" fill="#1a1a1a">• CAN FD (FDCAN1, 5 Мбіт/с)</text>
+  <text x="55" y="466" font-size="12" fill="#1a1a1a">• LDO 3.3V (до 500 мА)</text>
+  <text x="55" y="486" font-size="12" fill="#1a1a1a">• SWD відлагодження</text>
+
+
+  <!-- Panel 2: Board Topology (Middle) -->
+  <rect x="310" y="85" width="340" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">2. Компонування плати WeAct</text>
+  <text x="480" y="130" text-anchor="middle" font-size="12" fill="#6b7280">Фізичне розташування вузлів та виводів</text>
+
+  <!-- Left Pin Highlight 1: Analog Group -->
+  <rect x="315" y="205" width="52" height="160" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="341" y="224" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Аналогові</text>
+  <text x="341" y="242" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">виводи</text>
+  <text x="341" y="262" text-anchor="middle" font-size="12" fill="#1a1a1a">PA0..PA7</text>
+  <text x="341" y="280" text-anchor="middle" font-size="12" fill="#6b7280">(АЦП/ЦАП)</text>
+  <text x="341" y="298" text-anchor="middle" font-size="12" fill="#6b7280">OpAmp</text>
+  <text x="341" y="325" text-anchor="middle" font-size="12" fill="#27ae60">Струм фаз</text>
+  <text x="341" y="343" text-anchor="middle" font-size="12" fill="#27ae60">та V_bus</text>
+
+  <!-- Left Pin Highlight 2: Power Group -->
+  <rect x="315" y="380" width="52" height="90" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="341" y="402" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Живлення</text>
+  <text x="341" y="424" text-anchor="middle" font-size="12" fill="#6b7280">5V / 3.3V</text>
+  <text x="341" y="446" text-anchor="middle" font-size="12" fill="#6b7280">GND</text>
+
+  <!-- PCB Body -->
+  <rect x="380" y="145" width="200" height="365" rx="8" fill="white" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- USB Type-C Connector -->
+  <rect x="455" y="150" width="50" height="22" rx="4" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="480" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">USB-C</text>
+
+  <!-- PCB Components -->
+  <rect x="395" y="182" width="26" height="16" rx="2" fill="#d0d7de" stroke="#1a1a1a"/>
+  <text x="408" y="194" text-anchor="middle" font-size="12" fill="#1a1a1a">RST</text>
+
+  <rect x="539" y="182" width="26" height="16" rx="2" fill="#d0d7de" stroke="#1a1a1a"/>
+  <text x="552" y="194" text-anchor="middle" font-size="12" fill="#1a1a1a">KEY</text>
+
+  <rect x="465" y="205" width="30" height="16" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="480" y="217" text-anchor="middle" font-size="12" fill="#2457d6">8MHz</text>
+
+  <rect x="465" y="235" width="30" height="18" fill="#d0d7de" stroke="#1a1a1a"/>
+  <text x="480" y="248" text-anchor="middle" font-size="12" fill="#1a1a1a">3.3V</text>
+
+  <!-- MCU Chip -->
+  <rect x="445" y="270" width="70" height="70" rx="3" fill="#1a1a1a" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="480" y="302" text-anchor="middle" font-size="12" font-weight="bold" fill="white">STM32G4</text>
+  <text x="480" y="322" text-anchor="middle" font-size="12" fill="#eaf0fd">31CBU6</text>
+
+  <!-- Left/Right Headers on Board -->
+  <rect x="383" y="200" width="10" height="270" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <rect x="567" y="200" width="10" height="270" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- SWD Header at Bottom -->
+  <rect x="445" y="475" width="70" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="490" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">SWD Debug</text>
+
+  <!-- Right Pin Highlight 1: PWM Group -->
+  <rect x="593" y="205" width="52" height="140" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="619" y="225" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">PWM TIM1</text>
+  <text x="619" y="245" text-anchor="middle" font-size="12" fill="#1a1a1a">PA8..PA11</text>
+  <text x="619" y="265" text-anchor="middle" font-size="12" fill="#6b7280">TIM1 (6x)</text>
+  <text x="619" y="285" text-anchor="middle" font-size="12" fill="#6b7280">ШІМ FOC</text>
+  <text x="619" y="312" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Інвертор</text>
+  <text x="619" y="330" text-anchor="middle" font-size="12" fill="#2457d6">двигуна</text>
+
+  <!-- Right Pin Highlight 2: CAN FD Group -->
+  <rect x="593" y="355" width="52" height="115" rx="4" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="619" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">CAN FD</text>
+  <text x="619" y="395" text-anchor="middle" font-size="12" fill="#1a1a1a">PB8 / PB9</text>
+  <text x="619" y="415" text-anchor="middle" font-size="12" fill="#6b7280">Шина CAN</text>
+  <text x="619" y="435" text-anchor="middle" font-size="12" fill="#6b7280">5 Мбіт/с</text>
+  <text x="619" y="455" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Телеметрія</text>
+
+  <!-- Internal Signal Flow Arrows -->
+  <line x1="377" y1="285" x2="437" y2="305" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr_green)"/>
+  <line x1="523" y1="305" x2="575" y2="275" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr_blue)"/>
+
+
+  <!-- Panel 3: Motor & FOC Integration (Right) -->
+  <rect x="670" y="85" width="260" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="800" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">3. Інтеграція з FOC</text>
+  <text x="800" y="130" text-anchor="middle" font-size="12" fill="#6b7280">Схема з'єднання з драйверами</text>
+
+  <!-- Panel 3 Card 1: Analog Feedback -->
+  <rect x="685" y="145" width="230" height="115" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="800" y="165" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Аналоговий зворотний зв'язок</text>
+  <text x="695" y="187" font-size="12" fill="#1a1a1a">• Шунти фаз A, B, C → OpAmp</text>
+  <text x="695" y="207" font-size="12" fill="#1a1a1a">• Вимірювання струму в АЦП</text>
+  <text x="695" y="227" font-size="12" fill="#1a1a1a">• Контроль напруги V_bus</text>
+  <text x="695" y="247" font-size="12" font-weight="bold" fill="#27ae60">Апаратне згладжування FMAC</text>
+
+  <!-- Panel 3 Card 2: PWM Control Loop -->
+  <rect x="685" y="272" width="230" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="800" y="292" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Обробка та генерація ШІМ</text>
+  <text x="695" y="314" font-size="12" fill="#1a1a1a">• CORDIC: Park / Clarke / DQ</text>
+  <text x="695" y="334" font-size="12" fill="#1a1a1a">• Розрахунок кута sin / cos</text>
+  <text x="695" y="354" font-size="12" fill="#1a1a1a">• TIM1: PWM з мертвим часом</text>
+  <text x="695" y="374" font-size="12" font-weight="bold" fill="#2457d6">Час контуру FOC &lt; 2 мкс</text>
+
+  <!-- Panel 3 Card 3: CAN Bus -->
+  <rect x="685" y="399" width="230" height="115" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="800" y="419" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Промислова шина CAN FD</text>
+  <text x="695" y="441" font-size="12" fill="#1a1a1a">• Передача телеметрії струму</text>
+  <text x="695" y="461" font-size="12" fill="#1a1a1a">• Команди швидкості / моменту</text>
+  <text x="695" y="481" font-size="12" fill="#1a1a1a">• Швидкість до 5 Мбіт/с</text>
+  <text x="695" y="501" font-size="12" fill="#6b7280">Стійкість до завад мотора</text>
+
+  <!-- Inter-panel Connection Arrows -->
+  <line x1="647" y1="275" x2="677" y2="330" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr_blue)"/>
+  <line x1="647" y1="412" x2="677" y2="456" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr_dark)"/>
+</svg>

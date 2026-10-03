@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" width="960" height="600" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="600" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ініціалізація драйвера esp_camera для OV3640</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Налаштування структури camera_config_t залежно від наявності PSRAM</text>
+
+  <!-- Step 1: Configuration Init -->
+  <rect x="330" y="84" width="300" height="54" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="104" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Налаштування GPIO &amp; SCCB</text>
+  <text x="480" y="124" font-size="12" fill="#6b7280" text-anchor="middle">Призначення пінів DVP, XCLK, PCLK, SIOC, SIOD</text>
+
+  <!-- Connection Step 1 -> Step 2 -->
+  <path d="M 480 138 L 480 164" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Step 2: PSRAM Check Decision -->
+  <rect x="340" y="164" width="280" height="54" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="184" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Перевірка пам'яті PSRAM</text>
+  <text x="480" y="204" font-size="12" fill="#1a1a1a" text-anchor="middle">Чи наявна зовнішня PSRAM (psramFound)?</text>
+
+  <!-- Branch Left: YES (PSRAM) -->
+  <path d="M 340 191 L 230 191 L 230 246" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+  <text x="285" y="182" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ТАК (є PSRAM)</text>
+
+  <!-- Branch Right: NO (No PSRAM) -->
+  <path d="M 620 191 L 730 191 L 730 246" stroke="#c0392b" stroke-width="2" fill="none" marker-end="url(#arr-red)"/>
+  <text x="675" y="182" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">НІ (без PSRAM)</text>
+
+  <!-- Step 3A: PSRAM Mode Box -->
+  <rect x="50" y="246" width="360" height="150" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="68" y="268" font-size="13" font-weight="bold" fill="#27ae60">Режим високої якості (PSRAM наявна)</text>
+  <text x="68" y="291" font-size="12" fill="#1a1a1a">• frame_size = FRAMESIZE_UXGA (1600×1200)</text>
+  <text x="68" y="311" font-size="12" fill="#1a1a1a">• pixel_format = PIXFORMAT_JPEG</text>
+  <text x="68" y="331" font-size="12" fill="#1a1a1a">• fb_count = 2 (подвійна буферизація в PSRAM)</text>
+  <text x="68" y="351" font-size="12" fill="#1a1a1a">• jpeg_quality = 10..12 (висока деталізація)</text>
+  <text x="68" y="371" font-size="12" fill="#6b7280">• grab_mode = CAMERA_GRAB_LATEST</text>
+
+  <!-- Step 3B: DRAM Fallback Box -->
+  <rect x="550" y="246" width="360" height="150" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="568" y="268" font-size="13" font-weight="bold" fill="#c0392b">Обмежений режим (без PSRAM, DRAM)</text>
+  <text x="568" y="291" font-size="12" fill="#1a1a1a">• frame_size = FRAMESIZE_SVGA / QVGA</text>
+  <text x="568" y="311" font-size="12" fill="#1a1a1a">• pixel_format = PIXFORMAT_JPEG</text>
+  <text x="568" y="331" font-size="12" fill="#1a1a1a">• fb_count = 1 (одиничний буфер у DRAM)</text>
+  <text x="568" y="351" font-size="12" fill="#1a1a1a">• jpeg_quality = 15..20 (більше стиснення)</text>
+  <text x="568" y="371" font-size="12" fill="#6b7280">• Запобігання фрагментації купи DRAM</text>
+
+  <!-- Convergence to Step 4 -->
+  <path d="M 230 396 L 230 420 L 480 420" stroke="#27ae60" stroke-width="1.5" fill="none"/>
+  <path d="M 730 396 L 730 420 L 480 420" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+  <path d="M 480 420 L 480 442" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Step 4: esp_camera_init() Call -->
+  <rect x="320" y="442" width="320" height="50" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="462" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. esp_camera_init(&amp;config)</text>
+  <text x="480" y="480" font-size="12" fill="#6b7280" text-anchor="middle">Виділення пам'яті та ініціалізація шини DVP</text>
+
+  <!-- Result Branch: ESP_OK -->
+  <path d="M 400 492 L 400 510 L 230 510 L 230 524" stroke="#27ae60" stroke-width="1.5" fill="none" marker-end="url(#arr-green)"/>
+  <text x="315" y="502" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ESP_OK</text>
+
+  <!-- Result Branch: Error -->
+  <path d="M 560 492 L 560 510 L 730 510 L 730 524" stroke="#c0392b" stroke-width="1.5" fill="none" marker-end="url(#arr-red)"/>
+  <text x="645" y="502" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Помилка (ESP_ERR_...)</text>
+
+  <!-- Step 5A: Success Result -->
+  <rect x="50" y="524" width="360" height="50" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="230" y="544" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Успіх: Драйвер готовий до роботи</text>
+  <text x="230" y="562" font-size="12" fill="#1a1a1a" text-anchor="middle">Захоплення кадрів через esp_camera_fb_get()</text>
+
+  <!-- Step 5B: Error Result -->
+  <rect x="550" y="524" width="360" height="50" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="730" y="544" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Збій ініціалізації камери</text>
+  <text x="730" y="562" font-size="12" fill="#1a1a1a" text-anchor="middle">Перевірка ліній DVP/I2C або налаштувань живлення</text>
+</svg>

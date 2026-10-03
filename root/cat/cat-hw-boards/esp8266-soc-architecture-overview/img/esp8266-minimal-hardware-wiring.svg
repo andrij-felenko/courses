@@ -1,0 +1,229 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <!-- Маркери стрілок -->
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мінімальна апаратна обв'язка та конфігурація завантаження ESP8266</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Режими завантаження визначаються рівнем GPIO0, GPIO2 та GPIO15; фільтрація VCC компенсує пікові струми до 500 мА</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: ПІДСИСТЕМА ЖИВЛЕННЯ (LEFT) ==================== -->
+  <rect x="20" y="70" width="200" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="120" y="94" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Підсистема живлення</text>
+  <text x="120" y="112" font-size="12" fill="#6b7280" text-anchor="middle">+3.3 В джерело та фільтрація</text>
+
+  <!-- Шини живлення -->
+  <!-- 3.3V Rail -->
+  <line x1="35" y1="140" x2="195" y2="140" stroke="#c0392b" stroke-width="3"/>
+  <text x="35" y="133" font-size="12" font-weight="bold" fill="#c0392b">+3.3V</text>
+
+  <!-- GND Rail -->
+  <line x1="35" y1="360" x2="195" y2="360" stroke="#1a1a1a" stroke-width="3"/>
+  <text x="35" y="376" font-size="12" font-weight="bold" fill="#1a1a1a">GND (0V)</text>
+
+  <!-- Конденсатор C1 (10 uF) -->
+  <line x1="80" y1="140" x2="80" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="68" y1="225" x2="92" y2="225" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="68" y1="233" x2="92" y2="233" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="80" y1="233" x2="80" y2="360" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="96" y="215" font-size="11" font-weight="bold" fill="#c0392b">+</text>
+  <text x="98" y="227" font-size="12" font-weight="bold" fill="#1a1a1a">C1</text>
+  <text x="98" y="241" font-size="12" fill="#6b7280">10 µF</text>
+  <text x="98" y="255" font-size="11" fill="#6b7280">(Тантал)</text>
+
+  <!-- Конденсатор C2 (0.1 uF) -->
+  <line x1="160" y1="140" x2="160" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="148" y1="225" x2="172" y2="225" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="148" y1="233" x2="172" y2="233" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="160" y1="233" x2="160" y2="360" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="178" y="222" font-size="12" font-weight="bold" fill="#1a1a1a">C2</text>
+  <text x="178" y="236" font-size="12" fill="#6b7280">0.1 µF</text>
+  <text x="178" y="250" font-size="11" fill="#6b7280">(Кераміка)</text>
+
+  <!-- Інформаційний блок про живлення -->
+  <rect x="30" y="395" width="180" height="105" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="120" y="415" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вимоги до живлення</text>
+  <text x="120" y="433" font-size="11" fill="#1a1a1a" text-anchor="middle">Піковий струм RF: ~500 мА</text>
+  <text x="120" y="449" font-size="11" fill="#1a1a1a" text-anchor="middle">Тривалість: ~1 мс (пакет)</text>
+  <text x="120" y="465" font-size="11" fill="#1a1a1a" text-anchor="middle">C1 усуває падіння VCC</text>
+  <text x="120" y="481" font-size="11" fill="#1a1a1a" text-anchor="middle">C2 пригнічує ВЧ-шуми</text>
+
+
+  <!-- ==================== ПАНЕЛЬ 2: МІКРОКОНТРОЛЕР ESP8266 (CENTER) ==================== -->
+  <rect x="235" y="70" width="415" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="442" y="94" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер та обв'язка виводів</text>
+  <text x="442" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Конфігурація підтяжок режимів завантаження</text>
+
+  <!-- Корпус ESP8266EX SoC -->
+  <rect x="420" y="135" width="215" height="365" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="527" y="160" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">ESP8266EX / ESP-12</text>
+  <text x="527" y="176" font-size="11" fill="#6b7280" text-anchor="middle">32-bit Xtensa L106 SoC</text>
+
+  <!-- ПІНИ З ЛІВОГО БОКУ (INPUTS / CONFIG) -->
+  <!-- VCC (y=200) -->
+  <line x1="195" y1="140" x2="420" y2="200" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <circle cx="420" cy="200" r="3" fill="#c0392b"/>
+  <text x="428" y="204" font-size="12" font-weight="bold" fill="#c0392b">VCC (3.3V)</text>
+
+  <!-- CHIP_EN (EN) (y=240) -->
+  <line x1="330" y1="240" x2="420" y2="240" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="420" cy="240" r="3" fill="#2457d6"/>
+  <text x="428" y="244" font-size="12" font-weight="bold" fill="#1a1a1a">CHIP_EN</text>
+  <!-- Pull-up R1 (10k to 3.3V) -->
+  <line x1="330" y1="140" x2="330" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="324" y="180" width="12" height="24" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="330" y1="204" x2="330" y2="240" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="318" y="196" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="end">R1 10k</text>
+  <text x="245" y="244" font-size="11" font-weight="bold" fill="#27ae60">HIGH (EN)</text>
+
+  <!-- REST / RST (y=290) -->
+  <line x1="370" y1="290" x2="420" y2="290" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="420" cy="290" r="3" fill="#2457d6"/>
+  <text x="428" y="294" font-size="12" font-weight="bold" fill="#1a1a1a">REST (RST)</text>
+  <!-- Pull-up R2 (10k to 3.3V) -->
+  <line x1="370" y1="140" x2="370" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="364" y="210" width="12" height="24" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="370" y1="234" x2="370" y2="290" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="358" y="226" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="end">R2 10k</text>
+  <!-- Reset Button SW1 -->
+  <line x1="370" y1="290" x2="370" y2="310" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="360" y1="310" x2="380" y2="310" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="365" y1="310" x2="375" y2="303" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="370" y1="310" x2="370" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="355" y="320" font-size="10" fill="#6b7280" text-anchor="end">SW1</text>
+
+  <!-- GPIO15 (y=350) - MUST BE LOW (0) -->
+  <line x1="300" y1="350" x2="420" y2="350" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="420" cy="350" r="3" fill="#c0392b"/>
+  <text x="428" y="354" font-size="12" font-weight="bold" fill="#c0392b">GPIO15 (MTDO)</text>
+  <!-- Pull-down R3 (10k to GND) -->
+  <line x1="300" y1="350" x2="300" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="294" y="365" width="12" height="24" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="300" y1="389" x2="300" y2="475" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="288" y="381" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="end">R3 10k (Down)</text>
+  <rect x="242" y="341" width="52" height="18" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="268" y="354" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">LOW (0)</text>
+
+  <!-- GPIO0 (y=400) - HIGH FOR FLASH BOOT -->
+  <line x1="345" y1="400" x2="420" y2="400" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="420" cy="400" r="3" fill="#2457d6"/>
+  <text x="428" y="404" font-size="12" font-weight="bold" fill="#2457d6">GPIO0</text>
+  <!-- Pull-up R4 (10k to 3.3V) -->
+  <line x1="345" y1="140" x2="345" y2="335" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="339" y="335" width="12" height="24" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="345" y1="359" x2="345" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="333" y="351" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="end">R4 10k</text>
+  <!-- Flash SW2 button to GND -->
+  <line x1="345" y1="400" x2="345" y2="415" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="335" y1="415" x2="355" y2="415" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="340" y1="415" x2="350" y2="408" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="345" y1="415" x2="345" y2="475" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="348" y="425" font-size="10" fill="#6b7280">SW2</text>
+  <rect x="242" y="391" width="52" height="18" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="268" y="404" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">HIGH (1)</text>
+
+  <!-- GPIO2 (y=445) - MUST BE HIGH (1) -->
+  <line x1="385" y1="445" x2="420" y2="445" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="420" cy="445" r="3" fill="#27ae60"/>
+  <text x="428" y="449" font-size="12" font-weight="bold" fill="#27ae60">GPIO2</text>
+  <!-- Pull-up R5 (10k to 3.3V) -->
+  <line x1="385" y1="140" x2="385" y2="385" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="379" y="385" width="12" height="24" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="385" y1="409" x2="385" y2="445" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="373" y="401" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="end">R5 10k</text>
+  <rect x="242" y="436" width="52" height="18" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="268" y="449" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">HIGH (1)</text>
+
+  <!-- GND Pin (y=475) -->
+  <line x1="195" y1="360" x2="195" y2="475" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="195" y1="475" x2="420" y2="475" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="420" cy="475" r="3" fill="#1a1a1a"/>
+  <text x="428" y="479" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+
+  <!-- ПІНИ З ПРАВОГО БОКУ SoC (SPI & UART) -->
+  <!-- SPI_CS (y=210) -->
+  <text x="622" y="214" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">SD0 / CS</text>
+  <circle cx="635" cy="210" r="3" fill="#2457d6"/>
+  <line x1="635" y1="210" x2="685" y2="175" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- SPI_CLK (y=240) -->
+  <text x="622" y="244" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">CLK</text>
+  <circle cx="635" cy="240" r="3" fill="#2457d6"/>
+  <line x1="635" y1="240" x2="685" y2="190" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- SPI_MOSI (y=270) -->
+  <text x="622" y="274" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">SD1 / MOSI</text>
+  <circle cx="635" cy="270" r="3" fill="#2457d6"/>
+  <line x1="635" y1="270" x2="685" y2="205" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- SPI_MISO (y=300) -->
+  <text x="622" y="304" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">SD2 / MISO</text>
+  <circle cx="635" cy="300" r="3" fill="#2457d6"/>
+  <line x1="635" y1="300" x2="685" y2="220" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+
+  <!-- ==================== ПАНЕЛЬ 3: SPI FLASH ТА ТАБЛИЦЯ BOOT (RIGHT) ==================== -->
+  <rect x="665" y="70" width="275" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="802" y="94" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пам'ять та конфігурація</text>
+  <text x="802" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Зовнішня SPI Flash та логіка Boot</text>
+
+  <!-- Блок SPI Flash -->
+  <rect x="685" y="125" width="235" height="115" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="802" y="143" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Зовнішня SPI Flash</text>
+  <text x="802" y="157" font-size="11" fill="#6b7280" text-anchor="middle">Winbond W25Q32 (4 MB / QSPI)</text>
+  <line x1="695" y1="163" x2="910" y2="163" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="695" y="177" font-size="11" fill="#1a1a1a">CS# (Chip Select)</text>
+  <text x="695" y="191" font-size="11" fill="#1a1a1a">CLK (Clock)</text>
+  <text x="695" y="205" font-size="11" fill="#1a1a1a">DI / IO0 (Data In)</text>
+  <text x="695" y="219" font-size="11" fill="#1a1a1a">DO / IO1 (Data Out)</text>
+  <text x="695" y="233" font-size="10" fill="#6b7280">WP#, HOLD# → +3.3V</text>
+
+  <!-- Блок Таблиці режимів завантаження -->
+  <rect x="680" y="255" width="245" height="245" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="802" y="275" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Таблиця режимів Boot</text>
+
+  <!-- Таблиця -->
+  <rect x="688" y="285" width="229" height="22" rx="3" fill="#f4f6f8"/>
+  <text x="710" y="300" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO15</text>
+  <text x="748" y="300" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO0</text>
+  <text x="786" y="300" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO2</text>
+  <text x="855" y="300" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Режим роботи</text>
+
+  <!-- Рядок 1: Flash Boot (Solution / Green) -->
+  <rect x="688" y="312" width="229" height="48" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="710" y="333" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">0 (L)</text>
+  <text x="748" y="333" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1 (H)</text>
+  <text x="786" y="333" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1 (H)</text>
+  <text x="855" y="330" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">SPI Flash Boot</text>
+  <text x="855" y="346" font-size="10" fill="#27ae60" text-anchor="middle">Нормальна робота</text>
+
+  <!-- Рядок 2: UART Download (Accent / Blue) -->
+  <rect x="688" y="365" width="229" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="710" y="386" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">0 (L)</text>
+  <text x="748" y="386" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">0 (L)</text>
+  <text x="786" y="386" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1 (H)</text>
+  <text x="855" y="383" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">UART Download</text>
+  <text x="855" y="399" font-size="10" fill="#2457d6" text-anchor="middle">Прошивка через UART</text>
+
+  <!-- Рядок 3: SDIO Boot (Problem / Red) -->
+  <rect x="688" y="418" width="229" height="48" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="710" y="439" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1 (H)</text>
+  <text x="748" y="439" font-size="12" fill="#c0392b" text-anchor="middle">x</text>
+  <text x="786" y="439" font-size="12" fill="#c0392b" text-anchor="middle">x</text>
+  <text x="855" y="436" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">SDIO Boot</text>
+  <text x="855" y="452" font-size="10" fill="#c0392b" text-anchor="middle">Не використовується</text>
+
+  <!-- Примітка до таблиці -->
+  <text x="802" y="484" font-size="10" fill="#6b7280" text-anchor="middle">L = GND (0 В), H = 3.3 В (підтяжка)</text>
+
+</svg>

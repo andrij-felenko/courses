@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Динаміка струму та напруги живлення ESP32-CAM при піковому навантаженні</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Недостатня ємність C_dec спричиняє просідання V_VCC нижче порогу V_BOD і викликає Brownout Reset</text>
+
+  <!-- Main Panel 1: Current Diagram -->
+  <rect x="40" y="85" width="620" height="180" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="55" y="108" font-size="14" font-weight="700" fill="#1a1a1a">1. Часова діаграма споживання струму I_CC(t)</text>
+
+  <!-- Y-Axis for Panel 1 -->
+  <line x1="110" y1="120" x2="110" y2="245" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="108" y="115" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">I_CC [mA]</text>
+
+  <!-- Grid lines and Y ticks Panel 1 -->
+  <line x1="110" y1="240" x2="630" y2="240" stroke="#d0d7de" stroke-width="1"/>
+  <text x="102" y="244" font-size="12" fill="#6b7280" text-anchor="end">0 mA</text>
+
+  <line x1="110" y1="222" x2="630" y2="222" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="102" y="226" font-size="12" fill="#6b7280" text-anchor="end">80 mA</text>
+
+  <line x1="110" y1="194" x2="630" y2="194" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="102" y="198" font-size="12" fill="#6b7280" text-anchor="end">200 mA</text>
+
+  <line x1="110" y1="125" x2="630" y2="125" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="102" y="129" font-size="12" fill="#6b7280" text-anchor="end">500 mA</text>
+
+  <!-- Waveform Fill -->
+  <path d="M 110 240 L 110 222 L 210 222 L 210 194 L 310 194 L 310 125 L 470 125 L 470 194 L 530 194 L 530 222 L 630 222 L 630 240 Z" fill="#eaf0fd" opacity="0.7"/>
+
+  <!-- Waveform Outline -->
+  <path d="M 110 222 L 210 222 L 210 194 L 310 194 L 310 125 L 470 125 L 470 194 L 530 194 L 530 222 L 630 222" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Waveform Labels -->
+  <text x="160" y="214" font-size="12" fill="#6b7280" text-anchor="middle">CPU (80 mA)</text>
+  <text x="260" y="186" font-size="12" fill="#6b7280" text-anchor="middle">+ LED (120 mA)</text>
+  <text x="390" y="116" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Піковий струм I_peak = 500 mA (Wi-Fi TX + LED)</text>
+
+  <!-- Main Panel 2: Voltage Diagram -->
+  <rect x="40" y="280" width="620" height="190" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="55" y="303" font-size="14" font-weight="700" fill="#1a1a1a">2. Напруга живлення V_VCC(t) та рівень спрацьовування V_BOD</text>
+
+  <!-- Y-Axis Panel 2 -->
+  <line x1="110" y1="315" x2="110" y2="455" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="108" y="310" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">V_VCC [V]</text>
+
+  <!-- Voltage reference lines -->
+  <line x1="110" y1="332" x2="630" y2="332" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="102" y="336" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">3.3 V</text>
+
+  <line x1="110" y1="392" x2="630" y2="392" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="102" y="396" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">2.8 V</text>
+
+  <text x="120" y="327" font-size="12" fill="#2457d6">V_nom = 3.3 V</text>
+  <text x="120" y="387" font-size="12" font-weight="700" fill="#c0392b">Поріг V_BOD = 2.8 V (Brownout Reset)</text>
+
+  <!-- Trace A: Problem (Red) C_dec = 10uF -->
+  <path d="M 110 332 L 210 332 L 210 344 L 310 344 C 330 350, 340 380, 350 392 C 360 405, 370 424, 385 424 C 400 424, 410 350, 440 332 L 630 332" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Trace B: Solution (Green) C_dec = 100uF -->
+  <path d="M 110 332 L 210 332 L 210 338 L 310 338 C 340 356, 440 356, 470 356 C 490 350, 510 332, 530 332 L 630 332" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Crash Point Annotation -->
+  <circle cx="350" cy="392" r="5" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+
+  <rect x="375" y="410" width="185" height="42" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="383" y="426" font-size="12" font-weight="700" fill="#c0392b">Спрацьовування BOD!</text>
+  <text x="383" y="442" font-size="12" fill="#c0392b">V_VCC &lt; 2.8 V (Скидання MCU)</text>
+  <line x1="375" y1="420" x2="357" y2="395" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Green trace box label -->
+  <rect x="420" y="342" width="195" height="26" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="428" y="359" font-size="12" font-weight="700" fill="#27ae60">C_dec = 100 µF (Безбезпечний запас)</text>
+
+  <!-- Vertical dashed timeline alignment lines -->
+  <line x1="210" y1="125" x2="210" y2="495" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="310" y1="125" x2="310" y2="495" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="470" y1="125" x2="470" y2="495" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="530" y1="125" x2="530" y2="495" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Timeline Panel -->
+  <rect x="40" y="480" width="620" height="65" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <line x1="110" y1="500" x2="620" y2="500" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="625" y="504" font-size="12" font-weight="700" fill="#1a1a1a">t</text>
+
+  <!-- Timeline Ticks & Labels -->
+  <text x="110" y="516" font-size="12" fill="#6b7280" text-anchor="middle">t_0</text>
+  <text x="210" y="516" font-size="12" fill="#6b7280" text-anchor="middle">t_1</text>
+  <text x="310" y="516" font-size="12" fill="#6b7280" text-anchor="middle">t_2</text>
+  <text x="470" y="516" font-size="12" fill="#6b7280" text-anchor="middle">t_3</text>
+  <text x="530" y="516" font-size="12" fill="#6b7280" text-anchor="middle">t_4</text>
+
+  <text x="160" y="534" font-size="12" fill="#1a1a1a" text-anchor="middle">1. Спокій</text>
+  <text x="260" y="534" font-size="12" fill="#1a1a1a" text-anchor="middle">2. LED</text>
+  <text x="390" y="534" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">3. Wi-Fi TX + LED (Пік)</text>
+  <text x="500" y="534" font-size="12" fill="#1a1a1a" text-anchor="middle">4. LED</text>
+
+  <!-- Right Side Panel -->
+  <rect x="680" y="85" width="250" height="460" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="695" y="108" font-size="14" font-weight="700" fill="#1a1a1a">Схема та еквівалент</text>
+
+  <!-- Circuit Diagram Container -->
+  <rect x="695" y="120" width="220" height="125" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+
+  <!-- Circuit Elements -->
+  <rect x="705" y="155" width="45" height="35" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="727" y="177" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">LDO</text>
+
+  <line x1="750" y1="172.5" x2="865" y2="172.5" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Node Dot -->
+  <circle cx="795" cy="172.5" r="3" fill="#1a1a1a"/>
+  <text x="795" y="163" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">V_VCC</text>
+
+  <!-- Capacitor Branch -->
+  <line x1="795" y1="172.5" x2="795" y2="188" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="785" y1="188" x2="805" y2="188" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="785" y1="194" x2="805" y2="194" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="795" y1="194" x2="795" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <line x1="787" y1="205" x2="803" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="791" y1="209" x2="799" y2="209" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="812" y="194" font-size="12" font-weight="700" fill="#1a1a1a">C_dec</text>
+
+  <!-- ESP32 Load Block -->
+  <rect x="865" y="150" width="45" height="45" fill="#f4f6f8" stroke="#1a1a1a" rx="3"/>
+  <text x="887" y="177" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">ESP32</text>
+
+  <!-- Current Arrow -->
+  <line x1="755" y1="145" x2="780" y2="145" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="767" y="140" font-size="12" fill="#2457d6" text-anchor="middle">I_peak</text>
+
+  <!-- Formula Container -->
+  <rect x="695" y="255" width="220" height="115" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="705" y="273" font-size="12" font-weight="700" fill="#1a1a1a">Формула розрахунку ємності:</text>
+  <text x="705" y="293" font-size="12" fill="#1a1a1a">ΔV = (I_peak · Δt) / C_dec + I_peak · R_ESR</text>
+  <text x="705" y="315" font-size="12" fill="#6b7280">Для Δt = 100 мкс, I = 500 мА:</text>
+  <text x="705" y="335" font-size="12" font-weight="700" fill="#2457d6">C_min ≥ (I_peak · Δt) / ΔV_max</text>
+  <text x="705" y="355" font-size="12" fill="#2457d6">C_min ≥ (0.5 A · 100 µs) / 0.3 V ≈ 166 µF</text>
+
+  <!-- Recommendation Container -->
+  <rect x="695" y="380" width="220" height="155" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="705" y="398" font-size="12" font-weight="700" fill="#1a1a1a">Рекомендації з обв'язки:</text>
+
+  <rect x="705" y="408" width="200" height="34" fill="#fdecea" stroke="#c0392b" rx="3"/>
+  <text x="713" y="422" font-size="12" font-weight="700" fill="#c0392b">❌ C_dec = 10 µF (штатна)</text>
+  <text x="713" y="436" font-size="12" fill="#c0392b">Ризик Brownout Reset при Wi-Fi</text>
+
+  <rect x="705" y="448" width="200" height="78" fill="#e9f7ef" stroke="#27ae60" rx="3"/>
+  <text x="713" y="464" font-size="12" font-weight="700" fill="#27ae60">✅ C_dec ≥ 100..220 µF</text>
+  <text x="713" y="480" font-size="12" fill="#27ae60">Low-ESR (тантал/електроліт)</text>
+  <text x="713" y="496" font-size="12" fill="#27ae60">+ 0.1 µF (кераміка поруч з PIN)</text>
+  <text x="713" y="512" font-size="12" fill="#27ae60">Забезпечує стабільні 3.3 V</text>
+</svg>

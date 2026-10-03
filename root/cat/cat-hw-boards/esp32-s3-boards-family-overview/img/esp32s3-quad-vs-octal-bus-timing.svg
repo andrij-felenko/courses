@@ -1,0 +1,193 @@
+<svg width="960" height="540" viewBox="0 0 960 540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Таймінги та пропускна здатність шин Quad SPI та Octal SPI в ESP32-S3</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Octal DDR передає 2 байти за кожен напівтакт (16 Б/такт) — у 4 рази швидше за Quad SDR за одинакової частоти CLK</text>
+
+  <!-- Main Container Panel -->
+  <rect x="20" y="70" width="920" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Timing Grid Dashed Lines (Segmented to avoid text overlap) -->
+  <g stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1">
+    <!-- Top gap (under CLK) -->
+    <line x1="230" y1="115" x2="230" y2="140"/>
+    <line x1="291.25" y1="115" x2="291.25" y2="140"/>
+    <line x1="352.5" y1="115" x2="352.5" y2="140"/>
+    <line x1="413.75" y1="115" x2="413.75" y2="140"/>
+    <line x1="475" y1="115" x2="475" y2="140"/>
+    <line x1="536.25" y1="115" x2="536.25" y2="140"/>
+    <line x1="597.5" y1="115" x2="597.5" y2="140"/>
+    <line x1="658.75" y1="115" x2="658.75" y2="140"/>
+    <line x1="720" y1="115" x2="720" y2="140"/>
+
+    <!-- Gap between Row 1 and Row 2 -->
+    <line x1="230" y1="194" x2="230" y2="236"/>
+    <line x1="291.25" y1="194" x2="291.25" y2="236"/>
+    <line x1="352.5" y1="194" x2="352.5" y2="236"/>
+    <line x1="413.75" y1="194" x2="413.75" y2="236"/>
+    <line x1="475" y1="194" x2="475" y2="236"/>
+    <line x1="536.25" y1="194" x2="536.25" y2="236"/>
+    <line x1="597.5" y1="194" x2="597.5" y2="236"/>
+    <line x1="658.75" y1="194" x2="658.75" y2="236"/>
+    <line x1="720" y1="194" x2="720" y2="236"/>
+
+    <!-- Gap between Row 2 and Row 3 -->
+    <line x1="230" y1="284" x2="230" y2="326"/>
+    <line x1="291.25" y1="284" x2="291.25" y2="326"/>
+    <line x1="352.5" y1="284" x2="352.5" y2="326"/>
+    <line x1="413.75" y1="284" x2="413.75" y2="326"/>
+    <line x1="475" y1="284" x2="475" y2="326"/>
+    <line x1="536.25" y1="284" x2="536.25" y2="326"/>
+    <line x1="597.5" y1="284" x2="597.5" y2="326"/>
+    <line x1="658.75" y1="284" x2="658.75" y2="326"/>
+    <line x1="720" y1="284" x2="720" y2="326"/>
+
+    <!-- Bottom gap under Row 3 -->
+    <line x1="230" y1="374" x2="230" y2="405"/>
+    <line x1="291.25" y1="374" x2="291.25" y2="405"/>
+    <line x1="352.5" y1="374" x2="352.5" y2="405"/>
+    <line x1="413.75" y1="374" x2="413.75" y2="405"/>
+    <line x1="475" y1="374" x2="475" y2="405"/>
+    <line x1="536.25" y1="374" x2="536.25" y2="405"/>
+    <line x1="597.5" y1="374" x2="597.5" y2="405"/>
+    <line x1="658.75" y1="374" x2="658.75" y2="405"/>
+    <line x1="720" y1="374" x2="720" y2="405"/>
+  </g>
+
+  <!-- CLK Signal Header -->
+  <text x="35" y="108" font-size="13" font-weight="700" fill="#1a1a1a">Тактовий сигнал CLK</text>
+  
+  <!-- Clock Cycle Labels -->
+  <text x="291.25" y="85" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Такт T1</text>
+  <text x="413.75" y="85" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Такт T2</text>
+  <text x="536.25" y="85" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Такт T3</text>
+  <text x="658.75" y="85" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Такт T4</text>
+
+  <!-- CLK Waveform -->
+  <path d="M 220 115 H 230 V 95 H 291.25 V 115 H 352.5 V 95 H 413.75 V 115 H 475 V 95 H 536.25 V 115 H 597.5 V 95 H 658.75 V 115 H 720" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- ROW 1: Quad SPI SDR -->
+  <text x="35" y="162" font-size="14" font-weight="700" fill="#c0392b">1. Quad SPI SDR</text>
+  <text x="35" y="180" font-size="12" fill="#6b7280">4 лінії, 1 край/такт (4б)</text>
+
+  <!-- Quad SDR Cells -->
+  <rect x="231" y="148" width="120.5" height="44" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="291.25" y="174" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Б0 (ст. 4б)</text>
+
+  <rect x="353.5" y="148" width="120.5" height="44" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="413.75" y="174" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Б0 (мл. 4б)</text>
+
+  <rect x="476" y="148" width="120.5" height="44" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="536.25" y="174" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Б1 (ст. 4б)</text>
+
+  <rect x="598.5" y="148" width="120.5" height="44" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="658.75" y="174" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Б1 (мл. 4б)</text>
+
+  <!-- Row 1 Metric Card -->
+  <rect x="740" y="145" width="185" height="50" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="832.5" y="165" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">2 байти / 4 такти</text>
+  <text x="832.5" y="182" font-size="12" fill="#6b7280" text-anchor="middle">40 МБ/с (@ 80 МГц)</text>
+
+  <!-- ROW 2: Quad SPI DDR -->
+  <text x="35" y="252" font-size="14" font-weight="700" fill="#2457d6">2. Quad SPI DDR</text>
+  <text x="35" y="270" font-size="12" fill="#6b7280">4 лінії, 2 краї/такт (8б)</text>
+
+  <!-- Quad DDR Cells -->
+  <rect x="231" y="238" width="59.25" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="260.6" y="264" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Б0.1</text>
+
+  <rect x="292.25" y="238" width="59.25" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="321.9" y="264" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Б0.2</text>
+
+  <rect x="353.5" y="238" width="59.25" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="383.1" y="264" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Б1.1</text>
+
+  <rect x="414.75" y="238" width="59.25" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="444.4" y="264" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Б1.2</text>
+
+  <rect x="476" y="238" width="59.25" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="505.6" y="264" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Б2.1</text>
+
+  <rect x="537.25" y="238" width="59.25" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="566.9" y="264" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Б2.2</text>
+
+  <rect x="598.5" y="238" width="59.25" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="628.1" y="264" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Б3.1</text>
+
+  <rect x="659.75" y="238" width="59.25" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="689.4" y="264" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Б3.2</text>
+
+  <!-- Row 2 Metric Card -->
+  <rect x="740" y="235" width="185" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="832.5" y="255" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">4 байти / 4 такти (2x)</text>
+  <text x="832.5" y="272" font-size="12" fill="#6b7280" text-anchor="middle">80 МБ/с (@ 80 МГц)</text>
+
+  <!-- ROW 3: Octal SPI DDR -->
+  <text x="35" y="342" font-size="14" font-weight="700" fill="#27ae60">3. Octal SPI DDR</text>
+  <text x="35" y="360" font-size="12" fill="#6b7280">8 ліній, 2 краї/такт (16б)</text>
+
+  <!-- Octal DDR Cells -->
+  <rect x="231" y="328" width="59.25" height="44" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="260.6" y="354" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Байт 0</text>
+
+  <rect x="292.25" y="328" width="59.25" height="44" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="321.9" y="354" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Байт 1</text>
+
+  <rect x="353.5" y="328" width="59.25" height="44" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="383.1" y="354" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Байт 2</text>
+
+  <rect x="414.75" y="328" width="59.25" height="44" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="444.4" y="354" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Байт 3</text>
+
+  <rect x="476" y="328" width="59.25" height="44" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="505.6" y="354" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Байт 4</text>
+
+  <rect x="537.25" y="328" width="59.25" height="44" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="566.9" y="354" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Байт 5</text>
+
+  <rect x="598.5" y="328" width="59.25" height="44" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="628.1" y="354" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Байт 6</text>
+
+  <rect x="659.75" y="328" width="59.25" height="44" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="689.4" y="354" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Байт 7</text>
+
+  <!-- Row 3 Metric Card -->
+  <rect x="740" y="325" width="185" height="50" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="832.5" y="345" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">8 байтів / 4 такти (4x)</text>
+  <text x="832.5" y="362" font-size="12" fill="#6b7280" text-anchor="middle">160 МБ/с (@ 80 МГц)</text>
+
+  <!-- Bottom Trade-off Summary Panel -->
+  <rect x="20" y="435" width="920" height="85" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Column A -->
+  <text x="35" y="456" font-size="13" font-weight="700" fill="#c0392b">Quad SPI SDR (Базовий)</text>
+  <text x="35" y="476" font-size="12" fill="#1a1a1a">• 4 лінії даних (IO0..IO3)</text>
+  <text x="35" y="494" font-size="12" fill="#6b7280">• Найвища затримка MMU та кешу</text>
+
+  <!-- Column B -->
+  <text x="340" y="456" font-size="13" font-weight="700" fill="#2457d6">Quad SPI DDR (Баланс)</text>
+  <text x="340" y="476" font-size="12" fill="#1a1a1a">• 4 лінії даних, економічний по GPIO</text>
+  <text x="340" y="494" font-size="12" fill="#6b7280">• Пропускна здатність: 2x (80 МБ/с)</text>
+
+  <!-- Column C -->
+  <text x="640" y="456" font-size="13" font-weight="700" fill="#27ae60">Octal SPI DDR (Максимальний)</text>
+  <text x="640" y="476" font-size="12" fill="#1a1a1a">• 8 ліній (IO0..IO7) + DQS (-5 GPIO)</text>
+  <text x="640" y="494" font-size="12" fill="#6b7280">• Пропускна здатність: 4x (160 МБ/с, min затримка)</text>
+</svg>

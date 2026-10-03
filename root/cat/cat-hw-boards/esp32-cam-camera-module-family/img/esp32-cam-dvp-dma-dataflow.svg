@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Передача відеоданих через DVP та DMA в ESP32-CAM</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Стробування сигналів PCLK, VSYNC та HREF забезпечує автоматичний запис кадрів у RAM без участі CPU</text>
+
+  <!-- 1. Панель CMOS-сенсора -->
+  <rect x="24" y="85" width="220" height="405" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="134" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CMOS-сенсор (OV2640)</text>
+
+  <!-- Блок матриці пікселів -->
+  <rect x="38" y="126" width="192" height="66" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="134" y="150" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Матриця OV2640</text>
+  <text x="134" y="170" font-size="12" fill="#6b7280" text-anchor="middle">Пікселі (до UXGA 1600×1200)</text>
+
+  <!-- Блок сигналів DVP -->
+  <rect x="38" y="204" width="192" height="270" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="134" y="224" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сигнали та виводи DVP</text>
+
+  <text x="48" y="255" font-size="12" fill="#6b7280" text-anchor="start">XCLK (вхід 20 МГц)</text>
+  <text x="48" y="300" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">D[0..7] (8-біт потік)</text>
+  <text x="48" y="345" font-size="12" fill="#1a1a1a" text-anchor="start">PCLK (строб пікселя)</text>
+  <text x="48" y="390" font-size="12" fill="#1a1a1a" text-anchor="start">HREF (строб рядка)</text>
+  <text x="48" y="435" font-size="12" fill="#1a1a1a" text-anchor="start">VSYNC (строб кадра)</text>
+
+
+  <!-- 2. Панель DVP та DMA (ESP32) -->
+  <rect x="300" y="85" width="360" height="405" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="480" y="112" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Периферія I2S DVP та DMA (ESP32)</text>
+
+  <!-- Вузол апаратного стробування -->
+  <rect x="316" y="126" width="328" height="154" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="480" y="148" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратне стробування та фіксація</text>
+
+  <rect x="328" y="162" width="304" height="40" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="480" y="186" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Защелкування D[0..7] за фронтом PCLK ↑</text>
+
+  <rect x="328" y="212" width="304" height="54" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="480" y="232" font-size="12" fill="#1a1a1a" text-anchor="middle">Дозвіл запису в FIFO:</text>
+  <text x="480" y="252" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">HREF = HIGH &amp; VSYNC = HIGH</text>
+
+  <!-- Вузол DMA Controller -->
+  <rect x="316" y="292" width="328" height="182" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="480" y="314" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Контролер DMA та буферизація</text>
+
+  <rect x="328" y="326" width="304" height="42" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="480" y="351" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхідний буфер RX FIFO (8×32 біт)</text>
+
+  <rect x="328" y="378" width="304" height="82" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="480" y="398" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кільце DMA-дескрипторів (Ping-Pong)</text>
+  <text x="480" y="418" font-size="12" fill="#6b7280" text-anchor="middle">Автоматична зміна вказівників буферів</text>
+  <text x="480" y="442" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Прямий запис у RAM без участі CPU</text>
+
+
+  <!-- 3. Панель пам'яті (RAM) -->
+  <rect x="696" y="85" width="240" height="235" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="816" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пам'ять кадрів (RAM)</text>
+
+  <rect x="712" y="126" width="208" height="80" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="816" y="148" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня SRAM</text>
+  <text x="816" y="168" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DMA Ping-Pong буфери</text>
+  <text x="816" y="188" font-size="12" fill="#6b7280" text-anchor="middle">Порядкова буферизація</text>
+
+  <rect x="712" y="218" width="208" height="88" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="816" y="240" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зовнішня PSRAM</text>
+  <text x="816" y="260" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Буфери кадрів (4–8 МБ)</text>
+  <text x="816" y="282" font-size="12" fill="#6b7280" text-anchor="middle">Збереження UXGA / JPEG</text>
+
+
+  <!-- 4. Панель процесора (CPU) -->
+  <rect x="696" y="340" width="240" height="150" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <text x="816" y="367" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Ядра CPU (Xtensa LX6)</text>
+
+  <rect x="712" y="382" width="208" height="94" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="816" y="405" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Вільні під час захоплення</text>
+  <text x="816" y="428" font-size="12" fill="#1a1a1a" text-anchor="middle">Обробка Wi-Fi / HTTP потік</text>
+  <text x="816" y="450" font-size="12" fill="#6b7280" text-anchor="middle">Переривання лише по VSYNC</text>
+
+
+  <!-- Лінії зв'язку та шини -->
+
+  <!-- XCLK: ESP32 -> Sensor (лінія від x=300 до x=244 на y=251) -->
+  <line x1="300" y1="251" x2="244" y2="251" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+  <text x="272" y="243" font-size="12" fill="#6b7280" text-anchor="middle">XCLK</text>
+
+  <!-- D[0..7]: Sensor -> ESP32 (лінія на y=296) -->
+  <line x1="244" y1="296" x2="300" y2="296" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="272" y="288" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D[0..7]</text>
+
+  <!-- PCLK: Sensor -> ESP32 (лінія на y=341) -->
+  <line x1="244" y1="341" x2="300" y2="341" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="272" y="333" font-size="12" fill="#1a1a1a" text-anchor="middle">PCLK</text>
+
+  <!-- HREF: Sensor -> ESP32 (лінія на y=386) -->
+  <line x1="244" y1="386" x2="300" y2="386" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="272" y="378" font-size="12" fill="#1a1a1a" text-anchor="middle">HREF</text>
+
+  <!-- VSYNC: Sensor -> ESP32 (лінія на y=431) -->
+  <line x1="244" y1="431" x2="300" y2="431" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="272" y="423" font-size="12" fill="#1a1a1a" text-anchor="middle">VSYNC</text>
+
+  <!-- DMA -> Memory Bus (від x=660 до x=696 на y=198) -->
+  <line x1="660" y1="198" x2="696" y2="198" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="678" y="188" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DMA</text>
+
+  <!-- CPU Interrupt Line (від DVP/DMA до CPU: від x=660 до x=696 на y=415) -->
+  <line x1="660" y1="415" x2="696" y2="415" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+  <text x="678" y="405" font-size="12" fill="#27ae60" text-anchor="middle">INTR</text>
+</svg>

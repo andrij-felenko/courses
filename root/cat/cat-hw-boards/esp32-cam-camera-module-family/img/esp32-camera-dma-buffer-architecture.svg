@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура DMA-буферизації драйвера esp32-camera</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Передача піксельних даних від сенсора через DVP і DMA у буферний пул SRAM або PSRAM</text>
+
+  <!-- Panel 1: Sensor (OV2640) -->
+  <rect x="25" y="75" width="180" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="115" y="102" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сенсор (OV2640)</text>
+
+  <rect x="40" y="120" width="150" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="115" y="150" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Матриця пікселів</text>
+
+  <rect x="40" y="190" width="150" height="155" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="115" y="212" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інтерфейс DVP</text>
+  <text x="50" y="237" font-size="12" fill="#1a1a1a">D0–D7: Піксельні дані</text>
+  <text x="50" y="260" font-size="12" fill="#1a1a1a">PCLK: Такти пікселів</text>
+  <text x="50" y="283" font-size="12" fill="#1a1a1a">HREF: Рядкова синхр.</text>
+  <text x="50" y="306" font-size="12" fill="#1a1a1a">VSYNC: Кадрова синхр.</text>
+  <text x="50" y="329" font-size="12" fill="#6b7280">XCLK: Вхідний такт</text>
+
+  <rect x="40" y="365" width="150" height="115" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="115" y="387" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шина SCCB (I2C)</text>
+  <text x="50" y="412" font-size="12" fill="#6b7280">SIOC (SCL: Такти)</text>
+  <text x="50" y="435" font-size="12" fill="#6b7280">SIOD (SDA: Дані)</text>
+  <text x="50" y="458" font-size="12" fill="#2457d6">Регістри sensor_t</text>
+
+  <!-- Panel 2: ESP32 Hardware & Driver -->
+  <rect x="225" y="75" width="225" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="337" y="102" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Периферія ESP32</text>
+
+  <rect x="240" y="120" width="195" height="75" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="337" y="145" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Приймач DVP (I2S / CAM)</text>
+  <text x="337" y="167" font-size="12" fill="#1a1a1a" text-anchor="middle">Захоплення байтів по PCLK</text>
+  <text x="337" y="185" font-size="12" fill="#6b7280" text-anchor="middle">Фільтрація по VSYNC/HREF</text>
+
+  <!-- Arrow from I2S to DMA inside ESP32 -->
+  <path d="M337,195 L337,215" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="240" y="215" width="195" height="105" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="337" y="240" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Контролер DMA</text>
+  <text x="337" y="262" font-size="12" fill="#1a1a1a" text-anchor="middle">Прямий доступ до пам'яті</text>
+  <text x="337" y="282" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Авто-запис без CPU</text>
+  <text x="337" y="302" font-size="12" fill="#6b7280" text-anchor="middle">Кільце дескрипторів DMA</text>
+
+  <rect x="240" y="340" width="195" height="140" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="337" y="362" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">esp32-camera Driver API</text>
+  <text x="337" y="387" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">esp_camera_fb_get()</text>
+  <text x="337" y="405" font-size="12" fill="#6b7280" text-anchor="middle">Отримання кадру з пулу</text>
+  <text x="337" y="432" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">esp_camera_fb_return()</text>
+  <text x="337" y="450" font-size="12" fill="#6b7280" text-anchor="middle">Повернення буфера DMA</text>
+
+  <!-- Panel 3: SRAM vs PSRAM Buffers -->
+  <!-- Top Block: SRAM -->
+  <rect x="470" y="75" width="465" height="195" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="485" y="100" font-size="14" font-weight="bold" fill="#c0392b">Режим 1: Внутрішня SRAM (CAMERA_FB_IN_DRAM)</text>
+  <text x="485" y="120" font-size="12" fill="#6b7280">Обмежений обсяг пам'яті — підтримується лише fb_count = 1</text>
+
+  <rect x="485" y="135" width="235" height="75" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="602" y="160" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Одинарний буфер FB 0</text>
+  <text x="602" y="180" font-size="12" fill="#1a1a1a" text-anchor="middle">fb_count = 1 (в SRAM)</text>
+  <text x="602" y="198" font-size="12" fill="#6b7280" text-anchor="middle">Низька роздільна здатність (QVGA)</text>
+
+  <rect x="735" y="135" width="185" height="75" rx="4" fill="#ffffff" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1"/>
+  <text x="827" y="158" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠ Недоліки SRAM</text>
+  <text x="827" y="178" font-size="12" fill="#c0392b" text-anchor="middle">Ризик розриву кадру</text>
+  <text x="827" y="196" font-size="12" fill="#6b7280" text-anchor="middle">Пропуски при обробці</text>
+
+  <text x="485" y="235" font-size="12" font-weight="bold" fill="#c0392b">DMA пише в той самий буфер, який читає CPU (немає подвійного буфера)</text>
+  <text x="485" y="253" font-size="12" fill="#6b7280">Використовується лише за відсутності PSRAM мікросхеми</text>
+
+  <!-- Bottom Block: PSRAM -->
+  <rect x="470" y="285" width="465" height="210" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="485" y="310" font-size="14" font-weight="bold" fill="#27ae60">Режим 2: Зовнішня PSRAM (CAMERA_FB_IN_PSRAM)</text>
+  <text x="485" y="330" font-size="12" fill="#6b7280">Великий обсяг (4–8 МБ) — подвійне / потрійне буферування (fb_count = 2..3)</text>
+
+  <rect x="485" y="345" width="135" height="80" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="552" y="368" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">FB 0 (Запис DMA)</text>
+  <text x="552" y="390" font-size="12" fill="#1a1a1a" text-anchor="middle">Прийом кадру</text>
+  <text x="552" y="410" font-size="12" fill="#6b7280" text-anchor="middle">Заповнюється</text>
+
+  <rect x="635" y="345" width="135" height="80" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="702" y="368" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">FB 1 (Готовий)</text>
+  <text x="702" y="390" font-size="12" fill="#1a1a1a" text-anchor="middle">Передано в API</text>
+  <text x="702" y="410" font-size="12" fill="#2457d6" text-anchor="middle">fb_get()</text>
+
+  <rect x="785" y="345" width="135" height="80" rx="4" fill="#ffffff" stroke="#27ae60" stroke-dasharray="3,3" stroke-width="1"/>
+  <text x="852" y="368" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">FB 2 (Черга)</text>
+  <text x="852" y="390" font-size="12" fill="#1a1a1a" text-anchor="middle">Резервний буфер</text>
+  <text x="852" y="410" font-size="12" fill="#27ae60" text-anchor="middle">Кільцевий пул</text>
+
+  <text x="485" y="452" font-size="12" font-weight="bold" fill="#27ae60">✔ Неперервний потік: DMA пише у FB 0, поки CPU обробляє FB 1</text>
+  <text x="485" y="472" font-size="12" fill="#6b7280">Підтримує високу роздільну здатність (UXGA/HD) без втрати кадрів</text>
+
+  <!-- External Connections / Arrows -->
+  <!-- DVP Bus Arrow (Sensor -> ESP32) -->
+  <path d="M190,260 L212,260 L212,155 L240,155" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- DMA to Memory Arrows -->
+  <!-- DMA to SRAM -->
+  <path d="M435,250 L455,250 L455,170 L470,170" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- DMA to PSRAM -->
+  <path d="M435,280 L455,280 L455,385 L470,385" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+</svg>

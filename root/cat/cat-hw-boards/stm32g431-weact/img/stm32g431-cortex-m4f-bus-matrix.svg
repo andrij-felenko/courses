@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шинна матриця STM32G431 (AHB Bus Matrix)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Паралельний доступ Cortex-M4F та DMA до Flash, SRAM, CORDIC/FMAC та периферії</text>
+
+  <!-- Panel 1: Masters -->
+  <rect x="30" y="75" width="235" height="360" fill="#f4f6f8" stroke="#d0d7de" rx="8" stroke-width="1.5"/>
+  <text x="147" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шинні майстри (Masters)</text>
+
+  <!-- Cortex-M4F Block -->
+  <rect x="45" y="115" width="205" height="180" fill="#eaf0fd" stroke="#2457d6" rx="6" stroke-width="1.5"/>
+  <text x="147" y="136" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Ядро Arm Cortex-M4F</text>
+  <text x="147" y="154" font-size="12" fill="#6b7280" text-anchor="middle">170 МГц (FPU / DSP)</text>
+
+  <!-- CPU Bus Outputs -->
+  <rect x="57" y="170" width="181" height="32" fill="white" stroke="#2457d6" rx="4" stroke-width="1"/>
+  <text x="147" y="190" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">I-Code (Інструкції Flash)</text>
+
+  <rect x="57" y="210" width="181" height="32" fill="white" stroke="#2457d6" rx="4" stroke-width="1"/>
+  <text x="147" y="230" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">D-Code (Дані / Спец. доступ)</text>
+
+  <rect x="57" y="250" width="181" height="32" fill="white" stroke="#2457d6" rx="4" stroke-width="1"/>
+  <text x="147" y="270" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">S-bus (Система / SRAM / APB)</text>
+
+  <!-- DMA Controllers Block -->
+  <rect x="45" y="310" width="205" height="110" fill="#eaf0fd" stroke="#2457d6" rx="6" stroke-width="1.5"/>
+  <text x="147" y="330" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Контролери ПДП (DMA)</text>
+  <text x="147" y="348" font-size="12" fill="#6b7280" text-anchor="middle">Прямий доступ до пам'яті</text>
+
+  <rect x="57" y="362" width="181" height="46" fill="white" stroke="#2457d6" rx="4" stroke-width="1"/>
+  <text x="147" y="380" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DMA1 / DMA2 Master</text>
+  <text x="147" y="398" font-size="12" fill="#6b7280" text-anchor="middle">16 каналів + DMAMUX</text>
+
+
+  <!-- Interpanel Lines 1 (Masters -> Matrix) -->
+  <line x1="238" y1="186" x2="318" y2="186" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="279" y="176" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I-Bus</text>
+
+  <line x1="238" y1="226" x2="318" y2="226" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="279" y="216" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D-Bus</text>
+
+  <line x1="238" y1="266" x2="318" y2="266" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="279" y="256" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S-Bus</text>
+
+  <line x1="238" y1="385" x2="318" y2="385" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="279" y="375" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DMA-Bus</text>
+
+
+  <!-- Panel 2: Bus Matrix -->
+  <rect x="320" y="75" width="320" height="360" fill="#f4f6f8" stroke="#d0d7de" rx="8" stroke-width="1.5"/>
+  <text x="480" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Багатошарова шинна матриця AHB</text>
+  <text x="480" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Паралельні шляхи без взаємного блокування</text>
+
+  <!-- Matrix Internal Routing Box -->
+  <rect x="340" y="130" width="280" height="260" fill="white" stroke="#d0d7de" rx="6" stroke-dasharray="4,4"/>
+
+  <!-- Matrix Horizontal Slave Tracks -->
+  <line x1="340" y1="147.5" x2="620" y2="147.5" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <line x1="340" y1="227.5" x2="620" y2="227.5" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <line x1="340" y1="310" x2="620" y2="310" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <line x1="340" y1="390" x2="620" y2="390" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+  <!-- Matrix Vertical Master Tracks -->
+  <!-- I-Code track -->
+  <path d="M 340 186 L 370 186 L 370 147.5" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <!-- D-Code track -->
+  <path d="M 340 226 L 420 226 L 420 147.5" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <!-- S-Bus track -->
+  <path d="M 340 266 L 480 266 L 480 390" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <!-- DMA track -->
+  <path d="M 340 385 L 570 385 L 570 227.5" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Crossbar Intersect Connection Nodes -->
+  <circle cx="370" cy="147.5" r="5" fill="#2457d6"/>
+  <circle cx="420" cy="147.5" r="5" fill="#2457d6"/>
+  <circle cx="420" cy="227.5" r="5" fill="#2457d6"/>
+  <circle cx="480" cy="227.5" r="5" fill="#2457d6"/>
+  <circle cx="480" cy="310" r="5" fill="#2457d6"/>
+  <circle cx="480" cy="390" r="5" fill="#2457d6"/>
+  <circle cx="570" cy="227.5" r="5" fill="#2457d6"/>
+  <circle cx="570" cy="310" r="5" fill="#2457d6"/>
+  <circle cx="570" cy="390" r="5" fill="#2457d6"/>
+
+  <!-- Matrix Bottom Badge -->
+  <rect x="345" y="402" width="270" height="24" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="480" y="418" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Арбітраж пріоритетів та Round-Robin</text>
+
+
+  <!-- Interpanel Lines 2 (Matrix -> Slaves) -->
+  <line x1="640" y1="147.5" x2="708" y2="147.5" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="675" y="137.5" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Flash I/F</text>
+
+  <line x1="640" y1="227.5" x2="708" y2="227.5" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="675" y="217.5" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">SRAM I/F</text>
+
+  <line x1="640" y1="310" x2="708" y2="310" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="675" y="300" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">AHB1 Bus</text>
+
+  <line x1="640" y1="390" x2="708" y2="390" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="675" y="380" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">AHB2/APB</text>
+
+
+  <!-- Panel 3: Slaves -->
+  <rect x="695" y="75" width="235" height="360" fill="#f4f6f8" stroke="#d0d7de" rx="8" stroke-width="1.5"/>
+  <text x="812" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шинні слейви (Slaves)</text>
+
+  <!-- Flash Block -->
+  <rect x="710" y="115" width="205" height="65" fill="#e9f7ef" stroke="#27ae60" rx="6" stroke-width="1.5"/>
+  <text x="812" y="133" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Flash-пам'ять (128 КБ)</text>
+  <text x="812" y="151" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ART Accelerator (0 WS)</text>
+  <text x="812" y="168" font-size="12" fill="#6b7280" text-anchor="middle">Кеш інструкцій та даних</text>
+
+  <!-- SRAM Block -->
+  <rect x="710" y="195" width="205" height="65" fill="#e9f7ef" stroke="#27ae60" rx="6" stroke-width="1.5"/>
+  <text x="812" y="213" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ОЗП / SRAM (32 КБ)</text>
+  <text x="812" y="231" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">SRAM1 + SRAM2 + CCM</text>
+  <text x="812" y="248" font-size="12" fill="#6b7280" text-anchor="middle">Доступ за 1 такт CPU</text>
+
+  <!-- AHB1 Block -->
+  <rect x="710" y="275" width="205" height="70" fill="#e9f7ef" stroke="#27ae60" rx="6" stroke-width="1.5"/>
+  <text x="812" y="293" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шина AHB1 (Периферія)</text>
+  <text x="812" y="311" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">CORDIC &amp; FMAC</text>
+  <text x="812" y="329" font-size="12" fill="#6b7280" text-anchor="middle">Математичні прискорювачі</text>
+
+  <!-- AHB2 & APB Block -->
+  <rect x="710" y="355" width="205" height="70" fill="#e9f7ef" stroke="#27ae60" rx="6" stroke-width="1.5"/>
+  <text x="812" y="373" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шина AHB2 та мости APB</text>
+  <text x="812" y="391" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">OPAMP, COMP, ADC, DAC</text>
+  <text x="812" y="409" font-size="12" fill="#6b7280" text-anchor="middle">HRTIM, TIM1 (Керування FOC)</text>
+</svg>

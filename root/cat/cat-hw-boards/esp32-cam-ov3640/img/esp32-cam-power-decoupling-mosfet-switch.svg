@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема розв'язки живлення ESP32, OV3640 та microSD з MOSFET-ключем</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">P-MOSFET ключ і LC/RC-фільтри блокують сплески струму та запобігають скиданню ESP32 за Brownout</text>
+
+  <!-- PANEL 1: ESP32 & Power -->
+  <rect x="25" y="75" width="225" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="38" y="96" font-size="14" font-weight="bold" fill="#1a1a1a">Модуль ESP32 та живлення</text>
+
+  <!-- Box 1.1: Power Source -->
+  <rect x="38" y="110" width="199" height="55" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2" rx="6"/>
+  <text x="137.5" y="130" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Шина живлення VDD_3V3</text>
+  <text x="137.5" y="148" text-anchor="middle" font-size="12" fill="#6b7280">Стабілізатор LDO 3.3V / 1A</text>
+
+  <!-- Box 1.2: ESP32 MCU -->
+  <rect x="38" y="178" width="199" height="225" fill="white" stroke="#d0d7de" stroke-width="1.2" rx="6"/>
+  <text x="137.5" y="198" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">ESP32-WROOM-32</text>
+
+  <!-- Sub-box 1.2a: Brownout Detector -->
+  <rect x="48" y="210" width="179" height="60" fill="#fdecea" stroke="#c0392b" stroke-width="1.2" rx="4"/>
+  <text x="137.5" y="227" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Brownout Detector</text>
+  <text x="137.5" y="243" text-anchor="middle" font-size="12" fill="#c0392b">Поріг скиду: 2.43V</text>
+  <text x="137.5" y="259" text-anchor="middle" font-size="12" fill="#6b7280">(захист від просідань)</text>
+
+  <!-- Pin GPIO_PWR -->
+  <rect x="132" y="290" width="95" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="179.5" y="309" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">GPIO_PWR</text>
+
+  <!-- Pin SDMMC Bus -->
+  <rect x="132" y="338" width="95" height="50" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="179.5" y="357" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">SDMMC Bus</text>
+  <text x="179.5" y="375" text-anchor="middle" font-size="12" fill="#6b7280">CLK, CMD, D0-3</text>
+
+  <!-- Box 1.3: Main Bulk Capacitors -->
+  <rect x="38" y="418" width="199" height="85" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2" rx="6"/>
+  <text x="137.5" y="439" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">C_bulk: 100 µF + 0.1 µF</text>
+  <text x="137.5" y="460" text-anchor="middle" font-size="12" fill="#27ae60">Низький ESR (тантал/кераміка)</text>
+  <text x="137.5" y="481" text-anchor="middle" font-size="12" fill="#1a1a1a">Згладжує імпульси до 200 mA</text>
+
+
+  <!-- PANEL 2: MOSFET Switch -->
+  <rect x="345" y="75" width="260" height="185" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="358" y="96" font-size="14" font-weight="bold" fill="#1a1a1a">MOSFET-ключ живлення камери</text>
+
+  <!-- Sub-box 2.1: MOSFET & Soft Start -->
+  <rect x="357.5" y="108" width="235" height="78" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2" rx="6"/>
+  <text x="475" y="125" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">P-Channel MOSFET Q1 (AO3401A)</text>
+  <text x="475" y="141" text-anchor="middle" font-size="12" fill="#1a1a1a">Обмеження пускового струму камери</text>
+  <text x="475" y="157" text-anchor="middle" font-size="12" fill="#2457d6">R_pullup = 10 kΩ (до VDD_3V3)</text>
+  <text x="475" y="173" text-anchor="middle" font-size="12" fill="#2457d6">Soft-Start: R_g = 1 kΩ, C_g = 10 nF</text>
+
+  <!-- Sub-box 2.2: Dynamic Power Management -->
+  <rect x="357.5" y="190" width="235" height="62" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2" rx="6"/>
+  <text x="475" y="207" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Режим динамічного живлення</text>
+  <text x="475" y="223" text-anchor="middle" font-size="12" fill="#1a1a1a">Подача 3.3V лише під час зйомки</text>
+  <text x="475" y="239" text-anchor="middle" font-size="12" fill="#6b7280">Повне відключення у Deep Sleep</text>
+
+
+  <!-- PANEL 3: OV3640 Sensor -->
+  <rect x="675" y="75" width="260" height="185" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="688" y="96" font-size="14" font-weight="bold" fill="#1a1a1a">Сенсор OV3640 (UXGA)</text>
+
+  <!-- Sub-box 3.1: LC Filter -->
+  <rect x="687.5" y="108" width="235" height="78" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2" rx="6"/>
+  <text x="805" y="125" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">LC-фільтр живлення AVDD / DVDD</text>
+  <text x="805" y="141" text-anchor="middle" font-size="12" fill="#1a1a1a">L1 = 10 µH (Ferrite Bead)</text>
+  <text x="805" y="157" text-anchor="middle" font-size="12" fill="#1a1a1a">C_cam = 22 µF + 0.1 µF Ceramic</text>
+  <text x="805" y="173" text-anchor="middle" font-size="12" fill="#27ae60">Фільтрація ВЧ-завад матриці</text>
+
+  <!-- Sub-box 3.2: OV3640 Sensor Specs -->
+  <rect x="687.5" y="190" width="235" height="62" fill="white" stroke="#d0d7de" stroke-width="1.2" rx="6"/>
+  <text x="805" y="207" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Сенсор OV3640 (1600×1200)</text>
+  <text x="805" y="223" text-anchor="middle" font-size="12" fill="#6b7280">Буферизація кадрів JPEG у PSRAM</text>
+  <text x="805" y="239" text-anchor="middle" font-size="12" fill="#6b7280">Піковий струм старт: 120 mA</text>
+
+
+  <!-- PANEL 4: MicroSD Subsystem -->
+  <rect x="345" y="328" width="590" height="192" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="360" y="348" font-size="14" font-weight="bold" fill="#1a1a1a">Накопичувач microSD та SDMMC-шина</text>
+
+  <!-- Sub-box 4.1: SDMMC Interface -->
+  <rect x="357.5" y="358" width="260" height="150" fill="white" stroke="#d0d7de" stroke-width="1.2" rx="6"/>
+  <text x="487.5" y="376" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Шина SDMMC (4-bit Mode)</text>
+  <text x="367.5" y="396" font-size="12" fill="#1a1a1a">• Сигнали: CLK, CMD, D0, D1, D2, D3</text>
+  <text x="367.5" y="415" font-size="12" fill="#1a1a1a">• Висока швидкість передачі кадрів</text>
+  <text x="367.5" y="434" font-size="12" fill="#6b7280">• Прямий запис без фрагментації DRAM</text>
+  <text x="367.5" y="453" font-size="12" fill="#2457d6">• Оптимізовані секторальні буфери</text>
+  <text x="367.5" y="472" font-size="12" fill="#6b7280">• Запобігання вичерпанню оперативки</text>
+  <text x="367.5" y="491" font-size="12" fill="#6b7280">• Тривала автономна робота пристрою</text>
+
+  <!-- Sub-box 4.2: MicroSD Power Decoupling -->
+  <rect x="632.5" y="358" width="287.5" height="150" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2" rx="6"/>
+  <text x="776.25" y="376" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Розв'язка живлення накопичувача</text>
+  <text x="776.25" y="396" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">C_SD = 47 µF (Tantalum) + 0.1 µF</text>
+  <text x="776.25" y="415" text-anchor="middle" font-size="12" fill="#27ae60">Компенсація сплесків 150–200 mA</text>
+  <text x="776.25" y="434" text-anchor="middle" font-size="12" fill="#1a1a1a">під час запису блоків файлової системи</text>
+  <text x="776.25" y="457" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Без C_SD: просідання &lt; 2.43V</text>
+  <text x="776.25" y="473" text-anchor="middle" font-size="12" fill="#c0392b">→ Помилка Brownout Reset!</text>
+  <text x="776.25" y="493" text-anchor="middle" font-size="12" fill="#27ae60">З C_SD: стабільне VDD_3V3</text>
+
+
+  <!-- SIGNAL & POWER LINES -->
+
+  <!-- Line 1: Main 3.3V Power Line to MOSFET -->
+  <line x1="237" y1="137.5" x2="357.5" y2="137.5" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="297.5" y="122" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">3.3V</text>
+
+  <!-- Line 2: Main 3.3V Branch to MicroSD -->
+  <path d="M 342,137.5 L 342,295 L 776.25,295 L 776.25,358" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="535" y="282" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Шина VDD_3V3 (до накопичувача microSD)</text>
+
+  <!-- Line 3: GPIO Control Line to MOSFET Gate -->
+  <path d="M 227,305 L 252,305 L 252,165 L 357.5,165" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="297.5" y="189" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">GPIO_PWR_EN</text>
+
+  <!-- Line 4: Switched Camera Power V_CAM_3V3 -->
+  <line x1="592.5" y1="145" x2="687.5" y2="145" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="640" y="131" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">V_CAM_3V3</text>
+
+  <!-- Line 5: SDMMC Data Bus -->
+  <line x1="227" y1="363" x2="357.5" y2="363" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="292.5" y="349" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">SDMMC Bus</text>
+
+</svg>

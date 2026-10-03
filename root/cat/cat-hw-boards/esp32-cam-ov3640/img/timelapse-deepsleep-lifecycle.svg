@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Життєвий цикл та профіль споживання таймлапс-модуля ESP32-CAM</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Послідовність станів, пікове споживання SDMMC (1600×1200) та перехід у Deep Sleep</text>
+
+  <!-- ВЕРХНЯ ПАНЕЛЬ: Послідовність станів -->
+  <rect x="30" y="72" width="900" height="145" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="45" y="93" font-size="13" font-weight="700" fill="#1a1a1a">Послідовність станів системи</text>
+
+  <!-- Блок 1: RTC Wake-up -->
+  <rect x="45" y="106" width="146" height="96" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="5"/>
+  <text x="118" y="130" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">1. RTC Wake-up</text>
+  <text x="118" y="150" font-size="12" fill="#1a1a1a" text-anchor="middle">Таймер / GPIO</text>
+  <text x="118" y="168" font-size="12" fill="#6b7280" text-anchor="middle">Подача V_dd</text>
+  <text x="118" y="186" font-size="12" fill="#6b7280" text-anchor="middle">t ≈ 10–20 ms</text>
+
+  <!-- Стрілка 1->2 -->
+  <line x1="193" y1="154" x2="205" y2="154" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Блок 2: Init OV3640 -->
+  <rect x="209" y="106" width="156" height="96" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="5"/>
+  <text x="287" y="130" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">2. Init OV3640</text>
+  <text x="287" y="150" font-size="12" fill="#1a1a1a" text-anchor="middle">SCCB / PCLK такт.</text>
+  <text x="287" y="168" font-size="12" fill="#6b7280" text-anchor="middle">UXGA (1600×1200)</text>
+  <text x="287" y="186" font-size="12" fill="#6b7280" text-anchor="middle">t ≈ 100–150 ms</text>
+
+  <!-- Стрілка 2->3 -->
+  <line x1="367" y1="154" x2="379" y2="154" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Блок 3: Зйомка UXGA -->
+  <rect x="383" y="106" width="166" height="96" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="5"/>
+  <text x="466" y="130" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">3. Зйомка UXGA</text>
+  <text x="466" y="150" font-size="12" fill="#1a1a1a" text-anchor="middle">Захоплення DVP</text>
+  <text x="466" y="168" font-size="12" fill="#6b7280" text-anchor="middle">JPEG стиснення</text>
+  <text x="466" y="186" font-size="12" fill="#6b7280" text-anchor="middle">t ≈ 150–300 ms</text>
+
+  <!-- Стрілка 3->4 -->
+  <line x1="551" y1="154" x2="563" y2="154" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Блок 4: Запис SDMMC -->
+  <rect x="567" y="106" width="176" height="96" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="5"/>
+  <text x="655" y="130" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">4. Запис SDMMC</text>
+  <text x="655" y="150" font-size="12" fill="#1a1a1a" text-anchor="middle">Запис файлу в FAT</text>
+  <text x="655" y="168" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Пік I_pk ≈ 350 mA</text>
+  <text x="655" y="186" font-size="12" fill="#6b7280" text-anchor="middle">t ≈ 200–500 ms</text>
+
+  <!-- Стрілка 4->5 -->
+  <line x1="745" y1="154" x2="757" y2="154" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Блок 5: Deep Sleep -->
+  <rect x="761" y="106" width="154" height="96" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="5"/>
+  <text x="838" y="130" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">5. Deep Sleep</text>
+  <text x="838" y="150" font-size="12" fill="#1a1a1a" text-anchor="middle">Вимкнення периферії</text>
+  <text x="838" y="168" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">I_slp ≈ 10–20 µA</text>
+  <text x="838" y="186" font-size="12" fill="#6b7280" text-anchor="middle">t = T_interval</text>
+
+  <!-- НИЖНЯ ПАНЕЛЬ: Графік I(t) та V(t) -->
+  <rect x="30" y="230" width="900" height="215" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="45" y="250" font-size="13" font-weight="700" fill="#1a1a1a">Часовий профіль споживання струму I(t) та напруги живлення V(t)</text>
+
+  <!-- Сітка та осі -->
+  <line x1="80" y1="395" x2="80" y2="262" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="80" y1="395" x2="880" y2="395" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <text x="75" y="262" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">I (mA) / V</text>
+  <text x="890" y="399" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="start">Час t</text>
+
+  <!-- Позначки на осі Y -->
+  <text x="75" y="359" font-size="12" fill="#6b7280" text-anchor="end">100 mA</text>
+  <text x="75" y="334" font-size="12" fill="#6b7280" text-anchor="end">160 mA</text>
+  <text x="75" y="289" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">350 mA</text>
+
+  <!-- Пунктирні лінії рівнів -->
+  <line x1="80" y1="285" x2="720" y2="285" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3" opacity="0.4"/>
+  <line x1="80" y1="330" x2="540" y2="330" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3" opacity="0.3"/>
+  <line x1="80" y1="355" x2="360" y2="355" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3" opacity="0.3"/>
+
+  <!-- Заповнення під кривою струму -->
+  <path d="M 90,394 L 90,355 L 190,355 L 190,345 L 360,345 L 360,330 L 540,330 L 540,285 L 720,285 L 720,380 L 735,394 Z" fill="#eaf0fd" opacity="0.6"/>
+
+  <!-- Крива струму I(t) -->
+  <path d="M 80,394 L 90,394 L 90,355 L 190,355 L 190,345 L 360,345 L 360,330 L 540,330 L 540,285 L 720,285 L 720,380 L 735,394 L 870,394" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Просідання напруги V_dd(t) -->
+  <path d="M 80,300 L 530,300 Q 550,300 560,322 L 700,322 Q 715,322 730,300 L 870,300" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="5,3"/>
+
+  <!-- Підписи на графіку -->
+  <text x="630" y="275" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Піковий струм I_pk (SDMMC)</text>
+  <text x="630" y="338" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Просідання V_dd (Ризик Brownout Reset)</text>
+  <text x="300" y="292" font-size="12" font-weight="700" fill="#c0392b">Напруга V_dd (3.3 V)</text>
+
+  <!-- Індикатори тривалості -->
+  <line x1="90" y1="412" x2="720" y2="412" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-accent)" marker-end="url(#arr-accent)"/>
+  <text x="405" y="427" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Активна фаза: t_active ≈ 0.5–1.0 с (Середній струм ~180 mA)</text>
+
+  <line x1="735" y1="412" x2="870" y2="412" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <text x="802" y="427" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Deep Sleep: t_sleep</text>
+
+  <text x="802" y="380" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">I_slp ≈ 10–20 µA</text>
+
+  <!-- Блок компенсації -->
+  <rect x="90" y="362" width="220" height="24" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="200" y="378" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Компенсація: Конденсатор 470 µF</text>
+</svg>

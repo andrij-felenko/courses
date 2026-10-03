@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема моніторингу EDM (External Device Monitoring) для контакторів K1 і K2</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Послідовний ланцюг NC-контактів перевіряє розмикання K1/K2 перед дозволом повторного ввімкнення F-DO</text>
+
+  <!-- Панель 1: Контролер безпеки (Safety PLC) -->
+  <rect x="30" y="75" width="270" height="420" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="45" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Контролер безпеки (Safety PLC)</text>
+
+  <!-- Блок F-DO -->
+  <rect x="45" y="115" width="240" height="95" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="55" y="136" font-size="13" font-weight="bold" fill="#2457d6">Вихід F-DO (Safety Output)</text>
+  <text x="55" y="156" font-size="12" fill="#1a1a1a">Керування котушками K1/K2</text>
+  <rect x="220" y="165" width="55" height="30" fill="white" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="247" y="184" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">F-DO+</text>
+
+  <!-- Блок EDM Моніторингу -->
+  <rect x="45" y="225" width="240" height="150" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="55" y="246" font-size="13" font-weight="bold" fill="#27ae60">Вхід моніторингу EDM</text>
+  
+  <text x="55" y="272" font-size="12" fill="#1a1a1a">Вихід тесту петлі:</text>
+  <rect x="220" y="258" width="55" height="26" fill="white" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="247" y="275" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">+24V</text>
+
+  <text x="55" y="344" font-size="12" fill="#1a1a1a">Вхід зворотного зв'язку:</text>
+  <rect x="220" y="330" width="55" height="26" fill="white" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="247" y="347" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">EDM_IN</text>
+
+  <!-- Блок статусів логіки -->
+  <rect x="45" y="390" width="240" height="90" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="55" y="410" font-size="12" font-weight="bold" fill="#1a1a1a">Алгоритм EDM (SIL3 / PL e):</text>
+  <text x="55" y="430" font-size="12" fill="#27ae60">• EDM=1: K1,K2 розімкнені (OK)</text>
+  <text x="55" y="450" font-size="12" fill="#c0392b">• EDM=0: Зварювання (Блокування)</text>
+  <text x="55" y="470" font-size="12" fill="#6b7280">• Час моніторингу: t &lt; max_delay</text>
+
+  <!-- Панель 2: Блок контакторів K1 і K2 -->
+  <rect x="325" y="75" width="340" height="420" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="340" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Синхронна пара контакторів K1 / K2</text>
+
+  <!-- Контактор K1 -->
+  <rect x="340" y="115" width="310" height="170" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="355" y="135" font-size="13" font-weight="bold" fill="#1a1a1a">Контактор K1</text>
+
+  <!-- Котушка K1 -->
+  <rect x="355" y="150" width="65" height="45" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="387" y="176" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">A1-A2</text>
+  <text x="355" y="212" font-size="12" fill="#6b7280">Котушка 24V</text>
+  <text x="355" y="230" font-size="12" fill="#1a1a1a">Канал F-DO</text>
+
+  <!-- Допоміжний NC K1 -->
+  <rect x="450" y="150" width="80" height="45" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="490" y="176" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">21-22 NC</text>
+  <text x="450" y="212" font-size="12" fill="#27ae60">Допоміжний NC</text>
+  <text x="450" y="230" font-size="12" fill="#6b7280">(Замкнено при OFF)</text>
+
+  <!-- Силові NO K1 -->
+  <rect x="560" y="150" width="75" height="115" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="597" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Силові NO</text>
+  <text x="597" y="195" text-anchor="middle" font-size="12" fill="#1a1a1a">1/2, 3/4, 5/6</text>
+  <text x="597" y="235" text-anchor="middle" font-size="12" fill="#6b7280">Послідовні</text>
+
+  <!-- Контактор K2 -->
+  <rect x="340" y="300" width="310" height="175" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="355" y="320" font-size="13" font-weight="bold" fill="#1a1a1a">Контактор K2</text>
+
+  <!-- Котушка K2 -->
+  <rect x="355" y="335" width="65" height="45" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="387" y="361" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">A1-A2</text>
+  <text x="355" y="397" font-size="12" fill="#6b7280">Котушка 24V</text>
+  <text x="355" y="415" font-size="12" fill="#1a1a1a">Канал F-DO</text>
+
+  <!-- Допоміжний NC K2 -->
+  <rect x="450" y="335" width="80" height="45" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="490" y="361" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">21-22 NC</text>
+  <text x="450" y="397" font-size="12" fill="#27ae60">Допоміжний NC</text>
+  <text x="450" y="415" font-size="12" fill="#6b7280">(Замкнено при OFF)</text>
+
+  <!-- Силові NO K2 -->
+  <rect x="560" y="335" width="75" height="115" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="597" y="360" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Силові NO</text>
+  <text x="597" y="380" text-anchor="middle" font-size="12" fill="#1a1a1a">1/2, 3/4, 5/6</text>
+  <text x="597" y="420" text-anchor="middle" font-size="12" fill="#6b7280">Послідовні</text>
+
+  <!-- Панель 3: Силове живлення та актуатор -->
+  <rect x="685" y="75" width="245" height="420" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="700" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Мережа та актуатор</text>
+
+  <!-- Блок джерела 380V -->
+  <rect x="700" y="115" width="215" height="85" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="710" y="138" font-size="13" font-weight="bold" fill="#1a1a1a">3-фазне джерело L1, L2, L3</text>
+  <text x="710" y="158" font-size="12" fill="#6b7280">Промислова мережа 400V AC</text>
+  <text x="710" y="178" font-size="12" fill="#c0392b">Головна силова лінія</text>
+
+  <!-- Блок двигуна -->
+  <rect x="700" y="300" width="215" height="175" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="807" y="325" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">3-фазний двигун M3~</text>
+  <circle cx="807" cy="380" r="28" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="807" y="386" text-anchor="middle" font-size="15" font-weight="bold" fill="#2457d6">M 3~</text>
+  <text x="807" y="430" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Аварійний зупин (E-Stop)</text>
+  <text x="807" y="450" text-anchor="middle" font-size="12" fill="#6b7280">Категорія безпеки PL e</text>
+
+  <!-- З'ЄДНУВАЛЬНІ ЛІНІЇ СХЕМИ -->
+
+  <!-- 1. Сигнал F-DO (Синій) -->
+  <path d="M 275 180 L 315 180 L 315 172 L 355 172" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 315 180 L 315 357 L 355 357" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- 2. Ланцюг EDM (Зелений) -->
+  <path d="M 275 271 L 305 271 L 305 140 L 440 140 L 440 172 L 450 172" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arr-green)"/>
+  <path d="M 530 172 L 545 172 L 545 285 L 435 285 L 435 357 L 450 357" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arr-green)"/>
+  <path d="M 530 357 L 550 357 L 550 480 L 300 480 L 300 343 L 275 343" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arr-green)"/>
+
+  <!-- 3. Силові лінії 380V (Червоний / Dark) -->
+  <path d="M 700 150 L 660 150 L 660 180 L 635 180" fill="none" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <path d="M 635 220 L 660 220 L 660 360 L 635 360" fill="none" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <path d="M 635 410 L 660 410 L 660 380 L 700 380" fill="none" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+</svg>

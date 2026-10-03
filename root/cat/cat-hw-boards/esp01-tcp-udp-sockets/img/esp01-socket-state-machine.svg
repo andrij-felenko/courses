@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Автомат станів керування TCP/UDP сокетами ESP-01</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Обробка подій AT-інтерфейсу, асинхронних +IPD, розривів CLOSED та таймаутів</text>
+
+  <!-- State 1: IDLE -->
+  <rect x="50" y="130" width="150" height="80" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="125" y="160" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">IDLE</text>
+  <text x="125" y="182" font-size="12" fill="#6b7280" text-anchor="middle">Сокет закритий</text>
+
+  <!-- State 2: CONNECTING -->
+  <rect x="280" y="130" width="160" height="80" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="360" y="160" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">CONNECTING</text>
+  <text x="360" y="182" font-size="12" fill="#6b7280" text-anchor="middle">Встановлення зв'язку</text>
+
+  <!-- State 3: CONNECTED -->
+  <rect x="520" y="130" width="160" height="80" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="600" y="160" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">CONNECTED</text>
+  <text x="600" y="182" font-size="12" fill="#6b7280" text-anchor="middle">Сокет відкритий</text>
+
+  <!-- State 4: TRANSMITTING -->
+  <rect x="760" y="130" width="150" height="80" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="835" y="160" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">TRANSMITTING</text>
+  <text x="835" y="182" font-size="12" fill="#6b7280" text-anchor="middle">Надсилання даних</text>
+
+  <!-- State 5: ERROR -->
+  <rect x="410" y="340" width="160" height="80" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="490" y="370" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">ERROR</text>
+  <text x="490" y="392" font-size="12" fill="#6b7280" text-anchor="middle">Помилка / Таймаут</text>
+
+  <!-- Transitions -->
+  <!-- IDLE -> CONNECTING -->
+  <path d="M 200 155 L 280 155" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="240" y="142" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">AT+CIPSTART</text>
+
+  <!-- CONNECTING -> CONNECTED -->
+  <path d="M 440 155 L 520 155" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="480" y="142" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">CONNECT / OK</text>
+
+  <!-- CONNECTED -> TRANSMITTING -->
+  <path d="M 680 155 L 760 155" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="720" y="142" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">AT+CIPSEND</text>
+
+  <!-- TRANSMITTING -> CONNECTED -->
+  <path d="M 760 185 L 680 185" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="720" y="205" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">SEND OK</text>
+
+  <!-- CONNECTED loop (+IPD) -->
+  <path d="M 570 130 C 570 90, 630 90, 630 130" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="600" y="82" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Прийом +IPD</text>
+
+  <!-- CONNECTED -> IDLE (CLOSED) -->
+  <path d="M 550 210 L 550 260 L 125 260 L 125 210" stroke="#6b7280" stroke-width="2" fill="none" marker-end="url(#arr-gray)"/>
+  <text x="240" y="250" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">CLOSED / AT+CIPCLOSE</text>
+
+  <!-- CONNECTING -> ERROR -->
+  <path d="M 360 210 L 360 380 L 410 380" stroke="#c0392b" stroke-width="2" fill="none" marker-end="url(#arr-red)"/>
+  <text x="345" y="300" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">FAIL / Timeout</text>
+
+  <!-- TRANSMITTING -> ERROR -->
+  <path d="M 835 210 L 835 380 L 570 380" stroke="#c0392b" stroke-width="2" fill="none" marker-end="url(#arr-red)"/>
+  <text x="702" y="370" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">SEND FAIL / Timeout</text>
+
+  <!-- ERROR -> IDLE -->
+  <path d="M 410 400 L 70 400 L 70 210" stroke="#c0392b" stroke-width="2" fill="none" marker-end="url(#arr-red)"/>
+  <text x="240" y="390" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Скидання / AT+RST</text>
+
+  <!-- Bottom Informative Panels -->
+  <!-- Panel 1: IPD parsing -->
+  <rect x="50" y="440" width="270" height="90" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="185" y="462" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Обробка вхідних +IPD</text>
+  <text x="185" y="482" font-size="12" fill="#6b7280" text-anchor="middle">Потік даних +IPD,&lt;len&gt;:&lt;data&gt;</text>
+  <text x="185" y="502" font-size="12" fill="#6b7280" text-anchor="middle">Парситься в стані CONNECTED</text>
+  <text x="185" y="518" font-size="12" fill="#6b7280" text-anchor="middle">без зміни стану автомата</text>
+
+  <!-- Panel 2: Modes -->
+  <rect x="345" y="440" width="270" height="90" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="462" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конфігурація CIPMUX/MODE</text>
+  <text x="480" y="482" font-size="12" fill="#6b7280" text-anchor="middle">CIPMUX=1: додається linkID</text>
+  <text x="480" y="502" font-size="12" fill="#6b7280" text-anchor="middle">CIPMODE=1: прозорий міст</text>
+  <text x="480" y="518" font-size="12" fill="#6b7280" text-anchor="middle">CIPSERVER: TCP-сервер</text>
+
+  <!-- Panel 3: Recovery -->
+  <rect x="640" y="440" width="270" height="90" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="775" y="462" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Аварійне відновлення</text>
+  <text x="775" y="482" font-size="12" fill="#6b7280" text-anchor="middle">Таймаут AT-команд і розриви</text>
+  <text x="775" y="502" font-size="12" fill="#6b7280" text-anchor="middle">Перевід сокета в ERROR</text>
+  <text x="775" y="518" font-size="12" fill="#6b7280" text-anchor="middle">Автоматичне повернення в IDLE</text>
+</svg>

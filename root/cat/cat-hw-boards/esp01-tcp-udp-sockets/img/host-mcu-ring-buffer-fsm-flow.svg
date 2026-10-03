@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Двоступенева буферизація та FSM обробки +IPD</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">UART ISR зберігає байти в буфер RB1, FSM парсить пакети +IPD, а застосунок неблокуюче читає RB2</text>
+
+  <!-- Panel 1: ESP-01 MCU -->
+  <rect x="30" y="85" width="170" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="115" y="112" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Модуль ESP-01</text>
+  <text x="115" y="132" font-size="12" fill="#6b7280" text-anchor="middle">(UART TX потік)</text>
+
+  <rect x="42" y="150" width="146" height="135" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="115" y="172" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Потокові дані AT</text>
+  <text x="115" y="194" font-size="12" fill="#1a1a1a" text-anchor="middle">+IPD,0,14:hello</text>
+  <text x="115" y="214" font-size="12" fill="#1a1a1a" text-anchor="middle">+IPD,1,8:data</text>
+  <text x="115" y="234" font-size="12" fill="#1a1a1a" text-anchor="middle">OK / ERROR</text>
+  <text x="115" y="262" font-size="12" fill="#6b7280" text-anchor="middle">115200 baud</text>
+
+  <rect x="42" y="300" width="146" height="185" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="115" y="324" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">UART RX ISR</text>
+  <text x="115" y="346" font-size="12" fill="#1a1a1a" text-anchor="middle">Переривання MCU</text>
+  <text x="115" y="368" font-size="12" fill="#1a1a1a" text-anchor="middle">Запис байта в RB1</text>
+  <text x="115" y="398" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">t &lt; 10 µs (без FSM)</text>
+  <text x="115" y="424" font-size="12" fill="#6b7280" text-anchor="middle">Запобігає overrun</text>
+  <text x="115" y="444" font-size="12" fill="#6b7280" text-anchor="middle">апаратного FIFO</text>
+  <text x="115" y="464" font-size="12" fill="#6b7280" text-anchor="middle">втрати байтів</text>
+
+  <!-- Connector 1 (ISR -> RB1) -->
+  <line x1="188" y1="390" x2="238" y2="390" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="213" y="380" font-size="12" fill="#27ae60" text-anchor="middle">Запис</text>
+
+  <!-- Panel 2: Ring Buffer 1 -->
+  <rect x="225" y="85" width="230" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="340" y="112" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Ступінь 1: Буфер RB1</text>
+  <text x="340" y="132" font-size="12" fill="#6b7280" text-anchor="middle">Сирий потік символів</text>
+
+  <!-- Ring Buffer diagram -->
+  <rect x="240" y="150" width="200" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="340" y="170" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Кільцевий буфер RB1</text>
+
+  <!-- Cells -->
+  <rect x="250" y="190" width="26" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="263" y="210" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">+</text>
+
+  <rect x="278" y="190" width="26" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="291" y="210" font-size="12" fill="#2457d6" text-anchor="middle">I</text>
+
+  <rect x="306" y="190" width="26" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="319" y="210" font-size="12" fill="#2457d6" text-anchor="middle">P</text>
+
+  <rect x="334" y="190" width="26" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="347" y="210" font-size="12" fill="#2457d6" text-anchor="middle">D</text>
+
+  <rect x="362" y="190" width="26" height="30" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="375" y="210" font-size="12" fill="#1a1a1a" text-anchor="middle">,</text>
+
+  <rect x="390" y="190" width="26" height="30" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="403" y="210" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+
+  <!-- Pointers -->
+  <text x="263" y="245" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Tail (FSM)</text>
+  <line x1="263" y1="232" x2="263" y2="222" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <text x="403" y="178" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Head (ISR)</text>
+  <line x1="403" y1="180" x2="403" y2="188" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <text x="340" y="268" font-size="12" fill="#6b7280" text-anchor="middle">FIFO кільцевий потік</text>
+
+  <!-- RB1 Specs -->
+  <rect x="240" y="300" width="200" height="185" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="340" y="324" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Властивості буфера 1:</text>
+  <text x="252" y="350" font-size="12" fill="#1a1a1a">• Розмір: 512–1024 байт</text>
+  <text x="252" y="374" font-size="12" fill="#1a1a1a">• Атомний запис з ISR</text>
+  <text x="252" y="398" font-size="12" fill="#1a1a1a">• Читання у фоні FSM</text>
+  <text x="252" y="422" font-size="12" fill="#1a1a1a">• Згладжування піків</text>
+  <text x="252" y="450" font-size="12" font-weight="700" fill="#27ae60">• Без втрат при сплесках</text>
+  <text x="252" y="470" font-size="12" fill="#27ae60">  мережевого трафіку</text>
+
+  <!-- Connector 2 (RB1 -> FSM) -->
+  <line x1="440" y1="205" x2="498" y2="205" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="469" y="195" font-size="12" fill="#2457d6" text-anchor="middle">Читання Tail</text>
+
+  <!-- Panel 3: FSM Parser -->
+  <rect x="485" y="85" width="240" height="420" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="605" y="112" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">Асинхронний FSM парсер</text>
+  <text x="605" y="132" font-size="12" fill="#6b7280" text-anchor="middle">Декодування +IPD потоку</text>
+
+  <!-- State 0 -->
+  <rect x="500" y="150" width="210" height="65" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="605" y="172" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">0. IDLE / SEARCH</text>
+  <text x="605" y="192" font-size="12" fill="#6b7280" text-anchor="middle">Пошук префікса '+IPD,'</text>
+
+  <line x1="605" y1="215" x2="605" y2="233" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- State 1 -->
+  <rect x="500" y="235" width="210" height="65" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="605" y="257" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">1. PARSE_HEADER</text>
+  <text x="605" y="277" font-size="12" fill="#6b7280" text-anchor="middle">Парсинг link_id та len L</text>
+
+  <line x1="605" y1="300" x2="605" y2="318" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- State 2 -->
+  <rect x="500" y="320" width="210" height="65" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="605" y="342" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">2. READ_PAYLOAD</text>
+  <text x="605" y="362" font-size="12" fill="#2457d6" text-anchor="middle">Запис L байт у RB2</text>
+
+  <line x1="605" y1="385" x2="605" y2="403" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- State 3 -->
+  <rect x="500" y="405" width="210" height="80" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="605" y="427" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">3. STATUS / TERMINATOR</text>
+  <text x="605" y="447" font-size="12" fill="#6b7280" text-anchor="middle">Обробка OK / ERROR / CLOSED</text>
+  <text x="605" y="469" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Повернення в IDLE</text>
+
+  <!-- Connector 3 (FSM -> RB2) -->
+  <line x1="710" y1="352" x2="765" y2="352" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="737" y="342" font-size="12" fill="#27ae60" text-anchor="middle">Payload</text>
+
+  <!-- Panel 4: RB2 & Main Loop -->
+  <rect x="755" y="85" width="175" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="842" y="112" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Ступінь 2: Буфер RB2</text>
+  <text x="842" y="132" font-size="12" fill="#6b7280" text-anchor="middle">Сокетні дані та App</text>
+
+  <rect x="767" y="150" width="151" height="160" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="842" y="172" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Сокетні буфери RB2</text>
+  <text x="842" y="194" font-size="12" fill="#1a1a1a" text-anchor="middle">Окремі масиви під</text>
+  <text x="842" y="214" font-size="12" fill="#1a1a1a" text-anchor="middle">з'єднання link_id</text>
+  <text x="777" y="238" font-size="12" fill="#2457d6">• link 0: [payload]</text>
+  <text x="777" y="258" font-size="12" fill="#2457d6">• link 1: [payload]</text>
+  <text x="842" y="284" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Готові кадри</text>
+  <text x="842" y="300" font-size="12" fill="#6b7280" text-anchor="middle">без AT-команд</text>
+
+  <line x1="842" y1="310" x2="842" y2="328" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <rect x="767" y="330" width="151" height="155" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="842" y="354" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Main Loop (App)</text>
+  <text x="842" y="376" font-size="12" fill="#1a1a1a" text-anchor="middle">Читання з RB2</text>
+  <text x="842" y="396" font-size="12" fill="#1a1a1a" text-anchor="middle">без затримок UART</text>
+  <text x="842" y="420" font-size="12" fill="#6b7280" text-anchor="middle">Обробка пакетів</text>
+  <text x="842" y="440" font-size="12" fill="#6b7280" text-anchor="middle">TCP / UDP</text>
+  <text x="842" y="468" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">100% неблокуюче!</text>
+</svg>

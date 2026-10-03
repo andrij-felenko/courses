@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Топологія сокетів LwIP у прошивці ESP-01 залежно від режиму AT+CIPMUX</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">CIPMUX=0 підтримує один сокет без ID, а CIPMUX=1 прив'язує до 5 сокетів у DRAM за link_id (0..4)</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: CIPMUX = 0 -->
+  <rect x="25" y="75" width="445" height="425" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="247" y="100" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Режим CIPMUX = 0 (Single Connection)</text>
+
+  <!-- Блок 1.1: Купа DRAM / Сокетна структура -->
+  <rect x="40" y="115" width="415" height="210" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="55" y="138" font-size="13" font-weight="700" fill="#1a1a1a">Структури сокетів LwIP у DRAM ESP-01</text>
+
+  <!-- Слот 1.1a: Єдине з'єднання -->
+  <rect x="55" y="150" width="385" height="75" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="5"/>
+  <text x="70" y="172" font-size="13" font-weight="700" fill="#2457d6">Сокетний контроль-блок (PCB без ID)</text>
+  <text x="70" y="192" font-size="12" fill="#1a1a1a">• Прив'язка ID: відсутня (немає індексу link_id)</text>
+  <text x="70" y="210" font-size="12" fill="#1a1a1a">• Типи сокета: TCP Client або UDP (unicast)</text>
+
+  <!-- Слот 1.1b: TCP Server заблоковано -->
+  <rect x="55" y="238" width="385" height="75" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="5"/>
+  <text x="70" y="260" font-size="13" font-weight="700" fill="#c0392b">TCP Server: Заборонено (ERR)</text>
+  <text x="70" y="280" font-size="12" fill="#1a1a1a">• Команда AT+CIPSERVER=1 викликає ERROR</text>
+  <text x="70" y="298" font-size="12" fill="#1a1a1a">• Доступний наскрізний режим (Passthrough)</text>
+
+  <!-- Блок 1.2: Протокол UART -->
+  <rect x="40" y="340" width="415" height="145" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="55" y="363" font-size="13" font-weight="700" fill="#1a1a1a">Формат AT-команд та потоку даних UART</text>
+
+  <rect x="55" y="375" width="385" height="30" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="65" y="395" font-size="12" font-weight="700" fill="#2457d6">Передача:</text>
+  <text x="140" y="395" font-size="12" fill="#1a1a1a">AT+CIPSEND=&lt;length&gt;</text>
+
+  <rect x="55" y="413" width="385" height="30" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="65" y="433" font-size="12" font-weight="700" fill="#27ae60">Прийом:</text>
+  <text x="140" y="433" font-size="12" fill="#1a1a1a">+IPD,&lt;length&gt;:&lt;data&gt;</text>
+
+  <text x="55" y="468" font-size="12" fill="#6b7280">• Одночасна робота кількох сокетів неможлива</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: CIPMUX = 1 -->
+  <rect x="490" y="75" width="445" height="425" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="712" y="100" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Режим CIPMUX = 1 (Multiple Connections)</text>
+
+  <!-- Блок 2.1: Масив сокетів у DRAM -->
+  <rect x="505" y="115" width="415" height="210" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="520" y="138" font-size="13" font-weight="700" fill="#1a1a1a">Масив сокетів LwIP у DRAM (до 5 сокетів)</text>
+
+  <!-- Слот 2.1a: link_id=0 -->
+  <rect x="520" y="150" width="385" height="42" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="532" y="167" font-size="12" font-weight="700" fill="#2457d6">link_id = 0:</text>
+  <text x="610" y="167" font-size="12" fill="#1a1a1a">TCP Client (PCB #0) ➔ Remote Server</text>
+  <text x="532" y="184" font-size="12" fill="#6b7280">Явний виклик: AT+CIPSTART=0,"TCP",...</text>
+
+  <!-- Слот 2.1b: link_id=1 -->
+  <rect x="520" y="198" width="385" height="42" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="532" y="215" font-size="12" font-weight="700" fill="#27ae60">link_id = 1:</text>
+  <text x="610" y="215" font-size="12" fill="#1a1a1a">UDP Socket (PCB #1) ➔ Broadcast / Peer</text>
+  <text x="532" y="232" font-size="12" fill="#6b7280">Явний виклик: AT+CIPSTART=1,"UDP",...</text>
+
+  <!-- Слот 2.1c: link_id=2..4 -->
+  <rect x="520" y="246" width="385" height="42" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="532" y="263" font-size="12" font-weight="700" fill="#1a1a1a">link_id = 2..4:</text>
+  <text x="625" y="263" font-size="12" fill="#1a1a1a">TCP Server (Слухає порт 80 / 8080)</text>
+  <text x="532" y="280" font-size="12" fill="#6b7280">Динамічне виділення ID при вхідних підключеннях</text>
+
+  <text x="520" y="308" font-size="12" fill="#6b7280">• Окремі буфери RX/TX у DRAM для кожного link_id</text>
+
+  <!-- Блок 2.2: Протокол UART -->
+  <rect x="505" y="340" width="415" height="145" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="520" y="363" font-size="13" font-weight="700" fill="#1a1a1a">Формат AT-команд з індексацією link_id</text>
+
+  <rect x="520" y="375" width="385" height="30" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="530" y="395" font-size="12" font-weight="700" fill="#2457d6">Передача:</text>
+  <text x="605" y="395" font-size="12" fill="#1a1a1a">AT+CIPSEND=&lt;id&gt;,&lt;length&gt;</text>
+
+  <rect x="520" y="413" width="385" height="30" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="530" y="433" font-size="12" font-weight="700" fill="#27ae60">Прийом:</text>
+  <text x="605" y="433" font-size="12" fill="#1a1a1a">+IPD,&lt;id&gt;,&lt;length&gt;:&lt;data&gt;</text>
+
+  <text x="520" y="468" font-size="12" fill="#6b7280">• Демультиплексування сокетів парсером FSM у хості</text>
+</svg>

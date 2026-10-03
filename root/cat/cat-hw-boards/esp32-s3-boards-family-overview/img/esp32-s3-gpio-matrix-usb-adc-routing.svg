@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <!-- Markers for flow arrows -->
+    <marker id="arr-accent" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-ok" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-err" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Маршрутизація сигналів ESP32-S3: IO MUX, GPIO Matrix, USB та ADC</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Цифрові периферії гнучко комутуються через GPIO Matrix, USB йдуть напряму, а ADC2 блокується під час Wi-Fi</text>
+
+  <!-- Column Headers -->
+  <!-- Col 1 Header -->
+  <rect x="35" y="68" width="185" height="26" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="127.5" y="85" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">1. Периферійні блоки</text>
+
+  <!-- Col 2 Header -->
+  <rect x="245" y="68" width="185" height="26" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="337.5" y="85" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">2. GPIO Matrix</text>
+
+  <!-- Col 3 Header -->
+  <rect x="455" y="68" width="185" height="26" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="547.5" y="85" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">3. IO MUX</text>
+
+  <!-- Col 4 Header -->
+  <rect x="665" y="68" width="260" height="26" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="795" y="85" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">4. Фізичні виводи GPIO</text>
+
+
+  <!-- ================= ROW A: DIGITAL PERIPHERALS ================= -->
+  <rect x="35" y="102" width="890" height="118" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="45" y="118" font-size="12" font-weight="700" fill="#2457d6">Цифрова маршрутизація (Matrix Routing)</text>
+
+  <!-- Col 1 Box -->
+  <rect x="45" y="126" width="165" height="84" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="127.5" y="144" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Цифрові блоки</text>
+  <text x="127.5" y="162" font-size="12" fill="#1a1a1a" text-anchor="middle">UART0..2, SPI2..3</text>
+  <text x="127.5" y="180" font-size="12" fill="#1a1a1a" text-anchor="middle">I2C0..1, PWM, RMT</text>
+  <text x="127.5" y="196" font-size="12" fill="#6b7280" text-anchor="middle">будь-які периферії</text>
+
+  <!-- Col 2 Box -->
+  <rect x="255" y="126" width="165" height="84" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="337.5" y="144" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Матриця GPIO Matrix</text>
+  <text x="337.5" y="162" font-size="12" fill="#1a1a1a" text-anchor="middle">Гнучкий перенапрям</text>
+  <text x="337.5" y="180" font-size="12" fill="#1a1a1a" text-anchor="middle">вхідних та вихідних</text>
+  <text x="337.5" y="196" font-size="12" fill="#2457d6" text-anchor="middle">цифрових сигналів</text>
+
+  <!-- Col 3 Box -->
+  <rect x="465" y="126" width="165" height="84" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="547.5" y="144" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">IO MUX</text>
+  <text x="547.5" y="162" font-size="12" fill="#1a1a1a" text-anchor="middle">Селектор режиму</text>
+  <text x="547.5" y="180" font-size="12" fill="#1a1a1a" text-anchor="middle">Комбінування функцій</text>
+  <text x="547.5" y="196" font-size="12" fill="#6b7280" text-anchor="middle">на фізичному контакті</text>
+
+  <!-- Col 4 Box -->
+  <rect x="675" y="126" width="240" height="84" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="795" y="144" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Довільні GPIO (0..48)</text>
+  <text x="795" y="162" font-size="12" fill="#1a1a1a" text-anchor="middle">Будь-яка цифрова функція може бути</text>
+  <text x="795" y="180" font-size="12" fill="#1a1a1a" text-anchor="middle">призначена на будь-який вільний контакт</text>
+  <text x="795" y="196" font-size="12" fill="#6b7280" text-anchor="middle">(повна програмна гнучкість)</text>
+
+  <!-- Arrows Row A -->
+  <line x1="210" y1="168" x2="255" y2="168" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <line x1="420" y1="168" x2="465" y2="168" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <line x1="630" y1="168" x2="675" y2="168" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+
+  <!-- ================= ROW B: DIRECT USB ================= -->
+  <rect x="35" y="228" width="890" height="118" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="45" y="244" font-size="12" font-weight="700" fill="#1a1a1a">Прямий зв'язок USB (Direct IO MUX Bypass)</text>
+
+  <!-- Col 1 Box -->
+  <rect x="45" y="252" width="165" height="84" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="127.5" y="270" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">USB Апаратний модуль</text>
+  <text x="127.5" y="288" font-size="12" fill="#1a1a1a" text-anchor="middle">USB OTG Full-Speed</text>
+  <text x="127.5" y="306" font-size="12" fill="#1a1a1a" text-anchor="middle">USB Serial / JTAG</text>
+  <text x="127.5" y="322" font-size="12" fill="#6b7280" text-anchor="middle">вбудований PHY</text>
+
+  <!-- Col 2 Box (Bypass) -->
+  <rect x="255" y="252" width="165" height="84" fill="#ffffff" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4" rx="4"/>
+  <text x="337.5" y="280" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">Обхід GPIO Matrix</text>
+  <text x="337.5" y="300" font-size="12" fill="#6b7280" text-anchor="middle">Прямі PHY лінії</text>
+  <text x="337.5" y="318" font-size="12" fill="#6b7280" text-anchor="middle">високої швидкості</text>
+
+  <!-- Col 3 Box -->
+  <rect x="465" y="252" width="165" height="84" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="547.5" y="270" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">IO MUX (Direct Mode)</text>
+  <text x="547.5" y="288" font-size="12" fill="#1a1a1a" text-anchor="middle">Пряма комутація PHY</text>
+  <text x="547.5" y="306" font-size="12" fill="#1a1a1a" text-anchor="middle">без затримок матриці</text>
+  <text x="547.5" y="322" font-size="12" fill="#2457d6" text-anchor="middle">фіксовані контакти</text>
+
+  <!-- Col 4 Box -->
+  <rect x="675" y="252" width="240" height="84" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="795" y="270" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Фіксовані USB виводи</text>
+  <text x="795" y="288" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">GPIO 19 ➔ USB D-</text>
+  <text x="795" y="306" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">GPIO 20 ➔ USB D+</text>
+  <text x="795" y="322" font-size="12" fill="#6b7280" text-anchor="middle">(Direct USB Serial/JTAG та OTG)</text>
+
+  <!-- Arrows Row B -->
+  <line x1="210" y1="294" x2="255" y2="294" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <line x1="420" y1="294" x2="465" y2="294" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <line x1="630" y1="294" x2="675" y2="294" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+
+  <!-- ================= ROW C: ANALOG ADC & WI-FI CONFLICT ================= -->
+  <rect x="35" y="354" width="890" height="152" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="45" y="370" font-size="12" font-weight="700" fill="#1a1a1a">Аналогове трасування та конфлікт ADC2 з Wi-Fi</text>
+
+  <!-- Col 1 Box (ADC + Wi-Fi) -->
+  <rect x="45" y="378" width="165" height="118" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="127.5" y="396" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Аналогові блоки</text>
+  <text x="127.5" y="414" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">ADC1 (Канали 0..9)</text>
+  <text x="127.5" y="432" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">ADC2 (Канали 0..9)</text>
+
+  <!-- Wi-Fi Module Box inside Col 1 -->
+  <rect x="53" y="442" width="149" height="46" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="127.5" y="460" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Wi-Fi / BT PHY</text>
+  <text x="127.5" y="478" font-size="12" fill="#c0392b" text-anchor="middle">Використовує ADC2</text>
+
+  <!-- Col 2 Box (Analog Bypass) -->
+  <rect x="255" y="378" width="165" height="118" fill="#ffffff" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4" rx="4"/>
+  <text x="337.5" y="408" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">Аналоговий Bypass</text>
+  <text x="337.5" y="428" font-size="12" fill="#6b7280" text-anchor="middle">Аналогові лінії напряму</text>
+  <text x="337.5" y="446" font-size="12" fill="#6b7280" text-anchor="middle">в IO MUX (поза</text>
+  <text x="337.5" y="464" font-size="12" fill="#6b7280" text-anchor="middle">GPIO Matrix)</text>
+
+  <!-- Col 3 Box (ADC1 Safe / ADC2 Blocked) -->
+  <!-- ADC1 in Col 3 -->
+  <rect x="465" y="378" width="165" height="54" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="547.5" y="398" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">ADC1: Завжди вільний</text>
+  <text x="547.5" y="416" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Незалежний від Wi-Fi</text>
+
+  <!-- ADC2 in Col 3 -->
+  <rect x="465" y="442" width="165" height="54" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="547.5" y="462" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">ADC2: Заблоковано!</text>
+  <text x="547.5" y="480" font-size="12" fill="#c0392b" text-anchor="middle">Конфлікт під час Wi-Fi</text>
+
+  <!-- Col 4 Box (Pins ADC1 vs ADC2) -->
+  <!-- ADC1 Pins -->
+  <rect x="675" y="378" width="240" height="54" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="795" y="398" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">GPIO 1..10 (Канали ADC1)</text>
+  <text x="795" y="416" font-size="12" fill="#27ae60" text-anchor="middle">Рекомендовано для АЦП у проєктах з Wi-Fi</text>
+
+  <!-- ADC2 Pins -->
+  <rect x="675" y="442" width="240" height="54" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="795" y="462" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">GPIO 11..20 (Канали ADC2)</text>
+  <text x="795" y="480" font-size="12" fill="#c0392b" text-anchor="middle">Недоступні для аналогу під час активного Wi-Fi</text>
+
+  <!-- Arrows Row C -->
+  <!-- ADC1 Green Arrow -->
+  <line x1="210" y1="405" x2="255" y2="405" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-ok)"/>
+  <line x1="420" y1="405" x2="465" y2="405" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-ok)"/>
+  <line x1="630" y1="405" x2="675" y2="405" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-ok)"/>
+
+  <!-- ADC2 Red Arrow & Lock Connection -->
+  <line x1="210" y1="432" x2="255" y2="432" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-err)"/>
+  <line x1="420" y1="469" x2="465" y2="469" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-err)"/>
+  <line x1="630" y1="469" x2="675" y2="469" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-err)"/>
+
+</svg>

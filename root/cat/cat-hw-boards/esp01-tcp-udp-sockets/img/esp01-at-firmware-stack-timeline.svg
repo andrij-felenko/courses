@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Marker definitions -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Еволюція сокетного стека AT-прошивок модуля ESP-01 (ESP8266)</text>
+  <text x="480" y="50" font-size="13" text-anchor="middle" fill="#6b7280">Перехід від блокуючого поллінгу Non-OS SDK до асинхронної подієвої моделі FreeRTOS та lwIP</text>
+
+  <!-- Timeline Section -->
+  <!-- Axis line -->
+  <line x1="50" y1="88" x2="910" y2="88" stroke="#d0d7de" stroke-width="2" stroke-dasharray="6,4"/>
+
+  <!-- Timeline Milestone Labels & Dots -->
+  <circle cx="175" cy="88" r="6" fill="#c0392b" stroke="#ffffff" stroke-width="2"/>
+  <text x="175" y="78" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">v0.9 – v0.20 (Non-OS SDK)</text>
+
+  <circle cx="480" cy="88" r="6" fill="#2457d6" stroke="#ffffff" stroke-width="2"/>
+  <text x="480" y="78" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">v1.x – v2.x (lwIP v1.4)</text>
+
+  <circle cx="785" cy="88" r="6" fill="#27ae60" stroke="#ffffff" stroke-width="2"/>
+  <text x="785" y="78" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">v3.x+ (FreeRTOS + lwIP v2.x)</text>
+
+  <!-- Timeline Card 1: Non-OS SDK -->
+  <rect x="40" y="100" width="270" height="175" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="175" y="120" font-size="13" font-weight="700" text-anchor="middle" fill="#c0392b">Блокуючий потік (2014–2015)</text>
+  <line x1="55" y1="128" x2="295" y2="128" stroke="#c0392b" stroke-width="1" stroke-opacity="0.3"/>
+  <text x="55" y="146" font-size="12" fill="#1a1a1a">• Блокуючий поллінг у головному циклі</text>
+  <text x="55" y="166" font-size="12" fill="#1a1a1a">• Статичні буфери сокетів у DRAM</text>
+  <text x="55" y="186" font-size="12" fill="#c0392b">• Масова втрати пакетів при навантаженні</text>
+  <text x="55" y="206" font-size="12" fill="#c0392b">• Вичерпання DRAM (макс. 4-5 сокетів)</text>
+  <text x="55" y="226" font-size="12" fill="#6b7280">• Помилковий міф про «вади чипа»</text>
+  <text x="55" y="246" font-size="12" fill="#6b7280">• Відсутність криптографії SSL/TLS</text>
+
+  <!-- Timeline Card 2: Transition & lwIP v1.4 -->
+  <rect x="345" y="100" width="270" height="175" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="120" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">Асинхронний перехід (2016–2018)</text>
+  <line x1="360" y1="128" x2="600" y2="128" stroke="#2457d6" stroke-width="1" stroke-opacity="0.3"/>
+  <text x="360" y="146" font-size="12" fill="#1a1a1a">• Спонтанні повідомлення +IPD</text>
+  <text x="360" y="166" font-size="12" fill="#1a1a1a">• Наскрізний режим AT+CIPMODE=1</text>
+  <text x="360" y="186" font-size="12" fill="#2457d6">• Подієва обробка вхідних даних</text>
+  <text x="360" y="206" font-size="12" fill="#2457d6">• Інтеграція сокетного стека lwIP v1.4</text>
+  <text x="360" y="226" font-size="12" fill="#1a1a1a">• Первинна підтримка SSL/TLS</text>
+  <text x="360" y="246" font-size="12" fill="#6b7280">• Оптимізація буферизації FIFO</text>
+
+  <!-- Timeline Card 3: FreeRTOS + lwIP v2.x -->
+  <rect x="650" y="100" width="270" height="175" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="785" y="120" font-size="13" font-weight="700" text-anchor="middle" fill="#27ae60">FreeRTOS &amp; lwIP v2.x (2019+)</text>
+  <line x1="665" y1="128" x2="905" y2="128" stroke="#27ae60" stroke-width="1" stroke-opacity="0.3"/>
+  <text x="665" y="146" font-size="12" fill="#1a1a1a">• Багатозадачна модель FreeRTOS</text>
+  <text x="665" y="166" font-size="12" fill="#1a1a1a">• Динамічний розподіл DRAM (Heap)</text>
+  <text x="665" y="186" font-size="12" fill="#27ae60">• Висока стабільність TCP/UDP сокетів</text>
+  <text x="665" y="206" font-size="12" fill="#27ae60">• Повноцінний стек mbedTLS (TLS v1.2+)</text>
+  <text x="665" y="226" font-size="12" fill="#1a1a1a">• Захист від втрати пакетів</text>
+  <text x="665" y="246" font-size="12" fill="#1a1a1a">• Модульна архітектура ESP-IDF</text>
+
+  <!-- Connecting arrows between cards -->
+  <line x1="312" y1="187" x2="340" y2="187" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="617" y1="187" x2="645" y2="187" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Architecture Comparison Header -->
+  <text x="480" y="298" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Порівняння архітектури обробки мережевих даних</text>
+
+  <!-- Architecture Panel Left: Non-OS SDK -->
+  <rect x="40" y="310" width="430" height="210" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="55" y="330" font-size="13" font-weight="700" fill="#c0392b">Ранній стек: Блокуючий монолітний потік (Non-OS SDK)</text>
+
+  <!-- Flow blocks inside Left Panel -->
+  <rect x="55" y="345" width="105" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="107" y="363" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">UART RX</text>
+  <text x="107" y="377" font-size="12" text-anchor="middle" fill="#6b7280">(Кадр даних)</text>
+
+  <line x1="162" y1="366" x2="180" y2="366" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <rect x="185" y="345" width="130" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="250" y="363" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Блокуючий поллінг</text>
+  <text x="250" y="377" font-size="12" text-anchor="middle" fill="#c0392b">Monolithic Loop</text>
+
+  <line x1="317" y1="366" x2="335" y2="366" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <rect x="340" y="345" width="115" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="397" y="363" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Статичний DRAM</text>
+  <text x="397" y="377" font-size="12" text-anchor="middle" fill="#c0392b">Фіксований буфер</text>
+
+  <!-- Stack Layer box Left -->
+  <rect x="55" y="398" width="400" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="58" y="401" width="128" height="34" rx="2" fill="#f4f6f8"/>
+  <text x="122" y="422" font-size="12" text-anchor="middle" fill="#1a1a1a">UART HW FIFO</text>
+
+  <rect x="191" y="401" width="128" height="34" rx="2" fill="#fdecea"/>
+  <text x="255" y="422" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Monolithic Core</text>
+
+  <rect x="324" y="401" width="128" height="34" rx="2" fill="#fdecea"/>
+  <text x="388" y="422" font-size="12" text-anchor="middle" fill="#c0392b">Fixed Sockets</text>
+
+  <!-- Summary box Left -->
+  <rect x="55" y="448" width="400" height="58" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="65" y="468" font-size="12" font-weight="700" fill="#c0392b">⚠ Недоліки раннього стека Non-OS SDK:</text>
+  <text x="65" y="488" font-size="12" fill="#1a1a1a">Блокування виконання, переповнення FIFO та втрата пакетів</text>
+
+  <!-- Architecture Panel Right: FreeRTOS + lwIP -->
+  <rect x="490" y="310" width="430" height="210" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="505" y="330" font-size="13" font-weight="700" fill="#27ae60">Сучасний стек: Багатозадачна подієва модель (FreeRTOS)</text>
+
+  <!-- Flow blocks inside Right Panel -->
+  <rect x="505" y="345" width="105" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="557" y="363" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">UART Task</text>
+  <text x="557" y="377" font-size="12" text-anchor="middle" fill="#6b7280">(FreeRTOS)</text>
+
+  <line x1="612" y1="366" x2="630" y2="366" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="635" y="345" width="130" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="700" y="363" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">FreeRTOS Queue</text>
+  <text x="700" y="377" font-size="12" text-anchor="middle" fill="#2457d6">+IPD / CIPMODE</text>
+
+  <line x1="767" y1="366" x2="785" y2="366" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <rect x="790" y="345" width="115" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="847" y="363" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">lwIP Socket Event</text>
+  <text x="847" y="377" font-size="12" text-anchor="middle" fill="#27ae60">Dynamic Heap</text>
+
+  <!-- Stack Layer box Right -->
+  <rect x="505" y="398" width="400" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="508" y="401" width="128" height="34" rx="2" fill="#eaf0fd"/>
+  <text x="572" y="422" font-size="12" text-anchor="middle" fill="#2457d6">FreeRTOS Kernel</text>
+
+  <rect x="641" y="401" width="128" height="34" rx="2" fill="#e9f7ef"/>
+  <text x="705" y="422" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">lwIP v2.x Stack</text>
+
+  <rect x="774" y="401" width="128" height="34" rx="2" fill="#e9f7ef"/>
+  <text x="838" y="422" font-size="12" text-anchor="middle" fill="#27ae60">mbedTLS / Socket</text>
+
+  <!-- Summary box Right -->
+  <rect x="505" y="448" width="400" height="58" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="515" y="468" font-size="12" font-weight="700" fill="#27ae60">✓ Переваги нового стека ESP-IDF / FreeRTOS:</text>
+  <text x="515" y="488" font-size="12" fill="#1a1a1a">Асинхронний потік, динамічна DRAM, прозорий режим та TLS</text>
+</svg>

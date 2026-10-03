@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма пікових струмів ESP32-CAM та падіння напруги V_VDD</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Сумісний пік Wi-Fi та LED (&gt;500 mA) викликає просідання V_VDD нижче порогу BOD (2.43 V) і перезавантаження</text>
+
+  <!-- Маркери стрілок у defs -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Ліва частина: Панель часових діаграм -->
+  <rect x="30" y="75" width="695" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- ВЕРХНІЙ ГРАФІК: Струм споживання I_VDD -->
+  <text x="45" y="98" font-size="13" font-weight="bold" fill="#1a1a1a">Струм споживання I_VDD, mA</text>
+  
+  <rect x="245" y="83" width="115" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="302" y="97" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I_peak = 530 mA</text>
+
+  <rect x="465" y="83" width="110" height="20" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="520" y="97" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Пік &gt;500 mA</text>
+
+  <!-- Сітка та осі для графіку струму -->
+  <line x1="110" y1="138" x2="705" y2="138" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="110" y1="175" x2="705" y2="175" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="110" y1="212" x2="705" y2="212" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="110" y1="230" x2="705" y2="230" stroke="#6b7280" stroke-width="1"/>
+
+  <line x1="110" y1="230" x2="110" y2="115" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <text x="100" y="142" font-size="12" fill="#6b7280" text-anchor="end">500 mA</text>
+  <text x="100" y="179" font-size="12" fill="#6b7280" text-anchor="end">300 mA</text>
+  <text x="100" y="216" font-size="12" fill="#6b7280" text-anchor="end">100 mA</text>
+  <text x="100" y="234" font-size="12" fill="#6b7280" text-anchor="end">0 mA</text>
+
+  <!-- Форма хвилі струму I_VDD(t) -->
+  <path d="M 110 215 L 220 215 L 220 179 L 340 179 L 340 200 L 460 200 L 460 133 L 580 133 L 580 225 L 610 212 L 705 212" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 460 133 L 580 133" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <text x="520" y="123" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">530 mA (Пік!)</text>
+
+  <!-- НИЖНІЙ ГРАФІК: Вихідна напруга V_VDD -->
+  <text x="45" y="270" font-size="13" font-weight="bold" fill="#1a1a1a">Вихідна напруга LDO-стабілізатора V_VDD, V</text>
+
+  <rect x="345" y="255" width="175" height="20" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="432" y="269" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Просідання: V_VDD &lt; V_BOD</text>
+
+  <!-- Сітка та осі для графіку напруги -->
+  <line x1="110" y1="312" x2="705" y2="312" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="110" y1="353" x2="705" y2="353" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="110" y1="384" x2="705" y2="384" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,4"/>
+
+  <line x1="110" y1="425" x2="110" y2="285" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="110" y1="425" x2="705" y2="425" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <text x="100" y="316" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">3.3 V</text>
+  <text x="690" y="304" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">V_nom = 3.3 V</text>
+
+  <text x="100" y="357" font-size="12" fill="#6b7280" text-anchor="end">2.8 V</text>
+
+  <text x="100" y="388" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">2.43 V</text>
+  <text x="690" y="376" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">V_BOD = 2.43 V (Поріг BOD)</text>
+
+  <text x="100" y="424" font-size="12" fill="#6b7280" text-anchor="end">2.0 V</text>
+
+  <!-- Форма хвилі напруги V_VDD(t) -->
+  <path d="M 110 312 L 220 312 L 225 327 L 340 327 L 345 322 L 460 322 L 470 330 L 510 384 L 530 407 L 550 407 L 600 312 L 705 312" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 510 384 L 530 407 L 550 407 L 570 365" fill="none" stroke="#c0392b" stroke-width="3"/>
+
+  <!-- Позначка перетину порогу BOD -->
+  <circle cx="510" cy="384" r="5" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+
+  <!-- Виноска спрацьовування BOD -->
+  <rect x="365" y="338" width="135" height="38" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="432" y="353" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Спрацьовування BOD</text>
+  <text x="432" y="368" font-size="12" fill="#c0392b" text-anchor="middle">Reset МК (V_VDD &lt; 2.43V)</text>
+  <path d="M 500 357 L 507 376" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Роздільники фаз часу -->
+  <line x1="220" y1="115" x2="220" y2="425" stroke="#9ca3af" stroke-dasharray="3,3"/>
+  <line x1="340" y1="115" x2="340" y2="425" stroke="#9ca3af" stroke-dasharray="3,3"/>
+  <line x1="460" y1="115" x2="460" y2="425" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="580" y1="115" x2="580" y2="425" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <text x="705" y="445" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Час t, ms</text>
+
+  <!-- Фази часу (Рядок 1: Назва фази, Рядок 2: Значення струму) -->
+  <text x="165" y="458" font-size="12" fill="#6b7280" text-anchor="middle">CPU Idle</text>
+  <text x="165" y="474" font-size="12" fill="#6b7280" text-anchor="middle">~80 mA</text>
+
+  <text x="280" y="458" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">Wi-Fi TX</text>
+  <text x="280" y="474" font-size="12" fill="#2457d6" text-anchor="middle">~280 mA</text>
+
+  <text x="400" y="458" font-size="12" fill="#6b7280" text-anchor="middle">Flash LED</text>
+  <text x="400" y="474" font-size="12" fill="#6b7280" text-anchor="middle">~160 mA</text>
+
+  <text x="520" y="458" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="middle">Wi-Fi + LED</text>
+  <text x="520" y="474" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="middle">530 mA (Пік)</text>
+
+  <text x="640" y="458" font-size="12" fill="#6b7280" text-anchor="middle">BOD Reset</text>
+  <text x="640" y="474" font-size="12" fill="#6b7280" text-anchor="middle">Reboot</text>
+
+  <!-- Права частина: Інформаційні картки -->
+  <!-- Картка 1: Параметри LDO -->
+  <rect x="740" y="75" width="195" height="120" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="752" y="93" font-size="13" font-weight="bold" fill="#1a1a1a">Параметри LDO (AMS1117)</text>
+  <text x="752" y="112" font-size="12" fill="#1a1a1a">• Вхід V_IN = 5.0 V</text>
+  <text x="752" y="129" font-size="12" fill="#1a1a1a">• Номінал V_OUT = 3.3 V</text>
+  <text x="752" y="146" font-size="12" fill="#1a1a1a">• Макс. струм I_max = 800 mA</text>
+  <text x="752" y="163" font-size="12" fill="#c0392b" font-weight="bold">• Власне падіння ΔV ≈ 1.1 V</text>
+  <text x="752" y="180" font-size="12" fill="#6b7280">• Опір R_ESR + дротів</text>
+
+  <!-- Картка 2: Бюджет струму -->
+  <rect x="740" y="209" width="195" height="132" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="752" y="227" font-size="13" font-weight="bold" fill="#1a1a1a">Бюджет струму споживання</text>
+  <text x="752" y="246" font-size="12" fill="#6b7280">• CPU + SRAM: ~80 mA</text>
+  <text x="752" y="264" font-size="12" fill="#2457d6" font-weight="bold">• Wi-Fi TX: ~280 mA</text>
+  <text x="752" y="282" font-size="12" fill="#1a1a1a">• Flash LED: ~160 mA</text>
+  <line x1="752" y1="290" x2="923" y2="290" stroke="#d0d7de"/>
+  <text x="752" y="306" font-size="12" font-weight="bold" fill="#c0392b">• Сума I_peak = 520 mA</text>
+  <text x="752" y="324" font-size="12" fill="#c0392b">• Просідання ΔV_drop ↑</text>
+
+  <!-- Картка 3: Наслідки та компенсація -->
+  <rect x="740" y="355" width="195" height="145" rx="6" fill="#fdecea" stroke="#c0392b"/>
+  <text x="752" y="373" font-size="13" font-weight="bold" fill="#c0392b">Наслідки та компенсація</text>
+  <text x="752" y="391" font-size="12" fill="#1a1a1a">1. V_VDD падає нижче 2.43V</text>
+  <text x="752" y="409" font-size="12" font-weight="bold" fill="#c0392b">2. Тригер BOD → Reset МК</text>
+  
+  <rect x="748" y="419" width="179" height="73" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="756" y="435" font-size="12" font-weight="bold" fill="#27ae60">Рекомендації з живлення:</text>
+  <text x="756" y="452" font-size="12" fill="#1a1a1a">• C_out ≥ 470 µF (Low ESR)</text>
+  <text x="756" y="468" font-size="12" fill="#1a1a1a">• Блок живлення 5V / ≥2A</text>
+  <text x="756" y="484" font-size="12" fill="#1a1a1a">• Короткі провідники VDD</text>
+</svg>

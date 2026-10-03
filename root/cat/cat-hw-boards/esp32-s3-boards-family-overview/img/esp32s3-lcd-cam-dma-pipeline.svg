@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Пряма передача даних між LCD_CAM та PSRAM через GDMA</text>
+  <text x="480" y="56" font-size="13" text-anchor="middle" fill="#6b7280">Контролер GDMA самостійно прокачує кадри в PSRAM без залучення ядер XTensa</text>
+
+  <!-- Container 1: LCD_CAM -->
+  <rect x="30" y="80" width="235" height="350" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="147" y="105" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Модуль LCD_CAM</text>
+  <text x="147" y="122" font-size="12" text-anchor="middle" fill="#6b7280">(Периферія ESP32-S3)</text>
+
+  <!-- Sensor Box -->
+  <rect x="45" y="140" width="205" height="75" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="147" y="163" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Камера / Дисплей</text>
+  <text x="147" y="183" font-size="12" text-anchor="middle" fill="#6b7280">D0–D15, PCLK</text>
+  <text x="147" y="200" font-size="12" text-anchor="middle" fill="#6b7280">VSYNC, HSYNC</text>
+
+  <!-- Flow Sensor -> FIFO -->
+  <path d="M 147,215 L 147,237" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- FIFO Box -->
+  <rect x="45" y="245" width="205" height="85" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="147" y="270" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">FIFO LCD_CAM</text>
+  <text x="147" y="290" font-size="12" text-anchor="middle" fill="#1a1a1a">Буферизація потоку</text>
+  <text x="147" y="310" font-size="12" text-anchor="middle" fill="#6b7280">(752 байти hardware)</text>
+
+  <!-- Status Box Panel 1 -->
+  <rect x="45" y="350" width="205" height="60" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="147" y="373" font-size="12" text-anchor="middle" fill="#1a1a1a">Тактова частота</text>
+  <text x="147" y="393" font-size="12" text-anchor="middle" fill="#1a1a1a">та тригери DMA</text>
+
+  <!-- Inter-panel 1-2 Flow -->
+  <path d="M 250,287 L 312,287 L 312,185 L 357,185" stroke="#2457d6" stroke-width="3" fill="none" marker-end="url(#arr-accent)"/>
+  <text x="312" y="165" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Потік DMA</text>
+
+  <!-- Container 2: GDMA & CPU -->
+  <rect x="365" y="80" width="235" height="350" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="482" y="105" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Контролер GDMA</text>
+  <text x="482" y="122" font-size="12" text-anchor="middle" fill="#6b7280">(Прямий доступ)</text>
+
+  <!-- GDMA Box -->
+  <rect x="380" y="135" width="205" height="135" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="482" y="157" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Канал GDMA RX</text>
+  <text x="482" y="177" font-size="12" text-anchor="middle" fill="#1a1a1a">Автоматичне читання</text>
+  <text x="482" y="195" font-size="12" text-anchor="middle" fill="#1a1a1a">дескрипторів lldesc_t</text>
+  <text x="482" y="213" font-size="12" text-anchor="middle" fill="#1a1a1a">Пряма перекачка в RAM</text>
+
+  <rect x="392" y="228" width="181" height="28" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="482" y="247" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Безперервний потік</text>
+
+  <!-- CPU Box -->
+  <rect x="380" y="295" width="205" height="115" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="482" y="318" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">Ядра XTensa LX7</text>
+  <text x="482" y="338" font-size="12" text-anchor="middle" fill="#1a1a1a">1. Налаштування DMA</text>
+  <text x="482" y="358" font-size="12" text-anchor="middle" fill="#1a1a1a">2. Старт gdma_start()</text>
+  <text x="482" y="385" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">0% CPU при передачі</text>
+
+  <!-- CPU Setup Flow -->
+  <path d="M 482,295 L 482,277" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+  <text x="502" y="287" font-size="12" fill="#27ae60">Старт</text>
+
+  <!-- Inter-panel 2-3 Flow: Descriptor Read -->
+  <path d="M 585,160 L 687,160" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,3" fill="none" marker-end="url(#arr-gray)"/>
+  <text x="645" y="142" font-size="12" text-anchor="middle" fill="#6b7280">lldesc_t</text>
+
+  <!-- Inter-panel 2-3 Flow: Data Write to PSRAM -->
+  <path d="M 585,210 L 645,210 L 645,325 L 687,325" stroke="#2457d6" stroke-width="3" fill="none" marker-end="url(#arr-accent)"/>
+  <text x="645" y="192" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Запис у PSRAM</text>
+
+  <!-- Container 3: Memory -->
+  <rect x="695" y="80" width="235" height="350" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="812" y="105" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Пам'ять ESP32-S3</text>
+  <text x="812" y="122" font-size="12" text-anchor="middle" fill="#6b7280">(SRAM та PSRAM)</text>
+
+  <!-- Internal SRAM Box -->
+  <rect x="710" y="135" width="205" height="85" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="812" y="155" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Внутрішня SRAM</text>
+  <text x="812" y="173" font-size="12" text-anchor="middle" fill="#6b7280">Дескриптори DMA:</text>
+  <text x="812" y="193" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">lldesc_t (Linked List)</text>
+  <text x="812" y="211" font-size="12" text-anchor="middle" fill="#6b7280">(Адреси буферів)</text>
+
+  <!-- SRAM -> PSRAM link -->
+  <path d="M 812,220 L 812,237" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- External PSRAM Box -->
+  <rect x="710" y="245" width="205" height="165" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="812" y="267" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Зовнішня PSRAM</text>
+  <text x="812" y="285" font-size="12" text-anchor="middle" fill="#6b7280">Кадровий буфер</text>
+
+  <!-- Buffer Chunks in PSRAM -->
+  <rect x="722" y="297" width="181" height="28" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="812" y="316" font-size="12" text-anchor="middle" fill="#1a1a1a">Буфер 1 (4095 байт)</text>
+
+  <rect x="722" y="331" width="181" height="28" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="812" y="350" font-size="12" text-anchor="middle" fill="#1a1a1a">Буфер 2 (4095 байт)</text>
+
+  <rect x="722" y="365" width="181" height="28" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="812" y="384" font-size="12" text-anchor="middle" fill="#1a1a1a">Буфер N (Кадр)</text>
+</svg>

@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-purple" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#7c3aed"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-target" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Title Block -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ітераційне обертання вектора за алгоритмом CORDIC</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Послідовне наближення до кута θ за допомогою псевдообертань αᵢ = arctan(2⁻ⁱ) та ортів X-Y</text>
+
+  <!-- Left Panel: Vector Rotation Plot -->
+  <rect x="25" y="80" width="530" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="102" font-size="13" font-weight="bold" fill="#1a1a1a">Геометрія псевдообертань на одиничному колі (r = 1)</text>
+
+  <!-- Coordinate Axes -->
+  <line x1="75" y1="430" x2="515" y2="430" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <line x1="130" y1="460" x2="130" y2="135" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <text x="525" y="434" font-size="13" font-weight="bold" fill="#1a1a1a">X</text>
+  <text x="130" y="124" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Y</text>
+  <text x="115" y="446" font-size="12" fill="#6b7280" text-anchor="end">O (0,0)</text>
+
+  <!-- Unit Circle Arc -->
+  <path d="M 380 430 A 250 250 0 0 0 130 180" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="330" y="165" font-size="12" fill="#6b7280">Одиничне коло (r = 1)</text>
+
+  <!-- Step 0 Orthogonal Displacement Visualization -->
+  <line x1="380" y1="430" x2="380" y2="180" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="380" y1="180" x2="130" y2="180" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="392" y="310" font-size="12" fill="#2457d6">Δy₀ = x₀ · 2⁰</text>
+  <text x="135" y="168" font-size="12" fill="#2457d6">Δx₀ = -y₀ · 2⁰</text>
+
+  <!-- Projections on Axes -->
+  <line x1="306.8" y1="253.2" x2="306.8" y2="430" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="306.8" y1="253.2" x2="130" y2="253.2" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="306.8" y="446" font-size="12" fill="#2457d6" text-anchor="middle">x₁ = cos(45°)</text>
+  <text x="115" y="256" font-size="12" fill="#2457d6" text-anchor="end">y₁ = sin(45°)</text>
+
+  <!-- Angle Arcs -->
+  <!-- alpha_0 = 45 deg -->
+  <path d="M 220 430 A 90 90 0 0 0 193.6 366.4" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="225" y="398" font-size="12" font-weight="bold" fill="#2457d6">+α₀ = 45.0°</text>
+
+  <!-- alpha_1 = 26.57 deg -->
+  <path d="M 229.0 331.0 A 140 140 0 0 0 174.3 297.2" fill="none" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#arr-purple)"/>
+  <text x="255" y="345" font-size="12" font-weight="bold" fill="#7c3aed">+α₁ = 26.6°</text>
+
+  <!-- alpha_2 = -14.04 deg -->
+  <path d="M 188.5 254.5 A 185 185 0 0 1 229.3 273.9" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="275" y="315" font-size="12" font-weight="bold" fill="#27ae60">-α₂ = 14.0°</text>
+
+  <!-- Vectors -->
+  <!-- V0: 0 deg -->
+  <line x1="130" y1="430" x2="380" y2="430" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <text x="390" y="446" font-size="12" font-weight="bold" fill="#6b7280">V₀ (0°)</text>
+
+  <!-- V_target: 55 deg -->
+  <line x1="130" y1="430" x2="273.4" y2="225.2" stroke="#c0392b" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arr-target)"/>
+  <text x="280" y="210" font-size="12" font-weight="bold" fill="#c0392b">V_target (θ = 55.0°)</text>
+
+  <!-- V1: 45 deg -->
+  <line x1="130" y1="430" x2="306.8" y2="253.2" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="318" y="260" font-size="12" font-weight="bold" fill="#2457d6">V₁ (45.0°)</text>
+
+  <!-- V2: 71.6 deg -->
+  <line x1="130" y1="430" x2="209.1" y2="192.8" stroke="#7c3aed" stroke-width="2.5" marker-end="url(#arr-purple)"/>
+  <text x="190" y="152" font-size="12" font-weight="bold" fill="#7c3aed">V₂ (71.6°)</text>
+
+  <!-- V3: 57.5 deg -->
+  <line x1="130" y1="430" x2="264.2" y2="219.1" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="248" y="168" font-size="12" font-weight="bold" fill="#27ae60">V₃ (57.5°)</text>
+
+  <!-- Right Panel: Algorithm & Steps -->
+  <rect x="575" y="80" width="360" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="595" y="104" font-size="13" font-weight="bold" fill="#1a1a1a">Ітераційний процес та обчислення CORDIC</text>
+
+  <!-- Card 1: Math Formulas -->
+  <rect x="590" y="114" width="330" height="96" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="602" y="133" font-size="13" font-weight="bold" fill="#2457d6">Рівняння ітерації (режим обертання)</text>
+  <text x="602" y="152" font-size="12" fill="#1a1a1a">xᵢ₊₁ = xᵢ − dᵢ · (yᵢ · 2⁻ⁱ)</text>
+  <text x="602" y="170" font-size="12" fill="#1a1a1a">yᵢ₊₁ = yᵢ + dᵢ · (xᵢ · 2⁻ⁱ)</text>
+  <text x="602" y="188" font-size="12" fill="#1a1a1a">zᵢ₊₁ = zᵢ − dᵢ · αᵢ,   dᵢ = sgn(zᵢ) ∈ {-1, +1}</text>
+
+  <!-- Card 2: Iteration Table -->
+  <rect x="590" y="224" width="330" height="134" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="602" y="243" font-size="12" font-weight="bold" fill="#1a1a1a">Таблиця ітерацій для θ = 55.0° (Z₀ = 55.0°)</text>
+  <text x="602" y="262" font-size="12" font-weight="bold" fill="#6b7280">i  | αᵢ = arctan(2⁻ⁱ) | dᵢ | Залишок кута Zᵢ₊₁</text>
+  <text x="602" y="280" font-size="12" fill="#2457d6">0 | 45.00°    | +1 | Z₁ = +10.00° (недоліт)</text>
+  <text x="602" y="298" font-size="12" fill="#7c3aed">1 | 26.57°    | +1 | Z₂ = -16.57° (переліт)</text>
+  <text x="602" y="316" font-size="12" fill="#27ae60">2 | 14.04°    | -1 | Z₃ = -2.53°   (наближення)</text>
+  <text x="602" y="334" font-size="12" fill="#6b7280">3 |  7.13°    | -1 | Z₄ = +4.60°   (уточнення)</text>
+
+  <!-- Card 3: STM32G4 Details -->
+  <rect x="590" y="372" width="330" height="122" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="602" y="391" font-size="13" font-weight="bold" fill="#27ae60">Особливості реалізації у STM32G4</text>
+  <text x="602" y="409" font-size="12" fill="#1a1a1a">• Більше ніяких множників: лише 2⁻ⁱ та додавання</text>
+  <text x="602" y="427" font-size="12" fill="#1a1a1a">• Масштабуючий фактор K ≈ 1.64676 є константою</text>
+  <text x="602" y="445" font-size="12" fill="#1a1a1a">• Застосування в FOC: перетворення Парка і Кларка</text>
+  <text x="602" y="463" font-size="12" fill="#1a1a1a">• Апаратне виконання у FMAC/CORDIC: 4–24 такти</text>
+  <text x="602" y="481" font-size="12" fill="#1a1a1a">• Формати даних: Q1.31 та Q1.15 фіксованої коми</text>
+</svg>

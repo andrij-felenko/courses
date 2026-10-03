@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-success" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-danger" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Формування комплементарного ШІМ із мертвим часом у TIM1</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Апаратний блок DTG затримує ввімкнення сигналів CH1/CH1N на t_dt, запобігаючи КЗ півмоста</text>
+
+  <!-- Panel 1: Dead-Time Generator Block -->
+  <rect x="30" y="80" width="440" height="215" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="103" font-size="14" font-weight="700" fill="#1a1a1a">1. Апаратний блок dead-time (TIM1_BDTR)</text>
+
+  <rect x="45" y="120" width="115" height="60" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="102.5" y="147" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">TIM1_CNT</text>
+  <text x="102.5" y="165" font-size="12" fill="#6b7280" text-anchor="middle">vs TIM1_CCR1</text>
+
+  <path d="M160,150 L188,150" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-main)"/>
+  <text x="174" y="137" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">OC1REF</text>
+
+  <rect x="195" y="120" width="135" height="100" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="262.5" y="143" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Генератор DTG</text>
+  <text x="262.5" y="161" font-size="12" fill="#1a1a1a" text-anchor="middle">Регістр DTG[7:0]</text>
+  <text x="262.5" y="179" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Затримка t_dt</text>
+  <text x="262.5" y="201" font-size="12" fill="#6b7280" text-anchor="middle">t_dt = DTG × T_DTS</text>
+
+  <path d="M330,140 L368,140" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-main)"/>
+  <rect x="375" y="125" width="85" height="30" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="417.5" y="145" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">TIM1_CH1</text>
+
+  <path d="M330,190 L368,190" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-main)"/>
+  <rect x="375" y="175" width="85" height="30" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="417.5" y="195" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">TIM1_CH1N</text>
+
+  <text x="45" y="247" font-size="12" fill="#6b7280">Синхронне керування виходами з апаратною паузою</text>
+  <text x="45" y="267" font-size="12" fill="#6b7280">Запобігає одночасному активному стану CH1 і CH1N</text>
+
+  <!-- Panel 2: Half-Bridge Driver -->
+  <rect x="490" y="80" width="440" height="215" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="505" y="103" font-size="14" font-weight="700" fill="#1a1a1a">2. Силова схема півмоста (Half-Bridge)</text>
+
+  <line x1="550" y1="120" x2="650" y2="120" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="600" y="115" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">+V_BUS</text>
+
+  <line x1="600" y1="120" x2="600" y2="130" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <rect x="565" y="130" width="70" height="40" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="600" y="154" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Q1 (HS)</text>
+
+  <path d="M505,150 L558,150" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <text x="531.5" y="142" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">CH1</text>
+
+  <line x1="600" y1="170" x2="600" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <path d="M600,187.5 L655,187.5" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="630" y="179" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Фаза U</text>
+
+  <rect x="565" y="205" width="70" height="40" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="600" y="229" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Q2 (LS)</text>
+
+  <path d="M505,225 L558,225" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <text x="531.5" y="217" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">CH1N</text>
+
+  <line x1="600" y1="245" x2="600" y2="257" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="585" y1="257" x2="615" y2="257" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="600" y="273" font-size="12" fill="#1a1a1a" text-anchor="middle">GND</text>
+
+  <rect x="675" y="120" width="240" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="687" y="140" font-size="12" font-weight="700" fill="#27ae60">З мертвим часом (t_dt &gt; 0):</text>
+  <text x="687" y="157" font-size="12" fill="#1a1a1a">Пауза: Q1 = OFF, Q2 = OFF</text>
+  <text x="687" y="174" font-size="12" font-weight="700" fill="#27ae60">✓ Захист від наскрізного струму</text>
+
+  <rect x="675" y="200" width="240" height="65" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="687" y="220" font-size="12" font-weight="700" fill="#c0392b">Без dead-time (t_dt = 0):</text>
+  <text x="687" y="237" font-size="12" fill="#1a1a1a">Одночасно Q1 = ON і Q2 = ON</text>
+  <text x="687" y="254" font-size="12" font-weight="700" fill="#c0392b">✗ Коротке замикання V_BUS на GND</text>
+
+  <!-- Panel 3: Waveforms -->
+  <rect x="30" y="315" width="900" height="190" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="338" font-size="14" font-weight="700" fill="#1a1a1a">3. Часові діаграми сигналів та формування апаратної паузи (Dead-Time)</text>
+
+  <rect x="280" y="350" width="60" height="140" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+  <rect x="540" y="350" width="60" height="140" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <text x="45" y="372" font-size="12" font-weight="700" fill="#1a1a1a">OC1REF (внутрішній)</text>
+  <line x1="170" y1="380" x2="860" y2="380" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <path d="M170,380 L280,380 L280,358 L540,358 L540,380 L860,380" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <text x="45" y="424" font-size="12" font-weight="700" fill="#2457d6">TIM1_CH1 (Q1 HS)</text>
+  <line x1="170" y1="432" x2="860" y2="432" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <path d="M170,432 L340,432 L340,410 L540,410 L540,432 L860,432" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <text x="45" y="476" font-size="12" font-weight="700" fill="#2457d6">TIM1_CH1N (Q2 LS)</text>
+  <line x1="170" y1="484" x2="860" y2="484" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <path d="M170,462 L280,462 L280,484 L600,484 L600,462 L860,462" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <path d="M280,393 L340,393" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-success)" marker-end="url(#arr-success)"/>
+  <text x="310" y="388" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">t_dt</text>
+
+  <path d="M540,393 L600,393" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-success)" marker-end="url(#arr-success)"/>
+  <text x="570" y="388" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">t_dt</text>
+
+  <rect x="630" y="360" width="245" height="50" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="752.5" y="379" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Пауза dead-time (t_dt &gt; 0)</text>
+  <text x="752.5" y="397" font-size="12" fill="#1a1a1a" text-anchor="middle">CH1 = 0, CH1N = 0 &#8594; Q1 OFF, Q2 OFF</text>
+</svg>

@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Структура USB Composite Device у ST-Link V2</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Поділ на WinUSB Endpoint для команд зневадження та CDC Endpoint для трасування SWO</text>
+
+  <!-- Панель 1: Хост-ПК -->
+  <rect x="35" y="85" width="190" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="130" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Хост-ПК (ПО / Драйвери)</text>
+
+  <rect x="45" y="130" width="170" height="135" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="155" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">IDE / OpenOCD / GDB</text>
+  <text x="130" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">WinUSB Драйвер</text>
+  <text x="130" y="205" text-anchor="middle" font-size="12" fill="#6b7280">Команди зневадження</text>
+  <text x="130" y="230" text-anchor="middle" font-size="12" fill="#6b7280">(SWD / JTAG протокол)</text>
+
+  <rect x="45" y="290" width="170" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="130" y="315" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">SWO Viewer / Console</text>
+  <text x="130" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">USB CDC / VCP Драйвер</text>
+  <text x="130" y="365" text-anchor="middle" font-size="12" fill="#6b7280">Прийом ITM / SWO траси</text>
+  <text x="130" y="390" text-anchor="middle" font-size="12" fill="#6b7280">(Потік виводу даних)</text>
+
+  <!-- Панель 2: ST-Link V2 -->
+  <rect x="295" y="85" width="370" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">ST-Link V2 (USB Composite Device)</text>
+
+  <!-- Інтерфейс 0 -->
+  <rect x="305" y="130" width="350" height="135" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="152" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Інтерфейс 0: WinUSB Endpoint (Debug)</text>
+
+  <rect x="315" y="160" width="150" height="90" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="390" y="183" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">EP IN / OUT (Bulk)</text>
+  <text x="390" y="205" text-anchor="middle" font-size="12" fill="#6b7280">USB Команди й Дані</text>
+  <text x="390" y="227" text-anchor="middle" font-size="12" fill="#6b7280">WinUSB Протокол</text>
+
+  <rect x="495" y="160" width="150" height="90" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="570" y="183" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Контролер SWD/JTAG</text>
+  <text x="570" y="205" text-anchor="middle" font-size="12" fill="#6b7280">Генерація SWCLK</text>
+  <text x="570" y="227" text-anchor="middle" font-size="12" fill="#6b7280">Обмін SWDIO</text>
+
+  <line x1="465" y1="205" x2="495" y2="205" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+
+  <!-- Інтерфейс 1 -->
+  <rect x="305" y="290" width="350" height="135" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="312" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Інтерфейс 1: CDC Endpoint (SWO Trace)</text>
+
+  <rect x="315" y="320" width="150" height="95" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="390" y="343" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">EP IN (Bulk / Intr)</text>
+  <text x="390" y="365" text-anchor="middle" font-size="12" fill="#6b7280">Передача траси в ПК</text>
+  <text x="390" y="387" text-anchor="middle" font-size="12" fill="#6b7280">Асинхронний потік</text>
+
+  <rect x="495" y="320" width="150" height="95" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="570" y="343" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Приймач SWO / UART</text>
+  <text x="570" y="365" text-anchor="middle" font-size="12" fill="#6b7280">Захоплення ITM кадрів</text>
+  <text x="570" y="387" text-anchor="middle" font-size="12" fill="#6b7280">Апаратний буфер</text>
+
+  <line x1="495" y1="365" x2="465" y2="365" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Панель 3: Цільовий МК -->
+  <rect x="735" y="85" width="190" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="830" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Цільовий МК (Target MCU)</text>
+
+  <rect x="745" y="130" width="170" height="135" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="830" y="155" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Cortex-M Debug Port</text>
+  <text x="830" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">SWD / JTAG Інтерфейс</text>
+  <text x="830" y="205" text-anchor="middle" font-size="12" fill="#6b7280">Виводи SWCLK, SWDIO</text>
+  <text x="830" y="230" text-anchor="middle" font-size="12" fill="#6b7280">Керування ядром МК</text>
+
+  <rect x="745" y="290" width="170" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="830" y="315" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">ITM / CoreSight Trace</text>
+  <text x="830" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Вивід SWO (TRACESWO)</text>
+  <text x="830" y="365" text-anchor="middle" font-size="12" fill="#6b7280">Апаратне трасування</text>
+  <text x="830" y="390" text-anchor="middle" font-size="12" fill="#6b7280">Логи у реальному часі</text>
+
+  <!-- Зв'язки (лінії та підписи) -->
+  <line x1="215" y1="197" x2="305" y2="197" stroke="#2457d6" stroke-width="2" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="260" y="184" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">USB Bulk</text>
+
+  <line x1="305" y1="365" x2="215" y2="365" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="260" y="352" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">USB CDC</text>
+
+  <line x1="655" y1="197" x2="745" y2="197" stroke="#2457d6" stroke-width="2" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="700" y="184" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">SWD шина</text>
+
+  <line x1="745" y1="365" x2="655" y2="365" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="700" y="352" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">SWO траса</text>
+</svg>

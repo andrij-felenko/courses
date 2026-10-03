@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема розподілу живлення ESP32-CAM та ізоляція кола AVDD</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Роздільні LDO-стабілізатори та LC-фільтри пригнічують завади Wi-Fi для сенсора OV2640</text>
+
+  <!-- ZONE A: Power Input (Left Panel) -->
+  <rect x="40" y="90" width="180" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="130" y="115" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Джерело живлення</text>
+
+  <!-- Power Input Pin -->
+  <rect x="55" y="135" width="150" height="46" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="162" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхід +5V (VEXT)</text>
+
+  <!-- Arrow Input -> Main LDO -->
+  <line x1="130" y1="181" x2="130" y2="208" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Main LDO 3.3V -->
+  <rect x="55" y="210" width="150" height="65" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="234" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Головний LDO</text>
+  <text x="130" y="256" font-size="12" fill="#6b7280" text-anchor="middle">5V → 3.3V (VCC)</text>
+
+  <!-- Zone A Notes Box -->
+  <rect x="55" y="300" width="150" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="130" y="325" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Загальна шина</text>
+  <text x="130" y="347" font-size="12" fill="#6b7280" text-anchor="middle">3.3V живить ESP32</text>
+  <text x="130" y="369" font-size="12" fill="#6b7280" text-anchor="middle">та подається на</text>
+  <text x="130" y="391" font-size="12" fill="#6b7280" text-anchor="middle">LDO камери</text>
+  <text x="130" y="413" font-size="12" fill="#6b7280" text-anchor="middle">(AVDD, DVDD)</text>
+  <text x="130" y="435" font-size="12" fill="#6b7280" text-anchor="middle">через фільтри</text>
+
+
+  <!-- Power Bus Routing from Main LDO -->
+  <line x1="205" y1="242" x2="228" y2="242" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="228" cy="242" r="4" fill="#2457d6"/>
+
+  <!-- Upward branch to ESP32 (Zone B) -->
+  <line x1="228" y1="242" x2="228" y2="155" stroke="#2457d6" stroke-width="2"/>
+  <line x1="228" y1="155" x2="248" y2="155" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Downward branch to Camera Power (Zone C) -->
+  <line x1="228" y1="242" x2="228" y2="385" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="228" y1="385" x2="248" y2="385" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+
+
+  <!-- ZONE B: Digital & RF Subsystem (ESP32 Noise Source Panel) -->
+  <rect x="250" y="90" width="370" height="175" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="435" y="114" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Цифрова шина 3.3V та Джерело завад (ESP32)</text>
+
+  <!-- ESP32 SoC Box -->
+  <rect x="265" y="130" width="210" height="52" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="370" y="151" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP32-S (Wi-Fi / BT)</text>
+  <text x="370" y="171" font-size="12" fill="#c0392b" text-anchor="middle">Піки струму до 500 мА</text>
+
+  <!-- PSRAM / SD Box -->
+  <rect x="485" y="130" width="120" height="52" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="545" y="151" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">PSRAM / SD</text>
+  <text x="545" y="171" font-size="12" fill="#6b7280" text-anchor="middle">Периферія</text>
+
+  <!-- Noise Warning Box -->
+  <rect x="265" y="192" width="340" height="58" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="435" y="214" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠ Високочастотні пульсації напруги</text>
+  <text x="435" y="236" font-size="12" fill="#6b7280" text-anchor="middle">Завади від Wi-Fi поширюються по шині 3.3V</text>
+
+
+  <!-- ZONE C: Camera Power Cleaning & Regulation Module -->
+  <rect x="250" y="280" width="370" height="190" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="435" y="303" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вузол очищення та стабілізації живлення</text>
+
+  <!-- Channel A: AVDD 2.8V -->
+  <rect x="265" y="318" width="95" height="44" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="312.5" y="336" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">LDO 2.8V</text>
+  <text x="312.5" y="353" font-size="12" fill="#27ae60" text-anchor="middle">(Аналог)</text>
+
+  <line x1="360" y1="340" x2="378" y2="340" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <rect x="380" y="318" width="225" height="44" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="492.5" y="336" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Фільтр LC / RC + C_dec</text>
+  <text x="492.5" y="353" font-size="12" fill="#6b7280" text-anchor="middle">Пригнічення завад Wi-Fi</text>
+
+  <!-- Channel B: DVDD 1.2V -->
+  <rect x="265" y="370" width="150" height="42" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="340" y="388" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">LDO 1.2V</text>
+  <text x="340" y="404" font-size="12" fill="#6b7280" text-anchor="middle">(Цифрове ядро)</text>
+
+  <line x1="415" y1="391" x2="433" y2="391" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="435" y="370" width="170" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="520" y="388" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конденсатор C_dec</text>
+  <text x="520" y="404" font-size="12" fill="#6b7280" text-anchor="middle">0.1 µF Ceramic</text>
+
+  <!-- Channel C: DOVDD 2.8V / 3.3V -->
+  <rect x="265" y="420" width="340" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="435" y="437" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шина DOVDD (2.8V / 3.3V)</text>
+  <text x="435" y="454" font-size="12" fill="#6b7280" text-anchor="middle">Живлення буферів I/O шини DVP</text>
+
+
+  <!-- Inter-Panel Interconnections (Zone C -> Zone D) -->
+  <!-- AVDD Line (Green) -->
+  <path d="M 605 340 L 628 340 L 628 181 L 648 181" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- DVDD Line (Blue) -->
+  <path d="M 605 391 L 636 391 L 636 288 L 648 288" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- DOVDD Line (Dark) -->
+  <path d="M 605 441 L 644 441 L 644 395 L 648 395" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+
+
+  <!-- ZONE D: OV2640 Camera Module (Right Panel) -->
+  <rect x="650" y="90" width="270" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="785" y="115" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сенсор камери OV2640</text>
+
+  <!-- Domain 1: AVDD 2.8V -->
+  <rect x="665" y="132" width="240" height="98" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="785" y="155" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">AVDD (2.8V)</text>
+  <text x="785" y="177" font-size="12" fill="#1a1a1a" text-anchor="middle">Аналогова матриця та АЦП</text>
+  <text x="785" y="197" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Чисте живлення</text>
+  <text x="785" y="215" font-size="12" fill="#6b7280" text-anchor="middle">(без смуг та завад)</text>
+
+  <!-- Domain 2: DVDD 1.2V -->
+  <rect x="665" y="242" width="240" height="95" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="785" y="266" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">DVDD (1.2V)</text>
+  <text x="785" y="288" font-size="12" fill="#1a1a1a" text-anchor="middle">Цифрове ядро та DSP</text>
+  <text x="785" y="310" font-size="12" fill="#6b7280" text-anchor="middle">Обробка та стиснення кадрів</text>
+
+  <!-- Domain 3: DOVDD 2.8V/3.3V -->
+  <rect x="665" y="349" width="240" height="105" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="785" y="373" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DOVDD (2.8V / 3.3V)</text>
+  <text x="785" y="395" font-size="12" fill="#1a1a1a" text-anchor="middle">Інтерфейс кадрового буфера DVP</text>
+  <text x="785" y="417" font-size="12" fill="#6b7280" text-anchor="middle">Сигнали XCLK, PCLK, D0-D7</text>
+  <text x="785" y="437" font-size="12" fill="#6b7280" text-anchor="middle">Узгоджено з рівнем GPIO</text>
+</svg>

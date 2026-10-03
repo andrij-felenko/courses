@@ -1,0 +1,121 @@
+<svg viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Переходи станів сокета в AT-прошивці ESP-01 (ESP8266)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Команди AT+CIPSTART, AT+CIPSEND та AT+CIPCLOSE керують циклами TCP/UDP-сесій за кодами AT+CIPSTATUS</text>
+
+  <!-- Overview Banner -->
+  <rect x="40" y="74" width="880" height="40" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="55" y="98" font-size="12" text-anchor="start">
+    <tspan font-weight="bold" fill="#2457d6">Режими MUX: </tspan>
+    <tspan fill="#1a1a1a">CIPMUX=0 (одиночний) | CIPMUX=1 (до 5 сокетів 0..4)</tspan>
+  </text>
+  <text x="490" y="98" font-size="12" text-anchor="start">
+    <tspan font-weight="bold" fill="#2457d6">Перевірка стану: </tspan>
+    <tspan fill="#1a1a1a">AT+CIPSTATUS (коди STATUS: 2, 3, 4, 5)</tspan>
+  </text>
+
+  <!-- CARD 1: STATUS 5 -->
+  <rect x="40" y="132" width="160" height="135" fill="#fdecea" stroke="#c0392b" stroke-width="2" rx="8"/>
+  <text x="120" y="155" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">STATUS: 5</text>
+  <text x="120" y="173" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Wi-Fi відключено</text>
+  <text x="50" y="197" font-size="12" fill="#6b7280" text-anchor="start">• Немає IP-адреси</text>
+  <text x="50" y="217" font-size="12" fill="#6b7280" text-anchor="start">• Сокети недоступні</text>
+  <text x="50" y="237" font-size="12" fill="#c0392b" text-anchor="start">• Стек очікує AP</text>
+
+  <!-- Arrow 1 -> 2 (Wi-Fi connect) -->
+  <line x1="200" y1="199.5" x2="278" y2="199.5" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="240" y="184" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">AT+CWJAP</text>
+  <text x="240" y="216" font-size="12" fill="#6b7280" text-anchor="middle">Отримано IP</text>
+
+  <!-- CARD 2: STATUS 2 -->
+  <rect x="280" y="132" width="170" height="135" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="8"/>
+  <text x="365" y="155" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">STATUS: 2</text>
+  <text x="365" y="173" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">IP отримано (Готовий)</text>
+  <text x="290" y="197" font-size="12" fill="#6b7280" text-anchor="start">• Wi-Fi з'єднано</text>
+  <text x="290" y="217" font-size="12" fill="#6b7280" text-anchor="start">• Сокети закриті</text>
+  <text x="290" y="237" font-size="12" fill="#27ae60" text-anchor="start">• Готовий до START</text>
+
+  <!-- Arrow 2 -> 3 (CIPSTART Client) -->
+  <line x1="450" y1="175" x2="528" y2="175" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="489" y="160" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">AT+CIPSTART</text>
+  <text x="489" y="194" font-size="12" fill="#6b7280" text-anchor="middle">"TCP"/"UDP"</text>
+
+  <!-- CARD 2B: Server Mode (Listen) -->
+  <rect x="280" y="325" width="170" height="165" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4" rx="8"/>
+  <text x="365" y="347" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">TCP-сервер (Listen)</text>
+  <text x="290" y="370" font-size="12" fill="#1a1a1a" text-anchor="start">AT+CIPSERVER=1,port</text>
+  <text x="290" y="390" font-size="12" fill="#6b7280" text-anchor="start">Таймаут AT+CIPSTO</text>
+  <text x="290" y="412" font-size="12" fill="#27ae60" text-anchor="start">• Очікує клієнтів</text>
+  <text x="290" y="434" font-size="12" fill="#2457d6" text-anchor="start">• Вхідне: 0,CONNECT</text>
+  <text x="290" y="456" font-size="12" fill="#6b7280" text-anchor="start">(потрібен CIPMUX=1)</text>
+
+  <!-- Arrow 2 -> 2B (Server start) -->
+  <line x1="365" y1="267" x2="365" y2="323" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="373" y="298" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">AT+CIPSERVER=1</text>
+
+  <!-- Arrow 2B -> 3 (Server connection event) -->
+  <path d="M 450,330 L 490,330 L 490,300 L 528,300" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arr-blue)"/>
+  <text x="498" y="338" font-size="12" fill="#2457d6" text-anchor="start">+LINK (клієнт)</text>
+
+  <!-- CARD 3: STATUS 3 -->
+  <rect x="530" y="132" width="390" height="185" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="8"/>
+  <text x="725" y="155" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">STATUS: 3 — Сокет активний (CONNECTED)</text>
+
+  <!-- Nested Data Panel inside Card 3 -->
+  <rect x="545" y="168" width="360" height="138" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="725" y="186" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двосторонній обмін даними</text>
+
+  <!-- Sub-block TX -->
+  <rect x="555" y="196" width="165" height="98" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="637" y="214" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Надсилання (TX)</text>
+  <text x="562" y="234" font-size="12" fill="#1a1a1a" text-anchor="start">AT+CIPSEND=[id,]len</text>
+  <text x="562" y="254" font-size="12" fill="#6b7280" text-anchor="start">Модуль: &gt; (prompt)</text>
+  <text x="562" y="274" font-size="12" fill="#27ae60" text-anchor="start">Відповідь: SEND OK</text>
+
+  <!-- Sub-block RX -->
+  <rect x="730" y="196" width="165" height="98" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="812" y="214" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Прийом (RX)</text>
+  <text x="737" y="234" font-size="12" fill="#1a1a1a" text-anchor="start">Асинхронний +IPD:</text>
+  <text x="737" y="254" font-size="12" fill="#1a1a1a" text-anchor="start">+IPD,[id,]len:data</text>
+  <text x="737" y="274" font-size="12" fill="#6b7280" text-anchor="start">Passthrough: CIPMODE=1</text>
+
+  <!-- Arrow 3 -> 4 (CIPCLOSE) -->
+  <line x1="630" y1="317" x2="630" y2="358" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="640" y="336" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">AT+CIPCLOSE[=id]</text>
+  <text x="640" y="352" font-size="12" fill="#6b7280" text-anchor="start">(або розрив/FIN/таймаут)</text>
+
+  <!-- CARD 4: STATUS 4 -->
+  <rect x="530" y="360" width="390" height="130" fill="#fdecea" stroke="#c0392b" stroke-width="2" rx="8"/>
+  <text x="725" y="383" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">STATUS: 4 — Сокет відключено / закриття</text>
+  <text x="548" y="407" font-size="12" fill="#1a1a1a" text-anchor="start">• Фіналізація TCP (FIN/ACK) або закриття UDP</text>
+  <text x="548" y="427" font-size="12" fill="#6b7280" text-anchor="start">
+    <tspan fill="#6b7280">• Сповіщення модуля: </tspan>
+    <tspan font-weight="bold" fill="#c0392b">CLOSED</tspan>
+    <tspan fill="#6b7280"> або </tspan>
+    <tspan font-weight="bold" fill="#c0392b">id,CLOSED</tspan>
+  </text>
+  <text x="548" y="447" font-size="12" fill="#6b7280" text-anchor="start">• Звільнення буферів пам'яті та ID каналу</text>
+  <text x="548" y="467" font-size="12" fill="#27ae60" text-anchor="start">• Автоперехід у STATUS: 2 (Готовий до нових з'єднань)</text>
+
+  <!-- Return Path 4 -> 2 -->
+  <path d="M 725,490 L 725,515 L 240,515 L 240,240 L 278,240" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="533" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Автоматичне скидання сокета: перехід у STATUS: 2 (Готовий)</text>
+</svg>

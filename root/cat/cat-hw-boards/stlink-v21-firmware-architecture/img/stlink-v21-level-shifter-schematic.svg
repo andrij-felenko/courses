@@ -1,0 +1,205 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 580" width="960" height="580" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="580" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема узгодження рівнів ST-Link V2.1 та кола підтяжки USB D+</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Двонаправлена трансляція SWD/UART (3.3 В ↔ 1.65–3.6 В), моніторинг TVCC та керування USB Re-enumeration</text>
+
+  <!-- PANEL 1: ST-Link V2.1 MCU (3.3V) -->
+  <rect x="25" y="85" width="240" height="470" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="35" y="95" width="220" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="145" y="115" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Мікроконтролер ST-Link (3.3 V)</text>
+
+  <!-- MCU Pins -->
+  <!-- PA13 (SWCLK_OUT) -->
+  <rect x="35" y="187" width="130" height="26" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="100" y="204" font-size="12" fill="#1a1a1a" text-anchor="middle">PA13 (SWCLK_OUT)</text>
+
+  <!-- PA14 (SWDIO_IO) -->
+  <rect x="35" y="227" width="130" height="26" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="100" y="244" font-size="12" fill="#1a1a1a" text-anchor="middle">PA14 (SWDIO_IO)</text>
+
+  <!-- PB3 (SWO_IN) -->
+  <rect x="35" y="267" width="130" height="26" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="100" y="284" font-size="12" fill="#1a1a1a" text-anchor="middle">PB3 (SWO_IN)</text>
+
+  <!-- PA2 (UART_TX) -->
+  <rect x="35" y="307" width="130" height="26" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="100" y="324" font-size="12" fill="#1a1a1a" text-anchor="middle">PA2 (UART_TX)</text>
+
+  <!-- PA3 (UART_RX) -->
+  <rect x="35" y="347" width="130" height="26" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="100" y="364" font-size="12" fill="#1a1a1a" text-anchor="middle">PA3 (UART_RX)</text>
+
+  <!-- PA15 (USB_RENUM) -->
+  <rect x="35" y="407" width="130" height="26" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="100" y="424" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">PA15 (USB_RENUM)</text>
+
+  <!-- PB0 (T_NRST_OUT) -->
+  <rect x="35" y="457" width="130" height="26" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="100" y="474" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">PB0 (T_NRST_OUT)</text>
+
+  <!-- ADC_TVCC (Sense) -->
+  <rect x="35" y="497" width="130" height="26" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="100" y="514" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ADC_TVCC (Sense)</text>
+
+
+  <!-- PANEL 2: Central Schematics -->
+  <rect x="285" y="85" width="390" height="470" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="295" y="95" width="370" height="30" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="480" y="115" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схемотехніка узгодження рівнів та інтерфейсів</text>
+
+  <!-- Sub-block 2A: Level Shifter IC (NBT0102) -->
+  <rect x="295" y="130" width="370" height="245" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <rect x="305" y="138" width="350" height="24" fill="#eaf0fd" rx="4"/>
+  <text x="480" y="154" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Двонаправлений транслятор рівнів (NBT0102)</text>
+
+  <!-- Power Rails Info -->
+  <text x="315" y="175" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">VCC_A = 3.3 V</text>
+  <text x="645" y="175" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">VCC_B = TVCC (1.65–3.6 V)</text>
+
+  <!-- Channel 1: SWCLK -->
+  <line x1="165" y1="200" x2="315" y2="200" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="315" y="190" width="36" height="20" fill="#ffffff" stroke="#d0d7de" rx="3"/>
+  <text x="333" y="204" font-size="12" fill="#1a1a1a" text-anchor="middle">A1</text>
+  <line x1="351" y1="200" x2="609" y2="200" stroke="#2457d6" stroke-dasharray="4,3" stroke-width="1.5"/>
+  <rect x="609" y="190" width="36" height="20" fill="#ffffff" stroke="#d0d7de" rx="3"/>
+  <text x="627" y="204" font-size="12" fill="#1a1a1a" text-anchor="middle">B1</text>
+  <line x1="645" y1="200" x2="695" y2="200" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Channel 2: SWDIO -->
+  <line x1="165" y1="240" x2="315" y2="240" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="315" y="230" width="36" height="20" fill="#ffffff" stroke="#d0d7de" rx="3"/>
+  <text x="333" y="244" font-size="12" fill="#1a1a1a" text-anchor="middle">A2</text>
+  <line x1="351" y1="240" x2="609" y2="240" stroke="#2457d6" stroke-dasharray="4,3" stroke-width="1.5"/>
+  <rect x="609" y="230" width="36" height="20" fill="#ffffff" stroke="#d0d7de" rx="3"/>
+  <text x="627" y="244" font-size="12" fill="#1a1a1a" text-anchor="middle">B2</text>
+  <line x1="695" y1="240" x2="645" y2="240" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Channel 3: SWO -->
+  <line x1="315" y1="280" x2="165" y2="280" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="315" y="270" width="36" height="20" fill="#ffffff" stroke="#d0d7de" rx="3"/>
+  <text x="333" y="284" font-size="12" fill="#1a1a1a" text-anchor="middle">A3</text>
+  <line x1="351" y1="280" x2="609" y2="280" stroke="#2457d6" stroke-dasharray="4,3" stroke-width="1.5"/>
+  <rect x="609" y="270" width="36" height="20" fill="#ffffff" stroke="#d0d7de" rx="3"/>
+  <text x="627" y="284" font-size="12" fill="#1a1a1a" text-anchor="middle">B3</text>
+  <line x1="695" y1="280" x2="645" y2="280" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Channel 4: UART_TX -->
+  <line x1="165" y1="320" x2="315" y2="320" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="315" y="310" width="36" height="20" fill="#ffffff" stroke="#d0d7de" rx="3"/>
+  <text x="333" y="324" font-size="12" fill="#1a1a1a" text-anchor="middle">A4</text>
+  <line x1="351" y1="320" x2="609" y2="320" stroke="#2457d6" stroke-dasharray="4,3" stroke-width="1.5"/>
+  <rect x="609" y="310" width="36" height="20" fill="#ffffff" stroke="#d0d7de" rx="3"/>
+  <text x="627" y="324" font-size="12" fill="#1a1a1a" text-anchor="middle">B4</text>
+  <line x1="645" y1="320" x2="695" y2="320" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Channel 5: UART_RX -->
+  <line x1="315" y1="360" x2="165" y2="360" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="315" y="350" width="36" height="20" fill="#ffffff" stroke="#d0d7de" rx="3"/>
+  <text x="333" y="364" font-size="12" fill="#1a1a1a" text-anchor="middle">A5</text>
+  <line x1="351" y1="360" x2="609" y2="360" stroke="#2457d6" stroke-dasharray="4,3" stroke-width="1.5"/>
+  <rect x="609" y="350" width="36" height="20" fill="#ffffff" stroke="#d0d7de" rx="3"/>
+  <text x="627" y="364" font-size="12" fill="#1a1a1a" text-anchor="middle">B5</text>
+  <line x1="695" y1="360" x2="645" y2="360" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+
+  <!-- Sub-block 2B: USB D+ Pull-Up Control -->
+  <rect x="295" y="390" width="180" height="150" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <rect x="303" y="398" width="164" height="22" fill="#ffffff" rx="3"/>
+  <text x="385" y="413" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Підтяжка USB D+</text>
+
+  <!-- Wire from PA15 -->
+  <line x1="165" y1="420" x2="295" y2="420" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  
+  <rect x="315" y="430" width="60" height="34" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="345" y="451" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Ключ Q1</text>
+
+  <rect x="395" y="430" width="65" height="34" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="427" y="451" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1.5 kΩ</text>
+
+  <line x1="375" y1="447" x2="395" y2="447" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="460" y1="447" x2="480" y2="447" stroke="#27ae60" stroke-width="1.5"/>
+
+  <text x="385" y="490" font-size="12" fill="#1a1a1a" text-anchor="middle">Керування підтяжкою</text>
+  <text x="385" y="508" font-size="12" fill="#27ae60" text-anchor="middle">для Re-enumeration</text>
+  <text x="385" y="526" font-size="12" fill="#6b7280" text-anchor="middle">пристрою на хості</text>
+
+
+  <!-- Sub-block 2C: Hardware Reset NRST Driver -->
+  <rect x="485" y="390" width="180" height="150" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <rect x="493" y="398" width="164" height="22" fill="#ffffff" rx="3"/>
+  <text x="575" y="413" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Драйвер скидання NRST</text>
+
+  <!-- Wire from PB0 -->
+  <line x1="165" y1="470" x2="485" y2="470" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <rect x="525" y="430" width="100" height="34" fill="#ffffff" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="575" y="451" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Відкритий сток (Q2)</text>
+
+  <line x1="625" y1="470" x2="695" y2="470" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <text x="575" y="490" font-size="12" fill="#1a1a1a" text-anchor="middle">Апаратне скидання</text>
+  <text x="575" y="508" font-size="12" fill="#c0392b" text-anchor="middle">цільового MCU</text>
+  <text x="575" y="526" font-size="12" fill="#6b7280" text-anchor="middle">(активний низький)</text>
+
+
+  <!-- PANEL 3: Target MCU & Connector (1.65–3.6V) -->
+  <rect x="695" y="85" width="240" height="470" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="705" y="95" width="220" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="815" y="115" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Цільовий мікроконтролер</text>
+
+  <!-- Target Pins -->
+  <!-- TVCC Sense Line -->
+  <rect x="705" y="137" width="130" height="26" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="770" y="154" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">TVCC (1.65–3.6 V)</text>
+
+  <!-- Wire from TVCC pin to VCC_B and back to ADC_TVCC -->
+  <polyline points="705,150 675,150 675,510 165,510" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="420" y="562" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Канал вимірювання опорної напруги TVCC</text>
+
+  <!-- SWCLK Target Pin -->
+  <rect x="705" y="187" width="130" height="26" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="770" y="204" font-size="12" fill="#1a1a1a" text-anchor="middle">SWCLK (Target IN)</text>
+
+  <!-- SWDIO Target Pin -->
+  <rect x="705" y="227" width="130" height="26" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="770" y="244" font-size="12" fill="#1a1a1a" text-anchor="middle">SWDIO (Target I/O)</text>
+
+  <!-- SWO Target Pin -->
+  <rect x="705" y="267" width="130" height="26" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="770" y="284" font-size="12" fill="#1a1a1a" text-anchor="middle">SWO (Target OUT)</text>
+
+  <!-- UART_RX Target Pin -->
+  <rect x="705" y="307" width="130" height="26" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="770" y="324" font-size="12" fill="#1a1a1a" text-anchor="middle">UART_RX (Target IN)</text>
+
+  <!-- UART_TX Target Pin -->
+  <rect x="705" y="347" width="130" height="26" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="770" y="364" font-size="12" fill="#1a1a1a" text-anchor="middle">UART_TX (Target OUT)</text>
+
+  <!-- NRST Target Pin -->
+  <rect x="705" y="457" width="130" height="26" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="770" y="474" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">NRST (Target Reset)</text>
+
+  <!-- GND Pin -->
+  <rect x="705" y="497" width="130" height="26" fill="#ffffff" stroke="#6b7280" stroke-width="1" rx="4"/>
+  <text x="770" y="514" font-size="12" fill="#6b7280" text-anchor="middle">GND (Спільна земля)</text>
+
+</svg>

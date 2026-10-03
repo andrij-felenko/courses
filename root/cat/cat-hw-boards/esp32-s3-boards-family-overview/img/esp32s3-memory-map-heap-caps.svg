@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Адресний простір ESP32-S3 та прапорці heap_caps_malloc</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Внутрішня SRAM забезпечує прямий DMA, а PSRAM вимагає кешування й вирівнювання за кеш-лінією</text>
+
+  <!-- Left Card: Internal SRAM -->
+  <rect x="40" y="84" width="415" height="382" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+  <rect x="40" y="84" width="415" height="42" fill="#eaf0fd" stroke="#d0d7de" rx="8"/>
+  <text x="247.5" y="110" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">ВНУТРІШНЯ SRAM (Internal RAM)</text>
+
+  <!-- SRAM Region Box -->
+  <rect x="56" y="138" width="383" height="86" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="72" y="160" font-size="13" font-weight="bold" fill="#1a1a1a">Шина даних &amp; DMA: 0x3FC8_0000 – 0x3FCE_0000</text>
+  <text x="72" y="182" font-size="12" fill="#6b7280">Прямий апаратний доступ (без затримок кешу)</text>
+  <text x="72" y="204" font-size="12" font-weight="bold" fill="#27ae60">✓ Повна підтримка периферійного DMA</text>
+
+  <!-- SRAM Flags Box -->
+  <rect x="56" y="238" width="383" height="146" fill="white" stroke="#d0d7de" rx="6"/>
+  <text x="72" y="260" font-size="13" font-weight="bold" fill="#1a1a1a">Відповідні прапорці heap_caps_malloc:</text>
+
+  <rect x="72" y="272" width="165" height="26" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="154.5" y="289" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">MALLOC_CAP_DMA</text>
+  <text x="248" y="289" font-size="12" fill="#1a1a1a">Буфери LCD_CAM / SPI</text>
+
+  <rect x="72" y="308" width="165" height="26" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="154.5" y="325" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">MALLOC_CAP_INTERNAL</text>
+  <text x="248" y="325" font-size="12" fill="#1a1a1a">Лише внутрішня RAM</text>
+
+  <rect x="72" y="344" width="165" height="26" fill="#f4f6f8" stroke="#6b7280" rx="4"/>
+  <text x="154.5" y="361" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MALLOC_CAP_8BIT</text>
+  <text x="248" y="361" font-size="12" fill="#1a1a1a">Доступ побайтово (DRAM)</text>
+
+  <!-- SRAM Summary Box -->
+  <rect x="56" y="396" width="383" height="58" fill="#e9f7ef" stroke="#27ae60" rx="6"/>
+  <text x="72" y="418" font-size="12" font-weight="bold" fill="#27ae60">Особливість: Висока швидкість, прямий DMA-доступ</text>
+  <text x="72" y="438" font-size="12" fill="#6b7280">Використання: Критичний код, стеки задач, DMA буфери</text>
+
+
+  <!-- Right Card: External PSRAM -->
+  <rect x="505" y="84" width="415" height="382" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+  <rect x="505" y="84" width="415" height="42" fill="#fdecea" stroke="#d0d7de" rx="8"/>
+  <text x="712.5" y="110" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">ЗОВНІШНЯ PSRAM (External RAM)</text>
+
+  <!-- PSRAM Region Box -->
+  <rect x="521" y="138" width="383" height="86" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="537" y="160" font-size="13" font-weight="bold" fill="#1a1a1a">Шина SPI / DCache: 0x3D00_0000 – 0x3E00_0000</text>
+  <text x="537" y="182" font-size="12" fill="#6b7280">Доступ через кеш даних (лінії 32 B або 64 B)</text>
+  <text x="537" y="204" font-size="12" font-weight="bold" fill="#c0392b">⚠ Вимагає Writeback / Invalidate для кешу</text>
+
+  <!-- PSRAM Flags Box -->
+  <rect x="521" y="238" width="383" height="146" fill="white" stroke="#d0d7de" rx="6"/>
+  <text x="537" y="260" font-size="13" font-weight="bold" fill="#1a1a1a">Відповідні прапорці heap_caps_malloc:</text>
+
+  <rect x="537" y="272" width="180" height="26" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="627" y="289" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">MALLOC_CAP_SPIRAM</text>
+  <text x="727" y="289" font-size="12" fill="#1a1a1a">Виділення у PSRAM</text>
+
+  <rect x="537" y="308" width="180" height="26" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="627" y="325" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">MALLOC_CAP_CACHE_ALIGNED</text>
+  <text x="727" y="325" font-size="12" fill="#1a1a1a">Вирівнювання кешу</text>
+
+  <rect x="537" y="344" width="180" height="26" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="627" y="361" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">БЕЗ MALLOC_CAP_DMA</text>
+  <text x="727" y="361" font-size="12" fill="#c0392b">Немає прямого DMA</text>
+
+  <!-- PSRAM Summary Box -->
+  <rect x="521" y="396" width="383" height="58" fill="#fdecea" stroke="#c0392b" rx="6"/>
+  <text x="537" y="418" font-size="12" font-weight="bold" fill="#c0392b">Особливість: Великий обсяг, затримки (Quad/Octal SPI)</text>
+  <text x="537" y="438" font-size="12" fill="#6b7280">Використання: Framebuffer LCD, вектори ESP-NN, буфери</text>
+
+
+  <!-- Center Divider -->
+  <line x1="480" y1="138" x2="480" y2="454" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+
+  <!-- Footer: Code API Usage -->
+  <rect x="40" y="486" width="880" height="32" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="480" y="506" font-size="12" fill="#1a1a1a" text-anchor="middle">Виклики API: <tspan font-weight="bold" fill="#27ae60">heap_caps_malloc</tspan>(size, <tspan fill="#2457d6">MALLOC_CAP_DMA</tspan>) або <tspan font-weight="bold" fill="#27ae60">heap_caps_malloc</tspan>(size, <tspan fill="#2457d6">MALLOC_CAP_SPIRAM</tspan> | <tspan fill="#2457d6">MALLOC_CAP_CACHE_ALIGNED</tspan>)</text>
+</svg>

@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-success" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Карта пам'яті SPI Flash для FOTA та механізм перемикання rBoot</text>
+  <text x="480" y="56" font-size="13" text-anchor="middle" fill="#6b7280">Вторинний завантажувач rBoot зчитує індекс активного слота з конфігураційного сектора 0x002000</text>
+
+  <!-- Panel 1: Memory Map Container -->
+  <rect x="30" y="80" width="900" height="175" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="102" font-size="13" font-weight="bold" fill="#6b7280">КАРТА АДРЕСНОГО ПРОСТОРУ SPI FLASH (4 МБ)</text>
+
+  <!-- Block 1: rBoot Bootloader -->
+  <rect x="45" y="118" width="115" height="118" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="102" y="140" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">rBoot</text>
+  <text x="102" y="158" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Bootloader</text>
+  <text x="102" y="184" font-size="12" text-anchor="middle" fill="#6b7280">0x000000</text>
+  <text x="102" y="202" font-size="12" text-anchor="middle" fill="#6b7280">(8 КБ)</text>
+
+  <!-- Block 2: Config Sector -->
+  <rect x="172" y="118" width="150" height="118" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="247" y="138" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Конфігурація</text>
+  <text x="247" y="156" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">0x002000 (4 КБ)</text>
+  <text x="247" y="182" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">active_slot = 0</text>
+  <text x="247" y="200" font-size="12" text-anchor="middle" fill="#6b7280">Вказівник активності</text>
+
+  <!-- Active Slot Pointer Arrow -->
+  <line x1="322" y1="177" x2="327" y2="177" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-success)"/>
+
+  <!-- Block 3: Slot 0 (user1.bin) -->
+  <rect x="334" y="118" width="240" height="118" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="454" y="138" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Слот 0: user1.bin</text>
+  <text x="454" y="156" font-size="12" text-anchor="middle" fill="#2457d6">0x003000 – 0x0FB000</text>
+  <text x="454" y="182" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">[АКТИВНИЙ СЛОТ]</text>
+  <text x="454" y="200" font-size="12" text-anchor="middle" fill="#1a1a1a">Поточна прошивка v1.0</text>
+
+  <!-- Block 4: Slot 1 (user2.bin) -->
+  <rect x="586" y="118" width="210" height="118" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="691" y="138" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Слот 1: user2.bin</text>
+  <text x="691" y="156" font-size="12" text-anchor="middle" fill="#6b7280">0x100000 – 0x1F8000</text>
+  <text x="691" y="182" font-size="12" text-anchor="middle" fill="#6b7280">[РЕЗЕРВ / FOTA]</text>
+  <text x="691" y="200" font-size="12" text-anchor="middle" fill="#1a1a1a">Target для оновлення</text>
+
+  <!-- Block 5: System Params -->
+  <rect x="808" y="118" width="107" height="118" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="861" y="140" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Системні</text>
+  <text x="861" y="158" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">налаштування</text>
+  <text x="861" y="184" font-size="12" text-anchor="middle" fill="#6b7280">0x3FC000</text>
+  <text x="861" y="202" font-size="12" text-anchor="middle" fill="#6b7280">RF / Wi-Fi</text>
+
+  <!-- Panel 2: Boot Step Flow Left -->
+  <rect x="30" y="270" width="438" height="205" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="45" y="295" font-size="13" font-weight="bold" fill="#2457d6">КРОК 1: Звичайний запуск та зчитування конфіга</text>
+
+  <!-- Step 1.1 -->
+  <rect x="45" y="310" width="408" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="327" font-size="12" font-weight="bold" fill="#1a1a1a">1. ROM Завантажувач</text>
+  <text x="55" y="343" font-size="12" fill="#6b7280">Передає керування завантажувачу rBoot (адреса 0x000000)</text>
+
+  <!-- Arrow Step 1.1 -> 1.2 -->
+  <line x1="249" y1="352" x2="249" y2="357" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- Step 1.2 -->
+  <rect x="45" y="362" width="408" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="55" y="379" font-size="12" font-weight="bold" fill="#27ae60">2. Перевірка rBoot Config (сектор 0x002000)</text>
+  <text x="55" y="395" font-size="12" fill="#1a1a1a">Зчитано active_slot = 0 → обрано Слот 0 (user1.bin)</text>
+
+  <!-- Arrow Step 1.2 -> 1.3 -->
+  <line x1="249" y1="404" x2="249" y2="409" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-success)"/>
+
+  <!-- Step 1.3 -->
+  <rect x="45" y="414" width="408" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="55" y="432" font-size="12" font-weight="bold" fill="#2457d6">3. Старт прошивки user1.bin</text>
+  <text x="55" y="450" font-size="12" fill="#1a1a1a">Вектори переривань IRAM mapping та запуск main()</text>
+
+  <!-- Panel 3: FOTA Flow Right -->
+  <rect x="492" y="270" width="438" height="205" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="507" y="295" font-size="13" font-weight="bold" fill="#27ae60">КРОК 2: Завантаження FOTA та перемикання слота</text>
+
+  <!-- Step 2.1 -->
+  <rect x="507" y="310" width="408" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="517" y="327" font-size="12" font-weight="bold" fill="#1a1a1a">1. Отримання нової прошивки по Wi-Fi</text>
+  <text x="517" y="343" font-size="12" fill="#6b7280">Запис отриманих блоків у неактивний Слот 1 (user2.bin)</text>
+
+  <!-- Arrow Step 2.1 -> 2.2 -->
+  <line x1="711" y1="352" x2="711" y2="357" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-success)"/>
+
+  <!-- Step 2.2 -->
+  <rect x="507" y="362" width="408" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="517" y="379" font-size="12" font-weight="bold" fill="#27ae60">2. Валідація та зміна індексу</text>
+  <text x="517" y="395" font-size="12" fill="#1a1a1a">Перевірка CRC → запис active_slot = 1 у сектор 0x002000</text>
+
+  <!-- Arrow Step 2.2 -> 2.3 -->
+  <line x1="711" y1="404" x2="711" y2="409" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-success)"/>
+
+  <!-- Step 2.3 -->
+  <rect x="507" y="414" width="408" height="48" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="517" y="432" font-size="12" font-weight="bold" fill="#27ae60">3. Перезавантаження та запуск v1.1</text>
+  <text x="517" y="450" font-size="12" fill="#1a1a1a">rBoot бачить active_slot = 1 та передає контроль Слоту 1</text>
+</svg>

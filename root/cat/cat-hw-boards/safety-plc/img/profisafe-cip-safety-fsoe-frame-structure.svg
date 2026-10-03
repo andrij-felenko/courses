@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняльна структура кадрів протоколів безпеки (Black Channel)</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Інкапсуляція F-Data, розширених CRC, лічильників та ідентифікаторів у PROFIsafe, CIP Safety та FSoE</text>
+
+  <!-- Legend -->
+  <g>
+    <rect x="50" y="75" width="16" height="16" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="72" y="88" font-size="12" fill="#1a1a1a">F-Data (Дані безпеки)</text>
+
+    <rect x="250" y="75" width="16" height="16" rx="3" fill="#fdecea" stroke="#c0392b"/>
+    <text x="272" y="88" font-size="12" fill="#1a1a1a">Управління / Лічильник / Час</text>
+
+    <rect x="495" y="75" width="16" height="16" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+    <text x="517" y="88" font-size="12" fill="#1a1a1a">Safety CRC (Контрольна сума)</text>
+
+    <rect x="735" y="75" width="16" height="16" rx="3" fill="#ffffff" stroke="#6b7280" stroke-dasharray="3,3"/>
+    <text x="757" y="88" font-size="12" fill="#1a1a1a">Базова мережа (Payload)</text>
+  </g>
+
+  <!-- Protocol 1: PROFIsafe -->
+  <g>
+    <rect x="40" y="105" width="880" height="120" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+    <text x="55" y="127" font-size="14" font-weight="bold" fill="#1a1a1a">1. PROFIsafe (PROFINET / PROFIBUS)</text>
+
+    <!-- Info Box Left -->
+    <rect x="55" y="136" width="195" height="78" rx="4" fill="white" stroke="#d0d7de"/>
+    <text x="65" y="153" font-size="12" font-weight="bold" fill="#1a1a1a">Особливості V2 PDU:</text>
+    <text x="65" y="169" font-size="12" fill="#6b7280">• CRC2: 3/4 Б (inc. F-Addr)</text>
+    <text x="65" y="185" font-size="12" fill="#6b7280">• Control/Status Byte (1 Б)</text>
+    <text x="65" y="201" font-size="12" fill="#6b7280">• Toggle Bit &amp; Watchdog</text>
+
+    <!-- Outer Network Frame -->
+    <rect x="265" y="136" width="640" height="78" rx="6" fill="none" stroke="#6b7280" stroke-dasharray="3,3"/>
+
+    <!-- Header Block -->
+    <rect x="270" y="141" width="110" height="68" rx="4" fill="white" stroke="#d0d7de"/>
+    <text x="325" y="170" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">PROFINET Header</text>
+    <text x="325" y="188" font-size="12" fill="#6b7280" text-anchor="middle">MAC / VLAN / IP</text>
+
+    <!-- Safety PDU Container -->
+    <rect x="388" y="141" width="394" height="68" rx="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+
+    <!-- Sub-block 1: F-Data -->
+    <rect x="393" y="146" width="146" height="58" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="466" y="171" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">F-Data</text>
+    <text x="466" y="189" font-size="12" fill="#6b7280" text-anchor="middle">1 ... 123 Bytes</text>
+
+    <!-- Sub-block 2: Control Byte -->
+    <rect x="545" y="146" width="115" height="58" rx="4" fill="#fdecea" stroke="#c0392b"/>
+    <text x="602" y="171" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Control Byte</text>
+    <text x="602" y="189" font-size="12" fill="#c0392b" text-anchor="middle">1 Byte (Status)</text>
+
+    <!-- Sub-block 3: Safety CRC2 -->
+    <rect x="666" y="146" width="111" height="58" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+    <text x="721" y="171" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Safety CRC2</text>
+    <text x="721" y="189" font-size="12" fill="#27ae60" text-anchor="middle">3 або 4 Bytes</text>
+
+    <!-- Trailer Block -->
+    <rect x="790" y="141" width="110" height="68" rx="4" fill="white" stroke="#d0d7de"/>
+    <text x="845" y="170" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Ethernet FCS</text>
+    <text x="845" y="188" font-size="12" fill="#6b7280" text-anchor="middle">Standard CRC</text>
+  </g>
+
+  <!-- Protocol 2: CIP Safety -->
+  <g>
+    <rect x="40" y="237" width="880" height="120" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+    <text x="55" y="259" font-size="14" font-weight="bold" fill="#1a1a1a">2. CIP Safety (EtherNet/IP)</text>
+
+    <!-- Info Box Left -->
+    <rect x="55" y="268" width="195" height="78" rx="4" fill="white" stroke="#d0d7de"/>
+    <text x="65" y="285" font-size="12" font-weight="bold" fill="#1a1a1a">Особливості кадрів:</text>
+    <text x="65" y="301" font-size="12" fill="#6b7280">• Time Stamp (16-bit)</text>
+    <text x="65" y="317" font-size="12" fill="#6b7280">• SNN (Safety Net Num)</text>
+    <text x="65" y="333" font-size="12" fill="#6b7280">• CRC-16 / CRC-32 (SNN)</text>
+
+    <!-- Outer Network Frame -->
+    <rect x="265" y="268" width="640" height="78" rx="6" fill="none" stroke="#6b7280" stroke-dasharray="3,3"/>
+
+    <!-- Header Block -->
+    <rect x="270" y="273" width="110" height="68" rx="4" fill="white" stroke="#d0d7de"/>
+    <text x="325" y="302" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Ethernet + IP/UDP</text>
+    <text x="325" y="320" font-size="12" fill="#6b7280" text-anchor="middle">CIP Encapsulation</text>
+
+    <!-- Safety PDU Container -->
+    <rect x="388" y="273" width="394" height="68" rx="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+
+    <!-- Sub-block 1: Safety Data -->
+    <rect x="393" y="278" width="135" height="58" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="460" y="303" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Safety Data</text>
+    <text x="460" y="321" font-size="12" fill="#6b7280" text-anchor="middle">1 ... 250 Bytes</text>
+
+    <!-- Sub-block 2: Time Stamp -->
+    <rect x="534" y="278" width="126" height="58" rx="4" fill="#fdecea" stroke="#c0392b"/>
+    <text x="597" y="303" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Time Stamp</text>
+    <text x="597" y="321" font-size="12" fill="#c0392b" text-anchor="middle">16-bit Time/Seq</text>
+
+    <!-- Sub-block 3: Safety CRC -->
+    <rect x="666" y="278" width="111" height="58" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+    <text x="721" y="303" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Safety CRC</text>
+    <text x="721" y="321" font-size="12" fill="#27ae60" text-anchor="middle">CRC-16 / CRC-32</text>
+
+    <!-- Trailer Block -->
+    <rect x="790" y="273" width="110" height="68" rx="4" fill="white" stroke="#d0d7de"/>
+    <text x="845" y="302" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Ethernet FCS</text>
+    <text x="845" y="320" font-size="12" fill="#6b7280" text-anchor="middle">Standard CRC</text>
+  </g>
+
+  <!-- Protocol 3: FSoE -->
+  <g>
+    <rect x="40" y="369" width="880" height="120" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+    <text x="55" y="391" font-size="14" font-weight="bold" fill="#1a1a1a">3. FSoE (Fail Safe over EtherCAT)</text>
+
+    <!-- Info Box Left -->
+    <rect x="55" y="400" width="195" height="78" rx="4" fill="white" stroke="#d0d7de"/>
+    <text x="65" y="417" font-size="12" font-weight="bold" fill="#1a1a1a">Особливості FSoE:</text>
+    <text x="65" y="433" font-size="12" fill="#6b7280">• F-Command Byte (1 Б)</text>
+    <text x="65" y="449" font-size="12" fill="#6b7280">• Connection ID (F-Addr)</text>
+    <text x="65" y="465" font-size="12" fill="#6b7280">• CRC-16 (Cmd+Data+ID)</text>
+
+    <!-- Outer Network Frame -->
+    <rect x="265" y="400" width="640" height="78" rx="6" fill="none" stroke="#6b7280" stroke-dasharray="3,3"/>
+
+    <!-- Header Block -->
+    <rect x="270" y="405" width="110" height="68" rx="4" fill="white" stroke="#d0d7de"/>
+    <text x="325" y="434" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">EtherCAT Header</text>
+    <text x="325" y="452" font-size="12" fill="#6b7280" text-anchor="middle">Telegram Header</text>
+
+    <!-- Safety Frame Container -->
+    <rect x="388" y="405" width="394" height="68" rx="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+
+    <!-- Sub-block 1: F-Command -->
+    <rect x="393" y="410" width="115" height="58" rx="4" fill="#fdecea" stroke="#c0392b"/>
+    <text x="450" y="435" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">F-Command</text>
+    <text x="450" y="453" font-size="12" fill="#c0392b" text-anchor="middle">1 Byte (Cmd/Seq)</text>
+
+    <!-- Sub-block 2: F-Data -->
+    <rect x="514" y="410" width="146" height="58" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="587" y="435" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">F-Data</text>
+    <text x="587" y="453" font-size="12" fill="#6b7280" text-anchor="middle">1 ... 16+ Bytes</text>
+
+    <!-- Sub-block 3: FSoE CRC-16 -->
+    <rect x="666" y="410" width="111" height="58" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+    <text x="721" y="435" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">FSoE CRC-16</text>
+    <text x="721" y="453" font-size="12" fill="#27ae60" text-anchor="middle">2 Bytes (CRC-16)</text>
+
+    <!-- Trailer Block -->
+    <rect x="790" y="405" width="110" height="68" rx="4" fill="white" stroke="#d0d7de"/>
+    <text x="845" y="434" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">EtherCAT WKC</text>
+    <text x="845" y="452" font-size="12" fill="#6b7280" text-anchor="middle">Working Counter</text>
+  </g>
+
+  <!-- Bottom Summary Note -->
+  <text x="480" y="514" font-size="12" fill="#6b7280" text-anchor="middle">Концепція «Чорного каналу» (Black Channel): захисні PDU повністю інкапсулюються у стандартні кадри</text>
+  <text x="480" y="530" font-size="12" fill="#6b7280" text-anchor="middle">Виявлення помилок (затримка, втрата, дублювання) виконується засобами Safety CRC, Sequence &amp; F-Address</text>
+</svg>

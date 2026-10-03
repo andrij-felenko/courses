@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 510" width="960" height="510" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-right" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-left" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="510" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Часова діаграма затримки звернення до пам'яті ESP32-S3 при кеш-промаху</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">При кеш-промаху затримка MMU, заголовок SPI та вибірка 32B рядка суттєво перевищують час зчитування корисного слова</text>
+
+  <!-- Панель 1: Часова послідовність -->
+  <rect x="30" y="70" width="900" height="215" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="45" y="93" font-size="14" font-weight="700" fill="#1a1a1a">Послідовні фази затримки (Total Access Latency Breakdown)</text>
+
+  <!-- Блок 1: MMU -->
+  <rect x="45" y="110" width="170" height="75" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="130" y="133" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">1. Затримка MMU</text>
+  <text x="130" y="152" font-size="12" fill="#6b7280" text-anchor="middle">Адресація &amp; L1 Miss</text>
+  <text x="130" y="170" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">t_MMU</text>
+
+  <!-- Блок 2: SPI Overhead -->
+  <rect x="227" y="110" width="230" height="75" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="342" y="133" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">2. Заголовок SPI</text>
+  <text x="342" y="152" font-size="12" fill="#6b7280" text-anchor="middle">CMD + ADDR + Dummy cycles</text>
+  <text x="342" y="170" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">t_SPI_overhead</text>
+
+  <!-- Блок 3: Cache Line Overhead -->
+  <rect x="469" y="110" width="280" height="75" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" rx="6"/>
+  <text x="609" y="133" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">3. Оверхед 32B кеш-рядка</text>
+  <text x="609" y="152" font-size="12" fill="#6b7280" text-anchor="middle">Зчитування 28 Б суміжних даних</text>
+  <text x="609" y="170" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">t_cache_fill</text>
+
+  <!-- Блок 4: Target Word -->
+  <rect x="761" y="110" width="154" height="75" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="838" y="133" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">4. Корисні дані</text>
+  <text x="838" y="152" font-size="12" fill="#6b7280" text-anchor="middle">4Б (32-біт слово)</text>
+  <text x="838" y="170" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">t_data</text>
+
+  <!-- Розмірна лінія загального часу -->
+  <line x1="45" y1="210" x2="915" y2="210" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-left)" marker-end="url(#arr-right)"/>
+  <line x1="45" y1="202" x2="45" y2="218" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="915" y1="202" x2="915" y2="218" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="480" y="240" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Загальний час затримки (Total Access Latency) T_total = t_MMU + t_SPI_overhead + t_cache_fill + t_data</text>
+
+  <!-- Панель 2: Деталізація режимів та ефективності -->
+  <rect x="30" y="300" width="900" height="185" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="45" y="323" font-size="14" font-weight="700" fill="#1a1a1a">Вплив ширини шини (Quad vs Octal) та розрахунок ефективності</text>
+
+  <!-- Картка 1: Quad vs Octal -->
+  <rect x="45" y="335" width="420" height="135" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="255" y="357" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Час вибірки 32B кеш-рядка за типом шини</text>
+  <text x="60" y="382" font-size="12" font-weight="700" fill="#2457d6">Quad SPI (4 біти / такт):</text>
+  <text x="60" y="400" font-size="12" fill="#1a1a1a">32 байти (256 біт) / 4 біти = <tspan font-weight="700" fill="#c0392b">64 такти шини</tspan></text>
+  <text x="60" y="418" font-size="12" fill="#6b7280">Вища затримка, але зберігає GPIO для периферії</text>
+  <text x="60" y="440" font-size="12" font-weight="700" fill="#27ae60">Octal SPI DDR (16 біт / такт):</text>
+  <text x="60" y="458" font-size="12" fill="#1a1a1a">32 байти (256 біт) / 16 біт = <tspan font-weight="700" fill="#27ae60">16 тактів шини</tspan></text>
+
+  <!-- Картка 2: Ефективність -->
+  <rect x="495" y="335" width="420" height="135" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="705" y="357" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Математичний компроміс пропускної здатності</text>
+  <text x="510" y="382" font-size="12" font-weight="700" fill="#1a1a1a">Питома ефективність (Payload Efficiency):</text>
+  <text x="510" y="400" font-size="12" fill="#6b7280">Корисні дані (4B) складають лише <tspan font-weight="700" fill="#2457d6">12.5%</tspan> від 32B кеш-рядка</text>
+  <text x="510" y="423" font-size="12" fill="#1a1a1a">Частка корисного часу: <tspan font-weight="700" fill="#27ae60">E = t_data / T_total &lt;&lt; 1</tspan></text>
+  <text x="510" y="445" font-size="12" fill="#6b7280">При випадковому доступі затримка MMU + Header домінує</text>
+</svg>

@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-error" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-success" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Скінченний автомат (FSM) неблокуючого драйвера ESP-01</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Асинхронні переходи за подіями UART, потоковий розбір +IPD та захист від зависань</text>
+
+  <!-- TOP ROW STATES -->
+
+  <!-- 1. STATE_INIT -->
+  <g>
+    <rect x="40" y="90" width="175" height="135" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+    <rect x="40" y="90" width="175" height="30" rx="8" fill="#2457d6"/>
+    <text x="127.5" y="110" font-size="13" font-weight="bold" text-anchor="middle" fill="white">1. STATE_INIT</text>
+    <text x="50" y="140" font-size="12" fill="#1a1a1a">• Скидання ESP-01</text>
+    <text x="50" y="160" font-size="12" fill="#1a1a1a">• Тест AT -> OK</text>
+    <text x="50" y="180" font-size="12" fill="#1a1a1a">• Луна ATE0</text>
+    <text x="50" y="200" font-size="12" fill="#6b7280">• AT+CWMODE=1</text>
+  </g>
+
+  <!-- 2. STATE_WIFI -->
+  <g>
+    <rect x="275" y="90" width="175" height="135" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+    <rect x="275" y="90" width="175" height="30" rx="8" fill="#2457d6"/>
+    <text x="362.5" y="110" font-size="13" font-weight="bold" text-anchor="middle" fill="white">2. STATE_WIFI</text>
+    <text x="285" y="140" font-size="12" fill="#1a1a1a">• AT+CWJAP</text>
+    <text x="285" y="160" font-size="12" fill="#1a1a1a">• Пошук AP...</text>
+    <text x="285" y="180" font-size="12" fill="#27ae60">• WIFI CONNECTED</text>
+    <text x="285" y="200" font-size="12" fill="#27ae60">• WIFI GOT IP</text>
+  </g>
+
+  <!-- 3. STATE_READY -->
+  <g>
+    <rect x="510" y="90" width="175" height="135" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+    <rect x="510" y="90" width="175" height="30" rx="8" fill="#2457d6"/>
+    <text x="597.5" y="110" font-size="13" font-weight="bold" text-anchor="middle" fill="white">3. STATE_READY</text>
+    <text x="520" y="140" font-size="12" fill="#1a1a1a">• Сокет відкритий</text>
+    <text x="520" y="160" font-size="12" fill="#1a1a1a">• Опитування UART</text>
+    <text x="520" y="180" font-size="12" fill="#1a1a1a">• CIPSTATUS</text>
+    <text x="520" y="200" font-size="12" fill="#6b7280">• Моніторинг Heap</text>
+  </g>
+
+  <!-- 4. STATE_DATA -->
+  <g>
+    <rect x="745" y="90" width="175" height="135" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+    <rect x="745" y="90" width="175" height="30" rx="8" fill="#27ae60"/>
+    <text x="832.5" y="110" font-size="13" font-weight="bold" text-anchor="middle" fill="white">4. STATE_DATA</text>
+    <text x="755" y="140" font-size="12" fill="#1a1a1a">• AT+CIPSEND</text>
+    <text x="755" y="160" font-size="12" fill="#1a1a1a">• Розбір +IPD,&lt;len&gt;:</text>
+    <text x="755" y="180" font-size="12" fill="#27ae60">• Прийом даних</text>
+    <text x="755" y="200" font-size="12" fill="#1a1a1a">• Виклик callback</text>
+  </g>
+
+  <!-- BOTTOM ROW PANELS -->
+
+  <!-- Bottom Left Panel -->
+  <g>
+    <rect x="40" y="315" width="290" height="195" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="40" y="315" width="290" height="28" rx="8" fill="#2457d6"/>
+    <text x="185" y="334" font-size="13" font-weight="bold" text-anchor="middle" fill="white">Принципи неблокуючої FSM</text>
+    <text x="52" y="362" font-size="12" fill="#1a1a1a">1. Без delay(): обробка у loop()</text>
+    <text x="52" y="385" font-size="12" fill="#1a1a1a">2. Таймери: millis() для таймаутів</text>
+    <text x="52" y="408" font-size="12" fill="#1a1a1a">3. Буфер UART FIFO (кільцевий)</text>
+    <text x="52" y="431" font-size="12" fill="#1a1a1a">4. Не блокує основний цикл MCU</text>
+    <text x="52" y="454" font-size="12" fill="#6b7280">5. Автономне відновлення сесії</text>
+  </g>
+
+  <!-- 5. STATE_ERROR -->
+  <g>
+    <rect x="370" y="315" width="220" height="125" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+    <rect x="370" y="315" width="220" height="28" rx="8" fill="#c0392b"/>
+    <text x="480" y="334" font-size="13" font-weight="bold" text-anchor="middle" fill="white">5. ERROR / RECOVERY</text>
+    <text x="382" y="360" font-size="12" fill="#c0392b">• Таймаут UART</text>
+    <text x="382" y="380" font-size="12" fill="#c0392b">• Розрив / CLOSED</text>
+    <text x="382" y="400" font-size="12" fill="#1a1a1a">• Очищення rx_buffer</text>
+    <text x="382" y="420" font-size="12" fill="#1a1a1a">• Перезапуск через RST</text>
+  </g>
+
+  <!-- Bottom Right Panel -->
+  <g>
+    <rect x="630" y="315" width="290" height="195" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="630" y="315" width="290" height="28" rx="8" fill="#2457d6"/>
+    <text x="775" y="334" font-size="13" font-weight="bold" text-anchor="middle" fill="white">Потоковий розбір кадрів +IPD</text>
+    <text x="642" y="362" font-size="12" fill="#1a1a1a">1. Побайтовий пошук "+IPD,"</text>
+    <text x="642" y="385" font-size="12" fill="#1a1a1a">2. Зчитування link_id та len</text>
+    <text x="642" y="408" font-size="12" fill="#2457d6">3. Очікування N байт (без затримок)</text>
+    <text x="642" y="431" font-size="12" fill="#1a1a1a">4. Захист від фрагментації кадрів</text>
+    <text x="642" y="454" font-size="12" fill="#27ae60">5. Передача Payload в додаток</text>
+  </g>
+
+  <!-- CONNECTIONS & TRANSITIONS -->
+
+  <!-- Start Arrow -->
+  <line x1="20" y1="157.5" x2="38" y2="157.5" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="30" y="147" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">RST</text>
+
+  <!-- 1 -> 2 -->
+  <line x1="215" y1="150" x2="270" y2="150" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="242.5" y="140" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">OK</text>
+
+  <!-- 2 -> 3 -->
+  <line x1="450" y1="150" x2="505" y2="150" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="477.5" y="140" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">GOT IP</text>
+
+  <!-- 3 -> 4 -->
+  <line x1="685" y1="135" x2="740" y2="135" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-success)"/>
+  <text x="715" y="125" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">+IPD</text>
+
+  <!-- 4 -> 3 -->
+  <line x1="745" y1="180" x2="690" y2="180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="715" y="198" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Done</text>
+
+  <!-- Timeout 1 -> 5 -->
+  <path d="M 127.5 225 L 127.5 270 L 400 270 L 400 310" stroke="#c0392b" stroke-width="2" fill="none" marker-end="url(#arr-error)"/>
+  <text x="260" y="262" font-size="12" fill="#c0392b" text-anchor="middle">Таймаут (2s)</text>
+
+  <!-- Error 2 -> 5 -->
+  <path d="M 362.5 225 L 362.5 270 L 440 270 L 440 310" stroke="#c0392b" stroke-width="2" fill="none" marker-end="url(#arr-error)"/>
+  <text x="401" y="262" font-size="12" fill="#c0392b" text-anchor="middle">Помилка AP</text>
+
+  <!-- Error 4 -> 5 -->
+  <path d="M 832.5 225 L 832.5 270 L 520 270 L 520 310" stroke="#c0392b" stroke-width="2" fill="none" marker-end="url(#arr-error)"/>
+  <text x="676" y="262" font-size="12" fill="#c0392b" text-anchor="middle">CLOSED / Таймаут</text>
+
+  <!-- Recovery 5 -> 1 -->
+  <path d="M 370 380 L 350 380 L 350 285 L 127.5 285 L 127.5 230" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-accent)"/>
+  <text x="238.75" y="280" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Скидання RST</text>
+</svg>

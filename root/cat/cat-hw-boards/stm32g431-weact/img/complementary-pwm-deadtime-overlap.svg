@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <defs>
+    <!-- Red arrow -->
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+    <!-- Green arrow right -->
+    <marker id="arr-grn" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <!-- Green arrow left -->
+    <marker id="arr-grn-left" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L0,4 L7,7 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Комплементарний ШІМ із генератором мертвого часу (Dead-Time)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Захист силової стійки інвертора від наскрізного струму коротким замиканням (Shoot-Through)</text>
+
+  <!-- LEFT PANEL: WITHOUT DEAD-TIME -->
+  <rect x="30" y="80" width="435" height="415" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="45" y="92" width="405" height="28" rx="4" fill="#c0392b"/>
+  <text x="247" y="111" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">БЕЗ ЗАТРИМКИ (Перекриття сигналів)</text>
+
+  <!-- Left Panel Axes Baselines -->
+  <line x1="120" y1="190" x2="445" y2="190" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="120" y1="280" x2="445" y2="280" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="120" y1="410" x2="445" y2="410" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Left Panel Signal Labels -->
+  <text x="45" y="166" font-size="12" font-weight="700" fill="#1a1a1a">PWM1 (Q1)</text>
+  <text x="45" y="180" font-size="10" fill="#6b7280">Верхній ключ</text>
+
+  <text x="45" y="256" font-size="12" font-weight="700" fill="#1a1a1a">PWM2 (Q2)</text>
+  <text x="45" y="270" font-size="10" fill="#6b7280">Нижній ключ</text>
+
+  <text x="45" y="370" font-size="12" font-weight="700" fill="#c0392b">I_leg</text>
+  <text x="45" y="384" font-size="10" fill="#6b7280">Струм стійки</text>
+
+  <!-- Left Panel Overlap Highlight & Lines -->
+  <line x1="250" y1="142" x2="250" y2="410" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="280" y1="142" x2="280" y2="410" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+  <rect x="250" y="142" width="30" height="148" fill="#c0392b" fill-opacity="0.15"/>
+  <text x="265" y="132" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">Δt (перекриття)</text>
+
+  <!-- Left Panel Waveforms -->
+  <path d="M 120 150 L 250 150 L 250 190 L 445 190" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 120 280 L 250 280 L 250 240 L 445 240" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 250 410 L 250 320 L 280 320 L 280 410 Z" fill="#c0392b" fill-opacity="0.3"/>
+  <path d="M 120 410 L 250 410 L 250 320 L 280 320 L 280 410 L 445 410" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Left Panel Surge Callout -->
+  <line x1="298" y1="345" x2="283" y2="345" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="303" y="341" font-size="12" font-weight="700" fill="#c0392b">Імпульс I_shoot</text>
+  <text x="303" y="356" font-size="11" fill="#c0392b">Наскрізне КЗ!</text>
+
+  <!-- Left Panel Summary Note -->
+  <rect x="45" y="440" width="405" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="247" y="457" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">Небезпека: Q1 і Q2 замкнені одночасно</text>
+  <text x="247" y="472" font-size="11" fill="#1a1a1a" text-anchor="middle">Перегрів, деградація та вихід з ладу MOSFET/IGBT</text>
+
+
+  <!-- RIGHT PANEL: WITH DEAD-TIME -->
+  <rect x="495" y="80" width="435" height="415" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="510" y="92" width="405" height="28" rx="4" fill="#27ae60"/>
+  <text x="712" y="111" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">З МЕРТВИМ ЧАСОМ t_dead (Безпечний інтервал)</text>
+
+  <!-- Right Panel Axes Baselines -->
+  <line x1="585" y1="190" x2="910" y2="190" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="585" y1="280" x2="910" y2="280" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="585" y1="410" x2="910" y2="410" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Right Panel Signal Labels -->
+  <text x="510" y="166" font-size="12" font-weight="700" fill="#1a1a1a">PWM1 (Q1)</text>
+  <text x="510" y="180" font-size="10" fill="#6b7280">Верхній ключ</text>
+
+  <text x="510" y="256" font-size="12" font-weight="700" fill="#1a1a1a">PWM2 (Q2)</text>
+  <text x="510" y="270" font-size="10" fill="#6b7280">Нижній ключ</text>
+
+  <text x="510" y="370" font-size="12" font-weight="700" fill="#27ae60">I_leg</text>
+  <text x="510" y="384" font-size="10" fill="#6b7280">Струм стійки</text>
+
+  <!-- Right Panel Dead-Time Highlight & Lines -->
+  <line x1="715" y1="142" x2="715" y2="410" stroke="#27ae60" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="775" y1="142" x2="775" y2="410" stroke="#27ae60" stroke-width="1" stroke-dasharray="3 3"/>
+  <rect x="715" y="142" width="60" height="148" fill="#27ae60" fill-opacity="0.15"/>
+  <text x="745" y="132" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">t_dead (пауза)</text>
+
+  <line x1="718" y1="215" x2="772" y2="215" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-grn-left)" marker-end="url(#arr-grn)"/>
+  <text x="745" y="210" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">t_dead</text>
+
+  <!-- Right Panel Waveforms -->
+  <path d="M 585 150 L 715 150 L 715 190 L 910 190" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 585 280 L 775 280 L 775 240 L 910 240" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 585 410 L 910 410" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Right Panel Zero Current Label -->
+  <text x="830" y="341" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">I_shoot = 0</text>
+  <text x="830" y="356" font-size="11" fill="#27ae60" text-anchor="middle">КЗ повністю відсутнє</text>
+
+  <!-- Right Panel Summary Note -->
+  <rect x="510" y="440" width="405" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="712" y="457" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">Захист: Обидва ключі вимкнені у фазі t_dead</text>
+  <text x="712" y="472" font-size="11" fill="#1a1a1a" text-anchor="middle">Апаратний генератор TIMx_BDTR блокує наскрізний струм</text>
+</svg>

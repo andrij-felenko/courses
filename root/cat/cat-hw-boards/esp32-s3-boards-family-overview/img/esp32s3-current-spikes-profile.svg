@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Динаміка струму ESP32-S3 та просідання напруги 3.3V</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Пікові кидки струму до 500 мА викликають просідання V_DD нижче порогу Brownout Reset (V_BOR)</text>
+
+  <!-- Верхні інформаційні панелі (Легенда) -->
+  <rect x="40" y="70" width="425" height="55" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="52" y="90" font-size="12" font-weight="700" fill="#c0392b">Без C_dec (або високий ESR):</text>
+  <text x="52" y="110" font-size="12" fill="#1a1a1a">Кидок I_DD → падіння V_DD &lt; 2.80V (V_BOR) → Brownout Reset</text>
+
+  <rect x="495" y="70" width="425" height="55" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="507" y="90" font-size="12" font-weight="700" fill="#27ae60">З оптимальним C_dec (низький ESR):</text>
+  <text x="507" y="110" font-size="12" fill="#1a1a1a">Компенсація ΔV = I·ESR + (I·Δt)/C → V_DD &gt; 3.0V (стабільна робота)</text>
+
+  <!-- Загальна панель графіків -->
+  <rect x="40" y="130" width="880" height="375" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+
+  <!-- Заголовки графіків -->
+  <text x="120" y="160" font-size="13" font-weight="700" fill="#2457d6">Струм споживання I_DD (мА)</text>
+  <text x="120" y="300" font-size="13" font-weight="700" fill="#1a1a1a">Напруга живлення V_DD (В)</text>
+
+  <!-- ГРАФІК 1: СТРУМ I_DD -->
+  <!-- Горизонтальні лінії сітки струму -->
+  <line x1="110" y1="175" x2="880" y2="175" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="110" y1="210" x2="880" y2="210" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="110" y1="245" x2="880" y2="245" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="110" y1="265" x2="880" y2="265" stroke="#b0b7be" stroke-width="1"/>
+
+  <!-- Мітки Y1 (Струм) -->
+  <text x="100" y="145" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">I_DD (мА)</text>
+  <text x="100" y="179" font-size="12" fill="#6b7280" text-anchor="end">500</text>
+  <text x="100" y="214" font-size="12" fill="#6b7280" text-anchor="end">300</text>
+  <text x="100" y="249" font-size="12" fill="#6b7280" text-anchor="end">100</text>
+  <text x="100" y="269" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Вісь Y1 -->
+  <line x1="110" y1="270" x2="110" y2="150" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Область заливки під кривою струму -->
+  <path d="M110,245 L220,245 L225,175 L380,175 L385,245 L520,245 L525,175 L670,175 L675,235 L860,235 L860,265 L110,265 Z" fill="#eaf0fd" opacity="0.7"/>
+
+  <!-- Крива струму I_DD(t) -->
+  <path d="M110,245 L220,245 L225,175 L240,178 L255,173 L270,177 L285,174 L300,176 L315,174 L330,177 L345,173 L360,176 L375,174 L380,175 L385,245 L520,245 L525,175 L540,178 L555,173 L570,177 L585,174 L600,176 L615,174 L630,177 L645,173 L660,176 L670,175 L675,235 L860,235" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- Написи піків струму -->
+  <text x="302" y="165" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Пік Wi-Fi TX: 500 мА</text>
+  <text x="598" y="165" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Пік Wi-Fi TX: 500 мА</text>
+
+
+  <!-- ГРАФІК 2: НАПРУГА V_DD -->
+  <!-- Лінії сітки напруги -->
+  <line x1="110" y1="325" x2="880" y2="325" stroke="#27ae60" stroke-width="1" stroke-dasharray="4,4" opacity="0.6"/>
+  <line x1="110" y1="360" x2="880" y2="360" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <!-- Поріг BOR зупиняється на x=660, щоб не налізти на напис -->
+  <line x1="110" y1="395" x2="660" y2="395" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,4"/>
+
+  <!-- Напис порогу BOR -->
+  <text x="880" y="390" font-size="11" font-weight="700" fill="#c0392b" text-anchor="end">Поріг V_BOR = 2.80 В</text>
+
+  <!-- Мітки Y2 (Напруга) -->
+  <text x="100" y="295" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">V_DD (В)</text>
+  <text x="100" y="329" font-size="12" fill="#27ae60" text-anchor="end">3.3V</text>
+  <text x="100" y="364" font-size="12" fill="#6b7280" text-anchor="end">3.0V</text>
+  <text x="100" y="399" font-size="12" fill="#c0392b" font-weight="700" text-anchor="end">2.8V</text>
+  <text x="100" y="434" font-size="12" fill="#6b7280" text-anchor="end">2.5V</text>
+
+  <!-- Вісь Y2 -->
+  <line x1="110" y1="460" x2="110" y2="290" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Крива V_DD без C_dec (червона, просідання нижче V_BOR) -->
+  <path d="M110,327 L220,327 L230,360 L245,412 L280,412 L310,405 L350,345 L385,327 L520,327" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- Плашка Brownout Reset -->
+  <rect x="235" y="422" width="140" height="26" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="305" y="439" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">Brownout Reset (2.65V)</text>
+
+  <!-- Крива V_DD з C_dec (зелена, стабільна) -->
+  <path d="M520,327 L530,345 L545,350 L650,350 L670,335 L685,327 L860,327" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- Плашка Норма -->
+  <rect x="530" y="362" width="140" height="26" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="600" y="379" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">V_DD = 3.08V (Норма)</text>
+
+
+  <!-- ВІСЬ ЧАСУ X -->
+  <!-- Розділювальні пунктирні лінії фаз (vertical) -->
+  <line x1="220" y1="140" x2="220" y2="460" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="385" y1="140" x2="385" y2="460" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="520" y1="140" x2="520" y2="460" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="675" y1="140" x2="675" y2="460" stroke="#d0d7de" stroke-dasharray="2,2"/>
+
+  <!-- Лінія осі X -->
+  <line x1="110" y1="460" x2="880" y2="460" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Мітки фаз часу під віссю X -->
+  <text x="165" y="482" font-size="11" fill="#6b7280" text-anchor="middle">2x CPU + PIE</text>
+  <text x="302" y="482" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">TX без C_dec</text>
+  <text x="452" y="482" font-size="11" fill="#6b7280" text-anchor="middle">Пауза</text>
+  <text x="598" y="482" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">TX з C_dec</text>
+  <text x="765" y="482" font-size="11" fill="#6b7280" text-anchor="middle">Cam / LCD / PSRAM</text>
+  <text x="880" y="482" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">Час t (мс)</text>
+</svg>

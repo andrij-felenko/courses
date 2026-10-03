@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Header & Subheader -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Подвійне DMA-буферизування кадрів у PSRAM на ESP32-CAM</text>
+  <text x="480" y="55" text-anchor="middle" font-size="13" fill="#6b7280">Апаратне захоплення кадру в один буфер та обробка другого через CPU усувають простої процесора</text>
+
+  <!-- Stage 1: Sensor OV2640 -->
+  <rect x="25" y="85" width="180" height="345" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="115" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Сенсор OV2640</text>
+  <text x="115" y="128" text-anchor="middle" font-size="12" fill="#6b7280">Генерація відеопотоку</text>
+
+  <!-- Stage 1 Box 1: Matrix & Optics -->
+  <rect x="40" y="145" width="150" height="115" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de"/>
+  <circle cx="115" cy="180" r="22" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="115" cy="180" r="9" fill="#2457d6"/>
+  <text x="115" y="222" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Об'єктив &amp; Матриця</text>
+  <text x="115" y="240" text-anchor="middle" font-size="12" fill="#6b7280">JPEG / YUV422</text>
+
+  <!-- Stage 1 Box 2: DVP Interface -->
+  <rect x="40" y="275" width="150" height="135" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="115" y="298" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Шина DVP (8 біт)</text>
+  <text x="115" y="322" text-anchor="middle" font-size="12" fill="#1a1a1a">PCLK (Тактування)</text>
+  <text x="115" y="342" text-anchor="middle" font-size="12" fill="#1a1a1a">VSYNC / HREF</text>
+  <text x="115" y="362" text-anchor="middle" font-size="12" fill="#1a1a1a">Дані D0–D7</text>
+  <text x="115" y="390" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Неперервний потік</text>
+
+  <!-- Stage 1 to Stage 2 Connector -->
+  <line x1="205" y1="342" x2="228" y2="342" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="217" y="334" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">DVP</text>
+
+  <!-- Stage 2: DMA Engine -->
+  <rect x="230" y="85" width="185" height="345" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="322" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">I2S / DMA Engine</text>
+  <text x="322" y="128" text-anchor="middle" font-size="12" fill="#6b7280">Апаратне захоплення</text>
+
+  <!-- Stage 2 Box 1: Descriptors Ring -->
+  <rect x="245" y="145" width="155" height="115" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="322" y="170" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">DMA Дескриптори</text>
+  <text x="322" y="192" text-anchor="middle" font-size="12" fill="#6b7280">Кільцевий список</text>
+  <text x="322" y="210" text-anchor="middle" font-size="12" fill="#6b7280">автоматичних буферів</text>
+  <rect x="255" y="226" width="135" height="22" rx="4" ry="4" fill="#eaf0fd"/>
+  <text x="322" y="241" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Прямий доступ SPI</text>
+
+  <!-- Stage 2 Box 2: Zero-CPU Transfer -->
+  <rect x="245" y="275" width="155" height="135" rx="6" ry="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="322" y="298" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Запис без CPU</text>
+  <text x="322" y="322" text-anchor="middle" font-size="12" fill="#1a1a1a">Передавання даних</text>
+  <text x="322" y="342" text-anchor="middle" font-size="12" fill="#1a1a1a">прямо в PSRAM</text>
+  <text x="322" y="367" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">0% навантаження CPU</text>
+  <text x="322" y="390" text-anchor="middle" font-size="12" fill="#6b7280">Переривання VSYNC</text>
+
+  <!-- Stage 2 to Stage 3 Connector -->
+  <line x1="415" y1="205" x2="438" y2="205" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="427" y="197" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">DMA</text>
+
+  <!-- Stage 3: PSRAM Double Buffer -->
+  <rect x="440" y="85" width="265" height="345" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="572" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Зовнішня PSRAM (8 МБ)</text>
+  <text x="572" y="128" text-anchor="middle" font-size="12" fill="#6b7280">Подвійний буфер кадру (Ping-Pong)</text>
+
+  <!-- Buffer 0 (FB0) -->
+  <rect x="455" y="145" width="235" height="120" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="470" y="168" text-anchor="start" font-size="13" font-weight="bold" fill="#2457d6">Буфер 0 (FB0)</text>
+  <rect x="575" y="153" width="103" height="20" rx="4" ry="4" fill="#2457d6"/>
+  <text x="626" y="167" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">АКТИВНИЙ ЗАПИС</text>
+  <text x="470" y="190" text-anchor="start" font-size="12" fill="#1a1a1a">Кадр N: Заповнюється через DMA</text>
+  <rect x="470" y="198" width="205" height="14" rx="4" ry="4" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="470" y="198" width="135" height="14" rx="4" ry="4" fill="#2457d6"/>
+  <text x="537" y="209" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">65%</text>
+  <text x="470" y="235" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">Потік DMA → FB0</text>
+  <text x="675" y="235" text-anchor="end" font-size="12" fill="#6b7280">(в процесі)</text>
+
+  <!-- Buffer Swap Indicator -->
+  <text x="572" y="280" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">⮁ Перемикання буферів (Ping-Pong) ⮃</text>
+
+  <!-- Buffer 1 (FB1) -->
+  <rect x="455" y="292" width="235" height="120" rx="6" ry="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="470" y="315" text-anchor="start" font-size="13" font-weight="bold" fill="#27ae60">Буфер 1 (FB1)</text>
+  <rect x="575" y="300" width="103" height="20" rx="4" ry="4" fill="#27ae60"/>
+  <text x="626" y="314" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">ГОТОВИЙ ДО CPU</text>
+  <text x="470" y="337" text-anchor="start" font-size="12" fill="#1a1a1a">Кадр N-1: Повний готовий кадр</text>
+  <rect x="470" y="345" width="205" height="14" rx="4" ry="4" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="470" y="345" width="205" height="14" rx="4" ry="4" fill="#27ae60"/>
+  <text x="572" y="356" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">100% (ГОТОВО)</text>
+  <text x="470" y="382" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">Передавання → CPU</text>
+  <text x="675" y="382" text-anchor="end" font-size="12" fill="#6b7280">(без затримок)</text>
+
+  <!-- Stage 3 to Stage 4 Connector -->
+  <line x1="690" y1="352" x2="728" y2="352" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="709" y="344" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">FB Read</text>
+
+  <!-- Stage 4: CPU & Wi-Fi -->
+  <rect x="730" y="85" width="205" height="345" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="832" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">CPU Core 1 &amp; Wi-Fi</text>
+  <text x="832" y="128" text-anchor="middle" font-size="12" fill="#6b7280">Мережевий стрімінг</text>
+
+  <!-- Stage 4 Box 1: cam_task -->
+  <rect x="745" y="145" width="175" height="115" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="832" y="168" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Задача cam_task</text>
+  <text x="832" y="190" text-anchor="middle" font-size="12" fill="#6b7280">FreeRTOS / Core 1</text>
+  <text x="832" y="210" text-anchor="middle" font-size="12" fill="#1a1a1a">esp_camera_fb_get()</text>
+  <rect x="755" y="225" width="155" height="24" rx="4" ry="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="832" y="241" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Доступ за 0 ms</text>
+
+  <!-- Stage 4 Box 2: Wi-Fi Socket -->
+  <rect x="745" y="275" width="175" height="135" rx="6" ry="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="832" y="298" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Wi-Fi Socket Buffer</text>
+  <text x="832" y="322" text-anchor="middle" font-size="12" fill="#1a1a1a">HTTP / MJPEG Stream</text>
+  <text x="832" y="342" text-anchor="middle" font-size="12" fill="#1a1a1a">RTSP / UDP потік</text>
+  <text x="832" y="365" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Стабільні 25–30 FPS</text>
+  <text x="832" y="390" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Без втрати кадрів</text>
+
+  <!-- Summary Banner -->
+  <rect x="25" y="445" width="910" height="52" rx="8" ry="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="50" cy="471" r="14" fill="#27ae60"/>
+  <text x="50" y="476" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">✓</text>
+  <text x="78" y="464" font-size="13" font-weight="bold" fill="#27ae60">Результат використання подвійного DMA-буфера в PSRAM:</text>
+  <text x="78" y="483" font-size="12" fill="#1a1a1a">Поки DMA апаратно записує Кадр N у Буфер 0, CPU паралельно транслює Кадр N-1 з Буфера 1 без простоїв.</text>
+</svg>

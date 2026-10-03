@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Модульна багаторівнева архітектура стека mbedTLS</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Макроси mbedtls_config.h виключають невикористовувані криптомодулі для мінімізації RAM та Flash</text>
+
+  <!-- Left Stack Container -->
+  <rect x="30" y="70" width="610" height="395" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="45" y="92" font-size="14" font-weight="700" fill="#1a1a1a">Ієрархія шарів mbedTLS (Bottom-Up Application Flow)</text>
+
+  <!-- Layer 4: SSL/TLS -->
+  <rect x="45" y="105" width="580" height="75" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="55" y="123" font-size="13" font-weight="700" fill="#2457d6">Рівень 4: SSL/TLS/DTLS</text>
+
+  <rect x="200" y="132" width="130" height="40" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="265" y="147" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">SSL/TLS Handshake</text>
+  <text x="265" y="162" font-size="11" fill="#6b7280" text-anchor="middle">(MBEDTLS_SSL_TLS_C)</text>
+
+  <rect x="340" y="132" width="135" height="40" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="407" y="147" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Record Buffer / MFLN</text>
+  <text x="407" y="162" font-size="11" fill="#6b7280" text-anchor="middle">(Max Fragment Length)</text>
+
+  <rect x="485" y="132" width="130" height="40" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="550" y="147" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Network Callbacks</text>
+  <text x="550" y="162" font-size="11" fill="#6b7280" text-anchor="middle">(net_sockets / BIO)</text>
+
+  <!-- Layer 3: PKI & X.509 -->
+  <rect x="45" y="195" width="580" height="75" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="55" y="213" font-size="13" font-weight="700" fill="#1a1a1a">Рівень 3: PKI &amp; X.509</text>
+
+  <rect x="200" y="222" width="130" height="40" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="265" y="237" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">X.509 CRT Parser</text>
+  <text x="265" y="252" font-size="11" fill="#6b7280" text-anchor="middle">(MBEDTLS_X509_CRT)</text>
+
+  <rect x="340" y="222" width="135" height="40" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="407" y="237" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">PK Core Wrapper</text>
+  <text x="407" y="252" font-size="11" fill="#6b7280" text-anchor="middle">(MBEDTLS_PK_C)</text>
+
+  <rect x="485" y="222" width="130" height="40" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="550" y="237" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">ASN.1 / OID Parser</text>
+  <text x="550" y="252" font-size="11" fill="#6b7280" text-anchor="middle">(MBEDTLS_ASN1)</text>
+
+  <!-- Layer 2: Crypto Primitives & Entropy -->
+  <rect x="45" y="285" width="580" height="75" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="55" y="303" font-size="13" font-weight="700" fill="#1a1a1a">Рівень 2: Криптопримітиви &amp; RNG</text>
+
+  <rect x="55" y="312" width="130" height="40" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="120" y="327" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Symmetric (AES)</text>
+  <text x="120" y="342" font-size="11" fill="#6b7280" text-anchor="middle">(MBEDTLS_AES_C)</text>
+
+  <rect x="195" y="312" width="135" height="40" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="262" y="327" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Hashes (SHA-256)</text>
+  <text x="262" y="342" font-size="11" fill="#6b7280" text-anchor="middle">(MBEDTLS_SHA256_C)</text>
+
+  <rect x="340" y="312" width="135" height="40" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="407" y="327" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Public Key (ECP)</text>
+  <text x="407" y="342" font-size="11" fill="#6b7280" text-anchor="middle">(MBEDTLS_ECP_C)</text>
+
+  <rect x="485" y="312" width="130" height="40" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="550" y="327" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">CTR-DRBG / RNG</text>
+  <text x="550" y="342" font-size="11" fill="#6b7280" text-anchor="middle">(MBEDTLS_CTR_DRBG)</text>
+
+  <!-- Layer 1: Hardware Integration & Platform -->
+  <rect x="45" y="375" width="580" height="75" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="55" y="393" font-size="13" font-weight="700" fill="#27ae60">Рівень 1: HAL &amp; HW Acceleration</text>
+
+  <rect x="200" y="402" width="130" height="40" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="265" y="417" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">HW Accel (AES_ALT)</text>
+  <text x="265" y="432" font-size="11" fill="#27ae60" text-anchor="middle">(Розвантаження ЦПУ)</text>
+
+  <rect x="340" y="402" width="135" height="40" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="407" y="417" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Custom Allocator</text>
+  <text x="407" y="432" font-size="11" fill="#27ae60" text-anchor="middle">(Оптимізація Heap)</text>
+
+  <rect x="485" y="402" width="130" height="40" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="550" y="417" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Hardware TRNG</text>
+  <text x="550" y="432" font-size="11" fill="#27ae60" text-anchor="middle">(Апаратна ентропія)</text>
+
+  <!-- Inter-layer Arrows -->
+  <line x1="265" y1="402" x2="265" y2="357" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="407" y1="402" x2="407" y2="357" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="550" y1="402" x2="550" y2="357" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <line x1="265" y1="312" x2="265" y2="267" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="407" y1="312" x2="407" y2="267" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="550" y1="312" x2="550" y2="267" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <line x1="265" y1="222" x2="265" y2="177" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="407" y1="222" x2="407" y2="177" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="550" y1="222" x2="550" y2="177" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Right Config Panel -->
+  <rect x="660" y="70" width="270" height="395" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="795" y="92" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Механізм конфігурації</text>
+  <text x="795" y="110" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">(mbedtls_config.h)</text>
+
+  <!-- Included Modules Box -->
+  <rect x="672" y="122" width="246" height="110" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="5"/>
+  <text x="682" y="140" font-size="12" font-weight="700" fill="#27ae60">✓ Активні модулі (У прошивці)</text>
+  <text x="690" y="160" font-size="11" fill="#1a1a1a">#define MBEDTLS_AES_C</text>
+  <text x="690" y="177" font-size="11" fill="#1a1a1a">#define MBEDTLS_SHA256_C</text>
+  <text x="690" y="194" font-size="11" fill="#1a1a1a">#define MBEDTLS_SSL_TLS_C</text>
+  <text x="690" y="211" font-size="11" fill="#1a1a1a">#define MBEDTLS_AES_ALT</text>
+  <text x="690" y="226" font-size="11" fill="#27ae60">/* Включає криптографію й ALT */</text>
+
+  <!-- Excluded Modules Box -->
+  <rect x="672" y="240" width="246" height="110" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="5"/>
+  <text x="682" y="258" font-size="12" font-weight="700" fill="#c0392b">✗ Виключені модулі (Dead Code)</text>
+  <text x="690" y="278" font-size="11" fill="#6b7280">//#define MBEDTLS_RSA_C</text>
+  <text x="690" y="295" font-size="11" fill="#6b7280">//#define MBEDTLS_DEBUG_C</text>
+  <text x="690" y="312" font-size="11" fill="#6b7280">//#define MBEDTLS_SSL_SRV_C</text>
+  <text x="690" y="329" font-size="11" fill="#6b7280">//#define MBEDTLS_CERTS_C</text>
+  <text x="690" y="344" font-size="11" fill="#c0392b">/* Вилучено неактивний код */</text>
+
+  <!-- Optimization Summary Box -->
+  <rect x="672" y="358" width="246" height="95" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="5"/>
+  <text x="795" y="375" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Ефект у вбудованій системі:</text>
+  <text x="685" y="393" font-size="11" fill="#27ae60">• Скорочення бинарника Flash (до 60%)</text>
+  <text x="685" y="410" font-size="11" fill="#27ae60">• Економія RAM (MFLN буфери)</text>
+  <text x="685" y="427" font-size="11" fill="#2457d6">• Апаратне розвантаження (ALT)</text>
+  <text x="685" y="444" font-size="11" fill="#1a1a1a">• Запобігання скиданням WDT</text>
+
+  <!-- Control lines connecting Config to Layers -->
+  <line x1="672" y1="177" x2="645" y2="177" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+  <line x1="672" y1="295" x2="645" y2="295" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+
+  <!-- Legend Panel at bottom -->
+  <rect x="30" y="475" width="900" height="40" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="45" y="499" font-size="14" fill="#2457d6" font-weight="700">■</text>
+  <text x="62" y="499" font-size="12" font-weight="700" fill="#1a1a1a">SSL/TLS протокол</text>
+
+  <text x="200" y="499" font-size="14" fill="#27ae60" font-weight="700">■</text>
+  <text x="217" y="499" font-size="12" font-weight="700" fill="#1a1a1a">Апаратні прискорювачі &amp; HW TRNG</text>
+
+  <text x="460" y="499" font-size="14" fill="#c0392b" font-weight="700">■</text>
+  <text x="477" y="499" font-size="12" font-weight="700" fill="#1a1a1a">Виключені модулі (Dead Code)</text>
+
+  <text x="700" y="499" font-size="14" fill="#6b7280" font-weight="700">■</text>
+  <text x="717" y="499" font-size="12" font-weight="700" fill="#1a1a1a">Криптопримітиви</text>
+</svg>

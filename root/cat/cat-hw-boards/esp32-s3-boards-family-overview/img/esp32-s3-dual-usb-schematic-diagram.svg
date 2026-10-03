@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Схема принципова подвійного USB-інтерфейсу ESP32-S3</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Розділення портів USB Serial/JTAG та USB OTG з захистом TVS і керуванням VBUS</text>
+
+  <!-- Port 1: USB-C (USB Serial / JTAG) -->
+  <rect x="30" y="85" width="150" height="180" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <rect x="30" y="85" width="150" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="105" y="105" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Port 1: USB-C</text>
+  <text x="105" y="132" text-anchor="middle" font-size="12" fill="#6b7280">(USB Serial / JTAG)</text>
+
+  <text x="165" y="159" text-anchor="end" font-size="12" font-weight="700" fill="#27ae60">VBUS</text>
+  <text x="165" y="189" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">D-</text>
+  <text x="165" y="219" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">D+</text>
+  <text x="165" y="249" text-anchor="end" font-size="12" fill="#6b7280">GND</text>
+
+  <!-- Port 2: USB-C (USB OTG) -->
+  <rect x="30" y="300" width="150" height="205" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <rect x="30" y="300" width="150" height="30" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="105" y="320" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">Port 2: USB-C</text>
+  <text x="105" y="345" text-anchor="middle" font-size="12" fill="#6b7280">(USB OTG Host/Dev)</text>
+
+  <text x="165" y="374" text-anchor="end" font-size="12" font-weight="700" fill="#27ae60">VBUS</text>
+  <text x="165" y="414" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">D-</text>
+  <text x="165" y="444" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">D+</text>
+  <text x="165" y="479" text-anchor="end" font-size="12" fill="#6b7280">GND</text>
+
+  <!-- TVS Protection 1 -->
+  <rect x="235" y="145" width="160" height="95" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="315" y="168" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">TVS Захист ESD 1</text>
+  <text x="315" y="190" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">USBLC6-2SC6</text>
+  <text x="315" y="210" text-anchor="middle" font-size="12" fill="#6b7280">Захист D+ / D- / VBUS</text>
+
+  <!-- VBUS Power Switch -->
+  <rect x="235" y="275" width="160" height="110" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="315" y="298" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">Ключ VBUS Host</text>
+  <text x="315" y="320" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">TPS2051BD / AP2191</text>
+  <text x="315" y="342" text-anchor="middle" font-size="12" fill="#6b7280">Обмеження струму 500mA</text>
+  <text x="315" y="362" text-anchor="middle" font-size="12" fill="#6b7280">Керування EN та OC</text>
+
+  <!-- TVS Protection 2 -->
+  <rect x="235" y="410" width="160" height="85" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="315" y="432" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">TVS Захист ESD 2</text>
+  <text x="315" y="454" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">USBLC6-2SC6</text>
+  <text x="315" y="474" text-anchor="middle" font-size="12" fill="#6b7280">Захист ліній D+ / D-</text>
+
+  <!-- ESP32-S3 Container -->
+  <rect x="470" y="85" width="460" height="420" fill="#f4f6f8" stroke="#2457d6" stroke-width="2" rx="8"/>
+  <text x="700" y="112" text-anchor="middle" font-size="16" font-weight="700" fill="#2457d6">Мікроконтролер ESP32-S3</text>
+  <text x="700" y="132" text-anchor="middle" font-size="12" fill="#6b7280">Двоядерний Xtensa LX7 (до 240 МГц)</text>
+
+  <!-- USB Serial / JTAG Module -->
+  <rect x="495" y="150" width="410" height="110" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="700" y="172" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">Контролер USB Serial / JTAG</text>
+  <text x="700" y="193" text-anchor="middle" font-size="12" fill="#6b7280">Апаратний відлагоджувач OpenOCD + CDC UART консоль</text>
+
+  <rect x="520" y="208" width="170" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="605" y="230" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">JTAG Відлагодження</text>
+
+  <rect x="710" y="208" width="170" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="795" y="230" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">CDC Логування</text>
+
+  <!-- USB MUX & PHY -->
+  <rect x="495" y="272" width="410" height="50" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="700" y="293" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Вбудований USB PHY та Комутатор (USB MUX)</text>
+  <text x="700" y="311" text-anchor="middle" font-size="12" fill="#6b7280">Маршрутизація сигналів D+ (GPIO20) та D- (GPIO19)</text>
+
+  <!-- USB OTG Controller -->
+  <rect x="495" y="332" width="410" height="155" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="700" y="355" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">Контролер USB OTG (USB 1.1 FS)</text>
+  <text x="700" y="376" text-anchor="middle" font-size="12" fill="#6b7280">Підтримка режимів Host та Device (стек TinyUSB / ESP-IDF)</text>
+
+  <rect x="510" y="390" width="180" height="80" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="600" y="412" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Режим USB Host</text>
+  <text x="600" y="432" text-anchor="middle" font-size="12" fill="#1a1a1a">Flash-накопичувачі (MSC)</text>
+  <text x="600" y="452" text-anchor="middle" font-size="12" fill="#6b7280">Клавіатури / Миші (HID)</text>
+
+  <rect x="710" y="390" width="180" height="80" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="800" y="412" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Режим USB Device</text>
+  <text x="800" y="432" text-anchor="middle" font-size="12" fill="#1a1a1a">Віртуальний COM-порт</text>
+  <text x="800" y="452" text-anchor="middle" font-size="12" fill="#6b7280">Емуляція USB-пристроїв</text>
+
+  <!-- Signals / Connections -->
+
+  <!-- Port 1 Lines -->
+  <!-- VBUS line Port 1 -->
+  <line x1="180" y1="155" x2="235" y2="155" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <!-- D- line Port 1 -->
+  <line x1="180" y1="185" x2="235" y2="185" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="395" y1="185" x2="495" y2="185" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <!-- D+ line Port 1 -->
+  <line x1="180" y1="215" x2="235" y2="215" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="395" y1="215" x2="495" y2="215" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Port 2 Lines -->
+  <!-- VBUS OTG Power line Port 2 -->
+  <line x1="235" y1="370" x2="180" y2="370" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- +5V Power Supply to VBUS Switch -->
+  <line x1="315" y1="240" x2="315" y2="275" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="325" y="258" text-anchor="start" font-size="12" font-weight="700" fill="#27ae60">+5V Вхід</text>
+
+  <!-- VBUS EN control signal from ESP32-S3 -->
+  <line x1="495" y1="350" x2="395" y2="350" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+  <text x="445" y="343" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">GPIO18 (VBUS_EN)</text>
+
+  <!-- D- line Port 2 -->
+  <line x1="180" y1="414" x2="235" y2="414" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="395" y1="414" x2="495" y2="414" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <!-- D+ line Port 2 -->
+  <line x1="180" y1="444" x2="235" y2="444" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="395" y1="444" x2="495" y2="444" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Pin labels near ESP32-S3 edge -->
+  <text x="445" y="178" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">GPIO19 (D-)</text>
+  <text x="445" y="232" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">GPIO20 (D+)</text>
+  <text x="445" y="407" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">GPIO19 (D-)</text>
+  <text x="445" y="460" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">GPIO20 (D+)</text>
+
+</svg>

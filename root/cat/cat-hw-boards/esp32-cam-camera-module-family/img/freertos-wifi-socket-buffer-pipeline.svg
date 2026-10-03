@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Передача MJPEG-кадрів через FreeRTOS та socket-буфер Wi-Fi</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Збільшення розміру сокетного буфера запобігає переповненню черги та втраті кадрів</text>
+
+  <!-- TOP PANEL: Problem Scenario -->
+  <rect x="30" y="80" width="900" height="195" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="45" y="105" font-size="14" font-weight="bold" fill="#c0392b">Неоптимізований режим: Малий SO_SNDBUF (випадіння кадрів)</text>
+
+  <!-- Stage 1: Camera OV2640 -->
+  <rect x="60" y="125" width="160" height="115" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="140" y="148" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Камера OV2640</text>
+  <text x="140" y="170" font-size="12" fill="#6b7280" text-anchor="middle">DMA захоплення</text>
+  <text x="140" y="190" font-size="12" fill="#6b7280" text-anchor="middle">30 кадрів/с</text>
+  <rect x="70" y="202" width="140" height="22" rx="4" fill="#eaf0fd"/>
+  <text x="140" y="217" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Потік: ~12 Мбіт/с</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <text x="252" y="170" font-size="12" fill="#2457d6" text-anchor="middle">Кадри</text>
+  <line x1="225" y1="182" x2="276" y2="182" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Stage 2: FreeRTOS Queue -->
+  <rect x="284" y="125" width="160" height="115" rx="6" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="364" y="148" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Черга FreeRTOS</text>
+  <text x="364" y="170" font-size="12" fill="#6b7280" text-anchor="middle">fb_get() / queue</text>
+  <text x="364" y="190" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Переповнення!</text>
+  <rect x="294" y="202" width="140" height="22" rx="4" fill="#fdecea"/>
+  <text x="364" y="217" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Втрата кадрів</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <text x="476" y="170" font-size="12" fill="#c0392b" text-anchor="middle">Затримка</text>
+  <line x1="449" y1="182" x2="500" y2="182" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Stage 3: Socket Buffer -->
+  <rect x="508" y="125" width="160" height="115" rx="6" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="588" y="148" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Буфер сокета LwIP</text>
+  <text x="588" y="170" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">SO_SNDBUF = 4 KB</text>
+  <text x="588" y="190" font-size="12" fill="#6b7280" text-anchor="middle">(Занадто малий)</text>
+  <rect x="524" y="202" width="128" height="22" rx="4" fill="#fdecea"/>
+  <text x="588" y="217" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Блок send()</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <text x="700" y="170" font-size="12" fill="#c0392b" text-anchor="middle">Паузи TCP</text>
+  <line x1="673" y1="182" x2="724" y2="182" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Stage 4: Wi-Fi Client -->
+  <rect x="732" y="125" width="160" height="115" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="812" y="148" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Wi-Fi Клієнт</text>
+  <text x="812" y="170" font-size="12" fill="#6b7280" text-anchor="middle">Перегляд відео</text>
+  <text x="812" y="190" font-size="12" fill="#6b7280" text-anchor="middle">Нерівномірний</text>
+  <rect x="748" y="202" width="128" height="22" rx="4" fill="#fdecea"/>
+  <text x="812" y="217" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Фризи відео</text>
+
+  <!-- BOTTOM PANEL: Solution Scenario -->
+  <rect x="30" y="295" width="900" height="195" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="45" y="320" font-size="14" font-weight="bold" fill="#27ae60">Оптимізований режим: Збільшений SO_SNDBUF у PSRAM (стабільний потік)</text>
+
+  <!-- Stage 1: Camera OV2640 -->
+  <rect x="60" y="340" width="160" height="115" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="140" y="363" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Камера OV2640</text>
+  <text x="140" y="385" font-size="12" fill="#6b7280" text-anchor="middle">DMA захоплення</text>
+  <text x="140" y="405" font-size="12" fill="#6b7280" text-anchor="middle">30 кадрів/с</text>
+  <rect x="70" y="417" width="140" height="22" rx="4" fill="#eaf0fd"/>
+  <text x="140" y="432" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Потік: ~12 Мбіт/с</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <text x="252" y="385" font-size="12" fill="#2457d6" text-anchor="middle">Кадри</text>
+  <line x1="225" y1="397" x2="276" y2="397" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Stage 2: FreeRTOS Queue -->
+  <rect x="284" y="340" width="160" height="115" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="364" y="363" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Черга FreeRTOS</text>
+  <text x="364" y="385" font-size="12" fill="#6b7280" text-anchor="middle">fb_get() / queue</text>
+  <text x="364" y="405" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Без затримок</text>
+  <rect x="294" y="417" width="140" height="22" rx="4" fill="#e9f7ef"/>
+  <text x="364" y="432" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Черга вільна</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <text x="476" y="385" font-size="12" fill="#27ae60" text-anchor="middle">Потік ОК</text>
+  <line x1="449" y1="397" x2="500" y2="397" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Stage 3: Socket Buffer -->
+  <rect x="508" y="340" width="160" height="115" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="588" y="363" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Буфер сокета LwIP</text>
+  <text x="588" y="385" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">SO_SNDBUF = 32 KB</text>
+  <text x="588" y="405" font-size="12" fill="#6b7280" text-anchor="middle">(У пам'яті PSRAM)</text>
+  <rect x="518" y="417" width="140" height="22" rx="4" fill="#e9f7ef"/>
+  <text x="588" y="432" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Згладжування</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <text x="700" y="385" font-size="12" fill="#27ae60" text-anchor="middle">Плавний</text>
+  <line x1="673" y1="397" x2="724" y2="397" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Stage 4: Wi-Fi Client -->
+  <rect x="732" y="340" width="160" height="115" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="812" y="363" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Wi-Fi Клієнт</text>
+  <text x="812" y="385" font-size="12" fill="#6b7280" text-anchor="middle">Перегляд відео</text>
+  <text x="812" y="405" font-size="12" fill="#6b7280" text-anchor="middle">Плавне відео</text>
+  <rect x="736" y="417" width="152" height="22" rx="4" fill="#e9f7ef"/>
+  <text x="812" y="432" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">30 FPS без втрат</text>
+</svg>

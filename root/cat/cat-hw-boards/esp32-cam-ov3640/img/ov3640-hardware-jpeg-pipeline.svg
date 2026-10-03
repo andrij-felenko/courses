@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header & Subheader -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратний конвеєр JPEG у сенсорі OV3640</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Стиснення кадрів усередині камери запобігає переповненню FIFO та зменшує навантаження на шину DVP</text>
+
+  <!-- Outer Container 1: OV3640 Sensor -->
+  <rect x="35" y="90" width="635" height="330" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="8"/>
+  <text x="50" y="116" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">Оптичний сенсор OV3640 (2 МП)</text>
+
+  <!-- Sub-block A: Pixel Array -->
+  <rect x="50" y="135" width="125" height="265" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="112" y="157" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Матриця пікселів</text>
+  <text x="112" y="174" font-size="12" fill="#6b7280" text-anchor="middle">UXGA (1600×1200)</text>
+
+  <!-- Bayer Pattern Diagram -->
+  <rect x="65" y="186" width="95" height="105" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <rect x="73" y="194" width="17" height="17" fill="#c0392b" rx="2"/>
+  <rect x="93" y="194" width="17" height="17" fill="#27ae60" rx="2"/>
+  <rect x="113" y="194" width="17" height="17" fill="#c0392b" rx="2"/>
+  <rect x="133" y="194" width="17" height="17" fill="#27ae60" rx="2"/>
+
+  <rect x="73" y="215" width="17" height="17" fill="#27ae60" rx="2"/>
+  <rect x="93" y="215" width="17" height="17" fill="#2457d6" rx="2"/>
+  <rect x="113" y="215" width="17" height="17" fill="#27ae60" rx="2"/>
+  <rect x="133" y="215" width="17" height="17" fill="#2457d6" rx="2"/>
+
+  <rect x="73" y="236" width="17" height="17" fill="#c0392b" rx="2"/>
+  <rect x="93" y="236" width="17" height="17" fill="#27ae60" rx="2"/>
+  <rect x="113" y="236" width="17" height="17" fill="#c0392b" rx="2"/>
+  <rect x="133" y="236" width="17" height="17" fill="#27ae60" rx="2"/>
+
+  <text x="112" y="278" font-size="12" fill="#6b7280" text-anchor="middle">Матриця Bayer</text>
+
+  <!-- Warning Badge: Uncompressed -->
+  <text x="112" y="310" font-size="12" fill="#c0392b" text-anchor="middle">Без стиснення:</text>
+  <rect x="58" y="320" width="109" height="68" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="112" y="340" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">3.84 МБ / кадр</text>
+  <text x="112" y="358" font-size="12" fill="#c0392b" text-anchor="middle">Переповнення</text>
+  <text x="112" y="376" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">буфера FIFO!</text>
+
+  <!-- Flow Arrow 1: Pixel Array to JPEG Engine -->
+  <line x1="178" y1="250" x2="242" y2="250" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-main)"/>
+  <text x="210" y="236" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RAW / YUV</text>
+
+  <!-- Sub-block B: Hardware JPEG Engine -->
+  <rect x="245" y="135" width="230" height="265" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="360" y="157" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Апаратний кодек JPEG</text>
+
+  <!-- Stage 1: Preprocessor -->
+  <rect x="255" y="168" width="210" height="48" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="360" y="187" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ISP препроцесор</text>
+  <text x="360" y="204" font-size="12" fill="#6b7280" text-anchor="middle">Форматування YUV422/420</text>
+
+  <line x1="360" y1="216" x2="360" y2="226" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Stage 2: Compression Core -->
+  <rect x="255" y="227" width="210" height="66" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="360" y="244" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Ядро стиснення JPEG</text>
+  <text x="360" y="262" font-size="12" fill="#1a1a1a" text-anchor="middle">DCT та квантування</text>
+  <text x="360" y="280" font-size="12" fill="#1a1a1a" text-anchor="middle">Кодування Гаффмана</text>
+
+  <line x1="360" y1="293" x2="360" y2="303" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Stage 3: Result Badge -->
+  <rect x="255" y="304" width="210" height="84" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="360" y="324" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Стиснення: ~10:1 ... 30:1</text>
+  <text x="360" y="344" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Розмір кадру: ~50–150 КБ</text>
+  <text x="360" y="362" font-size="12" fill="#27ae60" text-anchor="middle">Без втрат пікселів</text>
+  <text x="360" y="380" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Стабільний потік</text>
+
+  <!-- Flow Arrow 2: JPEG Engine to FIFO -->
+  <line x1="478" y1="250" x2="542" y2="250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="510" y="236" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">JPEG кадр</text>
+
+  <!-- Sub-block C: Internal FIFO Buffer -->
+  <rect x="545" y="135" width="110" height="265" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="600" y="157" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішній</text>
+  <text x="600" y="174" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">FIFO-буфер</text>
+
+  <!-- Stack Representation inside FIFO -->
+  <rect x="558" y="186" width="84" height="118" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+
+  <rect x="564" y="194" width="72" height="26" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="600" y="211" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Заголовок</text>
+
+  <rect x="564" y="226" width="72" height="26" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="600" y="243" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">MCU-дані</text>
+
+  <rect x="564" y="258" width="72" height="26" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="600" y="275" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Маркер EOI</text>
+
+  <!-- FIFO Status Badge -->
+  <rect x="551" y="314" width="98" height="72" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="600" y="333" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Буфер FIFO</text>
+  <text x="600" y="352" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Нормальний стан</text>
+  <text x="600" y="371" font-size="12" fill="#27ae60" text-anchor="middle">Плавний потік</text>
+
+  <!-- Flow Arrow 3: OV3640 to ESP32-CAM (DVP Bus) -->
+  <line x1="673" y1="250" x2="737" y2="250" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="705" y="236" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Шина DVP</text>
+
+  <!-- Outer Container 2: ESP32-CAM Module -->
+  <rect x="740" y="90" width="185" height="330" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="8"/>
+  <text x="832" y="116" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Модуль ESP32-CAM</text>
+
+  <!-- DVP Bus Interface Box -->
+  <rect x="750" y="135" width="165" height="125" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="832" y="156" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сигнали шини DVP</text>
+  <text x="760" y="178" font-size="12" fill="#1a1a1a">D[7:0] — 8-біт дані</text>
+  <text x="760" y="197" font-size="12" fill="#1a1a1a">PCLK — тактування</text>
+  <text x="760" y="216" font-size="12" fill="#1a1a1a">VSYNC / HREF — синхр.</text>
+  <text x="760" y="235" font-size="12" fill="#1a1a1a">XCLK — 20–24 МГц</text>
+
+  <line x1="832" y1="260" x2="832" y2="268" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ESP32 DMA & PSRAM Box -->
+  <rect x="750" y="270" width="165" height="130" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="832" y="292" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">DMA та PSRAM ESP32</text>
+  <text x="832" y="313" font-size="12" fill="#1a1a1a" text-anchor="middle">Неблокуючий GDMA</text>
+  <text x="832" y="333" font-size="12" fill="#1a1a1a" text-anchor="middle">Кадровий буфер PSRAM</text>
+
+  <rect x="760" y="345" width="145" height="45" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="832" y="364" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">esp_camera драйвер</text>
+  <text x="832" y="381" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Захоплення кадрів OK</text>
+</svg>

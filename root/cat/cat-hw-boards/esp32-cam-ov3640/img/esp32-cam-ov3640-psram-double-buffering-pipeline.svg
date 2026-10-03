@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конвеєр потокового мовлення MJPEG на ESP32-CAM з OV3640</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">DVP-кадри з камери через SRAM DMA потрапляють у подвійний буфер PSRAM, усуваючи розриви при HTTP-передачі</text>
+
+  <!-- КОЛОНКА 1: Сенсор OV3640 -->
+  <rect x="25" y="85" width="200" height="405" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="125" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сенсор OV3640 (2 МП)</text>
+
+  <rect x="40" y="130" width="170" height="85" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="125" y="152" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Матриця &amp; DSP</text>
+  <text x="125" y="172" font-size="12" fill="#6b7280" text-anchor="middle">Кодування JPEG / YUV</text>
+  <text x="125" y="192" font-size="12" fill="#6b7280" text-anchor="middle">Роздільність до UXGA</text>
+
+  <rect x="40" y="230" width="170" height="145" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="125" y="252" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Шина DVP (8 біт)</text>
+  <text x="125" y="274" font-size="12" fill="#1a1a1a" text-anchor="middle">PCLK (Тактування)</text>
+  <text x="125" y="294" font-size="12" fill="#1a1a1a" text-anchor="middle">VSYNC / HREF</text>
+  <text x="125" y="314" font-size="12" fill="#1a1a1a" text-anchor="middle">Дані D0–D7 (Y0–Y9)</text>
+  <text x="125" y="339" font-size="12" fill="#6b7280" text-anchor="middle">SCCB (I2C) керування</text>
+
+  <rect x="40" y="390" width="170" height="85" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="6"/>
+  <text x="125" y="412" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⛔ Конфлікт GPIO</text>
+  <text x="125" y="432" font-size="12" fill="#1a1a1a" text-anchor="middle">Спільні лінії DVP з</text>
+  <text x="125" y="452" font-size="12" fill="#1a1a1a" text-anchor="middle">картридером MicroSD</text>
+
+  <!-- КОЛОНКА 2: Апаратне захоплення DMA -->
+  <rect x="250" y="85" width="210" height="405" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="355" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратне захоплення DMA</text>
+
+  <rect x="265" y="130" width="180" height="100" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="355" y="152" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Контролер I2S / DVP</text>
+  <text x="355" y="172" font-size="12" fill="#1a1a1a" text-anchor="middle">Паралельний режим I2S0</text>
+  <text x="355" y="192" font-size="12" fill="#6b7280" text-anchor="middle">Дескриптори DMA</text>
+  <text x="355" y="212" font-size="12" fill="#6b7280" text-anchor="middle">Захоплення без CPU</text>
+
+  <rect x="265" y="245" width="180" height="130" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="355" y="267" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Буфери DMA в SRAM</text>
+  <text x="355" y="287" font-size="12" fill="#1a1a1a" text-anchor="middle">MALLOC_CAP_DMA</text>
+  <text x="355" y="307" font-size="12" fill="#6b7280" text-anchor="middle">Прийом кадрів по рядках</text>
+  <text x="355" y="327" font-size="12" fill="#6b7280" text-anchor="middle">Порядковий буфер (Line)</text>
+  <text x="355" y="352" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Внутрішня SRAM</text>
+
+  <rect x="265" y="390" width="180" height="85" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="355" y="412" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Прямий DMA-доступ</text>
+  <text x="355" y="432" font-size="12" fill="#6b7280" text-anchor="middle">SRAM підтримує DMA,</text>
+  <text x="355" y="452" font-size="12" fill="#6b7280" text-anchor="middle">а PSRAM — лише CPU</text>
+
+  <!-- КОЛОНКА 3: Подвійний буфер (PSRAM) -->
+  <rect x="485" y="85" width="225" height="405" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="597" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Подвійний буфер (PSRAM)</text>
+
+  <rect x="500" y="130" width="195" height="105" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="597" y="152" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Кадровий буфер FB0</text>
+  <text x="597" y="172" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">[ Запис нового кадру ]</text>
+  <text x="597" y="192" fill="#1a1a1a" font-size="12" text-anchor="middle">Алокація: SPIRAM</text>
+  <text x="597" y="212" fill="#6b7280" font-size="12" text-anchor="middle">Заповнення з SRAM DMA</text>
+
+  <rect x="500" y="250" width="195" height="60" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="597" y="272" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Перемикач (Ping-Pong)</text>
+  <text x="597" y="292" font-size="12" fill="#27ae60" text-anchor="middle">✔ Усунення tearing (розривів)</text>
+
+  <rect x="500" y="325" width="195" height="105" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="597" y="347" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Кадровий буфер FB1</text>
+  <text x="597" y="367" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">[ Читання HTTP-сервером ]</text>
+  <text x="597" y="387" fill="#1a1a1a" font-size="12" text-anchor="middle">Алокація: SPIRAM</text>
+  <text x="597" y="407" fill="#6b7280" font-size="12" text-anchor="middle">Передається в мережу</text>
+
+  <text x="597" y="455" font-size="12" fill="#6b7280" text-anchor="middle">esp_camera_fb_get()</text>
+
+  <!-- КОЛОНКА 4: HTTP Стек (FreeRTOS) -->
+  <rect x="735" y="85" width="200" height="405" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="835" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">HTTP Стек (FreeRTOS)</text>
+
+  <rect x="750" y="130" width="170" height="105" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="835" y="152" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Задача httpd_task</text>
+  <text x="835" y="172" font-size="12" fill="#1a1a1a" text-anchor="middle">Обробник MJPEG-потоку</text>
+  <text x="835" y="192" font-size="12" fill="#6b7280" text-anchor="middle">Заголовок потоку:</text>
+  <text x="835" y="212" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">multipart/x-mixed...</text>
+
+  <rect x="750" y="250" width="170" height="105" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="835" y="272" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Стек lwIP / Wi-Fi</text>
+  <text x="835" y="292" font-size="12" fill="#1a1a1a" text-anchor="middle">TCP Socket Мовлення</text>
+  <text x="835" y="312" font-size="12" fill="#6b7280" text-anchor="middle">Безперервний потік</text>
+  <text x="835" y="332" font-size="12" fill="#6b7280" text-anchor="middle">Клієнтський браузер</text>
+
+  <rect x="750" y="370" width="170" height="105" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="835" y="392" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Веб-інтерфейс (UI)</text>
+  <text x="835" y="412" font-size="12" fill="#6b7280" text-anchor="middle">Зміна роздільності</text>
+  <text x="835" y="432" font-size="12" fill="#6b7280" text-anchor="middle">Параметри AEC / AWB</text>
+  <text x="835" y="452" font-size="12" fill="#6b7280" text-anchor="middle">Експозиція &amp; Баланс білого</text>
+
+  <!-- Стрілки зв'язку між блоками -->
+  <line x1="210" y1="302" x2="250" y2="302" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M445,310 L465,310 L465,182 L500,182" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M695,377 L715,377 L715,182 L750,182" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="835" y1="235" x2="835" y2="250" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="597" y1="235" x2="597" y2="250" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="597" y1="310" x2="597" y2="325" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+</svg>

@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Графік межових номіналів підтягувальних резисторів ESP8266</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Допустиме робоче вікно R_min...R_max забезпечує стабільне защеплення рівнів у boot-режимі</text>
+
+  <!-- Ліва панель: Графік залежності -->
+  <rect x="30" y="75" width="630" height="425" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="50" y="96" font-size="14" font-weight="bold" fill="#1a1a1a">Залежність напруги виводу V_pin від опору R_pull</text>
+  <text x="50" y="114" font-size="12" fill="#6b7280">Для виводів з активною підтяжкою до V_CC (GPIO0, GPIO2, CH_PD, RST)</text>
+
+  <!-- Заголовок осі Y -->
+  <text x="110" y="136" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V_pin (В)</text>
+
+  <!-- Полотно графіка (біле) -->
+  <rect x="110" y="145" width="530" height="240" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Зона 1: R < R_min (Недопустимо малий опір) -->
+  <rect x="110" y="145" width="90" height="240" fill="#fdecea" opacity="0.7"/>
+  <line x1="200" y1="145" x2="200" y2="385" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="155" y="270" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R &lt; R_min</text>
+  <text x="155" y="288" font-size="12" fill="#c0392b" text-anchor="middle">I &gt; I_max</text>
+
+  <!-- Зона 2: R_min <= R <= R_max (Допустиме вікно) -->
+  <rect x="200" y="145" width="280" height="240" fill="#e9f7ef" opacity="0.8"/>
+  <text x="340" y="163" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Допустиме робоче вікно R_pull</text>
+
+  <!-- Зона 3: R > R_max (Недопустимо великий опір) -->
+  <rect x="480" y="145" width="160" height="240" fill="#fdecea" opacity="0.7"/>
+  <line x1="480" y1="145" x2="480" y2="385" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="560" y="270" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R &gt; R_max</text>
+  <text x="560" y="288" font-size="12" fill="#c0392b" text-anchor="middle">V_pin &lt; V_IH</text>
+
+  <!-- Горизонтальні лінії порогових напруг -->
+  <!-- V_CC line (Y = 165) -->
+  <line x1="110" y1="165" x2="640" y2="165" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="102" y="169" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">V_CC (3.3V)</text>
+
+  <!-- V_IH line (Y = 215) -->
+  <line x1="110" y1="215" x2="640" y2="215" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="102" y="219" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">V_IH (2.48V)</text>
+  <text x="250" y="228" font-size="12" fill="#27ae60">Поріг логічної 1 (0.75 V_CC)</text>
+
+  <!-- V_IL line (Y = 315) -->
+  <line x1="110" y1="315" x2="640" y2="315" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="102" y="319" font-size="12" fill="#c0392b" text-anchor="end">V_IL (0.83V)</text>
+  <text x="210" y="330" font-size="12" fill="#c0392b">Поріг логічного 0 (0.25 V_CC)</text>
+
+  <!-- GND line (Y = 385) -->
+  <line x1="110" y1="385" x2="640" y2="385" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="102" y="389" font-size="12" fill="#1a1a1a" text-anchor="end">0V (GND)</text>
+
+  <!-- Збій boot-режиму текст -->
+  <text x="560" y="240" font-size="12" fill="#6b7280" text-anchor="middle">Збій boot-режиму</text>
+
+  <!-- Крива характеристики V_pin(R_pull) -->
+  <path d="M 110 165 L 200 165 C 260 165, 310 167, 370 173 C 430 179, 460 195, 480 215 C 510 245, 540 300, 570 330 C 600 355, 620 370, 640 375" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Точка R_typ -->
+  <line x1="310" y1="168" x2="310" y2="385" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3"/>
+  <circle cx="310" cy="168" r="5" fill="#2457d6" stroke="white" stroke-width="2"/>
+  <rect x="250" y="176" width="120" height="24" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="310" y="192" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R_typ = 10 кОм</text>
+
+  <!-- Точка R_max -->
+  <circle cx="480" cy="215" r="5" fill="#c0392b" stroke="white" stroke-width="2"/>
+  <rect x="485" y="185" width="115" height="24" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="542.5" y="201" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R_max ≈ 50 кОм</text>
+
+  <!-- Точка R_min -->
+  <circle cx="200" cy="165" r="5" fill="#c0392b" stroke="white" stroke-width="2"/>
+  <rect x="114" y="185" width="84" height="24" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="156" y="201" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R_min ≈ 2 кОм</text>
+
+  <!-- Осі та підписи поділйок -->
+  <!-- Вісь X -->
+  <line x1="110" y1="385" x2="640" y2="385" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  
+  <line x1="200" y1="385" x2="200" y2="390" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="200" y="404" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R_min</text>
+
+  <line x1="310" y1="385" x2="310" y2="390" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="310" y="404" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R_typ (10k)</text>
+
+  <line x1="480" y1="385" x2="480" y2="390" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="480" y="404" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R_max</text>
+
+  <text x="375" y="420" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Опір підтяжки R_pull (Ом)</text>
+
+  <!-- Вісь Y -->
+  <line x1="110" y1="385" x2="110" y2="145" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Легенда під графіком -->
+  <rect x="50" y="432" width="590" height="52" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  
+  <rect x="65" y="450" width="16" height="16" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="3"/>
+  <text x="90" y="463" font-size="12" fill="#1a1a1a">Робоче вікно (High boot)</text>
+
+  <rect x="255" y="450" width="16" height="16" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="3"/>
+  <text x="280" y="463" font-size="12" fill="#1a1a1a">Ризик збою / Перевантаження</text>
+
+  <line x1="475" y1="458" x2="505" y2="458" stroke="#2457d6" stroke-width="3"/>
+  <circle cx="490" cy="458" r="4" fill="#2457d6"/>
+  <text x="515" y="463" font-size="12" fill="#1a1a1a">Характеристика V_pin</text>
+
+  <!-- Права панель 1: Математична модель -->
+  <rect x="680" y="75" width="250" height="230" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="695" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Математична модель</text>
+  <line x1="695" y1="106" x2="915" y2="106" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="695" y="125" font-size="12" font-weight="bold" fill="#6b7280">1. Нижня межа (I_max = 12 мА):</text>
+  <rect x="695" y="132" width="220" height="26" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="805" y="149" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">R_min = V_CC / I_max</text>
+  <text x="695" y="172" font-size="12" fill="#6b7280">Запобігає пошкодженню ключа</text>
+
+  <text x="695" y="194" font-size="12" font-weight="bold" fill="#6b7280">2. Верхня межа (I_leak ≈ 10 мкА):</text>
+  <rect x="695" y="201" width="220" height="26" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="805" y="218" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">R_max = (V_CC - V_IH) / I_leak</text>
+  <text x="695" y="241" font-size="12" fill="#6b7280">Гарантує V_pin ≥ V_IH (2.48В)</text>
+
+  <text x="695" y="263" font-size="12" font-weight="bold" fill="#6b7280">3. Ланцюг скидання (RC):</text>
+  <rect x="695" y="270" width="220" height="26" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="805" y="287" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">τ = R_pull × C_ext</text>
+
+  <!-- Права панель 2: Конфігурація strapping -->
+  <rect x="680" y="315" width="250" height="185" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="695" y="338" font-size="14" font-weight="bold" fill="#2457d6">Конфігурація strapping</text>
+  <line x1="695" y1="346" x2="915" y2="346" stroke="#2457d6" stroke-width="0.5" stroke-dasharray="2 2"/>
+
+  <text x="695" y="367" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO0, GPIO2:</text>
+  <text x="785" y="367" font-size="12" fill="#27ae60">10 кОм (Pull-Up)</text>
+
+  <text x="695" y="391" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO15:</text>
+  <text x="755" y="391" font-size="12" fill="#27ae60">4.7...10 кОм (Pull-Down)</text>
+
+  <text x="695" y="415" font-size="12" font-weight="bold" fill="#1a1a1a">CH_PD, RST:</text>
+  <text x="775" y="415" font-size="12" fill="#2457d6">10 кОм + 100 нФ</text>
+
+  <text x="695" y="439" font-size="12" fill="#6b7280">Допуск опорів: ±5% (E24)</text>
+
+  <rect x="695" y="450" width="220" height="24" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="805" y="466" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Оптимум: 4.7 кОм ... 12 кОм</text>
+</svg>

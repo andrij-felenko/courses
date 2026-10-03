@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розподіл DRAM в ESP-01: сокетні PCB та ланцюжки pbuf буферів</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Відкриття сокетів та накопичення буферів вичерпують купу LwIP, спричиняючи помилку OOM</text>
+
+  <!-- Left Panel: DRAM Architecture Layout -->
+  <rect x="30" y="78" width="430" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="245" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Розподіл DRAM оперативної пам'яті</text>
+
+  <!-- Sub-block 1.1: Sockets Control Blocks (PCB) -->
+  <rect x="45" y="118" width="400" height="115" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="136" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">Блоки керування сокетами (PCB - Protocol Control Block)</text>
+
+  <rect x="60" y="148" width="115" height="70" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="117" y="166" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">tcp_pcb [0]</text>
+  <text x="117" y="184" text-anchor="middle" font-size="12" fill="#1a1a1a">Стан: ESTABLISHED</text>
+  <text x="117" y="202" text-anchor="middle" font-size="12" fill="#6b7280">IP / Port / Timers</text>
+
+  <rect x="187" y="148" width="115" height="70" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="244" y="166" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">tcp_pcb [1]</text>
+  <text x="244" y="184" text-anchor="middle" font-size="12" fill="#1a1a1a">Стан: LISTEN</text>
+  <text x="244" y="202" text-anchor="middle" font-size="12" fill="#6b7280">Сервер (Port 80)</text>
+
+  <rect x="314" y="148" width="115" height="70" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="371" y="166" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">udp_pcb [2]</text>
+  <text x="371" y="184" text-anchor="middle" font-size="12" fill="#1a1a1a">Сокет UDP</text>
+  <text x="371" y="202" text-anchor="middle" font-size="12" fill="#6b7280">Local/Remote IP</text>
+
+  <!-- Sub-block 1.2: Packet Buffers (pbuf chain) -->
+  <rect x="45" y="248" width="400" height="130" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="266" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">Транспортні буфери даних (pbuf chain в LwIP DRAM Pool)</text>
+
+  <rect x="60" y="278" width="105" height="88" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="112" y="296" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">pbuf #1</text>
+  <text x="112" y="314" text-anchor="middle" font-size="12" fill="#1a1a1a">hdr: 16 B</text>
+  <text x="112" y="332" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">next -&gt; pbuf#2</text>
+  <text x="112" y="350" text-anchor="middle" font-size="12" fill="#6b7280">payload: +IPD</text>
+
+  <line x1="167" y1="322" x2="187" y2="322" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="192" y="278" width="105" height="88" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="244" y="296" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">pbuf #2</text>
+  <text x="244" y="314" text-anchor="middle" font-size="12" fill="#1a1a1a">hdr: 16 B</text>
+  <text x="244" y="332" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">next -&gt; pbuf#3</text>
+  <text x="244" y="350" text-anchor="middle" font-size="12" fill="#6b7280">payload: +IPD</text>
+
+  <line x1="299" y1="322" x2="319" y2="322" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="324" y="278" width="105" height="88" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="376" y="296" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">pbuf #3</text>
+  <text x="376" y="314" text-anchor="middle" font-size="12" fill="#1a1a1a">hdr: 16 B</text>
+  <text x="376" y="332" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">next: NULL</text>
+  <text x="376" y="350" text-anchor="middle" font-size="12" fill="#6b7280">payload: +IPD</text>
+
+  <!-- Sub-block 1.3: AT Engine and App Heap -->
+  <rect x="45" y="392" width="400" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="410" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Пам'ять додатка та черга буферизації AT</text>
+
+  <rect x="60" y="420" width="180" height="45" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="150" y="436" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">AT Command Parser</text>
+  <text x="150" y="454" text-anchor="middle" font-size="12" fill="#6b7280">Буфер UART RX/TX</text>
+
+  <rect x="250" y="420" width="180" height="45" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="340" y="436" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Вільна DRAM (Heap)</text>
+  <text x="340" y="454" text-anchor="middle" font-size="12" fill="#6b7280">Динамічні об'єкти</text>
+
+  <!-- Right Panel: Dynamic Memory & OOM Exhaustion -->
+  <rect x="500" y="78" width="430" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="715" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Динаміка пам'яті та вичерпання (OOM)</text>
+
+  <!-- State A: Normal Allocation -->
+  <rect x="515" y="118" width="400" height="165" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="530" y="136" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">[ТАК] Нормальний режим (Достатньо DRAM)</text>
+
+  <rect x="530" y="148" width="370" height="24" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <rect x="530" y="148" width="80" height="24" rx="4 0 0 4" fill="#2457d6" opacity="0.85"/>
+  <rect x="610" y="148" width="110" height="24" fill="#27ae60" opacity="0.85"/>
+
+  <text x="570" y="186" text-anchor="middle" font-size="12" fill="#1a1a1a">PCB (2 сокети)</text>
+  <text x="665" y="186" text-anchor="middle" font-size="12" fill="#1a1a1a">pbuf (активні)</text>
+  <text x="810" y="186" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Вільна DRAM: ~45%</text>
+
+  <rect x="530" y="200" width="370" height="70" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="542" y="220" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">✓ Нові сокети відкриваються успішно (AT+CIPSTART)</text>
+  <text x="542" y="238" text-anchor="start" font-size="12" fill="#1a1a1a">✓ Буфери пакетів обробляються та передаються в UART</text>
+  <text x="542" y="256" text-anchor="start" font-size="12" fill="#6b7280">✓ Затримки відповідей AT мінімальні</text>
+
+  <!-- State B: Out-Of-Memory (OOM) -->
+  <rect x="515" y="298" width="400" height="180" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="530" y="316" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">[НЕ ТАК] Вичерпання пам'яті LwIP (OOM Error)</text>
+
+  <rect x="530" y="328" width="370" height="24" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <rect x="530" y="328" width="160" height="24" rx="4 0 0 4" fill="#2457d6" opacity="0.85"/>
+  <rect x="690" y="328" width="210" height="24" rx="0 4 4 0" fill="#c0392b" opacity="0.85"/>
+
+  <text x="610" y="366" text-anchor="middle" font-size="12" fill="#1a1a1a">5 PCB (MAX)</text>
+  <text x="795" y="366" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Черга pbuf переповнена (+IPD)</text>
+
+  <rect x="530" y="380" width="370" height="86" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="542" y="398" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">✗ AT+CIPSTART повертає ERROR (ERR_MEM в LwIP)</text>
+  <text x="542" y="416" text-anchor="start" font-size="12" fill="#1a1a1a">✗ Нові TCP SYN відкидаються / губляться пакети</text>
+  <text x="542" y="434" text-anchor="start" font-size="12" fill="#6b7280">✗ Блокування асинхронного FSM на хості</text>
+  <text x="542" y="452" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">! Потрібно закрити сокети або вичитати +IPD</text>
+</svg>

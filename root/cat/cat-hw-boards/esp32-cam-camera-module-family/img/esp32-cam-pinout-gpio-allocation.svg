@@ -1,0 +1,202 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Розподіл виводів та GPIO плати ESP32-CAM</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Більшість GPIO задіяно під камери DVP, PSRAM та microSD; для периферії вільні лише кілька виводів</text>
+
+  <!-- Плата ESP32-CAM (Центр) -->
+  <rect x="385" y="75" width="190" height="275" rx="8" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+  
+  <!-- Камера OV2640 -->
+  <rect x="435" y="90" width="88" height="80" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+  <circle cx="479" cy="130" r="24" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+  <circle cx="479" cy="130" r="12" fill="#2563eb" stroke="#1d4ed8" stroke-width="1.5"/>
+  <circle cx="475" cy="126" r="4" fill="#93c5fd" opacity="0.6"/>
+  <text x="479" y="184" text-anchor="middle" font-size="12" fill="#cbd5e1">Камера OV2640</text>
+
+  <!-- Екран модуля ESP32-S -->
+  <rect x="425" y="198" width="110" height="60" rx="4" fill="#94a3b8" stroke="#64748b" stroke-width="1.5"/>
+  <text x="480" y="233" text-anchor="middle" font-size="13" font-weight="700" fill="#1e293b">ESP32-S</text>
+
+  <!-- Спалах Flash LED -->
+  <rect x="527" y="90" width="20" height="20" rx="3" fill="#fef08a" stroke="#eab308" stroke-width="1.5"/>
+  <text x="537" y="104" text-anchor="middle" font-size="12" font-weight="700" fill="#854d0e">LED</text>
+
+  <!-- Слот microSD (позначення знизу) -->
+  <rect x="435" y="270" width="90" height="70" rx="4" fill="#334155" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="480" y="310" text-anchor="middle" font-size="12" fill="#cbd5e1">Слот microSD</text>
+
+  <!-- Піни лівої гребінки на платі -->
+  <rect x="388" y="89" width="20" height="12" rx="2" fill="#eab308" stroke="#ca8a04"/>
+  <rect x="388" y="119" width="20" height="12" rx="2" fill="#eab308" stroke="#ca8a04"/>
+  <rect x="388" y="149" width="20" height="12" rx="2" fill="#eab308" stroke="#ca8a04"/>
+  <rect x="388" y="179" width="20" height="12" rx="2" fill="#eab308" stroke="#ca8a04"/>
+  <rect x="388" y="209" width="20" height="12" rx="2" fill="#eab308" stroke="#ca8a04"/>
+  <rect x="388" y="239" width="20" height="12" rx="2" fill="#eab308" stroke="#ca8a04"/>
+  <rect x="388" y="269" width="20" height="12" rx="2" fill="#eab308" stroke="#ca8a04"/>
+  <rect x="388" y="299" width="20" height="12" rx="2" fill="#eab308" stroke="#ca8a04"/>
+
+  <!-- Лінії зв'язку з лівими блоками -->
+  <line x1="345" y1="95" x2="388" y2="95" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="345" y1="125" x2="388" y2="125" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="345" y1="155" x2="388" y2="155" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="345" y1="185" x2="388" y2="185" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="345" y1="215" x2="388" y2="215" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="345" y1="245" x2="388" y2="245" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="345" y1="275" x2="388" y2="275" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="345" y1="305" x2="388" y2="305" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Виводи Лівої Гребінки (Блоки викликів) -->
+  <!-- 5V -->
+  <rect x="25" y="83" width="320" height="24" rx="4" fill="#f3f4f6" stroke="#d0d7de"/>
+  <rect x="29" y="86" width="62" height="18" rx="3" fill="#e5e7eb"/>
+  <text x="60" y="100" text-anchor="middle" font-size="12" font-weight="700" fill="#374151">5V</text>
+  <text x="98" y="100" font-size="12" fill="#1a1a1a">Вхід живлення 5 В (LDO AMS1117)</text>
+
+  <!-- GND -->
+  <rect x="25" y="113" width="320" height="24" rx="4" fill="#f3f4f6" stroke="#d0d7de"/>
+  <rect x="29" y="116" width="62" height="18" rx="3" fill="#e5e7eb"/>
+  <text x="60" y="130" text-anchor="middle" font-size="12" font-weight="700" fill="#374151">GND</text>
+  <text x="98" y="130" font-size="12" fill="#1a1a1a">Спільна земля (0 В)</text>
+
+  <!-- GPIO 12 -->
+  <rect x="25" y="143" width="320" height="24" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <rect x="29" y="146" width="62" height="18" rx="3" fill="#fca5a5"/>
+  <text x="60" y="160" text-anchor="middle" font-size="12" font-weight="700" fill="#7f1d1d">IO12</text>
+  <text x="98" y="160" font-size="12" fill="#c0392b">microSD DATA2 / Touch1 / HS2</text>
+
+  <!-- GPIO 13 -->
+  <rect x="25" y="173" width="320" height="24" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <rect x="29" y="176" width="62" height="18" rx="3" fill="#fca5a5"/>
+  <text x="60" y="190" text-anchor="middle" font-size="12" font-weight="700" fill="#7f1d1d">IO13</text>
+  <text x="98" y="190" font-size="12" fill="#c0392b">microSD DATA3 / Touch4 / HS2</text>
+
+  <!-- GPIO 15 -->
+  <rect x="25" y="203" width="320" height="24" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <rect x="29" y="206" width="62" height="18" rx="3" fill="#fca5a5"/>
+  <text x="60" y="220" text-anchor="middle" font-size="12" font-weight="700" fill="#7f1d1d">IO15</text>
+  <text x="98" y="220" font-size="12" fill="#c0392b">microSD CMD / Strapping (HIGH)</text>
+
+  <!-- GPIO 14 -->
+  <rect x="25" y="233" width="320" height="24" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <rect x="29" y="236" width="62" height="18" rx="3" fill="#fca5a5"/>
+  <text x="60" y="250" text-anchor="middle" font-size="12" font-weight="700" fill="#7f1d1d">IO14</text>
+  <text x="98" y="250" font-size="12" fill="#c0392b">microSD CLK / ADC2_CH6</text>
+
+  <!-- GPIO 2 -->
+  <rect x="25" y="263" width="320" height="24" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <rect x="29" y="266" width="62" height="18" rx="3" fill="#fca5a5"/>
+  <text x="60" y="280" text-anchor="middle" font-size="12" font-weight="700" fill="#7f1d1d">IO2</text>
+  <text x="98" y="280" font-size="12" fill="#c0392b">microSD DATA0 / Синій LED</text>
+
+  <!-- GPIO 4 -->
+  <rect x="25" y="293" width="320" height="24" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <rect x="29" y="296" width="62" height="18" rx="3" fill="#fca5a5"/>
+  <text x="60" y="310" text-anchor="middle" font-size="12" font-weight="700" fill="#7f1d1d">IO4</text>
+  <text x="98" y="310" font-size="12" fill="#c0392b">microSD DATA1 / Спалах LED</text>
+
+  <!-- Піни правої гребінки на платі -->
+  <rect x="552" y="89" width="20" height="12" rx="2" fill="#eab308" stroke="#ca8a04"/>
+  <rect x="552" y="119" width="20" height="12" rx="2" fill="#eab308" stroke="#ca8a04"/>
+  <rect x="552" y="149" width="20" height="12" rx="2" fill="#eab308" stroke="#ca8a04"/>
+  <rect x="552" y="179" width="20" height="12" rx="2" fill="#eab308" stroke="#ca8a04"/>
+  <rect x="552" y="209" width="20" height="12" rx="2" fill="#eab308" stroke="#ca8a04"/>
+  <rect x="552" y="239" width="20" height="12" rx="2" fill="#eab308" stroke="#ca8a04"/>
+  <rect x="552" y="269" width="20" height="12" rx="2" fill="#eab308" stroke="#ca8a04"/>
+  <rect x="552" y="299" width="20" height="12" rx="2" fill="#eab308" stroke="#ca8a04"/>
+
+  <!-- Лінії зв'язку з правими блоками -->
+  <line x1="572" y1="95" x2="615" y2="95" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="572" y1="125" x2="615" y2="125" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="572" y1="155" x2="615" y2="155" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="572" y1="185" x2="615" y2="185" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="572" y1="215" x2="615" y2="215" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="572" y1="245" x2="615" y2="245" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="572" y1="275" x2="615" y2="275" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="572" y1="305" x2="615" y2="305" stroke="#94a3b8" stroke-width="1.5"/>
+
+  <!-- Виводи Правої Гребінки (Блоки викликів) -->
+  <!-- 3V3 -->
+  <rect x="615" y="83" width="320" height="24" rx="4" fill="#f3f4f6" stroke="#d0d7de"/>
+  <rect x="619" y="86" width="62" height="18" rx="3" fill="#e5e7eb"/>
+  <text x="650" y="100" text-anchor="middle" font-size="12" font-weight="700" fill="#374151">3V3</text>
+  <text x="688" y="100" font-size="12" fill="#1a1a1a">Вихід/Вхід живлення 3.3 В</text>
+
+  <!-- GND -->
+  <rect x="615" y="113" width="320" height="24" rx="4" fill="#f3f4f6" stroke="#d0d7de"/>
+  <rect x="619" y="116" width="62" height="18" rx="3" fill="#e5e7eb"/>
+  <text x="650" y="130" text-anchor="middle" font-size="12" font-weight="700" fill="#374151">GND</text>
+  <text x="688" y="130" font-size="12" fill="#1a1a1a">Спільна земля (0 В)</text>
+
+  <!-- GPIO 16 -->
+  <rect x="615" y="143" width="320" height="24" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <rect x="619" y="146" width="62" height="18" rx="3" fill="#fca5a5"/>
+  <text x="650" y="160" text-anchor="middle" font-size="12" font-weight="700" fill="#7f1d1d">IO16</text>
+  <text x="688" y="160" font-size="12" fill="#c0392b">PSRAM CS (Зайнято PSRAM!)</text>
+
+  <!-- GPIO 0 -->
+  <rect x="615" y="173" width="320" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <rect x="619" y="176" width="62" height="18" rx="3" fill="#bfdbfe"/>
+  <text x="650" y="190" text-anchor="middle" font-size="12" font-weight="700" fill="#1e3a8a">IO0</text>
+  <text x="688" y="190" font-size="12" fill="#2457d6">XCLK камери / Strapping GND</text>
+
+  <!-- GPIO 3 -->
+  <rect x="615" y="203" width="320" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <rect x="619" y="206" width="62" height="18" rx="3" fill="#a7f3d0"/>
+  <text x="650" y="220" text-anchor="middle" font-size="12" font-weight="700" fill="#065f46">IO3</text>
+  <text x="688" y="220" font-size="12" fill="#27ae60">U0RXD (Вільний RX / Flash)</text>
+
+  <!-- GPIO 1 -->
+  <rect x="615" y="233" width="320" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <rect x="619" y="236" width="62" height="18" rx="3" fill="#a7f3d0"/>
+  <text x="650" y="250" text-anchor="middle" font-size="12" font-weight="700" fill="#065f46">IO1</text>
+  <text x="688" y="250" font-size="12" fill="#27ae60">U0TXD (Вільний TX / Flash)</text>
+
+  <!-- GND -->
+  <rect x="615" y="263" width="320" height="24" rx="4" fill="#f3f4f6" stroke="#d0d7de"/>
+  <rect x="619" y="266" width="62" height="18" rx="3" fill="#e5e7eb"/>
+  <text x="650" y="280" text-anchor="middle" font-size="12" font-weight="700" fill="#374151">GND</text>
+  <text x="688" y="280" font-size="12" fill="#1a1a1a">Спільна земля (0 В)</text>
+
+  <!-- 5V -->
+  <rect x="615" y="293" width="320" height="24" rx="4" fill="#f3f4f6" stroke="#d0d7de"/>
+  <rect x="619" y="296" width="62" height="18" rx="3" fill="#e5e7eb"/>
+  <text x="650" y="310" text-anchor="middle" font-size="12" font-weight="700" fill="#374151">5V</text>
+  <text x="688" y="310" font-size="12" fill="#1a1a1a">Вхід живлення 5 В (VCC)</text>
+
+  <!-- Нижні Підсумкові Панелі -->
+  <!-- Панель 1: Шина камери DVP -->
+  <rect x="25" y="365" width="290" height="175" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="35" y="388" font-size="13" font-weight="700" fill="#2457d6">Шина камери DVP (16 GPIO)</text>
+  <line x1="35" y1="398" x2="305" y2="398" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="35" y="418" font-size="12" fill="#1e3a8a">• D0–D3: GPIO 5, 18, 19, 21</text>
+  <text x="35" y="440" font-size="12" fill="#1e3a8a">• D4–D7: GPIO 36, 39, 34, 35</text>
+  <text x="35" y="462" font-size="12" fill="#1e3a8a">• XCLK: GPIO 0 | PCLK: GPIO 22</text>
+  <text x="35" y="484" font-size="12" fill="#1e3a8a">• VSYNC: GPIO 25 | HREF: GPIO 23</text>
+  <text x="35" y="506" font-size="12" fill="#1e3a8a">• SIOC: GPIO 27 | SIOD: GPIO 26</text>
+  <text x="35" y="528" font-size="12" fill="#1e3a8a">• PWDN: GPIO 32 (power down)</text>
+
+  <!-- Панель 2: Слот microSD та світлодіоди -->
+  <rect x="335" y="365" width="290" height="175" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="345" y="388" font-size="13" font-weight="700" fill="#c0392b">Слот microSD та світлодіоди</text>
+  <line x1="345" y1="398" x2="615" y2="398" stroke="#fca5a5" stroke-width="1"/>
+  <text x="345" y="418" font-size="12" fill="#7f1d1d">• SD_DATA0: GPIO 2 (синій LED)</text>
+  <text x="345" y="440" font-size="12" fill="#7f1d1d">• SD_DATA1: GPIO 4 (спалах LED)</text>
+  <text x="345" y="462" font-size="12" fill="#7f1d1d">• SD_DATA2: GPIO 12 | DATA3: GPIO 13</text>
+  <text x="345" y="484" font-size="12" fill="#7f1d1d">• SD_CLK: GPIO 14 | SD_CMD: GPIO 15</text>
+  <text x="345" y="506" font-size="12" fill="#7f1d1d">• 1-bit SD режим вивільняє GPIO 12,13</text>
+  <text x="345" y="528" font-size="12" fill="#7f1d1d">• GPIO 4 спалах вмикається при SD!</text>
+
+  <!-- Панель 3: Strapping та вільні GPIO -->
+  <rect x="645" y="365" width="290" height="175" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="655" y="388" font-size="13" font-weight="700" fill="#27ae60">Strapping та доступні виводи</text>
+  <line x1="655" y1="398" x2="925" y2="398" stroke="#86efac" stroke-width="1"/>
+  <text x="655" y="418" font-size="12" fill="#14532d">• GPIO 0: GND = Flash, High = Run</text>
+  <text x="655" y="440" font-size="12" fill="#14532d">• GPIO 1/3: UART0 (TX/RX відлагодж.)</text>
+  <text x="655" y="462" font-size="12" fill="#14532d">• GPIO 16: CS для PSRAM (зайнято)</text>
+  <text x="655" y="484" font-size="12" fill="#14532d">• GPIO 15: має бути HIGH при старті</text>
+  <text x="655" y="506" font-size="12" fill="#14532d">• GPIO 12: підтяжка впливає на старт</text>
+  <text x="655" y="528" font-size="12" fill="#14532d">• Вільні для периферії: GPIO 1, 3</text>
+</svg>

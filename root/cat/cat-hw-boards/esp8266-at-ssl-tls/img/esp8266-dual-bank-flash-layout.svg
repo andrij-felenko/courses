@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Двобанковий розподіл Flash-пам'яті ESP8266 та вектор завантаження FOTA</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Bootloader перемикає вектор виконання між слотами user1.bin та user2.bin після HTTPS-оновлення</text>
+
+  <!-- ПАНЕЛЬ 1: Карта пам'яті Flash та вектори -->
+  <rect x="25" y="75" width="435" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Карта пам'яті Flash та вектор адресації Bootloader</text>
+
+  <!-- Адресні позначки ліворуч -->
+  <text x="105" y="142" text-anchor="end" font-size="12" fill="#6b7280">0x00000</text>
+  <text x="105" y="215" text-anchor="end" font-size="12" fill="#6b7280">0x01000</text>
+  <text x="105" y="298" text-anchor="end" font-size="12" fill="#6b7280">0x81000</text>
+  <text x="105" y="380" text-anchor="end" font-size="12" fill="#6b7280">0x3FC00</text>
+
+  <!-- Сектор 1: Bootloader -->
+  <rect x="112" y="118" width="238" height="48" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="124" y="137" font-size="12" font-weight="bold" fill="#2457d6">boot.bin (Завантажувач)</text>
+  <text x="124" y="154" font-size="12" fill="#6b7280">Вибір вектора за Boot Info</text>
+
+  <!-- Сектор 2: Slot 1 (user1.bin) -->
+  <rect x="112" y="178" width="238" height="74" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="124" y="197" font-size="12" font-weight="bold" fill="#27ae60">Слот 1: user1.bin (Активний)</text>
+  <text x="124" y="217" font-size="12" fill="#1a1a1a">Поточна робоча AT-прошивка</text>
+  <text x="124" y="237" font-size="12" fill="#6b7280">Розмір: ~480 КБ (SSL/TLS Стек)</text>
+
+  <!-- Сектор 3: Slot 2 (user2.bin) -->
+  <rect x="112" y="262" width="238" height="74" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="124" y="281" font-size="12" font-weight="bold" fill="#1a1a1a">Слот 2: user2.bin (Резервний)</text>
+  <text x="124" y="301" font-size="12" fill="#1a1a1a">Цільовий банк HTTPS FOTA</text>
+  <text x="124" y="321" font-size="12" fill="#6b7280">Запис нового образу OTA</text>
+
+  <!-- Сектор 4: System Sector -->
+  <rect x="112" y="346" width="238" height="66" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="124" y="366" font-size="12" font-weight="bold" fill="#1a1a1a">Системний сектор (Boot Info)</text>
+  <text x="124" y="386" font-size="12" fill="#2457d6">Прапорець активності: Slot 1 / 2</text>
+  <text x="124" y="402" font-size="12" fill="#6b7280">Параметри RF та конфігурація</text>
+
+  <!-- Вектори завантажувача -->
+  <!-- Читання System Info -->
+  <path d="M 350 379 L 362 379 L 362 154 L 350 154" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-gray)"/>
+
+  <!-- Вектор 1 (Активний) -->
+  <path d="M 350 142 L 376 142 L 376 215 L 354 215" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="384" y="172" font-size="12" font-weight="bold" fill="#27ae60">Вектор 1</text>
+  <text x="384" y="187" font-size="12" fill="#27ae60">(Активний)</text>
+
+  <!-- Вектор 2 (Після FOTA) -->
+  <path d="M 350 142 L 448 142 L 448 299 L 354 299" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-blue)"/>
+  <text x="384" y="270" font-size="12" font-weight="bold" fill="#2457d6">Вектор 2</text>
+  <text x="384" y="285" font-size="12" fill="#2457d6">(Після FOTA)</text>
+
+  <!-- ПАНЕЛЬ 2: Послідовність виконання HTTPS FOTA -->
+  <rect x="480" y="75" width="455" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="500" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Послідовність виконання HTTPS FOTA (AT+CIUPDATE)</text>
+
+  <!-- Крок 1 -->
+  <rect x="500" y="115" width="415" height="84" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="512" y="125" width="165" height="22" rx="4" fill="#eaf0fd"/>
+  <text x="520" y="140" font-size="12" font-weight="bold" fill="#2457d6">1. HTTPS FOTA Завантаження</text>
+  <text x="516" y="162" font-size="12" fill="#1a1a1a">• Отримання прошивки з HTTPS-сервера через mbedTLS</text>
+  <text x="516" y="180" font-size="12" fill="#6b7280">• Буфери TLS (Heap ~35 КБ), потоковий запис у user2.bin</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="707" y1="199" x2="707" y2="213" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Крок 2 -->
+  <rect x="500" y="215" width="415" height="84" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="512" y="225" width="195" height="22" rx="4" fill="#eaf0fd"/>
+  <text x="520" y="240" font-size="12" font-weight="bold" fill="#2457d6">2. Перевірка та Оновлення Boot</text>
+  <text x="516" y="262" font-size="12" fill="#1a1a1a">• Перевірка MD5/SHA контрольної суми завантаженого банку</text>
+  <text x="516" y="280" font-size="12" fill="#27ae60">• Запис прапорця Active Slot = user2.bin у System Sector</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="707" y1="299" x2="707" y2="313" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Крок 3 -->
+  <rect x="500" y="315" width="415" height="84" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="512" y="325" width="180" height="22" rx="4" fill="#27ae60"/>
+  <text x="520" y="340" font-size="12" font-weight="bold" fill="#ffffff">3. Перезавантаження &amp; Переключення</text>
+  <text x="516" y="362" font-size="12" fill="#1a1a1a">• Команда AT+RST або автоматичне перезавантаження ESP8266</text>
+  <text x="516" y="380" font-size="12" fill="#27ae60">• Bootloader стартує нову прошивку за адресою 0x81000</text>
+
+  <!-- Підсумок Хост-МК -->
+  <rect x="500" y="407" width="415" height="43" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="512" y="424" font-size="12" font-weight="bold" fill="#1a1a1a">Хост-МК (UART):</text>
+  <text x="610" y="424" font-size="12" fill="#6b7280">Обробка статусів +CWUPD:1..4, запобігання WDT reset</text>
+  <text x="512" y="440" font-size="12" font-weight="bold" fill="#27ae60">Результат:</text>
+  <text x="580" y="440" font-size="12" fill="#27ae60">Безперебійне FOTA оновлення з можливістю откату (Rollback)</text>
+</svg>

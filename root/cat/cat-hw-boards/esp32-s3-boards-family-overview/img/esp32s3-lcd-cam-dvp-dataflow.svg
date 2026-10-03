@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратний потік даних DVP камери в ESP32-S3</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Передача кадру з сенсора через LCD_CAM та EDMA в PSRAM без залучення ядра CPU</text>
+
+  <!-- Блок 1: Сенсор камери -->
+  <rect x="25" y="76" width="190" height="340" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="120" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сенсор камери</text>
+  <text x="120" y="116" font-size="12" fill="#6b7280" text-anchor="middle">OV2640 / OV5640</text>
+
+  <rect x="40" y="132" width="160" height="270" fill="#eaf0fd" stroke="#2457d6" rx="6"/>
+  <text x="120" y="148" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Формування DVP</text>
+
+  <!-- Виводи сигналів сенсора -->
+  <!-- PCLK -->
+  <rect x="52" y="164" width="136" height="44" fill="white" stroke="#2457d6" rx="4"/>
+  <text x="120" y="182" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">PCLK (Такти)</text>
+  <text x="120" y="198" font-size="12" fill="#6b7280" text-anchor="middle">10–40 МГц</text>
+
+  <!-- VSYNC -->
+  <rect x="52" y="222" width="136" height="44" fill="white" stroke="#2457d6" rx="4"/>
+  <text x="120" y="240" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">VSYNC (Кадр)</text>
+  <text x="120" y="256" font-size="12" fill="#6b7280" text-anchor="middle">Імпульс кадру</text>
+
+  <!-- HREF -->
+  <rect x="52" y="280" width="136" height="44" fill="white" stroke="#2457d6" rx="4"/>
+  <text x="120" y="298" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">HREF (Рядок)</text>
+  <text x="120" y="314" font-size="12" fill="#6b7280" text-anchor="middle">Активний рядок</text>
+
+  <!-- D[0:7] -->
+  <rect x="52" y="338" width="136" height="52" fill="white" stroke="#2457d6" rx="4"/>
+  <text x="120" y="356" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D[0:7] (Дані)</text>
+  <text x="120" y="374" font-size="12" fill="#6b7280" text-anchor="middle">8-бітний байт</text>
+
+  <!-- Лінії шини DVP -->
+  <text x="277" y="148" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шина DVP</text>
+
+  <!-- Лінія PCLK -->
+  <text x="277" y="178" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">PCLK</text>
+  <line x1="215" y1="186" x2="340" y2="186" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Лінія VSYNC -->
+  <text x="277" y="236" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">VSYNC</text>
+  <line x1="215" y1="244" x2="340" y2="244" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Лінія HREF -->
+  <text x="277" y="294" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">HREF</text>
+  <line x1="215" y1="302" x2="340" y2="302" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Шина D[0:7] -->
+  <text x="277" y="354" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D[0:7] (8 біт)</text>
+  <line x1="215" y1="364" x2="340" y2="364" stroke="#2457d6" stroke-width="4" marker-end="url(#arr-accent)"/>
+
+  <!-- Блок 2: Мікроконтролер ESP32-S3 -->
+  <rect x="340" y="76" width="595" height="340" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+  <text x="637" y="98" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер ESP32-S3</text>
+  <text x="637" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Паралельне апаратне захоплення відеопотоку</text>
+
+  <!-- Модуль 2A: LCD_CAM -->
+  <rect x="352" y="132" width="196" height="270" fill="#eaf0fd" stroke="#2457d6" rx="6"/>
+  <text x="450" y="148" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Модуль LCD_CAM</text>
+
+  <!-- CAM Rx Контролер -->
+  <rect x="364" y="164" width="172" height="80" fill="white" stroke="#2457d6" rx="4"/>
+  <text x="450" y="180" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CAM Rx Контролер</text>
+  <text x="450" y="198" font-size="12" fill="#6b7280" text-anchor="middle">Детекція VSYNC / HREF</text>
+  <text x="450" y="216" font-size="12" fill="#2457d6" text-anchor="middle">Стробування по PCLK</text>
+  <text x="450" y="232" font-size="12" fill="#6b7280" text-anchor="middle">Фіксація байтів D[0:7]</text>
+
+  <!-- Стрілка від CAM Rx до Rx FIFO -->
+  <line x1="450" y1="244" x2="450" y2="264" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Rx FIFO Буфер -->
+  <rect x="364" y="264" width="172" height="128" fill="white" stroke="#2457d6" rx="4"/>
+  <text x="450" y="284" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Rx FIFO Буфер</text>
+  <text x="450" y="302" font-size="12" fill="#1a1a1a" text-anchor="middle">Апаратно пакує байт-потік</text>
+  <text x="450" y="320" font-size="12" fill="#6b7280" text-anchor="middle">8 біт → 32 біти (слово)</text>
+
+  <!-- Елементи черги FIFO -->
+  <rect x="376" y="336" width="148" height="42" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <rect x="382" y="342" width="40" height="30" fill="white" stroke="#2457d6" rx="2"/>
+  <text x="402" y="361" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">B0..B3</text>
+  <rect x="430" y="342" width="40" height="30" fill="white" stroke="#2457d6" rx="2"/>
+  <text x="450" y="361" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">B4..B7</text>
+  <rect x="478" y="342" width="40" height="30" fill="white" stroke="#2457d6" rx="2"/>
+  <text x="498" y="361" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">FIFO</text>
+
+  <!-- Стрілка від LCD_CAM до GDMA -->
+  <text x="566" y="346" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">32 біти</text>
+  <line x1="548" y1="357" x2="584" y2="357" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Модуль 2C: Ядра CPU (LX7) -->
+  <rect x="584" y="132" width="152" height="110" fill="#e9f7ef" stroke="#27ae60" rx="6"/>
+  <text x="660" y="148" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Ядра CPU (LX7)</text>
+  <text x="660" y="166" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0% CPU для шини</text>
+  <text x="660" y="184" font-size="12" fill="#6b7280" text-anchor="middle">Вільні для алгоритмів</text>
+
+  <rect x="594" y="194" width="132" height="40" fill="white" stroke="#27ae60" rx="3"/>
+  <text x="660" y="210" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Очікування EOF</text>
+  <text x="660" y="226" font-size="12" fill="#6b7280" text-anchor="middle">Переривання кадру</text>
+
+  <!-- Лінія переривання EOF (GDMA -> CPU) -->
+  <line x1="660" y1="266" x2="660" y2="242" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-green)"/>
+  <text x="668" y="258" font-size="12" font-weight="bold" fill="#27ae60">EOF (VSYNC)</text>
+
+  <!-- Модуль 2B: GDMA / EDMA -->
+  <rect x="584" y="266" width="152" height="136" fill="#e9f7ef" stroke="#27ae60" rx="6"/>
+  <text x="660" y="284" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">GDMA / EDMA</text>
+  <text x="660" y="302" font-size="12" fill="#1a1a1a" text-anchor="middle">Апаратна передача</text>
+  <text x="660" y="318" font-size="12" fill="#6b7280" text-anchor="middle">прямо в PSRAM</text>
+
+  <rect x="594" y="328" width="132" height="64" fill="white" stroke="#27ae60" rx="4"/>
+  <text x="660" y="346" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Кільцеві дескриптори</text>
+  <text x="660" y="364" font-size="12" fill="#6b7280" text-anchor="middle">Автоперемикання</text>
+  <text x="660" y="380" font-size="12" fill="#27ae60" text-anchor="middle">Без участі CPU</text>
+
+  <!-- Стрілка від GDMA до PSRAM -->
+  <text x="749" y="350" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">DMA</text>
+  <line x1="736" y1="360" x2="762" y2="360" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- Модуль 2D: Octal PSRAM (Кільцевий буфер) -->
+  <rect x="762" y="132" width="166" height="270" fill="white" stroke="#d0d7de" rx="6"/>
+  <text x="845" y="148" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Octal PSRAM</text>
+  <text x="845" y="166" font-size="12" fill="#6b7280" text-anchor="middle">Кільцевий буфер</text>
+
+  <!-- Буфер 0 -->
+  <rect x="769" y="180" width="152" height="64" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="845" y="198" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Буфер 0 (Кадр N)</text>
+  <text x="845" y="216" font-size="12" fill="#2457d6" text-anchor="middle">Запис через DMA</text>
+  <text x="845" y="232" font-size="12" fill="#6b7280" text-anchor="middle">[Активний захоплення]</text>
+
+  <!-- Буфер 1 -->
+  <rect x="769" y="254" width="152" height="64" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="845" y="272" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Буфер 1 (Кадр N-1)</text>
+  <text x="845" y="290" font-size="12" fill="#27ae60" text-anchor="middle">Готовий для CPU</text>
+  <text x="845" y="306" font-size="12" fill="#6b7280" text-anchor="middle">[Обробка / Wi-Fi]</text>
+
+  <!-- Буфер 2 -->
+  <rect x="769" y="328" width="152" height="64" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="845" y="346" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Буфер 2 (Кадр N+1)</text>
+  <text x="845" y="364" font-size="12" fill="#6b7280" text-anchor="middle">Черга дескриптора</text>
+  <text x="845" y="380" font-size="12" fill="#6b7280" text-anchor="middle">[Вільний резерв]</text>
+
+  <!-- Нижній блок з підсумком -->
+  <rect x="25" y="428" width="910" height="32" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="480" y="449" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Висновок: LCD_CAM та EDMA захоплюють потік камери в PSRAM апаратно — ядро CPU обробляє лише готові кадри</text>
+</svg>

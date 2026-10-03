@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Виділення та адресація пам'яті ESP32-S3: SRAM та PSRAM</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Виклики heap_caps_malloc() розділяють внутрішню DRAM для DMA та зовнішню PSRAM через Quad/Octal SPI</text>
+
+  <!-- Панель 1: Рівень API ESP-IDF -->
+  <rect x="30" y="85" width="270" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="42" y="97" width="246" height="30" rx="4" fill="#2457d6"/>
+  <text x="165" y="117" font-size="13" font-weight="bold" fill="white" text-anchor="middle">API heap_caps_malloc()</text>
+
+  <!-- Блок MALLOC_CAP_SPIRAM -->
+  <rect x="44" y="140" width="242" height="155" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="165" y="163" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">MALLOC_CAP_SPIRAM</text>
+  <line x1="56" y1="173" x2="274" y2="173" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="56" y="193" font-size="12" fill="#1a1a1a">• Пам'ять: Зовнішня PSRAM</text>
+  <text x="56" y="215" font-size="12" fill="#1a1a1a">• Призначення: Великі буфери</text>
+  <text x="68" y="233" font-size="12" fill="#1a1a1a">(кадри LCD/CAM, аудіо)</text>
+  <text x="56" y="255" font-size="12" fill="#6b7280">• Доступ: Через Cache/MMU</text>
+  <text x="56" y="275" font-size="12" fill="#6b7280">• Шина: Quad / Octal SPI</text>
+
+  <!-- Блок MALLOC_CAP_DMA -->
+  <rect x="44" y="315" width="242" height="155" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="165" y="338" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">MALLOC_CAP_DMA</text>
+  <line x1="56" y1="348" x2="274" y2="348" stroke="#27ae60" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="56" y="368" font-size="12" fill="#1a1a1a">• Пам'ять: Внутрішня SRAM</text>
+  <text x="56" y="390" font-size="12" fill="#1a1a1a">• Призначення: DMA буфери</text>
+  <text x="68" y="408" font-size="12" fill="#1a1a1a">(SPI, Wi-Fi, SDMMC, USB)</text>
+  <text x="56" y="430" font-size="12" fill="#6b7280">• Доступ: Прямий апаратний</text>
+  <text x="56" y="450" font-size="12" fill="#6b7280">• Вимога: MALLOC_CAP_INTERNAL</text>
+
+  <!-- Панель 2: Адресний простір -->
+  <rect x="345" y="85" width="270" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="357" y="97" width="246" height="30" rx="4" fill="#1a1a1a"/>
+  <text x="480" y="117" font-size="13" font-weight="bold" fill="white" text-anchor="middle">Адресний простір ESP32-S3</text>
+
+  <!-- Блок Внутрішня DRAM -->
+  <rect x="359" y="140" width="242" height="155" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="369" y="150" width="222" height="26" rx="4" fill="#e9f7ef"/>
+  <text x="480" y="167" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Внутрішня DRAM (512 KB)</text>
+  <text x="371" y="193" font-size="12" fill="#6b7280">Адреси: 0x3FC0_0000 – 0x3FFF_FFFF</text>
+  <line x1="371" y1="203" x2="591" y2="203" stroke="#d0d7de" stroke-width="1"/>
+  <text x="371" y="223" font-size="12" fill="#1a1a1a">• Безпосередня шина CPU</text>
+  <text x="371" y="245" font-size="12" fill="#27ae60" font-weight="bold">• Повна підтримка DMA</text>
+  <text x="371" y="267" font-size="12" fill="#6b7280">• Мінімальна затримка (RAM)</text>
+
+  <!-- Блок Простір PSRAM -->
+  <rect x="359" y="315" width="242" height="155" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="369" y="325" width="222" height="26" rx="4" fill="#eaf0fd"/>
+  <text x="480" y="342" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Простір PSRAM (до 32 MB)</text>
+  <text x="371" y="368" font-size="12" fill="#6b7280">Адреси: 0x3D00_0000 – 0x3E00_0000</text>
+  <line x1="371" y1="378" x2="591" y2="378" stroke="#d0d7de" stroke-width="1"/>
+  <text x="371" y="398" font-size="12" fill="#1a1a1a">• Відображення через MMU</text>
+  <text x="371" y="420" font-size="12" fill="#2457d6" font-weight="bold">• Керується L1 Data Cache</text>
+  <text x="371" y="442" font-size="12" fill="#6b7280">• Запити ідуть у контролер MSPI</text>
+
+  <!-- Панель 3: Периферія та MSPI -->
+  <rect x="660" y="85" width="270" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="672" y="97" width="246" height="30" rx="4" fill="#1a1a1a"/>
+  <text x="795" y="117" font-size="13" font-weight="bold" fill="white" text-anchor="middle">Шина MSPI та периферія</text>
+
+  <!-- Блок Контролер MSPI -->
+  <rect x="674" y="140" width="242" height="155" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="795" y="163" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Контролер MSPI (Octal/Quad)</text>
+  <line x1="686" y1="173" x2="904" y2="173" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="686" y="193" font-size="12" fill="#1a1a1a">• Quad SPI: 4-біт шина (40 MHz)</text>
+  <text x="686" y="215" font-size="12" fill="#1a1a1a">• Octal SPI: 8-біт шина (80/120 MHz)</text>
+  <text x="686" y="237" font-size="12" fill="#6b7280">• Арбітраж Flash та PSRAM</text>
+  <text x="686" y="259" font-size="12" fill="#6b7280">• Прозорий підгруз кеш-рядків</text>
+  <text x="686" y="279" font-size="12" fill="#6b7280">• Оптимізований burst-обмін</text>
+
+  <!-- Блок Чип PSRAM -->
+  <rect x="674" y="315" width="242" height="155" rx="6" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="684" y="325" width="222" height="26" rx="4" fill="#f4f6f8"/>
+  <text x="795" y="342" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зовнішній чип PSRAM</text>
+  <text x="696" y="368" font-size="12" fill="#6b7280">Об'єм: 2 MB / 8 MB / 16 MB</text>
+  <line x1="696" y1="378" x2="904" y2="378" stroke="#d0d7de" stroke-width="1"/>
+  <text x="696" y="398" font-size="12" fill="#1a1a1a">• Сигнали: CS, CLK, D0-D7</text>
+  <text x="696" y="420" font-size="12" fill="#2457d6" font-weight="bold">• Окреме живлення VDD_SPI</text>
+  <text x="696" y="442" font-size="12" fill="#6b7280">• Корпус: SiP або зовнішній</text>
+
+  <!-- Лінії зв'язку -->
+  <!-- DMA Flow (Зелена) -->
+  <path d="M 286 392.5 L 322.5 392.5 L 322.5 217.5 L 359 217.5" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- PSRAM Flow (Синя) -->
+  <path d="M 286 217.5 L 322.5 217.5 L 322.5 392.5 L 359 392.5" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- MMU to MSPI Controller (Синя) -->
+  <path d="M 601 392.5 L 630.5 392.5 L 630.5 217.5 L 674 217.5" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- MSPI to Physical PSRAM Chip (Синя) -->
+  <line x1="795" y1="295" x2="795" y2="315" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+</svg>

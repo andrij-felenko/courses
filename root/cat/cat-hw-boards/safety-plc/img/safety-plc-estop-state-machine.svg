@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="26" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Автомат станів безпекового блоку FB_EStop</text>
+  <text x="480" y="44" font-size="13" fill="#6b7280" text-anchor="middle">Схема переходів між станами за сигналами F-DI, EDM та кнопкою Reset</text>
+
+  <!-- Перехід 3: Safe -> EStopActive (верхня дуга) -->
+  <path d="M 815,120 L 815,72 L 145,72 L 145,120" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="480" y="59" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">F-DI1=0 або F-DI2=0 (Натиснуто E-Stop)</text>
+
+  <!-- Перехід 1: EStopActive -> WaitingForReset -->
+  <line x1="250" y1="145" x2="375" y2="145" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="312.5" y="135" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">F-DI1=1 &amp; F-DI2=1</text>
+
+  <!-- Перехід 4: WaitingForReset -> EStopActive -->
+  <line x1="375" y1="185" x2="250" y2="185" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="312.5" y="200" font-size="12" fill="#c0392b" text-anchor="middle">
+    <tspan x="312.5" dy="0">F-DI = 0</tspan>
+    <tspan x="312.5" dy="13">(E-Stop натиснуто)</tspan>
+  </text>
+
+  <!-- Перехід 2: WaitingForReset -> Safe -->
+  <line x1="585" y1="167.5" x2="710" y2="167.5" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="647.5" y="155" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Reset ↑ &amp; EDM=1</text>
+
+  <!-- Перехід 5: Safe -> DiscrepancyFault -->
+  <path d="M 740,215 L 740,238 L 80,238 L 80,375" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arr-red)"/>
+  <text x="175" y="340" font-size="12" fill="#c0392b" text-anchor="middle">
+    <tspan x="175" dy="0">Розбіжність каналів:</tspan>
+    <tspan x="175" dy="13">|F-DI1 - F-DI2| &gt; t_disc</tspan>
+  </text>
+
+  <!-- Перехід 6: DiscrepancyFault -> WaitingForReset -->
+  <path d="M 270,375 L 270,310 L 430,310 L 430,215" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="350" y="300" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">F-DI в нормі + Reset ↑</text>
+
+  <!-- Перехід 9: EdmFault -> WaitingForReset -->
+  <path d="M 670,375 L 670,282 L 490,282 L 490,215" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="620" y="257" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">
+    <tspan x="620" dy="0">EDM=1 (ОК)</tspan>
+    <tspan x="620" dy="13">+ Reset ↑</tspan>
+  </text>
+
+  <!-- Перехід 8: WaitingForReset -> EdmFault -->
+  <path d="M 570,215 L 570,340 L 770,340 L 770,375" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="720" y="325" font-size="12" fill="#c0392b" text-anchor="middle">
+    <tspan x="720" dy="0">Reset ↑</tspan>
+    <tspan x="720" dy="13">&amp; EDM=0</tspan>
+  </text>
+
+  <!-- Перехід 7: Safe -> EdmFault -->
+  <path d="M 870,215 L 870,375" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arr-red)"/>
+  <text x="855" y="285" font-size="12" fill="#c0392b" text-anchor="end">
+    <tspan x="855" dy="0">EDM = 0</tspan>
+    <tspan x="855" dy="13">(Помилка контактора)</tspan>
+  </text>
+
+  <!-- Блоки станів -->
+
+  <!-- Стан 1: EStopActive -->
+  <rect x="40" y="120" width="210" height="95" rx="8" ry="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="145" y="145" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">1. EStopActive</text>
+  <text x="145" y="167" font-size="12" fill="#1a1a1a" text-anchor="middle">Аварійну кнопку натиснуто</text>
+  <text x="145" y="189" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">F-Out = 0 (ВИМКНЕНО)</text>
+
+  <!-- Стан 2: WaitingForReset -->
+  <rect x="375" y="120" width="210" height="95" rx="8" ry="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="145" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">2. WaitingForReset</text>
+  <text x="480" y="167" font-size="12" fill="#1a1a1a" text-anchor="middle">Кнопку E-Stop відновлено</text>
+  <text x="480" y="189" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">F-Out = 0 (Очікує Reset)</text>
+
+  <!-- Стан 3: Safe -->
+  <rect x="710" y="120" width="210" height="95" rx="8" ry="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="815" y="145" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Safe</text>
+  <text x="815" y="167" font-size="12" fill="#1a1a1a" text-anchor="middle">Безпечна робота (Норма)</text>
+  <text x="815" y="189" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">F-Out = 1 (УВІМКНЕНО)</text>
+
+  <!-- Стан 4: DiscrepancyFault -->
+  <rect x="60" y="375" width="270" height="95" rx="8" ry="8" fill="#fdecea" stroke="#c0392b" stroke-dasharray="6 3" stroke-width="2"/>
+  <text x="195" y="400" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">4. DiscrepancyFault</text>
+  <text x="195" y="422" font-size="12" fill="#1a1a1a" text-anchor="middle">Розбіжність вхідних каналів</text>
+  <text x="195" y="444" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">F-DI1 ≠ F-DI2 (t &gt; t_disc)</text>
+
+  <!-- Стан 5: EdmFault -->
+  <rect x="630" y="375" width="270" height="95" rx="8" ry="8" fill="#fdecea" stroke="#c0392b" stroke-dasharray="6 3" stroke-width="2"/>
+  <text x="765" y="400" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">5. EdmFault</text>
+  <text x="765" y="422" font-size="12" fill="#1a1a1a" text-anchor="middle">Помилка зворотного зв'язку EDM</text>
+  <text x="765" y="444" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Невідповідність контактора (t &gt; t_edm)</text>
+
+  <!-- Легенда / Пояснення -->
+  <rect x="40" y="495" width="880" height="50" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="515" font-size="12" font-weight="bold" fill="#1a1a1a">Сигнали та умовні позначення:</text>
+  <text x="55" y="533" font-size="12" fill="#6b7280"><tspan font-weight="bold" fill="#1a1a1a">F-DI1, F-DI2:</tspan> Двоканальні входи E-Stop (1 = норма, 0 = обрив/натиснуто)</text>
+  <text x="500" y="515" font-size="12" fill="#6b7280"><tspan font-weight="bold" fill="#1a1a1a">EDM:</tspan> Зворотний зв'язок контакторів (1 = ОК, 0 = помилка)</text>
+  <text x="540" y="533" font-size="12" fill="#6b7280"><tspan font-weight="bold" fill="#1a1a1a">Reset ↑:</tspan> Фронт скидання | <tspan font-weight="bold" fill="#1a1a1a">t_disc, t_edm:</tspan> Таймаути моніторингу</text>
+</svg>

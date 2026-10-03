@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+  
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл кучі ESP8266 при TLS-рукостисканні: Стандарт vs MFLN</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Скорочення розміру фрагмента mbedTLS з 16 КБ до 2 КБ вивільняє ~28 КБ кучі DRAM для стабільної роботи</text>
+  
+  <!-- ПАНЕЛЬ 1: БЕЗ MFLN -->
+  <rect x="40" y="78" width="425" height="358" fill="#fdecea" stroke="#c0392b" stroke-width="2" rx="8"/>
+  <text x="252" y="104" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">Стандартний TLS (Без MFLN)</text>
+  <text x="252" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Розмір фрагмента: 16384 B (16 КБ)</text>
+  
+  <!-- Стек пам'яті 1 -->
+  <text x="145" y="144" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Динамічна купа (Heap)</text>
+  <rect x="65" y="150" width="160" height="270" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  
+  <!-- Блоки стеку 1 -->
+  <rect x="69" y="154" width="152" height="28" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="145" y="172" font-size="12" fill="#1a1a1a" text-anchor="middle">Система та TCP (~4 КБ)</text>
+  
+  <rect x="69" y="186" width="152" height="28" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="145" y="204" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">Контекст mbedTLS (~4 КБ)</text>
+  
+  <rect x="69" y="218" width="152" height="108" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="145" y="264" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Буфер RX TLS</text>
+  <text x="145" y="282" font-size="12" fill="#c0392b" text-anchor="middle">16384 B (16 КБ)</text>
+  
+  <rect x="69" y="330" width="152" height="66" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="145" y="358" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Буфер TX TLS</text>
+  <text x="145" y="376" font-size="12" fill="#c0392b" text-anchor="middle">16384 B (16 КБ)</text>
+  
+  <!-- Лінія межі купи -->
+  <line x1="60" y1="396" x2="230" y2="396" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 3"/>
+  
+  <rect x="69" y="398" width="152" height="20" fill="#fdecea" stroke="#c0392b" stroke-dasharray="2 2" stroke-width="1"/>
+  <text x="145" y="413" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Дефіцит (-4 КБ)</text>
+  
+  <!-- Картки опису 1 -->
+  <rect x="240" y="150" width="210" height="125" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="252" y="170" font-size="13" font-weight="bold" fill="#1a1a1a">Потреба в пам'яті:</text>
+  <text x="252" y="190" font-size="12" fill="#1a1a1a">• Буфер RX: 16 КБ (16384 B)</text>
+  <text x="252" y="208" font-size="12" fill="#1a1a1a">• Буфер TX: 16 КБ (16384 B)</text>
+  <text x="252" y="226" font-size="12" fill="#1a1a1a">• Криптоконтекст: ~4 КБ</text>
+  <text x="252" y="246" font-size="12" font-weight="bold" fill="#c0392b">• Сума: 40 КБ &gt; 36 КБ</text>
+  <text x="252" y="262" font-size="11" fill="#6b7280">(Перевищення купи DRAM)</text>
+
+  <rect x="240" y="290" width="210" height="130" fill="white" stroke="#c0392b" stroke-width="2" rx="6"/>
+  <text x="252" y="314" font-size="14" font-weight="bold" fill="#c0392b">❌ Наслідок: OOM</text>
+  <text x="252" y="336" font-size="12" fill="#1a1a1a">• Спроба malloc() дає NULL</text>
+  <text x="252" y="356" font-size="12" fill="#1a1a1a">• Рукостискання зривається</text>
+  <text x="252" y="376" font-size="12" fill="#1a1a1a">• Помилка: -0x7e80 (MBEDTLS)</text>
+  <text x="252" y="398" font-size="12" font-weight="bold" fill="#c0392b">• Скидання ESP8266 WDT</text>
+  
+  <!-- ПАНЕЛЬ 2: З MFLN -->
+  <rect x="495" y="78" width="425" height="358" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="8"/>
+  <text x="707" y="104" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">TLS з розширенням MFLN</text>
+  <text x="707" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Розмір фрагмента: 2048 B (2 КБ)</text>
+  
+  <!-- Стек пам'яті 2 -->
+  <text x="600" y="144" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Динамічна купа (Heap)</text>
+  <rect x="520" y="150" width="160" height="270" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  
+  <!-- Блоки стеку 2 -->
+  <rect x="524" y="154" width="152" height="28" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="600" y="172" font-size="12" fill="#1a1a1a" text-anchor="middle">Система та TCP (~4 КБ)</text>
+  
+  <rect x="524" y="186" width="152" height="28" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="600" y="204" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">Контекст mbedTLS (~4 КБ)</text>
+  
+  <rect x="524" y="218" width="152" height="18" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="600" y="231" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Буфер RX (2 КБ)</text>
+  
+  <rect x="524" y="240" width="152" height="18" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="600" y="253" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Буфер TX (2 КБ)</text>
+  
+  <rect x="524" y="262" width="152" height="154" fill="white" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <text x="600" y="330" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Вільна купа DRAM</text>
+  <text x="600" y="350" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">~28 КБ вільних!</text>
+  <text x="600" y="370" font-size="11" fill="#6b7280" text-anchor="middle">(Безпечний запас)</text>
+
+  <!-- Картки опису 2 -->
+  <rect x="695" y="150" width="210" height="125" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="707" y="170" font-size="13" font-weight="bold" fill="#1a1a1a">Потреба з MFLN:</text>
+  <text x="707" y="190" font-size="12" fill="#1a1a1a">• Буфер RX: 2 КБ (2048 B)</text>
+  <text x="707" y="208" font-size="12" fill="#1a1a1a">• Буфер TX: 2 КБ (2048 B)</text>
+  <text x="707" y="226" font-size="12" fill="#1a1a1a">• Криптоконтекст: ~4 КБ</text>
+  <text x="707" y="246" font-size="12" font-weight="bold" fill="#27ae60">• Сума: 12 КБ &lt; 36 КБ</text>
+  <text x="707" y="262" font-size="11" fill="#6b7280">(Лише 30% купи DRAM)</text>
+
+  <rect x="695" y="290" width="210" height="130" fill="white" stroke="#27ae60" stroke-width="2" rx="6"/>
+  <text x="707" y="314" font-size="14" font-weight="bold" fill="#27ae60">✅ Успішне з'єднання</text>
+  <text x="707" y="336" font-size="12" fill="#1a1a1a">• Рукостискання проходить</text>
+  <text x="707" y="356" font-size="12" fill="#1a1a1a">• Виключено ризик OOM</text>
+  <text x="707" y="376" font-size="12" fill="#1a1a1a">• Підтримка AT+CIPSSLCCONF</text>
+  <text x="707" y="398" font-size="12" font-weight="bold" fill="#27ae60">• Запас під сокети</text>
+  
+  <!-- ПАНЕЛЬ ВИСНОВКУ -->
+  <rect x="40" y="450" width="880" height="48" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="480" y="470" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Висновок: MFLN зменшує буфери сокета у 8 разів (з 32 КБ до 4 КБ), запобігаючи падінню ESP8266 через OOM</text>
+  <text x="480" y="488" font-size="12" fill="#6b7280" text-anchor="middle">Налаштування в AT-прошивці: AT+CIPSSLCCONF=2 (або конфігурація MBEDTLS_SSL_MAX_CONTENT_LEN)</text>
+</svg>

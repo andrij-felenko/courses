@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 550" width="960" height="550" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="550" fill="white"/>
+  
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структура асинхронного пакунка +IPD та двосторонній потік даних UART</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Прийом даних через +IPD та відправлення за допомогою команди AT+CIPSEND у прошивці ESP-AT</text>
+
+  <!-- Секція 1: Структура пакунка IPD -->
+  <rect x="30" y="75" width="900" height="210" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">1. Структура вхідного кадру +IPD у багатоканальному режимі (AT+CIPMUX=1)</text>
+
+  <!-- Блоки кадру +IPD -->
+  <!-- Блок 1: Префікс -->
+  <rect x="50" y="112" width="130" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="115" y="139" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">+IPD,</text>
+  <line x1="115" y1="156" x2="115" y2="164" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="115" y="180" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Префікс сигналу</text>
+  <text x="115" y="196" font-size="12" fill="#6b7280" text-anchor="middle">Маркер вхідних даних</text>
+
+  <!-- Блок 2: ID сокета -->
+  <rect x="192" y="112" width="120" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="252" y="139" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">&lt;link_id&gt;,</text>
+  <line x1="252" y1="156" x2="252" y2="164" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="252" y="180" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ID з'єднання</text>
+  <text x="252" y="196" font-size="12" fill="#6b7280" text-anchor="middle">Номер сокета (0–4)</text>
+
+  <!-- Блок 3: Довжина -->
+  <rect x="324" y="112" width="120" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="384" y="139" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">&lt;len&gt;</text>
+  <line x1="384" y1="156" x2="384" y2="164" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="384" y="180" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Довжина даних</text>
+  <text x="384" y="196" font-size="12" fill="#6b7280" text-anchor="middle">Кількість байтів</text>
+
+  <!-- Блок 4: Роздільник -->
+  <rect x="456" y="112" width="80" height="44" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="496" y="140" font-size="16" font-weight="bold" fill="#c0392b" text-anchor="middle">:</text>
+  <line x1="496" y1="156" x2="496" y2="164" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="496" y="180" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Роздільник</text>
+  <text x="496" y="196" font-size="12" fill="#6b7280" text-anchor="middle">Кінець заголовка</text>
+
+  <!-- Блок 5: Payload -->
+  <rect x="548" y="112" width="362" height="44" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="729" y="139" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">&lt;payload_data&gt;</text>
+  <line x1="729" y1="156" x2="729" y2="164" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="729" y="180" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Корисне навантаження (Payload)</text>
+  <text x="729" y="196" font-size="12" fill="#6b7280" text-anchor="middle">Рівно &lt;len&gt; сирих байтів з мережевого сокета</text>
+
+  <!-- Пояснення CIPMUX=0 -->
+  <rect x="50" y="222" width="860" height="44" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="248" font-size="12" fill="#1a1a1a">
+    <tspan font-weight="bold">Примітка (CIPMUX=0):</tspan>
+    <tspan fill="#6b7280">У поодинокому режимі ID з'єднання відсутній, кадр має вигляд </tspan>
+    <tspan font-weight="bold" fill="#2457d6">+IPD,&lt;len&gt;:&lt;data&gt;</tspan>
+  </text>
+
+  <!-- Секція 2: Двосторонній потік даних UART -->
+  <rect x="30" y="300" width="900" height="225" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="323" font-size="14" font-weight="bold" fill="#1a1a1a">2. Двосторонній потік даних через UART-інтерфейс</text>
+
+  <!-- Підпанель 2A: RX (Прийом) -->
+  <rect x="50" y="335" width="420" height="175" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="356" font-size="13" font-weight="bold" fill="#2457d6">Прийом даних (RX): Мережа → ESP-01 → МК</text>
+
+  <!-- Блоки схеми RX -->
+  <rect x="65" y="370" width="80" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="105" y="391" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Socket</text>
+
+  <line x1="145" y1="387" x2="180" y2="387" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="162.5" y="379" font-size="12" fill="#6b7280" text-anchor="middle">TCP/UDP</text>
+
+  <rect x="180" y="370" width="115" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="237.5" y="391" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ESP-01 (ESP-AT)</text>
+
+  <line x1="295" y1="387" x2="335" y2="387" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="315" y="379" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">UART RX</text>
+
+  <rect x="335" y="370" width="120" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="395" y="391" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Мікроконтролер</text>
+
+  <!-- Опис кроків RX -->
+  <text x="65" y="424" font-size="12" fill="#1a1a1a">1. ESP-01 отримує пакет з сокета</text>
+  <text x="65" y="443" font-size="12" font-weight="bold" fill="#2457d6">2. Формує заголовок: +IPD,&lt;link_id&gt;,&lt;len&gt;:</text>
+  <text x="65" y="462" font-size="12" fill="#1a1a1a">3. Передає заголовок і &lt;len&gt; байтів у UART RX</text>
+  <text x="65" y="481" font-size="12" fill="#27ae60">4. МК зчитує точно &lt;len&gt; байтів з бувера</text>
+
+  <!-- Підпанель 2B: TX (Передача) -->
+  <rect x="490" y="335" width="420" height="175" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="505" y="356" font-size="13" font-weight="bold" fill="#27ae60">Передача даних (TX): МК → ESP-01 → Мережа</text>
+
+  <!-- Блоки схеми TX -->
+  <rect x="505" y="370" width="110" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="560" y="391" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">AT+CIPSEND</text>
+
+  <line x1="615" y1="387" x2="645" y2="387" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="630" y="379" font-size="12" fill="#6b7280" text-anchor="middle">Запит</text>
+
+  <rect x="645" y="370" width="90" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="690" y="391" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Символ '&gt;'</text>
+
+  <line x1="735" y1="387" x2="770" y2="387" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="752.5" y="379" font-size="12" fill="#6b7280" text-anchor="middle">Готово</text>
+
+  <rect x="770" y="370" width="125" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="832.5" y="391" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">&lt;len&gt; байтів</text>
+
+  <!-- Опис кроків TX -->
+  <text x="505" y="424" font-size="12" fill="#1a1a1a">1. МК відправляє: AT+CIPSEND=&lt;id&gt;,&lt;len&gt;</text>
+  <text x="505" y="443" font-size="12" font-weight="bold" fill="#c0392b">2. ESP-01 відповідає OK та видає '&gt;'</text>
+  <text x="505" y="462" font-size="12" fill="#27ae60">3. МК надсилає &lt;len&gt; байтів через UART TX</text>
+  <text x="505" y="481" font-size="12" fill="#1a1a1a">4. ESP-01 відправляє байти й виводить SEND OK</text>
+</svg>

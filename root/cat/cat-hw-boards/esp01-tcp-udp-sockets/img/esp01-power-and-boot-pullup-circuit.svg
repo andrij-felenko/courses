@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема живлення та обв'язки виводів модуля ESP-01</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Підтягувальні резистори R = 10 кОм та згладжувальні конденсатори для стабільного запуску й Wi-Fi</text>
+
+  <!-- Power Rails -->
+  <!-- +3.3V Bus -->
+  <line x1="85" y1="85" x2="780" y2="85" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="85" y="75" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">+3.3V DC (Шина живлення)</text>
+
+  <!-- GND Bus -->
+  <line x1="85" y1="385" x2="780" y2="385" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="85" y="402" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">GND (Спільна земля)</text>
+
+  <!-- Power Supply Box -->
+  <rect x="25" y="125" width="120" height="230" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="85" y="150" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Джерело</text>
+  <text x="85" y="167" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">живлення</text>
+  <text x="85" y="195" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">3.3V DC</text>
+  <text x="85" y="225" font-size="12" fill="#6b7280" text-anchor="middle">I_peak ≤ 300 mA</text>
+  <text x="85" y="245" font-size="12" fill="#6b7280" text-anchor="middle">(LDO 3.3V)</text>
+
+  <!-- Lines connecting Power Supply to Rails -->
+  <line x1="85" y1="125" x2="85" y2="85" stroke="#c0392b" stroke-width="2"/>
+  <line x1="85" y1="355" x2="85" y2="385" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Capacitor C1 (100 uF) -->
+  <line x1="175" y1="85" x2="175" y2="215" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="175" y1="225" x2="175" y2="385" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="163" y1="215" x2="187" y2="215" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="163" y1="225" x2="187" y2="225" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="193" y="215" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">C1 100µF</text>
+  <text x="193" y="232" font-size="12" fill="#6b7280" text-anchor="start">електроліт</text>
+
+  <!-- Capacitor C2 (0.1 uF) -->
+  <line x1="265" y1="85" x2="265" y2="215" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="265" y1="225" x2="265" y2="385" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="253" y1="215" x2="277" y2="215" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="253" y1="225" x2="277" y2="225" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="283" y="215" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">C2 0.1µF</text>
+  <text x="283" y="232" font-size="12" fill="#6b7280" text-anchor="start">кераміка</text>
+
+  <!-- VCC Wire to ESP-01 -->
+  <path d="M 340,85 L 340,195 L 510,195" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+
+  <!-- Resistor R1 (CH_PD pull-up) -->
+  <line x1="400" y1="85" x2="400" y2="125" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="393" y="125" width="14" height="30" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="400" y1="155" x2="400" y2="235" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="400" y1="235" x2="510" y2="235" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="385" y="144" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">R1 10k</text>
+
+  <!-- Resistor R2 & SW1 (RST) -->
+  <line x1="450" y1="85" x2="450" y2="125" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="443" y="125" width="14" height="30" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="450" y1="155" x2="450" y2="275" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="450" y1="275" x2="510" y2="275" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="462" y="144" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">R2 10k</text>
+
+  <!-- SW1 Reset button to GND -->
+  <line x1="450" y1="275" x2="450" y2="320" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="450" cy="320" r="3" fill="#1a1a1a"/>
+  <circle cx="450" cy="350" r="3" fill="#1a1a1a"/>
+  <line x1="448" y1="320" x2="435" y2="345" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="450" y1="350" x2="450" y2="385" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="430" y="338" font-size="12" fill="#1a1a1a" text-anchor="end">SW1 Reset</text>
+
+  <!-- GND Wire to ESP-01 -->
+  <line x1="490" y1="315" x2="490" y2="385" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="490" y1="315" x2="510" y2="315" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- ESP-01 Module Box -->
+  <rect x="510" y="125" width="150" height="230" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="585" y="150" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">ESP-01</text>
+  <text x="585" y="168" font-size="12" fill="#6b7280" text-anchor="middle">(ESP8266EX)</text>
+
+  <!-- Pin labels inside ESP-01 -->
+  <text x="520" y="199" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">VCC</text>
+  <text x="520" y="239" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">CH_PD</text>
+  <text x="520" y="279" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">RST</text>
+  <text x="520" y="319" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">GND</text>
+
+  <text x="650" y="199" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">GPIO0</text>
+  <text x="650" y="239" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">GPIO2</text>
+  <text x="650" y="279" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">TXD</text>
+  <text x="650" y="319" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">RXD</text>
+
+  <!-- Pin circles -->
+  <circle cx="510" cy="195" r="3.5" fill="#2457d6"/>
+  <circle cx="510" cy="235" r="3.5" fill="#2457d6"/>
+  <circle cx="510" cy="275" r="3.5" fill="#2457d6"/>
+  <circle cx="510" cy="315" r="3.5" fill="#2457d6"/>
+
+  <circle cx="660" cy="195" r="3.5" fill="#2457d6"/>
+  <circle cx="660" cy="235" r="3.5" fill="#2457d6"/>
+  <circle cx="660" cy="275" r="3.5" fill="#2457d6"/>
+  <circle cx="660" cy="315" r="3.5" fill="#2457d6"/>
+
+  <!-- Right side Wiring -->
+  <!-- GPIO0 wiring -->
+  <line x1="660" y1="195" x2="710" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Resistor R3 -->
+  <line x1="710" y1="85" x2="710" y2="125" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="703" y="125" width="14" height="30" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="710" y1="155" x2="710" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="725" y="144" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">R3 10k</text>
+
+  <!-- SW2 Flash button to GND -->
+  <line x1="710" y1="195" x2="710" y2="320" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="710" cy="320" r="3" fill="#1a1a1a"/>
+  <circle cx="710" cy="350" r="3" fill="#1a1a1a"/>
+  <line x1="708" y1="320" x2="695" y2="345" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="710" y1="350" x2="710" y2="385" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="725" y="338" font-size="12" fill="#2457d6" text-anchor="start">SW2 Prog</text>
+
+  <!-- GPIO2 wiring -->
+  <line x1="660" y1="235" x2="780" y2="235" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Resistor R4 -->
+  <line x1="780" y1="85" x2="780" y2="125" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="773" y="125" width="14" height="30" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="780" y1="155" x2="780" y2="235" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="795" y="144" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">R4 10k</text>
+
+  <!-- TXD & RXD Output lines -->
+  <line x1="660" y1="275" x2="820" y2="275" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="830" y="279" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">TXD → Host RXD (3.3V)</text>
+
+  <line x1="820" y1="315" x2="668" y2="315" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="830" y="314" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">RXD ← Host TXD (3.3V)</text>
+  <text x="830" y="331" font-size="12" fill="#c0392b" text-anchor="start">(5V host → делитель!)</text>
+
+  <!-- Bottom Info Panels -->
+  <!-- Panel 1: Boot Modes -->
+  <rect x="25" y="420" width="445" height="120" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="442" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Режими завантаження (Boot Modes)</text>
+  <text x="40" y="467" font-size="12" fill="#27ae60" text-anchor="start">• Run (Flash Boot): GPIO0 = HIGH (R3), GPIO2 = HIGH (R4)</text>
+  <text x="40" y="490" font-size="12" fill="#2457d6" text-anchor="start">• Flash (UART Prog): GPIO0 = LOW (SW2 натиснуто), GPIO2 = HIGH</text>
+  <text x="40" y="513" font-size="12" fill="#1a1a1a" text-anchor="start">• Активність виводів: CH_PD = HIGH (R1), RST = HIGH (R2)</text>
+
+  <!-- Panel 2: Design Notes -->
+  <rect x="490" y="420" width="445" height="120" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="505" y="442" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">Вимоги схемотехніки обв'язки</text>
+  <text x="505" y="467" font-size="12" fill="#1a1a1a" text-anchor="start">• Джерело 3.3V повинне витримувати піки до 300 mA (Wi-Fi TX)</text>
+  <text x="505" y="490" font-size="12" fill="#1a1a1a" text-anchor="start">• C1 (100 µF) проти просідань, C2 (0.1 µF) фільтрація ВЧ-завад</text>
+  <text x="505" y="513" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">• Не підключати 5V логіку без узгоджувача рівнів на RXD!</text>
+
+</svg>

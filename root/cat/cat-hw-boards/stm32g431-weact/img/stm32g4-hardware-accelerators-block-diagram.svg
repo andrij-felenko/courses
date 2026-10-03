@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Архітектурний зв'язок ядра Cortex-M4F та співпроцесорів у STM32G4</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Процесор делегує обчислення тригонометрії та фільтрації CORDIC і FMAC через шину, звільняючи ALU</text>
+
+  <!-- Основний корпус мікроконтролера -->
+  <rect x="30" y="75" width="900" height="400" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="10"/>
+  <text x="50" y="98" font-size="13" font-weight="bold" fill="#6b7280">Мікроконтролер STM32G431 (Шина та обчислювальні блоки)</text>
+
+  <!-- Ядро CPU -->
+  <rect x="50" y="115" width="270" height="340" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="8"/>
+  <text x="185" y="142" text-anchor="middle" font-size="15" font-weight="bold" fill="#2457d6">Ядро ARM Cortex-M4F</text>
+
+  <!-- Блок ALU/FPU -->
+  <rect x="65" y="160" width="240" height="75" fill="white" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="185" y="182" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">ALU та FPU</text>
+  <text x="185" y="202" text-anchor="middle" font-size="12" fill="#6b7280">Основні обчислення та логіка</text>
+  <text x="185" y="220" text-anchor="middle" font-size="12" fill="#27ae60">Вільні від sin/cos та FIR/IIR</text>
+
+  <!-- Блок Регістрів -->
+  <rect x="65" y="250" width="240" height="75" fill="white" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="185" y="272" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Регістри та DMA</text>
+  <text x="185" y="292" text-anchor="middle" font-size="12" fill="#6b7280">Ініціалізація та передача</text>
+  <text x="185" y="310" text-anchor="middle" font-size="12" fill="#1a1a1a">Запис даних / читання відповідей</text>
+
+  <!-- Блок Вигоди -->
+  <rect x="65" y="340" width="240" height="95" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="185" y="362" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Вигода: Без блокування</text>
+  <text x="185" y="382" text-anchor="middle" font-size="12" fill="#1a1a1a">CPU виконує контури FOC</text>
+  <text x="185" y="400" text-anchor="middle" font-size="12" fill="#1a1a1a">і фонові операції паралельно</text>
+  <text x="185" y="418" text-anchor="middle" font-size="12" fill="#6b7280">з роботою співпроцесорів</text>
+
+  <!-- Системна шина -->
+  <rect x="350" y="115" width="120" height="340" fill="white" stroke="#2457d6" stroke-width="2" rx="8"/>
+  <text x="410" y="142" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Шина AHB/APB</text>
+  <text x="410" y="160" text-anchor="middle" font-size="12" fill="#6b7280">Матриця шин</text>
+
+  <rect x="365" y="180" width="90" height="110" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3" rx="4"/>
+  <text x="410" y="202" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Канал 1</text>
+  <text x="410" y="222" text-anchor="middle" font-size="12" fill="#1a1a1a">Тригонометрія</text>
+  <text x="410" y="242" text-anchor="middle" font-size="12" fill="#6b7280">Запит CORDIC</text>
+  <text x="410" y="262" text-anchor="middle" font-size="12" fill="#27ae60">4–24 такти</text>
+
+  <rect x="365" y="310" width="90" height="110" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3" rx="4"/>
+  <text x="410" y="332" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Канал 2</text>
+  <text x="410" y="352" text-anchor="middle" font-size="12" fill="#1a1a1a">Фільтрація</text>
+  <text x="410" y="372" text-anchor="middle" font-size="12" fill="#6b7280">Потік FMAC</text>
+  <text x="410" y="392" text-anchor="middle" font-size="12" fill="#27ae60">MAC / DMA</text>
+
+  <!-- Співпроцесори -->
+  <rect x="500" y="115" width="410" height="340" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="705" y="142" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Математичні співпроцесори (Hardware Accelerators)</text>
+
+  <!-- CORDIC -->
+  <rect x="520" y="160" width="370" height="130" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <text x="535" y="185" font-size="14" font-weight="bold" fill="#2457d6">CORDIC (Coordinate Rotation Digital Computer)</text>
+  <text x="535" y="207" font-size="12" font-weight="bold" fill="#1a1a1a">Прискорювач векторного керування та тригонометрії</text>
+  <text x="535" y="227" font-size="12" fill="#6b7280">Функції: sin, cos, atan, atan2, sinh, cosh, sqrt, ln</text>
+  <text x="535" y="247" font-size="12" fill="#1a1a1a">Автономно обчислює кути Парка / Кларк для FOC</text>
+  <text x="535" y="267" font-size="12" font-weight="bold" fill="#27ae60">Апаратний розрахунок без завантаження ядра CPU</text>
+
+  <!-- FMAC -->
+  <rect x="520" y="305" width="370" height="135" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <text x="535" y="330" font-size="14" font-weight="bold" fill="#2457d6">FMAC (Filter Math Accelerator)</text>
+  <text x="535" y="352" font-size="12" font-weight="bold" fill="#1a1a1a">Прискорювач цифрових фільтрів та DSP</text>
+  <text x="535" y="372" font-size="12" fill="#6b7280">Операції: Multiply-Accumulate (MAC), КІХ/ВІХ (FIR/IIR)</text>
+  <text x="535" y="392" font-size="12" fill="#1a1a1a">Обробка масивів даних паралельно через DMA</text>
+  <text x="535" y="412" font-size="12" font-weight="bold" fill="#27ae60">Звільняє CPU від циклів обробки сигналів</text>
+
+  <!-- Зв'язки CPU <-> Шина -->
+  <line x1="320" y1="235" x2="350" y2="235" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="335" y="218" text-anchor="middle" font-size="12" fill="#2457d6">Дані</text>
+
+  <line x1="320" y1="365" x2="350" y2="365" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="335" y="350" text-anchor="middle" font-size="12" fill="#2457d6">DMA</text>
+
+  <!-- Зв'язки Шина <-> CORDIC -->
+  <line x1="470" y1="210" x2="520" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="495" y="198" text-anchor="middle" font-size="12" fill="#2457d6">Кут θ</text>
+
+  <line x1="520" y1="260" x2="470" y2="260" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="495" y="278" text-anchor="middle" font-size="12" fill="#27ae60">sin, cos</text>
+
+  <!-- Зв'язки Шина <-> FMAC -->
+  <line x1="470" y1="340" x2="520" y2="340" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="495" y="328" text-anchor="middle" font-size="12" fill="#2457d6">Відліки</text>
+
+  <line x1="520" y1="390" x2="470" y2="390" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="495" y="408" text-anchor="middle" font-size="12" fill="#27ae60">Фільтр</text>
+</svg>

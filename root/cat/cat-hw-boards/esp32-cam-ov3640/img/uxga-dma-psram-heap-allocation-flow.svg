@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Header & Subtitle -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Конвеєрне виділення буферів при захопленні кадру UXGA (OV3640)</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Передвиділення DMA-буферів у DRAM та фреймбуфера в PSRAM усуває фрагментацію купи FreeRTOS</text>
+
+  <!-- STAGE 1: Sensor & DVP Interface -->
+  <rect x="35" y="90" width="185" height="235" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="127.5" y="116" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Сенсор OV3640 та DVP</text>
+
+  <!-- Box 1.1: OV3640 Matrix -->
+  <rect x="50" y="135" width="155" height="58" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="127.5" y="158" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Матриця OV3640</text>
+  <text x="127.5" y="178" text-anchor="middle" font-size="12" fill="#6b7280">UXGA 1600×1200 JPEG</text>
+
+  <!-- DVP Internal Flow Arrow -->
+  <line x1="127.5" y1="193" x2="127.5" y2="215" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="135" y="207" text-anchor="start" font-size="12" fill="#6b7280">DVP потік</text>
+
+  <!-- Box 1.2: I2S DMA Controller -->
+  <rect x="50" y="215" width="155" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="127.5" y="238" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">I2S DVP Контролер</text>
+  <text x="127.5" y="258" text-anchor="middle" font-size="12" fill="#6b7280">Hardware DMA Engine</text>
+  <text x="127.5" y="278" text-anchor="middle" font-size="12" fill="#6b7280">32-bit SRAM шина</text>
+  <text x="127.5" y="298" text-anchor="middle" font-size="12" fill="#6b7280">Авто-переключення</text>
+
+  <!-- DMA Connection Arrow (Stage 1 to Stage 2) -->
+  <line x1="205" y1="224" x2="265" y2="224" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="235" y="210" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">DMA потік</text>
+
+  <!-- STAGE 2: Internal DRAM (SRAM) -->
+  <rect x="245" y="90" width="345" height="235" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="417.5" y="112" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Внутрішня DRAM (SRAM 520 КБ)</text>
+  <text x="417.5" y="130" text-anchor="middle" font-size="12" fill="#6b7280">Швидка пам'ять для DMA (Heap_Caps_Internal)</text>
+
+  <!-- Box 2.1: Descriptors Ring -->
+  <rect x="265" y="145" width="305" height="46" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="275" y="165" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Кільце описувачів DMA</text>
+  <text x="555" y="165" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">ФІКСОВАНІ</text>
+  <text x="275" y="181" text-anchor="start" font-size="12" fill="#6b7280">Статично передвиділені в SRAM</text>
+
+  <!-- Box 2.2: DMA Buffer #0 -->
+  <rect x="265" y="201" width="305" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="275" y="221" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">DMA Буфер #0 (4 КБ)</text>
+  <text x="555" y="221" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">АКТИВНИЙ</text>
+  <text x="275" y="237" text-anchor="start" font-size="12" fill="#6b7280">Активне заповнення з I2S</text>
+
+  <!-- Box 2.3: DMA Buffer #1 -->
+  <rect x="265" y="257" width="305" height="46" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="275" y="277" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">DMA Буфер #1 (4 КБ)</text>
+  <text x="555" y="277" text-anchor="end" font-size="12" fill="#6b7280">ГОТОВИЙ</text>
+  <text x="275" y="293" text-anchor="start" font-size="12" fill="#6b7280">Передача чанка в PSRAM</text>
+
+  <!-- PSRAM Connection Arrow (Stage 2 to Stage 3) -->
+  <line x1="570" y1="224" x2="650" y2="224" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="610" y="210" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Копіювання</text>
+
+  <!-- STAGE 3: External PSRAM -->
+  <rect x="615" y="90" width="310" height="235" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="770" y="112" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Зовнішня PSRAM (4/8 МБ)</text>
+  <text x="770" y="130" text-anchor="middle" font-size="12" fill="#6b7280">Виділено 1 раз при старті (Heap_Caps_SPIRAM)</text>
+
+  <!-- Box 3.1: Framebuffer UXGA -->
+  <rect x="635" y="145" width="270" height="165" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="770" y="168" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Статичний фреймбуфер UXGA</text>
+  <text x="770" y="188" text-anchor="middle" font-size="12" fill="#1a1a1a">Фіксований розмір ~375 КБ</text>
+
+  <!-- Inner Chunk Copy Box -->
+  <rect x="650" y="200" width="240" height="46" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="770" y="219" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Накопичення чанків з DMA</text>
+  <text x="770" y="235" text-anchor="middle" font-size="12" fill="#6b7280">Без викликів malloc() / free()</text>
+
+  <!-- Inner Ready Box -->
+  <rect x="650" y="254" width="240" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="770" y="272" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Повний JPEG кадр 1600×1200</text>
+  <text x="770" y="288" text-anchor="middle" font-size="12" fill="#6b7280">Передача на SDMMC / HTTP</text>
+
+  <!-- COMPARISON SECTION: FreeRTOS Heap Impact -->
+
+  <!-- Left Comparison Panel: Dynamic Allocation (PROBLEM) -->
+  <rect x="35" y="345" width="435" height="150" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="252.5" y="368" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Динамічне виділення (без передвиділення)</text>
+  <text x="252.5" y="386" text-anchor="middle" font-size="12" fill="#6b7280">Постійний malloc() / free() під кожен кадр UXGA</text>
+
+  <!-- Left Heap Bar -->
+  <rect x="50" y="400" width="405" height="36" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <rect x="54" y="404" width="70" height="28" rx="2" fill="#c0392b"/>
+  <text x="89" y="422" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">375 КБ</text>
+
+  <rect x="128" y="404" width="45" height="28" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="150.5" y="422" text-anchor="middle" font-size="12" fill="#c0392b">фрагм.</text>
+
+  <rect x="177" y="404" width="85" height="28" rx="2" fill="#6b7280"/>
+  <text x="219.5" y="422" text-anchor="middle" font-size="12" fill="#ffffff">Інші дані</text>
+
+  <rect x="266" y="404" width="185" height="28" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="358.5" y="422" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Помилка malloc (OOM)</text>
+
+  <text x="252.5" y="465" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">⚠️ Фрагментація купи -> Вичерпання RAM (OOM)</text>
+
+  <!-- Right Comparison Panel: Pre-allocated Architecture (SOLUTION) -->
+  <rect x="490" y="345" width="435" height="150" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="707.5" y="368" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Передвиділена архітектура (Рекомендовано)</text>
+  <text x="707.5" y="386" text-anchor="middle" font-size="12" fill="#6b7280">Одноразове виділення під час init()</text>
+
+  <!-- Right Heap Bar -->
+  <rect x="505" y="400" width="405" height="36" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <rect x="509" y="404" width="115" height="28" rx="2" fill="#2457d6"/>
+  <text x="566.5" y="422" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">DMA (DRAM)</text>
+
+  <rect x="628" y="404" width="150" height="28" rx="2" fill="#27ae60"/>
+  <text x="703" y="422" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">UXGA (PSRAM)</text>
+
+  <rect x="782" y="404" width="124" height="28" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="844" y="422" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Стабільна купа</text>
+
+  <text x="707.5" y="465" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">✓ 0% фрагментації -> Стабільний автономний цикл</text>
+</svg>

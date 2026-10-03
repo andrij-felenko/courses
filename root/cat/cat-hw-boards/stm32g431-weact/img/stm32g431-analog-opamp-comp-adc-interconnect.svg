@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Header & Subheader -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішні аналогові зв'язки STM32G431 для вимірювання струму</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Пряме з'єднання OPAMP з АЦП та COMP прискорює FOC і забезпечує апаратний захист</text>
+
+  <!-- Outer MCU Panel -->
+  <rect x="20" y="78" width="920" height="442" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="98" font-size="13" font-weight="bold" fill="#6b7280">ВНУТРІШНЯ АНАЛОГОВА ПЕРИФЕРІЯ МІКРОКОНТРОЛЕРА (STM32G431)</text>
+
+  <!-- Block 1: External Current Sensor -->
+  <rect x="40" y="118" width="140" height="382" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="110" y="142" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Датчик струму</text>
+  <text x="110" y="160" font-size="12" fill="#6b7280" text-anchor="middle">Low-Side Shunt</text>
+
+  <rect x="75" y="180" width="70" height="28" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="110" y="198" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_shunt</text>
+
+  <text x="110" y="230" font-size="12" fill="#1a1a1a" text-anchor="middle">Падіння напруги</text>
+  <text x="110" y="248" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_shunt (малі мВ)</text>
+
+  <rect x="52" y="270" width="116" height="50" rx="4" fill="#eaf0fd"/>
+  <text x="110" y="290" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхідний сигнал</text>
+  <text x="110" y="308" font-size="12" fill="#6b7280" text-anchor="middle">на ніжку PA1</text>
+
+  <text x="110" y="350" font-size="12" fill="#6b7280" text-anchor="middle">Без зовнішнього</text>
+  <text x="110" y="368" font-size="12" fill="#6b7280" text-anchor="middle">операційного</text>
+  <text x="110" y="386" font-size="12" fill="#6b7280" text-anchor="middle">підсилювача</text>
+
+  <rect x="52" y="445" width="116" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="110" y="460" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Економія площі</text>
+  <text x="110" y="474" font-size="12" fill="#27ae60" text-anchor="middle">і компонентів</text>
+
+  <!-- Input Pin Badge & Connection Line -->
+  <line x1="180" y1="200" x2="195" y2="200" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="195" y="188" width="40" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="215" y="204" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">PA1</text>
+  <line x1="235" y1="200" x2="295" y2="200" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Block 2: OPAMP1 Subsystem -->
+  <rect x="248" y="118" width="182" height="382" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="339" y="142" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">OPAMP1</text>
+  <text x="339" y="160" font-size="12" fill="#6b7280" text-anchor="middle">Вбудований PGA</text>
+
+  <!-- OpAmp Triangle Symbol -->
+  <polygon points="295,185 295,245 365,215" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="303" y="204" font-size="14" font-weight="bold" fill="#2457d6">+</text>
+  <text x="303" y="234" font-size="14" font-weight="bold" fill="#2457d6">-</text>
+
+  <rect x="264" y="265" width="150" height="26" rx="4" fill="#eaf0fd"/>
+  <text x="339" y="282" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">PGA Gain: 2x..64x</text>
+
+  <text x="339" y="315" font-size="12" fill="#1a1a1a" text-anchor="middle">Внутрішня матриця R</text>
+  <text x="339" y="335" font-size="12" fill="#6b7280" text-anchor="middle">Внутрішній ОС-ланцюг</text>
+  <text x="339" y="353" font-size="12" fill="#6b7280" text-anchor="middle">Калібрування зсуву</text>
+
+  <rect x="264" y="385" width="150" height="42" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="339" y="402" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шина OPAMP1_VOUT</text>
+  <text x="339" y="418" font-size="12" fill="#6b7280" text-anchor="middle">Діапазон 0...VDDA</text>
+
+  <rect x="264" y="445" width="150" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="339" y="460" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Швидкість підсилення</text>
+  <text x="339" y="474" font-size="12" fill="#27ae60" text-anchor="middle">Slew Rate: 45 V/мкс</text>
+
+  <!-- OPAMP Output Internal Interconnect Bus -->
+  <line x1="365" y1="215" x2="460" y2="215" stroke="#2457d6" stroke-width="2"/>
+  <text x="420" y="205" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">VOUT</text>
+  <circle cx="460" cy="215" r="4" fill="#2457d6"/>
+
+  <!-- Upper Branch to ADC -->
+  <line x1="460" y1="215" x2="460" y2="165" stroke="#2457d6" stroke-width="2"/>
+  <text x="452" y="195" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">До АЦП</text>
+  <line x1="460" y1="165" x2="495" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Lower Branch to COMP -->
+  <line x1="460" y1="215" x2="460" y2="365" stroke="#c0392b" stroke-width="2"/>
+  <text x="452" y="300" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">До COMP</text>
+  <line x1="460" y1="365" x2="495" y2="365" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Block 3: ADC1 / ADC2 -->
+  <rect x="495" y="118" width="195" height="180" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="592" y="142" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">ADC1 / ADC2</text>
+  <text x="592" y="160" font-size="12" fill="#6b7280" text-anchor="middle">12-bit SAR АЦП</text>
+
+  <text x="592" y="185" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Канал: OPAMP1_VOUT</text>
+  <text x="592" y="205" font-size="12" fill="#6b7280" text-anchor="middle">Тригер: TIM1 TRGO</text>
+  <text x="592" y="225" font-size="12" fill="#27ae60" text-anchor="middle">Час вибірки: 0.21 мкс</text>
+
+  <rect x="517" y="245" width="150" height="36" rx="4" fill="#eaf0fd"/>
+  <text x="592" y="260" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Апаратний DMA-перенос</text>
+  <text x="592" y="274" font-size="12" fill="#2457d6" text-anchor="middle">без навантаження CPU</text>
+
+  <!-- Connection ADC -> FOC/DSP -->
+  <line x1="690" y1="185" x2="715" y2="185" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="702" y="173" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DMA</text>
+
+  <!-- Block 4: FOC & DSP Algorithm -->
+  <rect x="715" y="118" width="205" height="180" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="817" y="142" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">FOC / DSP Обробка</text>
+  <text x="817" y="160" font-size="12" fill="#6b7280" text-anchor="middle">Cortex-M4F + CORDIC</text>
+
+  <text x="817" y="185" font-size="12" fill="#1a1a1a" text-anchor="middle">Векторний алгоритм FOC</text>
+  <text x="817" y="205" font-size="12" fill="#1a1a1a" text-anchor="middle">Обчислення I_alpha, I_beta</text>
+  <text x="817" y="225" font-size="12" fill="#6b7280" text-anchor="middle">Оновлення векторів ШІМ</text>
+
+  <rect x="735" y="245" width="165" height="36" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="817" y="260" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Висока точність FOC</text>
+  <text x="817" y="274" font-size="12" fill="#2457d6" text-anchor="middle">частота ШІМ до 100 кГц</text>
+
+  <!-- Block 5: COMP1 Subsystem -->
+  <rect x="495" y="320" width="195" height="180" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="592" y="344" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">COMP1 (Захист)</text>
+  <text x="592" y="362" font-size="12" fill="#6b7280" text-anchor="middle">Швидкий компаратор</text>
+
+  <text x="592" y="387" font-size="12" fill="#1a1a1a" text-anchor="middle">Вхід (+): OPAMP1_VOUT</text>
+  <text x="592" y="407" font-size="12" fill="#c0392b" text-anchor="middle">Вхід (-): DAC1 (I_trip)</text>
+
+  <rect x="517" y="418" width="150" height="24" rx="4" fill="#fdecea"/>
+  <text x="592" y="434" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">DAC1 Поріг струму</text>
+
+  <rect x="517" y="456" width="150" height="32" rx="4" fill="#fdecea"/>
+  <text x="592" y="470" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Затримка: 16 нс</text>
+  <text x="592" y="484" font-size="12" fill="#c0392b" text-anchor="middle">Нашвидший захист</text>
+
+  <!-- Connection COMP1 -> TIM1 Break -->
+  <line x1="690" y1="387" x2="715" y2="387" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="702" y="375" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">TRIP</text>
+
+  <!-- Block 6: TIM1 Break Subsystem -->
+  <rect x="715" y="320" width="205" height="180" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="817" y="344" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">TIM1 Break System</text>
+  <text x="817" y="362" font-size="12" fill="#6b7280" text-anchor="middle">Апаратний вимикач ШІМ</text>
+
+  <text x="817" y="387" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Сигнал: TIM1_BKIN</text>
+  <text x="817" y="407" font-size="12" fill="#1a1a1a" text-anchor="middle">Відключення MOSFET</text>
+
+  <rect x="735" y="428" width="165" height="60" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="817" y="446" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Реакція &lt; 50 нс</text>
+  <text x="817" y="462" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">БЕЗ УЧАСТІ ЯДРА CPU</text>
+  <text x="817" y="478" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Повний захист моста</text>
+</svg>

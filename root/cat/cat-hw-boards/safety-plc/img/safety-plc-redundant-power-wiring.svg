@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Схема резервованого живлення Safety PLC з діодним розв'язанням</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Резервовані шини 24 В та оптоелектронна ізоляція розділяють контури земель і запобігають відмовам</text>
+
+  <!-- ПАНЕЛЬ 1: Джерела живлення (PSU) -->
+  <rect x="30" y="72" width="210" height="423" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="135" y="94" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Джерела живлення</text>
+
+  <!-- PSU 1 (Основне) -->
+  <rect x="45" y="112" width="180" height="155" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="135" y="132" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Джерело 1 (PSU1)</text>
+  <text x="135" y="150" font-size="12" fill="#6b7280" text-anchor="middle">24 V DC / 10 A (Основне)</text>
+  
+  <text x="55" y="178" font-size="12" fill="#6b7280">Вхід AC</text>
+  <rect x="55" y="190" width="45" height="30" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="77" y="210" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">DC</text>
+
+  <!-- Клеми PSU 1 -->
+  <circle cx="225" cy="185" r="4" fill="#2457d6"/>
+  <text x="212" y="180" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">+24V_1</text>
+  
+  <circle cx="225" cy="230" r="4" fill="#1a1a1a"/>
+  <text x="212" y="225" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">GND_1</text>
+
+  <!-- PSU 2 (Резервне) -->
+  <rect x="45" y="290" width="180" height="155" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="135" y="310" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Джерело 2 (PSU2)</text>
+  <text x="135" y="328" font-size="12" fill="#6b7280" text-anchor="middle">24 V DC / 10 A (Резервне)</text>
+
+  <text x="55" y="356" font-size="12" fill="#6b7280">Вхід AC</text>
+  <rect x="55" y="368" width="45" height="30" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="77" y="388" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">DC</text>
+
+  <!-- Клеми PSU 2 -->
+  <circle cx="225" cy="363" r="4" fill="#2457d6"/>
+  <text x="212" y="358" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">+24V_2</text>
+  
+  <circle cx="225" cy="408" r="4" fill="#1a1a1a"/>
+  <text x="212" y="403" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">GND_2</text>
+
+  <text x="135" y="478" font-size="12" fill="#6b7280" text-anchor="middle">Захисне заземлення (PE)</text>
+
+
+  <!-- ПАНЕЛЬ 2: Модуль діодного розв'язання (ORing) -->
+  <rect x="255" y="72" width="175" height="423" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="342" y="94" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">Діодне розв'язання</text>
+
+  <!-- Лінії живлення від PSU до діодів -->
+  <path d="M 225,185 L 298,185" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 225,363 L 298,363" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Діод D1 -->
+  <path d="M 305,177 L 321,185 L 305,193 Z" fill="#2457d6"/>
+  <line x1="321" y1="177" x2="321" y2="193" stroke="#2457d6" stroke-width="2"/>
+  <text x="313" y="164" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D1 (ORing)</text>
+
+  <!-- Діод D2 -->
+  <path d="M 305,355 L 321,363 L 305,371 Z" fill="#2457d6"/>
+  <line x1="321" y1="355" x2="321" y2="371" stroke="#2457d6" stroke-width="2"/>
+  <text x="313" y="342" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D2 (ORing)</text>
+
+  <!-- Об'єднання катодів та системна шина +24V_SYS -->
+  <path d="M 321,185 L 370,185 L 370,363" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+  <path d="M 321,363 L 370,363" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="370" cy="270" r="4" fill="#2457d6"/>
+  <path d="M 370,270 L 442,270" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <text x="382" y="238" font-size="12" font-weight="700" fill="#2457d6" text-anchor="start">+24V_SYS</text>
+  <text x="382" y="254" font-size="12" fill="#6b7280" text-anchor="start">(Шина)</text>
+
+  <!-- Об'єднання земель GND_SYS -->
+  <path d="M 225,230 L 275,230 L 275,408" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <path d="M 225,408 L 275,408" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="275" cy="408" r="4" fill="#1a1a1a"/>
+  <path d="M 275,408 L 442,408" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  
+  <text x="290" y="396" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="start">GND_SYS</text>
+
+
+  <!-- ПАНЕЛЬ 3: Safety PLC (Контролер) -->
+  <rect x="450" y="72" width="480" height="423" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="690" y="94" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Модульна платформа Safety PLC</text>
+
+  <!-- ДОМЕН A: Системне ядро (CPU) -->
+  <rect x="465" y="112" width="130" height="365" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="530" y="132" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Система / CPU</text>
+  <text x="530" y="150" font-size="12" fill="#6b7280" text-anchor="middle">Контур GND_SYS</text>
+
+  <circle cx="465" cy="270" r="4" fill="#2457d6"/>
+  <text x="473" y="260" font-size="12" font-weight="700" fill="#2457d6">+24V_SYS</text>
+  
+  <circle cx="465" cy="408" r="4" fill="#1a1a1a"/>
+  <text x="473" y="398" font-size="12" font-weight="700" fill="#1a1a1a">GND_SYS</text>
+
+  <!-- Блок логіки CPU -->
+  <rect x="475" y="210" width="110" height="150" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="530" y="230" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">CPU (1oo2/2oo3)</text>
+  <text x="530" y="250" font-size="12" fill="#1a1a1a" text-anchor="middle">Логіка безпеки</text>
+  <text x="530" y="276" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Контроль U1/U2</text>
+  <text x="530" y="294" font-size="12" fill="#6b7280" text-anchor="middle">Діагностика ZK</text>
+  <text x="530" y="312" font-size="12" fill="#6b7280" text-anchor="middle">Самоконтроль</text>
+  <text x="530" y="340" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">F-Fail Safe</text>
+
+  <!-- ДОМЕН B: Лінія гальванічної ізоляції -->
+  <line x1="612" y1="112" x2="612" y2="477" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="612" y="106" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Гальванічна розв'язка</text>
+
+  <!-- ДОМЕН C: Канали F-DI -->
+  <rect x="630" y="112" width="135" height="365" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="697" y="132" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Група F-DI</text>
+  <text x="697" y="150" font-size="12" fill="#6b7280" text-anchor="middle">Вхідні канали</text>
+
+  <rect x="645" y="210" width="105" height="70" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="697" y="234" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Оптоізоляція</text>
+  <text x="697" y="254" font-size="12" fill="#1a1a1a" text-anchor="middle">Канал F-DI</text>
+  <text x="697" y="270" font-size="12" fill="#6b7280" text-anchor="middle">(Оптопара)</text>
+
+  <rect x="645" y="300" width="105" height="60" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="697" y="322" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">+24V_IN</text>
+  <text x="697" y="344" font-size="12" fill="#6b7280" text-anchor="middle">Польове живлення</text>
+
+  <rect x="645" y="380" width="105" height="50" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="697" y="402" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">GND_IN</text>
+  <text x="697" y="420" font-size="12" fill="#6b7280" text-anchor="middle">Земля входів</text>
+
+  <text x="697" y="460" font-size="12" fill="#6b7280" text-anchor="middle">Датчики / Кнопки</text>
+
+  <!-- ДОМЕН D: Канали F-DO -->
+  <rect x="780" y="112" width="135" height="365" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="847" y="132" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Група F-DO</text>
+  <text x="847" y="150" font-size="12" fill="#6b7280" text-anchor="middle">Вихідні канали</text>
+
+  <rect x="795" y="210" width="105" height="70" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="847" y="234" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Ключі F-DO</text>
+  <text x="847" y="254" font-size="12" fill="#1a1a1a" text-anchor="middle">P/N комутація</text>
+  <text x="847" y="270" font-size="12" fill="#6b7280" text-anchor="middle">(Дубльована)</text>
+
+  <rect x="795" y="300" width="105" height="60" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="847" y="322" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">+24V_OUT</text>
+  <text x="847" y="344" font-size="12" fill="#6b7280" text-anchor="middle">Силове живлення</text>
+
+  <rect x="795" y="380" width="105" height="50" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="847" y="402" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">GND_OUT</text>
+  <text x="847" y="420" font-size="12" fill="#6b7280" text-anchor="middle">Земля виходів</text>
+
+  <text x="847" y="460" font-size="12" fill="#6b7280" text-anchor="middle">Клапани / Реле</text>
+
+  <!-- Зв'язок керування через бар'єр розв'язки -->
+  <path d="M 585,245 L 640,245" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arr-green)"/>
+</svg>

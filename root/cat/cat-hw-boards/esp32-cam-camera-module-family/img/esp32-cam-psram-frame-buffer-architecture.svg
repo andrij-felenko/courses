@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Архітектура кадрового буфера ESP32-CAM: SRAM та PSRAM</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Великі кадрові буфери розміщуються в зовнішній PSRAM, а SRAM зберігає лише вказівники та дескриптори</text>
+
+  <!-- Панель 1: Модуль камери (OV2640) -->
+  <rect x="30" y="85" width="180" height="370" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="120" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Модуль камери</text>
+  <text x="120" y="128" text-anchor="middle" font-size="12" fill="#6b7280">(OV2640)</text>
+
+  <!-- Блок 1.1: Сенсор -->
+  <rect x="42" y="142" width="156" height="85" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="120" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Формування кадрів</text>
+  <text x="120" y="185" text-anchor="middle" font-size="12" fill="#6b7280">UXGA / SVGA / JPEG</text>
+  <text x="120" y="205" text-anchor="middle" font-size="12" fill="#6b7280">До ~2 МБ на кадр</text>
+
+  <!-- Блок 1.2: Шина DVP -->
+  <rect x="42" y="242" width="156" height="195" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="120" y="266" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Шина DVP (8 біт)</text>
+  <text x="120" y="292" text-anchor="middle" font-size="12" fill="#1a1a1a">• Дані: Y2–Y9</text>
+  <text x="120" y="314" text-anchor="middle" font-size="12" fill="#1a1a1a">• Тактування: PCLK</text>
+  <text x="120" y="336" text-anchor="middle" font-size="12" fill="#1a1a1a">• Кадри: VSYNC</text>
+  <text x="120" y="358" text-anchor="middle" font-size="12" fill="#1a1a1a">• Рядки: HREF</text>
+  <text x="120" y="380" text-anchor="middle" font-size="12" fill="#1a1a1a">• Сигнал: XCLK</text>
+  <text x="120" y="415" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Безперервний потік</text>
+
+  <!-- Зв'язок 1: DVP потік між Камерою та ESP32 -->
+  <line x1="198" y1="185" x2="257" y2="185" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="227.5" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">DVP</text>
+
+  <!-- Панель 2: Мікроконтролер ESP32 SoC -->
+  <rect x="245" y="85" width="410" height="370" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="450" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Мікроконтролер ESP32 SoC</text>
+
+  <!-- Блок 2.1: DMA Контролер -->
+  <rect x="257" y="132" width="180" height="155" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="347" y="154" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">I2S / DMA контролер</text>
+  <text x="347" y="176" text-anchor="middle" font-size="12" fill="#6b7280">Захоплення даних з DVP</text>
+  <text x="347" y="198" text-anchor="middle" font-size="12" fill="#6b7280">Апаратне пакування</text>
+  <text x="347" y="220" text-anchor="middle" font-size="12" fill="#6b7280">Пряма передача у PSRAM</text>
+  <text x="347" y="242" text-anchor="middle" font-size="12" fill="#6b7280">без завантаження CPU</text>
+  <text x="347" y="270" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Прямий доступ (DMA)</text>
+
+  <!-- Внутрішня стрілка: DMA -> SRAM descriptors -->
+  <line x1="437" y1="210" x2="453" y2="210" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Блок 2.2: Внутрішня SRAM -->
+  <rect x="453" y="132" width="188" height="155" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="547" y="154" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Внутрішня SRAM</text>
+  <text x="547" y="174" text-anchor="middle" font-size="12" fill="#6b7280">DRAM: ~320 КБ вільних</text>
+
+  <!-- Картка метаданих всередині SRAM -->
+  <rect x="461" y="184" width="172" height="92" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="547" y="203" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Службова пам'ять:</text>
+  <text x="547" y="223" text-anchor="middle" font-size="12" fill="#1a1a1a">• camera_fb_t (структура)</text>
+  <text x="547" y="243" text-anchor="middle" font-size="12" fill="#1a1a1a">• Дескриптори DMA</text>
+  <text x="547" y="263" text-anchor="middle" font-size="12" fill="#1a1a1a">• Стек системних тасок</text>
+
+  <!-- Блок 2.3: Пояснення обмеження SRAM -->
+  <rect x="257" y="302" width="384" height="135" rx="4" fill="#ffffff" stroke="#c0392b" stroke-dasharray="4,4" stroke-width="1"/>
+  <text x="449" y="325" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Чому потрібна зовнішня PSRAM?</text>
+  <text x="449" y="348" text-anchor="middle" font-size="12" fill="#1a1a1a">Кадр UXGA (1600×1200, RGB565) = 3.84 МБ</text>
+  <text x="449" y="369" text-anchor="middle" font-size="12" fill="#1a1a1a">Внутрішня SRAM (~320 КБ) замала для кадру!</text>
+  <text x="449" y="390" text-anchor="middle" font-size="12" fill="#6b7280">Без PSRAM гранична роздільність — CIF/QVGA</text>
+  <text x="449" y="420" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">SRAM зберігає ВКАЗІВНИК, а не сам кадр!</text>
+
+  <!-- Зв'язки 2: ESP32 -> PSRAM -->
+  <line x1="641" y1="185" x2="690" y2="185" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="672.5" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">SPI</text>
+
+  <line x1="641" y1="230" x2="690" y2="230" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+  <text x="672.5" y="250" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">buf</text>
+
+  <!-- Панель 3: Зовнішня PSRAM -->
+  <rect x="690" y="85" width="240" height="370" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="810" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Зовнішня PSRAM (4 / 8 МБ)</text>
+  <text x="810" y="128" text-anchor="middle" font-size="12" fill="#6b7280">Адресний простір 0x3F800000</text>
+
+  <!-- Блок 3.1: FB 0 -->
+  <rect x="702" y="142" width="216" height="85" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="810" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Кадровий буфер 0 (FB 0)</text>
+  <text x="810" y="185" text-anchor="middle" font-size="12" fill="#1a1a1a">Масив пікселів зображення (до ~4 МБ)</text>
+  <text x="810" y="205" text-anchor="middle" font-size="12" fill="#6b7280">Буферизація кадрів високої роздільності</text>
+
+  <!-- Блок 3.2: FB 1 -->
+  <rect x="702" y="242" width="216" height="85" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="810" y="265" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Кадровий буфер 1 (FB 1)</text>
+  <text x="810" y="285" text-anchor="middle" font-size="12" fill="#1a1a1a">Подвійна буферизація (Double Buffering)</text>
+  <text x="810" y="305" text-anchor="middle" font-size="12" fill="#6b7280">Безперервний захват без розривів</text>
+
+  <!-- Блок 3.3: Результат -->
+  <rect x="702" y="342" width="216" height="95" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="810" y="364" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Переваги PSRAM:</text>
+  <text x="810" y="384" text-anchor="middle" font-size="12" fill="#1a1a1a">• Підтримка UXGA / SXGA / SVGA</text>
+  <text x="810" y="404" text-anchor="middle" font-size="12" fill="#1a1a1a">• Стабільний відеопотік по Wi-Fi</text>
+  <text x="810" y="424" text-anchor="middle" font-size="12" fill="#27ae60" font-weight="bold">Без випадіння кадрів</text>
+</svg>

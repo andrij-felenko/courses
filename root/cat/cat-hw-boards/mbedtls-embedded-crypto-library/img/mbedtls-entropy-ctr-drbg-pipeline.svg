@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Конвеєр ентропії та генерації псевдовипадкових чисел у mbedTLS</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">TRNG та системні джерела поєднуються в колекторі SHA-256 для посіву та періодичного оновлення стану CTR-DRBG (AES-256)</text>
+
+  <!-- Left Panel: Entropy Sources -->
+  <rect x="35" y="70" width="240" height="390" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+  <text x="155" y="92" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">Джерела ентропії</text>
+  <text x="155" y="108" text-anchor="middle" font-size="12" fill="#6b7280">(Entropy Sources)</text>
+
+  <!-- Block 1: TRNG -->
+  <rect x="50" y="130" width="210" height="65" fill="#eaf0fd" stroke="#2457d6" rx="6"/>
+  <text x="155" y="153" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Апаратний TRNG</text>
+  <text x="155" y="173" text-anchor="middle" font-size="12" fill="#6b7280">ESP8266/32 RF &amp; АЦП шуми</text>
+
+  <!-- Block 2: Jitter -->
+  <rect x="50" y="210" width="210" height="65" fill="#eaf0fd" stroke="#2457d6" rx="6"/>
+  <text x="155" y="233" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Системний джитер</text>
+  <text x="155" y="253" text-anchor="middle" font-size="12" fill="#6b7280">Таймери та переривання</text>
+
+  <!-- Block 3: NV Seed -->
+  <rect x="50" y="290" width="210" height="65" fill="#eaf0fd" stroke="#2457d6" rx="6"/>
+  <text x="155" y="313" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">NV-посів (Flash NVRAM)</text>
+  <text x="155" y="333" text-anchor="middle" font-size="12" fill="#6b7280">Холодний старт системи</text>
+
+  <!-- Block 4: Personalization -->
+  <rect x="50" y="370" width="210" height="70" fill="#ffffff" stroke="#d0d7de" stroke-dasharray="4,3" rx="6"/>
+  <text x="155" y="393" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Персоналізація (pers)</text>
+  <text x="155" y="413" text-anchor="middle" font-size="12" fill="#6b7280">Унікальний ID пристрою</text>
+
+  <!-- Middle Panel: Entropy Collector -->
+  <rect x="310" y="70" width="270" height="390" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+  <text x="445" y="92" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">Колектор ентропії</text>
+  <text x="445" y="108" text-anchor="middle" font-size="12" fill="#6b7280">(mbedtls_entropy_context)</text>
+
+  <!-- Block M1: Accumulator -->
+  <rect x="325" y="130" width="240" height="75" fill="#eaf0fd" stroke="#2457d6" rx="6"/>
+  <text x="445" y="153" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Накопичувач ентропії</text>
+  <text x="445" y="172" text-anchor="middle" font-size="12" fill="#2457d6">f_source() колбеки джерел</text>
+  <text x="445" y="189" text-anchor="middle" font-size="12" fill="#6b7280">Контроль entropy_len ≥ min</text>
+
+  <!-- Block M2: SHA-256 Conditioning -->
+  <rect x="325" y="235" width="240" height="80" fill="#eaf0fd" stroke="#2457d6" rx="6"/>
+  <text x="445" y="258" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Конденсація (SHA-256)</text>
+  <text x="445" y="278" text-anchor="middle" font-size="12" fill="#1a1a1a">Криптографічне хешування</text>
+  <text x="445" y="296" text-anchor="middle" font-size="12" fill="#6b7280">Вирівнювання розподілу бітів</text>
+
+  <!-- Block M3: Output Seed Buffer -->
+  <rect x="325" y="345" width="240" height="90" fill="#e9f7ef" stroke="#27ae60" rx="6"/>
+  <text x="445" y="367" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">Вихідний буфер ентропії</text>
+  <text x="445" y="386" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">256-біт якісного посіву</text>
+  <text x="445" y="405" text-anchor="middle" font-size="12" fill="#6b7280">Передається в mbedtls_ctr_drbg</text>
+  <text x="445" y="422" text-anchor="middle" font-size="12" fill="#6b7280">під час seed / reseed</text>
+
+  <!-- Right Panel: CTR-DRBG Generator -->
+  <rect x="615" y="70" width="310" height="390" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+  <text x="770" y="92" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">Генератор CTR-DRBG</text>
+  <text x="770" y="108" text-anchor="middle" font-size="12" fill="#6b7280">(NIST SP 800-90A AES-256)</text>
+
+  <!-- Block R1: Seed & Reseed Engine -->
+  <rect x="630" y="130" width="280" height="95" fill="#eaf0fd" stroke="#2457d6" rx="6"/>
+  <text x="770" y="153" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Функція посіву &amp; Reseed</text>
+  <text x="770" y="173" text-anchor="middle" font-size="12" fill="#2457d6">mbedtls_ctr_drbg_seed / reseed</text>
+  <text x="770" y="193" text-anchor="middle" font-size="12" fill="#1a1a1a">Поєднання: Entropy Seed + pers</text>
+  <text x="770" y="210" text-anchor="middle" font-size="12" fill="#6b7280">Оновлення ключа K та лічильника V</text>
+
+  <!-- Block R2: Internal State -->
+  <rect x="630" y="250" width="280" height="75" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="770" y="272" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Внутрішній стан DRBG</text>
+  <text x="770" y="292" text-anchor="middle" font-size="12" fill="#6b7280">Ключ K (256-bit) | Вектор V (128-bit)</text>
+  <text x="770" y="310" text-anchor="middle" font-size="12" fill="#6b7280">Лічильник reseed_counter</text>
+
+  <!-- Block R3: Random Output -->
+  <rect x="630" y="350" width="280" height="90" fill="#e9f7ef" stroke="#27ae60" rx="6"/>
+  <text x="770" y="372" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">Вихідний випадковий потік</text>
+  <text x="770" y="392" text-anchor="middle" font-size="12" fill="#1a1a1a">mbedtls_ctr_drbg_random()</text>
+  <text x="770" y="412" text-anchor="middle" font-size="12" fill="#1a1a1a">Генерація ключів RSA/ECC, IV, Nonce</text>
+  <text x="770" y="429" text-anchor="middle" font-size="12" fill="#27ae60">Захищений криптографічний стек</text>
+
+  <!-- Flow Arrows & Connections -->
+  <line x1="260" y1="162.5" x2="325" y2="162.5" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="292" y="152" text-anchor="middle" font-size="11" fill="#2457d6">TRNG</text>
+
+  <path d="M 260,242.5 L 292,242.5 L 292,177.5 L 325,177.5" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 260,322.5 L 300,322.5 L 300,192.5 L 325,192.5" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <line x1="445" y1="205" x2="445" y2="235" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="455" y="223" text-anchor="start" font-size="11" fill="#2457d6">Сирі дані</text>
+
+  <line x1="445" y1="315" x2="445" y2="345" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="455" y="333" text-anchor="start" font-size="11" fill="#27ae60">Хеш SHA-256</text>
+
+  <path d="M 565,390 L 595,390 L 595,175 L 630,175" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="597" y="280" text-anchor="middle" font-size="11" fill="#27ae60">Seed</text>
+
+  <path d="M 260,405 L 290,405 L 290,450 L 610,450 L 610,195 L 630,195" fill="none" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+  <text x="445" y="444" text-anchor="middle" font-size="11" fill="#6b7280">персоналізація (pers)</text>
+
+  <line x1="770" y1="225" x2="770" y2="250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="780" y="241" text-anchor="start" font-size="11" fill="#2457d6">Оновлення K, V</text>
+
+  <line x1="770" y1="325" x2="770" y2="350" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="780" y="341" text-anchor="start" font-size="11" fill="#27ae60">AES-256 CTR</text>
+
+  <path d="M 770,130 L 770,118 L 575,118 L 575,145" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="672" y="112" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">Авто-Reseed запит</text>
+
+  <!-- Bottom Summary Legend -->
+  <rect x="35" y="475" width="890" height="35" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="480" y="497" text-anchor="middle" font-size="12" fill="#1a1a1a">Потік даних: Апаратні джерела ентропії → Накопичення &amp; SHA-256 → 256-біт посів → CTR-DRBG (AES-256) → Криптовиклики TLS</text>
+</svg>

@@ -1,0 +1,219 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrowhead markers -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вбудований програматор ST-Link V2.1 на STM32F103C8</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Схема обв'язки: LDO 3.3V, підтяжка D+, кварц 8 МГц та рівневі буфери SWD/VCP</text>
+
+  <!-- PANEL 1: Power & USB (Top-Left) -->
+  <rect x="25" y="75" width="280" height="225" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="35" y="96" font-size="13" font-weight="bold" fill="#2457d6">1. Живлення LDO 3.3V та USB D+</text>
+
+  <!-- USB Connector Box -->
+  <rect x="40" y="115" width="65" height="100" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="72.5" y="133" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">USB Port</text>
+  <text x="95" y="150" font-size="12" fill="#1a1a1a" text-anchor="end">VBUS</text>
+  <text x="95" y="185" font-size="12" fill="#1a1a1a" text-anchor="end">D-</text>
+  <text x="95" y="205" font-size="12" fill="#1a1a1a" text-anchor="end">D+</text>
+
+  <!-- LDO AMS1117-3.3 Box -->
+  <rect x="175" y="120" width="80" height="50" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="215" y="136" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">AMS1117-3.3</text>
+  <text x="181" y="156" font-size="12" fill="#6b7280">VIN</text>
+  <text x="249" y="156" font-size="12" fill="#6b7280" text-anchor="end">VOUT</text>
+
+  <!-- Wires & Components in Panel 1 -->
+  <!-- VBUS 5V Line -->
+  <path d="M105,148 L175,148" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="135" y="136" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+5V</text>
+  
+  <!-- Cap CIN 10uF -->
+  <path d="M135,148 L135,158" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="129" y1="158" x2="141" y2="158" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="129" y1="162" x2="141" y2="162" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M135,162 L135,168" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="129" y1="168" x2="141" y2="168" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="147" y="164" font-size="12" fill="#6b7280">10μF</text>
+
+  <!-- 3.3V Line Out -->
+  <path d="M255,148 L325,148" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="282" y="136" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">+3.3V</text>
+
+  <!-- Cap COUT 100nF -->
+  <path d="M275,148 L275,158" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="269" y1="158" x2="281" y2="158" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="269" y1="162" x2="281" y2="162" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M275,162 L275,168" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="269" y1="168" x2="281" y2="168" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="275" y="181" font-size="12" fill="#6b7280" text-anchor="middle">100nF</text>
+
+  <!-- USB Data Lines to MCU -->
+  <path d="M105,185 L325,185" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M105,205 L325,205" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- USB D+ Pull-Up Circuit (R_PU 1.5k) -->
+  <path d="M140,205 L140,220" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="133" y="220" width="14" height="24" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M140,244 L140,262" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M140,262 L325,262" fill="none" stroke="#27ae60" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <text x="154" y="234" font-size="12" font-weight="bold" fill="#2457d6">R_PU 1.5k (D+)</text>
+  <text x="154" y="256" font-size="12" fill="#6b7280">Управління: PA15</text>
+
+  <!-- PANEL 2: Clock & Reset (Bottom-Left) -->
+  <rect x="25" y="315" width="280" height="225" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="35" y="336" font-size="13" font-weight="bold" fill="#2457d6">2. Тактування та Скидання</text>
+
+  <!-- Crystal 8 MHz Box -->
+  <rect x="45" y="355" width="70" height="50" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="80" y="373" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">8 MHz</text>
+  <text x="80" y="391" font-size="12" fill="#6b7280" text-anchor="middle">Y1 (HSE)</text>
+
+  <!-- Crystal Connections to MCU PD0 / PD1 -->
+  <path d="M115,368 L325,368" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <path d="M115,392 L325,392" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Load Caps C1, C2 -->
+  <path d="M140,368 L140,374" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="134" y1="374" x2="146" y2="374" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="134" y1="378" x2="146" y2="378" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M140,378 L140,384" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <path d="M140,392 L140,398" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="134" y1="398" x2="146" y2="398" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="134" y1="402" x2="146" y2="402" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M140,402 L140,408" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="152" y="391" font-size="12" fill="#6b7280">20pF (C1, C2)</text>
+
+  <!-- NRST Circuit -->
+  <path d="M45,460 L325,460" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  
+  <!-- R_RST 10k Pull-up -->
+  <path d="M250,460 L250,444" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="243" y="420" width="14" height="24" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M250,420 L250,410" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="250" y="405" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">+3.3V</text>
+  <text x="235" y="436" font-size="12" fill="#1a1a1a" text-anchor="end">R_RST 10k</text>
+
+  <!-- Filter Cap C_RST 100nF -->
+  <path d="M140,460 L140,472" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="134" y1="472" x2="146" y2="472" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="134" y1="476" x2="146" y2="476" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M140,476 L140,486" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="134" y1="486" x2="146" y2="486" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="152" y="478" font-size="12" fill="#6b7280">C_RST 100nF</text>
+
+  <!-- BOOT0 Connection -->
+  <path d="M325,515 L250,515" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="236" y="508" width="14" height="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M236,515 L210,515" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="225" y="498" font-size="12" fill="#6b7280" text-anchor="middle">BOOT0: 10k → GND</text>
+
+  <!-- PANEL 3: MCU STM32F103C8 (Center) -->
+  <rect x="325" y="75" width="310" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="96" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MCU STM32F103C8T6 (ST-Link V2.1)</text>
+
+  <!-- MCU Main Chip Body -->
+  <rect x="355" y="110" width="250" height="415" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Connections entering MCU from Panel 1 & 2 -->
+  <path d="M325,185 L355,185" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M325,205 L355,205" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M325,262 L355,262" fill="none" stroke="#27ae60" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <path d="M325,368 L355,368" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M325,392 L355,392" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M325,460 L355,460" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M325,515 L355,515" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Left Side Pin Labels -->
+  <text x="365" y="189" font-size="12" font-weight="bold" fill="#2457d6">PA11 (USB_D-)</text>
+  <text x="365" y="209" font-size="12" font-weight="bold" fill="#2457d6">PA12 (USB_D+)</text>
+  <text x="365" y="266" font-size="12" fill="#6b7280">PA15 (USB_EN)</text>
+
+  <!-- Decoupling block inside chip -->
+  <rect x="415" y="285" width="130" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="305" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">VDD 3.3V / VSS GND</text>
+  <text x="480" y="322" font-size="12" fill="#6b7280" text-anchor="middle">4x 100nF (C_VDD)</text>
+
+  <text x="365" y="372" font-size="12" fill="#1a1a1a">PD0 (OSC_IN)</text>
+  <text x="365" y="396" font-size="12" fill="#1a1a1a">PD1 (OSC_OUT)</text>
+  <text x="365" y="464" font-size="12" font-weight="bold" fill="#c0392b">NRST</text>
+  <text x="365" y="519" font-size="12" fill="#6b7280">BOOT0</text>
+
+  <!-- Right Side Pin Labels -->
+  <text x="595" y="188" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">PA14 (SWCLK)</text>
+  <text x="595" y="210" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">PA13 (SWDIO)</text>
+  <text x="595" y="232" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">PB0 (T_NRST)</text>
+  <text x="595" y="259" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">PA2 (VCP_TX)</text>
+  <text x="595" y="284" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">PA3 (VCP_RX)</text>
+  <text x="595" y="474" font-size="12" fill="#6b7280" text-anchor="end">PB14 (LED_STATUS)</text>
+
+  <!-- Connections exiting MCU to Panel 4 -->
+  <path d="M605,184 L668,184" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M605,210 L668,210" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M605,232 L668,232" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <path d="M605,255 L815,255" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M605,280 L815,280" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- PANEL 4: Level Shifter & Target Connector (Right) -->
+  <rect x="655" y="75" width="280" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="665" y="96" font-size="13" font-weight="bold" fill="#2457d6">3. Буфери рівнів та Вихід SWD/VCP</text>
+
+  <!-- Level Shifter Box 74LVC1T45 -->
+  <rect x="668" y="140" width="115" height="110" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="725.5" y="156" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">74LVC1T45</text>
+  <text x="725.5" y="169" font-size="11" fill="#6b7280" text-anchor="middle">Буфери рівнів</text>
+  
+  <text x="674" y="188" font-size="12" fill="#2457d6">CLK_IN</text>
+  <text x="674" y="210" font-size="12" fill="#2457d6">DIO_IN</text>
+  <text x="674" y="232" font-size="12" fill="#c0392b">RST_IN</text>
+
+  <text x="777" y="188" font-size="12" fill="#2457d6" text-anchor="end">CLK_OUT</text>
+  <text x="777" y="210" font-size="12" fill="#2457d6" text-anchor="end">DIO_OUT</text>
+  <text x="777" y="232" font-size="12" fill="#c0392b" text-anchor="end">RST_OUT</text>
+
+  <!-- Target SWD Header Box -->
+  <rect x="815" y="115" width="110" height="375" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="870" y="132" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">TARGET SWD</text>
+  <line x1="820" y1="138" x2="920" y2="138" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Target Header Pins -->
+  <text x="825" y="156" font-size="12" font-weight="bold" fill="#c0392b">1: T_VCC</text>
+  <text x="825" y="188" font-size="12" font-weight="bold" fill="#2457d6">2: SWCLK</text>
+  <text x="825" y="210" font-size="12" font-weight="bold" fill="#2457d6">3: SWDIO</text>
+  <text x="825" y="232" font-size="12" font-weight="bold" fill="#c0392b">4: NRST</text>
+  <text x="825" y="259" font-size="12" font-weight="bold" fill="#27ae60">5: VCP_TX</text>
+  <text x="825" y="284" font-size="12" font-weight="bold" fill="#27ae60">6: VCP_RX</text>
+  <text x="825" y="465" font-size="12" fill="#1a1a1a">7: GND</text>
+
+  <!-- Lines Level Shifter -> Target Header -->
+  <path d="M783,184 L815,184" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M783,210 L815,210" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M783,232 L815,232" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Info / Spec Box (Bottom of Column 4) -->
+  <rect x="668" y="310" width="125" height="175" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="730.5" y="330" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Живлення цілі</text>
+  <text x="730.5" y="348" font-size="12" fill="#1a1a1a" text-anchor="middle">T_VCC: 1.65..5.5V</text>
+  <text x="730.5" y="378" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">VCP Порт</text>
+  <text x="730.5" y="396" font-size="12" fill="#1a1a1a" text-anchor="middle">UART 115200</text>
+  <text x="730.5" y="426" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Завантажувач</text>
+  <text x="730.5" y="444" font-size="12" fill="#1a1a1a" text-anchor="middle">USB DFU / SWD</text>
+
+</svg>

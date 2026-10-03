@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-small" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3.5 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green-small" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3.5 L0,7 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Машина станів TLS-рукостискання в mbedTLS (Client / Server)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Послідовний перехід SSL-контексту від ініціалізації до захищеного обміну даними</text>
+
+  <!-- Container Panels -->
+  <!-- Left Column Panel: Client -->
+  <rect x="35" y="75" width="270" height="460" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="170" y="100" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SSL Клієнт (mbedtls_ssl_context)</text>
+
+  <!-- Right Column Panel: Server -->
+  <rect x="655" y="75" width="270" height="460" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="790" y="100" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SSL Сервер (mbedtls_ssl_context)</text>
+
+  <!-- Vertical State Flow Arrows (Client) -->
+  <line x1="170" y1="165" x2="170" y2="215" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-blue-small)"/>
+  <line x1="170" y1="273" x2="170" y2="305" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-blue-small)"/>
+  <line x1="170" y1="350" x2="170" y2="375" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-blue-small)"/>
+  <line x1="170" y1="433" x2="170" y2="460" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-green-small)"/>
+
+  <!-- Vertical State Flow Arrows (Server) -->
+  <line x1="790" y1="165" x2="790" y2="215" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-blue-small)"/>
+  <line x1="790" y1="273" x2="790" y2="305" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-blue-small)"/>
+  <line x1="790" y1="350" x2="790" y2="375" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-blue-small)"/>
+  <line x1="790" y1="433" x2="790" y2="460" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-green-small)"/>
+
+  <!-- STEP 1: Hello Phase -->
+  <!-- Client Box 1 -->
+  <rect x="50" y="120" width="240" height="45" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="170" y="137" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">MBEDTLS_SSL_CLIENT_HELLO</text>
+  <text x="170" y="153" font-size="11" fill="#1a1a1a" text-anchor="middle">Генерація Random, MFLN, SNI</text>
+
+  <!-- Message 1 Arrow: Client -> Server -->
+  <line x1="290" y1="153" x2="670" y2="153" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="144" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1. ClientHello (ciphers, random, MFLN)</text>
+
+  <!-- Server Box 1 -->
+  <rect x="670" y="120" width="240" height="45" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="790" y="137" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">MBEDTLS_SSL_SERVER_HELLO</text>
+  <text x="790" y="153" font-size="11" fill="#1a1a1a" text-anchor="middle">Вибір CipherSuite та параметрів</text>
+
+  <!-- STEP 2: Server Certificate & Key Exchange -->
+  <!-- Message 2 Arrow: Server -> Client -->
+  <line x1="670" y1="215" x2="290" y2="215" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="205" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2. ServerHello, Certificate, ServerKeyExchange</text>
+  <text x="480" y="230" font-size="11" fill="#6b7280" text-anchor="middle">Сертифікат X.509 + параметри ECDHE</text>
+
+  <!-- Client Box 2 -->
+  <rect x="50" y="215" width="240" height="58" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="170" y="232" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">MBEDTLS_SSL_CERTIFICATE_VERIFY</text>
+  <text x="170" y="247" font-size="11" fill="#1a1a1a" text-anchor="middle">mbedtls_x509_crt_verify()</text>
+  <text x="170" y="262" font-size="11" fill="#6b7280" text-anchor="middle">Перевірка ланцюжка довіри</text>
+
+  <!-- Server Box 2 -->
+  <rect x="670" y="215" width="240" height="58" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="790" y="232" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">MBEDTLS_SSL_SERVER_KEY_EXCHANGE</text>
+  <text x="790" y="247" font-size="11" fill="#1a1a1a" text-anchor="middle">Надсилання ECDHE ключів</text>
+  <text x="790" y="262" font-size="11" fill="#6b7280" text-anchor="middle">Очікування відповіді клієнта</text>
+
+  <!-- STEP 3: Client Key Exchange -->
+  <!-- Client Box 3 -->
+  <rect x="50" y="305" width="240" height="45" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="170" y="322" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">MBEDTLS_SSL_CLIENT_KEY_EXCHANGE</text>
+  <text x="170" y="338" font-size="11" fill="#1a1a1a" text-anchor="middle">Відправка публ. ключа ECDHE</text>
+
+  <!-- Message 3 Arrow: Client -> Server -->
+  <line x1="290" y1="328" x2="670" y2="328" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="319" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">3. ClientKeyExchange (ECDHE_pub)</text>
+
+  <!-- Server Box 3 -->
+  <rect x="670" y="305" width="240" height="45" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="790" y="322" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">MBEDTLS_SSL_CLIENT_KEY_EXCHANGE</text>
+  <text x="790" y="338" font-size="11" fill="#1a1a1a" text-anchor="middle">Генерація спільних ключів</text>
+
+  <!-- STEP 4: Switch to Encryption (CCS & Finished) -->
+  <!-- Client Box 4 -->
+  <rect x="50" y="375" width="240" height="58" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="170" y="392" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">MBEDTLS_SSL_CLIENT_CHANGE_CIPHER_SPEC</text>
+  <text x="170" y="407" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">MBEDTLS_SSL_CLIENT_FINISHED</text>
+  <text x="170" y="422" font-size="11" fill="#1a1a1a" text-anchor="middle">Активація симетричного шифрування</text>
+
+  <!-- Message 4 Arrow: Client -> Server -->
+  <line x1="290" y1="385" x2="670" y2="385" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="376" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">4. ChangeCipherSpec, Finished</text>
+
+  <!-- Message 5 Arrow: Server -> Client -->
+  <line x1="670" y1="425" x2="290" y2="425" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="416" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">5. ChangeCipherSpec, Finished</text>
+  <text x="480" y="440" font-size="11" fill="#6b7280" text-anchor="middle">Шифрований захищений обмін (Encrypted)</text>
+
+  <!-- Server Box 4 -->
+  <rect x="670" y="375" width="240" height="58" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="790" y="392" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">MBEDTLS_SSL_SERVER_CHANGE_CIPHER_SPEC</text>
+  <text x="790" y="407" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">MBEDTLS_SSL_SERVER_FINISHED</text>
+  <text x="790" y="422" font-size="11" fill="#1a1a1a" text-anchor="middle">Перевірка MAC/HMAC Finished</text>
+
+  <!-- STEP 5: Handshake Complete & Application Data -->
+  <!-- Client Box 5 -->
+  <rect x="50" y="460" width="240" height="55" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="170" y="478" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">MBEDTLS_SSL_HANDSHAKE_OVER</text>
+  <text x="170" y="494" font-size="11" fill="#1a1a1a" text-anchor="middle">Канал захищено (TLS 1.2)</text>
+  <text x="170" y="508" font-size="11" fill="#6b7280" text-anchor="middle">mbedtls_ssl_write() / read()</text>
+
+  <!-- Middle Data Channel Box -->
+  <rect x="320" y="465" width="320" height="45" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 2" rx="6"/>
+  <text x="480" y="483" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Захищений обмін даними (Application Data)</text>
+  <text x="480" y="499" font-size="11" fill="#27ae60" text-anchor="middle">(AES-256-GCM / ChaCha20-Poly1305)</text>
+
+  <!-- Server Box 5 -->
+  <rect x="670" y="460" width="240" height="55" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="790" y="478" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">MBEDTLS_SSL_HANDSHAKE_OVER</text>
+  <text x="790" y="494" font-size="11" fill="#1a1a1a" text-anchor="middle">Канал захищено (TLS 1.2)</text>
+  <text x="790" y="508" font-size="11" fill="#6b7280" text-anchor="middle">mbedtls_ssl_read() / write()</text>
+</svg>

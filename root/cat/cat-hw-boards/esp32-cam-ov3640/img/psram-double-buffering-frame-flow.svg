@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Подвійна буферизація кадрів у пам'яті PSRAM</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Почергове заповнення буферів DMA та зчитування прикладним процесом усувають розрив кадру</text>
+
+  <!-- Left Container: Step 1 -->
+  <rect x="30" y="75" width="435" height="318" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="31" y="76" width="433" height="32" rx="7" fill="#f4f6f8"/>
+  <text x="247.5" y="97" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Такт T₁: Запис у FB 0, зчитування з FB 1</text>
+
+  <!-- Step 1: Camera/DMA -->
+  <rect x="50" y="118" width="395" height="46" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247.5" y="136" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Камера OV3640 + ESP32 CAM DMA</text>
+  <text x="247.5" y="153" font-size="12" fill="#6b7280" text-anchor="middle">Отримання кадру N+1 через паралельну шину DVP</text>
+
+  <!-- Step 1: PSRAM Box -->
+  <rect x="50" y="210" width="395" height="102" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="200" y="226" font-size="12" font-weight="700" fill="#6b7280">Зовнішня пам'ять PSRAM (Double Buffer)</text>
+
+  <!-- Step 1: FB 0 (Writing) -->
+  <rect x="65" y="235" width="170" height="70" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="150" y="254" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Буфер 0 (FB 0)</text>
+  <text x="150" y="271" font-size="12" font-weight="600" fill="#2457d6" text-anchor="middle">СТАТУС: ЗАПИС DMA</text>
+  <text x="150" y="289" font-size="12" fill="#1a1a1a" text-anchor="middle">Кадр N+1 (Заповнення)</text>
+
+  <!-- Step 1: FB 1 (Reading) -->
+  <rect x="260" y="235" width="170" height="70" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="345" y="254" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Буфер 1 (FB 1)</text>
+  <text x="345" y="271" font-size="12" font-weight="600" fill="#27ae60" text-anchor="middle">СТАТУС: ЗЧИТУВАННЯ</text>
+  <text x="345" y="289" font-size="12" fill="#1a1a1a" text-anchor="middle">Кадр N (Передавання)</text>
+
+  <!-- Step 1: Consumer -->
+  <rect x="50" y="345" width="395" height="44" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247.5" y="363" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Прикладний процес (HTTP / Wi-Fi / SD)</text>
+  <text x="247.5" y="379" font-size="12" fill="#6b7280" text-anchor="middle">Трансляція готового кадру N споживачеві</text>
+
+  <!-- Step 1: Arrows -->
+  <line x1="150" y1="164" x2="150" y2="204" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="140" y="188" font-size="12" font-weight="600" fill="#2457d6" text-anchor="end">Запис N+1</text>
+
+  <line x1="345" y1="312" x2="345" y2="339" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="353" y="328" font-size="12" font-weight="600" fill="#27ae60" text-anchor="start">Читання N</text>
+
+
+  <!-- Central Transition Swap Arrow -->
+  <path d="M 468 250 L 487 250" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)" stroke-dasharray="4,3"/>
+  <text x="480" y="242" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">Своп</text>
+
+
+  <!-- Right Container: Step 2 -->
+  <rect x="495" y="75" width="435" height="318" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="496" y="76" width="433" height="32" rx="7" fill="#f4f6f8"/>
+  <text x="712.5" y="97" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Такт T₂: Своп (FB 1 — Запис, FB 0 — Зчитування)</text>
+
+  <!-- Step 2: Camera/DMA -->
+  <rect x="515" y="118" width="395" height="46" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712.5" y="136" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Камера OV3640 + ESP32 CAM DMA</text>
+  <text x="712.5" y="153" font-size="12" fill="#6b7280" text-anchor="middle">Отримання кадру N+2 через паралельну шину DVP</text>
+
+  <!-- Step 2: PSRAM Box -->
+  <rect x="515" y="210" width="395" height="102" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="527" y="226" font-size="12" font-weight="700" fill="#6b7280">Зовнішня пам'ять PSRAM (Double Buffer)</text>
+
+  <!-- Step 2: FB 0 (Reading) -->
+  <rect x="530" y="235" width="170" height="70" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="615" y="254" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Буфер 0 (FB 0)</text>
+  <text x="615" y="271" font-size="12" font-weight="600" fill="#27ae60" text-anchor="middle">СТАТУС: ЗЧИТУВАННЯ</text>
+  <text x="615" y="289" font-size="12" fill="#1a1a1a" text-anchor="middle">Кадр N+1 (Передавання)</text>
+
+  <!-- Step 2: FB 1 (Writing) -->
+  <rect x="725" y="235" width="170" height="70" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="810" y="254" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Буфер 1 (FB 1)</text>
+  <text x="810" y="271" font-size="12" font-weight="600" fill="#2457d6" text-anchor="middle">СТАТУС: ЗАПИС DMA</text>
+  <text x="810" y="289" font-size="12" fill="#1a1a1a" text-anchor="middle">Кадр N+2 (Заповнення)</text>
+
+  <!-- Step 2: Consumer -->
+  <rect x="515" y="345" width="395" height="44" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712.5" y="363" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Прикладний процес (HTTP / Wi-Fi / SD)</text>
+  <text x="712.5" y="379" font-size="12" fill="#6b7280" text-anchor="middle">Трансляція готового кадру N+1 споживачеві</text>
+
+  <!-- Step 2: Arrows -->
+  <line x1="615" y1="312" x2="615" y2="339" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="623" y="328" font-size="12" font-weight="600" fill="#27ae60" text-anchor="start">Читання N+1</text>
+
+  <line x1="810" y1="164" x2="810" y2="204" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="800" y="188" font-size="12" font-weight="600" fill="#2457d6" text-anchor="end">Запис N+2</text>
+
+
+  <!-- Footer Panel -->
+  <rect x="30" y="405" width="900" height="55" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="45" y="417" width="115" height="31" rx="4" fill="#27ae60"/>
+  <text x="102.5" y="437" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">БЕЗ РОЗРИВУ</text>
+  <text x="175" y="427" font-size="13" font-weight="700" fill="#1a1a1a">Подвійна буферизація в PSRAM запобігає переповненню FIFO та розриву кадрів (tearing)</text>
+  <text x="175" y="445" font-size="12" fill="#6b7280">DMA записує новий JPEG-кадр у вільний буфер, поки прикладний потік читає попередній</text>
+</svg>

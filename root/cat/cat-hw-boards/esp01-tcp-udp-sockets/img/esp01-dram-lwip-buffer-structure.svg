@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл DRAM та буферизація LwIP у модулі ESP-01</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Переповнення pbuf та затримки UART виснажують купу DRAM і спричиняють помилки OOM</text>
+
+  <!-- Панель 1: Вхідний потік Wi-Fi та LwIP -->
+  <rect x="40" y="85" width="265" height="430" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="172" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Вхідний потік Wi-Fi та LwIP</text>
+
+  <!-- Блок 1A: Прийом пакетів Wi-Fi -->
+  <rect x="55" y="125" width="235" height="55" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="172" y="147" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Пакет Wi-Fi (802.11)</text>
+  <text x="172" y="167" font-size="12" fill="#6b7280" text-anchor="middle">Прийом кадрів з ефіру</text>
+
+  <line x1="172" y1="180" x2="172" y2="205" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- Блок 1B: Черга pbuf -->
+  <rect x="55" y="205" width="235" height="175" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="172" y="225" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Динамічні буфери pbuf</text>
+
+  <rect x="68" y="235" width="209" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="172" y="255" font-size="12" fill="#1a1a1a" text-anchor="middle">pbuf #1 (Header + Payload)</text>
+
+  <line x1="172" y1="265" x2="172" y2="273" stroke="#2457d6" stroke-width="1" marker-end="url(#arr-accent)"/>
+
+  <rect x="68" y="275" width="209" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="172" y="295" font-size="12" fill="#1a1a1a" text-anchor="middle">pbuf #2 (Payload chunk)</text>
+
+  <line x1="172" y1="305" x2="172" y2="313" stroke="#2457d6" stroke-width="1" marker-end="url(#arr-accent)"/>
+
+  <rect x="68" y="315" width="209" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3" rx="4"/>
+  <text x="172" y="335" font-size="12" fill="#1a1a1a" text-anchor="middle">pbuf #N (Ланцюг черги RX)</text>
+
+  <!-- Блок 1C: Критична точка OOM 1 -->
+  <rect x="55" y="395" width="235" height="105" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="172" y="417" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠ Точка OOM #1</text>
+  <text x="172" y="437" font-size="12" fill="#1a1a1a" text-anchor="middle">Накопичення pbuf у DRAM</text>
+  <text x="172" y="457" font-size="12" fill="#6b7280" text-anchor="middle">при вихідному трафіку RX</text>
+  <text x="172" y="477" font-size="12" fill="#6b7280" text-anchor="middle">та повільному вичищенні</text>
+
+  <!-- Панель 2: Розподіл пам'яті DRAM -->
+  <rect x="320" y="85" width="320" height="430" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="480" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Розподіл пам'яті DRAM</text>
+
+  <!-- Карта оперативної пам'яті DRAM -->
+  <rect x="335" y="125" width="290" height="255" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+
+  <rect x="343" y="133" width="274" height="40" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="480" y="157" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Статична пам'ять (BSS / Data / Stack)</text>
+
+  <rect x="343" y="179" width="274" height="65" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="480" y="201" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Виділено під pbuf та TCP/UDP PCB</text>
+  <text x="480" y="221" font-size="12" fill="#6b7280" text-anchor="middle">Сокетні буфери (AT+CIPMUX)</text>
+
+  <rect x="343" y="250" width="274" height="55" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="480" y="271" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вільна системна купа (Heap)</text>
+  <text x="480" y="291" font-size="12" fill="#1a1a1a" text-anchor="middle">Динамічна пам'ять для malloc()</text>
+
+  <rect x="343" y="311" width="274" height="63" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,2" rx="4"/>
+  <text x="480" y="333" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⛔ Поріг виснаження (&lt; 2-4 KB)</text>
+  <text x="480" y="353" font-size="12" fill="#c0392b" text-anchor="middle">Помилка алокації pbuf -&gt; OOM</text>
+
+  <!-- Блок 2E: Критична точка OOM 2 -->
+  <rect x="335" y="395" width="290" height="105" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="480" y="417" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠ Точка OOM #2</text>
+  <text x="480" y="437" font-size="12" fill="#1a1a1a" text-anchor="middle">Множинні сокети (AT+CIPMUX=1)</text>
+  <text x="480" y="457" font-size="12" fill="#6b7280" text-anchor="middle">Кожне з'єднання створює PCB</text>
+  <text x="480" y="477" font-size="12" fill="#6b7280" text-anchor="middle">та резервує буфери сокетів</text>
+
+  <!-- Панель 3: Інтерфейс UART та Хост -->
+  <rect x="655" y="85" width="265" height="430" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="787" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Інтерфейс UART та Хост</text>
+
+  <!-- Блок 3A: Інтерпретатор AT -->
+  <rect x="670" y="125" width="235" height="60" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="787" y="147" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інтерпретатор AT-команд</text>
+  <text x="787" y="167" font-size="12" fill="#2457d6" text-anchor="middle">Формат +IPD,&lt;link&gt;,&lt;len&gt;:</text>
+
+  <line x1="787" y1="185" x2="787" y2="205" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- Блок 3B: Черга UART TX -->
+  <rect x="670" y="205" width="235" height="85" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="787" y="227" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Черга UART TX (Ring Buffer)</text>
+  <text x="787" y="247" font-size="12" fill="#6b7280" text-anchor="middle">128 байт HW FIFO + RAM буфер</text>
+  <text x="787" y="267" font-size="12" fill="#1a1a1a" text-anchor="middle">Вузьке місце: 115200 bps</text>
+
+  <line x1="787" y1="290" x2="787" y2="310" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- Блок 3C: Хост-мікроконтролер -->
+  <rect x="670" y="310" width="235" height="65" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="787" y="332" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Хост-мікроконтролер</text>
+  <text x="787" y="352" font-size="12" fill="#6b7280" text-anchor="middle">Асинхронний FSM + IPD парсер</text>
+
+  <!-- Блок 3D: Розв'язок / Запобігання OOM -->
+  <rect x="670" y="395" width="235" height="105" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="787" y="417" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Запобігання OOM</text>
+  <text x="787" y="437" font-size="12" fill="#1a1a1a" text-anchor="middle">• Підвищення baudrate UART</text>
+  <text x="787" y="457" font-size="12" fill="#1a1a1a" text-anchor="middle">• Потокова обробка +IPD</text>
+  <text x="787" y="477" font-size="12" fill="#1a1a1a" text-anchor="middle">• Закриття зайвих сокетів</text>
+
+  <!-- Міжпанельні зв'язки та стрілки потоку даних -->
+  <!-- 1 -> 2: Алокація pbuf в DRAM -->
+  <line x1="290" y1="211.5" x2="343" y2="211.5" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="316" y="198" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">alloc pbuf</text>
+
+  <!-- 2 -> 3: Вичитка даних інтерпретатором AT -->
+  <line x1="617" y1="155" x2="670" y2="155" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="643" y="142" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">вичитка</text>
+
+  <!-- Зворотний зв'язок: Затримка UART спричиняє виснаження пам'яті -->
+  <path d="M 670,247.5 L 643.5,247.5 L 643.5,342.5 L 617,342.5" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="633" y="295" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Затримка UART</text>
+</svg>

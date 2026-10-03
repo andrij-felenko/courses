@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка полотна -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Стрілки-маркери -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Організація буферів X1, X2, Y та MAC-обчислення у FMAC</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Обчислення дискретної згортки y[n] = ∑ bₖ·x[n-k] у кільцевій пам'яті без копіювання даних</text>
+
+  <!-- Ліва панель: Внутрішній Dual-Port RAM -->
+  <rect x="30" y="70" width="440" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="250" y="94" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішній Dual-Port RAM FMAC (256×16-bit)</text>
+
+  <!-- Буфер X1 (Вхідні відліки / Ring Buffer) -->
+  <rect x="45" y="108" width="410" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="126" font-size="13" font-weight="bold" fill="#2457d6">Буфер X1 (Вхідні відліки)</text>
+  <text x="445" y="126" font-size="12" fill="#6b7280" text-anchor="end">X1_BASE, X1_SIZE</text>
+
+  <rect x="60" y="136" width="50" height="32" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="85" y="156" font-size="12" fill="#6b7280" text-anchor="middle">x[n-5]</text>
+
+  <rect x="114" y="136" width="50" height="32" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="139" y="156" font-size="12" fill="#6b7280" text-anchor="middle">x[n-4]</text>
+
+  <rect x="168" y="136" width="50" height="32" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="193" y="156" font-size="12" fill="#6b7280" text-anchor="middle">x[n-3]</text>
+
+  <rect x="222" y="136" width="50" height="32" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="247" y="156" font-size="12" fill="#6b7280" text-anchor="middle">x[n-2]</text>
+
+  <rect x="276" y="136" width="50" height="32" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="301" y="156" font-size="12" fill="#1a1a1a" text-anchor="middle">x[n-1]</text>
+
+  <rect x="330" y="136" width="50" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="355" y="156" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">x[n]</text>
+
+  <text x="55" y="193" font-size="12" fill="#6b7280">Адресація: (ptr - k) mod SIZE</text>
+  <text x="445" y="193" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Вказівник запису (X1_START)</text>
+  <line x1="355" y1="181" x2="355" y2="171" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Буфер X2 (Коефіцієнти фільтра) -->
+  <rect x="45" y="211" width="410" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="229" font-size="13" font-weight="bold" fill="#1a1a1a">Буфер X2 (Коефіцієнти b₀...bₖ)</text>
+  <text x="445" y="229" font-size="12" fill="#6b7280" text-anchor="end">X2_BASE, X2_SIZE</text>
+
+  <rect x="60" y="240" width="50" height="32" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="85" y="261" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">b₀</text>
+
+  <rect x="114" y="240" width="50" height="32" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="139" y="261" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">b₁</text>
+
+  <rect x="168" y="240" width="50" height="32" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="193" y="261" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">b₂</text>
+
+  <rect x="222" y="240" width="50" height="32" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="247" y="261" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">b₃</text>
+
+  <rect x="276" y="240" width="50" height="32" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="301" y="261" font-size="12" fill="#6b7280" text-anchor="middle">b₄</text>
+
+  <rect x="330" y="240" width="50" height="32" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="355" y="261" font-size="12" fill="#6b7280" text-anchor="middle">...</text>
+
+  <!-- Буфер Y (Вихідні відліки / Ring Buffer) -->
+  <rect x="45" y="299" width="410" height="115" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="317" font-size="13" font-weight="bold" fill="#27ae60">Буфер Y (Вихідні відліки)</text>
+  <text x="445" y="317" font-size="12" fill="#6b7280" text-anchor="end">Y_BASE, Y_SIZE</text>
+
+  <rect x="60" y="328" width="50" height="32" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="85" y="349" font-size="12" fill="#6b7280" text-anchor="middle">y[n-5]</text>
+
+  <rect x="114" y="328" width="50" height="32" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="139" y="349" font-size="12" fill="#6b7280" text-anchor="middle">y[n-4]</text>
+
+  <rect x="168" y="328" width="50" height="32" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="193" y="349" font-size="12" fill="#6b7280" text-anchor="middle">y[n-3]</text>
+
+  <rect x="222" y="328" width="50" height="32" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="247" y="349" font-size="12" fill="#6b7280" text-anchor="middle">y[n-2]</text>
+
+  <rect x="276" y="328" width="50" height="32" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="301" y="349" font-size="12" fill="#1a1a1a" text-anchor="middle">y[n-1]</text>
+
+  <rect x="330" y="328" width="50" height="32" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="355" y="349" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">y[n]</text>
+
+  <text x="55" y="397" font-size="12" fill="#6b7280">Запис результату обчислення</text>
+  <text x="445" y="397" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Вказівник запису (Y_START)</text>
+  <line x1="355" y1="385" x2="355" y2="365" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Права панель: Апаратне MAC-ядро -->
+  <rect x="490" y="70" width="440" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="710" y="94" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратне MAC-ядро (Обчислення згортки)</text>
+
+  <!-- Множник (MUL) -->
+  <rect x="520" y="125" width="160" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="600" y="146" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Множник (MUL)</text>
+  <text x="600" y="166" font-size="12" fill="#1a1a1a" text-anchor="middle">P = x[n-k] × bₖ</text>
+
+  <!-- Акумулятор (ACC) -->
+  <rect x="720" y="125" width="190" height="135" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="815" y="146" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Акумулятор (ACC)</text>
+  <text x="815" y="165" font-size="12" fill="#6b7280" text-anchor="middle">43-бітний суматор</text>
+
+  <rect x="735" y="177" width="160" height="68" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="815" y="196" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ACC += x[n-k] · bₖ</text>
+  <text x="815" y="215" font-size="12" fill="#1a1a1a" text-anchor="middle">Повне обчислення:</text>
+  <text x="815" y="233" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">y[n] = ∑ bₖ · x[n-k]</text>
+
+  <!-- Блок форматування (Sat & Round) -->
+  <rect x="520" y="285" width="390" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="715" y="308" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Блок форматування результату (Sat &amp; Round)</text>
+  <text x="715" y="330" font-size="12" fill="#6b7280" text-anchor="middle">Округлення 43-bit ACC → 16/32-bit (Q15/Q31) з насиченням</text>
+
+  <!-- Сигнали та зв'язки між панелями -->
+  <path d="M 380,152 L 465,152 L 465,140 L 520,140" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-accent)"/>
+  <text x="425" y="144" font-size="12" font-weight="bold" fill="#2457d6">x[n-k]</text>
+
+  <path d="M 380,256 L 475,256 L 475,170 L 520,170" stroke="#1a1a1a" stroke-width="1.5" fill="none" marker-end="url(#arr-dark)"/>
+  <text x="425" y="248" font-size="12" font-weight="bold" fill="#1a1a1a">bₖ</text>
+
+  <line x1="680" y1="155" x2="720" y2="155" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <text x="700" y="148" font-size="12" fill="#2457d6" text-anchor="middle">P</text>
+
+  <line x1="815" y1="260" x2="815" y2="285" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <text x="835" y="276" font-size="12" fill="#6b7280">ACC</text>
+
+  <path d="M 520,317.5 L 470,317.5 L 470,344 L 380,344" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+  <text x="455" y="338" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">y[n]</text>
+
+  <!-- Нижня підсумкова панель -->
+  <rect x="30" y="445" width="900" height="55" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="467" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Головна перевага FMAC: Апаратний зсув вказівників (Pointer Wrap-Around)</text>
+  <text x="480" y="487" font-size="12" fill="#1a1a1a" text-anchor="middle">При отриманні нового відліку оновлюється лише X1_START. Масив у пам'яті не зсувається (0 тактів CPU/DMA на переміщення).</text>
+</svg>

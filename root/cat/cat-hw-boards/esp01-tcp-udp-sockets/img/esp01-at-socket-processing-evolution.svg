@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Еволюція обробки TCP/UDP-сокетів у прошивках ESP-01 AT</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Від блокуючого опитування буфера до асинхронних сповіщень +IPD та наскрізного режиму</text>
+
+  <!-- КОЛОНА 1: v0.x -->
+  <rect x="30" y="68" width="284" height="412" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="42" y="80" width="260" height="44" rx="6" fill="#c0392b"/>
+  <text x="172" y="98" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">v0.x — Non-OS SDK</text>
+  <text x="172" y="115" font-size="12" fill="#fdecea" text-anchor="middle">Блокуючий поллінг (Polling)</text>
+
+  <rect x="42" y="136" width="260" height="42" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="172" y="154" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Головний мікроконтролер</text>
+  <text x="172" y="169" font-size="12" fill="#6b7280" text-anchor="middle">(Host MCU)</text>
+
+  <line x1="112" y1="182" x2="112" y2="224" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="104" y="206" font-size="12" fill="#c0392b" text-anchor="end">AT+CIPRECVDATA</text>
+
+  <line x1="232" y1="224" x2="232" y2="182" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+  <text x="240" y="206" font-size="12" fill="#c0392b" text-anchor="start">Дані / Занято</text>
+
+  <rect x="42" y="228" width="260" height="44" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="172" y="246" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Буфер сокетів (DRAM)</text>
+  <text x="172" y="262" font-size="12" fill="#c0392b" text-anchor="middle">Втрата пакетів при сплесках</text>
+
+  <line x1="172" y1="276" x2="172" y2="300" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="180" y="292" font-size="12" fill="#6b7280" text-anchor="start">Вхідні TCP/UDP пакети</text>
+
+  <rect x="42" y="308" width="260" height="160" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="54" y="328" font-size="13" font-weight="700" fill="#c0392b">Особливості v0.x:</text>
+  <text x="54" y="350" font-size="12" fill="#1a1a1a">• Опитування буфера за таймером</text>
+  <text x="54" y="372" font-size="12" fill="#1a1a1a">• Блокування послідовного порту</text>
+  <text x="54" y="394" font-size="12" fill="#1a1a1a">• Переповнення пам'яті DRAM</text>
+  <text x="54" y="416" font-size="12" fill="#1a1a1a">• Високе навантаження на MCU</text>
+  <text x="54" y="438" font-size="12" fill="#1a1a1a">• Ризик втрати мережевих даних</text>
+
+  <!-- КОЛОНА 2: v1.x -->
+  <rect x="338" y="68" width="284" height="412" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="350" y="80" width="260" height="44" rx="6" fill="#2457d6"/>
+  <text x="480" y="98" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">v1.x — lwIP SDK</text>
+  <text x="480" y="115" font-size="12" fill="#eaf0fd" text-anchor="middle">Асинхронна подієва модель</text>
+
+  <rect x="350" y="136" width="260" height="42" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="154" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Головний мікроконтролер</text>
+  <text x="480" y="169" font-size="12" fill="#6b7280" text-anchor="middle">(Парсинг префікса +IPD)</text>
+
+  <line x1="480" y1="224" x2="480" y2="182" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="490" y="206" font-size="12" font-weight="700" fill="#2457d6" text-anchor="start">+IPD,&lt;len&gt;:&lt;data&gt;</text>
+  <text x="470" y="206" font-size="12" fill="#6b7280" text-anchor="end">Спонтанна подія</text>
+
+  <rect x="350" y="228" width="260" height="44" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="246" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Стек lwIP (Event-driven)</text>
+  <text x="480" y="262" font-size="12" fill="#2457d6" text-anchor="middle">Негайне вивантаження в UART</text>
+
+  <line x1="480" y1="276" x2="480" y2="300" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="490" y="292" font-size="12" fill="#6b7280" text-anchor="start">Вхідні TCP/UDP пакети</text>
+
+  <rect x="350" y="308" width="260" height="160" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="362" y="328" font-size="13" font-weight="700" fill="#2457d6">Особливості v1.x:</text>
+  <text x="362" y="350" font-size="12" fill="#1a1a1a">• Негайне сповіщення про дані</text>
+  <text x="362" y="372" font-size="12" fill="#1a1a1a">• Очищення DRAM без затримок</text>
+  <text x="362" y="394" font-size="12" fill="#1a1a1a">• Потрібен текстовий парсер +IPD</text>
+  <text x="362" y="416" font-size="12" fill="#1a1a1a">• Ризик втрат при повільному UART</text>
+  <text x="362" y="438" font-size="12" fill="#1a1a1a">• Відсутність блокуючого опитування</text>
+
+  <!-- КОЛОНА 3: v2.x+ -->
+  <rect x="646" y="68" width="284" height="412" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="658" y="80" width="260" height="44" rx="6" fill="#27ae60"/>
+  <text x="788" y="98" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">v2.x+ — FreeRTOS AT</text>
+  <text x="788" y="115" font-size="12" fill="#e9f7ef" text-anchor="middle">Прозорий режим (Passthrough)</text>
+
+  <rect x="658" y="136" width="260" height="42" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="788" y="154" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Головний мікроконтролер</text>
+  <text x="788" y="169" font-size="12" fill="#6b7280" text-anchor="middle">(Прямий байтовий потік RX/TX)</text>
+
+  <line x1="788" y1="182" x2="788" y2="224" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="798" y="200" font-size="12" font-weight="700" fill="#27ae60" text-anchor="start">AT+CIPMODE=1</text>
+  <text x="798" y="215" font-size="12" fill="#27ae60" text-anchor="start">Наскрізний потік</text>
+
+  <rect x="658" y="228" width="260" height="44" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="788" y="246" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Сокетний міст FreeRTOS</text>
+  <text x="788" y="262" font-size="12" fill="#27ae60" text-anchor="middle">Підтримка SSL/TLS криптографії</text>
+
+  <line x1="788" y1="276" x2="788" y2="300" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="778" y="292" font-size="12" fill="#6b7280" text-anchor="end">Потік TCP/UDP/TLS</text>
+
+  <rect x="658" y="308" width="260" height="160" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="670" y="328" font-size="13" font-weight="700" fill="#27ae60">Переваги v2.x+:</text>
+  <text x="670" y="350" font-size="12" fill="#1a1a1a">• Пряме передавання без AT-тегів</text>
+  <text x="670" y="372" font-size="12" fill="#1a1a1a">• Максимальна швидкість потоку</text>
+  <text x="670" y="394" font-size="12" fill="#1a1a1a">• Потік керування RTS/CTS</text>
+  <text x="670" y="416" font-size="12" fill="#1a1a1a">• Криптозахист TLS / SSL</text>
+  <text x="670" y="438" font-size="12" fill="#1a1a1a">• Стійкість до вичерпання DRAM</text>
+</svg>

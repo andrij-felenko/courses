@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Асинхронний FSM для керування TCP/UDP сокетом ESP-01</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Переходи між станами ініціалізації, з'єднання, передачі та потокової обробки +IPD</text>
+
+  <!-- State 1: STATE_INIT -->
+  <rect x="35" y="100" width="155" height="125" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="112.5" y="124" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. STATE_INIT</text>
+  <text x="112.5" y="146" font-size="12" fill="#1a1a1a" text-anchor="middle">AT → OK</text>
+  <text x="112.5" y="166" font-size="12" fill="#1a1a1a" text-anchor="middle">AT+CWMODE=1</text>
+  <text x="112.5" y="186" font-size="12" fill="#1a1a1a" text-anchor="middle">AT+CIPMUX=1</text>
+  <text x="112.5" y="206" font-size="12" fill="#6b7280" text-anchor="middle">Скидання стану</text>
+
+  <!-- State 2: STATE_CONNECT -->
+  <rect x="255" y="100" width="165" height="125" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="337.5" y="124" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. STATE_CONNECT</text>
+  <text x="337.5" y="146" font-size="12" fill="#1a1a1a" text-anchor="middle">AT+CIPSTART=...</text>
+  <text x="337.5" y="166" font-size="12" fill="#1a1a1a" text-anchor="middle">Старт TCP/UDP</text>
+  <text x="337.5" y="186" font-size="12" fill="#1a1a1a" text-anchor="middle">Очікування OK</text>
+  <text x="337.5" y="206" font-size="12" fill="#6b7280" text-anchor="middle">Таймаут T_connect</text>
+
+  <!-- State 3: STATE_CONNECTED -->
+  <rect x="495" y="100" width="180" height="125" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="585" y="124" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">3. STATE_CONNECTED</text>
+  <text x="585" y="146" font-size="12" fill="#1a1a1a" text-anchor="middle">Сокет активний</text>
+  <text x="585" y="166" font-size="12" fill="#1a1a1a" text-anchor="middle">Моніторинг UART</text>
+  <text x="585" y="186" font-size="12" fill="#1a1a1a" text-anchor="middle">Прийом +IPD</text>
+  <text x="585" y="206" font-size="12" fill="#6b7280" text-anchor="middle">Готовий до SEND</text>
+
+  <!-- State 4: STATE_SEND -->
+  <rect x="750" y="100" width="175" height="125" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="837.5" y="124" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">4. STATE_SEND</text>
+  <text x="837.5" y="146" font-size="12" fill="#1a1a1a" text-anchor="middle">AT+CIPSEND=len</text>
+  <text x="837.5" y="166" font-size="12" fill="#1a1a1a" text-anchor="middle">Очікування '&gt;'</text>
+  <text x="837.5" y="186" font-size="12" fill="#1a1a1a" text-anchor="middle">Передача байтів</text>
+  <text x="837.5" y="206" font-size="12" fill="#6b7280" text-anchor="middle">Контроль ACK</text>
+
+  <!-- State 5: STATE_RECV_IPD -->
+  <rect x="495" y="310" width="430" height="125" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <text x="710" y="334" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">5. STATE_RECV_IPD (Потоковий парсер UART)</text>
+  <text x="710" y="356" font-size="12" fill="#1a1a1a" text-anchor="middle">Пошук кадру: +IPD,&lt;link_id&gt;,&lt;len&gt;:&lt;data&gt;</text>
+  <text x="710" y="376" font-size="12" fill="#1a1a1a" text-anchor="middle">Накопичення &lt;len&gt; байт без затримки main loop</text>
+  <text x="710" y="396" font-size="12" fill="#1a1a1a" text-anchor="middle">Передача payload у буфер додатка хоста</text>
+  <text x="710" y="416" font-size="12" fill="#6b7280" text-anchor="middle">Детекція термінаторів: OK, ERROR, CLOSED</text>
+
+  <!-- State 6: STATE_ERROR_RECOVERY -->
+  <rect x="35" y="310" width="410" height="125" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="240" y="334" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">6. STATE_ERROR_RECOVERY (Обробка збоїв)</text>
+  <text x="240" y="356" font-size="12" fill="#1a1a1a" text-anchor="middle">Фіксація таймауту або термінатора ERROR</text>
+  <text x="240" y="376" font-size="12" fill="#1a1a1a" text-anchor="middle">Закриття сокета: AT+CIPCLOSE</text>
+  <text x="240" y="396" font-size="12" fill="#1a1a1a" text-anchor="middle">Перевищення спроб → Hard Reset (RST pin)</text>
+  <text x="240" y="416" font-size="12" fill="#6b7280" text-anchor="middle">Пауза перед повторним запуском FSM</text>
+
+  <!-- Transitions (Arrows & Labels) -->
+  <!-- 1 -> 2 (OK) -->
+  <path d="M 190,162.5 L 255,162.5" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="222.5" y="148" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">OK</text>
+
+  <!-- 2 -> 3 (OK) -->
+  <path d="M 420,162.5 L 495,162.5" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="457.5" y="148" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">OK</text>
+
+  <!-- 3 -> 4 (CIPSEND) -->
+  <path d="M 675,142.5 L 750,142.5" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="712.5" y="130" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">CIPSEND</text>
+
+  <!-- 4 -> 3 (SEND OK) -->
+  <path d="M 750,182.5 L 675,182.5" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="712.5" y="200" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">SEND OK</text>
+
+  <!-- 3 -> 5 (+IPD) -->
+  <path d="M 585,225 L 585,310" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="595" y="272" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">+IPD</text>
+
+  <!-- 5 -> 3 (DONE) -->
+  <path d="M 535,310 L 535,225" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="525" y="272" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">DONE</text>
+
+  <!-- 1 -> 6 (ERROR) -->
+  <path d="M 70,225 L 70,310" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="62" y="272" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">ERROR</text>
+
+  <!-- 2 -> 6 (FAIL) -->
+  <path d="M 337.5,225 L 337.5,310" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="345.5" y="272" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">FAIL</text>
+
+  <!-- 5 -> 6 (CLOSED) -->
+  <path d="M 495,372.5 L 445,372.5" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="470" y="360" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">CLOSED</text>
+
+  <!-- 6 -> 1 (RETRY) -->
+  <path d="M 150,310 L 150,225" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="158" y="272" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">RETRY</text>
+
+  <!-- Footer note -->
+  <text x="480" y="490" font-size="12" fill="#6b7280" text-anchor="middle">Неблокуючий асинхронний режим: обробка подій UART та таймаутів без затримки основного циклу виконання хост-МК</text>
+</svg>

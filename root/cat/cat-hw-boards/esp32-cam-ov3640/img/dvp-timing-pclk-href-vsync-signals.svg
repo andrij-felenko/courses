@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 470" width="960" height="470" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="470" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Часова діаграма сигналів DVP (PCLK, HREF, VSYNC)</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Накладні витрати гасіння (H-Blank, V-Blank) зменшують корисну пропускну здатність шини відносно PCLK</text>
+
+  <!-- Main Container Panel -->
+  <rect x="25" y="65" width="910" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Vertical Blanking Shading Region -->
+  <rect x="160" y="98" width="80" height="272" fill="#fdecea" rx="4"/>
+  <text x="200" y="112" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">V-Blank</text>
+
+  <!-- H-Blank 1 Shading Region -->
+  <rect x="500" y="152" width="80" height="218" fill="#fdecea" rx="4"/>
+  <text x="540" y="165" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">H-Blank</text>
+
+  <!-- H-Blank 2 Shading Region -->
+  <rect x="820" y="152" width="70" height="218" fill="#fdecea" rx="4"/>
+
+  <!-- Signal Names (Left Column) -->
+  <text x="40" y="138" font-size="14" font-weight="700" fill="#1a1a1a">VSYNC</text>
+  <text x="40" y="152" font-size="12" fill="#6b7280">(Кадрова синхра)</text>
+
+  <text x="40" y="208" font-size="14" font-weight="700" fill="#1a1a1a">HREF</text>
+  <text x="40" y="222" font-size="12" fill="#6b7280">(Рядкова синхра)</text>
+
+  <text x="40" y="268" font-size="14" font-weight="700" fill="#1a1a1a">PCLK</text>
+  <text x="40" y="282" font-size="12" fill="#6b7280">(Тактовий імпульс)</text>
+
+  <text x="40" y="338" font-size="14" font-weight="700" fill="#1a1a1a">D[7:0]</text>
+  <text x="40" y="352" font-size="12" fill="#6b7280">(Шина даних)</text>
+
+  <!-- Top Bracket Dimension: t_vblank -->
+  <line x1="160" y1="82" x2="240" y2="82" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-rev)" marker-end="url(#arr-red)"/>
+  <text x="200" y="78" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">t_vblank</text>
+
+  <!-- Top Bracket Dimension: T_frame_active -->
+  <line x1="240" y1="82" x2="890" y2="82" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="565" y="78" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">T_frame_active = N_lines × T_line</text>
+
+  <!-- 1. VSYNC Waveform -->
+  <path d="M 160,145 L 240,145 L 240,125 L 890,125 L 890,145" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Dimension line for t_line_active -->
+  <line x1="260" y1="180" x2="500" y2="180" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="380" y="175" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">t_line_active = N_pixels × 2 / f_PCLK</text>
+
+  <!-- Dimension line for t_hblank -->
+  <line x1="500" y1="180" x2="580" y2="180" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-rev)" marker-end="url(#arr-red)"/>
+  <text x="540" y="175" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">t_hblank</text>
+
+  <!-- 2. HREF Waveform -->
+  <path d="M 160,218 L 260,218 L 260,195 L 500,195 L 500,218 L 580,218 L 580,195 L 820,195 L 820,218 L 890,218" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Sample Guides -->
+  <line x1="260" y1="262" x2="260" y2="332" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="320" y1="262" x2="320" y2="332" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="380" y1="262" x2="380" y2="332" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="440" y1="262" x2="440" y2="332" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="500" y1="262" x2="500" y2="332" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="580" y1="262" x2="580" y2="332" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="640" y1="262" x2="640" y2="332" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="700" y1="262" x2="700" y2="332" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="760" y1="262" x2="760" y2="332" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="820" y1="262" x2="820" y2="332" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- 3. PCLK Waveform -->
+  <path d="M 160,282 L 160,262 L 175,262 L 175,282 L 190,282 L 190,262 L 205,262 L 205,282 L 220,282 L 220,262 L 235,262 L 235,282 L 250,282 L 250,262 L 265,262 L 265,282 L 280,282 L 280,262 L 295,262 L 295,282 L 310,282 L 310,262 L 325,262 L 325,282 L 340,282 L 340,262 L 355,262 L 355,282 L 370,282 L 370,262 L 385,262 L 385,282 L 400,282 L 400,262 L 415,262 L 415,282 L 430,282 L 430,262 L 445,262 L 445,282 L 460,282 L 460,262 L 475,262 L 475,282 L 490,282 L 490,262 L 505,262 L 505,282 L 520,282 L 520,262 L 535,262 L 535,282 L 550,282 L 550,262 L 565,262 L 565,282 L 580,282 L 580,262 L 595,262 L 595,282 L 610,282 L 610,262 L 625,262 L 625,282 L 640,282 L 640,262 L 655,262 L 655,282 L 670,282 L 670,262 L 685,262 L 685,282 L 700,282 L 700,262 L 715,262 L 715,282 L 730,282 L 730,262 L 745,262 L 745,282 L 760,282 L 760,262 L 775,262 L 775,282 L 790,282 L 790,262 L 805,262 L 805,282 L 820,282 L 820,262 L 835,262 L 835,282 L 850,282 L 850,262 L 865,262 L 865,282 L 880,282 L 880,262 L 890,262 L 890,282 L 890,282" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- 4. DATA Bus Waveforms -->
+  <!-- Inactive during V-Blank -->
+  <line x1="160" y1="345" x2="260" y2="345" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Active Line 1 Pixel Bytes -->
+  <polygon points="260,345 265,332 315,332 320,345 315,358 265,358" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="290" y="349" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">Byte 1 (Y0)</text>
+
+  <polygon points="320,345 325,332 375,332 380,345 375,358 325,358" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="350" y="349" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">Byte 2 (U0)</text>
+
+  <polygon points="380,345 385,332 435,332 440,345 435,358 385,358" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="410" y="349" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">Byte 3 (Y1)</text>
+
+  <polygon points="440,345 445,332 495,332 500,345 495,358 445,358" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="470" y="349" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">Byte 4 (V0)</text>
+
+  <!-- Inactive during H-Blank 1 -->
+  <line x1="500" y1="345" x2="580" y2="345" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Active Line 2 Pixel Bytes -->
+  <polygon points="580,345 585,332 635,332 640,345 635,358 585,358" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="610" y="349" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">Byte 1</text>
+
+  <polygon points="640,345 645,332 695,332 700,345 695,358 645,358" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="670" y="349" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">Byte 2</text>
+
+  <polygon points="700,345 705,332 755,332 760,345 755,358 705,358" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="730" y="349" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">Byte 3</text>
+
+  <polygon points="760,345 765,332 815,332 820,345 815,358 765,358" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="790" y="349" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">Byte 4</text>
+
+  <!-- Inactive during H-Blank 2 -->
+  <line x1="820" y1="345" x2="890" y2="345" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Bottom Dimension: Total Line Period T_line -->
+  <line x1="260" y1="385" x2="580" y2="385" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-dark-rev)" marker-end="url(#arr-dark)"/>
+  <text x="420" y="380" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">T_line = t_line_active + t_hblank</text>
+
+  <!-- Bottom Formulas Summary Panel -->
+  <rect x="35" y="408" width="435" height="35" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="252" y="430" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Кадровий буфер: Size = Width × Height × BytesPerPixel</text>
+
+  <rect x="490" y="408" width="435" height="35" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="707" y="430" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Пропускна здатність: Bitrate = f_PCLK × (t_active / T_frame)</text>
+</svg>

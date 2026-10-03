@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратне розвантаження FOC-контуру в STM32G4</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">АЦП, CORDIC, FMAC та ШІМ обмінюються даними без залучення ядра Cortex-M4</text>
+
+  <!-- Top Panel: Cortex-M4 CPU Core (Offloaded) -->
+  <rect x="30" y="80" width="900" height="75" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">Ядро ARM Cortex-M4 (170 МГц)</text>
+  <text x="50" y="132" font-size="12" fill="#6b7280">Виконує высокорівневу логіку: RTOS, інтерфейси (CAN/UART), діагностику та траєкторії руху</text>
+  <rect x="580" y="94" width="330" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="745" y="111" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">100% ВІЛЬНЕ ВІД FOC-ОБЧИСЛЕНЬ</text>
+
+  <!-- CPU Bypass Indicator Badge -->
+  <rect x="350" y="165" width="260" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="180" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Ядро M4 не переривається на FOC</text>
+
+  <!-- Main Panel: Hardware FOC Dataflow -->
+  <rect x="30" y="195" width="900" height="305" rx="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="50" y="222" font-size="14" font-weight="bold" fill="#2457d6">Апаратний потік даних FOC (Швидкісний контур 10–50 кГц, обмін через DMA/Direct)</text>
+
+  <!-- Block 1: ADC -->
+  <rect x="50" y="240" width="175" height="150" rx="6" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <rect x="58" y="248" width="159" height="24" rx="4" fill="#eaf0fd"/>
+  <text x="137" y="264" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. АЦП (ADC1 / ADC2)</text>
+  <text x="60" y="292" font-size="12" fill="#1a1a1a">• Струми фаз Ia, Ib</text>
+  <text x="60" y="314" font-size="12" fill="#6b7280">• Тригер від ШІМ</text>
+  <text x="60" y="336" font-size="12" fill="#6b7280">• Оцифрування (12 біт)</text>
+  <rect x="58" y="354" width="159" height="26" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="137" y="371" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Дані: струми Iα, Iβ</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="225" y1="315" x2="275" y2="315" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="250" y="298" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DMA</text>
+
+  <!-- Block 2: CORDIC Accelerator -->
+  <rect x="275" y="240" width="185" height="150" rx="6" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <rect x="283" y="248" width="169" height="24" rx="4" fill="#eaf0fd"/>
+  <text x="367" y="264" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. CORDIC прискорювач</text>
+  <text x="285" y="292" font-size="12" fill="#1a1a1a">• Park: Iα,Iβ → Id,Iq</text>
+  <text x="285" y="314" font-size="12" fill="#1a1a1a">• Тригонометрія sin/cos</text>
+  <text x="285" y="336" font-size="12" fill="#6b7280">• Апаратні обчислення</text>
+  <rect x="283" y="354" width="169" height="26" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="367" y="371" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Дані: струми Id, Iq</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="460" y1="315" x2="510" y2="315" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="485" y="298" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DMA</text>
+
+  <!-- Block 3: FMAC Accelerator -->
+  <rect x="510" y="240" width="185" height="150" rx="6" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <rect x="518" y="248" width="169" height="24" rx="4" fill="#eaf0fd"/>
+  <text x="602" y="264" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">3. FMAC прискорювач</text>
+  <text x="520" y="292" font-size="12" fill="#1a1a1a">• PI-регулятори струму</text>
+  <text x="520" y="314" font-size="12" fill="#1a1a1a">• FIR/IIR фільтрація</text>
+  <text x="520" y="336" font-size="12" fill="#6b7280">• Множення з накопиченням</text>
+  <rect x="518" y="354" width="169" height="26" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="602" y="371" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Дані: напруги Vd, Vq</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <line x1="695" y1="315" x2="745" y2="315" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="720" y="298" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DMA</text>
+
+  <!-- Block 4: TIM1 PWM Generator -->
+  <rect x="745" y="240" width="165" height="150" rx="6" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <rect x="753" y="248" width="149" height="24" rx="4" fill="#eaf0fd"/>
+  <text x="827" y="264" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">4. ШІМ (TIM1)</text>
+  <text x="755" y="292" font-size="12" fill="#1a1a1a">• Inv. Park (Vα, Vβ)</text>
+  <text x="755" y="314" font-size="12" fill="#6b7280">• 6× ШІМ виходів</text>
+  <text x="755" y="336" font-size="12" fill="#6b7280">• Dead-time паузи</text>
+  <rect x="753" y="354" width="149" height="26" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="827" y="371" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вихід: PWM1..PWM6</text>
+
+  <!-- Bottom Result Banner inside Main Panel -->
+  <rect x="50" y="410" width="860" height="72" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="68" y="431" font-size="13" font-weight="bold" fill="#27ae60">РЕЗУЛЬТАТ АПАРАТНОГО РОЗВАНТАЖЕННЯ CORTEX-M4:</text>
+  <text x="68" y="452" font-size="12" font-weight="bold" fill="#1a1a1a">✓ Нульова затримка переривань (Zero-Latency) при обчисленні швидкісного FOC-контуру</text>
+  <text x="68" y="470" font-size="12" fill="#6b7280">✓ Гарантована частота обробки до 50 кГц без загрози переповнення стека або jitter ядра CPU</text>
+</svg>

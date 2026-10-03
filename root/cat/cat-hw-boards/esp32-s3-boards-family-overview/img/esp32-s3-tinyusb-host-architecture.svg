@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура подвійного USB-інтерфейсу в ESP32-S3</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Розділення шляхів даних TinyUSB (Host) та системного логування / OpenOCD JTAG</text>
+
+  <!-- COLUMN 1: ESP32-S3 Microcontroller Panel -->
+  <rect x="25" y="85" width="420" height="410" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="25" y="85" width="420" height="32" rx="10" fill="#1a1a1a"/>
+  <text x="235" y="106" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Мікроконтролер ESP32-S3 (SoC)</text>
+
+  <!-- Sub-block 1: Hardware USB Serial / JTAG Controller -->
+  <rect x="40" y="130" width="390" height="145" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="40" y="130" width="390" height="28" rx="8" fill="#2457d6"/>
+  <text x="235" y="149" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Апаратний контролер USB Serial / JTAG</text>
+
+  <!-- Inner Box 1A: CDC Console Log -->
+  <rect x="52" y="168" width="178" height="95" rx="6" fill="#ffffff" stroke="#2457d6"/>
+  <text x="141" y="188" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Канал CDC (Логування)</text>
+  <line x1="62" y1="196" x2="220" y2="196" stroke="#eaf0fd" stroke-width="1.5"/>
+  <text x="141" y="213" font-size="12" fill="#1a1a1a" text-anchor="middle">Маршрутизація ESP_LOGx</text>
+  <text x="141" y="231" font-size="12" fill="#6b7280" text-anchor="middle">Буфер FIFO / Буфер логів</text>
+  <text x="141" y="249" font-size="12" fill="#6b7280" text-anchor="middle">Без навантаження на CPU</text>
+
+  <!-- Inner Box 1B: JTAG OpenOCD -->
+  <rect x="238" y="168" width="178" height="95" rx="6" fill="#ffffff" stroke="#2457d6"/>
+  <text x="327" y="188" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Канал JTAG (OpenOCD)</text>
+  <line x1="248" y1="196" x2="406" y2="196" stroke="#eaf0fd" stroke-width="1.5"/>
+  <text x="327" y="213" font-size="12" fill="#1a1a1a" text-anchor="middle">Апаратне відлагодження</text>
+  <text x="327" y="231" font-size="12" fill="#6b7280" text-anchor="middle">Брейкпоінти та покроковість</text>
+  <text x="327" y="249" font-size="12" fill="#6b7280" text-anchor="middle">Доступ до оперативної пам'яті</text>
+
+  <!-- Sub-block 2: USB OTG Host & TinyUSB Stack -->
+  <rect x="40" y="290" width="390" height="190" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="40" y="290" width="390" height="28" rx="8" fill="#27ae60"/>
+  <text x="235" y="309" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Програмно-апаратний комплекс USB OTG Host</text>
+
+  <!-- Inner Box 2A: Software Stack TinyUSB -->
+  <rect x="52" y="326" width="366" height="64" rx="6" fill="#ffffff" stroke="#27ae60"/>
+  <text x="235" y="344" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Програмний стек TinyUSB (ESP-IDF Component)</text>
+  <line x1="62" y1="351" x2="408" y2="351" stroke="#e9f7ef" stroke-width="1.5"/>
+  <text x="141" y="367" font-size="12" fill="#1a1a1a" text-anchor="middle">Класи: MSC / HID / CDC</text>
+  <text x="141" y="382" font-size="12" fill="#6b7280" text-anchor="middle">Обробка подій Hot-plug</text>
+  <text x="327" y="367" font-size="12" fill="#1a1a1a" text-anchor="middle">Драйвер USB Host Core</text>
+  <text x="327" y="382" font-size="12" fill="#6b7280" text-anchor="middle">Черги та асинхронні I/O</text>
+
+  <!-- Inner Box 2B: Hardware USB OTG Peripheral & VBUS Control -->
+  <rect x="52" y="398" width="366" height="68" rx="6" fill="#ffffff" stroke="#27ae60"/>
+  <text x="141" y="417" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контролер USB OTG (FS)</text>
+  <text x="141" y="434" font-size="12" fill="#6b7280" text-anchor="middle">Апаратний SIE + DMA</text>
+  <text x="141" y="451" font-size="12" fill="#6b7280" text-anchor="middle">Буферизація пакетів USB</text>
+
+  <line x1="235" y1="406" x2="235" y2="458" stroke="#e9f7ef" stroke-width="1.5"/>
+
+  <text x="327" y="417" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Керування VBUS (GPIO)</text>
+  <text x="327" y="440" font-size="12" fill="#6b7280" text-anchor="middle">Сигнал VBUS_EN (увімк. +5В)</text>
+  <text x="327" y="457" font-size="12" fill="#6b7280" text-anchor="middle">Моніторинг VBUS_FAULT</text>
+
+  <!-- Arrow inside USB OTG: Software -> Hardware -->
+  <path d="M 235 390 L 235 398" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+
+  <!-- COLUMN 2: Board Circuitry Panel -->
+  <rect x="505" y="85" width="210" height="410" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="505" y="85" width="210" height="32" rx="10" fill="#6b7280"/>
+  <text x="610" y="106" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Схемотехніка плати розробки</text>
+
+  <!-- Port 1: USB CDC / JTAG Interface -->
+  <rect x="518" y="130" width="184" height="145" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="518" y="130" width="184" height="28" rx="8" fill="#2457d6"/>
+  <text x="610" y="149" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Порт USB-1 (CDC / JTAG)</text>
+  <text x="610" y="174" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Роз'єм USB Type-C №1</text>
+  <line x1="528" y1="182" x2="692" y2="182" stroke="#d0d7de"/>
+  <text x="532" y="199" font-size="12" fill="#1a1a1a">• Лінії: D- (GPIO19), D+</text>
+  <text x="532" y="216" font-size="12" fill="#1a1a1a">• Захист ESD: USBLC6-2</text>
+  <text x="532" y="233" font-size="12" fill="#6b7280">• Вхід VBUS: +5В від ПК</text>
+  <text x="532" y="250" font-size="12" fill="#6b7280">• Окрема шина відлагодження</text>
+
+  <!-- Port 2: USB OTG Host Interface -->
+  <rect x="518" y="290" width="184" height="190" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="518" y="290" width="184" height="28" rx="8" fill="#27ae60"/>
+  <text x="610" y="309" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Порт USB-2 (OTG Host)</text>
+  <text x="610" y="334" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Роз'єм USB Type-C №2</text>
+  <line x1="528" y1="342" x2="692" y2="342" stroke="#d0d7de"/>
+  <text x="532" y="359" font-size="12" fill="#1a1a1a">• Лінії D+ / D- (Нативний FS)</text>
+  <text x="532" y="376" font-size="12" fill="#1a1a1a">• Силовий ключ: TPS2041</text>
+  <text x="532" y="393" font-size="12" fill="#1a1a1a">• Конденсатор: 47 мкФ</text>
+  <text x="532" y="410" font-size="12" fill="#1a1a1a">• Захист ESD: USBLC6-2</text>
+  <text x="532" y="427" font-size="12" fill="#6b7280">• Подача VBUS на периферію</text>
+  <text x="532" y="444" font-size="12" fill="#6b7280">• Захист від короткого</text>
+
+
+  <!-- COLUMN 3: External Devices Panel -->
+  <rect x="765" y="85" width="170" height="410" rx="10" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="765" y="85" width="170" height="32" rx="10" fill="#1a1a1a"/>
+  <text x="850" y="106" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Зовнішні пристрої</text>
+
+  <!-- External Box 1: Debugging PC -->
+  <rect x="775" y="130" width="150" height="145" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="775" y="130" width="150" height="28" rx="8" fill="#2457d6"/>
+  <text x="850" y="149" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">ПК розробника</text>
+  <text x="850" y="174" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Інструменти</text>
+  <line x1="783" y1="182" x2="917" y2="182" stroke="#d0d7de"/>
+  <text x="785" y="199" font-size="12" fill="#1a1a1a">• ESP-IDF Monitor</text>
+  <text x="785" y="216" font-size="12" fill="#1a1a1a">• OpenOCD JTAG</text>
+  <text x="785" y="233" font-size="12" fill="#1a1a1a">• Монітор логів</text>
+  <text x="785" y="250" font-size="12" fill="#6b7280">• Прошивання</text>
+
+  <!-- External Box 2: USB Peripheral Device -->
+  <rect x="775" y="290" width="150" height="190" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="775" y="290" width="150" height="28" rx="8" fill="#27ae60"/>
+  <text x="850" y="309" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">USB Периферія</text>
+  <text x="850" y="334" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Пристрої (Device)</text>
+  <line x1="783" y1="342" x2="917" y2="342" stroke="#d0d7de"/>
+  <text x="785" y="359" font-size="12" fill="#1a1a1a">• USB Flash-диск</text>
+  <text x="785" y="376" font-size="12" fill="#1a1a1a">• Клавіатура / Миша</text>
+  <text x="785" y="393" font-size="12" fill="#1a1a1a">• Вимірювачі</text>
+  <text x="785" y="410" font-size="12" fill="#6b7280">• Живлення VBUS</text>
+  <text x="785" y="427" font-size="12" fill="#6b7280">• Пакетний обмін</text>
+  <text x="785" y="444" font-size="12" fill="#6b7280">• TinyUSB Driver</text>
+
+
+  <!-- INTERCONNECTING ARROWS -->
+
+  <!-- Top Stream (Blue): ESP32-S3 USB Serial/JTAG -> Board Port 1 -> PC -->
+  <path d="M 430 202 L 518 202" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="474" y="193" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D+ / D-</text>
+
+  <path d="M 702 202 L 775 202" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="738" y="193" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">USB</text>
+
+  <!-- Bottom Stream (Green): ESP32-S3 USB OTG Host -> Board Port 2 -> USB Device -->
+  <path d="M 430 432 L 518 432" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="474" y="423" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D+ / D-</text>
+
+  <path d="M 702 432 L 775 432" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="738" y="423" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">+5V</text>
+
+  <!-- Log Routing Connection inside ESP32-S3 (Application Log -> USB Serial/JTAG) -->
+  <path d="M 400 326 L 400 275" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+  <text x="400" y="270" font-size="12" fill="#6b7280" text-anchor="end">ESP_LOGx</text>
+
+</svg>

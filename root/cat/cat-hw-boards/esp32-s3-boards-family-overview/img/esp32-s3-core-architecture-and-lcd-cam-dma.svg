@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура ESP32-S3: розвантаження ЦП через LCD_CAM DMA та PIE</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Контролер LCD_CAM передає відеопотік у пам'ять через DMA без участі ЦП, поки PIE виконує векторні обчислення</text>
+
+  <!-- Panel 1: External Camera -->
+  <rect x="30" y="90" width="145" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="102.5" y="115" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зовнішня камера</text>
+  <text x="102.5" y="133" font-size="12" fill="#6b7280" text-anchor="middle">Джерело відеоданих</text>
+
+  <rect x="42" y="150" width="121" height="340" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="102.5" y="173" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DVP Сенсор</text>
+  <text x="102.5" y="191" font-size="12" fill="#6b7280" text-anchor="middle">(OV2640 / OV5640)</text>
+
+  <!-- Camera Lens Graphic -->
+  <circle cx="102.5" cy="245" r="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="102.5" cy="245" r="9" fill="#2457d6"/>
+
+  <text x="102.5" y="305" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DVP / Parallel</text>
+  <text x="102.5" y="323" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">інтерфейс</text>
+  <text x="102.5" y="355" font-size="12" fill="#1a1a1a" text-anchor="middle">D[0..15] (8/16-bit)</text>
+  <text x="102.5" y="375" font-size="12" fill="#6b7280" text-anchor="middle">PCLK, VSYNC, HSYNC</text>
+  <text x="102.5" y="420" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Швидкість: 80 МБ/с</text>
+
+  <!-- Connection 1: Camera to LCD_CAM -->
+  <line x1="175" y1="245" x2="243" y2="245" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-accent)"/>
+  <text x="209" y="230" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DVP потік</text>
+
+  <!-- Panel 2: LCD_CAM Controller -->
+  <rect x="245" y="90" width="155" height="415" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="322.5" y="115" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Контролер LCD_CAM</text>
+  <text x="322.5" y="133" font-size="12" fill="#6b7280" text-anchor="middle">Приймач Cam Rx</text>
+
+  <!-- RX FIFO Sub-box -->
+  <rect x="257" y="150" width="131" height="110" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="322.5" y="173" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RX FIFO</text>
+  <text x="322.5" y="193" font-size="12" fill="#6b7280" text-anchor="middle">Асинхронний буфер</text>
+  <text x="322.5" y="211" font-size="12" fill="#6b7280" text-anchor="middle">прийому кадрів</text>
+  <text x="322.5" y="235" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">16/32-біт конвертер</text>
+
+  <!-- Internal transfer in LCD_CAM -->
+  <line x1="322.5" y1="260" x2="322.5" y2="288" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- DMA Engine Sub-box -->
+  <rect x="257" y="290" width="131" height="200" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="322.5" y="313" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Рушій DMA</text>
+  <text x="322.5" y="333" font-size="12" fill="#6b7280" text-anchor="middle">Керування потоком</text>
+  <text x="322.5" y="365" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Кільцевий буфер</text>
+  <text x="322.5" y="385" font-size="12" fill="#6b7280" text-anchor="middle">Ping-Pong режим</text>
+  <text x="322.5" y="420" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Авто-перемикання</text>
+  <text x="322.5" y="440" font-size="12" fill="#6b7280" text-anchor="middle">без втрати кадрів</text>
+
+  <!-- Connection 2: LCD_CAM to GDMA -->
+  <line x1="400" y1="390" x2="473" y2="390" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-accent)"/>
+  <text x="436.5" y="372" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Запит DMA</text>
+
+  <!-- Panel 3: GDMA Controller -->
+  <rect x="475" y="90" width="125" height="415" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="537.5" y="115" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Шина GDMA</text>
+  <text x="537.5" y="133" font-size="12" fill="#6b7280" text-anchor="middle">Контролер DMA</text>
+
+  <rect x="485" y="150" width="105" height="340" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="537.5" y="173" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Канал In-link</text>
+  <text x="537.5" y="191" font-size="12" fill="#6b7280" text-anchor="middle">Вхідний канал</text>
+
+  <!-- Direct Memory Bypass Highlight Box -->
+  <rect x="491" y="210" width="93" height="175" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="537.5" y="233" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Пряма</text>
+  <text x="537.5" y="249" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">передача</text>
+  <text x="537.5" y="275" font-size="12" fill="#1a1a1a" text-anchor="middle">Апаратна</text>
+  <text x="537.5" y="291" font-size="12" fill="#1a1a1a" text-anchor="middle">пересилка</text>
+  <text x="537.5" y="307" font-size="12" fill="#1a1a1a" text-anchor="middle">в пам'ять</text>
+  <text x="537.5" y="335" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Навантаження:</text>
+  <text x="537.5" y="365" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">0% ЦП</text>
+
+  <text x="537.5" y="415" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Без затримок ЦП</text>
+  <text x="537.5" y="445" font-size="12" fill="#6b7280" text-anchor="middle">High-Speed AHB</text>
+
+  <!-- Connection 3: GDMA to Memory -->
+  <line x1="600" y1="200" x2="678" y2="200" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="639" y="168" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Запис DMA</text>
+  <text x="639" y="184" font-size="12" fill="#27ae60" text-anchor="middle">(без ЦП)</text>
+
+  <!-- Panel 4: Memory & Xtensa LX7 CPU -->
+  <rect x="680" y="90" width="250" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="805" y="115" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пам'ять та ЦП ESP32-S3</text>
+  <text x="805" y="133" font-size="12" fill="#6b7280" text-anchor="middle">Паралельна обробка кадрів</text>
+
+  <!-- SRAM / PSRAM Memory Sub-box -->
+  <rect x="692" y="150" width="226" height="115" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="805" y="170" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">SRAM / Octal PSRAM</text>
+
+  <!-- Frame Buffers Ping-Pong -->
+  <rect x="700" y="180" width="210" height="75" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="805" y="197" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Буфери кадрів (Ping-Pong)</text>
+  <text x="805" y="217" font-size="12" fill="#1a1a1a" text-anchor="middle">Буфер A: LCD_CAM DMA запис</text>
+  <text x="805" y="237" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Буфер B: PIE обробка даних</text>
+
+  <!-- Connection 4: Memory <-> Core 1 + PIE -->
+  <line x1="875" y1="255" x2="875" y2="335" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-accent)"/>
+  <line x1="895" y1="335" x2="895" y2="255" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="760" y="282" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Обробка PIE (SIMD)</text>
+
+  <!-- CPU Sub-box -->
+  <rect x="692" y="300" width="226" height="190" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="790" y="320" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двоядерний Xtensa® LX7</text>
+
+  <!-- Core 0 Sub-box -->
+  <rect x="700" y="335" width="100" height="145" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="750" y="355" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Core 0</text>
+  <text x="750" y="373" font-size="12" fill="#6b7280" text-anchor="middle">Система</text>
+  <text x="750" y="398" font-size="12" fill="#1a1a1a" text-anchor="middle">Wi-Fi / BT</text>
+  <text x="750" y="418" font-size="12" fill="#1a1a1a" text-anchor="middle">FreeRTOS</text>
+  <text x="750" y="455" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Не зайнятий</text>
+
+  <!-- Core 1 + PIE Sub-box -->
+  <rect x="808" y="335" width="102" height="145" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="859" y="355" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Core 1 + PIE</text>
+  <text x="859" y="373" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Векторний</text>
+  <text x="859" y="398" font-size="12" fill="#1a1a1a" text-anchor="middle">128-біт SIMD</text>
+  <text x="859" y="418" font-size="12" fill="#1a1a1a" text-anchor="middle">TinyML / CV</text>
+  <text x="859" y="455" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Прискорення</text>
+</svg>

@@ -1,0 +1,211 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Marker Definitions -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема обв'язки живлення та автоматичного скидання ESP32-S3</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Коректна комбінація RC-затримки EN (10 kΩ, 1 µF) та згладжування 3.3V гарантує надійний запуск системи</text>
+
+  <!-- Power Rails -->
+  <!-- 3.3V Rail -->
+  <line x1="20" y1="90" x2="410" y2="90" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="50" y="80" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">+3.3V (VDD3V3)</text>
+
+  <!-- GND Rail -->
+  <line x1="20" y1="470" x2="410" y2="470" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="50" y="496" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">GND (0V)</text>
+
+  <!-- GND Symbol on Rail -->
+  <path d="M30,470 L30,482 M22,482 L38,482 M25,486 L35,486 M28,490 L32,490" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Main Power Connection to VDD3V3 Pin -->
+  <line x1="25" y1="90" x2="25" y2="160" stroke="#2457d6" stroke-width="2"/>
+  <line x1="25" y1="160" x2="410" y2="160" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="25" cy="90" r="3.5" fill="#2457d6"/>
+
+  <!-- LEFT SCHEMATIC COMPONENTS -->
+
+  <!-- Branch 1: C1 Bulk Capacitor (10 uF) at x=95 -->
+  <line x1="95" y1="90" x2="95" y2="136" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- C1 Plates -->
+  <line x1="83" y1="136" x2="107" y2="136" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="83" y1="144" x2="107" y2="144" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="95" y1="144" x2="95" y2="470" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- C1 Plus Sign -->
+  <text x="111" y="130" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">+</text>
+  <!-- C1 Junctions -->
+  <circle cx="95" cy="90" r="3.5" fill="#2457d6"/>
+  <circle cx="95" cy="470" r="3.5" fill="#1a1a1a"/>
+  <!-- C1 Text (Left) -->
+  <text x="79" y="136" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">C1 = 10 µF</text>
+  <text x="79" y="152" font-size="12" fill="#6b7280" text-anchor="end">(Об'ємне)</text>
+
+  <!-- Branch 2: C2 Decoupling Capacitor (0.1 uF) at x=150 -->
+  <line x1="150" y1="90" x2="150" y2="136" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- C2 Plates -->
+  <line x1="138" y1="136" x2="162" y2="136" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="138" y1="144" x2="162" y2="144" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="150" y1="144" x2="150" y2="470" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- C2 Junctions -->
+  <circle cx="150" cy="90" r="3.5" fill="#2457d6"/>
+  <circle cx="150" cy="470" r="3.5" fill="#1a1a1a"/>
+  <!-- C2 Text (Right) -->
+  <text x="166" y="136" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">C2 = 0.1 µF</text>
+  <text x="166" y="152" font-size="12" fill="#6b7280" text-anchor="start">(100 nF ВЧ)</text>
+
+  <!-- Branch 3a: RESET BUTTON Branch at x=240 -->
+  <line x1="240" y1="250" x2="240" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Button switch contacts -->
+  <circle cx="240" cy="330" r="2.5" fill="#1a1a1a"/>
+  <circle cx="240" cy="350" r="2.5" fill="#1a1a1a"/>
+  <line x1="234" y1="326" x2="246" y2="326" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="240" y1="320" x2="240" y2="326" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="240" y1="350" x2="240" y2="470" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="240" cy="470" r="3.5" fill="#1a1a1a"/>
+  <!-- Button Text (Left) -->
+  <text x="228" y="334" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Кнопка RESET</text>
+  <text x="228" y="350" font-size="12" fill="#6b7280" text-anchor="end">(Скидання EN)</text>
+
+  <!-- Branch 3b: R1 & C_EN Branch at x=295 (EN/RESET Circuit) -->
+  <line x1="295" y1="90" x2="295" y2="130" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- R1 Resistor Box -->
+  <rect x="288" y="130" width="14" height="40" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="295" y1="170" x2="295" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- C_EN Capacitor -->
+  <line x1="295" y1="250" x2="295" y2="295" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="283" y1="295" x2="307" y2="295" stroke="#27ae60" stroke-width="2"/>
+  <line x1="283" y1="303" x2="307" y2="303" stroke="#27ae60" stroke-width="2"/>
+  <line x1="295" y1="303" x2="295" y2="470" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Nodes -->
+  <circle cx="295" cy="90" r="3.5" fill="#2457d6"/>
+  <circle cx="295" cy="250" r="4.5" fill="#27ae60"/>
+  <circle cx="295" cy="470" r="3.5" fill="#1a1a1a"/>
+  <!-- Horizontal wire connecting RESET button (240, 250) to EN node (295, 250) -->
+  <line x1="240" y1="250" x2="295" y2="250" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="240" cy="250" r="3.5" fill="#27ae60"/>
+  <!-- Connection from EN Node (295, 250) to ESP32-S3 Pin CHIP_PU (410, 250) -->
+  <line x1="295" y1="250" x2="410" y2="250" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- R1 Text (Left of R1) -->
+  <text x="281" y="144" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">R1 = 10 kΩ</text>
+  <text x="281" y="160" font-size="12" fill="#6b7280" text-anchor="end">(Pull-up EN)</text>
+
+  <!-- C_EN Text (Right of C_EN) -->
+  <text x="307" y="298" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">C_EN = 1 µF</text>
+  <text x="307" y="314" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">(τ ≈ 10 ms)</text>
+
+  <!-- Branch 4: R2 & BOOT Button Branch at x=380 (GPIO0 Boot Circuit) -->
+  <line x1="380" y1="90" x2="380" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- R2 Resistor Box -->
+  <rect x="373" y="190" width="14" height="40" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="380" y1="230" x2="380" y2="390" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- BOOT Switch at y=420..440 -->
+  <line x1="380" y1="390" x2="380" y2="420" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="380" cy="420" r="2.5" fill="#1a1a1a"/>
+  <circle cx="380" cy="440" r="2.5" fill="#1a1a1a"/>
+  <line x1="374" y1="416" x2="386" y2="416" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="380" y1="410" x2="380" y2="416" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="380" y1="440" x2="380" y2="470" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Nodes -->
+  <circle cx="380" cy="90" r="3.5" fill="#2457d6"/>
+  <circle cx="380" cy="390" r="3.5" fill="#1a1a1a"/>
+  <circle cx="380" cy="470" r="3.5" fill="#1a1a1a"/>
+  <!-- Connection from GPIO0 Node (380, 390) to ESP32-S3 Pin GPIO0 (410, 390) -->
+  <line x1="380" y1="390" x2="410" y2="390" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- R2 Text (Left of R2) -->
+  <text x="368" y="202" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">R2 = 10 kΩ</text>
+  <text x="368" y="218" font-size="12" fill="#6b7280" text-anchor="end">(Pull-up)</text>
+
+  <!-- BOOT Button Text (Left of Button) -->
+  <text x="368" y="424" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Кнопка BOOT</text>
+  <text x="368" y="440" font-size="12" fill="#6b7280" text-anchor="end">(L = Boot)</text>
+
+  <!-- Main GND Connection to ESP32-S3 Pin GND (410, 460) -->
+  <line x1="410" y1="460" x2="410" y2="470" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- CENTRAL ESP32-S3 MODULE BOX -->
+  <rect x="410" y="90" width="230" height="380" rx="10" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <text x="525" y="118" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP32-S3</text>
+  <text x="525" y="136" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">WROOM-1 / Mini-1</text>
+
+  <!-- Left Pins Labels inside Module -->
+  <!-- VDD3V3 -->
+  <circle cx="410" cy="160" r="3.5" fill="#2457d6"/>
+  <text x="422" y="164" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">VDD3V3 (3.3V)</text>
+
+  <!-- CHIP_PU (EN) -->
+  <circle cx="410" cy="250" r="3.5" fill="#27ae60"/>
+  <text x="422" y="254" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">CHIP_PU (EN)</text>
+
+  <!-- GPIO0 -->
+  <circle cx="410" cy="390" r="3.5" fill="#1a1a1a"/>
+  <text x="422" y="394" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">GPIO0 (BOOT)</text>
+
+  <!-- GND -->
+  <circle cx="410" cy="460" r="3.5" fill="#1a1a1a"/>
+  <text x="422" y="464" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">GND (0V)</text>
+
+  <!-- Internal Architecture Box inside ESP32-S3 -->
+  <rect x="445" y="290" width="160" height="65" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="525" y="310" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішній POR</text>
+  <text x="525" y="326" font-size="12" fill="#6b7280" text-anchor="middle">Поріг V_th ≈ 2.8V</text>
+  <text x="525" y="342" font-size="12" fill="#6b7280" text-anchor="middle">Скидання при осіданні</text>
+
+  <!-- Right Pins Labels inside Module -->
+  <!-- GPIO33-37 -->
+  <circle cx="640" cy="180" r="3.5" fill="#c0392b"/>
+  <text x="628" y="184" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">GPIO33–37</text>
+  <line x1="640" y1="180" x2="675" y2="180" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- GPIO19/20 -->
+  <circle cx="640" cy="270" r="3.5" fill="#2457d6"/>
+  <text x="628" y="274" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">GPIO19/20</text>
+  <line x1="640" y1="270" x2="675" y2="270" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- GPIO46 & GPIO1/2 -->
+  <circle cx="640" cy="360" r="3.5" fill="#1a1a1a"/>
+  <text x="628" y="364" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">GPIO46</text>
+  <line x1="640" y1="360" x2="675" y2="360" stroke="#1a1a1a" stroke-dasharray="3,3" stroke-width="1.5"/>
+
+  <circle cx="640" cy="440" r="3.5" fill="#1a1a1a"/>
+  <text x="628" y="444" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">GPIO1/2</text>
+  <line x1="640" y1="440" x2="675" y2="440" stroke="#1a1a1a" stroke-dasharray="3,3" stroke-width="1.5"/>
+
+  <!-- RIGHT ANNOTATION CARDS -->
+
+  <!-- Card 1: Octal SPI Flash/PSRAM Warning -->
+  <rect x="675" y="140" width="255" height="85" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="687" y="162" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">Octal SPI (GPIO33–37)</text>
+  <text x="687" y="182" font-size="12" fill="#1a1a1a" text-anchor="start">• Зарезервовано для Flash/PSRAM</text>
+  <text x="687" y="202" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">• НЕ використовувати для периферії!</text>
+
+  <!-- Card 2: Native USB Serial/JTAG -->
+  <rect x="675" y="245" width="255" height="100" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="687" y="267" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">USB Serial / JTAG (GPIO19/20)</text>
+  <text x="687" y="287" font-size="12" fill="#1a1a1a" text-anchor="start">• Нативний USB-інтерфейс</text>
+  <text x="687" y="307" font-size="12" fill="#1a1a1a" text-anchor="start">• Пряме програмування й налагодження</text>
+  <text x="687" y="327" font-size="12" fill="#6b7280" text-anchor="start">• Не потребує CP2102/CH340</text>
+
+  <!-- Card 3: GPIO & ADC Constraints -->
+  <rect x="675" y="365" width="255" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="687" y="387" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Обмеження ADC та Strapping</text>
+  <text x="687" y="407" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">• ADC2 недоступний при Wi-Fi</text>
+  <text x="687" y="425" font-size="12" fill="#1a1a1a" text-anchor="start">• Для датчиків обирайте ADC1</text>
+  <text x="687" y="443" font-size="12" fill="#6b7280" text-anchor="start">• GPIO46 — тільки вхід (strapping)</text>
+  <text x="687" y="461" font-size="12" fill="#6b7280" text-anchor="start">• I2C pull-up: 4.7 kΩ до 3.3V</text>
+
+</svg>

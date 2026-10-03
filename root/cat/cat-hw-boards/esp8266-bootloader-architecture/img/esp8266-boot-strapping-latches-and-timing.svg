@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова діаграма защеплення режимів завантаження ESP8266</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Співвідношення сигналів V_DD, CHIP_PU, RST та рівнів GPIO0/2/15 у вікні утримання t_hold</text>
+
+  <!-- ПАНЕЛЬ 1: Часові діаграми сигналів -->
+  <rect x="25" y="75" width="605" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Часові діаграми сигналів живлення, скидання та защеплення</text>
+
+  <!-- Підкладки зон таймінгу (вкладені прямокутники) -->
+  <!-- Setup Time Zone -->
+  <rect x="240" y="115" width="70" height="335" fill="#eaf0fd"/>
+  <!-- Hold Time Zone -->
+  <rect x="310" y="115" width="60" height="335" fill="#e9f7ef"/>
+  <!-- Brownout Zone -->
+  <rect x="430" y="115" width="55" height="335" fill="#fdecea"/>
+
+  <!-- Позначки часу нагорі зон -->
+  <text x="310" y="108" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t_latch (Фронт RST)</text>
+  <text x="457" y="108" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Brownout Dip</text>
+
+  <!-- Пунктирні вертикальні лінії меж зон -->
+  <line x1="240" y1="115" x2="240" y2="455" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="310" y1="115" x2="310" y2="455" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,2"/>
+  <line x1="370" y1="115" x2="370" y2="455" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="430" y1="115" x2="430" y2="455" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="485" y1="115" x2="485" y2="455" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Позначки сигналів ліворуч -->
+  <text x="140" y="135" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">V_DD (3.3V)</text>
+  <text x="140" y="150" text-anchor="end" font-size="12" fill="#6b7280">V_POR (2.7V)</text>
+  <text x="140" y="200" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">CHIP_PU</text>
+  <text x="140" y="260" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">RST (nRST)</text>
+  <text x="140" y="320" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO15 (MTDO)</text>
+  <text x="140" y="370" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO0 (BOOT)</text>
+  <text x="140" y="425" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO2 (TXD1)</text>
+
+  <!-- Лінія порогу V_POR -->
+  <line x1="150" y1="145" x2="595" y2="145" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Сигнал 1: V_DD -->
+  <path d="M 150 155 L 170 155 L 210 130 L 430 130 L 450 150 L 470 130 L 595 130" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Сигнал 2: CHIP_PU -->
+  <path d="M 150 210 L 240 210 L 260 185 L 595 185" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Сигнал 3: RST -->
+  <path d="M 150 270 L 290 270 L 310 245 L 430 245 L 440 270 L 465 270 L 485 245 L 595 245" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Сигнал 4: GPIO15 -->
+  <path d="M 150 325 L 520 325" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <rect x="525" y="313" width="65" height="18" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="557" y="326" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">0 (LOW)</text>
+
+  <!-- Сигнал 5: GPIO0 -->
+  <path d="M 150 365 L 520 365" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <path d="M 150 385 L 520 385" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,3"/>
+  <rect x="525" y="353" width="65" height="18" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="557" y="366" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">1 (Flash)</text>
+  <rect x="525" y="377" width="65" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="557" y="390" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">0 (UART)</text>
+
+  <!-- Сигнал 6: GPIO2 -->
+  <path d="M 150 425 L 520 425" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <rect x="525" y="413" width="65" height="18" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="557" y="426" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">1 (HIGH)</text>
+
+  <!-- Стрілки та підписи інтервалів часу внизу -->
+  <!-- t_setup -->
+  <line x1="242" y1="460" x2="308" y2="460" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="275" y="476" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t_setup</text>
+  <text x="275" y="492" text-anchor="middle" font-size="12" fill="#6b7280">&gt; 10 ms</text>
+
+  <!-- t_hold -->
+  <line x1="312" y1="460" x2="368" y2="460" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <text x="340" y="476" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">t_hold</text>
+  <text x="340" y="492" text-anchor="middle" font-size="12" fill="#27ae60">Утримання</text>
+
+  <!-- Brownout -->
+  <text x="457" y="476" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Збій V_DD</text>
+  <text x="457" y="492" text-anchor="middle" font-size="12" fill="#c0392b">Повторне RST</text>
+
+  <!-- ПАНЕЛЬ 2: Режими завантаження та логіка -->
+  <rect x="650" y="75" width="285" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="665" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Режими завантаження ESP8266</text>
+
+  <!-- Картка 1: SPI Flash Boot -->
+  <rect x="665" y="115" width="255" height="85" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="675" y="123" width="165" height="20" rx="4" fill="#27ae60"/>
+  <text x="682" y="137" font-size="12" font-weight="bold" fill="#ffffff">1. SPI Flash (0 - 1 - 1)</text>
+  <text x="675" y="158" font-size="12" fill="#1a1a1a">GPIO15 = 0 (Pull-Down)</text>
+  <text x="675" y="174" font-size="12" fill="#1a1a1a">GPIO0  = 1 (Pull-Up)</text>
+  <text x="675" y="190" font-size="12" font-weight="bold" fill="#27ae60">GPIO2  = 1 (Старт із Flash)</text>
+
+  <!-- Картка 2: UART Download -->
+  <rect x="665" y="210" width="255" height="85" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="675" y="218" width="175" height="20" rx="4" fill="#2457d6"/>
+  <text x="682" y="232" font-size="12" font-weight="bold" fill="#ffffff">2. UART Boot (0 - 0 - 1)</text>
+  <text x="675" y="253" font-size="12" fill="#1a1a1a">GPIO15 = 0 (Pull-Down)</text>
+  <text x="675" y="269" font-size="12" font-weight="bold" fill="#2457d6">GPIO0  = 0 (Затиснуто в 0)</text>
+  <text x="675" y="285" font-size="12" fill="#1a1a1a">GPIO2  = 1 (Pull-Up)</text>
+
+  <!-- Картка 3: SDIO Boot -->
+  <rect x="665" y="305" width="255" height="75" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="675" y="313" width="165" height="20" rx="4" fill="#c0392b"/>
+  <text x="682" y="327" font-size="12" font-weight="bold" fill="#ffffff">3. SDIO Boot (1 - x - x)</text>
+  <text x="675" y="348" font-size="12" font-weight="bold" fill="#c0392b">GPIO15 = 1 (Помилка! High)</text>
+  <text x="675" y="364" font-size="12" fill="#6b7280">Блокує нормальний запуск</text>
+
+  <!-- Картка 4: Вимоги до схеми -->
+  <rect x="665" y="390" width="255" height="115" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="675" y="410" font-size="12" font-weight="bold" fill="#1a1a1a">Вимоги до схеми утримання:</text>
+  <text x="675" y="428" font-size="12" fill="#6b7280">• R_PD(GPIO15) = 10k кОм до GND</text>
+  <text x="675" y="444" font-size="12" fill="#6b7280">• R_PU(GPIO0/2) = 10k кОм до VDD</text>
+  <text x="675" y="460" font-size="12" fill="#6b7280">• C_RST = 100 nF для t_setup &gt; 10ms</text>
+  <text x="675" y="476" font-size="12" font-weight="bold" fill="#27ae60">• Запобігання Brownout Reset</text>
+</svg>

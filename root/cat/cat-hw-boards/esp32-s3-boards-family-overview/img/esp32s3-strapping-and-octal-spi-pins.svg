@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Обмеження та конфлікти контакто-виводів ESP32-S3</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Розподіл GPIO: завантажувальні Strapping, зарезервований Octal SPI та обмеження ADC2 / USB</text>
+
+  <!-- Панель 1: Strapping-піни -->
+  <rect x="30" y="80" width="435" height="200" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="95" width="405" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247" y="114" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Strapping-піни (GPIO0, GPIO3, GPIO45, GPIO46)</text>
+
+  <text x="45" y="140" font-size="12" fill="#1a1a1a">• Запитуються під час скидання (Reset) для вибору режиму.</text>
+
+  <rect x="45" y="152" width="65" height="22" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="77" y="167" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">GPIO0</text>
+  <text x="118" y="167" font-size="12" fill="#1a1a1a">0 = Download Mode (Flash), 1 = SPI Boot</text>
+
+  <rect x="45" y="182" width="65" height="22" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="77" y="197" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">GPIO45</text>
+  <text x="118" y="197" font-size="12" fill="#1a1a1a">Вибір напруги VDD_SPI (0 = 3.3V, 1 = 1.8V)</text>
+
+  <rect x="45" y="212" width="65" height="22" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="77" y="227" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">GPIO46</text>
+  <text x="118" y="227" font-size="12" fill="#1a1a1a">Лог ROM-завантажувача (0 = увімкнено, 1 = вимкнено)</text>
+
+  <rect x="45" y="244" width="405" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247" y="260" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">⚠ Увага: Зовнішні підтяжки можуть зблокувати старт SOC!</text>
+
+  <!-- Панель 2: Octal SPI -->
+  <rect x="495" y="80" width="435" height="200" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="510" y="95" width="405" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="712" y="114" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Зарезервовано: Octal SPI (Flash / PSRAM)</text>
+
+  <text x="510" y="140" font-size="12" fill="#1a1a1a">• Лінії пам’яті N8R8 / N16R8 модулів (GPIO33–GPIO37).</text>
+
+  <rect x="510" y="152" width="95" height="22" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="557" y="167" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">GPIO33–GPIO37</text>
+  <text x="615" y="167" font-size="12" fill="#1a1a1a">Шина Octal SPI (SPIIO4–SPIIO7, DQS)</text>
+
+  <rect x="510" y="182" width="95" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="557" y="197" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">GPIO26–GPIO32</text>
+  <text x="615" y="197" font-size="12" fill="#1a1a1a">Стандартний Quad SPI (SPI CS/CLK/D0-D3)</text>
+
+  <text x="510" y="227" font-size="12" fill="#1a1a1a">• Використання під GPIO спричиняє крах (Guru Meditation).</text>
+
+  <rect x="510" y="244" width="405" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="712" y="260" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">⛔ Не підключати зовнішню периферію до цих пінів!</text>
+
+  <!-- Панель 3: ADC2 та Wi-Fi -->
+  <rect x="30" y="300" width="435" height="190" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="315" width="405" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247" y="334" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Конфлікт ADC2 та модуля Wi-Fi</text>
+
+  <text x="45" y="360" font-size="12" fill="#1a1a1a">• GPIO11–GPIO20 належать до каналів блоку ADC2.</text>
+
+  <rect x="45" y="372" width="95" height="22" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="92" y="387" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">GPIO11–GPIO20</text>
+  <text x="148" y="387" font-size="12" fill="#1a1a1a">Канали ADC2_CH0 – ADC2_CH9</text>
+
+  <rect x="45" y="402" width="405" height="44" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="247" y="418" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Під час роботи Wi-Fi / Bluetooth аналогове читання ADC2</text>
+  <text x="247" y="434" text-anchor="middle" font-size="12" fill="#c0392b">блокується драйвером або повертає помилкові дані.</text>
+
+  <rect x="45" y="454" width="405" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="247" y="470" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">✓ Для аналогових датчиків використовуйте ADC1!</text>
+
+  <!-- Панель 4: Рекомендоване використання (USB & ADC1) -->
+  <rect x="495" y="300" width="435" height="190" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="510" y="315" width="405" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="334" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Рекомендоване призначення: ADC1 та USB</text>
+
+  <rect x="510" y="355" width="95" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="557" y="370" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">GPIO19 / GPIO20</text>
+  <text x="615" y="370" font-size="12" fill="#1a1a1a">Нативний USB D- (GPIO19) та D+ (GPIO20)</text>
+
+  <rect x="510" y="385" width="95" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="557" y="400" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">GPIO1–GPIO10</text>
+  <text x="615" y="400" font-size="12" fill="#1a1a1a">Безпечні вимірювання ADC1 (без Wi-Fi конфлікту)</text>
+
+  <rect x="510" y="415" width="95" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="557" y="430" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">GPIO38–GPIO44</text>
+  <text x="615" y="430" font-size="12" fill="#1a1a1a">Загальне використання (I2C, SPI, UART, PWM)</text>
+
+  <rect x="510" y="454" width="405" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="470" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">✓ GPIO1–10 оптимальні для аналогових периферійних вузлів</text>
+</svg>

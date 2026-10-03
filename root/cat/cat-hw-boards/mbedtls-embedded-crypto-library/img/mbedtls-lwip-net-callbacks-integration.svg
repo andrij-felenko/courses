@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- White background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Інтеграція mbedTLS з мережевим стеком lwIP через I/O-коллбеки</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Обмін даними між буферами pbuf сокета та внутрішніми буферами записів TLS (mbedtls_ssl_set_bio)</text>
+
+  <!-- Level 1: Application Layer -->
+  <rect x="40" y="72" width="880" height="72" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="60" y="94" font-size="14" font-weight="700" fill="#2457d6">Прикладний застосунок (Application Layer)</text>
+  <text x="60" y="118" font-size="12" fill="#1a1a1a">mbedtls_ssl_read() ← Отримання розшифрованих даних (Plaintext)</text>
+  <text x="500" y="118" font-size="12" fill="#1a1a1a">mbedtls_ssl_write() → Передача даних на шифрування (Plaintext)</text>
+
+  <!-- Level 2: mbedTLS Record Layer Buffers -->
+  <rect x="40" y="162" width="880" height="92" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="184" font-size="14" font-weight="700" fill="#1a1a1a">Буфери записів mbedTLS</text>
+
+  <!-- Rx Record Buffer -->
+  <rect x="60" y="196" width="410" height="46" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="75" y="215" font-size="12" font-weight="700" fill="#2457d6">MBEDTLS_SSL_IN_BUFFER</text>
+  <text x="75" y="233" font-size="12" fill="#6b7280">Вхідний шифрований TLS-запис (Ciphertext Record)</text>
+
+  <!-- Tx Record Buffer -->
+  <rect x="490" y="196" width="410" height="46" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="505" y="215" font-size="12" font-weight="700" fill="#27ae60">MBEDTLS_SSL_OUT_BUFFER</text>
+  <text x="505" y="233" font-size="12" fill="#6b7280">Вихідний шифрований TLS-запис (Ciphertext Record)</text>
+
+  <!-- Level 3: I/O Callbacks Interface -->
+  <rect x="40" y="272" width="880" height="82" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="60" y="293" font-size="13" font-weight="700" fill="#2457d6">I/O-коллбеки mbedTLS</text>
+  <text x="480" y="293" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">mbedtls_ssl_set_bio(&amp;ssl, &amp;fd, f_send, f_recv, NULL)</text>
+
+  <!-- Rx Callback -->
+  <rect x="60" y="306" width="410" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="265" y="328" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">f_recv → mbedtls_net_recv() / lwip_recv()</text>
+
+  <!-- Tx Callback -->
+  <rect x="490" y="306" width="410" height="36" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="695" y="328" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">f_send → mbedtls_net_send() / lwip_send()</text>
+
+  <!-- Level 4: lwIP Network Stack & Ring Buffers -->
+  <rect x="40" y="372" width="880" height="122" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="394" font-size="14" font-weight="700" fill="#1a1a1a">Мережевий стек lwIP</text>
+
+  <!-- Rx pbuf -->
+  <rect x="60" y="406" width="410" height="76" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="75" y="426" font-size="12" font-weight="700" fill="#2457d6">Черга вхідних пакетиків сокета (Rx pbuf chain)</text>
+  <text x="75" y="446" font-size="12" fill="#1a1a1a">Буфери pbuf накопичують зашифрований мережевий кадр</text>
+  <text x="75" y="466" font-size="12" fill="#6b7280">Копіювання в IN_BUFFER під час виклику f_recv</text>
+
+  <!-- Tx pbuf -->
+  <rect x="490" y="406" width="410" height="76" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="505" y="426" font-size="12" font-weight="700" fill="#27ae60">Черга вихідних пакетиків сокета (Tx pbuf chain)</text>
+  <text x="505" y="446" font-size="12" fill="#1a1a1a">Буфери pbuf формують TCP-сегменти для відправки</text>
+  <text x="505" y="466" font-size="12" fill="#6b7280">Передача з OUT_BUFFER під час виклику f_send</text>
+
+  <!-- Connecting Arrows & Flow Labels -->
+
+  <!-- Rx Path (Upwards) -->
+  <line x1="265" y1="406" x2="265" y2="344" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="280" y="380" font-size="12" fill="#2457d6">1. Мережевий прийом (pbuf)</text>
+
+  <line x1="265" y1="306" x2="265" y2="244" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="280" y="280" font-size="12" fill="#2457d6">2. Заповнення IN_BUFFER</text>
+
+  <line x1="265" y1="196" x2="265" y2="146" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="280" y="176" font-size="12" fill="#2457d6">3. Читання розшифрованих даних</text>
+
+  <!-- Tx Path (Downwards) -->
+  <line x1="695" y1="144" x2="695" y2="194" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="510" y="176" font-size="12" fill="#27ae60">1. Запис у OUT_BUFFER</text>
+
+  <line x1="695" y1="242" x2="695" y2="304" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="510" y="280" font-size="12" fill="#27ae60">2. Виклики f_send</text>
+
+  <line x1="695" y1="342" x2="695" y2="404" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="510" y="380" font-size="12" fill="#27ae60">3. Формування pbuf / IP</text>
+</svg>

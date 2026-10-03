@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Залежність реальної пропускної здатності SPI від частоти тактування</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Octal SPI DDR зменшує накладні витрати протоколу та запобігає простою ядер</text>
+
+  <!-- LEFT PANEL: Chart Area -->
+  <rect x="30" y="80" width="550" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Chart Grid Lines -->
+  <!-- Horizontal grid lines -->
+  <line x1="100" y1="380" x2="535" y2="380" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="100" y1="320" x2="535" y2="320" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="100" y1="260" x2="535" y2="260" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="100" y1="200" x2="535" y2="200" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="100" y1="140" x2="535" y2="140" stroke="#d0d7de" stroke-dasharray="4,4"/>
+
+  <!-- Vertical grid lines -->
+  <line x1="250" y1="120" x2="250" y2="440" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="400" y1="120" x2="400" y2="440" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="535" y1="120" x2="535" y2="440" stroke="#d0d7de" stroke-dasharray="4,4"/>
+
+  <!-- Y-Axis Ticks & Labels -->
+  <text x="90" y="444" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="90" y="384" font-size="12" fill="#6b7280" text-anchor="end">40</text>
+  <text x="90" y="324" font-size="12" fill="#6b7280" text-anchor="end">80</text>
+  <text x="90" y="264" font-size="12" fill="#6b7280" text-anchor="end">120</text>
+  <text x="90" y="204" font-size="12" fill="#6b7280" text-anchor="end">160</text>
+  <text x="90" y="144" font-size="12" fill="#6b7280" text-anchor="end">200</text>
+  <text x="35" y="100" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="start">B_real (МБ/с)</text>
+
+  <!-- X-Axis Ticks & Labels -->
+  <text x="100" y="462" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="250" y="462" font-size="12" fill="#6b7280" text-anchor="middle">40</text>
+  <text x="400" y="462" font-size="12" fill="#6b7280" text-anchor="middle">80</text>
+  <text x="535" y="462" font-size="12" fill="#6b7280" text-anchor="middle">120</text>
+  <text x="317" y="492" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Тактова частота f_clk (МГц)</text>
+
+  <!-- Axes -->
+  <line x1="100" y1="440" x2="100" y2="115" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="100" y1="440" x2="555" y2="440" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Plot Curves -->
+  <!-- Theoretical Octal DDR Baseline -->
+  <path d="M 100,440 L 250,320 L 400,200 L 535,92" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+  <!-- Octal SPI DDR (8-bit DDR) -->
+  <path d="M 100,440 L 250,360 L 400,280 L 535,208" fill="none" stroke="#27ae60" stroke-width="3"/>
+  <circle cx="100" cy="440" r="4" fill="#27ae60"/>
+  <circle cx="250" cy="360" r="4" fill="#27ae60"/>
+  <circle cx="400" cy="280" r="4" fill="#27ae60"/>
+  <circle cx="535" cy="208" r="4" fill="#27ae60"/>
+
+  <!-- Quad SPI DDR / Octal SPI SDR -->
+  <path d="M 100,440 L 250,396 L 400,353 L 535,314" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <circle cx="100" cy="440" r="4" fill="#2457d6"/>
+  <circle cx="250" cy="396" r="4" fill="#2457d6"/>
+  <circle cx="400" cy="353" r="4" fill="#2457d6"/>
+  <circle cx="535" cy="314" r="4" fill="#2457d6"/>
+
+  <!-- Quad SPI SDR (4-bit SDR) -->
+  <path d="M 100,440 L 250,416 L 400,392 L 535,370" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <circle cx="100" cy="440" r="4" fill="#c0392b"/>
+  <circle cx="250" cy="416" r="4" fill="#c0392b"/>
+  <circle cx="400" cy="392" r="4" fill="#c0392b"/>
+  <circle cx="535" cy="370" r="4" fill="#c0392b"/>
+
+  <!-- Legend Box -->
+  <rect x="115" y="90" width="250" height="96" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="125" y1="107" x2="145" y2="107" stroke="#27ae60" stroke-width="3"/>
+  <text x="152" y="111" font-size="12" fill="#1a1a1a">Octal SPI DDR (8 біт, 2 т/так)</text>
+
+  <line x1="125" y1="127" x2="145" y2="127" stroke="#2457d6" stroke-width="3"/>
+  <text x="152" y="131" font-size="12" fill="#1a1a1a">Quad SPI DDR (4 біт, 2 т/так)</text>
+
+  <line x1="125" y1="147" x2="145" y2="147" stroke="#c0392b" stroke-width="3"/>
+  <text x="152" y="151" font-size="12" fill="#1a1a1a">Quad SPI SDR (4 біт, 1 т/так)</text>
+
+  <line x1="125" y1="167" x2="145" y2="167" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="152" y="171" font-size="12" fill="#6b7280">Теоретична межа (без overhead)</text>
+
+  <!-- Point Value Annotations (at 80 MHz) -->
+  <text x="395" y="252" font-size="12" font-weight="700" fill="#27ae60" text-anchor="end">~107 МБ/с</text>
+  <text x="395" y="340" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">~58 МБ/с</text>
+  <text x="410" y="415" font-size="12" font-weight="700" fill="#c0392b" text-anchor="start">~32 МБ/с</text>
+
+  <!-- RIGHT PANEL 1: Overhead & Efficiency Analysis -->
+  <rect x="610" y="80" width="320" height="220" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="770" y="105" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">Аналіз накладних витрат (32 B L1)</text>
+  <line x1="630" y1="117" x2="910" y2="117" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="630" y="140" font-size="12" font-weight="700" fill="#27ae60">• Octal DDR:</text>
+  <text x="720" y="140" font-size="12" fill="#1a1a1a">8 т. overhead + 16 т. даних</text>
+  <text x="645" y="158" font-size="12" fill="#6b7280">Ефективність: 67% (24 тактів всього)</text>
+
+  <text x="630" y="185" font-size="12" font-weight="700" fill="#2457d6">• Quad DDR:</text>
+  <text x="720" y="185" font-size="12" fill="#1a1a1a">12 т. overhead + 32 т. даних</text>
+  <text x="645" y="203" font-size="12" fill="#6b7280">Ефективність: 58% (44 тактів всього)</text>
+
+  <text x="630" y="230" font-size="12" font-weight="700" fill="#c0392b">• Quad SDR:</text>
+  <text x="720" y="230" font-size="12" fill="#1a1a1a">16 т. overhead + 64 т. даних</text>
+  <text x="645" y="248" font-size="12" fill="#6b7280">Ефективність: 40% (80 тактів всього)</text>
+
+  <text x="770" y="280" font-size="12" fill="#6b7280" text-anchor="middle">Короткі запити L1-кешу чутливі до overhead</text>
+
+  <!-- RIGHT PANEL 2: Mathematical Model & Conclusion -->
+  <rect x="610" y="315" width="320" height="200" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="770" y="340" font-size="14" font-weight="700" fill="#27ae60" text-anchor="middle">Математична модель &amp; Висновок</text>
+
+  <!-- Formula Box inside Panel 2 -->
+  <rect x="618" y="352" width="304" height="42" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="770" y="377" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">B_real = (L_line / (T_overhead + T_data)) · f_clk</text>
+
+  <!-- Takeaway bullet points -->
+  <text x="630" y="420" font-size="12" fill="#1a1a1a">✔ Octal DDR при 80 МГц досягає ~107 МБ/с</text>
+  <text x="630" y="442" font-size="12" fill="#1a1a1a">✔ Приріст швидкості у 3.3× проти Quad SDR</text>
+  <text x="630" y="464" font-size="12" fill="#1a1a1a">✔ Зменшує miss penalty та простій ядер</text>
+  <text x="630" y="492" font-size="12" fill="#6b7280">Критично для PSRAM у задачах AI та відео</text>
+</svg>

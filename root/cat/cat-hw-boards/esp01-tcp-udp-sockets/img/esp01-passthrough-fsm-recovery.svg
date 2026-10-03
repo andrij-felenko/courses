@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">FSM керування прозорим шлюзом ESP-01 (Passthrough Mode)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Автоматичне відновлення TCP/UDP сесії через ескейп-послідовність +++ при таймауті мережі</text>
+
+  <!-- Box 1: INIT -->
+  <rect x="40" y="95" width="250" height="130" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="8" ry="8"/>
+  <rect x="50" y="107" width="230" height="24" rx="4" fill="#2457d6"/>
+  <text x="165" y="123" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">1. ІНІЦІАЛІЗАЦІЯ (INIT)</text>
+  <text x="55" y="148" font-size="12" fill="#1a1a1a">• AT+CIPMODE=1 (прозорий)</text>
+  <text x="55" y="168" font-size="12" fill="#1a1a1a">• AT+CIPSTART="TCP",...</text>
+  <text x="55" y="188" font-size="12" fill="#1a1a1a">• AT+CIPSEND (відповідь "&gt;")</text>
+  <text x="55" y="208" font-size="12" fill="#1a1a1a">• Готовність до стримінгу</text>
+
+  <!-- Box 2: STREAMING -->
+  <rect x="355" y="95" width="250" height="130" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="8" ry="8"/>
+  <rect x="365" y="107" width="230" height="24" rx="4" fill="#2457d6"/>
+  <text x="480" y="123" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">2. СТРИМІНГ (STREAMING)</text>
+  <text x="370" y="148" font-size="12" fill="#1a1a1a">• Пряма передача RX/TX</text>
+  <text x="370" y="168" font-size="12" fill="#1a1a1a">• Буферизація кадрів</text>
+  <text x="370" y="188" font-size="12" fill="#1a1a1a">• Моніторинг таймауту ACK</text>
+  <text x="370" y="208" font-size="12" fill="#1a1a1a">• Без AT-команд у каналі</text>
+
+  <!-- Box 3: TIMEOUT -->
+  <rect x="670" y="95" width="250" height="130" fill="#fdecea" stroke="#c0392b" stroke-width="2" rx="8" ry="8"/>
+  <rect x="680" y="107" width="230" height="24" rx="4" fill="#c0392b"/>
+  <text x="795" y="123" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">3. ТАЙМАУТ / ЗБОЙ (TIMEOUT)</text>
+  <text x="685" y="148" font-size="12" fill="#1a1a1a">• Очікування ACK &gt; T_out</text>
+  <text x="685" y="168" font-size="12" fill="#1a1a1a">• Втрата TCP/UDP сокета</text>
+  <text x="685" y="188" font-size="12" fill="#1a1a1a">• Блокування телеметрії</text>
+  <text x="685" y="208" font-size="12" fill="#1a1a1a">• Старт процедури скиду</text>
+
+  <!-- Box 4: ESCAPE SEQ -->
+  <rect x="670" y="300" width="250" height="135" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="8" ry="8"/>
+  <rect x="680" y="312" width="230" height="24" rx="4" fill="#27ae60"/>
+  <text x="795" y="328" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">4. ЕСКЕЙП-ПАУЗА (+++)</text>
+  <text x="685" y="353" font-size="12" fill="#1a1a1a">• Guard Time: тишина 1с</text>
+  <text x="685" y="373" font-size="12" fill="#1a1a1a">• Відправка "+++" (no \r\n)</text>
+  <text x="685" y="393" font-size="12" fill="#1a1a1a">• Guard Time: тишина 1с</text>
+  <text x="685" y="413" font-size="12" fill="#1a1a1a">• ESP-01 відповідає "OK"</text>
+
+  <!-- Box 5: RECOVERY -->
+  <rect x="355" y="300" width="250" height="135" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="8" ry="8"/>
+  <rect x="365" y="312" width="230" height="24" rx="4" fill="#27ae60"/>
+  <text x="480" y="328" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">5. ВІДНОВЛЕННЯ (RECOVERY)</text>
+  <text x="370" y="353" font-size="12" fill="#1a1a1a">• Команда AT+CIPCLOSE</text>
+  <text x="370" y="373" font-size="12" fill="#1a1a1a">• Скидання стану сесії</text>
+  <text x="370" y="393" font-size="12" fill="#1a1a1a">• Перевірка стану Wi-Fi</text>
+  <text x="370" y="413" font-size="12" fill="#1a1a1a">• Перехід до рестарту</text>
+
+  <!-- Panel 6: RULES / LEGEND -->
+  <rect x="40" y="300" width="250" height="135" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8" ry="8"/>
+  <text x="165" y="328" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ТАЙМАУТИ ТА ЕСКЕЙП-КОД</text>
+  <text x="55" y="353" font-size="12" fill="#6b7280">1. Пауза до "+++": ≥1000мс</text>
+  <text x="55" y="373" font-size="12" fill="#6b7280">2. Тільки без символів \r\n</text>
+  <text x="55" y="393" font-size="12" fill="#6b7280">3. Пауза після: ≥1000мс</text>
+  <text x="55" y="413" font-size="12" fill="#6b7280">4. Повернення у режим AT</text>
+
+  <!-- Transitions -->
+  <!-- 1 -> 2 -->
+  <path d="M 290 160 L 355 160" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="322.5" y="146" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Старт OK</text>
+
+  <!-- 2 -> 3 -->
+  <path d="M 605 160 L 670 160" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="637.5" y="146" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Немає ACK</text>
+
+  <!-- 3 -> 4 -->
+  <path d="M 795 225 L 795 300" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="805" y="268" font-size="12" font-weight="bold" fill="#c0392b">T &gt; T_max</text>
+
+  <!-- 4 -> 5 -->
+  <path d="M 670 367 L 605 367" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="637.5" y="353" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Режим AT</text>
+
+  <!-- 5 -> 1 -->
+  <path d="M 480 300 L 480 262.5 L 165 262.5 L 165 225" stroke="#2457d6" stroke-width="2.5" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="322.5" y="250" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Перезапуск сесії</text>
+</svg>

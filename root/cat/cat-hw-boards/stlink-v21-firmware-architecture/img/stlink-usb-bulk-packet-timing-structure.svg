@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова структура USB Full-Speed Bulk-транзакції ST-Link V2.1</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Співвідношення накладних витрат кадрування (10 B + IPG) та корисного навантаження (Payload 64 B)</text>
+
+  <!-- Panel 1: 1ms Frame Context -->
+  <rect x="40" y="72" width="880" height="73" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="56" y="92" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Таймлайн кадрування USB 2.0 Full-Speed (1 ms / 1000 µs)</text>
+
+  <!-- Timeline Bar Components -->
+  <rect x="56" y="102" width="55" height="28" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="83.5" y="120" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">SOF</text>
+
+  <rect x="119" y="102" width="440" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="339" y="120" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Bulk Transaction (64 Bytes Payload + 10 B Overhead ≈ 52 µs)</text>
+
+  <rect x="567" y="102" width="272" height="28" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="703" y="120" text-anchor="middle" font-size="12" fill="#6b7280">Резерв кадру (~948 µs)</text>
+
+  <rect x="847" y="102" width="57" height="28" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="875.5" y="120" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">SOF</text>
+
+  <!-- Panel 2: Detailed Packet Breakdown -->
+  <rect x="40" y="160" width="880" height="235" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="56" y="183" text-anchor="start" font-size="14" font-weight="bold" fill="#1a1a1a">Деталізована структура кадрування Bulk-транзакції USB 2.0 Full-Speed</text>
+
+  <!-- Packet Blocks -->
+  <!-- Token Packet -->
+  <rect x="56" y="205" width="145" height="55" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="128.5" y="223" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Пакет Token</text>
+  <text x="128.5" y="241" text-anchor="middle" font-size="12" fill="#1a1a1a">OUT / IN (4 B)</text>
+
+  <!-- IPG 1 -->
+  <rect x="209" y="205" width="38" height="55" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="228" y="237" text-anchor="middle" font-size="12" fill="#6b7280">IPG</text>
+
+  <!-- Data Packet Sub-blocks -->
+  <!-- SYNC+PID -->
+  <rect x="255" y="205" width="70" height="55" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="290" y="230" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">SYNC+PID</text>
+  <text x="290" y="248" text-anchor="middle" font-size="12" fill="#1a1a1a">2 Bytes</text>
+
+  <!-- Payload -->
+  <rect x="331" y="205" width="310" height="55" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="486" y="228" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Payload (Корисні дані)</text>
+  <text x="486" y="246" text-anchor="middle" font-size="12" fill="#1a1a1a">64 Bytes = 512 bits (MaxPacketSize ST-Link)</text>
+
+  <!-- CRC16 -->
+  <rect x="647" y="205" width="58" height="55" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="676" y="230" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">CRC16</text>
+  <text x="676" y="248" text-anchor="middle" font-size="12" fill="#1a1a1a">2 Bytes</text>
+
+  <!-- Turnaround -->
+  <rect x="711" y="205" width="45" height="55" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="733.5" y="230" text-anchor="middle" font-size="12" fill="#6b7280">Turn-</text>
+  <text x="733.5" y="246" text-anchor="middle" font-size="12" fill="#6b7280">around</text>
+
+  <!-- Handshake ACK -->
+  <rect x="764" y="205" width="140" height="55" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="834" y="223" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Handshake</text>
+  <text x="834" y="241" text-anchor="middle" font-size="12" fill="#1a1a1a">ACK (2 Bytes)</text>
+
+  <!-- Dimension Lines -->
+  <!-- Payload Dimension Line -->
+  <line x1="331" y1="276" x2="331" y2="290" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="641" y1="276" x2="641" y2="290" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="331" y1="283" x2="641" y2="283" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="486" y="302" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Корисний час передачі даних: 64 B × 0.667 µs = 42.67 µs (81.5% часу)</text>
+
+  <!-- Total Transaction Dimension Line -->
+  <line x1="56" y1="322" x2="56" y2="336" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="904" y1="322" x2="904" y2="336" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="56" y1="329" x2="904" y2="329" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="480" y="348" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Повний час Bulk-транзакції: ~78 байт-еквівалентів ≈ 52.3 µs (12 Мбіт/с)</text>
+
+  <!-- Overhead Note -->
+  <text x="480" y="372" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Наземні витрати USB-протоколу: 10 B полів кадрування + ~3.5 B затримок IPG ≈ 9.6 µs (18.5% часу)</text>
+
+  <!-- Bottom Cards -->
+  <!-- Card 1: Overhead Breakdown -->
+  <rect x="40" y="410" width="428" height="105" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="56" y="430" text-anchor="start" font-size="13" font-weight="bold" fill="#c0392b">Складові накладних витрат (USB Overhead)</text>
+  <text x="56" y="450" text-anchor="start" font-size="12" fill="#1a1a1a">• 4 B Token (OUT/IN) + 2 B SYNC/PID + 2 B CRC16 + 2 B ACK = 10 B</text>
+  <text x="56" y="470" text-anchor="start" font-size="12" fill="#1a1a1a">• Затримки шини (IPG / Handshake Turnaround): ~3–4 байт-часи (~2.3 µs)</text>
+  <text x="56" y="494" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">• Втрата ефективної швидкості на кадрування: ~18.5% трафіку USB</text>
+
+  <!-- Card 2: Performance Summary -->
+  <rect x="492" y="410" width="428" height="105" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="508" y="430" text-anchor="start" font-size="13" font-weight="bold" fill="#27ae60">Реальна пропускна здатність ST-Link V2.1</text>
+  <text x="508" y="450" text-anchor="start" font-size="12" fill="#1a1a1a">• Макс. теор. Bulk Full-Speed: 19 пак/кадр ≈ 1216 КБ/с (9.7 Мбіт/с)</text>
+  <text x="508" y="470" text-anchor="start" font-size="12" fill="#1a1a1a">• Затримки SCSI/Vendor команд та обробки MCU ST-Link: 100–300 µs</text>
+  <text x="508" y="494" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">• Практична швидкість Flash/SRAM: ~800–1000 КБ/с (SWD 4–24 МГц)</text>
+</svg>

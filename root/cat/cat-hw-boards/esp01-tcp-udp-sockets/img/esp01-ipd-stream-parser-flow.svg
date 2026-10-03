@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Defs: Arrow Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Потоковий парсер кадрів +IPD на скінченному автоматі (FSM)</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Побайтова обробка UART-потоку виключає блокування delay() і втрату даних при фрагментації</text>
+
+  <!-- Top Panel: UART Stream Buffer -->
+  <rect x="45" y="80" width="870" height="75" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="65" y="100" font-size="12" font-weight="bold" fill="#6b7280">Вхідний послідовний потік байтів (UART FIFO):</text>
+
+  <!-- Stream Bytes: Header "+IPD," -->
+  <rect x="65" y="112" width="30" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="80" y="132" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">+</text>
+
+  <rect x="100" y="112" width="30" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="115" y="132" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">I</text>
+
+  <rect x="135" y="112" width="30" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="150" y="132" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">P</text>
+
+  <rect x="170" y="112" width="30" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="185" y="132" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">D</text>
+
+  <rect x="205" y="112" width="30" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="220" y="132" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">,</text>
+
+  <!-- Stream Bytes: Link ID & Length "0,12:" -->
+  <rect x="250" y="112" width="30" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="265" y="132" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">0</text>
+
+  <rect x="285" y="112" width="30" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="300" y="132" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">,</text>
+
+  <rect x="320" y="112" width="30" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="335" y="132" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">1</text>
+
+  <rect x="355" y="112" width="30" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="370" y="132" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">2</text>
+
+  <rect x="390" y="112" width="30" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="405" y="132" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">:</text>
+
+  <!-- Stream Bytes: Payload Data -->
+  <rect x="435" y="112" width="30" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="450" y="132" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">H</text>
+
+  <rect x="470" y="112" width="30" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="485" y="132" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">e</text>
+
+  <rect x="505" y="112" width="30" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="520" y="132" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">l</text>
+
+  <rect x="540" y="112" width="30" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="555" y="132" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">l</text>
+
+  <rect x="575" y="112" width="30" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="590" y="132" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">o</text>
+
+  <rect x="610" y="112" width="45" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="632" y="132" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">...</text>
+
+  <rect x="660" y="112" width="30" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="675" y="132" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">!</text>
+
+  <!-- Right Badge in Top Panel -->
+  <rect x="715" y="102" width="185" height="43" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="807" y="120" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Побайтове зчитування</text>
+  <text x="807" y="136" text-anchor="middle" font-size="11" fill="#6b7280">uart_read_byte()</text>
+
+  <!-- Initial Arrow from Stream to FSM State 1 -->
+  <line x1="80" y1="155" x2="80" y2="182" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Loopback Line (From State 3 back to State 1) -->
+  <path d="M 800,190 L 800,175 L 160,175 L 160,182" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#arr-blue)"/>
+  <text x="480" y="167" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Кадр прийнято (bytes_left == 0) — повернення в IDLE</text>
+
+  <!-- FSM Card 1: STATE_SEARCH_PREFIX -->
+  <rect x="45" y="190" width="230" height="180" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="160" y="215" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. ПОШУК ПРЕФІКСА</text>
+  <text x="160" y="233" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">STATE_SEARCH_PREFIX</text>
+  <line x1="60" y1="242" x2="260" y2="242" stroke="#2457d6" stroke-opacity="0.3" stroke-width="1"/>
+  <text x="58" y="262" font-size="12" fill="#1a1a1a">• Зчитує байти по 1 з FIFO</text>
+  <text x="58" y="282" font-size="12" fill="#1a1a1a">• Очікує заголовок "+IPD,"</text>
+  <text x="58" y="302" font-size="12" fill="#1a1a1a">• Ігнорує інші строки AT</text>
+  <text x="58" y="322" font-size="12" fill="#6b7280">  (наприклад "OK", "ERROR")</text>
+  <text x="58" y="350" font-size="12" font-weight="bold" fill="#2457d6">Скинути лічильник збігу</text>
+
+  <!-- Transition 1 -> 2 Arrow -->
+  <line x1="275" y1="275" x2="357" y2="275" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="320" y="262" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Є "+IPD,"</text>
+
+  <!-- FSM Card 2: STATE_PARSE_HEADER -->
+  <rect x="365" y="190" width="230" height="180" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="480" y="215" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">2. ПАРСИНГ ID ТА LEN</text>
+  <text x="480" y="233" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">STATE_PARSE_HEADER</text>
+  <line x1="380" y1="242" x2="580" y2="242" stroke="#d0d7de" stroke-width="1"/>
+  <text x="378" y="262" font-size="12" fill="#1a1a1a">• Накопичує ASCII-цифри</text>
+  <text x="378" y="282" font-size="12" fill="#1a1a1a">• Парсить link_id та len</text>
+  <text x="378" y="302" font-size="12" fill="#1a1a1a">• Детектує роздільник ':'</text>
+  <text x="378" y="322" font-size="12" fill="#6b7280">  (кінець заголовка кадру)</text>
+  <text x="378" y="350" font-size="12" font-weight="bold" fill="#1a1a1a">Фіксація розміру кадру</text>
+
+  <!-- Transition 2 -> 3 Arrow -->
+  <line x1="595" y1="275" x2="677" y2="275" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="640" y="262" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Зчитано ':'</text>
+
+  <!-- FSM Card 3: STATE_READ_PAYLOAD -->
+  <rect x="685" y="190" width="230" height="180" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="800" y="215" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">3. ПРИЙОМ ДАНИХ</text>
+  <text x="800" y="233" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">STATE_READ_PAYLOAD</text>
+  <line x1="700" y1="242" x2="900" y2="242" stroke="#27ae60" stroke-opacity="0.3" stroke-width="1"/>
+  <text x="698" y="262" font-size="12" fill="#1a1a1a">• Пряме копіювання в буфер</text>
+  <text x="698" y="282" font-size="12" fill="#1a1a1a">• Зменшення bytes_left</text>
+  <text x="698" y="302" font-size="12" font-weight="bold" fill="#27ae60">• Без блокуючих delay()</text>
+  <text x="698" y="322" font-size="12" fill="#6b7280">  (обробка фрагментації)</text>
+  <text x="698" y="350" font-size="12" font-weight="bold" fill="#27ae60">Виклик onDataReceived()</text>
+
+  <!-- Bottom Comparison Panel -->
+  <rect x="45" y="410" width="870" height="90" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Sub-box Left: Wrong approach -->
+  <rect x="60" y="420" width="410" height="70" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="75" y="440" font-size="13" font-weight="bold" fill="#c0392b">❌ Блокуючий підхід (delay / readBytesUntil)</text>
+  <text x="75" y="458" font-size="12" fill="#1a1a1a">• Блокує потік виконання мікроконтролера</text>
+  <text x="75" y="476" font-size="12" fill="#1a1a1a">• Переповнює FIFO UART та спричиняє втрату пакетів</text>
+
+  <!-- Sub-box Right: Correct approach -->
+  <rect x="490" y="420" width="410" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="505" y="440" font-size="13" font-weight="bold" fill="#27ae60">✅ Потоковий FSM-парсер (Non-blocking)</text>
+  <text x="505" y="458" font-size="12" fill="#1a1a1a">• Обробка побайтово в головному циклі loop()</text>
+  <text x="505" y="476" font-size="12" fill="#1a1a1a">• Стійкість до фрагментації TCP/UDP у реальному часі</text>
+</svg>

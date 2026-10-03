@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr_axis" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr_blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr_green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr_red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Ітеративне псевдообертання вектора в алгоритмі CORDIC</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Послідовні повороти на кути γᵢ = arctg(2⁻ⁱ) наближають вектор до цілі з масштабуванням амплітуди на Kᵢ</text>
+
+  <!-- Main Panel Left: Geometric Diagram -->
+  <rect x="30" y="75" width="540" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="300" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Геометрія псевдообертань вектора (Rotation Mode)</text>
+
+  <!-- Arc for initial radius R0 = 150 -->
+  <path d="M 260 420 A 150 150 0 0 0 236 331 A 150 150 0 0 0 196 297" fill="none" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="185" y="442" text-anchor="end" font-size="12" fill="#6b7280">Довжина |V₀| = 1.0</text>
+
+  <!-- Arc for expanded radius R_final = 247 (1.647 * 150) -->
+  <path d="M 357 420 A 247 247 0 0 0 345 344 A 247 247 0 0 0 310 275 A 247 247 0 0 0 252 217" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="370" y="310" font-size="12" font-weight="bold" fill="#27ae60">Масштаб |Vout| = K · |V₀|</text>
+
+  <!-- Coordinate Axes (Origin at X=110, Y=420) -->
+  <line x1="85" y1="420" x2="525" y2="420" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr_axis)"/>
+  <text x="525" y="442" text-anchor="end" font-size="12" font-weight="bold" fill="#6b7280">Вісь X (d / α)</text>
+
+  <line x1="110" y1="445" x2="110" y2="125" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr_axis)"/>
+  <text x="122" y="132" font-size="12" font-weight="bold" fill="#6b7280">Вісь Y (q / β)</text>
+
+  <!-- Target angle line (55 degrees, length 280) -->
+  <line x1="110" y1="420" x2="278" y2="180" stroke="#95a5a6" stroke-width="2" stroke-dasharray="5,5"/>
+  <text x="285" y="175" font-size="12" font-weight="bold" fill="#7f8c8d">Цільовий кут θ_target = 55°</text>
+
+  <!-- Angle arc for target angle (radius 100) -->
+  <path d="M 210 420 A 100 100 0 0 0 167 338" fill="none" stroke="#7f8c8d" stroke-width="1"/>
+  <text x="105" y="350" text-anchor="end" font-size="12" fill="#7f8c8d">θ_target</text>
+
+  <!-- Vector V0: from (110, 420) to (260, 420) -->
+  <line x1="110" y1="420" x2="252" y2="420" stroke="#1a1a1a" stroke-width="3" marker-end="url(#arr_axis)"/>
+  <circle cx="260" cy="420" r="4" fill="#1a1a1a"/>
+  <text x="260" y="442" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">V₀ (i=0, 0°)</text>
+
+  <!-- Iteration 0: Shift line from (260, 420) UP to (260, 270) -->
+  <line x1="260" y1="412" x2="260" y2="278" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr_red)"/>
+  <text x="268" y="348" font-size="12" font-weight="bold" fill="#c0392b">+Shift 2⁰</text>
+
+  <!-- Vector V1: from (110, 420) to (260, 270) -->
+  <line x1="110" y1="420" x2="254" y2="276" stroke="#2457d6" stroke-width="3" marker-end="url(#arr_blue)"/>
+  <circle cx="260" cy="270" r="4" fill="#2457d6"/>
+  <text x="175" y="250" font-size="12" font-weight="bold" fill="#2457d6">V₁ (γ₀ = +45°)</text>
+
+  <!-- Angle arc for gamma_0 (+45 deg, radius 60) -->
+  <path d="M 170 420 A 60 60 0 0 0 152 378" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="105" y="400" text-anchor="end" font-size="12" fill="#2457d6">γ₀=45°</text>
+
+  <!-- Iteration 1: Shift line from (260, 270) to (335, 195) -->
+  <line x1="260" y1="270" x2="329" y2="201" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr_red)"/>
+  <text x="312" y="252" font-size="12" font-weight="bold" fill="#c0392b">+Shift 2⁻¹</text>
+
+  <!-- Vector V2: from (110, 420) to (335, 195) -->
+  <line x1="110" y1="420" x2="329" y2="201" stroke="#2457d6" stroke-width="3" marker-end="url(#arr_blue)"/>
+  <circle cx="335" cy="195" r="4" fill="#2457d6"/>
+  <text x="345" y="195" font-size="12" font-weight="bold" fill="#2457d6">V₂ (γ₁ = +26.6°)</text>
+
+  <!-- Iteration 2: Shift line from (335, 195) BACK to (279, 139) -->
+  <line x1="335" y1="195" x2="284" y2="144" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr_red)"/>
+  <text x="325" y="155" font-size="12" font-weight="bold" fill="#c0392b">-Shift 2⁻²</text>
+
+  <!-- Vector V3: from (110, 420) to (279, 139) -->
+  <line x1="110" y1="420" x2="274" y2="144" stroke="#27ae60" stroke-width="3" marker-end="url(#arr_green)"/>
+  <circle cx="279" cy="139" r="5" fill="#27ae60"/>
+  <text x="140" y="115" font-size="12" font-weight="bold" fill="#27ae60">V₃ ≈ V_out (γ₂ = -14.0°)</text>
+
+
+  <!-- Right Side Panel 1: Shift & Add Math -->
+  <rect x="590" y="75" width="340" height="135" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="760" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. Формула кроку CORDIC (Shift &amp; Add)</text>
+  <text x="760" y="118" text-anchor="middle" font-size="12" fill="#6b7280">Заміна множення на зсув та додавання:</text>
+
+  <rect x="605" y="128" width="310" height="70" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="615" y="148" font-size="12" font-weight="bold" fill="#1a1a1a">Xᵢ₊₁ = Xᵢ - dᵢ · (Yᵢ &gt;&gt; i)</text>
+  <text x="615" y="168" font-size="12" font-weight="bold" fill="#1a1a1a">Yᵢ₊₁ = Yᵢ + dᵢ · (Xᵢ &gt;&gt; i)</text>
+  <text x="615" y="188" font-size="12" font-weight="bold" fill="#2457d6">Zᵢ₊₁ = Zᵢ - dᵢ · arctg(2⁻ⁱ),  dᵢ = sign(Zᵢ)</text>
+
+
+  <!-- Right Side Panel 2: Vector Gain K -->
+  <rect x="590" y="225" width="340" height="135" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="760" y="248" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">2. Накопичення амплітуди Kᵢ</text>
+  <text x="760" y="268" text-anchor="middle" font-size="12" fill="#6b7280">Псевдообертання подовжує вектор:</text>
+
+  <rect x="605" y="278" width="310" height="70" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="615" y="298" font-size="12" font-weight="bold" fill="#1a1a1a">Масштаб кроку: Kᵢ = √(1 + 2⁻²ⁱ)</text>
+  <text x="615" y="318" font-size="12" font-weight="bold" fill="#1a1a1a">|Vᵢ₊₁| = Kᵢ · |Vᵢ|</text>
+  <text x="615" y="338" font-size="12" font-weight="bold" fill="#c0392b">K_total = ∏ √(1 + 2⁻²ⁱ) ≈ 1.64676</text>
+
+
+  <!-- Right Side Panel 3: FOC Application & Precision -->
+  <rect x="590" y="375" width="340" height="140" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="760" y="398" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">3. Точність та компенсація у FOC</text>
+
+  <rect x="605" y="408" width="310" height="95" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="615" y="428" font-size="12" fill="#1a1a1a">• N = 16 ітерацій забезпечують точність Q15</text>
+  <text x="615" y="448" font-size="12" fill="#1a1a1a">• Похибка кута &lt; 2⁻ᴺ rad (до 0.001°)</text>
+  <text x="615" y="468" font-size="12" font-weight="bold" fill="#27ae60">• Нормалізація: V_norm = V_out / 1.64676</text>
+  <text x="615" y="488" font-size="12" fill="#6b7280">• Вбудовано в коефіцієнти Парка / Кларка</text>
+</svg>

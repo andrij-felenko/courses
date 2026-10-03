@@ -1,0 +1,268 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 580" width="960" height="580" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="580" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема цокольовки та шин живлення плати WeAct STM32G431CBU6</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Призначення виводів, розподіл шин живлення 5V/3V3/VBAT/VREF+ та толерантність до напруги</text>
+
+  <!-- LEFT PANEL: Power & Boot -->
+  <rect x="30" y="75" width="240" height="480" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="150" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Шини живлення та BOOT0</text>
+
+  <!-- Card 1: 5V -->
+  <rect x="42" y="112" width="216" height="74" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="54" y="132" font-size="13" font-weight="bold" fill="#2457d6">5V (VIN / VBUS)</text>
+  <text x="54" y="152" font-size="12" fill="#1a1a1a">Вхід живлення від USB або</text>
+  <text x="54" y="170" font-size="12" fill="#1a1a1a">зовнішнього джерела 4.5-5.5V</text>
+
+  <!-- Card 2: 3V3 -->
+  <rect x="42" y="198" width="216" height="74" rx="4" ry="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="54" y="218" font-size="13" font-weight="bold" fill="#27ae60">3V3 (Основна шина VDD)</text>
+  <text x="54" y="238" font-size="12" fill="#1a1a1a">Вихід LDO регулятора 3.3V</text>
+  <text x="54" y="256" font-size="12" fill="#1a1a1a">Живлення ядра MCU та I/O</text>
+
+  <!-- Card 3: VBAT -->
+  <rect x="42" y="284" width="216" height="74" rx="4" ry="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="54" y="304" font-size="13" font-weight="bold" fill="#1a1a1a">VBAT (Резервне живлення)</text>
+  <text x="54" y="324" font-size="12" fill="#1a1a1a">Живлення RTC і бекап-пам'яті</text>
+  <text x="54" y="342" font-size="12" fill="#6b7280">Діапазон напруги: 1.55V - 3.6V</text>
+
+  <!-- Card 4: VREF+ -->
+  <rect x="42" y="370" width="216" height="74" rx="4" ry="4" fill="#fff7ed" stroke="#c2410c" stroke-width="1.5"/>
+  <text x="54" y="390" font-size="13" font-weight="bold" fill="#c2410c">VREF+ (Опорна напруга)</text>
+  <text x="54" y="410" font-size="12" fill="#1a1a1a">Опора для ADC / DAC / OPAMP</text>
+  <text x="54" y="428" font-size="12" fill="#6b7280">Підключено до 3V3 через VDDA</text>
+
+  <!-- Card 5: BOOT0 -->
+  <rect x="42" y="456" width="216" height="86" rx="4" ry="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="54" y="475" font-size="13" font-weight="bold" fill="#c0392b">Вибір режиму BOOT0</text>
+  <text x="54" y="493" font-size="12" fill="#1a1a1a">GND (0) = Запуск із Flash</text>
+  <text x="54" y="511" font-size="12" fill="#1a1a1a">3V3 (1) = Завантажувач DFU</text>
+  <text x="54" y="529" font-size="12" fill="#6b7280">Кнопка BOOT на платі</text>
+
+  <!-- MIDDLE PANEL: WeAct Board & Pinout -->
+  <rect x="290" y="75" width="380" height="480" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Розпіновка плати WeAct (UFQFPN48)</text>
+
+  <!-- PCB Board -->
+  <rect x="360" y="112" width="240" height="430" rx="8" ry="8" fill="#1e293b" stroke="#0f172a" stroke-width="2"/>
+
+  <!-- USB-C Connector -->
+  <rect x="425" y="124" width="110" height="28" rx="4" ry="4" fill="#94a3b8" stroke="#64748b" stroke-width="1.5"/>
+  <text x="480" y="143" text-anchor="middle" font-size="12" font-weight="bold" fill="#0f172a">USB-C (5V)</text>
+
+  <!-- Buttons -->
+  <rect x="375" y="164" width="46" height="22" rx="3" ry="3" fill="#64748b"/>
+  <text x="398" y="179" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">NRST</text>
+
+  <rect x="539" y="164" width="46" height="22" rx="3" ry="3" fill="#64748b"/>
+  <text x="562" y="179" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">BOOT</text>
+
+  <!-- MCU Chip -->
+  <rect x="425" y="260" width="110" height="110" rx="4" ry="4" fill="#0f172a" stroke="#475569" stroke-width="1.5"/>
+  <text x="480" y="295" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">STM32G431</text>
+  <text x="480" y="318" text-anchor="middle" font-size="13" font-weight="bold" fill="#38bdf8">CBU6</text>
+  <text x="480" y="341" text-anchor="middle" font-size="12" fill="#94a3b8">UFQFPN48</text>
+
+  <!-- SWD Bottom Header -->
+  <rect x="368" y="504" width="224" height="26" rx="3" ry="3" fill="#334155"/>
+  <text x="480" y="521" text-anchor="middle" font-size="12" font-weight="bold" fill="#f8fafc">SWD: 3V3 | SWCLK | SWDIO | GND</text>
+
+  <!-- Left Header Pins (J1) -->
+  <!-- Pin 1: 3V3 -->
+  <line x1="354" y1="156" x2="364" y2="156" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="364" y="152" width="8" height="8" fill="#f59e0b"/>
+  <rect x="296" y="149" width="58" height="15" rx="3" ry="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="325" y="160" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">3V3</text>
+
+  <!-- Pin 2: GND -->
+  <line x1="354" y1="183" x2="364" y2="183" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="364" y="179" width="8" height="8" fill="#f59e0b"/>
+  <rect x="296" y="176" width="58" height="15" rx="3" ry="3" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1"/>
+  <text x="325" y="187" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e293b">GND</text>
+
+  <!-- Pin 3: 5V -->
+  <line x1="354" y1="210" x2="364" y2="210" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="364" y="206" width="8" height="8" fill="#f59e0b"/>
+  <rect x="296" y="203" width="58" height="15" rx="3" ry="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="325" y="214" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">5V</text>
+
+  <!-- Pin 4: VBAT -->
+  <line x1="354" y1="237" x2="364" y2="237" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="364" y="233" width="8" height="8" fill="#f59e0b"/>
+  <rect x="296" y="230" width="58" height="15" rx="3" ry="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="325" y="241" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">VBAT</text>
+
+  <!-- Pin 5: PC13 -->
+  <line x1="354" y1="264" x2="364" y2="264" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="364" y="260" width="8" height="8" fill="#f59e0b"/>
+  <rect x="296" y="257" width="58" height="15" rx="3" ry="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="325" y="268" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e293b">PC13</text>
+
+  <!-- Pin 6: PC14 -->
+  <line x1="354" y1="291" x2="364" y2="291" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="364" y="287" width="8" height="8" fill="#f59e0b"/>
+  <rect x="296" y="284" width="58" height="15" rx="3" ry="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="325" y="295" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e293b">PC14</text>
+
+  <!-- Pin 7: PC15 -->
+  <line x1="354" y1="318" x2="364" y2="318" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="364" y="314" width="8" height="8" fill="#f59e0b"/>
+  <rect x="296" y="311" width="58" height="15" rx="3" ry="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="325" y="322" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e293b">PC15</text>
+
+  <!-- Pin 8: PF0 -->
+  <line x1="354" y1="345" x2="364" y2="345" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="364" y="341" width="8" height="8" fill="#f59e0b"/>
+  <rect x="296" y="338" width="58" height="15" rx="3" ry="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="325" y="349" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e293b">PF0</text>
+
+  <!-- Pin 9: PF1 -->
+  <line x1="354" y1="372" x2="364" y2="372" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="364" y="368" width="8" height="8" fill="#f59e0b"/>
+  <rect x="296" y="365" width="58" height="15" rx="3" ry="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="325" y="376" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e293b">PF1</text>
+
+  <!-- Pin 10: PA0 -->
+  <line x1="354" y1="399" x2="364" y2="399" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="364" y="395" width="8" height="8" fill="#f59e0b"/>
+  <rect x="296" y="392" width="58" height="15" rx="3" ry="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="325" y="403" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">PA0</text>
+
+  <!-- Pin 11: PA1 -->
+  <line x1="354" y1="426" x2="364" y2="426" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="364" y="422" width="8" height="8" fill="#f59e0b"/>
+  <rect x="296" y="419" width="58" height="15" rx="3" ry="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="325" y="430" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">PA1</text>
+
+  <!-- Pin 12: PA2 -->
+  <line x1="354" y1="453" x2="364" y2="453" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="364" y="449" width="8" height="8" fill="#f59e0b"/>
+  <rect x="296" y="446" width="58" height="15" rx="3" ry="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="325" y="457" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">PA2</text>
+
+  <!-- Pin 13: PA3 -->
+  <line x1="354" y1="480" x2="364" y2="480" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="364" y="476" width="8" height="8" fill="#f59e0b"/>
+  <rect x="296" y="473" width="58" height="15" rx="3" ry="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="325" y="484" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">PA3</text>
+
+  <!-- Right Header Pins (J2) -->
+  <!-- Pin 1: VREF+ -->
+  <line x1="596" y1="156" x2="606" y2="156" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="588" y="152" width="8" height="8" fill="#f59e0b"/>
+  <rect x="606" y="149" width="58" height="15" rx="3" ry="3" fill="#fff7ed" stroke="#c2410c" stroke-width="1"/>
+  <text x="635" y="160" text-anchor="middle" font-size="12" font-weight="bold" fill="#c2410c">VREF+</text>
+
+  <!-- Pin 2: GND -->
+  <line x1="596" y1="183" x2="606" y2="183" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="588" y="179" width="8" height="8" fill="#f59e0b"/>
+  <rect x="606" y="176" width="58" height="15" rx="3" ry="3" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1"/>
+  <text x="635" y="187" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e293b">GND</text>
+
+  <!-- Pin 3: PA14 -->
+  <line x1="596" y1="210" x2="606" y2="210" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="588" y="206" width="8" height="8" fill="#f59e0b"/>
+  <rect x="606" y="203" width="58" height="15" rx="3" ry="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="635" y="214" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">PA14</text>
+
+  <!-- Pin 4: PA13 -->
+  <line x1="596" y1="237" x2="606" y2="237" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="588" y="233" width="8" height="8" fill="#f59e0b"/>
+  <rect x="606" y="230" width="58" height="15" rx="3" ry="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="635" y="241" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">PA13</text>
+
+  <!-- Pin 5: PA12 -->
+  <line x1="596" y1="264" x2="606" y2="264" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="588" y="260" width="8" height="8" fill="#f59e0b"/>
+  <rect x="606" y="257" width="58" height="15" rx="3" ry="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="635" y="268" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e293b">PA12</text>
+
+  <!-- Pin 6: PA11 -->
+  <line x1="596" y1="291" x2="606" y2="291" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="588" y="287" width="8" height="8" fill="#f59e0b"/>
+  <rect x="606" y="284" width="58" height="15" rx="3" ry="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="635" y="295" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e293b">PA11</text>
+
+  <!-- Pin 7: PB8 -->
+  <line x1="596" y1="318" x2="606" y2="318" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="588" y="314" width="8" height="8" fill="#f59e0b"/>
+  <rect x="606" y="311" width="58" height="15" rx="3" ry="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="635" y="322" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">PB8</text>
+
+  <!-- Pin 8: PB9 -->
+  <line x1="596" y1="345" x2="606" y2="345" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="588" y="341" width="8" height="8" fill="#f59e0b"/>
+  <rect x="606" y="338" width="58" height="15" rx="3" ry="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="635" y="349" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e293b">PB9</text>
+
+  <!-- Pin 9: PA7 -->
+  <line x1="596" y1="372" x2="606" y2="372" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="588" y="368" width="8" height="8" fill="#f59e0b"/>
+  <rect x="606" y="365" width="58" height="15" rx="3" ry="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="635" y="376" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">PA7</text>
+
+  <!-- Pin 10: PA6 -->
+  <line x1="596" y1="399" x2="606" y2="399" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="588" y="395" width="8" height="8" fill="#f59e0b"/>
+  <rect x="606" y="392" width="58" height="15" rx="3" ry="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="635" y="403" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">PA6</text>
+
+  <!-- Pin 11: PA5 -->
+  <line x1="596" y1="426" x2="606" y2="426" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="588" y="422" width="8" height="8" fill="#f59e0b"/>
+  <rect x="606" y="419" width="58" height="15" rx="3" ry="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="635" y="430" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">PA5</text>
+
+  <!-- Pin 12: PA4 -->
+  <line x1="596" y1="453" x2="606" y2="453" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="588" y="449" width="8" height="8" fill="#f59e0b"/>
+  <rect x="606" y="446" width="58" height="15" rx="3" ry="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="635" y="457" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">PA4</text>
+
+  <!-- Pin 13: PB0 -->
+  <line x1="596" y1="480" x2="606" y2="480" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="588" y="476" width="8" height="8" fill="#f59e0b"/>
+  <rect x="606" y="473" width="58" height="15" rx="3" ry="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="635" y="484" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">PB0</text>
+
+  <!-- RIGHT PANEL: Functional Groups -->
+  <rect x="690" y="75" width="240" height="480" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="810" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Спеціалізовані виводи</text>
+
+  <!-- Card 1: SWD -->
+  <rect x="702" y="112" width="216" height="98" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="714" y="132" font-size="13" font-weight="bold" fill="#2457d6">Інтерфейс SWD (ST-LINK)</text>
+  <text x="714" y="152" font-size="12" fill="#1a1a1a">PA13 = SWDIO (Дані)</text>
+  <text x="714" y="170" font-size="12" fill="#1a1a1a">PA14 = SWCLK (Тактування)</text>
+  <text x="714" y="188" font-size="12" fill="#6b7280">Живлення: 3V3 та GND</text>
+
+  <!-- Card 2: HSE / LSE -->
+  <rect x="702" y="222" width="216" height="98" rx="4" ry="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="714" y="242" font-size="13" font-weight="bold" fill="#1a1a1a">Тактування HSE / LSE</text>
+  <text x="714" y="262" font-size="12" fill="#1a1a1a">PF0/PF1 = HSE (Кварц 8 МГц)</text>
+  <text x="714" y="280" font-size="12" fill="#1a1a1a">PC14/PC15 = LSE (32.768 кГц)</text>
+  <text x="714" y="298" font-size="12" fill="#6b7280">Потрібні для RTC та PLL</text>
+
+  <!-- Card 3: Analog -->
+  <rect x="702" y="332" width="216" height="106" rx="4" ry="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="714" y="352" font-size="13" font-weight="bold" fill="#27ae60">Аналоговий тракт (Analog)</text>
+  <text x="714" y="372" font-size="12" fill="#1a1a1a">OPAMP1/2 = Підсилювачі</text>
+  <text x="714" y="390" font-size="12" fill="#1a1a1a">COMP1-4 = Компаратори</text>
+  <text x="714" y="408" font-size="12" fill="#1a1a1a">ADC1/2 = 12-біт ЦАП/АЦП</text>
+  <text x="714" y="426" font-size="12" fill="#6b7280">Використовують VREF+</text>
+
+  <!-- Card 4: Digital -->
+  <rect x="702" y="450" width="216" height="92" rx="4" ry="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="714" y="470" font-size="13" font-weight="bold" fill="#1a1a1a">Цифрові шини даних</text>
+  <text x="714" y="488" font-size="12" fill="#1a1a1a">PA11/PA12 = USB 2.0 / CAN</text>
+  <text x="714" y="506" font-size="12" fill="#1a1a1a">PB8/PB9 = I2C1 (SCL/SDA)</text>
+  <text x="714" y="524" font-size="12" fill="#6b7280">Толерантні до 5V (FT)</text>
+</svg>

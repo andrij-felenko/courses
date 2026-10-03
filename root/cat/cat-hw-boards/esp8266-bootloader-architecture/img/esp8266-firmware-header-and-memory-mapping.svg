@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структура заголовка прошивки ESP8266 та мапінг у SRAM</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Завантажувальні секції з бінарного файлу Flash відображаються у відповідні фізичні адреси оперативної пам'яті</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Файл прошивки у SPI Flash -->
+  <rect x="30" y="80" width="410" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="235" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Файл прошивки у SPI Flash (firmware.bin)</text>
+
+  <!-- Блок 1: Заголовок прошивки (Header 0xE9) -->
+  <rect x="45" y="120" width="380" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="140" font-size="13" font-weight="bold" fill="#1a1a1a">Головний заголовок Image Header (8 байт)</text>
+  <text x="60" y="160" font-size="12" fill="#6b7280">Magic: 0xE9 | Segments: 2 | Flash Mode/Freq</text>
+  <text x="60" y="180" font-size="12" font-weight="bold" fill="#2457d6">Entry Point Vector: 0x40100000 (IRAM0)</text>
+
+  <!-- Блок 2: Секція 1 (IRAM Executable Code) -->
+  <rect x="45" y="210" width="380" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="60" y="230" font-size="13" font-weight="bold" fill="#2457d6">Секція 1: Executable Code (.text)</text>
+  <text x="60" y="252" font-size="12" fill="#1a1a1a">Target Address: 0x40100000 | Length: Len_IRAM</text>
+  <text x="60" y="274" font-size="12" fill="#6b7280">Вектори переривань, ISR handlers та Fast Code</text>
+  <text x="60" y="296" font-size="12" fill="#2457d6">Завантажується ROM-завантажувачем в IRAM0</text>
+
+  <!-- Блок 3: Секція 2 (DRAM Data & Globals) -->
+  <rect x="45" y="340" width="380" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="60" y="360" font-size="13" font-weight="bold" fill="#27ae60">Секція 2: Data &amp; Globals (.data)</text>
+  <text x="60" y="382" font-size="12" fill="#1a1a1a">Target Address: 0x3FFE8000 | Length: Len_DRAM</text>
+  <text x="60" y="404" font-size="12" fill="#6b7280">Ініціалізовані глобальні та статичні змінні</text>
+  <text x="60" y="426" font-size="12" fill="#27ae60">Завантажується ROM-завантажувачем в DRAM0</text>
+  <text x="60" y="448" font-size="12" fill="#6b7280">Супроводжується обнуленням секції .bss</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: ОЗП SoC ESP8266 (SRAM Memory Map) -->
+  <rect x="520" y="80" width="410" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="725" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Адресний простір SRAM ESP8266 SoC</text>
+
+  <!-- Блок IRAM0 -->
+  <rect x="535" y="120" width="380" height="145" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="550" y="142" font-size="13" font-weight="bold" fill="#2457d6">IRAM0 (Instruction RAM, ~32 KB)</text>
+  <text x="900" y="142" font-size="12" fill="#6b7280" text-anchor="end">0x40100000 - 0x40108000</text>
+  <line x1="550" y1="152" x2="900" y2="152" stroke="#d0d7de" stroke-width="1"/>
+  <text x="550" y="172" font-size="12" fill="#1a1a1a">Призначення: Виконання коду без затримок flash</text>
+  <text x="550" y="194" font-size="12" fill="#1a1a1a">Приймає: Секцію 1 (.text) за адресою 0x40100000</text>
+  <text x="550" y="216" font-size="12" font-weight="bold" fill="#2457d6">Точка входу CPU: 0x40100000 (Entry Vector)</text>
+  <text x="550" y="238" font-size="12" fill="#6b7280">Критичний код (IRAM_ATTR), криптографія, ISR</text>
+
+  <!-- Блок DRAM0 -->
+  <rect x="535" y="280" width="380" height="195" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="550" y="302" font-size="13" font-weight="bold" fill="#27ae60">DRAM0 (Data RAM, ~80 KB)</text>
+  <text x="900" y="302" font-size="12" fill="#6b7280" text-anchor="end">0x3FFE8000 - 0x3FFFFFFF</text>
+  <line x1="550" y1="312" x2="900" y2="312" stroke="#d0d7de" stroke-width="1"/>
+  <text x="550" y="332" font-size="12" fill="#1a1a1a">Призначення: Збереження даних коду та стек/купа</text>
+  <text x="550" y="354" font-size="12" fill="#1a1a1a">Приймає: Секцію 2 (.data) за адресою 0x3FFE8000</text>
+  <text x="550" y="376" font-size="12" font-weight="bold" fill="#27ae60">Секція .bss (обнуляється при запуску)</text>
+  <text x="550" y="398" font-size="12" fill="#6b7280">Динамічна пам'ять (Heap) та Стек потоків</text>
+  <text x="550" y="420" font-size="12" fill="#6b7280">Доступ лише за вирівнюванням 32-bit (word access)</text>
+  <text x="550" y="442" font-size="12" fill="#6b7280">Розділяється між функціями ROM та SDK</text>
+
+  <!-- З'ЄДНУВАЛЬНІ СТРІЛКИ МАПІНГУ -->
+  <!-- Вказівник Entry Point -> IRAM0 Entry -->
+  <path d="M 425,175 L 480,175 L 480,140 L 535,140" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" fill="none" marker-end="url(#arr-gray)"/>
+
+  <!-- Мапінг Секції 1 -> IRAM0 -->
+  <path d="M 425,267.5 L 535,192.5" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- Мапінг Секції 2 -> DRAM0 -->
+  <path d="M 425,407.5 L 535,377.5" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+</svg>

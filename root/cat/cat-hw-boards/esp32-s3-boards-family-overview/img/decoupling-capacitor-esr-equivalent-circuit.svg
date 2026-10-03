@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Еквівалентна схема та частотна характеристика декаплінг-конденсатора</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Паразитні ESR і ESL обмежують згладжування високочастотних пульсацій живлення ESP32-S3</text>
+
+  <!-- LEFT PANEL: Equivalent Circuit -->
+  <rect x="30" y="75" width="435" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="105" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Еквівалентна схема реального конденсатора</text>
+
+  <!-- Power Line V_CC -->
+  <line x1="45" y1="135" x2="450" y2="135" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="55" y="127" font-size="12" font-weight="700" fill="#2457d6">Лінія живлення 3.3V (V_CC)</text>
+
+  <!-- Ground Line GND -->
+  <line x1="45" y1="435" x2="450" y2="435" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="55" y="450" font-size="12" font-weight="700" fill="#1a1a1a">Земля (GND)</text>
+
+  <!-- Physical Capacitor Box -->
+  <rect x="50" y="165" width="395" height="245" rx="6" fill="#ffffff" stroke="#2457d6" stroke-dasharray="4 4" stroke-width="1.5"/>
+  <text x="155" y="185" font-size="12" font-weight="700" fill="#2457d6">Корпус SMD-конденсатора</text>
+
+  <!-- Vertical Wire Top -->
+  <line x1="140" y1="135" x2="140" y2="210" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- ESR Resistor -->
+  <rect x="125" y="210" width="30" height="40" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="140" y1="250" x2="140" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="175" y="235" font-size="12" fill="#1a1a1a"><tspan font-weight="700" fill="#c0392b">R_ESR</tspan><tspan fill="#6b7280"> — послідовний опір (ESR)</tspan></text>
+
+  <!-- ESL Inductor -->
+  <path d="M 140,275 C 158,275 158,287.5 140,287.5 C 158,287.5 158,300 140,300 C 158,300 158,312.5 140,312.5 C 158,312.5 158,325 140,325" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <line x1="140" y1="325" x2="140" y2="350" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="175" y="300" font-size="12" fill="#1a1a1a"><tspan font-weight="700" fill="#2457d6">L_ESL</tspan><tspan fill="#6b7280"> — паразитна індуктивність (ESL)</tspan></text>
+
+  <!-- Capacitor Plates -->
+  <line x1="120" y1="350" x2="160" y2="350" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="120" y1="362" x2="160" y2="362" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="140" y1="362" x2="140" y2="435" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="175" y="360" font-size="12" fill="#1a1a1a"><tspan font-weight="700" fill="#27ae60">C</tspan><tspan fill="#6b7280"> — ідеальна ємність</tspan></text>
+
+  <!-- Explanatory note -->
+  <text x="175" y="392" font-size="11" fill="#6b7280">Схема: послідовний RLC-контур</text>
+
+  <!-- RIGHT PANEL: Impedance vs Frequency Graph -->
+  <rect x="495" y="75" width="435" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712" y="105" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Залежність імпедансу Z від частоти f</text>
+
+  <!-- Axes -->
+  <line x1="575" y1="385" x2="575" y2="145" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="575" y1="385" x2="905" y2="385" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <text x="565" y="140" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="end">Z (Ом)</text>
+  <text x="910" y="405" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="start">f (Гц)</text>
+
+  <!-- Ideal Capacitor Curve -->
+  <path d="M 585,150 L 880,345" stroke="#6b7280" stroke-dasharray="4 4" stroke-width="1.5" fill="none"/>
+  <text x="590" y="135" font-size="11" fill="#6b7280">Ідеальний C (без ESR/ESL)</text>
+
+  <!-- Real Capacitor Z(f) Curve -->
+  <path d="M 585,150 Q 690,310 730,310 Q 770,310 885,185" stroke="#2457d6" stroke-width="3" fill="none"/>
+
+  <!-- Minimum Impedance / ESR line -->
+  <line x1="575" y1="310" x2="730" y2="310" stroke="#c0392b" stroke-dasharray="3 3" stroke-width="1.2"/>
+  <text x="585" y="304" font-size="12" font-weight="700" fill="#c0392b">Z_min = R_ESR</text>
+
+  <!-- Resonance Point Marker -->
+  <circle cx="730" cy="310" r="4.5" fill="#c0392b"/>
+
+  <!-- Resonance Frequency f_0 vertical line -->
+  <line x1="730" y1="310" x2="730" y2="385" stroke="#2457d6" stroke-dasharray="3 3" stroke-width="1.2"/>
+  <text x="730" y="405" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">f_0 (резонанс)</text>
+
+  <!-- Region Labels -->
+  <text x="640" y="355" font-size="11" fill="#1a1a1a" text-anchor="middle">Ємнісна зона (1/2πfC)</text>
+  <text x="825" y="355" font-size="11" fill="#1a1a1a" text-anchor="middle">Індуктивна зона (2πfL)</text>
+
+  <!-- Callout box for effective suppression zone -->
+  <rect x="640" y="215" width="180" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="730" y="232" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">Максимальне придушення</text>
+  <text x="730" y="247" font-size="11" fill="#1a1a1a" text-anchor="middle">пульсацій на частоті f_0</text>
+  <line x1="730" y1="255" x2="730" y2="304" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arr-green)"/>
+</svg>

@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr_blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr_green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розподіл Flash-пам'яті ST-Link V2.1 (STM32F103 / STM32F4)</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Основна прошивка розміщується за адресою 0x08004000 зі зміщеною таблицею векторів VTOR</text>
+
+  <!-- Panel 1: Memory Map -->
+  <rect x="30" y="75" width="440" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="250" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Карта Flash-пам'яті контролера (STM32)</text>
+
+  <!-- Addresses & Memory Blocks -->
+  <text x="130" y="132" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">0x08000000</text>
+  <rect x="140" y="112" width="310" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="295" y="128" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вектори переривань Bootloader (VTOR)</text>
+  <text x="295" y="143" text-anchor="middle" font-size="12" fill="#6b7280">Initial SP &amp; Reset Vector за замовчуванням</text>
+
+  <text x="130" y="190" text-anchor="end" font-size="12" fill="#6b7280">16 КБ</text>
+  <rect x="140" y="160" width="310" height="55" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="295" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">ST Bootloader (16 КБ)</text>
+  <text x="295" y="200" text-anchor="middle" font-size="12" fill="#6b7280">Крипто-сигнатура, USB DFU / Оновлення</text>
+
+  <text x="130" y="240" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">0x08004000</text>
+  <rect x="140" y="223" width="310" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="295" y="241" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Таблиця векторів прошивки (VTOR)</text>
+  <text x="295" y="256" text-anchor="middle" font-size="12" fill="#6b7280">Зміщення SCB-&gt;VTOR = 0x08004000</text>
+
+  <rect x="140" y="273" width="310" height="115" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="295" y="295" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Образ основної прошивки</text>
+  <text x="295" y="315" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ST-Link V2.1 / DAPLink / J-Link OB</text>
+  <text x="295" y="340" text-anchor="middle" font-size="12" fill="#6b7280">USB MSD (Drag-&amp;-Drop) • USB CDC (COM-порт)</text>
+  <text x="295" y="360" text-anchor="middle" font-size="12" fill="#6b7280">CMSIS-DAP / SWD Зневаджувач</text>
+
+  <text x="130" y="408" text-anchor="end" font-size="12" font-weight="bold" fill="#6b7280">0x0801FFFF</text>
+  <text x="295" y="425" text-anchor="middle" font-size="12" fill="#6b7280">Кінець Flash-пам'яті (128 КБ)</text>
+
+
+  <!-- Panel 2: Execution Flow -->
+  <rect x="490" y="75" width="440" height="180" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="710" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Алгоритм старт-апу та релокації VTOR</text>
+
+  <rect x="505" y="112" width="410" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="710" y="132" text-anchor="middle" font-size="12" fill="#1a1a1a">1. Скидання: старт з 0x08000000 → Перевірка сигнатури</text>
+
+  <line x1="710" y1="144" x2="710" y2="154" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr_blue)"/>
+
+  <rect x="505" y="156" width="410" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="710" y="176" text-anchor="middle" font-size="12" fill="#1a1a1a">2. Перехід за адресою 0x08004000 (Reset_Handler)</text>
+
+  <line x1="710" y1="188" x2="710" y2="198" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr_green)"/>
+
+  <rect x="505" y="200" width="410" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="710" y="218" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">3. Налаштування реєстру: SCB-&gt;VTOR = 0x08004000</text>
+  <text x="710" y="233" text-anchor="middle" font-size="12" fill="#6b7280">Перенаправлення всіх переривань MCU на нову прошивку</text>
+
+
+  <!-- Panel 3: Firmwares & Unbrick -->
+  <rect x="490" y="270" width="440" height="190" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="710" y="293" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Альтернативні прошивки та відновлення (Unbrick)</text>
+
+  <rect x="505" y="308" width="198" height="138" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="604" y="328" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Альтернативні прошивки</text>
+  <text x="604" y="348" text-anchor="middle" font-size="12" fill="#1a1a1a">DAPLink / J-Link OB</text>
+  <text x="604" y="368" text-anchor="middle" font-size="12" fill="#6b7280">Записуються з 0x08004000</text>
+  <text x="604" y="388" text-anchor="middle" font-size="12" fill="#6b7280">Зберігають фабричний</text>
+  <text x="604" y="405" text-anchor="middle" font-size="12" fill="#6b7280">ST Bootloader недоторканим</text>
+  <text x="604" y="425" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Без ризику втрати Bootloader</text>
+
+  <rect x="717" y="308" width="198" height="138" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="816" y="328" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Апаратний Unbrick (SWD)</text>
+  <text x="816" y="348" text-anchor="middle" font-size="12" fill="#1a1a1a">Відновлення при збої</text>
+  <text x="816" y="368" text-anchor="middle" font-size="12" fill="#6b7280">Пряме підключення SWD</text>
+  <text x="816" y="388" text-anchor="middle" font-size="12" fill="#6b7280">OpenOCD / ST-Link Utility</text>
+  <text x="816" y="405" text-anchor="middle" font-size="12" fill="#6b7280">або PyOCD програматором</text>
+  <text x="816" y="425" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Повний доступ до Flash</text>
+</svg>

@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="35" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Часова діаграма SWD-транзакцій читання й запису (ST-Link V2.1)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Стробування за наростаючим фронтом SWCLK, зміна за спадним; фази ACK та TRN перемикають шину</text>
+
+  <!-- ПАНЕЛЬ 1: ТРАНЗАКЦІЯ ЧИТАННЯ -->
+  <rect x="30" y="75" width="900" height="195" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  
+  <!-- Заголовок панелі 1 -->
+  <text x="45" y="98" font-size="14" font-weight="700" fill="#2457d6">Транзакція читання SWD Read (8 біт Header + 1 TRN + 3 біти ACK + 32 біти RDATA + 1 Parity + 1 TRN)</text>
+
+  <!-- Часові позначення над SWCLK (Панель 1) -->
+  <text x="200" y="112" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">T_SWCLK</text>
+  <line x1="180" y1="118" x2="220" y2="118" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-dark)" marker-end="url(#arr-dark)"/>
+  <line x1="180" y1="114" x2="180" y2="122" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="220" y1="114" x2="220" y2="122" stroke="#1a1a1a" stroke-width="1.2"/>
+
+  <text x="300" y="112" font-size="12" fill="#27ae60" text-anchor="middle">Rising Edge: зчитування</text>
+  <text x="470" y="112" font-size="12" fill="#c0392b" text-anchor="middle">Falling Edge: зміна</text>
+
+  <!-- Назви сигналів (Панель 1) -->
+  <text x="45" y="148" font-size="13" font-weight="700" fill="#1a1a1a">SWCLK (Тактування)</text>
+  <text x="45" y="208" font-size="13" font-weight="700" fill="#1a1a1a">SWDIO (Дані)</text>
+  <text x="45" y="253" font-size="12" font-weight="700" fill="#6b7280">Шина</text>
+
+  <!-- Вертикальні пунктирні лінії фронтів (Панель 1) -->
+  <line x1="180" y1="125" x2="180" y2="230" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3" stroke-opacity="0.5"/>
+  <line x1="190" y1="125" x2="190" y2="230" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3" stroke-opacity="0.5"/>
+  <line x1="200" y1="125" x2="200" y2="230" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3" stroke-opacity="0.5"/>
+
+  <!-- Сигнал SWCLK (Панель 1) -->
+  <path d="M 180 160 L 180 135 L 190 135 L 190 160 L 200 160 L 200 135 L 210 135 L 210 160 L 220 160 L 220 135 L 230 135 L 230 160 L 240 160 L 240 135 L 250 135 L 250 160 L 260 160 L 260 135 L 270 135 L 270 160 L 280 160 L 280 135 L 290 135 L 290 160 L 300 160 L 300 135 L 310 135 L 310 160 L 320 160 L 320 135 L 330 135 L 330 160 L 340 160 L 340 135 L 350 135 L 350 160 L 360 160 L 360 135 L 370 135 L 370 160 L 380 160 L 380 135 L 390 135 L 390 160 L 400 160 L 400 135 L 410 135 L 410 160 L 420 160 L 420 135 L 430 135 L 430 160 L 440 160 L 440 135 L 450 135 L 450 160 L 460 160 L 460 135 L 470 135 L 470 160 L 480 160 L 480 135 L 490 135 L 490 160 L 500 160 L 500 135 L 510 135 L 510 160 L 520 160 L 520 135 L 530 135 L 530 160 L 540 160 L 540 135 L 550 135 L 550 160 L 560 160 L 560 135 L 570 135 L 570 160 L 580 160 L 580 135 L 590 135 L 590 160 L 600 160 L 600 135 L 610 135 L 610 160 L 620 160 L 620 135 L 630 135 L 630 160 L 640 160 L 640 135 L 650 135 L 650 160 L 660 160 L 660 135 L 670 135 L 670 160 L 680 160 L 680 135 L 690 135 L 690 160 L 700 160 L 700 135 L 710 135 L 710 160 L 720 160 L 720 135 L 730 135 L 730 160 L 740 160 L 740 135 L 750 135 L 750 160 L 760 160 L 760 135 L 770 135 L 770 160 L 780 160 L 780 135 L 790 135 L 790 160 L 800 160 L 800 135 L 810 135 L 810 160 L 820 160 L 820 135 L 830 135 L 830 160 L 840 160 L 840 135 L 850 135 L 850 160 L 860 160 L 860 135 L 870 135 L 870 160 L 880 160 L 880 135 L 890 135 L 890 160 L 900 160" fill="none" stroke="#2457d6" stroke-width="1.8"/>
+
+  <!-- Блоки SWDIO (Панель 1) -->
+  <!-- Header (Host) -->
+  <rect x="180" y="188" width="160" height="38" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="260" y="211" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Header (8 біт, Host)</text>
+
+  <!-- TRN 1 -->
+  <rect x="340" y="188" width="20" height="38" fill="#ffffff" stroke="#d0d7de" stroke-dasharray="3,3" rx="2"/>
+  <text x="350" y="181" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">TRN</text>
+
+  <!-- ACK (Target) -->
+  <rect x="360" y="188" width="60" height="38" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="390" y="211" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">ACK=OK</text>
+
+  <!-- RDATA (Target) -->
+  <rect x="420" y="188" width="340" height="38" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="590" y="211" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">RDATA (32 біти) + Parity (1 біт, Target → Host)</text>
+
+  <!-- TRN 2 -->
+  <rect x="760" y="188" width="20" height="38" fill="#ffffff" stroke="#d0d7de" stroke-dasharray="3,3" rx="2"/>
+  <text x="770" y="181" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">TRN</text>
+
+  <!-- Pause / Idle -->
+  <rect x="780" y="188" width="120" height="38" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="840" y="211" font-size="12" fill="#6b7280" text-anchor="middle">Пауза / Idle</text>
+
+  <!-- Індикатор керування шиною (Панель 1) -->
+  <rect x="180" y="240" width="160" height="18" fill="#2457d6" rx="3"/>
+  <text x="260" y="253" font-size="12" font-weight="700" fill="white" text-anchor="middle">Host (ST-Link)</text>
+
+  <rect x="340" y="240" width="20" height="18" fill="#d0d7de" rx="2"/>
+
+  <rect x="360" y="240" width="400" height="18" fill="#27ae60" rx="3"/>
+  <text x="560" y="253" font-size="12" font-weight="700" fill="white" text-anchor="middle">Target (STM32 MCU)</text>
+
+  <rect x="760" y="240" width="20" height="18" fill="#d0d7de" rx="2"/>
+
+  <rect x="780" y="240" width="120" height="18" fill="#eaf0fd" stroke="#d0d7de" rx="3"/>
+  <text x="840" y="253" font-size="12" fill="#6b7280" text-anchor="middle">Host (Idle)</text>
+
+  <!-- ПАНЕЛЬ 2: ТРАНЗАКЦІЯ ЗАПИСУ -->
+  <rect x="30" y="285" width="900" height="195" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+
+  <!-- Заголовок панелі 2 -->
+  <text x="45" y="308" font-size="14" font-weight="700" fill="#2457d6">Транзакція запису SWD Write (8 біт Header + 1 TRN + 3 біти ACK + 1 TRN + 32 біти WDATA + 1 Parity)</text>
+
+  <!-- Позначення фаз над SWCLK (Панель 2) -->
+  <text x="280" y="322" font-size="12" fill="#27ae60" text-anchor="middle">Зчитування: за наростаючим фронтом</text>
+  <text x="610" y="322" font-size="12" fill="#c0392b" text-anchor="middle">Зміна стану: за спадним фронтом</text>
+
+  <!-- Назви сигналів (Панель 2) -->
+  <text x="45" y="358" font-size="13" font-weight="700" fill="#1a1a1a">SWCLK (Тактування)</text>
+  <text x="45" y="418" font-size="13" font-weight="700" fill="#1a1a1a">SWDIO (Дані)</text>
+  <text x="45" y="463" font-size="12" font-weight="700" fill="#6b7280">Шина</text>
+
+  <!-- Вертикальні пунктирні лінії фронтів (Панель 2) -->
+  <line x1="180" y1="335" x2="180" y2="440" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3" stroke-opacity="0.5"/>
+  <line x1="190" y1="335" x2="190" y2="440" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3" stroke-opacity="0.5"/>
+  <line x1="200" y1="335" x2="200" y2="440" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3" stroke-opacity="0.5"/>
+
+  <!-- Сигнал SWCLK (Панель 2) -->
+  <path d="M 180 370 L 180 345 L 190 345 L 190 370 L 200 370 L 200 345 L 210 345 L 210 370 L 220 370 L 220 345 L 230 345 L 230 370 L 240 370 L 240 345 L 250 345 L 250 370 L 260 370 L 260 345 L 270 345 L 270 370 L 280 370 L 280 345 L 290 345 L 290 370 L 300 370 L 300 345 L 310 345 L 310 370 L 320 370 L 320 345 L 330 345 L 330 370 L 340 370 L 340 345 L 350 345 L 350 370 L 360 370 L 360 345 L 370 345 L 370 370 L 380 370 L 380 345 L 390 345 L 390 370 L 400 370 L 400 345 L 410 345 L 410 370 L 420 370 L 420 345 L 430 345 L 430 370 L 440 370 L 440 345 L 450 345 L 450 370 L 460 370 L 460 345 L 470 345 L 470 370 L 480 370 L 480 345 L 490 345 L 490 370 L 500 370 L 500 345 L 510 345 L 510 370 L 520 370 L 520 345 L 530 345 L 530 370 L 540 370 L 540 345 L 550 345 L 550 370 L 560 370 L 560 345 L 570 345 L 570 370 L 580 370 L 580 345 L 590 345 L 590 370 L 600 370 L 600 345 L 610 345 L 610 370 L 620 370 L 620 345 L 630 345 L 630 370 L 640 370 L 640 345 L 650 345 L 650 370 L 660 370 L 660 345 L 670 345 L 670 370 L 680 370 L 680 345 L 690 345 L 690 370 L 700 370 L 700 345 L 710 345 L 710 370 L 720 370 L 720 345 L 730 345 L 730 370 L 740 370 L 740 345 L 750 345 L 750 370 L 760 370 L 760 345 L 770 345 L 770 370 L 780 370 L 780 345 L 790 345 L 790 370 L 800 370 L 800 345 L 810 345 L 810 370 L 820 370 L 820 345 L 830 345 L 830 370 L 840 370 L 840 345 L 850 345 L 850 370 L 860 370 L 860 345 L 870 345 L 870 370 L 880 370 L 880 345 L 890 345 L 890 370 L 900 370" fill="none" stroke="#2457d6" stroke-width="1.8"/>
+
+  <!-- Блоки SWDIO (Панель 2) -->
+  <!-- Header (Host) -->
+  <rect x="180" y="398" width="160" height="38" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="260" y="421" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Header (8 біт, Host)</text>
+
+  <!-- TRN 1 -->
+  <rect x="340" y="398" width="20" height="38" fill="#ffffff" stroke="#d0d7de" stroke-dasharray="3,3" rx="2"/>
+  <text x="350" y="391" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">TRN</text>
+
+  <!-- ACK (Target) -->
+  <rect x="360" y="398" width="60" height="38" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="390" y="421" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">ACK=OK</text>
+
+  <!-- TRN 2 -->
+  <rect x="420" y="398" width="20" height="38" fill="#ffffff" stroke="#d0d7de" stroke-dasharray="3,3" rx="2"/>
+  <text x="430" y="391" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">TRN</text>
+
+  <!-- WDATA (Host) -->
+  <rect x="440" y="398" width="340" height="38" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="610" y="421" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">WDATA (32 біти) + Parity (1 біт, Host → Target)</text>
+
+  <!-- Pause / Idle -->
+  <rect x="780" y="398" width="120" height="38" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="840" y="421" font-size="12" fill="#6b7280" text-anchor="middle">Пауза / Idle</text>
+
+  <!-- Індикатор керування шиною (Панель 2) -->
+  <rect x="180" y="450" width="160" height="18" fill="#2457d6" rx="3"/>
+  <text x="260" y="463" font-size="12" font-weight="700" fill="white" text-anchor="middle">Host (ST-Link)</text>
+
+  <rect x="340" y="450" width="20" height="18" fill="#d0d7de" rx="2"/>
+
+  <rect x="360" y="450" width="60" height="18" fill="#27ae60" rx="3"/>
+  <text x="390" y="463" font-size="12" font-weight="700" fill="white" text-anchor="middle">Target</text>
+
+  <rect x="420" y="450" width="20" height="18" fill="#d0d7de" rx="2"/>
+
+  <rect x="440" y="450" width="340" height="18" fill="#2457d6" rx="3"/>
+  <text x="610" y="463" font-size="12" font-weight="700" fill="white" text-anchor="middle">Host (ST-Link)</text>
+
+  <rect x="780" y="450" width="120" height="18" fill="#eaf0fd" stroke="#d0d7de" rx="3"/>
+  <text x="840" y="463" font-size="12" fill="#6b7280" text-anchor="middle">Host (Idle)</text>
+
+  <!-- НИЖНЯ ПАНЕЛЬ ЛЕГЕНДИ -->
+  <rect x="30" y="495" width="900" height="30" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="45" y="514" font-size="12" font-weight="700" fill="#1a1a1a">● T_SWCLK = 1 / f_SWCLK (до 4 МГц)</text>
+  <text x="275" y="514" font-size="12" font-weight="700" fill="#27ae60">● Зчитування: Rising Edge</text>
+  <text x="465" y="514" font-size="12" font-weight="700" fill="#c0392b">● Зміна даних: Falling Edge</text>
+  <text x="665" y="514" font-size="12" font-weight="700" fill="#6b7280">● TRN: перемикання (1 цикл)</text>
+</svg>

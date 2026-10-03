@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топологія пам'яті ESP32-S3: Quad SPI проти Octal SPI</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Octal SPI подвоює пропускну здатність, але займає більше GPIO та збільшує затримку MMU</text>
+
+  <!-- Panel 1: Quad SPI (QSPI) -->
+  <rect x="30" y="84" width="435" height="415" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="42" y="96" width="411" height="34" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="247.5" y="118" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Режим Quad SPI (QSPI) — 4-бітна шина</text>
+
+  <!-- Topology QSPI: Memory Controller & Memory Chips -->
+  <rect x="42" y="138" width="155" height="84" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="119.5" y="160" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контролер пам'яті</text>
+  <text x="119.5" y="180" font-size="12" fill="#6b7280" text-anchor="middle">Cache MMU (QSPI)</text>
+  <text x="119.5" y="200" font-size="12" fill="#27ae60" text-anchor="middle">Низька затримка MMU</text>
+
+  <rect x="295" y="138" width="155" height="84" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="372.5" y="160" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Flash / PSRAM</text>
+  <text x="372.5" y="180" font-size="12" fill="#6b7280" text-anchor="middle">Quad Flash / PSRAM</text>
+  <text x="372.5" y="200" font-size="12" fill="#1a1a1a" text-anchor="middle">4 лінії даних</text>
+
+  <!-- QSPI Bus Connections -->
+  <path d="M 197 160 L 295 160" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="246" y="152" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">CLK / CS</text>
+
+  <path d="M 197 200 L 295 200" fill="none" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="246" y="192" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D0–D3 (4 біти)</text>
+
+  <!-- QSPI Subpanel: GPIO Usage -->
+  <rect x="42" y="236" width="411" height="106" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="247.5" y="256" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Використання контактів та GPIO</text>
+
+  <rect x="54" y="266" width="186" height="32" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="147" y="286" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Зайнято: ~6 виводів</text>
+
+  <rect x="252" y="266" width="189" height="32" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="346.5" y="286" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вільні: 36–39 GPIO</text>
+
+  <text x="247.5" y="310" font-size="12" fill="#27ae60" text-anchor="middle">✓ Всі GPIO33–GPIO37 вільні для користувача</text>
+  <text x="247.5" y="328" font-size="12" fill="#6b7280" text-anchor="middle">Максимальна сумісність з периферією (ADC, LCD, Camera)</text>
+
+  <!-- QSPI Subpanel: Performance & Trade-offs -->
+  <rect x="42" y="354" width="411" height="133" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="247.5" y="374" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняльні характеристики (QSPI)</text>
+
+  <text x="56" y="396" font-size="12" font-weight="bold" fill="#1a1a1a">Пропускна здатність:</text>
+  <text x="210" y="396" font-size="12" fill="#6b7280">~40–80 МБ/с (базова)</text>
+
+  <text x="56" y="416" font-size="12" font-weight="bold" fill="#1a1a1a">Затримки MMU Cache:</text>
+  <text x="210" y="416" font-size="12" fill="#27ae60">Низька (швидка вибірка)</text>
+
+  <rect x="54" y="432" width="387" height="43" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="247.5" y="450" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Пріоритет: Максимальна кількість GPIO</text>
+  <text x="247.5" y="466" font-size="12" fill="#1a1a1a" text-anchor="middle">Оптимально для універсальних проєктів та сенсорів</text>
+
+
+  <!-- Panel 2: Octal SPI (OPI) -->
+  <rect x="495" y="84" width="435" height="415" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="507" y="96" width="411" height="34" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="712.5" y="118" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Режим Octal SPI (OPI) — 8-бітна шина DDR</text>
+
+  <!-- Topology OPI: Memory Controller & Memory Chips -->
+  <rect x="507" y="138" width="155" height="84" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="584.5" y="160" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контролер пам'яті</text>
+  <text x="584.5" y="180" font-size="12" fill="#6b7280" text-anchor="middle">Cache MMU (OPI DDR)</text>
+  <text x="584.5" y="200" font-size="12" fill="#c0392b" text-anchor="middle">Вища затримка MMU</text>
+
+  <rect x="760" y="138" width="155" height="84" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="837.5" y="160" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Flash / PSRAM</text>
+  <text x="837.5" y="180" font-size="12" fill="#6b7280" text-anchor="middle">Octal Flash / PSRAM</text>
+  <text x="837.5" y="200" font-size="12" fill="#1a1a1a" text-anchor="middle">8 ліній + DQS</text>
+
+  <!-- OPI Bus Connections -->
+  <path d="M 662 154 L 760 154" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="711" y="148" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">CLK/NCLK/CS</text>
+
+  <path d="M 662 184 L 760 184" fill="none" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="711" y="178" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">D0–D7 (8 бітів)</text>
+
+  <path d="M 662 214 L 760 214" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="711" y="208" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DQS Strobe</text>
+
+  <!-- OPI Subpanel: GPIO Usage -->
+  <rect x="507" y="236" width="411" height="106" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="712.5" y="256" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Використання контактів та GPIO</text>
+
+  <rect x="519" y="266" width="186" height="32" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="612" y="286" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зайнято: 11–14 виводів</text>
+
+  <rect x="717" y="266" width="189" height="32" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="811.5" y="286" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Вільні: ~26 GPIO</text>
+
+  <text x="712.5" y="310" font-size="12" fill="#c0392b" text-anchor="middle">⚠ GPIO33–GPIO37 + DQS жорстко зайняті шиною</text>
+  <text x="712.5" y="328" font-size="12" fill="#6b7280" text-anchor="middle">Обмеження кількості доступних зовнішніх периферійних ліній</text>
+
+  <!-- OPI Subpanel: Performance & Trade-offs -->
+  <rect x="507" y="354" width="411" height="133" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="712.5" y="374" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняльні характеристики (OPI)</text>
+
+  <text x="521" y="396" font-size="12" font-weight="bold" fill="#1a1a1a">Пропускна здатність:</text>
+  <text x="675" y="396" font-size="12" font-weight="bold" fill="#2457d6">~160–240 МБ/с (2x–3x вища!)</text>
+
+  <text x="521" y="416" font-size="12" font-weight="bold" fill="#1a1a1a">Затримки MMU Cache:</text>
+  <text x="675" y="416" font-size="12" fill="#c0392b">Вища (строб DQS + пакетний запуск)</text>
+
+  <rect x="519" y="432" width="387" height="43" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="712.5" y="450" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Пріоритет: Пропускна здатність пам'яті</text>
+  <text x="712.5" y="466" font-size="12" fill="#1a1a1a" text-anchor="middle">Оптимально для TinyML, графіки та дисплеїв</text>
+</svg>

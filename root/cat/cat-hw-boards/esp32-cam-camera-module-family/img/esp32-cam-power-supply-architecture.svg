@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура живлення платформи ESP32-CAM</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Каскадне зниження напруги від 5V до 3.3V, 2.8V та 1.2V із розділенням аналогових і цифрових шин</text>
+
+  <!-- COLUMN 1: 5V Input -->
+  <rect x="25" y="85" width="140" height="330" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="95" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхід живлення</text>
+  <text x="95" y="125" font-size="12" fill="#6b7280" text-anchor="middle">(Джерело 5V)</text>
+
+  <!-- 5V Pin -->
+  <rect x="35" y="140" width="120" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="95" y="165" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">5V Pin (VCC)</text>
+
+  <!-- 5V Filtering -->
+  <rect x="35" y="195" width="120" height="85" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="95" y="215" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фільтрація 5V</text>
+  <text x="42" y="236" font-size="12" fill="#1a1a1a">C_IN1: 10 µF</text>
+  <text x="42" y="254" font-size="12" fill="#1a1a1a">C_IN2: 100 nF</text>
+  <text x="42" y="272" font-size="12" fill="#6b7280">(до GND)</text>
+
+  <!-- 5V Notes -->
+  <text x="95" y="310" font-size="12" fill="#6b7280" text-anchor="middle">Пригнічення</text>
+  <text x="95" y="328" font-size="12" fill="#6b7280" text-anchor="middle">імпульсних</text>
+  <text x="95" y="346" font-size="12" fill="#6b7280" text-anchor="middle">просідань</text>
+
+  <!-- COLUMN 2: LDO 3.3V & 3.3V Load -->
+  <!-- LDO 3.3V -->
+  <rect x="195" y="85" width="210" height="100" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="300" y="108" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">LDO 3.3V (AMS1117)</text>
+  <text x="300" y="128" font-size="12" fill="#1a1a1a" text-anchor="middle">Конвертує 5V → 3.3V</text>
+  <text x="300" y="148" font-size="12" fill="#6b7280" text-anchor="middle">C_OUT: 10 µF + 100 nF</text>
+  <text x="300" y="168" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Шина 3.3V (до 800 mA)</text>
+
+  <!-- 3.3V Consumers Panel -->
+  <rect x="195" y="198" width="210" height="217" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="300" y="220" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Споживачі 3.3V</text>
+
+  <!-- Consumer 1: MCU -->
+  <rect x="205" y="232" width="190" height="46" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="300" y="250" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP32-D0WD (MCU)</text>
+  <text x="300" y="268" font-size="12" fill="#6b7280" text-anchor="middle">Wi-Fi, BT, CPU + C_ESP</text>
+
+  <!-- Consumer 2: SD & PSRAM -->
+  <rect x="205" y="288" width="190" height="46" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="300" y="306" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MicroSD &amp; PSRAM</text>
+  <text x="300" y="324" font-size="12" fill="#6b7280" text-anchor="middle">Живлення пам'яті 3.3V</text>
+
+  <!-- Consumer 3: Flash LED -->
+  <rect x="205" y="344" width="190" height="60" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="300" y="364" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">LED спалах (GPIO4)</text>
+  <text x="300" y="382" font-size="12" fill="#c0392b" text-anchor="middle">Піковий струм (завади)</text>
+  <text x="300" y="396" font-size="10" fill="#c0392b" text-anchor="middle">(потребує стабільного 3.3V)</text>
+
+  <!-- COLUMN 3: Camera Power Regulators Panel -->
+  <rect x="435" y="85" width="250" height="330" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="560" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Регулятори живлення камери</text>
+  <text x="560" y="125" font-size="12" fill="#6b7280" text-anchor="middle">(Живлення від шини 3.3V)</text>
+
+  <!-- Camera LDO 1: AVDD 2.8V -->
+  <rect x="445" y="136" width="230" height="82" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="560" y="154" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">LDO AVDD (2.8V)</text>
+  <text x="560" y="172" font-size="12" fill="#1a1a1a" text-anchor="middle">Аналогове живлення сенсора</text>
+  <text x="560" y="190" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Фільтр: 10 µF + 100 nF</text>
+  <text x="560" y="207" font-size="11" fill="#6b7280" text-anchor="middle">Низький рівень шумів для матриці</text>
+
+  <!-- Camera LDO 2: DOVDD 2.8V -->
+  <rect x="445" y="228" width="230" height="78" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="560" y="247" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LDO DOVDD (2.8V)</text>
+  <text x="560" y="266" font-size="12" fill="#1a1a1a" text-anchor="middle">Цифрова шина I/O (DVP)</text>
+  <text x="560" y="286" font-size="12" fill="#6b7280" text-anchor="middle">Конденсатор C_DOVDD: 100 nF</text>
+
+  <!-- Camera LDO 3: DVDD 1.2V -->
+  <rect x="445" y="316" width="230" height="88" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="560" y="336" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LDO / Регулятор DVDD (1.2V)</text>
+  <text x="560" y="356" font-size="12" fill="#1a1a1a" text-anchor="middle">Цифрове ядро та DSP</text>
+  <text x="560" y="375" font-size="12" fill="#6b7280" text-anchor="middle">Конденсатор C_DVDD: 100 nF</text>
+  <text x="560" y="393" font-size="11" fill="#6b7280" text-anchor="middle">Внутрішній/зовнішній LDO</text>
+
+  <!-- COLUMN 4: Camera Sensor (OV2640) -->
+  <rect x="715" y="85" width="220" height="330" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="825" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сенсор камери (OV2640)</text>
+  <text x="825" y="125" font-size="12" fill="#6b7280" text-anchor="middle">(Розділені домени живлення)</text>
+
+  <!-- Sensor Domain 1: AVDD -->
+  <rect x="725" y="136" width="200" height="82" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="825" y="156" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Аналогова матриця</text>
+  <text x="825" y="176" font-size="12" fill="#1a1a1a" text-anchor="middle">Чутлива до завад матриця</text>
+  <text x="825" y="196" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">2.8V (AVDD)</text>
+
+  <!-- Sensor Domain 2: DOVDD -->
+  <rect x="725" y="228" width="200" height="78" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="825" y="248" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інтерфейс DVP</text>
+  <text x="825" y="268" font-size="12" fill="#1a1a1a" text-anchor="middle">D0–D7, PCLK, VSYNC</text>
+  <text x="825" y="288" font-size="12" fill="#6b7280" text-anchor="middle">2.8V I/O (DOVDD)</text>
+
+  <!-- Sensor Domain 3: DVDD -->
+  <rect x="725" y="316" width="200" height="88" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="825" y="337" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Логічне ядро</text>
+  <text x="825" y="357" font-size="12" fill="#1a1a1a" text-anchor="middle">DSP та обробка кадрів</text>
+  <text x="825" y="377" font-size="12" fill="#6b7280" text-anchor="middle">1.2V (DVDD)</text>
+
+  <!-- ARROWS & CONNECTIONS -->
+  <!-- 5V Pin to LDO 3.3V -->
+  <line x1="155" y1="160" x2="193" y2="160" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="174" y="144" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">5V</text>
+
+  <!-- LDO 3.3V to 3.3V Load -->
+  <line x1="300" y1="185" x2="300" y2="196" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- LDO 3.3V to Camera Regulators Panel -->
+  <line x1="405" y1="135" x2="433" y2="135" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="419" y="120" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">3.3V</text>
+
+  <!-- LDO AVDD to Sensor AVDD -->
+  <line x1="675" y1="177" x2="723" y2="177" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="699" y="161" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">AVDD 2.8V</text>
+
+  <!-- LDO DOVDD to Sensor DOVDD -->
+  <line x1="675" y1="267" x2="723" y2="267" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="699" y="251" font-size="12" fill="#1a1a1a" text-anchor="middle">DOVDD 2.8V</text>
+
+  <!-- LDO DVDD to Sensor DVDD -->
+  <line x1="675" y1="360" x2="723" y2="360" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="699" y="344" font-size="12" fill="#1a1a1a" text-anchor="middle">DVDD 1.2V</text>
+
+  <!-- BOTTOM SUMMARY PANELS -->
+  <!-- Left Note: Analog Power Isolation -->
+  <rect x="25" y="430" width="445" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="40" y="450" font-size="13" font-weight="bold" fill="#27ae60">Захист аналогової шини від завад</text>
+  <text x="40" y="468" font-size="12" fill="#1a1a1a">Окремий LDO 2.8V та фільтри C_AVDD ізолюють чутливу</text>
+  <text x="40" y="485" font-size="12" fill="#1a1a1a">матрицю камери від високочастотних завад Wi-Fi та цифрових шин.</text>
+
+  <!-- Right Note: Decoupling Caps -->
+  <rect x="490" y="430" width="445" height="70" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="505" y="450" font-size="13" font-weight="bold" fill="#1a1a1a">Роль фільтруючих конденсаторів біля виводів</text>
+  <text x="505" y="468" font-size="12" fill="#1a1a1a">Конденсатори 100 nF згладжують високочастотні шуми, а 10 µF</text>
+  <text x="505" y="485" font-size="12" fill="#1a1a1a">ємності запобігають просіданню напруги при сплесках струму.</text>
+</svg>

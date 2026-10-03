@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="36" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Часова діаграма DVP-інтерфейсу сенсора OV3640</text>
+  <text x="480" y="56" font-size="13" text-anchor="middle" fill="#6b7280">Фазові співвідношення сигналів VSYNC, HREF, PCLK та стробування шини даних Y[9:2]</text>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-left" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-left" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Main Timing Panel -->
+  <rect x="25" y="72" width="910" height="332" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Signal Labels -->
+  <text x="45" y="104" font-size="13" font-weight="700" fill="#1a1a1a">XCLK</text>
+  <text x="45" y="119" font-size="12" fill="#6b7280">Вхід 24 МГц (ESP32)</text>
+
+  <text x="45" y="162" font-size="13" font-weight="700" fill="#1a1a1a">VSYNC</text>
+  <text x="45" y="177" font-size="12" fill="#6b7280">Кадрова синхронізація</text>
+
+  <text x="45" y="222" font-size="13" font-weight="700" fill="#1a1a1a">HREF</text>
+  <text x="45" y="237" font-size="12" fill="#6b7280">Рядкова синхронізація</text>
+
+  <text x="45" y="282" font-size="13" font-weight="700" fill="#1a1a1a">PCLK</text>
+  <text x="45" y="297" font-size="12" fill="#6b7280">Піксельне тактування</text>
+
+  <text x="45" y="342" font-size="13" font-weight="700" fill="#1a1a1a">Y[9:2]</text>
+  <text x="45" y="357" font-size="12" fill="#6b7280">8-бітна шина даних</text>
+
+  <!-- Vertical Divider -->
+  <line x1="195" y1="80" x2="195" y2="396" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Vertical Strobe Guidelines -->
+  <line x1="265" y1="80" x2="265" y2="130" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="265" y1="150" x2="265" y2="396" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="260" y="142" font-size="12" font-weight="700" text-anchor="end" fill="#c0392b">Старт кадру (VSYNC)</text>
+
+  <line x1="340" y1="80" x2="340" y2="185" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="340" y1="218" x2="340" y2="396" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="345" y="206" font-size="12" font-weight="700" fill="#2457d6">Початок рядка (HREF = HIGH)</text>
+
+  <line x1="820" y1="80" x2="820" y2="185" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="820" y1="218" x2="820" y2="396" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="815" y="206" font-size="12" text-anchor="end" fill="#6b7280">Кінець рядка</text>
+
+  <!-- t_line Dimension Arrow -->
+  <line x1="340" y1="140" x2="820" y2="140" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-left)" marker-end="url(#arr)"/>
+  <text x="580" y="134" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">t_line (Вікно активного рядка)</text>
+
+  <!-- Waveform 1: XCLK -->
+  <path d="M 210,122 L 210,102 L 220,102 L 220,122 L 230,122 L 230,102 L 240,102 L 240,122 L 250,122 L 250,102 L 260,102 L 260,122 L 270,122 L 270,102 L 280,102 L 280,122 L 290,122 L 290,102 L 300,102 L 300,122 L 310,122 L 310,102 L 320,102 L 320,122 L 330,122 L 330,102 L 340,102 L 340,122 L 350,122 L 350,102 L 360,102 L 360,122 L 370,122 L 370,102 L 380,102 L 380,122 L 390,122 L 390,102 L 400,102 L 400,122 L 410,122 L 410,102 L 420,102 L 420,122 L 430,122 L 430,102 L 440,102 L 440,122 L 450,122 L 450,102 L 460,102 L 460,122 L 470,122 L 470,102 L 480,102 L 480,122 L 490,122 L 490,102 L 500,102 L 500,122 L 510,122 L 510,102 L 520,102 L 520,122 L 530,122 L 530,102 L 540,102 L 540,122 L 550,122 L 550,102 L 560,102 L 560,122 L 570,122 L 570,102 L 580,102 L 580,122 L 590,122 L 590,102 L 600,102 L 600,122 L 610,122 L 610,102 L 620,102 L 620,122 L 630,122 L 630,102 L 640,102 L 640,122 L 650,122 L 650,102 L 660,102 L 660,122 L 670,122 L 670,102 L 680,102 L 680,122 L 690,122 L 690,102 L 700,102 L 700,122 L 710,122 L 710,102 L 720,102 L 720,122 L 730,122 L 730,102 L 740,102 L 740,122 L 750,122 L 750,102 L 760,102 L 760,122 L 770,122 L 770,102 L 780,102 L 780,122 L 790,122 L 790,102 L 800,102 L 800,122 L 810,122 L 810,102 L 820,102 L 820,122 L 830,122 L 830,102 L 840,102 L 840,122 L 850,122 L 850,102 L 860,102 L 860,122 L 870,122 L 870,102 L 880,102 L 880,122 L 890,122" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Waveform 2: VSYNC -->
+  <path d="M 210,154 L 265,154 L 265,178 L 890,178" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Waveform 3: HREF -->
+  <path d="M 210,238 L 340,238 L 340,214 L 820,214 L 820,238 L 890,238" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Waveform 4: PCLK -->
+  <path d="M 210,298 L 340,298 L 340,274 L 360,274 L 360,298 L 380,298 L 380,274 L 400,274 L 400,298 L 420,298 L 420,274 L 440,274 L 440,298 L 460,298 L 460,274 L 480,274 L 480,298 L 500,298 L 500,274 L 520,274 L 520,298 L 540,298 L 540,274 L 560,274 L 560,298 L 580,298 L 580,274 L 600,274 L 600,298 L 620,298 L 620,274 L 640,274 L 640,298 L 660,298 L 660,274 L 680,274 L 680,298 L 700,298 L 700,274 L 720,274 L 720,298 L 740,298 L 740,274 L 760,274 L 760,298 L 780,298 L 780,274 L 800,274 L 800,298 L 820,298 L 820,298 L 890,298" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- T_pclk Dimension Arrow -->
+  <line x1="420" y1="260" x2="460" y2="260" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green-left)" marker-end="url(#arr-green)"/>
+  <text x="440" y="252" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">T_pclk</text>
+
+  <!-- PCLK Sampling Edges (Vertical Green Lines) -->
+  <line x1="380" y1="274" x2="380" y2="335" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="460" y1="274" x2="460" y2="335" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="540" y1="274" x2="540" y2="335" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="620" y1="274" x2="620" y2="335" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="700" y1="274" x2="700" y2="335" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="780" y1="274" x2="780" y2="335" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Waveform 5: Y[9:2] Data Bus -->
+  <line x1="210" y1="350" x2="230" y2="350" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="275" y="354" font-size="12" text-anchor="middle" fill="#6b7280">Пауза (Blanking)</text>
+  <line x1="320" y1="350" x2="340" y2="350" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Hexagonal Data Blocks -->
+  <path d="M 340,350 L 345,335 L 375,335 L 380,350 L 375,365 L 345,365 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="360" y="354" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">D0</text>
+
+  <path d="M 380,350 L 385,335 L 415,335 L 420,350 L 415,365 L 385,365 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="400" y="354" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">D1</text>
+
+  <path d="M 420,350 L 425,335 L 455,335 L 460,350 L 455,365 L 425,365 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="440" y="354" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">D2</text>
+
+  <path d="M 460,350 L 465,335 L 495,335 L 500,350 L 495,365 L 465,365 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="354" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">D3</text>
+
+  <path d="M 500,350 L 505,335 L 535,335 L 540,350 L 535,365 L 505,365 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="520" y="354" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">D4</text>
+
+  <path d="M 540,350 L 545,335 L 575,335 L 580,350 L 575,365 L 545,365 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="560" y="354" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">D5</text>
+
+  <path d="M 580,350 L 585,335 L 615,335 L 620,350 L 615,365 L 585,365 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="600" y="354" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">D6</text>
+
+  <path d="M 620,350 L 625,335 L 655,335 L 660,350 L 655,365 L 625,365 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="640" y="354" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">D7</text>
+
+  <path d="M 660,350 L 665,335 L 695,335 L 700,350 L 695,365 L 665,365 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="680" y="354" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">D8</text>
+
+  <path d="M 700,350 L 705,335 L 735,335 L 740,350 L 735,365 L 705,365 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="720" y="354" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">D9</text>
+
+  <path d="M 740,350 L 745,335 L 775,335 L 780,350 L 775,365 L 745,365 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="760" y="354" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">D10</text>
+
+  <path d="M 780,350 L 785,335 L 815,335 L 820,350 L 815,365 L 785,365 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="800" y="354" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">D11</text>
+
+  <line x1="820" y1="350" x2="840" y2="350" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="865" y="354" font-size="12" text-anchor="middle" fill="#6b7280">Пауза</text>
+  <line x1="890" y1="350" x2="910" y2="350" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- t_setup and t_hold annotation -->
+  <line x1="540" y1="380" x2="580" y2="380" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green-left)" marker-end="url(#arr-green)"/>
+  <text x="560" y="396" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">t_setup / t_hold</text>
+
+  <!-- Bottom Informational Cards -->
+  <rect x="25" y="418" width="445" height="88" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="40" y="438" font-size="13" font-weight="700" fill="#2457d6">Часове узгодження та стробування</text>
+  <text x="40" y="456" font-size="12" fill="#1a1a1a">• Дані Y[9:2] зчитуються мікроконтролером ESP32 за фронтом PCLK</text>
+  <text x="40" y="472" font-size="12" fill="#1a1a1a">• HREF задає вікно передачі активних байтів зображення (D0...D11)</text>
+  <text x="40" y="488" font-size="12" fill="#1a1a1a">• VSYNC формує імпульс кадрової синхронізації між кадрами</text>
+
+  <rect x="490" y="418" width="445" height="88" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="505" y="438" font-size="13" font-weight="700" fill="#27ae60">Вимоги до апаратного трасування DVP</text>
+  <text x="505" y="456" font-size="12" fill="#1a1a1a">• Вирівнювання довжин ліній DVP запобігає часовому розбалансу (skew)</text>
+  <text x="505" y="472" font-size="12" fill="#1a1a1a">• Забезпечення t_setup та t_hold гарантує відсутність збоїв</text>
+  <text x="505" y="488" font-size="12" fill="#1a1a1a">• Траса XCLK (24 МГц) вимагає низької паразитної ємності та екранування</text>
+</svg>

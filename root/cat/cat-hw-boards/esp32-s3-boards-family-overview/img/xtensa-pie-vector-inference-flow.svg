@@ -1,0 +1,261 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Векторний конвеєр Xtensa PIE для обчислення згорткових шарів ESP-NN</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Паралельне завантаження 128-бітних регістрів із SRAM та SIMD-множення з накопиченням (MAC) для INT8-тензорів</text>
+
+  <!-- ПАНЕЛЬ 1: Пам'ять SRAM -->
+  <rect x="30" y="80" width="270" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="165" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Пам'ять SRAM (Тензори)</text>
+  <text x="165" y="123" text-anchor="middle" font-size="12" fill="#6b7280">Вирівняні INT8 масиви</text>
+
+  <!-- Блок 1A: Активації -->
+  <rect x="45" y="140" width="240" height="155" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="165" y="162" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Вхідні активації (Input)</text>
+
+  <!-- Елементи активацій (x0..x15) -->
+  <g>
+    <rect x="54" y="175" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="66.5" y="191" text-anchor="middle" font-size="12" fill="#1a1a1a">x₀</text>
+    <rect x="82" y="175" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="94.5" y="191" text-anchor="middle" font-size="12" fill="#1a1a1a">x₁</text>
+    <rect x="110" y="175" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="122.5" y="191" text-anchor="middle" font-size="12" fill="#1a1a1a">x₂</text>
+    <rect x="138" y="175" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="150.5" y="191" text-anchor="middle" font-size="12" fill="#1a1a1a">x₃</text>
+    <rect x="166" y="175" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="178.5" y="191" text-anchor="middle" font-size="12" fill="#1a1a1a">x₄</text>
+    <rect x="194" y="175" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="206.5" y="191" text-anchor="middle" font-size="12" fill="#1a1a1a">x₅</text>
+    <rect x="222" y="175" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="234.5" y="191" text-anchor="middle" font-size="12" fill="#1a1a1a">x₆</text>
+    <rect x="250" y="175" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="262.5" y="191" text-anchor="middle" font-size="12" fill="#1a1a1a">x₇</text>
+
+    <rect x="54" y="205" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="66.5" y="221" text-anchor="middle" font-size="12" fill="#1a1a1a">x₈</text>
+    <rect x="82" y="205" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="94.5" y="221" text-anchor="middle" font-size="12" fill="#1a1a1a">x₉</text>
+    <rect x="110" y="205" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="122.5" y="221" text-anchor="middle" font-size="12" fill="#1a1a1a">x₁₀</text>
+    <rect x="138" y="205" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="150.5" y="221" text-anchor="middle" font-size="12" fill="#1a1a1a">x₁₁</text>
+    <rect x="166" y="205" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="178.5" y="221" text-anchor="middle" font-size="12" fill="#1a1a1a">x₁₂</text>
+    <rect x="194" y="205" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="206.5" y="221" text-anchor="middle" font-size="12" fill="#1a1a1a">x₁₃</text>
+    <rect x="222" y="205" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="234.5" y="221" text-anchor="middle" font-size="12" fill="#1a1a1a">x₁₄</text>
+    <rect x="250" y="205" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="262.5" y="221" text-anchor="middle" font-size="12" fill="#1a1a1a">x₁₅</text>
+  </g>
+
+  <text x="165" y="250" text-anchor="middle" font-size="12" fill="#2457d6">128 біт / 16 × INT8</text>
+  <text x="165" y="275" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Векторний блок 0</text>
+
+  <!-- Блок 1B: Вагові коефіцієнти -->
+  <rect x="45" y="315" width="240" height="155" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="165" y="337" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Ваги ядра (Weights)</text>
+
+  <!-- Елементи ваг (w0..w15) -->
+  <g>
+    <rect x="54" y="350" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="66.5" y="366" text-anchor="middle" font-size="12" fill="#1a1a1a">w₀</text>
+    <rect x="82" y="350" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="94.5" y="366" text-anchor="middle" font-size="12" fill="#1a1a1a">w₁</text>
+    <rect x="110" y="350" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="122.5" y="366" text-anchor="middle" font-size="12" fill="#1a1a1a">w₂</text>
+    <rect x="138" y="350" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="150.5" y="366" text-anchor="middle" font-size="12" fill="#1a1a1a">w₃</text>
+    <rect x="166" y="350" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="178.5" y="366" text-anchor="middle" font-size="12" fill="#1a1a1a">w₄</text>
+    <rect x="194" y="350" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="206.5" y="366" text-anchor="middle" font-size="12" fill="#1a1a1a">w₅</text>
+    <rect x="222" y="350" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="234.5" y="366" text-anchor="middle" font-size="12" fill="#1a1a1a">w₆</text>
+    <rect x="250" y="350" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="262.5" y="366" text-anchor="middle" font-size="12" fill="#1a1a1a">w₇</text>
+
+    <rect x="54" y="380" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="66.5" y="396" text-anchor="middle" font-size="12" fill="#1a1a1a">w₈</text>
+    <rect x="82" y="380" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="94.5" y="396" text-anchor="middle" font-size="12" fill="#1a1a1a">w₉</text>
+    <rect x="110" y="380" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="122.5" y="396" text-anchor="middle" font-size="12" fill="#1a1a1a">w₁₀</text>
+    <rect x="138" y="380" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="150.5" y="396" text-anchor="middle" font-size="12" fill="#1a1a1a">w₁₁</text>
+    <rect x="166" y="380" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="178.5" y="396" text-anchor="middle" font-size="12" fill="#1a1a1a">w₁₂</text>
+    <rect x="194" y="380" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="206.5" y="396" text-anchor="middle" font-size="12" fill="#1a1a1a">w₁₃</text>
+    <rect x="222" y="380" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="234.5" y="396" text-anchor="middle" font-size="12" fill="#1a1a1a">w₁₄</text>
+    <rect x="250" y="380" width="25" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="262.5" y="396" text-anchor="middle" font-size="12" fill="#1a1a1a">w₁₅</text>
+  </g>
+
+  <text x="165" y="425" text-anchor="middle" font-size="12" fill="#2457d6">128 біт / 16 × INT8</text>
+  <text x="165" y="450" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Векторний блок 1</text>
+
+
+  <!-- ПАНЕЛЬ 2: Регістри PIE -->
+  <rect x="345" y="80" width="270" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Регістровий файл Xtensa PIE</text>
+  <text x="480" y="123" text-anchor="middle" font-size="12" fill="#6b7280">128-бітні векторні Q-регістри</text>
+
+  <!-- Блок 2A: Регістр Q0 -->
+  <rect x="360" y="140" width="240" height="155" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="162" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Регістр Q0 (128-біт Активації)</text>
+
+  <g>
+    <rect x="369" y="175" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="381.5" y="191" text-anchor="middle" font-size="12" fill="#1a1a1a">x₀</text>
+    <rect x="397" y="175" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="409.5" y="191" text-anchor="middle" font-size="12" fill="#1a1a1a">x₁</text>
+    <rect x="425" y="175" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="437.5" y="191" text-anchor="middle" font-size="12" fill="#1a1a1a">x₂</text>
+    <rect x="453" y="175" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="465.5" y="191" text-anchor="middle" font-size="12" fill="#1a1a1a">x₃</text>
+    <rect x="481" y="175" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="493.5" y="191" text-anchor="middle" font-size="12" fill="#1a1a1a">x₄</text>
+    <rect x="509" y="175" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="521.5" y="191" text-anchor="middle" font-size="12" fill="#1a1a1a">x₅</text>
+    <rect x="537" y="175" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="549.5" y="191" text-anchor="middle" font-size="12" fill="#1a1a1a">x₆</text>
+    <rect x="565" y="175" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="577.5" y="191" text-anchor="middle" font-size="12" fill="#1a1a1a">x₇</text>
+
+    <rect x="369" y="205" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="381.5" y="221" text-anchor="middle" font-size="12" fill="#1a1a1a">x₈</text>
+    <rect x="397" y="205" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="409.5" y="221" text-anchor="middle" font-size="12" fill="#1a1a1a">x₉</text>
+    <rect x="425" y="205" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="437.5" y="221" text-anchor="middle" font-size="12" fill="#1a1a1a">x₁₀</text>
+    <rect x="453" y="205" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="465.5" y="221" text-anchor="middle" font-size="12" fill="#1a1a1a">x₁₁</text>
+    <rect x="481" y="205" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="493.5" y="221" text-anchor="middle" font-size="12" fill="#1a1a1a">x₁₂</text>
+    <rect x="509" y="205" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="521.5" y="221" text-anchor="middle" font-size="12" fill="#1a1a1a">x₁₃</text>
+    <rect x="537" y="205" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="549.5" y="221" text-anchor="middle" font-size="12" fill="#1a1a1a">x₁₄</text>
+    <rect x="565" y="205" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="577.5" y="221" text-anchor="middle" font-size="12" fill="#1a1a1a">x₁₅</text>
+  </g>
+
+  <text x="480" y="250" text-anchor="middle" font-size="12" fill="#27ae60">Завантажено інструкцією ee.vld.128</text>
+  <text x="480" y="275" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Готово для SIMD-обчислення</text>
+
+  <!-- Блок 2B: Регістр Q1 -->
+  <rect x="360" y="315" width="240" height="155" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="337" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Регістр Q1 (128-біт Ваги)</text>
+
+  <g>
+    <rect x="369" y="350" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="381.5" y="366" text-anchor="middle" font-size="12" fill="#1a1a1a">w₀</text>
+    <rect x="397" y="350" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="409.5" y="366" text-anchor="middle" font-size="12" fill="#1a1a1a">w₁</text>
+    <rect x="425" y="350" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="437.5" y="366" text-anchor="middle" font-size="12" fill="#1a1a1a">w₂</text>
+    <rect x="453" y="350" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="465.5" y="366" text-anchor="middle" font-size="12" fill="#1a1a1a">w₃</text>
+    <rect x="481" y="350" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="493.5" y="366" text-anchor="middle" font-size="12" fill="#1a1a1a">w₄</text>
+    <rect x="509" y="350" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="521.5" y="366" text-anchor="middle" font-size="12" fill="#1a1a1a">w₅</text>
+    <rect x="537" y="350" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="549.5" y="366" text-anchor="middle" font-size="12" fill="#1a1a1a">w₆</text>
+    <rect x="565" y="350" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="577.5" y="366" text-anchor="middle" font-size="12" fill="#1a1a1a">w₇</text>
+
+    <rect x="369" y="380" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="381.5" y="396" text-anchor="middle" font-size="12" fill="#1a1a1a">w₈</text>
+    <rect x="397" y="380" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="409.5" y="396" text-anchor="middle" font-size="12" fill="#1a1a1a">w₉</text>
+    <rect x="425" y="380" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="437.5" y="396" text-anchor="middle" font-size="12" fill="#1a1a1a">w₁₀</text>
+    <rect x="453" y="380" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="465.5" y="396" text-anchor="middle" font-size="12" fill="#1a1a1a">w₁₁</text>
+    <rect x="481" y="380" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="493.5" y="396" text-anchor="middle" font-size="12" fill="#1a1a1a">w₁₂</text>
+    <rect x="509" y="380" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="521.5" y="396" text-anchor="middle" font-size="12" fill="#1a1a1a">w₁₃</text>
+    <rect x="537" y="380" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="549.5" y="396" text-anchor="middle" font-size="12" fill="#1a1a1a">w₁₄</text>
+    <rect x="565" y="380" width="25" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="577.5" y="396" text-anchor="middle" font-size="12" fill="#1a1a1a">w₁₅</text>
+  </g>
+
+  <text x="480" y="425" text-anchor="middle" font-size="12" fill="#27ae60">Завантажено інструкцією ee.vld.128</text>
+  <text x="480" y="450" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Готово для SIMD-обчислення</text>
+
+
+  <!-- ПАНЕЛЬ 3: Обчислювач MAC -->
+  <rect x="660" y="80" width="270" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="795" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Векторний блок MAC (ESP-NN)</text>
+  <text x="795" y="123" text-anchor="middle" font-size="12" fill="#6b7280">Паралельне множення та акумуляція</text>
+
+  <!-- Блок 3A: Множники -->
+  <rect x="675" y="140" width="240" height="155" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="795" y="162" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">16 × INT8 Множників</text>
+
+  <rect x="683" y="175" width="48" height="36" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="707" y="197" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">x₀·w₀</text>
+
+  <rect x="736" y="175" width="48" height="36" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="760" y="197" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">x₁·w₁</text>
+
+  <rect x="789" y="175" width="35" height="36" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="806.5" y="197" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">...</text>
+
+  <rect x="829" y="175" width="76" height="36" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="867" y="197" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">x₁₅·w₁₅</text>
+
+  <text x="795" y="240" text-anchor="middle" font-size="12" fill="#1a1a1a">Інструкція: ee.vmac.s8</text>
+  <text x="795" y="270" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">16 МАК/такт (Паралельно)</text>
+
+  <!-- Блок 3B: Акумулятор -->
+  <rect x="675" y="315" width="240" height="155" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="795" y="337" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Акумулятор ACC (INT32)</text>
+
+  <rect x="690" y="352" width="210" height="38" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="795" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">ACC += ∑ (xᵢ × wᵢ), i=0..15</text>
+
+  <text x="795" y="420" text-anchor="middle" font-size="12" fill="#2457d6">Точність 32 біт (без переповнення)</text>
+  <text x="795" y="450" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Вихідний елемент згортки</text>
+
+  <!-- ЗВ'ЯЗКИ ТА СТРІЛКИ -->
+  <!-- 1. SRAM -> Q0 (Активації) -->
+  <line x1="285" y1="217" x2="360" y2="217" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="322.5" y="203" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ee.vld.128</text>
+
+  <!-- 2. SRAM -> Q1 (Ваги) -->
+  <line x1="285" y1="392" x2="360" y2="392" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="322.5" y="378" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ee.vld.128</text>
+
+  <!-- 3. Q0 -> Множники -->
+  <line x1="600" y1="217" x2="675" y2="217" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="637.5" y="203" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Q0 (INT8)</text>
+
+  <!-- 4. Q1 -> Множники (Ортогональний шлях) -->
+  <path d="M 600,392 H 635 V 250 H 675" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+  <text x="618" y="320" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">Q1 (INT8)</text>
+
+  <!-- 5. Множники -> Акумулятор -->
+  <line x1="795" y1="295" x2="795" y2="315" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+</svg>
