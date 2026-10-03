@@ -224,6 +224,55 @@ function fixFences(file) {
   return { single, closed, ranges };
 }
 
+/* ── чистка після збірки: те, що писарі лишають у тексті й що знімається без читання змісту ──
+   ⛔ Три вади однієї статті (esp8266-soc, 03.10), усі механічні:
+     · фігура з дужками шаблону: `![{що показано}](img/…)` — рядок із завдання переписано дослівно;
+     · подвоєний хвіст речення після заміни етапу фактів: «…від гр. *ἀ-* — міст). *ἀ-* — міст).»;
+     · той самий корінь у дужках при кожній згадці терміна: порції пишуться окремо, і кожна
+       «вводить» FSM наново, хоч правило — корінь лише раз, далі маркер. */
+function fixFigureAlts(text) {
+  let n = 0;
+  const out = String(text).replace(/^(\s*!\[)\{(.*?)\}(\]\()/gm, (m, a, alt, b) => { n++; return a + alt + b; });
+  return { text: out, n };
+}
+/* Шматок, що дослівно повторює кінець попереднього тексту абзацу, — слід заміни, не думка. */
+function dedupeTails(text) {
+  let n = 0;
+  const out = paragraphList(text).map((p) => {
+    if (!isProsePara(p)) return p;
+    const P = p.split(/(?<=[.!?])\s+/);
+    for (let i = 1; i < P.length; i++) {
+      for (let L = 1; L <= 4 && i + L <= P.length; L++) {
+        const cand = P.slice(i, i + L).join(" "), prev = P.slice(0, i).join(" ");
+        if (cand.length >= 12 && prev.endsWith(cand)) { P.splice(i, L); n++; i--; break; }
+      }
+    }
+    return P.join(" ");
+  }).join("\n\n");
+  return { text: out, n };
+}
+/* Корінь у дужках одразу за маркером — лише при першій згадці терміна; далі ті самі дужки геть. */
+function dedupeGlosses(text) {
+  const seen = new Map(); let n = 0;
+  const re = /(@@([a-z]{2,4})\|([^@\n]+?)@@)(\s*\(((?:[^()\n]|\([^()\n]*\))*)\))/gi;
+  const out = String(text).replace(re, (m, mark, lg, term, par, inner) => {
+    if (!/^\s*(?:англ|лат|гр|грец|давньогр|від|фр|нім|ісп|італ|порт|санскр|араб|перс|тур|яп|кит|укр)/i.test(inner)) return m;
+    const key = lg.toLowerCase() + "|" + term.trim().toLowerCase();
+    const norm = inner.replace(/\s+/g, " ").trim().toLowerCase();
+    if (seen.has(key)) { if (seen.get(key) === norm) { n++; return mark; } return m; }
+    seen.set(key, norm);
+    return m;
+  });
+  return { text: out, n };
+}
+function polish(file) {
+  let s = "";
+  try { s = fs.readFileSync(file, "utf8"); } catch { return { alts: 0, tails: 0, glosses: 0 }; }
+  const a = fixFigureAlts(s), t = dedupeTails(a.text), g = dedupeGlosses(t.text);
+  if (g.text !== s) fs.writeFileSync(file, g.text, "utf8");
+  return { alts: a.n, tails: t.n, glosses: g.n };
+}
+
 /** Директиви `:::code`, які писар загорнув у ```-огорожу (сім разів в одному проєкті), — назовні. */
 function unfenceDirectives(file) {
   let s = "";
@@ -688,7 +737,7 @@ function titleRe(title) {
 
 module.exports = {
   humanPath, titleRe, unitOf, mentions, neighbours, books, shelf, chapterTopics, bookTopics, topicHead,
-  linkContext, aroundLink, fileHead, resolveLinks, unlink, splitSections, joinSections, preknow, isDuplicate,
+  linkContext, aroundLink, fileHead, resolveLinks, unlink, splitSections, joinSections, preknow, isDuplicate, polish, fixFigureAlts, dedupeTails, dedupeGlosses,
   size, BANDS, assemble, dedupeParagraphs, dupParagraphs, writeArticle, writeCode, codeFiles, codeText, linkable,
   fixFormulas, decamp, fixFences, unfenceDirectives, checkFences, checkFigures, figNames, writeFigure, checkFigure, ops,
 };

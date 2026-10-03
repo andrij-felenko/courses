@@ -181,7 +181,7 @@ const P = {
       { tag: MAYBE_KNOWS, body: preknow },
       { tag: "МОЇ РОЗДІЛИ", body: sections },
       /* Міра порції — дані конвеєра (BANDS за типом і рівнем), не правило: правило в mode-write. */
-      { tag: "ОБСЯГ", body: words ? `цієї порції — до ${words.part} слів, менше — добре; усієї статті — до ${words.all}` : "" },
+      { tag: "ОБСЯГ", body: words ? `цієї порції — приблизно від ${words.lo} до ${words.hi} слів; усієї статті — приблизно ${words.all}` : "" },
       { tag: "ТЕЗИ ПОПЕРЕДНІХ РОЗДІЛІВ", body: theses },
       { tag: "ЩО ІНТЕГРУВАТИ", body: integrate },
       { tag: "КОД", body: code },
@@ -210,6 +210,25 @@ const P = {
       { tag: "КУДИ МОЖНА ЛІНКУВАТИ", body: linkable },
       { tag: "ЩО ЗРОБИТИ", body: order(u, ["mode-extend", ...writers(u)], "rules") },
       { tag: "ПОВЕРНИ", body: ret(["mode-extend"]) },
+    ]);
+  },
+
+  /** Етап 4 · РОЗГОРТАННЯ — останній запит дописування, коли бракує досі помітно: розділ цілком,
+      у два-три рази більшим за суттю (автор, 02.10). */
+  expand(u, { goal, level, depth, section: sec, text, add, theses, preknow, passed, linkable, code }) {
+    return render([
+      { tag: "ЗАВДАННЯ", body: head(u, [`рівень: ${level || "—"}`]) },
+      { tag: "ЦІЛЬ", body: goal },
+      { tag: "ГЛИБИНА", body: depth },
+      { tag: "ЩО ЧИТАЧ УЖЕ ПРОЙШОВ", body: u.kind === "course" ? passed : "" },
+      { tag: MAYBE_KNOWS, body: preknow },
+      { tag: "ЦЕЙ РОЗДІЛ", body: `${sec}\n\n${text}` },
+      { tag: "ЧОГО БРАКУЄ", body: add },
+      { tag: "ТЕЗИ ІНШИХ РОЗДІЛІВ", body: theses },
+      { tag: "КОД", body: code },
+      { tag: "КУДИ МОЖНА ЛІНКУВАТИ", body: linkable },
+      { tag: "ЩО ЗРОБИТИ", body: order(u, ["mode-expand", ...writers(u)], "rules") },
+      { tag: "ПОВЕРНИ", body: ret(["mode-expand"]) },
     ]);
   },
 

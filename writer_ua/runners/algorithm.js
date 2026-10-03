@@ -24,7 +24,13 @@ const MF = require("../lib/manifest.js");
 const DUP = require("../lib/dupes.js");
 const FRM = require("../checkers/formulas.js");
 
-const MAX_EXTEND = 5;        // кіл дописування — стільки разів намагаємось добити рівень
+/* Дописування — щонайбільше три запити на статтю (автор, 02.10): «де дописати» не більше одного,
+   решта — по одному абзацу найвищого рівня; останній, коли бракує досі понад третину, не абзац, а
+   розгортання розділу у два-три рази за суттю (mode-expand). Доти п'ять кіл по три абзаци на розділ. */
+const MAX_EXTEND = 3;        // запитів дописування на статтю разом із «де дописати»
+const MIN_ADD_LEVEL = 4;     // дописуємо лише те, без чого не зрозуміти (5–4); рівні 3–1 конвеєр не добирає
+const SIZE_HINT = [1, 4 / 3];   // орієнтир письменникові: від норми порції до норми з третиною (автор, 02.10)
+const MIN_PART_WORDS = 60;   // порція письма коротша за це — заглушка відповідача, не текст
 const MAX_COMPRESS = 5;      // кіл стиснення, дзеркально
 const MAX_REWRITE = 3;       // переписувань з нуля; на третьому приймаємо як є
 const MAX_FIG_ROUNDS = 4;    // перемальовувань фігури за геометрією
@@ -68,7 +74,6 @@ const OVER_X = 1.25;         // понад норму на чверть — ст
 const PART_MAX = 2500;            // слів на одну порцію письма — не більше (автор, 14.09: було 1500)
 const MAX_NEW_TOPICS = 7;         // нових тем на одиницю
 const MAX_INSERTS_PER_TYPE = 3;   // вставок на кожен тип
-const MAX_ITEMS_PER_SECTION = 3;  // абзаців дописування на розділ за коло
 /* Теми, названі одиницями цього прогону, — щоб «чи є» бачив і їх: маніфест пишеться в кінці
    батчу, і сім одиниць заводили сім назв одного поняття. Ключ — id прогону. */
 const NAMED_IN_RUN = new Map();
@@ -113,6 +118,7 @@ const numOr = (s, d) => (Number.isFinite(num(s)) ? num(s) : d);
 function plan(deficit, parts, k) {
   const bySec = new Map();
   for (const p of parts) for (const a of p.add || []) {
+    if (!(a.level >= MIN_ADD_LEVEL)) continue;   // «засвоюється глибше/простіше/доповнює» — не привід дописувати
     const sec = a.section == null ? p.group[0] : a.section;
     if (!p.group.includes(sec)) continue;
     const cur = bySec.get(sec);
@@ -261,7 +267,26 @@ function etymologyLines(text) {
   return [...new Set(out)];
 }
 /** Скорочення, після крапки яких речення триває: мови-джерела, «р.», «ст.», «див.», «т. зв.». */
-const ABBR_END = /(?:^|[\s(«"'])(?:від\s+)?(?:лат|латин|грец|давньогрец|англ|давньоангл|середньоангл|нім|франц|фр|італ|ісп|порт|голл|нідерл|швед|дан|норв|пол|чес|санскр|араб|перс|тур|япон|кит|укр|праслов|старослов|давньоскан|скан|р|рр|ст|див|напр|тис|млн|млрд|зв|п|д)\.$/i;
+const ABBR_END = /(?:^|[\s(«"'])(?:від\s+)?(?:лат|латин|гр|грец|давньогр|давньогрец|дав|англ|давньоангл|середньоангл|нім|франц|фр|італ|іт|ісп|порт|голл|нідерл|швед|дан|норв|пол|чес|санскр|араб|перс|тур|япон|яп|кит|укр|рос|праслов|старослов|давньоскан|скан|р|рр|ст|див|напр|тис|млн|млрд|зв|п|д)\.$/i;
+/**
+ * Замінити «старе речення» на нове лише там, де воно стоїть у тексті ЦІЛИМ реченням — далі
+ * кінець абзацу або нове речення з великої літери. Обрізок «…від гр.» теж кінчається крапкою,
+ * і split/join підставляв на його місце повне речення, лишаючи хвіст оригіналу вдруге
+ * (esp8266-soc, 03.10: чотири подвоєні хвости в одній статті).
+ */
+function replaceSentence(text, from, to) {
+  let out = "", n = 0, i = 0;
+  for (;;) {
+    const at = text.indexOf(from, i);
+    if (at < 0) { out += text.slice(i); break; }
+    const after = text.slice(at + from.length, at + from.length + 4);
+    const whole = after === "" || /^\s*\n/.test(after) || /^\s+[\p{Lu}0-9«"„(\[—–!@*`]/u.test(after);
+    out += text.slice(i, at) + (whole ? to : from);
+    if (whole) n++;
+    i = at + from.length;
+  }
+  return { text: out, n };
+}
 function sentencesOf(para) {
   const out = [];
   for (const s of para.split(/(?<=[.!?])\s+/)) {
@@ -574,10 +599,14 @@ async function algorithm(unit, ctx, o = {}) {
       const band = LOC.size("", u.type, k.level);
       for (const g of k.groups) {
         const mine = k.sections.filter((s) => g.includes(s.n));
+        /* Орієнтир від і до (автор, 02.10): зі стелею «до N, менше — добре» письмо давало половину
+           норми, а різницю добирало дописування — половина всіх запитів. Межі — SIZE_HINT від
+           частки норми на порцію; стеля порції PART_MAX лишається. */
+        const share = band.need * mine.length / Math.max(1, k.sections.length);
         const res = await ctx.call(`письмо ${g.join(",")}`, () => ask(P.write(u, {
           ...common(),
           sections: mine.map(planRow).join("\n"),
-          words: { part: Math.min(PART_MAX, Math.round(band.need * mine.length / Math.max(1, k.sections.length))), all: band.need, ceiling: band.ceiling },
+          words: { lo: Math.min(PART_MAX, Math.round(share * SIZE_HINT[0])), hi: Math.min(PART_MAX, Math.round(share * SIZE_HINT[1])), all: band.need, ceiling: band.ceiling },
           theses: written.length ? (thesesText(written) || digestText(written)) : NOTHING_YET,
           integrate: integrateList(u, st, k, allFigs(k), used, k.code),
         }), `письмо ${g.join(",")}`));
@@ -585,6 +614,10 @@ async function algorithm(unit, ctx, o = {}) {
         const b = R.blocks(res);
         for (const f of allFigs(k)) if (d["ТЕКСТ"].includes(f.file)) used.add(f.file);
         const part = { group: g, text: cleanText(d["ТЕКСТ"]), theses: [], add: [], squeeze: [], newTopics: [], newFigs: [] };
+        /* ⛔ ВІДПОВІДЬ-ЗАГЛУШКА — ПОМИЛКА КРОКУ, НЕ ТЕКСТ. «Зайве.» замість порції давало статтю
+           на 32 слова, аналіз ставив їй 11, і вона йшла в маніфест як done (09-26, п'ять тем
+           cat-hw-boards). Порція коротша за MIN_PART_WORDS не буває — одиниця падає, людина бачить. */
+        if (words(part.text) < MIN_PART_WORDS) throw new Error(`письмо ${g.join(",")}: відповідь-заглушка — ${words(part.text)} слів замість порції`);
         refresh(part, null, b);
         written.push(part);
       }
@@ -596,25 +629,34 @@ async function algorithm(unit, ctx, o = {}) {
     /* ── 5 · РОЗМІР І ОФЛАЙН-СИТА · локально → дописування / стиснення ─── */
     if (!ctx.get("size")) {
       let s = LOC.size(assemble(parts), u.type, k.level);
-      let rounds = 0, forced = false, sieve = 0;
+      let calls = 0, forced = false, expanded = false;
       const pending = () => {
         const items = offline(parts).filter((it) => it.kind !== "skip");
         for (const it of items) {
           const have = (it.part.add || []).some((a) => a.what === it.what);
-          if (!have) it.part.add = [...(it.part.add || []), { section: it.section, level: 5, kind: it.kind, anchor: it.anchor, what: it.what }];
+          if (!have) it.part.add = [...(it.part.add || []), { section: it.section, level: 5, kind: it.kind, anchor: it.anchor, what: it.what, sieve: true }];
         }
         return items.length;
       };
-      while ((s.words < s.need * SHORT_OK || (sieve = pending()) > 0) && rounds < MAX_EXTEND) {
-        const deficit = s.words < s.need * SHORT_OK ? Math.max(0, s.need - s.words) : 0;
+      /* ⛔ ДОПИСУВАННЯ — НЕ БІЛЬШЕ MAX_EXTEND ЗАПИТІВ НА СТАТТЮ (автор, 02.10). Доти п'ять кіл по
+         три абзаци на розділ добирали половину норми найдорожчим способом: 283 запити-абзаци на
+         8 тем, половина всіх символів запитів. Тепер «де дописати» щонайбільше раз, далі по одному
+         абзацу найвищого рівня; останній запит, коли бракує досі понад третину, — не абзац, а
+         розгортання розділу у два-три рази за суттю. Решта лишається коротшою — і це видно у звіті. */
+      while (calls < MAX_EXTEND) {
+        const sieve = pending();
+        const short = s.words < s.need * SHORT_OK;
+        if (!short && !sieve) break;
+        const deficit = short ? Math.max(0, s.need - s.words) : 0;
         let todo = plan(deficit, parts, k);
-        /* Бракує понад третину або нема названого — аналіз мусить показати місця. */
-        if ((!todo.length && deficit > 0) || (!forced && s.need && deficit / s.need > FORCE_SHORT)) {
-          forced = true;
-          const res = await ctx.call(`де дописати ${rounds + 1}`, () => ask(P.analysis(u, {
+        /* Бракує понад третину або нема названого — аналіз мусить показати місця; один раз, і лише
+           коли після нього ще лишається запит на саме дописування. */
+        if (!forced && calls < MAX_EXTEND - 1 && ((!todo.length && deficit > 0) || (s.need && deficit / s.need > FORCE_SHORT))) {
+          forced = true; calls++;
+          const res = await ctx.call("де дописати", () => ask(P.analysis(u, {
             goal: goal.text, level: k.level, text: assemble(parts), theses: thesesText(parts),
             groups: k.groups.map((g) => g.join(", ")).join("\n"), force: true,
-          }), `де дописати ${rounds + 1}`));
+          }), "де дописати"));
           for (const w of R.bySection(R.blocks(res)["ДЕ ДОПИСАТИ"] || "")) {
             if (w.section == null && w.title) for (const x of parts) { const n = titleResolver(x)(w.title); if (n != null) { w.section = n; break; } }
             const p = parts.find((x) => x.group.includes(w.section)) || parts[0];
@@ -623,43 +665,57 @@ async function algorithm(unit, ctx, o = {}) {
           todo = plan(deficit, parts, k);
         }
         if (!todo.length) break;
-        /* ⛔ ДОПИСУЄМО АБЗАЦАМИ, НЕ РОЗДІЛАМИ (автор, 14.09): поглибити названий абзац — даємо
-           старий, дістаємо новий і замінюємо; новий абзац — дістаємо його й ставимо після
-           названого. Розділ не переписується і не віддається наново. */
-        for (const t of todo) {
-          const ref = sectionOf(t.part, t.section);
-          for (const [j, it] of t.items.slice(0, MAX_ITEMS_PER_SECTION).entries()) {
-            if (it.kind === "skip") continue;
-            /* Мітка — з колом і номером пункту: адаптер зберігає відповідь за міткою, і
-               «дописування 3» вдруге діставало відповідь на перший пункт (14.09). */
-            const label = `дописування ${t.section}-${rounds + 1}-${j + 1}`;
-            const paras = paragraphsOf(ref.secs[ref.i].body);
-            if (!paras.length) paras.push("");
-            let idx = findParagraph(paras, it.anchor);
-            /* Огорожа чи фігура — не абзац для поглиблення: після неї пишуть новий. */
-            const kind = it.kind === "deepen" && idx >= 0 && !notProse(paras[idx]) ? "deepen" : "new";
-            if (idx < 0) idx = paras.length - 1;
-            const paragraph = paras[idx];
-            const res = await ctx.call(label, () => ask(P.extend(u, {
-              ...common(), section: planOf(k, t.section), text: sectionText(ref), paragraph,
-              how: kind === "deepen" ? "поглибити цей абзац — повернути його ж, розгорнутий тим, що названо"
-                : "новий абзац після цього — повернути лише новий абзац, без сусідів",
-              add: `${t.level} | ${it.what}`, theses: thesesText(parts, t.section),
-              /* Абзацу список інтеграції не потрібен (автор, 14.09): він важив 20 КБ у кожному з 60 запитів. */
-              integrate: "",
-            }), label));
-            const para = cleanText(need(res, ["АБЗАЦ"], "дописування")["АБЗАЦ"]).trim();
-            if (!para) continue;
-            if (kind === "deepen") { if (words(para) < words(paragraph) * KEEP_SHARE) continue; paras[idx] = para; }
-            else paras.splice(idx + 1, 0, para);
+        const t = todo[0];
+        const it = t.items.find((x) => x.kind !== "skip");
+        if (!it) { t.part.add = (t.part.add || []).filter((a) => !t.items.includes(a)); continue; }
+        const ref = sectionOf(t.part, t.section);
+        if (calls === MAX_EXTEND - 1 && !it.sieve && s.need && deficit / s.need > FORCE_SHORT) {
+          /* Останній запит, а бракує досі багато: розділ цілком, у два-три рази більшим за суттю. */
+          const label = `розгортання ${t.section}`;
+          const before = sectionText(ref);
+          const res = await ctx.call(label, () => ask(P.expand(u, {
+            ...common(), section: planOf(k, t.section), text: before,
+            add: t.items.filter((x) => x.kind !== "skip").map((x) => `${t.level} | ${x.what}`).join("\n"),
+            theses: thesesText(parts, t.section),
+          }), label));
+          const text = cleanText(need(res, ["ТЕКСТ"], "розгортання")["ТЕКСТ"]);
+          /* Повернуте не довше за те, що було, — відмова: лишаємо як є. */
+          if (words(text) > words(before)) { putSection(t.part, ref, text); expanded = true; }
+          t.part.add = (t.part.add || []).filter((a) => !t.items.includes(a));
+          calls++;
+        } else {
+          /* ⛔ ДОПИСУЄМО АБЗАЦАМИ, НЕ РОЗДІЛАМИ (автор, 14.09): поглибити названий абзац — даємо
+             старий, дістаємо новий і замінюємо; новий абзац — дістаємо його й ставимо після
+             названого. Розділ не переписується і не віддається наново. Мітка — з номером запиту:
+             адаптер зберігає відповідь за міткою, і «дописування 3» вдруге діставало відповідь
+             на перший пункт (14.09). */
+          const label = `дописування ${t.section}-${calls + 1}`;
+          const paras = paragraphsOf(ref.secs[ref.i].body);
+          if (!paras.length) paras.push("");
+          let idx = findParagraph(paras, it.anchor);
+          /* Огорожа чи фігура — не абзац для поглиблення: після неї пишуть новий. */
+          const kind = it.kind === "deepen" && idx >= 0 && !notProse(paras[idx]) ? "deepen" : "new";
+          if (idx < 0) idx = paras.length - 1;
+          const paragraph = paras[idx];
+          const res = await ctx.call(label, () => ask(P.extend(u, {
+            ...common(), section: planOf(k, t.section), text: sectionText(ref), paragraph,
+            how: kind === "deepen" ? "поглибити цей абзац — повернути його ж, розгорнутий тим, що названо"
+              : "новий абзац після цього — повернути лише новий абзац, без сусідів",
+            add: `${t.level} | ${it.what}`, theses: thesesText(parts, t.section),
+            /* Абзацу список інтеграції не потрібен (автор, 14.09): він важив 20 КБ у кожному з 60 запитів. */
+            integrate: "",
+          }), label));
+          const para = cleanText(need(res, ["АБЗАЦ"], "дописування")["АБЗАЦ"]).trim();
+          if (para && !(kind === "deepen" && words(para) < words(paragraph) * KEEP_SHARE)) {
+            if (kind === "deepen") paras[idx] = para; else paras.splice(idx + 1, 0, para);
             ref.secs[ref.i].body = paras.join("\n\n");
             t.part.text = LOC.joinSections(ref.secs);
           }
-          /* Названі пункти цього розділу зняті — і зроблені, і ті, що не вдалося: інакше коло за колом те саме. */
-          t.part.add = (t.part.add || []).filter((a) => !t.items.includes(a));
+          /* Названий пункт знятий — і зроблений, і той, що не вдалося: інакше запит за запитом те саме. */
+          t.part.add = (t.part.add || []).filter((a) => a !== it);
+          calls++;
         }
         nameNew(parts);
-        rounds++;
         s = LOC.size(assemble(parts), u.type, k.level);
       }
 
@@ -705,7 +761,7 @@ async function algorithm(unit, ctx, o = {}) {
         if (s.words > roundStart * 0.95) break;
       }
       ctx.set("sections", parts);
-      ctx.set("size", { ...s, rounds, squeezed, forced, sieve: offline(parts).length, stillShort: s.words < s.need * SHORT_OK, stillOver: over(), cantCut, splitOff });
+      ctx.set("size", { ...s, rounds: calls, expanded, squeezed, forced, sieve: offline(parts).length, stillShort: s.words < s.need * SHORT_OK, stillOver: over(), cantCut, splitOff });
     }
 
     /* ── 5 · АНАЛІЗ · агент: оцінки; шість і нижче — з нуля, до трьох разів ── */
@@ -753,7 +809,10 @@ async function algorithm(unit, ctx, o = {}) {
     for (const r of reps) {
       if (r.from.length < 20 || !/[.!?…»")]$/.test(r.from) || ABBR_END.test(r.from) || r.to.length > r.from.length * 2 + 80) { skipped++; continue; }
       let hit = false;
-      for (const p of parts) if (p.text.includes(r.from)) { p.text = p.text.split(r.from).join(r.to); hit = true; }
+      for (const p of parts) {
+        const rr = replaceSentence(p.text, r.from, r.to);
+        if (rr.n) { p.text = rr.text; hit = true; }
+      }
       if (hit) applied++; else skipped++;
     }
     ctx.set("sections", parts);
@@ -956,6 +1015,7 @@ async function algorithm(unit, ctx, o = {}) {
     const file = LOC.writeArticle(u, assemble(parts), k.preknow);
     const abs = path.join(MF.ROOT, file);
     const frm = LOC.fixFormulas(abs);
+    const polish = LOC.polish(abs);   // дужки шаблону у фігурах, подвоєні хвости речень, повторені корені
     const moved = LOC.decamp(abs);
     const unfenced = LOC.unfenceDirectives(abs);
     const fixed = LOC.fixFences(abs);
@@ -966,7 +1026,7 @@ async function algorithm(unit, ctx, o = {}) {
     /* Дослівно повторені абзаци й керівні символи — у звіт: їх не має бути, і видно одразу. */
     const dup = LOC.dupParagraphs(fs.readFileSync(abs, "utf8"));
     const ctrl = (fs.readFileSync(abs, "utf8").match(new RegExp(CTRL.source, "g")) || []).length;
-    ctx.set("assembly", { file, formulas: frm, fences: fen, svg: { ...svg, pending }, dup, ctrl });
+    ctx.set("assembly", { file, formulas: frm, polish, fences: fen, svg: { ...svg, pending }, dup, ctrl });
   }
 
   /* ── 10 · ЗАВЕРШЕННЯ · операції в маніфест, базова ─────────────────────── */

@@ -135,6 +135,8 @@ async function main(argv) {
     else if (e.ev === "refused") console.log(`   ⚠ стеля: відмовлено ${e.n}`);
     else if (e.ev === "wall") console.log(`⛔ стіна ліміту, у черзі лишилось ${e.pending}`);
     else if (e.ev === "restore") console.log(`↺ відновлено з теки: ${e.n}`);
+    else if (e.ev === "adopt") console.log(`↺ ${e.unit}: ${e.done ? "уже написано" : `продовжую з етапу «${e.from || "початок"}»`} — батч ${e.batch}`);
+    else if (e.ev === "busy") console.log(`⏭ ${e.unit}: зараз пишеться в батчі ${e.batch} — пропускаю`);
     else if (e.ev === "pause") console.log(`⏸ ${e.unit} чекає на: ${e.for.join(", ")}`);
     else if (e.ev === "resume") console.log(`▶ ${e.unit} знову в черзі — те, чого чекала, готове`);
     else if (e.ev === "paused-left") console.log(`⏸ лишилось на паузі: ${e.n} — те, чого вони чекали, не завершилось`);
@@ -167,7 +169,9 @@ async function main(argv) {
 
   console.log(`\nбатч ${report.id}`);
   console.log(`  теку прогону лишено: ${report.logs}`);
-  console.log(`  зроблено ${report.done} · провалено ${report.failed} · пропущено ${report.skipped}`);
+  console.log(`  зроблено ${report.done} · провалено ${report.failed} · пропущено ${report.skipped}` +
+    (report.busy && report.busy.length ? ` · пишуться в інших батчах ${report.busy.length}` : ""));
+  for (const b of report.busy || []) console.log(`  ⏭ ${b.unit} — батч ${b.batch}`);
   if (report.notes.length) report.notes.forEach((n) => console.log(`  · ${n}`));
   if (report.checks && report.checks.length) {
     console.log(`\n  локальні перевірки — ${report.checks.length} одиниць із зауваженнями:`);

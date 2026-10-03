@@ -47,6 +47,9 @@ if (TYPE === "basic") fs.writeFileSync(path.join(OUT, `${t.slug}-d.md`), `# ${t.
 console.log("одиниця:", u.id, "→", OUT);
 
 const words = (n, seed) => Array.from({ length: n }, (_, i) => ["механізм", "стан", "перехід", "автомат", "читач", "тому", "звідси", "правило", "приклад", "межа"][(i * 7 + seed) % 10]).join(" ");
+/* Речення після «У 1969 році…» — з великої, як у прозі: заміна фактів приймає «старе» лише
+   цілим реченням, тобто перед наступним реченням з великої літери. */
+const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 let calls = 0;
 const log = [];
 const MODE = { score: Number(process.env.SCORE || 8), short: !!process.env.SHORT, over: !!process.env.OVER };
@@ -105,11 +108,11 @@ ${prompt}
     } else if (/<ЦЕЙ РОЗДІЛ>/.test(prompt)) {
       const head = (prompt.match(/<ЦЕЙ РОЗДІЛ>\n\d+[^\n]*\n\n(## [^\n]*)/) || [])[1] || "## Розділ";
       const n2 = /<НАСКІЛЬКИ>/.test(prompt) ? 900 : 700;   // стиснення повертає коротше
-      put("ТЕКСТ", `${head}\n\n${words(n2, 9)}. У 1969 році щось сталося. ${words(n2, 11)}.`);
+      put("ТЕКСТ", `${head}\n\n${words(n2, 9)}. У 1969 році щось сталося. ${cap(words(n2, 11))}.`);
     } else {
       const secs = [...prompt.matchAll(/^(\d+) \| (?:[^|\n]+\| )?важливість: [^|]+\| /gm)].map((m) => m[1]);
       const n1 = MODE.short ? 120 : MODE.over ? 4000 : 450;
-      put("ТЕКСТ", secs.map((n, i) => `## Розділ ${n}\n\n${words(n1, i + 1)}. ${i === 0 ? "У 1969 році щось сталося. " : ""}${words(150, i + 20)}.`).join("\n\n"));
+      put("ТЕКСТ", secs.map((n, i) => `## Розділ ${n}\n\n${words(n1, i + 1)}. ${i === 0 ? "У 1969 році щось сталося. " : ""}${cap(words(150, i + 20))}.`).join("\n\n"));
     }
   }
   put("ЩО ЗЖАТИ", MODE.over ? "1 | повтори прикладів\n2 | зайві варіації" : "");

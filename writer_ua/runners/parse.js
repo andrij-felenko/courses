@@ -110,6 +110,9 @@ function want(text, tags) {
 /* ── дрібні розбори, спільні для кількох етапів ─────────────────────────────── */
 
 const lines = (s) => String(s || "").split("\n").map((x) => x.trim()).filter(Boolean);
+/* Колонки рядка через «|». Риска маркера словника (`@@en|Heap@@`) — не межа колонки: доти речення
+   з лінком на нову тему приїжджало як «Heap@@ | Докладніше…» (esp8266-soc, 03.10). */
+const cells = (l) => String(l || "").replace(/@@([a-z]{2,4})\|/gi, "@@$1\u0001").split("|").map((x) => x.trim().replace(/\u0001/g, "|"));
 
 /** Порожньо — це «нема чого додати», а не збій. Так і домовлено. */
 const empty = (s) => {
@@ -141,7 +144,7 @@ function sections(s) {
   const out = [];
   const IMP = /^(?:важливість\s*:\s*)?(висока|середня|низька)$/i;
   for (const l of lines(s)) {
-    const p = l.split("|").map((x) => x.trim());
+    const p = cells(l);
     const n = p.length >= 3 ? secNo(p[0]) : null;
     const at = n == null ? -1 : p.findIndex((c, i) => i > 0 && IMP.test(c));
     if (at > 0) {
@@ -167,7 +170,7 @@ function sections(s) {
  */
 function insertForms(s) {
   return lines(s).map((l) => {
-    const p = l.split("|").map((x) => x.trim());
+    const p = cells(l);
     const m = /^(hist|comp|math|proj|api)-([a-z0-9][a-z0-9-]*)/i.exec(p[0] || "");
     if (!m) return null;
     const short = p.slice(1).some((c) => /^коротк/i.test(c));
@@ -205,7 +208,7 @@ function inserts(s) {
     if (m) {
       /* `тип-ім'я | назва | що там` — назва вставки з етапу 2 стає її заголовком (автор, 14.09);
          `тип-ім'я | що там` — стара форма, без назви. */
-      const rest = m[3].split("|").map((x) => x.trim()).filter(Boolean);
+      const rest = cells(m[3]).filter(Boolean);
       const title = rest.length >= 2 ? rest[0] : "";
       return { insert: m[1].toLowerCase(), name: m[2].toLowerCase(), title, about: (rest.length >= 2 ? rest.slice(1) : rest).join(" | ") };
     }
@@ -224,7 +227,7 @@ function inserts(s) {
  */
 function bySection(s) {
   return lines(s).map((l) => {
-    const p = l.split("|").map((x) => x.trim());
+    const p = cells(l);
     if (p.length < 2) return { section: null, text: l.trim() };
     const n = secNo(p[0]);
     const base = n == null ? { section: null, title: p[0] } : { section: n };
@@ -237,7 +240,7 @@ function bySection(s) {
 /** `1, 2, 3 | 8 | чому` → {groups:[1,2,3], score, why}. Оцінки етапу аналізу. */
 function scores(s) {
   return lines(s).map((l) => {
-    const p = l.split("|").map((x) => x.trim());
+    const p = cells(l);
     if (p.length < 2) return null;
     const score = Number((p[1].match(/\d+/) || [])[0]);
     if (!Number.isFinite(score)) return null;
@@ -251,7 +254,7 @@ function scores(s) {
  */
 function points(s) {
   return lines(s).map((l) => {
-    const p = l.split("|").map((x) => x.trim());
+    const p = cells(l);
     if (p.length < 2) return null;
     const score = Number((p[1].match(/\d+(?:[.,]\d+)?/) || [""])[0].replace(",", "."));
     if (!Number.isFinite(score)) return null;
@@ -262,7 +265,7 @@ function points(s) {
 /** `перші слова | точне|неточне|невідомо | джерело` → {head, verdict, source}. Перевірка фактів. */
 function verdicts(s) {
   return lines(s).map((l) => {
-    const p = l.split("|").map((x) => x.trim());
+    const p = cells(l);
     if (p.length < 2) return null;
     const v = p[1].toLowerCase();
     const verdict = /^точн/.test(v) ? "точне" : /^неточн|^хибн/.test(v) ? "неточне" : /^невідом|^не перевір/.test(v) ? "невідомо" : null;
@@ -342,7 +345,7 @@ function figures(str) {
 
 /** `слуг | Назва | scope одним реченням` → {slug, title, scope}. Нова група чи розділ. */
 function place(s) {
-  const p = String(s || "").split("|").map((x) => x.trim());
+  const p = cells(s);
   if (p.length < 2 || !/^[a-z0-9][a-z0-9-]*$/i.test(p[0]) || !p[1]) return null;
   return { slug: p[0].toLowerCase(), title: p[1], scope: p.slice(2).join(" | ") };
 }
@@ -376,7 +379,7 @@ function code(s) {
  * назване без числа все одно варте більше, ніж не назване.
  */
 /** Рядки з колонками через `|`, обрізані; порожні й «пустота» — геть. */
-const cols = (s) => lines(s).filter((l) => !empty(l)).map((l) => l.split("|").map((x) => x.trim()));
+const cols = (s) => lines(s).filter((l) => !empty(l)).map(cells);
 
 /** `поглибити «перші слова абзацу»` / `новий після «перші слова абзацу»` → {kind, anchor}. */
 function howOf(s) {
@@ -399,7 +402,7 @@ const levelNo = (x) => (/^[1-5]$/.test(String(x || "").trim()) ? Number(x) : nul
  */
 function additions(s) {
   return lines(s).map((l) => {
-    const p = l.split("|").map((x) => x.trim());
+    const p = cells(l);
     const base = (secCol) => { const n = secNo(secCol); return n == null ? { section: null, title: secCol } : { section: n }; };
     if (p.length >= 4 && levelNo(p[1]) != null) {
       const how = howOf(p[2]);
@@ -423,7 +426,7 @@ function additions(s) {
  */
 function topics(s) {
   return lines(s).map((l) => {
-    const p = l.split("|").map((x) => x.trim());
+    const p = cells(l);
     /* Слуг із префіксом книги — `progarch_cqrs`, `progarch/cqrs` (18 рядків за батч) — це слуг
        і книга разом; книгу вирішує етап 8, префікс зрізаємо. */
     if (p[0]) p[0] = p[0].replace(/^[a-z0-9-]+[_/](?=[a-z0-9])/i, "");

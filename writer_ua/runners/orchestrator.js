@@ -55,6 +55,7 @@ const DEFAULTS = {
   limitPause: 5 * 60 * 1000,
   callTimeout: 10 * 60 * 1000,   // скільки чекати ОДНУ відповідь агента
   tick: 3000,                    // як часто перечитувати пульт, поки нічого не завершилось
+  busyWindow: 15 * 60 * 1000,    // тека іншого батчу жива, якщо в ній щось мінялось за цей час: одиниця там ще пишеться
 };
 
 function whole(v, name, min) {
@@ -217,6 +218,46 @@ function restoreUnits(dir) {
   return [...out.values()];
 }
 
+/* ── одиниця в іншому батчі ────────────────────────────────────────────────
+   ⛔ ТЕМУ, ЯКУ ВЖЕ НАПИСАВ АБО САМЕ ПИШЕ ІНШИЙ БАТЧ, НЕ ПИШУТЬ НАНОВО (автор, 02.10). Маніфест
+   пишеться в кінці батчу, а до кінця доходить не кожен: `esp32-cam-ov3640` писали 27 батчів з
+   нуля — 1 362 запити на одну статтю, бо в маніфесті вона так і стояла `pending`, а новий хеш
+   починав з порожньої теки. Стан одиниці шукаємо в усіх теках `inwork/` за тим самим ім'ям
+   файла (воно від id), беремо найновіший:
+     завершена там  → стан наш, одиниця пропускається, операції йдуть у маніфест ЦЬОГО батчу;
+     ще пишеться    → тека того батчу жива (щось мінялось у межах busyWindow): пропускаємо без
+                      маніфесту й кажемо, де вона пишеться;
+     покинута       → стан наш, продовжуємо з останнього заповненого етапу. */
+function newestFile(dir) {
+  let t = 0, files = [];
+  try { files = fs.readdirSync(dir); } catch { return 0; }
+  for (const f of files) { try { t = Math.max(t, fs.statSync(path.join(dir, f)).mtimeMs); } catch { } }
+  return t;
+}
+/* Завершений стан зі статтею, коротшою за цю частку норми, — заглушка, не робота: відповідач
+   часом вертає «Зайве.» замість тексту, і п'ять статей по 32 слова дійшли до маніфесту як done
+   з балом 11 (батч 045a1b99cc, 09-26). Такий стан не беремо й не продовжуємо. */
+const STUB_SHARE = 0.4;
+const isStub = (d) => !!(d && d.size && d.size.need && d.size.words < d.size.need * STUB_SHARE);
+function foreignState(st, ownDir, busyWindow) {
+  let best = null, dirs = [];
+  try { dirs = fs.readdirSync(INWORK); } catch { return null; }
+  const name = path.basename(st.path);
+  for (const d of dirs) {
+    const dir = path.join(INWORK, d);
+    if (!ID_RE.test(d) || path.resolve(dir) === path.resolve(ownDir)) continue;
+    const p = path.join(dir, name);
+    let m; try { m = fs.statSync(p).mtimeMs; } catch { continue; }
+    if (best && m <= best.mtime) continue;
+    let data; try { data = JSON.parse(fs.readFileSync(p, "utf8")); } catch { continue; }
+    if (!data || data.id !== st.unit.id || isStub(data)) continue;
+    best = { batch: d, dir, data, mtime: m };
+  }
+  if (!best) return null;
+  best.live = !best.data.done && newestFile(best.dir) > Date.now() - busyWindow;
+  return best;
+}
+
 /* ── стіна ліміту ──────────────────────────────────────────────────────────── */
 
 /**
@@ -288,6 +329,7 @@ class Queue {
  * @param {number}   [o.stagger]     пауза між стартами, мс
  * @param {number}   [o.maxUnits]    стеля НОВИХ одиниць прогону
  * @param {number}   [o.callTimeout] скільки чекати ОДНУ відповідь агента
+ * @param {number}   [o.busyWindow]  тека іншого батчу жива, якщо мінялась за цей час: одиницю звідти не беремо
  * @param {number}   [o.limitPause]  контрольна пауза перед вироком «стіна»
  * @param {Function} [o.onEvent]     сповіщення для людини
  * @param {Function} [o.finish]      async (done, {dir}) → {notes} — хук перед маніфестом, коли
@@ -307,6 +349,7 @@ async function run(o) {
   const limitPause = whole(o.limitPause === undefined ? DEFAULTS.limitPause : o.limitPause, "limitPause", 0);
   const callTimeout = whole(o.callTimeout === undefined ? DEFAULTS.callTimeout : o.callTimeout, "callTimeout", 0);
   const tick = whole(o.tick === undefined ? DEFAULTS.tick : o.tick, "tick", 100);
+  const busyWindow = whole(o.busyWindow === undefined ? DEFAULTS.busyWindow : o.busyWindow, "busyWindow", 0);
   if (!dry && typeof o.algorithm !== "function") throw new Error("немає algorithm — оркестратор сам нічого не робить");
 
   const id = o.id === undefined ? newId() : String(o.id);
@@ -341,7 +384,7 @@ async function run(o) {
 
   fs.mkdirSync(dir, { recursive: true });
 
-  const done = [], failed = [], skipped = [], notes = [];
+  const done = [], failed = [], skipped = [], busy = [], notes = [];
 
   /* ── пауза ─────────────────────────────────────────────────────────────────
      Одиниця, якій бракує чужого результату (проза чекає на код), не провалюється й
@@ -370,7 +413,29 @@ async function run(o) {
 
   const start = (unit) => {
     const st = new UnitState(dir, unit);
-    st.load();
+    const own = st.load();
+    /* Свого стану нема, або є, та не завершений, — дивимось по інших батчах: завершений там
+       чи живий там переважає наш недописаний (інакше та сама тема дописувалась тричі —
+       09-30, 10-01 і 10-02 — бо кожен батч тримався свого старого стану). */
+    if (!own || !st.done) {
+      const other = foreignState(st, dir, busyWindow);
+      if (other && other.live) {
+        busy.push({ unit: unit.id, batch: other.batch });
+        say({ ev: "busy", unit: unit.id, batch: other.batch });
+        return null;
+      }
+      if (other && (!own || other.data.done)) {
+        /* Стан чужого батчу стає нашим; тіло одиниці — поточне, помилка й пауза того батчу —
+           не наші. Докладене ним (вставки, код, фігури) — у нашу чергу: кожне на старті так
+           само пошукає себе по батчах. */
+        Object.assign(st.data, other.data, { unit, error: null });
+        delete st.data.waiting;
+        st.save();
+        say({ ev: "adopt", unit: unit.id, batch: other.batch, done: st.done, from: st.stage });
+        const r = q.push(st.data.enqueued || [], { restored: true });
+        if (r.added.length) say({ ev: "enqueue", unit: unit.id, n: r.added.length });
+      }
+    }
     if (st.done) { skipped.push(unit.id); done.push({ unit, state: st }); finished.add(unit.id); say({ ev: "skip", unit: unit.id }); return null; }
     st.save();
     say({ ev: "start", unit: unit.id, from: st.stage, active: q.running.size + 1, pending: q.pending.length });
@@ -511,6 +576,9 @@ async function run(o) {
     if (frm.fixed) rows.push(`полагоджено з'їдених бекслешів: ${frm.fixed}`);
     for (const x of frm.delims || []) rows.push(`роздільник формули — ${x}`);
     for (const x of frm.banned || []) rows.push(`заборонений LaTeX — ${x}`);
+    const po = a.polish || {};
+    if (po.tails) rows.push(`знято подвоєних хвостів речень: ${po.tails}`);
+    if (po.glosses) rows.push(`знято повторених коренів у дужках: ${po.glosses}`);
     const fen = a.fences || {};
     if (fen.left) rows.push(`код в огорожах: ${fen.left} рядків — місце коду у файлі`);
     for (const x of fen.missing || []) rows.push(`«:::code ${x}» веде в порожнечу`);
@@ -531,6 +599,7 @@ async function run(o) {
 
   const report = {
     id, dir, logs: dir, checks, done: done.length, failed: failed.length, skipped: skipped.length,
+    busy,   // пишуться зараз в інших батчах — тут не чіпали й у маніфест не писали
     restored: restored.added.length, routed, aborted, pending: q.pending.length,
     refused: q.refused, orphans, notes, errors: failed, books: {}, finish,
     /* Лишились на паузі — ті, кого вони чекали, не завершились. Стан на диску є;
