@@ -43,6 +43,16 @@
               "status": "done"
             }
           ]
+        },
+        {
+          "slug": "nvs-calibration-storage",
+          "title": "Збереження калібрувальних коефіцієнтів у енергонезалежній пам'яті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -206,6 +216,38 @@
         {
           "slug": "esp-nn-library",
           "title": "Оптимізована бібліотека нейромережевих ядер ESP-NN",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "gpio-interrupts",
+      "title": "Драйвер GPIO та переривання",
+      "topics": [
+        {
+          "slug": "esp32-gpio-isr-driver",
+          "title": "Обробка переривань GPIO в середовищі ESP-IDF",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "i2s-driver",
+      "title": "Драйвер I2S",
+      "topics": [
+        {
+          "slug": "pdm-mems-microphone",
+          "title": "Робота з PDM MEMS-мікрофонами у фреймворку ESP-IDF",
           "basic": {
             "status": "empty"
           },
