@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двоетапний алгоритм HKDF</text>
+  <text x="480" y="65" font-size="13" fill="#6b7280" text-anchor="middle">Концентрація ентропії (Extract) та детерміноване розширення (Expand) для отримання ключів</text>
+
+  <!-- Step 1: Inputs -->
+  <g>
+    <rect x="40" y="160" width="180" height="140" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="130" y="195" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідний матеріал</text>
+    <text x="130" y="225" font-size="13" fill="#1a1a1a" text-anchor="middle">Master Secret (IKM)</text>
+    <text x="130" y="255" font-size="13" fill="#6b7280" text-anchor="middle">Master Salt (Сіль)</text>
+  </g>
+
+  <!-- Step 2: Extract -->
+  <g>
+    <rect x="270" y="160" width="180" height="140" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+    <text x="360" y="200" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">HKDF-Extract</text>
+    <text x="360" y="235" font-size="13" fill="#1a1a1a" text-anchor="middle">HMAC-Hash(Salt, IKM)</text>
+    <text x="360" y="265" font-size="12" fill="#6b7280" text-anchor="middle">Концентрація ентропії</text>
+  </g>
+
+  <!-- Step 3: PRK -->
+  <g>
+    <rect x="495" y="195" width="110" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="550" y="225" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">PRK</text>
+    <text x="550" y="248" font-size="11" fill="#6b7280" text-anchor="middle">Псевдовипадковий</text>
+  </g>
+
+  <!-- Step 4: Expand -->
+  <g>
+    <rect x="650" y="160" width="150" height="140" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+    <text x="725" y="200" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">HKDF-Expand</text>
+    <text x="725" y="235" font-size="12" fill="#1a1a1a" text-anchor="middle">HMAC(PRK, info||i)</text>
+    <text x="725" y="265" font-size="12" fill="#6b7280" text-anchor="middle">Генерація OKM</text>
+  </g>
+
+  <!-- Info Input Top -->
+  <g>
+    <rect x="650" y="80" width="150" height="45" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+    <text x="725" y="107" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Context info (CBOR)</text>
+  </g>
+
+  <!-- Step 5: Outputs -->
+  <g>
+    <rect x="835" y="130" width="115" height="200" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="892" y="165" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Sender Key</text>
+    <text x="892" y="225" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Recipient Key</text>
+    <text x="892" y="285" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Common IV</text>
+  </g>
+
+  <!-- Connections -->
+  <path d="M 220 230 L 270 230" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <path d="M 450 230 L 495 230" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 605 230 L 650 230" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <path d="M 725 125 L 725 160" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <path d="M 800 230 L 835 230" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-main)"/>
+
+</svg>

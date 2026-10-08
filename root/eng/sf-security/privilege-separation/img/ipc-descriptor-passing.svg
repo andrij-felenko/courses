@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Передача файлового дескриптора через UNIX-сокет (SCM_RIGHTS)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Привілейований майстер відкриває ресурс і передає вже відкритий дескриптор у пісочницю воркера</text>
+
+  <!-- Panel 1: Master Process (Left) -->
+  <rect x="30" y="80" width="270" height="340" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="165" y="105" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Майстер-процес (root)</text>
+
+  <!-- Step 1: open() -->
+  <rect x="45" y="125" width="240" height="60" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="165" y="147" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Крок 1: відкриття ресурсу</text>
+  <text x="165" y="167" font-size="12" fill="#2457d6" text-anchor="middle">int fd = open("/etc/ssl/key.pem")</text>
+
+  <!-- Step 2: sendmsg() -->
+  <rect x="45" y="200" width="240" height="95" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="165" y="222" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Крок 2: Упаковка повідомлення</text>
+  <text x="165" y="244" font-size="12" fill="#1a1a1a" text-anchor="middle">cmsg.cmsg_type = SCM_RIGHTS;</text>
+  <text x="165" y="264" font-size="12" fill="#1a1a1a" text-anchor="middle">*(int *)CMSG_DATA(&amp;cmsg) = fd;</text>
+  <text x="165" y="282" font-size="12" fill="#2457d6" text-anchor="middle">sendmsg(socket_fd, &amp;msg, 0);</text>
+
+  <rect x="45" y="310" width="240" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="165" y="335" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Має привілеї root</text>
+  <text x="165" y="355" font-size="12" fill="#1a1a1a" text-anchor="middle">Доступ до файлів конфігурації,</text>
+  <text x="165" y="375" font-size="12" fill="#1a1a1a" text-anchor="middle">сертифікатів та портів 80/443</text>
+
+  <!-- Arrow Master -> Socketpair -->
+  <path d="M 300 248 L 370 248" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <polygon points="370,248 360,242 360,254" fill="#2457d6"/>
+
+
+  <!-- Panel 2: Kernel / Socketpair Pipe (Center) -->
+  <rect x="370" y="80" width="220" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ядро Linux (IPC Pipe)</text>
+
+  <!-- UNIX Domain Socket Pair -->
+  <rect x="385" y="130" width="190" height="230" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="152" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">AF_UNIX socketpair</text>
+  <line x1="395" y1="162" x2="565" y2="162" stroke="#d0d7de"/>
+
+  <!-- FD Passing Envelope -->
+  <rect x="400" y="175" width="160" height="70" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="197" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Контрольне повідомлення</text>
+  <text x="480" y="217" font-size="12" fill="#1a1a1a" text-anchor="middle">SCM_RIGHTS Payload</text>
+  <text x="480" y="233" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">FD Reference Pointer</text>
+
+  <text x="480" y="275" font-size="12" fill="#6b7280" text-anchor="middle">Передача описувача</text>
+  <text x="480" y="295" font-size="12" fill="#6b7280" text-anchor="middle">файла в таблиці ядра</text>
+  <text x="480" y="315" font-size="12" fill="#6b7280" text-anchor="middle">без копіювання вмісту</text>
+  <text x="480" y="340" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Дуплексний сокет</text>
+
+  <!-- Arrow Socketpair -> Worker -->
+  <path d="M 590 248 L 660 248" fill="none" stroke="#27ae60" stroke-width="3"/>
+  <polygon points="660,248 650,242 650,254" fill="#27ae60"/>
+
+
+  <!-- Panel 3: Worker Process (Right) -->
+  <rect x="660" y="80" width="270" height="340" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="795" y="105" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Воркер (nobody / sandbox)</text>
+
+  <!-- Step 3: recvmsg() -->
+  <rect x="675" y="125" width="240" height="95" rx="6" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="795" y="147" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Крок 3: Отримання FD</text>
+  <text x="795" y="169" font-size="12" fill="#1a1a1a" text-anchor="middle">recvmsg(worker_fd, &amp;msg, 0);</text>
+  <text x="795" y="189" font-size="12" fill="#27ae60" text-anchor="middle">int new_fd = *(int *)CMSG_DATA</text>
+  <text x="795" y="207" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Отримано new_fd = 3</text>
+
+  <!-- Step 4: read/write -->
+  <rect x="675" y="235" width="240" height="60" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="795" y="257" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Крок 4: Обробка запиту</text>
+  <text x="795" y="277" font-size="12" fill="#1a1a1a" text-anchor="middle">read(new_fd, buf, len);</text>
+
+  <rect x="675" y="310" width="240" height="95" rx="6" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="795" y="333" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Непривілейований стан</text>
+  <text x="795" y="353" font-size="12" fill="#1a1a1a" text-anchor="middle">Обмежено seccomp / chroot</text>
+  <text x="795" y="373" font-size="12" fill="#c0392b" text-anchor="middle">Не може відкривати файли самостійно!</text>
+  <text x="795" y="392" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Працює лише з відданим FD</text>
+
+</svg>

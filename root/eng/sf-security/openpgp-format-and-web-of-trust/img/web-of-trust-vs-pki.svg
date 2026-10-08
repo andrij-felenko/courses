@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння ієрархічної PKI та децентралізованої Web of Trust</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Централізований CA створює єдину точку відмови, а Web of Trust масштабується через перехресні підписи</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: PKI -->
+  <rect x="30" y="80" width="435" height="350" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="247" y="110" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ієрархічна модель (PKI)</text>
+  
+  <!-- CA Node -->
+  <rect x="187" y="135" width="120" height="50" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="247" y="157" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Root CA</text>
+  <text x="247" y="173" font-size="11" fill="#6b7280" text-anchor="middle">Єдина точка довіри</text>
+
+  <!-- Intermediate CA / Users -->
+  <rect x="70" y="240" width="105" height="45" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="122" y="267" font-size="12" fill="#1a1a1a" text-anchor="middle">Клієнт A</text>
+
+  <rect x="195" y="240" width="105" height="45" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="247" y="267" font-size="12" fill="#1a1a1a" text-anchor="middle">Клієнт B</text>
+
+  <rect x="320" y="240" width="105" height="45" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="372" y="267" font-size="12" fill="#1a1a1a" text-anchor="middle">Клієнт C</text>
+
+  <!-- PKI Arrows -->
+  <line x1="210" y1="185" x2="140" y2="238" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="247" y1="185" x2="247" y2="238" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="284" y1="185" x2="350" y2="238" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="70" y="320" width="355" height="85" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="85" y="345" font-size="12" font-weight="bold" fill="#c0392b">Особливості PKI:</text>
+  <text x="85" y="367" font-size="12" fill="#1a1a1a">• Сувора вертикальна ієрархія довіри</text>
+  <text x="85" y="387" font-size="12" fill="#1a1a1a">• Компрометація Root CA руйнує всю мережу</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: Web of Trust -->
+  <rect x="495" y="80" width="435" height="350" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="712" y="110" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Децентралізована мережа (Web of Trust)</text>
+
+  <!-- Nodes WoT -->
+  <rect x="540" y="145" width="100" height="45" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="20"/>
+  <text x="590" y="172" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Аліса</text>
+
+  <rect x="780" y="145" width="100" height="45" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="20"/>
+  <text x="830" y="172" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Боб</text>
+
+  <rect x="540" y="245" width="100" height="45" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="20"/>
+  <text x="590" y="272" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Чарлі</text>
+
+  <rect x="780" y="245" width="100" height="45" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="20"/>
+  <text x="830" y="272" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Денис</text>
+
+  <!-- WoT Cross Signatures -->
+  <line x1="640" y1="167" x2="778" y2="167" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <line x1="590" y1="190" x2="590" y2="243" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <line x1="640" y1="267" x2="778" y2="267" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <line x1="830" y1="245" x2="830" y2="192" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <rect x="535" y="320" width="355" height="85" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="550" y="345" font-size="12" font-weight="bold" fill="#27ae60">Особливості Web of Trust:</text>
+  <text x="550" y="367" font-size="12" fill="#1a1a1a">• Перехресне підписання ключів користувачами</text>
+  <text x="550" y="387" font-size="12" fill="#1a1a1a">• Відсутність єдиної централізованої точки відмови</text>
+</svg>

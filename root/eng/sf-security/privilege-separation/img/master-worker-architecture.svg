@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue-right" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-left" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red-left" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура розділення привілеїв (Privilege Separation)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Привілейований майстер керує ключами й портами; воркери ізольовані в пісочницях і обробляють трафік</text>
+
+  <!-- Panel 1: Privileged Domain (Left) -->
+  <rect x="30" y="80" width="280" height="340" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="170" y="105" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Привілейований домен (root)</text>
+
+  <rect x="45" y="125" width="250" height="70" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="170" y="148" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Майстер-процес (Master)</text>
+  <text x="170" y="168" font-size="12" fill="#1a1a1a" text-anchor="middle">Управління конфігурацією, PID=1</text>
+  <text x="170" y="185" font-size="12" fill="#6b7280" text-anchor="middle">Запуск та перезапуск воркерів</text>
+
+  <!-- Protected Resources -->
+  <rect x="45" y="210" width="250" height="195" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="170" y="232" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Захищені системні ресурси:</text>
+  <text x="60" y="257" font-size="12" fill="#2457d6">• Приватні ключі SSL (/etc/ssl)</text>
+  <text x="60" y="280" font-size="12" fill="#2457d6">• Слухаючі сокети (Ports 80/443)</text>
+  <text x="60" y="303" font-size="12" fill="#2457d6">• Таблиці автентифікації (/etc/shadow)</text>
+  <text x="60" y="326" font-size="12" fill="#2457d6">• Привілейовані системні виклики</text>
+  <text x="170" y="360" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Недоступно для зовнішньої мережі!</text>
+
+  <!-- IPC Channels (Center) -->
+  <!-- Worker 1 IPC Line Segments & Label -->
+  <path d="M 310 160 L 360 160" fill="none" stroke="#2457d6" stroke-width="2.5" marker-start="url(#arr-blue-left)"/>
+  <rect x="360" y="142" width="190" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="455" y="164" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">IPC socketpair (Worker 1)</text>
+  <path d="M 550 160 L 600 160" fill="none" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue-right)"/>
+
+  <!-- Worker 2 IPC Line Segments & Label -->
+  <path d="M 310 320 L 360 320" fill="none" stroke="#2457d6" stroke-width="2.5" marker-start="url(#arr-blue-left)"/>
+  <rect x="360" y="302" width="190" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="455" y="324" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">IPC socketpair (Worker 2)</text>
+  <path d="M 550 320 L 600 320" fill="none" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue-right)"/>
+
+  <!-- Panel 2: Unprivileged Sandbox Domain (Right) -->
+  <rect x="600" y="80" width="330" height="340" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="765" y="105" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Непривілейовані робочі процеси (Workers)</text>
+
+  <!-- Worker 1 Box -->
+  <rect x="620" y="125" width="290" height="120" rx="6" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="765" y="147" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Worker Process 1 (User: nobody)</text>
+  <text x="765" y="167" font-size="12" fill="#1a1a1a" text-anchor="middle">Пісочниця: chroot /var/empty</text>
+  <text x="765" y="187" font-size="12" fill="#1a1a1a" text-anchor="middle">Обмеження: seccomp-BPF filter</text>
+  <text x="765" y="210" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Обробка мережевих запитів клієнтів</text>
+
+  <!-- Worker 2 Box -->
+  <rect x="620" y="275" width="290" height="120" rx="6" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="765" y="297" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Worker Process 2 (User: nobody)</text>
+  <text x="765" y="317" font-size="12" fill="#1a1a1a" text-anchor="middle">Пісочниця: chroot /var/empty</text>
+  <text x="765" y="337" font-size="12" fill="#1a1a1a" text-anchor="middle">Обмеження: seccomp-BPF filter</text>
+  <text x="765" y="360" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Парсинг необробленого HTTP/TLS</text>
+
+  <!-- External Untrusted Traffic Arrow -->
+  <path d="M 950 185 L 910 185" fill="none" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red-left)"/>
+  <path d="M 950 335 L 910 335" fill="none" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red-left)"/>
+</svg>

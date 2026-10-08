@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Формування дуплексного IPC-каналу через socketpair та fork</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Створення пари сокетів до розгалуження та перехресне закриття некористуваних дескрипторів</text>
+
+  <!-- Master Process Outer Box -->
+  <rect x="60" y="90" width="360" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="80" y="118" font-size="14" font-weight="bold" fill="#1a1a1a">Майстер-процес (Privileged, Root)</text>
+
+  <rect x="85" y="150" width="310" height="270" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="240" y="180" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">1. socketpair(AF_UNIX, ...)</text>
+  <text x="240" y="208" font-size="12" fill="#1a1a1a" text-anchor="middle">Створено сокети sv[0] та sv[1]</text>
+
+  <rect x="105" y="235" width="270" height="60" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="240" y="260" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">close(sv[1])</text>
+  <text x="240" y="280" font-size="12" fill="#6b7280" text-anchor="middle">(Закриття дитячого кінця у майстрі)</text>
+
+  <rect x="105" y="315" width="270" height="85" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="240" y="338" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Утримує sv[0]</text>
+  <text x="240" y="358" font-size="12" fill="#1a1a1a" text-anchor="middle">Передача дескрипторів SCM_RIGHTS</text>
+  <text x="240" y="378" font-size="12" fill="#1a1a1a" text-anchor="middle">та керуючих команд воркеру</text>
+
+  <!-- Fork Indicator Box -->
+  <rect x="440" y="140" width="80" height="40" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="165" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">fork()</text>
+
+  <!-- Worker Process Outer Box -->
+  <rect x="540" y="90" width="360" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="560" y="118" font-size="14" font-weight="bold" fill="#1a1a1a">Робочий процес (Unprivileged, Worker)</text>
+
+  <rect x="565" y="150" width="310" height="270" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="720" y="180" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Спадкування дескрипторів</text>
+  <text x="720" y="208" font-size="12" fill="#1a1a1a" text-anchor="middle">Унаслідовано sv[0] та sv[1]</text>
+
+  <rect x="585" y="235" width="270" height="60" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="720" y="260" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">close(sv[0])</text>
+  <text x="720" y="280" font-size="12" fill="#6b7280" text-anchor="middle">(Закриття батьківського кінця у воркері)</text>
+
+  <rect x="585" y="315" width="270" height="85" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="720" y="338" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Утримує sv[1]</text>
+  <text x="720" y="358" font-size="12" fill="#1a1a1a" text-anchor="middle">Прийом дескрипторів клієнтів</text>
+  <text x="720" y="378" font-size="12" fill="#1a1a1a" text-anchor="middle">та обробка запитів під seccomp</text>
+
+  <!-- Channel Connector -->
+  <path d="M 375 360 L 585 360" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)" marker-start="url(#arr-green)"/>
+  <text x="480" y="348" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Дуплексний IPC Канал (sv[0] ↔ sv[1])</text>
+</svg>

@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура підключів GnuPG</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Майстер-ключ сертифікує підключі, що виконують щоденні операції підпису, шифрування та автентифікації</text>
+
+  <!-- Master Key Node -->
+  <rect x="360" y="100" width="240" height="70" fill="#fdecea" stroke="#c0392b" stroke-width="2" rx="8"/>
+  <text x="480" y="128" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">Майстер-ключ (Certify, C)</text>
+  <text x="480" y="150" font-size="12" fill="#6b7280" text-anchor="middle">Зберігається в офлайн-сховищі</text>
+
+  <!-- Subkey Nodes -->
+  <!-- Subkey S -->
+  <rect x="100" y="270" width="210" height="65" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="205" y="298" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Підключ підпису (Sign, S)</text>
+  <text x="205" y="318" font-size="12" fill="#6b7280" text-anchor="middle">Цифровий підпис документів</text>
+
+  <!-- Subkey E -->
+  <rect x="375" y="270" width="210" height="65" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="480" y="298" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Підключ шифрування (Encrypt, E)</text>
+  <text x="480" y="318" font-size="12" fill="#6b7280" text-anchor="middle">Шифрування повідомлень</text>
+
+  <!-- Subkey A -->
+  <rect x="650" y="270" width="210" height="65" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="755" y="298" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Підключ автентифікації (Auth, A)</text>
+  <text x="755" y="318" font-size="12" fill="#6b7280" text-anchor="middle">SSH / TLS автентифікація</text>
+
+  <!-- Split Edges with Labels -->
+  <!-- Master -> S -->
+  <line x1="420" y1="170" x2="315" y2="210" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="250" y="200" width="110" height="22" fill="white" stroke="#2457d6" rx="3"/>
+  <text x="305" y="215" font-size="11" fill="#2457d6" text-anchor="middle">Підпис прив'язки</text>
+  <line x1="295" y1="222" x2="220" y2="268" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Master -> E -->
+  <line x1="480" y1="170" x2="480" y2="200" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="425" y="200" width="110" height="22" fill="white" stroke="#2457d6" rx="3"/>
+  <text x="480" y="215" font-size="11" fill="#2457d6" text-anchor="middle">Підпис прив'язки</text>
+  <line x1="480" y1="222" x2="480" y2="268" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Master -> A -->
+  <line x1="540" y1="170" x2="645" y2="210" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="600" y="200" width="110" height="22" fill="white" stroke="#2457d6" rx="3"/>
+  <text x="655" y="215" font-size="11" fill="#2457d6" text-anchor="middle">Підпис прив'язки</text>
+  <line x1="665" y1="222" x2="740" y2="268" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Footer explanation -->
+  <rect x="180" y="385" width="600" height="45" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="480" y="412" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Компрометація підключа не компрометує майстер-ключ і легко відкликається</text>
+</svg>

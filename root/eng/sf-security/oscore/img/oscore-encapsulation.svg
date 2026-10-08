@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Інкапсуляція CoAP у повідомлення OSCORE</text>
+  <text x="480" y="60" font-size="13" text-anchor="middle" fill="#6b7280">Внутрішні опції та корисне навантаження шифруються і ховаються у Payload</text>
+
+  <defs>
+    <!-- Маркер для стрілок потоку -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Оригінальне повідомлення (Ліва частина) -->
+  <text x="260" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Оригінальне CoAP-повідомлення</text>
+
+  <!-- Header -->
+  <text x="80" y="145" font-size="12" fill="#6b7280" text-anchor="end">Class U</text>
+  <rect x="90" y="120" width="340" height="40" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="260" y="145" font-size="13" fill="#1a1a1a" text-anchor="middle">Header (Code: PUT | Token: 0x8c)</text>
+
+  <!-- Options Class E -->
+  <text x="80" y="195" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Class E</text>
+  <rect x="90" y="170" width="340" height="40" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="260" y="195" font-size="13" fill="#1a1a1a" text-anchor="middle">Option: Uri-Path = "temperature"</text>
+
+  <!-- Options Class E 2 -->
+  <text x="80" y="245" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Class E</text>
+  <rect x="90" y="220" width="340" height="40" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="260" y="245" font-size="13" fill="#1a1a1a" text-anchor="middle">Option: Content-Format = 0</text>
+
+  <!-- Payload -->
+  <text x="80" y="300" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Дані</text>
+  <rect x="90" y="270" width="340" height="50" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="260" y="300" font-size="13" fill="#1a1a1a" text-anchor="middle">Payload: "23.5"</text>
+
+  <!-- Стрілка шифрування -->
+  <line x1="440" y1="240" x2="540" y2="240" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="490" y="230" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">AEAD</text>
+  <text x="490" y="255" font-size="12" fill="#2457d6" text-anchor="middle">шифрування</text>
+
+  <!-- OSCORE повідомлення (Права частина) -->
+  <text x="720" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Захищене OSCORE-повідомлення</text>
+
+  <!-- Header -->
+  <rect x="550" y="120" width="340" height="40" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="720" y="145" font-size="13" fill="#1a1a1a" text-anchor="middle">Header (Code: POST | Token: 0x8c)</text>
+
+  <!-- OSCORE Option -->
+  <rect x="550" y="170" width="340" height="40" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="720" y="195" font-size="13" fill="#1a1a1a" text-anchor="middle">Option: OSCORE (KID, PIV)</text>
+
+  <!-- Encrypted Payload -->
+  <rect x="550" y="220" width="340" height="160" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="8"/>
+  <text x="720" y="240" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">OSCORE Ciphertext (Payload)</text>
+
+  <!-- Inner Code -->
+  <rect x="570" y="250" width="300" height="30" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="720" y="270" font-size="13" fill="#1a1a1a" text-anchor="middle">Inner Code: PUT</text>
+
+  <!-- Inner Options -->
+  <rect x="570" y="290" width="300" height="30" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="720" y="310" font-size="13" fill="#1a1a1a" text-anchor="middle">Options: Uri-Path, Content-Format</text>
+
+  <!-- Inner Payload -->
+  <rect x="570" y="330" width="300" height="30" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="720" y="350" font-size="13" fill="#1a1a1a" text-anchor="middle">Payload: "23.5"</text>
+
+  <!-- Легенда -->
+  <rect x="90" y="380" width="340" height="60" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="110" y="405" font-size="12" font-weight="bold" fill="#1a1a1a">Class U</text>
+  <text x="160" y="405" font-size="12" fill="#1a1a1a">— відкриті опції (Unprotected)</text>
+  <text x="110" y="425" font-size="12" font-weight="bold" fill="#27ae60">Class E</text>
+  <text x="160" y="425" font-size="12" fill="#1a1a1a">— опції, що шифруються (End-to-End)</text>
+</svg>

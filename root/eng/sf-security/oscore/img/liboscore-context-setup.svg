@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Налаштування Security Context у liboscore</text>
+  <text x="480" y="65" font-size="13" fill="#6b7280" text-anchor="middle">Розгортання сесійних ключів Sender Key, Recipient Key та Common IV з початкового майстер-ключа</text>
+
+  <!-- Left: Input Master Data -->
+  <g>
+    <rect x="50" y="140" width="240" height="150" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="170" y="175" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Майстер-контекст</text>
+    <text x="170" y="205" font-size="13" fill="#1a1a1a" text-anchor="middle">Master Secret (16B)</text>
+    <text x="170" y="235" font-size="13" fill="#6b7280" text-anchor="middle">Master Salt (8B)</text>
+    <text x="170" y="265" font-size="12" fill="#6b7280" text-anchor="middle">Sender/Recipient ID</text>
+  </g>
+
+  <!-- Center: HKDF Key Derivation -->
+  <g>
+    <rect x="340" y="140" width="220" height="150" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+    <text x="450" y="180" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">HKDF Engine</text>
+    <text x="450" y="215" font-size="13" fill="#1a1a1a" text-anchor="middle">oscore_derive_key()</text>
+    <text x="450" y="250" font-size="12" fill="#6b7280" text-anchor="middle">Обчислення ключів сесії</text>
+  </g>
+
+  <!-- Right: Derived Security Context -->
+  <g>
+    <rect x="620" y="140" width="290" height="240" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+    <text x="765" y="175" font-size="16" font-weight="bold" fill="#27ae60" text-anchor="middle">Робочий контекст (Security Context)</text>
+
+    <rect x="640" y="195" width="250" height="40" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+    <text x="765" y="220" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Sender Key (Шифрування)</text>
+
+    <rect x="640" y="250" width="250" height="40" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+    <text x="765" y="275" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Recipient Key (Дешифрування)</text>
+
+    <rect x="640" y="305" width="250" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="765" y="332" font-size="13" fill="#1a1a1a" text-anchor="middle">Common IV + Sequence Number</text>
+  </g>
+
+  <!-- Arrows -->
+  <path d="M 290 215 L 340 215" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <path d="M 560 215 L 620 215" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+</svg>

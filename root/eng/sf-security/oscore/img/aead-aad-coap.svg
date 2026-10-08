@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Процес AEAD у протоколі OSCORE</text>
+  <text x="480" y="65" font-size="13" fill="#6b7280" text-anchor="middle">Формування додаткових даних автентифікації AAD для надійного захисту метаданих CoAP</text>
+
+  <!-- Left Inputs -->
+  <g>
+    <rect x="60" y="120" width="260" height="100" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="190" y="155" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Відкриті заголовки (AAD)</text>
+    <text x="190" y="180" font-size="12" fill="#1a1a1a" text-anchor="middle">Версія, Код, Class I options</text>
+    <text x="190" y="200" font-size="12" fill="#6b7280" text-anchor="middle">Не шифруються, але цілісні</text>
+  </g>
+
+  <g>
+    <rect x="60" y="270" width="260" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="190" y="305" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Корисне навантаження</text>
+    <text x="190" y="330" font-size="12" fill="#1a1a1a" text-anchor="middle">Відкритий текст (Plaintext)</text>
+    <text x="190" y="350" font-size="12" fill="#6b7280" text-anchor="middle">Захищається від зчитування</text>
+  </g>
+
+  <!-- Key Input Top -->
+  <g>
+    <rect x="380" y="100" width="200" height="50" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="480" y="130" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сесійний ключ і Nonce</text>
+  </g>
+
+  <!-- Center AEAD Engine -->
+  <g>
+    <rect x="380" y="200" width="200" height="170" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+    <text x="480" y="240" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">Алгоритм AEAD</text>
+    <text x="480" y="270" font-size="13" fill="#1a1a1a" text-anchor="middle">AES-CCM / AES-GCM</text>
+    <text x="480" y="310" font-size="12" fill="#6b7280" text-anchor="middle">Обчислення MAC-тега</text>
+    <text x="480" y="335" font-size="12" fill="#6b7280" text-anchor="middle">та шифрування стану</text>
+  </g>
+
+  <!-- Output Right -->
+  <g>
+    <rect x="660" y="215" width="240" height="140" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="780" y="255" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Захищене повідомлення</text>
+    <text x="780" y="285" font-size="13" fill="#1a1a1a" text-anchor="middle">Шифротекст (Ciphertext)</text>
+    <text x="780" y="315" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">+ Тег цілісності (Auth Tag)</text>
+  </g>
+
+  <!-- Arrows -->
+  <path d="M 320 170 L 380 235" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 320 320 L 380 305" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <path d="M 480 150 L 480 200" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <path d="M 580 285 L 660 285" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-main)"/>
+
+</svg>

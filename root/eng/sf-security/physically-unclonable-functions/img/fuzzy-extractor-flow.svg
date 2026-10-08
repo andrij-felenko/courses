@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема роботи нечіткого екстрактора (Fuzzy Extractor): Enrollment та Reproduction</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Перетворення шумного фізичного відбитка (PUF) на стабільний криптографічний ключ за допомогою Helper Data</text>
+
+  <!-- Panel 1: Enrollment Phase (Top) -->
+  <rect x="30" y="80" width="900" height="165" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="45" y="103" font-size="14" font-weight="bold" fill="#2457d6">1. Фаза реєстрації (Enrollment / Gen)</text>
+
+  <!-- Raw PUF Input -->
+  <rect x="50" y="125" width="180" height="95" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="140" y="152" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сирий відбиток PUF</text>
+  <text x="140" y="172" font-size="12" fill="#2457d6" text-anchor="middle">Значення w (n біт)</text>
+  <text x="140" y="195" font-size="12" fill="#6b7280" text-anchor="middle">Початковий відгук чипа</text>
+
+  <!-- Arrow Raw -> Gen -->
+  <path d="M 230 172 L 310 172" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <polygon points="310,172 300,166 300,178" fill="#2457d6"/>
+
+  <!-- Gen Block -->
+  <rect x="310" y="125" width="220" height="95" rx="6" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="420" y="150" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Екстрактор Gen(w)</text>
+  <text x="420" y="172" font-size="12" fill="#1a1a1a" text-anchor="middle">Код корекції (BCH) +</text>
+  <text x="420" y="195" font-size="12" fill="#1a1a1a" text-anchor="middle">Універсальне хешування</text>
+
+  <!-- Arrows Gen -> Outputs -->
+  <path d="M 530 150 L 670 140" fill="none" stroke="#27ae60" stroke-width="3"/>
+  <polygon points="670,140 660,134 662,146" fill="#27ae60"/>
+
+  <path d="M 530 195 L 670 205" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <polygon points="670,205 660,199 662,211" fill="#2457d6"/>
+
+  <!-- Secret Key Output -->
+  <rect x="670" y="120" width="230" height="42" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="785" y="146" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Криптографічний ключ K (в RAM)</text>
+
+  <!-- Helper Data Output -->
+  <rect x="670" y="185" width="230" height="42" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="785" y="211" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Допоміжні дані P (у NVM/Flash)</text>
+
+
+  <!-- Panel 2: Reproduction Phase (Bottom) -->
+  <rect x="30" y="265" width="900" height="170" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="45" y="288" font-size="14" font-weight="bold" fill="#27ae60">2. Фаза відновлення ключів при кожному запуску (Reproduction / Rep)</text>
+
+  <!-- Noisy PUF Input -->
+  <rect x="50" y="310" width="180" height="105" rx="6" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="140" y="335" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шумний відбиток PUF</text>
+  <text x="140" y="355" font-size="12" fill="#c0392b" text-anchor="middle">Значення w' = w ⊕ e</text>
+  <text x="140" y="377" font-size="12" fill="#6b7280" text-anchor="middle">Шум (температура/напруга)</text>
+
+  <!-- Helper Data Feed from NVM -->
+  <path d="M 785 227 L 785 285 L 420 285 L 420 310" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,4"/>
+  <polygon points="420,310 414,300 426,300" fill="#2457d6"/>
+
+  <!-- Arrow Noisy PUF -> Rep -->
+  <path d="M 230 362 L 310 362" fill="none" stroke="#27ae60" stroke-width="3"/>
+  <polygon points="310,362 300,356 300,368" fill="#27ae60"/>
+
+  <!-- Rep Block -->
+  <rect x="310" y="310" width="220" height="105" rx="6" fill="white" stroke="#27ae60" stroke-width="2"/>
+  <text x="420" y="335" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Екстрактор Rep(w', P)</text>
+  <text x="420" y="357" font-size="12" fill="#1a1a1a" text-anchor="middle">Виправлення помилок синдрому</text>
+  <text x="420" y="377" font-size="12" fill="#27ae60" text-anchor="middle">Стиснення ентропії</text>
+
+  <!-- Arrow Rep -> Restored Key -->
+  <path d="M 530 362 L 670 362" fill="none" stroke="#27ae60" stroke-width="3"/>
+  <polygon points="670,362 660,356 660,368" fill="#27ae60"/>
+
+  <!-- Restored Key Output -->
+  <rect x="670" y="340" width="230" height="50" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="785" y="362" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Відновлений ключ K</text>
+  <text x="785" y="380" font-size="12" fill="#1a1a1a" text-anchor="middle">Точний збіг 100% бітів!</text>
+
+</svg>

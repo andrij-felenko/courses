@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура OpenPGP: Головний ключ (Master Key) та підключі (Subkeys)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Головний ключ видає підписи прив'язки для підключів та посвідчує ідентифікатори користувача (User ID)</text>
+
+  <!-- Panel 1: Primary Master Key (Left Top) -->
+  <rect x="40" y="85" width="300" height="150" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="190" y="112" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Головний ключ (Primary Master Key)</text>
+  <text x="190" y="130" font-size="12" fill="#6b7280" text-anchor="middle">Прапори дій: [C] Сертифікація, [S] Підпис</text>
+
+  <rect x="60" y="145" width="260" height="75" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="190" y="167" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Key ID: 0x9B8A7C6D5E4F3A21</text>
+  <text x="190" y="187" font-size="12" fill="#2457d6" text-anchor="middle">Зберігається в офлайні / смарт-карті</text>
+  <text x="190" y="205" font-size="12" fill="#6b7280" text-anchor="middle">Випускає самопідписи та підключі</text>
+
+
+  <!-- Panel 2: User IDs (Right Top) -->
+  <rect x="540" y="85" width="380" height="150" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="730" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ідентифікатори користувача (User ID)</text>
+
+  <!-- User ID 1 -->
+  <rect x="560" y="125" width="340" height="45" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="730" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">User ID: Alice &lt;alice@example.com&gt;</text>
+
+  <!-- User ID 2 -->
+  <rect x="560" y="178" width="340" height="45" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="730" y="205" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">User ID: Alice (Work) &lt;alice@company.org&gt;</text>
+
+  <!-- Arrows Master Key -> User IDs (Self-Signatures) -->
+  <path d="M 340 160 L 560 147" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <polygon points="560,147 550,142 552,153" fill="#2457d6"/>
+
+  <path d="M 340 160 L 560 200" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <polygon points="560,200 550,195 552,206" fill="#2457d6"/>
+
+  <rect x="375" y="150" width="140" height="22" rx="4" fill="white" stroke="#2457d6"/>
+  <text x="445" y="166" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Самопідпис [Certify]</text>
+
+
+  <!-- Connecting Arrows Master Key -> Subkeys (Avoid crossing panel title) -->
+  <path d="M 190 235 L 190 312" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <polygon points="190,312 184,302 196,302" fill="#27ae60"/>
+
+  <path d="M 230 235 L 230 260 L 480 260 L 480 312" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <polygon points="480,312 474,302 486,302" fill="#27ae60"/>
+
+  <path d="M 270 235 L 270 250 L 770 250 L 770 312" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <polygon points="770,312 764,302 776,302" fill="#27ae60"/>
+
+
+  <!-- Panel 3: Subkeys (Bottom Row) -->
+  <rect x="40" y="275" width="880" height="160" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="295" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Робочі підключі (Subkeys) — для щоденних операцій на ноутбуці/сервері</text>
+
+  <!-- Subkey 1: Encryption [E] -->
+  <rect x="60" y="312" width="260" height="105" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="190" y="335" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Підключ шифрування [E]</text>
+  <text x="190" y="357" font-size="12" fill="#1a1a1a" text-anchor="middle">ID: 0x1122334455667788</text>
+  <text x="190" y="377" font-size="12" fill="#6b7280" text-anchor="middle">Розшифрування повідомлень</text>
+  <text x="190" y="397" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Підпис прив'язки (Binding)</text>
+
+  <!-- Subkey 2: Signing [S] -->
+  <rect x="350" y="312" width="260" height="105" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="335" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Підключ підпису [S]</text>
+  <text x="480" y="357" font-size="12" fill="#1a1a1a" text-anchor="middle">ID: 0xAABBCCDDEEFF0011</text>
+  <text x="480" y="377" font-size="12" fill="#6b7280" text-anchor="middle">Накладання цифрових підписів</text>
+  <text x="480" y="397" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Cross-Signature (Двосторонній)</text>
+
+  <!-- Subkey 3: Authentication [A] -->
+  <rect x="640" y="312" width="260" height="105" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="770" y="335" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Підключ автентифікації [A]</text>
+  <text x="770" y="357" font-size="12" fill="#1a1a1a" text-anchor="middle">ID: 0x9988776655443322</text>
+  <text x="770" y="377" font-size="12" fill="#6b7280" text-anchor="middle">Авторизація SSH / TLS</text>
+  <text x="770" y="397" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Підпис прив'язки (Binding)</text>
+
+</svg>

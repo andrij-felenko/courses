@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Архітектура стандарту 802.1X</text>
+  <text x="480" y="65" text-anchor="middle" font-size="13" fill="#6b7280">Трафік супліканта блокується на контрольованому порту, доки сервер не підтвердить особу</text>
+
+  <!-- Supplicant Box -->
+  <rect x="80" y="160" width="160" height="140" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="160" y="225" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Суплікант</text>
+  <text x="160" y="245" text-anchor="middle" font-size="12" fill="#6b7280">(Клієнтський пристрій)</text>
+
+  <!-- Authenticator Box -->
+  <rect x="360" y="120" width="240" height="200" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="480" y="145" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Автентифікатор</text>
+  <text x="480" y="305" text-anchor="middle" font-size="12" fill="#6b7280">(Комутатор / Точка доступу)</text>
+
+  <!-- Uncontrolled Port -->
+  <rect x="380" y="160" width="200" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" stroke-dasharray="4 2"/>
+  <text x="480" y="180" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Неконтрольований порт</text>
+  <text x="480" y="198" text-anchor="middle" font-size="12" fill="#2457d6">Пропускає запити 802.1X</text>
+
+  <!-- Controlled Port -->
+  <rect x="380" y="230" width="200" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="480" y="250" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Контрольований порт</text>
+  <text x="480" y="268" text-anchor="middle" font-size="12" fill="#c0392b">Блокує решту трафіку</text>
+
+  <!-- Authentication Server Box -->
+  <rect x="720" y="160" width="160" height="140" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="800" y="225" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Сервер RADIUS</text>
+  <text x="800" y="245" text-anchor="middle" font-size="12" fill="#6b7280">(Перевірка бази даних)</text>
+
+  <!-- Arrows: Supplicant <-> Uncontrolled Port -->
+  <path d="M 240,185 L 372,185" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="305" y="175" text-anchor="middle" font-size="12" fill="#2457d6">Запити EAPOL</text>
+
+  <!-- Arrows: Uncontrolled Port <-> Auth Server -->
+  <path d="M 580,175 L 712,175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="645" y="165" text-anchor="middle" font-size="12" fill="#2457d6">Пакети RADIUS</text>
+
+  <path d="M 712,195 L 588,195" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="645" y="210" text-anchor="middle" font-size="12" fill="#2457d6">Відповіді RADIUS</text>
+
+  <!-- Arrow: Supplicant -> Controlled Port -->
+  <path d="M 240,255 L 372,255" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="305" y="245" text-anchor="middle" font-size="12" fill="#c0392b">Звичайні дані</text>
+  <text x="305" y="270" text-anchor="middle" font-size="11" fill="#c0392b">(IP, DHCP, HTTP)</text>
+
+</svg>

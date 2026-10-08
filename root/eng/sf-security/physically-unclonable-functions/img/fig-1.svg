@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура Secure Element із матрицею PUF</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Генерація унікального кореня довіри з кремнієвої матриці без збереження відкритих ключів у NVM</text>
+
+  <!-- Secure Element Boundary Box -->
+  <rect x="40" y="80" width="860" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="60" y="108" font-size="14" font-weight="bold" fill="#1a1a1a">Secure Element (Silicon Die)</text>
+
+  <!-- Block 1: PUF Array -->
+  <rect x="70" y="130" width="220" height="200" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="180" y="158" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Матриця PUF</text>
+  <text x="180" y="178" font-size="12" fill="#6b7280" text-anchor="middle">(SRAM / Arbiter)</text>
+  <text x="180" y="215" font-size="12" fill="#1a1a1a" text-anchor="middle">Фізичні варіації кремнію</text>
+  <text x="180" y="235" font-size="12" fill="#1a1a1a" text-anchor="middle">Аналоговий відгук R</text>
+  <text x="180" y="275" font-size="12" fill="#6b7280" text-anchor="middle">(Унікальний чип-відбиток)</text>
+
+  <!-- Block 2: Fuzzy Extractor -->
+  <rect x="330" y="130" width="240" height="200" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="450" y="158" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Fuzzy Extractor</text>
+  <text x="450" y="195" font-size="12" fill="#1a1a1a" text-anchor="middle">BCH / Reed-Solomon</text>
+  <text x="450" y="215" font-size="12" fill="#1a1a1a" text-anchor="middle">Корекція помилок (Enroll/Rep)</text>
+  <text x="450" y="255" font-size="12" fill="#1a1a1a" text-anchor="middle">Масив Helper Data</text>
+  <text x="450" y="275" font-size="12" fill="#2457d6" text-anchor="middle">Стабільна ключ-послідовність K</text>
+
+  <!-- Block 3: Cryptographic Engine -->
+  <rect x="610" y="130" width="260" height="200" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="740" y="158" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Криптопроцесор</text>
+  <text x="740" y="195" font-size="12" fill="#1a1a1a" text-anchor="middle">AES-256 / ECC P-256 / SHA-256</text>
+  <text x="740" y="225" font-size="12" fill="#1a1a1a" text-anchor="middle">Обчислення криптографії</text>
+  <text x="740" y="255" font-size="12" fill="#1a1a1a" text-anchor="middle">Ключ K у RAM під час сесії</text>
+  <text x="740" y="275" font-size="12" fill="#6b7280" text-anchor="middle">(Без збереження в NVM)</text>
+
+  <!-- Bottom Block: NVM -->
+  <rect x="330" y="360" width="240" height="60" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="450" y="385" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сховище NVM</text>
+  <text x="450" y="405" font-size="12" fill="#6b7280" text-anchor="middle">(Зберігає ЛИШЕ Helper Data)</text>
+
+  <!-- Connectors -->
+  <!-- PUF -> Fuzzy Extractor -->
+  <path d="M 290 230 L 322 230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="306" y="220" font-size="12" fill="#2457d6" text-anchor="middle">Сирий R</text>
+
+  <!-- Fuzzy Extractor -> Crypto Processor -->
+  <path d="M 570 230 L 602 230" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="590" y="220" font-size="12" fill="#27ae60" text-anchor="middle">Ключ K</text>
+
+  <!-- NVM <-> Fuzzy Extractor -->
+  <path d="M 450 360 L 450 338" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="465" y="348" font-size="12" fill="#6b7280" text-anchor="start">Helper Data</text>
+
+  <!-- Crypto Processor -> Host I2C/SPI -->
+  <path d="M 870 230 L 910 230" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="890" y="220" font-size="12" fill="#1a1a1a" text-anchor="middle">I2C / SPI</text>
+</svg>
